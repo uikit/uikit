@@ -16,12 +16,6 @@
 				width: 100%;
 			}
 
-			.uk-offcanvas {
-				display: block;
-				right: auto;
-			}
-			.uk-offcanvas-bar { left: 0; }
-
 		</style>
 	</head>
 
@@ -30,6 +24,10 @@
 		<h1>Nav</h1>
 
 		<div class="uk-grid" data-uk-grid-margin>
+
+			<div class="uk-width-medium-1-1">
+				<button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-1'}">Offvanvas nav</button>
+			</div>
 
 			<div class="uk-width-medium-1-4">
 
@@ -449,7 +447,7 @@
 
 		</div>
 
-		<div id="offcanvas-1" class="uk-offcanvas uk-active">
+		<div id="offcanvas-1" class="uk-offcanvas">
 
 			<div class="uk-offcanvas-bar">
 
