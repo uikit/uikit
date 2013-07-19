@@ -73,8 +73,8 @@
                 bar.css({"left": "", "right": ""});
             }
 
-            panel.off(".offcanvas");
-            $(document).off(".offcanvas");
+            panel.off(".ukoffcanvas");
+            $(document).off(".ukoffcanvas");
         }
     };
 
