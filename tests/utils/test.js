@@ -68,7 +68,7 @@
 
         var testfolder = $("script[src$='utils/test.js']").attr("src").replace("utils/test.js", ""),
 
-            testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "20px 5px"),
+            testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "20px 5px 20px 0"),
             optgroup   = $('<optgroup label="Components"></optgroup>').appendTo(testselect);
 
 
@@ -86,7 +86,7 @@
         var rtlcheckbox = $('<input type="checkbox">').on('change', function(e) {
                 localStorage['uikit.direction'] = ($(e.target).is(':checked') ? 'rtl' : 'ltr');
                 location.reload();
-            }).css("margin", "20px 5px").prop('checked', direction == 'rtl'),
+            }).css("margin", "20px 5px 20px 0").prop('checked', direction == 'rtl'),
             rtlcheckbox_label = $("<label>RTL mode</label>").css("margin", "20px 10px 20px 3px").prepend(rtlcheckbox);
 
         if($.UIkit) $.UIkit.langdirection = rtlcheckbox.is(":checked") ? "right":"left";
