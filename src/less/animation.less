@@ -1,0 +1,124 @@
+/*
+ * Name:			Animation
+ * Description:		Provides a useful set of keyframe animations
+ *
+ * Component:		`uk-animation`
+ *
+ * Used by:			Dropdown
+ *					Icon
+ *					Search
+ *
+ ========================================================================== */
+
+
+/* Fade
+ ========================================================================== */
+
+
+@-webkit-keyframes uk-animation-fade {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes uk-animation-fade {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+
+/* Slide down
+ ========================================================================== */
+
+@-webkit-keyframes uk-animation-slide-down {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(-10px);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+	}
+}
+
+@keyframes uk-animation-slide-down {
+	0% {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+
+/* Slide up
+ ========================================================================== */
+
+@-webkit-keyframes uk-animation-slide-up {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(10px);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+	}
+}
+
+@keyframes uk-animation-slide-up {
+	0% {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+
+/* Scale
+ ========================================================================== */
+
+@-webkit-keyframes uk-animation-scale {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(0.3);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes uk-animation-scale {
+	0% {
+		opacity: 0;
+		transform: scale(0.3);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+
+/* Spin
+ ========================================================================== */
+
+@-webkit-keyframes uk-animation-spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(359deg); }
+}
+
+@keyframes uk-animation-spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(359deg); }
+}

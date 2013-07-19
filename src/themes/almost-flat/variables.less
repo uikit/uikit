@@ -1,0 +1,310 @@
+/*
+ * Variables component
+ *
+ ========================================================================== */
+
+
+/* Global variables
+ ========================================================================== */
+
+
+/* Theme variables
+ ========================================================================== */
+
+/*
+ * Backgrounds
+ */
+
+@theme_global-default-background:				#f5f5f5;
+@theme_global-default-hover-background:			#fafafa;
+@theme_global-default-active-background:		#eee;
+
+/*
+ * Borders
+ */
+
+@theme_global-border-radius:					4px;
+
+/*
+ * Text shadows
+ */
+
+@theme_global-text-shadow:						#fff;
+@theme_global-contrast-text-shadow:				rgba(0,0,0,0.1);
+
+
+/* Components variables
+ ========================================================================== */
+
+/*
+ * Base
+ */
+
+@base-pre-background:							#fafafa;
+
+/*
+ * Panel
+ */
+
+
+@panel-box-background:							#fafafa;
+@panel-box-secondary-background:				#fff;
+
+/*
+ * Comment
+ */
+
+@comment-list-margin-top: 						@global-margin + 10px;
+
+/*
+ * Nav
+ */
+
+@nav-side-hover-background:						rgba(0,0,0,0.03);
+
+@nav-offcanvas-divider-border:					rgba(255,255,255,0.01);
+
+/*
+ * Navbar
+ */
+
+@navbar-background:								@theme_global-default-background;
+
+@navbar-nav-hover-background:					@theme_global-default-hover-background;
+@navbar-nav-active-background:					@theme_global-default-hover-background;
+@navbar-nav-onclick-background:					@theme_global-default-active-background;
+
+/*
+ * Subnav
+ */
+
+@subnav-pill-hover-background:					#fafafa;
+
+/*
+ * Pagination
+ */
+
+@pagination-background:							@theme_global-default-background;
+@pagination-hover-background:					@theme_global-default-hover-background;
+@pagination-onclick-background:					@theme_global-default-active-background;
+@pagination-disabled-background:				@theme_global-default-hover-background;
+
+/*
+ * Tab
+ */
+
+@tab-hover-background:							#f5f5f5;
+@tab-hover-border:								rgba(0,0,0,0.06);
+
+/*
+ * List
+ */
+
+@list-striped-background:						#fafafa;
+
+/*
+ * Table
+ */
+
+@table-striped-background:						#fafafa;
+@table-hover-background:						darken(@table-striped-background, 4%);
+
+/*
+ * Form
+ */
+
+@form-disabled-background:						#fafafa;
+
+/*
+ * Button
+ */
+
+@button-line-height:							@global-height - 2;
+@button-mini-line-height:						@global-mini-height - 2;
+@button-small-line-height:						@global-small-height - 2;
+@button-large-line-height:						@global-large-height - 2;
+
+@button-background:								@theme_global-default-background;
+@button-hover-background:						@theme_global-default-hover-background;
+@button-active-background:						@theme_global-default-active-background;
+@button-disabled-background:					@theme_global-default-hover-background;
+
+/*
+ * Icon
+ */
+
+@icon-button-background: 						@theme_global-default-background;
+@icon-button-hover-background: 					@theme_global-default-hover-background;
+@icon-button-active-background: 				@theme_global-default-active-background;
+
+/*
+ * Close
+ */
+
+@close-alt-background:							@global-background;
+
+/*
+ * Progress
+ */
+
+@progress-background:							#f5f5f5;
+
+/*
+ * Dropdown
+ */
+
+@dropdown-background:							#fff;
+@dropdown-navbar-margin:						6px;
+@dropdown-navbar-background:					#fff;
+@dropdown-search-background:					#fff;
+@dropdown-search-navbar-margin-top:				(((@navbar-nav-height) - @search-height) / 2) + @dropdown-navbar-margin;
+@dropdown-search-navbar-margin-right:			(-@navbar-nav-padding-horizontal) - 1;
+
+
+/* Theme component variables
+ ========================================================================== */
+
+/*
+ * Base
+ */
+
+@theme_base-code-border:						@global-border;
+@theme_base-code-background:					#fafafa;
+@theme_base-pre-border:							@global-border;
+
+/*
+ * Panel
+ */
+
+@theme_panel-box-border:						@global-border;
+@theme_panel-box-primary-border:				fade(@panel-box-primary-color, 30%);
+
+/*
+ * Article
+ */
+
+@theme_article-border:							@global-border;
+
+/*
+ * Comment
+ */
+
+@theme_comment-padding:							10px;
+@theme_comment-border:							@global-border;
+@theme_comment-background:						#fafafa;
+
+/*
+ * Nav
+ */
+
+@theme_nav-side-hover-text-shadow:				@theme_global-text-shadow;
+@theme_nav-side-active-text-shadow:				@theme_global-contrast-text-shadow;
+
+@theme_nav-dropdown-hover-text-shadow:			@theme_global-contrast-text-shadow;
+
+@theme_nav-navbar-hover-text-shadow:			@theme_global-contrast-text-shadow;
+
+@theme_nav-search-active-text-shadow:			@theme_global-contrast-text-shadow;
+
+@theme_nav-offcanvas-text-shadow:				@theme_offcanvas-panel-text-shadow;
+@theme_nav-offcanvas-header-background:			lighten(@offcanvas-bar-background, 5%);
+@theme_nav-offcanvas-divider-background:		rgba(0,0,0,0.2);
+
+/*
+ * Navbar
+ */
+
+@theme_navbar-border:							rgba(0,0,0,0.06);
+@theme_navbar-text-shadow:						@theme_global-text-shadow;
+
+@theme_navbar-nav-hover-border:					rgba(0,0,0,0.1);
+@theme_navbar-nav-hover-border-top:				rgba(0,0,0,0.1);
+@theme_navbar-nav-onclick-border-top:			rgba(0,0,0,0.2);
+
+/*
+ * Pagination
+ */
+
+@theme_pagination-border:						rgba(0,0,0,0.06);
+@theme_pagination-text-shadow:					@theme_global-text-shadow;
+@theme_pagination-hover-border:					rgba(0,0,0,0.16);
+
+@theme_pagination-contrast-text-shadow:			@theme_global-contrast-text-shadow;
+
+/*
+ * Tab
+ */
+
+@theme_tab-text-shadow:							@theme_global-text-shadow;
+
+/*
+ * List
+ */
+
+@theme_list-striped-border:						@global-border;
+
+/*
+ * Table
+ */
+
+@theme_table-border:							@global-border;
+
+/*
+ * Button
+ */
+
+@theme_button-border:							rgba(0,0,0,0.06);
+@theme_button-hover-border:						rgba(0,0,0,0.16);
+@theme_button-text-shadow:						@theme_global-text-shadow;
+@theme_button-contrast-text-shadow:				@theme_global-contrast-text-shadow;
+@theme_button-contrast-hover-border:			rgba(0,0,0,0.21);
+
+/*
+ * Icon
+ */
+
+@theme_icon-button-border: 						#e7e7e7;
+@theme_icon-button-hover-border:				#d3d3d3;
+@theme_icon-button-text-shadow:					@theme_global-text-shadow;
+
+/*
+ * Badge
+ */
+
+@theme_badge-border:							rgba(0,0,0,0.06);
+@theme_badge-text-shadow:						@theme_global-contrast-text-shadow;
+
+/*
+ * Alert
+ */
+
+@theme_alert-border:							fade(@alert-color, 30%);
+@theme_alert-text-shadow:						@theme_global-text-shadow;
+
+@theme_alert-success-border:					fade(@alert-success-color, 30%);
+@theme_alert-warning-border:					fade(@alert-warning-color, 30%);
+@theme_alert-danger-border:						fade(@alert-danger-color, 30%);
+
+/*
+ * Progress
+ */
+
+@theme_progress-bar-text-shadow:				@theme_global-contrast-text-shadow;
+
+/*
+ * Dropdown
+ */
+
+@theme_dropdown-border:							@global-border;
+
+/*
+ * Offcanvas
+ */
+
+@theme_offcanvas-panel-text-shadow:				rgba(0,0,0,0.5);
+
+/*
+ * Tooltip
+ */
+
+@theme_tooltip-text-shadow:						rgba(0,0,0,0.5);

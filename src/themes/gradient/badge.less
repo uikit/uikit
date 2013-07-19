@@ -1,0 +1,37 @@
+/*
+ * Badge component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * 1. `background-origin` is needed to prevent the background-image gradients from repeating under the border
+ */
+
+.hook-badge() {
+	border: 1px solid @theme_badge-border;
+	border-bottom-color: @theme_badge-border-bottom;
+	background-origin: border-box; /* 1 */
+	background-image: -webkit-linear-gradient(top, @theme_badge-primary-gradient-top, @theme_badge-primary-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_badge-primary-gradient-top, @theme_badge-primary-gradient-bottom);
+	border-radius: 2px;
+	text-shadow: 0 -1px 0 @theme_badge-text-shadow;
+}
+
+.hook-badge-success() {
+	background-image: -webkit-linear-gradient(top, @theme_badge-success-gradient-top, @theme_badge-success-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_badge-success-gradient-top, @theme_badge-success-gradient-bottom);
+}
+
+.hook-badge-warning() {
+	background-image: -webkit-linear-gradient(top, @theme_badge-warning-gradient-top, @theme_badge-warning-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_badge-warning-gradient-top, @theme_badge-warning-gradient-bottom);
+}
+
+.hook-badge-danger() {
+	background-image: -webkit-linear-gradient(top, @theme_badge-danger-gradient-top, @theme_badge-danger-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_badge-danger-gradient-top, @theme_badge-danger-gradient-bottom);
+}

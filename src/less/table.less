@@ -1,0 +1,86 @@
+/*
+ * Name:			Table
+ * Description:		Defines styles for tables
+ *
+ * Component:		`uk-table`
+ *
+ * Modifiers:		`uk-table-middle`
+ *					`uk-table-striped`
+ *					`uk-table-condensed`
+ *					`uk-table-hover`
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/* Block element behavior */
+.uk-table {
+	width: 100%;
+	margin-bottom: @table-margin-vertical 0;
+}
+
+/*
+ * Add margin if adjacent element
+ */
+
+* + .uk-table { margin-top: @table-margin-vertical; }
+
+.uk-table th,
+.uk-table td {
+	padding: @table-padding-vertical @table-padding-horizontal;
+	.hook-table;
+}
+
+/* Set alignment */
+.uk-table th { text-align: left; }
+.uk-table td { vertical-align: top; }
+
+.uk-table thead th { vertical-align: bottom; }
+
+/*
+ * Caption and footer
+ */
+
+.uk-table caption,
+.uk-table tfoot {
+	font-size: @table-caption-font-size;
+	font-style: italic;
+}
+
+.uk-table caption {
+	text-align: left;
+	color: @table-caption-color;
+}
+
+
+/* Sub-modifier: `uk-table-middel`
+ ========================================================================== */
+
+.uk-table-middle,
+.uk-table-middle td { vertical-align: middle !important; }
+
+
+/* Modifier: `uk-table-striped`
+ ========================================================================== */
+
+.uk-table-striped tbody tr:nth-of-type(odd) td { background: @table-striped-background; }
+
+
+/* Modifier: `uk-table-condensed`
+ ========================================================================== */
+
+.uk-table-condensed td { padding: @table-condensed-padding-vertical @table-condensed-padding-horizontal; }
+
+
+/* Modifier: `uk-table-hover`
+ ========================================================================== */
+
+.uk-table-hover tbody tr:hover td { background: @table-hover-background; }
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-table() {}

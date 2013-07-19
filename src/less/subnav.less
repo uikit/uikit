@@ -1,0 +1,121 @@
+/*
+ * Name:			Subnav
+ * Description:		Defines styles for the sub navigation
+ *
+ * Component:		`uk-subnav`
+ *
+ * Modifiers: 		`uk-subnav-line`
+ *					`uk-subnav-pill`
+ *
+ * States:		 	`uk-active`
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * 1. Remove default list style
+ * 2. Remove whitespace between child elements when using `inline-block`
+ */
+
+.uk-subnav {
+	/* 1 */
+	padding: 0;
+	list-style: none;
+	/* 2 */
+	letter-spacing: -0.31em;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Create position context for dropdowns
+ * 2. Reset whitespace hack
+ */
+
+.uk-subnav > li {
+	position: relative; /* 1 */
+	letter-spacing: normal; /* 2 */
+}
+
+.uk-subnav > li,
+.uk-subnav > li > a,
+.uk-subnav > li > span { display: inline-block; }
+
+.uk-subnav > li:nth-child(n+2) { margin-left: @subnav-margin; }
+
+/*
+ * Items
+ */
+
+.uk-subnav > li > a { color: @subnav-color; }
+.uk-subnav > li > a:hover { color: @subnav-hover-color; }
+
+
+/*
+ * Disabled
+ */
+
+.uk-subnav > li > span { color: @subnav-disabled-color; }
+
+
+/* Modifier: 'subnav-line'
+ ========================================================================== */
+
+.uk-subnav-line > li:nth-child(n+2):before {
+	content: "";
+	display: inline-block;
+	height: @subnav-line-border-height;
+	margin-right: @subnav-margin;
+	border-left: 1px solid @subnav-line-border;
+	.hook-subnav-line-divider;
+}
+
+
+/* Modifier: 'subnav-pill'
+ ========================================================================== */
+
+.uk-subnav-pill > li > a,
+.uk-subnav-pill > li > span {
+	padding: 3px 9px;
+	text-decoration: none;
+	.hook-subnav-pill;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-subnav-pill > li > a:hover,
+.uk-subnav-pill > li > a:focus { /* 1 */
+	background: @subnav-pill-hover-background;
+	color: @subnav-pill-hover-color;
+	outline: none; /* 2 */
+	.hook-subnav-pill-hover;
+}
+
+/*
+ * Active
+ * `li` needed for higher specificity to override hover
+ */
+
+.uk-subnav-pill > li.uk-active > a {
+	background: @subnav-pill-active-background;
+	color: @subnav-pill-active-color;
+	.hook-subnav-pill-active;
+}
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-subnav-line-divider() {}
+.hook-subnav-pill() {}
+.hook-subnav-pill-hover() {}
+.hook-subnav-pill-active() {}

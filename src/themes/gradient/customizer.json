@@ -1,0 +1,404 @@
+{
+    "controls": [
+        {
+            "type": "color",
+            "vars": [
+                "*-color",
+                "*-border",
+                "*-border-top",
+                "*-border-bottom",
+                "*-border-left",
+                "*-border-right",
+                "*-background",
+                "*-text-shadow",
+                "*-box-shadow",
+                "*-gradient-top",
+                "*-gradient-bottom"
+            ]
+        },
+        {
+            "type": "font",
+            "vars": [
+                "*-font-family"
+            ],
+            "options": [
+                {"name": "Arial", "value": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"},
+                {"name": "Consolas", "value": "Consolas, monospace, serif"},
+                {"name": "Georgia", "value": "Georgia, \"Times New Roman\", Times, serif"},
+                {"name": "Lucida", "value": "\"Lucida Grande\", \"Lucida Sans Unicode\", Arial, Verdana, sans-serif"},
+                {"name": "Times New Roman", "value": "\"Times New Roman\", Times, serif"},
+                {"name": "Trebuchet", "value": "\"Trebuchet MS\", Verdana, Arial, sans-serif"},
+                {"name": "Verdana", "value": "Verdana, Arial, sans-serif"}
+            ]
+        },
+        {
+            "type": "select",
+            "vars": [
+                "*-animation"
+            ],
+            "options": [
+                {"name": "Fade", "value": "uk-animation-fade"},
+                {"name": "Scale", "value": "uk-animation-scale"},
+                {"name": "Slide-Down", "value": "uk-animation-slide-down"},
+                {"name": "Slide-Up", "value": "uk-animation-slide-up"},
+                {"name": "Spin", "value": "uk-animation-spin"}
+            ]
+        },
+        {
+            "type": "select",
+            "vars": [
+                "*-text-transform"
+            ],
+            "options": [
+                {"name": "None", "value": "none"},
+                {"name": "Lowercase", "value": "lowercase"},
+                {"name": "Uppercase", "value": "uppercase"},
+                {"name": "Capitalize", "value": "capitalize"}
+            ]
+        },
+        {
+            "type": "select",
+            "vars": [
+                "*-weight"
+            ],
+            "options": [
+                {"name": "Normal", "value": "normal"},
+                {"name": "Bold", "value": "bold"},
+                {"name": "100", "value": "100"},
+                {"name": "200", "value": "200"},
+                {"name": "300", "value": "300"},
+                {"name": "400", "value": "400"},
+                {"name": "500", "value": "500"},
+                {"name": "600", "value": "600"},
+                {"name": "700", "value": "700"},
+                {"name": "800", "value": "800"},
+                {"name": "900", "value": "900"}
+            ]
+        }
+    ],
+    "groups": [
+        {
+            "label": "General",
+            "vars": [
+                "@global-background",
+                "@global-border",
+
+                "@theme_global-border-radius",
+
+                "@utility-container-max-width",
+                "@utility-container-large-max-width"
+            ]
+        },
+        {
+            "label": "Typography",
+            "vars": [
+                "@global-color",
+                "@global-muted-color",
+                "@theme_global-text-shadow",
+
+                "@global-link-color",
+                "@global-link-hover-color",
+
+                "@global-contrast-color",
+                "@theme_global-contrast-text-shadow",
+
+                "@global-font-size",
+                "@global-line-height",
+
+                "@base-body-font-family",
+                "@base-heading-font-family"
+            ]
+        },
+        {
+            "label": "Buttons, Navs & Badges",
+            "vars": [
+                "@theme_global-default-background",
+                "@theme_global-default-hover-background",
+                "@theme_global-default-active-background",
+
+                "@global-primary-background",
+                "@global-success-background",
+                "@global-warning-background",
+                "@global-danger-background",
+
+                "@theme_global-default-gradient-top",
+                "@theme_global-default-gradient-bottom",
+                "@theme_global-primary-gradient-top",
+                "@theme_global-primary-gradient-bottom",
+                "@theme_global-success-gradient-top",
+                "@theme_global-success-gradient-bottom",
+                "@theme_global-warning-gradient-top",
+                "@theme_global-warning-gradient-bottom",
+                "@theme_global-danger-gradient-top",
+                "@theme_global-danger-gradient-bottom"
+            ]
+        },
+        {
+            "label": "Spacings",
+            "advanced": true,
+            "vars": [
+                "@global-margin",
+                "@global-large-margin",
+                "@global-grid-gutter",
+                "@global-grid-large-gutter"
+            ]
+        },
+        {
+            "label": "Controls",
+            "advanced": true,
+            "vars": [
+                "@global-height",
+                "@global-mini-height",
+                "@global-small-height",
+                "@global-large-height"
+            ]
+        },
+        {
+            "label": "Breakpoints",
+            "advanced": true,
+            "vars": [
+                "@breakpoint-*"
+            ]
+        },
+        {
+            "label": "Alert",
+            "advanced": true,
+            "vars": [
+                "@alert-*",
+                "@theme_alert-*"
+            ]
+        },
+        {
+            "label": "Article",
+            "advanced": true,
+            "vars": [
+                "@article-*",
+                "@theme_article-*"
+            ]
+        },
+        {
+            "label": "Badge",
+            "advanced": true,
+            "vars": [
+                "@badge-*",
+                "@theme_badge-*"
+            ]
+        },
+        {
+            "label": "Base",
+            "advanced": true,
+            "vars": [
+                "@base-*",
+                "@theme_base-*"
+            ]
+        },
+        {
+            "label": "Breadcrumb",
+            "advanced": true,
+            "vars": [
+                "@breadcrumb-*",
+                "@theme_breadcrumb-*"
+            ]
+        },
+        {
+            "label": "Button",
+            "advanced": true,
+            "vars": [
+                "@button-*",
+                "@theme_button-*"
+            ]
+        },
+        {
+            "label": "Close",
+            "advanced": true,
+            "vars": [
+                "@close-*",
+                "@theme_close-*"
+            ]
+        },
+        {
+            "label": "Comment",
+            "advanced": true,
+            "vars": [
+                "@comment-*",
+                "@theme_comment-*"
+            ]
+        },
+        {
+            "label": "Description",
+            "advanced": true,
+            "vars": [
+                "@description-*",
+                "@theme_description-*"
+            ]
+        },
+        {
+            "label": "Dropdown",
+            "advanced": true,
+            "vars": [
+                "@dropdown-*",
+                "@theme_dropdown-*"
+            ]
+        },
+        {
+            "label": "Form",
+            "advanced": true,
+            "vars": [
+                "@form-*",
+                "@theme_form-*"
+            ]
+        },
+        {
+            "label": "Grid",
+            "advanced": true,
+            "vars": [
+                "@grid-*",
+                "@theme_grid-*"
+            ]
+        },
+        {
+            "label": "Icon",
+            "advanced": true,
+            "vars": [
+                "@icon-*",
+                "@theme_icon-*"
+            ]
+        },
+        {
+            "label": "List",
+            "advanced": true,
+            "vars": [
+                "@list-*",
+                "@theme_list-*"
+            ]
+        },
+        {
+            "label": "Modal",
+            "advanced": true,
+            "vars": [
+                "@modal-*",
+                "@theme_modal-*"
+            ]
+        },
+        {
+            "label": "Nav",
+            "advanced": true,
+            "vars": [
+                "@nav-*",
+                "@theme_nav-*"
+            ]
+        },
+        {
+            "label": "Navbar",
+            "advanced": true,
+            "vars": [
+                "@navbar-*",
+                "@theme_navbar-*"
+            ]
+        },
+        {
+            "label": "Offcanvas",
+            "advanced": true,
+            "vars": [
+                "@offcanvas-*",
+                "@theme_offcanvas-*"
+            ]
+        },
+        {
+            "label": "Overlay",
+            "advanced": true,
+            "vars": [
+                "@overlay-*",
+                "@theme_overlay-*"
+            ]
+        },
+        {
+            "label": "Pagination",
+            "advanced": true,
+            "vars": [
+                "@pagination-*",
+                "@theme_pagination-*"
+            ]
+        },
+        {
+            "label": "Panel",
+            "advanced": true,
+            "vars": [
+                "@panel-*",
+                "@theme_panel-*"
+            ]
+        },
+        {
+            "label": "Progress",
+            "advanced": true,
+            "vars": [
+                "@progress-*",
+                "@theme_progress-*"
+            ]
+        },
+        {
+            "label": "Search",
+            "advanced": true,
+            "vars": [
+                "@search-*",
+                "@theme_search-*"
+            ]
+        },
+        {
+            "label": "Subnav",
+            "advanced": true,
+            "vars": [
+                "@subnav-*",
+                "@theme_subnav-*"
+            ]
+        },
+        {
+            "label": "Tab",
+            "advanced": true,
+            "vars": [
+                "@tab-*",
+                "@theme_tab-*"
+            ]
+        },
+        {
+            "label": "Table",
+            "advanced": true,
+            "vars": [
+                "@table-*",
+                "@theme_table-*"
+            ]
+        },
+        {
+            "label": "Text",
+            "advanced": true,
+            "vars": [
+                "@text-*",
+                "@theme_text-*"
+            ]
+        },
+        {
+            "label": "Thumbnail",
+            "advanced": true,
+            "vars": [
+                "@thumbnail-*",
+                "@theme_thumbnail-*"
+            ]
+        },
+        {
+            "label": "Tooltip",
+            "advanced": true,
+            "vars": [
+                "@tooltip-*",
+                "@theme_tooltip-*"
+            ]
+        },
+        {
+            "label": "Utility",
+            "advanced": true,
+            "vars": [
+                "@utility-*",
+                "@theme_utility-*"
+            ]
+        }
+    ]
+}

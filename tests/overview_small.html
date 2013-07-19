@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Preview - UIkit tests</title>
+		<script src="utils/test.js"></script>
+		<style type="text/css">
+
+			body.uk-container { max-width: 600px; }
+
+		</style>
+	</head>
+
+	<body class="uk-container uk-container-center">
+
+		<div class="uk-grid">
+
+			<div class="uk-width-1-1">
+
+				<nav class="uk-navbar" data-uk-navbar>
+
+					<a class="uk-navbar-brand" href="#">Brand</a>
+
+					<ul class="uk-navbar-nav">
+						<li class="uk-parent" data-uk-dropdown>
+							<a href="">Parent</a>
+							<div class="uk-dropdown uk-dropdown-navbar">
+								<ul class="uk-nav uk-nav-navbar">
+									<li><a href="#">Item</a></li>
+									<li><a href="#">Another item</a></li>
+									<li class="uk-nav-header">Header</li>
+									<li><a href="#">Item</a></li>
+									<li><a href="#">Another item</a></li>
+									<li class="uk-nav-divider"></li>
+									<li><a href="#">Separated item</a>
+										<ul class="uk-nav-sub">
+											<li><a href="">Sub item</a>
+												<ul>
+													<li><a href="">Sub item</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="uk-parent uk-active" data-uk-dropdown>
+							<a href="">Active</a>
+
+							<div class="uk-dropdown uk-dropdown-navbar">
+								<div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+							</div>
+
+						</li>
+					</ul>
+
+					<div class="uk-navbar-flip">
+						<div class="uk-navbar-content">
+							<form class="uk-search" data-uk-search>
+								<input class="uk-search-field" type="text" placeholder="search...">
+								<button class="uk-search-close" type="reset"></button>
+								<div class="uk-dropdown uk-dropdown-navbar">
+									<ul class="uk-nav uk-nav-navbar">
+										<li><a href="#">Item</a></li>
+										<li><a href="#">Another item</a></li>
+										<li class="uk-nav-header">Header</li>
+										<li><a href="#">Item</a></li>
+										<li><a href="#">Another item</a></li>
+										<li class="uk-nav-divider"></li>
+										<li><a href="#">Separated item</a></li>
+									</ul>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</nav>
+			</div>
+
+		</div>
+
+		<div class="uk-grid">
+			<div class="uk-width-1-1">
+
+				<div class="uk-grid" data-uk-grid-margin>
+					<div class="uk-width-medium-1-3">
+
+						<div class="uk-panel uk-panel-box">
+							<div class="uk-panel-badge uk-badge">Hot</div>
+							<h3 class="uk-panel-title">Panel box</h3>
+							Lorem ipsum dolor sit amet consectetur.
+						</div>
+
+					</div>
+
+					<div class="uk-width-medium-1-3">
+
+						<div class="uk-panel uk-panel-box uk-panel-box-primary">
+							<h3 class="uk-panel-title">Primary</h3>
+							Lorem ipsum dolor sit amet consectetur.
+						</div>
+
+					</div>
+
+					<div class="uk-width-medium-1-3">
+
+						 <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+							<h3 class="uk-panel-title">Secondary</h3>
+							Lorem ipsum dolor sit amet consectetur.
+						</div>
+
+					</div>
+				</div>
+
+				<div class="uk-grid">
+					<div class="uk-width-1-1">
+
+						<div class="uk-grid" data-uk-grid-margin>
+							<div class="uk-width-medium-1-2">
+
+								<div class="uk-button-group">
+									<button class="uk-button" type="submit">Button</button>
+									<div data-uk-dropdown>
+										<a href="#" class="uk-button"><i class="uk-icon-caret-down"></i></a>
+										<div class="uk-dropdown">
+											<ul class="uk-nav uk-nav-dropdown">
+												<li><a href="#">Item</a></li>
+												<li><a href="#">Another item</a></li>
+												<li class="uk-nav-header">Header</li>
+												<li><a href="#">Item</a></li>
+												<li><a href="#">Another item</a></li>
+												<li class="uk-nav-divider"></li>
+												<li><a href="#">Separated item</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+								<div class="uk-button-group">
+									<button class="uk-button uk-button-primary" type="submit">Primary</button>
+									<div data-uk-dropdown>
+										<a href="#" class="uk-button uk-button-primary"><i class="uk-icon-caret-down"></i></a>
+										<div class="uk-dropdown">
+											<ul class="uk-nav uk-nav-dropdown">
+												<li><a href="#">Item</a></li>
+												<li><a href="#">Another item</a></li>
+												<li class="uk-nav-header">Header</li>
+												<li><a href="#">Item</a></li>
+												<li><a href="#">Another item</a></li>
+												<li class="uk-nav-divider"></li>
+												<li><a href="#">Separated item</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="uk-width-medium-1-2">
+
+								<ul class="uk-tab" data-uk-tab>
+									<li class="uk-active"><a href="#">Active</a></li>
+									<li><a href="#">Item</a></li>
+									<li class="uk-disabled"><a href="#">Disabled</a></li>
+								</ul>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="uk-grid">
+					<div class="uk-width-1-1">
+
+						<div class="uk-grid" data-uk-grid-margin>
+							<div class="uk-width-medium-1-2">
+
+								<div class="uk-grid">
+									<div class="uk-width-1-1">
+
+										<ul class="uk-subnav uk-subnav-pill">
+											<li class="uk-active"><a href="#">Active</a></li>
+											<li><a href="#">Item</a></li>
+											<li><span>Disabled</span></li>
+										</ul>
+
+										<hr>
+
+									</div>
+								</div>
+
+								<div class="uk-grid">
+									<div class="uk-width-1-1">
+
+										<p>
+											<span class="uk-badge">Badge</span>
+											<span class="uk-badge uk-badge-notification">1</span>
+											<span class="uk-badge uk-badge-success">Success</span>
+											<span class="uk-badge uk-badge-success uk-badge-notification">4</span>
+											<span class="uk-badge uk-badge-warning">Warning</span>
+											<span class="uk-badge uk-badge-warning uk-badge-notification">3</span>
+										</p>
+
+									</div>
+								</div>
+
+								<div class="uk-grid">
+									<div class="uk-width-1-1">
+
+										<ul class="uk-pagination">
+											<li class="uk-disabled"><span>«</span></li>
+											<li class="uk-active"><span>1</span></li>
+											<li><a href="#">2</a></li>
+											<li><span>...</span></li>
+											<li><a href="#">20</a></li>
+											<li><a href="#">»</a></li>
+										</ul>
+
+									</div>
+								</div>
+
+							</div>
+
+							<div class="uk-width-medium-1-4">
+
+								<div class="uk-grid">
+									<div class="uk-width-1-1">
+
+										<form class="uk-form uk-form-horizontal">
+
+											<div class="uk-form-row">
+												<div class="uk-width-1-1"><input type="text" placeholder="Text Input" class="uk-width-1-1"></div>
+											</div>
+
+										</form>
+
+									</div>
+								</div>
+
+								<div class="uk-grid">
+									<div class="uk-width-1-1">
+
+										<div class="uk-alert" data-uk-alert>
+											<a class="uk-alert-close uk-close"></a>
+											<p>Info message</p>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="uk-grid">
+									<div class="uk-width-1-1">
+
+										<div class="uk-progress">
+											<div class="uk-progress-bar" style="width: 65%;">65%</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="uk-width-medium-1-4">
+
+								<ul class="uk-nav uk-nav-side uk-nav-parent-icon" data-uk-nav>
+									<li class="uk-nav-header">Nav Side</li>
+									<li class="uk-active"><a href="">Active</a></li>
+									<li class="uk-parent"><a href="#">Parent</a>
+										<ul class="uk-nav-sub">
+											<li><a href="">Sub item</a></li>
+											<li><a href="">Sub item</a>
+												<ul>
+													<li><a href="">Sub item</a></li>
+													<li><a href="">Sub item</a></li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+										<li><a href="">Item</a></li>
+								</ul>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+	</body>
+</html>

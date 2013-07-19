@@ -1,0 +1,310 @@
+/*
+ * Name:			Form
+ * Description:		Defines styles for forms
+ *
+ * Component:		`uk-form`
+ *
+ * Sub-objects:		`uk-form-row`
+ *					`uk-form-help-inline`
+ *					`uk-form-help-block`
+ *					`uk-form-label`
+ *					`uk-form-controls`
+ *					`uk-form-controls-condensed`
+ *
+ * Modifiers:		`uk-form-stacked`
+ *					`uk-form-horizontal`
+ *
+ * Sub-modifiers:	`uk-form-danger`
+ *					`uk-form-success`
+ *					`uk-form-small`
+ *					`uk-form-large`
+ *					`uk-form-blank`
+ *					`uk-form-width-mini`
+ *					`uk-form-width-small`
+ *					`uk-form-width-medium`
+ *					`uk-form-width-large`
+ *					`uk-form-controls-text`
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-form > :last-child { margin-bottom: 0; }
+
+/*
+ * Controls
+ * Exept for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
+ * 1. Must be `height` because `min-height` is not working in OSX
+ * 2. Responsiveness: Sets a maxium width relative to the parent to scale on narrower viewports
+ */
+
+.uk-form select,
+.uk-form textarea,
+.uk-form input[type="text"],
+.uk-form input[type="password"],
+.uk-form input[type="datetime"],
+.uk-form input[type="datetime-local"],
+.uk-form input[type="date"],
+.uk-form input[type="month"],
+.uk-form input[type="time"],
+.uk-form input[type="week"],
+.uk-form input[type="number"],
+.uk-form input[type="email"],
+.uk-form input[type="url"],
+.uk-form input[type="search"],
+.uk-form input[type="tel"],
+.uk-form input[type="color"] {
+	height: @form-height; /* 1 */
+	max-width: 100%; /* 2 */
+	padding: 4px 6px;
+	border: 1px solid @form-border;
+	background: @form-background;
+	color: @form-color;
+	-webkit-transition: all linear 0.2s;
+	transition: all linear 0.2s;
+	.hook-form;
+
+	/* Focus state */
+	&:focus {
+		border-color: @form-focus-border;
+		outline: 0;
+		background: @form-focus-background;
+		color: @form-focus-color;
+		.hook-form-focus;
+	}
+
+	/* Disabled state */
+	&:disabled {
+		border-color: @form-disabled-border;
+		background-color: @form-disabled-background;
+		color: @form-disabled-color;
+		.hook-form-disabled;
+	}
+}
+
+.uk-form textarea { height: auto; } /* 1 */
+
+/*
+ * Placeholder
+ * 1. Higher specificity needed to override color in IE
+ */
+
+.uk-form :-ms-input-placeholder { color: @form-placeholder-color !important; } /* 1. */
+.uk-form ::-moz-placeholder { color: @form-placeholder-color; }
+.uk-form ::-webkit-input-placeholder { color: @form-placeholder-color; }
+
+.uk-form :disabled:-ms-input-placeholder { color: @form-disabled-color !important; } /* 1. */
+.uk-form :disabled::-moz-placeholder { color: @form-disabled-color; }
+.uk-form :disabled::-webkit-input-placeholder { color: @form-disabled-color; }
+
+/*
+ * Legend style
+ * 1. `margin-bottom` is not working in Safari and Opera.
+ *    Using `padding` and :after instead to create the border
+ */
+
+.uk-form legend {
+	width: 100%;
+	padding-bottom: @form-gutter; /* 1 */
+	font-size: @form-legend-font-size;
+	line-height: @form-legend-line-height;
+}
+
+/* 1 */
+.uk-form legend:after {
+	content: "";
+	display: block;
+	border-bottom: 1px solid @form-legend-border;
+}
+
+
+/* Validation states
+ * Using !important to keep the selector simple
+ ========================================================================== */
+
+/*
+ * Error state
+ */
+
+.uk-form-danger {
+	border-color: @form-danger-border !important;
+	background: @form-danger-background !important;
+	color: @form-danger-color !important;
+	.hook-form-danger;
+}
+
+/*
+ * Success state
+ */
+
+.uk-form-success  {
+	border-color: @form-success-border !important;
+	background: @form-success-background !important;
+	color: @form-success-color !important;
+	.hook-form-success;
+}
+
+
+/* Size modifiers
+ * Using !important to keep the selector simple
+ ========================================================================== */
+
+.uk-form-small {
+	height: @form-small-height !important;
+	padding: 3px 3px !important;
+	font-size: @form-small-font-size;
+}
+
+.uk-form-large {
+	height: @form-large-height !important;
+	padding: 8px 6px !important;
+	font-size: @form-large-font-size;
+}
+
+
+/* Style modifiers
+ * Using !important to keep the selector simple
+ ========================================================================== */
+
+/*
+ * Blank form
+ */
+
+.uk-form-blank {
+	border: none !important;
+	background: none !important;
+	box-shadow: none !important;
+	outline: 1px dashed transparent !important;
+}
+
+.uk-form-blank:focus { outline-color:@form-blank-outline !important; }
+
+
+/* Size sub-modifiers
+ ========================================================================== */
+
+/*
+ * Fixed widths
+ * 1. Different widths for mini sized `input` and `select` elements
+ */
+
+input.uk-form-width-mini { width: 40px; } /* 1 */
+select.uk-form-width-mini { width: 65px; } /* 1 */
+.uk-form-width-small { width: 130px; }
+.uk-form-width-medium { width: 200px; }
+.uk-form-width-large { width: 500px; }
+
+
+/* Sub-objects: `uk-form-row`
+ * Groups labels and controls in rows
+ ========================================================================== */
+
+/*
+ * Micro clearfix
+ * Needed for `uk-form-horizontal` modifier
+ */
+
+.uk-form-row:before,
+.uk-form-row:after {
+	content: " ";
+	display: table;
+}
+
+.uk-form-row:after { clear: both; }
+
+/*
+ * Vertical gutter
+ */
+
+.uk-form-row + .uk-form-row { margin-top: @form-gutter; }
+
+
+/* Help text
+ * Sub-object: `uk-form-help-inline`, `uk-form-help-block`
+ ========================================================================== */
+
+.uk-form-help-inline {
+	display: inline-block;
+	margin: 0 0 0 10px;
+}
+
+.uk-form-help-block { margin: 5px 0 0 0; }
+
+
+/* Controls content
+ * Sub-object: `uk-form-controls`, `uk-form-controls-condensed`
+ ========================================================================== */
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-form-controls > :last-child { margin-bottom: 0; }
+
+/*
+ * Group controls and text into blocks with a small spacing between blocks
+ */
+
+.uk-form-controls-condensed { margin: 5px 0; }
+
+
+/* Modifier: `uk-form-stacked`
+ * Requrires sub-object: `uk-form-label`
+ ========================================================================== */
+
+.uk-form-stacked .uk-form-label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+
+/* Modifier: `uk-form-horizontal`
+ * Requrires sub-objects: `uk-form-label`, `uk-form-controls`
+ ========================================================================== */
+
+/* Only phones and tablets portrait */
+@media (max-width: @breakpoint-medium-max) {
+
+	.uk-form-horizontal .uk-form-label {
+		
+		/* Behave like `uk-form-stacked` */
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+		
+	}
+
+}
+
+/* Only tablets and desktops */
+@media (min-width: @breakpoint-large) {
+
+	.uk-form-horizontal .uk-form-label {
+		width: 200px;
+		margin-top: 5px;
+		float: left;
+	}
+
+	.uk-form-horizontal .uk-form-controls { margin-left: 215px; }
+
+	/* Better vertical alignment if controls are checkboxes and radio buttons with text */
+	.uk-form-horizontal .uk-form-controls-text { padding-top: 5px; }
+
+}
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-form() {}
+.hook-form-focus() {}
+.hook-form-disabled() {}
+.hook-form-danger() {}
+.hook-form-success() {}

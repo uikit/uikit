@@ -1,0 +1,62 @@
+/*
+ * Name:			Breadcrumb
+ * Description:		Defines styles for a breadcrumb navigation
+ *
+ * Component:		`uk-breadcrumb`
+ *
+ * States:		 	`uk-active`
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * 1. Remove default list style
+ * 2. Remove whitespace between child elements when using `inline-block`
+ */
+
+.uk-breadcrumb {
+	/* 1 */
+	padding: 0;
+	list-style: none;
+	/* 2 */
+	letter-spacing: -0.31em;
+	.hook-breadcrumb;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Reset whitespace hack
+ */
+
+.uk-breadcrumb > li { letter-spacing: normal; } 
+
+.uk-breadcrumb > li,
+.uk-breadcrumb > li > a,
+.uk-breadcrumb > li > span { display: inline-block; }
+
+.uk-breadcrumb > li:nth-child(n+2):before {
+	content: @breadcrumb-divider;
+	display: inline-block;
+	margin: 0 @breadcrumb-divider-margin;
+	vertical-align: top; /* 2 */
+	.hook-breadcrumb-divider;
+}
+
+/*
+ * Disabled
+ */
+
+.uk-breadcrumb > li:not(.uk-active) > span { color: @breadcrumb-disabled-color; }
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-breadcrumb() {}
+.hook-breadcrumb-divider() {}

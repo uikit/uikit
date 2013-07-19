@@ -1,0 +1,53 @@
+/*
+ * Progress component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+.hook-progress() {
+	box-shadow: inset 0 0 0 1px rgba(0,0,0,0.07),
+				inset 0 2px 2px rgba(0,0,0,0.07);
+	border-radius: @theme_global-border-radius;
+}
+
+
+/* Sub-object: `progress-bar`
+ ========================================================================== */
+
+.hook-progress-bar() {
+	background-image: -webkit-linear-gradient(top, @theme_progress-bar-primary-gradient-top, @theme_progress-bar-primary-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_progress-bar-primary-gradient-top, @theme_progress-bar-primary-gradient-bottom);
+	box-shadow: inset 0 -1px 0 rgba(0,0,0,0.2),
+				inset 0 0 0 1px rgba(0,0,0,0.1);
+	text-shadow: 0 -1px 0 @theme_progress-bar-text-shadow;
+}
+
+
+/* Size modifiers
+ ========================================================================== */
+
+/* Mini */
+.uk-progress-mini,
+.uk-progress-small { border-radius: 500px; }
+
+
+/* Color modifiers
+ ========================================================================== */
+
+.hook-progress-bar-success() {
+	background-image: -webkit-linear-gradient(top, @theme_progress-bar-success-gradient-top, @theme_progress-bar-success-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_progress-bar-success-gradient-top, @theme_progress-bar-success-gradient-bottom);
+}
+
+.hook-progress-bar-warning() {
+	background-image: -webkit-linear-gradient(top, @theme_progress-bar-warning-gradient-top, @theme_progress-bar-warning-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_progress-bar-warning-gradient-top, @theme_progress-bar-warning-gradient-bottom);
+}
+
+.hook-progress-bar-danger() {
+	background-image: -webkit-linear-gradient(top, @theme_progress-bar-danger-gradient-top, @theme_progress-bar-danger-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_progress-bar-danger-gradient-top, @theme_progress-bar-danger-gradient-bottom);
+}

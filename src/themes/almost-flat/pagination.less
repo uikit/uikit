@@ -1,0 +1,41 @@
+/*
+ * Pagination component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+.hook-pagination-item() { border-radius: @theme_global-border-radius; }
+
+
+/* Items
+ ========================================================================== */
+
+.hook-pagination-link() {
+	border: 1px solid @theme_pagination-border;
+	text-shadow: 0 1px 0 @theme_pagination-text-shadow;
+}
+
+.hook-pagination-link-hover() { border-color: @theme_pagination-hover-border; }
+
+.hook-pagination-link-active() {}
+
+/*
+ * Active
+ */
+
+.hook-pagination-active() {
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+	text-shadow: 0 -1px 0 @theme_pagination-contrast-text-shadow;
+}
+
+/*
+ * Disabled
+ */
+
+.hook-pagination-disabled() {
+	border: 1px solid @theme_pagination-border;
+	text-shadow: 0 1px 0 @theme_pagination-text-shadow;
+}

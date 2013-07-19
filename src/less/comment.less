@@ -1,0 +1,109 @@
+/*
+ * Name:			Comment
+ * Description:		Defines styles for comment threads
+ *
+ * Component:		`uk-comment`
+ *
+ * Sub-objects:		`uk-comment-header`
+ *					`uk-comment-avatar`
+ *					`uk-comment-title`
+ *					`uk-comment-meta`
+ *					`uk-comment-body`
+ *					`uk-comment-list`
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+
+/* Sub-object `uk-comment-header`
+ ========================================================================== */
+
+.uk-comment-header { 
+	margin-bottom: @comment-header-margin-bottom;
+	.hook-comment-header;
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-comment-header:before,
+.uk-comment-header:after {
+	content: " ";
+	display: table;
+}
+
+.uk-comment-header:after { clear: both; }
+
+
+/* Sub-object `uk-comment-avatar`
+ ========================================================================== */
+
+.uk-comment-avatar {
+	margin-right: @comment-avatar-margin-right;
+	float: left;
+	.hook-comment-avatar;
+}
+
+
+/* Sub-object `uk-comment-title`
+ ========================================================================== */
+
+.uk-comment-title { 
+	margin: 5px 0 0 0;
+	font-size: @comment-title-font-size;
+	line-height: @comment-title-line-height;
+	.hook-comment-title; 
+}
+
+
+/* Sub-object `uk-comment-meta`
+ ========================================================================== */
+
+.uk-comment-meta {
+	margin: 2px 0 0 0;
+	font-size: @comment-meta-font-size;
+	line-height: @comment-meta-line-height;
+	color: @comment-meta-color;
+	.hook-comment-meta;
+}
+
+
+/* Sub-object `uk-comment-body`
+ ========================================================================== */
+
+/*
+ * Remove margin from the last-child
+ */
+
+ .uk-comment-body > :last-child { margin-bottom: 0; }
+
+
+/* Sub-object `uk-comment-list`
+ ========================================================================== */
+
+.uk-comment-list {
+	padding: 0;
+	list-style: none;
+}
+
+.uk-comment-list .uk-comment + ul {
+	margin: @comment-list-margin-top 0 0 0;
+	padding-left: @comment-list-padding-left;
+	list-style: none;
+}
+
+.uk-comment-list > li:nth-child(n+2),
+.uk-comment-list .uk-comment + ul > li:nth-child(n+2) { margin-top: @comment-list-margin-top; }
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-comment-header() {}
+.hook-comment-avatar() {}
+.hook-comment-title() {}
+.hook-comment-meta() {}

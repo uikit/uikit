@@ -1,0 +1,138 @@
+/*
+ * Name:			Progress
+ * Description:		Defines styles for progress bars
+ *
+ * Component: 		`uk-progress`
+ *
+ * Sub-objects: 	`uk-progress-bar`
+ * 
+ * Modifiers:		`uk-progress-mini`
+ *					`uk-progress-small`
+ *					`uk-progress-success`
+ *					`uk-progress-warning`
+ *					`uk-progress-danger`
+ *					`uk-progress-striped`
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * 1. Clearing
+ * 2. Vertical alignment if text is used
+ */
+
+.uk-progress {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: @progress-height;
+	margin-bottom: @progress-margin-vertical;
+	background: @progress-background;
+	overflow: hidden; /* 1 */
+	line-height: @progress-height; /* 2 */
+	.hook-progress;
+}
+
+/*
+ * Add margin if adjacent element
+ */
+
+* + .uk-progress { margin-top: @progress-margin-vertical; }
+
+
+/* Sub-object: `uk-progress-bar`
+ ========================================================================== */
+
+.uk-progress-bar {
+	width: 0;
+	height: 100%;
+	background: @progress-bar-background;
+	float: left;
+	/* Transition */
+	-webkit-transition: width 0.6s ease;
+	transition: width 0.6s ease;
+	/* Allow text */
+	font-size: @progress-bar-font-size;
+	color: @progress-bar-color;
+	text-align: center;
+	.hook-progress-bar;
+}
+
+
+/* Size modifiers
+ ========================================================================== */
+
+/* Mini */
+.uk-progress-mini {
+	height: @progress-mini-height;
+	.hook-progress-mini;
+}
+
+
+/* Small */
+.uk-progress-small {
+	height: @progress-small-height;
+	.hook-progress-small;
+}
+
+
+/* Color modifiers
+ ========================================================================== */
+
+.uk-progress-success .uk-progress-bar {
+	background-color: @progress-bar-success-background;
+	.hook-progress-bar-success;
+}
+
+.uk-progress-warning .uk-progress-bar {
+	background-color: @progress-bar-warning-background;
+	.hook-progress-bar-warning;
+}
+
+.uk-progress-danger .uk-progress-bar {
+	background-color: @progress-bar-danger-background;
+	.hook-progress-bar-danger;
+}
+
+
+/* Modifier: `uk-progress-striped`
+ ========================================================================== */
+
+.uk-progress-striped .uk-progress-bar {
+	background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-size: 30px 30px;
+}
+
+/*
+ * Animation
+ */
+
+.uk-progress-striped.uk-active .uk-progress-bar {
+	-webkit-animation: uk-progress-bar-stripes 2s linear infinite;
+	animation: uk-progress-bar-stripes 2s linear infinite;
+}
+
+@-webkit-keyframes uk-progress-bar-stripes {
+	0% { background-position: 0 0;}
+	100% { background-position: 30px 0; }
+}
+
+@keyframes uk-progress-bar-stripes {
+	0% { background-position: 0 0;}
+	100% { background-position: 30px 0; }
+}
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-progress() {}
+.hook-progress-bar() {}
+.hook-progress-mini() {}
+.hook-progress-small() {}
+.hook-progress-bar-success() {}
+.hook-progress-bar-warning() {}
+.hook-progress-bar-danger() {}

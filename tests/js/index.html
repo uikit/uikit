@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>UIkit - Test Suite</title>
+	<link rel="stylesheet" href="../../vendor/qunit.css">
+	<script src="../../vendor/jquery.js"></script>
+	<script src="../../vendor/qunit.js"></script>
+
+	<script>
+		(function(){
+			var $ele = null;
+
+			window.$fixture = {
+				set: function(code) { $ele.html(code); return this; },
+				get: function() { return $ele.html(); },
+				reset: function() { $ele.html(""); return this; },
+				load: function(tpl){
+					var ele = $("#"+tpl+"-tpl");
+
+					if(!ele.length){
+						$.error("Couldn't find "+tpl+" template.");
+					}
+
+					$ele.html(ele.length ? ele.html():"");
+
+					return this;
+				},
+				find: function(selector){
+					return $ele.find(selector);
+				}
+			};
+
+			$(function(){
+				$ele = $("#qunit-fixture");
+			})
+		})();
+
+	</script>
+
+	<!--  components sources -->
+    <script src="../../src/js/core.js"></script>
+	<script src="../../src/js/data.js"></script>
+    <script src="../../src/js/alert.js"></script>
+    <script src="../../src/js/button.js"></script>
+    <script src="../../src/js/dropdown.js"></script>
+    <script src="../../src/js/modal.js"></script>
+    <script src="../../src/js/tab.js"></script>
+    <script src="../../src/js/html-editor.js"></script>
+
+	<!-- unit tests -->
+	<script src="./unit/core.js"></script>
+	<script src="./unit/data.js"></script>
+	<script src="./unit/alert.js"></script>
+    <script src="./unit/button.js"></script>
+    <script src="./unit/dropdown.js"></script>
+    <script src="./unit/modal.js"></script>
+    <script src="./unit/tab.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+	
+	<script id="alert-tpl" type="text/template">
+		<div class="uk-alert uk-alert-success">
+			<a href="#" class="uk-alert-close">×</a>
+			<p>This is a success alert using an a element as close button.</p>
+		</div>
+	</script>
+
+	<script id="buttons-tpl" type="text/template">
+		<button class="uk-button uk-button-primary" type="button" id="obj-button">Button</button>
+		<div class="uk-button-group" id="obj-checkbox-group">
+			<button class="uk-button" type="submit">Button</button>
+			<button class="uk-button" type="submit">Button</button>
+			<button class="uk-button" type="submit">Button</button>
+		</div>
+		<div class="uk-button-group" id="obj-radio-group">
+			<button class="uk-button" type="submit">Button</button>
+			<button class="uk-button" type="submit">Button</button>
+			<button class="uk-button" type="submit">Button</button>
+		</div>
+	</script>
+
+	<script id="dropdown-tpl" type="text/template">
+		<div class="uk-dropdown uk-dropdown-toggle">
+			<button class="uk-button" type="submit">Button <i class="uk-icon-caret-down"></i></button>
+			<ul class="uk-dropdown-menu">
+				<li><a href="#">Item</a></li>
+				<li><a href="#">Another item</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Separated item</a></li>
+			</ul>
+		</div>
+	</script>
+
+	<script id="modal-tpl" type="text/template">
+		<a href="#modal">Link</a>
+
+		<div id="modal" class="uk-modal">
+			<a class="uk-modal-close">×</a>
+			<h1>Headline</h1>
+			<p>Some sample text to show a modal box.</p>
+		</div>
+	</script>
+
+</body>
+</html>

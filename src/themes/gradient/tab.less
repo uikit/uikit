@@ -1,0 +1,53 @@
+/*
+ * Tab component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.hook-tab() {
+	border-radius: @theme_global-border-radius @theme_global-border-radius 0 0;
+	text-shadow: 0 1px 0 @theme_tab-text-shadow;
+}
+
+/* Hover */
+.hook-tab-hover() {}
+
+/* Active */
+.hook-tab-active() {}
+
+/* Disabled */
+.hook-tab-disabled() {}
+
+
+/* Modifier: `uk-tab-bottom'
+ ========================================================================== */
+
+.uk-tab-bottom > li > a { border-radius: 0 0 @theme_global-border-radius @theme_global-border-radius; }
+
+
+/* Modifier: `uk-tab-left', `uk-tab-right'
+ ========================================================================== */
+
+/* Only tablets and desktops */
+@media (min-width: @breakpoint-medium) {
+
+	/*
+	 * Modifier: `uk-tab-left'
+	 */
+
+	.uk-tab-left > li > a { border-radius: @theme_global-border-radius 0 0 @theme_global-border-radius; }
+
+	/*
+	 * Modifier: `uk-tab-right'
+	 */
+
+	.uk-tab-right > li > a { border-radius: 0 @theme_global-border-radius @theme_global-border-radius 0; }
+
+}

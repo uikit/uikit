@@ -1,0 +1,30 @@
+/*
+ * Progress component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+.hook-progress() {
+	box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+	border-radius: @theme_global-border-radius;
+}
+
+
+/* Sub-object: `progress-bar`
+ ========================================================================== */
+
+.hook-progress-bar() {
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+	text-shadow: 0 -1px 0 @theme_progress-bar-text-shadow;
+}
+
+
+/* Size modifiers
+ ========================================================================== */
+
+/* Mini */
+.uk-progress-mini,
+.uk-progress-small { border-radius: 500px; }

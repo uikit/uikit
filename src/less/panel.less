@@ -1,0 +1,189 @@
+/*
+ * Name:			Panel
+ * Description:		Defines styles for reusable content areas
+ *
+ * Component:		`uk-panel`
+ *
+ * Sub-objects:		`uk-panel-title`
+ *					`uk-panel-badge`
+ *
+ * Modifiers:		`uk-panel-box`
+ *					`uk-panel-box-primary`
+ *					`uk-panel-box-secondary`
+ *					`uk-panel-header`
+ *					`uk-panel-space`
+ *					`uk-panel-divider`
+ *
+ * Uses:			Nav: `uk-nav-side`
+ *
+ * Used by:			Dropdown
+ *					Off-canvas
+ *					Grid
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * Create position context for badges
+ */
+
+.uk-panel { position: relative; }
+
+
+/*
+ * Micro clearfix to make panels more robust
+ */
+
+.uk-panel:before,
+.uk-panel:after {
+	content: " ";
+	display: table;
+}
+
+.uk-panel:after { clear: both; }
+
+/*
+ * Remove margin from the last-child if not `uk-windget-title`
+ */
+
+.uk-panel > :not(.uk-panel-title):last-child { margin-bottom: 0; }
+
+
+/* Sub-object: `uk-panel-title`
+ ========================================================================== */
+
+.uk-panel-title {
+	margin-bottom: @panel-title-margin-bottom;
+	font-size: @panel-title-font-size;
+	line-height: @panel-title-line-height;
+	font-weight: @panel-title-font-weight;
+	text-transform: @panel-text-transform;
+	color: @panel-title-color;
+	.hook-panel-title;
+}
+
+
+/* Sub-object: `uk-panel-badge`
+ ========================================================================== */
+
+.uk-panel-badge {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+	.hook-panel-badge;
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.uk-panel-badge + * { margin-top: 0; }
+
+
+/* Modifier: `uk-panel-box`
+ ========================================================================== */
+
+.uk-panel-box {
+	padding: @panel-box-padding;
+	background: @panel-box-background;
+	color: @panel-box-color;
+	.hook-panel-box;
+}
+
+.uk-panel-box .uk-panel-title { color: @panel-box-title-color; }
+
+.uk-panel-box .uk-panel-badge {
+	top: @panel-box-badge-top;
+	right: @panel-box-badge-right;
+}
+
+/*
+ * Nav in panel
+ */
+
+.uk-panel-box .uk-nav-side { margin: 0 -@panel-box-padding; }
+
+/*
+ * Sub-modifier: `uk-panel-box-primary`
+ */
+
+.uk-panel-box-primary {
+	background-color: @panel-box-primary-background;
+	color: @panel-box-primary-color;
+	.hook-panel-box-primary;
+}
+
+.uk-panel-box-primary .uk-panel-title { color: @panel-box-primary-title-color; }
+
+/*
+ * Sub-modifier: `uk-panel-box-secondary`
+ */
+
+.uk-panel-box-secondary {
+	background-color: @panel-box-secondary-background;
+	color: @panel-box-secondary-color;
+	.hook-panel-box-secondary;
+}
+
+.uk-panel-box-secondary .uk-panel-title { color: @panel-box-secondary-title-color; }
+
+
+/* Modifier: `uk-panel-header`
+ ========================================================================== */
+
+.uk-panel-header .uk-panel-title {
+	padding-bottom: @panel-header-title-padding;
+	border-bottom: 1px solid @panel-header-title-border;
+	color: @panel-header-title-color;
+	.hook-panel-header;
+}
+
+
+/* Modifier: `uk-panel-space`
+ ========================================================================== */
+
+.uk-panel-space { padding: @panel-space-padding; }
+
+.uk-panel-space .uk-panel-badge {
+	top: @panel-space-padding;
+	right: @panel-space-padding;
+}
+
+
+/* Modifier: `uk-panel-divider`
+ ========================================================================== */
+
+.uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter * 2) !important; }
+
+.uk-panel + .uk-panel-divider:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: -(@panel-divider-gutter);
+	left: 0;
+	right: 0;
+	border-top: 1px solid @panel-divider-border;
+}
+
+/* Only large screens */
+@media (min-width: @breakpoint-xlarge) {
+
+	.uk-panel + .uk-panel-divider { margin-top: (@panel-divider-large-gutter * 2) !important; }
+	.uk-panel + .uk-panel-divider:before { top: -(@panel-divider-large-gutter); }
+
+}
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-panel-title() {}
+.hook-panel-badge() {}
+.hook-panel-box() {}
+.hook-panel-box-primary() {}
+.hook-panel-box-secondary() {}
+.hook-panel-header() {}

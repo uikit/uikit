@@ -1,0 +1,9 @@
+{
+    "name": "uikit",
+    "version": "1.0.0",
+    "main": ["dist/uikit.min.js","dist/uikit.min.css"],
+
+    "dependencies": {
+        "jquery": "~1.8"
+    }
+}

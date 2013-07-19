@@ -1,0 +1,154 @@
+/*
+ * Name:			Search
+ * Description:		Defines a search component
+ *
+ * Component:		`uk-search`
+ *
+ * Sub-objects:		`uk-search-field`
+ *					`uk-search-close`
+ *
+ * States:		 	`uk-active`
+ *					`uk-loading`
+ *
+ * Uses:			Animation
+ *					Icon: FontAwesome
+ *
+ * Used by:			Off-canvas
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * 1. Create position context for dropdowns
+ * 2. Needed for `form` element
+ */
+
+.uk-search {
+	display: inline-block;
+	position: relative; /* 1 */
+	margin: 0; /* 2 */
+	.hook-search;
+}
+
+/*
+ * Icon
+ */
+
+.uk-search:before {
+	content: @search-icon;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: @search-padding;
+	line-height: @search-height;
+	text-align: center;
+	font-family: "FontAwesome";
+	font-size: @search-icon-size;
+	color: @search-icon-color;
+	.hook-search-icon;
+}
+
+
+/* Sub-object `uk-search-field`
+ ========================================================================== */
+
+/*
+ * 1. Needed to reset iOS `input[type="search"]` appearance
+ */
+
+.uk-search-field { /* 1 */
+	width: @search-width;
+	height: @search-height;
+	padding: 0 @search-padding;
+	border: 1px solid @search-border;
+	border-radius: 0; /* 1 */
+	background: @search-background;
+	color: @search-color;
+	-webkit-transition: all linear 0.2s;
+	transition: all linear 0.2s;
+	.hook-search-field;
+}
+
+/*
+ * Needed to reset iOS `input[type="search"]` appearance
+ * Higher specificity to override appearance set by normalize.less
+ */
+
+input.uk-search-field { -webkit-appearance: none; }
+
+/* Placeholder */
+.uk-search-field:-ms-input-placeholder { color: @search-placeholder-color; }
+.uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
+.uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
+
+/* Removes cancel button in IE10 */
+.uk-search-field::-ms-clear { display: none; }
+
+/* Focus */
+.uk-search-field:focus {
+	outline: 0;
+	.hook-search-field-focus;
+}
+
+/* Focus + active */
+.uk-search-field:focus,
+.uk-active .uk-search-field { width: @search-focus-width; }
+
+
+/* Sub-object `uk-search-close`
+ ========================================================================== */
+
+/*
+ * 1. Required for `button` elements
+ */
+
+.uk-search-close {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: @search-padding;
+	line-height: @search-height;
+	text-align: center;
+	font-size: @search-close-size;
+	color: @search-close-color;
+	/* 1. */
+	padding: 0;
+	border: 0;
+	-webkit-appearance: none;
+	background: transparent; /* Needed for Sarari */
+	.hook-search-close;
+}
+
+.uk-loading > .uk-search-close,
+.uk-active > .uk-search-close { display: block; }
+
+/*
+ * Icon
+ */
+
+.uk-search-close:after {
+	display: block;
+	content: @search-close-icon;
+	font-family: "FontAwesome";
+}
+
+/* Loading icon */
+.uk-loading > .uk-search-close:after {
+	content: @search-close-icon-loading;
+	-webkit-animation: uk-animation-spin 2s infinite linear;
+	animation: uk-animation-spin 2s infinite linear;
+}
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-search() {}
+.hook-search-icon() {}
+.hook-search-field() {}
+.hook-search-field-focus() {}
+.hook-search-close() {}

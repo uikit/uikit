@@ -1,0 +1,104 @@
+/*
+ * Button component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+.hook-button() {
+	border: 1px solid @theme_button-border;
+	border-radius: @theme_global-border-radius;
+	text-shadow: 0 1px 0 @theme_button-text-shadow;
+}
+
+.hook-button-hover() { border-color: @theme_button-hover-border; }
+
+.hook-button-active() {}
+
+
+/* Color modifiers
+ ========================================================================== */
+
+ .uk-button-primary,
+ .uk-button-success,
+ .uk-button-danger {
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+	text-shadow: 0 -1px 0 @theme_button-contrast-text-shadow;
+}
+
+.uk-button-primary:hover, .uk-button-primary:focus,
+.uk-button-success:hover, .uk-button-success:focus,
+.uk-button-danger:hover, .uk-button-danger:focus { border-color: @theme_button-contrast-hover-border; }
+
+
+/* Disabled state
+ ========================================================================== */
+
+.hook-button-disable() {
+	border-color: @theme_button-border;
+	box-shadow: none;
+	text-shadow: 0 1px 0 @theme_button-text-shadow;
+}
+
+
+/* Modifier: `uk-button-link`
+ ========================================================================== */
+
+.hook-button-link() {
+	box-shadow: none;
+	text-shadow: none;
+}
+
+
+/* Size modifiers
+ ========================================================================== */
+
+.hook-button-large() { border-radius: @theme_global-border-radius + 1; }
+
+
+/* Sub-object `uk-button-group`
+ ========================================================================== */
+
+/*
+ * Reset border-radius
+ */
+
+.uk-button-group > .uk-button:not(:first-child):not(:last-child),
+.uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
+	border-left-color: rgba(0,0,0,0.1);
+	border-right-color: rgba(0,0,0,0.1);
+	border-radius: 0;
+}
+
+.uk-button-group > .uk-button:first-child,
+.uk-button-group > div:first-child .uk-button {
+	border-right-color: rgba(0,0,0,0.1);
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.uk-button-group > .uk-button:last-child,
+.uk-button-group > div:last-child .uk-button {
+	border-left-color: rgba(0,0,0,0.1);
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+/*
+ * Collapse border
+ */
+
+.uk-button-group > .uk-button:nth-child(n+2),
+.uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -1px; }
+
+/*
+ * Create position context to superimpose the successor elements border
+ * Known issue: If you use an `a` element as button and an icon inside,
+ * the active state will not work if you click the icon inside the button
+ * Workaround: Just use a `button` or `input` element as button
+ */
+
+.uk-button-group .uk-button:hover,
+.uk-button-group .uk-button:active { position: relative; }

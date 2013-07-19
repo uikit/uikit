@@ -1,0 +1,32 @@
+/*
+ * Icon component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+
+/* Modifier `uk-icon-button`
+ ========================================================================== */
+
+.hook-icon-button() {
+	border: 1px solid @theme_icon-button-border;
+	border-bottom-color: @theme_icon-button-border-bottom;
+	background-origin: border-box; /* 1 */
+	background-image: -webkit-linear-gradient(top, @theme_icon-button-gradient-top, @theme_icon-button-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_icon-button-gradient-top, @theme_icon-button-gradient-bottom);
+	text-shadow: 0 1px 0 @theme_icon-button-text-shadow;
+}
+
+/* Hover */
+.hook-icon-button-hover() { background-image: none; }
+
+/* Active */
+.hook-icon-button-active() { 
+	border-color: @theme_icon-button-border;
+	border-top-color: @theme_icon-button-border-bottom;
+	background-image: none;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}

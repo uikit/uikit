@@ -1,0 +1,770 @@
+/*
+ * Component:		Variables
+ * Description:		Defines all color and style related values as variables
+ *					to allow easy customization for the most common cases.
+ ========================================================================== */
+
+
+/* Global variables
+ ========================================================================== */
+
+/*
+ * Text
+ */
+
+@global-color:									#444;
+@global-muted-color:							#999;
+
+@global-link-color:								#07D;
+@global-link-hover-color:						#059;
+
+@global-contrast-color:							#fff;
+
+@global-font-size:								14px;
+@global-line-height:							20px;
+
+/*
+ * Backgrounds & Borders
+ */
+
+@global-background:								#fff;
+@global-border:									#ddd;
+
+@global-primary-background:						#00a8e6;
+@global-success-background:						#8cc14c;
+@global-warning-background:						#faa732;
+@global-danger-background:						#da314b;
+
+/*
+ * Spacings
+ */
+
+@global-margin:									15px;
+@global-large-margin:							25px;
+@global-grid-gutter:							25px;
+@global-grid-large-gutter:						35px;
+
+/*
+ * Controls
+ */
+
+@global-height:									30px;
+@global-mini-height:							20px;
+@global-small-height:							25px;
+@global-large-height:							40px;
+
+/*
+ * Z-index
+ */
+
+@global-z-index:								1000;
+
+
+/* Breakpoint variables
+ ========================================================================== */
+
+/*
+* Breakpoints
+*/
+
+@breakpoint-mini-max:							(@breakpoint-small - 1);
+
+@breakpoint-small:								480px;
+@breakpoint-small-max:							(@breakpoint-medium - 1);
+
+@breakpoint-medium:								768px;
+@breakpoint-medium-max:							(@breakpoint-large - 1);
+
+@breakpoint-large:								960px;
+@breakpoint-large-max:							(@breakpoint-xlarge - 1);
+
+@breakpoint-xlarge:								1220px;
+
+
+/* Components variables
+ ========================================================================== */
+
+/*
+ * Base
+ */
+
+@base-body-background:							@global-background;
+@base-body-font-family:							"Helvetica Neue", Helvetica, Arial, sans-serif;
+@base-body-font-weight:							normal;
+@base-body-font-size:							@global-font-size;
+@base-body-line-height:							@global-line-height;
+@base-body-color:								@global-color;
+
+@base-link-color:								@global-link-color;
+@base-link-hover-color:							@global-link-hover-color;
+@base-em-color:									#D05;
+@base-ins-background:							#ffa;
+@base-ins-color:								@global-color;
+@base-mark-background:							#ffa;
+@base-mark-color:								@global-color;
+@base-selection-background:						#39f;
+@base-selection-color:							#fff;
+
+@base-margin-vertical:							@global-margin;
+
+@base-heading-font-family:						"Helvetica Neue", Helvetica, Arial, sans-serif;
+@base-heading-font-weight:						normal;
+@base-heading-color:							@global-color;
+@base-heading-text-transform:					none;
+@base-heading-margin-top:						@global-large-margin;
+@base-h1-font-size:								round(@global-font-size * 2.57); // 36px
+@base-h1-line-height:							round(@base-h1-font-size * 1.16); // 42px
+@base-h2-font-size:								round(@global-font-size * 1.71); // 24px
+@base-h2-line-height:							round(@base-h2-font-size * 1.25); // 30px
+@base-h3-font-size:								round(@global-font-size * 1.28); // 18px
+@base-h3-line-height:							round(@base-h3-font-size * 1.33); // 24px
+@base-h4-font-size:								round(@global-font-size * 1.14); // 16px
+@base-h4-line-height:							round(@base-h4-font-size * 1.37); // 22px
+@base-h5-font-size:								@global-font-size; // 14px
+@base-h5-line-height:							@global-line-height; // 20px
+@base-h6-font-size:								round(@global-font-size * 0.85); // 12px
+@base-h6-line-height:							round(@base-h6-font-size * 1.5); // 18px
+
+@base-hr-border:								@global-border;
+
+@base-blockquote-border:						@global-border;
+@base-blockquote-small-color:					@global-muted-color;
+@base-blockquote-font-size:						round(@global-font-size * 1.14); // 16px
+@base-blockquote-line-height:					round(@base-blockquote-font-size * 1.37); // 22px
+
+@base-code-color:								#D05;
+@base-code-font-size:							round(@global-font-size * 0.85); // 12px;
+@base-code-font-family:							Consolas, monospace, serif;
+
+@base-pre-background:							#f5f5f5;
+@base-pre-color:								@global-color;
+@base-pre-font-size:							round(@global-font-size * 0.85); // 12px;
+@base-pre-line-height:							round(@base-pre-font-size * 1.5); // 18px
+
+/*
+ * Grid
+ */
+
+@grid-gutter-horizontal:						@global-grid-gutter;
+@grid-gutter-vertical:							@global-grid-gutter;
+@grid-large-gutter-horizontal:					@global-grid-large-gutter;
+@grid-large-gutter-vertical:					@global-grid-large-gutter;
+@grid-divider-border:							@global-border;
+
+/*
+ * Panel
+ */
+
+@panel-title-margin-bottom:						@global-margin;
+@panel-title-font-size:							round(@global-font-size * 1.28); // 18px
+@panel-title-line-height:						round(@panel-title-font-size * 1.33); // 24px
+@panel-title-font-weight:						normal;
+@panel-title-color:								@global-color;
+@panel-text-transform:							none;
+
+@panel-box-padding:								@global-margin;
+@panel-box-background:							#f5f5f5;
+@panel-box-color:								@global-color;
+@panel-box-title-color:							@global-color;
+@panel-box-badge-top:							10px;
+@panel-box-badge-right:							@panel-box-badge-top;
+
+@panel-box-primary-background:					#ebf7fd;
+@panel-box-primary-color:						#2d7091;
+@panel-box-primary-title-color:					#2d7091;
+
+@panel-box-secondary-background:				#eee;
+@panel-box-secondary-color:						#444;
+@panel-box-secondary-title-color:				#444;
+
+@panel-header-title-padding:					10px;
+@panel-header-title-border:						@global-border;
+@panel-header-title-color:						@global-color;
+
+@panel-space-padding:							30px;
+
+@panel-divider-gutter:							@global-grid-gutter;
+@panel-divider-large-gutter:					@global-grid-large-gutter;
+@panel-divider-border:							@global-border;
+
+/*
+ * Article
+ */
+
+@article-margin-top: 							@global-margin;
+
+@article-title-font-size:						round(@global-font-size * 2.57); // 36px
+@article-title-line-height:						round(@article-title-font-size * 1.16); // 42px
+@article-title-font-weight:						normal;
+@article-text-transform:						none;
+
+@article-meta-font-size:						round(@global-font-size * 0.85); // 12px
+@article-meta-line-height:						round(@article-meta-font-size * 1.5); // 18px
+@article-meta-color: 							@global-muted-color;
+
+@article-lead-color:							@global-color;
+@article-lead-font-size:						round(@global-font-size * 1.28); // 18px
+@article-lead-line-height:						round(@article-lead-font-size * 1.33); // 24px
+@article-lead-font-weight:						normal;
+
+@article-divider-margin:						@global-large-margin;
+@article-divider-border: 						@global-border;
+
+/*
+ * Comment
+ */
+
+@comment-header-margin-bottom:					@global-margin;
+
+@comment-avatar-margin-right: 					@global-margin;
+
+@comment-title-font-size: 						round(@global-font-size * 1.14); // 16px
+@comment-title-line-height: 					round(@comment-title-font-size * 1.37); // 22px
+
+@comment-meta-color: 							@global-muted-color;
+@comment-meta-font-size: 						round(@global-font-size * 0.78); // 11px
+@comment-meta-line-height: 						round(@comment-meta-font-size * 1.45); // 16px
+
+@comment-list-margin-top: 						@global-margin;
+@comment-list-padding-left: 					100px;
+
+/*
+ * Nav
+ */
+
+@nav-padding-vertical:							5px;
+@nav-padding-horizontal:						15px;
+
+@nav-header-padding-vertical:					@nav-padding-vertical;
+@nav-header-padding-horizontal:					@nav-padding-horizontal;
+@nav-header-font-size:							round(@global-font-size * 0.85); // 12px
+@nav-header-font-weight:						bold;
+@nav-header-text-transform:						uppercase;
+@nav-header-margin-top:							@global-margin;
+
+@nav-divider-margin-vertical:					9px;
+@nav-divider-margin-horizontal:					@nav-padding-horizontal;
+
+@nav-description-font-size:						round(@global-font-size * 0.85); // 12px
+@nav-description-line-height:					round(@nav-description-font-size * 1.5); // 18px
+
+@nav-nested-padding-vertical:					2px;
+@nav-nested-padding-horizontal:					0;
+
+@nav-sub-padding-vertical:						5px;
+@nav-sub-padding-left:							@nav-padding-horizontal;
+
+@nav-parent-icon:								"\f104";
+@nav-parent-open-icon:							"\f107";
+@nav-parent-icon-width:							@global-line-height;
+@nav-parent-icon-margin-right:					-10px;
+
+@nav-side-color:								@global-color;
+@nav-side-hover-background:						rgba(0,0,0,0.05);
+@nav-side-hover-color:							@global-color;
+@nav-side-active-background:					@global-primary-background;
+@nav-side-active-color:							@global-contrast-color;
+@nav-side-header-color:							@global-color;
+@nav-side-divider-border:						@global-border;
+@nav-side-nested-color:							@global-link-color;
+@nav-side-nested-hover-color:					@global-link-hover-color;
+
+@nav-dropdown-color:							@global-color;
+@nav-dropdown-hover-background:					@global-primary-background;
+@nav-dropdown-hover-color:						@global-contrast-color;
+@nav-dropdown-header-color:						@global-muted-color;
+@nav-dropdown-divider-border:					@global-border;
+@nav-dropdown-nested-color:						@global-link-color;
+@nav-dropdown-nested-hover-color:				@global-link-hover-color;
+
+@nav-navbar-color:								@global-color;
+@nav-navbar-hover-background:					@global-primary-background;
+@nav-navbar-hover-color:						@global-contrast-color;
+@nav-navbar-header-color:						@global-muted-color;
+@nav-navbar-divider-border:						@global-border;
+@nav-navbar-nested-color:						@global-link-color;
+@nav-navbar-nested-hover-color:					@global-link-hover-color;
+
+@nav-search-color:								@global-color;
+@nav-search-active-background:					@global-primary-background;
+@nav-search-active-color:						@global-contrast-color;
+@nav-search-header-color:						@global-muted-color;
+@nav-search-divider-border:						@global-border;
+@nav-search-nested-color:						@global-link-color;
+@nav-search-nested-hover-color:					@global-link-hover-color;
+
+@nav-offcanvas-padding-vertical:				10px;
+@nav-offcanvas-padding-horizontal:				15px;
+@nav-offcanvas-color:							@offcanvas-panel-link-color;
+@nav-offcanvas-hover-background:				lighten(@offcanvas-bar-background, 5%);
+@nav-offcanvas-hover-color:						@offcanvas-panel-link-hover-color;
+@nav-offcanvas-active-background:				darken(@offcanvas-bar-background, 10%);
+@nav-offcanvas-active-color:					@offcanvas-panel-link-hover-color;
+@nav-offcanvas-header-color:					@offcanvas-panel-color;
+@nav-offcanvas-divider-border:					darken(@offcanvas-bar-background, 10%);
+@nav-offcanvas-nested-color:					@offcanvas-panel-link-color;
+@nav-offcanvas-nested-hover-color:				@offcanvas-panel-link-hover-color;
+
+/*
+ * Navbar
+ */
+
+@navbar-background:								#eee;
+@navbar-color:									@global-color;
+@navbar-link-color:								@global-link-color;
+@navbar-link-hover-color:						@global-link-hover-color;
+
+@navbar-nav-height:								40px;
+@navbar-nav-line-height:						@navbar-nav-height;
+@navbar-nav-padding-horizontal:					15px;
+@navbar-nav-color:								@global-color;
+@navbar-nav-font-size: 							@global-font-size;
+@navbar-nav-font-weight: 						normal;
+@navbar-nav-font-family: 						"Helvetica Neue", Helvetica, Arial, sans-serif;
+@navbar-nav-hover-background:					#f5f5f5;
+@navbar-nav-hover-color:						@global-color;
+@navbar-nav-onclick-background:					#ddd;
+@navbar-nav-onclick-color:						@global-color;
+@navbar-nav-active-background:					#f5f5f5;
+@navbar-nav-active-color:						@global-color;
+
+@navbar-brand-font-size:						round(@global-font-size * 1.28); // 18px
+@navbar-brand-color:							@global-color;
+@navbar-brand-hover-color:						@global-color;
+
+@navbar-toggle-font-size:						round(@global-font-size * 1.28); // 18px
+@navbar-toggle-color:							@global-color;
+@navbar-toggle-hover-color:						@global-color;
+@navbar-toggle-icon:							"\f0c9";
+@navbar-toggle-icon-alt:						"\f002";
+
+/*
+ * Subnav
+ */
+
+@subnav-margin:									10px;
+@subnav-color:									@global-link-color;
+@subnav-hover-color:							@global-link-hover-color;
+@subnav-disabled-color:							@global-muted-color;
+
+@subnav-line-border-height:						10px;
+@subnav-line-border:							@global-border;
+
+@subnav-pill-hover-background:					#eee;
+@subnav-pill-hover-color:						@global-color;
+@subnav-pill-active-background:					@global-primary-background;
+@subnav-pill-active-color:						@global-contrast-color;
+
+/*
+ * Breadcrumb
+ */
+
+@breadcrumb-divider:							"/";
+@breadcrumb-divider-margin:						8px;
+@breadcrumb-disabled-color:						@global-muted-color;
+
+/*
+ * Pagination
+ */
+
+@pagination-line-height:						@global-line-height;
+@pagination-background:							#eee;
+@pagination-color:								@global-color;
+@pagination-hover-background:					#f5f5f5;
+@pagination-hover-color:						@global-color;
+@pagination-onclick-background:					#ddd;
+@pagination-onclick-color:						@global-color;
+
+@pagination-active-background:					@global-primary-background;
+@pagination-active-color:						@global-contrast-color;
+
+@pagination-disabled-background:				#f5f5f5;
+@pagination-disabled-color:						@global-muted-color;
+
+/*
+ * Tab
+ */
+
+@tab-border:									@global-border;
+@tab-padding-horizontal: 						12px;
+@tab-padding-vertical: 							8px;
+@tab-color:										@global-link-color;
+@tab-hover-border:								#f5f5f5;
+@tab-hover-background:							#f5f5f5;
+@tab-hover-color:								@global-link-hover-color;
+@tab-active-border:								@global-border;
+@tab-active-background:							@global-background;
+@tab-active-color:								@global-color;
+@tab-disabled-color:							@global-muted-color;
+
+/*
+ * List
+ */
+
+@list-nested-padding-left:						20px;
+
+@list-line-margin-top:							5px;
+@list-line-border:								@global-border;
+
+@list-striped-padding-vertical:					5px;
+@list-striped-padding-horizontal:				5px;
+@list-striped-background:						#f5f5f5;
+
+@list-space-margin-top:							10px;
+
+/*
+ * Description list
+ */
+
+@description-list-line-border:					@global-border;
+@description-list-line-color:					@global-muted-color;
+
+/*
+ * Table
+ */
+
+@table-margin-vertical:							@global-margin;
+@table-padding-vertical:						8px;
+@table-padding-horizontal:						8px;
+@table-caption-color:							@global-muted-color;
+@table-caption-font-size:						round(@global-font-size * 0.85); // 12px;
+
+@table-striped-background:						#f5f5f5;
+
+@table-condensed-padding-vertical:				4px;
+@table-condensed-padding-horizontal:			8px;
+
+@table-hover-background:						#EEE;
+
+/*
+ * Form
+ */
+
+@form-height:									@global-height;
+@form-small-height:								@global-small-height;
+@form-large-height:								@global-large-height;
+@form-small-font-size:							round(@global-font-size * 0.85); // 12px;;
+@form-large-font-size: 							round(@global-font-size * 1.14); // 16px
+
+@form-border:									@global-border;
+@form-background:								@global-background;
+@form-color:									@global-color;
+@form-placeholder-color:						@global-muted-color;
+@form-focus-border:								#99baca;
+@form-focus-background:							#f5fbfe;
+@form-focus-color:								@global-color;
+@form-disabled-border:							@global-border;
+@form-disabled-background:						#f5f5f5;
+@form-disabled-color:							@global-muted-color;
+
+@form-danger-border:							#dc8d99;
+@form-danger-background:						#fff7f8;
+@form-danger-color:								#c91032;
+
+@form-success-border:							#8ec73b;
+@form-success-background:						#fafff2;
+@form-success-color:							#539022;
+
+@form-blank-outline:							@global-border;
+
+@form-legend-border:							@global-border;
+@form-legend-font-size:							round(@global-font-size * 1.28); // 18px
+@form-legend-line-height:						round(@form-legend-font-size * 1.66); // 30px
+
+@form-gutter:									@global-margin;
+
+/*
+ * Button
+ */
+
+@button-height:									@global-height;
+@button-mini-height:							@global-mini-height;
+@button-small-height:							@global-small-height;
+@button-large-height:							@global-large-height;
+
+@button-line-height:							@global-height;
+@button-mini-line-height:						@global-mini-height;
+@button-small-line-height:						@global-small-height;
+@button-large-line-height:						@global-large-height;
+
+@button-mini-font-size:							round(@global-font-size * 0.78); // 11px
+@button-small-font-size:						round(@global-font-size * 0.85); // 12px
+@button-large-font-size:						round(@global-font-size * 1.14); // 16px
+
+@button-padding-horizontal:						12px;
+@button-mini-padding-horizontal:				6px;
+@button-small-padding-horizontal:				10px;
+@button-large-padding-horizontal:				15px;
+
+@button-background:								#eee;
+@button-color:									@global-color;
+@button-hover-background:						#f5f5f5;
+@button-hover-color:							@global-color;
+@button-active-background:						#ddd;
+@button-active-color:							@global-color;
+
+@button-primary-background:						@global-primary-background;
+@button-primary-color:							@global-contrast-color;
+@button-primary-hover-background:				#35b3ee;
+@button-primary-hover-color:					@global-contrast-color;
+@button-primary-active-background:				#0091ca;
+@button-primary-active-color:					@global-contrast-color;
+
+@button-success-background:						@global-success-background;
+@button-success-color:							@global-contrast-color;
+@button-success-hover-background:				#8ec73b;
+@button-success-hover-color:					@global-contrast-color;
+@button-success-active-background:				#72ae41;
+@button-success-active-color:					@global-contrast-color;
+
+@button-danger-background:						@global-danger-background;
+@button-danger-color:							@global-contrast-color;
+@button-danger-hover-background:				#e4354f;
+@button-danger-hover-color:						@global-contrast-color;
+@button-danger-active-background:				#c91032;
+@button-danger-active-color:					@global-contrast-color;
+
+@button-disabled-background:					#f5f5f5;
+@button-disabled-color:							@global-muted-color;
+
+@button-link-color:								@global-link-color;
+@button-link-hover-color:						@global-link-hover-color;
+@button-link-disabled-color:					@global-muted-color;
+
+/*
+ * Icon
+ */
+
+@icon-button-width: 							35px;
+@icon-button-height: 							@icon-button-width;
+@icon-button-border-radius: 					100%;
+@icon-button-background: 						#eee;
+@icon-button-font-size: 						@icon-button-width * 0.5;
+@icon-button-color: 							@global-color;
+
+@icon-button-hover-background: 					#f5f5f5;
+@icon-button-hover-color: 						@global-color;
+
+@icon-button-active-background: 				#ddd;
+@icon-button-active-color: 						@global-color;
+
+/*
+ * Close
+ */
+
+@close-alt-background:							#eee;
+
+/*
+ * Badge
+ */
+
+@badge-background:								@global-primary-background;
+@badge-padding-horizontal:						5px;
+@badge-font-size:								round(@global-font-size * 0.71); // 10px
+@badge-font-weight:								bold;
+@badge-line-height:								round(@badge-font-size * 1.4); // 14px
+@badge-color:									@global-contrast-color;
+@badge-text-transform:							none;
+
+@badge-notification-font-size:					round(@global-font-size * 0.85); // 12px
+@badge-notification-line-height:				round(@badge-notification-font-size * 1.5); // 18px
+
+@badge-success-background:						@global-success-background;
+@badge-warning-background:						@global-warning-background;
+@badge-danger-background:						@global-danger-background;
+
+/*
+ * Alert
+ */
+
+@alert-margin-vertical:							@global-margin;
+@alert-padding:									10px;
+@alert-background:								#ebf7fd;
+@alert-color:									#2d7091;
+
+@alert-success-background:						#f2fae3;
+@alert-success-color:							#659f13;
+
+@alert-warning-background:						#fffceb;
+@alert-warning-color:							#e28327;
+
+@alert-danger-background:						#fff1f0;
+@alert-danger-color:							#d85030;
+
+@alert-large-padding:							20px;
+
+/*
+ * Thumbnail
+ */
+
+@thumbnail-padding:								4px;
+@thumbnail-border:								@global-border;
+@thumbnail-background:							@global-background;
+@thumbnail-hover-border:						darken(@global-border, 20%);
+@thumbnail-hover-background:					@global-background;
+@thumbnail-caption-color:						@global-color;
+
+/*
+ * Overlay
+ */
+
+@overlay-area-background:						rgba(0,0,0,0.3);
+@overlay-area-icon:								"\f002";
+@overlay-area-icon-size:						50px;
+@overlay-area-icon-color:						@global-contrast-color;
+
+@overlay-caption-background:					rgba(0,0,0,0.5);
+@overlay-caption-padding:						@global-margin;
+@overlay-caption-color:							@global-contrast-color;
+
+/*
+ * Progress
+ */
+
+@progress-height:								20px;
+@progress-mini-height:							6px;
+@progress-small-height:							12px;
+
+@progress-margin-vertical:						@global-margin;
+@progress-background:							#eee;
+
+@progress-bar-background:						@global-primary-background;
+@progress-bar-font-size:						round(@global-font-size * 0.85); // 12px
+@progress-bar-color:							@global-contrast-color;
+
+@progress-bar-success-background:				@global-success-background;
+@progress-bar-warning-background:				@global-warning-background;
+@progress-bar-danger-background:				@global-danger-background;
+
+/*
+ * Search
+ */
+
+@search-width:									120px;
+@search-focus-width:							180px;
+@search-height: 								@global-height;
+@search-padding: 								30px;
+@search-border: 								rgba(0,0,0,0);
+@search-background: 							rgba(0,0,0,0);
+@search-color:									@global-color;
+@search-placeholder-color:						@global-muted-color;
+
+@search-icon: 									"\f002";
+@search-icon-size: 								14px;
+@search-icon-color:			 					rgba(0,0,0,0.2);
+
+@search-close-icon: 							"\f00d";
+@search-close-size: 							14px;
+@search-close-color: 							rgba(0,0,0,0.2);
+@search-close-icon-loading: 					"\f110";
+
+/*
+ * Dropdown
+ */
+
+@dropdown-z-index:								@global-z-index;
+@dropdown-width:								200px;
+@dropdown-margin-top:							5px;
+@dropdown-padding:								15px;
+@dropdown-background:							#f5f5f5;
+@dropdown-color:								@global-color;
+@dropdown-animation:							uk-animation-fade;
+@dropdown-divider-border:						@global-border;
+
+@dropdown-small-padding:						5px;
+
+@dropdown-navbar-margin:						0;
+@dropdown-navbar-background:					#f5f5f5;
+@dropdown-navbar-color:							@global-color;
+@dropdown-navbar-animation:						uk-animation-slide-down;
+
+@dropdown-search-width:							300px;
+@dropdown-search-margin-top:					0;
+@dropdown-search-background:					#f5f5f5;
+@dropdown-search-color:							@global-color;
+@dropdown-search-animation:						uk-animation-slide-down;
+@dropdown-search-navbar-margin-top:				((@navbar-nav-height - @search-height) / 2);
+@dropdown-search-navbar-margin-right:			-@navbar-nav-padding-horizontal;
+
+/*
+ * Modal
+ */
+
+@modal-z-index:									(@global-z-index + 20);
+@modal-background:								rgba(0,0,0,0.6);
+
+@modal-dialog-background:						@global-background;
+
+/*
+ * Off-canvas
+ */
+
+@offcanvas-z-index:								(@global-z-index + 10);
+@offcanvas-background:							rgba(0,0,0,0.1);
+
+@offcanvas-bar-width:							270px;
+@offcanvas-bar-background:						#333;
+
+@offcanvas-panel-margin:						20px 15px;
+@offcanvas-panel-color:							#777;
+@offcanvas-panel-title-color:					@offcanvas-panel-link-color;
+@offcanvas-panel-link-color:					#ccc;
+@offcanvas-panel-link-hover-color:				#fff;
+
+@offcanvas-search-background: 					darken(@offcanvas-bar-background, 10%);
+@offcanvas-search-border: 						rgba(0,0,0,0);
+@offcanvas-search-color:						@offcanvas-panel-link-color;
+@offcanvas-search-placeholder-color:			@offcanvas-panel-color;
+@offcanvas-search-icon-color:			 		@offcanvas-panel-color;
+
+/*
+ * Tooltip
+ */
+
+@tooltip-z-index:								(@global-z-index + 30);
+@tooltip-max-width:								200px;
+@tooltip-background:							#333;
+@tooltip-triangle-size:							5px;
+
+@tooltip-color:									rgba(255,255,255,0.7);
+@tooltip-font-size:								round(@global-font-size * 0.85); // 12px;
+@tooltip-line-height:							round(@tooltip-font-size * 1.5); // 18px
+
+/*
+ * Text
+ */
+
+@text-small-font-size:							round(@global-font-size * 0.78); // 11px
+@text-small-line-height:						round(@text-small-font-size * 1.45); // 16px
+@text-large-font-size:							round(@global-font-size * 1.28); // 18px
+@text-large-line-height:						round(@text-large-font-size * 1.33); // 24px
+
+@text-muted-color:								@global-muted-color;
+@text-info-color:								#2d7091;
+@text-success-color:							#659f13;
+@text-warning-color:							#e28327;
+@text-danger-color:								#d85030;
+
+/*
+ * Utility
+ */
+
+@utility-container-max-width:					980px;
+@utility-container-padding-horizontal:			@global-grid-gutter;
+
+@utility-container-large-max-width:				1200px;
+@utility-container-large-padding-horizontal:	@global-grid-large-gutter;
+
+@utility-align-horizontal:						@global-margin;
+@utility-align-vertical:						@global-margin;
+
+@utility-margin-vertical:						@global-margin;
+
+@utility-heading-large-font-size:				round(@global-font-size * 3.71); // 52px
+@utility-heading-large-line-height:				round(@utility-heading-large-font-size * 1.23); // 64px
+
+@utility-scrollable-text-height:				300px;
+
+@utility-scrollable-box-height:					150px;
+@utility-scrollable-box-padding:				10px;
+@utility-scrollable-box-border:					@global-border;

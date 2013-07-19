@@ -1,0 +1,59 @@
+/*
+ * Pagination component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+.hook-pagination-item() { border-radius: @theme_global-border-radius; }
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. `background-origin` is needed to prevent the background-image gradients from repeating under the border
+ */
+
+.hook-pagination-link() {
+	border: 1px solid @theme_pagination-border;
+	border-bottom-color: @theme_pagination-border-bottom;
+	background-origin: border-box; /* 1 */
+	background-image: -webkit-linear-gradient(top, @theme_pagination-gradient-top, @theme_pagination-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_pagination-gradient-top, @theme_pagination-gradient-bottom);
+	text-shadow: 0 1px 0 @theme_pagination-text-shadow;
+}
+
+.hook-pagination-link-hover() { background-image: none; }
+
+.hook-pagination-link-active() {
+	border-color: @theme_pagination-border;
+	border-top-color: @theme_pagination-border-bottom;
+	background-image: none;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/*
+ * Active
+ * 1. `background-origin` is needed to prevent the background-image gradients from repeating under the border
+ */
+
+.hook-pagination-active() {
+	border: 1px solid @theme_pagination-active-border;
+	border-bottom-color: @theme_pagination-active-border-bottom;
+	background-origin: border-box; /* 1 */
+	background-image: -webkit-linear-gradient(top, @theme_pagination-primary-gradient-top, @theme_pagination-primary-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_pagination-primary-gradient-top, @theme_pagination-primary-gradient-bottom);
+	text-shadow: 0 -1px 0 @theme_pagination-contrast-text-shadow;
+}
+
+/*
+ * Disabled
+ */
+
+.hook-pagination-disabled() {
+	border: 1px solid @theme_pagination-border;
+	text-shadow: 0 1px 0 @theme_pagination-text-shadow;
+}

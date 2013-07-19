@@ -1,0 +1,160 @@
+/*
+ * Button component
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * 1.  `background-origin` is needed to prevent the background-image gradients from repeating under the border
+ */
+
+.hook-button() {
+	border: 1px solid @theme_button-border;
+	border-bottom-color: @theme_button-border-bottom;
+	background-origin: border-box; /* 1 */
+	background-image: -webkit-linear-gradient(top, @theme_button-gradient-top, @theme_button-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_button-gradient-top, @theme_button-gradient-bottom);
+	border-radius: @theme_global-border-radius;
+	text-shadow: 0 1px 0 @theme_button-text-shadow;
+}
+
+.hook-button-hover() { background-image: none; }
+
+.hook-button-active() {
+	border-color: @theme_button-border;
+	border-top-color: @theme_button-border-bottom;
+	background-image: none;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+/* Color modifiers
+ ========================================================================== */
+
+/*
+ * Modifier: `uk-button-primary`
+ */
+
+.hook-button-primary() {
+	background-image: -webkit-linear-gradient(top, @theme_button-primary-gradient-top, @theme_button-primary-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_button-primary-gradient-top, @theme_button-primary-gradient-bottom);
+	border-color: @theme_button-contrast-border;
+	border-bottom-color: @theme_button-contrast-border-bottom;
+	text-shadow: 0 -1px 0 @theme_button-contrast-text-shadow;
+}
+
+.hook-button-primary-hover() { background-image: none; }
+.hook-button-primary-active() {
+	background-image: none;
+	border-color: @theme_button-contrast-border;
+	border-top-color: @theme_button-contrast-border-bottom;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/*
+ * Modifier: `uk-button-success`
+ */
+
+.hook-button-success() {
+	background-image: -webkit-linear-gradient(top, @theme_button-success-gradient-top, @theme_button-success-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_button-success-gradient-top, @theme_button-success-gradient-bottom);
+	border-color: @theme_button-contrast-border;
+	border-bottom-color: @theme_button-contrast-border-bottom;
+	text-shadow: 0 -1px 0 @theme_button-contrast-text-shadow;
+}
+
+.hook-button-success-hover() { background-image: none; }
+.hook-button-success-active() {
+	background-image: none;
+	border-color: @theme_button-contrast-border;
+	border-top-color: @theme_button-contrast-border-bottom;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/*
+ * Modifier: `uk-button-danger`
+ */
+
+.hook-button-danger() {
+	background-image: -webkit-linear-gradient(top, @theme_button-danger-gradient-top, @theme_button-danger-gradient-bottom);
+	background-image: linear-gradient(to bottom, @theme_button-danger-gradient-top, @theme_button-danger-gradient-bottom);
+	border-color: @theme_button-contrast-border;
+	border-bottom-color: @theme_button-contrast-border-bottom;
+	text-shadow: 0 -1px 0 @theme_button-contrast-text-shadow;
+}
+
+.hook-button-danger-hover() { background-image: none; }
+.hook-button-danger-active() {
+	background-image: none;
+	border-color: @theme_button-contrast-border;
+	border-top-color: @theme_button-contrast-border-bottom;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+
+/* Disabled state
+ ========================================================================== */
+
+.hook-button-disable() {
+	border-color: @theme_button-border;
+	background-image: none;
+	box-shadow: none;
+	text-shadow: 0 1px 0 @theme_button-text-shadow;
+}
+
+
+/* Modifier: `uk-button-link`
+ ========================================================================== */
+
+.hook-button-link() {
+	box-shadow: none;
+	text-shadow: none;
+}
+
+
+/* Size modifiers
+ ========================================================================== */
+
+.hook-button-large() { border-radius: @theme_global-border-radius + 1; }
+
+
+/* Sub-object `uk-button-group`
+ ========================================================================== */
+
+/*
+ * Reset border-radius
+ */
+
+.uk-button-group > .uk-button:not(:first-child):not(:last-child),
+.uk-button-group > div:not(:first-child):not(:last-child) .uk-button { border-radius: 0; }
+
+.uk-button-group > .uk-button:first-child,
+.uk-button-group > div:first-child .uk-button {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.uk-button-group > .uk-button:last-child,
+.uk-button-group > div:last-child .uk-button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+/*
+ * Collapse border
+ */
+
+.uk-button-group > .uk-button:nth-child(n+2),
+.uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -1px; }
+
+/*
+ * Create position context to superimpose the successor elements border
+ * Known issue: If you use an `a` element as button and an icon inside,
+ * the active state will not work if you click the icon inside the button
+ * Workaround: Just use a `button` or `input` element as button
+ */
+
+.uk-button-group .uk-button:active { position: relative; }

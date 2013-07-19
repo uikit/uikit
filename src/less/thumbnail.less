@@ -1,0 +1,85 @@
+/*
+ * Name:			Thumbnail
+ * Description:		Defines styles for image thumbnails
+ *
+ * Component:		`uk-thumbnail`
+ *
+ * Sub-objects: 	`uk-thumbnail-caption`
+ *
+ * Modifiers:		`uk-thumbnail-mini`
+ *					`uk-thumbnail-small`
+ *					`uk-thumbnail-medium`
+ *					`uk-thumbnail-large`
+ *					`uk-thumbnail-expand`
+ *
+ ========================================================================== */
+
+
+/* Component
+ ========================================================================== */
+
+/*
+ * 1. Corrects max-width behavior (2.) if padding and border are used
+ * 2. Responsive behavior
+ * 3. Required for `figure` element
+ */
+
+.uk-thumbnail {
+	/* Required for `a`, `div` or `figure` elements */
+	display: inline-block;
+	-moz-box-sizing: border-box; /* 1 */
+	box-sizing: border-box;
+	max-width: 100%; /* 2 */
+	margin: 0; /* 3 */
+	padding: @thumbnail-padding;
+	border: 1px solid @thumbnail-border;
+	background: @thumbnail-background;
+	.hook-thumbnail;
+}
+
+/*
+ * Hover state for `a` elements
+ * 1. Apply hover style also to focus state
+ * 2. Needed for caption
+ * 3. Remove default focus style
+ */
+
+a.uk-thumbnail:hover,
+a.uk-thumbnail:focus { /* 1 */
+	border-color: @thumbnail-hover-border;
+	background-color: @thumbnail-hover-background;
+	text-decoration: none; /* 2 */
+	outline: none; /* 3 */
+	.hook-thumbnail-hover;
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.uk-thumbnail-caption {
+	padding-top: (@thumbnail-padding + 1);
+	text-align: center;
+	color: @thumbnail-caption-color;
+	.hook-thumbnail-caption;
+}
+
+
+/* Sizes
+ ========================================================================== */
+
+.uk-thumbnail-mini { width: 150px; }
+.uk-thumbnail-small { width: 200px; }
+.uk-thumbnail-medium { width: 300px; }
+.uk-thumbnail-large { width: 400px; }
+
+.uk-thumbnail-expand,
+.uk-thumbnail-expand > img { width: 100%; }
+
+
+/* Hooks
+ ========================================================================== */
+
+.hook-thumbnail() {}
+.hook-thumbnail-hover() {}
+.hook-thumbnail-caption() {}
