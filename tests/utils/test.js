@@ -2,7 +2,8 @@
 
     window.CustomizerForceUpdate = true;
 
-    document.writeln('<script> var less = { env: "development" };</script>');
+    window.less = { env: "development" };
+
     document.writeln('<script src="../vendor/less.js"></script>');
     document.writeln('<script src="../vendor/jquery.js"></script>');
     document.writeln('<script src="../vendor/jquery.rtl.js"></script>');
@@ -97,7 +98,7 @@
 
         if(iniframe) return;
 
-        var lessparser = new less.Parser({paths: []}), lesscode = [];
+        var lessparser = new less.Parser({paths: [], env: "development"}), lesscode = [];
 
         lesscode.push('@import "'+(themes[theme])+'";');
 
