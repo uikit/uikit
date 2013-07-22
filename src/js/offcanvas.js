@@ -63,9 +63,13 @@
                     doc.removeClass("uk-offcanvas-page").css("width", "");
                 }).css("margin-" + $.UIkit.langdirection, 0);
 
-                bar.one($.UIkit.support.transition.end, function() {
-                    panel.removeClass("uk-active");
-                }).css({"left": "", "right": ""});
+                setTimeout(function(){
+
+                    bar.one($.UIkit.support.transition.end, function() {
+                        panel.removeClass("uk-active");
+                    }).css({"left": "", "right": ""});
+                }, 150);
+
 
             } else {
                 doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-" + $.UIkit.langdirection, "");
