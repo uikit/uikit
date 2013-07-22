@@ -12,6 +12,8 @@
         this.options = $.extend({}, this.options, options);
 
         this.element = $(element).on({
+            "focus"     : function(e) { $this.show(); },
+            "blur"      : function(e) { $this.hide(); },
             "mouseenter": function(e) { $this.show(); },
             "mouseleave": function(e) { $this.hide(); }
         });
@@ -81,6 +83,7 @@
         },
 
         hide: function() {
+            if(this.element.is("input") && this.element[0]===document.activeElement) return;
             $tooltip.hide();
         },
 
@@ -97,7 +100,7 @@
     });
 
     // init code
-    $(document).on("mouseenter.tooltip.uikit", "[data-uk-tooltip]", function(e) {
+    $(document).on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
         var ele = $(this);
 
         if (!ele.data("tooltip")) {
