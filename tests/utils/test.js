@@ -58,18 +58,22 @@
             "tooltip",
             "utility"
         ],
-        themes     = {  "default":"../src/less/uikit.less" },
+        themes     = { "default":"../src/less/uikit.less" },
         theme      = localStorage["uikit.theme"] || 'default',
         direction  = localStorage["uikit.direction"] || 'ltr';
-
-    theme = themes[theme] ? theme : 'default';
 
 
     window.onload = function(){
 
+
+        var incustomizer = (iniframe && !window.parent.themes);
+
+        themes = $.extend(themes, window.parent.themes ? window.parent.themes:{});
+        theme  = themes[theme] ? theme : 'default';
+
         var testfolder = $("script[src$='utils/test.js']").attr("src").replace("utils/test.js", ""),
 
-            testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "20px 5px 20px 0"),
+            testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "20px 5px"),
             optgroup   = $('<optgroup label="Components"></optgroup>').appendTo(testselect);
 
 
@@ -84,19 +88,40 @@
         });
 
         // rtl
-        var rtlcheckbox = $('<input type="checkbox">').on('change', function(e) {
-                localStorage['uikit.direction'] = ($(e.target).is(':checked') ? 'rtl' : 'ltr');
+        if(!incustomizer) {
+
+            var rtlcheckbox = $('<input type="checkbox">').on('change', function(e) {
+                    localStorage['uikit.direction'] = ($(e.target).is(':checked') ? 'rtl' : 'ltr');
+                    location.reload();
+                }).css("margin", "20px 5px").prop('checked', direction == 'rtl'),
+
+                rtlcheckbox_label = $("<label>RTL mode</label>").css("margin", "20px 10px 20px 3px").prepend(rtlcheckbox);
+
+            if($.UIkit) $.UIkit.langdirection = rtlcheckbox.is(":checked") ? "right":"left";
+
+            $("body").prepend(rtlcheckbox_label);
+        }
+
+        //themes
+        if (!incustomizer && Object.keys(themes).length>1) {
+
+            var themeselect = $('<select></select>');
+
+            $.each(themes, function(key){
+                themeselect.append('<option value="'+key+'">'+key+'</option>');
+            });
+
+            themeselect.val(theme).on("change", function(){
+                localStorage["uikit.theme"] = themeselect.val();
                 location.reload();
-            }).css("margin", "20px 5px 20px 0").prop('checked', direction == 'rtl'),
-            rtlcheckbox_label = $("<label>RTL mode</label>").css("margin", "20px 10px 20px 3px").prepend(rtlcheckbox);
+            });
 
-        if($.UIkit) $.UIkit.langdirection = rtlcheckbox.is(":checked") ? "right":"left";
-
-        if(!iniframe) $("body").prepend(rtlcheckbox_label);
+            $("body").prepend(themeselect);
+        }
 
         $("body").prepend(testselect);
 
-        if(iniframe) return;
+        if(incustomizer) return;
 
         var lessparser = new less.Parser({paths: [], env: "development"}), lesscode = [];
 
