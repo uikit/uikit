@@ -90,6 +90,10 @@ jQuery(function($) {
                 css = $.rtl.convert2RTL(css);
             }
 
+            css = css.replace(/http(.+?)\/fonts\/?/g, function(){
+                return "../fonts/";
+            });
+
             if ($download) {
                 a.attr("href", $url.createObjectURL(new Blob([css], {type: "application/force-download"})));
             } else {
