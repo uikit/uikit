@@ -1,16 +1,27 @@
 ### W.I.P.
 
-  * remove absolute paths from css build by customizer
-  * grunt script updated
-  * updated switcher.html docs
-  * updated off-canvas - minor fix
-  * smoother off canvas effect
-  * tooltip component: added focus and blur events.
-  * disable less cache in tests
-  * remove customizer link from offcanvas
-  * multiple offcanvas trigger fix
-  * fixed issues link on frontpage
-  * favicon updated
+  - Improvements
+    - Added focus and blur events to tooltip component
+    - Smoother off-canvas effect
+
+  - Fixes
+    - Fixed multiple offcanvas trigger
+    - Minor off-canvas fix
+
+  - Documentation
+    - Removed customizer link from offcanvas
+    - Fixed issues link on frontpage
+    - Fixed typo in switcher docs
+    - Updated favicon
+
+  - Customizer
+    - Remove absolute paths from css build
+
+  - Tests
+    - Disabled less cache in tests
+
+  - Repository
+    - Updated grunt script
 
 ### 1.0.0 (July 19, 2013)
 
