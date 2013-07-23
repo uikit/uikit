@@ -1,8 +1,9 @@
+
 module.exports = function(grunt) {
 
     "use strict";
 
-    var pkginfo = grunt.file.readJSON("package.json");
+    var fs = require('fs'), pkginfo = grunt.file.readJSON("package.json");
 
     grunt.initConfig({
 
@@ -24,74 +25,56 @@ module.exports = function(grunt) {
                     jshintrc: "src/.jshintrc"
                 },
                 src: ["tests/js/unit/*.js"]
-            },
-            grunt: {
-                src: ["Gruntfile.js"]
             }
         },
 
-        less: {
-            dist: {
-                options: {
-                    paths: ["src/less"]
+        less: (function(){
+
+            var lessconf = {
+                uikit: {
+                    options: { paths: ["src/less"] },
+                    files: { "dist/css/uikit.css": ["src/less/uikit.less"] }
                 },
-                files: {
-                    "dist/css/uikit.css": ["src/less/uikit.less"]
-                }
-            },
-            distmin: {
-                options: {
-                    paths: ["src/less"],
-                    yuicompress: true
+                uikitmin: {
+                    options: { paths: ["src/less"], yuicompress: true },
+                    files: { "dist/css/uikit.min.css": ["src/less/uikit.less"] }
                 },
-                files: {
-                    "dist/css/uikit.min.css": ["src/less/uikit.less"]
+                docsmin: {
+                    options: { paths: ["docs/less"], yuicompress: true },
+                    files: { "docs/css/uikit.docs.min.css": ["docs/less/uikit.less"] }
                 }
-            },
-            gradient: {
-                options: {
-                    paths: ["src/themes/gradient"]
-                },
-                files: {
-                    "dist/css/uikit.gradient.css": ["src/themes/gradient/uikit.less"]
-                }
-            },
-            gradientmin: {
-                options: {
-                    paths: ["src/themes/gradient"],
-                    yuicompress: true
-                },
-                files: {
-                    "dist/css/uikit.gradient.min.css": ["src/themes/gradient/uikit.less"]
-                }
-            },
-            almostflat: {
-                options: {
-                    paths: ["src/themes/almost-flat"]
-                },
-                files: {
-                    "dist/css/uikit.almostflat.css": ["src/themes/almost-flat/uikit.less"]
-                }
-            },
-            almostflatmin: {
-                options: {
-                    paths: ["src/themes/almost-flat"],
-                    yuicompress: true
-                },
-                files: {
-                    "dist/css/uikit.almostflat.min.css": ["src/themes/almost-flat/uikit.less"]
-                }
-            },
-            docsmin: {
-                options: {
-                    paths: ["docs/less"],
-                    yuicompress: true
-                },
-                files: {
-                    "docs/css/uikit.docs.min.css": ["docs/less/uikit.less"]
-                }
-            }
-        },
+            };
+
+            fs.readdirSync('src/themes').forEach(function(f){
+                var stats = fs.lstatSync('src/themes/'+f);
+
+                    // Is it a directory?
+                    if (stats.isDirectory() && f!=="blank") {
+
+
+                        var files = {};
+
+                        files["dist/css/uikit."+f+".css"] = ["src/themes/"+f+"/uikit.less"];
+
+                        lessconf[f] = {
+                            "options": { paths: ["src/themes/"+f] },
+                            "files": files
+                        };
+
+                        var filesmin = {};
+
+                        filesmin["dist/css/uikit."+f+".min.css"] = ["src/themes/"+f+"/uikit.less"];
+
+                        lessconf[f+"min"] = {
+                            "options": { paths: ["src/themes/"+f], yuicompress: true},
+                            "files": filesmin
+                        };
+                    }
+
+            });
+
+            return lessconf;
+        })(),
 
         copy: {
             fonts: {

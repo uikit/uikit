@@ -4,6 +4,7 @@
 	"evil": true,
 	"browser": true,
 	"globals": {
-	    "module": false
+	    "module": false,
+        "require": true
 	}
 }
