@@ -4,7 +4,7 @@
     - Added focus and blur events to tooltip component
     - Smoother off-canvas effect
   - **Fixes**
-    - Fixed multiple offcanvas trigger
+    - Fixed multiple off-canvas trigger
     - Minor off-canvas fix
   - **Documentation**
     - Removed customizer link from off-canvas
