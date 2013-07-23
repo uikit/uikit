@@ -1,21 +1,21 @@
 ### W.I.P.
 
-  - Improvements
+  - **Improvements**
     - Added focus and blur events to tooltip component
     - Smoother off-canvas effect
-  - Fixes
+  - **Fixes**
     - Fixed multiple offcanvas trigger
     - Minor off-canvas fix
-  - Documentation
+  - **Documentation**
     - Removed customizer link from off-canvas
     - Fixed issues link on frontpage
     - Fixed typo in switcher doc
     - Updated favicon
-  - Customizer
+  - **Customizer**
     - Remove absolute paths from CSS build
-  - Tests
+  - **Tests**
     - Disabled LESS cache in tests
-  - Repository
+  - **Repository**
     - Updated grunt script
 
 ### 1.0.0 (July 19, 2013)
