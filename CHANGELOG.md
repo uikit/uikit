@@ -7,14 +7,14 @@
     - Fixed multiple offcanvas trigger
     - Minor off-canvas fix
   - Documentation
-    - Removed customizer link from offcanvas
+    - Removed customizer link from off-canvas
     - Fixed issues link on frontpage
-    - Fixed typo in switcher docs
+    - Fixed typo in switcher doc
     - Updated favicon
   - Customizer
-    - Remove absolute paths from css build
+    - Remove absolute paths from CSS build
   - Tests
-    - Disabled less cache in tests
+    - Disabled LESS cache in tests
   - Repository
     - Updated grunt script
 
