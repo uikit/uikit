@@ -99,7 +99,7 @@
 
             if($.UIkit) $.UIkit.langdirection = rtlcheckbox.is(":checked") ? "right":"left";
 
-            $("body").prepend(rtlcheckbox_label);
+            $(".uk-container").prepend(rtlcheckbox_label);
         }
 
         //themes
@@ -116,10 +116,10 @@
                 location.reload();
             });
 
-            $("body").prepend(themeselect);
+            $(".uk-container").prepend(themeselect);
         }
 
-        $("body").prepend(testselect);
+        $(".uk-container").prepend(testselect);
 
         if(incustomizer) return;
 
@@ -149,7 +149,7 @@
             });
         } catch(e){
 
-            $("body").prepend('<div style="border: 1px solid rgb(238, 0, 0);background:rgb(238, 238, 238); border-radius: 5px; color: rgb(238, 0, 0); padding: 15px; margin-bottom: 15px;">'+e.message+" in file "+e.filename+'</div>');
+            $(".uk-container").prepend('<div style="border: 1px solid rgb(238, 0, 0);background:rgb(238, 238, 238); border-radius: 5px; color: rgb(238, 0, 0); padding: 15px; margin-bottom: 15px;">'+e.message+" in file "+e.filename+'</div>');
         }
     };
 

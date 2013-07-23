@@ -13,79 +13,83 @@
 		</style>
 	</head>
 
-	<body class="uk-container uk-container-center">
+	<body>
 
-		<h1>Search</h1>
+		<div class="uk-container uk-container-center">
 
-		<form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
-			<input class="uk-search-field" type="search" placeholder="search...">
-			<button class="uk-search-close" type="reset"></button>
-		</form>
+			<h1>Search</h1>
 
-		<h2>Search in navbar</h2>
+			<form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
+				<input class="uk-search-field" type="search" placeholder="search...">
+				<button class="uk-search-close" type="reset"></button>
+			</form>
 
-		<div class="uk-margin">
+			<h2>Search in navbar</h2>
 
-			<nav class="uk-navbar" data-uk-navbar>
+			<div class="uk-margin">
 
-				<ul class="uk-navbar-nav">
-					<li class="uk-active"><a href="">Active</a></li>
-					<li><a href="">Item</a></li>
-					<li class="uk-parent" data-uk-dropdown>
-						<a href="">Parent</a>
+				<nav class="uk-navbar" data-uk-navbar>
 
-						<div class="uk-dropdown uk-dropdown-navbar">
-							<ul class="uk-nav uk-nav-navbar">
-								<li><a href="#">Item</a></li>
-								<li><a href="#">Another item</a></li>
-								<li class="uk-nav-header">Header</li>
-								<li><a href="#">Item</a></li>
-								<li><a href="#">Another item</a></li>
-								<li class="uk-nav-divider"></li>
-								<li><a href="#">Separated item</a></li>
-							</ul>
+					<ul class="uk-navbar-nav">
+						<li class="uk-active"><a href="">Active</a></li>
+						<li><a href="">Item</a></li>
+						<li class="uk-parent" data-uk-dropdown>
+							<a href="">Parent</a>
+
+							<div class="uk-dropdown uk-dropdown-navbar">
+								<ul class="uk-nav uk-nav-navbar">
+									<li><a href="#">Item</a></li>
+									<li><a href="#">Another item</a></li>
+									<li class="uk-nav-header">Header</li>
+									<li><a href="#">Item</a></li>
+									<li><a href="#">Another item</a></li>
+									<li class="uk-nav-divider"></li>
+									<li><a href="#">Separated item</a></li>
+								</ul>
+							</div>
+
+						</li>
+					</ul>
+
+					<div class="uk-navbar-flip">
+						<div class="uk-navbar-content">
+							<form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
+								<input class="uk-search-field" type="search" placeholder="search...">
+								<button class="uk-search-close" type="reset"></button>
+							</form>
 						</div>
-
-					</li>
-				</ul>
-
-				<div class="uk-navbar-flip">
-					<div class="uk-navbar-content">
-						<form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
-							<input class="uk-search-field" type="search" placeholder="search...">
-							<button class="uk-search-close" type="reset"></button>
-						</form>
 					</div>
+
+				</nav>
+
+			</div>
+
+			<h2>Search in offcanvas</h2>
+
+			<p>
+				<button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-1'}">Open</button>
+			</p>
+
+			<div id="offcanvas-1" class="uk-offcanvas">
+
+				<div class="uk-offcanvas-bar">
+
+					<form class="uk-search">
+						<input class="uk-search-field" type="search" placeholder="search...">
+						<button class="uk-search-close" type="reset"></button>
+					</form>
+
+					<div class="uk-panel">
+						<h3 class="uk-panel-title">Panel title</h3>
+						Lorem ipsum dolor sit amet, <a href="#">consetetur</a> sadipscing elitr.
+					</div>
+
+					<form class="uk-search">
+						<input class="uk-search-field" type="search" placeholder="search...">
+						<button class="uk-search-close" type="reset"></button>
+					</form>
+
 				</div>
-
-			</nav>
-
-		</div>
-
-		<h2>Search in offcanvas</h2>
-
-		<p>
-			<button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-1'}">Open</button>
-		</p>
-
-		<div id="offcanvas-1" class="uk-offcanvas">
-
-			<div class="uk-offcanvas-bar">
-
-				<form class="uk-search">
-					<input class="uk-search-field" type="search" placeholder="search...">
-					<button class="uk-search-close" type="reset"></button>
-				</form>
-
-				<div class="uk-panel">
-					<h3 class="uk-panel-title">Panel title</h3>
-					Lorem ipsum dolor sit amet, <a href="#">consetetur</a> sadipscing elitr.
-				</div>
-
-				<form class="uk-search">
-					<input class="uk-search-field" type="search" placeholder="search...">
-					<button class="uk-search-close" type="reset"></button>
-				</form>
 
 			</div>
 

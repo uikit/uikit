@@ -3,6 +3,7 @@
   - Improvements
     - Added focus and blur events to tooltip component
     - Smoother off-canvas effect
+    - Added hook for uk-container
   - Fixes
     - Fixed multiple offcanvas trigger
     - Minor off-canvas fix

@@ -28,6 +28,8 @@
 	box-sizing: border-box;
 	max-width: @utility-container-max-width;
 	padding: 0 @utility-container-padding-horizontal;
+	.hook-container;
+
 }
 
 /* Only large screens */
@@ -274,7 +276,7 @@
  */
 
 .uk-scrollable-text {
-	max-height: @utility-scrollable-text-height;
+	max-height: @utility-scrollable-text-he2ight;
 	overflow-y: scroll;
 }
 
@@ -362,4 +364,5 @@
 /* Hooks
  ========================================================================== */
 
+.hook-container() {}
 .hook-scrollable-box() {}
