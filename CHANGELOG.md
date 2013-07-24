@@ -6,11 +6,11 @@
     - Added hook for uk-container
   - **Fixes**
     - Fixed multiple off-canvas trigger
-    - Minor off-canvas fix
   - **Documentation**
     - Removed customizer link from off-canvas
     - Fixed issues link on frontpage
     - Fixed typo in switcher doc
+    - Fixed typo in off-canvas doc
     - Updated favicon
   - **Customizer**
     - Remove absolute paths from CSS build
