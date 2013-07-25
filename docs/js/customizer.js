@@ -74,9 +74,15 @@ jQuery(function($) {
                         return;
                     }
 
-                    var contents = e.target.result, lessvar, vars = {}, $options = $customizer.data("customizer").$options;
+                    var contents = e.target.result, lessvar, vars = {}, $options = $customizer.data("customizer").$options, theme;
 
                     contents.split("\n").forEach(function(line){
+
+                        if(line.match(/\/\* theme\: (.+) \*\//)) {
+                            theme = line.match(/\/\* theme\: (.+) \*\//)[1];
+                            return;
+                        }
+
 
                         lessvar = line.match(/(@[\w\-]+)\s*:\s*([^;]*);/i);
 
@@ -85,15 +91,19 @@ jQuery(function($) {
                         }
                     });
 
-                    if(vars) {
+                    if(Object.keys(vars).length) {
 
-                        var name = $customizer.data("customizer").$select.val();
+                        var name = theme ? theme : $customizer.data("customizer").$select.val();
 
                         $.each($options.styles, function(i, style) {
                             if (name == style.name) {
-                                $.extend($options.styles[i].variables, vars);
+                                $options.styles[i].variables = $.extend({}, $options.styles[i].variables, vars);
                             }
                         });
+
+                        if(theme) {
+                            $customizer.data("customizer").$select.val(theme);
+                        }
 
                         $customizer.trigger("update", [false, true]);
 
@@ -162,6 +172,8 @@ jQuery(function($) {
         if (style.fonts) {
             source.push(style.fonts);
         }
+
+        source.push("/* theme: "+$customizer.data("customizer").$select.val()+" */\n")
 
         $.each(style.config.groups, function(i, grp) {
             first = true;
