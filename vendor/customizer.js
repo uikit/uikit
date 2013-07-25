@@ -4,6 +4,10 @@
 
         var $select = $($options.select, $element), $sidebar = $($options.sidebar, $element), $advanced = $($options.advanced, $element), $style;
 
+
+        this.$options = $options;
+        this.$select  = $select;
+
         $element.on({
             "update": function(e, value, force) {
 
@@ -257,9 +261,10 @@
                             {{/groups}} \
                         </div>'
                 }
-            };
+            },
+            $this = $(this);
 
-            new Customizer($(this), $.extend({}, defaults, options));
+            $this.data("customizer", new Customizer($this, $.extend({}, defaults, options)));
         });
     };
 

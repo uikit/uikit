@@ -57,6 +57,58 @@ jQuery(function($) {
         $("a[download]").attr("href", "#modal").uk("modal");
     }
 
+    if (window.FileReader) {
+
+       $customizer.on("change", ".cm-sidebar-import-less input", function(){
+
+            var f = this.files[0], input = this;
+
+            if (f && f.name) {
+
+                var r = new FileReader();
+
+                r.onload = function(e) {
+
+                    if(!f.name.match(/\.less$/i)) {
+                        alert("Please select a LESS file!");
+                        return;
+                    }
+
+                    var contents = e.target.result, lessvar, vars = {}, $options = $customizer.data("customizer").$options;
+
+                    contents.split("\n").forEach(function(line){
+
+                        lessvar = line.match(/(@[\w\-]+)\s*:\s*([^;]*);/i);
+
+                        if(lessvar) {
+                            vars[lessvar[1]] = lessvar[2];
+                        }
+                    });
+
+                    if(vars) {
+
+                        var name = $customizer.data("customizer").$select.val();
+
+                        $.each($options.styles, function(i, style) {
+                            if (name == style.name) {
+                                $.extend($options.styles[i].variables, vars);
+                            }
+                        });
+
+                        $customizer.trigger("update", [false, true]);
+
+                        $(input).replaceWith(input.outerHTML);
+                    }
+                  };
+
+                r.readAsText(f);
+            }
+        });
+
+    } else {
+
+    }
+
     function renderPreview(style) {
 
         $.less.getCSS(style.less, {id: style.name, variables: style.variables, compress: true}).done(function(css) {

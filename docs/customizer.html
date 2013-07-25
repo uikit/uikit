@@ -63,18 +63,27 @@
                 <section class="cm-sidebar-content"></section>
 
                 <footer class="cm-sidebar-footer">
-                    <div class="uk-grid uk-grid-preserve">
-                        <div class="uk-width-1-1">
-                            <label><input type="checkbox" name="minify"> Minify CSS</label>
-                        </div>
-                    </div>
-                    <div class="uk-grid uk-grid-preserve">
+                    <div class="uk-grid uk-grid-gutter-preserve" data-uk-grid-margin data-uk-grid-match>
+
                         <div class="uk-width-1-2">
                             <a href class="uk-button uk-button-expand uk-button-primary" download="uikit.css">Get CSS</a>
                         </div>
+
+                        <div class="uk-width-1-2">
+                            <label><input type="checkbox" name="minify"> Minify CSS</label>
+                        </div>
+
                         <div class="uk-width-1-2">
                             <a href class="uk-button uk-button-expand" download="style.less">Get LESS</a>
                         </div>
+
+                        <div class="uk-width-1-2">
+                            <button class="uk-button cm-sidebar-import-less">
+                                Import LESS
+                                <input type="file">
+                            </button>
+                        </div>
+
                     </div>
                 </footer>
 
