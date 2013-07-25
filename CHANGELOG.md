@@ -16,6 +16,7 @@
     - Remove absolute paths from CSS build
   - **Tests**
     - Disabled LESS cache in tests
+    - Tests initialized on domready instead of on window load
   - **Repository**
     - Updated grunt script
 

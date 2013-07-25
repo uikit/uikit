@@ -5,7 +5,6 @@
     window.less = { env: "development" };
 
     document.writeln('<script src="../vendor/less.js"></script>');
-    document.writeln('<script src="../vendor/jquery.js"></script>');
     document.writeln('<script src="../vendor/jquery.rtl.js"></script>');
     document.writeln('<script src="../src/js/core.js"></script>');
     document.writeln('<script src="../src/js/alert.js"></script>');
@@ -63,7 +62,7 @@
         direction  = localStorage["uikit.direction"] || 'ltr';
 
 
-    window.onload = function(){
+    $(function(){
 
 
         var incustomizer = (iniframe && !window.parent.themes);
@@ -151,6 +150,6 @@
 
             $(".uk-container").prepend('<div style="border: 1px solid rgb(238, 0, 0);background:rgb(238, 238, 238); border-radius: 5px; color: rgb(238, 0, 0); padding: 15px; margin-bottom: 15px;">'+e.message+" in file "+e.filename+'</div>');
         }
-    };
+    });
 
 })(window !== window.parent);
