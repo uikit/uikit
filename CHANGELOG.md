@@ -6,6 +6,7 @@
   - Added smoother off-canvas effect
   - Added hook for uk-container
   - Fixed multiple off-canvas trigger
+  - Fixed `select` height for multiple and size attributes
 
 **Documentation and repository**
 
