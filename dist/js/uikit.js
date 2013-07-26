@@ -905,9 +905,13 @@
                     doc.removeClass("uk-offcanvas-page").css("width", "");
                 }).css("margin-" + $.UIkit.langdirection, 0);
 
-                bar.one($.UIkit.support.transition.end, function() {
-                    panel.removeClass("uk-active");
-                }).css({"left": "", "right": ""});
+                setTimeout(function(){
+
+                    bar.one($.UIkit.support.transition.end, function() {
+                        panel.removeClass("uk-active");
+                    }).css({"left": "", "right": ""});
+                }, 150);
+
 
             } else {
                 doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-" + $.UIkit.langdirection, "");
@@ -915,8 +919,8 @@
                 bar.css({"left": "", "right": ""});
             }
 
-            panel.off(".offcanvas");
-            $(document).off(".offcanvas");
+            panel.off(".ukoffcanvas");
+            $(document).off(".ukoffcanvas");
         }
     };
 
@@ -1117,6 +1121,8 @@
         this.options = $.extend({}, this.options, options);
 
         this.element = $(element).on({
+            "focus"     : function(e) { $this.show(); },
+            "blur"      : function(e) { $this.hide(); },
             "mouseenter": function(e) { $this.show(); },
             "mouseleave": function(e) { $this.hide(); }
         });
@@ -1186,6 +1192,7 @@
         },
 
         hide: function() {
+            if(this.element.is("input") && this.element[0]===document.activeElement) return;
             $tooltip.hide();
         },
 
@@ -1202,7 +1209,7 @@
     });
 
     // init code
-    $(document).on("mouseenter.tooltip.uikit", "[data-uk-tooltip]", function(e) {
+    $(document).on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
         var ele = $(this);
 
         if (!ele.data("tooltip")) {
