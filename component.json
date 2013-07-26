@@ -1,6 +1,6 @@
 {
     "name": "uikit",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": ["dist/uikit.min.js","dist/uikit.min.css"],
 
     "dependencies": {

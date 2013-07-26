@@ -10,10 +10,11 @@
 
 **Documentation and repository**
 
+  - Added import LESS functionality to customizer
   - Remove absolute paths from CSS build in customizer
   - Disabled LESS cache in tests
   - Tests initialized on domready instead of on window load
-  - Updated grunt script
+  - Updated grunt script to auto compile themes
   - Fixed several typos and links
   - Updated favicon
 
