@@ -332,17 +332,21 @@ html { overflow-y: scroll; }
 	border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-.cm-sidebar-import-less {
-	position:relative;
-	overflow:hidden;
+.cm-sidebar-footer .uk-grid + .uk-grid { margin-top: 15px; }
+
+.cm-file-import {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
 }
 
-.cm-sidebar-import-less input[type=file] {
+.cm-file-import input[type=file] {
 	position: absolute;
 	left: 0;
 	top: 0;
 	font-size: 500px;
 	opacity: 0;
+	cursor: pointer;
 }
 
 /*
