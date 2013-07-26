@@ -59,7 +59,7 @@ jQuery(function($) {
 
     if (window.FileReader) {
 
-       $customizer.on("change", ".cm-sidebar-import-less input", function(){
+       $customizer.on("change", ".cm-file-import input", function(){
 
             var f = this.files[0], input = this;
 
