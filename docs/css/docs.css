@@ -342,7 +342,7 @@ html { overflow-y: scroll; }
 
 .cm-file-import input[type=file] {
 	position: absolute;
-	left: 0;
+	right: 0;
 	top: 0;
 	font-size: 500px;
 	opacity: 0;
