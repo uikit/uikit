@@ -1,24 +1,20 @@
-### W.I.P.
+# Changelog
 
-  - **Improvements**
-    - Added focus and blur events to tooltip component
-    - Smoother off-canvas effect
-    - Added hook for uk-container
-  - **Fixes**
-    - Fixed multiple off-canvas trigger
-  - **Documentation**
-    - Removed customizer link from off-canvas
-    - Fixed issues link on frontpage
-    - Fixed typo in switcher doc
-    - Fixed typo in off-canvas doc
-    - Updated favicon
-  - **Customizer**
-    - Remove absolute paths from CSS build
-  - **Tests**
-    - Disabled LESS cache in tests
-    - Tests initialized on domready instead of on window load
-  - **Repository**
-    - Updated grunt script
+### 1.0.1 (July 26, 2013)
+
+  - Added focus and blur events to tooltip component
+  - Added smoother off-canvas effect
+  - Added hook for uk-container
+  - Fixed multiple off-canvas trigger
+
+**Documentation and repository**
+
+  - Remove absolute paths from CSS build in customizer
+  - Disabled LESS cache in tests
+  - Tests initialized on domready instead of on window load
+  - Updated grunt script
+  - Fixed several typos and links
+  - Updated favicon
 
 ### 1.0.0 (July 19, 2013)
 
