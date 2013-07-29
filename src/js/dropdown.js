@@ -101,10 +101,12 @@
 
         checkDimensions: function() {
 
-            var dropdown = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
-                offset   = dropdown.show().offset(),
-                width    = dropdown.outerWidth(),
-                conainerwidth = $(this.options.container).width();
+            var dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
+                offset    = dropdown.show().offset(),
+                width     = dropdown.outerWidth(),
+                container = $(this.options.container),
+                containerwidth  = container.width(),
+                containeroffset = container.offset() ? container.offset().left:0;
 
             // centered dropdown
             if (this.centered) {
@@ -112,7 +114,7 @@
                 offset = dropdown.offset();
 
                 // reset dropdown
-                if ((width + offset.left) > conainerwidth || offset.left < 0) {
+                if ((width + offset.left) > containerwidth || offset.left < 0) {
                     dropdown.css("margin-" + $.UIkit.langdirection, "");
                     offset = dropdown.offset();
                 }
@@ -127,8 +129,8 @@
 
                 if ($.UIkit.langdirection == 'right') {
 
-                    var right1   = conainerwidth - (this.justified.offset().left + jwidth),
-                        right2   = conainerwidth - (dropdown.offset().left + dropdown.outerWidth());
+                    var right1   = containerwidth - (this.justified.offset().left + jwidth),
+                        right2   = containerwidth - (dropdown.offset().left + dropdown.outerWidth());
 
                     dropdown.css("margin-right", right1 - right2);
 
@@ -140,7 +142,7 @@
 
             }
 
-            if ((width + offset.left) > conainerwidth) {
+            if ((width + (offset.left-containeroffset)) > containerwidth) {
                 dropdown.addClass("uk-dropdown-flip");
                 offset = dropdown.offset();
             }
