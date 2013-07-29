@@ -9,16 +9,20 @@
         this.element = $(element);
         this.options = $.extend({}, this.options, options);
 
-        this.element.on("mouseenter", this.options.toggler, function(e) {
-            $this.element.find($this.options.toggler).not(this).removeClass("uk-open");
+        this.element.find(".uk-dropdown-navbar").each(function(){
+
+            var parent = $(this).parent();
+
+            if (!parent.attr("data-uk-dropdown")) {
+                parent.attr("data-uk-dropdown", JSON.stringify($this.options));
+            }
         });
     };
 
     $.extend(Navbar.prototype, {
 
         options: {
-            "toggler": ".uk-navbar-nav > li",
-            "remaintime": 800
+            "dropdown": {}
         }
 
     });
