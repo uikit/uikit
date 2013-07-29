@@ -3,6 +3,8 @@
 ### W.I.P.
 
   - Removed auto dropdown flip if navbar is flipped
+  - Navbar.js reworked
+  - Dropdown.js: container option added
 
 ### 1.0.1 (July 26, 2013)
 
