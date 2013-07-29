@@ -95,14 +95,16 @@
         options: {
             "mode": "hover",
             "remaintime": 800,
-            "justify": false
+            "justify": false,
+            "container": $(window)
         },
 
         checkDimensions: function() {
 
             var dropdown = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
                 offset   = dropdown.show().offset(),
-                width    = dropdown.outerWidth();
+                width    = dropdown.outerWidth(),
+                conainerwidth = this.options.container.width();
 
             // centered dropdown
             if (this.centered) {
@@ -110,7 +112,7 @@
                 offset = dropdown.offset();
 
                 // reset dropdown
-                if ((width + offset.left) > window.innerWidth || offset.left < 0) {
+                if ((width + offset.left) > conainerwidth || offset.left < 0) {
                     dropdown.css("margin-" + $.UIkit.langdirection, "");
                     offset = dropdown.offset();
                 }
@@ -125,9 +127,8 @@
 
                 if ($.UIkit.langdirection == 'right') {
 
-                    var winwidth = $(window).width(),
-                        right1   = winwidth - (this.justified.offset().left + jwidth),
-                        right2   = winwidth - (dropdown.offset().left + dropdown.outerWidth());
+                    var right1   = conainerwidth - (this.justified.offset().left + jwidth),
+                        right2   = conainerwidth - (dropdown.offset().left + dropdown.outerWidth());
 
                     dropdown.css("margin-right", right1 - right2);
 
@@ -139,7 +140,7 @@
 
             }
 
-            if ((width + offset.left) > window.innerWidth) {
+            if ((width + offset.left) > conainerwidth) {
                 dropdown.addClass("uk-dropdown-flip");
                 offset = dropdown.offset();
             }
