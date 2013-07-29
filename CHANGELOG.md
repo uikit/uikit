@@ -1,5 +1,9 @@
 # Changelog
 
+### W.I.P.
+
+  - Removed auto dropdown flip if navbar is flipped
+
 ### 1.0.1 (July 26, 2013)
 
   - Added focus and blur events to tooltip component
