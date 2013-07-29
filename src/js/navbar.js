@@ -14,7 +14,7 @@
             var parent = $(this).parent();
 
             if (!parent.attr("data-uk-dropdown")) {
-                parent.attr("data-uk-dropdown", JSON.stringify($this.options));
+                parent.attr("data-uk-dropdown", JSON.stringify($this.options.dropdown));
             }
         });
     };
