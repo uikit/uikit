@@ -104,7 +104,7 @@
             var dropdown = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
                 offset   = dropdown.show().offset(),
                 width    = dropdown.outerWidth(),
-                conainerwidth = this.options.container.width();
+                conainerwidth = $(this.options.container).width();
 
             // centered dropdown
             if (this.centered) {
