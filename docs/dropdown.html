@@ -330,6 +330,34 @@
 		&lt;div class="uk-dropdown"&gt;...&lt;/div&gt;
 	&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+							<hr class="uk-article-divider">
+
+							<h3>Automatic dropdown flip</h3>
+
+							<p>By default, the dropdown flips automatically when it gets too near to the viewport's edge. If you want it to align to a container element, just add the <code>data-uk-dropdown="{boundary:'#ID'}"</code> attribute, using a selector for the container.</p>
+
+							<h4 class="tm-article-subtitle">Example</h4>
+
+							<div id="boundary-emp" class="uk-button-dropdown" data-uk-dropdown="{boundary:'#boundary'}">
+								<button class="uk-button" type="submit">Boundary <i class="uk-icon-caret-down"></i></button>
+								<div class="uk-dropdown">
+									<ul class="uk-nav uk-nav-dropdown">
+										<li><a href="#">Item</a></li>
+										<li><a href="#">Another item</a></li>
+										<li class="uk-nav-header">Header</li>
+										<li><a href="#">Item</a></li>
+										<li><a href="#">Another item</a></li>
+										<li class="uk-nav-divider"></li>
+										<li><a href="#">Separated item</a></li>
+									</ul>
+								</div>
+							</div>
+
+							<h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div id="my-id"&gt;
+	&lt;div class="uk-button-dropdown" data-uk-dropdown="{boundary:'#my-id'}"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
 							<hr class="uk-article-divider">
 
