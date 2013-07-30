@@ -96,7 +96,6 @@ module.exports = function(grunt) {
                       "src/js/modal.js",
                       "src/js/offcanvas.js",
                       "src/js/nav.js",
-                      "src/js/navbar.js",
                       "src/js/tooltip.js",
                       "src/js/switcher.js",
                       "src/js/tab.js",

@@ -96,7 +96,7 @@
             "mode": "hover",
             "remaintime": 800,
             "justify": false,
-            "container": $(window)
+            "boundary": $(window)
         },
 
         checkDimensions: function() {
@@ -104,9 +104,9 @@
             var dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
                 offset    = dropdown.show().offset(),
                 width     = dropdown.outerWidth(),
-                container = $(this.options.container),
-                containerwidth  = container.width(),
-                containeroffset = container.offset() ? container.offset().left:0;
+                boundary = $(this.options.boundary),
+                boundarywidth  = boundary.width(),
+                boundaryoffset = boundary.offset() ? boundary.offset().left:0;
 
             // centered dropdown
             if (this.centered) {
@@ -114,7 +114,7 @@
                 offset = dropdown.offset();
 
                 // reset dropdown
-                if ((width + offset.left) > containerwidth || offset.left < 0) {
+                if ((width + offset.left) > boundarywidth || offset.left < 0) {
                     dropdown.css("margin-" + $.UIkit.langdirection, "");
                     offset = dropdown.offset();
                 }
@@ -129,8 +129,8 @@
 
                 if ($.UIkit.langdirection == 'right') {
 
-                    var right1   = containerwidth - (this.justified.offset().left + jwidth),
-                        right2   = containerwidth - (dropdown.offset().left + dropdown.outerWidth());
+                    var right1   = boundarywidth - (this.justified.offset().left + jwidth),
+                        right2   = boundarywidth - (dropdown.offset().left + dropdown.outerWidth());
 
                     dropdown.css("margin-right", right1 - right2);
 
@@ -142,7 +142,7 @@
 
             }
 
-            if ((width + (offset.left-containeroffset)) > containerwidth) {
+            if ((width + (offset.left-boundaryoffset)) > boundarywidth) {
                 dropdown.addClass("uk-dropdown-flip");
                 offset = dropdown.offset();
             }
