@@ -13,7 +13,6 @@
     document.writeln('<script src="../src/js/grid.js"></script>');
     document.writeln('<script src="../src/js/modal.js"></script>');
     document.writeln('<script src="../src/js/nav.js"></script>');
-    document.writeln('<script src="../src/js/navbar.js"></script>');
     document.writeln('<script src="../src/js/offcanvas.js"></script>');
     document.writeln('<script src="../src/js/search.js"></script>');
     document.writeln('<script src="../src/js/smooth-scroll.js"></script>');
