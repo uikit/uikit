@@ -334,11 +334,11 @@
 
 							<h3>Automatic dropdown flip</h3>
 
-							<p>By default, the dropdown flips automatically when it gets too near to the viewport's edge. If you want it to align to a container element, just add the <code>data-uk-dropdown="{boundary:'#ID'}"</code> attribute, using a selector for the container.</p>
+							<p>By default, the dropdown flips automatically when it exceeds the viewport's edge. If you want to flip it according to a container's boundary, just add the <code>data-uk-dropdown="{boundary:'#ID'}"</code> attribute, using a selector for the container.</p>
 
 							<h4 class="tm-article-subtitle">Example</h4>
 
-							<div id="boundary-emp" class="uk-button-dropdown" data-uk-dropdown="{boundary:'#boundary'}">
+							<div id="boundary" class="uk-button-dropdown" data-uk-dropdown="{boundary:'#boundary'}">
 								<button class="uk-button" type="submit">Boundary <i class="uk-icon-caret-down"></i></button>
 								<div class="uk-dropdown">
 									<ul class="uk-nav uk-nav-dropdown">
@@ -532,7 +532,7 @@
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;nav class="uk-navbar" data-uk-navbar&gt;
+<pre><code>&lt;nav class="uk-navbar"&gt;
 	&lt;ul class="uk-navbar-nav"&gt;
 
 		&lt;!-- This is the container enabling the JavaScript --&gt;
