@@ -60,6 +60,10 @@
         });
 
         this.dropdown = $('<div class="uk-dropdown uk-dropdown-search"><ul class="uk-nav uk-nav-search"></ul></div>').appendTo(this.form).find('.uk-nav-search');
+
+        if (this.options.flipDropdown) {
+            this.dropdown.parent().addClass('uk-dropdown-flip');
+        }
     };
 
     $.extend(Search.prototype, {
@@ -70,6 +74,7 @@
             method: 'post',
             minLength: 3,
             delay: 300,
+            flipDropdown: false,
             match: ':not(.uk-skip)',
             skipClass: 'uk-skip',
             loadingClass: 'uk-loading',

@@ -1,5 +1,10 @@
 # Changelog
 
+### W.I.P.
+
+  - Added flipDropdown option to search component
+
+
 ### 1.0.2 (July 31, 2013)
 
   - Added boundary option for dropdowns
