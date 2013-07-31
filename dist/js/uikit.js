@@ -1,4 +1,4 @@
-/*! UIkit 1.0.1 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.0.2 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 (function($, doc) {
 
@@ -389,6 +389,12 @@
         this.centered  = this.dropdown.hasClass("uk-dropdown-center");
         this.justified = this.options.justify ? $(this.options.justify) : false;
 
+        this.boundary  = $(this.options.boundary);
+
+        if(!this.boundary.length) {
+            this.boundary = $(window);
+        }
+
         if (this.options.mode == "click") {
 
             this.element.on("click", function(e) {
@@ -470,14 +476,17 @@
         options: {
             "mode": "hover",
             "remaintime": 800,
-            "justify": false
+            "justify": false,
+            "boundary": $(window)
         },
 
         checkDimensions: function() {
 
-            var dropdown = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
-                offset   = dropdown.show().offset(),
-                width    = dropdown.outerWidth();
+            var dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
+                offset    = dropdown.show().offset(),
+                width     = dropdown.outerWidth(),
+                boundarywidth  = this.boundary.width(),
+                boundaryoffset = this.boundary.offset() ? this.boundary.offset().left:0;
 
             // centered dropdown
             if (this.centered) {
@@ -485,7 +494,7 @@
                 offset = dropdown.offset();
 
                 // reset dropdown
-                if ((width + offset.left) > window.innerWidth || offset.left < 0) {
+                if ((width + offset.left) > boundarywidth || offset.left < 0) {
                     dropdown.css("margin-" + $.UIkit.langdirection, "");
                     offset = dropdown.offset();
                 }
@@ -500,9 +509,8 @@
 
                 if ($.UIkit.langdirection == 'right') {
 
-                    var winwidth = $(window).width(),
-                        right1   = winwidth - (this.justified.offset().left + jwidth),
-                        right2   = winwidth - (dropdown.offset().left + dropdown.outerWidth());
+                    var right1   = boundarywidth - (this.justified.offset().left + jwidth),
+                        right2   = boundarywidth - (dropdown.offset().left + dropdown.outerWidth());
 
                     dropdown.css("margin-right", right1 - right2);
 
@@ -514,7 +522,7 @@
 
             }
 
-            if ((width + offset.left) > window.innerWidth) {
+            if ((width + (offset.left-boundaryoffset)) > boundarywidth) {
                 dropdown.addClass("uk-dropdown-flip");
                 offset = dropdown.offset();
             }
@@ -1061,46 +1069,6 @@
 
             if (!nav.data("nav")) {
                 nav.data("nav", new Nav(nav, UI.Utils.options(nav.data("uk-nav"))));
-            }
-        });
-    });
-
-})(jQuery, jQuery.UIkit);
-
-(function($, UI) {
-
-    "use strict";
-
-    var Navbar = function(element, options) {
-
-        var $this = this;
-
-        this.element = $(element);
-        this.options = $.extend({}, this.options, options);
-
-        this.element.on("mouseenter", this.options.toggler, function(e) {
-            $this.element.find($this.options.toggler).not(this).removeClass("uk-open");
-        });
-    };
-
-    $.extend(Navbar.prototype, {
-
-        options: {
-            "toggler": ".uk-navbar-nav > li",
-            "remaintime": 800
-        }
-
-    });
-
-    UI["navbar"] = Navbar;
-
-    // init code
-    $(function() {
-        $("[data-uk-navbar]").each(function() {
-            var navbar = $(this);
-
-            if (!navbar.data("navbar")) {
-                navbar.data("navbar", new Navbar(navbar, UI.Utils.options(navbar.data("uk-navbar"))));
             }
         });
     });

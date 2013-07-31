@@ -1,4 +1,4 @@
-/*! UIkit 1.0.1 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.0.2 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 /* LESS related */
 /*
@@ -5436,8 +5436,6 @@ input.uk-search-field {
  *					Panel: `uk-panel`
  *					Navbar: `uk-navbar-flip`
  *
- * Used by:			Navbar
- *
  ========================================================================== */
 /* Component
  ========================================================================== */
@@ -5508,16 +5506,6 @@ input.uk-search-field {
   bottom: 100%;
   margin-top: auto;
   margin-bottom: 5px;
-}
-/* Dependency `uk-navbar-flip`
- ========================================================================== */
-.uk-navbar-flip .uk-dropdown {
-  left: auto;
-  right: 0;
-}
-.uk-navbar-flip .uk-dropdown-flip {
-  left: 0;
-  right: auto;
 }
 /* Nav in dropdown
  ========================================================================== */

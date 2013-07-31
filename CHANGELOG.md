@@ -2,13 +2,13 @@
 
 ### 1.0.2 (July 31, 2013)
 
-  - Removed auto dropdown flip if navbar is flipped
-  - Removed Navbar.js
   - Added boundary option for dropdowns
+  - Removed Navbar.js
+  - Removed auto dropdown flip if navbar is flipped
 
-  **Documentation and repository**
+**Documentation and repository**
 
-    - Updated dropdown and navbar documentation
+  - Updated dropdown and navbar documentation
 
 
 ### 1.0.1 (July 26, 2013)
