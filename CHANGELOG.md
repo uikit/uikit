@@ -1,10 +1,15 @@
 # Changelog
 
-### W.I.P.
+### 1.0.2 (July 31, 2013)
 
   - Removed auto dropdown flip if navbar is flipped
-  - Navbar.js reworked
-  - Dropdown.js: container option added
+  - Navbar.js removed
+  - Dropdown.js: boundary option added
+
+  **Documentation and repository**
+
+    - Updated dropdown and navbar documentation
+
 
 ### 1.0.1 (July 26, 2013)
 
