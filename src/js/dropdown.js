@@ -14,6 +14,12 @@
         this.centered  = this.dropdown.hasClass("uk-dropdown-center");
         this.justified = this.options.justify ? $(this.options.justify) : false;
 
+        this.boundary  = $(this.options.boundary);
+
+        if(!this.boundary.length) {
+            this.boundary = $(window);
+        }
+
         if (this.options.mode == "click") {
 
             this.element.on("click", function(e) {
@@ -104,9 +110,8 @@
             var dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
                 offset    = dropdown.show().offset(),
                 width     = dropdown.outerWidth(),
-                boundary = $(this.options.boundary),
-                boundarywidth  = boundary.width(),
-                boundaryoffset = boundary.offset() ? boundary.offset().left:0;
+                boundarywidth  = this.boundary.width(),
+                boundaryoffset = this.boundary.offset() ? this.boundary.offset().left:0;
 
             // centered dropdown
             if (this.centered) {
