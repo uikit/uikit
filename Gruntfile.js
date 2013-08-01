@@ -39,6 +39,10 @@ module.exports = function(grunt) {
                     options: { paths: ["src/less"], yuicompress: true },
                     files: { "dist/css/uikit.min.css": ["src/less/uikit.less"] }
                 },
+                uikitless: {
+                    options: { paths: ["src/less"] },
+                    files: { "dist/less/uikit.less": ["src/less/uikit.less"] }
+                },
                 docsmin: {
                     options: { paths: ["docs/less"], yuicompress: true },
                     files: { "docs/css/uikit.docs.min.css": ["docs/less/uikit.less"] }
@@ -68,6 +72,15 @@ module.exports = function(grunt) {
                         lessconf[f+"min"] = {
                             "options": { paths: ["src/themes/"+f], yuicompress: true},
                             "files": filesmin
+                        };
+
+                        var filesless = {};
+
+                        filesless["dist/less/uikit."+f+".less"] = ["src/themes/"+f+"/uikit.less"];
+
+                        lessconf[f] = {
+                            "options": { paths: ["src/themes/"+f] },
+                            "files": filesless
                         };
                     }
 
