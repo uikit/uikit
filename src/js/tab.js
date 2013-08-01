@@ -4,6 +4,8 @@
 
     var Tab = function(element, options) {
 
+        var $this    = this;
+
         this.element = $(element);
         this.options = $.extend({
             connect: false
@@ -13,7 +15,7 @@
             this.connect = $(this.options.connect);
         }
 
-        var mobiletab = $('<li></li>').addClass("uk-tab-responsive uk-active").append('<a href="javascript:void(0);"> <i class="uk-icon-caret-down"></i></a>'),
+        var mobiletab = $('<li class="uk-tab-responsive uk-active"><a href="javascript:void(0);"> <i class="uk-icon-caret-down"></i></a></li>'),
             caption   = mobiletab.find("a:first"),
             dropdown  = $('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>'),
             ul        = dropdown.find("ul");
@@ -23,21 +25,19 @@
         if (this.element.hasClass("uk-tab-bottom")) dropdown.addClass("uk-dropdown-up");
         if (this.element.hasClass("uk-tab-flip")) dropdown.addClass("uk-dropdown-flip");
 
-        this.element.find("a").each(function() {
+        this.element.find("a").each(function(i) {
 
-            var tab  = $(this),
-                item = $('<li><a href="#">' + tab.text() + '</a></li>').on("click", function(e) {
-                    e.preventDefault();
-                    tab.parent().trigger("click");
-                    mobiletab.removeClass("uk-open");
+            var tab  = $(this).parent(),
+                item = $('<li><a href="javascript:void(0);">' + tab.text() + '</a></li>').on("click", function(e) {
+                    $this.element.data("switcher").show(i);
                 });
 
-            if (!tab.parents(".uk-disabled:first").length) ul.append(item);
+            if (!$(this).parents(".uk-disabled:first").length) ul.append(item);
         });
 
         this.element.uk("switcher", {"toggler": ">li:not(.uk-tab-responsive)", "connect": this.options.connect});
 
-        mobiletab.append(dropdown).uk("dropdown");
+        mobiletab.append(dropdown).uk("dropdown", {"mode": "click"});
 
         this.element.append(mobiletab).data({
             "dropdown": mobiletab.data("dropdown"),
