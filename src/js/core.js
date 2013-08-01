@@ -49,7 +49,7 @@
 
     })();
 
-    UI.support.touch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+    UI.support.touch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
 
 
     UI.Utils = {};
