@@ -3,6 +3,7 @@
 ### W.I.P.
 
   - Added flipDropdown option to search component
+  - Fixed responsive tab in tab components
 
 
 ### 1.0.2 (July 31, 2013)
