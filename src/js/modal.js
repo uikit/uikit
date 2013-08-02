@@ -52,7 +52,7 @@
             var $this = this;
 
             if (this.isActive()) return;
-            if (active) active.hide();
+            if (active) active.hide(true);
 
             this.element.removeClass("uk-open").show();
 
@@ -62,11 +62,11 @@
             $this.element.addClass("uk-open");
         },
 
-        hide: function() {
+        hide: function(force) {
 
             if (!this.isActive()) return;
 
-            if (UI.support.transition) {
+            if (!force && UI.support.transition) {
 
                 var $this = this;
 
@@ -83,7 +83,8 @@
         _hide: function() {
             this.element.hide().removeClass("uk-open");
             html.removeClass("uk-modal-page");
-            active = false;
+
+            if(active===this) active = false;
         },
 
         isActive: function() {
