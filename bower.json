@@ -1,0 +1,21 @@
+{
+  "name": "uikit",
+  "version": "1.0.2",
+  "main": [
+    "dist/js/uikit.min.js",
+    "dist/css/uikit.min.css",
+    "dist/fonts/fontawesome-webfont.eot",
+    "dist/fonts/fontawesome-webfont.ttf",
+    "dist/fonts/fontawesome-webfont.woff"
+  ],
+  "dependencies": {
+    "jquery": "~1.8"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
