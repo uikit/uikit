@@ -6,7 +6,9 @@
         $("html").addClass("uk-touch");
     }
 
-    var Offcanvas = {
+    var $win      = $(window),
+        $doc      = $(document),
+        Offcanvas = {
 
         show: function(element) {
 
@@ -17,7 +19,7 @@
             var doc       = $("html"),
                 bar       = element.find(".uk-offcanvas-bar:first"),
                 dir       = bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1,
-                scrollbar = dir == -1 && $(window).width() < window.innerWidth ? (window.innerWidth - $(window).width()) : 0;
+                scrollbar = dir == -1 && $win.width() < window.innerWidth ? (window.innerWidth - $win.width()) : 0;
 
             scrollpos = {x: window.scrollX, y: window.scrollY};
 
@@ -26,7 +28,7 @@
             doc.css("width", doc.outerWidth()).css("margin-top", -1*scrollpos.y).addClass("uk-offcanvas-page").width(); // .width() - force redraw
             doc.css("margin-" + $.UIkit.langdirection, (bar.width() - scrollbar) * dir);
 
-            bar.css($.UIkit.langdirection == "left" ? (dir == -1 ? "right" : "left") : (dir == -1 ? "left" : "right"), 0);
+            bar.css("transform", "translateX(0%)");
 
             element.off(".ukoffcanvas").on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
 
@@ -42,7 +44,7 @@
                 Offcanvas.hide();
             });
 
-            $(document).on('keydown.offcanvas', function(e) {
+            $doc.on('keydown.offcanvas', function(e) {
                 if (e.keyCode === 27) { // ESC
                     Offcanvas.hide();
                 }
@@ -63,23 +65,20 @@
                     window.scrollTo(scrollpos.x, scrollpos.y);
                 }).css("margin-" + $.UIkit.langdirection, 0);
 
-                setTimeout(function(){
-
-                    bar.one($.UIkit.support.transition.end, function() {
-                        panel.removeClass("uk-active");
-                    }).css({"left": "", "right": ""});
-                }, 150);
-
+                bar.one($.UIkit.support.transition.end, function() {
+                    panel.removeClass("uk-active");
+                    bar.css("animation-delay", "");
+                }).css("animation-delay", "0.15s").css({"transform": ""});
 
             } else {
                 doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-top","").css("margin-" + $.UIkit.langdirection, "");
                 panel.removeClass("uk-active");
-                bar.css({"left": "", "right": ""});
+                bar.css({"transform": ""});
                 window.scrollTo(scrollpos.x, scrollpos.y);
             }
 
             panel.off(".ukoffcanvas");
-            $(document).off(".ukoffcanvas");
+            $doc.off(".ukoffcanvas");
         }
 
     }, scrollpos;
@@ -108,7 +107,7 @@
 
 
     // init code
-    $(document).on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+    $doc.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
 
         e.preventDefault();
 

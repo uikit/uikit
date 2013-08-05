@@ -79,7 +79,9 @@
 	position: fixed;
 	top: 0;
 	bottom: 0;
-	left: -100%;
+	left: 0;
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%);
 	z-index: @offcanvas-z-index + 1;
 	/* 2 */
 	width: @offcanvas-bar-width;
@@ -89,8 +91,8 @@
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	/* 4 */
-	-webkit-transition: left 0.3s ease-in-out, right 0.3s ease-in-out,  right 0.3s ease-in-out, right 0.3s ease-in-out;
-	transition: left 0.3s ease-in-out, right 0.3s ease-in-out,  right 0.3s ease-in-out, right 0.3s ease-in-out;
+	-webkit-transition: -webkit-transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out;
 	.hook-offcanvas-bar;
 }
 
@@ -100,7 +102,9 @@
 
 .uk-offcanvas-bar-flip {
 	left: auto;
-	right: -100%;
+	right: 0;
+	-webkit-transform: translateX(200%);
+	transform: translateX(200%);
 }
 
 
