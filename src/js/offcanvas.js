@@ -17,15 +17,14 @@
             var doc       = $("html"),
                 bar       = element.find(".uk-offcanvas-bar:first"),
                 dir       = bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1,
-                scrollbar = dir == -1 && $(window).width() < window.innerWidth ? (window.innerWidth - $(window).width()) : 0,
-                scrollpos = {x: window.scrollX, y: window.scrollY};
+                scrollbar = dir == -1 && $(window).width() < window.innerWidth ? (window.innerWidth - $(window).width()) : 0;
+
+            scrollpos = {x: window.scrollX, y: window.scrollY};
 
             element.addClass("uk-active");
 
-            doc.css("width", doc.outerWidth()).addClass("uk-offcanvas-page").width(); // .width() - force redraw
+            doc.css("width", doc.outerWidth()).css("margin-top", -1*scrollpos.y).addClass("uk-offcanvas-page").width(); // .width() - force redraw
             doc.css("margin-" + $.UIkit.langdirection, (bar.width() - scrollbar) * dir);
-
-            window.scrollTo(scrollpos.x, scrollpos.y);
 
             bar.css($.UIkit.langdirection == "left" ? (dir == -1 ? "right" : "left") : (dir == -1 ? "left" : "right"), 0);
 
@@ -60,7 +59,8 @@
             if ($.UIkit.support.transition && !force) {
 
                 doc.one($.UIkit.support.transition.end, function() {
-                    doc.removeClass("uk-offcanvas-page").css("width", "");
+                    doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-top","");
+                    window.scrollTo(scrollpos.x, scrollpos.y);
                 }).css("margin-" + $.UIkit.langdirection, 0);
 
                 setTimeout(function(){
@@ -72,15 +72,17 @@
 
 
             } else {
-                doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-" + $.UIkit.langdirection, "");
+                doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-top","").css("margin-" + $.UIkit.langdirection, "");
                 panel.removeClass("uk-active");
                 bar.css({"left": "", "right": ""});
+                window.scrollTo(scrollpos.x, scrollpos.y);
             }
 
             panel.off(".ukoffcanvas");
             $(document).off(".ukoffcanvas");
         }
-    };
+
+    }, scrollpos;
 
 
     var OffcanvasTrigger = function(element, options) {
