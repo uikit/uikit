@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Scrollspy component - UIkit tests</title>
+        <script src="../vendor/jquery.js"></script>
+        <script src="utils/test.js"></script>
+        <style>
+
+            [data-uk-scrollspy] {
+                opacity: 0;
+                transition: ;
+                background: red;
+                color: #fff;
+                height: 100px;
+                -webkit-transition: opacity 0.4s ease-out 0.5s;
+                transition: opacity 0.4s ease-out 0.5s;
+            }
+
+            .uk-scrollspy-inview {
+                opacity: 1;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Scroll Spy</h1>
+
+            <div style="height:800px;">
+                Scroll down...
+            </div>
+
+            <div data-uk-scrollspy>Scroll down...</div>
+
+            <div style="height:1600px;"></div>
+
+            <div data-uk-scrollspy>Scroll up...</div>
+
+        </div>
+
+    </body>
+</html>

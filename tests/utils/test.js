@@ -15,6 +15,7 @@
     document.writeln('<script src="../src/js/nav.js"></script>');
     document.writeln('<script src="../src/js/offcanvas.js"></script>');
     document.writeln('<script src="../src/js/search.js"></script>');
+    document.writeln('<script src="../src/js/scrollspy.js"></script>');
     document.writeln('<script src="../src/js/smooth-scroll.js"></script>');
     document.writeln('<script src="../src/js/touch.js"></script>');
     document.writeln('<script src="../src/js/switcher.js"></script>');
@@ -45,6 +46,7 @@
             "pagination",
             "panel",
             "progress",
+            "scrollspy",
             "search",
             "smooth-scroll",
             "subnav",

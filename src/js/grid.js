@@ -1,4 +1,3 @@
-
 (function($, UI) {
 
     "use strict";
@@ -18,7 +17,7 @@
 
             if (!this.columns.length) return;
 
-            win.bind(event, (function() {
+            win.on(event, (function() {
                 var fn = function() {
                     $this.match();
                 };
@@ -83,7 +82,7 @@
 
         if (!this.columns.length) return;
 
-        win.bind(event, (function() {
+        win.on(event, (function() {
             var fn = function() {
                 $this.process();
             };
