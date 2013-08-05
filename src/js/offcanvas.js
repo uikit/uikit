@@ -1,8 +1,8 @@
-(function($, UI, DocumentTouch) {
+(function($, UI) {
 
     "use strict";
 
-    if ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch) {
+    if (UI.support.touch) {
         $("html").addClass("uk-touch");
     }
 
@@ -121,4 +121,4 @@
         }
     });
 
-})(jQuery, jQuery.UIkit, window.DocumentTouch);
+})(jQuery, jQuery.UIkit);
