@@ -15,12 +15,12 @@
             this.connect = $(this.options.connect);
         }
 
-        var mobiletab = $('<li class="uk-tab-responsive uk-active"><a href="javascript:void(0);"> <i class="uk-icon-caret-down"></i></a></li>'),
+        var mobiletab = $('<li class="uk-tab-responsive uk-active"><a href="javascript:void(0);"></a></li>'),
             caption   = mobiletab.find("a:first"),
             dropdown  = $('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>'),
             ul        = dropdown.find("ul");
 
-        caption.text(this.element.find("li.uk-active:first").find("a").text());
+        caption.html(this.element.find("li.uk-active:first").find("a").text());
 
         if (this.element.hasClass("uk-tab-bottom")) dropdown.addClass("uk-dropdown-up");
         if (this.element.hasClass("uk-tab-flip")) dropdown.addClass("uk-dropdown-flip");
@@ -44,7 +44,7 @@
             "mobilecaption": caption
         }).on("ui.switcher.show", function(e, tab) {
             mobiletab.addClass("uk-active");
-            caption.text(tab.find("a").text());
+            caption.html(tab.find("a").text());
         });
 
     };
