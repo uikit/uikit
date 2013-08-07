@@ -61,4 +61,4 @@ We built UIkit using popular open source projects.
 
 ## Copyright and license
 
-Copyright 2013 YOOtheme GmbH under [the MIT license](LICENSE.md).
+Copyright 2013 [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
