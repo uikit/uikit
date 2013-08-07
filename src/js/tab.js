@@ -15,6 +15,14 @@
             this.connect = $(this.options.connect);
         }
 
+        if (window.location.hash) {
+            var active = this.element.children().filter(window.location.hash);
+
+            if (active.length) {
+                this.element.children().removeClass('uk-active').filter(active).addClass("uk-active");
+            }
+        }
+
         var mobiletab = $('<li class="uk-tab-responsive uk-active"><a href="javascript:void(0);"></a></li>'),
             caption   = mobiletab.find("a:first"),
             dropdown  = $('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>'),
