@@ -83,7 +83,7 @@
             optgroup.append('<option value="'+value+'.html">'+name+'</option>');
         });
 
-        testselect.val(testselect.find("option[value$='"+location.href.split("/").slice(-1)[0]+"']").attr("value")).on("change", function(){
+        testselect.val(testselect.find("option[value='"+location.href.split("/").slice(-1)[0]+"']").attr("value")).on("change", function(){
                 if(testselect.val()) location.href = testfolder+testselect.val();
         });
 
