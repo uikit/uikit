@@ -442,7 +442,7 @@ html { overflow-y: scroll; }
 .cm-more { display: none; }
 
 .cm-show-advanced .cm-advanced,
-.cm-show-more .cm-more { display: block; }
+.cm-show-advanced .cm-show-more .cm-more { display: block; }
 .cm-show-advanced .cm-more-link { display: inline; }
 
 .cm-more-link:after {
