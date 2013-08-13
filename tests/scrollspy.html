@@ -8,20 +8,62 @@
         <script src="../vendor/jquery.js"></script>
         <script src="utils/test.js"></script>
         <style>
+            @-webkit-keyframes bounceInLeft {
+                0% {
+                    opacity: 0;
+                    -webkit-transform: translateX(-2000px);
+                }
+
+                60% {
+                    opacity: 1;
+                    -webkit-transform: translateX(30px);
+                }
+
+                80% {
+                    -webkit-transform: translateX(-10px);
+                }
+
+                100% {
+                    -webkit-transform: translateX(0);
+                }
+            }
+
+            @keyframes bounceInLeft {
+                0% {
+                    opacity: 0;
+                    transform: translateX(-2000px);
+                }
+
+                60% {
+                    opacity: 1;
+                    transform: translateX(30px);
+                }
+
+                80% {
+                    transform: translateX(-10px);
+                }
+
+                100% {
+                    transform: translateX(0);
+                }
+            }
+
+            .bounceInLeft {
+
+                -webkit-animation-name: bounceInLeft;
+                animation-name: bounceInLeft;
+
+                -webkit-animation-duration: 1s;
+                animation-duration: 1s;
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+            }
 
             [data-uk-scrollspy] {
-                opacity: 0;
-                transition: ;
                 background: red;
                 color: #fff;
-                height: 100px;
-                -webkit-transition: opacity 0.4s ease-out 0.5s;
-                transition: opacity 0.4s ease-out 0.5s;
             }
 
-            .uk-scrollspy-inview {
-                opacity: 1;
-            }
         </style>
     </head>
 
@@ -35,11 +77,11 @@
                 Scroll down...
             </div>
 
-            <div data-uk-scrollspy>Scroll down...</div>
+            <div data-uk-scrollspy="{cls:'bounceInLeft'}">Scroll down...</div>
 
             <div style="height:1600px;"></div>
 
-            <div data-uk-scrollspy>Scroll up...</div>
+            <div data-uk-scrollspy="{cls:'bounceInLeft', initial: true}">Scroll up...</div>
 
         </div>
 
