@@ -2,15 +2,18 @@
 
 ### W.I.P.
 
+  - Off-canvas now uses translateX for bar animation
+  - Tabs now recognize hashes in url
+  - Added responsive tab dropdown indicator
   - Added flipDropdown option to search component
-  - Added bower definition file
-  - Updated off-canvas, now using translateX for bar animation
-  - Updated tab component to recognize hashes in url (Issue 17)
-  - Fixed responsive tab in tab components
-  - Fixed open modals in a chain (Issue 32)
-  - Fixed off-canvas scroll position bug (Issue 37)
-  - Fixed responsive tab dropdown indicator (Issue 39)
+  - Fixed responsive tabs
+  - Fixed open modals in a chain
+  - Fixed off-canvas scroll position bug
 
+  **Documentation and repository**
+
+  - Added bower definition file
+  - Automated version and download link
 
 ### 1.0.2 (July 31, 2013)
 
@@ -21,7 +24,6 @@
 **Documentation and repository**
 
   - Updated dropdown and navbar documentation
-
 
 ### 1.0.1 (July 26, 2013)
 
