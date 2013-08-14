@@ -58,8 +58,8 @@
 	/* 1 */
 	position: fixed;
 	/* 2 */
-	-webkit-transition: margin-left 0.3s 0.05s ease-in-out,  margin-right 0.3s 0.05s ease-in-out;
-	transition: margin-left 0.3s 0.05s ease-in-out, margin-right 0.3s 0.05s ease-in-out;
+	-webkit-transition: margin-left 0.3s ease-in-out 50ms;
+	transition: margin-left 0.3s ease-in-out 50ms;
 }
 
 
@@ -71,7 +71,7 @@
  * 1. Set fixed position
  * 2. Size and style
  * 3. Allow scrolling
- * 4. Slide-in transition for left and right
+ * 4. Side-out transition
  */
 
 .uk-offcanvas-bar {
@@ -96,6 +96,10 @@
 	.hook-offcanvas-bar;
 }
 
+.uk-offcanvas.uk-active .uk-offcanvas-bar.uk-offcanvas-bar-show {
+	-webkit-transform: translateX(0%);
+	transform: translateX(0%);
+}
 
 /* Modifier `uk-offcanvas-bar-flip`
  ========================================================================== */
@@ -103,8 +107,8 @@
 .uk-offcanvas-bar-flip {
 	left: auto;
 	right: 0;
-	-webkit-transform: translateX(200%);
-	transform: translateX(200%);
+	-webkit-transform: translateX(100%);
+	transform: translateX(100%);
 }
 
 

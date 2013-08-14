@@ -25,10 +25,10 @@
 
             element.addClass("uk-active");
 
-            doc.css("width", doc.outerWidth()).css("margin-top", -1*scrollpos.y).addClass("uk-offcanvas-page").width(); // .width() - force redraw
-            doc.css("margin-" + $.UIkit.langdirection, (bar.width() - scrollbar) * dir);
+            doc.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
+            doc.css("margin-left", ((bar.outerWidth() - scrollbar) * dir)).width(); // .width() - force redraw
 
-            bar.css("transform", "translateX(0%)");
+            bar.addClass("uk-offcanvas-bar-show").width();
 
             element.off(".ukoffcanvas").on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
 
@@ -50,6 +50,7 @@
                 }
             });
         },
+
         hide: function(force) {
 
             var doc   = $("html"),
@@ -60,20 +61,21 @@
 
             if ($.UIkit.support.transition && !force) {
 
-                doc.one($.UIkit.support.transition.end, function() {
-                    doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-top","");
-                    window.scrollTo(scrollpos.x, scrollpos.y);
-                }).css("margin-" + $.UIkit.langdirection, 0);
 
-                bar.one($.UIkit.support.transition.end, function() {
+                doc.one($.UIkit.support.transition.end, function() {
+                    doc.removeClass("uk-offcanvas-page").attr("style", "");
                     panel.removeClass("uk-active");
-                    bar.css("animation-delay", "");
-                }).css("animation-delay", "0.15s").css({"transform": ""});
+                    window.scrollTo(scrollpos.x, scrollpos.y);
+                }).css("margin-left", "");
+
+                setTimeout(function(){
+                    bar.removeClass("uk-offcanvas-bar-show");
+                }, 50);
 
             } else {
-                doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-top","").css("margin-" + $.UIkit.langdirection, "");
+                doc.removeClass("uk-offcanvas-page").attr("style", "");
                 panel.removeClass("uk-active");
-                bar.css({"transform": ""});
+                bar.removeClass("uk-offcanvas-bar-show");
                 window.scrollTo(scrollpos.x, scrollpos.y);
             }
 
