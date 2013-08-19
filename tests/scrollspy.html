@@ -1,89 +1,288 @@
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Scrollspy component - UIkit tests</title>
-        <script src="../vendor/jquery.js"></script>
-        <script src="utils/test.js"></script>
-        <style>
-            @-webkit-keyframes bounceInLeft {
-                0% {
-                    opacity: 0;
-                    -webkit-transform: translateX(-2000px);
-                }
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Scrollspy component - UIkit tests</title>
+		<script src="../vendor/jquery.js"></script>
+		<script src="utils/test.js"></script>
+	</head>
 
-                60% {
-                    opacity: 1;
-                    -webkit-transform: translateX(30px);
-                }
+	<body>
 
-                80% {
-                    -webkit-transform: translateX(-10px);
-                }
+		<div class="uk-container uk-container-center">
 
-                100% {
-                    -webkit-transform: translateX(0);
-                }
-            }
+			<h1>ScrollSpy</h1>
 
-            @keyframes bounceInLeft {
-                0% {
-                    opacity: 0;
-                    transform: translateX(-2000px);
-                }
+			<div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade'}">
+						<p>The element is animated only once on initial in-view.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<p>The element is always animated when the element is in-view.</p>
+					</div>
+				</div>
+			</div>
 
-                60% {
-                    opacity: 1;
-                    transform: translateX(30px);
-                }
+			<h2>Scroll down</h2>
 
-                80% {
-                    transform: translateX(-10px);
-                }
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-                100% {
-                    transform: translateX(0);
-                }
-            }
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-            .bounceInLeft {
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-                -webkit-animation-name: bounceInLeft;
-                animation-name: bounceInLeft;
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-                -webkit-animation-duration: 1s;
-                animation-duration: 1s;
-                -webkit-animation-fill-mode: both;
-                animation-fill-mode: both;
-            }
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-            [data-uk-scrollspy] {
-                background: red;
-                color: #fff;
-            }
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-        </style>
-    </head>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-    <body>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-        <div class="uk-container uk-container-center">
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-            <h1>Scroll Spy</h1>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-            <div style="height:800px;">
-                Scroll down...
-            </div>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-            <div data-uk-scrollspy="{cls:'bounceInLeft', repeat: true}">Animation always when element is in-view</div>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-            <div style="height:1600px;"></div>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-            <div data-uk-scrollspy="{cls:'bounceInLeft'}">Animated only on initial in-view</div>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-        </div>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
 
-    </body>
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
 </html>

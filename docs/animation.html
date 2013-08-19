@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Thumbnail component - UIkit documentation</title>
+		<title>Animation component - UIkit documentation</title>
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -76,12 +76,12 @@
 							<li><a href="close.html">Close</a></li>
 							<li><a href="badge.html">Badge</a></li>
 							<li><a href="alert.html">Alert</a></li>
-							<li class="uk-active"><a href="thumbnail.html">Thumbnail</a></li>
+							<li><a href="thumbnail.html">Thumbnail</a></li>
 							<li><a href="overlay.html">Overlay</a></li>
 							<li><a href="progress.html">Progress</a></li>
 							<li><a href="search.html">Search</a></li>
 							<li><a href="text.html">Text</a></li>
-							<li><a href="animation.html">Animation</a></li>
+							<li class="uk-active"><a href="animation.html">Animation</a></li>
 
 							<li class="uk-nav-header">JavaScript</li>
 							<li><a href="dropdown.html">Dropdown</a></li>
@@ -99,153 +99,128 @@
 
 						<article class="uk-article">
 
-							<h1 class="uk-article-title">Thumbnail</h1>
+							<h1 class="uk-article-title">Animation</h1>
 
-							<p class="uk-article-lead">Create different thumbnail images, which come in various styles and sizes.</p>
+							<p class="uk-article-lead">A basic collection of smooth animations to use within your page.</p>
 
 							<h2>Usage</h2>
 
-							<p>To apply this component, just add the <code>.uk-thumbnail</code> class to an <code>&lt;img&gt;</code>, <code>&lt;a&gt;</code> or <code>&lt;figure&gt;</code> element.</p>
+							<p>To apply this component, add any <code>.uk-animation-*</code> class to an element and it will fade in with a nice animation. Commonly, these classes are set by using JavaScript to apply the animation on specific behaviors.</p>
+
+							<table class="uk-table">
+								<thead>
+									<tr>
+										<th>Class</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>.uk-animation-fade</code></td>
+										<td>The element fades in.</td>
+									</tr>
+									<tr>
+										<td><code>.uk-animation-scale-up</code></td>
+										<td>The element scales up.</td>
+									</tr>
+									<tr>
+										<td><code>.uk-animation-scale-down</code></td>
+										<td>The element scales down.</td>
+									</tr>
+									<tr>
+										<td><code>.uk-animation-slide-top</code></td>
+										<td>The element slides in from the top.</td>
+									</tr>
+									<tr>
+										<td><code>.uk-animation-slide-bottom</code></td>
+										<td>The element slides in from the bottom.</td>
+									</tr>
+									<tr>
+										<td><code>.uk-animation-slide-left</code></td>
+										<td>The element slides in from the left.</td>
+									</tr>
+									<tr>
+										<td><code>.uk-animation-slide-right</code></td>
+										<td>The element slides in from the right.</td>
+									</tr>
+								</tbody>
+							</table>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<div class="uk-margin">
-								<img class="uk-thumbnail" src="http://placekitten.com/200/100" alt="">
-								<a class="uk-thumbnail" href="#"><img src="http://placekitten.com/200/100" alt=""></a>
-								<figure class="uk-thumbnail"><img src="http://placekitten.com/200/100" alt=""></figure>
+							<p>Hover one of the boxes to see the animation.</p>
+
+							<div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-fade">Fade</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-scale-up">Scale up</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-scale-down">Scale down</div>
+								</div>
+							</div>
+
+							<div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-top">Slide top</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-bottom">Slide bottom</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-left">Slide left</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-right">Slide right</div>
+								</div>
 							</div>
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;!-- This is an image as a thumbnail --&gt;
-&lt;img class="uk-thumbnail" src="" alt=""&gt;
-
-&lt;!-- This is an anchor as a thumbnail --&gt;
-&lt;a class="uk-thumbnail" href=""&gt;&lt;img src="" alt=""&gt;&lt;a&gt;
-
-&lt;!-- This is a figure as a thumbnail --&gt;
-&lt;figure class="uk-thumbnail"&gt;&lt;img src="" alt=""&gt;&lt;figure&gt;</code></pre>
+<pre><code>&lt;div class="uk-animation-fade"&gt;...&lt;/div&gt;</code></pre>
 
 							<hr class="uk-article-divider">
 
-							<h3>Caption</h3>
+							<h2>Reverse modifier</h2>
 
-							<p>Add the <code>.uk-thumbnail-caption</code> class to a <code>&lt;div&gt;</code> element to apply a text caption under the image.</p>
-
-							<h4 class="tm-article-subtitle">Example</h4>
-
-							<div class="uk-margin">
-								<div class="uk-thumbnail">
-									<img src="http://placekitten.com/200/100" alt="">
-									<div class="uk-thumbnail-caption">Caption <code>&lt;div&gt;</code></div>
-								</div>
-								<a class="uk-thumbnail" href="#">
-									<img src="http://placekitten.com/200/100" alt="">
-									<div class="uk-thumbnail-caption">Caption <code>&lt;a&gt;</code></div>
-								</a>
-								<figure class="uk-thumbnail">
-									<img src="http://placekitten.com/200/100" alt="">
-									<figcaption class="uk-thumbnail-caption">Caption <code>&lt;figure&gt;</code></figcaption>
-								</figure>
-							</div>
-
-							<h4 class="tm-article-subtitle">Markup</h4>
-
-<pre><code>&lt;!-- This is a div as a thumbnail with a caption --&gt;
-&lt;div class="uk-thumbnail"&gt;
-	&lt;img src="" alt=""&gt;
-	&lt;div class="uk-thumbnail-caption"&gt;...&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- This is an anchor as a thumbnail with a caption --&gt;
-&lt;a class="uk-thumbnail" href=""&gt;
-	&lt;img src="" alt=""&gt;
-	&lt;div class="uk-thumbnail-caption"&gt;...&lt;/div&gt;
-&lt;/a&gt;
-
-&lt;!-- This is a figure as a thumbnail with a caption --&gt;
-&lt;figure class="uk-thumbnail"&gt;
-	&lt;img src="" alt=""&gt;
-	&lt;figcaption class="uk-thumbnail-caption"&gt;...&lt;/figcaption&gt;
-&lt;/figure&gt;</code></pre>
-
-							<hr class="uk-article-divider">
-
-							<h2>Size modifiers</h2>
-
-							<p>Apply the <code>.uk-thumbnail-large</code>, <code>.uk-thumbnail-medium</code>, <code>.uk-thumbnail-small</code> or <code>.uk-thumbnail-mini</code> classes to resize images. The <a href="base.html">Base component</a> is required to make the images responsive by default.</p>
+							<p>All provided animations are fade-in animations. Add the <code>.uk-animation-reverse</code> class to reverse any animation and fade the element out.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<div class="uk-margin">
-								<div class="uk-thumbnail uk-thumbnail-large">
-									<img src="http://placekitten.com/600/400" alt="">
-									<div class="uk-thumbnail-caption"><code>.uk-thumbnail-large</code></div>
+							<p>Hover one of the boxes to see the animation.</p>
+
+							<div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-fade">Fade</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-scale-up">Scale up</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-scale-down">Scale down</div>
 								</div>
 							</div>
-							<div class="uk-margin">
-								<div class="uk-thumbnail uk-thumbnail-medium">
-									<img src="http://placekitten.com/600/400" alt="">
-									<div class="uk-thumbnail-caption"><code>.uk-thumbnail-medium</code></div>
+
+							<div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-top">Slide top</div>
 								</div>
-								<div class="uk-thumbnail uk-thumbnail-small">
-									<img src="http://placekitten.com/600/400" alt="">
-									<div class="uk-thumbnail-caption"><code>.uk-thumbnail-small</code></div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-bottom">Slide bottom</div>
 								</div>
-								<div class="uk-thumbnail uk-thumbnail-mini">
-									<img src="http://placekitten.com/600/400" alt="">
-									<div class="uk-thumbnail-caption"><code>.uk-thumbnail-mini</code></div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-left">Slide left</div>
+								</div>
+								<div class="uk-width-medium-1-5">
+									<div class="uk-panel uk-panel-box uk-animation-slide-right">Slide right</div>
 								</div>
 							</div>
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div class="uk-thumbnail uk-thumbnail-large"&gt;...&lt;/div&gt;
-&lt;div class="uk-thumbnail uk-thumbnail-medium"&gt;...&lt;/div&gt;
-&lt;div class="uk-thumbnail uk-thumbnail-small"&gt;...&lt;/div&gt;
-&lt;div class="uk-thumbnail uk-thumbnail-mini"&gt;...&lt;/div&gt;</code></pre>
-
-							<p>You can even scale a thumbnail beyond its proper size, so that it extends to the full width of its parent element. Just add the <code>.uk-thumbnail-expand</code> class.
-
-							<h3 class="tm-article-subtitle">Example</h3>
-
-							<div class="uk-thumbnail uk-thumbnail-expand">
-								<img src="http://placekitten.com/600/400" alt="">
-								<div class="uk-thumbnail-caption"><code>.uk-thumbnail-expand</code></div>
-							</div>
-
-							<h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div class="uk-thumbnail uk-thumbnail-expand"&gt;...&lt;/div&gt;</code></pre>
-
-							<hr class="uk-article-divider">
-
-							<h2>Grid</h2>
-
-							<p>You can easily create a grid with thumbnails by using the <a href="grid.html">Grid component</a>.</p>
-
-							<h3 class="tm-article-subtitle">Example</h3>
-
-							<div class="uk-grid" data-uk-grid-margin>
-								<div class="uk-width-medium-1-2"><img class="uk-thumbnail" src="http://placekitten.com/600/400" alt=""></div>
-								<div class="uk-width-medium-1-2">
-									<div class="uk-grid" data-uk-grid-margin>
-										<div class="uk-width-medium-1-2"><img class="uk-thumbnail" src="http://placekitten.com/300/455" alt=""></div>
-										<div class="uk-width-medium-1-2"><img class="uk-thumbnail" src="http://placekitten.com/120/255" alt=""></div>
-									</div>
-								</div>
-							</div>
-
-							<h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div class="uk-grid"&gt;
-	&lt;div class="uk-width-medium-1-2"&gt;&lt;img class="uk-thumbnail" src="" alt=""&gt;&lt;/div&gt;
-	&lt;div class="uk-width-medium-1-2"&gt;
-		&lt;div class="uk-grid"&gt;
-			&lt;div class="uk-width-medium-1-2"&gt;&lt;img class="uk-thumbnail" src="" alt="">&lt;/div&gt;
-			&lt;div class="uk-width-medium-1-2"&gt;&lt;img class="uk-thumbnail" src="" alt="">&lt;/div&gt;
-		&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+<pre><code>&lt;div class="uk-animation-fade uk-animation-reverse"&gt;...&lt;/div&gt;</code></pre>
 
 						</article>
 
