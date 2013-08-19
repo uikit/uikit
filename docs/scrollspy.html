@@ -201,17 +201,15 @@
 
 &lt;div data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}"&gt;...&lt;/div&gt;</code></pre>
 
-
 							<hr class="uk-article-divider">
 
-							<h2>Javascript Events</h2>
+							<h2>Javascript events</h2>
 
-							<p>The scrollspy component triggers an <code>uk.scrollspy.inview</code> event every time an element is in the view-port and <code>uk.scrollspy.outview</code> when an element leaves the view-port.</p>
+							<p>The scrollspy component triggers an <code>uk.scrollspy.inview</code> event every time an element is in the viewport and <code>uk.scrollspy.outview</code> when an element leaves the viewport.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>
-$('[data-uk-scrollspy]').on({
+<pre><code>$('[data-uk-scrollspy]').on({
 
 	'uk.scrollspy.inview', function(){
 		console.log("Element is visible.");
@@ -220,9 +218,7 @@ $('[data-uk-scrollspy]').on({
 	'uk.scrollspy.outview', function(){
 		console.log("Element is not visible.");
 	}
-});
-</code></pre>
-
+});</code></pre>
 
 						</article>
 

@@ -226,28 +226,21 @@
 
 						<p><span class="uk-badge">NOTE</span> When creating a close button within the frameless modifier, we also recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a>. In that case you need to add the <code>.uk-close-alt</code> class as well to give your button a styling that fits the frameless modal.</p>
 
-
-
-
 						<hr class="uk-article-divider">
 
 						<h2>Javascript</h2>
 
-						<p>You cand handle Modals via raw javascript.</p>
-
+						<p>You cand handle modal dialogs via raw javascript.</p>
 
 						<h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>
-var modal = new $.UIkit.modal.Modal(".modalSelector");
+<pre><code>var modal = new $.UIkit.modal.Modal(".modalSelector");
 
 if ( modal.isActive() ) {
 	modal.hide();
 } else {
 	modal.show();
-}
-</code></pre>
-
+}</code></pre>
 
 						<hr class="uk-article-divider">
 
@@ -257,8 +250,7 @@ if ( modal.isActive() ) {
 
 						<h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>
-$('.modalSelector').on({
+<pre><code>$('.modalSelector').on({
 
 	'uk.modal.show', function(){
 		console.log("Modal is visible.");
@@ -267,8 +259,7 @@ $('.modalSelector').on({
 	'uk.modal.hide', function(){
 		console.log("Element is not visible.");
 	}
-});
-</code></pre>
+});</code></pre>
 
 						</article>
 					</div>
