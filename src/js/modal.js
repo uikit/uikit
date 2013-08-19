@@ -17,6 +17,7 @@
             }, options);
 
             this.transition = UI.support.transition;
+            this.dialog     = this.element.find(".uk-modal-dialog");
 
             this.element.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
@@ -53,6 +54,9 @@
 
             if (this.isActive()) return;
             if (active) active.hide(true);
+
+            this.dialog.css("margin-left", -1*Math.ceil(parseInt(this.dialog.css("width"),10)/2));
+
 
             this.element.removeClass("uk-open").show();
 
