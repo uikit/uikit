@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Smooth scroll component - UIkit documentation</title>
+		<title>Scrollspy component - UIkit documentation</title>
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -18,7 +18,7 @@
 
 	<body class="tm-background">
 
-		<nav id="top" class="tm-navbar uk-navbar uk-navbar-attached">
+		<nav class="tm-navbar uk-navbar uk-navbar-attached">
 			<div class="uk-container uk-container-center">
 
 				<a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
@@ -89,8 +89,8 @@
 							<li><a href="offcanvas.html">Off-canvas</a></li>
 							<li><a href="switcher.html">Switcher</a></li>
 							<li><a href="tooltip.html">Tooltip</a></li>
-							<li><a href="scrollspy.html">Scrollspy</a></li>
-							<li class="uk-active"><a href="smooth-scroll.html">Smooth scroll</a></li>
+							<li class="uk-active"><a href="scrollspy.html">Scrollspy</a></li>
+							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
 
 						</ul>
 
@@ -99,23 +99,107 @@
 
 						<article class="uk-article">
 
-							<h1 id="bottom" class="uk-article-title">Smooth scroll</h1>
+							<h1 id="bottom" class="uk-article-title">Scrollspy</h1>
 
-							<p class="uk-article-lead">Enhance your site with a nice effect that slows down the scrolling when jumping to another part of your page.</p>
+							<p class="uk-article-lead">Trigger events and animations while scrolling your page.</p>
 
 							<h2>Usage</h2>
 
-							<p>To gradually descrease the speed when you jump from one section of your page to another, for example with a to-top scroller, just add the <code>data-uk-smooth-scroll</code> attribute to an <code>&lt;a&gt;</code> element.</p>
+							<p>The scrollspy component listens to page scrolling and triggers events based on the scroll position. For example, if you scroll down a page and an element appears the first time in the viewport you can trigger a smooth animation to fade in the element.</p>
 
-							<h3 class="tm-article-subtitle">Example</h3>
+							<table class="uk-table">
+								<thead>
+									<tr>
+										<th>Data attribute</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>data-uk-scrollspy="{cls:'MYCLASS'}"</code></td>
+										<td>Applies the class only the first time the element appears in the viewport.</td>
+									</tr>
+									<tr>
+										<td><code>data-uk-scrollspy="{cls:'MYCLASS', repeat: true}"</code></td>
+										<td>Applies the class everytime the element appears in the viewport.</td>
+									</tr>
+								</tbody>
+							</table>
 
-							<a href="#top" class="uk-button" data-uk-smooth-scroll>Go Up!</a>
+							<p>Typically classes from the <a href="animation.html">Animation component</a> are used together with the scrollspy.</p>
 
-							<a href="#bottom" class="uk-button" data-uk-smooth-scroll>Go Down!</a>
+							<h3 class="tm-article-subtitle">Examples</h3>
 
+							<p>The examples uses the <code>repeat: true</code> option. Scroll up and down to see the triggered animations.
+
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+										<h3>Fade</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4 uk-push-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+										<h3>Scale up</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4 uk-push-2-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+										<h3>Scale down</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4 uk-push-3-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+										<h3>Slide top</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4 uk-push-2-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+										<h3>Slide bottom</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4 uk-push-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+										<h3>Slide right</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+										<h3>Slide left</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+								</div>
+							</div>
+			
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;a href="#my-id" class="uk-button" data-uk-smooth-scroll>...&lt;/a&gt;</code></pre>
+<pre><code>&lt;div data-uk-scrollspy="{cls:'uk-animation-fade'}"&gt;...&lt;/div&gt;
+	
+&lt;div data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}"&gt;...&lt;/div&gt;</code></pre>
 
 						</article>
 
