@@ -194,12 +194,35 @@
 									</div>
 								</div>
 							</div>
-			
+
 							<h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;div data-uk-scrollspy="{cls:'uk-animation-fade'}"&gt;...&lt;/div&gt;
-	
+
 &lt;div data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}"&gt;...&lt;/div&gt;</code></pre>
+
+
+							<hr class="uk-article-divider">
+
+							<h2>Javascript Events</h2>
+
+							<p>The scrollspy component triggers an <code>uk.scrollspy.inview</code> event every time an element is in the view-port and <code>uk.scrollspy.outview</code> when an element leaves the view-port.</p>
+
+							<h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>
+$('[data-uk-scrollspy]').on({
+
+	'uk.scrollspy.inview', function(){
+		console.log("Element is visible.");
+	},
+
+	'uk.scrollspy.outview', function(){
+		console.log("Element is not visible.");
+	}
+});
+</code></pre>
+
 
 						</article>
 

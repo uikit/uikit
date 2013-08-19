@@ -51,7 +51,7 @@
                 this.connect.children().removeClass("uk-active").eq(index).addClass("uk-active");
             }
 
-            this.element.trigger("ui.switcher.show", [active]);
+            this.element.trigger("uk.switcher.show", [active]);
         }
 
     });

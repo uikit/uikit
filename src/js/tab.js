@@ -50,7 +50,7 @@
         this.element.append(mobiletab).data({
             "dropdown": mobiletab.data("dropdown"),
             "mobilecaption": caption
-        }).on("ui.switcher.show", function(e, tab) {
+        }).on("uk.switcher.show", function(e, tab) {
             mobiletab.addClass("uk-active");
             caption.html(tab.find("a").text());
         });

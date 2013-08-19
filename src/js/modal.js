@@ -62,7 +62,7 @@
             active = this;
             html.addClass("uk-modal-page").height(); // force browser engine redraw
 
-            this.element.addClass("uk-open").trigger("uk-modal-show");
+            this.element.addClass("uk-open").trigger("uk.modal.show");
         },
 
         hide: function(force) {
@@ -89,7 +89,7 @@
 
             if(active===this) active = false;
 
-            this.element.trigger("uk-modal-hide");
+            this.element.trigger("uk.modal.hide");
         },
 
         isActive: function() {

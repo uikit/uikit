@@ -26,14 +26,14 @@
                         $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
                         inviewstate = true;
 
-                        $this.element.trigger("uk-scrollspy-inview");
+                        $this.element.trigger("uk.scrollspy.inview");
                     }
 
                     if (!inview && inviewstate && $this.options.repeat) {
                         $this.element.removeClass("uk-scrollspy-inview").removeClass($this.options.cls);
                         inviewstate = false;
 
-                        $this.element.trigger("uk-scrollspy-outview");
+                        $this.element.trigger("uk.scrollspy.outview");
                     }
                 };
 

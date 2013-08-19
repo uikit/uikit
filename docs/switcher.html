@@ -400,6 +400,22 @@
 	&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
+
+							<hr class="uk-article-divider">
+
+							<h2>Javascript Events</h2>
+
+							<p>The switcher component triggers an <code>uk.switcher.show</code> event every time it switches to a content area.</p>
+
+							<h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>
+$('[data-uk-switcher]').on('uk.switcher.show', function(event, area){
+	console.log("Switcher switched to ", area);
+});
+</code></pre>
+
+
 						</article>
 
 					</div>
