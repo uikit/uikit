@@ -2,6 +2,8 @@
 
 ### W.I.P.
 
+  - Added new scrollspy component
+  - Added new animation component
   - Off-canvas now uses translateX for bar animation
   - Tabs now recognize hashes in url
   - Added responsive tab dropdown indicator
@@ -12,6 +14,7 @@
 
   **Documentation and repository**
 
+  - Added scrollspy and animation docs and tests
   - Added bower definition file
   - Automated version and download link
   - Added heading large example
