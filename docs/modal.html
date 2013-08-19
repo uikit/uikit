@@ -227,6 +227,26 @@
 						<p><span class="uk-badge">NOTE</span> When creating a close button within the frameless modifier, we also recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a>. In that case you need to add the <code>.uk-close-alt</code> class as well to give your button a styling that fits the frameless modal.</p>
 
 						</article>
+
+
+						<hr class="uk-article-divider">
+
+						<h2>Handle Modals via Javascript</h2>
+
+						<article class="uk-article">
+
+							<h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>
+var modal = new $.UIkit.modal.Modal(".modalSelector");
+
+if ( modal.isActive() ) {
+	modal.hide();
+} else {
+	modal.show();
+}
+</code></pre>
+						</article>
 					</div>
 				</div>
 
