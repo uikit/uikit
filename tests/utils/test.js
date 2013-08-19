@@ -25,6 +25,7 @@
 
     var tests = [
             "alert",
+            "animation",
             "article",
             "badge",
             "breadcrumb",

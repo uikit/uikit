@@ -14,6 +14,7 @@
 
   - Added bower definition file
   - Automated version and download link
+  - Added heading large example
 
 ### 1.0.2 (July 31, 2013)
 
