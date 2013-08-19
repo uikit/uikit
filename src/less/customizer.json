@@ -34,14 +34,14 @@
         {
             "type": "select",
             "vars": [
-                "*-animation"
+                "@dropdown-animation",
+                "@dropdown-navbar-animation",
+                "@dropdown-search-animation"
             ],
             "options": [
-                {"name": "Fade", "value": "uk-animation-fade"},
-                {"name": "Scale", "value": "uk-animation-scale"},
-                {"name": "Slide-Down", "value": "uk-animation-slide-down"},
-                {"name": "Slide-Up", "value": "uk-animation-slide-up"},
-                {"name": "Spin", "value": "uk-animation-spin"}
+                {"name": "Fade", "value": "uk-fade"},
+                {"name": "Slide-Down", "value": "uk-slide-bottom-fixed"},
+                {"name": "Slide-Up", "value": "uk-slide-top-fixed"}
             ]
         },
         {

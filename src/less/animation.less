@@ -2,7 +2,16 @@
  * Name:			Animation
  * Description:		Provides a useful set of keyframe animations
  *
- * Component:		`uk-animation`
+ * Component:		`uk-animation-*`
+ *
+ * Modifiers:		`uk-animation-fade`
+ *					`uk-animation-scale-up`
+ *					`uk-animation-scale-down`
+ *					`uk-animation-slide-top`
+ *					`uk-animation-slide-bottom`
+ *					`uk-animation-slide-left`
+ *					`uk-animation-slide-right`
+ *					`uk-animation-reverse`
  *
  * Used by:			Dropdown
  *					Icon
@@ -11,25 +20,269 @@
  ========================================================================== */
 
 
-/* Fade
+/* Component
  ========================================================================== */
 
+[class*='uk-animation-'] {
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-timing-function: ease-out;
+	animation-timing-function: ease-out;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
 
-@-webkit-keyframes uk-animation-fade {
+/*
+ * Fade
+ */
+
+.uk-animation-fade {
+	-webkit-animation-name: uk-fade;
+	animation-name: uk-fade;
+	-webkit-animation-duration: 0.8s;
+	animation-duration: 0.8s;
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+}
+
+/*
+ * Scale
+ */
+
+.uk-animation-scale-up {
+	-webkit-animation-name: uk-scale-up;
+	animation-name: uk-scale-up;
+}
+
+.uk-animation-scale-down {
+	-webkit-animation-name: uk-scale-down;
+	animation-name: uk-scale-down;
+}
+
+/*
+ * Slide
+ */
+
+.uk-animation-slide-top {
+	-webkit-animation-name: uk-slide-top;
+	animation-name: uk-slide-top;
+}
+
+.uk-animation-slide-bottom {
+	-webkit-animation-name: uk-slide-bottom;
+	animation-name: uk-slide-bottom;
+}
+
+.uk-animation-slide-left {
+	-webkit-animation-name: uk-slide-left;
+	animation-name: uk-slide-left;
+}
+
+.uk-animation-slide-right {
+	-webkit-animation-name: uk-slide-right;
+	animation-name: uk-slide-right;
+}
+
+
+/* Modifiers
+ ========================================================================== */
+
+.uk-animation-reverse {
+	-webkit-animation-direction: reverse;
+	animation-direction: reverse;
+}
+
+
+/* Keyframes
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+@-webkit-keyframes uk-fade {
 	0% { opacity: 0; }
 	100% { opacity: 1; }
 }
 
-@keyframes uk-animation-fade {
+@keyframes uk-fade {
 	0% { opacity: 0; }
 	100% { opacity: 1; }
 }
 
+/*
+ * Scale up
+ */
 
-/* Slide down
- ========================================================================== */
+@-webkit-keyframes uk-scale-up {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(0.2);
+	}
 
-@-webkit-keyframes uk-animation-slide-down {
+	100% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes uk-scale-up {
+	0% {
+		opacity: 0;
+		transform: scale(0.2);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/*
+ * Scale down
+ */
+
+@-webkit-keyframes uk-scale-down {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(1.8);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes uk-scale-down {
+	0% {
+		opacity: 0;
+		transform: scale(1.8);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/*
+ * Slide top
+ */
+
+@-webkit-keyframes uk-slide-top {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(100%);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+	}
+}
+
+@keyframes uk-slide-top {
+	0% {
+		opacity: 0;
+		transform: translateY(100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/*
+ * Slide bottom
+ */
+
+@-webkit-keyframes uk-slide-bottom {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(-100%);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+	}
+}
+
+@keyframes uk-slide-bottom {
+	0% {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/*
+ * Slide left
+ */
+
+@-webkit-keyframes uk-slide-left {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateX(-100%);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: translateX(0);
+	}
+}
+
+@keyframes uk-slide-left {
+	0% {
+		opacity: 0;
+		transform: translateX(-100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/*
+ * Slide right
+ */
+
+@-webkit-keyframes uk-slide-right {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateX(100%);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: translateX(0);
+	}
+}
+
+@keyframes uk-slide-right {
+	0% {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/*
+ * Slide top fixed
+ */
+
+@-webkit-keyframes uk-slide-top-fixed {
 	0% {
 		opacity: 0;
 		-webkit-transform: translateY(-10px);
@@ -41,7 +294,7 @@
 	}
 }
 
-@keyframes uk-animation-slide-down {
+@keyframes uk-slide-top-fixed {
 	0% {
 		opacity: 0;
 		transform: translateY(-10px);
@@ -53,11 +306,11 @@
 	}
 }
 
+/*
+ * Slide bottom fixed
+ */
 
-/* Slide up
- ========================================================================== */
-
-@-webkit-keyframes uk-animation-slide-up {
+@-webkit-keyframes uk-slide-bottom-fixed {
 	0% {
 		opacity: 0;
 		-webkit-transform: translateY(10px);
@@ -69,7 +322,7 @@
 	}
 }
 
-@keyframes uk-animation-slide-up {
+@keyframes uk-slide-bottom-fixed {
 	0% {
 		opacity: 0;
 		transform: translateY(10px);
@@ -81,44 +334,16 @@
 	}
 }
 
+/*
+ * Spin
+ */
 
-/* Scale
- ========================================================================== */
-
-@-webkit-keyframes uk-animation-scale {
-	0% {
-		opacity: 0;
-		-webkit-transform: scale(0.3);
-	}
-
-	100% {
-		opacity: 1;
-		-webkit-transform: scale(1);
-	}
-}
-
-@keyframes uk-animation-scale {
-	0% {
-		opacity: 0;
-		transform: scale(0.3);
-	}
-
-	100% {
-		opacity: 1;
-		transform: scale(1);
-	}
-}
-
-
-/* Spin
- ========================================================================== */
-
-@-webkit-keyframes uk-animation-spin {
+@-webkit-keyframes uk-spin {
 	0% { -webkit-transform: rotate(0deg); }
 	100% { -webkit-transform: rotate(359deg); }
 }
 
-@keyframes uk-animation-spin {
+@keyframes uk-spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(359deg); }
 }
