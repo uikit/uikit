@@ -49,12 +49,15 @@
 
     // init code
     $(document).on("click.alert.uikit", "[data-uk-alert]", function(e) {
-        e.preventDefault();
+
         var ele = $(this);
         if (!ele.data("alert")) {
             ele.data("alert", new Alert(ele, UI.Utils.options(ele.data("uk-alert"))));
 
             if ($(e.target).is(ele.data("alert").options.trigger)) {
+
+                e.preventDefault();
+
                 ele.data("alert").close();
             }
         }
