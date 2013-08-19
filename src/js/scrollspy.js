@@ -29,7 +29,7 @@
                         $this.element.trigger("uk-scrollspy-inview");
                     }
 
-                    if (!inview && inviewstate && $this.options.loop) {
+                    if (!inview && inviewstate && $this.options.repeat) {
                         $this.element.removeClass("uk-scrollspy-inview").removeClass($this.options.cls);
                         inviewstate = false;
 
@@ -51,7 +51,7 @@
             "initcls": "uk-scrollspy-init-inview",
             "topoffset": 0,
             "leftoffset": 0,
-            "loop": false
+            "repeat": false
         }
 
     });
