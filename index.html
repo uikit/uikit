@@ -48,8 +48,8 @@
 				<ul class="tm-subnav uk-subnav">
 					<li data-uikit-version></li>
 					<li><a href="https://github.com/uikit/uikit">GitHub</a></li>
-					<li><a href="https://github.com/uikit/uikit/stargazers"><i class="uk-icon-star"></i> 720 stargazers</a></li>
-					<li><a href="https://github.com/uikit/uikit/network"><i class="uk-icon-code-fork"></i> 100 forks</a></li>
+					<li><a href="https://github.com/uikit/uikit/stargazers"><i class="uk-icon-star"></i> <span data-uikit-stargazers>720</span> stargazers</a></li>
+					<li><a href="https://github.com/uikit/uikit/network"><i class="uk-icon-code-fork"></i> <span data-uikit-forks>100</span> forks</a></li>
 					<li><a href="https://twitter.com/getuikit"><i class="uk-icon-twitter"></i> @getuikit</a></li>
 				</ul>
 
@@ -262,6 +262,24 @@
 			</div>
 
 		</div>
+		<script>
 
+			$.ajax({
+				dataType : "jsonp",
+				url      : "https://api.github.com/repos/uikit/uikit?callback=ukghapi&nocache="+Math.random(),
+				success  : function(data){
+
+					if(!data) return;
+
+					if(data.data.watchers){
+						$("[data-uikit-stargazers]").html(data.data.watchers);
+					}
+
+					if(data.data.forks){
+						$("[data-uikit-forks]").html(data.data.forks);
+					}
+				}
+			});
+		</script>
 	</body>
 </html>
