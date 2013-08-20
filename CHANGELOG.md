@@ -4,11 +4,13 @@
 
   - Added new scrollspy component
   - Added new animation component
-  - Off-canvas now uses translateX for bar animation
-  - Tabs now recognize hashes in url
+  - Off-canvas now uses hardware accelerated translateX for bar animation
   - Added responsive tab dropdown indicator
+  - Added show specific tab using id target in the url as hash
   - Added flipDropdown option to search component
+  - Added possibility to change modal width via inline-style or custom class
   - Fixed responsive tabs
+  - Fixed links within alert components
   - Fixed open modals in a chain
   - Fixed off-canvas scroll position bug
 
