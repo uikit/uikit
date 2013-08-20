@@ -1,4 +1,4 @@
-(function($, UI) {
+(function($, UI, $win) {
 
     "use strict";
 
@@ -55,7 +55,7 @@
             if (this.isActive()) return;
             if (active) active.hide(true);
 
-            this.dialog.css("margin-left", -1*Math.ceil(parseInt(this.dialog.css("width"),10)/2));
+            this.resize();
 
             this.element.removeClass("uk-open").show();
 
@@ -83,8 +83,20 @@
             }
         },
 
+        resize: function() {
+
+            this.dialog.css("margin-left", "");
+
+            var modalwidth = parseInt(this.dialog.css("width"), 10),
+                inview     = (modalwidth + parseInt(this.dialog.css("margin-left"),10) + parseInt(this.dialog.css("margin-right"),10)) < $win.width();
+
+            this.dialog.css("margin-left", modalwidth && inview ? -1*Math.ceil(modalwidth/2) : "");
+        },
+
         _hide: function() {
+
             this.element.hide().removeClass("uk-open");
+
             html.removeClass("uk-modal-page");
 
             if(active===this) active = false;
@@ -136,6 +148,13 @@
 
             ele.data("modal").show();
         }
+
     });
 
-})(jQuery, jQuery.UIkit);
+    $win.on("resize orientationchange", UI.Utils.debounce(function(){
+
+        if(active) active.resize();
+
+    }, 150));
+
+})(jQuery, jQuery.UIkit, jQuery(window));
