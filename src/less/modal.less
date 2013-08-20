@@ -12,6 +12,8 @@
  *
  * States:			`uk-open`
  *
+ * Uses:			Close: `uk-close`
+ *
  ========================================================================== */
 
 
@@ -138,10 +140,10 @@
 }
 
 
-/* Sub-object: `uk-modal-close`
+/* Close in modal
  ========================================================================== */
 
-.uk-modal-close {
+.uk-modal-dialog > .uk-close:first-child {
 	margin: -10px -10px 0 0;
 	float: right;
 }
@@ -150,7 +152,7 @@
  * Remove margin from adjacent element
  */
 
-.uk-modal-close + * { margin-top: 0; }
+ .uk-modal-dialog > .uk-close:first-child + * { margin-top: 0; }
 
 
 /* Modifier: `uk-modal-dialog-frameless`
@@ -159,10 +161,10 @@
 .uk-modal-dialog-frameless { padding: 0; }
 
 /*
- * Close button
+ * Close in modal
  */
 
-.uk-modal-dialog-frameless .uk-modal-close {
+.uk-modal-dialog-frameless > .uk-close:first-child {
 	position: absolute;
 	top: -12px;
 	right: -12px;
@@ -173,7 +175,7 @@
 /* Only phones */
 @media (max-width: @breakpoint-small-max) {
 
-	.uk-modal-dialog-frameless .uk-modal-close {
+	.uk-modal-dialog-frameless > .uk-close:first-child {
 		top: -7px;
 		right: -7px;
 	}

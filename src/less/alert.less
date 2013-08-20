@@ -11,6 +11,8 @@
  *					`uk-alert-danger`
  *					`uk-alert-large`
  *
+ * Uses:			Close: `uk-close`
+ *
  ========================================================================== */
 
 
@@ -49,16 +51,16 @@
 .uk-alert h6 { color: inherit; }
 
 
-/* Sub-object: `uk-alert-close`
+/* Close in alert
  ========================================================================== */
 
-.uk-alert-close { float: right; }
+.uk-alert > .uk-close:first-child { float: right; }
 
 /*
  * Remove margin from adjacent element
  */
 
-.uk-alert-close + * { margin-top: 0; }
+.uk-alert > .uk-close:first-child + * { margin-top: 0; }
 
 
 /* Modifier: `uk-alert-success`
@@ -96,7 +98,7 @@
 
 .uk-alert-large { padding: @alert-large-padding; }
 
-.uk-alert-large .uk-alert-close { margin: -10px -10px 0 0; }
+.uk-alert-large > .uk-close:first-child { margin: -10px -10px 0 0; }
 
 
 /* Hooks
