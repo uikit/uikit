@@ -5,6 +5,7 @@
   - Added new scrollspy component
   - Added new animation component
   - Added new link-muted to utility component
+  - Added subtitle support for navbar items
   - Off-canvas now uses hardware accelerated translateX for bar animation
   - Added responsive tab dropdown indicator
   - Added show specific tab using id target in the url as hash

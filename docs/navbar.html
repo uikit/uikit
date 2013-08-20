@@ -241,6 +241,50 @@
 
 							<hr class="uk-article-divider">
 
+							<h3>Navbar subtitle</h3>
+
+							<p>Add the <code>.uk-navbar-nav-subtitle</code> class to an <code>&lt;a&gt;</code> element in the list item to indicate that it has a subtitle. Use a <code>&lt;div&gt;</code> element for the subtitle itself.</p>
+
+							<h4 class="tm-article-subtitle">Example</h4>
+
+							<nav class="uk-navbar">
+
+								<ul class="uk-navbar-nav">
+									<li class="uk-active"><a href="" class="uk-navbar-nav-subtitle">Active<div>Subtitle</div></a></li>
+									<li><a href="" class="uk-navbar-nav-subtitle">Item<div>Subtitle</div></a></li>
+									<li class="uk-parent" data-uk-dropdown>
+										<a href="" class="uk-navbar-nav-subtitle">Parent<div>Subtitle</div></a>
+
+										<div class="uk-dropdown uk-dropdown-navbar">
+											<ul class="uk-nav uk-nav-navbar">
+												<li><a href="#">Item</a></li>
+												<li><a href="#">Another item</a></li>
+												<li class="uk-nav-header">Header</li>
+												<li><a href="#">Item</a></li>
+												<li><a href="#">Another item</a></li>
+												<li class="uk-nav-divider"></li>
+												<li><a href="#">Separated item</a></li>
+											</ul>
+										</div>
+
+									</li>
+								</ul>
+
+							</nav>
+
+							<h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;nav class="uk-navbar"&gt;
+	&lt;ul class="uk-navbar-nav"&gt;
+		&lt;li&gt;&lt;a href="" class="uk-navbar-nav-subtitle"&gt;
+			...
+			&lt;div&gt;...&lt;/div&gt;
+		&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+
+							<hr class="uk-article-divider">
+
 							<h2>Content</h2>
 
 							<p>You can also add custom content to the navbar, like text, icons, buttons, forms or even a toggle. By default, there is no JavaScript attached to the toggle. As an example, you can add an off-canvas navigation from the <a href="offcanvas.html">Off-canvas component</a>.</p>
