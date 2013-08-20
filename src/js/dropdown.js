@@ -107,6 +107,8 @@
 
         checkDimensions: function() {
 
+            if(!this.dropdown.length) return;
+
             var dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
                 offset    = dropdown.show().offset(),
                 width     = dropdown.outerWidth(),
