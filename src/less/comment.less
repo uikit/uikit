@@ -92,11 +92,15 @@
 
 .uk-comment-list .uk-comment + ul {
 	margin: @comment-list-margin-top 0 0 0;
-	padding-left: @comment-list-padding-left;
+	padding-left: ceil(@comment-list-padding-left / 4);
 	list-style: none;
 
-	@media (max-width: @breakpoint-small-max) {
-		padding-left: (@comment-list-padding-left / 2);
+	@media (min-width: @breakpoint-medium) and (max-width: @breakpoint-medium-max) {
+		padding-left: ceil(@comment-list-padding-left / 2);
+	}
+
+	@media (min-width: @breakpoint-large) {
+		padding-left: @comment-list-padding-left;
 	}
 }
 
