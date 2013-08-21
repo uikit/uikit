@@ -21,7 +21,7 @@
 /* Sub-object `uk-comment-header`
  ========================================================================== */
 
-.uk-comment-header { 
+.uk-comment-header {
 	margin-bottom: @comment-header-margin-bottom;
 	.hook-comment-header;
 }
@@ -52,11 +52,11 @@
 /* Sub-object `uk-comment-title`
  ========================================================================== */
 
-.uk-comment-title { 
+.uk-comment-title {
 	margin: 5px 0 0 0;
 	font-size: @comment-title-font-size;
 	line-height: @comment-title-line-height;
-	.hook-comment-title; 
+	.hook-comment-title;
 }
 
 
@@ -94,6 +94,10 @@
 	margin: @comment-list-margin-top 0 0 0;
 	padding-left: @comment-list-padding-left;
 	list-style: none;
+
+	@media (max-width: @breakpoint-small-max) {
+		padding-left: (@comment-list-padding-left / 2);
+	}
 }
 
 .uk-comment-list > li:nth-child(n+2),

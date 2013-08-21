@@ -1612,6 +1612,11 @@ iframe {
   padding-left: 100px;
   list-style: none;
 }
+@media (max-width: 767px) {
+  .uk-comment-list .uk-comment + ul {
+    padding-left: 50px;
+  }
+}
 .uk-comment-list > li:nth-child(n+2),
 .uk-comment-list .uk-comment + ul > li:nth-child(n+2) {
   margin-top: 15px;
