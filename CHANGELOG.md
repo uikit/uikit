@@ -1,5 +1,8 @@
 # Changelog
 
+### W.I.P.
+  - Fixed link-muted
+
 ### 1.1.0 (August 21, 2013)
 
   - Added new scrollspy component
