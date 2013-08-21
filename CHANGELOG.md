@@ -1,6 +1,6 @@
 # Changelog
 
-### W.I.P.
+### 1.1.0 (August 21, 2013)
 
   - Added new scrollspy component
   - Added new animation component

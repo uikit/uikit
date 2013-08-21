@@ -1,4 +1,4 @@
-/*! UIkit 1.0.2 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.1.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 /* Default
  ========================================================================== */
@@ -1693,7 +1693,7 @@ iframe {
   padding: 2px 0;
 }
 /*
- * Item description
+ * Item subtitle
  */
 .uk-nav li > a > div {
   font-size: 12px;
@@ -2002,6 +2002,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Component:		`uk-navbar`
  *
  * Sub-objects:		`uk-navbar-nav`
+ *					`uk-navbar-nav-subtitle`
  *					`uk-navbar-content`
  *					`uk-navbar-brand`
  *					`uk-navbar-toggle`
@@ -2125,6 +2126,16 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   border-right-color: rgba(0, 0, 0, 0.1);
   border-top-color: rgba(0, 0, 0, 0.1);
 }
+/* Sub-objects: `uk-navbar-nav-subtitle`
+ ========================================================================== */
+.uk-navbar-nav .uk-navbar-nav-subtitle {
+  line-height: 28px;
+}
+.uk-navbar-nav-subtitle > div {
+  margin-top: -6px;
+  font-size: 10px;
+  line-height: 12px;
+}
 /* Sub-objects: `uk-navbar-content`, `uk-navbar-brand`, `uk-navbar-toggle`
  ========================================================================== */
 /*
@@ -2156,7 +2167,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /*
  * Better sibling spacing
  */
-.uk-navbar-content + .uk-navbar-content {
+.uk-navbar-content + .uk-navbar-content:not(.uk-navbar-center) {
   padding-left: 0;
 }
 /*
@@ -2669,6 +2680,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-tab-responsive {
   display: none;
+}
+.uk-tab-responsive > a:before {
+  content: "\f0c9\00a0";
+  font-family: "FontAwesome";
 }
 /* Only phones */
 @media (max-width: 767px) {
@@ -3672,8 +3687,8 @@ a.uk-button {
  ========================================================================== */
 .uk-icon-spin {
   display: inline-block;
-  -webkit-animation: uk-animation-spin 2s infinite linear;
-  animation: uk-animation-spin 2s infinite linear;
+  -webkit-animation: uk-spin 2s infinite linear;
+  animation: uk-spin 2s infinite linear;
 }
 /* Modifier: `uk-icon-button`
  ========================================================================== */
@@ -4828,6 +4843,9 @@ a.uk-button {
  *
  * Uses:			Icon: FontAwesome
  *
+ * Used by:			Alert
+ *					Modal
+ *
  ========================================================================== */
 /* Component
  ========================================================================== */
@@ -4979,6 +4997,8 @@ a.uk-close:hover {
  *					`uk-alert-danger`
  *					`uk-alert-large`
  *
+ * Uses:			Close: `uk-close`
+ *
  ========================================================================== */
 /* Component
  ========================================================================== */
@@ -5014,15 +5034,15 @@ a.uk-close:hover {
 .uk-alert h6 {
   color: inherit;
 }
-/* Sub-object: `uk-alert-close`
+/* Close in alert
  ========================================================================== */
-.uk-alert-close {
+.uk-alert > .uk-close:first-child {
   float: right;
 }
 /*
  * Remove margin from adjacent element
  */
-.uk-alert-close + * {
+.uk-alert > .uk-close:first-child + * {
   margin-top: 0;
 }
 /* Modifier: `uk-alert-success`
@@ -5051,7 +5071,7 @@ a.uk-close:hover {
 .uk-alert-large {
   padding: 20px;
 }
-.uk-alert-large .uk-alert-close {
+.uk-alert-large > .uk-close:first-child {
   margin: -10px -10px 0 0;
 }
 /* Hooks
@@ -5513,11 +5533,312 @@ input.uk-search-field {
 /* Loading icon */
 .uk-loading > .uk-search-close:after {
   content: "\f110";
-  -webkit-animation: uk-animation-spin 2s infinite linear;
-  animation: uk-animation-spin 2s infinite linear;
+  -webkit-animation: uk-spin 2s infinite linear;
+  animation: uk-spin 2s infinite linear;
 }
 /* Hooks
  ========================================================================== */
+/*
+ * Name:			Animation
+ * Description:		Provides a useful set of keyframe animations
+ *
+ * Component:		`uk-animation-*`
+ *
+ * Modifiers:		`uk-animation-fade`
+ *					`uk-animation-scale-up`
+ *					`uk-animation-scale-down`
+ *					`uk-animation-slide-top`
+ *					`uk-animation-slide-bottom`
+ *					`uk-animation-slide-left`
+ *					`uk-animation-slide-right`
+ *					`uk-animation-reverse`
+ *
+ * Used by:			Dropdown
+ *					Icon
+ *					Search
+ *
+ ========================================================================== */
+/* Component
+ ========================================================================== */
+[class*='uk-animation-'] {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+/*
+ * Fade
+ */
+.uk-animation-fade {
+  -webkit-animation-name: uk-fade;
+  animation-name: uk-fade;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+}
+/*
+ * Scale
+ */
+.uk-animation-scale-up {
+  -webkit-animation-name: uk-scale-up;
+  animation-name: uk-scale-up;
+}
+.uk-animation-scale-down {
+  -webkit-animation-name: uk-scale-down;
+  animation-name: uk-scale-down;
+}
+/*
+ * Slide
+ */
+.uk-animation-slide-top {
+  -webkit-animation-name: uk-slide-top;
+  animation-name: uk-slide-top;
+}
+.uk-animation-slide-bottom {
+  -webkit-animation-name: uk-slide-bottom;
+  animation-name: uk-slide-bottom;
+}
+.uk-animation-slide-left {
+  -webkit-animation-name: uk-slide-left;
+  animation-name: uk-slide-left;
+}
+.uk-animation-slide-right {
+  -webkit-animation-name: uk-slide-right;
+  animation-name: uk-slide-right;
+}
+/* Modifiers
+ ========================================================================== */
+.uk-animation-reverse {
+  -webkit-animation-direction: reverse;
+  animation-direction: reverse;
+}
+/* Keyframes
+ ========================================================================== */
+/*
+ * Fade
+ */
+@-webkit-keyframes uk-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes uk-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/*
+ * Scale up
+ */
+@-webkit-keyframes uk-scale-up {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-scale-up {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*
+ * Scale down
+ */
+@-webkit-keyframes uk-scale-down {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1.8);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-scale-down {
+  0% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*
+ * Slide top
+ */
+@-webkit-keyframes uk-slide-top {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-slide-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*
+ * Slide bottom
+ */
+@-webkit-keyframes uk-slide-bottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-slide-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*
+ * Slide left
+ */
+@-webkit-keyframes uk-slide-left {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/*
+ * Slide right
+ */
+@-webkit-keyframes uk-slide-right {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/*
+ * Slide top fixed
+ */
+@-webkit-keyframes uk-slide-top-fixed {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-slide-top-fixed {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*
+ * Slide bottom fixed
+ */
+@-webkit-keyframes uk-slide-bottom-fixed {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-slide-bottom-fixed {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*
+ * Spin
+ */
+@-webkit-keyframes uk-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@keyframes uk-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
 /* JavaScript */
 /*
  * Name:			Dropdown
@@ -5593,8 +5914,8 @@ input.uk-search-field {
   display: block;
   /* 2 */
 
-  -webkit-animation: uk-animation-fade 0.2s ease-in-out;
-  animation: uk-animation-fade 0.2s ease-in-out;
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
   /* 3 */
 
   -webkit-transform-origin: 0 0;
@@ -5723,8 +6044,8 @@ input.uk-search-field {
   border-radius: 4px;
 }
 .uk-open > .uk-dropdown-navbar {
-  -webkit-animation: uk-animation-slide-down 0.2s ease-in-out;
-  animation: uk-animation-slide-down 0.2s ease-in-out;
+  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
+  animation: uk-slide-top-fixed 0.2s ease-in-out;
 }
 /* Modifier: `uk-dropdown-search`
  ========================================================================== */
@@ -5735,8 +6056,8 @@ input.uk-search-field {
   color: #444444;
 }
 .uk-open > .uk-dropdown-search {
-  -webkit-animation: uk-animation-slide-down 0.2s ease-in-out;
-  animation: uk-animation-slide-down 0.2s ease-in-out;
+  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
+  animation: uk-slide-top-fixed 0.2s ease-in-out;
 }
 /*
  * Dependency `uk-navbar-flip`
@@ -5760,6 +6081,8 @@ input.uk-search-field {
  *					`uk-modal-dialog-frameless`
  *
  * States:			`uk-open`
+ *
+ * Uses:			Close: `uk-close`
  *
  ========================================================================== */
 /* Component
@@ -5878,16 +6201,16 @@ input.uk-search-field {
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }
-/* Sub-object: `uk-modal-close`
+/* Close in modal
  ========================================================================== */
-.uk-modal-close {
+.uk-modal-dialog > .uk-close:first-child {
   margin: -10px -10px 0 0;
   float: right;
 }
 /*
  * Remove margin from adjacent element
  */
-.uk-modal-close + * {
+.uk-modal-dialog > .uk-close:first-child + * {
   margin-top: 0;
 }
 /* Modifier: `uk-modal-dialog-frameless`
@@ -5896,9 +6219,9 @@ input.uk-search-field {
   padding: 0;
 }
 /*
- * Close button
+ * Close in modal
  */
-.uk-modal-dialog-frameless .uk-modal-close {
+.uk-modal-dialog-frameless > .uk-close:first-child {
   position: absolute;
   top: -12px;
   right: -12px;
@@ -5907,7 +6230,7 @@ input.uk-search-field {
 }
 /* Only phones */
 @media (max-width: 767px) {
-  .uk-modal-dialog-frameless .uk-modal-close {
+  .uk-modal-dialog-frameless > .uk-close:first-child {
     top: -7px;
     right: -7px;
   }
@@ -5971,8 +6294,8 @@ input.uk-search-field {
   position: fixed;
   /* 2 */
 
-  -webkit-transition: margin-left 0.3s 0.05s ease-in-out, margin-right 0.3s 0.05s ease-in-out;
-  transition: margin-left 0.3s 0.05s ease-in-out, margin-right 0.3s 0.05s ease-in-out;
+  -webkit-transition: margin-left 0.3s ease-in-out 50ms;
+  transition: margin-left 0.3s ease-in-out 50ms;
 }
 /* Sub-object `uk-offcanvas-bar`
  ========================================================================== */
@@ -5981,7 +6304,7 @@ input.uk-search-field {
  * 1. Set fixed position
  * 2. Size and style
  * 3. Allow scrolling
- * 4. Slide-in transition for left and right
+ * 4. Side-out transition
  */
 .uk-offcanvas-bar {
   /* 1 */
@@ -5989,7 +6312,9 @@ input.uk-search-field {
   position: fixed;
   top: 0;
   bottom: 0;
-  left: -100%;
+  left: 0;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
   z-index: 1011;
   /* 2 */
 
@@ -6002,14 +6327,20 @@ input.uk-search-field {
   -webkit-overflow-scrolling: touch;
   /* 4 */
 
-  -webkit-transition: left 0.3s ease-in-out, right 0.3s ease-in-out, right 0.3s ease-in-out, right 0.3s ease-in-out;
-  transition: left 0.3s ease-in-out, right 0.3s ease-in-out, right 0.3s ease-in-out, right 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+.uk-offcanvas.uk-active .uk-offcanvas-bar.uk-offcanvas-bar-show {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
 }
 /* Modifier `uk-offcanvas-bar-flip`
  ========================================================================== */
 .uk-offcanvas-bar-flip {
   left: auto;
-  right: -100%;
+  right: 0;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
 }
 /* Panel in offcanvas
  ========================================================================== */
@@ -6304,6 +6635,7 @@ input.uk-search-field {
  *					`uk-responsive-*`
  *					`uk-margin-*`
  *					`uk-heading-*`
+ *					`uk-link-muted`
  *					`uk-scrollable-*`
  *					`uk-display-*`
  *					`uk-visible-*`
@@ -6522,6 +6854,16 @@ input.uk-search-field {
     line-height: 64px;
   }
 }
+/* Link
+ ========================================================================== */
+.uk-link-muted,
+.uk-link-muted * {
+  color: #444444;
+}
+.uk-link-muted:hover,
+.uk-link-muted *:hover {
+  color: #444444;
+}
 /* Scrollable
  ========================================================================== */
 /*
@@ -6664,119 +7006,6 @@ input.uk-search-field {
   h2,
   h3 {
     page-break-after: avoid;
-  }
-}
-/*
- * Name:			Animation
- * Description:		Provides a useful set of keyframe animations
- *
- * Component:		`uk-animation`
- *
- * Used by:			Dropdown
- *					Icon
- *					Search
- *
- ========================================================================== */
-/* Fade
- ========================================================================== */
-@-webkit-keyframes uk-animation-fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes uk-animation-fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-/* Slide down
- ========================================================================== */
-@-webkit-keyframes uk-animation-slide-down {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-  }
-}
-@keyframes uk-animation-slide-down {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* Slide up
- ========================================================================== */
-@-webkit-keyframes uk-animation-slide-up {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-  }
-}
-@keyframes uk-animation-slide-up {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* Scale
- ========================================================================== */
-@-webkit-keyframes uk-animation-scale {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.3);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes uk-animation-scale {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/* Spin
- ========================================================================== */
-@-webkit-keyframes uk-animation-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-  }
-}
-@keyframes uk-animation-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(359deg);
   }
 }
 /* Theme

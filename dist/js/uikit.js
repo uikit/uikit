@@ -1,4 +1,4 @@
-/*! UIkit 1.0.2 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.1.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 (function($, doc) {
 
@@ -50,6 +50,8 @@
         return transitionEnd && { end: transitionEnd };
 
     })();
+
+    UI.support.touch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
 
 
     UI.Utils = {};
@@ -251,12 +253,15 @@
 
     // init code
     $(document).on("click.alert.uikit", "[data-uk-alert]", function(e) {
-        e.preventDefault();
+
         var ele = $(this);
         if (!ele.data("alert")) {
             ele.data("alert", new Alert(ele, UI.Utils.options(ele.data("uk-alert"))));
 
             if ($(e.target).is(ele.data("alert").options.trigger)) {
+
+                e.preventDefault();
+
                 ele.data("alert").close();
             }
         }
@@ -482,6 +487,8 @@
 
         checkDimensions: function() {
 
+            if(!this.dropdown.length) return;
+
             var dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
                 offset    = dropdown.show().offset(),
                 width     = dropdown.outerWidth(),
@@ -553,7 +560,6 @@
 
 })(jQuery, jQuery.UIkit);
 
-
 (function($, UI) {
 
     "use strict";
@@ -573,7 +579,7 @@
 
             if (!this.columns.length) return;
 
-            win.bind(event, (function() {
+            win.on(event, (function() {
                 var fn = function() {
                     $this.match();
                 };
@@ -638,7 +644,7 @@
 
         if (!this.columns.length) return;
 
-        win.bind(event, (function() {
+        win.on(event, (function() {
             var fn = function() {
                 $this.process();
             };
@@ -712,7 +718,7 @@
 
 })(jQuery, jQuery.UIkit);
 
-(function($, UI) {
+(function($, UI, $win) {
 
     "use strict";
 
@@ -731,6 +737,7 @@
             }, options);
 
             this.transition = UI.support.transition;
+            this.dialog     = this.element.find(".uk-modal-dialog");
 
             this.element.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
@@ -766,21 +773,23 @@
             var $this = this;
 
             if (this.isActive()) return;
-            if (active) active.hide();
+            if (active) active.hide(true);
+
+            this.resize();
 
             this.element.removeClass("uk-open").show();
 
             active = this;
             html.addClass("uk-modal-page").height(); // force browser engine redraw
 
-            $this.element.addClass("uk-open");
+            this.element.addClass("uk-open").trigger("uk.modal.show");
         },
 
-        hide: function() {
+        hide: function(force) {
 
             if (!this.isActive()) return;
 
-            if (UI.support.transition) {
+            if (!force && UI.support.transition) {
 
                 var $this = this;
 
@@ -794,10 +803,25 @@
             }
         },
 
+        resize: function() {
+
+            this.dialog.css("margin-left", "");
+
+            var modalwidth = parseInt(this.dialog.css("width"), 10),
+                inview     = (modalwidth + parseInt(this.dialog.css("margin-left"),10) + parseInt(this.dialog.css("margin-right"),10)) < $win.width();
+
+            this.dialog.css("margin-left", modalwidth && inview ? -1*Math.ceil(modalwidth/2) : "");
+        },
+
         _hide: function() {
+
             this.element.hide().removeClass("uk-open");
+
             html.removeClass("uk-modal-page");
-            active = false;
+
+            if(active===this) active = false;
+
+            this.element.trigger("uk.modal.hide");
         },
 
         isActive: function() {
@@ -844,19 +868,28 @@
 
             ele.data("modal").show();
         }
+
     });
 
-})(jQuery, jQuery.UIkit);
+    $win.on("resize orientationchange", UI.Utils.debounce(function(){
 
-(function($, UI, DocumentTouch) {
+        if(active) active.resize();
+
+    }, 150));
+
+})(jQuery, jQuery.UIkit, jQuery(window));
+
+(function($, UI) {
 
     "use strict";
 
-    if ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch) {
+    if (UI.support.touch) {
         $("html").addClass("uk-touch");
     }
 
-    var Offcanvas = {
+    var $win      = $(window),
+        $doc      = $(document),
+        Offcanvas = {
 
         show: function(element) {
 
@@ -867,17 +900,16 @@
             var doc       = $("html"),
                 bar       = element.find(".uk-offcanvas-bar:first"),
                 dir       = bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1,
-                scrollbar = dir == -1 && $(window).width() < window.innerWidth ? (window.innerWidth - $(window).width()) : 0,
-                scrollpos = {x: window.scrollX, y: window.scrollY};
+                scrollbar = dir == -1 && $win.width() < window.innerWidth ? (window.innerWidth - $win.width()) : 0;
+
+            scrollpos = {x: window.scrollX, y: window.scrollY};
 
             element.addClass("uk-active");
 
-            doc.css("width", doc.outerWidth()).addClass("uk-offcanvas-page").width(); // .width() - force redraw
-            doc.css("margin-" + $.UIkit.langdirection, (bar.width() - scrollbar) * dir);
+            doc.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
+            doc.css("margin-left", ((bar.outerWidth() - scrollbar) * dir)).width(); // .width() - force redraw
 
-            window.scrollTo(scrollpos.x, scrollpos.y);
-
-            bar.css($.UIkit.langdirection == "left" ? (dir == -1 ? "right" : "left") : (dir == -1 ? "left" : "right"), 0);
+            bar.addClass("uk-offcanvas-bar-show").width();
 
             element.off(".ukoffcanvas").on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
 
@@ -893,12 +925,13 @@
                 Offcanvas.hide();
             });
 
-            $(document).on('keydown.offcanvas', function(e) {
+            $doc.on('keydown.offcanvas', function(e) {
                 if (e.keyCode === 27) { // ESC
                     Offcanvas.hide();
                 }
             });
         },
+
         hide: function(force) {
 
             var doc   = $("html"),
@@ -909,28 +942,29 @@
 
             if ($.UIkit.support.transition && !force) {
 
+
                 doc.one($.UIkit.support.transition.end, function() {
-                    doc.removeClass("uk-offcanvas-page").css("width", "");
-                }).css("margin-" + $.UIkit.langdirection, 0);
+                    doc.removeClass("uk-offcanvas-page").attr("style", "");
+                    panel.removeClass("uk-active");
+                    window.scrollTo(scrollpos.x, scrollpos.y);
+                }).css("margin-left", "");
 
                 setTimeout(function(){
-
-                    bar.one($.UIkit.support.transition.end, function() {
-                        panel.removeClass("uk-active");
-                    }).css({"left": "", "right": ""});
-                }, 150);
-
+                    bar.removeClass("uk-offcanvas-bar-show");
+                }, 50);
 
             } else {
-                doc.removeClass("uk-offcanvas-page").css("width", "").css("margin-" + $.UIkit.langdirection, "");
+                doc.removeClass("uk-offcanvas-page").attr("style", "");
                 panel.removeClass("uk-active");
-                bar.css({"left": "", "right": ""});
+                bar.removeClass("uk-offcanvas-bar-show");
+                window.scrollTo(scrollpos.x, scrollpos.y);
             }
 
             panel.off(".ukoffcanvas");
-            $(document).off(".ukoffcanvas");
+            $doc.off(".ukoffcanvas");
         }
-    };
+
+    }, scrollpos;
 
 
     var OffcanvasTrigger = function(element, options) {
@@ -956,7 +990,7 @@
 
 
     // init code
-    $(document).on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+    $doc.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
 
         e.preventDefault();
 
@@ -969,7 +1003,7 @@
         }
     });
 
-})(jQuery, jQuery.UIkit, window.DocumentTouch);
+})(jQuery, jQuery.UIkit);
 
 (function($, UI) {
 
@@ -1240,7 +1274,7 @@
                 this.connect.children().removeClass("uk-active").eq(index).addClass("uk-active");
             }
 
-            this.element.trigger("ui.switcher.show", [active]);
+            this.element.trigger("uk.switcher.show", [active]);
         }
 
     });
@@ -1266,6 +1300,8 @@
 
     var Tab = function(element, options) {
 
+        var $this    = this;
+
         this.element = $(element);
         this.options = $.extend({
             connect: false
@@ -1275,38 +1311,44 @@
             this.connect = $(this.options.connect);
         }
 
-        var mobiletab = $('<li></li>').addClass("uk-tab-responsive uk-active").append('<a href="javascript:void(0);"> <i class="uk-icon-caret-down"></i></a>'),
+        if (window.location.hash) {
+            var active = this.element.children().filter(window.location.hash);
+
+            if (active.length) {
+                this.element.children().removeClass('uk-active').filter(active).addClass("uk-active");
+            }
+        }
+
+        var mobiletab = $('<li class="uk-tab-responsive uk-active"><a href="javascript:void(0);"></a></li>'),
             caption   = mobiletab.find("a:first"),
             dropdown  = $('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>'),
             ul        = dropdown.find("ul");
 
-        caption.text(this.element.find("li.uk-active:first").find("a").text());
+        caption.html(this.element.find("li.uk-active:first").find("a").text());
 
         if (this.element.hasClass("uk-tab-bottom")) dropdown.addClass("uk-dropdown-up");
         if (this.element.hasClass("uk-tab-flip")) dropdown.addClass("uk-dropdown-flip");
 
-        this.element.find("a").each(function() {
+        this.element.find("a").each(function(i) {
 
-            var tab  = $(this),
-                item = $('<li><a href="#">' + tab.text() + '</a></li>').on("click", function(e) {
-                    e.preventDefault();
-                    tab.parent().trigger("click");
-                    mobiletab.removeClass("uk-open");
+            var tab  = $(this).parent(),
+                item = $('<li><a href="javascript:void(0);">' + tab.text() + '</a></li>').on("click", function(e) {
+                    $this.element.data("switcher").show(i);
                 });
 
-            if (!tab.parents(".uk-disabled:first").length) ul.append(item);
+            if (!$(this).parents(".uk-disabled:first").length) ul.append(item);
         });
 
         this.element.uk("switcher", {"toggler": ">li:not(.uk-tab-responsive)", "connect": this.options.connect});
 
-        mobiletab.append(dropdown).uk("dropdown");
+        mobiletab.append(dropdown).uk("dropdown", {"mode": "click"});
 
         this.element.append(mobiletab).data({
             "dropdown": mobiletab.data("dropdown"),
             "mobilecaption": caption
-        }).on("ui.switcher.show", function(e, tab) {
+        }).on("uk.switcher.show", function(e, tab) {
             mobiletab.addClass("uk-active");
-            caption.text(tab.find("a").text());
+            caption.html(tab.find("a").text());
         });
 
     };
@@ -1388,6 +1430,10 @@
         });
 
         this.dropdown = $('<div class="uk-dropdown uk-dropdown-search"><ul class="uk-nav uk-nav-search"></ul></div>').appendTo(this.form).find('.uk-nav-search');
+
+        if (this.options.flipDropdown) {
+            this.dropdown.parent().addClass('uk-dropdown-flip');
+        }
     };
 
     $.extend(Search.prototype, {
@@ -1398,6 +1444,7 @@
             method: 'post',
             minLength: 3,
             delay: 300,
+            flipDropdown: false,
             match: ':not(.uk-skip)',
             skipClass: 'uk-skip',
             loadingClass: 'uk-loading',
@@ -1583,6 +1630,100 @@
         if (!ele.data("search")) {
             ele.data("search", new Search(ele, UI.Utils.options(ele.data("uk-search"))));
         }
+    });
+
+})(jQuery, jQuery.UIkit);
+
+(function($, UI) {
+
+    "use strict";
+
+    var $win        = $(window),
+
+        ScrollSpy   = function(element, options) {
+
+            this.options = $.extend({}, this.options, options);
+
+            var $this = this, inviewstate, initinview,
+                fn = function(){
+
+                    var inview = isInView($this);
+
+                    if(inview && !inviewstate) {
+
+                        if(!initinview) {
+                            $this.element.addClass($this.options.initcls);
+                            $this.offset = $this.element.offset();
+                            initinview = true;
+
+                            $this.element.trigger("uk-scrollspy-init");
+                        }
+
+                        $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
+                        inviewstate = true;
+
+                        $this.element.trigger("uk.scrollspy.inview");
+                    }
+
+                    if (!inview && inviewstate && $this.options.repeat) {
+                        $this.element.removeClass("uk-scrollspy-inview").removeClass($this.options.cls);
+                        inviewstate = false;
+
+                        $this.element.trigger("uk.scrollspy.outview");
+                    }
+                };
+
+            this.element = $(element);
+
+            $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
+
+            fn();
+        };
+
+    $.extend(ScrollSpy.prototype, {
+
+        options: {
+            "cls": "uk-scrollspy-inview",
+            "initcls": "uk-scrollspy-init-inview",
+            "topoffset": 0,
+            "leftoffset": 0,
+            "repeat": false
+        }
+
+    });
+
+    UI["scrollspy"] = ScrollSpy;
+
+
+    function isInView(obj) {
+
+        var $element = obj.element, options = obj.options;
+
+        if (!$element.is(':visible')) {
+            return false;
+        }
+
+        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = obj.offset || $element.offset(), left = offset.left, top = offset.top;
+
+        if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
+            left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
+          return true;
+        } else {
+          return false;
+        }
+    }
+
+
+    // init code
+    $(function() {
+        $("[data-uk-scrollspy]").each(function() {
+
+            var element = $(this);
+
+            if (!element.data("scrollspy")) {
+                element.data("scrollspy", new ScrollSpy(element, UI.Utils.options(element.data("uk-scrollspy"))));
+            }
+        });
     });
 
 })(jQuery, jQuery.UIkit);

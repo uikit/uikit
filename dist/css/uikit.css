@@ -1,4 +1,4 @@
-/*! UIkit 1.0.2 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.1.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 /* LESS related */
 /*
@@ -1675,7 +1675,7 @@ iframe {
   padding: 2px 0;
 }
 /*
- * Item description
+ * Item subtitle
  */
 .uk-nav li > a > div {
   font-size: 12px;
@@ -1960,6 +1960,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Component:		`uk-navbar`
  *
  * Sub-objects:		`uk-navbar-nav`
+ *					`uk-navbar-nav-subtitle`
  *					`uk-navbar-content`
  *					`uk-navbar-brand`
  *					`uk-navbar-toggle`
@@ -2061,6 +2062,16 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   background-color: #f5f5f5;
   color: #444444;
 }
+/* Sub-objects: `uk-navbar-nav-subtitle`
+ ========================================================================== */
+.uk-navbar-nav .uk-navbar-nav-subtitle {
+  line-height: 28px;
+}
+.uk-navbar-nav-subtitle > div {
+  margin-top: -6px;
+  font-size: 10px;
+  line-height: 12px;
+}
 /* Sub-objects: `uk-navbar-content`, `uk-navbar-brand`, `uk-navbar-toggle`
  ========================================================================== */
 /*
@@ -2091,7 +2102,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /*
  * Better sibling spacing
  */
-.uk-navbar-content + .uk-navbar-content {
+.uk-navbar-content + .uk-navbar-content:not(.uk-navbar-center) {
   padding-left: 0;
 }
 /*
@@ -4738,6 +4749,9 @@ a.uk-button {
  *
  * Uses:			Icon: FontAwesome
  *
+ * Used by:			Alert
+ *					Modal
+ *
  ========================================================================== */
 /* Component
  ========================================================================== */
@@ -4885,6 +4899,8 @@ a.uk-close:hover {
  *					`uk-alert-danger`
  *					`uk-alert-large`
  *
+ * Uses:			Close: `uk-close`
+ *
  ========================================================================== */
 /* Component
  ========================================================================== */
@@ -4917,15 +4933,15 @@ a.uk-close:hover {
 .uk-alert h6 {
   color: inherit;
 }
-/* Sub-object: `uk-alert-close`
+/* Close in alert
  ========================================================================== */
-.uk-alert-close {
+.uk-alert > .uk-close:first-child {
   float: right;
 }
 /*
  * Remove margin from adjacent element
  */
-.uk-alert-close + * {
+.uk-alert > .uk-close:first-child + * {
   margin-top: 0;
 }
 /* Modifier: `uk-alert-success`
@@ -4951,7 +4967,7 @@ a.uk-close:hover {
 .uk-alert-large {
   padding: 20px;
 }
-.uk-alert-large .uk-alert-close {
+.uk-alert-large > .uk-close:first-child {
   margin: -10px -10px 0 0;
 }
 /* Hooks
@@ -5563,7 +5579,7 @@ input.uk-search-field {
 @-webkit-keyframes uk-slide-top {
   0% {
     opacity: 0;
-    -webkit-transform: translateY(100%);
+    -webkit-transform: translateY(-100%);
   }
   100% {
     opacity: 1;
@@ -5573,7 +5589,7 @@ input.uk-search-field {
 @keyframes uk-slide-top {
   0% {
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateY(-100%);
   }
   100% {
     opacity: 1;
@@ -5586,7 +5602,7 @@ input.uk-search-field {
 @-webkit-keyframes uk-slide-bottom {
   0% {
     opacity: 0;
-    -webkit-transform: translateY(-100%);
+    -webkit-transform: translateY(100%);
   }
   100% {
     opacity: 1;
@@ -5596,7 +5612,7 @@ input.uk-search-field {
 @keyframes uk-slide-bottom {
   0% {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(100%);
   }
   100% {
     opacity: 1;
@@ -5952,6 +5968,8 @@ input.uk-search-field {
  *
  * States:			`uk-open`
  *
+ * Uses:			Close: `uk-close`
+ *
  ========================================================================== */
 /* Component
  ========================================================================== */
@@ -6067,16 +6085,16 @@ input.uk-search-field {
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }
-/* Sub-object: `uk-modal-close`
+/* Close in modal
  ========================================================================== */
-.uk-modal-close {
+.uk-modal-dialog > .uk-close:first-child {
   margin: -10px -10px 0 0;
   float: right;
 }
 /*
  * Remove margin from adjacent element
  */
-.uk-modal-close + * {
+.uk-modal-dialog > .uk-close:first-child + * {
   margin-top: 0;
 }
 /* Modifier: `uk-modal-dialog-frameless`
@@ -6085,9 +6103,9 @@ input.uk-search-field {
   padding: 0;
 }
 /*
- * Close button
+ * Close in modal
  */
-.uk-modal-dialog-frameless .uk-modal-close {
+.uk-modal-dialog-frameless > .uk-close:first-child {
   position: absolute;
   top: -12px;
   right: -12px;
@@ -6096,7 +6114,7 @@ input.uk-search-field {
 }
 /* Only phones */
 @media (max-width: 767px) {
-  .uk-modal-dialog-frameless .uk-modal-close {
+  .uk-modal-dialog-frameless > .uk-close:first-child {
     top: -7px;
     right: -7px;
   }
@@ -6498,6 +6516,7 @@ input.uk-search-field {
  *					`uk-responsive-*`
  *					`uk-margin-*`
  *					`uk-heading-*`
+ *					`uk-link-muted`
  *					`uk-scrollable-*`
  *					`uk-display-*`
  *					`uk-visible-*`
@@ -6715,6 +6734,16 @@ input.uk-search-field {
     font-size: 52px;
     line-height: 64px;
   }
+}
+/* Link
+ ========================================================================== */
+.uk-link-muted,
+.uk-link-muted * {
+  color: #444444;
+}
+.uk-link-muted:hover,
+.uk-link-muted *:hover {
+  color: #444444;
 }
 /* Scrollable
  ========================================================================== */
