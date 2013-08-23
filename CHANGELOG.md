@@ -2,6 +2,7 @@
 
 ### W.I.P.
   - Fixed link-muted
+  - Fixed rare customizer unknown less var error
 
 ### 1.1.0 (August 21, 2013)
 

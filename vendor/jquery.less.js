@@ -69,6 +69,11 @@
             try {
                 deferred.resolve(tree.toCSS(opts));
             } catch (e) {
+                
+                if (opts.id && cache[opts.id]) {
+                    delete cache[opts.id];
+                }
+
                 deferred.reject(e);
             }
 
