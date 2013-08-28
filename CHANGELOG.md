@@ -2,6 +2,7 @@
 
 ### W.I.P.
   - Fixed link-muted
+  - Fixed rare customizer unknown less var error
 
 ### 1.1.0 (August 21, 2013)
 
@@ -19,7 +20,7 @@
   - Fixed open modals in a chain
   - Fixed off-canvas scroll position bug
 
-  **Documentation and repository**
+**Documentation and repository**
 
   - Added scrollspy and animation docs and tests
   - Added bower definition file
