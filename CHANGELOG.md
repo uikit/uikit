@@ -20,7 +20,7 @@
   - Fixed open modals in a chain
   - Fixed off-canvas scroll position bug
 
-  **Documentation and repository**
+**Documentation and repository**
 
   - Added scrollspy and animation docs and tests
   - Added bower definition file
