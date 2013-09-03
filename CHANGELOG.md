@@ -1,6 +1,7 @@
 # Changelog
 
 ### W.I.P.
+  - Added shake animation
   - Fixed link-muted
   - Fixed rare customizer unknown less var error
 
