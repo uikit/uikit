@@ -58,24 +58,51 @@
                 tmppos[0] = tmppos[0] == "left" ? "right" : "left";
             }
 
+            var variants =  {
+                "bottom"  : {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2},
+                "top"     : {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2},
+                "left"    : {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset},
+                "right"   : {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset}
+            };
 
-            switch (tmppos[0]) {
-                case 'bottom':
-                    $.extend(tcss, {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2});
-                    break;
-                case 'top':
-                    $.extend(tcss, {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2});
-                    break;
-                case 'left':
-                    $.extend(tcss, {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset});
-                    break;
-                case 'right':
-                    $.extend(tcss, {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset});
-                    break;
-            }
+            $.extend(tcss, variants[tmppos[0]]);
 
-            if (tmppos.length == 2) {
-                tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
+            if (tmppos.length == 2) tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
+
+            var boundary = this.checkBoundary(tcss.left, tcss.top, width, height);
+
+            if(boundary) {
+
+                switch(boundary) {
+                    case "x":
+
+                        if (tmppos.length == 2) {
+                            position = tmppos[0]+"-"+(tcss.left < 0 ? "left": "right");
+                        } else {
+                            position = tcss.left < 0 ? "right": "left";
+                        }
+
+                    case "y":
+                        if (tmppos.length == 2) {
+                            position = (tcss.top < 0 ? "bottom": "top")+"-"+tmppos[1];
+                        } else {
+                            position = (tcss.top < 0 ? "bottom": "top");
+                        }
+
+                    case "xy":
+                        if (tmppos.length == 2) {
+                            position = (tcss.top < 0 ? "bottom": "top")+"-"+(tcss.left < 0 ? "left": "right");
+                        } else {
+                            position = tcss.left < 0 ? "right": "left";
+                        }
+
+                }
+
+                tmppos = position.split("-");
+
+                $.extend(tcss, variants[tmppos[0]]);
+
+                if (tmppos.length == 2) tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
             }
 
             $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position).show();
@@ -89,6 +116,21 @@
 
         content: function() {
             return this.tip;
+        },
+
+        checkBoundary: function(left, top, width, height) {
+
+            var axis = ""
+
+            if(left < 0 || left+width > window.innerWidth) {
+                axis += "x";
+            }
+
+            if(top < 0 || top+height > window.innerHeight) {
+                axis += "y";
+            }
+
+            return axis;
         }
 
     });
