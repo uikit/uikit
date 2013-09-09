@@ -82,6 +82,8 @@
                             position = tcss.left < 0 ? "right": "left";
                         }
 
+                        break;
+
                     case "y":
                         if (tmppos.length == 2) {
                             position = (tcss.top < 0 ? "bottom": "top")+"-"+tmppos[1];
@@ -89,12 +91,16 @@
                             position = (tcss.top < 0 ? "bottom": "top");
                         }
 
+                        break;
+
                     case "xy":
                         if (tmppos.length == 2) {
                             position = (tcss.top < 0 ? "bottom": "top")+"-"+(tcss.left < 0 ? "left": "right");
                         } else {
                             position = tcss.left < 0 ? "right": "left";
                         }
+
+                        break;
 
                 }
 
@@ -120,7 +126,7 @@
 
         checkBoundary: function(left, top, width, height) {
 
-            var axis = ""
+            var axis = "";
 
             if(left < 0 || left+width > window.innerWidth) {
                 axis += "x";
