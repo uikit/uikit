@@ -4,6 +4,7 @@
   - Added shake animation
   - Fixed link-muted
   - Fixed rare customizer unknown less var error
+  - Fixed tooltip component (boundary check)
 
 ### 1.1.0 (August 21, 2013)
 
