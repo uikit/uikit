@@ -2,14 +2,15 @@
 
     "use strict";
 
-    var $tooltip; // tooltip container
+    var $tooltip,   // tooltip container
+        tooltipdelay;
 
 
     var Tooltip = function(element, options) {
 
         var $this = this;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, Tooltip.defaults, options);
 
         this.element = $(element).on({
             "focus"     : function(e) { $this.show(); },
@@ -28,20 +29,16 @@
 
         tip: "",
 
-        options: {
-            "offset": 5,
-            "pos": "top",
-            "src": function() { return this.attr("title"); }
-        },
-
         show: function() {
 
+            if (tooltipdelay)     clearTimeout(tooltipdelay);
             if (!this.tip.length) return;
 
-            $tooltip.css({"top": -2000, "visibility": "hidden"}).show();
+            $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
-            var pos      = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
+            var $this    = this,
+                pos      = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
                 width    = $tooltip[0].offsetWidth,
                 height   = $tooltip[0].offsetHeight,
                 offset   = typeof(this.options.offset) === "function" ? this.options.offset.call(this.element) : this.options.offset,
@@ -111,13 +108,32 @@
                 if (tmppos.length == 2) tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
             }
 
-            $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position).show();
+            tooltipdelay = setTimeout(function(){
 
+                $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position);
+
+                if ($this.options.animation) {
+                    $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
+                } else {
+                    $tooltip.show();
+                }
+
+                tooltipdelay = false;
+            }, parseInt(this.options.delay, 10) || 0);
         },
 
         hide: function() {
             if(this.element.is("input") && this.element[0]===document.activeElement) return;
-            $tooltip.hide();
+
+            if(tooltipdelay) clearTimeout(tooltipdelay);
+
+            $tooltip.stop();
+
+            if (this.options.animation) {
+                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400);
+            } else {
+                $tooltip.hide();
+            }
         },
 
         content: function() {
@@ -140,6 +156,14 @@
         }
 
     });
+
+    Tooltip.defaults = {
+        "offset": 5,
+        "pos": "top",
+        "animation": false,
+        "delay": 0, // in miliseconds
+        "src": function() { return this.attr("title"); }
+    };
 
     UI["tooltip"] = Tooltip;
 
