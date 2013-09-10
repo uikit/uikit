@@ -196,11 +196,11 @@
  * 1. Different widths for mini sized `input` and `select` elements
  */
 
-input.uk-form-width-mini { width: 40px; } /* 1 */
-select.uk-form-width-mini { width: 65px; } /* 1 */
-.uk-form-width-small { width: 130px; }
-.uk-form-width-medium { width: 200px; }
-.uk-form-width-large { width: 500px; }
+input.uk-form-width-mini { width: @form-mini-width; } /* 1 */
+select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
+.uk-form-width-small { width: @form-small-width; }
+.uk-form-width-medium { width: @form-medium-width; }
+.uk-form-width-large { width: @form-large-width; }
 
 
 /* Sub-objects: `uk-form-row`
