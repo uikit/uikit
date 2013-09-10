@@ -2,9 +2,11 @@
 
 ### W.I.P.
   - Added shake animation
+  - Added boundary check to tooltip component
+  - Added more variables to form component
+  - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed rare customizer unknown less var error
-  - Fixed tooltip component (boundary check)
 
 ### 1.1.0 (August 21, 2013)
 
