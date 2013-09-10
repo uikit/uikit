@@ -4,6 +4,7 @@
   - Added shake animation
   - Added boundary check to tooltip component
   - Added more variables to form component
+  - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed rare customizer unknown less var error
 
