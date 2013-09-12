@@ -7,6 +7,7 @@
   - Added margin-left and margin-right to utility component
   - Added variables for width sub-modifiers to form component
   - Added size modifier support for textarea and multiple selects
+  - Added renderer option for seach component
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed rare customizer unknown less var error
