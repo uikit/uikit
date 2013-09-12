@@ -5,7 +5,8 @@
   - Added boundary check to tooltip component
   - Added delay and animation option to tooltip component
   - Added margin-left and margin-right to utility component
-  - Added more variables to form component
+  - Added variables for width sub-modifiers to form component
+  - Added size modifier support for textarea and multiple selects
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed rare customizer unknown less var error

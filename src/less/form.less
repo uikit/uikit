@@ -88,10 +88,6 @@
 	}
 }
 
-.uk-form textarea,
-.uk-form select[multiple],
-.uk-form select[size] { height: auto; } /* 1 */
-
 /*
  * Placeholder
  * 1. Higher specificity needed to override color in IE
@@ -126,6 +122,32 @@
 }
 
 
+/* Size modifiers
+ * Using !important to keep the selector simple
+ ========================================================================== */
+
+.uk-form-small {
+	height: @form-small-height !important;
+	padding: 3px 3px !important;
+	font-size: @form-small-font-size;
+}
+
+.uk-form-large {
+	height: @form-large-height !important;
+	padding: 8px 6px !important;
+	font-size: @form-large-font-size;
+}
+
+
+/* Reset height
+ * Must be after size modifiers
+ ========================================================================== */
+
+.uk-form textarea,
+.uk-form select[multiple],
+.uk-form select[size] { height: auto !important; }
+
+
 /* Validation states
  * Using !important to keep the selector simple
  ========================================================================== */
@@ -150,23 +172,6 @@
 	background: @form-success-background !important;
 	color: @form-success-color !important;
 	.hook-form-success;
-}
-
-
-/* Size modifiers
- * Using !important to keep the selector simple
- ========================================================================== */
-
-.uk-form-small {
-	height: @form-small-height !important;
-	padding: 3px 3px !important;
-	font-size: @form-small-font-size;
-}
-
-.uk-form-large {
-	height: @form-large-height !important;
-	padding: 8px 6px !important;
-	font-size: @form-large-font-size;
 }
 
 
