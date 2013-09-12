@@ -2,7 +2,9 @@
 
     "use strict";
 
-    var Search = function(element, options) {
+    var renderers = {},
+
+        Search = function(element, options) {
 
         var $this = this;
 
@@ -64,6 +66,12 @@
         if (this.options.flipDropdown) {
             this.dropdown.parent().addClass('uk-dropdown-flip');
         }
+
+        this.dropdown.on("mouseover", ">li", function(){
+            $this.pick($(this));
+        });
+
+        this.renderer = new renderers[this.options.renderer](this);
     };
 
     $.extend(Search.prototype, {
@@ -79,16 +87,11 @@
             skipClass: 'uk-skip',
             loadingClass: 'uk-loading',
             filledClass: 'uk-active',
-            resultsHeaderClass: 'uk-nav-header',
-            moreResultsClass: '',
-            noResultsClass: '',
             listClass: 'results',
             hoverClass: 'uk-active',
-            msgResultsHeader: 'Search Results',
-            msgMoreResults: 'More Results',
-            msgNoResults: 'No results found',
-            onSelect: function(selected) { window.location = selected.data('choice').url; },
-            onLoadedResults: function(results) { return results; }
+            onSelect: function(selected) {  },
+            onLoadedResults: function(results) { return results; },
+            renderer: "default"
         },
 
         request: function(options) {
@@ -147,22 +150,6 @@
             }
         },
 
-        done: function(selected) {
-
-            if (!selected) {
-                this.form.submit();
-                return;
-            }
-
-            if (selected.hasClass(this.options.moreResultsClass)) {
-                this.form.submit();
-            } else if (selected.data('choice')) {
-                this.options.onSelect.apply(this, [selected]);
-            }
-
-            this.hide();
-        },
-
         trigger: function() {
 
             var $this = this, old = this.value, data = {};
@@ -186,52 +173,24 @@
             return this;
         },
 
+        done: function(selected) {
+
+            this.renderer.done(selected);
+        },
+
         suggest: function(data) {
 
             if (!data) return;
 
-            var $this  = this,
-                events = {
-                    'mouseover': function() { $this.pick($(this).parent()); },
-                    'click': function(e) {
-                        e.preventDefault();
-                        $this.done($(this).parent());
-                    }
-                };
-
             if (data === false) {
                 this.hide();
             } else {
+
                 this.selected = null;
+
                 this.dropdown.empty();
 
-                if (this.options.msgResultsHeader) {
-                    $('<li>').addClass(this.options.resultsHeaderClass + ' ' + this.options.skipClass).html(this.options.msgResultsHeader).appendTo(this.dropdown);
-                }
-
-                if (data.results && data.results.length > 0) {
-
-                    $(data.results).each(function(i) {
-
-                        var item = $('<li><a href="#">' + this.title + '</a></li>').data('choice', this);
-
-                        if (this["text"]) {
-                            item.find("a").append('<div>' + this.text + '</div>');
-                        }
-
-                        $this.dropdown.append(item);
-                    });
-
-                    if (this.options.msgMoreResults) {
-                        $('<li>').addClass('uk-nav-divider ' + $this.options.skipClass).appendTo($this.dropdown);
-                        $('<li>').addClass($this.options.moreResultsClass).html('<a href="#">' + $this.options.msgMoreResults + '</a>').appendTo($this.dropdown).on(events);
-                    }
-
-                    $this.dropdown.find("li>a").on(events);
-
-                } else if (this.options.msgNoResults) {
-                    $('<li>').addClass(this.options.noResultsClass + ' ' + this.options.skipClass).html('<a>' + this.options.msgNoResults + '</a>').appendTo(this.dropdown);
-                }
+                this.renderer.suggest(data);
 
                 this.show();
             }
@@ -250,6 +209,85 @@
             this.form.removeClass(this.options.loadingClass).removeClass("uk-open");
         }
     });
+
+    Search.addRenderer = function(name, klass) {
+        renderers[name] = klass;
+    };
+
+
+    var DefaultRenderer = function(search) {
+        this.search = search;
+        this.options = $.extend({}, DefaultRenderer.defaults, search.options);
+    };
+
+    $.extend(DefaultRenderer.prototype, {
+
+        done: function(selected) {
+
+            if (!selected) {
+                this.search.form.submit();
+                return;
+            }
+
+            if (selected.hasClass(this.options.moreResultsClass)) {
+                this.search.form.submit();
+            } else if (selected.data('choice')) {
+                window.location = selected.data('choice').url;
+            }
+
+            this.search.hide();
+        },
+
+        suggest: function(data) {
+
+           var $this  = this,
+               events = {
+                   'click': function(e) {
+                       e.preventDefault();
+                       $this.done($(this).parent());
+                   }
+               };
+
+            if (this.options.msgResultsHeader) {
+                $('<li>').addClass(this.options.resultsHeaderClass + ' ' + this.options.skipClass).html(this.options.msgResultsHeader).appendTo(this.search.dropdown);
+            }
+
+            if (data.results && data.results.length > 0) {
+
+                $(data.results).each(function(i) {
+
+                    var item = $('<li><a href="#">' + this.title + '</a></li>').data('choice', this);
+
+                    if (this["text"]) {
+                        item.find("a").append('<div>' + this.text + '</div>');
+                    }
+
+                    $this.search.dropdown.append(item);
+                });
+
+                if (this.options.msgMoreResults) {
+                    $('<li>').addClass('uk-nav-divider ' + $this.options.skipClass).appendTo($this.dropdown);
+                    $('<li>').addClass($this.options.moreResultsClass).html('<a href="#">' + $this.options.msgMoreResults + '</a>').appendTo($this.search.dropdown).on(events);
+                }
+
+                $this.search.dropdown.find("li>a").on(events);
+
+            } else if (this.options.msgNoResults) {
+                $('<li>').addClass(this.options.noResultsClass + ' ' + this.options.skipClass).html('<a>' + this.options.msgNoResults + '</a>').appendTo($this.search.dropdown);
+            }
+        }
+    });
+
+    DefaultRenderer.defaults = {
+        resultsHeaderClass: 'uk-nav-header',
+        moreResultsClass: '',
+        noResultsClass: '',
+        msgResultsHeader: 'Search Results',
+        msgMoreResults: 'More Results',
+        msgNoResults: 'No results found'
+    };
+
+    Search.addRenderer("default", DefaultRenderer);
 
     UI["search"] = Search;
 
