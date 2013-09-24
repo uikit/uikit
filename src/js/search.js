@@ -89,7 +89,6 @@
             filledClass: 'uk-active',
             listClass: 'results',
             hoverClass: 'uk-active',
-            onSelect: function(selected) {  },
             onLoadedResults: function(results) { return results; },
             renderer: "default"
         },
