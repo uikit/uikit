@@ -165,16 +165,21 @@
 
     UI["dropdown"] = Dropdown;
 
+
+    var triggerevent = UI.support.touch ? "touchstart":"mouseenter";
+
     // init code
-    $(document).on("mouseenter.dropdown.uikit", "[data-uk-dropdown]", function(e) {
+    $(document).on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
         var ele = $(this);
 
         if (!ele.data("dropdown")) {
+
             ele.data("dropdown", new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown"))));
 
-            if (ele.data("dropdown").options.mode == "hover") {
+            if(triggerevent == "mouseenter" && ele.data("dropdown").options.mode == "hover") {
                 ele.trigger("mouseenter");
             }
+
         }
     });
 
