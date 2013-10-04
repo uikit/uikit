@@ -10,6 +10,7 @@
   - Added renderer option for seach component
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
+  - Fixed form-controls-condensed margin
   - Fixed rare customizer unknown less var error
 
 ### 1.1.0 (August 21, 2013)
