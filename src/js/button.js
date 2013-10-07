@@ -49,10 +49,11 @@
 
     });
 
-    var Button = function(element) {
+    var Button = function(element, options) {
 
         var $this = this;
 
+        this.options = $.extend({}, this.options, options);
         this.element = $(element).on("click", function(e) {
             e.preventDefault();
             $this.toggle();
@@ -61,6 +62,8 @@
     };
 
     $.extend(Button.prototype, {
+
+        options: {},
 
         toggle: function() {
             this.element.toggleClass("uk-active");
