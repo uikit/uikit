@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Scrollspy component - UIkit tests</title>
+		<script src="../../vendor/jquery.js"></script>
+		<script src="utils/test.js"></script>
+	</head>
+
+	<body>
+
+		<div class="uk-container uk-container-center">
+
+			<h1>ScrollSpy</h1>
+
+			<div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade'}">
+						<p>The element is animated only the first time it appears in the viewport.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<p>The element is animated everytime it appears in the viewport.</p>
+					</div>
+				</div>
+			</div>
+
+			<h2>Scroll down</h2>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Fade</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+						<h3 class="uk-panel-title">Scale up</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+						<h3 class="uk-panel-title">Scale down</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+						<h3 class="uk-panel-title">Slide left</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+						<h3 class="uk-panel-title">Slide right</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+						<h3 class="uk-panel-title">Slide top</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-2-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4 uk-push-3-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+</html>

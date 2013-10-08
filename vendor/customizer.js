@@ -2,8 +2,10 @@
 
     var Customizer = function($element, $options) {
 
-        var $select = $($options.select, $element), $sidebar = $($options.sidebar, $element), $advanced = $($options.advanced, $element), $style;
-
+        var $select   = $($options.select, $element),
+            $sidebar  = $($options.sidebar, $element),
+            $advanced = $($options.advanced, $element),
+            $style;
 
         this.$options = $options;
         this.$select  = $select;

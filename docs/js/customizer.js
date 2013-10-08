@@ -1,32 +1,57 @@
 jQuery(function($) {
 
-    var $customizer = $("#customizer"), $iframe = $("#cm-theme-preview"), $spinner = $("i.cm-spinner"), $error = $(".cm-error"), $minify = $("input[name=minify]"), $modal = $("#modal"), $download = (typeof document.createElement('a').download != "undefined"), $url = window.URL || window.webkitURL, $rtl, $style, loaded = false;
+    var $rtl, $style,
+        $customizer = $("#customizer"),
+        $iframe     = $("#cm-theme-preview"),
+        $spinner    = $("i.cm-spinner"),
+        $error      = $(".cm-error"),
+        $minify     = $("input[name=minify]"),
+        $modal      = $("#modal"),
+        $download   = (typeof document.createElement('a').download != "undefined"),
+        $url        = window.URL || window.webkitURL,
+        loaded      = false,
+        coptions    = {
+            "styles": [
+                {"name": "Gradient", "url": "../themes/default/gradient/uikit.less", "config": "../themes/default/gradient/customizer.json"},
+                {"name": "Almost Flat", "url": "../themes/default/almost-flat/uikit.less", "config": "../themes/default/almost-flat/customizer.json"}
+            ]
+        };
 
     $iframe.css("visibility", "hidden");
+    $spinner.show();
 
-    $customizer.customizer($.extend({
-        "updating": function(e, style) {
-            $iframe.css("visibility", "hidden");
-            $spinner.show();
-        },
-        "updated": function(e, style) {
+    $.get("../themes/themes.json", {nocache:Math.random()}).always(function(data, type){
 
-            var url;
-
-            style.fonts = "";
-
-            $("option[data-url]:selected", $customizer).each(function(){
-                if ((url = $(this).data("url")) && style.fonts.indexOf("'" + url + "'") == -1) {
-                    style.fonts += "@import '" + url + "';\n";
-                }
-            });
-
-            renderPreview($style = style);
+        if (type==="success") {
+            $.extend(coptions.styles, data);
         }
-    }, customizer || {}));
 
-    $iframe.on("load", function() {
-        $customizer.trigger("update", [false, $iframe[0].contentWindow["CustomizerForceUpdate"]]);
+        coptions.styles.unshift({"name": "Default", "url": "../src/less/uikit.less", "config": "../src/less/customizer.json"});
+
+        $customizer.customizer($.extend({
+            "updating": function(e, style) {
+                $iframe.css("visibility", "hidden");
+                $spinner.show();
+            },
+            "updated": function(e, style) {
+
+                var url;
+
+                style.fonts = "";
+
+                $("option[data-url]:selected", $customizer).each(function(){
+                    if ((url = $(this).data("url")) && style.fonts.indexOf("'" + url + "'") == -1) {
+                        style.fonts += "@import '" + url + "';\n";
+                    }
+                });
+
+                renderPreview($style = style);
+            }
+        }, coptions));
+
+        $iframe.on("load", function() {
+            $customizer.trigger("update", [false, $iframe[0].contentWindow["CustomizerForceUpdate"]]);
+        });
     });
 
     $error.on({

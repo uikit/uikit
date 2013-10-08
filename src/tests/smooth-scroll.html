@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Smooth scroll - UIkit tests</title>
+		<script src="../../vendor/jquery.js"></script>
+		<script src="utils/test.js"></script>
+		<style type="text/css">
+
+			body.uk-container { padding-bottom: 20px; }
+
+		</style>
+	</head>
+
+	<body>
+
+		<div class="uk-container uk-container-center">
+
+			<h1>Smooth scroll</h1>
+
+			<a href="#bottom" class="uk-button" data-uk-smooth-scroll>Go Down!</a>
+
+			<div style="height: 2000px;"></div>
+
+			<a id="bottom" href="#top" class="uk-button" data-uk-smooth-scroll>Go Up!</a>
+
+		</div>
+
+	</body>
+</html>

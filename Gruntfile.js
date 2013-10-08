@@ -31,47 +31,63 @@ module.exports = function(grunt) {
         less: (function(){
 
             var lessconf = {
-                uikit: {
+                "uikit": {
                     options: { paths: ["src/less"] },
                     files: { "dist/css/uikit.css": ["src/less/uikit.less"] }
                 },
-                uikitmin: {
+                "uikitmin": {
                     options: { paths: ["src/less"], yuicompress: true },
                     files: { "dist/css/uikit.min.css": ["src/less/uikit.less"] }
                 },
-                docsmin: {
+                "docsmin": {
                     options: { paths: ["docs/less"], yuicompress: true },
                     files: { "docs/css/uikit.docs.min.css": ["docs/less/uikit.less"] }
                 }
-            };
+            },
 
-            fs.readdirSync('src/themes').forEach(function(f){
-                var stats = fs.lstatSync('src/themes/'+f);
+            themes = [];
 
-                    // Is it a directory?
-                    if (stats.isDirectory() && f!=="blank") {
+            ["default", "custom"].forEach(function(f){
 
+                if(fs.existsSync('themes/'+f)) {
 
-                        var files = {};
+                    fs.readdirSync('themes/'+f).forEach(function(t){
 
-                        files["dist/css/uikit."+f+".css"] = ["src/themes/"+f+"/uikit.less"];
+                        var themepath = 'themes/'+f+'/'+t,
+                            distpath  = f=="default" ? "dist/css" : themepath+"/dist";
 
-                        lessconf[f] = {
-                            "options": { paths: ["src/themes/"+f] },
-                            "files": files
-                        };
+                        // Is it a directory?
+                        if (fs.lstatSync(themepath).isDirectory() && t!=="blank") {
 
-                        var filesmin = {};
+                            var files = {};
 
-                        filesmin["dist/css/uikit."+f+".min.css"] = ["src/themes/"+f+"/uikit.less"];
+                            files[distpath+"/uikit."+t+".css"] = [themepath+"/uikit.less"];
 
-                        lessconf[f+"min"] = {
-                            "options": { paths: ["src/themes/"+f], yuicompress: true},
-                            "files": filesmin
-                        };
-                    }
+                            lessconf[f] = {
+                                "options": { paths: [themepath] },
+                                "files": files
+                            };
 
+                            var filesmin = {};
+
+                            filesmin[distpath+"/uikit."+t+".min.css"] = [themepath+"/uikit.less"];
+
+                            lessconf[f+"min"] = {
+                                "options": { paths: [themepath], yuicompress: true},
+                                "files": filesmin
+                            };
+
+                            themes.push({
+                                "name"  : t.split("-").join(" ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) { return $1.toUpperCase(); }),
+                                "url"   : "../"+themepath+"/uikit.less",
+                                "config": "../"+themepath+"/customizer.json"
+                            });
+                        }
+                    });
+                }
             });
+
+            fs.writeFile("themes/themes.json", JSON.stringify(themes, " ", 4));
 
             return lessconf;
         })(),
