@@ -31,21 +31,11 @@ module.exports = function(grunt) {
         less: (function(){
 
             var lessconf = {
-                "uikit": {
-                    options: { paths: ["src/less"] },
-                    files: { "dist/css/uikit.css": ["src/less/uikit.less"] }
-                },
-                "uikitmin": {
-                    options: { paths: ["src/less"], yuicompress: true },
-                    files: { "dist/css/uikit.min.css": ["src/less/uikit.less"] }
-                },
                 "docsmin": {
                     options: { paths: ["docs/less"], yuicompress: true },
                     files: { "docs/css/uikit.docs.min.css": ["docs/less/uikit.less"] }
                 }
-            },
-
-            themes = [];
+            };
 
             ["default", "custom"].forEach(function(f){
 
@@ -61,33 +51,33 @@ module.exports = function(grunt) {
 
                             var files = {};
 
-                            files[distpath+"/uikit."+t+".css"] = [themepath+"/uikit.less"];
+                            if(t=="uikit") {
+                                files[distpath+"/uikit.css"] = [themepath+"/uikit.less"];
+                            } else {
+                                files[distpath+"/uikit."+t+".css"] = [themepath+"/uikit.less"];
+                            }
 
-                            lessconf[f] = {
+                            lessconf[t] = {
                                 "options": { paths: [themepath] },
                                 "files": files
                             };
 
                             var filesmin = {};
 
-                            filesmin[distpath+"/uikit."+t+".min.css"] = [themepath+"/uikit.less"];
+                            if(t=="uikit") {
+                                filesmin[distpath+"/uikit.min.css"] = [themepath+"/uikit.less"];
+                            } else {
+                                filesmin[distpath+"/uikit."+t+".min.css"] = [themepath+"/uikit.less"];
+                            }
 
-                            lessconf[f+"min"] = {
+                            lessconf[t+"min"] = {
                                 "options": { paths: [themepath], yuicompress: true},
                                 "files": filesmin
                             };
-
-                            themes.push({
-                                "name"  : t.split("-").join(" ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) { return $1.toUpperCase(); }),
-                                "url"   : "../"+themepath+"/uikit.less",
-                                "config": "../"+themepath+"/customizer.json"
-                            });
                         }
                     });
                 }
             });
-
-            fs.writeFile("themes/themes.json", JSON.stringify(themes, " ", 4));
 
             return lessconf;
         })(),
@@ -166,6 +156,35 @@ module.exports = function(grunt) {
 
     });
 
+    grunt.registerTask('indexthemes', 'Rebuilding theme index.', function() {
+
+       var themes = [];
+
+       ["default", "custom"].forEach(function(f){
+
+           if(fs.existsSync('themes/'+f)) {
+
+               fs.readdirSync('themes/'+f).forEach(function(t){
+
+                   var themepath = 'themes/'+f+'/'+t;
+
+                   // Is it a directory?
+                   if (fs.lstatSync(themepath).isDirectory() && t!=="blank") {
+                       themes.push({
+                           "name"  : t.split("-").join(" ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) { return $1.toUpperCase(); }),
+                           "url"   : "../"+themepath+"/uikit.less",
+                           "config": "../"+themepath+"/customizer.json"
+                       });
+                   }
+               });
+           }
+       });
+
+       grunt.log.writeln(themes.length+' themes found: ' + themes.map(function(theme){ return theme.name;}).join(", "));
+
+       fs.writeFileSync("themes/themes.json", JSON.stringify(themes, " ", 4));
+    });
+
     // Load grunt tasks from NPM packages
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-copy");
@@ -177,7 +196,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-banner");
 
     // Register grunt tasks
-    grunt.registerTask("build", ["jshint", "less", "concat", "uglify", "usebanner", "copy"]);
+    grunt.registerTask("build", ["jshint", "indexthemes", "less", "concat", "uglify", "usebanner", "copy"]);
     grunt.registerTask("default", ["build", "compress"]);
 
 };

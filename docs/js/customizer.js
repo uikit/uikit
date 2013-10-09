@@ -12,6 +12,7 @@ jQuery(function($) {
         loaded      = false,
         coptions    = {
             "styles": [
+                {"name": "UIkit", "url": "../themes/default/uikit/uikit.less", "config": "../themes/default/uikit/customizer.json"},
                 {"name": "Gradient", "url": "../themes/default/gradient/uikit.less", "config": "../themes/default/gradient/customizer.json"},
                 {"name": "Almost Flat", "url": "../themes/default/almost-flat/uikit.less", "config": "../themes/default/almost-flat/customizer.json"}
             ]
@@ -25,8 +26,6 @@ jQuery(function($) {
         if (type==="success") {
             $.extend(coptions.styles, data);
         }
-
-        coptions.styles.unshift({"name": "Default", "url": "../src/less/uikit.less", "config": "../src/less/customizer.json"});
 
         $customizer.customizer($.extend({
             "updating": function(e, style) {
