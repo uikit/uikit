@@ -42,6 +42,8 @@
                 });
             }
 
+            theme  = themes[theme] ? theme : 'Uikit';
+
             render();
         });
 
@@ -127,13 +129,26 @@
 
         lesscode.push('@import "'+(themes[theme])+'";');
 
-        $.get('../src/'+addon+'/'+addon+'.less', {nc:Math.random()}).always(function(data, type){
+        var addonoverride = [themes[theme].match(/(.+)\/uikit\.less$/)[1], "addon."+addon+".less"].join("/");
+
+        $.get(addonoverride, {nc:Math.random()}).always(function(data, type){
 
             if (type==="success") {
-                lesscode.push('@import "../src/'+addon+'/'+addon+'.less";');
-            }
 
-            compile();
+                lesscode.push('@import "'+addonoverride+'";');
+                compile();
+
+            } else {
+
+                $.get('../src/'+addon+'/'+addon+'.less', {nc:Math.random()}).always(function(data, type){
+
+                    if (type==="success") {
+                        lesscode.push('@import "../src/'+addon+'/'+addon+'.less";');
+                    }
+
+                    compile();
+                });
+            }
         });
     }
 
