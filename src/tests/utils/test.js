@@ -59,7 +59,11 @@
             "tooltip",
             "utility"
         ],
-        themes     = { "default":"../less/uikit.less" },
+        themes = {
+            "UIkit":"../../themes/default/uikit/uikit.less",
+            "Almost Flat":"../../themes/default/almost-flat/uikit.less",
+            "Gradient":"../../themes/default/gradient/uikit.less"
+        },
         theme      = localStorage["uikit.theme"] || 'default',
         direction  = localStorage["uikit.direction"] || 'ltr';
 
@@ -70,7 +74,7 @@
         var incustomizer = (iniframe && !window.parent.themes);
 
         themes = $.extend(themes, window.parent.themes ? window.parent.themes:{});
-        theme  = themes[theme] ? theme : 'default';
+        theme  = themes[theme] ? theme : 'UIkit';
 
         var testfolder = $("script[src$='utils/test.js']").attr("src").replace("utils/test.js", ""),
 
