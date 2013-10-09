@@ -37,6 +37,8 @@ module.exports = function(grunt) {
                 }
             };
 
+            //themes
+
             ["default", "custom"].forEach(function(f){
 
                 if(fs.existsSync('themes/'+f)) {
@@ -79,12 +81,31 @@ module.exports = function(grunt) {
                 }
             });
 
+            //addons
+
+            fs.readdirSync('addons/src').forEach(function(f){
+
+                var addon = 'addons/src/'+f+'/'+f+'.less';
+
+                if(fs.existsSync(addon)) {
+
+                  lessconf["addon-"+f] = {options: { paths: ['addons/src/'+f] }, files: {} };
+                  lessconf["addon-"+f].files["dist/addons/css/"+f+".css"] = [addon];
+
+                  lessconf["addon-"+f+"-min"] = {options: { paths: ['addons/src/'+f], yuicompress: true }, files: {} };
+                  lessconf["addon-"+f+"-min"  ].files["dist/addons/css/"+f+".min.css"] = [addon];
+                }
+            });
+
             return lessconf;
         })(),
 
         copy: {
             fonts: {
                 files: [{ expand: true, cwd: "src/fonts", src: ["*"], dest: "dist/fonts/" }]
+            },
+            addons: {
+              files: [{ expand: true, src: ["addons/src/**/*.js"], dest: "dist/addons/js", flatten: true }]
             }
         },
 
@@ -133,6 +154,23 @@ module.exports = function(grunt) {
                 files: {
                     "dist/js/uikit.min.js": ["dist/js/uikit.js"]
                 }
+            },
+            addonsmin: {
+              files: (function(){
+
+                  var files = {};
+
+                  fs.readdirSync('addons/src').forEach(function(f){
+
+                      var addon = 'addons/src/'+f+'/'+f+'.js';
+
+                      if(fs.existsSync(addon)) {
+                        files['dist/addons/js/'+f+'.min.js'] = [addon];
+                      }
+                  });
+
+                  return files;
+              })()
             }
         },
 
@@ -196,7 +234,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-banner");
 
     // Register grunt tasks
-    grunt.registerTask("build", ["jshint", "indexthemes", "less", "concat", "uglify", "usebanner", "copy"]);
+    grunt.registerTask("build", ["jshint", "indexthemes", "less", "concat", "copy", "uglify", "usebanner"]);
     grunt.registerTask("default", ["build", "compress"]);
 
 };
