@@ -19,12 +19,6 @@ module.exports = function(grunt) {
                     jshintrc: "src/.jshintrc"
                 },
                 src: ["src/js/*.js"]
-            },
-            tests: {
-                options: {
-                    jshintrc: "src/.jshintrc"
-                },
-                src: ["tests/js/unit/*.js"]
             }
         },
 
@@ -228,11 +222,31 @@ module.exports = function(grunt) {
 
                    // Is it a directory?
                    if (fs.lstatSync(themepath).isDirectory() && t!=="blank") {
-                       themes.push({
+
+                       var theme = {
                            "name"  : t.split("-").join(" ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) { return $1.toUpperCase(); }),
                            "url"   : "../"+themepath+"/uikit.less",
-                           "config": "../"+themepath+"/customizer.json"
-                       });
+                           "config": "../"+themepath+"/customizer.json",
+                           "styles": {}
+                       };
+
+                       if(fs.existsSync(themepath+'/styles')) {
+
+                          var styles = {};
+
+                          fs.readdirSync(themepath+'/styles').forEach(function(sf){
+
+                              var stylepath = [themepath, 'styles', sf, 'style.less'].join('/');
+
+                              if(fs.existsSync(stylepath)) {
+                                styles[sf] = "../"+themepath+"/styles/"+sf+"/style.less";
+                              }
+                          });
+
+                          theme.styles = styles;
+                       }
+
+                       themes.push(theme);
                    }
                });
            }

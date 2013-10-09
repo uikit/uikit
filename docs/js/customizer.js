@@ -24,7 +24,24 @@ jQuery(function($) {
     $.get("../themes/themes.json", {nocache:Math.random()}).always(function(data, type){
 
         if (type==="success") {
-            $.extend(coptions.styles, data);
+
+            coptions.styles = [];
+
+            for (var i = 0; i < data.length; i++) {
+
+                coptions.styles.push(data[i]);
+
+                // theme styles?
+                if(data[i].styles) {
+                    for(var style in data[i].styles) {
+                        coptions.styles.push({
+                            "name" : data[i].name+" - "+style,
+                            "url"  : [data[i].url, data[i].styles[style]],
+                            "config": data[i].config
+                        });
+                    }
+                }
+            }
         }
 
         $customizer.customizer($.extend({
