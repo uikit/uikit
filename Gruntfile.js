@@ -35,7 +35,9 @@ module.exports = function(grunt) {
                     options: { paths: ["docs/less"], yuicompress: true },
                     files: { "docs/css/uikit.docs.min.css": ["docs/less/uikit.less"] }
                 }
-            };
+            },
+
+            themes = [];
 
             //themes
 
@@ -76,6 +78,8 @@ module.exports = function(grunt) {
                                 "options": { paths: [themepath], yuicompress: true},
                                 "files": filesmin
                             };
+
+                            themes.push({ "path":themepath, "name":t, "dir":f });
                         }
                     });
                 }
@@ -92,8 +96,24 @@ module.exports = function(grunt) {
                   lessconf["addon-"+f] = {options: { paths: ['addons/src/'+f] }, files: {} };
                   lessconf["addon-"+f].files["dist/addons/css/"+f+".css"] = [addon];
 
-                  lessconf["addon-"+f+"-min"] = {options: { paths: ['addons/src/'+f], yuicompress: true }, files: {} };
-                  lessconf["addon-"+f+"-min"  ].files["dist/addons/css/"+f+".min.css"] = [addon];
+                  lessconf["addon-min-"+f] = {options: { paths: ['addons/src/'+f], yuicompress: true }, files: {} };
+                  lessconf["addon-min-"+f].files["dist/addons/css/"+f+".min.css"] = [addon];
+
+                  // look for theme overrides
+                  themes.forEach(function(theme){
+
+                     var override = theme.path+'/addon.'+f+'.less',
+                         distpath = theme.dir=="default" ? "dist/addons/css" : theme.path+"/dist/addons";;
+
+                     if(fs.existsSync(override)) {
+
+                       lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
+                       lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".css"] = [override];
+
+                       lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], yuicompress: true }, files: {} };
+                       lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".min.css"] = [override];
+                     }
+                  });
                 }
             });
 
