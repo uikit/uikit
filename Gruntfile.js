@@ -221,7 +221,7 @@ module.exports = function(grunt) {
                    var themepath = 'themes/'+f+'/'+t;
 
                    // Is it a directory?
-                   if (fs.lstatSync(themepath).isDirectory() && t!=="blank") {
+                   if (fs.lstatSync(themepath).isDirectory() && t!=="blank" && t!=='.git') {
 
                        var theme = {
                            "name"  : t.split("-").join(" ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) { return $1.toUpperCase(); }),
