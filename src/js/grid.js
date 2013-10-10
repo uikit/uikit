@@ -150,14 +150,14 @@
     // init code
     $(function() {
         $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
-            var grid = $(this);
+            var grid = $(this), obj;
 
             if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatch")) {
-                var obj = new GridMatch(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+                obj = new GridMatch(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
             }
 
             if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
-                var obj = new GridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
+                obj = new GridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
             }
         });
     });
