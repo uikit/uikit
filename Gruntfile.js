@@ -45,7 +45,7 @@ module.exports = function(grunt) {
                             distpath  = f=="default" ? "dist/css" : themepath+"/dist";
 
                         // Is it a directory?
-                        if (fs.lstatSync(themepath).isDirectory() && t!=="blank") {
+                        if (fs.lstatSync(themepath).isDirectory() && t!=="blank" && t!=='.git') {
 
                             var files = {};
 
