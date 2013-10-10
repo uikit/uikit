@@ -22,9 +22,11 @@
 
     var DatePicker = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
 
-        this.element  = $(element);
+        if($element.data("datepicker")) return;
+
+        this.element  = $element;
         this.options  = $.extend({}, DatePicker.defaults, options);
         this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
@@ -37,6 +39,8 @@
             }
 
         });
+
+        this.element.data("datepicker", this);
     };
 
     DatePicker.defaults = {
@@ -203,7 +207,8 @@
         var ele = $(this);
         if (!ele.data("datepicker")) {
             e.preventDefault();
-            ele.data("datepicker", new DatePicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")))).trigger("focus");
+            var obj = new DatePicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
+            ele.trigger("focus");
         }
     });
 

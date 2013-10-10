@@ -6,9 +6,11 @@
 
     var TimePicker = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
 
-        this.$element = $(element);
+        if($element.data("timepicker")) return;
+
+        this.$element = $element;
         this.element  = this.$element[0];
         this.options  = $.extend({}, TimePicker.defaults, options);
 
@@ -20,6 +22,8 @@
         });
 
         this.setDefaultTime(this.options.defaultTime);
+
+        this.element.data("timepicker", this);
     };
 
     TimePicker.defaults = {
@@ -505,7 +509,8 @@
         var ele = $(this);
         if (!ele.data("timepicker")) {
             e.preventDefault();
-            ele.data("timepicker", new TimePicker(ele, UI.Utils.options(ele.attr("data-uk-timepicker")))).trigger("focus");
+            var obj = new TimePicker(ele, UI.Utils.options(ele.attr("data-uk-timepicker")));
+            ele.trigger("focus");
         }
     });
 

@@ -2,11 +2,13 @@
 
     var FormPassword = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("formPassword")) return;
 
         this.options = $.extend({}, FormPassword.defaults, options);
 
-        this.element = $(element).on("click", function(e) {
+        this.element = $element.on("click", function(e) {
 
             e.preventDefault();
 
@@ -19,6 +21,8 @@
 
         $this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
         $this.element.text(this.options[$this.input.is("[type='password']") ? "lblShow":"lblHide"]);
+
+        this.element.data("formPassword", this);
     };
 
     FormPassword.defaults = {
@@ -26,7 +30,7 @@
         "lblHide": "Hide"
     };
 
-    UI["form-password"] = FormPassword;
+    UI["formPassword"] = FormPassword;
 
     // init code
     $(document).on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
@@ -36,7 +40,8 @@
 
             e.preventDefault();
 
-            ele.data("formPassword", new FormPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")))).trigger("click");
+            var obj = new FormPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
+            ele.trigger("click");
         }
     });
 

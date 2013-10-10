@@ -3,14 +3,18 @@
 
     var Toggle = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("toggle")) return;
 
         this.options  = $.extend({}, this.options, options);
         this.totoggle = this.options.toggle ? $(this.options.toggle):[];
-        this.element  = $(element).on("click", function(e) {
+        this.element  = $element.on("click", function(e) {
             e.preventDefault();
             $this.toggle();
         });
+
+        this.element.data("toggle", this);
     };
 
     $.extend(Toggle.prototype, {
@@ -34,7 +38,8 @@
         var ele = $(this);
 
         if (!ele.data("toggle")) {
-            ele.data("toggle", new Toggle(ele, UI.Utils.options(ele.data("uk-toggle")))).trigger("click");
+           var obj = new Toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+           ele.trigger("click");
         }
     });
 

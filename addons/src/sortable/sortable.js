@@ -34,8 +34,14 @@
 
     function Plugin(element, options)
     {
+
+        var $this = this, $element = $(element);
+
+        if($element.data("uksortable")) return;
+
+
         this.w  = $(window);
-        this.el = $(element);
+        this.el = $element;
         this.options = $.extend({}, $.fn.uksortable.defaults, options);
 
         this.tplempty = '<div class="' + this.options.emptyClass + '"/>';
@@ -45,6 +51,9 @@
         if(!this.el.children(this.options.itemNodeName).length) {
             this.el.append(this.tplempty);
         }
+
+        this.el.data("uksortable", this);
+        this.el.data("uksortable-id", "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000)));
 
         this.init();
     }
@@ -493,10 +502,7 @@
                 plugin  = element.data("uksortable");
 
             if (!plugin) {
-                element.data({
-                    "uksortable"    : new Plugin(element, params),
-                    "uksortable-id" : "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000))
-                });
+                plugin = new Plugin(element, params);
             } else {
                 if (typeof params === 'string' && typeof plugin[params] === 'function') {
                     retval = plugin[params]();
@@ -531,7 +537,9 @@
           var ele     = $(this),
               options = $.extend({}, $.fn.uksortable.defaults, UI.Utils.options(ele.attr("data-uk-sortable")));
 
-          if(!ele.data("uksortable")) ele.uksortable(options);
+          if(!ele.data("uksortable")) {
+              ele.uksortable(options);
+          }
 
         });
     });
