@@ -226,7 +226,7 @@ module.exports = function(grunt) {
                        var theme = {
                            "name"  : t.split("-").join(" ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) { return $1.toUpperCase(); }),
                            "url"   : "../"+themepath+"/uikit.less",
-                           "config": "../"+themepath+"/customizer.json",
+                           "config": (fs.existsSync(themepath+"/customizer.json") ? "../"+themepath+"/customizer.json" : "../themes/default/uikit/customizer.json"),
                            "styles": {}
                        };
 
