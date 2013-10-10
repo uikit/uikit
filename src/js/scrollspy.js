@@ -12,12 +12,14 @@
 
             this.options = $.extend({}, this.options, options);
 
-            var $this = this, inviewstate, initinview,
+            var $this = this, idle, inviewstate, initinview,
                 fn = function(){
 
                     var inview = isInView($this);
 
                     if(inview && !inviewstate) {
+
+                        if(idle) clearTimeout(idle);
 
                         if(!initinview) {
                             $this.element.addClass($this.options.initcls);
@@ -27,9 +29,15 @@
                             $this.element.trigger("uk-scrollspy-init");
                         }
 
-                        $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
-                        inviewstate = true;
+                        idle = setTimeout(function(){
 
+                            if(inview) {
+                                $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
+                            }
+
+                        }, $this.options.delay);
+
+                        inviewstate = true;
                         $this.element.trigger("uk.scrollspy.inview");
                     }
 
@@ -57,7 +65,8 @@
             "initcls"    : "uk-scrollspy-init-inview",
             "topoffset"  : 0,
             "leftoffset" : 0,
-            "repeat"     : false
+            "repeat"     : false,
+            "delay"      : 0
         }
 
     });
