@@ -7,10 +7,16 @@
         var $this = this;
 
         this.options = $.extend({}, this.options, options);
-        this.element = $(element).on("click", this.options.trigger, function(e) {
+        this.element = $(element);
+
+        if(this.element.data("alert")) return;
+
+        this.element.on("click", this.options.trigger, function(e) {
             e.preventDefault();
             $this.close();
         });
+
+        this.element.data("alert", this);
     };
 
     $.extend(Alert.prototype, {
@@ -52,13 +58,12 @@
 
         var ele = $(this);
         if (!ele.data("alert")) {
-            ele.data("alert", new Alert(ele, UI.Utils.options(ele.data("uk-alert"))));
+
+            var alert = new Alert(ele, UI.Utils.options(ele.data("uk-alert")));
 
             if ($(e.target).is(ele.data("alert").options.trigger)) {
-
                 e.preventDefault();
-
-                ele.data("alert").close();
+                alert.close();
             }
         }
     });

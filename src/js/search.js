@@ -6,11 +6,13 @@
 
         Search = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("search")) return;
 
         this.options = $.extend({}, this.options, options);
 
-        this.element = $(element);
+        this.element = $element;
 
         this.timer = null;
         this.value = null;
@@ -72,6 +74,8 @@
         });
 
         this.renderer = new renderers[this.options.renderer](this);
+
+        this.element.data("search", this);
     };
 
     $.extend(Search.prototype, {
@@ -295,7 +299,7 @@
         var ele = $(this);
 
         if (!ele.data("search")) {
-            ele.data("search", new Search(ele, UI.Utils.options(ele.data("uk-search"))));
+            var obj = new Search(ele, UI.Utils.options(ele.attr("data-uk-search")));
         }
     });
 

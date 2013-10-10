@@ -73,7 +73,7 @@
 
         if ($.isPlainObject(string)) return string;
 
-        var start = string.indexOf("{"), options = {};
+        var start = (string ? string.indexOf("{") : -1), options = {};
 
         if (start != -1) {
             try {

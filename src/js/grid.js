@@ -5,13 +5,15 @@
     var win         = $(window),
         event       = 'resize orientationchange',
 
-        GridMatchHeight = function(element, options) {
+        GridMatch = function(element, options) {
 
-            var $this = this;
+            var $this = this, $element = $(element);
+
+            if($element.data("gridMatchHeight")) return;
 
             this.options  = $.extend({}, this.options, options);
 
-            this.element  = $(element);
+            this.element  = $element;
             this.columns  = this.element.children();
             this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
 
@@ -29,9 +31,11 @@
 
                 return UI.Utils.debounce(fn, 150);
             })());
+
+            this.element.data("gridMatch", this);
         };
 
-    $.extend(GridMatchHeight.prototype, {
+    $.extend(GridMatch.prototype, {
 
         options: {
             "target": false
@@ -75,9 +79,11 @@
 
     var GridMargin = function(element) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
 
-        this.element = $(element);
+        if($element.data("gridMargin")) return;
+
+        this.element = $element;
         this.columns = this.element.children();
 
         if (!this.columns.length) return;
@@ -94,6 +100,8 @@
 
             return UI.Utils.debounce(fn, 150);
         })());
+
+        this.element.data("gridMargin", this);
     };
 
     $.extend(GridMargin.prototype, {
@@ -136,20 +144,20 @@
 
     });
 
-    UI["grid-match"]  = GridMatchHeight;
-    UI["grid-margin"] = GridMargin;
+    UI["gridMatch"]  = GridMatch;
+    UI["gridMargin"] = GridMargin;
 
     // init code
     $(function() {
         $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
             var grid = $(this);
 
-            if (grid.is("[data-uk-grid-match]") && !grid.data("grid-match")) {
-                grid.data("grid-match", new GridMatchHeight(grid, UI.Utils.options(grid.data("uk-grid-match"))));
+            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatch")) {
+                var obj = new GridMatch(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
             }
 
-            if (grid.is("[data-uk-grid-margin]") && !grid.data("grid-margin")) {
-                grid.data("grid-margin", new GridMargin(grid, UI.Utils.options(grid.data("uk-grid-margin"))));
+            if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
+                var obj = new GridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
             }
         });
     });

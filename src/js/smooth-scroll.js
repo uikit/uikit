@@ -4,14 +4,16 @@
 
     var SmoothScroll = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("smoothScroll")) return;
 
         this.options = $.extend({
             duration: 1000,
             transition: 'easeOutExpo'
         }, options);
 
-        this.element = $(element).on("click", function(e) {
+        this.element = $element.on("click", function(e) {
 
             // get / set parameters
             var target    = ($(this.hash).length ? $(this.hash) : $("body")).offset().top,
@@ -28,9 +30,11 @@
             // cancel default click action
             return false;
         });
+
+        this.element.data("smoothScroll", this);
     };
 
-    UI["smooth-scroll"] = SmoothScroll;
+    UI["smoothScroll"] = SmoothScroll;
 
 
     if (!$.easing['easeOutExpo']) {
@@ -42,8 +46,9 @@
     $(document).on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
         var ele = $(this);
 
-        if (!ele.data("smooth-scroll")) {
-            ele.data("smooth-scroll", new SmoothScroll(ele, UI.Utils.options(ele.data("uk-smooth-scroll")))).trigger("click");
+        if (!ele.data("smoothScroll")) {
+            var obj = new SmoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
+            ele.trigger("click");
         }
     });
 

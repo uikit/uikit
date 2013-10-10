@@ -6,6 +6,10 @@
 
         ScrollSpy   = function(element, options) {
 
+            var $element = $(element);
+
+            if($element.data("scrollspy")) return;
+
             this.options = $.extend({}, this.options, options);
 
             var $this = this, inviewstate, initinview,
@@ -42,22 +46,23 @@
             $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
 
             fn();
+
+            this.element.data("scrollspy", this);
         };
 
     $.extend(ScrollSpy.prototype, {
 
         options: {
-            "cls": "uk-scrollspy-inview",
-            "initcls": "uk-scrollspy-init-inview",
-            "topoffset": 0,
-            "leftoffset": 0,
-            "repeat": false
+            "cls"        : "uk-scrollspy-inview",
+            "initcls"    : "uk-scrollspy-init-inview",
+            "topoffset"  : 0,
+            "leftoffset" : 0,
+            "repeat"     : false
         }
 
     });
 
     UI["scrollspy"] = ScrollSpy;
-
 
     function isInView(obj) {
 
@@ -85,7 +90,7 @@
             var element = $(this);
 
             if (!element.data("scrollspy")) {
-                element.data("scrollspy", new ScrollSpy(element, UI.Utils.options(element.data("uk-scrollspy"))));
+                var obj = new ScrollSpy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
             }
         });
     });

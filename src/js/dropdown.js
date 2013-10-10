@@ -5,10 +5,12 @@
     var active   = false,
         Dropdown = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("dropdown")) return;
 
         this.options  = $.extend({}, this.options, options);
-        this.element  = $(element);
+        this.element  = $element;
         this.dropdown = this.element.find(".uk-dropdown");
 
         this.centered  = this.dropdown.hasClass("uk-dropdown-center");
@@ -92,6 +94,8 @@
             });
         }
 
+        this.element.data("dropdown", this);
+
     };
 
     $.extend(Dropdown.prototype, {
@@ -174,12 +178,11 @@
 
         if (!ele.data("dropdown")) {
 
-            ele.data("dropdown", new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown"))));
+            var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
-            if(triggerevent == "mouseenter" && ele.data("dropdown").options.mode == "hover") {
+            if(triggerevent == "mouseenter" && dropdown.options.mode == "hover") {
                 ele.trigger("mouseenter");
             }
-
         }
     });
 
