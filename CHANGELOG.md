@@ -19,6 +19,7 @@
     - Added Grunt task to index new themes ( usage: grunt indexthemes )
     - Added UIkit addons
     - UIkit tests moved to /src
+    - Auto-initialize dynamic components using MutationObserver if supported by browser
 
 ### 1.1.0 (August 21, 2013)
 
