@@ -94,7 +94,7 @@
 
         $(doc).trigger("uk-domready");
 
-        // Check for dom mondifications
+        // Check for dom modifications
         if(!UI.support.mutationobserver) return;
 
         var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
