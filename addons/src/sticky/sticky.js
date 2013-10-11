@@ -117,7 +117,7 @@
       }
     };
 
-    $(function() {
+    $(document).on("uk-domready", function(e) {
       setTimeout(function(){
 
         scroller();
