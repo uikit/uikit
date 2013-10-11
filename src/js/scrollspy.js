@@ -93,7 +93,7 @@
 
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-scrollspy]").each(function() {
 
             var element = $(this);

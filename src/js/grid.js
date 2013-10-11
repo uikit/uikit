@@ -32,6 +32,12 @@
                 return UI.Utils.debounce(fn, 150);
             })());
 
+            $(document).on("uk-domready", function(e) {
+                $this.columns  = $this.element.children();
+                $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
+                $this.match();
+            });
+
             this.element.data("gridMatch", this);
         };
 
@@ -101,6 +107,11 @@
             return UI.Utils.debounce(fn, 150);
         })());
 
+        $(document).on("uk-domready", function(e) {
+            $this.columns  = $this.element.children();
+            $this.process();
+        });
+
         this.element.data("gridMargin", this);
     };
 
@@ -148,7 +159,7 @@
     UI["gridMargin"] = GridMargin;
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
             var grid = $(this), obj;
 

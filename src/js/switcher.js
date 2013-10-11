@@ -62,7 +62,7 @@
     UI["switcher"] = Switcher;
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-switcher]").each(function() {
             var switcher = $(this);
 

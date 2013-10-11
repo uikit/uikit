@@ -94,7 +94,7 @@
     }
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-nav]").each(function() {
             var nav = $(this);
 
