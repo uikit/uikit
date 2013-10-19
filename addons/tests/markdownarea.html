@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Markdownarea</title>
+
+
+    <script src="../../vendor/jquery.js"></script>
+    <script src="utils/test.js"></script>
+
+    <link rel="stylesheet" href="../../vendor/codemirror/codemirror.css">
+    <script src="../../vendor/codemirror/codemirror.js"></script>
+    <script src="../../vendor/codemirror/mode/markdown/markdown.js"></script>
+    <script src="../../vendor/codemirror/addon/mode/overlay.js"></script>
+    <script src="../../vendor/codemirror/mode/xml/xml.js"></script>
+    <script src="../../vendor/codemirror/mode/gfm/gfm.js"></script>
+
+    <script src="../../vendor/showdown/showdown.js"></script>
+    <script src="../../vendor/showdown/extensions/github.js"></script>
+
+    <link rel="stylesheet" href="../../vendor/highlight/highlight.css">
+    <script src="../../vendor/highlight/highlight.js"></script>
+
+    <script src="../src/markdownarea/markdownarea.js"></script>
+
+
+</head>
+<body>
+
+    <div class="uk-container uk-container-center">
+
+        <h1>Markdownarea</h1>
+
+        <p class="uk-text-muted">
+            Markdown editor + UIkit addon
+        </p>
+
+        <h3>Split mode</h3>
+        <textarea data-uk-markdownarea>**test**</textarea>
+
+
+        <h3>Tab mode</h3>
+        <textarea data-uk-markdownarea="{mode:'tab'}">**test**</textarea>
+    </div>
+
+</body>
+</html>

@@ -14,6 +14,7 @@
             "datepicker",
             "form-icon",
             "form-password",
+            "markdownarea",
             "sortable",
             "sticky",
             "timepicker",
