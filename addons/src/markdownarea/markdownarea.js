@@ -33,13 +33,17 @@
 
             this.editor.on("change", (function(){
                 var render = function(){
-                    $this.preview.html($this.showdown.makeHtml($this.editor.getValue()));
 
-                    if(global.hljs) {
-                        $this.preview.find('pre > code').each(function(i, e) {
-                            try{ hljs.highlightBlock(e); }catch(err){}
-                        });
-                    }
+                        var value = $this.editor.getValue();
+
+                        $this.preview.html($this.showdown.makeHtml(value));
+                        $this.element.val(value);
+
+                        if(global.hljs) {
+                            $this.preview.find('pre > code').each(function(i, e) {
+                                try{ hljs.highlightBlock(e); }catch(err){}
+                            });
+                        }
                 };
                 render();
                 return render;
@@ -85,15 +89,11 @@
 
             var $this = this, bar = [];
 
-            bar.push('<ul class="uk-navbar"><ul class="uk-navbar-nav">');
-
             this.options.toolbar.forEach(function(cmd){
                 if(Markdownarea.commands[cmd]) {
-                    bar.push('<li><a data-cmd="'+cmd+'">'+Markdownarea.commands[cmd].label+'</a></li>');
+                    bar.push('<a data-cmd="'+cmd+'">'+Markdownarea.commands[cmd].label+'</a>');
                 }
             });
-
-            bar.push('</ul></ul>');
 
             this.toolbar.html(bar.join("\n")).on("click", "a[data-cmd]", function(){
                 var cmd = $(this).data("cmd");

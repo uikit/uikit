@@ -1,15 +1,40 @@
+/*
+ * Name:             Markdownarea
+ * Description:        Defines styles for markdownareas
+ *
+ * Component:        `uk-markdownarea`
+ *
+ * Sub-objects:        `uk-markdownarea-container`
+ *                     `uk-markdownarea-tabs`
+ *                     `uk-markdownarea-toolbar`
+ *                     `uk-markdownarea-previewtab`
+ *                     `uk-markdownarea-codetab`
+ *                     `uk-markdownarea-code`
+ *                     `uk-markdownarea-preview`
+ *
+ * Modifier:
+ *
+ * States:            `[data-mode='tab']`
+ *                    `[data-mode='split']`
+ *
+ ========================================================================== */
 
 @import "../../../src/less/variables.less";
 
+
+/* Component
+ ========================================================================== */
 .uk-markdownarea {
     position: relative;
-    border: 2px solid #eee;
+    border: 2px solid @navbar-background;
 }
 
+/* Sub-object `uk-markdownarea-container`
+ ========================================================================== */
 .uk-markdownarea-container:before,
 .uk-markdownarea-container:after {
-    content: " ";
     display: table;
+    content: " ";
 }
 .uk-markdownarea-container:after { clear: both; }
 
@@ -23,20 +48,22 @@
 }
 
 
+/* Sub-object `uk-markdownarea-tabs`
+ ========================================================================== */
 .uk-markdownarea-tabs {
     position: relative;
-    background: @navbar-background;
-    height: 40px;
     z-index: 1;
+    height: 40px;
+    background: @navbar-background;
 }
 
 .uk-markdownarea-previewtab, .uk-markdownarea-codetab {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 10px 20px;
+    color: @navbar-nav-color;
     text-transform: uppercase;
     font-size: 11px;
-    color: #999;
 }
 
 .uk-markdownarea-code, .uk-markdownarea-preview {
@@ -55,10 +82,10 @@
 }
 
 .uk-markdownarea[data-mode='tab'] .uk-markdownarea-codetab {
-    border-left: 1px #eee solid;
+    border-left: 1px darken(@navbar-background, 10%) solid;
 }
 .uk-markdownarea[data-mode='tab'] .uk-markdownarea-previewtab {
-    border-left: 1px #eee solid;
+    border-left: 1px darken(@navbar-background, 10%) solid;
 }
 
 
@@ -68,7 +95,7 @@
 }
 
 .uk-markdownarea[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-previewtab {
-    color: #666;
+    color: @navbar-nav-color;
 }
 
 .uk-markdownarea[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-previewtab {
@@ -78,7 +105,7 @@
 
 
 .uk-markdownarea[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-codetab {
-    color: #666;
+    color: @navbar-nav-color;
 }
 
 
@@ -103,7 +130,7 @@
 .uk-markdownarea[data-mode='split'] .uk-markdownarea-codetab {
     left: 50%;
     margin-left: -125px;
-    border-right: 1px #ccc solid;
+    border-right: 1px darken(@navbar-background, 10%) solid;
 }
 
 .uk-markdownarea[data-mode='split'] .uk-markdownarea-previewtab {
@@ -111,15 +138,16 @@
 }
 
 .uk-markdownarea[data-mode='split'] .uk-markdownarea-container > div {
-    width: 50%;
     float: left;
+    width: 50%;
 }
 
 .uk-markdownarea[data-mode='split'] .uk-markdownarea-code {
-    border-right: 1px #ccc solid;
+    border-right: 1px darken(@navbar-background, 10%) solid;
 }
 
-/* toolbar */
+/* Sub-object `uk-markdownarea-toolbar`
+ ========================================================================== */
 
 .uk-markdownarea-toolbar {
     float: left;
@@ -127,11 +155,16 @@
     height: 40px;
 }
 
-.uk-markdownarea-toolbar .uk-navbar {
-    padding: 0;
-    margin: 0;
+.uk-markdownarea-toolbar  a {
+    display: inline-block;
+    padding: 4px 10px;
+    color: @navbar-nav-color;
+    font-size: 11px;
+    line-height: 30px;
+    cursor: pointer;
 }
 
-.uk-markdownarea-toolbar .uk-navbar-nav > li > a {
-    font-size: 11px;
+.uk-markdownarea-toolbar a:hover {
+    background: @navbar-nav-hover-background;
+    color: @navbar-nav-hover-color;
 }
