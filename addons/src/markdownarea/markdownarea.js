@@ -18,9 +18,12 @@
 
         "init": function(){
 
-            var $this = this, $element = $();
+            var $this = this, $element = $(), tpl = Markdownarea.template;
 
-            this.markdownarea = $(Markdownarea.template);
+            tpl = tpl.replace(/\{\:lblPreview\}/g, this.options.lblPreview);
+            tpl = tpl.replace(/\{\:lblCodeview\}/g, this.options.lblCodeview);
+
+            this.markdownarea = $(tpl);
             this.container    = this.markdownarea.find(".uk-markdownarea-container");
             this.toolbar      = this.markdownarea.find(".uk-markdownarea-toolbar");
             this.preview      = this.markdownarea.find(".uk-markdownarea-preview");
@@ -37,13 +40,7 @@
                         var value = $this.editor.getValue();
 
                         $this.preview.html($this.showdown.makeHtml(value));
-                        $this.element.val(value);
-
-                        if(global.hljs) {
-                            $this.preview.find('pre > code').each(function(i, e) {
-                                try{ hljs.highlightBlock(e); }catch(err){}
-                            });
-                        }
+                        $this.element.val(value).trigger("update", [$this]);
                 };
                 render();
                 return render;
@@ -91,7 +88,10 @@
 
             this.options.toolbar.forEach(function(cmd){
                 if(Markdownarea.commands[cmd]) {
-                    bar.push('<a data-cmd="'+cmd+'">'+Markdownarea.commands[cmd].label+'</a>');
+
+                   var title = Markdownarea.commands[cmd].title ? Markdownarea.commands[cmd].title : cmd;
+
+                   bar.push('<a data-cmd="'+cmd+'" title="'+title+'" data-uk-tooltip>'+Markdownarea.commands[cmd].label+'</a>');
                 }
             });
 
@@ -151,6 +151,7 @@
 
     Markdownarea.commands = {
         "bold" : {
+            "title"  : "Bold",
             "label"  : '<i class="uk-icon-bold"></i>',
             "action" : function(editor){
 
@@ -158,42 +159,49 @@
             }
         },
         "italic" : {
+            "title"  : "Italic",
             "label"  : '<i class="uk-icon-italic"></i>',
             "action" : function(editor){
                 baseReplacer("*$1*", editor);
             }
         },
         "strike" : {
+            "title"  : "Strikethrough",
             "label"  : '<i class="uk-icon-strikethrough"></i>',
             "action" : function(editor){
                 baseReplacer("~~$1~~", editor);
             }
         },
         "blockquote" : {
+            "title"  : "Blockquote",
             "label"  : '<i class="uk-icon-quote-right"></i>',
             "action" : function(editor){
                 baseReplacer("> $1", editor);
             }
         },
         "link" : {
+            "title"  : "Link",
             "label"  : '<i class="uk-icon-link"></i>',
             "action" : function(editor){
                 baseReplacer("[$1](http://)", editor);
             }
         },
         "picture" : {
+            "title"  : "Picture",
             "label"  : '<i class="uk-icon-picture"></i>',
             "action" : function(editor){
                 baseReplacer("![$1](http://)", editor);
             }
         },
         "listUl" : {
+            "title"  : "Unordered List",
             "label"  : '<i class="uk-icon-list-ul"></i>',
             "action" : function(editor){
                 baseReplacer("* $1", editor);
             }
         },
         "listOl" : {
+            "title"  : "Ordered List",
             "label"  : '<i class="uk-icon-list-ol"></i>',
             "action" : function(editor){
                 baseReplacer("1. $1", editor);
@@ -206,14 +214,16 @@
         "maxsplitsize" : 1000,
         "showdown"     : { extensions: ['github'] },
         "codemirror"   : { mode: 'gfm', tabMode: 'indent', tabindex: "2", lineWrapping: true, dragDrop: false },
-        "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ]
+        "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
+        "lblPreview"   : "Preview",
+        "lblCodeview"  : "Markdown"
     };
 
     Markdownarea.template = '<div class="uk-markdownarea">' +
                                 '<div class="uk-markdownarea-tabs uk-clearfix">'+
                                     '<div class="uk-markdownarea-toolbar"></div>'+
-                                    '<div class="uk-markdownarea-previewtab"><i class="uk-icon-eye-open"></i><span class="uk-hidden-small"> Preview</span></div>'+
-                                    '<div class="uk-markdownarea-codetab"><i class="uk-icon-code"></i><span class="uk-hidden-small"> Markdown</span></div>'+
+                                    '<div class="uk-markdownarea-previewtab"><i class="uk-icon-eye-open"></i><span class="uk-hidden-small"> {:lblPreview}</span></div>'+
+                                    '<div class="uk-markdownarea-codetab"><i class="uk-icon-code"></i><span class="uk-hidden-small"> {:lblCodeview}</span></div>'+
                                 '</div>'+
                                 '<div class="uk-markdownarea-container">'+
                                     '<div><div class="uk-markdownarea-code"></div></div>'+
