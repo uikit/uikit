@@ -31,16 +31,20 @@
 
             this.element.before(this.markdownarea).appendTo(this.code);
 
-            this.showdown = new Showdown.converter(this.options.showdown);
             this.editor   = CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
 
             this.editor.on("change", (function(){
                 var render = function(){
 
-                        var value = $this.editor.getValue();
+                    var value    = $this.editor.getValue();
 
-                        $this.preview.html($this.showdown.makeHtml(value));
-                        $this.element.val(value).trigger("update", [$this]);
+                    marked(value, function (err, markdown) {
+
+                      if (err) throw err;
+
+                      $this.preview.html(markdown);
+                      $this.element.val(value).trigger("update", [$this]);
+                    });
                 };
                 render();
                 return render;
@@ -255,6 +259,18 @@
 
     // init code
     $(function() {
+
+        marked.setOptions({
+          gfm: true,
+          tables: true,
+          breaks: true,
+          pedantic: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false,
+          langPrefix: 'lang-'
+        });
+
         $("textarea[data-uk-markdownarea]").each(function() {
             var area = $(this), obj;
 
