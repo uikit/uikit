@@ -92,6 +92,10 @@
                    var title = Markdownarea.commands[cmd].title ? Markdownarea.commands[cmd].title : cmd;
 
                    bar.push('<a data-cmd="'+cmd+'" title="'+title+'" data-uk-tooltip>'+Markdownarea.commands[cmd].label+'</a>');
+
+                   if(Markdownarea.commands[cmd].shortcut) {
+                       $this.registerShortcut(Markdownarea.commands[cmd].shortcut, Markdownarea.commands[cmd].action);
+                   }
                 }
             });
 
@@ -125,6 +129,23 @@
             }
 
             this.markdownarea.attr("data-mode", mode);
+        },
+
+        registerShortcut: function(combination, callback){
+
+            var $this = this;
+
+            combination = $.isArray(combination) ? combination : [combination];
+
+            for(var i=0,max=combination.length;i < max;i++) {
+                var map = {};
+
+                map[combination[i]] = function(){
+                    callback.apply($this, [$this.editor]);
+                }
+
+                $this.editor.addKeyMap(map);
+            }
         }
     });
 
@@ -144,7 +165,8 @@
 
     var baseReplacer = function(replace, editor){
         var text     = editor.getSelection(),
-            markdown = replace.replace('$1', text);
+            markdown = replace.replace('$1', text),
+            cursor   = editor.getCursor();
 
         editor.replaceSelection(markdown, 'end');
     };
@@ -153,6 +175,7 @@
         "bold" : {
             "title"  : "Bold",
             "label"  : '<i class="uk-icon-bold"></i>',
+            "shortcut": ['Ctrl-B', 'Cmd-B'],
             "action" : function(editor){
 
                 baseReplacer("**$1**", editor);
