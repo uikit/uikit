@@ -236,7 +236,6 @@
     Markdownarea.defaults = {
         "mode"         : "split",
         "maxsplitsize" : 1000,
-        "showdown"     : { extensions: ['github'] },
         "codemirror"   : { mode: 'gfm', tabMode: 'indent', tabindex: "2", lineWrapping: true, dragDrop: false },
         "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
         "lblPreview"   : "Preview",
