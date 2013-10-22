@@ -123,9 +123,6 @@
                     this.activetab = "code";
                     this.markdownarea.attr("data-active-tab", this.activetab);
                 }
-
-            } else {
-
             }
 
             this.markdownarea.attr("data-mode", mode);
