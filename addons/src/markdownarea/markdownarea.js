@@ -18,7 +18,7 @@
 
         "init": function(){
 
-            var $this = this, $element = $(), tpl = Markdownarea.template;
+            var $this = this, tpl = Markdownarea.template;
 
             tpl = tpl.replace(/\{\:lblPreview\}/g, this.options.lblPreview);
             tpl = tpl.replace(/\{\:lblCodeview\}/g, this.options.lblCodeview);
