@@ -143,7 +143,7 @@
 
                 map[combination[i]] = function(){
                     callback.apply($this, [$this.editor]);
-                }
+                };
 
                 $this.editor.addKeyMap(map);
             }
@@ -166,8 +166,7 @@
 
     var baseReplacer = function(replace, editor){
         var text     = editor.getSelection(),
-            markdown = replace.replace('$1', text),
-            cursor   = editor.getCursor();
+            markdown = replace.replace('$1', text);
 
         editor.replaceSelection(markdown, 'end');
     };
@@ -279,4 +278,4 @@
         });
     });
 
-})(this, jQuery, jQuery.UIkit);
+})(window, jQuery, jQuery.UIkit);
