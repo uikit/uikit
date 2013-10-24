@@ -24,6 +24,8 @@
         });
     };
 
+    UI.version = '1.1.0';
+
     UI.support = {};
     UI.support.transition = (function() {
 
