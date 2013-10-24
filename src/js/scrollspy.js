@@ -10,7 +10,8 @@
 
             if($element.data("scrollspy")) return;
 
-            this.options = $.extend({}, this.options, options);
+            this.options = $.extend({}, ScrollSpy.defaults, options);
+            this.element = $(element);
 
             var $this = this, idle, inviewstate, initinview,
                 fn = function(){
@@ -49,7 +50,35 @@
                     }
                 };
 
-            this.element = $(element);
+
+
+            if(this.options.targets && this.element.attr("id")) {
+
+                var id  = this.element.attr("id"),
+                    cls = this.options.targets===true ? 'uk-active' : this.options.targets,
+                    parents = cls.match(/::parents\((.+)\)/);
+
+                cls = cls.replace(/::parents(.+)/g,"");
+
+                this.element.on("uk.scrollspy.inview", function(){
+                    var elements = $('a[href="#'+id+'"]');
+
+                    if(parents) {
+                        elements.parents(parents[1]).addClass(cls);
+                    } else {
+                        elements.addClass(cls);
+                    }
+
+                }).on("uk.scrollspy.outview", function(){
+                    var elements = $('a[href="#'+id+'"]');
+
+                    if(parents) {
+                        elements.parents(parents[1]).removeClass(cls);
+                    } else {
+                        elements.removeClass(cls);
+                    }
+                });
+            }
 
             $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
 
@@ -58,18 +87,15 @@
             this.element.data("scrollspy", this);
         };
 
-    $.extend(ScrollSpy.prototype, {
-
-        options: {
-            "cls"        : "uk-scrollspy-inview",
-            "initcls"    : "uk-scrollspy-init-inview",
-            "topoffset"  : 0,
-            "leftoffset" : 0,
-            "repeat"     : false,
-            "delay"      : 0
-        }
-
-    });
+    ScrollSpy.defaults = {
+        "cls"        : "uk-scrollspy-inview",
+        "initcls"    : "uk-scrollspy-init-inview",
+        "topoffset"  : 0,
+        "leftoffset" : 0,
+        "repeat"     : false,
+        "delay"      : 0,
+        "targets"    : false
+    };
 
     UI["scrollspy"] = ScrollSpy;
 
