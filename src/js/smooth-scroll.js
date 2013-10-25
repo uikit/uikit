@@ -8,11 +8,7 @@
 
         if($element.data("smoothScroll")) return;
 
-        this.options = $.extend({
-            duration: 1000,
-            transition: 'easeOutExpo',
-            offset: 0
-        }, options);
+        this.options = $.extend({}, SmoothScroll.defaults, options);
 
         this.element = $element.on("click", function(e) {
 
@@ -35,6 +31,12 @@
         });
 
         this.element.data("smoothScroll", this);
+    };
+
+    SmoothScroll.defaults = {
+        duration: 1000,
+        transition: 'easeOutExpo',
+        offset: 0
     };
 
     UI["smoothScroll"] = SmoothScroll;

@@ -49,7 +49,6 @@
             "panel",
             "progress",
             "scrollspy",
-            "scrollspynav",
             "search",
             "smooth-scroll",
             "subnav",

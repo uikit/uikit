@@ -68,7 +68,6 @@
 
     UI["scrollspy"] = ScrollSpy;
 
-
     var ScrollSpyNav = function(element, options) {
 
         var $element = $(element);
@@ -111,6 +110,12 @@
             }
         };
 
+        if(this.options.smoothscroll && UI["smoothScroll"]) {
+            links.each(function(){
+                new UI["smoothScroll"](this, $this.options.smoothscroll);
+            });
+        }
+
         fn();
 
         $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
@@ -119,10 +124,11 @@
     };
 
     ScrollSpyNav.defaults = {
-        "cls"        : 'uk-active',
-        "closest"    : false,
-        "topoffset"  : 0,
-        "leftoffset" : 0
+        "cls"          : 'uk-active',
+        "closest"      : false,
+        "topoffset"    : 0,
+        "leftoffset"   : 0,
+        "smoothscroll" : false
     };
 
     UI["scrollspynav"] = ScrollSpyNav;
