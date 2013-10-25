@@ -16,7 +16,7 @@
             var $this = this, idle, inviewstate, initinview,
                 fn = function(){
 
-                    var inview = isInView($this);
+                    var inview = isInView($this.element, $this.options);
 
                     if(inview && !inviewstate) {
 
@@ -50,36 +50,6 @@
                     }
                 };
 
-
-
-            if(this.options.targets && this.element.attr("id")) {
-
-                var id  = this.element.attr("id"),
-                    cls = this.options.targets===true ? 'uk-active' : this.options.targets,
-                    parents = cls.match(/::parents\((.+)\)/);
-
-                cls = cls.replace(/::parents(.+)/g,"");
-
-                this.element.on("uk.scrollspy.inview", function(){
-                    var elements = $('a[href="#'+id+'"]');
-
-                    if(parents) {
-                        elements.parents(parents[1]).addClass(cls);
-                    } else {
-                        elements.addClass(cls);
-                    }
-
-                }).on("uk.scrollspy.outview", function(){
-                    var elements = $('a[href="#'+id+'"]');
-
-                    if(parents) {
-                        elements.parents(parents[1]).removeClass(cls);
-                    } else {
-                        elements.removeClass(cls);
-                    }
-                });
-            }
-
             $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
 
             fn();
@@ -93,21 +63,81 @@
         "topoffset"  : 0,
         "leftoffset" : 0,
         "repeat"     : false,
-        "delay"      : 0,
-        "targets"    : false
+        "delay"      : 0
     };
 
     UI["scrollspy"] = ScrollSpy;
 
-    function isInView(obj) {
 
-        var $element = obj.element, options = obj.options;
+    var ScrollSpyNav = function(element, options) {
+
+        var $element = $(element);
+
+        if($element.data("scrollspynav")) return;
+
+        this.element = $element;
+        this.options = $.extend({}, ScrollSpyNav.defaults, options);
+
+        var ids     = [],
+            links   = this.element.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
+            targets = $(ids.join(","));
+
+        var $this = this, inviews, fn = function(){
+
+            inviews = [];
+
+            for(var i=0 ; i < targets.length ; i++) {
+                if(isInView(targets.eq(i), $this.options)) {
+                    inviews.push(targets.eq(i));
+                }
+            }
+
+            if(inviews.length) {
+
+                var scrollTop = $win.scrollTop(),
+                    target = (function(){
+                        for(var i=0; i< inviews.length;i++){
+                            if(inviews[i].offset().top >= scrollTop){
+                                return inviews[i];
+                            }
+                        }
+                    })();
+
+                if($this.options.closest) {
+                    links.closest($this.options.closest).removeClass($this.options.cls).end().filter("a[href='#"+target.attr("id")+"']").closest($this.options.closest).addClass($this.options.cls);
+                } else {
+                    links.removeClass($this.options.cls).filter("a[href='#"+target.attr("id")+"']").addClass($this.options.cls);
+                }
+            }
+        };
+
+        fn();
+
+        $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
+
+        this.element.data("scrollspynav", this);
+    };
+
+    ScrollSpyNav.defaults = {
+        "cls"        : 'uk-active',
+        "closest"    : false,
+        "topoffset"  : 0,
+        "leftoffset" : 0
+    };
+
+    UI["scrollspynav"] = ScrollSpyNav;
+
+    // helper
+
+    function isInView(element, options) {
+
+        var $element = element;
 
         if (!$element.is(':visible')) {
             return false;
         }
 
-        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = obj.offset || $element.offset(), left = offset.left, top = offset.top;
+        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
 
         if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
             left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
@@ -117,6 +147,7 @@
         }
     }
 
+    ScrollSpy.isInView = isInView;
 
     // init code
     $(document).on("uk-domready", function(e) {
@@ -126,6 +157,15 @@
 
             if (!element.data("scrollspy")) {
                 var obj = new ScrollSpy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
+            }
+        });
+
+        $("[data-uk-scrollspynav]").each(function() {
+
+            var element = $(this);
+
+            if (!element.data("scrollspynav")) {
+                var obj = new ScrollSpyNav(element, UI.Utils.options(element.attr("data-uk-scrollspynav")));
             }
         });
     });

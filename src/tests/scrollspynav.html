@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ScrollspyNav component - UIkit tests</title>
+		<script src="../../vendor/jquery.js"></script>
+		<script src="utils/test.js"></script>
+	</head>
+
+	<body>
+
+
+
+		<div class="uk-container uk-container-center">
+
+			<h1>ScrollSpyNav</h1>
+
+			<nav class="uk-navbar" style="position:fixed;top: 20px;right:50px;">
+				<ul class="uk-navbar-nav" data-uk-scrollspynav="{closest:'li'}">
+					<li><a href="#box1">Box 1</a></li>
+					<li><a href="#box2">Box 2</a></li>
+					<li><a href="#box3">Box 3</a></li>
+				</ul>
+			</nav>
+
+			<div id="box1" style="height: 1200px;">
+				<h3>Box 1</h3>
+			</div>
+			<div id="box2" style="height: 1200px;">
+				<h3>Box 2</h3>
+			</div>
+			<div id="box3" style="height: 1200px;">
+				<h3>Box 3</h3>
+			</div>
+		</div>
+
+	</body>
+</html>
