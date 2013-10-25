@@ -102,6 +102,8 @@
                         }
                     })();
 
+                if(!target) return;
+                
                 if($this.options.closest) {
                     links.closest($this.options.closest).removeClass($this.options.cls).end().filter("a[href='#"+target.attr("id")+"']").closest($this.options.closest).addClass($this.options.cls);
                 } else {
