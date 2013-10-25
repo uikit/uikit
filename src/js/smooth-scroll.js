@@ -10,18 +10,21 @@
 
         this.options = $.extend({
             duration: 1000,
-            transition: 'easeOutExpo'
+            transition: 'easeOutExpo',
+            offset: 0
         }, options);
 
         this.element = $element.on("click", function(e) {
 
             // get / set parameters
-            var target    = ($(this.hash).length ? $(this.hash) : $("body")).offset().top,
+            var ele       = ($(this.hash).length ? $(this.hash) : $("body")),
+                target    = ele.offset().top - $this.options.offset,
                 docheight = $(document).height(),
-                winheight = $(window).height();
+                winheight = $(window).height(),
+                eleheight = ele.outerHeight();
 
             if ((target + winheight) > docheight) {
-                target = (target - winheight) + 50;
+                target = (target - winheight) + eleheight;
             }
 
             // animate to target and set the hash to the window.location after the animation
