@@ -276,21 +276,21 @@
 										<td>Looks for the closest element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.</td>
 									</tr>
 									<tr>
-										<td><code>data-uk-scrollspy-nav="{closest:'MY-SELECTOR', smoothscroll:true}"</code></td>
+										<td><code>data-uk-scrollspy-nav="{smoothscroll:true}"</code></td>
 										<td>Applies the <a href="smooth-scroll.html">Smooth scroll component</a> when skipping between different sections of the site.</td>
 									</tr>
 									<tr>
 										<td><code>data-uk-scrollspy-nav="{cls:'MY-CLASS'}"</code></td>
-										<td>Applies this class to the nav item instead of an active state.</td>
+										<td>By default ScrollspyNav toggles the <code>uk-active</code> class. Use the <code>cls</code> option to use your own class name.</td>
 									</tr>
 								</tbody>
 							</table>
 
-							<p>For an example of the scrollspy nav, just check out our <a href="tests/scrollspy.html">Scrollspy test page</a>.
+							<p>For an example of the scrollspy nav, just check out our <a href="../src/tests/scrollspy.html">Scrollspy test page</a>.
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-nav uk-nav-side" data-uk-scrollspy-nav="{closest:'MY-SELECTOR', smoothscroll:true}"&gt;
+<pre><code>&lt;ul class="uk-nav uk-nav-side" data-uk-scrollspy-nav="{closest:'li', smoothscroll:true}"&gt;
 	&lt;li&gt;&lt;a href="#MY-ID"&gt;...&lt;/a&gt;&lt;/li&gt;
 	&lt;li&gt;&lt;a href="#MY-ID2"&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
