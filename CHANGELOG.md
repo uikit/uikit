@@ -15,12 +15,13 @@
   - Added variables for width sub-modifiers to form component
   - Added size modifier support for textarea and multiple selects
   - Added renderer option for seach component
-  - Added ScrollspyNav
+  - Added scrollspynav to scrollspy component
   - Auto-initialize dynamic components using MutationObserver if supported by browser
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed form-controls-condensed margin
   - Fixed rare customizer unknown less var error
+  - Fixed smooth-scroll offset position
 
 
 ### 1.1.0 (August 21, 2013)
