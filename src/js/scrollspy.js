@@ -103,7 +103,7 @@
                     })();
 
                 if(!target) return;
-                
+
                 if($this.options.closest) {
                     links.closest($this.options.closest).removeClass($this.options.cls).end().filter("a[href='#"+target.attr("id")+"']").closest($this.options.closest).addClass($this.options.cls);
                 } else {
@@ -168,12 +168,12 @@
             }
         });
 
-        $("[data-uk-scrollspynav]").each(function() {
+        $("[data-uk-scrollspy-nav]").each(function() {
 
             var element = $(this);
 
             if (!element.data("scrollspynav")) {
-                var obj = new ScrollSpyNav(element, UI.Utils.options(element.attr("data-uk-scrollspynav")));
+                var obj = new ScrollSpyNav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
             }
         });
     });
