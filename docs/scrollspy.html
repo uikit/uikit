@@ -116,12 +116,16 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td><code>data-uk-scrollspy="{cls:'MYCLASS'}"</code></td>
+										<td><code>data-uk-scrollspy="{cls:'MY-CLASS'}"</code></td>
 										<td>Applies the class only the first time the element appears in the viewport.</td>
 									</tr>
 									<tr>
-										<td><code>data-uk-scrollspy="{cls:'MYCLASS', repeat: true}"</code></td>
+										<td><code>data-uk-scrollspy="{cls:'MY-CLASS', repeat: true}"</code></td>
 										<td>Applies the class everytime the element appears in the viewport.</td>
+									</tr>
+									<tr>
+										<td><code>data-uk-scrollspy="{cls:'MY-CLASS', delay:600}"</code></td>
+										<td>Adds a delay in milliseconds to the animation.</td>
 									</tr>
 								</tbody>
 							</table>
@@ -130,7 +134,7 @@
 
 							<h3 class="tm-article-subtitle">Examples</h3>
 
-							<p>This example uses the <code>repeat: true</code> option. Scroll up and down to see the triggered animations.
+							<p>This example uses the <code>repeat: true</code> option. Scroll up and down to see the triggered animations.</p>
 
 							<div class="uk-grid">
 								<div class="uk-width-medium-1-4">
@@ -195,11 +199,40 @@
 								</div>
 							</div>
 
+							<div class="uk-grid">
+								<div class="uk-width-medium-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+										<h3 class="uk-panel-title">Delay</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									</div>
+								</div>
+								<div class="uk-width-medium-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:300, repeat: true}">
+										<h3 class="uk-panel-title">Delay</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									</div>
+								</div>
+								<div class="uk-width-medium-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:600, repeat: true}">
+										<h3 class="uk-panel-title">Delay</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									</div>
+								</div>
+								<div class="uk-width-medium-1-4">
+									<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:900, repeat: true}">
+										<h3 class="uk-panel-title">Delay</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									</div>
+								</div>
+							</div>
+
 							<h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;div data-uk-scrollspy="{cls:'uk-animation-fade'}"&gt;...&lt;/div&gt;
 
-&lt;div data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}"&gt;...&lt;/div&gt;</code></pre>
+&lt;div data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}"&gt;...&lt;/div&gt;
+
+&lt;div data-uk-scrollspy="{cls:'uk-animation-fade', delay:900}"&gt;...&lt;/div&gt;</code></pre>
 
 							<hr class="uk-article-divider">
 
@@ -219,6 +252,51 @@
 		console.log("Element is not visible.");
 	}
 });</code></pre>
+
+							<hr class="uk-article-divider">
+
+							<h2>Scrollspy Nav</h2>
+
+							<p>To automatically update the active menu item in a menu depending on the scroll position of your site, just add the data attribute <code>data-uk-scrollspy-nav</code> to any navigation. Each menu item must link to the ID of its corresponding part of the site.</p>
+
+							<table class="uk-table">
+								<thead>
+									<tr>
+										<th>Data attribute</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>data-uk-scrollspy-nav</code></td>
+										<td>Triggers the JavaScript necessary for the functionality of the scrollspy nav.</td>
+									</tr>
+									<tr>
+										<td><code>data-uk-scrollspy-nav="{closest:'MY-SELECTOR'}"</code></td>
+										<td>Looks for the closest element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.</td>
+									</tr>
+									<tr>
+										<td><code>data-uk-scrollspy-nav="{closest:'MY-SELECTOR', smoothscroll:true}"</code></td>
+										<td>Applies the <a href="smooth-scroll.html">Smooth scroll component</a> when skipping between different sections of the site.</td>
+									</tr>
+									<tr>
+										<td><code>data-uk-scrollspy-nav="{cls:'MY-CLASS'}"</code></td>
+										<td>Applies this class to the nav item instead of an active state.</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<p>For an example of the scrollspy nav, just check out our <a href="tests/scrollspy.html">Scrollspy test page</a>.
+
+							<h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-nav uk-nav-side" data-uk-scrollspy-nav="{closest:'MY-SELECTOR', smoothscroll:true}"&gt;
+	&lt;li&gt;&lt;a href="#MY-ID"&gt;...&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href="#MY-ID2"&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div id="MY-ID"&gt;...&lt;/div&gt;
+&lt;div id="MY-ID2"&gt;...&lt;/div&gt;</code></pre>
 
 						</article>
 
