@@ -1,6 +1,13 @@
 # Changelog
 
-### W.I.P.
+  **Documentation and repository**
+
+    - Refactored repository structure
+    - Added Grunt task to index new themes ( usage: grunt indexthemes )
+    - Added UIkit addons
+    - UIkit tests moved to /src
+
+### 1.2.0 (October 28, 2013)
   - Added shake animation
   - Added boundary check to tooltip component
   - Added delay and animation option to tooltip component
@@ -8,18 +15,13 @@
   - Added variables for width sub-modifiers to form component
   - Added size modifier support for textarea and multiple selects
   - Added renderer option for seach component
+  - Added ScrollspyNav
+  - Auto-initialize dynamic components using MutationObserver if supported by browser
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed form-controls-condensed margin
   - Fixed rare customizer unknown less var error
 
-  **Documentation and repository**
-
-    - Refactored repository structure
-    - Added Grunt task to index new themes ( usage: grunt indexthemes )
-    - Added UIkit addons
-    - UIkit tests moved to /src
-    - Auto-initialize dynamic components using MutationObserver if supported by browser
 
 ### 1.1.0 (August 21, 2013)
 
