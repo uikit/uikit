@@ -10,11 +10,10 @@
 
 		<style>
 
-			nav {
+			.uk-nav {
 				position: fixed;
 				top: 20px;
-				right: 50px;
-				z-index: 20;
+				right: 20px;
 			}
 
 		</style>
@@ -23,19 +22,15 @@
 
 	<body>
 
-		<nav class="uk-navbar">
-			<a class="uk-navbar-brand">Scollspy Nav</a>
-
-			<ul class="uk-navbar-nav" data-uk-scrollspynav="{closest:'li', smoothscroll:true}">
-				<li><a href="#animation-fade">Fade</a></li>
-				<li><a href="#animation-scale-up">Scale Up</a></li>
-				<li><a href="#animation-scale-down">Scale Down</a></li>
-				<li><a href="#animation-slide-left">Slide Left</a></li>
-				<li><a href="#animation-slide-right">Slide Right</a></li>
-				<li><a href="#animation-slide-top">Slide Top</a></li>
-				<li><a href="#animation-slide-bottom">Slide Bottom</a></li>
-			</ul>
-		</nav>
+		<ul class="uk-nav uk-nav-side" data-uk-scrollspynav="{closest:'li', smoothscroll:true}">
+			<li><a href="#animation-fade">Fade</a></li>
+			<li><a href="#animation-scale-up">Scale Up</a></li>
+			<li><a href="#animation-scale-down">Scale Down</a></li>
+			<li><a href="#animation-slide-left">Slide Left</a></li>
+			<li><a href="#animation-slide-right">Slide Right</a></li>
+			<li><a href="#animation-slide-top">Slide Top</a></li>
+			<li><a href="#animation-slide-bottom">Slide Bottom</a></li>
+		</ul>
 
 		<div class="uk-container uk-container-center">
 
