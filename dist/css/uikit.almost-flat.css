@@ -1627,8 +1627,18 @@ iframe {
 }
 .uk-comment-list .uk-comment + ul {
   margin: 25px 0 0 0;
-  padding-left: 100px;
+  padding-left: 25px;
   list-style: none;
+}
+@media (min-width: 768px) {
+  .uk-comment-list .uk-comment + ul {
+    padding-left: 50px;
+  }
+}
+@media (min-width: 960px) {
+  .uk-comment-list .uk-comment + ul {
+    padding-left: 100px;
+  }
 }
 .uk-comment-list > li:nth-child(n+2),
 .uk-comment-list .uk-comment + ul > li:nth-child(n+2) {
