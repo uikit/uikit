@@ -20,7 +20,7 @@
                 eleheight = ele.outerHeight();
 
             if ((target + winheight) > docheight) {
-                target = (target - winheight) + eleheight + $this.options.offset;
+                target = docheight - winheight;
             }
 
             // animate to target and set the hash to the window.location after the animation
