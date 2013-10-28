@@ -1,5 +1,3 @@
-# Changelog
-
 ### 1.2.0 (October 28, 2013)
   - Added shake animation
   - Added boundary check to tooltip component
@@ -8,7 +6,7 @@
   - Added variables for width sub-modifiers to form component
   - Added size modifier support for textarea and multiple selects
   - Added renderer option for seach component
-  - Added scrollspynav to scrollspy component
+  - Added scrollspy-nav to scrollspy component
   - Auto-initialize dynamic components using MutationObserver if supported by browser
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
