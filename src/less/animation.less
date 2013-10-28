@@ -13,6 +13,8 @@
  *					`uk-animation-slide-right`
  *					`uk-animation-reverse`
  *
+ * Uses:			Scrollspy
+ *
  * Used by:			Dropdown
  *					Icon
  *					Search
@@ -31,6 +33,10 @@
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }
+
+/* Hide animated element if scrollspy is used */
+[data-uk-scrollspy*='uk-animation-'] { opacity: 0; }
+
 
 /*
  * Fade

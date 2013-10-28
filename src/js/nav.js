@@ -4,10 +4,12 @@
 
     var Nav = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("nav")) return;
 
         this.options = $.extend({}, this.options, options);
-        this.element = $(element).on("click", this.options.toggler, function(e) {
+        this.element = $element.on("click", this.options.toggler, function(e) {
             e.preventDefault();
 
             var ele = $(this);
@@ -25,6 +27,8 @@
 
             if (active) $this.open(parent, true);
         });
+
+        this.element.data("nav", this);
     };
 
     $.extend(Nav.prototype, {
@@ -90,12 +94,12 @@
     }
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-nav]").each(function() {
             var nav = $(this);
 
             if (!nav.data("nav")) {
-                nav.data("nav", new Nav(nav, UI.Utils.options(nav.data("uk-nav"))));
+                var obj = new Nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
             }
         });
     });

@@ -24,6 +24,8 @@
         });
     };
 
+    UI.version = '1.2.0';
+
     UI.support = {};
     UI.support.transition = (function() {
 
@@ -49,7 +51,8 @@
 
     })();
 
-    UI.support.touch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
+    UI.support.touch            = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
+    UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null);
 
 
     UI.Utils = {};
@@ -73,7 +76,7 @@
 
         if ($.isPlainObject(string)) return string;
 
-        var start = string.indexOf("{"), options = {};
+        var start = (string ? string.indexOf("{") : -1), options = {};
 
         if (start != -1) {
             try {
@@ -88,5 +91,21 @@
     $.fn.uk = UI.fn;
 
     $.UIkit.langdirection = $("html").attr("dir") == "rtl" ? "right" : "left";
+
+    $(function(){
+
+        $(doc).trigger("uk-domready");
+
+        // Check for dom modifications
+        if(!UI.support.mutationobserver) return;
+
+        var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+            $(doc).trigger("uk-domready");
+        }, 300));
+
+        // pass in the target node, as well as the observer options
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+
 
 })(jQuery, document);

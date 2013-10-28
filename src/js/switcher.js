@@ -4,11 +4,13 @@
 
     var Switcher = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("switcher")) return;
 
         this.options = $.extend({}, this.options, options);
 
-        this.element = $(element).on("click", this.options.toggler, function(e) {
+        this.element = $element.on("click", this.options.toggler, function(e) {
             e.preventDefault();
             $this.show(this);
         });
@@ -24,6 +26,7 @@
             }
         }
 
+        this.element.data("switcher", this);
     };
 
     $.extend(Switcher.prototype, {
@@ -59,12 +62,12 @@
     UI["switcher"] = Switcher;
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-switcher]").each(function() {
             var switcher = $(this);
 
             if (!switcher.data("switcher")) {
-                switcher.data("switcher", new Switcher(switcher, UI.Utils.options(switcher.data("uk-switcher"))));
+                var obj = new Switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
             }
         });
     });

@@ -115,6 +115,8 @@
         var $this    = this,
             $element = $(element);
 
+        if($element.data("modal")) return;
+
         this.options = $.extend({
             "target": $element.is("a") ? $element.attr("href") : false
         }, options);
@@ -133,6 +135,8 @@
         $.each(["show", "hide", "isActive"], function(index, method) {
             $this[method] = function() { return $this.modal[method](); };
         });
+
+        this.element.data("modal", this);
     };
 
     ModalTrigger.Modal = Modal;
@@ -144,9 +148,8 @@
         var ele = $(this);
 
         if (!ele.data("modal")) {
-            ele.data("modal", new ModalTrigger(ele, UI.Utils.options(ele.data("uk-modal"))));
-
-            ele.data("modal").show();
+            var modal = new ModalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
+            modal.show();
         }
 
     });
