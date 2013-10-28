@@ -23,6 +23,8 @@
 	<body>
 
 		<ul class="uk-nav uk-nav-side" data-uk-scrollspynav="{closest:'li', smoothscroll:true}">
+			<li><a href="#animation-repeat">Repeat</a></li>
+			<li><a href="#animation-delay">Delay</a></li>
 			<li><a href="#animation-fade">Fade</a></li>
 			<li><a href="#animation-scale-up">Scale Up</a></li>
 			<li><a href="#animation-scale-down">Scale Down</a></li>
@@ -35,6 +37,8 @@
 		<div class="uk-container uk-container-center">
 
 			<h1>ScrollSpy</h1>
+
+			<h2 id="animation-repeat">Repeat</h2>
 
 			<div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
 				<div class="uk-width-medium-1-4">
@@ -49,7 +53,32 @@
 				</div>
 			</div>
 
-			<h2>Scroll down</h2>
+			<h2 id="animation-delay">Delay</h2>
+
+			<div class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<p>The animation of this element is delayed by some milliseconds.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:300, repeat: true}">
+						<p>The animation of this element is delayed by some milliseconds.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:600, repeat: true}">
+						<p>The animation of this element is delayed by some milliseconds.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:900, repeat: true}">
+						<p>The animation of this element is delayed by some milliseconds.</p>
+					</div>
+				</div>
+			</div>
+
+			<h2>IDs</h2>
 
 			<div id="animation-fade" class="uk-grid">
 				<div class="uk-width-medium-1-4">
@@ -298,6 +327,33 @@
 				<div class="uk-width-medium-1-4 uk-push-3-4">
 					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
 						<h3 class="uk-panel-title">Slide bottom</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+
+			<div id="animation-delay" class="uk-grid">
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+						<h3 class="uk-panel-title">Delay</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:300, repeat: true}">
+						<h3 class="uk-panel-title">Delay</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:600, repeat: true}">
+						<h3 class="uk-panel-title">Delay</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+				</div>
+				<div class="uk-width-medium-1-4">
+					<div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:900, repeat: true}">
+						<h3 class="uk-panel-title">Delay</h3>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 					</div>
 				</div>
