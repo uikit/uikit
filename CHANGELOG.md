@@ -1,13 +1,15 @@
 # Changelog
 
-  **Documentation and repository**
+### WIP
 
-    - Refactored repository structure
-    - Added Grunt task to index new themes ( usage: grunt indexthemes )
-    - Added UIkit addons
-    - UIkit tests moved to /src
+**Documentation and repository**
 
-### 1.2.0 (October 28, 2013)
+  - Refactored repository structure
+  - Added Grunt task to index new themes ( usage: grunt indexthemes )
+  - Added UIkit addons
+  - UIkit tests moved to /src
+
+### 1.2.0 (November 01, 2013)
   - Added shake animation
   - Added boundary check to tooltip component
   - Added delay and animation option to tooltip component
@@ -22,7 +24,6 @@
   - Fixed form-controls-condensed margin
   - Fixed rare customizer unknown less var error
   - Fixed smooth-scroll offset position
-
 
 ### 1.1.0 (August 21, 2013)
 
