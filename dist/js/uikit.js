@@ -1,4 +1,4 @@
-/*! UIkit 1.1.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.2.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 (function($, doc) {
 
@@ -26,6 +26,8 @@
         });
     };
 
+    UI.version = '1.2.0';
+
     UI.support = {};
     UI.support.transition = (function() {
 
@@ -51,7 +53,8 @@
 
     })();
 
-    UI.support.touch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
+    UI.support.touch            = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
+    UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null);
 
 
     UI.Utils = {};
@@ -75,7 +78,7 @@
 
         if ($.isPlainObject(string)) return string;
 
-        var start = string.indexOf("{"), options = {};
+        var start = (string ? string.indexOf("{") : -1), options = {};
 
         if (start != -1) {
             try {
@@ -90,6 +93,22 @@
     $.fn.uk = UI.fn;
 
     $.UIkit.langdirection = $("html").attr("dir") == "rtl" ? "right" : "left";
+
+    $(function(){
+
+        $(doc).trigger("uk-domready");
+
+        // Check for dom modifications
+        if(!UI.support.mutationobserver) return;
+
+        var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+            $(doc).trigger("uk-domready");
+        }, 300));
+
+        // pass in the target node, as well as the observer options
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+
 
 })(jQuery, document);
 
@@ -211,10 +230,16 @@
         var $this = this;
 
         this.options = $.extend({}, this.options, options);
-        this.element = $(element).on("click", this.options.trigger, function(e) {
+        this.element = $(element);
+
+        if(this.element.data("alert")) return;
+
+        this.element.on("click", this.options.trigger, function(e) {
             e.preventDefault();
             $this.close();
         });
+
+        this.element.data("alert", this);
     };
 
     $.extend(Alert.prototype, {
@@ -256,13 +281,12 @@
 
         var ele = $(this);
         if (!ele.data("alert")) {
-            ele.data("alert", new Alert(ele, UI.Utils.options(ele.data("uk-alert"))));
+
+            var alert = new Alert(ele, UI.Utils.options(ele.data("uk-alert")));
 
             if ($(e.target).is(ele.data("alert").options.trigger)) {
-
                 e.preventDefault();
-
-                ele.data("alert").close();
+                alert.close();
             }
         }
     });
@@ -277,12 +301,16 @@
 
         var $this = this, $element = $(element);
 
+        if($element.data("buttonRadio")) return;
+
         this.options = $.extend({}, this.options, options);
         this.element = $element.on("click", this.options.target, function(e) {
             e.preventDefault();
             $element.find($this.options.target).not(this).removeClass("uk-active").blur();
             $element.trigger("change", [$(this).addClass("uk-active")]);
         });
+
+        this.element.data("buttonRadio", this);
     };
 
     $.extend(ButtonRadio.prototype, {
@@ -301,11 +329,15 @@
 
         var $element = $(element);
 
+        if($element.data("buttonCheckbox")) return;
+
         this.options = $.extend({}, this.options, options);
         this.element = $element.on("click", this.options.target, function(e) {
             e.preventDefault();
             $element.trigger("change", [$(this).toggleClass("uk-active").blur()]);
         });
+
+        this.element.data("buttonCheckbox", this);
     };
 
     $.extend(ButtonCheckbox.prototype, {
@@ -320,18 +352,25 @@
 
     });
 
-    var Button = function(element) {
+    var Button = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
 
-        this.element = $(element).on("click", function(e) {
+        if($element.data("button")) return;
+
+        this.options = $.extend({}, this.options, options);
+        this.element = $element.on("click", function(e) {
             e.preventDefault();
             $this.toggle();
             $this.element.blur();
         });
+
+        this.element.data("button", this);
     };
 
     $.extend(Button.prototype, {
+
+        options: {},
 
         toggle: function() {
             this.element.toggleClass("uk-active");
@@ -339,30 +378,30 @@
 
     });
 
-    UI["button"] = Button;
-    UI["button-checkbox"] = ButtonCheckbox;
-    UI["button-radio"] = ButtonRadio;
+    UI["button"]         = Button;
+    UI["buttonCheckbox"] = ButtonCheckbox;
+    UI["buttonRadio"]    = ButtonRadio;
 
     // init code
-    $(document).on("click.button-radio.uikit", "[data-uk-button-radio]", function(e) {
+    $(document).on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
         var ele = $(this);
 
-        if (!ele.data("button-radio")) {
-            ele.data("button-radio", new ButtonRadio(ele, UI.Utils.options(ele.data("uk-button-radio"))));
+        if (!ele.data("buttonRadio")) {
+            var obj = new ButtonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
 
-            if ($(e.target).is(ele.data("button-radio").options.target)) {
+            if ($(e.target).is(obj.options.target)) {
                 $(e.target).trigger("click");
             }
         }
     });
 
-    $(document).on("click.button-checkbox.uikit", "[data-uk-button-checkbox]", function(e) {
+    $(document).on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
         var ele = $(this);
 
-        if (!ele.data("button-checkbox")) {
-            ele.data("button-checkbox", new ButtonCheckbox(ele, UI.Utils.options(ele.data("uk-button-checkbox"))));
+        if (!ele.data("buttonCheckbox")) {
+            var obj = new ButtonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox")));
 
-            if ($(e.target).is(ele.data("button-checkbox").options.target)) {
+            if ($(e.target).is(obj.options.target)) {
                 $(e.target).trigger("click");
             }
         }
@@ -372,7 +411,9 @@
         var ele = $(this);
 
         if (!ele.data("button")) {
-            ele.data("button", new Button(ele, ele.data("uk-button"))).trigger("click");
+
+            var obj = new Button(ele, ele.attr("data-uk-button"));
+            ele.trigger("click");
         }
     });
 
@@ -385,10 +426,12 @@
     var active   = false,
         Dropdown = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("dropdown")) return;
 
         this.options  = $.extend({}, this.options, options);
-        this.element  = $(element);
+        this.element  = $element;
         this.dropdown = this.element.find(".uk-dropdown");
 
         this.centered  = this.dropdown.hasClass("uk-dropdown-center");
@@ -472,6 +515,8 @@
             });
         }
 
+        this.element.data("dropdown", this);
+
     };
 
     $.extend(Dropdown.prototype, {
@@ -545,14 +590,18 @@
 
     UI["dropdown"] = Dropdown;
 
+
+    var triggerevent = UI.support.touch ? "touchstart":"mouseenter";
+
     // init code
-    $(document).on("mouseenter.dropdown.uikit", "[data-uk-dropdown]", function(e) {
+    $(document).on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
         var ele = $(this);
 
         if (!ele.data("dropdown")) {
-            ele.data("dropdown", new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown"))));
 
-            if (ele.data("dropdown").options.mode == "hover") {
+            var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
+
+            if(triggerevent == "mouseenter" && dropdown.options.mode == "hover") {
                 ele.trigger("mouseenter");
             }
         }
@@ -567,13 +616,15 @@
     var win         = $(window),
         event       = 'resize orientationchange',
 
-        GridMatchHeight = function(element, options) {
+        GridMatch = function(element, options) {
 
-            var $this = this;
+            var $this = this, $element = $(element);
+
+            if($element.data("gridMatchHeight")) return;
 
             this.options  = $.extend({}, this.options, options);
 
-            this.element  = $(element);
+            this.element  = $element;
             this.columns  = this.element.children();
             this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
 
@@ -591,9 +642,17 @@
 
                 return UI.Utils.debounce(fn, 150);
             })());
+
+            $(document).on("uk-domready", function(e) {
+                $this.columns  = $this.element.children();
+                $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
+                $this.match();
+            });
+
+            this.element.data("gridMatch", this);
         };
 
-    $.extend(GridMatchHeight.prototype, {
+    $.extend(GridMatch.prototype, {
 
         options: {
             "target": false
@@ -637,9 +696,11 @@
 
     var GridMargin = function(element) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
 
-        this.element = $(element);
+        if($element.data("gridMargin")) return;
+
+        this.element = $element;
         this.columns = this.element.children();
 
         if (!this.columns.length) return;
@@ -656,6 +717,13 @@
 
             return UI.Utils.debounce(fn, 150);
         })());
+
+        $(document).on("uk-domready", function(e) {
+            $this.columns  = $this.element.children();
+            $this.process();
+        });
+
+        this.element.data("gridMargin", this);
     };
 
     $.extend(GridMargin.prototype, {
@@ -698,20 +766,20 @@
 
     });
 
-    UI["grid-match"]  = GridMatchHeight;
-    UI["grid-margin"] = GridMargin;
+    UI["gridMatch"]  = GridMatch;
+    UI["gridMargin"] = GridMargin;
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
-            var grid = $(this);
+            var grid = $(this), obj;
 
-            if (grid.is("[data-uk-grid-match]") && !grid.data("grid-match")) {
-                grid.data("grid-match", new GridMatchHeight(grid, UI.Utils.options(grid.data("uk-grid-match"))));
+            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatch")) {
+                obj = new GridMatch(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
             }
 
-            if (grid.is("[data-uk-grid-margin]") && !grid.data("grid-margin")) {
-                grid.data("grid-margin", new GridMargin(grid, UI.Utils.options(grid.data("uk-grid-margin"))));
+            if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
+                obj = new GridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
             }
         });
     });
@@ -835,6 +903,8 @@
         var $this    = this,
             $element = $(element);
 
+        if($element.data("modal")) return;
+
         this.options = $.extend({
             "target": $element.is("a") ? $element.attr("href") : false
         }, options);
@@ -853,6 +923,8 @@
         $.each(["show", "hide", "isActive"], function(index, method) {
             $this[method] = function() { return $this.modal[method](); };
         });
+
+        this.element.data("modal", this);
     };
 
     ModalTrigger.Modal = Modal;
@@ -864,9 +936,8 @@
         var ele = $(this);
 
         if (!ele.data("modal")) {
-            ele.data("modal", new ModalTrigger(ele, UI.Utils.options(ele.data("uk-modal"))));
-
-            ele.data("modal").show();
+            var modal = new ModalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
+            modal.show();
         }
 
     });
@@ -972,6 +1043,8 @@
         var $this    = this,
             $element = $(element);
 
+        if($element.data("offcanvas")) return;
+
         this.options = $.extend({
             "target": $element.is("a") ? $element.attr("href") : false
         }, options);
@@ -982,6 +1055,8 @@
             e.preventDefault();
             Offcanvas.show($this.options.target);
         });
+
+        this.element.data("offcanvas", this);
     };
 
     OffcanvasTrigger.offcanvas = Offcanvas;
@@ -997,8 +1072,7 @@
         var ele = $(this);
 
         if (!ele.data("offcanvas")) {
-            ele.data("offcanvas", new OffcanvasTrigger(ele, UI.Utils.options(ele.data("uk-offcanvas"))));
-
+            var obj = new OffcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
             ele.trigger("click");
         }
     });
@@ -1011,10 +1085,12 @@
 
     var Nav = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("nav")) return;
 
         this.options = $.extend({}, this.options, options);
-        this.element = $(element).on("click", this.options.toggler, function(e) {
+        this.element = $element.on("click", this.options.toggler, function(e) {
             e.preventDefault();
 
             var ele = $(this);
@@ -1032,6 +1108,8 @@
 
             if (active) $this.open(parent, true);
         });
+
+        this.element.data("nav", this);
     };
 
     $.extend(Nav.prototype, {
@@ -1097,12 +1175,12 @@
     }
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-nav]").each(function() {
             var nav = $(this);
 
             if (!nav.data("nav")) {
-                nav.data("nav", new Nav(nav, UI.Utils.options(nav.data("uk-nav"))));
+                var obj = new Nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
             }
         });
     });
@@ -1113,16 +1191,19 @@
 
     "use strict";
 
-    var $tooltip; // tooltip container
+    var $tooltip,   // tooltip container
+        tooltipdelay;
 
 
     var Tooltip = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
 
-        this.options = $.extend({}, this.options, options);
+        if($element.data("tooltip")) return;
 
-        this.element = $(element).on({
+        this.options = $.extend({}, Tooltip.defaults, options);
+
+        this.element = $element.on({
             "focus"     : function(e) { $this.show(); },
             "blur"      : function(e) { $this.hide(); },
             "mouseenter": function(e) { $this.show(); },
@@ -1133,26 +1214,24 @@
 
         // disable title attribute
         this.element.attr("data-cached-title", this.element.attr("title")).attr("title", "");
+
+        this.element.data("tooltip", this);
     };
 
     $.extend(Tooltip.prototype, {
 
         tip: "",
 
-        options: {
-            "offset": 5,
-            "pos": "top",
-            "src": function() { return this.attr("title"); }
-        },
-
         show: function() {
 
+            if (tooltipdelay)     clearTimeout(tooltipdelay);
             if (!this.tip.length) return;
 
-            $tooltip.css({"top": -2000, "visibility": "hidden"}).show();
+            $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
-            var pos      = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
+            var $this    = this,
+                pos      = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
                 width    = $tooltip[0].offsetWidth,
                 height   = $tooltip[0].offsetHeight,
                 offset   = typeof(this.options.offset) === "function" ? this.options.offset.call(this.element) : this.options.offset,
@@ -1169,40 +1248,115 @@
                 tmppos[0] = tmppos[0] == "left" ? "right" : "left";
             }
 
+            var variants =  {
+                "bottom"  : {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2},
+                "top"     : {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2},
+                "left"    : {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset},
+                "right"   : {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset}
+            };
 
-            switch (tmppos[0]) {
-                case 'bottom':
-                    $.extend(tcss, {top: pos.top + pos.height + offset, left: pos.left + pos.width / 2 - width / 2});
-                    break;
-                case 'top':
-                    $.extend(tcss, {top: pos.top - height - offset, left: pos.left + pos.width / 2 - width / 2});
-                    break;
-                case 'left':
-                    $.extend(tcss, {top: pos.top + pos.height / 2 - height / 2, left: pos.left - width - offset});
-                    break;
-                case 'right':
-                    $.extend(tcss, {top: pos.top + pos.height / 2 - height / 2, left: pos.left + pos.width + offset});
-                    break;
+            $.extend(tcss, variants[tmppos[0]]);
+
+            if (tmppos.length == 2) tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
+
+            var boundary = this.checkBoundary(tcss.left, tcss.top, width, height);
+
+            if(boundary) {
+
+                switch(boundary) {
+                    case "x":
+
+                        if (tmppos.length == 2) {
+                            position = tmppos[0]+"-"+(tcss.left < 0 ? "left": "right");
+                        } else {
+                            position = tcss.left < 0 ? "right": "left";
+                        }
+
+                        break;
+
+                    case "y":
+                        if (tmppos.length == 2) {
+                            position = (tcss.top < 0 ? "bottom": "top")+"-"+tmppos[1];
+                        } else {
+                            position = (tcss.top < 0 ? "bottom": "top");
+                        }
+
+                        break;
+
+                    case "xy":
+                        if (tmppos.length == 2) {
+                            position = (tcss.top < 0 ? "bottom": "top")+"-"+(tcss.left < 0 ? "left": "right");
+                        } else {
+                            position = tcss.left < 0 ? "right": "left";
+                        }
+
+                        break;
+
+                }
+
+                tmppos = position.split("-");
+
+                $.extend(tcss, variants[tmppos[0]]);
+
+                if (tmppos.length == 2) tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
             }
 
-            if (tmppos.length == 2) {
-                tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
-            }
+            tooltipdelay = setTimeout(function(){
 
-            $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position).show();
+                $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position);
 
+                if ($this.options.animation) {
+                    $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
+                } else {
+                    $tooltip.show();
+                }
+
+                tooltipdelay = false;
+            }, parseInt(this.options.delay, 10) || 0);
         },
 
         hide: function() {
             if(this.element.is("input") && this.element[0]===document.activeElement) return;
-            $tooltip.hide();
+
+            if(tooltipdelay) clearTimeout(tooltipdelay);
+
+            $tooltip.stop();
+
+            if (this.options.animation) {
+                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400);
+            } else {
+                $tooltip.hide();
+            }
         },
 
         content: function() {
             return this.tip;
+        },
+
+        checkBoundary: function(left, top, width, height) {
+
+            var axis = "";
+
+            if(left < 0 || left+width > window.innerWidth) {
+                axis += "x";
+            }
+
+            if(top < 0 || top+height > window.innerHeight) {
+                axis += "y";
+            }
+
+            return axis;
         }
 
     });
+
+    Tooltip.defaults = {
+        "offset": 5,
+        "pos": "top",
+        "animation": false,
+        "delay": 0, // in miliseconds
+        "src": function() { return this.attr("title"); }
+    };
 
     UI["tooltip"] = Tooltip;
 
@@ -1215,7 +1369,8 @@
         var ele = $(this);
 
         if (!ele.data("tooltip")) {
-            ele.data("tooltip", new Tooltip(ele, UI.Utils.options(ele.data("uk-tooltip")))).trigger("mouseenter");
+            var obj = new Tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
+            ele.trigger("mouseenter");
         }
     });
 
@@ -1227,11 +1382,13 @@
 
     var Switcher = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("switcher")) return;
 
         this.options = $.extend({}, this.options, options);
 
-        this.element = $(element).on("click", this.options.toggler, function(e) {
+        this.element = $element.on("click", this.options.toggler, function(e) {
             e.preventDefault();
             $this.show(this);
         });
@@ -1247,6 +1404,7 @@
             }
         }
 
+        this.element.data("switcher", this);
     };
 
     $.extend(Switcher.prototype, {
@@ -1282,12 +1440,12 @@
     UI["switcher"] = Switcher;
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-switcher]").each(function() {
             var switcher = $(this);
 
             if (!switcher.data("switcher")) {
-                switcher.data("switcher", new Switcher(switcher, UI.Utils.options(switcher.data("uk-switcher"))));
+                var obj = new Switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
             }
         });
     });
@@ -1300,9 +1458,11 @@
 
     var Tab = function(element, options) {
 
-        var $this    = this;
+        var $this = this, $element = $(element);
 
-        this.element = $(element);
+        if($element.data("tab")) return;
+
+        this.element = $element;
         this.options = $.extend({
             connect: false
         }, this.options, options);
@@ -1351,17 +1511,16 @@
             caption.html(tab.find("a").text());
         });
 
+        this.element.data("tab", this);
     };
 
-    UI["tab"] = Tab;
+    $(document).on("uk-domready", function(e) {
 
-    // init code
-    $(function() {
         $("[data-uk-tab]").each(function() {
             var tab = $(this);
 
             if (!tab.data("tab")) {
-                tab.data("tab", new Tab(tab, UI.Utils.options(tab.data("uk-tab"))));
+                var obj = new Tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
             }
         });
     });
@@ -1372,13 +1531,17 @@
 
     "use strict";
 
-    var Search = function(element, options) {
+    var renderers = {},
 
-        var $this = this;
+        Search = function(element, options) {
+
+        var $this = this, $element = $(element);
+
+        if($element.data("search")) return;
 
         this.options = $.extend({}, this.options, options);
 
-        this.element = $(element);
+        this.element = $element;
 
         this.timer = null;
         this.value = null;
@@ -1434,6 +1597,14 @@
         if (this.options.flipDropdown) {
             this.dropdown.parent().addClass('uk-dropdown-flip');
         }
+
+        this.dropdown.on("mouseover", ">li", function(){
+            $this.pick($(this));
+        });
+
+        this.renderer = new renderers[this.options.renderer](this);
+
+        this.element.data("search", this);
     };
 
     $.extend(Search.prototype, {
@@ -1449,16 +1620,10 @@
             skipClass: 'uk-skip',
             loadingClass: 'uk-loading',
             filledClass: 'uk-active',
-            resultsHeaderClass: 'uk-nav-header',
-            moreResultsClass: '',
-            noResultsClass: '',
             listClass: 'results',
             hoverClass: 'uk-active',
-            msgResultsHeader: 'Search Results',
-            msgMoreResults: 'More Results',
-            msgNoResults: 'No results found',
-            onSelect: function(selected) { window.location = selected.data('choice').url; },
-            onLoadedResults: function(results) { return results; }
+            onLoadedResults: function(results) { return results; },
+            renderer: "default"
         },
 
         request: function(options) {
@@ -1517,22 +1682,6 @@
             }
         },
 
-        done: function(selected) {
-
-            if (!selected) {
-                this.form.submit();
-                return;
-            }
-
-            if (selected.hasClass(this.options.moreResultsClass)) {
-                this.form.submit();
-            } else if (selected.data('choice')) {
-                this.options.onSelect.apply(this, [selected]);
-            }
-
-            this.hide();
-        },
-
         trigger: function() {
 
             var $this = this, old = this.value, data = {};
@@ -1556,52 +1705,24 @@
             return this;
         },
 
+        done: function(selected) {
+
+            this.renderer.done(selected);
+        },
+
         suggest: function(data) {
 
             if (!data) return;
 
-            var $this  = this,
-                events = {
-                    'mouseover': function() { $this.pick($(this).parent()); },
-                    'click': function(e) {
-                        e.preventDefault();
-                        $this.done($(this).parent());
-                    }
-                };
-
             if (data === false) {
                 this.hide();
             } else {
+
                 this.selected = null;
+
                 this.dropdown.empty();
 
-                if (this.options.msgResultsHeader) {
-                    $('<li>').addClass(this.options.resultsHeaderClass + ' ' + this.options.skipClass).html(this.options.msgResultsHeader).appendTo(this.dropdown);
-                }
-
-                if (data.results && data.results.length > 0) {
-
-                    $(data.results).each(function(i) {
-
-                        var item = $('<li><a href="#">' + this.title + '</a></li>').data('choice', this);
-
-                        if (this["text"]) {
-                            item.find("a").append('<div>' + this.text + '</div>');
-                        }
-
-                        $this.dropdown.append(item);
-                    });
-
-                    if (this.options.msgMoreResults) {
-                        $('<li>').addClass('uk-nav-divider ' + $this.options.skipClass).appendTo($this.dropdown);
-                        $('<li>').addClass($this.options.moreResultsClass).html('<a href="#">' + $this.options.msgMoreResults + '</a>').appendTo($this.dropdown).on(events);
-                    }
-
-                    $this.dropdown.find("li>a").on(events);
-
-                } else if (this.options.msgNoResults) {
-                    $('<li>').addClass(this.options.noResultsClass + ' ' + this.options.skipClass).html('<a>' + this.options.msgNoResults + '</a>').appendTo(this.dropdown);
-                }
+                this.renderer.suggest(data);
 
                 this.show();
             }
@@ -1621,6 +1742,85 @@
         }
     });
 
+    Search.addRenderer = function(name, klass) {
+        renderers[name] = klass;
+    };
+
+
+    var DefaultRenderer = function(search) {
+        this.search = search;
+        this.options = $.extend({}, DefaultRenderer.defaults, search.options);
+    };
+
+    $.extend(DefaultRenderer.prototype, {
+
+        done: function(selected) {
+
+            if (!selected) {
+                this.search.form.submit();
+                return;
+            }
+
+            if (selected.hasClass(this.options.moreResultsClass)) {
+                this.search.form.submit();
+            } else if (selected.data('choice')) {
+                window.location = selected.data('choice').url;
+            }
+
+            this.search.hide();
+        },
+
+        suggest: function(data) {
+
+           var $this  = this,
+               events = {
+                   'click': function(e) {
+                       e.preventDefault();
+                       $this.done($(this).parent());
+                   }
+               };
+
+            if (this.options.msgResultsHeader) {
+                $('<li>').addClass(this.options.resultsHeaderClass + ' ' + this.options.skipClass).html(this.options.msgResultsHeader).appendTo(this.search.dropdown);
+            }
+
+            if (data.results && data.results.length > 0) {
+
+                $(data.results).each(function(i) {
+
+                    var item = $('<li><a href="#">' + this.title + '</a></li>').data('choice', this);
+
+                    if (this["text"]) {
+                        item.find("a").append('<div>' + this.text + '</div>');
+                    }
+
+                    $this.search.dropdown.append(item);
+                });
+
+                if (this.options.msgMoreResults) {
+                    $('<li>').addClass('uk-nav-divider ' + $this.options.skipClass).appendTo($this.dropdown);
+                    $('<li>').addClass($this.options.moreResultsClass).html('<a href="#">' + $this.options.msgMoreResults + '</a>').appendTo($this.search.dropdown).on(events);
+                }
+
+                $this.search.dropdown.find("li>a").on(events);
+
+            } else if (this.options.msgNoResults) {
+                $('<li>').addClass(this.options.noResultsClass + ' ' + this.options.skipClass).html('<a>' + this.options.msgNoResults + '</a>').appendTo($this.search.dropdown);
+            }
+        }
+    });
+
+    DefaultRenderer.defaults = {
+        resultsHeaderClass: 'uk-nav-header',
+        moreResultsClass: '',
+        noResultsClass: '',
+        msgResultsHeader: 'Search Results',
+        msgMoreResults: 'More Results',
+        msgNoResults: 'No results found'
+    };
+
+    Search.addRenderer("default", DefaultRenderer);
+
     UI["search"] = Search;
 
     // init code
@@ -1628,7 +1828,7 @@
         var ele = $(this);
 
         if (!ele.data("search")) {
-            ele.data("search", new Search(ele, UI.Utils.options(ele.data("uk-search"))));
+            var obj = new Search(ele, UI.Utils.options(ele.attr("data-uk-search")));
         }
     });
 
@@ -1642,14 +1842,21 @@
 
         ScrollSpy   = function(element, options) {
 
-            this.options = $.extend({}, this.options, options);
+            var $element = $(element);
 
-            var $this = this, inviewstate, initinview,
+            if($element.data("scrollspy")) return;
+
+            this.options = $.extend({}, ScrollSpy.defaults, options);
+            this.element = $(element);
+
+            var $this = this, idle, inviewstate, initinview,
                 fn = function(){
 
-                    var inview = isInView($this);
+                    var inview = isInView($this.element, $this.options);
 
                     if(inview && !inviewstate) {
+
+                        if(idle) clearTimeout(idle);
 
                         if(!initinview) {
                             $this.element.addClass($this.options.initcls);
@@ -1659,9 +1866,15 @@
                             $this.element.trigger("uk-scrollspy-init");
                         }
 
-                        $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
-                        inviewstate = true;
+                        idle = setTimeout(function(){
 
+                            if(inview) {
+                                $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
+                            }
+
+                        }, $this.options.delay);
+
+                        inviewstate = true;
                         $this.element.trigger("uk.scrollspy.inview");
                     }
 
@@ -1673,37 +1886,102 @@
                     }
                 };
 
-            this.element = $(element);
-
             $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
 
             fn();
+
+            this.element.data("scrollspy", this);
         };
 
-    $.extend(ScrollSpy.prototype, {
-
-        options: {
-            "cls": "uk-scrollspy-inview",
-            "initcls": "uk-scrollspy-init-inview",
-            "topoffset": 0,
-            "leftoffset": 0,
-            "repeat": false
-        }
-
-    });
+    ScrollSpy.defaults = {
+        "cls"        : "uk-scrollspy-inview",
+        "initcls"    : "uk-scrollspy-init-inview",
+        "topoffset"  : 0,
+        "leftoffset" : 0,
+        "repeat"     : false,
+        "delay"      : 0
+    };
 
     UI["scrollspy"] = ScrollSpy;
 
+    var ScrollSpyNav = function(element, options) {
 
-    function isInView(obj) {
+        var $element = $(element);
 
-        var $element = obj.element, options = obj.options;
+        if($element.data("scrollspynav")) return;
+
+        this.element = $element;
+        this.options = $.extend({}, ScrollSpyNav.defaults, options);
+
+        var ids     = [],
+            links   = this.element.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
+            targets = $(ids.join(","));
+
+        var $this = this, inviews, fn = function(){
+
+            inviews = [];
+
+            for(var i=0 ; i < targets.length ; i++) {
+                if(isInView(targets.eq(i), $this.options)) {
+                    inviews.push(targets.eq(i));
+                }
+            }
+
+            if(inviews.length) {
+
+                var scrollTop = $win.scrollTop(),
+                    target = (function(){
+                        for(var i=0; i< inviews.length;i++){
+                            if(inviews[i].offset().top >= scrollTop){
+                                return inviews[i];
+                            }
+                        }
+                    })();
+
+                if(!target) return;
+
+                if($this.options.closest) {
+                    links.closest($this.options.closest).removeClass($this.options.cls).end().filter("a[href='#"+target.attr("id")+"']").closest($this.options.closest).addClass($this.options.cls);
+                } else {
+                    links.removeClass($this.options.cls).filter("a[href='#"+target.attr("id")+"']").addClass($this.options.cls);
+                }
+            }
+        };
+
+        if(this.options.smoothscroll && UI["smoothScroll"]) {
+            links.each(function(){
+                new UI["smoothScroll"](this, $this.options.smoothscroll);
+            });
+        }
+
+        fn();
+
+        $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
+
+        this.element.data("scrollspynav", this);
+    };
+
+    ScrollSpyNav.defaults = {
+        "cls"          : 'uk-active',
+        "closest"      : false,
+        "topoffset"    : 0,
+        "leftoffset"   : 0,
+        "smoothscroll" : false
+    };
+
+    UI["scrollspynav"] = ScrollSpyNav;
+
+    // helper
+
+    function isInView(element, options) {
+
+        var $element = element;
 
         if (!$element.is(':visible')) {
             return false;
         }
 
-        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = obj.offset || $element.offset(), left = offset.left, top = offset.top;
+        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
 
         if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
             left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
@@ -1713,15 +1991,25 @@
         }
     }
 
+    ScrollSpy.isInView = isInView;
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-scrollspy]").each(function() {
 
             var element = $(this);
 
             if (!element.data("scrollspy")) {
-                element.data("scrollspy", new ScrollSpy(element, UI.Utils.options(element.data("uk-scrollspy"))));
+                var obj = new ScrollSpy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
+            }
+        });
+
+        $("[data-uk-scrollspy-nav]").each(function() {
+
+            var element = $(this);
+
+            if (!element.data("scrollspynav")) {
+                var obj = new ScrollSpyNav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
             }
         });
     });
@@ -1734,22 +2022,23 @@
 
     var SmoothScroll = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
 
-        this.options = $.extend({
-            duration: 1000,
-            transition: 'easeOutExpo'
-        }, options);
+        if($element.data("smoothScroll")) return;
 
-        this.element = $(element).on("click", function(e) {
+        this.options = $.extend({}, SmoothScroll.defaults, options);
+
+        this.element = $element.on("click", function(e) {
 
             // get / set parameters
-            var target    = ($(this.hash).length ? $(this.hash) : $("body")).offset().top,
+            var ele       = ($(this.hash).length ? $(this.hash) : $("body")),
+                target    = ele.offset().top - $this.options.offset,
                 docheight = $(document).height(),
-                winheight = $(window).height();
+                winheight = $(window).height(),
+                eleheight = ele.outerHeight();
 
             if ((target + winheight) > docheight) {
-                target = (target - winheight) + 50;
+                target = docheight - winheight;
             }
 
             // animate to target and set the hash to the window.location after the animation
@@ -1758,9 +2047,17 @@
             // cancel default click action
             return false;
         });
+
+        this.element.data("smoothScroll", this);
     };
 
-    UI["smooth-scroll"] = SmoothScroll;
+    SmoothScroll.defaults = {
+        duration: 1000,
+        transition: 'easeOutExpo',
+        offset: 0
+    };
+
+    UI["smoothScroll"] = SmoothScroll;
 
 
     if (!$.easing['easeOutExpo']) {
@@ -1772,8 +2069,9 @@
     $(document).on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
         var ele = $(this);
 
-        if (!ele.data("smooth-scroll")) {
-            ele.data("smooth-scroll", new SmoothScroll(ele, UI.Utils.options(ele.data("uk-smooth-scroll")))).trigger("click");
+        if (!ele.data("smoothScroll")) {
+            var obj = new SmoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
+            ele.trigger("click");
         }
     });
 

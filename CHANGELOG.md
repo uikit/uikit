@@ -1,4 +1,4 @@
-### 1.2.0 (October 28, 2013)
+### 1.2.0 (November 01, 2013)
   - Added shake animation
   - Added boundary check to tooltip component
   - Added delay and animation option to tooltip component
