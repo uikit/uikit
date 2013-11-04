@@ -9,7 +9,7 @@
         if($element.data("tab")) return;
 
         this.element = $element;
-        this.options = $.extend({}, Tab.defaults, this.options, options);
+        this.options = $.extend({}, Tab.defaults, options);
 
         if (this.options.connect) {
             this.connect = $(this.options.connect);
