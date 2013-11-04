@@ -10,11 +10,7 @@
             var $this = this;
 
             this.element = $(element);
-            this.options = $.extend({
-                keyboard: true,
-                show: false,
-                bgclose: true
-            }, options);
+            this.options = $.extend({}, Modal.defaults, options);
 
             this.transition = UI.support.transition;
             this.dialog     = this.element.find(".uk-modal-dialog");
@@ -109,6 +105,14 @@
         }
 
     });
+
+
+    Modal.defaults = {
+        keyboard: true,
+        show: false,
+        bgclose: true
+    };
+
 
     var ModalTrigger = function(element, options) {
 

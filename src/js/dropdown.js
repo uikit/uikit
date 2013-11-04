@@ -9,7 +9,7 @@
 
         if($element.data("dropdown")) return;
 
-        this.options  = $.extend({}, this.options, options);
+        this.options  = $.extend({}, Dropdown.defaults, options);
         this.element  = $element;
         this.dropdown = this.element.find(".uk-dropdown");
 
@@ -102,13 +102,6 @@
 
         remainIdle: false,
 
-        options: {
-            "mode": "hover",
-            "remaintime": 800,
-            "justify": false,
-            "boundary": $(window)
-        },
-
         checkDimensions: function() {
 
             if(!this.dropdown.length) return;
@@ -166,6 +159,13 @@
         }
 
     });
+
+    Dropdown.defaults = {
+        "mode": "hover",
+        "remaintime": 800,
+        "justify": false,
+        "boundary": $(window)
+    };
 
     UI["dropdown"] = Dropdown;
 

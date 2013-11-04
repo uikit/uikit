@@ -9,9 +9,7 @@
         if($element.data("tab")) return;
 
         this.element = $element;
-        this.options = $.extend({
-            connect: false
-        }, this.options, options);
+        this.options = $.extend({}, Tab.defaults, this.options, options);
 
         if (this.options.connect) {
             this.connect = $(this.options.connect);
@@ -59,6 +57,12 @@
 
         this.element.data("tab", this);
     };
+
+    Tab.defaults = {
+        connect: false
+    };
+
+    UI["tab"] = Tab;
 
     $(document).on("uk-domready", function(e) {
 

@@ -8,7 +8,7 @@
 
         if($element.data("switcher")) return;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, Switcher.defaults, options);
 
         this.element = $element.on("click", this.options.toggler, function(e) {
             e.preventDefault();
@@ -30,11 +30,6 @@
     };
 
     $.extend(Switcher.prototype, {
-
-        options: {
-            connect: false,
-            toggler: ">*"
-        },
 
         show: function(tab) {
 
@@ -58,6 +53,11 @@
         }
 
     });
+
+    Switcher.defaults = {
+        connect: false,
+        toggler: ">*"
+    };
 
     UI["switcher"] = Switcher;
 

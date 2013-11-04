@@ -8,7 +8,7 @@
 
         if($element.data("buttonRadio")) return;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, ButtonRadio.defaults, options);
         this.element = $element.on("click", this.options.target, function(e) {
             e.preventDefault();
             $element.find($this.options.target).not(this).removeClass("uk-active").blur();
@@ -20,15 +20,15 @@
 
     $.extend(ButtonRadio.prototype, {
 
-        options: {
-            "target": ".uk-button"
-        },
-
         getSelected: function() {
             this.element.find(".uk-active");
         }
 
     });
+
+    ButtonRadio.defaults = {
+        "target": ".uk-button"
+    };
 
     var ButtonCheckbox = function(element, options) {
 
@@ -36,7 +36,7 @@
 
         if($element.data("buttonCheckbox")) return;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, ButtonCheckbox.defaults, options);
         this.element = $element.on("click", this.options.target, function(e) {
             e.preventDefault();
             $element.trigger("change", [$(this).toggleClass("uk-active").blur()]);
@@ -47,15 +47,15 @@
 
     $.extend(ButtonCheckbox.prototype, {
 
-        options: {
-            "target": ".uk-button"
-        },
-
         getSelected: function() {
             this.element.find(".uk-active");
         }
 
     });
+
+    ButtonCheckbox.defaults = {
+        "target": ".uk-button"
+    };
 
     var Button = function(element, options) {
 
@@ -63,7 +63,7 @@
 
         if($element.data("button")) return;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, Button.defaults, options);
         this.element = $element.on("click", function(e) {
             e.preventDefault();
             $this.toggle();
@@ -82,6 +82,8 @@
         }
 
     });
+
+    Button.defaults = {};
 
     UI["button"]         = Button;
     UI["buttonCheckbox"] = ButtonCheckbox;
