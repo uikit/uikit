@@ -532,6 +532,7 @@
     };
 
     $(document).on("uk-domready", function(e) {
+
         $("[data-uk-sortable]").each(function(){
 
           var ele     = $(this),

@@ -1,4 +1,4 @@
-/*! UIkit 1.1.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.2.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 /* Default
  ========================================================================== */
@@ -1366,7 +1366,7 @@ iframe {
   clear: both;
 }
 /*
- * Remove margin from the last-child if not `uk-windget-title`
+ * Remove margin from the last-child if not `uk-widget-title`
  */
 .uk-panel > :not(.uk-panel-title):last-child {
   margin-bottom: 0;
@@ -1414,7 +1414,7 @@ iframe {
 /*
  * Nav in panel
  */
-.uk-panel-box .uk-nav-side {
+.uk-panel-box > .uk-nav-side {
   margin: 0 -15px;
 }
 /*
@@ -2975,7 +2975,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /* Block element behavior */
 .uk-table {
   width: 100%;
-  margin-bottom: 15px 0;
+  margin-bottom: 15px;
 }
 /*
  * Add margin if adjacent element
@@ -3150,12 +3150,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   background-color: #fafafa;
   color: #999999;
 }
-.uk-form textarea,
-.uk-form select[multiple],
-.uk-form select[size] {
-  height: auto;
-}
-/* 1 */
 /*
  * Placeholder
  * 1. Higher specificity needed to override color in IE
@@ -3199,6 +3193,27 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   display: block;
   border-bottom: 1px solid #dddddd;
 }
+/* Size modifiers
+ * Using !important to keep the selector simple
+ ========================================================================== */
+.uk-form-small {
+  height: 25px !important;
+  padding: 3px 3px !important;
+  font-size: 12px;
+}
+.uk-form-large {
+  height: 40px !important;
+  padding: 8px 6px !important;
+  font-size: 16px;
+}
+/* Reset height
+ * Must be after size modifiers
+ ========================================================================== */
+.uk-form textarea,
+.uk-form select[multiple],
+.uk-form select[size] {
+  height: auto !important;
+}
 /* Validation states
  * Using !important to keep the selector simple
  ========================================================================== */
@@ -3217,19 +3232,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   border-color: #8ec73b !important;
   background: #fafff2 !important;
   color: #539022 !important;
-}
-/* Size modifiers
- * Using !important to keep the selector simple
- ========================================================================== */
-.uk-form-small {
-  height: 25px !important;
-  padding: 3px 3px !important;
-  font-size: 12px;
-}
-.uk-form-large {
-  height: 40px !important;
-  padding: 8px 6px !important;
-  font-size: 16px;
 }
 /* Style modifiers
  * Using !important to keep the selector simple
@@ -3304,8 +3306,11 @@ select.uk-form-width-mini {
  * Sub-object: `uk-form-controls`, `uk-form-controls-condensed`
  ========================================================================== */
 /*
- * Remove margin from the last-child
+ * Remove margins
  */
+.uk-form-controls > :first-child {
+  margin-top: 0;
+}
 .uk-form-controls > :last-child {
   margin-bottom: 0;
 }
@@ -5139,7 +5144,7 @@ a.uk-thumbnail:focus {
 /* Caption
  ========================================================================== */
 .uk-thumbnail-caption {
-  padding-top: 5px;
+  padding-top: 4px;
   text-align: center;
   color: #444444;
 }
@@ -5553,6 +5558,8 @@ input.uk-search-field {
  *					`uk-animation-slide-right`
  *					`uk-animation-reverse`
  *
+ * Uses:			Scrollspy
+ *
  * Used by:			Dropdown
  *					Icon
  *					Search
@@ -5567,6 +5574,10 @@ input.uk-search-field {
   animation-timing-function: ease-out;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+/* Hide animated element if scrollspy is used */
+[data-uk-scrollspy*='uk-animation-'] {
+  opacity: 0;
 }
 /*
  * Fade
@@ -5608,6 +5619,13 @@ input.uk-search-field {
 .uk-animation-slide-right {
   -webkit-animation-name: uk-slide-right;
   animation-name: uk-slide-right;
+}
+/*
+ * Shake
+ */
+.uk-animation-shake {
+  -webkit-animation-name: uk-shake;
+  animation-name: uk-shake;
 }
 /* Modifiers
  ========================================================================== */
@@ -5772,6 +5790,75 @@ input.uk-search-field {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+/*
+ * Shake
+ */
+@-webkit-keyframes uk-shake {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+  }
+  10% {
+    -webkit-transform: translateX(-9px);
+  }
+  20% {
+    -webkit-transform: translateX(8px);
+  }
+  30% {
+    -webkit-transform: translateX(-7px);
+  }
+  40% {
+    -webkit-transform: translateX(6px);
+  }
+  50% {
+    -webkit-transform: translateX(-5px);
+  }
+  60% {
+    -webkit-transform: translateX(4px);
+  }
+  70% {
+    -webkit-transform: translateX(-3px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+  }
+  90% {
+    -webkit-transform: translateX(-1px);
+  }
+}
+@keyframes uk-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-9px);
+  }
+  20% {
+    transform: translateX(8px);
+  }
+  30% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  60% {
+    transform: translateX(4px);
+  }
+  70% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+  90% {
+    transform: translateX(-1px);
   }
 }
 /*
@@ -6702,6 +6789,7 @@ input.uk-search-field {
  ========================================================================== */
 /*
  * Float blocks
+ * 1. Prevent content overflow on small devices
  */
 .uk-float-left {
   float: left;
@@ -6709,6 +6797,10 @@ input.uk-search-field {
 .uk-float-right {
   float: right;
 }
+[class*='uk-float-'] {
+  max-width: 100%;
+}
+/* 1 */
 /* Alignment of images and objects
  ========================================================================== */
 /*
@@ -6825,13 +6917,19 @@ input.uk-search-field {
   margin-top: 15px;
 }
 /*
- * Margin top and bottom
+ * Margins
  */
 .uk-margin-top {
   margin-top: 15px !important;
 }
 .uk-margin-bottom {
   margin-bottom: 15px !important;
+}
+.uk-margin-left {
+  margin-left: 15px !important;
+}
+.uk-margin-right {
+  margin-right: 15px !important;
 }
 /*
  * Remove margins
@@ -6857,11 +6955,11 @@ input.uk-search-field {
 /* Link
  ========================================================================== */
 .uk-link-muted,
-.uk-link-muted * {
+.uk-link-muted a {
   color: #444444;
 }
 .uk-link-muted:hover,
-.uk-link-muted *:hover {
+.uk-link-muted a:hover {
   color: #444444;
 }
 /* Scrollable
@@ -6877,7 +6975,9 @@ input.uk-search-field {
  * Box with scrolling enabled
  */
 .uk-scrollable-box {
-  max-height: 150px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-height: 170px;
   padding: 10px;
   border: 1px solid #dddddd;
   overflow: auto;
