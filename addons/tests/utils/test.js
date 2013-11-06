@@ -5,6 +5,7 @@
     window.less = { env: "development" };
 
     document.writeln('<script src="../../vendor/less.js"></script>');
+    document.writeln('<script src="../../vendor/jquery.less.js"></script>');
     document.writeln('<script src="../../vendor/jquery.rtl.js"></script>');
     document.writeln('<script src="../../dist/js/uikit.js"></script>');
     document.writeln('<link rel="stylesheet" href="../../dist/css/uikit.min.css" data-compiled-css>');
@@ -101,31 +102,21 @@
             lesscode   = [],
             compile    = function() {
 
-                try{
-                    lessparser.parse(lesscode.join("\n"), function(err, tree) {
+                $.less.getCSS(lesscode.join("\n"), {imports:true}).done(function(css) {
 
-                        if(err) {
-                            return console.error(err, tree);
-                        }
+                    if (direction == 'rtl') {
+                        css = $.rtl.convert2RTL(css);
+                        $('html').prop('dir', 'rtl');
+                    }
 
-                        css = tree.toCSS({ compress: false }).replace(/url\("(.+?)(fontawesome-webfont\.(.+?))"\)/g, function(){
-                            return 'url("../../src/fonts/'+arguments[2]+'")';
-                        });
+                    $("[data-compiled-css]").replaceWith('<style data-compiled-css>'+css+'</style>');
 
-                        if (direction == 'rtl') {
-                            css = $.rtl.convert2RTL(css);
-                            $('html').prop('dir', 'rtl');
-                        }
+                    setTimeout(function() { $("body").css("visibility", "visible"); }, 50);
 
-                        $("[data-compiled-css]").replaceWith('<style data-compiled-css>'+css+'</style>');
-
-                        $("body").css("visibility", "visible");
-                    });
-                } catch(e){
-
+                }).fail(function(e) {
                     $(".uk-container").prepend('<div style="border: 1px solid rgb(238, 0, 0);background:rgb(238, 238, 238); border-radius: 5px; color: rgb(238, 0, 0); padding: 15px; margin-bottom: 15px;">'+e.message+" in file "+e.filename+'</div>');
                     $("body").css("visibility", "visible");
-                }
+                });
             };
 
         lesscode.push('@import "'+(themes[theme])+'";');

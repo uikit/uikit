@@ -5,6 +5,7 @@
     window.less = { env: "development" };
 
     document.writeln('<script src="../../vendor/less.js"></script>');
+    document.writeln('<script src="../../vendor/jquery.less.js"></script>');
     document.writeln('<script src="../../vendor/jquery.rtl.js"></script>');
     document.writeln('<script src="../../src/js/core.js"></script>');
     document.writeln('<script src="../../src/js/alert.js"></script>');
@@ -148,38 +149,22 @@
                 themeselect.after(rtlcheckbox_label);
 
                 // less
-                var lessparser = new less.Parser({paths: [], env: "development"}), lesscode = [];
 
-                lesscode.push('@import "'+(themes[theme])+'";');
+                $.less.getCSS('@import "'+(themes[theme])+'";', {imports:true}).done(function(css) {
 
-                try{
-                    lessparser.parse(lesscode.join("\n"), function(err, tree) {
+                    if (direction == 'rtl') {
+                        css = $.rtl.convert2RTL(css);
+                        $('html').prop('dir', 'rtl');
+                    }
 
-                        if(err) {
-                            return console.error(err, tree);
-                        }
+                    $("[data-compiled-css]").replaceWith('<style data-compiled-css>'+css+'</style>');
 
-                        css = tree.toCSS({ compress: false });
+                    setTimeout(function() { $("body").css("visibility", "visible"); }, 50);
 
-                        css = css.replace(/url\("(.+?)(fontawesome-webfont\.(.+?))"\)/g, function(){
-                            return 'url("../fonts/'+arguments[2]+'")';
-                        });
-
-                        if (direction == 'rtl') {
-                            css = $.rtl.convert2RTL(css);
-                            $('html').prop('dir', 'rtl');
-                        }
-
-                        $("[data-compiled-css]").replaceWith('<style data-compiled-css>'+css+'</style>');
-
-                        setTimeout(function() { $("body").css("visibility", "visible"); }, 50);
-                    });
-                } catch(e){
-
+                }).fail(function(e) {
                     $(".uk-container").prepend('<div style="border: 1px solid rgb(238, 0, 0);background:rgb(238, 238, 238); border-radius: 5px; color: rgb(238, 0, 0); padding: 15px; margin-bottom: 15px;">'+e.message+" in file "+e.filename+'</div>');
                     $("body").css("visibility", "visible");
-                }
-
+                });
         }
     });
 
