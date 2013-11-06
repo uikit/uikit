@@ -104,7 +104,7 @@
             });
 
             return source.replace(urlRegex, function(match, url) {
-                return match.replace(url, extractUrlParts(url, baseUrl).url);
+                return match.match(/data\:image\//) ? match : match.replace(url, extractUrlParts(url, baseUrl).url);
             });
         }
 
@@ -175,7 +175,7 @@
 
     function rewriteUrls(source, baseUrl) {
         return source.replace(/url\s*\(['"]?(.+?)['"]?\)/g, function(match, url) {
-            return match.replace(url, pathDiff(extractUrlParts(url, baseUrl).url, baseUrl));
+            return match.match(/data\:image\//) ? match : match.replace(url, pathDiff(extractUrlParts(url, baseUrl).url, baseUrl));
         });
     }
 
