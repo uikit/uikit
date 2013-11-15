@@ -64,6 +64,17 @@
                         height: ($li.hasClass("uk-open") ? getHeight($li.data('list-container').find('ul:first')) : 0)
                     });
                 }
+                if ($li.parent().hasClass("uk-parent-ul")) {
+                    var $parent = $li.parents("li.uk-parent");
+                    if (noanimation) {
+                        $parent.data('list-container').stop().height($parent.hasClass("uk-open") ? "auto" : 0);
+                    } else {
+                        var height = ($li.hasClass("uk-open") ? 1 : -1) * getHeight($li.data('list-container').find('ul:first'));
+                        $parent.data('list-container').stop().animate({
+                            height: ($parent.hasClass("uk-open") ? getHeight($parent.data('list-container').find('ul:first')) + height : 0)
+                        });
+                    }
+                }
             }
         }
 
