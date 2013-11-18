@@ -2,12 +2,16 @@
 
 ### WIP
 
+- Added miscellaneous hooks
+- Changed comments to compile nicer CSS output
+
 **Documentation and repository**
 
   - Refactored repository structure
   - Added Grunt task to index new themes ( usage: grunt indexthemes )
   - Added UIkit addons
   - UIkit tests moved to /src
+  - Updated LESS to 1.5.1
 
 ### 1.2.0 (November 01, 2013)
   - Added shake animation
@@ -22,7 +26,7 @@
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed form-controls-condensed margin
-  - Fixed rare customizer unknown less var error
+  - Fixed rare customizer unknown LESS var error
   - Fixed smooth-scroll offset position
 
 ### 1.1.0 (August 21, 2013)
