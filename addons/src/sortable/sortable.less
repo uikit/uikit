@@ -1,29 +1,31 @@
-/*
- * Name:			Sortable
- * Description:		Defines styles for sortable nested lists
- *
- * Component:		`uk-sortable`
- *
- * Sub-objects:		`uk-sortable-list`
- * 					`uk-sortable-item`
- * 					`uk-sortable-placeholder`
- * 					`uk-sortable-empty`
- * 					`uk-sortable-handle`
- * 					`uk-sortable-moving`
- * 					`[data-action='toggle']`
- *
- * Modifier:		`uk-sortable-list-dragged`
- *
- * States:			`uk-parent`
- *					`uk-collapsed`
- *
- ========================================================================== */
+/* ========================================================================
+   Addon: Sortable
+   ======================================================================== */
+//
+// Description:		Defines styles for sortable nested lists
+//
+// Component:		`uk-sortable`
+//
+// Sub-objects:		`uk-sortable-list`
+// 					`uk-sortable-item`
+// 					`uk-sortable-placeholder`
+// 					`uk-sortable-empty`
+// 					`uk-sortable-handle`
+// 					`uk-sortable-moving`
+// 					`[data-action='toggle']`
+//
+// Modifier:		`uk-sortable-list-dragged`
+//
+// States:			`uk-parent`
+//					`uk-collapsed`
+//
+// ========================================================================
 
- @import "../../../src/less/variables.less";
+@import "../../../src/less/variables.less";
 
 
-/* Variables
- ========================================================================== */
+// Variables
+// ========================================================================
 
 @sortable-padding-left:						40px;
 @sortable-dragged-z-index:					(@global-z-index + 40);
@@ -44,8 +46,8 @@
 @sortable-toggle-collapsed-icon:			"\f116";
 
 
-/* Component
- ========================================================================== */
+// Component
+// ========================================================================
 
 .uk-sortable {
 	padding: 0;
@@ -173,8 +175,8 @@
 .uk-collapsed .uk-sortable-list { display: none; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-sortable-list-dragged() {}
 .hook-sortable-item() {}

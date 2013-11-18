@@ -1,23 +1,25 @@
-/*
- * Name:            Datepicker
- * Description:     Defines styles for a datepicker
- *
- * Component:       `uk-datepicker`
- *
- * Modifiers:       `uk-datepicker-nav`
- *                  `uk-datepicker-previous`
- *                  `uk-datepicker-next`
- *                  `uk-datepicker-heading`
- *                  `uk-datepicker-table`
- *					`uk-datepicker-table-muted`
- *
- ========================================================================== */
+/* ========================================================================
+   Addon: Datepicker
+   ======================================================================== */
+//
+// Description:     Defines styles for a datepicker
+//
+// Component:       `uk-datepicker`
+//
+// Modifiers:       `uk-datepicker-nav`
+//                  `uk-datepicker-previous`
+//                  `uk-datepicker-next`
+//                  `uk-datepicker-heading`
+//                  `uk-datepicker-table`
+//					`uk-datepicker-table-muted`
+//
+// ========================================================================
 
- @import "../../../src/less/variables.less";
+@import "../../../src/less/variables.less";
 
 
-/* Variables
- ========================================================================== */
+// Variables
+// ========================================================================
 
 @datepicker-nav-height:							20px;
 @datepicker-nav-margin-bottom:					@global-margin;
@@ -31,9 +33,9 @@
 @datepicker-table-height:						24px;
 @datepicker-table-color:						@global-color;
 
-@datepicker-table-hover-background:				#f5f5f5;
+@datepicker-table-hover-background:				#ddd;
 @datepicker-table-hover-color:					@global-color;
-@datepicker-table-onclick-background:			#ddd;
+@datepicker-table-onclick-background:			#ccc;
 @datepicker-table-onclick-color:				@global-color;
 
 @datepicker-table-active-background:			@global-primary-background;
@@ -42,8 +44,8 @@
 @datepicker-table-muted-color:					@global-muted-color;
 
 
-/* Component
- ========================================================================== */
+// Component
+// ========================================================================
 
 /*
  * Reset dropdown width
@@ -59,6 +61,7 @@
 	margin-bottom: @datepicker-nav-margin-bottom;
 	text-align: center;
 	line-height: @datepicker-nav-height;
+	.hook-datepicker-nav;
 }
 
 /*
@@ -80,6 +83,7 @@
 .uk-datepicker-nav a {
 	color: @datepicker-nav-color;
 	text-decoration: none;
+	.hook-datepicker-nav-item;
 }
 
 .uk-datepicker-nav a:hover { color: @datepicker-nav-hover-color; }
@@ -125,6 +129,7 @@
 	text-align: center;
 	color: @datepicker-table-color;
 	text-decoration: none;
+	.hook-datepicker-table-item;
 }
 
 /*
@@ -144,12 +149,14 @@ a.uk-datepicker-table-muted { color: @datepicker-table-muted-color; }
 	background-color: @datepicker-table-hover-background;
 	color: @datepicker-table-hover-color;
 	outline: none; /* 2 */
+	.hook-datepicker-table-item-hover;
 }
 
 /* OnClick */
 .uk-datepicker-table a:active {
 	background-color: @datepicker-table-onclick-background;
 	color: @datepicker-table-onclick-color;
+	.hook-datepicker-table-item-onclick;
 }
 
 /*
@@ -159,4 +166,16 @@ a.uk-datepicker-table-muted { color: @datepicker-table-muted-color; }
 .uk-datepicker-table a.uk-active {
 	background: @datepicker-table-active-background;
 	color: @datepicker-table-active-color;
+	.hook-datepicker-table-item-active;
 }
+
+
+// Hooks
+// ========================================================================
+
+.hook-datepicker-nav() {}
+.hook-datepicker-nav-item() {}
+.hook-datepicker-table-item() {}
+.hook-datepicker-table-item-hover() {}
+.hook-datepicker-table-item-onclick() {}
+.hook-datepicker-table-item-active() {}

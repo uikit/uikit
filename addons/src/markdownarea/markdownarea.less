@@ -1,29 +1,32 @@
-/*
- * Name:             Markdownarea
- * Description:        Defines styles for markdownareas
- *
- * Component:        `uk-markdownarea`
- *
- * Sub-objects:        `uk-markdownarea-container`
- *                     `uk-markdownarea-tabs`
- *                     `uk-markdownarea-toolbar`
- *                     `uk-markdownarea-previewtab`
- *                     `uk-markdownarea-codetab`
- *                     `uk-markdownarea-code`
- *                     `uk-markdownarea-preview`
- *
- * Modifier:
- *
- * States:            `[data-mode='tab']`
- *                    `[data-mode='split']`
- *
- ========================================================================== */
+/* ========================================================================
+   Addon: Markdownarea
+   ======================================================================== */
+//
+// Description:        Defines styles for markdownareas
+//
+// Component:          `uk-markdownarea`
+//
+// Sub-objects:        `uk-markdownarea-container`
+//                     `uk-markdownarea-tabs`
+//                     `uk-markdownarea-toolbar`
+//                     `uk-markdownarea-previewtab`
+//                     `uk-markdownarea-codetab`
+//                     `uk-markdownarea-code`
+//                     `uk-markdownarea-preview`
+//
+// Modifier:
+//
+// States:            `[data-mode='tab']`
+//                    `[data-mode='split']`
+//
+// ========================================================================
 
 @import "../../../src/less/variables.less";
 
 
-/* Component
- ========================================================================== */
+// Component
+// ========================================================================
+
 .uk-markdownarea {
     position: relative;
     border: 2px solid @navbar-background;
@@ -31,6 +34,7 @@
 
 /* Sub-object `uk-markdownarea-container`
  ========================================================================== */
+
 .uk-markdownarea-container:before,
 .uk-markdownarea-container:after {
     display: table;
@@ -50,6 +54,7 @@
 
 /* Sub-object `uk-markdownarea-tabs`
  ========================================================================== */
+
 .uk-markdownarea-tabs {
     position: relative;
     z-index: 1;
