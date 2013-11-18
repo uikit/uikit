@@ -1,28 +1,26 @@
-/*
- * Name:			Button
- * Description:		Defines styles for buttons
- *
- * Component:		`uk-button`
- *
- * Sub-objects:		`uk-button-group`
- *					`uk-button-dropdown`
- *
- * Modifiers:		`uk-button-primary`
- *					`uk-button-success`
- *					`uk-button-danger`
- *					`uk-button-link`
- *					`uk-button-mini`
- *					`uk-button-small`
- *					`uk-button-large`
- *					`uk-button-expand`
- *
- * States:		 	`uk-active`
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Button
+   ======================================================================== */
+//
+// Description:		Defines styles for buttons
+//
+// Component:		`uk-button`
+//
+// Sub-objects:		`uk-button-group`
+//					`uk-button-dropdown`
+//
+// Modifiers:		`uk-button-primary`
+//					`uk-button-success`
+//					`uk-button-danger`
+//					`uk-button-link`
+//					`uk-button-mini`
+//					`uk-button-small`
+//					`uk-button-large`
+//					`uk-button-expand`
+//
+// States:		 	`uk-active`
+//
+// ========================================================================
 
 /*
  * 1. Required for `a` elements. Can't be moved to `a.button` selector because needs to be overwritable for `uk-button-link` and `uk-button-expand`
@@ -282,8 +280,8 @@ a.uk-button {
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-button() {}
 .hook-button-hover() {}
@@ -300,3 +298,6 @@ a.uk-button {
 .hook-button-disable() {}
 .hook-button-link() {}
 .hook-button-large() {}
+
+.hook-button-misc;
+.hook-button-misc() {}

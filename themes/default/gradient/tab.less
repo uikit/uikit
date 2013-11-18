@@ -1,53 +1,60 @@
-/*
- * Tab component
- *
- ========================================================================== */
+//
+// Component: Tab
+//
+// ========================================================================
 
 
-/* Component
- ========================================================================== */
+// Component
+// ========================================================================
 
-/*
- * Items
- */
+//
+// Items
+//
 
 .hook-tab() {
 	border-radius: @theme_global-border-radius @theme_global-border-radius 0 0;
 	text-shadow: 0 1px 0 @theme_tab-text-shadow;
 }
 
-/* Hover */
+// Hover
 .hook-tab-hover() {}
 
-/* Active */
+// Active
 .hook-tab-active() {}
 
-/* Disabled */
+// Disabled
 .hook-tab-disabled() {}
 
 
-/* Modifier: `uk-tab-bottom'
- ========================================================================== */
+// Miscellaneous
+// ========================================================================
 
-.uk-tab-bottom > li > a { border-radius: 0 0 @theme_global-border-radius @theme_global-border-radius; }
+.hook-tab-misc() {
+
+	/* Modifier: `uk-tab-bottom'
+	 ========================================================================== */
+
+	.uk-tab-bottom > li > a { border-radius: 0 0 @theme_global-border-radius @theme_global-border-radius; }
 
 
-/* Modifier: `uk-tab-left', `uk-tab-right'
- ========================================================================== */
+	/* Modifier: `uk-tab-left', `uk-tab-right'
+	========================================================================== */
 
-/* Only tablets and desktops */
-@media (min-width: @breakpoint-medium) {
+	/* Only tablets and desktops */
+	@media (min-width: @breakpoint-medium) {
 
-	/*
-	 * Modifier: `uk-tab-left'
-	 */
+		/*
+		 * Modifier: `uk-tab-left'
+		 */
 
-	.uk-tab-left > li > a { border-radius: @theme_global-border-radius 0 0 @theme_global-border-radius; }
+		.uk-tab-left > li > a { border-radius: @theme_global-border-radius 0 0 @theme_global-border-radius; }
 
-	/*
-	 * Modifier: `uk-tab-right'
-	 */
+		/*
+		 * Modifier: `uk-tab-right'
+		 */
 
-	.uk-tab-right > li > a { border-radius: 0 @theme_global-border-radius @theme_global-border-radius 0; }
+		.uk-tab-right > li > a { border-radius: 0 @theme_global-border-radius @theme_global-border-radius 0; }
+
+	}
 
 }

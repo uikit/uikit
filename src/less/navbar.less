@@ -1,31 +1,29 @@
-/*
- * Name:			Navbar
- * Description:		Defines styles for the navigation bar
- *
- * Component:		`uk-navbar`
- *
- * Sub-objects:		`uk-navbar-nav`
- *					`uk-navbar-nav-subtitle`
- *					`uk-navbar-content`
- *					`uk-navbar-brand`
- *					`uk-navbar-toggle`
- *					`uk-navbar-toggle-alt`
- *					`uk-navbar-center`
- *					`uk-navbar-flip`
- *
- * Modifiers:		`uk-navbar-attached`
- *
- * States:			`uk-active`
- *					`uk-parent`
- *					`uk-open`
- *
- * Used by:			Dropdown
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Navbar
+   ======================================================================== */
+//
+// Description:		Defines styles for the navigation bar
+//
+// Component:		`uk-navbar`
+//
+// Sub-objects:		`uk-navbar-nav`
+//					`uk-navbar-nav-subtitle`
+//					`uk-navbar-content`
+//					`uk-navbar-brand`
+//					`uk-navbar-toggle`
+//					`uk-navbar-toggle-alt`
+//					`uk-navbar-center`
+//					`uk-navbar-flip`
+//
+// Modifiers:		`uk-navbar-attached`
+//
+// States:			`uk-active`
+//					`uk-parent`
+//					`uk-open`
+//
+// Used by:			Dropdown
+//
+// ========================================================================
 
 .uk-navbar {
 	background: @navbar-background;
@@ -258,8 +256,8 @@
 .uk-navbar-flip { float: right; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-navbar() {}
 .hook-navbar-nav() {}
@@ -267,3 +265,6 @@
 .hook-navbar-nav-onclick() {}
 .hook-navbar-nav-active() {}
 .hook-navbar-content() {}
+
+.hook-navbar-misc;
+.hook-navbar-misc() {}

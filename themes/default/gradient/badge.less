@@ -1,20 +1,20 @@
-/*
- * Badge component
- *
- ========================================================================== */
+//
+// Component: Badge
+//
+// ========================================================================
 
 
-/* Component
- ========================================================================== */
+// Component
+// ========================================================================
 
-/*
- * 1. `background-origin` is needed to prevent the background-image gradients from repeating under the border
- */
+//
+// 1. `background-origin` is needed to prevent the background-image gradients from repeating under the border
+//
 
 .hook-badge() {
 	border: 1px solid @theme_badge-border;
 	border-bottom-color: @theme_badge-border-bottom;
-	background-origin: border-box; /* 1 */
+	background-origin: border-box; // 1
 	background-image: -webkit-linear-gradient(top, @theme_badge-primary-gradient-top, @theme_badge-primary-gradient-bottom);
 	background-image: linear-gradient(to bottom, @theme_badge-primary-gradient-top, @theme_badge-primary-gradient-bottom);
 	border-radius: 2px;
@@ -35,3 +35,9 @@
 	background-image: -webkit-linear-gradient(top, @theme_badge-danger-gradient-top, @theme_badge-danger-gradient-bottom);
 	background-image: linear-gradient(to bottom, @theme_badge-danger-gradient-top, @theme_badge-danger-gradient-bottom);
 }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-badge-misc() {}

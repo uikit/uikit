@@ -1,21 +1,22 @@
+/* ========================================================================
+   Component: Table
+   ======================================================================== */
+//
+// Description:		Defines styles for tables
+//
+// Component:		`uk-table`
+//
+// Modifiers:		`uk-table-middle`
+//					`uk-table-striped`
+//					`uk-table-condensed`
+//					`uk-table-hover`
+//
+// ========================================================================
+
 /*
- * Name:			Table
- * Description:		Defines styles for tables
- *
- * Component:		`uk-table`
- *
- * Modifiers:		`uk-table-middle`
- *					`uk-table-striped`
- *					`uk-table-condensed`
- *					`uk-table-hover`
- *
- ========================================================================== */
+ * Block element behavior
+ */
 
-
-/* Component
- ========================================================================== */
-
-/* Block element behavior */
 .uk-table {
 	width: 100%;
 	margin-bottom: @table-margin-vertical;
@@ -33,7 +34,10 @@
 	.hook-table;
 }
 
-/* Set alignment */
+/*
+ * Set alignment
+ */
+
 .uk-table th { text-align: left; }
 .uk-table td { vertical-align: top; }
 
@@ -80,7 +84,10 @@
 .uk-table-hover tbody tr:hover td { background: @table-hover-background; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-table() {}
+
+.hook-table-misc;
+.hook-table-misc() {}

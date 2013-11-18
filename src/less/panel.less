@@ -1,37 +1,34 @@
-/*
- * Name:			Panel
- * Description:		Defines styles for reusable content areas
- *
- * Component:		`uk-panel`
- *
- * Sub-objects:		`uk-panel-title`
- *					`uk-panel-badge`
- *
- * Modifiers:		`uk-panel-box`
- *					`uk-panel-box-primary`
- *					`uk-panel-box-secondary`
- *					`uk-panel-header`
- *					`uk-panel-space`
- *					`uk-panel-divider`
- *
- * Uses:			Nav: `uk-nav-side`
- *
- * Used by:			Dropdown
- *					Off-canvas
- *					Grid
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Panel
+   ======================================================================== */
+//
+// Description:		Defines styles for reusable content areas
+//
+// Component:		`uk-panel`
+//
+// Sub-objects:		`uk-panel-title`
+//					`uk-panel-badge`
+//
+// Modifiers:		`uk-panel-box`
+//					`uk-panel-box-primary`
+//					`uk-panel-box-secondary`
+//					`uk-panel-header`
+//					`uk-panel-space`
+//					`uk-panel-divider`
+//
+// Uses:			Nav: `uk-nav-side`
+//
+// Used by:			Dropdown
+//					Off-canvas
+//					Grid
+//
+// ========================================================================
 
 /*
  * Create position context for badges
  */
 
 .uk-panel { position: relative; }
-
 
 /*
  * Micro clearfix to make panels more robust
@@ -178,8 +175,8 @@
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-panel-title() {}
 .hook-panel-badge() {}
@@ -187,3 +184,6 @@
 .hook-panel-box-primary() {}
 .hook-panel-box-secondary() {}
 .hook-panel-header() {}
+
+.hook-panel-misc;
+.hook-panel-misc() {}

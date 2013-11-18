@@ -1,24 +1,22 @@
-/*
- * Name:			Off-canvas
- * Description:		Defines styles for an off-canvas sidebar that slides in and out of the page
- *
- * Component:		`uk-offcanvas`
- *
- * Sub-objects:		`uk-offcanvas-page`
- *					`uk-offcanvas-bar`
- *
- * Modifiers:		`uk-offcanvas-bar-flip`
- *
- * States:		 	`uk-active`
- *
- * Uses:			Panel: `uk-panel`
- *					Search: `uk-search`, `uk-search-field`
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Off-canvas
+   ======================================================================== */
+//
+// Description:		Defines styles for an off-canvas sidebar that slides in and out of the page
+//
+// Component:		`uk-offcanvas`
+//
+// Sub-objects:		`uk-offcanvas-page`
+//					`uk-offcanvas-bar`
+//
+// Modifiers:		`uk-offcanvas-bar-flip`
+//
+// States:		 	`uk-active`
+//
+// Uses:			Panel: `uk-panel`
+//					Search: `uk-search`, `uk-search-field`
+//
+// ========================================================================
 
 /*
  * This is the offcanvas overlay and bar container
@@ -150,10 +148,13 @@
 .uk-offcanvas .uk-search-field::-webkit-input-placeholder { color: @offcanvas-search-placeholder-color; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-offcanvas() {}
 .hook-offcanvas-bar() {}
 .hook-offcanvas-panel() {}
 .hook-offcanvas-search-field() {}
+
+.hook-offcanvas-misc;
+.hook-offcanvas-misc() {}

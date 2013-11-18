@@ -1,16 +1,17 @@
-/*
- * Component:		Variables
- * Description:		Defines all color and style related values as variables
- *					to allow easy customization for the most common cases.
- ========================================================================== */
+//
+// Component:		Variables
+// Description:		Defines all color and style related values as variables
+//					to allow easy customization for the most common cases.
+//
+// ========================================================================
 
 
-/* Global variables
- ========================================================================== */
+// Global variables
+// ========================================================================
 
-/*
- * Text
- */
+//
+// Text
+//
 
 @global-color:									#444;
 @global-muted-color:							#999;
@@ -23,9 +24,9 @@
 @global-font-size:								14px;
 @global-line-height:							20px;
 
-/*
- * Backgrounds & Borders
- */
+//
+// Backgrounds & Borders
+//
 
 @global-background:								#fff;
 @global-border:									#ddd;
@@ -35,37 +36,37 @@
 @global-warning-background:						#faa732;
 @global-danger-background:						#da314b;
 
-/*
- * Spacings
- */
+//
+// Spacings
+//
 
 @global-margin:									15px;
 @global-large-margin:							25px;
 @global-grid-gutter:							25px;
 @global-grid-large-gutter:						35px;
 
-/*
- * Controls
- */
+//
+// Controls
+//
 
 @global-height:									30px;
 @global-mini-height:							20px;
 @global-small-height:							25px;
 @global-large-height:							40px;
 
-/*
- * Z-index
- */
+//
+// Z-index
+//
 
 @global-z-index:								1000;
 
 
-/* Breakpoint variables
- ========================================================================== */
+// Breakpoint variables
+// ========================================================================
 
-/*
-* Breakpoints
-*/
+//
+// Breakpoints
+//
 
 @breakpoint-mini-max:							(@breakpoint-small - 1);
 
@@ -81,12 +82,12 @@
 @breakpoint-xlarge:								1220px;
 
 
-/* Components variables
- ========================================================================== */
+// Components variables
+// ========================================================================
 
-/*
- * Base
- */
+//
+// Base
+//
 
 @base-body-background:							@global-background;
 @base-body-font-family:							"Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -141,9 +142,9 @@
 @base-pre-font-size:							round(@global-font-size * 0.85); // 12px;
 @base-pre-line-height:							round(@base-pre-font-size * 1.5); // 18px
 
-/*
- * Grid
- */
+//
+// Grid
+//
 
 @grid-gutter-horizontal:						@global-grid-gutter;
 @grid-gutter-vertical:							@global-grid-gutter;
@@ -151,9 +152,9 @@
 @grid-large-gutter-vertical:					@global-grid-large-gutter;
 @grid-divider-border:							@global-border;
 
-/*
- * Panel
- */
+//
+// Panel
+//
 
 @panel-title-margin-bottom:						@global-margin;
 @panel-title-font-size:							round(@global-font-size * 1.28); // 18px
@@ -187,9 +188,9 @@
 @panel-divider-large-gutter:					@global-grid-large-gutter;
 @panel-divider-border:							@global-border;
 
-/*
- * Article
- */
+//
+// Article
+//
 
 @article-margin-top: 							@global-margin;
 
@@ -210,9 +211,9 @@
 @article-divider-margin:						@global-large-margin;
 @article-divider-border: 						@global-border;
 
-/*
- * Comment
- */
+//
+// Comment
+//
 
 @comment-header-margin-bottom:					@global-margin;
 
@@ -228,9 +229,9 @@
 @comment-list-margin-top: 						@global-margin;
 @comment-list-padding-left: 					100px;
 
-/*
- * Nav
- */
+//
+// Nav
+//
 
 @nav-padding-vertical:							5px;
 @nav-padding-horizontal:						15px;
@@ -305,9 +306,9 @@
 @nav-offcanvas-nested-color:					@offcanvas-panel-link-color;
 @nav-offcanvas-nested-hover-color:				@offcanvas-panel-link-hover-color;
 
-/*
- * Navbar
- */
+//
+// Navbar
+//
 
 @navbar-background:								#eee;
 @navbar-color:									@global-color;
@@ -340,9 +341,9 @@
 @navbar-toggle-icon:							"\f0c9";
 @navbar-toggle-icon-alt:						"\f002";
 
-/*
- * Subnav
- */
+//
+// Subnav
+//
 
 @subnav-margin:									10px;
 @subnav-color:									@global-link-color;
@@ -357,17 +358,17 @@
 @subnav-pill-active-background:					@global-primary-background;
 @subnav-pill-active-color:						@global-contrast-color;
 
-/*
- * Breadcrumb
- */
+//
+// Breadcrumb
+//
 
 @breadcrumb-divider:							"/";
 @breadcrumb-divider-margin:						8px;
 @breadcrumb-disabled-color:						@global-muted-color;
 
-/*
- * Pagination
- */
+//
+// Pagination
+//
 
 @pagination-line-height:						@global-line-height;
 @pagination-background:							#eee;
@@ -383,9 +384,9 @@
 @pagination-disabled-background:				#f5f5f5;
 @pagination-disabled-color:						@global-muted-color;
 
-/*
- * Tab
- */
+//
+// Tab
+//
 
 @tab-border:									@global-border;
 @tab-padding-horizontal: 						12px;
@@ -399,9 +400,9 @@
 @tab-active-color:								@global-color;
 @tab-disabled-color:							@global-muted-color;
 
-/*
- * List
- */
+//
+// List
+//
 
 @list-nested-padding-left:						20px;
 
@@ -414,16 +415,16 @@
 
 @list-space-margin-top:							10px;
 
-/*
- * Description list
- */
+//
+// Description list
+//
 
 @description-list-line-border:					@global-border;
 @description-list-line-color:					@global-muted-color;
 
-/*
- * Table
- */
+//
+// Table
+//
 
 @table-margin-vertical:							@global-margin;
 @table-padding-vertical:						8px;
@@ -438,9 +439,9 @@
 
 @table-hover-background:						#EEE;
 
-/*
- * Form
- */
+//
+// Form
+//
 
 @form-height:									@global-height;
 @form-small-height:								@global-small-height;
@@ -480,9 +481,9 @@
 
 @form-gutter:									@global-margin;
 
-/*
- * Button
- */
+//
+// Button
+//
 
 @button-height:									@global-height;
 @button-mini-height:							@global-mini-height;
@@ -538,9 +539,9 @@
 @button-link-hover-color:						@global-link-hover-color;
 @button-link-disabled-color:					@global-muted-color;
 
-/*
- * Icon
- */
+//
+// Icon
+//
 
 @icon-button-width: 							35px;
 @icon-button-height: 							@icon-button-width;
@@ -555,15 +556,15 @@
 @icon-button-active-background: 				#ddd;
 @icon-button-active-color: 						@global-color;
 
-/*
- * Close
- */
+//
+// Close
+//
 
 @close-alt-background:							#eee;
 
-/*
- * Badge
- */
+//
+// Badge
+//
 
 @badge-background:								@global-primary-background;
 @badge-padding-horizontal:						5px;
@@ -580,9 +581,9 @@
 @badge-warning-background:						@global-warning-background;
 @badge-danger-background:						@global-danger-background;
 
-/*
- * Alert
- */
+//
+// Alert
+//
 
 @alert-margin-vertical:							@global-margin;
 @alert-padding:									10px;
@@ -600,9 +601,9 @@
 
 @alert-large-padding:							20px;
 
-/*
- * Thumbnail
- */
+//
+// Thumbnail
+//
 
 @thumbnail-padding:								4px;
 @thumbnail-border:								@global-border;
@@ -611,9 +612,9 @@
 @thumbnail-hover-background:					@global-background;
 @thumbnail-caption-color:						@global-color;
 
-/*
- * Overlay
- */
+//
+// Overlay
+//
 
 @overlay-area-background:						rgba(0,0,0,0.3);
 @overlay-area-icon:								"\f002";
@@ -624,9 +625,9 @@
 @overlay-caption-padding:						@global-margin;
 @overlay-caption-color:							@global-contrast-color;
 
-/*
- * Progress
- */
+//
+// Progress
+//
 
 @progress-height:								20px;
 @progress-mini-height:							6px;
@@ -643,9 +644,9 @@
 @progress-bar-warning-background:				@global-warning-background;
 @progress-bar-danger-background:				@global-danger-background;
 
-/*
- * Search
- */
+//
+// Search
+//
 
 @search-width:									120px;
 @search-focus-width:							180px;
@@ -665,9 +666,9 @@
 @search-close-color: 							rgba(0,0,0,0.2);
 @search-close-icon-loading: 					"\f110";
 
-/*
- * Dropdown
- */
+//
+// Dropdown
+//
 
 @dropdown-z-index:								@global-z-index;
 @dropdown-width:								200px;
@@ -693,9 +694,9 @@
 @dropdown-search-navbar-margin-top:				((@navbar-nav-height - @search-height) / 2);
 @dropdown-search-navbar-margin-right:			-@navbar-nav-padding-horizontal;
 
-/*
- * Modal
- */
+//
+// Modal
+//
 
 @modal-z-index:									(@global-z-index + 20);
 @modal-background:								rgba(0,0,0,0.6);
@@ -704,9 +705,9 @@
 @modal-dialog-width:							600px;
 @modal-dialog-background:						@global-background;
 
-/*
- * Off-canvas
- */
+//
+// Off-canvas
+//
 
 @offcanvas-z-index:								(@global-z-index + 10);
 @offcanvas-background:							rgba(0,0,0,0.1);
@@ -727,9 +728,9 @@
 @offcanvas-search-placeholder-color:			@offcanvas-panel-color;
 @offcanvas-search-icon-color:			 		@offcanvas-panel-color;
 
-/*
- * Tooltip
- */
+//
+// Tooltip
+//
 
 @tooltip-z-index:								(@global-z-index + 30);
 @tooltip-max-width:								200px;
@@ -740,9 +741,9 @@
 @tooltip-font-size:								round(@global-font-size * 0.85); // 12px;
 @tooltip-line-height:							round(@tooltip-font-size * 1.5); // 18px
 
-/*
- * Text
- */
+//
+// Text
+//
 
 @text-small-font-size:							round(@global-font-size * 0.78); // 11px
 @text-small-line-height:						round(@text-small-font-size * 1.45); // 16px
@@ -755,9 +756,9 @@
 @text-warning-color:							#e28327;
 @text-danger-color:								#d85030;
 
-/*
- * Utility
- */
+//
+// Utility
+//
 
 @utility-container-max-width:					980px;
 @utility-container-padding-horizontal:			@global-grid-gutter;

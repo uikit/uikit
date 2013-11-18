@@ -1,35 +1,33 @@
-/*
- * Name:			Nav
- * Description:		Defines styles for list navigations
- *
- * Component:		`uk-nav`
- *
- * Sub-objects: 	`uk-nav-header`
- *					`uk-nav-divider`
- *					`uk-nav-sub`
- *
- * Modifiers:		`uk-nav-parent-icon`
- *					`uk-nav-side`
- *					`uk-nav-dropdown`
- *					`uk-nav-navbar`
- *					`uk-nav-search`
- *					`uk-nav-offcanvas`
- *
- * States:		 	`uk-active`
- *					`uk-parent`
- *					`uk-open`
- *					`uk-touch`
- *
- * Uses:			Icon: FontAwesome
- *
- * Used by:			Panel
- *					Dropdown
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Nav
+   ======================================================================== */
+//
+// Description:		Defines styles for list navigations
+//
+// Component:		`uk-nav`
+//
+// Sub-objects: 	`uk-nav-header`
+//					`uk-nav-divider`
+//					`uk-nav-sub`
+//
+// Modifiers:		`uk-nav-parent-icon`
+//					`uk-nav-side`
+//					`uk-nav-dropdown`
+//					`uk-nav-navbar`
+//					`uk-nav-search`
+//					`uk-nav-offcanvas`
+//
+// States:		 	`uk-active`
+//					`uk-parent`
+//					`uk-open`
+//					`uk-touch`
+//
+// Uses:			Icon: FontAwesome
+//
+// Used by:			Panel
+//					Dropdown
+//
+// ========================================================================
 
 .uk-nav,
 .uk-nav ul {
@@ -398,8 +396,8 @@ html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
 html:not(.uk-touch) .uk-nav-offcanvas ul a:hover { color: @nav-offcanvas-nested-hover-color; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-nav-header() {}
 .hook-nav-divider() {}
@@ -432,3 +430,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover { color: @nav-offcanvas-nested-
 .hook-nav-offcanvas-active() {}
 .hook-nav-offcanvas-header() {}
 .hook-nav-offcanvas-divider() {}
+
+.hook-nav-misc;
+.hook-nav-misc() {}

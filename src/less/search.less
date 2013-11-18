@@ -1,25 +1,23 @@
-/*
- * Name:			Search
- * Description:		Defines a search component
- *
- * Component:		`uk-search`
- *
- * Sub-objects:		`uk-search-field`
- *					`uk-search-close`
- *
- * States:		 	`uk-active`
- *					`uk-loading`
- *
- * Uses:			Animation
- *					Icon: FontAwesome
- *
- * Used by:			Off-canvas
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Search
+   ======================================================================== */
+//
+// Description:		Defines a search component
+//
+// Component:		`uk-search`
+//
+// Sub-objects:		`uk-search-field`
+//					`uk-search-close`
+//
+// States:		 	`uk-active`
+//					`uk-loading`
+//
+// Uses:			Animation
+//					Icon: FontAwesome
+//
+// Used by:			Off-canvas
+//
+// ========================================================================
 
 /*
  * 1. Create position context for dropdowns
@@ -144,11 +142,14 @@ input.uk-search-field { -webkit-appearance: none; }
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-search() {}
 .hook-search-icon() {}
 .hook-search-field() {}
 .hook-search-field-focus() {}
 .hook-search-close() {}
+
+.hook-search-misc;
+.hook-search-misc() {}

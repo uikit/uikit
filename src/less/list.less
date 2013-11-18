@@ -1,18 +1,16 @@
-/*
- * Name:			List
- * Description:		Defines styles for ordered and unordered lists
- *
- * Component:		`uk-list`
- *
- * Modifiers:		`uk-list-line`
- *					`uk-list-striped`
- *					`uk-list-space`
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: List
+   ======================================================================== */
+//
+// Description:		Defines styles for ordered and unordered lists
+//
+// Component:		`uk-list`
+//
+// Modifiers:		`uk-list-line`
+//					`uk-list-striped`
+//					`uk-list-space`
+//
+// ========================================================================
 
 .uk-list {
 	padding: 0;
@@ -58,8 +56,11 @@
 .uk-list-space > li:nth-child(n+2) { margin-top: @list-space-margin-top; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-list-line() {}
 .hook-list-striped() {}
+
+.hook-list-misc;
+.hook-list-misc() {}

@@ -1,18 +1,16 @@
-/*
- * Name:			Overlay
- * Description:		Defines styles for image overlays
- *
- * Component:		`uk-overlay`
- *
- * Sub-objects:		`uk-overlay-area`
- *					`uk-overlay-caption`
- *					`uk-overlay-toggle`
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Overlay
+   ======================================================================== */
+//
+// Description:		Defines styles for image overlays
+//
+// Component:		`uk-overlay`
+//
+// Sub-objects:		`uk-overlay-area`
+//					`uk-overlay-caption`
+//					`uk-overlay-toggle`
+//
+// ========================================================================
 
 /*
  * 1. Container width fits its content
@@ -123,9 +121,12 @@
 .uk-overlay-toggle:hover .uk-overlay-caption { opacity: 1; } /* 1 */
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-overlay-area() {}
 .hook-overlay-area-icon() {}
 .hook-overlay-caption() {}
+
+.hook-overlay-misc;
+.hook-overlay-misc() {}

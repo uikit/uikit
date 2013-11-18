@@ -1,15 +1,15 @@
-/*
- * Variables component
- *
- ========================================================================== */
+//
+// Variables component
+//
+// ========================================================================
 
 
-/* Global variables
- ========================================================================== */
+// Global variables
+// ========================================================================
 
-/*
- * Backgrounds
- */
+//
+// Backgrounds
+//
 
 @global-primary-background:						mix(@theme_global-primary-gradient-top, @theme_global-primary-gradient-bottom, 40%);
 @global-success-background:						mix(@theme_global-success-gradient-top, @theme_global-success-gradient-bottom, 40%);
@@ -24,33 +24,33 @@
 @button-danger-active-background:				saturate(darken(@global-danger-background, 5%), 10%);
 
 
-/* Theme global variables
- ========================================================================== */
+// Theme global variables
+// ========================================================================
 
-/*
- * Backgrounds
- */
+//
+// Backgrounds
+//
 
 @theme_global-default-background:				mix(@theme_global-default-gradient-top, @theme_global-default-gradient-bottom, 50%);
 @theme_global-default-hover-background:			#fafafa;
 @theme_global-default-active-background:		#f5f5f5;
 
-/*
- * Borders
- */
+//
+// Borders
+//
 
 @theme_global-border-radius:					4px;
 
-/*
- * Shadows
- */
+//
+// Shadows
+//
 
 @theme_global-text-shadow:						#fff;
 @theme_global-contrast-text-shadow:				rgba(0,0,0,0.2);
 
-/*
- * Gradients
- */
+//
+// Gradients
+//
 
 @theme_global-default-gradient-top:				#fff;
 @theme_global-default-gradient-bottom:			#eee;
@@ -68,39 +68,39 @@
 @theme_global-danger-gradient-bottom:			#c11a39;
 
 
-/* Components variables
- ========================================================================== */
+// Components variables
+// ========================================================================
 
-/*
- * Base
- */
+//
+// Base
+//
 
 @base-pre-background:							#fafafa;
 
-/*
- * Panel
- */
+//
+// Panel
+//
 
 @panel-box-background:							#fafafa;
 @panel-box-secondary-background:				#fff;
 
-/*
- * Comment
- */
+//
+// Comment
+//
 
 @comment-list-margin-top: 						@global-margin + 10px;
 
-/*
- * Nav
- */
+//
+// Nav
+//
 
 @nav-side-hover-background:						rgba(0,0,0,0.03);
 
 @nav-offcanvas-divider-border:					rgba(255,255,255,0.01);
 
-/*
- * Navbar
- */
+//
+// Navbar
+//
 
 @navbar-background:								@theme_global-default-background;
 
@@ -108,50 +108,50 @@
 @navbar-nav-active-background:					#fafafa;
 @navbar-nav-onclick-background:					@theme_global-default-active-background;
 
-/*
- * Subnav
- */
+//
+// Subnav
+//
 
 @subnav-pill-hover-background:					#fafafa;
 
-/*
- * Pagination
- */
+//
+// Pagination
+//
 
 @pagination-background:							@theme_global-default-background;
 @pagination-hover-background:					@theme_global-default-hover-background;
 @pagination-onclick-background:					@theme_global-default-active-background;
 @pagination-disabled-background:				#fafafa;
 
-/*
- * Tab
- */
+//
+// Tab
+//
 
 @tab-hover-background:							#fafafa;
 @tab-hover-border:								@global-border;
 
-/*
- * List
- */
+//
+// List
+//
 
 @list-striped-background:						#fafafa;
 
-/*
- * Table
- */
+//
+// Table
+//
 
 @table-striped-background:						#fafafa;
 @table-hover-background:						darken(@table-striped-background, 4%);
 
-/*
- * Form
- */
+//
+// Form
+//
 
 @form-disabled-background:						#fafafa;
 
-/*
- * Button
- */
+//
+// Button
+//
 
 @button-line-height:							@global-height - 2;
 @button-mini-line-height:						@global-mini-height - 2;
@@ -163,29 +163,29 @@
 @button-active-background:						@theme_global-default-active-background;
 @button-disabled-background:					#fafafa;
 
-/*
- * Icon
- */
+//
+// Icon
+//
 
 @icon-button-background: 						@theme_global-default-background;
 @icon-button-hover-background: 					@theme_global-default-hover-background;
 @icon-button-active-background: 				@theme_global-default-active-background;
 
-/*
- * Close
- */
+//
+// Close
+//
 
 @close-alt-background:							@global-background;
 
-/*
- * Progress
- */
+//
+// Progress
+//
 
 @progress-background:							#f7f7f7;
 
-/*
- * Dropdown
- */
+//
+// Dropdown
+//
 
 @dropdown-background:							#fff;
 @dropdown-navbar-margin:						6px;
@@ -195,12 +195,12 @@
 @dropdown-search-navbar-margin-right:			(-@navbar-nav-padding-horizontal) - 1;
 
 
-/* Theme component variables
- ========================================================================== */
+// Theme component variables
+// ========================================================================
 
-/*
- * Base
- */
+//
+// Base
+//
 
 @theme_base-body-gradient-inner:				@global-background;
 @theme_base-body-gradient-outer:				@global-background;
@@ -209,30 +209,30 @@
 @theme_base-code-background:					#fafafa;
 @theme_base-pre-border:							@global-border;
 
-/*
- * Panel
- */
+//
+// Panel
+//
 
 @theme_panel-box-border:						@global-border;
 @theme_panel-box-primary-border:				fade(@panel-box-primary-color, 30%);
 
-/*
- * Article
- */
+//
+// Article
+//
 
 @theme_article-border:							@global-border;
 
-/*
- * Comment
- */
+//
+// Comment
+//
 
 @theme_comment-padding:							10px;
 @theme_comment-border:							@global-border;
 @theme_comment-background:						#fafafa;
 
-/*
- * Nav
- */
+//
+// Nav
+//
 
 @theme_nav-side-hover-text-shadow:				@theme_global-text-shadow;
 @theme_nav-side-active-text-shadow:				@theme_global-contrast-text-shadow;
@@ -251,9 +251,9 @@
 @theme_nav-offcanvas-header-background:			lighten(@offcanvas-bar-background, 5%);
 @theme_nav-offcanvas-divider-background:		rgba(0,0,0,0.2);
 
-/*
- * Navbar
- */
+//
+// Navbar
+//
 
 @theme_navbar-border:							rgba(0,0,0,0.1);
 @theme_navbar-border-bottom:					rgba(0,0,0,0.3);
@@ -268,9 +268,9 @@
 @theme_navbar-nav-hover-box-shadow:				rgba(0,0,0,0.1);
 @theme_navbar-nav-onclick-box-shadow:			rgba(0,0,0,0.1);
 
-/*
- * Pagination
- */
+//
+// Pagination
+//
 
 @theme_pagination-border:						rgba(0,0,0,0.2);
 @theme_pagination-border-bottom:				rgba(0,0,0,0.3);
@@ -286,27 +286,27 @@
 @theme_pagination-primary-gradient-top:			@theme_global-primary-gradient-top;
 @theme_pagination-primary-gradient-bottom:		@theme_global-primary-gradient-bottom;
 
-/*
- * Tab
- */
+//
+// Tab
+//
 
 @theme_tab-text-shadow:							@theme_global-text-shadow;
 
-/*
- * List
- */
+//
+// List
+//
 
 @theme_list-striped-border:						@global-border;
 
-/*
- * Table
- */
+//
+// Table
+//
 
 @theme_table-border:							@global-border;
 
-/*
- * Button
- */
+//
+// Button
+//
 
 @theme_button-border:							rgba(0,0,0,0.2);
 @theme_button-border-bottom:					rgba(0,0,0,0.3);
@@ -331,9 +331,9 @@
 @theme_button-danger-gradient-top:				@theme_global-danger-gradient-top;
 @theme_button-danger-gradient-bottom:			@theme_global-danger-gradient-bottom;
 
-/*
- * Icon
- */
+//
+// Icon
+//
 
 @theme_icon-button-border:						#ccc;
 @theme_icon-button-border-bottom:				#bbb;
@@ -342,9 +342,9 @@
 @theme_icon-button-gradient-top:				@theme_global-default-gradient-top;
 @theme_icon-button-gradient-bottom:				@theme_global-default-gradient-bottom;
 
-/*
- * Badge
- */
+//
+// Badge
+//
 
 @theme_badge-border:							rgba(0,0,0,0.2);
 @theme_badge-border-bottom:						rgba(0,0,0,0.3);
@@ -365,9 +365,9 @@
 @theme_badge-danger-gradient-top:				@theme_global-danger-gradient-top;
 @theme_badge-danger-gradient-bottom:			@theme_global-danger-gradient-bottom;
 
-/*
- * Alert
- */
+//
+// Alert
+//
 
 @theme_alert-border:							fade(@alert-color, 30%);
 @theme_alert-text-shadow:						@theme_global-text-shadow;
@@ -376,15 +376,15 @@
 @theme_alert-warning-border:					fade(@alert-warning-color, 30%);
 @theme_alert-danger-border:						fade(@alert-danger-color, 30%);
 
-/*
- * Thumbnail
- */
+//
+// Thumbnail
+//
 
  @theme_thumbnail-hover-box-shadow:				rgba(0,0,0,0.3);
 
-/*
- * Progress
- */
+//
+// Progress
+//
 
 @theme_progress-bar-text-shadow:				@theme_global-contrast-text-shadow;
 
@@ -400,22 +400,22 @@
 @theme_progress-bar-danger-gradient-top:		@theme_global-danger-gradient-top;
 @theme_progress-bar-danger-gradient-bottom:		@theme_global-danger-gradient-bottom;
 
-/*
- * Dropdown
- */
+//
+// Dropdown
+//
 
 @theme_dropdown-border:							darken(@global-border, 7%);
 @theme_dropdown-box-shadow:						rgba(0,0,0,0.1);
 
 
-/*
- * Offcanvas
- */
+//
+// Offcanvas
+//
 
 @theme_offcanvas-panel-text-shadow:				rgba(0,0,0,0.5);
 
-/*
- * Tooltip
- */
+//
+// Tooltip
+//
 
 @theme_tooltip-text-shadow:						rgba(0,0,0,0.5);

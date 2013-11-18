@@ -1,23 +1,21 @@
-/*
- * Name:			Alert
- * Description:		Defines styles for alert messages
- *
- * Component: 		`uk-alert`
- *
- * Sub-objects: 	`uk-alert-close`
- * 
- * Modifiers:		`uk-alert-success`
- *					`uk-alert-warning`
- *					`uk-alert-danger`
- *					`uk-alert-large`
- *
- * Uses:			Close: `uk-close`
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Alert
+   ======================================================================== */
+//
+// Description:		Defines styles for alert messages
+//
+// Component: 		`uk-alert`
+//
+// Sub-objects: 	`uk-alert-close`
+// 
+// Modifiers:		`uk-alert-success`
+//					`uk-alert-warning`
+//					`uk-alert-danger`
+//					`uk-alert-large`
+//
+// Uses:			Close: `uk-close`
+//
+// ========================================================================
 
 .uk-alert {
 	margin-bottom: @alert-margin-vertical;
@@ -101,10 +99,13 @@
 .uk-alert-large > .uk-close:first-child { margin: -10px -10px 0 0; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-alert() {}
 .hook-alert-success() {}
 .hook-alert-warning() {}
 .hook-alert-danger() {}
+
+.hook-alert-misc;
+.hook-alert-misc() {}

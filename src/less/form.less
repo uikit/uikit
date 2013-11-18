@@ -1,35 +1,33 @@
-/*
- * Name:			Form
- * Description:		Defines styles for forms
- *
- * Component:		`uk-form`
- *
- * Sub-objects:		`uk-form-row`
- *					`uk-form-help-inline`
- *					`uk-form-help-block`
- *					`uk-form-label`
- *					`uk-form-controls`
- *					`uk-form-controls-condensed`
- *
- * Modifiers:		`uk-form-stacked`
- *					`uk-form-horizontal`
- *
- * Sub-modifiers:	`uk-form-danger`
- *					`uk-form-success`
- *					`uk-form-small`
- *					`uk-form-large`
- *					`uk-form-blank`
- *					`uk-form-width-mini`
- *					`uk-form-width-small`
- *					`uk-form-width-medium`
- *					`uk-form-width-large`
- *					`uk-form-controls-text`
- *
- ========================================================================== */
-
-
-/* Component
- ========================================================================== */
+/* ========================================================================
+   Component: Form
+   ======================================================================== */
+//
+// Description:		Defines styles for forms
+//
+// Component:		`uk-form`
+//
+// Sub-objects:		`uk-form-row`
+//					`uk-form-help-inline`
+//					`uk-form-help-block`
+//					`uk-form-label`
+//					`uk-form-controls`
+//					`uk-form-controls-condensed`
+//
+// Modifiers:		`uk-form-stacked`
+//					`uk-form-horizontal`
+//
+// Sub-modifiers:	`uk-form-danger`
+//					`uk-form-success`
+//					`uk-form-small`
+//					`uk-form-large`
+//					`uk-form-blank`
+//					`uk-form-width-mini`
+//					`uk-form-width-small`
+//					`uk-form-width-medium`
+//					`uk-form-width-large`
+//					`uk-form-controls-text`
+//
+// ========================================================================
 
 /*
  * Remove margin from the last-child
@@ -308,11 +306,14 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
 
 .hook-form() {}
 .hook-form-focus() {}
 .hook-form-disabled() {}
 .hook-form-danger() {}
 .hook-form-success() {}
+
+.hook-dropdown-misc;
+.hook-dropdown-misc() {}
