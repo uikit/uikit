@@ -1,0 +1,45 @@
+//
+// Addon: Sortable
+//
+// ========================================================================
+
+@import "../../../addons/src/sortable/sortable.less";
+@import "../../../src/less/variables.less";
+@import "variables.less";
+
+
+// Variables
+// ========================================================================
+
+//
+// Components variables
+//
+
+@sortable-item-background:						@theme_global-default-background;
+
+//
+// Theme component variables
+//
+
+@theme_sortable-border:							rgba(0,0,0,0.06);
+@theme_sortable-text-shadow:					@theme_global-text-shadow;
+
+
+// Hooks
+// ========================================================================
+
+.hook-sortable-list-dragged() {}
+
+.hook-sortable-item() {
+	border-radius: @theme_global-border-radius;
+	border: 1px solid @theme_sortable-border;
+	text-shadow: 0 1px 0 @theme_sortable-text-shadow;
+}
+
+.hook-sortable-placeholder() {}
+
+.hook-sortable-empty() {}
+
+.hook-sortable-handle() {}
+
+.hook-sortable-toggle() {}
