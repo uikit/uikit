@@ -9,7 +9,7 @@
         if($element.data("buttonRadio")) return;
 
         this.options = $.extend({}, ButtonRadio.defaults, options);
-        this.element = $element.on("click", this.options.target, function(e) {
+        this.element = $element.on(UI.Utils.events.click, this.options.target, function(e) {
             e.preventDefault();
             $element.find($this.options.target).not(this).removeClass("uk-active").blur();
             $element.trigger("change", [$(this).addClass("uk-active")]);
@@ -37,7 +37,7 @@
         if($element.data("buttonCheckbox")) return;
 
         this.options = $.extend({}, ButtonCheckbox.defaults, options);
-        this.element = $element.on("click", this.options.target, function(e) {
+        this.element = $element.on(UI.Utils.events.click, this.options.target, function(e) {
             e.preventDefault();
             $element.trigger("change", [$(this).toggleClass("uk-active").blur()]);
         });
@@ -64,7 +64,7 @@
         if($element.data("button")) return;
 
         this.options = $.extend({}, Button.defaults, options);
-        this.element = $element.on("click", function(e) {
+        this.element = $element.on(UI.Utils.events.click, function(e) {
             e.preventDefault();
             $this.toggle();
             $this.element.blur();
@@ -90,37 +90,37 @@
     UI["buttonRadio"]    = ButtonRadio;
 
     // init code
-    $(document).on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
+    $(document).on(UI.Utils.events.click+".buttonradio.uikit", "[data-uk-button-radio]", function(e) {
         var ele = $(this);
 
         if (!ele.data("buttonRadio")) {
             var obj = new ButtonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
 
             if ($(e.target).is(obj.options.target)) {
-                $(e.target).trigger("click");
+                $(e.target).trigger(UI.Utils.events.click);
             }
         }
     });
 
-    $(document).on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
+    $(document).on(UI.Utils.events.click+".buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
         var ele = $(this);
 
         if (!ele.data("buttonCheckbox")) {
             var obj = new ButtonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox")));
 
             if ($(e.target).is(obj.options.target)) {
-                $(e.target).trigger("click");
+                $(e.target).trigger(UI.Utils.events.click);
             }
         }
     });
 
-    $(document).on("click.button.uikit", "[data-uk-button]", function(e) {
+    $(document).on(UI.Utils.events.click+".button.uikit", "[data-uk-button]", function(e) {
         var ele = $(this);
 
         if (!ele.data("button")) {
 
             var obj = new Button(ele, ele.attr("data-uk-button"));
-            ele.trigger("click");
+            ele.trigger(UI.Utils.events.click);
         }
     });
 

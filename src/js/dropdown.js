@@ -22,9 +22,9 @@
             this.boundary = $(window);
         }
 
-        if (this.options.mode == "click") {
+        if (this.options.mode == "click" || UI.support.touch) {
 
-            this.element.on("click", function(e) {
+            this.element.on(UI.Utils.events.click, function(e) {
 
                 if (!$(e.target).parents(".uk-dropdown").length) {
                     e.preventDefault();
@@ -42,15 +42,14 @@
 
                     active = $this.element;
 
-                    $(document).off("click.outer.dropdown");
+                    $(document).off(UI.Utils.events.click+".outer.dropdown");
 
                     setTimeout(function() {
-                        $(document).on("click.outer.dropdown", function(e) {
+                        $(document).on(UI.Utils.events.click+".outer.dropdown", function(e) {
 
                             if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
                                 active.removeClass("uk-open");
-
-                                $(document).off("click.outer.dropdown");
+                                $(document).off(UI.Utils.events.click+".outer.dropdown");
                             }
                         });
                     }, 10);
@@ -95,7 +94,6 @@
         }
 
         this.element.data("dropdown", this);
-
     };
 
     $.extend(Dropdown.prototype, {
@@ -170,7 +168,7 @@
     UI["dropdown"] = Dropdown;
 
 
-    var triggerevent = UI.support.touch ? "touchstart":"mouseenter";
+    var triggerevent = UI.support.touch ? UI.Utils.events.click:"mouseenter";
 
     // init code
     $(document).on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
@@ -180,9 +178,7 @@
 
             var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
-            if(triggerevent == "mouseenter" && dropdown.options.mode == "hover") {
-                ele.trigger("mouseenter");
-            }
+            ele.trigger(UI.support.touch ? UI.Utils.events.click : (dropdown.options.mode == "hover" ? "mouseenter":"null"));
         }
     });
 

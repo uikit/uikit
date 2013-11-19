@@ -51,9 +51,8 @@
 
     })();
 
-    UI.support.touch            = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
+    UI.support.touch            = (('ontouchstart' in window) || window.navigator.msPointerEnabled || window.DocumentTouch && document instanceof window.DocumentTouch);
     UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null);
-
 
     UI.Utils = {};
 
@@ -71,6 +70,9 @@
             if (callNow) func.apply(context, args);
         };
     };
+
+    UI.Utils.events       = {};
+    UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
     UI.Utils.options = function(string) {
 
