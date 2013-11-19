@@ -36,7 +36,7 @@
         this.element.find("a").each(function(i) {
 
             var tab  = $(this).parent(),
-                item = $('<li><a href="javascript:void(0);">' + tab.text() + '</a></li>').on("click", function(e) {
+                item = $('<li><a href="javascript:void(0);">' + tab.text() + '</a></li>').on(UI.Utils.events.click, function(e) {
                     $this.element.data("switcher").show(i);
                 });
 
