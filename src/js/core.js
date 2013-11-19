@@ -51,7 +51,7 @@
 
     })();
 
-    UI.support.touch            = (('ontouchstart' in window) || window.navigator.msPointerEnabled || window.DocumentTouch && document instanceof window.DocumentTouch);
+    UI.support.touch            = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof window.DocumentTouch)  || (window.navigator['msPointerEnabled'] && window.navigator['msMaxTouchPoints'] > 0) || false);
     UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null);
 
     UI.Utils = {};
