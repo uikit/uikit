@@ -159,7 +159,7 @@
 
                     $("[data-compiled-css]").replaceWith('<style data-compiled-css>'+css+'</style>');
 
-                    setTimeout(function() { $("body").css("visibility", "visible"); }, 50);
+                    setTimeout(function() { $("body").css("visibility", "visible"); $(window).trigger("resize"); }, 50);
 
                 }).fail(function(e) {
                     $(".uk-container").prepend('<div style="border: 1px solid rgb(238, 0, 0);background:rgb(238, 238, 238); border-radius: 5px; color: rgb(238, 0, 0); padding: 15px; margin-bottom: 15px;">'+e.message+" in file "+e.filename+'</div>');
