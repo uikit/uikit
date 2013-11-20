@@ -2,6 +2,8 @@
 
 ### WIP
 
+- Added touch events support for windows 8 phones
+- Fixed offcanvas component for windows 8 phones
 - Added miscellaneous hooks
 - Changed comments to compile nicer CSS output
 
