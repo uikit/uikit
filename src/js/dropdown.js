@@ -83,6 +83,17 @@
 
             }).on("mouseleave", function() {
 
+                setTimeout(function() {
+                    $(document).on("click.outer.dropdown", function(e) {
+
+                        if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
+                            active.removeClass("uk-open");
+
+                            $(document).off("click.outer.dropdown");
+                        }
+                    });
+                }, 10);
+
                 $this.remainIdle = setTimeout(function() {
 
                     $this.element.removeClass("uk-open");
