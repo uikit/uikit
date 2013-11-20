@@ -2,6 +2,7 @@
 
 ### WIP
 
+- Added outerclick support for hover mode in dropdowns
 - Added touch events support for windows 8 phones
 - Fixed offcanvas component for windows 8 phones
 - Added miscellaneous hooks
