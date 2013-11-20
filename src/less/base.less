@@ -347,16 +347,12 @@ iframe { border: 0; }
 /* Fix viewport for IE10 snap mode
  ========================================================================== */
 
-// breaks offcanvas scrolling on windows phones:
-// @-ms-viewport { width: device-width; }
-//
-// Workaround:
-
-@media screen and (max-width:400px) {
-    @-ms-viewport{
-        width: device-width;
-    }
+@media screen and (max-width: 400px) {
+	@-ms-viewport{
+		width: device-width;
+	}
 }
+
 
 // Hooks
 // ========================================================================
