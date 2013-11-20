@@ -42,17 +42,7 @@
 
                     active = $this.element;
 
-                    $(document).off(UI.Utils.events.click+".outer.dropdown");
-
-                    setTimeout(function() {
-                        $(document).on(UI.Utils.events.click+".outer.dropdown", function(e) {
-
-                            if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
-                                active.removeClass("uk-open");
-                                $(document).off(UI.Utils.events.click+".outer.dropdown");
-                            }
-                        });
-                    }, 10);
+                    $this.registerOuterClick();
 
                 } else {
 
@@ -82,6 +72,8 @@
 
             }).on("mouseleave", function() {
 
+                $this.registerOuterClick();
+
                 $this.remainIdle = setTimeout(function() {
 
                     $this.element.removeClass("uk-open");
@@ -99,6 +91,23 @@
     $.extend(Dropdown.prototype, {
 
         remainIdle: false,
+
+        registerOuterClick: function(){
+
+            var $this = this;
+
+            $(document).off(UI.Utils.events.click+".outer.dropdown");
+
+            setTimeout(function() {
+                $(document).on(UI.Utils.events.click+".outer.dropdown", function(e) {
+
+                    if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
+                        active.removeClass("uk-open");
+                        $(document).off(UI.Utils.events.click+".outer.dropdown");
+                    }
+                });
+            }, 10);
+        },
 
         checkDimensions: function() {
 
