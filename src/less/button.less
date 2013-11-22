@@ -32,7 +32,7 @@
  */
 
 .uk-button {
-	@include inline-block(); /* 1 */
+	.inline-block(); /* 1 */
 	min-height: @button-height; /* 2 */
 	padding: 0 @button-padding-horizontal;
 	border: none; /* 3 */
@@ -45,7 +45,7 @@
 
 /* Required for `a` elements */
 a.uk-button {
-	@include border-box();
+	.border-box();
 	vertical-align: middle;
 	text-decoration: none;
 }
@@ -254,7 +254,7 @@ a.uk-button {
 
 .uk-button-group {
 	/* 1 */
-	@include inline-block();
+	.inline-block();
 	vertical-align: middle;
 	/* 2 */
 	position: relative;
@@ -265,7 +265,7 @@ a.uk-button {
 }
 
 .uk-button-group > * {
-	@include inline-block();
+	.inline-block();
 }
 
 /* Sub-object: `uk-button-dropdown`
@@ -278,7 +278,7 @@ a.uk-button {
 
 .uk-button-dropdown {
 	/* 1 */
-	@include inline-block();
+	.inline-block();
 	vertical-align: middle;
 	/* 2 */
 	position: relative;

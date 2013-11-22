@@ -22,7 +22,8 @@ Helpers
 
 .border-box {
 	-webkit-box-sizing: border-box;
-	@include border-box();
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	.pie();
 }
 
@@ -34,13 +35,6 @@ Helpers
 }
 
 /* =============================================================================
-Transitions
-========================================================================== */
-.transition-all {
-	#transition > .transition(all @transition-time linear);
-}
-
-/* =============================================================================
 Layout
 ========================================================================== */
 .block {
@@ -48,7 +42,7 @@ Layout
 }
 
 .inline {
-	@include inline-block();
+	.inline-block();
 }
 
 /* =============================================================================

@@ -40,7 +40,7 @@
  */
 
 [class*='uk-icon-']:before {
-	@include inline-block(); /* 1 */
+	.inline-block(); /* 1 */
 	font-family: "FontAwesome";
 	font-weight: normal; /* 2 */
 	font-style: normal; /* 2 */
@@ -71,7 +71,7 @@
  ========================================================================== */
 
 .uk-icon-spin {
-	@include inline-block();
+	.inline-block();
 	-webkit-animation: uk-spin 2s infinite linear;
 	animation: uk-spin 2s infinite linear;
 }
@@ -80,11 +80,11 @@
  ========================================================================== */
 
 .uk-icon-button {
-	@include border-box;
-	@include inline-block();
+	.border-box();
+	.inline-block();
 	width: @icon-button-width;
 	height: @icon-button-height;
-	@include .border-radius(@icon-button-border-radius);
+	.border-radius(@icon-button-border-radius);
 	background: @icon-button-background;
 	line-height: @icon-button-height;
 	color: @icon-button-color;

@@ -43,7 +43,7 @@ summary {
 audio,
 canvas,
 video {
-	@include inline-block();
+	.inline-block();
 }
 
 /*
@@ -308,7 +308,7 @@ button,
 html input[type="button"], /* 1 */
 input[type="reset"],
 input[type="submit"] {
-	@include .appearance(button); /* 2 */
+	.appearance(button); /* 2 */
 	cursor: pointer; /* 3 */
 }
 
@@ -344,7 +344,7 @@ input[type="radio"] {
  */
 
 input[type="search"] {
-	@include .appearance(textfield);
+	.appearance(textfield);
 }
 
 /*
@@ -381,7 +381,7 @@ textarea {
  */
 
 ::-moz-placeholder {
-	@include .opacity(100)
+	opacity: 1;
 }
 
 /* Tables

@@ -72,7 +72,7 @@
 
 .uk-navbar-nav > li > a {
 	display: block;
-	@include border-box();
+	.border-box();
 	text-decoration: none;
 	/* 1 */
 	height: @navbar-nav-height;
@@ -145,7 +145,7 @@
 .uk-navbar-content,
 .uk-navbar-brand,
 .uk-navbar-toggle {
-	@include border-box();
+	.border-box();
 	height: @navbar-nav-height;
 	padding: 0 @navbar-nav-padding-horizontal;
 	float: left;
@@ -160,7 +160,7 @@
 .uk-navbar-brand:before,
 .uk-navbar-toggle:before {
 	content: '';
-	@include inline-block();
+	.inline-block();
 	height: 100%;
 	vertical-align: middle;
 }

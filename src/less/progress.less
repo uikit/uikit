@@ -24,7 +24,7 @@
  */
 
 .uk-progress {
-	@include border-box();
+	.border-box();
 	height: @progress-height;
 	margin-bottom: @progress-margin-vertical;
 	background: @progress-background;
@@ -50,7 +50,7 @@
 	background: @progress-bar-background;
 	float: left;
 	/* Transition */
-	@include #transition > .transition(width 0.6s ease);
+	#transition > .transition(width 0.6s ease);
 	/* Allow text */
 	font-size: @progress-bar-font-size;
 	color: @progress-bar-color;

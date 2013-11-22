@@ -47,8 +47,8 @@
 	/* 5 */
 	background: @modal-background;
 	/* 6 */
-	@include .opacity(0);
-	@include #transition > .transition(opacity 0.15s linear);
+	.opacity(0);
+	#transition > .transition(opacity 0.15s linear);
 	.hook-modal;
 }
 
@@ -57,7 +57,7 @@
  */
 
 .uk-modal.uk-open {
-	@include .opacity(100)
+	.opacity(100)
 }
 
 /*
@@ -84,7 +84,7 @@
 	top: 10%;
 	left: 50%;
 	/* 2 */
-	@include border-box();
+	.border-box();
 	padding: @modal-dialog-padding;
 	width: @modal-dialog-width;
 	/* 3 */
@@ -126,14 +126,14 @@
  */
 
 .uk-modal-dialog-slide {
-	@include .opacity(0);
-	@include #transform > .translate(0, -25%);
-	@include #transition > .transition(opacity 0.3s linear, transform 0.3s ease-out);
+	.opacity(0);
+	#transform > .translate(0, -25%);
+	#transition > .transition(opacity 0.3s linear, transform 0.3s ease-out);
 }
 
 .uk-open .uk-modal-dialog-slide {
-	@include .opacity(100);
-	@include #transform > .translate(0, 0);
+	.opacity(100);
+	#transform > .translate(0, 0);
 }
 
 /* Close in modal

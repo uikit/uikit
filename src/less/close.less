@@ -25,16 +25,16 @@
 .uk-close {
 	-moz-box-sizing: content-box;
 	box-sizing: content-box; /* 1 */
-	@include inline-block();
+	.inline-block();
 	width: 20px;
 	line-height: 20px;
 	text-align: center;
 	color: inherit;
-	@include .opacity(0.3);
+	.opacity(0.3);
 	/* 2. */
 	padding: 0;
 	border: 0;
-	@include .appearance(none);
+	.appearance(none);
 	background: transparent; /* Needed for Sarari */
 	.hook-close;
 }
@@ -55,7 +55,7 @@
 .uk-close:hover,
 .uk-close:focus {
 	/* 1 */
-	@include .opacity(0.5);
+	.opacity(0.5);
 	outline: none; /* 2 */
 }
 
@@ -71,26 +71,26 @@ a.uk-close:hover {
 
 .uk-close-alt {
 	padding: 2px;
-	@include .border-radius(100%);
+	.border-radius(100%);
 	background: @close-alt-background;
-	@include .opacity(100)
+	.opacity(100);
 	.hook-close-alt;
 }
 
 /* Hover */
 .uk-close-alt:hover,
 .uk-close-alt:focus {
-	@include .opacity(100)
+	.opacity(100)
 }
 
 /* Icon */
 .uk-close-alt:after {
-	@include .opacity(0.5);
+	.opacity(0.5);
 }
 
 .uk-close-alt:hover:after,
 .uk-close-alt:focus:after {
-	@include .opacity(0.8);
+	.opacity(0.8);
 }
 
 /* Hooks

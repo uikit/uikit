@@ -22,7 +22,7 @@
 
 .uk-overlay {
 	/* 1 */
-	@include inline-block();
+	.inline-block();
 	/* 2 */
 	position: relative;
 	/* 3 */
@@ -50,8 +50,8 @@
 	/* 2 */
 	background: @overlay-area-background;
 	/* 3 */
-	@include .opacity(0);
-	@include #transition > .transition(opacity 0.15s linear);
+	.opacity(0);
+	#transition > .transition(opacity 0.15s linear);
 	.hook-overlay-area;
 }
 
@@ -62,7 +62,7 @@
 
 .uk-overlay:hover .uk-overlay-area,
 .uk-overlay-toggle:hover .uk-overlay-area {
-	@include .opacity(100)
+	.opacity(100)
 }
 
 /* 1 */
@@ -108,9 +108,8 @@
 	background: @overlay-caption-background;
 	color: @overlay-caption-color;
 	/* 3 */
-	@include .opacity(0);
-	-webkit-transition: opacity 0.15s linear;
-	transition: opacity 0.15s linear;
+	.opacity(0);
+	#transition > .transition(opacity 0.15s linear);
 	.hook-overlay-caption;
 }
 
@@ -121,7 +120,7 @@
 
 .uk-overlay:hover .uk-overlay-caption,
 .uk-overlay-toggle:hover .uk-overlay-caption {
-	@include .opacity(100)
+	.opacity(100)
 }
 
 /* 1 */
