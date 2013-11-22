@@ -58,8 +58,7 @@
 	/* 1 */
 	position: fixed;
 	/* 2 */
-	-webkit-transition: margin-left 0.3s ease-in-out 50ms;
-	transition: margin-left 0.3s ease-in-out 50ms;
+	@include #transition > .transition(margin-left 0.3s ease-in-out 50ms);
 }
 
 /* Sub-object `uk-offcanvas-bar`
@@ -91,7 +90,7 @@
 	-webkit-overflow-scrolling: touch;
 	/* 4 */
 	-webkit-transition: -webkit-transform 0.3s ease-in-out;
-	transition: transform 0.3s ease-in-out;
+	@include #transition > .transition(transform 0.3s ease-in-out);
 	.hook-offcanvas-bar;
 }
 

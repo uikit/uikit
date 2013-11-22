@@ -50,9 +50,8 @@
 	/* 2 */
 	background: @overlay-area-background;
 	/* 3 */
-	opacity: 0;
-	-webkit-transition: opacity 0.15s linear;
-	transition: opacity 0.15s linear;
+	@include .opacity(0);
+	@include #transition > .transition(opacity 0.15s linear);
 	.hook-overlay-area;
 }
 
@@ -63,7 +62,7 @@
 
 .uk-overlay:hover .uk-overlay-area,
 .uk-overlay-toggle:hover .uk-overlay-area {
-	opacity: 1;
+	@include .opacity(100)
 }
 
 /* 1 */
@@ -109,7 +108,7 @@
 	background: @overlay-caption-background;
 	color: @overlay-caption-color;
 	/* 3 */
-	opacity: 0;
+	@include .opacity(0);
 	-webkit-transition: opacity 0.15s linear;
 	transition: opacity 0.15s linear;
 	.hook-overlay-caption;
@@ -122,7 +121,7 @@
 
 .uk-overlay:hover .uk-overlay-caption,
 .uk-overlay-toggle:hover .uk-overlay-caption {
-	opacity: 1;
+	@include .opacity(100)
 }
 
 /* 1 */

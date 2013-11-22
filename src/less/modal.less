@@ -47,9 +47,8 @@
 	/* 5 */
 	background: @modal-background;
 	/* 6 */
-	opacity: 0;
-	-webkit-transition: opacity 0.15s linear;
-	transition: opacity 0.15s linear;
+	@include .opacity(0);
+	@include #transition > .transition(opacity 0.15s linear);
 	.hook-modal;
 }
 
@@ -58,7 +57,7 @@
  */
 
 .uk-modal.uk-open {
-	opacity: 1;
+	@include .opacity(100)
 }
 
 /*
@@ -127,17 +126,14 @@
  */
 
 .uk-modal-dialog-slide {
-	opacity: 0;
-	-webkit-transform: translateY(-25%);
-	transform: translateY(-25%);
-	-webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
-	transition: opacity 0.3s linear, transform 0.3s ease-out;
+	@include .opacity(0);
+	@include #transform > .translate(0, -25%);
+	@include #transition > .transition(opacity 0.3s linear, transform 0.3s ease-out);
 }
 
 .uk-open .uk-modal-dialog-slide {
-	opacity: 1;
-	-webkit-transform: translateY(0);
-	transform: translateY(0);
+	@include .opacity(100);
+	@include #transform > .translate(0, 0);
 }
 
 /* Close in modal

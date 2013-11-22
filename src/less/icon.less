@@ -84,7 +84,7 @@
 	@include inline-block();
 	width: @icon-button-width;
 	height: @icon-button-height;
-	border-radius: @icon-button-border-radius;
+	@include .border-radius(@icon-button-border-radius);
 	background: @icon-button-background;
 	line-height: @icon-button-height;
 	color: @icon-button-color;

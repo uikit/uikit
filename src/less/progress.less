@@ -50,8 +50,7 @@
 	background: @progress-bar-background;
 	float: left;
 	/* Transition */
-	-webkit-transition: width 0.6s ease;
-	transition: width 0.6s ease;
+	@include #transition > .transition(width 0.6s ease);
 	/* Allow text */
 	font-size: @progress-bar-font-size;
 	color: @progress-bar-color;

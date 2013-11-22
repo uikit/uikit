@@ -308,7 +308,7 @@ button,
 html input[type="button"], /* 1 */
 input[type="reset"],
 input[type="submit"] {
-	-webkit-appearance: button; /* 2 */
+	@include .appearance(button); /* 2 */
 	cursor: pointer; /* 3 */
 }
 
@@ -344,7 +344,7 @@ input[type="radio"] {
  */
 
 input[type="search"] {
-	-webkit-appearance: textfield;
+	@include .appearance(textfield);
 }
 
 /*
@@ -381,7 +381,7 @@ textarea {
  */
 
 ::-moz-placeholder {
-	opacity: 1;
+	@include .opacity(100)
 }
 
 /* Tables
