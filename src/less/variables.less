@@ -22,6 +22,8 @@
 @global-font-size: 14px;
 @global-line-height: 20px;
 
+@pie: false;
+@pie-directory: "PIE.htc";
 /*
  * Backgrounds & Borders
  */
@@ -133,7 +135,7 @@
 // 12px
 @base-h6-line-height: round(@base-h6-font-size * 1.5);
 // 18px
-
+@base-border-radius: unit(((@global-font-size / 4) / 100), ~"em");
 @base-hr-border: @global-border;
 
 @base-blockquote-border: @global-border;

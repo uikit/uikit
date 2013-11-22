@@ -1,0 +1,180 @@
+/* =============================================================================
+Measurement Creator
+========================================================================== */
+/*.generateMixins(@property, @directions: top, bottom, top-bottom, left, right, left-right) {
+	.setMeasurements(@index) when (@index > @measurementLevels) {
+		@size: extract(@measurements, @index); //now we have something like padding
+		//.paddingLarge: @paddingLarge;
+		@direction: extract(@directions, @index);
+		.@{property}-@{size}: @@{property}-@{size};
+		.setMeasurements(@index - 1);
+	}
+	.setMeasurements(@measurementLevels) {}
+	.setMeasurements();
+}*/
+
+/* =============================================================================
+Helpers
+========================================================================== */
+.pie() when (@pie = true) {
+	background: url(@pie-directory);
+}
+
+.border-box {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	.pie();
+}
+
+.padding-fix {
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	.pie();
+}
+
+/* =============================================================================
+Transitions
+========================================================================== */
+.transition-all {
+	#transition > .transition(all @transition-time linear);
+}
+
+/* =============================================================================
+Layout
+========================================================================== */
+.block {
+	display: block;
+}
+
+.inline {
+	@include inline-block();
+}
+
+/* =============================================================================
+Text
+========================================================================== */
+
+// CSS image replacement
+// -------------------------
+// Source: https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
+.hide-text {
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+
+// Reset filters for IE
+.reset-filter() {
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
+}
+
+.centered {
+	text-align: center;
+}
+
+/* =============================================================================
+Display
+========================================================================== */
+
+/* Hide only visually, but have it available for screenreaders: by Jon Neal.
+www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
+.visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	&:extend(.absolute);;
+	width: 1px;
+	left: -500%;
+
+	&.focusable {
+		&:active, &:focus {
+			/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+			clip: auto;
+			height: auto;
+			margin: 0;
+			overflow: visible;
+			position: static;
+			width: auto;
+		}
+	}
+}
+
+/* For image replacement */
+.ir {
+	display: block;
+	text-indent: -99in;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	text-align: left;
+	direction: ltr;
+}
+
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden {
+	display: none;
+}
+
+.show-phone {
+	display: none;
+}
+
+/* =============================================================================
+Overflow
+========================================================================== */
+.overflow-visible {
+	overflow: visible;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+/* =============================================================================
+Opacity/visibility
+========================================================================== */
+.opacity-0 {
+	.opacity(0);
+}
+
+.opacity-05 {
+	.opacity(50);
+}
+
+.opacity-1 {
+	.opacity(100);
+}
+
+/* =============================================================================
+Borders
+========================================================================== */
+.bordered {
+	border: @global-border;
+}
+
+.bordered-right {
+	border-right: @global-border;
+}
+
+.bordered-left {
+	border-left: @global-border;
+}
+
+.bordered-top {
+	border-top: @global-border;
+}
+
+.bordered-bottom {
+	border-bottom: @global-border;
+}
+
+.border-none {
+	border: 0;
+}
