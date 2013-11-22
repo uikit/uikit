@@ -3,10 +3,8 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
-
 
 /* Modifier `uk-icon-button`
  ========================================================================== */
@@ -21,12 +19,14 @@
 }
 
 /* Hover */
-.hook-icon-button-hover() { background-image: none; }
+.hook-icon-button-hover() {
+	background-image: none;
+}
 
 /* Active */
-.hook-icon-button-active() { 
+.hook-icon-button-active() {
 	border-color: @theme_icon-button-border;
 	border-top-color: @theme_icon-button-border-bottom;
 	background-image: none;
-	box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
