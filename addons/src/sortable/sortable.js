@@ -161,7 +161,7 @@
                     });
                     return array;
                 };
-            data = step(list.el.find(list.options.listNodeName).first(), depth);
+            data = step(list.el, depth);
             return data;
         },
 
