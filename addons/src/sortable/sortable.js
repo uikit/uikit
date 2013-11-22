@@ -481,9 +481,10 @@
                 if (!this.dragRootEl.find(opt.itemNodeName).length && !this.dragRootEl.children().length) {
                     this.dragRootEl.append(this.tplempty);
                 }
+
                 // parent root list has changed
                 if (isNewRoot) {
-                    this.dragRootEl = pointElRoot;
+                    this.dragRootEl = tmpRoot;
                     this.hasNewRoot = this.el[0] !== this.dragRootEl[0];
                 }
             }
