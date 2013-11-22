@@ -221,7 +221,7 @@ jQuery(function($) {
             $.each(grp.vars, function(i, opt) {
                 $.each(style.variables, function(name, value) {
                     if(style.matchName(opt, name)) {
-                        if (first) source.push("\n/*\n * "+grp.label+"\n */\n");
+                        if (first) source.push("\n//\n// "+grp.label+"\n//\n");
                         source.push(name + ": " + value + ";");
                         first = false;
                     }
