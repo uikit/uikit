@@ -17,7 +17,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -51,7 +50,6 @@
 	.hook-search-icon;
 }
 
-
 /* Sub-object `uk-search-field`
  ========================================================================== */
 
@@ -59,7 +57,8 @@
  * 1. Needed to reset iOS `input[type="search"]` appearance
  */
 
-.uk-search-field { /* 1 */
+.uk-search-field {
+	/* 1 */
 	width: @search-width;
 	height: @search-height;
 	padding: 0 @search-padding;
@@ -77,15 +76,27 @@
  * Higher specificity to override appearance set by normalize.less
  */
 
-input.uk-search-field { -webkit-appearance: none; }
+input.uk-search-field {
+	-webkit-appearance: none;
+}
 
 /* Placeholder */
-.uk-search-field:-ms-input-placeholder { color: @search-placeholder-color; }
-.uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
-.uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
+.uk-search-field:-ms-input-placeholder {
+	color: @search-placeholder-color;
+}
+
+.uk-search-field::-moz-placeholder {
+	color: @search-placeholder-color;
+}
+
+.uk-search-field::-webkit-input-placeholder {
+	color: @search-placeholder-color;
+}
 
 /* Removes cancel button in IE10 */
-.uk-search-field::-ms-clear { display: none; }
+.uk-search-field::-ms-clear {
+	display: none;
+}
 
 /* Focus */
 .uk-search-field:focus {
@@ -95,8 +106,9 @@ input.uk-search-field { -webkit-appearance: none; }
 
 /* Focus + active */
 .uk-search-field:focus,
-.uk-active .uk-search-field { width: @search-focus-width; }
-
+.uk-active .uk-search-field {
+	width: @search-focus-width;
+}
 
 /* Sub-object `uk-search-close`
  ========================================================================== */
@@ -124,7 +136,9 @@ input.uk-search-field { -webkit-appearance: none; }
 }
 
 .uk-loading > .uk-search-close,
-.uk-active > .uk-search-close { display: block; }
+.uk-active > .uk-search-close {
+	display: block;
+}
 
 /*
  * Icon
@@ -143,12 +157,20 @@ input.uk-search-field { -webkit-appearance: none; }
 	animation: uk-spin 2s infinite linear;
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-search() {}
-.hook-search-icon() {}
-.hook-search-field() {}
-.hook-search-field-focus() {}
-.hook-search-close() {}
+.hook-search() {
+}
+
+.hook-search-icon() {
+}
+
+.hook-search-field() {
+}
+
+.hook-search-field-focus() {
+}
+
+.hook-search-close() {
+}

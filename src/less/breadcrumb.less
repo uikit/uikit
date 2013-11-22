@@ -8,7 +8,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -26,7 +25,6 @@
 	.hook-breadcrumb;
 }
 
-
 /* Items
  ========================================================================== */
 
@@ -34,11 +32,15 @@
  * Reset whitespace hack
  */
 
-.uk-breadcrumb > li { letter-spacing: normal; } 
+.uk-breadcrumb > li {
+	letter-spacing: normal;
+}
 
 .uk-breadcrumb > li,
 .uk-breadcrumb > li > a,
-.uk-breadcrumb > li > span { display: inline-block; }
+.uk-breadcrumb > li > span {
+	display: inline-block;
+}
 
 .uk-breadcrumb > li:nth-child(n+2):before {
 	content: @breadcrumb-divider;
@@ -52,11 +54,15 @@
  * Disabled
  */
 
-.uk-breadcrumb > li:not(.uk-active) > span { color: @breadcrumb-disabled-color; }
-
+.uk-breadcrumb > li:not(.uk-active) > span {
+	color: @breadcrumb-disabled-color;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-breadcrumb() {}
-.hook-breadcrumb-divider() {}
+.hook-breadcrumb() {
+}
+
+.hook-breadcrumb-divider() {
+}

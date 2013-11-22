@@ -15,7 +15,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -39,8 +38,9 @@
  * Add margin if adjacent element
  */
 
-* + .uk-progress { margin-top: @progress-margin-vertical; }
-
+* + .uk-progress {
+	margin-top: @progress-margin-vertical;
+}
 
 /* Sub-object: `uk-progress-bar`
  ========================================================================== */
@@ -60,7 +60,6 @@
 	.hook-progress-bar;
 }
 
-
 /* Size modifiers
  ========================================================================== */
 
@@ -70,13 +69,11 @@
 	.hook-progress-mini;
 }
 
-
 /* Small */
 .uk-progress-small {
 	height: @progress-small-height;
 	.hook-progress-small;
 }
-
 
 /* Color modifiers
  ========================================================================== */
@@ -95,7 +92,6 @@
 	background-color: @progress-bar-danger-background;
 	.hook-progress-bar-danger;
 }
-
 
 /* Modifier: `uk-progress-striped`
  ========================================================================== */
@@ -116,23 +112,43 @@
 }
 
 @-webkit-keyframes uk-progress-bar-stripes {
-	0% { background-position: 0 0;}
-	100% { background-position: 30px 0; }
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 30px 0;
+	}
 }
 
 @keyframes uk-progress-bar-stripes {
-	0% { background-position: 0 0;}
-	100% { background-position: 30px 0; }
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 30px 0;
+	}
 }
-
 
 /* Hooks
  ========================================================================== */
 
-.hook-progress() {}
-.hook-progress-bar() {}
-.hook-progress-mini() {}
-.hook-progress-small() {}
-.hook-progress-bar-success() {}
-.hook-progress-bar-warning() {}
-.hook-progress-bar-danger() {}
+.hook-progress() {
+}
+
+.hook-progress-bar() {
+}
+
+.hook-progress-mini() {
+}
+
+.hook-progress-small() {
+}
+
+.hook-progress-bar-success() {
+}
+
+.hook-progress-bar-warning() {
+}
+
+.hook-progress-bar-danger() {
+}

@@ -13,15 +13,13 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
-
 
 /* Sub-object `uk-comment-header`
  ========================================================================== */
 
-.uk-comment-header { 
+.uk-comment-header {
 	margin-bottom: @comment-header-margin-bottom;
 	.hook-comment-header;
 }
@@ -36,8 +34,9 @@
 	display: table;
 }
 
-.uk-comment-header:after { clear: both; }
-
+.uk-comment-header:after {
+	clear: both;
+}
 
 /* Sub-object `uk-comment-avatar`
  ========================================================================== */
@@ -48,17 +47,15 @@
 	.hook-comment-avatar;
 }
 
-
 /* Sub-object `uk-comment-title`
  ========================================================================== */
 
-.uk-comment-title { 
+.uk-comment-title {
 	margin: 5px 0 0 0;
 	font-size: @comment-title-font-size;
 	line-height: @comment-title-line-height;
-	.hook-comment-title; 
+	.hook-comment-title;
 }
-
 
 /* Sub-object `uk-comment-meta`
  ========================================================================== */
@@ -71,7 +68,6 @@
 	.hook-comment-meta;
 }
 
-
 /* Sub-object `uk-comment-body`
  ========================================================================== */
 
@@ -79,8 +75,9 @@
  * Remove margin from the last-child
  */
 
- .uk-comment-body > :last-child { margin-bottom: 0; }
-
+.uk-comment-body > :last-child {
+	margin-bottom: 0;
+}
 
 /* Sub-object `uk-comment-list`
  ========================================================================== */
@@ -97,13 +94,21 @@
 }
 
 .uk-comment-list > li:nth-child(n+2),
-.uk-comment-list .uk-comment + ul > li:nth-child(n+2) { margin-top: @comment-list-margin-top; }
-
+.uk-comment-list .uk-comment + ul > li:nth-child(n+2) {
+	margin-top: @comment-list-margin-top;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-comment-header() {}
-.hook-comment-avatar() {}
-.hook-comment-title() {}
-.hook-comment-meta() {}
+.hook-comment-header() {
+}
+
+.hook-comment-avatar() {
+}
+
+.hook-comment-title() {
+}
+
+.hook-comment-meta() {
+}

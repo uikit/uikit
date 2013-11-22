@@ -11,7 +11,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -28,7 +27,6 @@
 	letter-spacing: -0.31em;
 }
 
-
 /* Items
  ========================================================================== */
 
@@ -44,24 +42,33 @@
 
 .uk-subnav > li,
 .uk-subnav > li > a,
-.uk-subnav > li > span { display: inline-block; }
+.uk-subnav > li > span {
+	display: inline-block;
+}
 
-.uk-subnav > li:nth-child(n+2) { margin-left: @subnav-margin; }
+.uk-subnav > li:nth-child(n+2) {
+	margin-left: @subnav-margin;
+}
 
 /*
  * Items
  */
 
-.uk-subnav > li > a { color: @subnav-color; }
-.uk-subnav > li > a:hover { color: @subnav-hover-color; }
+.uk-subnav > li > a {
+	color: @subnav-color;
+}
 
+.uk-subnav > li > a:hover {
+	color: @subnav-hover-color;
+}
 
 /*
  * Disabled
  */
 
-.uk-subnav > li > span { color: @subnav-disabled-color; }
-
+.uk-subnav > li > span {
+	color: @subnav-disabled-color;
+}
 
 /* Modifier: 'subnav-line'
  ========================================================================== */
@@ -74,7 +81,6 @@
 	border-left: 1px solid @subnav-line-border;
 	.hook-subnav-line-divider;
 }
-
 
 /* Modifier: 'subnav-pill'
  ========================================================================== */
@@ -93,7 +99,8 @@
  */
 
 .uk-subnav-pill > li > a:hover,
-.uk-subnav-pill > li > a:focus { /* 1 */
+.uk-subnav-pill > li > a:focus {
+	/* 1 */
 	background: @subnav-pill-hover-background;
 	color: @subnav-pill-hover-color;
 	outline: none; /* 2 */
@@ -111,11 +118,17 @@
 	.hook-subnav-pill-active;
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-subnav-line-divider() {}
-.hook-subnav-pill() {}
-.hook-subnav-pill-hover() {}
-.hook-subnav-pill-active() {}
+.hook-subnav-line-divider() {
+}
+
+.hook-subnav-pill() {
+}
+
+.hook-subnav-pill-hover() {
+}
+
+.hook-subnav-pill-active() {
+}

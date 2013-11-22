@@ -15,7 +15,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -31,13 +30,17 @@
  * Add margin if adjacent element
  */
 
-* + .uk-alert { margin-top: @alert-margin-vertical; }
+* + .uk-alert {
+	margin-top: @alert-margin-vertical;
+}
 
 /*
  * Remove margin from the last-child
  */
 
-.uk-alert > :last-child { margin-bottom: 0; }
+.uk-alert > :last-child {
+	margin-bottom: 0;
+}
 
 /*
  * Keep color for headings if the default heading color is changed
@@ -48,20 +51,24 @@
 .uk-alert h3,
 .uk-alert h4,
 .uk-alert h5,
-.uk-alert h6 { color: inherit; }
-
+.uk-alert h6 {
+	color: inherit;
+}
 
 /* Close in alert
  ========================================================================== */
 
-.uk-alert > .uk-close:first-child { float: right; }
+.uk-alert > .uk-close:first-child {
+	float: right;
+}
 
 /*
  * Remove margin from adjacent element
  */
 
-.uk-alert > .uk-close:first-child + * { margin-top: 0; }
-
+.uk-alert > .uk-close:first-child + * {
+	margin-top: 0;
+}
 
 /* Modifier: `uk-alert-success`
  ========================================================================== */
@@ -72,7 +79,6 @@
 	.hook-alert-success;
 }
 
-
 /* Modifier: `uk-alert-warning`
  ========================================================================== */
 
@@ -81,7 +87,6 @@
 	color: @alert-warning-color;
 	.hook-alert-warning;
 }
-
 
 /* Modifier: `uk-alert-danger`
  ========================================================================== */
@@ -92,19 +97,28 @@
 	.hook-alert-danger;
 }
 
-
 /* Modifier: `uk-alert-large`
  ========================================================================== */
 
-.uk-alert-large { padding: @alert-large-padding; }
+.uk-alert-large {
+	padding: @alert-large-padding;
+}
 
-.uk-alert-large > .uk-close:first-child { margin: -10px -10px 0 0; }
-
+.uk-alert-large > .uk-close:first-child {
+	margin: -10px -10px 0 0;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-alert() {}
-.hook-alert-success() {}
-.hook-alert-warning() {}
-.hook-alert-danger() {}
+.hook-alert() {
+}
+
+.hook-alert-success() {
+}
+
+.hook-alert-warning() {
+}
+
+.hook-alert-danger() {
+}

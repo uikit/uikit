@@ -16,7 +16,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -32,7 +31,7 @@
 
 .uk-modal {
 	/* 1 */
-	display: none; 
+	display: none;
 	/* 2 */
 	position: fixed;
 	top: 0;
@@ -58,14 +57,17 @@
  * Open state
  */
 
-.uk-modal.uk-open { opacity: 1; }
+.uk-modal.uk-open {
+	opacity: 1;
+}
 
 /*
  * Prevents dublicated scrollbar caused by 4.
  */
 
-.uk-modal-page { overflow: hidden; }
-
+.uk-modal-page {
+	overflow: hidden;
+}
 
 /* Sub-object: `uk-modal-dialog`
  ========================================================================== */
@@ -100,7 +102,6 @@
 	/*
 	 * Fit the phone width perfectly
 	 */
-
 	.uk-modal-dialog {
 		top: 0;
 		left: 0;
@@ -115,8 +116,9 @@
  * Remove margin from the last-child
  */
 
-.uk-modal-dialog > :last-child { margin-bottom: 0; }
-
+.uk-modal-dialog > :last-child {
+	margin-bottom: 0;
+}
 
 /* Modifier: `uk-modal-dialog-slide`
  ========================================================================== */
@@ -139,7 +141,6 @@
 	transform: translateY(0);
 }
 
-
 /* Close in modal
  ========================================================================== */
 
@@ -152,13 +153,16 @@
  * Remove margin from adjacent element
  */
 
- .uk-modal-dialog > .uk-close:first-child + * { margin-top: 0; }
-
+.uk-modal-dialog > .uk-close:first-child + * {
+	margin-top: 0;
+}
 
 /* Modifier: `uk-modal-dialog-frameless`
  ========================================================================== */
 
-.uk-modal-dialog-frameless { padding: 0; }
+.uk-modal-dialog-frameless {
+	padding: 0;
+}
 
 /*
  * Close in modal
@@ -182,9 +186,11 @@
 
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-modal() {}
-.hook-modal-dialog() {}
+.hook-modal() {
+}
+
+.hook-modal-dialog() {
+}

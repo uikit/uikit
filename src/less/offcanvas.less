@@ -16,7 +16,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -42,8 +41,9 @@
 	.hook-offcanvas;
 }
 
-.uk-offcanvas.uk-active { display: block; }
-
+.uk-offcanvas.uk-active {
+	display: block;
+}
 
 /* Sub-object `uk-offcanvas-page`
  ========================================================================== */
@@ -61,7 +61,6 @@
 	-webkit-transition: margin-left 0.3s ease-in-out 50ms;
 	transition: margin-left 0.3s ease-in-out 50ms;
 }
-
 
 /* Sub-object `uk-offcanvas-bar`
  ========================================================================== */
@@ -111,7 +110,6 @@
 	transform: translateX(100%);
 }
 
-
 /* Panel in offcanvas
  ========================================================================== */
 
@@ -121,11 +119,17 @@
 	.hook-offcanvas-panel;
 }
 
-.uk-offcanvas .uk-panel-title { color: @offcanvas-panel-title-color; }
+.uk-offcanvas .uk-panel-title {
+	color: @offcanvas-panel-title-color;
+}
 
-.uk-offcanvas .uk-panel a:not([class]) { color: @offcanvas-panel-link-color; }
-.uk-offcanvas .uk-panel a:not([class]):hover { color: @offcanvas-panel-link-hover-color; }
+.uk-offcanvas .uk-panel a:not([class]) {
+	color: @offcanvas-panel-link-color;
+}
 
+.uk-offcanvas .uk-panel a:not([class]):hover {
+	color: @offcanvas-panel-link-hover-color;
+}
 
 /* Search in offcanvas
  ========================================================================== */
@@ -135,7 +139,9 @@
 	margin: @offcanvas-search-margin;
 }
 
-.uk-offcanvas .uk-search:before { color: @offcanvas-search-icon-color; }
+.uk-offcanvas .uk-search:before {
+	color: @offcanvas-search-icon-color;
+}
 
 .uk-offcanvas .uk-search-field {
 	width: 100%;
@@ -145,15 +151,29 @@
 	.hook-offcanvas-search-field;
 }
 
-.uk-offcanvas .uk-search-field:-ms-input-placeholder { color: @offcanvas-search-placeholder-color; }
-.uk-offcanvas .uk-search-field::-moz-placeholder { color: @offcanvas-search-placeholder-color; }
-.uk-offcanvas .uk-search-field::-webkit-input-placeholder { color: @offcanvas-search-placeholder-color; }
+.uk-offcanvas .uk-search-field:-ms-input-placeholder {
+	color: @offcanvas-search-placeholder-color;
+}
 
+.uk-offcanvas .uk-search-field::-moz-placeholder {
+	color: @offcanvas-search-placeholder-color;
+}
+
+.uk-offcanvas .uk-search-field::-webkit-input-placeholder {
+	color: @offcanvas-search-placeholder-color;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-offcanvas() {}
-.hook-offcanvas-bar() {}
-.hook-offcanvas-panel() {}
-.hook-offcanvas-search-field() {}
+.hook-offcanvas() {
+}
+
+.hook-offcanvas-bar() {
+}
+
+.hook-offcanvas-panel() {
+}
+
+.hook-offcanvas-search-field() {
+}

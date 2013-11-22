@@ -15,7 +15,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -46,8 +45,9 @@
 	display: table;
 }
 
-.uk-pagination:after { clear: both; }
-
+.uk-pagination:after {
+	clear: both;
+}
 
 /* Items
  ========================================================================== */
@@ -61,7 +61,9 @@
 	letter-spacing: normal; /* 1 */
 }
 
-.uk-pagination > li:nth-child(n+2) { margin-left: 5px; }
+.uk-pagination > li:nth-child(n+2) {
+	margin-left: 5px;
+}
 
 /*
  * 1. Makes pagination more robust against different box-sizing use
@@ -98,7 +100,8 @@
  */
 
 .uk-pagination > li > a:hover,
-.uk-pagination > li > a:focus { /* 1 */
+.uk-pagination > li > a:focus {
+	/* 1 */
 	background-color: @pagination-hover-background;
 	color: @pagination-hover-color;
 	outline: none; /* 2 */
@@ -132,27 +135,45 @@
 	.hook-pagination-disabled;
 }
 
-
 /* Previous and next navigation
  ========================================================================== */
 
-.uk-pagination-previous { float: left; }
-.uk-pagination-next { float: right; }
+.uk-pagination-previous {
+	float: left;
+}
 
+.uk-pagination-next {
+	float: right;
+}
 
 /* Alignment modifiers
  ========================================================================== */
 
-.uk-pagination-left { text-align: left; }
-.uk-pagination-right { text-align: right; }
+.uk-pagination-left {
+	text-align: left;
+}
 
+.uk-pagination-right {
+	text-align: right;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-pagination-item() {}
-.hook-pagination-link() {}
-.hook-pagination-link-hover() {}
-.hook-pagination-link-active() {}
-.hook-pagination-active() {}
-.hook-pagination-disabled() {}
+.hook-pagination-item() {
+}
+
+.hook-pagination-link() {
+}
+
+.hook-pagination-link-hover() {
+}
+
+.hook-pagination-link-active() {
+}
+
+.hook-pagination-active() {
+}
+
+.hook-pagination-disabled() {
+}

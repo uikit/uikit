@@ -15,7 +15,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -34,7 +33,7 @@
 	z-index: @tooltip-z-index;
 	/* 3 */
 	-moz-box-sizing: border-box;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	max-width: @tooltip-max-width;
 	padding: 5px 8px;
 	/* 4 */
@@ -45,7 +44,6 @@
 	text-align: center;
 	.hook-tooltip;
 }
-
 
 /* Triangle
  ========================================================================== */
@@ -58,11 +56,10 @@
 	content: "";
 	display: block;
 	position: absolute;
-	width: 0; 
-	height: 0; 
+	width: 0;
+	height: 0;
 	border: @tooltip-triangle-size dashed @tooltip-background; /* 1 */
 }
-
 
 /* Direction modifiers
  ========================================================================== */
@@ -90,10 +87,10 @@
 .uk-tooltip-bottom-left:after,
 .uk-tooltip-bottom-right:after {
 	top: -@tooltip-triangle-size;
-	border-bottom-style: solid; 
-	border-top: none; 
-	border-left-color: transparent; 
-	border-right-color: transparent; 
+	border-bottom-style: solid;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
 	border-bottom-color: @tooltip-background;
 }
 
@@ -102,9 +99,9 @@
  */
 
 .uk-tooltip-top:after,
-.uk-tooltip-bottom:after { 
-	left: 50%; 
-	margin-left: -@tooltip-triangle-size; 
+.uk-tooltip-bottom:after {
+	left: 50%;
+	margin-left: -@tooltip-triangle-size;
 }
 
 /*
@@ -112,14 +109,18 @@
  */
 
 .uk-tooltip-top-left:after,
-.uk-tooltip-bottom-left:after { left: 10px; }
+.uk-tooltip-bottom-left:after {
+	left: 10px;
+}
 
 /*
  * Top/Bottom right
  */
 
 .uk-tooltip-top-right:after,
-.uk-tooltip-bottom-right:after { right: 10px; }
+.uk-tooltip-bottom-right:after {
+	right: 10px;
+}
 
 /*
  * Left
@@ -151,8 +152,8 @@
 	border-right-color: @tooltip-background;
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-tooltip() {}
+.hook-tooltip() {
+}

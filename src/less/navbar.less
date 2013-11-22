@@ -23,7 +23,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -43,8 +42,9 @@
 	display: table;
 }
 
-.uk-navbar:after { clear: both; }
-
+.uk-navbar:after {
+	clear: both;
+}
 
 /* Sub-object: `uk-navbar-nav`
  ========================================================================== */
@@ -88,7 +88,9 @@
 }
 
 /* Appear not as link */
-.uk-navbar-nav > li > a[href='#'] { cursor: auto; }
+.uk-navbar-nav > li > a[href='#'] {
+	cursor: auto;
+}
 
 /*
  * Hover
@@ -99,14 +101,15 @@
 
 .uk-navbar-nav > li:hover > a,
 .uk-navbar-nav > li > a:focus, /* 1 */
-.uk-navbar-nav > li.uk-open > a { /* 2 */
+.uk-navbar-nav > li.uk-open > a {
+	/* 2 */
 	background-color: @navbar-nav-hover-background;
 	color: @navbar-nav-hover-color;
 	outline: none; /* 3 */
 	.hook-navbar-nav-hover;
 }
 
-/* OnClick */  
+/* OnClick */
 .uk-navbar-nav > li > a:active {
 	background-color: @navbar-nav-onclick-background;
 	color: @navbar-nav-onclick-color;
@@ -120,18 +123,18 @@
 	.hook-navbar-nav-active;
 }
 
-
 /* Sub-objects: `uk-navbar-nav-subtitle`
  ========================================================================== */
 
-.uk-navbar-nav .uk-navbar-nav-subtitle { line-height: (@navbar-nav-line-height - @navbar-nav-subtitle-font-size - @navbar-nav-subtitle-offset); }
+.uk-navbar-nav .uk-navbar-nav-subtitle {
+	line-height: (@navbar-nav-line-height - @navbar-nav-subtitle-font-size - @navbar-nav-subtitle-offset);
+}
 
 .uk-navbar-nav-subtitle > div {
 	margin-top: ((@navbar-nav-line-height - @navbar-nav-subtitle-font-size - @navbar-nav-font-size) / -2) + @navbar-nav-subtitle-offset;
 	font-size: @navbar-nav-subtitle-font-size;
 	line-height: @navbar-nav-subtitle-font-size + @navbar-nav-subtitle-offset;
 }
-
 
 /* Sub-objects: `uk-navbar-content`, `uk-navbar-brand`, `uk-navbar-toggle`
  ========================================================================== */
@@ -160,10 +163,9 @@
 .uk-navbar-toggle:before {
 	content: '';
 	display: inline-block;
-	height: 100%; 
+	height: 100%;
 	vertical-align: middle;
 }
-
 
 /* Sub-objects: `uk-navbar-content`
  ========================================================================== */
@@ -172,15 +174,21 @@
  * Better sibling spacing
  */
 
-.uk-navbar-content + .uk-navbar-content:not(.uk-navbar-center) { padding-left: 0; }
+.uk-navbar-content + .uk-navbar-content:not(.uk-navbar-center) {
+	padding-left: 0;
+}
 
 /*
  * Link colors
  */
 
-.uk-navbar-content > a:not([class]) { color: @navbar-link-color; }
-.uk-navbar-content > a:not([class]):hover { color: @navbar-link-hover-color; }
+.uk-navbar-content > a:not([class]) {
+	color: @navbar-link-color;
+}
 
+.uk-navbar-content > a:not([class]):hover {
+	color: @navbar-link-hover-color;
+}
 
 /* Sub-objects: `uk-navbar-brand`
  ========================================================================== */
@@ -196,12 +204,12 @@
  */
 
 .uk-navbar-brand:hover,
-.uk-navbar-brand:focus { /* 1 */
+.uk-navbar-brand:focus {
+	/* 1 */
 	color: @navbar-brand-hover-color;
 	text-decoration: none;
 	outline: none; /* 2 */
 }
-
 
 /* Sub-object: `uk-navbar-toggle`
  ========================================================================== */
@@ -217,7 +225,8 @@
  */
 
 .uk-navbar-toggle:hover,
-.uk-navbar-toggle:focus { /* 1 */
+.uk-navbar-toggle:focus {
+	/* 1 */
 	color: @navbar-toggle-hover-color;
 	text-decoration: none;
 	outline: none; /* 2 */
@@ -233,8 +242,9 @@
 	vertical-align: middle; /* 1 */
 }
 
-.uk-navbar-toggle-alt:after { content: @navbar-toggle-icon-alt; }
-
+.uk-navbar-toggle-alt:after {
+	content: @navbar-toggle-icon-alt;
+}
 
 /* Sub-object: `uk-navbar-center`
  ========================================================================== */
@@ -251,19 +261,30 @@
 	text-align: center;
 }
 
-
 /* Sub-object: `uk-navbar-flip`
  ========================================================================== */
 
-.uk-navbar-flip { float: right; }
-
+.uk-navbar-flip {
+	float: right;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-navbar() {}
-.hook-navbar-nav() {}
-.hook-navbar-nav-hover() {}
-.hook-navbar-nav-onclick() {}
-.hook-navbar-nav-active() {}
-.hook-navbar-content() {}
+.hook-navbar() {
+}
+
+.hook-navbar-nav() {
+}
+
+.hook-navbar-nav-hover() {
+}
+
+.hook-navbar-nav-onclick() {
+}
+
+.hook-navbar-nav-active() {
+}
+
+.hook-navbar-content() {
+}

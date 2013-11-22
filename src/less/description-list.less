@@ -9,10 +9,8 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
-
 
 /* Modifier: `uk-description-list-horizontal`
  ========================================================================== */
@@ -20,7 +18,9 @@
 /* Only tablets and desktops */
 @media (min-width: @breakpoint-medium) {
 
-	.uk-description-list-horizontal { overflow: hidden; }
+	.uk-description-list-horizontal {
+		overflow: hidden;
+	}
 
 	.uk-description-list-horizontal > dt {
 		width: 160px;
@@ -31,15 +31,18 @@
 		white-space: nowrap;
 	}
 
-	.uk-description-list-horizontal > dd { margin-left: 180px; }
+	.uk-description-list-horizontal > dd {
+		margin-left: 180px;
+	}
 
 }
-
 
 /* Modifier: `uk-description-list-line`
  ========================================================================== */
 
-.uk-description-list-line > dt { font-weight: normal; }
+.uk-description-list-line > dt {
+	font-weight: normal;
+}
 
 .uk-description-list-line > dt:nth-child(n+2) {
 	margin-top: 5px;
@@ -47,4 +50,6 @@
 	border-top: 1px solid @description-list-line-border;
 }
 
-.uk-description-list-line > dd { color: @description-list-line-color; }
+.uk-description-list-line > dd {
+	color: @description-list-line-color;
+}

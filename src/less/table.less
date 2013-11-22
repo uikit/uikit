@@ -11,7 +11,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -25,7 +24,9 @@
  * Add margin if adjacent element
  */
 
-* + .uk-table { margin-top: @table-margin-vertical; }
+* + .uk-table {
+	margin-top: @table-margin-vertical;
+}
 
 .uk-table th,
 .uk-table td {
@@ -34,10 +35,17 @@
 }
 
 /* Set alignment */
-.uk-table th { text-align: left; }
-.uk-table td { vertical-align: top; }
+.uk-table th {
+	text-align: left;
+}
 
-.uk-table thead th { vertical-align: bottom; }
+.uk-table td {
+	vertical-align: top;
+}
+
+.uk-table thead th {
+	vertical-align: bottom;
+}
 
 /*
  * Caption and footer
@@ -54,33 +62,37 @@
 	color: @table-caption-color;
 }
 
-
 /* Sub-modifier: `uk-table-middel`
  ========================================================================== */
 
 .uk-table-middle,
-.uk-table-middle td { vertical-align: middle !important; }
-
+.uk-table-middle td {
+	vertical-align: middle !important;
+}
 
 /* Modifier: `uk-table-striped`
  ========================================================================== */
 
-.uk-table-striped tbody tr:nth-of-type(odd) td { background: @table-striped-background; }
-
+.uk-table-striped tbody tr:nth-of-type(odd) td {
+	background: @table-striped-background;
+}
 
 /* Modifier: `uk-table-condensed`
  ========================================================================== */
 
-.uk-table-condensed td { padding: @table-condensed-padding-vertical @table-condensed-padding-horizontal; }
-
+.uk-table-condensed td {
+	padding: @table-condensed-padding-vertical @table-condensed-padding-horizontal;
+}
 
 /* Modifier: `uk-table-hover`
  ========================================================================== */
 
-.uk-table-hover tbody tr:hover td { background: @table-hover-background; }
-
+.uk-table-hover tbody tr:hover td {
+	background: @table-hover-background;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-table() {}
+.hook-table() {
+}

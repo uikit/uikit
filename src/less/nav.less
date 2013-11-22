@@ -27,7 +27,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -47,15 +46,21 @@
 	text-decoration: none;
 }
 
-.uk-nav > li > a { padding: @nav-padding-vertical @nav-padding-horizontal; }
+.uk-nav > li > a {
+	padding: @nav-padding-vertical @nav-padding-horizontal;
+}
 
 /*
  * Nested items
  */
 
-.uk-nav ul { padding-left: 15px; }
+.uk-nav ul {
+	padding-left: 15px;
+}
 
-.uk-nav ul a { padding: @nav-nested-padding-vertical @nav-nested-padding-horizontal; }
+.uk-nav ul a {
+	padding: @nav-nested-padding-vertical @nav-nested-padding-horizontal;
+}
 
 /*
  * Item subtitle
@@ -65,7 +70,6 @@
 	font-size: @nav-subtitle-font-size;
 	line-height: @nav-subtitle-line-height;
 }
-
 
 /* Sub-object: `uk-nav-header`
  ========================================================================== */
@@ -78,8 +82,9 @@
 	.hook-nav-header;
 }
 
-.uk-nav-header:not(:first-child) { margin-top: @nav-header-margin-top; }
-
+.uk-nav-header:not(:first-child) {
+	margin-top: @nav-header-margin-top;
+}
 
 /* Sub-object: `uk-nav-divider`
  ========================================================================== */
@@ -88,7 +93,6 @@
 	margin: @nav-divider-margin-vertical @nav-divider-margin-horizontal;
 	.hook-nav-divider;
 }
-
 
 /* Sub-object: `uk-nav-sub`
  ========================================================================== */
@@ -101,7 +105,6 @@ ul.uk-nav-sub {
 	padding: @nav-sub-padding-vertical 0 @nav-sub-padding-vertical @nav-sub-padding-left;
 	.hook-nav-sub;
 }
-
 
 /* Modifier: `uk-nav-parent-icon`
  ========================================================================== */
@@ -116,8 +119,9 @@ ul.uk-nav-sub {
 	.hook-nav-parent-icon;
 }
 
-.uk-nav-parent-icon > .uk-parent.uk-open > a:after { content: @nav-parent-open-icon; }
-
+.uk-nav-parent-icon > .uk-parent.uk-open > a:after {
+	content: @nav-parent-open-icon;
+}
 
 /* Modifier `uk-nav-side`
  ========================================================================== */
@@ -138,7 +142,8 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-side > li > a:hover,
-.uk-nav-side > li > a:focus { /* 1 */
+.uk-nav-side > li > a:focus {
+	/* 1 */
 	background: @nav-side-hover-background;
 	color: @nav-side-hover-color;
 	outline: none; /* 2 */
@@ -174,9 +179,13 @@ ul.uk-nav-sub {
  * Nested items
  */
 
-.uk-nav-side ul a { color: @nav-side-nested-color; }
-.uk-nav-side ul a:hover { color: @nav-side-nested-hover-color; }
+.uk-nav-side ul a {
+	color: @nav-side-nested-color;
+}
 
+.uk-nav-side ul a:hover {
+	color: @nav-side-nested-hover-color;
+}
 
 /* Modifier `uk-nav-dropdown`
  ========================================================================== */
@@ -197,7 +206,8 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-dropdown > li > a:hover,
-.uk-nav-dropdown > li > a:focus { /* 1 */
+.uk-nav-dropdown > li > a:focus {
+	/* 1 */
 	background: @nav-dropdown-hover-background;
 	color: @nav-dropdown-hover-color;
 	outline: none; /* 2 */
@@ -226,9 +236,13 @@ ul.uk-nav-sub {
  * Nested items
  */
 
-.uk-nav-dropdown ul a { color: @nav-dropdown-nested-color; }
-.uk-nav-dropdown ul a:hover { color: @nav-dropdown-nested-hover-color; }
+.uk-nav-dropdown ul a {
+	color: @nav-dropdown-nested-color;
+}
 
+.uk-nav-dropdown ul a:hover {
+	color: @nav-dropdown-nested-hover-color;
+}
 
 /* Modifier `uk-nav-navbar`
  ========================================================================== */
@@ -249,7 +263,8 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-navbar > li > a:hover,
-.uk-nav-navbar > li > a:focus { /* 1 */
+.uk-nav-navbar > li > a:focus {
+	/* 1 */
 	background: @nav-navbar-hover-background;
 	color: @nav-navbar-hover-color;
 	outline: none; /* 2 */
@@ -278,9 +293,13 @@ ul.uk-nav-sub {
  * Nested items
  */
 
-.uk-nav-navbar ul a { color: @nav-navbar-nested-color; }
-.uk-nav-navbar ul a:hover { color: @nav-navbar-nested-hover-color; }
+.uk-nav-navbar ul a {
+	color: @nav-navbar-nested-color;
+}
 
+.uk-nav-navbar ul a:hover {
+	color: @nav-navbar-nested-hover-color;
+}
 
 /* Modifier `uk-nav-search`
  ========================================================================== */
@@ -328,9 +347,13 @@ ul.uk-nav-sub {
  * Nested items
  */
 
-.uk-nav-search ul a { color: @nav-search-nested-color; }
-.uk-nav-search ul a:hover { color: @nav-search-nested-hover-color; }
+.uk-nav-search ul a {
+	color: @nav-search-nested-color;
+}
 
+.uk-nav-search ul a:hover {
+	color: @nav-search-nested-hover-color;
+}
 
 /* Modifier `uk-nav-offcanvas`
  ========================================================================== */
@@ -354,7 +377,8 @@ ul.uk-nav-sub {
 
 .uk-nav-offcanvas > .uk-open > a,
 html:not(.uk-touch) .uk-nav-offcanvas > li > a:hover,
-html:not(.uk-touch) .uk-nav-offcanvas > li > a:focus { /* 1 */
+html:not(.uk-touch) .uk-nav-offcanvas > li > a:focus {
+	/* 1 */
 	background: @nav-offcanvas-hover-background;
 	color: @nav-offcanvas-hover-color;
 	outline: none; /* 2 */
@@ -394,41 +418,91 @@ html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
  * No hover on touch devices because it behaves buggy in fixed offcanvas
  */
 
-.uk-nav-offcanvas ul a { color: @nav-offcanvas-nested-color; }
-html:not(.uk-touch) .uk-nav-offcanvas ul a:hover { color: @nav-offcanvas-nested-hover-color; }
+.uk-nav-offcanvas ul a {
+	color: @nav-offcanvas-nested-color;
+}
 
+html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
+	color: @nav-offcanvas-nested-hover-color;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-nav-header() {}
-.hook-nav-divider() {}
-.hook-nav-sub() {}
-.hook-nav-parent-icon() {}
+.hook-nav-header() {
+}
 
-.hook-nav-side() {}
-.hook-nav-side-hover() {}
-.hook-nav-side-active() {}
-.hook-nav-side-header() {}
-.hook-nav-side-divider() {}
+.hook-nav-divider() {
+}
 
-.hook-nav-dropdown() {}
-.hook-nav-dropdown-hover() {}
-.hook-nav-dropdown-header() {}
-.hook-nav-dropdown-divider() {}
+.hook-nav-sub() {
+}
 
-.hook-nav-navbar() {}
-.hook-nav-navbar-hover() {}
-.hook-nav-navbar-header() {}
-.hook-nav-navbar-divider() {}
+.hook-nav-parent-icon() {
+}
 
-.hook-nav-search() {}
-.hook-nav-search-active() {}
-.hook-nav-search-header() {}
-.hook-nav-search-divider() {}
+.hook-nav-side() {
+}
 
-.hook-nav-offcanvas() {}
-.hook-nav-offcanvas-hover() {}
-.hook-nav-offcanvas-active() {}
-.hook-nav-offcanvas-header() {}
-.hook-nav-offcanvas-divider() {}
+.hook-nav-side-hover() {
+}
+
+.hook-nav-side-active() {
+}
+
+.hook-nav-side-header() {
+}
+
+.hook-nav-side-divider() {
+}
+
+.hook-nav-dropdown() {
+}
+
+.hook-nav-dropdown-hover() {
+}
+
+.hook-nav-dropdown-header() {
+}
+
+.hook-nav-dropdown-divider() {
+}
+
+.hook-nav-navbar() {
+}
+
+.hook-nav-navbar-hover() {
+}
+
+.hook-nav-navbar-header() {
+}
+
+.hook-nav-navbar-divider() {
+}
+
+.hook-nav-search() {
+}
+
+.hook-nav-search-active() {
+}
+
+.hook-nav-search-header() {
+}
+
+.hook-nav-search-divider() {
+}
+
+.hook-nav-offcanvas() {
+}
+
+.hook-nav-offcanvas-hover() {
+}
+
+.hook-nav-offcanvas-active() {
+}
+
+.hook-nav-offcanvas-header() {
+}
+
+.hook-nav-offcanvas-divider() {
+}

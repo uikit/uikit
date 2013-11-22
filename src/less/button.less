@@ -20,7 +20,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -59,7 +58,8 @@ a.uk-button {
  */
 
 .uk-button:hover,
-.uk-button:focus { /* 1 */
+.uk-button:focus {
+	/* 1 */
 	background-color: @button-hover-background;
 	color: @button-hover-color;
 	outline: none; /* 2 */
@@ -73,7 +73,6 @@ a.uk-button {
 	color: @button-active-color;
 	.hook-button-active;
 }
-
 
 /* Color modifiers
  ========================================================================== */
@@ -156,7 +155,6 @@ a.uk-button {
 	.hook-button-danger-active;
 }
 
-
 /* Disabled state
  * Overrides also the color modifiers
  ========================================================================== */
@@ -168,11 +166,10 @@ a.uk-button {
 	.hook-button-disable;
 }
 
-
 /* Modifier: `uk-button-link`
  ========================================================================== */
 
- /* Reset */
+/* Reset */
 .uk-button-link,
 .uk-button-link:hover,
 .uk-button-link:focus,
@@ -186,7 +183,9 @@ a.uk-button {
 }
 
 /* Color */
-.uk-button-link { color: @button-link-color; }
+.uk-button-link {
+	color: @button-link-color;
+}
 
 .uk-button-link:hover,
 .uk-button-link:focus,
@@ -196,11 +195,14 @@ a.uk-button {
 	text-decoration: underline;
 }
 
-.uk-button-link:disabled { color: @button-link-disabled-color; }
+.uk-button-link:disabled {
+	color: @button-link-disabled-color;
+}
 
 /* Focus */
-.uk-button-link:focus { outline: 1px dotted; }
-
+.uk-button-link:focus {
+	outline: 1px dotted;
+}
 
 /* Size modifiers
  ========================================================================== */
@@ -237,8 +239,9 @@ a.uk-button {
 	text-align: center;
 }
 
-.uk-button-expand + .uk-button-expand { margin-top: 10px; }
-
+.uk-button-expand + .uk-button-expand {
+	margin-top: 10px;
+}
 
 /* Sub-object `uk-button-group`
  ========================================================================== */
@@ -262,8 +265,9 @@ a.uk-button {
 	white-space: nowrap;
 }
 
-.uk-button-group > * { display: inline-block; }
-
+.uk-button-group > * {
+	display: inline-block;
+}
 
 /* Sub-object: `uk-button-dropdown`
  ========================================================================== */
@@ -281,22 +285,50 @@ a.uk-button {
 	position: relative;
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-button() {}
-.hook-button-hover() {}
-.hook-button-active() {}
-.hook-button-primary() {}
-.hook-button-primary-hover() {}
-.hook-button-primary-active() {}
-.hook-button-success() {}
-.hook-button-success-hover() {}
-.hook-button-success-active() {}
-.hook-button-danger() {}
-.hook-button-danger-hover() {}
-.hook-button-danger-active() {}
-.hook-button-disable() {}
-.hook-button-link() {}
-.hook-button-large() {}
+.hook-button() {
+}
+
+.hook-button-hover() {
+}
+
+.hook-button-active() {
+}
+
+.hook-button-primary() {
+}
+
+.hook-button-primary-hover() {
+}
+
+.hook-button-primary-active() {
+}
+
+.hook-button-success() {
+}
+
+.hook-button-success-hover() {
+}
+
+.hook-button-success-active() {
+}
+
+.hook-button-danger() {
+}
+
+.hook-button-danger-hover() {
+}
+
+.hook-button-danger-active() {
+}
+
+.hook-button-disable() {
+}
+
+.hook-button-link() {
+}
+
+.hook-button-large() {
+}

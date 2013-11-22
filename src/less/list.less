@@ -10,7 +10,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -29,7 +28,6 @@
 	list-style: none;
 }
 
-
 /* Modifier: `uk-list-line`
  ========================================================================== */
 
@@ -40,7 +38,6 @@
 	.hook-list-line;
 }
 
-
 /* Modifier: `uk-list-striped`
  ========================================================================== */
 
@@ -49,17 +46,22 @@
 	.hook-list-striped;
 }
 
-.uk-list-striped > li:nth-of-type(odd) { background: @list-striped-background; }
-
+.uk-list-striped > li:nth-of-type(odd) {
+	background: @list-striped-background;
+}
 
 /* Modifier: `uk-list-space`
  ========================================================================== */
 
-.uk-list-space > li:nth-child(n+2) { margin-top: @list-space-margin-top; }
-
+.uk-list-space > li:nth-child(n+2) {
+	margin-top: @list-space-margin-top;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-list-line() {}
-.hook-list-striped() {}
+.hook-list-line() {
+}
+
+.hook-list-striped() {
+}

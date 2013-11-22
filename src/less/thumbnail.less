@@ -14,7 +14,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -45,14 +44,14 @@
  */
 
 a.uk-thumbnail:hover,
-a.uk-thumbnail:focus { /* 1 */
+a.uk-thumbnail:focus {
+	/* 1 */
 	border-color: @thumbnail-hover-border;
 	background-color: @thumbnail-hover-background;
 	text-decoration: none; /* 2 */
 	outline: none; /* 3 */
 	.hook-thumbnail-hover;
 }
-
 
 /* Caption
  ========================================================================== */
@@ -64,22 +63,38 @@ a.uk-thumbnail:focus { /* 1 */
 	.hook-thumbnail-caption;
 }
 
-
 /* Sizes
  ========================================================================== */
 
-.uk-thumbnail-mini { width: 150px; }
-.uk-thumbnail-small { width: 200px; }
-.uk-thumbnail-medium { width: 300px; }
-.uk-thumbnail-large { width: 400px; }
+.uk-thumbnail-mini {
+	width: 150px;
+}
+
+.uk-thumbnail-small {
+	width: 200px;
+}
+
+.uk-thumbnail-medium {
+	width: 300px;
+}
+
+.uk-thumbnail-large {
+	width: 400px;
+}
 
 .uk-thumbnail-expand,
-.uk-thumbnail-expand > img { width: 100%; }
-
+.uk-thumbnail-expand > img {
+	width: 100%;
+}
 
 /* Hooks
  ========================================================================== */
 
-.hook-thumbnail() {}
-.hook-thumbnail-hover() {}
-.hook-thumbnail-caption() {}
+.hook-thumbnail() {
+}
+
+.hook-thumbnail-hover() {
+}
+
+.hook-thumbnail-caption() {
+}

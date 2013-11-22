@@ -10,7 +10,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -31,7 +30,6 @@
 	/* 4 */
 	vertical-align: middle;
 }
-
 
 /* Sub-object `uk-overlay-area`
  ========================================================================== */
@@ -64,7 +62,11 @@
  */
 
 .uk-overlay:hover .uk-overlay-area,
-.uk-overlay-toggle:hover .uk-overlay-area { opacity: 1; } /* 1 */
+.uk-overlay-toggle:hover .uk-overlay-area {
+	opacity: 1;
+}
+
+/* 1 */
 
 /*
  * Icon
@@ -86,7 +88,6 @@
 	color: @overlay-area-icon-color;
 	.hook-overlay-area-icon;
 }
-
 
 /* Sub-object `uk-overlay-caption`
  ========================================================================== */
@@ -120,12 +121,20 @@
  */
 
 .uk-overlay:hover .uk-overlay-caption,
-.uk-overlay-toggle:hover .uk-overlay-caption { opacity: 1; } /* 1 */
+.uk-overlay-toggle:hover .uk-overlay-caption {
+	opacity: 1;
+}
 
+/* 1 */
 
 /* Hooks
  ========================================================================== */
 
-.hook-overlay-area() {}
-.hook-overlay-area-icon() {}
-.hook-overlay-caption() {}
+.hook-overlay-area() {
+}
+
+.hook-overlay-area-icon() {
+}
+
+.hook-overlay-caption() {
+}

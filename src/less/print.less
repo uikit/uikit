@@ -8,7 +8,6 @@
  *
  ========================================================================== */
 
-
 @media print {
 
 	* {
@@ -19,7 +18,9 @@
 	}
 
 	a,
-	a:visited { text-decoration: underline; }
+	a:visited {
+		text-decoration: underline;
+	}
 
 	pre,
 	blockquote {
@@ -27,14 +28,22 @@
 		page-break-inside: avoid;
 	}
 
-	thead { display: table-header-group; }
+	thead {
+		display: table-header-group;
+	}
 
 	tr,
-	img { page-break-inside: avoid; }
+	img {
+		page-break-inside: avoid;
+	}
 
-	img { max-width: 100% !important; }
+	img {
+		max-width: 100% !important;
+	}
 
-	@page { margin: 0.5cm; }
+	@page {
+		margin: 0.5cm;
+	}
 
 	p,
 	h2,
@@ -44,6 +53,8 @@
 	}
 
 	h2,
-	h3 { page-break-after: avoid; }
+	h3 {
+		page-break-after: avoid;
+	}
 
 }

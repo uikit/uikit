@@ -22,7 +22,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -30,8 +29,9 @@
  * Create position context for badges
  */
 
-.uk-panel { position: relative; }
-
+.uk-panel {
+	position: relative;
+}
 
 /*
  * Micro clearfix to make panels more robust
@@ -43,14 +43,17 @@
 	display: table;
 }
 
-.uk-panel:after { clear: both; }
+.uk-panel:after {
+	clear: both;
+}
 
 /*
  * Remove margin from the last-child if not `uk-widget-title`
  */
 
-.uk-panel > :not(.uk-panel-title):last-child { margin-bottom: 0; }
-
+.uk-panel > :not(.uk-panel-title):last-child {
+	margin-bottom: 0;
+}
 
 /* Sub-object: `uk-panel-title`
  ========================================================================== */
@@ -64,7 +67,6 @@
 	color: @panel-title-color;
 	.hook-panel-title;
 }
-
 
 /* Sub-object: `uk-panel-badge`
  ========================================================================== */
@@ -81,8 +83,9 @@
  * Remove margin from adjacent element
  */
 
-.uk-panel-badge + * { margin-top: 0; }
-
+.uk-panel-badge + * {
+	margin-top: 0;
+}
 
 /* Modifier: `uk-panel-box`
  ========================================================================== */
@@ -94,7 +97,9 @@
 	.hook-panel-box;
 }
 
-.uk-panel-box .uk-panel-title { color: @panel-box-title-color; }
+.uk-panel-box .uk-panel-title {
+	color: @panel-box-title-color;
+}
 
 .uk-panel-box .uk-panel-badge {
 	top: @panel-box-badge-top;
@@ -105,7 +110,9 @@
  * Nav in panel
  */
 
-.uk-panel-box > .uk-nav-side { margin: 0 -@panel-box-padding; }
+.uk-panel-box > .uk-nav-side {
+	margin: 0 -@panel-box-padding;
+}
 
 /*
  * Sub-modifier: `uk-panel-box-primary`
@@ -117,7 +124,9 @@
 	.hook-panel-box-primary;
 }
 
-.uk-panel-box-primary .uk-panel-title { color: @panel-box-primary-title-color; }
+.uk-panel-box-primary .uk-panel-title {
+	color: @panel-box-primary-title-color;
+}
 
 /*
  * Sub-modifier: `uk-panel-box-secondary`
@@ -129,8 +138,9 @@
 	.hook-panel-box-secondary;
 }
 
-.uk-panel-box-secondary .uk-panel-title { color: @panel-box-secondary-title-color; }
-
+.uk-panel-box-secondary .uk-panel-title {
+	color: @panel-box-secondary-title-color;
+}
 
 /* Modifier: `uk-panel-header`
  ========================================================================== */
@@ -142,22 +152,24 @@
 	.hook-panel-header;
 }
 
-
 /* Modifier: `uk-panel-space`
  ========================================================================== */
 
-.uk-panel-space { padding: @panel-space-padding; }
+.uk-panel-space {
+	padding: @panel-space-padding;
+}
 
 .uk-panel-space .uk-panel-badge {
 	top: @panel-space-padding;
 	right: @panel-space-padding;
 }
 
-
 /* Modifier: `uk-panel-divider`
  ========================================================================== */
 
-.uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter * 2) !important; }
+.uk-panel + .uk-panel-divider {
+	margin-top: (@panel-divider-gutter * 2) !important;
+}
 
 .uk-panel + .uk-panel-divider:before {
 	content: "";
@@ -172,18 +184,33 @@
 /* Only large screens */
 @media (min-width: @breakpoint-xlarge) {
 
-	.uk-panel + .uk-panel-divider { margin-top: (@panel-divider-large-gutter * 2) !important; }
-	.uk-panel + .uk-panel-divider:before { top: -(@panel-divider-large-gutter); }
+	.uk-panel + .uk-panel-divider {
+		margin-top: (@panel-divider-large-gutter * 2) !important;
+	}
+
+	.uk-panel + .uk-panel-divider:before {
+		top: -(@panel-divider-large-gutter);
+	}
 
 }
-
 
 /* Hooks
  ========================================================================== */
 
-.hook-panel-title() {}
-.hook-panel-badge() {}
-.hook-panel-box() {}
-.hook-panel-box-primary() {}
-.hook-panel-box-secondary() {}
-.hook-panel-header() {}
+.hook-panel-title() {
+}
+
+.hook-panel-badge() {
+}
+
+.hook-panel-box() {
+}
+
+.hook-panel-box-primary() {
+}
+
+.hook-panel-box-secondary() {
+}
+
+.hook-panel-header() {
+}
