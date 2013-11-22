@@ -35,7 +35,7 @@
     function Plugin(element, options)
     {
 
-        var $this = this, $element = $(element);
+        var $element = $(element);
 
         if($element.data("uksortable")) return;
 
@@ -238,7 +238,7 @@
         setParent: function(li)
         {
             if (li.children(this.options.listNodeName).length) {
-                li.addClass("uk-parent")
+                li.addClass("uk-parent");
             }
         },
 
