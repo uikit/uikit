@@ -24,8 +24,7 @@
  ========================================================================== */
 
 .uk-container {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	@include border-box();
 	max-width: @utility-container-max-width;
 	padding: 0 @utility-container-padding-horizontal;
 	.hook-container;
@@ -178,7 +177,7 @@
 
 .uk-vertical-align:before {
 	content: '';
-	display: inline-block;
+	@include inline-block();
 	height: 100%;
 	vertical-align: middle;
 }
@@ -190,7 +189,7 @@
 
 .uk-vertical-align-middle,
 .uk-vertical-align-bottom {
-	display: inline-block;
+	@include inline-block();
 	letter-spacing: normal; /* 1 */
 	max-width: 100%;
 }
@@ -221,8 +220,7 @@
 
 .uk-responsive-width,
 .uk-responsive-height {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	@include border-box();
 }
 
 /*
@@ -342,8 +340,7 @@
  */
 
 .uk-scrollable-box {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	@include border-box();
 	max-height: @utility-scrollable-box-height;
 	padding: @utility-scrollable-box-padding;
 	border: 1px solid @utility-scrollable-box-border;

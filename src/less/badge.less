@@ -14,7 +14,7 @@
  ========================================================================== */
 
 .uk-badge {
-	display: inline-block;
+	@include inline-block();
 	padding: 0 @badge-padding-horizontal;
 	background: @badge-background;
 	font-size: @badge-font-size;
@@ -31,8 +31,7 @@
  ========================================================================== */
 
 .uk-badge-notification {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	@include border-box();
 	min-width: @badge-notification-line-height;
 	border-radius: 500px;
 	font-size: @badge-notification-font-size;

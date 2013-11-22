@@ -21,7 +21,7 @@
  ========================================================================== */
 
 @font-face {
-	font-family: 'FontAwesome';
+	font-family: "FontAwesome";
 	src: url("../fonts/fontawesome-webfont.eot");
 	src: url("../fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff") format("woff"), url("../fonts/fontawesome-webfont.ttf") format("truetype");
 	font-weight: normal;
@@ -40,7 +40,7 @@
  */
 
 [class*='uk-icon-']:before {
-	display: inline-block; /* 1 */
+	@include inline-block(); /* 1 */
 	font-family: "FontAwesome";
 	font-weight: normal; /* 2 */
 	font-style: normal; /* 2 */
@@ -71,7 +71,7 @@
  ========================================================================== */
 
 .uk-icon-spin {
-	display: inline-block;
+	@include inline-block();
 	-webkit-animation: uk-spin 2s infinite linear;
 	animation: uk-spin 2s infinite linear;
 }
@@ -80,9 +80,8 @@
  ========================================================================== */
 
 .uk-icon-button {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	display: inline-block;
+	@include border-box;
+	@include inline-block();
 	width: @icon-button-width;
 	height: @icon-button-height;
 	border-radius: @icon-button-border-radius;

@@ -43,7 +43,7 @@
 .uk-subnav > li,
 .uk-subnav > li > a,
 .uk-subnav > li > span {
-	display: inline-block;
+	@include inline-block();
 }
 
 .uk-subnav > li:nth-child(n+2) {
@@ -75,7 +75,7 @@
 
 .uk-subnav-line > li:nth-child(n+2):before {
 	content: "";
-	display: inline-block;
+	@include inline-block();
 	height: @subnav-line-border-height;
 	margin-right: @subnav-margin;
 	border-left: 1px solid @subnav-line-border;

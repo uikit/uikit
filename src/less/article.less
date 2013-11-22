@@ -17,16 +17,10 @@
 /*
  * Micro clearfix to make articles more robust
  */
-
-.uk-article:before,
-.uk-article:after {
-	content: " ";
-	display: table;
+.uk-article {
+	@include .clearfix;
 }
 
-.uk-article:after {
-	clear: both;
-}
 
 /*
  * Remove margin from the last-child

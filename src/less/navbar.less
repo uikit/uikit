@@ -72,8 +72,7 @@
 
 .uk-navbar-nav > li > a {
 	display: block;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	@include border-box();
 	text-decoration: none;
 	/* 1 */
 	height: @navbar-nav-height;
@@ -146,8 +145,7 @@
 .uk-navbar-content,
 .uk-navbar-brand,
 .uk-navbar-toggle {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	@include border-box();
 	height: @navbar-nav-height;
 	padding: 0 @navbar-nav-padding-horizontal;
 	float: left;
@@ -162,7 +160,7 @@
 .uk-navbar-brand:before,
 .uk-navbar-toggle:before {
 	content: '';
-	display: inline-block;
+	@include inline-block();
 	height: 100%;
 	vertical-align: middle;
 }

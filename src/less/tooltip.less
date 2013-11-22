@@ -32,8 +32,7 @@
 	position: absolute;
 	z-index: @tooltip-z-index;
 	/* 3 */
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	@include border-box();
 	max-width: @tooltip-max-width;
 	padding: 5px 8px;
 	/* 4 */

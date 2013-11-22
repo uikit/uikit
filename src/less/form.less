@@ -63,12 +63,11 @@
 .uk-form input[type="color"] {
 	height: @form-height; /* 1 */
 	max-width: 100%; /* 2 */
-	padding: 4px 6px;
+	padding: 0.2em 6px;
 	border: 1px solid @form-border;
 	background: @form-background;
 	color: @form-color;
-	-webkit-transition: all linear 0.2s;
-	transition: all linear 0.2s;
+	@include .transition(all linear 0.2s);
 	.hook-form;
 
 	/* Focus state */
@@ -273,7 +272,7 @@ select.uk-form-width-mini {
  ========================================================================== */
 
 .uk-form-help-inline {
-	display: inline-block;
+	@include inline-block();
 	margin: 0 0 0 10px;
 }
 

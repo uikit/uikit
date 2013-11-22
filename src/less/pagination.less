@@ -57,7 +57,7 @@
  */
 
 .uk-pagination > li {
-	display: inline-block;
+	@include inline-block();
 	letter-spacing: normal; /* 1 */
 }
 
@@ -74,7 +74,7 @@
 .uk-pagination > li > span {
 	-moz-box-sizing: content-box;
 	box-sizing: content-box; /* 1 */
-	display: inline-block;
+	@include inline-block();
 	min-width: @pagination-line-height - 4;
 	padding: 3px 5px;
 	line-height: @pagination-line-height;

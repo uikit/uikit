@@ -134,8 +134,7 @@ dfn[title] {
  */
 
 img {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box; /* 1 */
+	@include border-box(); /* 1 */
 	max-width: 100%; /* 2 */
 	height: auto; /* 2 */
 	vertical-align: middle; /* 3 */

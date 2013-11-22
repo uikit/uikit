@@ -39,12 +39,12 @@
 .uk-breadcrumb > li,
 .uk-breadcrumb > li > a,
 .uk-breadcrumb > li > span {
-	display: inline-block;
+	@include inline-block();
 }
 
 .uk-breadcrumb > li:nth-child(n+2):before {
 	content: @breadcrumb-divider;
-	display: inline-block;
+	@include inline-block();
 	margin: 0 @breadcrumb-divider-margin;
 	vertical-align: top; /* 2 */
 	.hook-breadcrumb-divider;
