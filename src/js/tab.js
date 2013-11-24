@@ -60,14 +60,10 @@
         this.element.data("tab", this);
     };
 
-    $(document).on("uk-domready", function(e) {
+    $(document).on("uk-domready", function() {
 
         $("[data-uk-tab]").each(function() {
-            var tab = $(this);
-
-            if (!tab.data("tab")) {
-                var obj = new Tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
-            }
+            new Tab(this, UI.Utils.options(this.getAttribute("data-uk-tab")));
         });
     });
 
