@@ -29,12 +29,11 @@
 
     var eStart  = hasTouch ? 'touchstart'  : 'mousedown',
         eMove   = hasTouch ? 'touchmove'   : 'mousemove',
-        eEnd    = hasTouch ? 'touchend'    : 'mouseup';
+        eEnd    = hasTouch ? 'touchend'    : 'mouseup',
         eCancel = hasTouch ? 'touchcancel' : 'mouseup';
 
     function Plugin(element, options)
     {
-
         var $element = $(element);
 
         if($element.data("uksortable")) return;
@@ -70,11 +69,13 @@
 
             list.placeEl = $('<div class="' + list.options.placeClass + '"/>');
 
-            $.each(this.el.find(list.options.itemNodeName), function(k, el) {
+            $.each(this.el.find(list.options.itemNodeName), function(k, el)
+            {
                 list.setParent($(el));
             });
 
-            list.el.on('click', '[data-action]', function(e) {
+            list.el.on('click', '[data-action]', function(e)
+            {
                 if (list.dragEl || (!hasTouch && e.button !== 0)) {
                     return;
                 }
@@ -165,6 +166,31 @@
             return data;
         },
 
+        list: function(options)
+        {
+            var data = [],
+                list = this,
+                depth = 0,
+                options = $.extend({}, list.options, options),
+                step = function(level, depth, parent)
+                {
+                    var items = level.children(options.itemNodeName);
+                    items.each(function(index)
+                    {
+                        var li = $(this),
+                            item = $.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
+                            sub = li.children(options.listNodeName);
+
+                        data.push(item);
+                        if (sub.length) {
+                            step(sub, depth + 1, li.data(options.idProperty || 'id'));
+                        }
+                    });
+                };
+            step(list.el, depth);
+            return data;
+        },
+
         reset: function()
         {
             this.mouse = {
@@ -193,7 +219,7 @@
             this.hasNewRoot = false;
             this.pointEl    = null;
 
-            for(var i=0;i<touchedlists.length;i++) {
+            for(var i=0; i<touchedlists.length; i++) {
                 if(!touchedlists[i].children().length) {
                     touchedlists[i].append(this.tplempty);
                 }
@@ -222,7 +248,8 @@
         expandAll: function()
         {
             var list = this;
-            list.el.find(list.options.itemNodeName).each(function() {
+            list.el.find(list.options.itemNodeName).each(function()
+            {
                 list.expandItem($(this));
             });
         },
@@ -230,7 +257,8 @@
         collapseAll: function()
         {
             var list = this;
-            list.el.find(list.options.itemNodeName).each(function() {
+            list.el.find(list.options.itemNodeName).each(function()
+            {
                 list.collapseItem($(this));
             });
         },
@@ -277,8 +305,8 @@
             $(document.body).append(this.dragEl);
 
             this.dragEl.css({
-                'left' : offset.left,
-                'top'  : offset.top
+                left : offset.left,
+                top  : offset.top
             });
 
             // total depth of dragging item
@@ -322,8 +350,8 @@
                 mouse = this.mouse;
 
             this.dragEl.css({
-                'left' : e.pageX - mouse.offsetX,
-                'top'  : e.pageY - mouse.offsetY
+                left : e.pageX - mouse.offsetX,
+                top  : e.pageY - mouse.offsetY
             });
 
             // mouse position last events
