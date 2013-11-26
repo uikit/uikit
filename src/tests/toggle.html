@@ -16,41 +16,39 @@
 
 			<h1>Toggle</h1>
 
-			<h2>One item</h2>
+			<p><button class="uk-button" data-uk-toggle="{toggle:'#toggle1'}">Toggle</button></p>
 
-			<p><button class="uk-button" data-uk-toggle="{toggle:'#test'}">Toggle</button></p>
-
-			<div id="test" class="uk-panel uk-panel-box">What's up?</div>
+			<div id="toggle1" class="uk-panel uk-panel-box">What's up?</div>
 
 			<h2>Two items</h2>
 
-			<p><button class="uk-button" data-uk-toggle="{toggle:'.text'}">Toggle</button></p>
+			<p><button class="uk-button" data-uk-toggle="{toggle:'.toggle2'}">Toggle</button></p>
 
-			<div class="uk-panel uk-panel-box text">Hello!</div>
+			<div class="uk-panel uk-panel-box toggle2">Hello!</div>
 
-			<div class="uk-panel uk-panel-box text uk-hidden">Bazinga!</div>
+			<div class="uk-panel uk-panel-box toggle2 uk-hidden">Bazinga!</div>
 
 			<h2>Two items with different toggles</h2>
 
-			<div class="uk-panel uk-panel-box test2">
-				<button class="uk-button" data-uk-toggle="{toggle:'.test2'}">Next</button>
+			<div class="uk-panel uk-panel-box toggle3">
+				<button class="uk-button" data-uk-toggle="{toggle:'.toggle3'}">Next</button>
 				<p>Hello!</p>
 			</div>
 
-			<div class="uk-panel uk-panel-box uk-panel-box-primary test2 uk-hidden">
-				<button class="uk-button uk-button-primary" data-uk-toggle="{toggle:'.test2'}">Previous</button>
+			<div class="uk-panel uk-panel-box uk-panel-box-primary toggle3 uk-hidden">
+				<button class="uk-button uk-button-primary" data-uk-toggle="{toggle:'.toggle3'}">Previous</button>
 				<p>Bazinga!</p>
 			</div>
 
 			<h2>Toggle all above</h2>
 
-			<button class="uk-button" data-uk-toggle="{toggle:'.test, #test, .test2'}">Go</button>
+			<button class="uk-button" data-uk-toggle="{toggle:'#toggle1, .toggle2, .toggle3'}">Go</button>
 
-			<h2>Toggle custom class</h2>
+			<h2>Custom class</h2>
 
-			<p><button class="uk-button" data-uk-toggle="{toggle:'#custom', cls:'uk-panel-box'}">Toggle</button></p>
+			<p><button class="uk-button" data-uk-toggle="{toggle:'#toggle4', cls:'uk-panel-box-primary'}">Toggle</button></p>
 
-			<div id="custom" class="uk-panel">What's up?</div>
+			<div id="toggle4" class="uk-panel uk-panel-box">What's up?</div>
 
 		</div>
 
