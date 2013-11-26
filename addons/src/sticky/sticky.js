@@ -45,7 +45,7 @@
                 newTop = newTop<0 ? newTop + s.top : s.top;
 
                 if (s.currentTop != newTop) {
-                    s.stickyElement.css({"position":"fixed", "top":newTop, "width":s.stickyElement.width()});
+                    s.stickyElement.css({"position": "fixed", "top": newTop, "width": s.stickyElement.width()});
 
                     if (typeof s.getWidthFrom !== 'undefined') {
                         s.stickyElement.css('width', $(s.getWidthFrom).width());
@@ -71,8 +71,11 @@
 
           return this.each(function() {
 
-            var stickyElement = $(this),
-                stickyId      = stickyElement.attr('id'),
+            var stickyElement = $(this);
+
+            if(stickyElement.data("sticky")) return;
+
+            var stickyId      = stickyElement.attr('id') || ("s"+Math.random()),
                 wrapper       = $('<div></div>').attr('id', stickyId + '-sticky-wrapper').addClass(o.clswrapper);
 
             stickyElement.wrapAll(wrapper);
@@ -80,6 +83,8 @@
             if (stickyElement.css("float") == "right") {
               stickyElement.css({"float":"none"}).parent().css({"float":"right"});
             }
+
+            stickyElement.data("sticky", true);
 
             var stickyWrapper = stickyElement.parent();
             stickyWrapper.css('height', stickyElement.outerHeight());
@@ -124,10 +129,9 @@
 
         $("[data-uk-sticky]").each(function(){
 
-          var $ele    = $(this),
-              options = UI.Utils.options($ele.attr('data-uk-sticky'));
+          var $ele    = $(this);
 
-              $ele.uksticky(options);
+          if(!$ele.data("sticky")) $ele.uksticky(UI.Utils.options($ele.attr('data-uk-sticky')));
         });
       }, 0);
     });
