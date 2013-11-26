@@ -60,6 +60,8 @@
         this.element.data("tab", this);
     };
 
+    UI["tab"] = Tab;
+
     $(document).on("uk-domready", function(e) {
 
         $("[data-uk-tab]").each(function() {
