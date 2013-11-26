@@ -2,6 +2,8 @@
 
 ### WIP
 
+- Added form-icon css component
+- Added toggle javascript component
 - Added outerclick support for dropdowns in hover mode
 - Added touch events support for windows 8 phones
 - Added miscellaneous hooks
