@@ -12,7 +12,7 @@
 // 					`uk-sortable-empty`
 // 					`uk-sortable-handle`
 // 					`uk-sortable-moving`
-// 					`[data-action='toggle']`
+// 					`[data-sortable-action='toggle']`
 //
 // Modifier:		`uk-sortable-list-dragged`
 //
@@ -142,7 +142,7 @@
  ========================================================================== */
 
 /* Hidden by default */
-[data-action='toggle'] {
+[data-sortable-action='toggle'] {
 	display: inline-block;
 	color: @sortable-toggle-color;
 	visibility: hidden;
@@ -150,13 +150,13 @@
 }
 
 /* Hover */
-[data-action='toggle']:hover {
+[data-sortable-action='toggle']:hover {
 	color: @sortable-toggle-hover-color;
 	cursor: pointer;
 }
 
 /* Icon */
-[data-action='toggle']:after {
+[data-sortable-action='toggle']:after {
 	content: @sortable-toggle-icon;
 	font-family: "FontAwesome";
 }
@@ -165,13 +165,13 @@
  * Show if nested
  */
 
-.uk-parent > .uk-sortable-item [data-action='toggle'] { visibility: visible; }
+.uk-parent > .uk-sortable-item [data-sortable-action='toggle'] { visibility: visible; }
 
 /*
  * Collapsed
  */
 
-.uk-collapsed > .uk-sortable-item [data-action='toggle']:after { content: @sortable-toggle-collapsed-icon; }
+.uk-collapsed > .uk-sortable-item [data-sortable-action='toggle']:after { content: @sortable-toggle-collapsed-icon; }
 
 .uk-collapsed .uk-sortable-list { display: none; }
 

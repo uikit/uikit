@@ -74,7 +74,7 @@
                 list.setParent($(el));
             });
 
-            list.el.on('click', '[data-action]', function(e)
+            list.el.on('click', '[data-sortable-action]', function(e)
             {
                 if (list.dragEl || (!hasTouch && e.button !== 0)) {
                     return;
@@ -83,7 +83,7 @@
                 e.preventDefault();
 
                 var target = $(e.currentTarget),
-                    action = target.data('action'),
+                    action = target.data('sortableAction'),
                     item   = target.closest(list.options.itemNodeName);
                 if (action === 'collapse') {
                     list.collapseItem(item);
