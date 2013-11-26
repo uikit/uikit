@@ -13,13 +13,11 @@
 
     var tests = [
             "datepicker",
-            "form-icon",
             "form-password",
             "markdownarea",
             "sortable",
             "sticky",
-            "timepicker",
-            "toggle"
+            "timepicker"
         ],
         themes = {
             "Uikit":"../../themes/default/uikit/uikit.less",

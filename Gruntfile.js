@@ -142,7 +142,8 @@ module.exports = function(grunt) {
                       "src/js/tab.js",
                       "src/js/search.js",
                       "src/js/scrollspy.js",
-                      "src/js/smooth-scroll.js"
+                      "src/js/smooth-scroll.js",
+                      "src/js/toggle.js",
                       ],
                 dest: "dist/js/uikit.js"
             }

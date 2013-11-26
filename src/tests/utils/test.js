@@ -22,6 +22,7 @@
     document.writeln('<script src="../../src/js/switcher.js"></script>');
     document.writeln('<script src="../../src/js/tab.js"></script>');
     document.writeln('<script src="../../src/js/tooltip.js"></script>');
+    document.writeln('<script src="../../src/js/toggle.js"></script>');
     document.writeln('<link rel="stylesheet" href="../../dist/css/uikit.min.css" data-compiled-css>');
     document.writeln('<style>body{ visibility: hidden; }</style>');
 
@@ -37,6 +38,7 @@
             "description-list",
             "dropdown",
             "form",
+            "form-icon",
             "grid",
             "icon",
             "list",
@@ -58,6 +60,7 @@
             "table",
             "text",
             "thumbnail",
+            "toggle",
             "tooltip",
             "utility"
         ],
