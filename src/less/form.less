@@ -306,6 +306,26 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
 }
 
 
+/* Sub-object: `uk-form-icon`
+ ========================================================================== */
+
+.uk-form-icon {
+	position: relative;
+	display: inline-block;
+	max-width: 100%;
+}
+
+.uk-form-icon > [class*='uk-icon-'] {
+	position: absolute;
+	width: @form-icon-width;
+	line-height: @form-icon-width;
+	color: @form-icon-color;
+	text-align: center;
+}
+
+.uk-form-icon > input { padding-left: @form-icon-width !important; }
+
+
 // Hooks
 // ========================================================================
 
@@ -315,5 +335,5 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
 .hook-form-danger() {}
 .hook-form-success() {}
 
-.hook-dropdown-misc;
-.hook-dropdown-misc() {}
+.hook-form-misc;
+.hook-form-misc() {}

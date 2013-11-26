@@ -38,7 +38,6 @@
             "description-list",
             "dropdown",
             "form",
-            "form-icon",
             "grid",
             "icon",
             "list",
