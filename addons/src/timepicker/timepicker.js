@@ -1,4 +1,6 @@
-// Based on https://github.com/jdewit/bootstrap-timepicker
+/*
+ * Based on https://github.com/jdewit/bootstrap-timepicker
+ */
 
 (function(global, $, UI){
 

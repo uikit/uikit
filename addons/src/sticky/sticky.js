@@ -1,6 +1,6 @@
 /*
-  Based on https://github.com/garand/sticky
-*/
+ * Based on https://github.com/garand/sticky
+ */
 
 (function(global, $, UI, $window, $document){
 
