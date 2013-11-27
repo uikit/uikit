@@ -39,14 +39,14 @@
 
 .uk-dropdown {
 	/* 1 */
-	display: none;
+	&:extend(.hidden);
 	/* 2 */
-	position: absolute;
+	&:extend(.absolute);
 	top: 100%;
 	left: 0;
 	z-index: @dropdown-z-index;
 	/* 3 */
-	.border-box();
+	&:extend(.border-box);
 	/* 4 */
 	width: @dropdown-width;
 	margin-top: @dropdown-margin-top;
@@ -56,6 +56,17 @@
 	/* 5 */
 	letter-spacing: normal;
 	.hook-dropdown;
+	.uk-nav {
+		margin: 0 -@dropdown-padding;
+	}
+	& > .uk-grid {
+		& + .uk-grid {
+			margin-top: @dropdown-padding;
+		}
+		& > [class*="uk-width-"] > .uk-panel + .uk-panel {
+			margin-top: @dropdown-padding;
+		}
+	}
 }
 
 /*
@@ -64,15 +75,21 @@
  * 3. Needed for scale animation
  */
 
-.uk-open > .uk-dropdown {
-	/* 1 */
-	display: block;
-	/* 2 */
-	-webkit-animation: @dropdown-animation 0.2s ease-in-out;
-	animation: @dropdown-animation 0.2s ease-in-out;
-	/* 3 */
-	-webkit-transform-origin: 0 0;
-	transform-origin: 0 0;
+.uk-open {
+	& > .uk-dropdown {
+		/* 1 */
+		&:extend(.block);
+		/* 2 */
+		#animation > .animation(@dropdown-animation 0.2s ease-in-out);
+		/* 3 */
+		#transform > .transform-origin(0 0);
+	}
+	& > .uk-dropdown-navbar {
+		#animation > .animation(@dropdown-navbar-animation 0.2s ease-in-out);
+	}
+	& > .uk-dropdown-search {
+		#animation > .animation(@dropdown-search-animation 0.2s ease-in-out);
+	}
 }
 
 /* Alignment modifiers
@@ -98,29 +115,8 @@
 	margin-bottom: @dropdown-margin-top;
 }
 
-/* Nav in dropdown
- ========================================================================== */
-
-.uk-dropdown .uk-nav {
-	margin: 0 -@dropdown-padding;
-}
-
 /* Grid and panel in dropdown
  ========================================================================== */
-
-/*
-* Vertical gutter
-*/
-
-/* Grid */
-.uk-dropdown > .uk-grid + .uk-grid {
-	margin-top: @dropdown-padding;
-}
-
-/* Panels */
-.uk-dropdown > .uk-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
-	margin-top: @dropdown-padding;
-}
 
 /* Only tablets and desktops */
 @media (min-width: @breakpoint-medium) {
@@ -133,7 +129,7 @@
 		margin-right: -@dropdown-padding;
 	}
 
-	.uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-'] {
+	.uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*="uk-width-"] {
 		padding-left: @dropdown-padding;
 		padding-right: @dropdown-padding;
 	}
@@ -141,7 +137,7 @@
 	/*
 	 * Column divider
 	 */
-	.uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
+	.uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*="uk-width-"]:nth-child(n+2) {
 		border-left: 1px solid @dropdown-divider-border;
 	}
 
@@ -172,14 +168,14 @@
 	/*
 	 * Stack columns and take full width
 	 */
-	.uk-dropdown > .uk-grid > [class*='uk-width-'] {
+	.uk-dropdown > .uk-grid > [class*="uk-width-"] {
 		width: 100%;
 	}
 
 	/*
 	 * Vertical gutter
 	 */
-	.uk-dropdown > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
+	.uk-dropdown > .uk-grid > [class*="uk-width-"]:nth-child(n+2) {
 		margin-top: @dropdown-padding;
 	}
 
@@ -189,12 +185,15 @@
 * Stack grid columns
 */
 
-.uk-dropdown-stack > .uk-grid > [class*='uk-width-'] {
-	width: 100%;
-}
-
-.uk-dropdown-stack > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
-	margin-top: @dropdown-padding;
+.uk-dropdown-stack {
+	> .uk-grid {
+		> [class*="uk-width-"] {
+			width: 100%;
+			&:nth-child(n+2) {
+				margin-top: @dropdown-padding;
+			}
+		}
+	}
 }
 
 /* Modifier `uk-dropdown-small`
@@ -205,19 +204,15 @@
  */
 
 .uk-dropdown-small {
-	min-width: 150px;
+	min-width: 15.5em;
 	width: auto;
 	padding: @dropdown-small-padding;
 	white-space: nowrap;
+	.uk-nav {
+		margin: 0 -@dropdown-small-padding;
+	}
 }
 
-/*
- * Nav in dropdown
- */
-
-.uk-dropdown-small .uk-nav {
-	margin: 0 -@dropdown-small-padding;
-}
 
 /* Modifier: `uk-dropdown-navbar`
  ========================================================================== */
@@ -229,11 +224,6 @@
 	.hook-dropdown-navbar;
 }
 
-.uk-open > .uk-dropdown-navbar {
-	-webkit-animation: @dropdown-navbar-animation 0.2s ease-in-out;
-	animation: @dropdown-navbar-animation 0.2s ease-in-out;
-}
-
 /* Modifier: `uk-dropdown-search`
  ========================================================================== */
 
@@ -243,11 +233,6 @@
 	background: @dropdown-search-background;
 	color: @dropdown-search-color;
 	.hook-dropdown-search;
-}
-
-.uk-open > .uk-dropdown-search {
-	-webkit-animation: @dropdown-search-animation 0.2s ease-in-out;
-	animation: @dropdown-search-animation 0.2s ease-in-out;
 }
 
 /*

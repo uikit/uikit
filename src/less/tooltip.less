@@ -27,38 +27,31 @@
 
 .uk-tooltip {
 	/* 1 */
-	display: none;
+	&:extend(.hidden);
 	/* 2 */
-	position: absolute;
+	&:extend(.absolute);
 	z-index: @tooltip-z-index;
 	/* 3 */
-	.border-box();
+	&:extend(.border-box);
 	max-width: @tooltip-max-width;
-	padding: 5px 8px;
+	padding: 0.3215em 0.5em;
 	/* 4 */
 	background: @tooltip-background;
 	color: @tooltip-color;
 	font-size: @tooltip-font-size;
 	line-height: @tooltip-line-height;
-	text-align: center;
+	&:extend(.centred);
 	.hook-tooltip;
+	&:after {
+		content: "";
+		&:extend(.block);
+		&:extend(.absolute);
+		width: 0;
+		height: 0;
+		border: @tooltip-triangle-size dashed @tooltip-background; /* 1 */
+	}
 }
 
-/* Triangle
- ========================================================================== */
-
-/*
- * 1. Dashed is less antialised than solid
- */
-
-.uk-tooltip:after {
-	content: "";
-	display: block;
-	position: absolute;
-	width: 0;
-	height: 0;
-	border: @tooltip-triangle-size dashed @tooltip-background; /* 1 */
-}
 
 /* Direction modifiers
  ========================================================================== */
@@ -72,7 +65,7 @@
 .uk-tooltip-top-right:after {
 	bottom: -@tooltip-triangle-size;
 	border-top-style: solid;
-	border-bottom: none;
+	&:extend(.bordered-bottom-none);
 	border-left-color: transparent;
 	border-right-color: transparent;
 	border-top-color: @tooltip-background;
@@ -87,7 +80,7 @@
 .uk-tooltip-bottom-right:after {
 	top: -@tooltip-triangle-size;
 	border-bottom-style: solid;
-	border-top: none;
+	&:extend(.bordered-top-none);
 	border-left-color: transparent;
 	border-right-color: transparent;
 	border-bottom-color: @tooltip-background;
@@ -109,7 +102,7 @@
 
 .uk-tooltip-top-left:after,
 .uk-tooltip-bottom-left:after {
-	left: 10px;
+	left: 0.6em;
 }
 
 /*
@@ -118,7 +111,7 @@
 
 .uk-tooltip-top-right:after,
 .uk-tooltip-bottom-right:after {
-	right: 10px;
+	right: 0.6em;
 }
 
 /*
@@ -130,7 +123,7 @@
 	top: 50%;
 	margin-top: -@tooltip-triangle-size;
 	border-left-style: solid;
-	border-right: none;
+	&:extend(.bordered-right-none);
 	border-top-color: transparent;
 	border-bottom-color: transparent;
 	border-left-color: @tooltip-background;
@@ -145,7 +138,7 @@
 	top: 50%;
 	margin-top: -@tooltip-triangle-size;
 	border-right-style: solid;
-	border-left: none;
+	&:extend(.bordered-left-none);
 	border-top-color: transparent;
 	border-bottom-color: transparent;
 	border-right-color: @tooltip-background;

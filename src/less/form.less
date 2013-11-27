@@ -33,111 +33,90 @@
 /*
  * Remove margin from the last-child
  */
-
-.uk-form > :last-child {
-	margin-bottom: 0;
-}
-
 /*
  * Controls
  * Exept for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
  * 2. Responsiveness: Sets a maxium width relative to the parent to scale on narrower viewports
  */
-
-.uk-form select,
-.uk-form textarea,
-.uk-form input[type="text"],
-.uk-form input[type="password"],
-.uk-form input[type="datetime"],
-.uk-form input[type="datetime-local"],
-.uk-form input[type="date"],
-.uk-form input[type="month"],
-.uk-form input[type="time"],
-.uk-form input[type="week"],
-.uk-form input[type="number"],
-.uk-form input[type="email"],
-.uk-form input[type="url"],
-.uk-form input[type="search"],
-.uk-form input[type="tel"],
-.uk-form input[type="color"] {
-	height: @form-height; /* 1 */
-	max-width: 100%; /* 2 */
-	padding: 0.2em 6px;
-	border: 1px solid @form-border;
-	background: @form-background;
-	color: @form-color;
-	#transition > .transition(all linear 0.2s);
-	.hook-form;
-
-	/* Focus state */
-	&:focus {
-		border-color: @form-focus-border;
-		outline: 0;
-		background: @form-focus-background;
-		color: @form-focus-color;
-		.hook-form-focus;
+.uk-form {
+	> &:last-child {
+		&:extend(.margin-bottom-none);
 	}
+	select,
+	textarea,
+	input[type="text"],
+	input[type="password"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="date"],
+	input[type="month"],
+	input[type="time"],
+	input[type="week"],
+	input[type="number"],
+	input[type="email"],
+	input[type="url"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="color"] {
+		height: @form-height; /* 1 */
+		max-width: 100%; /* 2 */
+		padding: 0.2em 6px;
+		border: 1px solid @form-border;
+		background: @form-background;
+		color: @form-color;
+		#transition > .transition(all linear 0.2s);
+		.hook-form;
 
-	/* Disabled state */
+		/* Focus state */
+		&:focus {
+			border-color: @form-focus-border;
+			outline: 0;
+			background: @form-focus-background;
+			color: @form-focus-color;
+			.hook-form-focus;
+		}
+
+		/* Disabled state */
+		&:disabled {
+			border-color: @form-disabled-border;
+			background-color: @form-disabled-background;
+			color: @form-disabled-color;
+			.hook-form-disabled;
+		}
+	}
+	.placeholder(@form-placeholder-color, @base-body-font-family, @base-body-font-size);
 	&:disabled {
-		border-color: @form-disabled-border;
-		background-color: @form-disabled-background;
-		color: @form-disabled-color;
-		.hook-form-disabled;
+		.placeholder(@form-disabled-color, @base-body-font-family, @base-body-font-size);
+	}
+	/*
+	 * Legend style
+	 * 1. `margin-bottom` is not working in Safari and Opera.
+	 *    Using `padding` and :after instead to create the border
+	 */
+	legend {
+		width: 100%;
+		padding-bottom: @form-gutter; /* 1 */
+		font-size: @form-legend-font-size;
+		line-height: @form-legend-line-height;
+		&:after {
+			content: "";
+			&:extend(.block);
+			border-bottom: 1px solid @form-legend-border;
+		}
+	}
+	/* Reset height
+	* Must be after size modifiers
+	========================================================================== */
+
+	textarea,
+	select[multiple],
+	select[size] {
+		height: auto !important;
 	}
 }
 
-/*
- * Placeholder
- * 1. Higher specificity needed to override color in IE
- */
 
-.uk-form :-ms-input-placeholder {
-	color: @form-placeholder-color !important;
-}
-
-/* 1. */
-.uk-form ::-moz-placeholder {
-	color: @form-placeholder-color;
-}
-
-.uk-form ::-webkit-input-placeholder {
-	color: @form-placeholder-color;
-}
-
-.uk-form :disabled:-ms-input-placeholder {
-	color: @form-disabled-color !important;
-}
-
-/* 1. */
-.uk-form :disabled::-moz-placeholder {
-	color: @form-disabled-color;
-}
-
-.uk-form :disabled::-webkit-input-placeholder {
-	color: @form-disabled-color;
-}
-
-/*
- * Legend style
- * 1. `margin-bottom` is not working in Safari and Opera.
- *    Using `padding` and :after instead to create the border
- */
-
-.uk-form legend {
-	width: 100%;
-	padding-bottom: @form-gutter; /* 1 */
-	font-size: @form-legend-font-size;
-	line-height: @form-legend-line-height;
-}
-
-/* 1 */
-.uk-form legend:after {
-	content: "";
-	display: block;
-	border-bottom: 1px solid @form-legend-border;
-}
 
 /* Size modifiers
  * Using !important to keep the selector simple
@@ -155,15 +134,7 @@
 	font-size: @form-large-font-size;
 }
 
-/* Reset height
- * Must be after size modifiers
- ========================================================================== */
 
-.uk-form textarea,
-.uk-form select[multiple],
-.uk-form select[size] {
-	height: auto !important;
-}
 
 /* Validation states
  * Using !important to keep the selector simple
@@ -202,12 +173,11 @@
 .uk-form-blank {
 	border: none !important;
 	background: none !important;
-	box-shadow: none !important;
+	.box-shadow(none) !important;
 	outline: 1px dashed transparent !important;
-}
-
-.uk-form-blank:focus {
-	outline-color: @form-blank-outline !important;
+	&:focus {
+		outline-color: @form-blank-outline !important;
+	}
 }
 
 /* Size sub-modifiers
@@ -249,22 +219,11 @@ select.uk-form-width-mini {
  * Needed for `uk-form-horizontal` modifier
  */
 
-.uk-form-row:before,
-.uk-form-row:after {
-	content: " ";
-	display: table;
-}
-
-.uk-form-row:after {
-	clear: both;
-}
-
-/*
- * Vertical gutter
- */
-
-.uk-form-row + .uk-form-row {
-	margin-top: @form-gutter;
+.uk-form-row {
+	&:extend(.clearfix);
+	& + & {
+		margin-top: @form-gutter;
+	}
 }
 
 /* Help text
@@ -272,7 +231,7 @@ select.uk-form-width-mini {
  ========================================================================== */
 
 .uk-form-help-inline {
-	.inline-block();
+	&:extend(.inline);
 	margin: 0 0 0 10px;
 }
 
@@ -289,11 +248,11 @@ select.uk-form-width-mini {
  */
 
 .uk-form-controls > :first-child {
-	margin-top: 0;
+	&:extend(.margin-top-none);
 }
 
 .uk-form-controls > :last-child {
-	margin-bottom: 0;
+	&:extend(.margin-bottom-none);
 }
 
 /*
@@ -309,7 +268,7 @@ select.uk-form-width-mini {
  ========================================================================== */
 
 .uk-form-stacked .uk-form-label {
-	display: block;
+	&:extend(.block);
 	margin-bottom: 5px;
 	font-weight: bold;
 }
@@ -324,7 +283,7 @@ select.uk-form-width-mini {
 	.uk-form-horizontal .uk-form-label {
 
 		/* Behave like `uk-form-stacked` */
-		display: block;
+		&:extend(.block);
 		margin-bottom: 5px;
 		font-weight: bold;
 
@@ -338,7 +297,7 @@ select.uk-form-width-mini {
 	.uk-form-horizontal .uk-form-label {
 		width: 200px;
 		margin-top: 5px;
-		float: left;
+		&:extend(.pull-left);
 	}
 
 	.uk-form-horizontal .uk-form-controls {

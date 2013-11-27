@@ -19,32 +19,6 @@
 /* Component
  ========================================================================== */
 
-/*
- * This is the offcanvas overlay and bar container
- * 1. Hide by default
- * 2. Set fixed position
- * 3. Mask the background page
- */
-
-.uk-offcanvas {
-	/* 1 */
-	display: none;
-	/* 2 */
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: @offcanvas-z-index;
-	/* 3 */
-	background: @offcanvas-background;
-	.hook-offcanvas;
-}
-
-.uk-offcanvas.uk-active {
-	display: block;
-}
-
 /* Sub-object `uk-offcanvas-page`
  ========================================================================== */
 
@@ -56,7 +30,7 @@
 
 .uk-offcanvas-page {
 	/* 1 */
-	position: fixed;
+	&:extend(.fixed);
 	/* 2 */
 	#transition > .transition(margin-left 0.3s ease-in-out 50ms);
 }
@@ -74,12 +48,11 @@
 
 .uk-offcanvas-bar {
 	/* 1 */
-	position: fixed;
+	&:extend(.fixed);
 	top: 0;
 	bottom: 0;
 	left: 0;
-	-webkit-transform: translateX(-100%);
-	transform: translateX(-100%);
+	#transform > .translate(-100%, 0);
 	z-index: @offcanvas-z-index + 1;
 	/* 2 */
 	width: @offcanvas-bar-width;
@@ -89,14 +62,8 @@
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	/* 4 */
-	-webkit-transition: -webkit-transform 0.3s ease-in-out;
 	#transition > .transition(transform 0.3s ease-in-out);
 	.hook-offcanvas-bar;
-}
-
-.uk-offcanvas.uk-active .uk-offcanvas-bar.uk-offcanvas-bar-show {
-	-webkit-transform: translateX(0%);
-	transform: translateX(0%);
 }
 
 /* Modifier `uk-offcanvas-bar-flip`
@@ -105,61 +72,60 @@
 .uk-offcanvas-bar-flip {
 	left: auto;
 	right: 0;
-	-webkit-transform: translateX(100%);
-	transform: translateX(100%);
+	#transform > .translate(-100%, 0);
 }
 
 /* Panel in offcanvas
  ========================================================================== */
 
-.uk-offcanvas .uk-panel {
-	margin: @offcanvas-panel-margin;
-	color: @offcanvas-panel-color;
-	.hook-offcanvas-panel;
-}
-
-.uk-offcanvas .uk-panel-title {
-	color: @offcanvas-panel-title-color;
-}
-
-.uk-offcanvas .uk-panel a:not([class]) {
-	color: @offcanvas-panel-link-color;
-}
-
-.uk-offcanvas .uk-panel a:not([class]):hover {
-	color: @offcanvas-panel-link-hover-color;
-}
-
-/* Search in offcanvas
- ========================================================================== */
-
-.uk-offcanvas .uk-search {
-	display: block;
-	margin: @offcanvas-search-margin;
-}
-
-.uk-offcanvas .uk-search:before {
-	color: @offcanvas-search-icon-color;
-}
-
-.uk-offcanvas .uk-search-field {
-	width: 100%;
-	border-color: @offcanvas-search-border;
-	background: @offcanvas-search-background;
-	color: @offcanvas-search-color;
-	.hook-offcanvas-search-field;
-}
-
-.uk-offcanvas .uk-search-field:-ms-input-placeholder {
-	color: @offcanvas-search-placeholder-color;
-}
-
-.uk-offcanvas .uk-search-field::-moz-placeholder {
-	color: @offcanvas-search-placeholder-color;
-}
-
-.uk-offcanvas .uk-search-field::-webkit-input-placeholder {
-	color: @offcanvas-search-placeholder-color;
+.uk-offcanvas {
+	/* 1 */
+	&:extend(.hidden);
+	/* 2 */
+	&:extend(.fixed);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: @offcanvas-z-index;
+	/* 3 */
+	background: @offcanvas-background;
+	.hook-offcanvas;
+	&.uk-active {
+		&:extend(.block);
+	}
+	.uk-panel {
+		margin: @offcanvas-panel-margin;
+		color: @offcanvas-panel-color;
+		.hook-offcanvas-panel;
+	}
+	.uk-panel-title {
+		color: @offcanvas-panel-title-color;
+	}
+	.uk-panel a:not([class]) {
+		color: @offcanvas-panel-link-color;
+		&:hover {
+			color: @offcanvas-panel-link-hover-color;
+		}
+	}
+	.uk-search {
+		&:extend(.block);
+		margin: @offcanvas-search-margin;
+		&:before {
+			color: @offcanvas-search-icon-color;
+		}
+	}
+	.uk-search-field {
+		width: 100%;
+		border-color: @offcanvas-search-border;
+		background: @offcanvas-search-background;
+		color: @offcanvas-search-color;
+		.hook-offcanvas-search-field;
+		.placeholder(@offcanvas-search-placeholder-color)
+	}
+	&.uk-active .uk-offcanvas-bar.uk-offcanvas-bar-show {
+		#transform > .translate(0, 0);
+	}
 }
 
 /* Hooks

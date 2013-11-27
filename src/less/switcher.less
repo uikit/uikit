@@ -12,15 +12,10 @@
  ========================================================================== */
 
 .uk-switcher {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-/*
- * Items
- */
-
-.uk-switcher > *:not(.uk-active) {
-	display: none;
+	&:extend(.margin-none);
+	&:extend(.padding-none);
+	&:extend(.list-style-none);
+	> *:not(.uk-active) {
+		&:extend(.hidden);
+	}
 }

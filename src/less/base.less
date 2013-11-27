@@ -34,11 +34,7 @@ body {
 	 * Break strings if their length exceeds the width of their container
 	 */
 	body {
-		word-wrap: break-word;
-		-webkit-hyphens: auto;
-		-ms-hyphens: auto;
-		-moz-hyphens: auto;
-		hyphens: auto;
+		.hyphens();
 	}
 
 }
@@ -51,20 +47,14 @@ body {
  */
 
 a {
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a {
 	color: @base-link-color;
+	&:extend(.text-decoration-none);
+	&:hover {
+		text-decoration: underline;
+		color: @base-link-hover-color;
+	}
 }
 
-a:hover {
-	color: @base-link-hover-color;
-}
 
 /*
  * Emphasize
@@ -81,7 +71,7 @@ em {
 ins {
 	background: @base-ins-background;
 	color: @base-ins-color;
-	text-decoration: none;
+	&:extend(.text-decoration-none);
 }
 
 /*
@@ -101,13 +91,13 @@ mark {
 ::-moz-selection {
 	background: @base-selection-background;
 	color: @base-selection-color;
-	text-shadow: none;
+	.text-shadow(none);
 }
 
 ::selection {
 	background: @base-selection-background;
 	color: @base-selection-color;
-	text-shadow: none;
+	.text-shadow(none);
 }
 
 /*
@@ -134,7 +124,7 @@ dfn[title] {
  */
 
 img {
-	.border-box(); /* 1 */
+	&:extend(.border-box); /* 1 */
 	max-width: 100%; /* 2 */
 	height: auto; /* 2 */
 	vertical-align: middle; /* 3 */
@@ -274,16 +264,16 @@ dt {
 }
 
 dd {
-	margin-left: 0;
+	&:extend(.margin-left-none);
 }
 
 /* Horizontal rule
  ========================================================================== */
 
 hr {
-	display: block;
-	padding: 0;
-	border: 0;
+	&:extend(.block);
+	&:extend(.padding-none);
+	&:extend(.bordered-none);
 	border-top: 1px solid @base-hr-border;
 }
 
@@ -311,7 +301,7 @@ blockquote {
 
 /* Small print for identifying the source */
 blockquote small {
-	display: block;
+	&:extend(.block);
 	color: @base-blockquote-small-color;
 	font-style: normal;
 }
@@ -327,7 +317,6 @@ blockquote p:last-of-type {
 code {
 	color: @base-code-color;
 	font-size: @base-code-font-size;
-	white-space: nowrap;
 	.hook-base-code;
 }
 
@@ -344,8 +333,7 @@ pre {
 	color: @base-pre-color;
 	font-size: @base-pre-font-size;
 	line-height: @base-pre-line-height;
-	-moz-tab-size: 4;
-	tab-size: 4;
+	.tab-size(4);
 	.hook-base-pre;
 }
 
@@ -367,7 +355,7 @@ select {
  ========================================================================== */
 
 iframe {
-	border: 0;
+	&:extend(.bordered-none);
 }
 
 /* Fix viewport for IE10 snap mode

@@ -14,14 +14,14 @@
  ========================================================================== */
 
 .uk-badge {
-	.inline-block();
+	&:extend(.inline);
 	padding: 0 @badge-padding-horizontal;
 	background: @badge-background;
 	font-size: @badge-font-size;
 	font-weight: @badge-font-weight;
 	line-height: @badge-line-height;
 	color: @badge-color;
-	text-align: center;
+	&:extend(.centred);
 	vertical-align: middle;
 	text-transform: @badge-text-transform;
 	.hook-badge;
@@ -31,7 +31,7 @@
  ========================================================================== */
 
 .uk-badge-notification {
-	.border-box();
+	&:extend(.border-box);
 	min-width: @badge-notification-line-height;
 	.border-radius(31.25em);
 	font-size: @badge-notification-font-size;

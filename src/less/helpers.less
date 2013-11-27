@@ -1,19 +1,4 @@
 /* =============================================================================
-Measurement Creator
-========================================================================== */
-/*.generateMixins(@property, @directions: top, bottom, top-bottom, left, right, left-right) {
-	.setMeasurements(@index) when (@index > @measurementLevels) {
-		@size: extract(@measurements, @index); //now we have something like padding
-		//.paddingLarge: @paddingLarge;
-		@direction: extract(@directions, @index);
-		.@{property}-@{size}: @@{property}-@{size};
-		.setMeasurements(@index - 1);
-	}
-	.setMeasurements(@measurementLevels) {}
-	.setMeasurements();
-}*/
-
-/* =============================================================================
 Helpers
 ========================================================================== */
 .pie() when (@pie = true) {
@@ -35,6 +20,17 @@ Helpers
 }
 
 /* =============================================================================
+Overflow
+========================================================================== */
+.overflow-visible {
+	overflow: visible;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+/* =============================================================================
 Layout
 ========================================================================== */
 .block {
@@ -42,7 +38,26 @@ Layout
 }
 
 .inline {
-	.inline-block();
+	&:extend(.inline);
+}
+
+/* =============================================================================
+Positions
+========================================================================== */
+.absolute {
+	position: absolute;
+}
+
+.fixed {
+	position: fixed;
+}
+
+.relative {
+	position: relative;
+}
+
+.static {
+	position: static;
 }
 
 /* =============================================================================
@@ -57,7 +72,7 @@ Text
 	color: transparent;
 	text-shadow: none;
 	background-color: transparent;
-	border: 0;
+	&:extend(.bordered-none);
 }
 
 // Reset filters for IE
@@ -65,7 +80,7 @@ Text
 	filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
 }
 
-.centered {
+.centred {
 	text-align: center;
 }
 
@@ -76,12 +91,12 @@ Display
 /* Hide only visually, but have it available for screenreaders: by Jon Neal.
 www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
 .visuallyhidden {
-	border: 0;
+	&:extend(.bordered-none);
 	clip: rect(0 0 0 0);
 	height: 1px;
 	margin: -1px;
-	overflow: hidden;
-	padding: 0;
+	&:extend(.overflow-hidden);
+	&:extend(.padding-none);
 	&:extend(.absolute);;
 	width: 1px;
 	left: -500%;
@@ -101,9 +116,9 @@ www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
 
 /* For image replacement */
 .ir {
-	display: block;
+	&:extend(.block);
 	text-indent: -99in;
-	overflow: hidden;
+	&:extend(.overflow-hidden);
 	background-repeat: no-repeat;
 	text-align: left;
 	direction: ltr;
@@ -117,17 +132,6 @@ www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
 
 .show-phone {
 	display: none;
-}
-
-/* =============================================================================
-Overflow
-========================================================================== */
-.overflow-visible {
-	overflow: visible;
-}
-
-.overflow-hidden {
-	overflow: hidden;
 }
 
 /* =============================================================================
@@ -169,5 +173,63 @@ Borders
 }
 
 .border-none {
-	border: 0;
+	&:extend(.bordered-none);
+}
+
+/* =============================================================================
+Lists
+========================================================================== */
+.list-style-none {
+	list-style: none;
+}
+
+/* =============================================================================
+Links
+========================================================================== */
+.text-decoration-none {
+	text-decoration: none;
+}
+
+/* =============================================================================
+Measurements
+========================================================================== */
+.padding-none {
+	padding: 0;
+}
+
+.padding-left-none {
+	padding-left: 0;
+}
+
+.padding-right-none {
+	padding-right: 0;
+}
+
+.padding-top-none {
+	padding-top: 0;
+}
+
+.padding-bottom-none {
+	padding-bottom: 0;
+}
+
+/* Margins */
+.margin-none {
+	margin: 0;
+}
+
+.margin-left-none {
+	margin-left: 0;
+}
+
+.margin-right-none {
+	margin-right: 0;
+}
+
+.margin-top-none {
+	margin-top: 0;
+}
+
+.margin-bottom-none {
+	margin-bottom: 0;
 }

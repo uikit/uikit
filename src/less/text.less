@@ -76,7 +76,7 @@
  */
 
 .uk-text-truncate {
-	overflow: hidden;
+	&:extend(.overflow-hidden);
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
@@ -86,9 +86,5 @@
  */
 
 .uk-text-break {
-	word-wrap: break-word;
-	-webkit-hyphens: auto;
-	-ms-hyphens: auto;
-	-moz-hyphens: auto;
-	hyphens: auto;
+	.hyphens(auto);
 }

@@ -24,18 +24,15 @@
 /* Component
  ========================================================================== */
 
-[class*='uk-animation-'] {
-	-webkit-animation-duration: 0.5s;
-	animation-duration: 0.5s;
-	-webkit-animation-timing-function: ease-out;
-	animation-timing-function: ease-out;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
+[class*="uk-animation-"] {
+	#animation > .animation-duration(0.5s);
+	#animation > .animation-timing-function(ease-out);
+	#animation > .animation-fill-mode(both);
 }
 
 /* Hide animated element if scrollspy is used */
-[data-uk-scrollspy*='uk-animation-'] {
-	opacity: 0;
+[data-uk-scrollspy*="uk-animation-"] {
+	&:extend(.opacity-0);
 }
 
 /*
@@ -43,12 +40,9 @@
  */
 
 .uk-animation-fade {
-	-webkit-animation-name: uk-fade;
-	animation-name: uk-fade;
-	-webkit-animation-duration: 0.8s;
-	animation-duration: 0.8s;
-	-webkit-animation-timing-function: linear;
-	animation-timing-function: linear;
+	#animation > .animation-name(uk-fade);
+	#animation > .animation-duration(0.8s);
+	#animation > .animation-timing-function(linear);
 }
 
 /*
@@ -56,13 +50,11 @@
  */
 
 .uk-animation-scale-up {
-	-webkit-animation-name: uk-scale-up;
-	animation-name: uk-scale-up;
+	#animation > .animation-name(uk-scale-up);
 }
 
 .uk-animation-scale-down {
-	-webkit-animation-name: uk-scale-down;
-	animation-name: uk-scale-down;
+	#animation > .animation-name(uk-scale-down);
 }
 
 /*
@@ -70,23 +62,19 @@
  */
 
 .uk-animation-slide-top {
-	-webkit-animation-name: uk-slide-top;
-	animation-name: uk-slide-top;
+	#animation > .animation-name(uk-slide-top);
 }
 
 .uk-animation-slide-bottom {
-	-webkit-animation-name: uk-slide-bottom;
-	animation-name: uk-slide-bottom;
+	#animation > .animation-name(uk-slide-bottom);
 }
 
 .uk-animation-slide-left {
-	-webkit-animation-name: uk-slide-left;
-	animation-name: uk-slide-left;
+	#animation > .animation-name(uk-slide-left);
 }
 
 .uk-animation-slide-right {
-	-webkit-animation-name: uk-slide-right;
-	animation-name: uk-slide-right;
+	#animation > .animation-name(uk-slide-right);
 }
 
 /*
@@ -94,16 +82,14 @@
  */
 
 .uk-animation-shake {
-	-webkit-animation-name: uk-shake;
-	animation-name: uk-shake;
+	#animation > .animation-name(uk-shake);
 }
 
 /* Modifiers
  ========================================================================== */
 
 .uk-animation-reverse {
-	-webkit-animation-direction: reverse;
-	animation-direction: reverse;
+	#animation > .animation-direction(reverse);
 }
 
 /* Keyframes
@@ -114,6 +100,24 @@
  */
 
 @-webkit-keyframes uk-fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes uk-fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-ms-keyframes uk-fade {
 	0% {
 		opacity: 0;
 	}
@@ -147,6 +151,31 @@
 	}
 }
 
+@-moz-keyframes uk-scale-up {
+	0% {
+		opacity: 0;
+		-moz-transform: scale(0.2);
+	}
+
+	100% {
+		opacity: 1;;
+		-moz-transform: scale(1);
+	}
+}
+
+@-ms-keyframes uk-scale-up {
+	0% {
+		opacity: 0;
+		-ms-transform: scale(0.2);
+		transform: scale(0.2);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
 @keyframes uk-scale-up {
 	0% {
 		opacity: 0;
@@ -154,13 +183,13 @@
 	}
 
 	100% {
-		opacity: 1;;
+		opacity: 1;
 		transform: scale(1);
 	}
 }
 
 /*
- * Scale down
+ * Scale down --got here in adding browser prefixes
  */
 
 @-webkit-keyframes uk-scale-down {

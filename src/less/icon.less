@@ -40,7 +40,7 @@
  */
 
 [class*='uk-icon-']:before {
-	.inline-block(); /* 1 */
+	&:extend(.inline); /* 1 */
 	font-family: "FontAwesome";
 	font-weight: normal; /* 2 */
 	font-style: normal; /* 2 */
@@ -71,7 +71,7 @@
  ========================================================================== */
 
 .uk-icon-spin {
-	.inline-block();
+	&:extend(.inline);
 	-webkit-animation: uk-spin 2s infinite linear;
 	animation: uk-spin 2s infinite linear;
 }
@@ -80,8 +80,8 @@
  ========================================================================== */
 
 .uk-icon-button {
-	.border-box();
-	.inline-block();
+	&:extend(.border-box);
+	&:extend(.inline);
 	width: @icon-button-width;
 	height: @icon-button-height;
 	.border-radius(@icon-button-border-radius);
@@ -89,31 +89,21 @@
 	line-height: @icon-button-height;
 	color: @icon-button-color;
 	font-size: @icon-button-font-size;
-	text-align: center;
+	&:extend(.centred);
 	.hook-icon-button;
-}
-
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
-
-.uk-icon-button:hover,
-.uk-icon-button:focus {
-	/* 1 */
-	background-color: @icon-button-hover-background;
-	color: @icon-button-hover-color;
-	text-decoration: none;
-	outline: none; /* 2 */
-	.hook-icon-button-hover;
-}
-
-/* Active */
-.uk-icon-button:active {
-	background-color: @icon-button-active-background;
-	color: @icon-button-active-color;
-	.hook-icon-button-active;
+	&:hover, &:focus {
+		/* 1 */
+		background-color: @icon-button-hover-background;
+		color: @icon-button-hover-color;
+		&:extend(.text-decoration-none);
+		outline: none; /* 2 */
+		.hook-icon-button-hover;
+	}
+	&:active {
+		background-color: @icon-button-active-background;
+		color: @icon-button-active-color;
+		.hook-icon-button-active;
+	}
 }
 
 /* Icon mapping

@@ -32,43 +32,37 @@
 
 .uk-nav,
 .uk-nav ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+	&:extend(.margin-none);
+	&:extend(.padding-none);
+	&:extend(.list-style-none);
 }
 
 /*
  * Items
  */
 
-.uk-nav li > a {
-	display: block;
-	text-decoration: none;
-}
-
-.uk-nav > li > a {
-	padding: @nav-padding-vertical @nav-padding-horizontal;
-}
-
-/*
- * Nested items
- */
-
-.uk-nav ul {
-	padding-left: 15px;
-}
-
-.uk-nav ul a {
-	padding: @nav-nested-padding-vertical @nav-nested-padding-horizontal;
-}
-
-/*
- * Item subtitle
- */
-
-.uk-nav li > a > div {
-	font-size: @nav-subtitle-font-size;
-	line-height: @nav-subtitle-line-height;
+.uk-nav {
+	ul {
+		padding-left: 1em;
+		a {
+			padding: @nav-nested-padding-vertical @nav-nested-padding-horizontal;
+		}
+	}
+	li {
+		> a {
+			&:extend(.block);
+			text-decoration: none;
+			div { //item subtitle
+				font-size: @nav-subtitle-font-size;
+				line-height: @nav-subtitle-line-height;
+			}
+		}
+	}
+	> li {
+		a {
+			padding: @nav-padding-vertical @nav-padding-horizontal;
+		}
+	}
 }
 
 /* Sub-object: `uk-nav-header`
@@ -80,10 +74,9 @@
 	font-weight: @nav-header-font-weight;
 	font-size: @nav-header-font-size;
 	.hook-nav-header;
-}
-
-.uk-nav-header:not(:first-child) {
-	margin-top: @nav-header-margin-top;
+	&:not(:first-child) {
+		margin-top: @nav-header-margin-top;
+	}
 }
 
 /* Sub-object: `uk-nav-divider`
@@ -109,18 +102,21 @@ ul.uk-nav-sub {
 /* Modifier: `uk-nav-parent-icon`
  ========================================================================== */
 
-.uk-nav-parent-icon > .uk-parent > a:after {
-	content: @nav-parent-icon;
-	width: @nav-parent-icon-width;
-	margin-right: @nav-parent-icon-margin-right;
-	float: right;
-	font-family: "FontAwesome";
-	text-align: center;
-	.hook-nav-parent-icon;
-}
-
-.uk-nav-parent-icon > .uk-parent.uk-open > a:after {
-	content: @nav-parent-open-icon;
+.uk-nav-parent-icon > .uk-parent {
+	> a:after {
+		content: @nav-parent-icon;
+		width: @nav-parent-icon-width;
+		margin-right: @nav-parent-icon-margin-right;
+		&:extend(.pull-right);
+		font-family: "FontAwesome";
+		&:extend(.centred);
+		.hook-nav-parent-icon;
+	}
+	&.uk-open {
+		> a:after {
+			content: @nav-parent-open-icon;
+		}
+	}
 }
 
 /* Modifier `uk-nav-side`
@@ -130,61 +126,41 @@ ul.uk-nav-sub {
  * Items
  */
 
-.uk-nav-side > li > a {
-	color: @nav-side-color;
-	.hook-nav-side;
-}
-
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
-
-.uk-nav-side > li > a:hover,
-.uk-nav-side > li > a:focus {
-	/* 1 */
-	background: @nav-side-hover-background;
-	color: @nav-side-hover-color;
-	outline: none; /* 2 */
-	.hook-nav-side-hover;
-}
-
-/* Active */
-.uk-nav-side > li.uk-active > a {
-	background: @nav-side-active-background;
-	color: @nav-side-active-color;
-	.hook-nav-side-active;
-}
-
-/*
- * Sub-object: `uk-nav-header`
- */
-
-.uk-nav-side .uk-nav-header {
-	color: @nav-side-header-color;
-	.hook-nav-side-header;
-}
-
-/*
- * Sub-object: `uk-nav-divider`
- */
-
-.uk-nav-side .uk-nav-divider {
-	border-top: 1px solid @nav-side-divider-border;
-	.hook-nav-side-divider;
-}
-
-/*
- * Nested items
- */
-
-.uk-nav-side ul a {
-	color: @nav-side-nested-color;
-}
-
-.uk-nav-side ul a:hover {
-	color: @nav-side-nested-hover-color;
+.uk-nav-side {
+	> li {
+		> a {
+			color: @nav-side-color;
+			.hook-nav-side;
+			&:hover, &:focus {
+				/* 1 */
+				background: @nav-side-hover-background;
+				color: @nav-side-hover-color;
+				outline: none; /* 2 */
+				.hook-nav-side-hover;
+			}
+		}
+		&.uk-active {
+			> a {
+				background: @nav-side-active-background;
+				color: @nav-side-active-color;
+				.hook-nav-side-active;
+			}
+		}
+	}
+	.uk-nav-header {
+		color: @nav-side-header-color;
+		.hook-nav-side-header;
+	}
+	.uk-nav-divider {
+		border-top: 1px solid @nav-side-divider-border;
+		.hook-nav-side-divider;
+	}
+	ul a {
+		color: @nav-side-nested-color;
+		&:hover {
+			color: @nav-side-nested-hover-color;
+		}
+	}
 }
 
 /* Modifier `uk-nav-dropdown`
@@ -194,54 +170,34 @@ ul.uk-nav-sub {
  * Items
  */
 
-.uk-nav-dropdown > li > a {
-	color: @nav-dropdown-color;
-	.hook-nav-dropdown;
-}
-
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
-
-.uk-nav-dropdown > li > a:hover,
-.uk-nav-dropdown > li > a:focus {
-	/* 1 */
-	background: @nav-dropdown-hover-background;
-	color: @nav-dropdown-hover-color;
-	outline: none; /* 2 */
-	.hook-nav-dropdown-hover;
-}
-
-/*
- * Sub-object: `uk-nav-header`
- */
-
-.uk-nav-dropdown .uk-nav-header {
-	color: @nav-dropdown-header-color;
-	.hook-nav-dropdown-header;
-}
-
-/*
- * Sub-object: `uk-nav-divider`
- */
-
-.uk-nav-dropdown .uk-nav-divider {
-	border-top: 1px solid @nav-dropdown-divider-border;
-	.hook-nav-dropdown-divider;
-}
-
-/*
- * Nested items
- */
-
-.uk-nav-dropdown ul a {
-	color: @nav-dropdown-nested-color;
-}
-
-.uk-nav-dropdown ul a:hover {
-	color: @nav-dropdown-nested-hover-color;
+.uk-nav-dropdown {
+	> li {
+		> a {
+			color: @nav-dropdown-color;
+			.hook-nav-dropdown;
+			&:hover, &:focus {
+				/* 1 */
+				background: @nav-dropdown-hover-background;
+				color: @nav-dropdown-hover-color;
+				outline: none; /* 2 */
+				.hook-nav-dropdown-hover;
+			}
+		}
+	}
+	.uk-nav-header {
+		color: @nav-dropdown-header-color;
+		.hook-nav-dropdown-header;
+	}
+	.uk-nav-divider {
+		border-top: 1px solid @nav-dropdown-divider-border;
+		.hook-nav-dropdown-divider;
+	}
+	ul a {
+		color: @nav-dropdown-nested-color;
+		&:hover {
+			color: @nav-dropdown-nested-hover-color;
+		}
+	}
 }
 
 /* Modifier `uk-nav-navbar`
@@ -251,108 +207,67 @@ ul.uk-nav-sub {
  * Items
  */
 
-.uk-nav-navbar > li > a {
-	color: @nav-navbar-color;
-	.hook-nav-navbar;
-}
-
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
-
-.uk-nav-navbar > li > a:hover,
-.uk-nav-navbar > li > a:focus {
-	/* 1 */
-	background: @nav-navbar-hover-background;
-	color: @nav-navbar-hover-color;
-	outline: none; /* 2 */
-	.hook-nav-navbar-hover;
-}
-
-/*
- * Sub-object: `uk-nav-header`
- */
-
-.uk-nav-navbar .uk-nav-header {
-	color: @nav-navbar-header-color;
-	.hook-nav-navbar-header;
-}
-
-/*
- * Sub-object: `uk-nav-divider`
- */
-
-.uk-nav-navbar .uk-nav-divider {
-	border-top: 1px solid @nav-navbar-divider-border;
-	.hook-nav-navbar-divider;
-}
-
-/*
- * Nested items
- */
-
-.uk-nav-navbar ul a {
-	color: @nav-navbar-nested-color;
-}
-
-.uk-nav-navbar ul a:hover {
-	color: @nav-navbar-nested-hover-color;
+.uk-nav-navbar {
+	> li > a {
+		color: @nav-navbar-color;
+		.hook-nav-navbar;
+		&:hover, &:focus {
+			/* 1 */
+			background: @nav-navbar-hover-background;
+			color: @nav-navbar-hover-color;
+			outline: none; /* 2 */
+			.hook-nav-navbar-hover;
+		}
+	}
+	.uk-nav-header {
+		color: @nav-navbar-header-color;
+		.hook-nav-navbar-header;
+	}
+	.uk-nav-divider {
+		border-top: 1px solid @nav-navbar-divider-border;
+		.hook-nav-navbar-divider;
+	}
+	ul a {
+		color: @nav-navbar-nested-color;
+		&:hover {
+			color: @nav-navbar-nested-hover-color;
+		}
+	}
 }
 
 /* Modifier `uk-nav-search`
  ========================================================================== */
 
 /*
- * Items
- */
-
-.uk-nav-search > li > a {
-	color: @nav-search-color;
-	.hook-nav-search;
-}
-
-/*
  * Active
  * 1. Remove default focus style
  */
 
-.uk-nav-search > li.uk-active > a {
-	background: @nav-search-active-background;
-	color: @nav-search-active-color;
-	outline: none; /* 2 */
-	.hook-nav-search-active;
-}
-
-/*
- * Sub-object: `uk-nav-header`
- */
-
-.uk-nav-search .uk-nav-header {
-	color: @nav-search-header-color;
-	.hook-nav-search-header;
-}
-
-/*
- * Sub-object: `uk-nav-divider`
- */
-
-.uk-nav-search .uk-nav-divider {
-	border-top: 1px solid @nav-search-divider-border;
-	.hook-nav-search-divider;
-}
-
-/*
- * Nested items
- */
-
-.uk-nav-search ul a {
-	color: @nav-search-nested-color;
-}
-
-.uk-nav-search ul a:hover {
-	color: @nav-search-nested-hover-color;
+.uk-nav-search {
+	> li > a {
+		color: @nav-search-color;
+		.hook-nav-search;
+	}
+	> li.uk-active > a {
+		background: @nav-search-active-background;
+		color: @nav-search-active-color;
+		outline: none; /* 2 */
+		.hook-nav-search-active;
+	}
+	.uk-nav-header {
+		color: @nav-search-header-color;
+		.hook-nav-search-header;
+	}
+	.uk-nav-divider {
+		border-top: 1px solid @nav-search-divider-border;
+		.hook-nav-search-divider;
+	}
+	ul a {
+		color: @nav-search-nested-color;
+		&:hover {
+			color: @nav-search-nested-hover-color;
+		}
+	}
 }
 
 /* Modifier `uk-nav-offcanvas`
@@ -362,10 +277,23 @@ ul.uk-nav-sub {
  * Items
  */
 
-.uk-nav-offcanvas > li > a {
-	color: @nav-offcanvas-color;
-	padding: @nav-offcanvas-padding-vertical @nav-offcanvas-padding-horizontal;
-	.hook-nav-offcanvas;
+.uk-nav-offcanvas {
+	> li > a {
+		color: @nav-offcanvas-color;
+		padding: @nav-offcanvas-padding-vertical @nav-offcanvas-padding-horizontal;
+		.hook-nav-offcanvas;
+	}
+	.uk-nav-header {
+		color: @nav-offcanvas-header-color;
+		.hook-nav-offcanvas-header;
+	}
+	.uk-nav-divider {
+		border-top: 1px solid @nav-offcanvas-divider-border;
+		.hook-nav-offcanvas-divider;
+	}
+	ul a {
+		color: @nav-offcanvas-nested-color;
+	}
 }
 
 /*
@@ -393,33 +321,6 @@ html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
 	background: @nav-offcanvas-active-background;
 	color: @nav-offcanvas-active-color;
 	.hook-nav-offcanvas-active;
-}
-
-/*
- * Sub-object: `uk-nav-header`
- */
-
-.uk-nav-offcanvas .uk-nav-header {
-	color: @nav-offcanvas-header-color;
-	.hook-nav-offcanvas-header;
-}
-
-/*
- * Sub-object: `uk-nav-divider`
- */
-
-.uk-nav-offcanvas .uk-nav-divider {
-	border-top: 1px solid @nav-offcanvas-divider-border;
-	.hook-nav-offcanvas-divider;
-}
-
-/*
- * Nested items
- * No hover on touch devices because it behaves buggy in fixed offcanvas
- */
-
-.uk-nav-offcanvas ul a {
-	color: @nav-offcanvas-nested-color;
 }
 
 html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {

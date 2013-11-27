@@ -14,18 +14,13 @@
  ========================================================================== */
 
 .uk-list {
-	padding: 0;
-	list-style: none;
-}
-
-/*
- * Nested lists
- */
-
-.uk-list ul {
-	margin: 0;
-	padding-left: @list-nested-padding-left;
-	list-style: none;
+	&:extend(.padding-none);
+	&:extend(.list-style-none);
+	ul {
+		&:extend(.margin-none);
+		padding-left: @list-nested-padding-left;
+		&:extend(.list-style-none);
+	}
 }
 
 /* Modifier: `uk-list-line`
@@ -44,18 +39,14 @@
 .uk-list-striped > li {
 	padding: @list-striped-padding-vertical @list-striped-padding-horizontal;
 	.hook-list-striped;
+	&:nth-of-type(odd) {
+		background: @list-striped-background;
+	}
+	&:nth-child(n+2) {
+		margin-top: @list-space-margin-top;
+	}
 }
 
-.uk-list-striped > li:nth-of-type(odd) {
-	background: @list-striped-background;
-}
-
-/* Modifier: `uk-list-space`
- ========================================================================== */
-
-.uk-list-space > li:nth-child(n+2) {
-	margin-top: @list-space-margin-top;
-}
 
 /* Hooks
  ========================================================================== */

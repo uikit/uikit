@@ -30,29 +30,24 @@
  */
 
 .uk-panel {
-	position: relative;
-}
-
-/*
- * Micro clearfix to make panels more robust
- */
-
-.uk-panel:before,
-.uk-panel:after {
-	content: " ";
-	display: table;
-}
-
-.uk-panel:after {
-	clear: both;
-}
-
-/*
- * Remove margin from the last-child if not `uk-widget-title`
- */
-
-.uk-panel > :not(.uk-panel-title):last-child {
-	margin-bottom: 0;
+	&:extend(.relative);
+	&:extend(.clearfix);
+	> :not(.uk-panel-title):last-child {
+		&:extend(.margin-bottom-none);
+	}
+	//divider
+	& + .uk-panel-divider {
+		margin-top: (@panel-divider-gutter * 2) !important;
+	}
+	& + .uk-panel-divider:before {
+		content: "";
+		&:extend(.block);
+		&:extend(.absolute);
+		top: -(@panel-divider-gutter);
+		left: 0;
+		right: 0;
+		border-top: 1px solid @panel-divider-border;
+	}
 }
 
 /* Sub-object: `uk-panel-title`
@@ -72,19 +67,14 @@
  ========================================================================== */
 
 .uk-panel-badge {
-	position: absolute;
+	&:extend(.absolute);
 	top: 0;
 	right: 0;
 	z-index: 1;
 	.hook-panel-badge;
-}
-
-/*
- * Remove margin from adjacent element
- */
-
-.uk-panel-badge + * {
-	margin-top: 0;
+	& + * {
+		&:extend(.margin-top-none);
+	}
 }
 
 /* Modifier: `uk-panel-box`
@@ -95,23 +85,16 @@
 	background: @panel-box-background;
 	color: @panel-box-color;
 	.hook-panel-box;
-}
-
-.uk-panel-box .uk-panel-title {
-	color: @panel-box-title-color;
-}
-
-.uk-panel-box .uk-panel-badge {
-	top: @panel-box-badge-top;
-	right: @panel-box-badge-right;
-}
-
-/*
- * Nav in panel
- */
-
-.uk-panel-box > .uk-nav-side {
-	margin: 0 -@panel-box-padding;
+	.uk-panel-title {
+		color: @panel-box-title-color;
+	}
+	.uk-panel-badge {
+		top: @panel-box-badge-top;
+		right: @panel-box-badge-right;
+	}
+	> .uk-nav-side {
+		margin: 0 -@panel-box-padding;
+	}
 }
 
 /*
@@ -122,10 +105,9 @@
 	background-color: @panel-box-primary-background;
 	color: @panel-box-primary-color;
 	.hook-panel-box-primary;
-}
-
-.uk-panel-box-primary .uk-panel-title {
-	color: @panel-box-primary-title-color;
+	.uk-panel-title {
+		color: @panel-box-primary-title-color;
+	}
 }
 
 /*
@@ -136,20 +118,21 @@
 	background-color: @panel-box-secondary-background;
 	color: @panel-box-secondary-color;
 	.hook-panel-box-secondary;
-}
-
-.uk-panel-box-secondary .uk-panel-title {
-	color: @panel-box-secondary-title-color;
+	.uk-panel-title {
+		color: @panel-box-secondary-title-color;
+	}
 }
 
 /* Modifier: `uk-panel-header`
  ========================================================================== */
 
-.uk-panel-header .uk-panel-title {
-	padding-bottom: @panel-header-title-padding;
-	border-bottom: 1px solid @panel-header-title-border;
-	color: @panel-header-title-color;
-	.hook-panel-header;
+.uk-panel-header {
+	.uk-panel-title {
+		padding-bottom: @panel-header-title-padding;
+		border-bottom: 1px solid @panel-header-title-border;
+		color: @panel-header-title-color;
+		.hook-panel-header;
+	}
 }
 
 /* Modifier: `uk-panel-space`
@@ -157,41 +140,26 @@
 
 .uk-panel-space {
 	padding: @panel-space-padding;
-}
-
-.uk-panel-space .uk-panel-badge {
-	top: @panel-space-padding;
-	right: @panel-space-padding;
+	.uk-panel-badge {
+		top: @panel-space-padding;
+		right: @panel-space-padding;
+	}
 }
 
 /* Modifier: `uk-panel-divider`
  ========================================================================== */
 
-.uk-panel + .uk-panel-divider {
-	margin-top: (@panel-divider-gutter * 2) !important;
-}
-
-.uk-panel + .uk-panel-divider:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: -(@panel-divider-gutter);
-	left: 0;
-	right: 0;
-	border-top: 1px solid @panel-divider-border;
-}
-
 /* Only large screens */
 @media (min-width: @breakpoint-xlarge) {
 
-	.uk-panel + .uk-panel-divider {
-		margin-top: (@panel-divider-large-gutter * 2) !important;
+	.uk-panel {
+		& + .uk-panel-divider {
+			margin-top: (@panel-divider-large-gutter * 2) !important;
+		}
+		& + .uk-panel-divider:before {
+			top: -(@panel-divider-large-gutter);
+		}
 	}
-
-	.uk-panel + .uk-panel-divider:before {
-		top: -(@panel-divider-large-gutter);
-	}
-
 }
 
 /* Hooks

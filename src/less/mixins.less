@@ -156,31 +156,31 @@ Site-wide rules
 
 // Placeholder
 // -------------------------
-.placeholder(@textColour: @textColour, @fontFamily: @baseFontFamily, @fontSize: @baseFontSize) {
+.placeholder(@textColour: @base-body-color, @fontFamily: @base-body-font-family, @fontSize: @base-body-font-size) {
 	&::-webkit-input-placeholder {
 		color: @textColour;
 		font-family: @fontFamily;
-		font-size: @baseFontSize;
+		font-size: @fontSize;
 	}
 
 	&:-moz-placeholder {
 		/* Firefox 18- */
 		color: @textColour;
 		font-family: @fontFamily;
-		font-size: @baseFontSize;
+		font-size: @fontSize;
 	}
 
 	&::-moz-placeholder {
 		/* Firefox 19+ */
 		color: @textColour;
 		font-family: @fontFamily;
-		font-size: @baseFontSize;
+		font-size: @fontSize;
 	}
 
 	&:-ms-input-placeholder {
 		color: @textColour;
 		font-family: @fontFamily;
-		font-size: @baseFontSize;
+		font-size: @fontSize;
 	}
 }
 
@@ -191,10 +191,15 @@ Site-wide rules
 	text-size-adjust: @value;
 }
 
+.text-shadow(...) {
+	-webkit-text-shadow: @arguments;
+	-moz-text-shadow: @arguments;
+	text-shadow: @arguments;
+}
 // Centre-align a block level element
 // ----------------------------------
 .centre-block() {
-	display: block;
+	&:extend(.block);
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -665,3 +670,30 @@ Fonts
 	-moz-appearance: @argument;
 	appearance: @argument;
 }
+
+/* =============================================================================
+Tabs
+========================================================================== */
+.tab-size(@indent-amount: 4) {
+	-moz-tab-size: @indent-amount;
+	-o-tab-size: @indent-amount;
+	tab-size: @indent-amount;
+}
+
+/* =============================================================================
+Hyphens
+========================================================================== */
+
+.word-break(@value: break-all, @alternate: break-word) {
+	-ms-word-break: @value;
+	word-break: @value;
+	word-break: @alternate;
+}
+.hyphens(@mode: auto) {
+	.word-break();
+	-webkit-hyphens: @mode;
+	-ms-hyphens: @mode;
+	-moz-hyphens: @mode;
+	hyphens: @mode;
+}
+

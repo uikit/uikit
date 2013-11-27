@@ -24,6 +24,26 @@
 	background: @alert-background;
 	color: @alert-color;
 	.hook-alert;
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: inherit;
+	}
+	& > {
+		&:extend(.pull-right);
+		&:last-child {
+			&:extend(.margin-bottom-none);
+		}
+		.uk-close:first-child {
+			&:extend(.pull-right);
+			& + * {
+				&:extend(.margin-top-none);
+			}
+		}
+	}
 }
 
 /*
@@ -34,41 +54,7 @@
 	margin-top: @alert-margin-vertical;
 }
 
-/*
- * Remove margin from the last-child
- */
 
-.uk-alert > :last-child {
-	margin-bottom: 0;
-}
-
-/*
- * Keep color for headings if the default heading color is changed
- */
-
-.uk-alert h1,
-.uk-alert h2,
-.uk-alert h3,
-.uk-alert h4,
-.uk-alert h5,
-.uk-alert h6 {
-	color: inherit;
-}
-
-/* Close in alert
- ========================================================================== */
-
-.uk-alert > .uk-close:first-child {
-	float: right;
-}
-
-/*
- * Remove margin from adjacent element
- */
-
-.uk-alert > .uk-close:first-child + * {
-	margin-top: 0;
-}
 
 /* Modifier: `uk-alert-success`
  ========================================================================== */

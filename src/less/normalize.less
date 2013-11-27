@@ -33,7 +33,7 @@ main,
 nav,
 section,
 summary {
-	display: block;
+	&:extend(.block);
 }
 
 /*
@@ -43,7 +43,7 @@ summary {
 audio,
 canvas,
 video {
-	.inline-block();
+	&:extend(.inline);
 }
 
 /*
@@ -52,7 +52,7 @@ video {
  */
 
 audio:not([controls]) {
-	display: none;
+	&:extend(.hidden);
 	height: 0;
 }
 
@@ -61,7 +61,7 @@ audio:not([controls]) {
  */
 
 [hidden] {
-	display: none;
+	&:extend(.hidden);
 }
 
 /* Base
@@ -74,8 +74,7 @@ audio:not([controls]) {
 
 html {
 	font-family: sans-serif; /* 1 */
-	-webkit-text-size-adjust: 100%; /* 2 */
-	-ms-text-size-adjust: 100%; /* 2 */
+	.text-size-adjust(100%); /* 2 */
 }
 
 /*
@@ -139,8 +138,7 @@ dfn {
  */
 
 hr {
-	-moz-box-sizing: content-box;
-	box-sizing: content-box;
+	&:extend(.border-box);
 	height: 0;
 }
 
@@ -189,7 +187,7 @@ sub,
 sup {
 	font-size: 75%;
 	line-height: 0;
-	position: relative;
+	&:extend(.relative);
 	vertical-align: baseline;
 }
 
@@ -209,7 +207,7 @@ sub {
  */
 
 img {
-	border: 0;
+	&:extend(.bordered-none);
 }
 
 /*
@@ -217,7 +215,7 @@ img {
  */
 
 svg:not(:root) {
-	overflow: hidden;
+	&:extend(.overflow-hidden);
 }
 
 /* Figures
@@ -228,7 +226,7 @@ svg:not(:root) {
  */
 
 figure {
-	margin: 0;
+	&:extend(.margin-none);
 }
 
 /* Forms
@@ -239,9 +237,9 @@ figure {
  */
 
 fieldset {
-	border: 0;
-	margin: 0;
-	padding: 0;
+	&:extend(.bordered-none);
+	&:extend(.margin-none);
+	&:extend(.padding-none);
 }
 
 /*
@@ -250,8 +248,8 @@ fieldset {
  */
 
 legend {
-	border: 0; /* 1 */
-	padding: 0; /* 2 */
+	&:extend(.bordered-none); /* 1 */
+	&:extend(.padding-none); /* 2 */
 }
 
 /*
@@ -271,10 +269,8 @@ select,
 textarea {
 	font-family: inherit; /* 1 */
 	font-size: 100%; /* 2 */
-	margin: 0; /* 3 */
-	-moz-box-sizing: border-box; /* 4 */
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+	&:extend(.margin-none); /* 3 */
+	&:extend(.border-box);
 }
 
 /*
@@ -336,7 +332,7 @@ input:disabled {
 
 input[type="checkbox"],
 input[type="radio"] {
-	padding: 0;
+	&:extend(.padding-none);
 }
 
 /*
@@ -362,8 +358,8 @@ input[type="search"]::-webkit-search-decoration {
 
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-	border: 0;
-	padding: 0;
+	&:extend(.bordered-none);
+	&:extend(.padding-none);
 }
 
 /*

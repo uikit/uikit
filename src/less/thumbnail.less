@@ -25,11 +25,10 @@
 
 .uk-thumbnail {
 	/* Required for `a`, `div` or `figure` elements */
-	.inline-block();
-	-moz-box-sizing: border-box; /* 1 */
-	box-sizing: border-box;
+	&:extend(.inline);
+	&:extend(.border-box);
 	max-width: 100%; /* 2 */
-	margin: 0; /* 3 */
+	&:extend(.margin-none); /* 3 */
 	padding: @thumbnail-padding;
 	border: 1px solid @thumbnail-border;
 	background: @thumbnail-background;
@@ -43,14 +42,14 @@
  * 3. Remove default focus style
  */
 
-a.uk-thumbnail:hover,
-a.uk-thumbnail:focus {
-	/* 1 */
-	border-color: @thumbnail-hover-border;
-	background-color: @thumbnail-hover-background;
-	text-decoration: none; /* 2 */
-	outline: none; /* 3 */
-	.hook-thumbnail-hover;
+a.uk-thumbnail {
+	&:hover, &:focus {
+		border-color: @thumbnail-hover-border;
+		background-color: @thumbnail-hover-background;
+		&:extend(.text-decoration-none); /* 2 */
+		outline: none; /* 3 */
+		.hook-thumbnail-hover;
+	}
 }
 
 /* Caption
@@ -58,7 +57,7 @@ a.uk-thumbnail:focus {
 
 .uk-thumbnail-caption {
 	padding-top: @thumbnail-padding;
-	text-align: center;
+	&:extend(.centred);
 	color: @thumbnail-caption-color;
 	.hook-thumbnail-caption;
 }
@@ -67,19 +66,19 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 
 .uk-thumbnail-mini {
-	width: 150px;
+	max-width: 9.735em;
 }
 
 .uk-thumbnail-small {
-	width: 200px;
+	max-width: 12.5;
 }
 
 .uk-thumbnail-medium {
-	width: 300px;
+	max-width: 18.75em;
 }
 
 .uk-thumbnail-large {
-	width: 400px;
+	max-width: 25em;
 }
 
 .uk-thumbnail-expand,

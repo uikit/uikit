@@ -24,10 +24,11 @@
  ========================================================================== */
 
 .uk-container {
-	.border-box();
+	&:extend(.border-box);
 	max-width: @utility-container-max-width;
 	padding: 0 @utility-container-padding-horizontal;
 	.hook-container;
+	&:extend(.clearfix);
 
 }
 
@@ -39,20 +40,6 @@
 		padding: 0 @utility-container-large-padding-horizontal;
 	}
 
-}
-
-/*
- * Micro clearfix
- */
-
-.uk-container:before,
-.uk-container:after {
-	content: " ";
-	display: table;
-}
-
-.uk-container:after {
-	clear: both;
 }
 
 /*
@@ -71,14 +58,8 @@
  * Micro clearfix
  */
 
-.uk-clearfix:before,
-.uk-clearfix:after {
-	content: " ";
-	display: table;
-}
-
-.uk-clearfix:after {
-	clear: both;
+.uk-clearfix {
+	&:extend(.clearfix);
 }
 
 /*
@@ -86,7 +67,7 @@
  */
 
 .uk-nbfc {
-	overflow: hidden;
+	&:extend(.overflow-hidden);
 }
 
 .uk-nbfc-alt {
@@ -103,14 +84,14 @@
  */
 
 .uk-float-left {
-	float: left;
+	&:extend(.pull-left);
 }
 
 .uk-float-right {
-	float: right;
+	&:extend(.pull-right);
 }
 
-[class*='uk-float-'] {
+[class*="uk-float-"] {
 	max-width: 100%;
 }
 
@@ -123,19 +104,19 @@
  * Alignment
  */
 
-[class*='uk-align-'] {
-	display: block;
+[class*="uk-align-"] {
+	&:extend(.block);
 	margin-bottom: @utility-align-vertical;
 }
 
 .uk-align-left {
 	margin-right: @utility-align-horizontal;
-	float: left;
+	&:extend(.pull-left);
 }
 
 .uk-align-right {
 	margin-left: @utility-align-horizontal;
-	float: right;
+	&:extend(.pull-right);
 }
 
 /* Only tablets and desktop */
@@ -169,18 +150,14 @@
 
 .uk-vertical-align {
 	letter-spacing: -0.31em;
+	&:before {
+		content: "";
+		&:extend(.inline);
+		height: 100%;
+		vertical-align: middle;
+	}
 }
 
-/*  
- *  The `uk-vertical-align` container needs a specific height
- */
-
-.uk-vertical-align:before {
-	content: '';
-	.inline-block();
-	height: 100%;
-	vertical-align: middle;
-}
 
 /*
  * Sub-object which can have any height
@@ -189,7 +166,7 @@
 
 .uk-vertical-align-middle,
 .uk-vertical-align-bottom {
-	.inline-block();
+	&:extend(.inline);
 	letter-spacing: normal; /* 1 */
 	max-width: 100%;
 }
@@ -220,7 +197,7 @@
 
 .uk-responsive-width,
 .uk-responsive-height {
-	.border-box();
+	&:extend(.border-box);
 }
 
 /*
@@ -313,14 +290,13 @@
 /* Link
  ========================================================================== */
 
-.uk-link-muted,
-.uk-link-muted a {
-	color: @utility-link-muted-color;
-}
-
-.uk-link-muted:hover,
-.uk-link-muted a:hover {
-	color: @utility-link-muted-hover-color;
+.uk-link-muted{
+	&, a {
+		color: @utility-link-muted-color;
+	}
+	&:hover, a:hover {
+		color: @utility-link-muted-hover-color;
+	}
 }
 
 /* Scrollable
@@ -340,7 +316,7 @@
  */
 
 .uk-scrollable-box {
-	.border-box();
+	&:extend(.border-box);
 	max-height: @utility-scrollable-box-height;
 	padding: @utility-scrollable-box-padding;
 	border: 1px solid @utility-scrollable-box-border;
@@ -353,7 +329,7 @@
  */
 
 .uk-scrollable-box > :last-child {
-	margin-bottom: 0;
+	&:extend(.margin-bottom-none);
 }
 
 /* Display
@@ -372,7 +348,7 @@
 }
 
 .uk-display-inline-block {
-	display: inline-block !important;
+	.inline-block() !important;
 }
 
 /*
@@ -383,15 +359,7 @@
 /* Only desktops */
 @media (min-width: @breakpoint-large) {
 
-	.uk-visible-small {
-		display: none !important;
-	}
-
-	.uk-visible-medium {
-		display: none !important;
-	}
-
-	.uk-hidden-large {
+	.uk-visible-small, .uk-visible-medium, .uk-hidden-large {
 		display: none !important;
 	}
 
@@ -400,15 +368,7 @@
 /* Only tablets portrait */
 @media (min-width: @breakpoint-medium) and (max-width: @breakpoint-medium-max) {
 
-	.uk-visible-small {
-		display: none !important;
-	}
-
-	.uk-visible-large {
-		display: none !important;
-	}
-
-	.uk-hidden-medium {
+	.uk-visible-small, .uk-visible-large, .uk-hidden-medium {
 		display: none !important;
 	}
 
@@ -417,18 +377,9 @@
 /* Only phones */
 @media (max-width: @breakpoint-small-max) {
 
-	.uk-visible-medium {
+	.uk-visible-medium, .uk-visible-large, .uk-hidden-small {
 		display: none !important;
 	}
-
-	.uk-visible-large {
-		display: none !important;
-	}
-
-	.uk-hidden-small {
-		display: none !important;
-	}
-
 }
 
 /* Remove from the flow and screen readers on any device */

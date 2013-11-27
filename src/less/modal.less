@@ -31,9 +31,9 @@
 
 .uk-modal {
 	/* 1 */
-	display: none;
+	&:extend(.hidden);
 	/* 2 */
-	position: fixed;
+	&:extend(.fixed);
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -47,7 +47,7 @@
 	/* 5 */
 	background: @modal-background;
 	/* 6 */
-	.opacity(0);
+	&:extend(.opacity-0);
 	#transition > .transition(opacity 0.15s linear);
 	.hook-modal;
 }
@@ -57,7 +57,7 @@
  */
 
 .uk-modal.uk-open {
-	.opacity(100)
+	&:extend(.opacity-1);
 }
 
 /*
@@ -65,7 +65,7 @@
  */
 
 .uk-modal-page {
-	overflow: hidden;
+	&:extend(.overflow-hidden);
 }
 
 /* Sub-object: `uk-modal-dialog`
@@ -80,11 +80,11 @@
 
 .uk-modal-dialog {
 	/* 1 */
-	position: relative;
+	&:extend(.relative);
 	top: 10%;
 	left: 50%;
 	/* 2 */
-	.border-box();
+	&:extend(.border-box);
 	padding: @modal-dialog-padding;
 	width: @modal-dialog-width;
 	/* 3 */
@@ -92,6 +92,9 @@
 	/* 4 */
 	background: @modal-dialog-background;
 	.hook-modal-dialog;
+	> &:last-child {
+		&:extend(.margin-bottom-none);
+	}
 }
 
 /* Only phones */
@@ -105,17 +108,9 @@
 		left: 0;
 		right: 0;
 		width: auto;
-		margin: 10px;
+		margin: 0.8em;
 	}
 
-}
-
-/*
- * Remove margin from the last-child
- */
-
-.uk-modal-dialog > :last-child {
-	margin-bottom: 0;
 }
 
 /* Modifier: `uk-modal-dialog-slide`
@@ -126,50 +121,43 @@
  */
 
 .uk-modal-dialog-slide {
-	.opacity(0);
+	&:extend(.opacity-0);
 	#transform > .translate(0, -25%);
 	#transition > .transition(opacity 0.3s linear, transform 0.3s ease-out);
 }
 
 .uk-open .uk-modal-dialog-slide {
-	.opacity(100);
+	&:extend(.opacity-1);;
 	#transform > .translate(0, 0);
 }
 
 /* Close in modal
  ========================================================================== */
 
-.uk-modal-dialog > .uk-close:first-child {
-	margin: -10px -10px 0 0;
-	float: right;
-}
-
-/*
- * Remove margin from adjacent element
- */
-
-.uk-modal-dialog > .uk-close:first-child + * {
-	margin-top: 0;
+.uk-modal-dialog {
+	> .uk-close:first-child {
+		margin: -10px -10px 0 0;
+		&:extend(.pull-right);
+	}
+	.uk-close:first-child + * {
+		&:extend(.margin-top-none);
+	}
 }
 
 /* Modifier: `uk-modal-dialog-frameless`
  ========================================================================== */
 
 .uk-modal-dialog-frameless {
-	padding: 0;
+	&:extend(.padding-none);
+	> .uk-close:first-child {
+		&:extend(.absolute);
+		top: -12px;
+		right: -12px;
+		&:extend(.margin-none);
+		float: none;
+	}
 }
 
-/*
- * Close in modal
- */
-
-.uk-modal-dialog-frameless > .uk-close:first-child {
-	position: absolute;
-	top: -12px;
-	right: -12px;
-	margin: 0;
-	float: none;
-}
 
 /* Only phones */
 @media (max-width: @breakpoint-small-max) {
