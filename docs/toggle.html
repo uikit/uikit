@@ -106,39 +106,40 @@
 
 							<h2>Usage</h2>
 
-							<p>To apply this component, just add the <code>data-uk-toggle="{toggle: #ID}"</code> attribute to a <code>&lt;button&gt;</code> element. Link the attribute to the id of the element that you want to target. By default, the toggle will hide the item.</p>
+							<p>To apply this component, just add the <code>data-uk-toggle="{target: #ID}"</code> attribute to a <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element. You can use any selector with the toggle attribute.</p>
+							<p>The toggle will add or remove a class from the item. By default, it adds the <code>.uk-hidden</code> class to hide the element.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<p><button class="uk-button" data-uk-toggle="{toggle:'#toggle1'}">Toggle</button></p>
+							<p><button class="uk-button" data-uk-toggle="{target:'#toggle1'}">Toggle</button></p>
 
 							<div id="toggle1" class="uk-panel uk-panel-box">What's up?</div>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;button class="uk-button" data-uk-toggle="{toggle:'#my-id'}"&gt;...&lt;/button&gt;
+<pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id'}"&gt;...&lt;/button&gt;
 
-&lt;div id="my-id" class="uk-panel uk-panel-box"&gt;What's up?&lt;/div&gt;</code></pre>
+&lt;div id="my-id" class="uk-panel uk-panel-box"&gt;...&lt;/div&gt;</code></pre>
 
 							<hr class="uk-article-divider">
 
-							<h2>Two items</h2>
+							<h2>Multiple items</h2>
 
-							<p>You can also use the Toggle component to switch between two items. Just add the same class to both items that you want to target with the toggle.</p>
+							<p>You can also toggle multiple items at the same time. Just use the appropriate selector.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<p><button class="uk-button" data-uk-toggle="{toggle:'.toggle2'}">Toggle</button></p>
+							<p><button class="uk-button" data-uk-toggle="{target:'.toggle2'}">Toggle</button></p>
 
 							<div class="uk-panel uk-panel-box toggle2">Hello!</div>
 
 							<div class="uk-panel uk-panel-box toggle2 uk-hidden">Bazinga!</div>
 
-							<p><span class="uk-badge">NOTE</span> Mind that you also add the <code>.uk-hidden</code> class to the item that you wish to hide on page load.</p>
+							<p><span class="uk-badge">NOTE</span> In this example we added the <code>.uk-hidden</code> class to one of the items.</p>
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;button class="uk-button" data-uk-toggle="{toggle:'.my-class'}"&gt;...&lt;/button&gt;
+<pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'.my-class'}"&gt;...&lt;/button&gt;
 
 &lt;div class="my-class"&gt;...&lt;/div&gt;
 &lt;div class="my-class uk-hidden"&gt;...&lt;/div&gt;</code></pre>
@@ -147,19 +148,21 @@
 
 							<h2>Custom class</h2>
 
-							<p>You can even add your own custom class, so that the item's appearence will change when hitting the toggle.</p>
+							<p>If you don't want to toggle the <code>.uk-hidden</code> class, you can also add your own custom class.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<p><button class="uk-button" data-uk-toggle="{toggle:'#toggle3', cls:'uk-panel-box-primary'}">Toggle</button></p>
+							<p><button class="uk-button" data-uk-toggle="{target:'#toggle3', cls:'uk-panel-box-primary'}">Toggle</button></p>
 
 							<div id="toggle3" class="uk-panel uk-panel-box">What's up?</div>
 
+							<p><span class="uk-badge">NOTE</span> In this example we used the <code>.uk-panel-box-primary</code> class.</p>
+
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;button class="uk-button" data-uk-toggle="{toggle:'#my-id', cls:'my-custom-class'}"&gt;...&lt;/button&gt;
+<pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id', cls:'my-custom-class'}"&gt;...&lt;/button&gt;
 
-&lt;div id="my-id" class="my-custom-class"&gt;...&lt;/div&gt;</code></pre>
+&lt;div id="my-id" class="uk-panel-box-primary"&gt;...&lt;/div&gt;</code></pre>
 
 						</article>
 
