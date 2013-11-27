@@ -1,6 +1,9 @@
 (function() {
   "use strict";
 
+  var HINT_ELEMENT_CLASS        = "CodeMirror-hint";
+  var ACTIVE_HINT_ELEMENT_CLASS = "CodeMirror-hint-active";
+
   CodeMirror.showHint = function(cm, getHints, options) {
     // We want a single cursor position.
     if (cm.somethingSelected()) return;
@@ -140,6 +143,13 @@
     return ourMap;
   }
 
+  function getHintElement(stopAt, el) {
+    while (el && el != stopAt) {
+      if (el.nodeName.toUpperCase() === "LI") return el;
+      el = el.parentNode;
+    }
+  }
+
   function Widget(completion, data) {
     this.completion = completion;
     this.data = data;
@@ -147,12 +157,12 @@
 
     var hints = this.hints = document.createElement("ul");
     hints.className = "CodeMirror-hints";
-    this.selectedHint = 0;
+    this.selectedHint = options.getDefaultSelection ? options.getDefaultSelection(cm,options,data) : 0;
 
     var completions = data.list;
     for (var i = 0; i < completions.length; ++i) {
       var elt = hints.appendChild(document.createElement("li")), cur = completions[i];
-      var className = "CodeMirror-hint" + (i ? "" : " CodeMirror-hint-active");
+      var className = HINT_ELEMENT_CLASS + (i != this.selectedHint ? "" : " " + ACTIVE_HINT_ELEMENT_CLASS);
       if (cur.className != null) className = cur.className + " " + className;
       elt.className = className;
       if (cur.render) cur.render(elt, data, cur);
@@ -216,13 +226,15 @@
     });
 
     CodeMirror.on(hints, "dblclick", function(e) {
-      var t = e.target || e.srcElement;
-      if (t.hintId != null) {widget.changeActive(t.hintId); widget.pick();}
+      var t = getHintElement(hints, e.target || e.srcElement);
+      if (t && t.hintId != null) {widget.changeActive(t.hintId); widget.pick();}
     });
+
     CodeMirror.on(hints, "click", function(e) {
-      var t = e.target || e.srcElement;
-      if (t.hintId != null) widget.changeActive(t.hintId);
+      var t = getHintElement(hints, e.target || e.srcElement);
+      if (t && t.hintId != null) widget.changeActive(t.hintId);
     });
+
     CodeMirror.on(hints, "mousedown", function() {
       setTimeout(function(){cm.focus();}, 20);
     });
@@ -257,9 +269,9 @@
         i = avoidWrap ? 0  : this.data.list.length - 1;
       if (this.selectedHint == i) return;
       var node = this.hints.childNodes[this.selectedHint];
-      node.className = node.className.replace(" CodeMirror-hint-active", "");
+      node.className = node.className.replace(" " + ACTIVE_HINT_ELEMENT_CLASS, "");
       node = this.hints.childNodes[this.selectedHint = i];
-      node.className += " CodeMirror-hint-active";
+      node.className += " " + ACTIVE_HINT_ELEMENT_CLASS;
       if (node.offsetTop < this.hints.scrollTop)
         this.hints.scrollTop = node.offsetTop - 3;
       else if (node.offsetTop + node.offsetHeight > this.hints.scrollTop + this.hints.clientHeight)

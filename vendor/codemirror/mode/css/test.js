@@ -1,6 +1,7 @@
 (function() {
-  var mode = CodeMirror.getMode({tabSize: 4}, "css");
+  var mode = CodeMirror.getMode({tabSize: 1}, "css");
   function MT(name) { test.mode(name, mode, Array.prototype.slice.call(arguments, 1)); }
+  function IT(name) { test.indentation(name, mode, Array.prototype.slice.call(arguments, 1)); }
 
   // Requires at least one media query
   MT("atMediaEmpty",
@@ -123,4 +124,19 @@
 
   MT("commentSGML",
      "[comment <!--comment-->]");
+
+  IT("tagSelector",
+    "strong, em [1 { background][2 : rgba][3 (255, 255, 0, .2][2 )][1 ;]}");
+
+  IT("atMedia",
+    "[1 @media { foo ][2 { ][1 } ]}");
+
+  IT("comma",
+    "foo [1 { font-family][2 : verdana, sans-serif][1 ; ]}");
+
+  IT("parentheses",
+    "foo [1 { background][2 : url][3 (\"bar\"][2 )][1 ; ]}");
+
+  IT("pseudo",
+    "foo:before [1 { ]}");
 })();

@@ -1,6 +1,7 @@
 (function() {
-  var mode = CodeMirror.getMode({tabSize: 4}, "text/x-scss");
+  var mode = CodeMirror.getMode({tabSize: 1}, "text/x-scss");
   function MT(name) { test.mode(name, mode, Array.prototype.slice.call(arguments, 1), "scss"); }
+  function IT(name) { test.indentation(name, mode, Array.prototype.slice.call(arguments, 1), "scss"); }
 
   MT('url_with_quotation',
     "[tag foo] { [property background][operator :][string-2 url]([string test.jpg]) }");
@@ -77,4 +78,16 @@
 
   MT('nested_structure_with_id_selector',
     "[tag p] { [builtin #hello] { [property color][operator :][keyword red]; } }");
+
+  IT('mixin',
+    "@mixin container[1 (][2 $a: 10][1 , ][2 $b: 10][1 , ][2 $c: 10]) [1 {]}");
+
+  IT('nested',
+    "foo [1 { bar ][2 { ][1 } ]}");
+
+  IT('comma',
+    "foo [1 { font-family][2 : verdana, sans-serif][1 ; ]}");
+
+  IT('parentheses',
+    "foo [1 { color][2 : darken][3 ($blue, 9%][2 )][1 ; ]}");
 })();
