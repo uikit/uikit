@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 
             var lessconf = {
                 "docsmin": {
-                    options: { paths: ["docs/less"], yuicompress: true },
+                    options: { paths: ["docs/less"], cleancss: true },
                     files: { "docs/css/uikit.docs.min.css": ["docs/less/uikit.less"] }
                 }
             },
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
                             }
 
                             lessconf[t+"min"] = {
-                                "options": { paths: [themepath], yuicompress: true},
+                                "options": { paths: [themepath], cleancss: true},
                                 "files": filesmin
                             };
 
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
                   lessconf["addon-"+f] = {options: { paths: ['addons/src/'+f] }, files: {} };
                   lessconf["addon-"+f].files["dist/addons/css/"+f+".css"] = [addon];
 
-                  lessconf["addon-min-"+f] = {options: { paths: ['addons/src/'+f], yuicompress: true }, files: {} };
+                  lessconf["addon-min-"+f] = {options: { paths: ['addons/src/'+f], cleancss: true }, files: {} };
                   lessconf["addon-min-"+f].files["dist/addons/css/"+f+".min.css"] = [addon];
 
                   // look for theme overrides
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
                        lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
                        lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".css"] = [override];
 
-                       lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], yuicompress: true }, files: {} };
+                       lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
                        lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".min.css"] = [override];
                      }
                   });
