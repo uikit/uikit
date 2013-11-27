@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Get started - UIkit documentation</title>
+		<title>Toggle component - UIkit documentation</title>
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,8 +24,8 @@
 				<a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
 				<ul class="uk-navbar-nav uk-hidden-small">
-					<li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
-					<li><a href="components.html">Components</a></li>
+					<li><a href="documentation_get-started.html">Get Started</a></li>
+					<li class="uk-active"><a href="components.html">Components</a></li>
 					<li><a href="customizer.html">Customizer</a></li>
 				</ul>
 
@@ -44,14 +44,54 @@
 
 						<ul class="tm-nav uk-nav" data-uk-nav>
 
-							<li class="uk-nav-header">Beginners</li>
-							<li class="uk-active"><a href="documentation_get-started.html">Get started</a></li>
-							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
-							<li class="uk-nav-header">Developers</li>
-							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_variables.html">Variables</a></li>
-							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+							<li class="uk-nav-header">Defaults</li>
+							<li><a href="normalize.html">Normalize</a></li>
+							<li><a href="base.html">Base</a></li>
+							<li><a href="print.html">Print</a></li>
+
+							<li class="uk-nav-header">Layout</li>
+							<li><a href="grid.html">Grid</a></li>
+							<li><a href="panel.html">Panel</a></li>
+							<li><a href="article.html">Article</a></li>
+							<li><a href="comment.html">Comment</a></li>
+							<li><a href="utility.html">Utility</a></li>
+
+							<li class="uk-nav-header">Navigations</li>
+							<li><a href="nav.html">Nav</a></li>
+							<li><a href="navbar.html">Navbar</a></li>
+							<li><a href="subnav.html">Subnav</a></li>
+							<li><a href="breadcrumb.html">Breadcrumb</a></li>
+							<li><a href="pagination.html">Pagination</a></li>
+							<li><a href="tab.html">Tab</a></li>
+
+							<li class="uk-nav-header">Elements</li>
+							<li><a href="list.html">List</a></li>
+							<li><a href="description-list.html">Description list</a></li>
+							<li><a href="table.html">Table</a></li>
+							<li><a href="form.html">Form</a></li>
+
+							<li class="uk-nav-header">Common</li>
+							<li><a href="button.html">Button</a></li>
+							<li><a href="icon.html">Icon</a></li>
+							<li><a href="close.html">Close</a></li>
+							<li><a href="badge.html">Badge</a></li>
+							<li><a href="alert.html">Alert</a></li>
+							<li><a href="thumbnail.html">Thumbnail</a></li>
+							<li><a href="overlay.html">Overlay</a></li>
+							<li><a href="progress.html">Progress</a></li>
+							<li><a href="search.html">Search</a></li>
+							<li><a href="text.html">Text</a></li>
+							<li><a href="animation.html">Animation</a></li>
+
+							<li class="uk-nav-header">JavaScript</li>
+							<li><a href="dropdown.html">Dropdown</a></li>
+							<li><a href="modal.html">Modal</a></li>
+							<li><a href="offcanvas.html">Off-canvas</a></li>
+							<li><a href="switcher.html">Switcher</a></li>
+							<li class="uk-active"><a href="toggle.html">Toggle</a></li>
+							<li><a href="tooltip.html">Tooltip</a></li>
+							<li><a href="scrollspy.html">Scrollspy</a></li>
+							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
 
 						</ul>
 
@@ -60,89 +100,66 @@
 
 						<article class="uk-article">
 
-						<h1>Get started</h1>
+							<h1 class="uk-article-title">Toggle</h1>
 
-						<p class="uk-article-lead">Get familiar with the basic setup and structure of UIkit.</p>
+							<p class="uk-article-lead">Hide, switch or change the appearence of different contents through a toggle.</p>
 
-						<p>First of all you need to download UIkit. You can find the whole project and all source files on <a href="https://github.com/uikit/uikit">GitHub</a>.</p>
+							<h2>Usage</h2>
 
-						<p><a class="uk-button uk-button-large uk-button-primary" data-uikit-download>Download UIkit</a></p>
+							<p>To apply this component, just add the <code>data-uk-toggle="{toggle: #ID}"</code> attribute to a <code>&lt;button&gt;</code> element. Link the attribute to the id of the element that you want to target. By default, the toggle will hide the item.</p>
 
-						<hr class="uk-article-divider">
+							<h3 class="tm-article-subtitle">Example</h3>
 
-						<h2>File Structure</h2>
+							<p><button class="uk-button" data-uk-toggle="{toggle:'#toggle1'}">Toggle</button></p>
 
-						<p>In the ZIP file you will find all CSS, JavaScript and font files ready to use for your project. The core framework of UIkit has almost no styling in order to keep it slim. Therefore we provide two addidional distributions with a gradient and an almost flat style. Each style comes as a single CSS file as well as a minified version.
+							<div id="toggle1" class="uk-panel uk-panel-box">What's up?</div>
 
-						<table class="uk-table uk-table-striped">
-							<thead>
-								<tr>
-									<th>Folder</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><code>/css</code></td>
-									<td>Contains all UIkit CSS files and minified versions.</td>
-								</tr>
-								<tr>
-									<td><code>/fonts</code></td>
-									<td>Contains fonts used in UIkit.</td>
-								</tr>
-								<tr>
-									<td><code>/js</code></td>
-									<td>Contains all UIkit JavaScript files and minified versions.</td>
-								</tr>
-							</tbody>
-						</table>
+							<h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>/css
-	&lt;!-- UIkit with the basic style --&gt;
-	uikit.css
-	uikit.min.css
+<pre><code>&lt;button class="uk-button" data-uk-toggle="{toggle:'#my-id'}"&gt;...&lt;/button&gt;
 
-	&lt;!-- UIkit with Gradient style --&gt;
-	uikit.gradient.css
-	uikit.gradient.min.css
+&lt;div id="my-id" class="uk-panel uk-panel-box"&gt;What's up?&lt;/div&gt;</code></pre>
 
-	&lt;!-- UIkit with Almost flat style --&gt;
-	uikit.almostflat.css
-	uikit.almostflat.min.css
+							<hr class="uk-article-divider">
 
-/fonts
-	&lt;!-- FontAwesome webfont --&gt;
-	fontawesome-webfont.eot
-	fontawesome-webfont.ttf
-	fontawesome-webfont.woff
-	FontAwesome.otf
+							<h2>Two items</h2>
 
-/js
-	&lt;!-- JavaScript and minified version --&gt;
-	uikit.js
-	uikit.min.js</code></pre>
+							<p>You can also use the Toggle component to switch between two items. Just add the same class to both items that you want to target with the toggle.</p>
 
-						<hr class="uk-article-divider">
+							<h3 class="tm-article-subtitle">Example</h3>
 
-						<h2>HTML Page Markup</h2>
+							<p><button class="uk-button" data-uk-toggle="{toggle:'.toggle2'}">Toggle</button></p>
 
-						<p>First off, make sure you have a solid code editor, for example <a href="http://www.sublimetext.com/2">Sublime Text 2</a>. You need to add the compiled and preferably minified UIkit CSS and JavaScript to the header of your HTML5 document. <a href="http://jquery.com/">jQuery</a> is required as well. And that's it!</p>
+							<div class="uk-panel uk-panel-box toggle2">Hello!</div>
 
-						<h3 class="tm-article-subtitle">Example</h3>
+							<div class="uk-panel uk-panel-box toggle2 uk-hidden">Bazinga!</div>
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-	&lt;head&gt;
-		&lt;title&gt;&lt;/title&gt;
-		&lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-		&lt;script src="jquery.js">&lt;/script&gt;
-		&lt;script src="uikit.min.js">&lt;/script&gt;
-	&lt;/head&gt;
-	&lt;body&gt;
-	&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+							<p><span class="uk-badge">NOTE</span> Mind that you also add the <code>.uk-hidden</code> class to the item that you wish to hide on page load.</p>
 
-						<p>Once you have finished implementing UIkit into your webpage, take a look at the <a href="components.html">UIkit components</a> and get an overview of what UIkit is offering.</p>
+							<h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;button class="uk-button" data-uk-toggle="{toggle:'.my-class'}"&gt;...&lt;/button&gt;
+
+&lt;div class="my-class"&gt;...&lt;/div&gt;
+&lt;div class="my-class uk-hidden"&gt;...&lt;/div&gt;</code></pre>
+
+							<hr class="uk-article-divider">
+
+							<h2>Custom class</h2>
+
+							<p>You can even add your own custom class, so that the item's appearence will change when hitting the toggle.</p>
+
+							<h3 class="tm-article-subtitle">Example</h3>
+
+							<p><button class="uk-button" data-uk-toggle="{toggle:'#toggle3', cls:'uk-panel-box-primary'}">Toggle</button></p>
+
+							<div id="toggle3" class="uk-panel uk-panel-box">What's up?</div>
+
+							<h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;button class="uk-button" data-uk-toggle="{toggle:'#my-id', cls:'my-custom-class'}"&gt;...&lt;/button&gt;
+
+&lt;div id="my-id" class="my-custom-class"&gt;...&lt;/div&gt;</code></pre>
 
 						</article>
 
@@ -175,7 +192,7 @@
 			<div class="uk-offcanvas-bar">
 
 				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-					<li class="uk-parent uk-active"><a href="#">Documentation</a>
+					<li class="uk-parent"><a href="#">Documentation</a>
 						<ul class="uk-nav-sub">
 							<li><a href="documentation_get-started.html">Get started</a></li>
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -236,13 +253,14 @@
 							<li><a href="animation.html">Animation</a></li>
 						</ul>
 					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+					<li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
 						<ul class="uk-nav-sub">
 							<li><a href="dropdown.html">Dropdown</a></li>
 							<li><a href="modal.html">Modal</a></li>
 							<li><a href="offcanvas.html">Off-canvas</a></li>
 							<li><a href="switcher.html">Switcher</a></li>
 							<li><a href="toggle.html">Toggle</a></li>
+							<li><a href="tooltip.html">Tooltip</a></li>
 							<li><a href="scrollspy.html">Scrollspy</a></li>
 							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
 						</ul>
