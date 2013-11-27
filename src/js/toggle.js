@@ -8,7 +8,7 @@
         if($element.data("toggle")) return;
 
         this.options  = $.extend({}, Toggle.defaults, options);
-        this.totoggle = this.options.toggle ? $(this.options.toggle):[];
+        this.totoggle = this.options.target ? $(this.options.target):[];
         this.element  = $element.on(UI.Utils.events.click, function(e) {
             e.preventDefault();
             $this.toggle();
@@ -28,7 +28,7 @@
     });
 
     Toggle.defaults = {
-        toggle: false,
+        target: false,
         cls: 'uk-hidden'
     };
 
