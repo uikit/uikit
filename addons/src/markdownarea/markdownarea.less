@@ -2,22 +2,22 @@
    Addon: Markdownarea
  ========================================================================== */
 //
-// Description:        Defines styles for markdownareas
+// Description:     Defines styles for markdownareas
 //
-// Component:          `uk-markdownarea`
+// Component:       `uk-markdownarea`
 //
-// Sub-objects:        `uk-markdownarea-container`
-//                     `uk-markdownarea-tabs`
-//                     `uk-markdownarea-toolbar`
-//                     `uk-markdownarea-previewtab`
-//                     `uk-markdownarea-codetab`
-//                     `uk-markdownarea-code`
-//                     `uk-markdownarea-preview`
+// Sub-objects:     `uk-markdownarea-navbar`
+//                  `uk-markdownarea-content`
+//                  `uk-markdownarea-toolbar`
+//                  `uk-markdownarea-previewtab`
+//                  `uk-markdownarea-codetab`
+//                  `uk-markdownarea-code`
+//                  `uk-markdownarea-preview`
 //
 // Modifier:
 //
-// States:            `[data-mode='tab']`
-//                    `[data-mode='split']`
+// States:         `[data-mode='tab']`
+//                 `[data-mode='split']`
 //
 // ========================================================================
 
@@ -27,149 +27,145 @@
 // Component
 // ========================================================================
 
-.uk-markdownarea {
-    position: relative;
-    border: 2px solid @navbar-background;
-}
+.uk-markdownarea {}
 
-/* Sub-object `uk-markdownarea-container`
+
+/* Sub-object `uk-markdownarea-navbar`
  ========================================================================== */
 
-.uk-markdownarea-container:before,
-.uk-markdownarea-container:after {
-    display: table;
-    content: " ";
-}
-.uk-markdownarea-container:after { clear: both; }
-
-.uk-markdownarea-container {
-    position: relative;
-    background: #fff;
+.uk-markdownarea-navbar {
+	position: relative;
+	z-index: 1;
+	height: 40px;
+	background: @navbar-background;
 }
 
-.uk-markdownarea-container > div:last-child {
-    overflow-y: scroll;
+/*
+ * Micro clearfix
+ */
+
+.uk-markdownarea-navbar:before,
+.uk-markdownarea-navbar:after {
+	content: " ";
+	display: table;
 }
 
+.uk-markdownarea-navbar:after { clear: both; }
 
-/* Sub-object `uk-markdownarea-tabs`
+
+/* Sub-object `uk-markdownarea-navbar-nav`
  ========================================================================== */
 
-.uk-markdownarea-tabs {
-    position: relative;
-    z-index: 1;
-    height: 40px;
-    background: @navbar-background;
+.uk-markdownarea-navbar-nav {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	float: left;
 }
 
-.uk-markdownarea-previewtab, .uk-markdownarea-codetab {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    color: @navbar-nav-color;
-    text-transform: uppercase;
-    font-size: 11px;
+.uk-markdownarea-navbar-nav > li { float: left; }
+
+/*
+ * 1. Dimensions
+ * 2. Style
+ */
+
+.uk-markdownarea-navbar-nav > li > a {
+	display: block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	text-decoration: none;
+	/* 1 */
+	height: @navbar-nav-height;
+	padding: 0 @navbar-nav-padding-horizontal;
+	line-height: @navbar-nav-line-height;
+	/* 2 */
+	color: @navbar-nav-color;
+	font-size: 11px;
+	cursor: pointer;
 }
 
-.uk-markdownarea-code, .uk-markdownarea-preview {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 20px 20px 10px 20px;
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-markdownarea-navbar-nav > li:hover > a,
+.uk-markdownarea-navbar-nav > li > a:focus { /* 1 */
+	background-color: @navbar-nav-hover-background;
+	color: @navbar-nav-hover-color;
+	outline: none; /* 2 */
 }
 
-/* tabview */
-
-.uk-markdownarea[data-mode='tab'] .uk-markdownarea-previewtab,
-.uk-markdownarea[data-mode='tab'] .uk-markdownarea-codetab {
-    float: right;
-    text-align: center;
-    cursor: pointer;
+/* OnClick */  
+.uk-markdownarea-navbar-nav > li > a:active {
+	background-color: @navbar-nav-onclick-background;
+	color: @navbar-nav-onclick-color;
 }
 
-.uk-markdownarea[data-mode='tab'] .uk-markdownarea-codetab {
-    border-left: 1px darken(@navbar-background, 10%) solid;
-}
-.uk-markdownarea[data-mode='tab'] .uk-markdownarea-previewtab {
-    border-left: 1px darken(@navbar-background, 10%) solid;
-}
-
-
-.uk-markdownarea[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-codetab {
-    background: #fff;
-    color: #000;
-}
-
-.uk-markdownarea[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-previewtab {
-    color: @navbar-nav-color;
-}
-
-.uk-markdownarea[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-previewtab {
-    background: #fff;
-    color: #000;
-}
-
-
-.uk-markdownarea[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-codetab {
-    color: @navbar-nav-color;
+/* Active */
+.uk-markdownarea-navbar-nav > li.uk-active > a {
+	background-color: @navbar-nav-active-background;
+	color: @navbar-nav-active-color;
 }
 
 
-.uk-markdownarea[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-container > div:last-child {
-    display: none;
-}
-.uk-markdownarea[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-container > div:first-child {
-    display: none;
-}
-
-
-/* splitview */
-
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-codetab,
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-previewtab {
-    position: absolute;
-    top: 0;
-    width: 125px;
-    text-align: right;
-}
-
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-codetab {
-    left: 50%;
-    margin-left: -125px;
-    border-right: 1px darken(@navbar-background, 10%) solid;
-}
-
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-previewtab {
-    right: 0;
-}
-
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-container > div {
-    float: left;
-    width: 50%;
-}
-
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-code {
-    border-right: 1px darken(@navbar-background, 10%) solid;
-}
-
-/* Sub-object `uk-markdownarea-toolbar`
+/* Sub-object: `uk-markdownarea-navbar-flip`
  ========================================================================== */
 
-.uk-markdownarea-toolbar {
-    float: left;
-    overflow: hidden;
-    height: 40px;
+ .uk-markdownarea-navbar-flip { float: right; }
+
+
+/* Sub-object `uk-markdownarea-content`
+ ========================================================================== */
+
+.uk-markdownarea-content {
+	position: relative;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background: #fff;
 }
 
-.uk-markdownarea-toolbar  a {
-    display: inline-block;
-    padding: 4px 10px;
-    color: @navbar-nav-color;
-    font-size: 11px;
-    line-height: 30px;
-    cursor: pointer;
+/*
+ * Micro clearfix
+ */
+
+.uk-markdownarea-content:before,
+.uk-markdownarea-content:after {
+	content: " ";
+	display: table;
 }
 
-.uk-markdownarea-toolbar a:hover {
-    background: @navbar-nav-hover-background;
-    color: @navbar-nav-hover-color;
+.uk-markdownarea-content:after { clear: both; }
+
+
+/* Sub-objects `uk-markdownarea-code` and `uk-markdownarea-preview`
+ ========================================================================== */
+
+.uk-markdownarea-code,
+.uk-markdownarea-preview {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 20px;
 }
+
+/*
+ * Tab view
+ */
+
+.uk-markdownarea[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-preview > div,
+.uk-markdownarea[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-code > div { display: none; }
+
+/*
+ * Split view
+ */
+
+.uk-markdownarea[data-mode='split'] .uk-markdownarea-code,
+.uk-markdownarea[data-mode='split'] .uk-markdownarea-preview {
+	float: left;
+	width: 50%;
+}
+
+.uk-markdownarea[data-mode='split'] .uk-markdownarea-code { border-right: 1px #ddd solid; }
