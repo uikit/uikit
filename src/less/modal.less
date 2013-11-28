@@ -16,7 +16,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -32,9 +31,9 @@
 
 .uk-modal {
 	/* 1 */
-	display: none; 
+	&:extend(.hidden);
 	/* 2 */
-	position: fixed;
+	&:extend(.fixed);
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -48,9 +47,8 @@
 	/* 5 */
 	background: @modal-background;
 	/* 6 */
-	opacity: 0;
-	-webkit-transition: opacity 0.15s linear;
-	transition: opacity 0.15s linear;
+	&:extend(.opacity-0);
+	#transition > .transition(opacity 0.15s linear);
 	.hook-modal;
 }
 
@@ -58,14 +56,17 @@
  * Open state
  */
 
-.uk-modal.uk-open { opacity: 1; }
+.uk-modal.uk-open {
+	&:extend(.opacity-1);
+}
 
 /*
  * Prevents dublicated scrollbar caused by 4.
  */
 
-.uk-modal-page { overflow: hidden; }
-
+.uk-modal-page {
+	&:extend(.overflow-hidden);
+}
 
 /* Sub-object: `uk-modal-dialog`
  ========================================================================== */
@@ -79,12 +80,11 @@
 
 .uk-modal-dialog {
 	/* 1 */
-	position: relative;
+	&:extend(.relative);
 	top: 10%;
 	left: 50%;
 	/* 2 */
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	&:extend(.border-box);
 	padding: @modal-dialog-padding;
 	width: @modal-dialog-width;
 	/* 3 */
@@ -92,6 +92,9 @@
 	/* 4 */
 	background: @modal-dialog-background;
 	.hook-modal-dialog;
+	> &:last-child {
+		&:extend(.margin-bottom-none);
+	}
 }
 
 /* Only phones */
@@ -100,23 +103,15 @@
 	/*
 	 * Fit the phone width perfectly
 	 */
-
 	.uk-modal-dialog {
 		top: 0;
 		left: 0;
 		right: 0;
 		width: auto;
-		margin: 10px;
+		margin: 0.8em;
 	}
 
 }
-
-/*
- * Remove margin from the last-child
- */
-
-.uk-modal-dialog > :last-child { margin-bottom: 0; }
-
 
 /* Modifier: `uk-modal-dialog-slide`
  ========================================================================== */
@@ -126,51 +121,43 @@
  */
 
 .uk-modal-dialog-slide {
-	opacity: 0;
-	-webkit-transform: translateY(-25%);
-	transform: translateY(-25%);
-	-webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
-	transition: opacity 0.3s linear, transform 0.3s ease-out;
+	&:extend(.opacity-0);
+	#transform > .translate(0, -25%);
+	#transition > .transition(opacity 0.3s linear, transform 0.3s ease-out);
 }
 
 .uk-open .uk-modal-dialog-slide {
-	opacity: 1;
-	-webkit-transform: translateY(0);
-	transform: translateY(0);
+	&:extend(.opacity-1);;
+	#transform > .translate(0, 0);
 }
-
 
 /* Close in modal
  ========================================================================== */
 
-.uk-modal-dialog > .uk-close:first-child {
-	margin: -10px -10px 0 0;
-	float: right;
+.uk-modal-dialog {
+	> .uk-close:first-child {
+		margin: -10px -10px 0 0;
+		&:extend(.pull-right);
+	}
+	.uk-close:first-child + * {
+		&:extend(.margin-top-none);
+	}
 }
-
-/*
- * Remove margin from adjacent element
- */
-
- .uk-modal-dialog > .uk-close:first-child + * { margin-top: 0; }
-
 
 /* Modifier: `uk-modal-dialog-frameless`
  ========================================================================== */
 
-.uk-modal-dialog-frameless { padding: 0; }
-
-/*
- * Close in modal
- */
-
-.uk-modal-dialog-frameless > .uk-close:first-child {
-	position: absolute;
-	top: -12px;
-	right: -12px;
-	margin: 0;
-	float: none;
+.uk-modal-dialog-frameless {
+	&:extend(.padding-none);
+	> .uk-close:first-child {
+		&:extend(.absolute);
+		top: -12px;
+		right: -12px;
+		&:extend(.margin-none);
+		float: none;
+	}
 }
+
 
 /* Only phones */
 @media (max-width: @breakpoint-small-max) {
@@ -182,9 +169,11 @@
 
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-modal() {}
-.hook-modal-dialog() {}
+.hook-modal() {
+}
+
+.hook-modal-dialog() {
+}

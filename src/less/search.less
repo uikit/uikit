@@ -17,7 +17,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -27,28 +26,23 @@
  */
 
 .uk-search {
-	display: inline-block;
-	position: relative; /* 1 */
-	margin: 0; /* 2 */
+	&:extend(.inline);
+	&:extend(.relative); /* 1 */
+	&:extend(.margin-none); /* 2 */
 	.hook-search;
-}
-
-/*
- * Icon
- */
-
-.uk-search:before {
-	content: @search-icon;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: @search-padding;
-	line-height: @search-height;
-	text-align: center;
-	font-family: "FontAwesome";
-	font-size: @search-icon-size;
-	color: @search-icon-color;
-	.hook-search-icon;
+	&:before {
+		content: @search-icon;
+		&:extend(.absolute);
+		top: 0;
+		left: 0;
+		width: @search-padding;
+		line-height: @search-height;
+		&:extend(.centred);
+		font-family: "FontAwesome";
+		font-size: @search-icon-size;
+		color: @search-icon-color;
+		.hook-search-icon;
+	}
 }
 
 
@@ -59,17 +53,26 @@
  * 1. Needed to reset iOS `input[type="search"]` appearance
  */
 
-.uk-search-field { /* 1 */
+.uk-search-field {
+	/* 1 */
 	width: @search-width;
 	height: @search-height;
 	padding: 0 @search-padding;
 	border: 1px solid @search-border;
-	border-radius: 0; /* 1 */
+	.border-radius(0); /* 1 */
 	background: @search-background;
 	color: @search-color;
-	-webkit-transition: all linear 0.2s;
-	transition: all linear 0.2s;
+	#transition > .transition(all linear 0.2s);
 	.hook-search-field;
+	.placeholder(@search-placeholder-color);
+	/* Removes cancel button in IE10 */
+	&::-ms-clear {
+		display: none;
+	}
+	&:focus {
+		outline: 0;
+		.hook-search-field-focus;
+	}
 }
 
 /*
@@ -77,26 +80,15 @@
  * Higher specificity to override appearance set by normalize.less
  */
 
-input.uk-search-field { -webkit-appearance: none; }
-
-/* Placeholder */
-.uk-search-field:-ms-input-placeholder { color: @search-placeholder-color; }
-.uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
-.uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
-
-/* Removes cancel button in IE10 */
-.uk-search-field::-ms-clear { display: none; }
-
-/* Focus */
-.uk-search-field:focus {
-	outline: 0;
-	.hook-search-field-focus;
+input.uk-search-field {
+	.appearance(none);
 }
 
 /* Focus + active */
 .uk-search-field:focus,
-.uk-active .uk-search-field { width: @search-focus-width; }
-
+.uk-active .uk-search-field {
+	width: @search-focus-width;
+}
 
 /* Sub-object `uk-search-close`
  ========================================================================== */
@@ -106,32 +98,34 @@ input.uk-search-field { -webkit-appearance: none; }
  */
 
 .uk-search-close {
-	display: none;
-	position: absolute;
+	&:extend(.hidden);
+	&:extend(.absolute);
 	top: 0;
 	right: 0;
 	width: @search-padding;
 	line-height: @search-height;
-	text-align: center;
+	&:extend(.centred);
 	font-size: @search-close-size;
 	color: @search-close-color;
 	/* 1. */
-	padding: 0;
-	border: 0;
-	-webkit-appearance: none;
+	&:extend(.padding-none);
+	&:extend(.bordered-none);
+	.appearance(none);
 	background: transparent; /* Needed for Sarari */
 	.hook-search-close;
 }
 
 .uk-loading > .uk-search-close,
-.uk-active > .uk-search-close { display: block; }
+.uk-active > .uk-search-close {
+	&:extend(.block);
+}
 
 /*
  * Icon
  */
 
 .uk-search-close:after {
-	display: block;
+	&:extend(.block);
 	content: @search-close-icon;
 	font-family: "FontAwesome";
 }
@@ -139,16 +133,23 @@ input.uk-search-field { -webkit-appearance: none; }
 /* Loading icon */
 .uk-loading > .uk-search-close:after {
 	content: @search-close-icon-loading;
-	-webkit-animation: uk-spin 2s infinite linear;
-	animation: uk-spin 2s infinite linear;
+	#animation > .animation(uk-spin 2s infinite linear);
 }
-
 
 /* Hooks
  ========================================================================== */
 
-.hook-search() {}
-.hook-search-icon() {}
-.hook-search-field() {}
-.hook-search-field-focus() {}
-.hook-search-close() {}
+.hook-search() {
+}
+
+.hook-search-icon() {
+}
+
+.hook-search-field() {
+}
+
+.hook-search-field-focus() {
+}
+
+.hook-search-close() {
+}

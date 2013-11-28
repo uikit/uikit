@@ -1,0 +1,252 @@
+/* =============================================================================
+Helpers
+========================================================================== */
+.pie() when (@pie = true) {
+	background: url(@pie-directory);
+}
+
+.border-box {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	.pie();
+}
+
+.padding-fix {
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	.pie();
+}
+
+/* =============================================================================
+Overflow
+========================================================================== */
+.overflow-visible {
+	overflow: visible;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+/* =============================================================================
+Layout
+========================================================================== */
+.block {
+	display: block;
+}
+
+.inline {
+	.inline-block();
+}
+
+/* =============================================================================
+Positions
+========================================================================== */
+.absolute {
+	position: absolute;
+}
+
+.fixed {
+	position: fixed;
+}
+
+.relative {
+	position: relative;
+}
+
+.static {
+	position: static;
+}
+
+/* =============================================================================
+Text
+========================================================================== */
+
+// CSS image replacement
+// -------------------------
+// Source: https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
+.hide-text {
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	&:extend(.bordered-none);
+}
+
+// Reset filters for IE
+.reset-filter() {
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
+}
+
+.centred {
+	text-align: center;
+}
+
+/* =============================================================================
+Opacity/visibility
+========================================================================== */
+.opacity-0 {
+	.opacity(0);
+}
+
+.opacity-05 {
+	.opacity(50);
+}
+
+.opacity-1 {
+	.opacity(100);
+}
+
+/* =============================================================================
+Borders
+========================================================================== */
+.bordered {
+	border: @global-border;
+}
+
+.bordered-right {
+	border-right: @global-border;
+}
+
+.bordered-left {
+	border-left: @global-border;
+}
+
+.bordered-top {
+	border-top: @global-border;
+}
+
+.bordered-bottom {
+	border-bottom: @global-border;
+}
+
+.bordered-none {
+	border: 0;
+}
+
+.bordered-top-none {
+	border-top: 0;
+}
+
+.bordered-left-none {
+	border-left: 0;
+}
+
+.bordered-right-none {
+	border-right: 0;
+}
+
+.bordered-bottom-none {
+	border-bottom: 0;
+}
+
+/* =============================================================================
+Lists
+========================================================================== */
+.list-style-none {
+	list-style: none;
+}
+
+/* =============================================================================
+Links
+========================================================================== */
+.text-decoration-none {
+	text-decoration: none;
+}
+
+/* =============================================================================
+Measurements
+========================================================================== */
+.padding-none {
+	padding: 0;
+}
+
+.padding-left-none {
+	padding-left: 0;
+}
+
+.padding-right-none {
+	padding-right: 0;
+}
+
+.padding-top-none {
+	padding-top: 0;
+}
+
+.padding-bottom-none {
+	padding-bottom: 0;
+}
+
+/* Margins */
+.margin-none {
+	margin: 0;
+}
+
+.margin-left-none {
+	margin-left: 0;
+}
+
+.margin-right-none {
+	margin-right: 0;
+}
+
+.margin-top-none {
+	margin-top: 0;
+}
+
+.margin-bottom-none {
+	margin-bottom: 0;
+}
+
+
+/* =============================================================================
+Display
+========================================================================== */
+
+/* Hide only visually, but have it available for screenreaders: by Jon Neal.
+www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
+.visuallyhidden {
+	&:extend(.bordered-none);
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	&:extend(.overflow-hidden);
+	&:extend(.padding-none);
+	&:extend(.absolute);;
+	width: 1px;
+	left: -500%;
+
+	&.focusable {
+		&:active, &:focus {
+			/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+			clip: auto;
+			height: auto;
+			&:extend(.margin-none);
+			&:extend(.overflow-visible);
+			&:extend(.static);
+			width: auto;
+		}
+	}
+}
+
+/* For image replacement */
+.ir {
+	&:extend(.block);
+	text-indent: -99in;
+	&:extend(.overflow-hidden);
+	background-repeat: no-repeat;
+	text-align: left;
+	direction: ltr;
+}
+
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden {
+	display: none;
+}
+
+.show-phone {
+	display: none;
+}

@@ -3,7 +3,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -21,15 +20,16 @@
 	text-shadow: 0 1px 0 @theme_button-text-shadow;
 }
 
-.hook-button-hover() { background-image: none; }
+.hook-button-hover() {
+	background-image: none;
+}
 
 .hook-button-active() {
 	border-color: @theme_button-border;
 	border-top-color: @theme_button-border-bottom;
 	background-image: none;
-	box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 
 /* Color modifiers
  ========================================================================== */
@@ -46,12 +46,15 @@
 	text-shadow: 0 -1px 0 @theme_button-contrast-text-shadow;
 }
 
-.hook-button-primary-hover() { background-image: none; }
+.hook-button-primary-hover() {
+	background-image: none;
+}
+
 .hook-button-primary-active() {
 	background-image: none;
 	border-color: @theme_button-contrast-border;
 	border-top-color: @theme_button-contrast-border-bottom;
-	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /*
@@ -66,12 +69,15 @@
 	text-shadow: 0 -1px 0 @theme_button-contrast-text-shadow;
 }
 
-.hook-button-success-hover() { background-image: none; }
+.hook-button-success-hover() {
+	background-image: none;
+}
+
 .hook-button-success-active() {
 	background-image: none;
 	border-color: @theme_button-contrast-border;
 	border-top-color: @theme_button-contrast-border-bottom;
-	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /*
@@ -86,14 +92,16 @@
 	text-shadow: 0 -1px 0 @theme_button-contrast-text-shadow;
 }
 
-.hook-button-danger-hover() { background-image: none; }
+.hook-button-danger-hover() {
+	background-image: none;
+}
+
 .hook-button-danger-active() {
 	background-image: none;
 	border-color: @theme_button-contrast-border;
 	border-top-color: @theme_button-contrast-border-bottom;
-	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 
 /* Disabled state
  ========================================================================== */
@@ -105,7 +113,6 @@
 	text-shadow: 0 1px 0 @theme_button-text-shadow;
 }
 
-
 /* Modifier: `uk-button-link`
  ========================================================================== */
 
@@ -114,12 +121,12 @@
 	text-shadow: none;
 }
 
-
 /* Size modifiers
  ========================================================================== */
 
-.hook-button-large() { border-radius: @theme_global-border-radius + 1; }
-
+.hook-button-large() {
+	border-radius: @theme_global-border-radius + 1;
+}
 
 /* Sub-object `uk-button-group`
  ========================================================================== */
@@ -129,7 +136,9 @@
  */
 
 .uk-button-group > .uk-button:not(:first-child):not(:last-child),
-.uk-button-group > div:not(:first-child):not(:last-child) .uk-button { border-radius: 0; }
+.uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
+	border-radius: 0;
+}
 
 .uk-button-group > .uk-button:first-child,
 .uk-button-group > div:first-child .uk-button {
@@ -148,7 +157,9 @@
  */
 
 .uk-button-group > .uk-button:nth-child(n+2),
-.uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -1px; }
+.uk-button-group > div:nth-child(n+2) .uk-button {
+	margin-left: -1px;
+}
 
 /*
  * Create position context to superimpose the successor elements border
@@ -157,4 +168,6 @@
  * Workaround: Just use a `button` or `input` element as button
  */
 
-.uk-button-group .uk-button:active { position: relative; }
+.uk-button-group .uk-button:active {
+	position: relative;
+}

@@ -14,7 +14,6 @@
  *
  ========================================================================== */
 
-
 /* HTML5 display definitions
  ========================================================================== */
 
@@ -33,7 +32,9 @@ hgroup,
 main,
 nav,
 section,
-summary { display: block; }
+summary {
+	&:extend(.block);
+}
 
 /*
  * Corrects `inline-block` display not defined in IE 8/9.
@@ -41,7 +42,9 @@ summary { display: block; }
 
 audio,
 canvas,
-video { display: inline-block; }
+video {
+	&:extend(.inline);
+}
 
 /*
  * Prevents modern browsers from displaying `audio` without controls.
@@ -49,7 +52,7 @@ video { display: inline-block; }
  */
 
 audio:not([controls]) {
-	display: none;
+	&:extend(.hidden);
 	height: 0;
 }
 
@@ -57,8 +60,9 @@ audio:not([controls]) {
  * Addresses styling for `hidden` attribute not present in IE 8/9.
  */
 
-[hidden] { display: none; }
-
+[hidden] {
+	&:extend(.hidden);
+}
 
 /* Base
  ========================================================================== */
@@ -70,16 +74,16 @@ audio:not([controls]) {
 
 html {
 	font-family: sans-serif; /* 1 */
-	-webkit-text-size-adjust: 100%; /* 2 */
-	-ms-text-size-adjust: 100%; /* 2 */
+	.text-size-adjust(100%); /* 2 */
 }
 
 /*
  * Removes default margin.
  */
 
-body { margin: 0; }
-
+body {
+	margin: 0;
+}
 
 /* Links
  ========================================================================== */
@@ -88,15 +92,18 @@ body { margin: 0; }
  * Addresses `outline` inconsistency between Chrome and other browsers.
  */
 
-a:focus { outline: thin dotted; }
+a:focus {
+	outline: thin dotted;
+}
 
 /*
  * Improves readability when focused and also mouse hovered in all browsers.
  */
 
 a:active,
-a:hover { outline: 0; }
-
+a:hover {
+	outline: 0;
+}
 
 /* Typography
  ========================================================================== */
@@ -105,28 +112,33 @@ a:hover { outline: 0; }
  * Addresses styling not present in IE 8/9, Safari 5, and Chrome.
  */
 
-abbr[title] { border-bottom: 1px dotted; }
+abbr[title] {
+	border-bottom: 1px dotted;
+}
 
 /*
  * Addresses style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
  */
 
 b,
-strong { font-weight: bold; }
+strong {
+	font-weight: bold;
+}
 
 /*
  * Addresses styling not present in Safari 5 and Chrome.
  */
 
-dfn { font-style: italic; }
+dfn {
+	font-style: italic;
+}
 
 /*
  * Address differences between Firefox and other browsers.
  */
 
 hr {
-	-moz-box-sizing: content-box;
-	box-sizing: content-box;
+	&:extend(.border-box);
 	height: 0;
 }
 
@@ -147,19 +159,25 @@ samp {
  * Improves readability of pre-formatted text in all browsers.
  */
 
-pre { white-space: pre-wrap; }
+pre {
+	white-space: pre-wrap;
+}
 
 /*
  * Sets consistent quote types.
  */
 
-q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+q {
+	quotes: "\201C" "\201D" "\2018" "\2019";
+}
 
 /*
  * Addresses inconsistent and variable font size in all browsers.
  */
 
-small { font-size: 80%; }
+small {
+	font-size: 80%;
+}
 
 /*
  * Prevents `sub` and `sup` affecting `line-height` in all browsers.
@@ -169,13 +187,17 @@ sub,
 sup {
 	font-size: 75%;
 	line-height: 0;
-	position: relative;
+	&:extend(.relative);
 	vertical-align: baseline;
 }
 
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
+sup {
+	top: -0.5em;
+}
 
+sub {
+	bottom: -0.25em;
+}
 
 /* Embedded content
  ========================================================================== */
@@ -184,14 +206,17 @@ sub { bottom: -0.25em; }
  * Removes border when inside `a` element in IE 8/9.
  */
 
-img { border: 0; }
+img {
+	&:extend(.bordered-none);
+}
 
 /*
  * Corrects overflow displayed oddly in IE 9.
  */
 
-svg:not(:root) { overflow: hidden; }
-
+svg:not(:root) {
+	&:extend(.overflow-hidden);
+}
 
 /* Figures
  ========================================================================== */
@@ -200,8 +225,9 @@ svg:not(:root) { overflow: hidden; }
  * Addresses margin not present in IE 8/9 and Safari 5.
  */
 
-figure { margin: 0; }
-
+figure {
+	&:extend(.margin-none);
+}
 
 /* Forms
  ========================================================================== */
@@ -211,9 +237,9 @@ figure { margin: 0; }
  */
 
 fieldset {
-	border: 0;
-	margin: 0;
-	padding: 0;
+	&:extend(.bordered-none);
+	&:extend(.margin-none);
+	&:extend(.padding-none);
 }
 
 /*
@@ -222,8 +248,8 @@ fieldset {
  */
 
 legend {
-	border: 0; /* 1 */
-	padding: 0; /* 2 */
+	&:extend(.bordered-none); /* 1 */
+	&:extend(.padding-none); /* 2 */
 }
 
 /*
@@ -243,10 +269,8 @@ select,
 textarea {
 	font-family: inherit; /* 1 */
 	font-size: 100%; /* 2 */
-	margin: 0; /* 3 */
-	-moz-box-sizing: border-box; /* 4 */
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+	&:extend(.margin-none); /* 3 */
+	&:extend(.border-box);
 }
 
 /*
@@ -254,7 +278,9 @@ textarea {
  */
 
 button,
-input { line-height: normal; }
+input {
+	line-height: normal;
+}
 
 /*
  * Address inconsistent `text-transform` inheritance for `button` and `select`.
@@ -265,7 +291,7 @@ input { line-height: normal; }
 
 button,
 select {
-    text-transform: none;
+	text-transform: none;
 }
 
 /*
@@ -278,7 +304,7 @@ button,
 html input[type="button"], /* 1 */
 input[type="reset"],
 input[type="submit"] {
-	-webkit-appearance: button; /* 2 */
+	.appearance(button); /* 2 */
 	cursor: pointer; /* 3 */
 }
 
@@ -287,34 +313,44 @@ input[type="submit"] {
  */
 
 input[type="radio"],
-input[type="checkbox"] { cursor: pointer; }
+input[type="checkbox"] {
+	cursor: pointer;
+}
 
 /*
  * Re-set default cursor for disabled elements.
  */
 
 button:disabled,
-input:disabled { cursor: default; }
+input:disabled {
+	cursor: default;
+}
 
 /*
  * 2. Removes excess padding in IE 8/9.
  */
 
 input[type="checkbox"],
-input[type="radio"] { padding: 0; }
+input[type="radio"] {
+	&:extend(.padding-none);
+}
 
 /*
  * 1. Addresses `appearance` set to `searchfield` in Safari 5 and Chrome.
  */
 
-input[type="search"] { -webkit-appearance: textfield; }
+input[type="search"] {
+	.appearance(textfield);
+}
 
 /*
  * Removes inner padding and search cancel button in Safari 5 and Chrome on OS X.
  */
 
 input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+input[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
 
 /*
  * Removes inner padding and border in Firefox 4+.
@@ -322,8 +358,8 @@ input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
 
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-	border: 0;
-	padding: 0;
+	&:extend(.bordered-none);
+	&:extend(.padding-none);
 }
 
 /*
@@ -340,8 +376,9 @@ textarea {
  * Removes placeholder transparency in Firefox.
  */
 
-::-moz-placeholder { opacity: 1; }
-
+::-moz-placeholder {
+	opacity: 1;
+}
 
 /* Tables
  ========================================================================== */

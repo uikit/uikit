@@ -3,7 +3,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -19,8 +18,9 @@
 	background-image: linear-gradient(to bottom, @theme_navbar-gradient-top, @theme_navbar-gradient-bottom);
 }
 
-.uk-navbar:not(.uk-navbar-attached) { border-radius: @theme_global-border-radius; }
-
+.uk-navbar:not(.uk-navbar-attached) {
+	border-radius: @theme_global-border-radius;
+}
 
 /* Sub-object: `uk-navbar-nav`
  ========================================================================== */
@@ -76,7 +76,7 @@
  * 2. Needed because the `li` elements have already a position context
  */
 
-/* Hover */ 
+/* Hover */
 .hook-navbar-nav-hover() {
 	position: relative; /* 1 */
 	z-index: 1; /* 2 */
@@ -86,7 +86,7 @@
 	box-shadow: inset 0 2px 4px @theme_navbar-nav-hover-box-shadow;
 }
 
-/* OnClick */  
+/* OnClick */
 .hook-navbar-nav-onclick() {
 	border-left-color: @theme_navbar-nav-hover-border;
 	border-right-color: @theme_navbar-nav-hover-border;
@@ -94,7 +94,7 @@
 	box-shadow: inset 0 2px 4px @theme_navbar-nav-onclick-box-shadow;
 }
 
-/* Active */ 
+/* Active */
 .hook-navbar-nav-active() {
 	border-left-color: @theme_navbar-nav-hover-border;
 	border-right-color: @theme_navbar-nav-hover-border;
@@ -102,8 +102,9 @@
 	box-shadow: inset 0 2px 4px @theme_navbar-nav-onclick-box-shadow;
 }
 
-
 /* Sub-object: `uk-navbar-content`
  ========================================================================== */
 
-.hook-navbar-content() { text-shadow: 0 1px 0 @theme_navbar-text-shadow; }
+.hook-navbar-content() {
+	text-shadow: 0 1px 0 @theme_navbar-text-shadow;
+}

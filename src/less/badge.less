@@ -10,37 +10,33 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
- 
+
 .uk-badge {
-	display: inline-block;
+	&:extend(.inline);
 	padding: 0 @badge-padding-horizontal;
 	background: @badge-background;
 	font-size: @badge-font-size;
 	font-weight: @badge-font-weight;
 	line-height: @badge-line-height;
 	color: @badge-color;
-	text-align: center;
+	&:extend(.centred);
 	vertical-align: middle;
 	text-transform: @badge-text-transform;
 	.hook-badge;
 }
 
-
 /* Modifier: `uk-badge-notification`;
  ========================================================================== */
 
 .uk-badge-notification {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	&:extend(.border-box);
 	min-width: @badge-notification-line-height;
-	border-radius: 500px;
+	.border-radius(31.25em);
 	font-size: @badge-notification-font-size;
 	line-height: @badge-notification-line-height;
 }
-
 
 /* Color modifier
  ========================================================================== */
@@ -72,11 +68,17 @@
 	.hook-badge-danger;
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-badge() {}
-.hook-badge-success() {}
-.hook-badge-warning() {}
-.hook-badge-danger() {}
+.hook-badge() {
+}
+
+.hook-badge-success() {
+}
+
+.hook-badge-warning() {
+}
+
+.hook-badge-danger() {
+}

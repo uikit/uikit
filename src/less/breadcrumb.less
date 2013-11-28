@@ -8,7 +8,6 @@
  *
  ========================================================================== */
 
-
 /* Component
  ========================================================================== */
 
@@ -19,44 +18,40 @@
 
 .uk-breadcrumb {
 	/* 1 */
-	padding: 0;
-	list-style: none;
+	&:extend(.padding-none);
+	&:extend(.list-style-none);
 	/* 2 */
 	letter-spacing: -0.31em;
 	.hook-breadcrumb;
+	& > li {
+		letter-spacing: normal;
+		&:extend(.inline);
+		> a {
+			&:extend(.inline);
+		}
+		> span {
+			&:extend(.inline);
+		}
+		&:nth-child(n+2) {
+			&:before {
+				content: @breadcrumb-divider;
+				&:extend(.inline);
+				margin: 0 @breadcrumb-divider-margin;
+				vertical-align: top; /* 2 */
+				.hook-breadcrumb-divider;
+			}
+		}
+		&:not(.uk-active) > span {
+			color: @breadcrumb-disabled-color; //disabled
+		}
+	}
 }
-
-
-/* Items
- ========================================================================== */
-
-/*
- * Reset whitespace hack
- */
-
-.uk-breadcrumb > li { letter-spacing: normal; } 
-
-.uk-breadcrumb > li,
-.uk-breadcrumb > li > a,
-.uk-breadcrumb > li > span { display: inline-block; }
-
-.uk-breadcrumb > li:nth-child(n+2):before {
-	content: @breadcrumb-divider;
-	display: inline-block;
-	margin: 0 @breadcrumb-divider-margin;
-	vertical-align: top; /* 2 */
-	.hook-breadcrumb-divider;
-}
-
-/*
- * Disabled
- */
-
-.uk-breadcrumb > li:not(.uk-active) > span { color: @breadcrumb-disabled-color; }
-
 
 /* Hooks
  ========================================================================== */
 
-.hook-breadcrumb() {}
-.hook-breadcrumb-divider() {}
+.hook-breadcrumb() {
+}
+
+.hook-breadcrumb-divider() {
+}

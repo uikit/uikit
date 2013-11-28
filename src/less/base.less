@@ -7,7 +7,6 @@
  *
  ========================================================================== */
 
-
 /* Body
  ========================================================================== */
 
@@ -15,12 +14,14 @@
  * `font-size` is set in `html` element to support the `rem` unit for font-sizes
  */
 
-html { font-size: @base-body-font-size; }
+html {
+	font-size: @base-body-font-size;
+}
 
 body {
 	background: @base-body-background;
-	font-family:  @base-body-font-family;
-	font-weight:  @base-body-font-weight;
+	font-family: @base-body-font-family;
+	font-weight: @base-body-font-weight;
 	line-height: @base-body-line-height;
 	color: @base-body-color;
 	.hook-base-body;
@@ -32,17 +33,11 @@ body {
 	/*
 	 * Break strings if their length exceeds the width of their container
 	 */
-
 	body {
-		word-wrap: break-word;
-		-webkit-hyphens: auto;
-		-ms-hyphens: auto;
-		-moz-hyphens: auto;
-		hyphens: auto;
+		.hyphens();
 	}
 
 }
-
 
 /* Text-level semantics
  ========================================================================== */
@@ -51,17 +46,23 @@ body {
  * Links
  */
 
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
+a {
+	color: @base-link-color;
+	&:extend(.text-decoration-none);
+	&:hover {
+		text-decoration: underline;
+		color: @base-link-hover-color;
+	}
+}
 
-a { color: @base-link-color; }
-a:hover { color: @base-link-hover-color; }
 
 /*
  * Emphasize
  */
 
-em { color: @base-em-color; }
+em {
+	color: @base-em-color;
+}
 
 /*
  * Insert
@@ -70,7 +71,7 @@ em { color: @base-em-color; }
 ins {
 	background: @base-ins-background;
 	color: @base-ins-color;
-	text-decoration: none;
+	&:extend(.text-decoration-none);
 }
 
 /*
@@ -90,13 +91,13 @@ mark {
 ::-moz-selection {
 	background: @base-selection-background;
 	color: @base-selection-color;
-	text-shadow: none;
+	.text-shadow(none);
 }
 
 ::selection {
 	background: @base-selection-background;
 	color: @base-selection-color;
-	text-shadow: none;
+	.text-shadow(none);
 }
 
 /*
@@ -104,13 +105,14 @@ mark {
  */
 
 abbr[title],
-dfn[title] { cursor: help; }
+dfn[title] {
+	cursor: help;
+}
 
 dfn[title] {
 	border-bottom: 1px dotted;
 	font-style: normal;
 }
-
 
 /* Embedded content
  ========================================================================== */
@@ -122,8 +124,7 @@ dfn[title] {
  */
 
 img {
-	-moz-box-sizing: border-box; 
-	box-sizing: border-box; /* 1 */
+	&:extend(.border-box); /* 1 */
 	max-width: 100%; /* 2 */
 	height: auto; /* 2 */
 	vertical-align: middle; /* 3 */
@@ -137,8 +138,9 @@ img {
 .uk-img-preserve,
 .uk-img-preserve img,
 img[src*="maps.gstatic.com"], /* 1 */
-img[src*="googleapis.com"] { max-width: none; }
-
+img[src*="googleapis.com"] {
+	max-width: none;
+}
 
 /* Spacing for block elements
  ========================================================================== */
@@ -152,7 +154,9 @@ blockquote,
 pre,
 address,
 fieldset,
-figure { margin: 0 0 @base-margin-vertical 0; }
+figure {
+	margin: 0 0 @base-margin-vertical 0;
+}
 
 /*
  * Don't worry about the universal selector.
@@ -168,14 +172,16 @@ figure { margin: 0 0 @base-margin-vertical 0; }
 * + pre,
 * + address,
 * + fieldset,
-* + figure { margin-top: @base-margin-vertical; }
+* + figure {
+	margin-top: @base-margin-vertical;
+}
 
 /* Headings
  ========================================================================== */
 
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 @base-margin-vertical 0;
-	font-family:  @base-heading-font-family;
+	font-family: @base-heading-font-family;
 	font-weight: @base-heading-font-weight;
 	color: @base-heading-color;
 	text-transform: @base-heading-text-transform;
@@ -191,7 +197,9 @@ h1, h2, h3, h4, h5, h6 {
 * + h3,
 * + h4,
 * + h5,
-* + h6 { margin-top: @base-heading-margin-top; }
+* + h6 {
+	margin-top: @base-heading-margin-top;
+}
 
 /*
  * TODO: Use `:extend` to move heading classes to the utility component
@@ -227,7 +235,6 @@ h6, .uk-h6 {
 	line-height: @base-h6-line-height;
 }
 
-
 /* Lists
  ========================================================================== */
 
@@ -236,45 +243,55 @@ h6, .uk-h6 {
  */
 
 ul,
-ol { padding-left: 30px }
+ol {
+	padding-left: 30px
+}
 
 /* Reset margin for nested lists */
 ul > li > ul,
 ul > li > ol,
 ol > li > ol,
-ol > li > ul { margin: 0; }
+ol > li > ul {
+	margin: 0;
+}
 
 /*
  * Description lists
  */
 
-dt { font-weight: bold; }
-dd { margin-left: 0; }
+dt {
+	font-weight: bold;
+}
 
+dd {
+	&:extend(.margin-left-none);
+}
 
 /* Horizontal rule
  ========================================================================== */
 
 hr {
-	display: block;
-	padding: 0;
-	border: 0;
+	&:extend(.block);
+	&:extend(.padding-none);
+	&:extend(.bordered-none);
 	border-top: 1px solid @base-hr-border;
 }
-
 
 /* Address
  ========================================================================== */
 
-address { font-style: normal; }
-
+address {
+	font-style: normal;
+}
 
 /* Quotes
  ========================================================================== */
 
 q,
-blockquote { font-style: italic; }
-	
+blockquote {
+	font-style: italic;
+}
+
 blockquote {
 	padding-left: 15px;
 	border-left: 5px solid @base-blockquote-border;
@@ -284,14 +301,15 @@ blockquote {
 
 /* Small print for identifying the source */
 blockquote small {
-	display: block;
+	&:extend(.block);
 	color: @base-blockquote-small-color;
 	font-style: normal;
 }
 
 /* Smaller margin if `small` follows */
-blockquote p:last-of-type { margin-bottom: 5px; }
-
+blockquote p:last-of-type {
+	margin-bottom: 5px;
+}
 
 /* Code and preformatted text
  ========================================================================== */
@@ -299,7 +317,6 @@ blockquote p:last-of-type { margin-bottom: 5px; }
 code {
 	color: @base-code-color;
 	font-size: @base-code-font-size;
-	white-space: nowrap;
 	.hook-base-code;
 }
 
@@ -308,7 +325,7 @@ pre code {
 	color: inherit;
 	white-space: pre-wrap;
 	.hook-base-code-reset;
-} 
+}
 
 pre {
 	padding: 10px;
@@ -316,11 +333,9 @@ pre {
 	color: @base-pre-color;
 	font-size: @base-pre-font-size;
 	line-height: @base-pre-line-height;
-	-moz-tab-size: 4;
-	tab-size: 4;
+	.tab-size(4);
 	.hook-base-pre;
 }
-
 
 /* Forms
  ========================================================================== */
@@ -332,14 +347,16 @@ pre {
 
 button,
 input:not([type="radio"]):not([type="checkbox"]),
-select { vertical-align: middle; }
-
+select {
+	vertical-align: middle;
+}
 
 /* Iframe
  ========================================================================== */
 
-iframe { border: 0; }
-
+iframe {
+	&:extend(.bordered-none);
+}
 
 /* Fix viewport for IE10 snap mode
  * http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
@@ -349,11 +366,17 @@ iframe { border: 0; }
 	width: device-width;
 }
 
-
 /* Hooks
  ========================================================================== */
 
-.hook-base-body() {}
-.hook-base-code() {}
-.hook-base-code-reset() {}
-.hook-base-pre() {}
+.hook-base-body() {
+}
+
+.hook-base-code() {
+}
+
+.hook-base-code-reset() {
+}
+
+.hook-base-pre() {
+}
