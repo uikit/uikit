@@ -2,22 +2,22 @@
    Addon: Markdownarea
  ========================================================================== */
 //
-// Description:     Defines styles for markdownareas
+// Description:		Defines styles for markdownareas
 //
-// Component:       `uk-markdownarea`
+// Component:		`uk-markdownarea`
 //
-// Sub-objects:     `uk-markdownarea-navbar`
-//                  `uk-markdownarea-content`
-//                  `uk-markdownarea-toolbar`
-//                  `uk-markdownarea-previewtab`
-//                  `uk-markdownarea-codetab`
-//                  `uk-markdownarea-code`
-//                  `uk-markdownarea-preview`
+// Sub-objects:		`uk-markdownarea-navbar`
+//					`uk-markdownarea-navbar-nav`
+//					`uk-markdownarea-navbar-flip`
+//					`uk-markdown-button-markdown
+//					`uk-markdown-button-preview`
+//					`uk-markdownarea-content`
+//					`uk-markdownarea-code`
+//					`uk-markdownarea-preview`
 //
-// Modifier:
-//
-// States:         `[data-mode='tab']`
-//                 `[data-mode='split']`
+// States:			uk-active`
+//					`[data-mode='tab']`
+//					`[data-mode='split']`
 //
 // ========================================================================
 
@@ -108,17 +108,17 @@
 }
 
 
+/* Sub-object: `uk-markdownarea-navbar-flip`
+ ========================================================================== */
+
+ .uk-markdownarea-navbar-flip { float: right; }
+
+
 /* Sub-modifier for special buttons
  ========================================================================== */
 
 [data-mode='split'] .uk-markdown-button-markdown,
 [data-mode='split'] .uk-markdown-button-preview { display: none; }
-
-
-/* Sub-object: `uk-markdownarea-navbar-flip`
- ========================================================================== */
-
- .uk-markdownarea-navbar-flip { float: right; }
 
 
 /* Sub-object `uk-markdownarea-content`
