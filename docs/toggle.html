@@ -119,7 +119,7 @@
 
 <pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id'}"&gt;...&lt;/button&gt;
 
-&lt;div id="my-id" class="uk-panel uk-panel-box"&gt;...&lt;/div&gt;</code></pre>
+&lt;div id="my-id"&gt;...&lt;/div&gt;</code></pre>
 
 							<hr class="uk-article-divider">
 
@@ -135,7 +135,7 @@
 
 							<div class="uk-panel uk-panel-box toggle2 uk-hidden">Bazinga!</div>
 
-							<p><span class="uk-badge">NOTE</span> In this example we added the <code>.uk-hidden</code> class to one of the items.</p>
+							<p><span class="uk-badge">NOTE</span> In this example we added the <code>.uk-hidden</code> class to one of the items, so that only the other item will be shown. The toggle will switch visible states between both elements.</p>
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
@@ -156,13 +156,13 @@
 
 							<div id="toggle3" class="uk-panel uk-panel-box">What's up?</div>
 
-							<p><span class="uk-badge">NOTE</span> In this example we used the <code>.uk-panel-box-primary</code> class.</p>
+							<p><span class="uk-badge">NOTE</span> In this example we used the <code>.uk-panel-box-primary</code> class to switch between different panel styles.</p>
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id', cls:'my-custom-class'}"&gt;...&lt;/button&gt;
+<pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id', cls:'uk-panel-box-primary'}"&gt;...&lt;/button&gt;
 
-&lt;div id="my-id" class="uk-panel-box-primary"&gt;...&lt;/div&gt;</code></pre>
+&lt;div id="my-id" class="uk-panel uk-panel-box"&gt;...&lt;/div&gt;</code></pre>
 
 						</article>
 
