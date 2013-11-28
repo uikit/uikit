@@ -38,7 +38,7 @@ Layout
 }
 
 .inline {
-	&:extend(.inline);
+	.inline-block();
 }
 
 /* =============================================================================
@@ -85,56 +85,6 @@ Text
 }
 
 /* =============================================================================
-Display
-========================================================================== */
-
-/* Hide only visually, but have it available for screenreaders: by Jon Neal.
-www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
-.visuallyhidden {
-	&:extend(.bordered-none);
-	clip: rect(0 0 0 0);
-	height: 1px;
-	margin: -1px;
-	&:extend(.overflow-hidden);
-	&:extend(.padding-none);
-	&:extend(.absolute);;
-	width: 1px;
-	left: -500%;
-
-	&.focusable {
-		&:active, &:focus {
-			/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
-			clip: auto;
-			height: auto;
-			margin: 0;
-			overflow: visible;
-			position: static;
-			width: auto;
-		}
-	}
-}
-
-/* For image replacement */
-.ir {
-	&:extend(.block);
-	text-indent: -99in;
-	&:extend(.overflow-hidden);
-	background-repeat: no-repeat;
-	text-align: left;
-	direction: ltr;
-}
-
-/* Hide for both screenreaders and browsers:
-   css-discuss.incutio.com/wiki/Screenreader_Visibility */
-.hidden {
-	display: none;
-}
-
-.show-phone {
-	display: none;
-}
-
-/* =============================================================================
 Opacity/visibility
 ========================================================================== */
 .opacity-0 {
@@ -172,8 +122,24 @@ Borders
 	border-bottom: @global-border;
 }
 
-.border-none {
-	&:extend(.bordered-none);
+.bordered-none {
+	border: 0;
+}
+
+.bordered-top-none {
+	border-top: 0;
+}
+
+.bordered-left-none {
+	border-left: 0;
+}
+
+.bordered-right-none {
+	border-right: 0;
+}
+
+.bordered-bottom-none {
+	border-bottom: 0;
 }
 
 /* =============================================================================
@@ -232,4 +198,55 @@ Measurements
 
 .margin-bottom-none {
 	margin-bottom: 0;
+}
+
+
+/* =============================================================================
+Display
+========================================================================== */
+
+/* Hide only visually, but have it available for screenreaders: by Jon Neal.
+www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden */
+.visuallyhidden {
+	&:extend(.bordered-none);
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	&:extend(.overflow-hidden);
+	&:extend(.padding-none);
+	&:extend(.absolute);;
+	width: 1px;
+	left: -500%;
+
+	&.focusable {
+		&:active, &:focus {
+			/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+			clip: auto;
+			height: auto;
+			&:extend(.margin-none);
+			&:extend(.overflow-visible);
+			&:extend(.static);
+			width: auto;
+		}
+	}
+}
+
+/* For image replacement */
+.ir {
+	&:extend(.block);
+	text-indent: -99in;
+	&:extend(.overflow-hidden);
+	background-repeat: no-repeat;
+	text-align: left;
+	direction: ltr;
+}
+
+/* Hide for both screenreaders and browsers:
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden {
+	display: none;
+}
+
+.show-phone {
+	display: none;
 }

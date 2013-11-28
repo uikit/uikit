@@ -279,6 +279,25 @@ Site-wide rules
 		-ms-animation: @arguments;
 		animation: @arguments;
 	}
+	.keyframes(@name, @from, @to, @vendor:"", @bind:"") {
+		@keyf: ~"@{bind}@@{vendor}keyframes @{name} { `'\n'`from ";
+		@{keyf} {
+			.from(@name, @from);
+		}
+		to {
+			.to(@name, @to);
+		}
+	}
+
+	.animation-keyframes(@name, @from, @to) {
+		@bind: "} `'\n'`";
+		#animation > .keyframes(@name, @from, @to, "-moz-");
+		#animation > .keyframes(@name, @from, @to, "-webkit-", @bind);
+		#animation > .keyframes(@name, @from, @to, "-o-", @bind);
+		#animation > .keyframes(@name, @from, @to, "-ms-", @bind);
+		#animation > .keyframes(@name, @from, @to, "", @bind);
+		@anim: ~"} `'\n'`";
+	}
 
 	.animation-delay(...) {
 		-webkit-animation-delay: @arguments;
