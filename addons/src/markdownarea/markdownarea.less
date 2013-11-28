@@ -95,7 +95,7 @@
 	outline: none; /* 2 */
 }
 
-/* OnClick */  
+/* OnClick */
 .uk-markdownarea-navbar-nav > li > a:active {
 	background-color: @navbar-nav-onclick-background;
 	color: @navbar-nav-onclick-color;
@@ -155,12 +155,16 @@
 	padding: 20px;
 }
 
+.uk-markdownarea-preview > div {
+	overflow: scroll;
+}
+
 /*
  * Tab view
  */
 
-[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-preview > div,
-[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-code > div { display: none; }
+[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-preview,
+[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-code { display: none; }
 
 /*
  * Split view

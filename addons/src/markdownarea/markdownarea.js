@@ -16,7 +16,7 @@
 
     $.extend(Markdownarea.prototype, {
 
-        "init": function(){
+        init: function(){
 
             var $this = this, tpl = Markdownarea.template;
 
@@ -26,7 +26,7 @@
             this.markdownarea = $(tpl);
             this.container    = this.markdownarea.find(".uk-markdownarea-container");
             this.toolbar      = this.markdownarea.find(".uk-markdownarea-toolbar");
-            this.preview      = this.markdownarea.find(".uk-markdownarea-preview");
+            this.preview      = this.markdownarea.find(".uk-markdownarea-preview").children().eq(0);
             this.code         = this.markdownarea.find(".uk-markdownarea-code");
 
             this.element.before(this.markdownarea).appendTo(this.code);
@@ -59,32 +59,35 @@
 
 
             var codeContent     = this.code.find('.CodeMirror-sizer'),
-                previewViewport = this.preview.parent(),
                 codeScroll      = this.code.find('.CodeMirror-scroll').on('scroll',UI.Utils.debounce(function() {
 
                     if($this.markdownarea.attr("data-mode")=="tab") return;
 
                     // calc position
                     var codeHeight       = codeContent.height()   - codeScroll.height(),
-                        previewHeight    = $this.preview.height() - previewViewport.height(),
+                        previewHeight    = $this.preview[0].scrollHeight - $this.preview.height(),
                         ratio            = previewHeight / codeHeight,
                         previewPostition = codeScroll.scrollTop() * ratio;
 
                     // apply new scroll
-                    previewViewport.scrollTop(previewPostition);
+                    $this.preview.scrollTop(previewPostition);
             }, 10));
 
-            this.markdownarea.on("click", ".uk-markdownarea-codetab, .uk-markdownarea-previewtab", function(){
+            this.markdownarea.on("click", ".uk-markdown-button-markdown, .uk-markdown-button-preview", function(e){
+
+                e.preventDefault();
+
                 if($this.markdownarea.attr("data-mode")=="tab") {
-                    $this.activetab = $this.activetab == "code" ? "preview":"code";
+
+                    $this.activetab = $(this).hasClass("uk-markdown-button-markdown") ? "code":"preview";
                     $this.markdownarea.attr("data-active-tab", $this.activetab);
                 }
             });
 
-            this.preview.parent().css("height", this.code.outerHeight());
+            this.preview.css("height", this.code.height());
         },
 
-        "_buildtoolbar": function(){
+        _buildtoolbar: function(){
 
             if(!(this.options.toolbar && this.options.toolbar.length)) return;
 
@@ -95,7 +98,7 @@
 
                    var title = Markdownarea.commands[cmd].title ? Markdownarea.commands[cmd].title : cmd;
 
-                   bar.push('<a data-cmd="'+cmd+'" title="'+title+'" data-uk-tooltip>'+Markdownarea.commands[cmd].label+'</a>');
+                   bar.push('<li><a data-markdownarea-cmd="'+cmd+'" title="'+title+'" data-uk-tooltip>'+Markdownarea.commands[cmd].label+'</a></li>');
 
                    if(Markdownarea.commands[cmd].shortcut) {
                        $this.registerShortcut(Markdownarea.commands[cmd].shortcut, Markdownarea.commands[cmd].action);
@@ -103,8 +106,8 @@
                 }
             });
 
-            this.toolbar.html(bar.join("\n")).on("click", "a[data-cmd]", function(){
-                var cmd = $(this).data("cmd");
+            this.toolbar.html(bar.join("\n")).on("click", "a[data-markdownarea-cmd]", function(){
+                var cmd = $(this).data("markdownareaCmd");
 
                 if(cmd && Markdownarea.commands[cmd]) {
                     Markdownarea.commands[cmd].action.apply($this, [$this.editor])
@@ -113,7 +116,7 @@
             });
         },
 
-        "fit": function() {
+        fit: function() {
 
             var mode = this.options.mode;
 
@@ -241,16 +244,21 @@
         "lblCodeview"  : "Markdown"
     };
 
-    Markdownarea.template = '<div class="uk-markdownarea">' +
-                                '<div class="uk-markdownarea-tabs uk-clearfix">'+
-                                    '<div class="uk-markdownarea-toolbar"></div>'+
-                                    '<div class="uk-markdownarea-previewtab"><i class="uk-icon-eye-open"></i><span class="uk-hidden-small"> {:lblPreview}</span></div>'+
-                                    '<div class="uk-markdownarea-codetab"><i class="uk-icon-code"></i><span class="uk-hidden-small"> {:lblCodeview}</span></div>'+
-                                '</div>'+
-                                '<div class="uk-markdownarea-container">'+
-                                    '<div><div class="uk-markdownarea-code"></div></div>'+
-                                    '<div style=""><div class="uk-markdownarea-preview"></div></div>'+
-                                '</div>'+
+    Markdownarea.template = '<div class="uk-markdownarea uk-clearfix" data-mode="split">' +
+                                '<div class="uk-markdownarea-navbar">' +
+                                    '<ul class="uk-markdownarea-navbar-nav uk-markdownarea-toolbar"></ul>' +
+                                    '<div class="uk-markdownarea-navbar-flip">' +
+                                        '<ul class="uk-markdownarea-navbar-nav">' +
+                                            '<li class="uk-markdown-button-markdown"><a>{:lblCodeview}</a></li>' +
+                                            '<li class="uk-markdown-button-preview"><a>{:lblPreview}</a></li>' +
+                                            '<li><a><i class="uk-icon-resize-full"></i></a></li>' +
+                                        '</ul>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="uk-markdownarea-content">' +
+                                    '<div class="uk-markdownarea-code"><div></div></div>' +
+                                    '<div class="uk-markdownarea-preview"><div></div></div>' +
+                                '</div>' +
                             '</div>';
 
     UI["markdownarea"] = Markdownarea;
