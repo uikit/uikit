@@ -24,7 +24,7 @@
             tpl = tpl.replace(/\{\:lblCodeview\}/g, this.options.lblCodeview);
 
             this.markdownarea = $(tpl);
-            this.container    = this.markdownarea.find(".uk-markdownarea-container");
+            this.content      = this.markdownarea.find(".uk-markdownarea-content");
             this.toolbar      = this.markdownarea.find(".uk-markdownarea-toolbar");
             this.preview      = this.markdownarea.find(".uk-markdownarea-preview").children().eq(0);
             this.code         = this.markdownarea.find(".uk-markdownarea-code");
@@ -32,6 +32,8 @@
             this.element.before(this.markdownarea).appendTo(this.code);
 
             this.editor   = CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
+
+            this.editor.markdownarea = this;
 
             this.editor.on("change", (function(){
                 var render = function(){
@@ -106,7 +108,9 @@
                 }
             });
 
-            this.toolbar.html(bar.join("\n")).on("click", "a[data-markdownarea-cmd]", function(){
+            this.toolbar.html(bar.join("\n"));
+
+            this.markdownarea.on("click", "a[data-markdownarea-cmd]", function(){
                 var cmd = $(this).data("markdownareaCmd");
 
                 if(cmd && Markdownarea.commands[cmd]) {
@@ -175,6 +179,37 @@
     };
 
     Markdownarea.commands = {
+        "fullscreen": {
+            "title"  : 'Fullscreen',
+            "label"  : '<i class="uk-icon-resize-full"></i>',
+            "action" : function(editor){
+
+                editor.markdownarea.markdownarea.toggleClass("uk-markdownarea-fullscreen");
+
+                var wrap = editor.getWrapperElement();
+
+                if(editor.markdownarea.markdownarea.hasClass("uk-markdownarea-fullscreen")) {
+
+                    editor.state.fullScreenRestore = {scrollTop: window.pageYOffset, scrollLeft: window.pageXOffset, width: wrap.style.width, height: wrap.style.height};
+                    wrap.style.width = "";
+                    wrap.style.height = (editor.markdownarea.content[0].scrollHeight - editor.markdownarea.toolbar.outerHeight())+"px";
+                    document.documentElement.style.overflow = "hidden";
+
+                } else {
+
+                    document.documentElement.style.overflow = "";
+                    var info = editor.state.fullScreenRestore;
+                    wrap.style.width = info.width; wrap.style.height = info.height;
+                    window.scrollTo(info.scrollLeft, info.scrollTop);
+
+                }
+
+                editor.refresh();
+
+                editor.markdownarea.preview.css("height", editor.markdownarea.code.height());
+            }
+        },
+
         "bold" : {
             "title"  : "Bold",
             "label"  : '<i class="uk-icon-bold"></i>',
@@ -251,7 +286,7 @@
                                         '<ul class="uk-markdownarea-navbar-nav">' +
                                             '<li class="uk-markdown-button-markdown"><a>{:lblCodeview}</a></li>' +
                                             '<li class="uk-markdown-button-preview"><a>{:lblPreview}</a></li>' +
-                                            '<li><a><i class="uk-icon-resize-full"></i></a></li>' +
+                                            '<li><a data-markdownarea-cmd="fullscreen"><i class="uk-icon-resize-full"></i></a></li>' +
                                         '</ul>' +
                                     '</div>' +
                                 '</div>' +

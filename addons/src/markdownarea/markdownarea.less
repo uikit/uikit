@@ -15,7 +15,8 @@
 //					`uk-markdownarea-code`
 //					`uk-markdownarea-preview`
 //
-// States:			uk-active`
+// States:			`uk-active`
+// 					`uk-markdownarea-fullscreen`
 //					`[data-mode='tab']`
 //					`[data-mode='split']`
 //
@@ -177,3 +178,21 @@
 }
 
 [data-mode='split'] .uk-markdownarea-code { border-right: 1px #ddd solid; }
+
+.uk-markdownarea-fullscreen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+
+	.uk-markdownarea-content {
+		position: absolute;
+		top: @navbar-nav-height;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+}
