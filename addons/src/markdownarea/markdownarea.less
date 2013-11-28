@@ -111,6 +111,13 @@
 }
 
 
+/* Sub-modifier for special buttons
+ ========================================================================== */
+
+[data-mode='split'] .uk-markdown-button-markdown,
+[data-mode='split'] .uk-markdown-button-preview { display: none; }
+
+
 /* Sub-object: `uk-markdownarea-navbar-flip`
  ========================================================================== */
 
@@ -155,17 +162,17 @@
  * Tab view
  */
 
-.uk-markdownarea[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-preview > div,
-.uk-markdownarea[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-code > div { display: none; }
+[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-preview > div,
+[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-code > div { display: none; }
 
 /*
  * Split view
  */
 
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-code,
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-preview {
+[data-mode='split'] .uk-markdownarea-code,
+[data-mode='split'] .uk-markdownarea-preview {
 	float: left;
 	width: 50%;
 }
 
-.uk-markdownarea[data-mode='split'] .uk-markdownarea-code { border-right: 1px #ddd solid; }
+[data-mode='split'] .uk-markdownarea-code { border-right: 1px #ddd solid; }
