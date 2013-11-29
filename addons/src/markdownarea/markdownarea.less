@@ -15,14 +15,33 @@
 //					`uk-markdownarea-code`
 //					`uk-markdownarea-preview`
 //
-// States:			`uk-active`
-// 					`uk-markdownarea-fullscreen`
+// Modifier:		`uk-markdownarea-fullscreen`
 //					`[data-mode='tab']`
 //					`[data-mode='split']`
+//
+// States:			`uk-active`
 //
 // ========================================================================
 
 @import "../../../src/less/variables.less";
+
+
+// Variables
+// ========================================================================
+
+@markdownarea-navbar-background:				@navbar-background;
+
+@markdownarea-navbar-nav-height:				@navbar-nav-height;
+@markdownarea-navbar-nav-padding-horizontal:	@navbar-nav-padding-horizontal;
+@markdownarea-navbar-nav-line-height:			@navbar-nav-line-height;
+@markdownarea-navbar-nav-color:					@navbar-nav-color;
+
+@markdownarea-navbar-nav-hover-background:		@navbar-nav-hover-background;
+@markdownarea-navbar-nav-hover-color:			@navbar-nav-hover-color;
+@markdownarea-navbar-nav-onclick-background:	@navbar-nav-onclick-background;
+@markdownarea-navbar-nav-onclick-color:			@navbar-nav-onclick-color;
+@markdownarea-navbar-nav-active-background:		@navbar-nav-active-background;
+@markdownarea-navbar-nav-active-color:			@navbar-nav-active-color;
 
 
 // Component
@@ -74,11 +93,11 @@
 	box-sizing: border-box;
 	text-decoration: none;
 	/* 1 */
-	height: @navbar-nav-height;
-	padding: 0 @navbar-nav-padding-horizontal;
-	line-height: @navbar-nav-line-height;
+	height: @markdownarea-navbar-nav-height;
+	padding: 0 @markdownarea-navbar-nav-padding-horizontal;
+	line-height: @markdownarea-navbar-nav-line-height;
 	/* 2 */
-	color: @navbar-nav-color;
+	color: @markdownarea-navbar-nav-color;
 	font-size: 11px;
 	cursor: pointer;
 }
@@ -91,21 +110,21 @@
 
 .uk-markdownarea-navbar-nav > li:hover > a,
 .uk-markdownarea-navbar-nav > li > a:focus { /* 1 */
-	background-color: @navbar-nav-hover-background;
-	color: @navbar-nav-hover-color;
+	background-color: @markdownarea-navbar-nav-hover-background;
+	color: @markdownarea-navbar-nav-hover-color;
 	outline: none; /* 2 */
 }
 
 /* OnClick */
 .uk-markdownarea-navbar-nav > li > a:active {
-	background-color: @navbar-nav-onclick-background;
-	color: @navbar-nav-onclick-color;
+	background-color: @markdownarea-navbar-nav-onclick-background;
+	color: @markdownarea-navbar-nav-onclick-color;
 }
 
 /* Active */
 .uk-markdownarea-navbar-nav > li.uk-active > a {
-	background-color: @navbar-nav-active-background;
-	color: @navbar-nav-active-color;
+	background-color: @markdownarea-navbar-nav-active-background;
+	color: @markdownarea-navbar-nav-active-color;
 }
 
 
@@ -126,7 +145,6 @@
  ========================================================================== */
 
 .uk-markdownarea-content {
-	position: relative;
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
@@ -146,6 +164,27 @@
 .uk-markdownarea-content:after { clear: both; }
 
 
+/* Modifier `uk-markdownarea-fullscreen`
+ ========================================================================== */
+
+.uk-markdownarea-fullscreen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+}
+
+.uk-markdownarea-fullscreen .uk-markdownarea-content {
+		position: absolute;
+		top: @navbar-nav-height;
+		left: 0;
+		right: 0;
+		bottom: 0;
+}
+
+
 /* Sub-objects `uk-markdownarea-code` and `uk-markdownarea-preview`
  ========================================================================== */
 
@@ -156,9 +195,7 @@
 	padding: 20px;
 }
 
-.uk-markdownarea-preview > div {
-	overflow: scroll;
-}
+.uk-markdownarea-preview { overflow-y: scroll; }
 
 /*
  * Tab view
@@ -178,21 +215,3 @@
 }
 
 [data-mode='split'] .uk-markdownarea-code { border-right: 1px #ddd solid; }
-
-.uk-markdownarea-fullscreen {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 100;
-
-	.uk-markdownarea-content {
-		position: absolute;
-		top: @navbar-nav-height;
-		left: 0;
-		right: 0;
-		bottom: 0;
-	}
-
-}
