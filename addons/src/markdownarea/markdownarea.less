@@ -29,32 +29,44 @@
 // Variables
 // ========================================================================
 
-@markdownarea-navbar-background:				@navbar-background;
+@markdownarea-navbar-background:				#eee;
 
-@markdownarea-navbar-nav-height:				@navbar-nav-height;
-@markdownarea-navbar-nav-padding-horizontal:	@navbar-nav-padding-horizontal;
-@markdownarea-navbar-nav-line-height:			@navbar-nav-line-height;
-@markdownarea-navbar-nav-color:					@navbar-nav-color;
+@markdownarea-navbar-nav-height:				40px;
+@markdownarea-navbar-nav-padding-horizontal:	15px;
+@markdownarea-navbar-nav-line-height:			@markdownarea-navbar-nav-height;
+@markdownarea-navbar-nav-color:					@global-color;
 
-@markdownarea-navbar-nav-hover-background:		@navbar-nav-hover-background;
-@markdownarea-navbar-nav-hover-color:			@navbar-nav-hover-color;
-@markdownarea-navbar-nav-onclick-background:	@navbar-nav-onclick-background;
-@markdownarea-navbar-nav-onclick-color:			@navbar-nav-onclick-color;
-@markdownarea-navbar-nav-active-background:		@navbar-nav-active-background;
-@markdownarea-navbar-nav-active-color:			@navbar-nav-active-color;
+@markdownarea-navbar-nav-hover-background:		#f5f5f5;
+@markdownarea-navbar-nav-hover-color:			@global-color;
+@markdownarea-navbar-nav-onclick-background:	#ddd;
+@markdownarea-navbar-nav-onclick-color:			@global-color;
+@markdownarea-navbar-nav-active-background:		#f5f5f5;
+@markdownarea-navbar-nav-active-color:			@global-color;
+
+@markdownarea-content-border:					@global-border;
+@markdownarea-content-background:				@global-background;
+@markdownarea-content-padding:					20px;
+@markdownarea-content-split-border:				#eee;
+
+@markdownarea-fullscreen-z-index:				(@global-z-index + 30);
+@markdownarea-fullscreen-content-top:			@markdownarea-navbar-nav-height;
+@markdownarea-fullscreen-icon-resize:			"\f066";
 
 
 // Component
 // ========================================================================
 
-.uk-markdownarea {}
+.uk-markdownarea {
+	.hook-markdownarea;
+}
 
 
 /* Sub-object `uk-markdownarea-navbar`
  ========================================================================== */
 
 .uk-markdownarea-navbar {
-	background: @navbar-background;
+	background: @markdownarea-navbar-background;
+	.hook-markdownarea-navbar;
 }
 
 /*
@@ -100,6 +112,7 @@
 	color: @markdownarea-navbar-nav-color;
 	font-size: 11px;
 	cursor: pointer;
+	.hook-markdownarea-navbar-nav;
 }
 
 /*
@@ -113,18 +126,21 @@
 	background-color: @markdownarea-navbar-nav-hover-background;
 	color: @markdownarea-navbar-nav-hover-color;
 	outline: none; /* 2 */
+	.hook-markdownarea-navbar-nav-hover;
 }
 
 /* OnClick */
 .uk-markdownarea-navbar-nav > li > a:active {
 	background-color: @markdownarea-navbar-nav-onclick-background;
 	color: @markdownarea-navbar-nav-onclick-color;
+	.hook-markdownarea-navbar-nav-onclick;
 }
 
 /* Active */
 .uk-markdownarea-navbar-nav > li.uk-active > a {
 	background-color: @markdownarea-navbar-nav-active-background;
 	color: @markdownarea-navbar-nav-active-color;
+	.hook-markdownarea-navbar-nav-active;
 }
 
 
@@ -145,10 +161,11 @@
  ========================================================================== */
 
 .uk-markdownarea-content {
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	background: #fff;
+	border-left: 1px solid @markdownarea-content-border;
+	border-right: 1px solid @markdownarea-content-border;
+	border-bottom: 1px solid @markdownarea-content-border;
+	background: @markdownarea-content-background;
+	.hook-markdownarea-content;
 }
 
 /*
@@ -173,16 +190,19 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	z-index: 100;
+	z-index: @markdownarea-fullscreen-z-index;
 }
 
 .uk-markdownarea-fullscreen .uk-markdownarea-content {
 	position: absolute;
-	top: @navbar-nav-height;
+	top: @markdownarea-fullscreen-content-top;
 	left: 0;
 	right: 0;
 	bottom: 0;
 }
+
+
+.uk-markdownarea-fullscreen .uk-icon-resize-full:before { content: @markdownarea-fullscreen-icon-resize; }
 
 
 /* Sub-objects `uk-markdownarea-code` and `uk-markdownarea-preview`
@@ -195,7 +215,7 @@
 }
 
 .uk-markdownarea-preview {
-	padding: 20px;
+	padding: @markdownarea-content-padding;
 	overflow-y: scroll;
 }
 
@@ -216,14 +236,16 @@
 	width: 50%;
 }
 
-[data-mode='split'] .uk-markdownarea-code { border-right: 1px #ddd solid; }
+[data-mode='split'] .uk-markdownarea-code { border-right: 1px solid @markdownarea-content-split-border; }
 
 
-/* CodeMirror modifications
- ========================================================================== */
+// Hooks
+// ========================================================================
 
-.uk-markdownarea .CodeMirror {
-	padding: 10px;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
+.hook-markdownarea() {}
+.hook-markdownarea-navbar() {}
+.hook-markdownarea-navbar-nav() {}
+.hook-markdownarea-navbar-nav-hover() {}
+.hook-markdownarea-navbar-nav-onclick() {}
+.hook-markdownarea-navbar-nav-active() {}
+.hook-markdownarea-content() {}
