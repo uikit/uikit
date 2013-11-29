@@ -9,7 +9,7 @@
         if($element.data("nav")) return;
 
         this.options = $.extend({}, Nav.defaults, options);
-        this.element = $element.on(UI.Utils.events.click, this.options.toggler, function(e) {
+        this.element = $element.on("click", this.options.toggler, function(e) {
             e.preventDefault();
 
             var ele = $(this);

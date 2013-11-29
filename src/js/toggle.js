@@ -9,7 +9,7 @@
 
         this.options  = $.extend({}, Toggle.defaults, options);
         this.totoggle = this.options.target ? $(this.options.target):[];
-        this.element  = $element.on(UI.Utils.events.click, function(e) {
+        this.element  = $element.on("click", function(e) {
             e.preventDefault();
             $this.toggle();
         });
@@ -34,12 +34,12 @@
 
     UI["toggle"] = Toggle;
 
-    $(document).on(UI.Utils.events.click+".toggle.uikit", "[data-uk-toggle]", function(e) {
+    $(document).on("click.toggle.uikit", "[data-uk-toggle]", function(e) {
         var ele = $(this);
 
         if (!ele.data("toggle")) {
            var obj = new Toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
-           ele.trigger(UI.Utils.events.click);
+           ele.trigger("click");
         }
     });
 

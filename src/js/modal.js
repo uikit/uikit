@@ -15,11 +15,11 @@
             this.transition = UI.support.transition;
             this.dialog     = this.element.find(".uk-modal-dialog");
 
-            this.element.on(UI.Utils.events.click, ".uk-modal-close", function(e) {
+            this.element.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
                 $this.hide();
 
-            }).on(UI.Utils.events.click, function(e) {
+            }).on("click", function(e) {
 
                 var target = $(e.target);
 
@@ -129,7 +129,7 @@
 
         this.modal = new Modal(this.options.target, options);
 
-        $element.on(UI.Utils.events.click, function(e) {
+        $element.on("click", function(e) {
             e.preventDefault();
             $this.show();
         });
@@ -148,7 +148,7 @@
     UI["modal"] = ModalTrigger;
 
     // init code
-    $(document).on(UI.Utils.events.click+".modal.uikit", "[data-uk-modal]", function(e) {
+    $(document).on("click.modal.uikit", "[data-uk-modal]", function(e) {
         var ele = $(this);
 
         if (!ele.data("modal")) {

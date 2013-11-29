@@ -57,7 +57,7 @@
             }
         });
 
-        this.form.find('button[type=reset]').bind(UI.Utils.events.click, function() {
+        this.form.find('button[type=reset]').bind("click", function() {
             $this.form.removeClass("uk-open").removeClass("uk-loading").removeClass("uk-active");
             $this.value = null;
             $this.input.focus();

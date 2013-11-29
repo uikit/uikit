@@ -24,7 +24,7 @@
 
         if (this.options.mode == "click" || UI.support.touch) {
 
-            this.element.on(UI.Utils.events.click, function(e) {
+            this.element.on("click", function(e) {
 
                 if (!$(e.target).parents(".uk-dropdown").length) {
                     e.preventDefault();
@@ -96,14 +96,14 @@
 
             var $this = this;
 
-            $(document).off(UI.Utils.events.click+".outer.dropdown");
+            $(document).off("click.outer.dropdown");
 
             setTimeout(function() {
-                $(document).on(UI.Utils.events.click+".outer.dropdown", function(e) {
+                $(document).on("click.outer.dropdown", function(e) {
 
                     if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
                         active.removeClass("uk-open");
-                        $(document).off(UI.Utils.events.click+".outer.dropdown");
+                        $(document).off("click.outer.dropdown");
                     }
                 });
             }, 10);
@@ -187,7 +187,7 @@
 
             var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
-            ele.trigger(UI.support.touch ? UI.Utils.events.click : (dropdown.options.mode == "hover" ? "mouseenter":"null"));
+            ele.trigger(UI.support.touch ? "click" : (dropdown.options.mode == "hover" ? "mouseenter":"click"));
         }
     });
 

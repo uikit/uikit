@@ -30,7 +30,7 @@
 
             bar.addClass("uk-offcanvas-bar-show").width();
 
-            element.off(".ukoffcanvas").on(UI.Utils.events.click+".ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
+            element.off(".ukoffcanvas").on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
 
                 var target = $(e.target);
 
@@ -99,7 +99,7 @@
 
         this.element = $element;
 
-        $element.on(UI.Utils.events.click, function(e) {
+        $element.on("click", function(e) {
             e.preventDefault();
             Offcanvas.show($this.options.target);
         });
@@ -113,7 +113,7 @@
 
 
     // init code
-    $doc.on(UI.Utils.events.click+".offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+    $doc.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
 
         e.preventDefault();
 
@@ -121,7 +121,7 @@
 
         if (!ele.data("offcanvas")) {
             var obj = new OffcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
-            ele.trigger(UI.Utils.events.click);
+            ele.trigger("click");
         }
     });
 

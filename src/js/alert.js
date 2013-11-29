@@ -11,7 +11,7 @@
 
         if(this.element.data("alert")) return;
 
-        this.element.on(UI.Utils.events.click, this.options.trigger, function(e) {
+        this.element.on("click", this.options.trigger, function(e) {
             e.preventDefault();
             $this.close();
         });
@@ -54,7 +54,7 @@
     UI["alert"] = Alert;
 
     // init code
-    $(document).on(UI.Utils.events.click+".alert.uikit", "[data-uk-alert]", function(e) {
+    $(document).on("click.alert.uikit", "[data-uk-alert]", function(e) {
 
         var ele = $(this);
         if (!ele.data("alert")) {
