@@ -60,19 +60,20 @@
             }, 200));
 
 
-            var codeContent     = this.code.find('.CodeMirror-sizer'),
-                codeScroll      = this.code.find('.CodeMirror-scroll').on('scroll',UI.Utils.debounce(function() {
+            var previewContainer = $this.preview.parent(),
+                codeContent      = this.code.find('.CodeMirror-sizer'),
+                codeScroll       = this.code.find('.CodeMirror-scroll').on('scroll',UI.Utils.debounce(function() {
 
                     if($this.markdownarea.attr("data-mode")=="tab") return;
 
                     // calc position
                     var codeHeight       = codeContent.height()   - codeScroll.height(),
-                        previewHeight    = $this.preview[0].scrollHeight - $this.preview.height(),
+                        previewHeight    = previewContainer[0].scrollHeight - previewContainer.height(),
                         ratio            = previewHeight / codeHeight,
                         previewPostition = codeScroll.scrollTop() * ratio;
 
                     // apply new scroll
-                    $this.preview.scrollTop(previewPostition);
+                    previewContainer.scrollTop(previewPostition);
             }, 10));
 
             this.markdownarea.on("click", ".uk-markdown-button-markdown, .uk-markdown-button-preview", function(e){
@@ -81,12 +82,14 @@
 
                 if($this.markdownarea.attr("data-mode")=="tab") {
 
+                    $this.markdownarea.find(".uk-markdown-button-markdown, .uk-markdown-button-preview").removeClass("uk-active").filter(this).addClass("uk-active");
+
                     $this.activetab = $(this).hasClass("uk-markdown-button-markdown") ? "code":"preview";
                     $this.markdownarea.attr("data-active-tab", $this.activetab);
                 }
             });
 
-            this.preview.css("height", this.code.height());
+            this.preview.parent().css("height", this.code.height());
         },
 
         _buildtoolbar: function(){
@@ -134,6 +137,10 @@
                     this.activetab = "code";
                     this.markdownarea.attr("data-active-tab", this.activetab);
                 }
+
+                this.markdownarea.find(".uk-markdown-button-markdown, .uk-markdown-button-preview").removeClass("uk-active")
+                                 .filter(this.activetab=="code" ? '.uk-markdown-button-markdown':'.uk-markdown-button-preview').addClass("uk-active");
+
             }
 
             this.markdownarea.attr("data-mode", mode);
@@ -192,7 +199,7 @@
 
                     editor.state.fullScreenRestore = {scrollTop: window.pageYOffset, scrollLeft: window.pageXOffset, width: wrap.style.width, height: wrap.style.height};
                     wrap.style.width = "";
-                    wrap.style.height = (editor.markdownarea.content[0].scrollHeight - editor.markdownarea.toolbar.outerHeight())+"px";
+                    wrap.style.height = editor.markdownarea.content[0].scrollHeight+"px";
                     document.documentElement.style.overflow = "hidden";
 
                 } else {
@@ -201,12 +208,10 @@
                     var info = editor.state.fullScreenRestore;
                     wrap.style.width = info.width; wrap.style.height = info.height;
                     window.scrollTo(info.scrollLeft, info.scrollTop);
-
                 }
 
                 editor.refresh();
-
-                editor.markdownarea.preview.css("height", editor.markdownarea.code.height());
+                editor.markdownarea.preview.parent().css("height", editor.markdownarea.code.height());
             }
         },
 
@@ -291,7 +296,7 @@
                                     '</div>' +
                                 '</div>' +
                                 '<div class="uk-markdownarea-content">' +
-                                    '<div class="uk-markdownarea-code"><div></div></div>' +
+                                    '<div class="uk-markdownarea-code"></div>' +
                                     '<div class="uk-markdownarea-preview"><div></div></div>' +
                                 '</div>' +
                             '</div>';
