@@ -198,8 +198,8 @@
                 if(editor.markdownarea.markdownarea.hasClass("uk-markdownarea-fullscreen")) {
 
                     editor.state.fullScreenRestore = {scrollTop: window.pageYOffset, scrollLeft: window.pageXOffset, width: wrap.style.width, height: wrap.style.height};
-                    wrap.style.width = "";
-                    wrap.style.height = editor.markdownarea.content[0].scrollHeight+"px";
+                    wrap.style.width  = "";
+                    wrap.style.height = editor.markdownarea.content.height()+"px";
                     document.documentElement.style.overflow = "hidden";
 
                 } else {
