@@ -1,142 +1,7 @@
 /*! UIkit 1.2.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
-/* Default
- ========================================================================== */
-/* LESS related */
-/*
- * Component:		Variables
- * Description:		Defines all color and style related values as variables
- *					to allow easy customization for the most common cases.
- ========================================================================== */
-/* Global variables
- ========================================================================== */
-/*
- * Text
- */
-/*
- * Backgrounds & Borders
- */
-/*
- * Spacings
- */
-/*
- * Controls
- */
-/*
- * Z-index
- */
-/* Breakpoint variables
- ========================================================================== */
-/*
-* Breakpoints
-*/
-/* Components variables
- ========================================================================== */
-/*
- * Base
- */
-/*
- * Grid
- */
-/*
- * Panel
- */
-/*
- * Article
- */
-/*
- * Comment
- */
-/*
- * Nav
- */
-/*
- * Navbar
- */
-/*
- * Subnav
- */
-/*
- * Breadcrumb
- */
-/*
- * Pagination
- */
-/*
- * Tab
- */
-/*
- * List
- */
-/*
- * Description list
- */
-/*
- * Table
- */
-/*
- * Form
- */
-/*
- * Button
- */
-/*
- * Icon
- */
-/*
- * Close
- */
-/*
- * Badge
- */
-/*
- * Alert
- */
-/*
- * Thumbnail
- */
-/*
- * Overlay
- */
-/*
- * Progress
- */
-/*
- * Search
- */
-/*
- * Dropdown
- */
-/*
- * Modal
- */
-/*
- * Off-canvas
- */
-/*
- * Tooltip
- */
-/*
- * Text
- */
-/*
- * Utility
- */
-/* Defaults */
-/*
- * Component:		Normalize
- * Description:		Reduces inconsistencies across all browsers
- *
- * Adapted from http://github.com/necolas/normalize.css (Version 2.1.2)
- *
- * Modifications:	Moved `mark` and `h1` defaults to Base component
- *					Changed `fieldset` defaults to 0
- *					Added cursor for `radio` and `checkbox`
- *					Set form controls box sizing to `border-box`
- *					Modified `disabled` selector
- *					Better font baseline for `code`, `kbd`, `pre` and `samp`
- *					Removed placeholder transparency in Firefox
- *
+/* ========================================================================
+   Component: Normalize
  ========================================================================== */
 /* HTML5 display definitions
  ========================================================================== */
@@ -188,11 +53,10 @@ audio:not([controls]) {
 html {
   font-family: sans-serif;
   /* 1 */
-
   -webkit-text-size-adjust: 100%;
+  /* 2 */
   -ms-text-size-adjust: 100%;
   /* 2 */
-
 }
 /*
  * Removes default margin.
@@ -254,7 +118,6 @@ pre,
 samp {
   font-family: Consolas, monospace, serif;
   /* 1 */
-
   font-size: 1em;
 }
 /*
@@ -330,10 +193,8 @@ fieldset {
 legend {
   border: 0;
   /* 1 */
-
   padding: 0;
   /* 2 */
-
 }
 /*
  * 1. Corrects font family not being inherited in all browsers.
@@ -351,16 +212,12 @@ select,
 textarea {
   font-family: inherit;
   /* 1 */
-
   font-size: 100%;
   /* 2 */
-
   margin: 0;
   /* 3 */
-
   -moz-box-sizing: border-box;
   /* 4 */
-
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -392,10 +249,8 @@ input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
   /* 2 */
-
   cursor: pointer;
   /* 3 */
-
 }
 /*
  * Improves consistency of cursor style for clickable elements
@@ -446,10 +301,8 @@ input::-moz-focus-inner {
 textarea {
   overflow: auto;
   /* 1 */
-
   vertical-align: top;
   /* 2 */
-
 }
 /*
  * Removes placeholder transparency in Firefox.
@@ -466,13 +319,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-/*
- * Component:		Base
- * Description:		Sets default values for HTML elements
- *
- * Component:		`uk-h1`, `uk-h2`, `uk-h3`, `uk-h4`, `uk-h5`, `uk-h6`
- *					`uk-img-preserve`
- *
+/* ========================================================================
+   Component: Base
  ========================================================================== */
 /* Body
  ========================================================================== */
@@ -492,8 +340,8 @@ body {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-  	 * Break strings if their length exceeds the width of their container
-  	 */
+	 * Break strings if their length exceeds the width of their container
+	 */
   body {
     word-wrap: break-word;
     -webkit-hyphens: auto;
@@ -576,14 +424,12 @@ img {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 1 */
-
   max-width: 100%;
+  /* 2 */
   height: auto;
   /* 2 */
-
   vertical-align: middle;
   /* 3 */
-
 }
 /*
  * Preserve original image dimensions
@@ -791,33 +637,14 @@ iframe {
   border: 0;
 }
 /* Fix viewport for IE10 snap mode
- * http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
  ========================================================================== */
-@-ms-viewport {
-  width: device-width;
+@media screen and (max-width: 400px) {
+  @-ms-viewport {
+    width: device-width;
+  }
 }
-/* Hooks
- ========================================================================== */
-/* Layout */
-/*
- * Name:			Grid
- * Description:		Provides a responsive, fluid and nestable grid
- *
- * Component:		`uk-grid`
- *					`uk-width-*`
- *					`uk-push-*`
- *					`uk-pull-*`
- *
- * Modifiers:		`uk-grid-divider`
- *					`uk-grid-margin`
- *					`uk-grid-preserve`
- *
- * Uses:			Panel: `uk-panel`
- *
- * Used by:			Dropdown
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Grid
  ========================================================================== */
 /*
  * Micro clearfix
@@ -836,10 +663,8 @@ iframe {
  */
 .uk-grid {
   /* 1 */
-
   margin: 0 0 0 -25px;
   /* 2 */
-
   padding: 0;
   list-style: none;
 }
@@ -858,13 +683,10 @@ iframe {
  */
 .uk-grid > [class*='uk-width-'] {
   /* 1 */
-
   margin: 0;
   /* 2 */
-
   padding-left: 25px;
   /* 3 */
-
   float: left;
 }
 /*
@@ -940,8 +762,8 @@ iframe {
 /* Only large screens */
 @media (min-width: 1220px) {
   /*
-  	 * Grid
-  	 */
+	 * Grid
+	 */
   /* Horizontal gutter */
   .uk-grid:not(.uk-grid-preserve) {
     margin-left: -35px;
@@ -961,8 +783,8 @@ iframe {
     margin-top: 35px;
   }
   /*
-  	 * Modifier: `uk-grid-divider`
-  	 */
+	 * Modifier: `uk-grid-divider`
+	 */
   .uk-grid-divider:not(.uk-grid-preserve):not(:empty) {
     margin-left: -35px;
     margin-right: -35px;
@@ -1197,8 +1019,8 @@ iframe {
     position: relative;
   }
   /*
-  	 * Push
-  	 */
+	 * Push
+	 */
   /* Halves */
   .uk-push-1-2,
   .uk-push-2-4,
@@ -1260,8 +1082,8 @@ iframe {
     left: 90%;
   }
   /*
-  	 * Pull
-  	 */
+	 * Pull
+	 */
   /* Halves */
   .uk-pull-1-2,
   .uk-pull-2-4,
@@ -1323,30 +1145,8 @@ iframe {
     left: -90%;
   }
 }
-/*
- * Name:			Panel
- * Description:		Defines styles for reusable content areas
- *
- * Component:		`uk-panel`
- *
- * Sub-objects:		`uk-panel-title`
- *					`uk-panel-badge`
- *
- * Modifiers:		`uk-panel-box`
- *					`uk-panel-box-primary`
- *					`uk-panel-box-secondary`
- *					`uk-panel-header`
- *					`uk-panel-space`
- *					`uk-panel-divider`
- *
- * Uses:			Nav: `uk-nav-side`
- *
- * Used by:			Dropdown
- *					Off-canvas
- *					Grid
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Panel
  ========================================================================== */
 /*
  * Create position context for badges
@@ -1477,21 +1277,8 @@ iframe {
     top: -35px;
   }
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Article
- * Description:		Defines styles for articles within your page
- *
- * Component:		`uk-article`
- *
- * Sub-objects:		`uk-article-title`
- *					`uk-article-meta`
- *					`uk-article-lead`
- *					`uk-article-divider`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Article
  ========================================================================== */
 /*
  * Micro clearfix to make articles more robust
@@ -1552,23 +1339,12 @@ iframe {
 * + .uk-article-divider {
   margin-top: 25px;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Comment
- * Description:		Defines styles for comment threads
- *
- * Component:		`uk-comment`
- *
- * Sub-objects:		`uk-comment-header`
- *					`uk-comment-avatar`
- *					`uk-comment-title`
- *					`uk-comment-meta`
- *					`uk-comment-body`
- *					`uk-comment-list`
- *
- ========================================================================== */
-/* Component
+.uk-article + .uk-article {
+  padding-top: 15px;
+  border-top: 1px solid #dddddd;
+}
+/* ========================================================================
+   Component: Comment
  ========================================================================== */
 /* Sub-object `uk-comment-header`
  ========================================================================== */
@@ -1634,38 +1410,14 @@ iframe {
 .uk-comment-list .uk-comment + ul > li:nth-child(n+2) {
   margin-top: 25px;
 }
-/* Hooks
- ========================================================================== */
-/* Navs */
-/*
- * Name:			Nav
- * Description:		Defines styles for list navigations
- *
- * Component:		`uk-nav`
- *
- * Sub-objects: 	`uk-nav-header`
- *					`uk-nav-divider`
- *					`uk-nav-sub`
- *
- * Modifiers:		`uk-nav-parent-icon`
- *					`uk-nav-side`
- *					`uk-nav-dropdown`
- *					`uk-nav-navbar`
- *					`uk-nav-search`
- *					`uk-nav-offcanvas`
- *
- * States:		 	`uk-active`
- *					`uk-parent`
- *					`uk-open`
- *					`uk-touch`
- *
- * Uses:			Icon: FontAwesome
- *
- * Used by:			Panel
- *					Dropdown
- *
- ========================================================================== */
-/* Component
+/* Sub-object `uk-comment-body`
+	 ========================================================================== */
+.uk-comment-body {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* ========================================================================
+   Component: Nav
  ========================================================================== */
 .uk-nav,
 .uk-nav ul {
@@ -1752,12 +1504,10 @@ ul.uk-nav-sub {
 .uk-nav-side > li > a:hover,
 .uk-nav-side > li > a:focus {
   /* 1 */
-
   background: rgba(0, 0, 0, 0.03);
   color: #444444;
   outline: none;
   /* 2 */
-
   box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.06);
   text-shadow: 0 -1px 0 #ffffff;
 }
@@ -1806,12 +1556,10 @@ ul.uk-nav-sub {
 .uk-nav-dropdown > li > a:hover,
 .uk-nav-dropdown > li > a:focus {
   /* 1 */
-
   background: #00a8e6;
   color: #ffffff;
   outline: none;
   /* 2 */
-
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
@@ -1852,12 +1600,10 @@ ul.uk-nav-sub {
 .uk-nav-navbar > li > a:hover,
 .uk-nav-navbar > li > a:focus {
   /* 1 */
-
   background: #00a8e6;
   color: #ffffff;
   outline: none;
   /* 2 */
-
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
@@ -1899,7 +1645,6 @@ ul.uk-nav-sub {
   color: #ffffff;
   outline: none;
   /* 2 */
-
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
@@ -1946,12 +1691,10 @@ ul.uk-nav-sub {
 html:not(.uk-touch) .uk-nav-offcanvas > li > a:hover,
 html:not(.uk-touch) .uk-nav-offcanvas > li > a:focus {
   /* 1 */
-
   background: #404040;
   color: #ffffff;
   outline: none;
   /* 2 */
-
 }
 /*
  * Active
@@ -1993,33 +1736,22 @@ html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
 html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   color: #ffffff;
 }
-/* Hooks
- ========================================================================== */
 /*
- * Name:			Navbar
- * Description:		Defines styles for the navigation bar
- *
- * Component:		`uk-navbar`
- *
- * Sub-objects:		`uk-navbar-nav`
- *					`uk-navbar-nav-subtitle`
- *					`uk-navbar-content`
- *					`uk-navbar-brand`
- *					`uk-navbar-toggle`
- *					`uk-navbar-toggle-alt`
- *					`uk-navbar-center`
- *					`uk-navbar-flip`
- *
- * Modifiers:		`uk-navbar-attached`
- *
- * States:			`uk-active`
- *					`uk-parent`
- *					`uk-open`
- *
- * Used by:			Dropdown
- *
- ========================================================================== */
-/* Component
+	 * Modifier `uk-nav-offcanvas`
+	 */
+.uk-nav-offcanvas {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+/*
+	 * Sub-object: `uk-nav-sub`
+	 */
+.uk-nav-offcanvas .uk-nav-sub {
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+/* ========================================================================
+   Component: Navbar
  ========================================================================== */
 .uk-navbar {
   background: #f5f5f5;
@@ -2051,7 +1783,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-nav > li {
   position: relative;
   /* 1 */
-
   float: left;
 }
 /*
@@ -2063,29 +1794,25 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   text-decoration: none;
+  /* 1 */
   height: 40px;
   padding: 0 15px;
   line-height: 40px;
+  /* 2 */
   color: #444444;
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   margin-top: -1px;
-  /* 1 */
-
   margin-left: -1px;
-  /* 2 */
-
   height: 41px;
-  /* 3 */
-
   border: 1px solid transparent;
   border-bottom-width: 0;
   text-shadow: 0 1px 0 #ffffff;
 }
 /* Appear not as link */
 .uk-navbar-nav > li > a[href='#'] {
-  cursor: auto;
+  cursor: text;
 }
 /*
  * Hover
@@ -2096,22 +1823,19 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-nav > li:hover > a,
 .uk-navbar-nav > li > a:focus,
 .uk-navbar-nav > li.uk-open > a {
+  /* 2 */
   background-color: #fafafa;
   color: #444444;
   outline: none;
   /* 3 */
-
   position: relative;
-  /* 1 */
-
   z-index: 1;
-  /* 2 */
-
   border-left-color: rgba(0, 0, 0, 0.1);
   border-right-color: rgba(0, 0, 0, 0.1);
   border-top-color: rgba(0, 0, 0, 0.1);
 }
-/* OnClick */.uk-navbar-nav > li > a:active {
+/* OnClick */
+.uk-navbar-nav > li > a:active {
   background-color: #eeeeee;
   color: #444444;
   border-left-color: rgba(0, 0, 0, 0.1);
@@ -2192,12 +1916,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-brand:hover,
 .uk-navbar-brand:focus {
   /* 1 */
-
   color: #444444;
   text-decoration: none;
   outline: none;
   /* 2 */
-
 }
 /* Sub-object: `uk-navbar-toggle`
  ========================================================================== */
@@ -2212,12 +1934,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-toggle:hover,
 .uk-navbar-toggle:focus {
   /* 1 */
-
   color: #444444;
   text-decoration: none;
   outline: none;
   /* 2 */
-
 }
 /*
  * 1. Center icon vertically
@@ -2227,7 +1947,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   font-family: "FontAwesome";
   vertical-align: middle;
   /* 1 */
-
 }
 .uk-navbar-toggle-alt:after {
   content: "\f002";
@@ -2240,9 +1959,9 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-navbar-center {
   max-width: 50%;
+  /* 1 */
   margin: auto;
   /* 1 */
-
   float: none;
   text-align: center;
 }
@@ -2251,21 +1970,35 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-flip {
   float: right;
 }
-/* Hooks
- ========================================================================== */
+.uk-navbar:not(.uk-navbar-attached) {
+  border-radius: 4px;
+}
 /*
- * Name:			Subnav
- * Description:		Defines styles for the sub navigation
- *
- * Component:		`uk-subnav`
- *
- * Modifiers: 		`uk-subnav-line`
- *					`uk-subnav-pill`
- *
- * States:		 	`uk-active`
- *
- ========================================================================== */
-/* Component
+	 * Apply same `border-radius` as `uk-navbar`
+	 */
+.uk-navbar:not(.uk-navbar-attached) .uk-navbar-nav:first-child > li:first-child > a {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+/*
+	 * Sub-modifier `uk-navbar-flip`
+	 */
+/* Collapse border */
+.uk-navbar .uk-navbar-flip .uk-navbar-nav > li > a {
+  margin-left: 0;
+  margin-right: -1px;
+}
+/* Apply same `border-radius` as `uk-navbar` */
+.uk-navbar .uk-navbar-flip .uk-navbar-nav:first-child > li:first-child > a {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.uk-navbar:not(.uk-navbar-attached) .uk-navbar-flip .uk-navbar-nav:last-child > li:last-child > a {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+/* ========================================================================
+   Component: Subnav
  ========================================================================== */
 /*
  * 1. Remove default list style
@@ -2273,11 +2006,9 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-subnav {
   /* 1 */
-
   padding: 0;
   list-style: none;
   /* 2 */
-
   letter-spacing: -0.31em;
 }
 /* Items
@@ -2289,10 +2020,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-subnav > li {
   position: relative;
   /* 1 */
-
   letter-spacing: normal;
   /* 2 */
-
 }
 .uk-subnav > li,
 .uk-subnav > li > a,
@@ -2342,12 +2071,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-subnav-pill > li > a:hover,
 .uk-subnav-pill > li > a:focus {
   /* 1 */
-
   background: #fafafa;
   color: #444444;
   outline: none;
   /* 2 */
-
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
 }
 /*
@@ -2359,18 +2086,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   color: #ffffff;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Breadcrumb
- * Description:		Defines styles for a breadcrumb navigation
- *
- * Component:		`uk-breadcrumb`
- *
- * States:		 	`uk-active`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Breadcrumb
  ========================================================================== */
 /*
  * 1. Remove default list style
@@ -2378,11 +2095,9 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-breadcrumb {
   /* 1 */
-
   padding: 0;
   list-style: none;
   /* 2 */
-
   letter-spacing: -0.31em;
 }
 /* Items
@@ -2404,7 +2119,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   margin: 0 8px;
   vertical-align: top;
   /* 2 */
-
 }
 /*
  * Disabled
@@ -2412,25 +2126,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-breadcrumb > li:not(.uk-active) > span {
   color: #999999;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Pagination
- * Description:		Defines styles for a navigation between pages
- *
- * Component:		`uk-pagination`
- *
- * Sub-objects:		`uk-pagination-previous`
- *					`uk-pagination-next`
- *
- * States:		 	`uk-active`
- *					`uk-disabled`
- *
- * Modifiers:		`uk-pagination-left`
- *					`uk-pagination-right`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Pagination
  ========================================================================== */
 /*
  * 1. Remove default list style
@@ -2439,14 +2136,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-pagination {
   /* 1 */
-
   padding: 0;
   list-style: none;
   /* 2 */
-
   text-align: center;
   /* 3 */
-
   letter-spacing: -0.31em;
 }
 /*
@@ -2470,7 +2164,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   display: inline-block;
   letter-spacing: normal;
   /* 1 */
-
 }
 .uk-pagination > li:nth-child(n+2) {
   margin-left: 5px;
@@ -2484,7 +2177,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   /* 1 */
-
   display: inline-block;
   min-width: 16px;
   padding: 3px 5px;
@@ -2492,7 +2184,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   text-decoration: none;
   text-align: center;
   /* 2 */
-
   border-radius: 4px;
 }
 /*
@@ -2512,12 +2203,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-pagination > li > a:hover,
 .uk-pagination > li > a:focus {
   /* 1 */
-
   background-color: #fafafa;
   color: #444444;
   outline: none;
   /* 2 */
-
   border-color: rgba(0, 0, 0, 0.16);
 }
 /* OnClick */
@@ -2559,27 +2248,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-pagination-right {
   text-align: right;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Tab
- * Description:		Defines styles for a tabbed navigation
- *
- * Component:		`uk-tab`
- *
- * Modifiers:		`uk-tab-flip`
- *					`uk-tab-center`
- *					`uk-tab-grid`
- *					`uk-tab-bottom`
- *					`uk-tab-left`
- *					`uk-tab-right`
- *					`uk-tab-responsive`
- *
- * States:			`uk-active`
- *					`uk-disabled`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Tab
  ========================================================================== */
 .uk-tab {
   margin: 0;
@@ -2605,7 +2275,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab > li {
   position: relative;
   /* 1 */
-
   margin-bottom: -1px;
   float: left;
 }
@@ -2632,13 +2301,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab > li > a:focus,
 .uk-tab > li.uk-open > a {
   /* 2 */
-
   border-color: rgba(0, 0, 0, 0.06);
   background: #f5f5f5;
   color: #005599;
   outline: none;
   /* 3 */
-
 }
 .uk-tab > li:not(.uk-active) > a:hover,
 .uk-tab > li:not(.uk-active) > a:focus,
@@ -2763,7 +2430,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   position: relative;
   z-index: 0;
   /* 1 */
-
   margin-left: -5px;
   border-bottom: none;
 }
@@ -2775,7 +2441,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   bottom: -1px;
   z-index: -1;
   /* 1 */
-
   border-top: 1px solid #dddddd;
 }
 .uk-tab-grid > li:first-child > a {
@@ -2817,8 +2482,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
     border-color: #dddddd;
   }
   /*
-  	 * Modifier: 'tab-left'
-  	 */
+	 * Modifier: 'tab-left'
+	 */
   .uk-tab-left {
     border-right: 1px solid #dddddd;
   }
@@ -2840,8 +2505,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
     border-right-color: transparent;
   }
   /*
-  	 * Modifier: 'tab-right'
-  	 */
+	 * Modifier: 'tab-right'
+	 */
   .uk-tab-right {
     border-left: 1px solid #dddddd;
   }
@@ -2863,21 +2528,30 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
     border-left-color: transparent;
   }
 }
-/* Hooks
- ========================================================================== */
-/* Elements */
-/*
- * Name:			List
- * Description:		Defines styles for ordered and unordered lists
- *
- * Component:		`uk-list`
- *
- * Modifiers:		`uk-list-line`
- *					`uk-list-striped`
- *					`uk-list-space`
- *
- ========================================================================== */
-/* Component
+/* Modifier: `uk-tab-bottom'
+	 ========================================================================== */
+.uk-tab-bottom > li > a {
+  border-radius: 0 0 4px 4px;
+}
+/* Modifier: `uk-tab-left', `uk-tab-right'
+	========================================================================== */
+/* Only tablets and desktops */
+@media (min-width: 768px) {
+  /*
+		 * Modifier: `uk-tab-left'
+		 */
+  .uk-tab-left > li > a {
+    border-radius: 4px 0 0 4px;
+  }
+  /*
+		 * Modifier: `uk-tab-right'
+		 */
+  .uk-tab-right > li > a {
+    border-radius: 0 4px 4px 0;
+  }
+}
+/* ========================================================================
+   Component: List
  ========================================================================== */
 .uk-list {
   padding: 0;
@@ -2912,19 +2586,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-list-space > li:nth-child(n+2) {
   margin-top: 10px;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Description list
- * Description:		Defines styles for description lists
- *
- * Component:		`uk-description-list`
- *
- * Modifiers:		`uk-description-list-horizontal`
- *					`uk-description-list-line`
- *
- ========================================================================== */
-/* Component
+.uk-list-striped > li:first-child {
+  border-top: 1px solid #dddddd;
+}
+/* ========================================================================
+   Component: Description list
  ========================================================================== */
 /* Modifier: `uk-description-list-horizontal`
  ========================================================================== */
@@ -2958,21 +2624,12 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-description-list-line > dd {
   color: #999999;
 }
+/* ========================================================================
+   Component: Table
+ ========================================================================== */
 /*
- * Name:			Table
- * Description:		Defines styles for tables
- *
- * Component:		`uk-table`
- *
- * Modifiers:		`uk-table-middle`
- *					`uk-table-striped`
- *					`uk-table-condensed`
- *					`uk-table-hover`
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Block element behavior */
+ * Block element behavior
+ */
 .uk-table {
   width: 100%;
   margin-bottom: 15px;
@@ -2988,7 +2645,9 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   padding: 8px 8px;
   border-bottom: 1px solid #dddddd;
 }
-/* Set alignment */
+/*
+ * Set alignment
+ */
 .uk-table th {
   text-align: left;
 }
@@ -3031,37 +2690,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-table-hover tbody tr:hover td {
   background: #f0f0f0;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Form
- * Description:		Defines styles for forms
- *
- * Component:		`uk-form`
- *
- * Sub-objects:		`uk-form-row`
- *					`uk-form-help-inline`
- *					`uk-form-help-block`
- *					`uk-form-label`
- *					`uk-form-controls`
- *					`uk-form-controls-condensed`
- *
- * Modifiers:		`uk-form-stacked`
- *					`uk-form-horizontal`
- *
- * Sub-modifiers:	`uk-form-danger`
- *					`uk-form-success`
- *					`uk-form-small`
- *					`uk-form-large`
- *					`uk-form-blank`
- *					`uk-form-width-mini`
- *					`uk-form-width-small`
- *					`uk-form-width-medium`
- *					`uk-form-width-large`
- *					`uk-form-controls-text`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Form
  ========================================================================== */
 /*
  * Remove margin from the last-child
@@ -3073,7 +2703,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Controls
  * Exept for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
- * 2. Responsiveness: Sets a maxium width relative to the parent to scale on narrower viewports
+ * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
  */
 .uk-form select,
 .uk-form textarea,
@@ -3093,10 +2723,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-form input[type="color"] {
   height: 30px;
   /* 1 */
-
   max-width: 100%;
   /* 2 */
-
   padding: 4px 6px;
   border: 1px solid #dddddd;
   background: #ffffff;
@@ -3105,9 +2733,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   transition: all linear 0.2s;
   border-radius: 4px;
   /* Focus state */
-
   /* Disabled state */
-
 }
 .uk-form select:focus,
 .uk-form textarea:focus,
@@ -3183,7 +2809,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   width: 100%;
   padding-bottom: 15px;
   /* 1 */
-
   font-size: 18px;
   line-height: 30px;
 }
@@ -3335,7 +2960,6 @@ select.uk-form-width-mini {
 @media (max-width: 959px) {
   .uk-form-horizontal .uk-form-label {
     /* Behave like `uk-form-stacked` */
-  
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -3356,31 +2980,25 @@ select.uk-form-width-mini {
     padding-top: 5px;
   }
 }
-/* Hooks
+/* Sub-object: `uk-form-icon`
  ========================================================================== */
-/* Common */
-/*
- * Name:			Button
- * Description:		Defines styles for buttons
- *
- * Component:		`uk-button`
- *
- * Sub-objects:		`uk-button-group`
- *					`uk-button-dropdown`
- *
- * Modifiers:		`uk-button-primary`
- *					`uk-button-success`
- *					`uk-button-danger`
- *					`uk-button-link`
- *					`uk-button-mini`
- *					`uk-button-small`
- *					`uk-button-large`
- *					`uk-button-expand`
- *
- * States:		 	`uk-active`
- *
- ========================================================================== */
-/* Component
+.uk-form-icon {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.uk-form-icon > [class*='uk-icon-'] {
+  position: absolute;
+  width: 30px;
+  line-height: 30px;
+  color: #999999;
+  text-align: center;
+}
+.uk-form-icon > input {
+  padding-left: 30px !important;
+}
+/* ========================================================================
+   Component: Button
  ========================================================================== */
 /*
  * 1. Required for `a` elements. Can't be moved to `a.button` selector because needs to be overwritable for `uk-button-link` and `uk-button-expand`
@@ -3392,22 +3010,17 @@ select.uk-form-width-mini {
 .uk-button {
   display: inline-block;
   /* 1 */
-
   min-height: 30px;
   /* 2 */
-
   padding: 0 12px;
   border: none;
   /* 3 */
-
   background: #f5f5f5;
   line-height: 28px;
   /* 4 */
-
   color: #444444;
   letter-spacing: normal;
   /* 5 */
-
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 4px;
   text-shadow: 0 1px 0 #ffffff;
@@ -3427,12 +3040,10 @@ a.uk-button {
 .uk-button:hover,
 .uk-button:focus {
   /* 1 */
-
   background-color: #fafafa;
   color: #444444;
   outline: none;
   /* 2 */
-
   border-color: rgba(0, 0, 0, 0.16);
 }
 /* Active */
@@ -3586,17 +3197,13 @@ a.uk-button {
  */
 .uk-button-group {
   /* 1 */
-
   display: inline-block;
   vertical-align: middle;
   /* 2 */
-
   position: relative;
   /* 3 */
-
   letter-spacing: -0.31em;
   /* 4 */
-
   white-space: nowrap;
 }
 .uk-button-group > * {
@@ -3610,34 +3217,69 @@ a.uk-button {
  */
 .uk-button-dropdown {
   /* 1 */
-
   display: inline-block;
   vertical-align: middle;
   /* 2 */
-
   position: relative;
 }
-/* Hooks
- ========================================================================== */
+/* Color modifiers
+	 ========================================================================== */
+.uk-button-primary,
+.uk-button-success,
+.uk-button-danger {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+.uk-button-primary:hover,
+.uk-button-primary:focus,
+.uk-button-success:hover,
+.uk-button-success:focus,
+.uk-button-danger:hover,
+.uk-button-danger:focus {
+  border-color: rgba(0, 0, 0, 0.21);
+}
+/* Sub-object `uk-button-group`
+	 ========================================================================== */
 /*
- * Name:			Icon
- * Description:		Defines styles for icons
- *
- * Adapted from http://fortawesome.github.com/Font-Awesome (Version 3.2.1)
- *
- * Component:		`uk-icon-*`
- *
- * Sub-objects:		`uk-icon-button`
- *
- * Modifiers:		`uk-icon-small`
- *					`uk-icon-medium`
- *					`uk-icon-large`
- *					`uk-icon-spin`
- *
- * Uses:			Animation
- *
- ========================================================================== */
-/* Font-face
+	 * Reset border-radius
+	 */
+.uk-button-group > .uk-button:not(:first-child):not(:last-child),
+.uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
+  border-left-color: rgba(0, 0, 0, 0.1);
+  border-right-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
+.uk-button-group > .uk-button:first-child,
+.uk-button-group > div:first-child .uk-button {
+  border-right-color: rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.uk-button-group > .uk-button:last-child,
+.uk-button-group > div:last-child .uk-button {
+  border-left-color: rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+/*
+	 * Collapse border
+	 */
+.uk-button-group > .uk-button:nth-child(n+2),
+.uk-button-group > div:nth-child(n+2) .uk-button {
+  margin-left: -1px;
+}
+/*
+	 * Create position context to superimpose the successor elements border
+	 * Known issue: If you use an `a` element as button and an icon inside,
+	 * the active state will not work if you click the icon inside the button
+	 * Workaround: Just use a `button` or `input` element as button
+	 */
+.uk-button-group .uk-button:hover,
+.uk-button-group .uk-button:active {
+  position: relative;
+}
+/* ========================================================================
+   Component: Icon
  ========================================================================== */
 @font-face {
   font-family: 'FontAwesome';
@@ -3646,8 +3288,6 @@ a.uk-button {
   font-weight: normal;
   font-style: normal;
 }
-/* Component
- ========================================================================== */
 /*
  * 1. Allow margin
  * 2. Prevent inherit font style
@@ -3658,21 +3298,17 @@ a.uk-button {
 [class*='uk-icon-']:before {
   display: inline-block;
   /* 1 */
-
   font-family: "FontAwesome";
   font-weight: normal;
+  /* 2 */
   font-style: normal;
   /* 2 */
-
   vertical-align: baseline;
   /* 3 */
-
   line-height: 1;
   /* 4 */
-
   -webkit-font-smoothing: antialiased;
   /* 5 */
-
 }
 /* Size modifiers
  ========================================================================== */
@@ -3720,13 +3356,11 @@ a.uk-button {
 .uk-icon-button:hover,
 .uk-icon-button:focus {
   /* 1 */
-
   background-color: #fafafa;
   color: #444444;
   text-decoration: none;
   outline: none;
   /* 2 */
-
   border-color: #d3d3d3;
 }
 /* Active */
@@ -4836,23 +4470,8 @@ a.uk-button {
 .uk-icon-renren:before {
   content: "\f18b";
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Close
- * Description:		Defines styles for a close button
- *
- * Component:		`uk-close`
- *
- * Modifiers:		`uk-close-alt`
- *
- * Uses:			Icon: FontAwesome
- *
- * Used by:			Alert
- *					Modal
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Close
  ========================================================================== */
 /*
  * 1. Required for `button` elements and makes
@@ -4863,7 +4482,6 @@ a.uk-button {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   /* 1 */
-
   display: inline-block;
   width: 20px;
   line-height: 20px;
@@ -4871,13 +4489,11 @@ a.uk-button {
   color: inherit;
   opacity: 0.3;
   /* 2. */
-
   padding: 0;
   border: 0;
   -webkit-appearance: none;
   background: transparent;
   /* Needed for Sarari */
-
 }
 /* Icon */
 .uk-close:after {
@@ -4893,11 +4509,9 @@ a.uk-button {
 .uk-close:hover,
 .uk-close:focus {
   /* 1 */
-
   opacity: 0.5;
   outline: none;
   /* 2 */
-
 }
 /* Required for `a` elements */
 a.uk-close:hover {
@@ -4927,20 +4541,8 @@ a.uk-close:hover {
 .uk-close-alt:focus:after {
   opacity: 0.8;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Badge
- * Description:		Defines styles for badges 
- *
- * Component:		`uk-badge`
- *
- * Modifiers:		`uk-badge-notification`
- *					`uk-badge-success`
- *					`uk-badge-danger`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Badge
  ========================================================================== */
 .uk-badge {
   display: inline-block;
@@ -4987,25 +4589,8 @@ a.uk-close:hover {
 .uk-badge-danger {
   background-color: #da314b;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Alert
- * Description:		Defines styles for alert messages
- *
- * Component: 		`uk-alert`
- *
- * Sub-objects: 	`uk-alert-close`
- * 
- * Modifiers:		`uk-alert-success`
- *					`uk-alert-warning`
- *					`uk-alert-danger`
- *					`uk-alert-large`
- *
- * Uses:			Close: `uk-close`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Alert
  ========================================================================== */
 .uk-alert {
   margin-bottom: 15px;
@@ -5079,24 +4664,8 @@ a.uk-close:hover {
 .uk-alert-large > .uk-close:first-child {
   margin: -10px -10px 0 0;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Thumbnail
- * Description:		Defines styles for image thumbnails
- *
- * Component:		`uk-thumbnail`
- *
- * Sub-objects: 	`uk-thumbnail-caption`
- *
- * Modifiers:		`uk-thumbnail-mini`
- *					`uk-thumbnail-small`
- *					`uk-thumbnail-medium`
- *					`uk-thumbnail-large`
- *					`uk-thumbnail-expand`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Thumbnail
  ========================================================================== */
 /*
  * 1. Corrects max-width behavior (2.) if padding and border are used
@@ -5105,18 +4674,14 @@ a.uk-close:hover {
  */
 .uk-thumbnail {
   /* Required for `a`, `div` or `figure` elements */
-
   display: inline-block;
   -moz-box-sizing: border-box;
   /* 1 */
-
   box-sizing: border-box;
   max-width: 100%;
   /* 2 */
-
   margin: 0;
   /* 3 */
-
   padding: 4px;
   border: 1px solid #dddddd;
   background: #ffffff;
@@ -5131,15 +4696,12 @@ a.uk-close:hover {
 a.uk-thumbnail:hover,
 a.uk-thumbnail:focus {
   /* 1 */
-
   border-color: #aaaaaa;
   background-color: #ffffff;
   text-decoration: none;
   /* 2 */
-
   outline: none;
   /* 3 */
-
 }
 /* Caption
  ========================================================================== */
@@ -5166,20 +4728,8 @@ a.uk-thumbnail:focus {
 .uk-thumbnail-expand > img {
   width: 100%;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Overlay
- * Description:		Defines styles for image overlays
- *
- * Component:		`uk-overlay`
- *
- * Sub-objects:		`uk-overlay-area`
- *					`uk-overlay-caption`
- *					`uk-overlay-toggle`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Overlay
  ========================================================================== */
 /*
  * 1. Container width fits its content
@@ -5189,16 +4739,12 @@ a.uk-thumbnail:focus {
  */
 .uk-overlay {
   /* 1 */
-
   display: inline-block;
   /* 2 */
-
   position: relative;
   /* 3 */
-
   max-width: 100%;
   /* 4 */
-
   vertical-align: middle;
 }
 /* Sub-object `uk-overlay-area`
@@ -5210,17 +4756,14 @@ a.uk-thumbnail:focus {
  */
 .uk-overlay-area {
   /* 1 */
-
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   /* 2 */
-
   background: rgba(0, 0, 0, 0.3);
   /* 3 */
-
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
@@ -5261,18 +4804,15 @@ a.uk-thumbnail:focus {
  */
 .uk-overlay-caption {
   /* 1 */
-
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   /* 2 */
-
   padding: 15px;
   background: rgba(0, 0, 0, 0.5);
   color: #ffffff;
   /* 3 */
-
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
@@ -5286,25 +4826,8 @@ a.uk-thumbnail:focus {
   opacity: 1;
 }
 /* 1 */
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Progress
- * Description:		Defines styles for progress bars
- *
- * Component: 		`uk-progress`
- *
- * Sub-objects: 	`uk-progress-bar`
- * 
- * Modifiers:		`uk-progress-mini`
- *					`uk-progress-small`
- *					`uk-progress-success`
- *					`uk-progress-warning`
- *					`uk-progress-danger`
- *					`uk-progress-striped`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Progress
  ========================================================================== */
 /*
  * 1. Clearing
@@ -5318,10 +4841,8 @@ a.uk-thumbnail:focus {
   background: #f5f5f5;
   overflow: hidden;
   /* 1 */
-
   line-height: 20px;
   /* 2 */
-
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
   border-radius: 4px;
 }
@@ -5339,11 +4860,9 @@ a.uk-thumbnail:focus {
   background: #00a8e6;
   float: left;
   /* Transition */
-
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
   /* Allow text */
-
   font-size: 12px;
   color: #ffffff;
   text-align: center;
@@ -5401,27 +4920,14 @@ a.uk-thumbnail:focus {
     background-position: 30px 0;
   }
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Search
- * Description:		Defines a search component
- *
- * Component:		`uk-search`
- *
- * Sub-objects:		`uk-search-field`
- *					`uk-search-close`
- *
- * States:		 	`uk-active`
- *					`uk-loading`
- *
- * Uses:			Animation
- *					Icon: FontAwesome
- *
- * Used by:			Off-canvas
- *
- ========================================================================== */
-/* Component
+/* Size modifiers
+	 ========================================================================== */
+.uk-progress-mini,
+.uk-progress-small {
+  border-radius: 500px;
+}
+/* ========================================================================
+   Component: Search
  ========================================================================== */
 /*
  * 1. Create position context for dropdowns
@@ -5431,10 +4937,8 @@ a.uk-thumbnail:focus {
   display: inline-block;
   position: relative;
   /* 1 */
-
   margin: 0;
   /* 2 */
-
 }
 /*
  * Icon
@@ -5457,13 +4961,13 @@ a.uk-thumbnail:focus {
  * 1. Needed to reset iOS `input[type="search"]` appearance
  */
 .uk-search-field {
+  /* 1 */
   width: 120px;
   height: 30px;
   padding: 0 30px;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 0;
   /* 1 */
-
   background: rgba(0, 0, 0, 0);
   color: #444444;
   -webkit-transition: all linear 0.2s;
@@ -5515,13 +5019,11 @@ input.uk-search-field {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.2);
   /* 1. */
-
   padding: 0;
   border: 0;
   -webkit-appearance: none;
   background: transparent;
   /* Needed for Sarari */
-
 }
 .uk-loading > .uk-search-close,
 .uk-active > .uk-search-close {
@@ -5541,31 +5043,8 @@ input.uk-search-field {
   -webkit-animation: uk-spin 2s infinite linear;
   animation: uk-spin 2s infinite linear;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Animation
- * Description:		Provides a useful set of keyframe animations
- *
- * Component:		`uk-animation-*`
- *
- * Modifiers:		`uk-animation-fade`
- *					`uk-animation-scale-up`
- *					`uk-animation-scale-down`
- *					`uk-animation-slide-top`
- *					`uk-animation-slide-bottom`
- *					`uk-animation-slide-left`
- *					`uk-animation-slide-right`
- *					`uk-animation-reverse`
- *
- * Uses:			Scrollspy
- *
- * Used by:			Dropdown
- *					Icon
- *					Search
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Animation
  ========================================================================== */
 [class*='uk-animation-'] {
   -webkit-animation-duration: 0.5s;
@@ -5926,35 +5405,8 @@ input.uk-search-field {
     transform: rotate(359deg);
   }
 }
-/* JavaScript */
-/*
- * Name:			Dropdown
- * Description:		Defines styles for a toggleable dropdown
- *
- * Component:		`uk-dropdown`
- *
- * Modifiers:		`uk-dropdown-flip`
- *					`uk-dropdown-center`
- *					`uk-dropdown-justify`
- *					`uk-dropdown-up`
- *					`uk-dropdown-width-2`
- *					`uk-dropdown-width-3`
- *					`uk-dropdown-width-4`
- *					`uk-dropdown-width-5`
- *					`uk-dropdown-stack`
- *					`uk-dropdown-small`
- *					`uk-dropdown-navbar`
- *					`uk-dropdown-search`
- *
- * States:		 	`uk-open`
- *
- * Uses:			Animation
- *					Grid: `uk-grid`, `uk-width-*`
- *					Panel: `uk-panel`
- *					Navbar: `uk-navbar-flip`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Description list
  ========================================================================== */
 /*
  * 1. Hide by default
@@ -5965,27 +5417,22 @@ input.uk-search-field {
  */
 .uk-dropdown {
   /* 1 */
-
   display: none;
   /* 2 */
-
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 1000;
   /* 3 */
-
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 4 */
-
   width: 200px;
   margin-top: 5px;
   padding: 15px;
   background: #ffffff;
   color: #444444;
   /* 5 */
-
   letter-spacing: normal;
   border: 1px solid #dddddd;
   border-radius: 4px;
@@ -5997,14 +5444,11 @@ input.uk-search-field {
  */
 .uk-open > .uk-dropdown {
   /* 1 */
-
   display: block;
   /* 2 */
-
   -webkit-animation: uk-fade 0.2s ease-in-out;
   animation: uk-fade 0.2s ease-in-out;
   /* 3 */
-
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
 }
@@ -6047,8 +5491,8 @@ input.uk-search-field {
 /* Only tablets and desktops */
 @media (min-width: 768px) {
   /*
-  	 * Horizontal gutter
-  	 */
+	 * Horizontal gutter
+	 */
   .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid {
     margin-left: -15px;
     margin-right: -15px;
@@ -6058,14 +5502,14 @@ input.uk-search-field {
     padding-right: 15px;
   }
   /*
-  	 * Column divider
-  	 */
+	 * Column divider
+	 */
   .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
     border-left: 1px solid #dddddd;
   }
   /*
-  	 * Width multiplier for dropdown columns
-  	 */
+	 * Width multiplier for dropdown columns
+	 */
   .uk-dropdown-width-2:not(.uk-dropdown-stack) {
     width: 400px;
   }
@@ -6082,14 +5526,14 @@ input.uk-search-field {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-  	 * Stack columns and take full width
-  	 */
+	 * Stack columns and take full width
+	 */
   .uk-dropdown > .uk-grid > [class*='uk-width-'] {
     width: 100%;
   }
   /*
-  	 * Vertical gutter
-  	 */
+	 * Vertical gutter
+	 */
   .uk-dropdown > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
     margin-top: 15px;
   }
@@ -6153,26 +5597,11 @@ input.uk-search-field {
   margin-top: 11px;
   margin-right: -16px;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Modal
- * Description:		Defines styles for modal dialogs
- *
- * Component: 		`uk-modal`
- *
- * Sub-objects:		`uk-modal-dialog`
- *					`uk-modal-close`
- *
- * Modifiers:		`uk-modal-dialog-slide`
- *					`uk-modal-dialog-frameless`
- *
- * States:			`uk-open`
- *
- * Uses:			Close: `uk-close`
- *
- ========================================================================== */
-/* Component
+.uk-dropdown-navbar.uk-dropdown-flip {
+  left: auto;
+}
+/* ========================================================================
+   Component: Modal
  ========================================================================== */
 /*
  * This is the modal overlay and modal dialog container
@@ -6185,10 +5614,8 @@ input.uk-search-field {
  */
 .uk-modal {
   /* 1 */
-
   display: none;
   /* 2 */
-
   position: fixed;
   top: 0;
   right: 0;
@@ -6196,17 +5623,13 @@ input.uk-search-field {
   left: 0;
   z-index: 1020;
   /* 3 */
-
   height: 100%;
   /* 4 */
-
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   /* 5 */
-
   background: rgba(0, 0, 0, 0.6);
   /* 6 */
-
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
@@ -6233,21 +5656,17 @@ input.uk-search-field {
  */
 .uk-modal-dialog {
   /* 1 */
-
   position: relative;
   top: 10%;
   left: 50%;
   /* 2 */
-
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 20px;
   width: 600px;
   /* 3 */
-
   margin-left: -300px;
   /* 4 */
-
   background: #ffffff;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -6255,8 +5674,8 @@ input.uk-search-field {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-  	 * Fit the phone width perfectly
-  	 */
+	 * Fit the phone width perfectly
+	 */
   .uk-modal-dialog {
     top: 0;
     left: 0;
@@ -6322,26 +5741,8 @@ input.uk-search-field {
     right: -7px;
   }
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Off-canvas
- * Description:		Defines styles for an off-canvas sidebar that slides in and out of the page
- *
- * Component:		`uk-offcanvas`
- *
- * Sub-objects:		`uk-offcanvas-page`
- *					`uk-offcanvas-bar`
- *
- * Modifiers:		`uk-offcanvas-bar-flip`
- *
- * States:		 	`uk-active`
- *
- * Uses:			Panel: `uk-panel`
- *					Search: `uk-search`, `uk-search-field`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Off-canvas
  ========================================================================== */
 /*
  * This is the offcanvas overlay and bar container
@@ -6351,10 +5752,8 @@ input.uk-search-field {
  */
 .uk-offcanvas {
   /* 1 */
-
   display: none;
   /* 2 */
-
   position: fixed;
   top: 0;
   right: 0;
@@ -6362,7 +5761,6 @@ input.uk-search-field {
   left: 0;
   z-index: 1010;
   /* 3 */
-
   background: rgba(0, 0, 0, 0.1);
 }
 .uk-offcanvas.uk-active {
@@ -6377,10 +5775,8 @@ input.uk-search-field {
  */
 .uk-offcanvas-page {
   /* 1 */
-
   position: fixed;
   /* 2 */
-
   -webkit-transition: margin-left 0.3s ease-in-out 50ms;
   transition: margin-left 0.3s ease-in-out 50ms;
 }
@@ -6395,7 +5791,6 @@ input.uk-search-field {
  */
 .uk-offcanvas-bar {
   /* 1 */
-
   position: fixed;
   top: 0;
   bottom: 0;
@@ -6404,16 +5799,13 @@ input.uk-search-field {
   transform: translateX(-100%);
   z-index: 1011;
   /* 2 */
-
   width: 270px;
   max-width: 100%;
   background: #333333;
   /* 3 */
-
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   /* 4 */
-
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
 }
@@ -6469,18 +5861,26 @@ input.uk-search-field {
 .uk-offcanvas .uk-search-field::-webkit-input-placeholder {
   color: #777777;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Name:			Switcher
- * Description:		Defines styles for the switcher
- *
- * Component:		`uk-switcher`
- *
- * States:			`uk-active`
- *
- ========================================================================== */
-/* Component
+.uk-offcanvas-bar:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.6);
+}
+.uk-offcanvas-bar-flip:after {
+  right: auto;
+  left: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.6);
+}
+/* ========================================================================
+   Component: Switcher
  ========================================================================== */
 .uk-switcher {
   margin: 0;
@@ -6493,23 +5893,8 @@ input.uk-search-field {
 .uk-switcher > *:not(.uk-active) {
   display: none;
 }
-/*
- * Name:			Tooltip
- * Description:		Defines styles for tooltips
- *
- * Component: 		`uk-tooltip`
- *
- * Modifiers		`uk-tooltip-top`
- *					`uk-tooltip-top-left`
- *					`uk-tooltip-top-right`
- *					`uk-tooltip-bottom`
- *					`uk-tooltip-bottom-left`
- *					`uk-tooltip-bottom-right`
- *					`uk-tooltip-left`
- *					`uk-tooltip-right`
- *
- ========================================================================== */
-/* Component
+/* ========================================================================
+   Component: Tooltip
  ========================================================================== */
 /*
  * 1. Hide by default
@@ -6519,20 +5904,16 @@ input.uk-search-field {
  */
 .uk-tooltip {
   /* 1 */
-
   display: none;
   /* 2 */
-
   position: absolute;
   z-index: 1030;
   /* 3 */
-
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   max-width: 200px;
   padding: 5px 8px;
   /* 4 */
-
   background: #333333;
   color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
@@ -6554,7 +5935,6 @@ input.uk-search-field {
   height: 0;
   border: 5px dashed #333333;
   /* 1 */
-
 }
 /* Direction modifiers
  ========================================================================== */
@@ -6632,15 +6012,8 @@ input.uk-search-field {
   border-bottom-color: transparent;
   border-right-color: #333333;
 }
-/* Hooks
- ========================================================================== */
-/* Need to be loaded last */
-/*
- * Name:			Text
- * Description:		Collection of useful text utility classes to style your content
- *
- * Component:		`uk-text-*`
- *
+/* ========================================================================
+   Component: Text
  ========================================================================== */
 /* Size modifiers
  ========================================================================== */
@@ -6708,26 +6081,8 @@ input.uk-search-field {
   -moz-hyphens: auto;
   hyphens: auto;
 }
-/*
- * Name:			Utility
- * Description:		Collection of useful utility classes to style your content
- *
- * Component:		`uk-container-*`
- *					`uk-clearfix`
- *					`uk-nbfc-*`
- *					`uk-float-*`
- *					`uk-align-*`
- *					`uk-vertical-align`
- *					`uk-height-1-1`
- *					`uk-responsive-*`
- *					`uk-margin-*`
- *					`uk-heading-*`
- *					`uk-link-muted`
- *					`uk-scrollable-*`
- *					`uk-display-*`
- *					`uk-visible-*`
- *					`uk-hidden-*`
- *
+/* ========================================================================
+   Component: Utility
  ========================================================================== */
 /* Container
  ========================================================================== */
@@ -6861,7 +6216,6 @@ input.uk-search-field {
   display: inline-block;
   letter-spacing: normal;
   /* 1 */
-
   max-width: 100%;
 }
 .uk-vertical-align-middle {
@@ -7057,16 +6411,8 @@ input.uk-search-field {
   display: inline-block !important;
   visibility: visible !important;
 }
-/* Hooks
- ========================================================================== */
-/*
- * Component:		Print
- * Description:		Optimize page for printing
- *
- * Adapted from http://github.com/h5bp/html5-boilerplate
- *
- * Modifications:	Removed link `href` and `title` related rules
- *
+/* ========================================================================
+   Component: Print
  ========================================================================== */
 @media print {
   * {
@@ -7094,7 +6440,7 @@ input.uk-search-field {
   img {
     max-width: 100% !important;
   }
-  @page  {
+  @page {
     margin: 0.5cm;
   }
   p,
@@ -7108,636 +6454,3 @@ input.uk-search-field {
     page-break-after: avoid;
   }
 }
-/* Theme
- ========================================================================== */
-/* LESS related */
-/*
- * Variables component
- *
- ========================================================================== */
-/* Global variables
- ========================================================================== */
-/* Theme variables
- ========================================================================== */
-/*
- * Backgrounds
- */
-/*
- * Borders
- */
-/*
- * Text shadows
- */
-/* Components variables
- ========================================================================== */
-/*
- * Base
- */
-/*
- * Panel
- */
-/*
- * Comment
- */
-/*
- * Nav
- */
-/*
- * Navbar
- */
-/*
- * Subnav
- */
-/*
- * Pagination
- */
-/*
- * Tab
- */
-/*
- * List
- */
-/*
- * Table
- */
-/*
- * Form
- */
-/*
- * Button
- */
-/*
- * Icon
- */
-/*
- * Close
- */
-/*
- * Progress
- */
-/*
- * Dropdown
- */
-/* Theme component variables
- ========================================================================== */
-/*
- * Base
- */
-/*
- * Panel
- */
-/*
- * Article
- */
-/*
- * Comment
- */
-/*
- * Nav
- */
-/*
- * Navbar
- */
-/*
- * Pagination
- */
-/*
- * Tab
- */
-/*
- * List
- */
-/*
- * Table
- */
-/*
- * Button
- */
-/*
- * Icon
- */
-/*
- * Badge
- */
-/*
- * Alert
- */
-/*
- * Progress
- */
-/*
- * Dropdown
- */
-/*
- * Offcanvas
- */
-/*
- * Tooltip
- */
-/* Defaults */
-/*
- * Base component
- *
- ========================================================================== */
-/* Body
- ========================================================================== */
-/* Code and preformatted text
- ========================================================================== */
-/* Layout */
-/*
- * Panel component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Sub-object: `uk-panel-title`
- ========================================================================== */
-/* Sub-object: `uk-panel-badge`
- ========================================================================== */
-/* Modifier: `uk-panel-box`
- ========================================================================== */
-/* Modifier: `uk-panel-header`
- ========================================================================== */
-/*
- * Article component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-.uk-article + .uk-article {
-  padding-top: 15px;
-  border-top: 1px solid #dddddd;
-}
-/* Sub-object `uk-article-title`
- ========================================================================== */
-/* Sub-object `uk-article-meta`
- ========================================================================== */
-/* Sub-object `uk-article-lead`
- ========================================================================== */
-/* Sub-object `uk-article-divider`
- ========================================================================== */
-/*
- * Comment component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Sub-object `uk-comment-header`
- ========================================================================== */
-/* Sub-object `uk-comment-avatar`
- ========================================================================== */
-/* Sub-object `uk-comment-title`
- ========================================================================== */
-/* Sub-object `uk-comment-meta`
- ========================================================================== */
-/* Sub-object `uk-comment-body`
- ========================================================================== */
-.uk-comment-body {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-/* Navs */
-/*
- * Nav component
- *
- ========================================================================== */
-/* Component
-========================================================================== */
-/* Sub-object: `uk-nav-header`
-========================================================================== */
-/* Sub-object: `uk-nav-divider`
-========================================================================== */
-/* Sub-object: `uk-nav-sub`
-========================================================================== */
-/* Modifier: `uk-nav-parent-icon`
- ========================================================================== */
-/* Modifier `uk-nav-side`
- ========================================================================== */
-/*
-* Items
-*/
-/* Hover */
-/* Active */
-/*
- * Sub-object: `uk-nav-header`
- */
-/*
- * Sub-object: `uk-nav-divider`
- */
-/* Modifier `uk-nav-dropdown`
- ========================================================================== */
-/*
- * Items
- */
-/* Hover */
-/*
- * Sub-object: `uk-nav-header`
- */
-/*
- * Sub-object: `uk-nav-divider`
- */
-/* Modifier `uk-nav-navbar`
- ========================================================================== */
-/*
- * Items
- */
-/* Hover */
-/*
- * Sub-object: `uk-nav-header`
- */
-/*
- * Sub-object: `uk-nav-divider`
- */
-/* Modifier `uk-nav-search`
- ========================================================================== */
-/*
- * Items
- */
-/* Active */
-/*
- * Sub-object: `uk-nav-header`
- */
-/*
- * Sub-object: `uk-nav-divider`
- */
-/* Modifier `uk-nav-offcanvas`
- ========================================================================== */
-.uk-nav-offcanvas {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-/*
- * Items
- */
-/* Active */
-/*
- * Sub-object: `uk-nav-header`
- */
-/*
- * Sub-object: `uk-nav-divider`
- */
-/*
- * Sub-object: `uk-nav-sub`
- */
-.uk-nav-offcanvas .uk-nav-sub {
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-/*
- * Navbar component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-.uk-navbar:not(.uk-navbar-attached) {
-  border-radius: 4px;
-}
-/* Sub-object: `uk-navbar-nav`
- ========================================================================== */
-/*
- * 1. Overlap top border
- * 2. Collapse horizontal borders
- * 3. Adjust height because of 1. and `box-sizing` set to `border-box`
- */
-/*
- * Apply same `border-radius` as `uk-navbar`
- */
-.uk-navbar:not(.uk-navbar-attached) .uk-navbar-nav:first-child > li:first-child > a {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-/*
- * Sub-modifier `uk-navbar-flip`
- */
-/* Collapse border */
-.uk-navbar .uk-navbar-flip .uk-navbar-nav > li > a {
-  margin-left: 0;
-  margin-right: -1px;
-}
-/* Apply same `border-radius` as `uk-navbar` */
-.uk-navbar .uk-navbar-flip .uk-navbar-nav:first-child > li:first-child > a {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.uk-navbar:not(.uk-navbar-attached) .uk-navbar-flip .uk-navbar-nav:last-child > li:last-child > a {
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-/*
- * Needed for hover
- * 1. Create position context to superimpose the successor elements border
- * 2. Needed because the `li` elements have already a position context
- */
-/* Hover *//* OnClick *//* Active *//* Sub-object: `uk-navbar-content`
- ========================================================================== */
-/*
- * Subnav component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Modifier: `uk-subnav-line'
- ========================================================================== */
-/* Modifier: `uk-subnav-pill'
- ========================================================================== */
-/* Hover */
-/* Active */
-/*
- * Breadcrumb component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Items
- ========================================================================== */
-/*
- * Pagination component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Items
- ========================================================================== */
-/*
- * Active
- */
-/*
- * Disabled
- */
-/*
- * Tab component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/*
- * Items
- */
-/* Hover */
-/* Active */
-/* Disabled */
-/* Modifier: `uk-tab-bottom'
- ========================================================================== */
-.uk-tab-bottom > li > a {
-  border-radius: 0 0 4px 4px;
-}
-/* Modifier: `uk-tab-left', `uk-tab-right'
- ========================================================================== */
-/* Only tablets and desktops */
-@media (min-width: 768px) {
-  /*
-  	 * Modifier: `uk-tab-left'
-  	 */
-  .uk-tab-left > li > a {
-    border-radius: 4px 0 0 4px;
-  }
-  /*
-  	 * Modifier: `uk-tab-right'
-  	 */
-  .uk-tab-right > li > a {
-    border-radius: 0 4px 4px 0;
-  }
-}
-/* Elements */
-/*
- * List component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Modifier: `list-line`
- ========================================================================== */
-/* Modifier: `list-striped`
- ========================================================================== */
-.uk-list-striped > li:first-child {
-  border-top: 1px solid #dddddd;
-}
-/*
- * Table component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/*
- * Form component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Common */
-/*
- * Button component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Color modifiers
- ========================================================================== */
-.uk-button-primary,
-.uk-button-success,
-.uk-button-danger {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-.uk-button-primary:hover,
-.uk-button-primary:focus,
-.uk-button-success:hover,
-.uk-button-success:focus,
-.uk-button-danger:hover,
-.uk-button-danger:focus {
-  border-color: rgba(0, 0, 0, 0.21);
-}
-/* Disabled state
- ========================================================================== */
-/* Modifier: `uk-button-link`
- ========================================================================== */
-/* Size modifiers
- ========================================================================== */
-/* Sub-object `uk-button-group`
- ========================================================================== */
-/*
- * Reset border-radius
- */
-.uk-button-group > .uk-button:not(:first-child):not(:last-child),
-.uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
-  border-left-color: rgba(0, 0, 0, 0.1);
-  border-right-color: rgba(0, 0, 0, 0.1);
-  border-radius: 0;
-}
-.uk-button-group > .uk-button:first-child,
-.uk-button-group > div:first-child .uk-button {
-  border-right-color: rgba(0, 0, 0, 0.1);
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.uk-button-group > .uk-button:last-child,
-.uk-button-group > div:last-child .uk-button {
-  border-left-color: rgba(0, 0, 0, 0.1);
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-/*
- * Collapse border
- */
-.uk-button-group > .uk-button:nth-child(n+2),
-.uk-button-group > div:nth-child(n+2) .uk-button {
-  margin-left: -1px;
-}
-/*
- * Create position context to superimpose the successor elements border
- * Known issue: If you use an `a` element as button and an icon inside,
- * the active state will not work if you click the icon inside the button
- * Workaround: Just use a `button` or `input` element as button
- */
-.uk-button-group .uk-button:hover,
-.uk-button-group .uk-button:active {
-  position: relative;
-}
-/*
- * Icon component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Modifier: `uk-icon-button`
- ========================================================================== */
-/* Hover */
-/* Active */
-/*
- * Close component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Modifier: `uk-close-alt`
- ========================================================================== */
-/*
- * Badge component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/*
- * Alert component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Modifier: `uk-alert-success`
- ========================================================================== */
-/* Modifier: `uk-alert-warning`
- ========================================================================== */
-/* Modifier: `uk-alert-danger`
- ========================================================================== */
-/*
- * Thumbnail component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Caption
- ========================================================================== */
-/*
- * Overlay component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Sub-object `uk-overlay-area`
- ========================================================================== */
-/* Sub-object `uk-overlay-caption`
- ========================================================================== */
-/*
- * Progress component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Sub-object: `progress-bar`
- ========================================================================== */
-/* Size modifiers
- ========================================================================== */
-/* Mini */
-.uk-progress-mini,
-.uk-progress-small {
-  border-radius: 500px;
-}
-/*
- * Search component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Sub-object `uk-search-field`
- ========================================================================== */
-/* Sub-object `uk-search-close`
- ========================================================================== */
-/* JavaScript */
-/*
- * Dropdown component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Modifier: `uk-dropdown-navbar`
- ========================================================================== */
-.uk-dropdown-navbar.uk-dropdown-flip {
-  left: auto;
-}
-/* Modifier: `uk-dropdown-search`
- ========================================================================== */
-/*
- * Modal component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Sub-object: `uk-modal-dialog`
- ========================================================================== */
-/*
- * Off-canvas component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Sub-object `uk-offcanvas-bar`
- ========================================================================== */
-.uk-offcanvas-bar:after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 1px;
-  background: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.6);
-}
-.uk-offcanvas-bar-flip:after {
-  right: auto;
-  left: 0;
-  width: 1px;
-  background: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.6);
-}
-/* Panel in offcanvas
- ========================================================================== */
-/* Search in offcanvas
- ========================================================================== */
-/*
- * Tooltip component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Need to be loaded last */
-/*
- * Utility component
- *
- ========================================================================== */
-/* Component
- ========================================================================== */
-/* Container
- ========================================================================== */
-/* Scrollable
- ========================================================================== */
