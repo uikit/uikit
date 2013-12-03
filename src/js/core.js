@@ -24,7 +24,7 @@
         });
     };
 
-    UI.version = '1.2.0';
+    UI.version = '1.2.1';
 
     UI.support = {};
     UI.support.transition = (function() {
