@@ -2,19 +2,18 @@
 
 ### WIP
 
-- Added new toggle component
-- Added new form-icon to form component
-- Added new datepicker addon
-- Added new form-password addon
-- Added new markdown area addon
-- Added new sortable addon
-- Added new sticky addon
-- Added new timepicker addon
-- Added outerclick support for dropdowns in hover mode
-- Added touch events support for Windows 8 phones
-- Added miscellaneous hooks
-- Changed comments to compile nicer CSS output
-- Fixed offcanvas component for Windows 8 phones
+  - Added new toggle component
+  - Added new form-icon to form component
+  - Added new datepicker addon
+  - Added new form-password addon
+  - Added new markdown area addon
+  - Added new sortable addon
+  - Added new sticky addon
+  - Added new timepicker addon
+  - Added outerclick support for dropdowns in hover mode
+  - Added touch events support for Windows 8 phones
+  - Added miscellaneous hooks
+  - Changed comments to compile nicer CSS output
 
 **Documentation and repository**
 
@@ -22,6 +21,14 @@
   - Added Grunt task to index new themes ( usage: grunt indexthemes )
   - Added UIkit addons
   - UIkit tests moved to /src
+
+### 1.2.1 (December 03, 2013)
+
+  - Fixed off canvas scrolling on windows phones
+  - Fixed search more results in search js
+
+**Documentation and repository**
+
   - Updated LESS to 1.5.1
 
 ### 1.2.0 (November 01, 2013)
