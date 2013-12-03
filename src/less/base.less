@@ -122,7 +122,7 @@ dfn[title] {
  */
 
 img {
-	-moz-box-sizing: border-box; 
+	-moz-box-sizing: border-box;
 	box-sizing: border-box; /* 1 */
 	max-width: 100%; /* 2 */
 	height: auto; /* 2 */
@@ -274,7 +274,7 @@ address { font-style: normal; }
 
 q,
 blockquote { font-style: italic; }
-	
+
 blockquote {
 	padding-left: 15px;
 	border-left: 5px solid @base-blockquote-border;
@@ -308,7 +308,7 @@ pre code {
 	color: inherit;
 	white-space: pre-wrap;
 	.hook-base-code-reset;
-} 
+}
 
 pre {
 	padding: 10px;
@@ -345,8 +345,10 @@ iframe { border: 0; }
  * http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
  ========================================================================== */
 
-@-ms-viewport {
-	width: device-width;
+@media screen and (max-width:400px) {
+    @-ms-viewport{
+        width: device-width;
+    }
 }
 
 
