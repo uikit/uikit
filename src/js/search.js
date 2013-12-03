@@ -283,7 +283,7 @@
 
     DefaultRenderer.defaults = {
         resultsHeaderClass: 'uk-nav-header',
-        moreResultsClass: '',
+        moreResultsClass: 'uk-search-moreresults',
         noResultsClass: '',
         msgResultsHeader: 'Search Results',
         msgMoreResults: 'More Results',
