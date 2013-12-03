@@ -1,7 +1,13 @@
+# Changelog
+
 ### 1.2.1 (December 03, 2013)
 
   - Fixed off canvas scrolling on windows phones
-  - Fixed search js component: search more results fix
+  - Fixed search more results in search js
+
+**Documentation and repository**
+
+  - Updated LESS to 1.5.1
 
 ### 1.2.0 (November 01, 2013)
   - Added shake animation

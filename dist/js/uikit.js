@@ -1,4 +1,4 @@
-/*! UIkit 1.2.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 1.2.1 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
 (function($, doc) {
 
@@ -26,7 +26,7 @@
         });
     };
 
-    UI.version = '1.2.0';
+    UI.version = '1.2.1';
 
     UI.support = {};
     UI.support.transition = (function() {
@@ -1514,6 +1514,8 @@
         this.element.data("tab", this);
     };
 
+    UI["tab"] = Tab;
+
     $(document).on("uk-domready", function(e) {
 
         $("[data-uk-tab]").each(function() {
@@ -1812,7 +1814,7 @@
 
     DefaultRenderer.defaults = {
         resultsHeaderClass: 'uk-nav-header',
-        moreResultsClass: '',
+        moreResultsClass: 'uk-search-moreresults',
         noResultsClass: '',
         msgResultsHeader: 'Search Results',
         msgMoreResults: 'More Results',
@@ -1833,6 +1835,7 @@
     });
 
 })(jQuery, jQuery.UIkit);
+
 
 (function($, UI) {
 
