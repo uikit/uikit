@@ -1,3 +1,8 @@
+### 1.2.1 (December 03, 2013)
+
+  - Fixed off canvas scrolling on windows phones
+  - Fixed search js component: search more results fix
+
 ### 1.2.0 (November 01, 2013)
   - Added shake animation
   - Added boundary check to tooltip component
