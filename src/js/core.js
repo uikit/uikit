@@ -71,6 +71,31 @@
         };
     };
 
+    UI.Utils.removeCssRules = function(selectorRegEx) {
+        var idx, idxs, stylesheet, _i, _j, _k, _len, _len1, _len2, _ref;
+
+        if(!selectorRegEx) return;
+
+        setTimeout(function(){
+            try {
+              _ref = document.styleSheets;
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                stylesheet = _ref[_i];
+                idxs = [];
+                stylesheet.cssRules = stylesheet.cssRules;
+                for (idx = _j = 0, _len1 = stylesheet.cssRules.length; _j < _len1; idx = ++_j) {
+                  if (stylesheet.cssRules[idx].type === CSSRule.STYLE_RULE && selectorRegEx.test(stylesheet.cssRules[idx].selectorText)) {
+                    idxs.unshift(idx);
+                  }
+                }
+                for (_k = 0, _len2 = idxs.length; _k < _len2; _k++) {
+                  stylesheet.deleteRule(idxs[_k]);
+                }
+              }
+            } catch (_error) {}
+        }, 0);
+    };
+
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
@@ -111,5 +136,14 @@
 
     // add touch identifier class
     $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
+
+
+
+    if (!UI.support.touch) {
+
+      $(function(){
+
+      });
+    }
 
 })(jQuery, document);
