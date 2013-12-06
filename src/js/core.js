@@ -110,8 +110,6 @@
     });
 
     // add touch identifier class
-    if (UI.support.touch) {
-        $("html").addClass("uk-touch");
-    }
+    $("html").addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
 
 })(jQuery, document);
