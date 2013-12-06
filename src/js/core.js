@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var UI = $.UIkit || {};
+    var UI = $.UIkit || {}, $html = $("html");
 
     if (UI.fn) {
         return;
@@ -92,7 +92,7 @@
     $.UIkit = UI;
     $.fn.uk = UI.fn;
 
-    $.UIkit.langdirection = $("html").attr("dir") == "rtl" ? "right" : "left";
+    $.UIkit.langdirection = $html.attr("dir") == "rtl" ? "right" : "left";
 
     $(function(){
 
@@ -110,8 +110,6 @@
     });
 
     // add touch identifier class
-    if (UI.support.touch) {
-        $("html").addClass("uk-touch");
-    }
+    $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
 
 })(jQuery, document);
