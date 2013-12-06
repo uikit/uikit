@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Grid
- ========================================================================== */
-//
+// Name:			Grid
 // Description:		Provides a responsive, fluid and nestable grid
 //
 // Component:		`uk-grid`
@@ -18,6 +15,21 @@
 // Used by:			Dropdown
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@grid-gutter-horizontal:						25px;
+@grid-gutter-vertical:							25px;
+@grid-large-gutter-horizontal:					35px;
+@grid-large-gutter-vertical:					35px;
+@grid-divider-border:							#ddd;
+
+
+/* ========================================================================
+   Component: Grid
+ ========================================================================== */
 
 /*
  * Micro clearfix
@@ -434,18 +446,9 @@
 }
 
 
-// Variables
-// ========================================================================
-
-@grid-gutter-horizontal:						25px;
-@grid-gutter-vertical:							25px;
-@grid-large-gutter-horizontal:					35px;
-@grid-large-gutter-vertical:					35px;
-@grid-divider-border:							#ddd;
-
-
 // Hooks
 // ========================================================================
 
 .hook-grid-misc;
+
 .hook-grid-misc() {}

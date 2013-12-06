@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Tooltip
- ========================================================================== */
-//
+// Name:			Tooltip
 // Description:		Defines styles for tooltips
 //
 // Component: 		`uk-tooltip`
@@ -16,6 +13,24 @@
 //					`uk-tooltip-right`
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tooltip-z-index:								1030;
+@tooltip-max-width:								200px;
+@tooltip-background:							#333;
+@tooltip-triangle-size:							5px;
+
+@tooltip-color:									rgba(255,255,255,0.7);
+@tooltip-font-size:								12px;
+@tooltip-line-height:							18px;
+
+
+/* ========================================================================
+   Component: Tooltip
+ ========================================================================== */
 
 /*
  * 1. Hide by default
@@ -150,23 +165,10 @@
 }
 
 
-// Variables
-// ========================================================================
-
-@tooltip-z-index:								1030;
-@tooltip-max-width:								200px;
-@tooltip-background:							#333;
-@tooltip-triangle-size:							5px;
-
-@tooltip-color:									rgba(255,255,255,0.7);
-@tooltip-font-size:								12px;
-@tooltip-line-height:							18px;
-
-
 // Hooks
 // ========================================================================
 
-.hook-tooltip() {}
-
 .hook-tooltip-misc;
+
+.hook-tooltip() {}
 .hook-tooltip-misc() {}

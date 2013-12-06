@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Panel
- ========================================================================== */
-//
+// Name:			Panel
 // Description:		Defines styles for reusable content areas
 //
 // Component:		`uk-panel`
@@ -23,6 +20,47 @@
 //					Grid
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@panel-title-margin-bottom:						15px;
+@panel-title-font-size:							18px;
+@panel-title-line-height:						24px;
+@panel-title-font-weight:						normal;
+@panel-title-color:								#444;
+@panel-text-transform:							none;
+
+@panel-box-padding:								15px;
+@panel-box-background:							#f5f5f5;
+@panel-box-color:								#444;
+@panel-box-title-color:							#444;
+@panel-box-badge-top:							10px;
+@panel-box-badge-right:							@panel-box-badge-top;
+
+@panel-box-primary-background:					#ebf7fd;
+@panel-box-primary-color:						#2d7091;
+@panel-box-primary-title-color:					#2d7091;
+
+@panel-box-secondary-background:				#eee;
+@panel-box-secondary-color:						#444;
+@panel-box-secondary-title-color:				#444;
+
+@panel-header-title-padding:					10px;
+@panel-header-title-border:						#ddd;
+@panel-header-title-color:						#444;
+
+@panel-space-padding:							30px;
+
+@panel-divider-gutter:							25px;
+@panel-divider-large-gutter:					35px;
+@panel-divider-border:							#ddd;
+
+
+/* ========================================================================
+   Component: Panel
+ ========================================================================== */
 
 /*
  * Create position context for badges
@@ -175,44 +213,10 @@
 }
 
 
-// Variables
-// ========================================================================
-
-@panel-title-margin-bottom:						15px;
-@panel-title-font-size:							18px;
-@panel-title-line-height:						24px;
-@panel-title-font-weight:						normal;
-@panel-title-color:								#444;
-@panel-text-transform:							none;
-
-@panel-box-padding:								15px;
-@panel-box-background:							#f5f5f5;
-@panel-box-color:								#444;
-@panel-box-title-color:							#444;
-@panel-box-badge-top:							10px;
-@panel-box-badge-right:							@panel-box-badge-top;
-
-@panel-box-primary-background:					#ebf7fd;
-@panel-box-primary-color:						#2d7091;
-@panel-box-primary-title-color:					#2d7091;
-
-@panel-box-secondary-background:				#eee;
-@panel-box-secondary-color:						#444;
-@panel-box-secondary-title-color:				#444;
-
-@panel-header-title-padding:					10px;
-@panel-header-title-border:						#ddd;
-@panel-header-title-color:						#444;
-
-@panel-space-padding:							30px;
-
-@panel-divider-gutter:							25px;
-@panel-divider-large-gutter:					35px;
-@panel-divider-border:							#ddd;
-
-
 // Hooks
 // ========================================================================
+
+.hook-panel-misc;
 
 .hook-panel-title() {}
 .hook-panel-badge() {}
@@ -220,6 +224,4 @@
 .hook-panel-box-primary() {}
 .hook-panel-box-secondary() {}
 .hook-panel-header() {}
-
-.hook-panel-misc;
 .hook-panel-misc() {}

@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Nav
- ========================================================================== */
-//
+// Name:			Nav
 // Description:		Defines styles for list navigations
 //
 // Component:		`uk-nav`
@@ -28,6 +25,88 @@
 //					Dropdown
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@nav-padding-vertical:							5px;
+@nav-padding-horizontal:						15px;
+
+@nav-header-padding-vertical:					@nav-padding-vertical;
+@nav-header-padding-horizontal:					@nav-padding-horizontal;
+@nav-header-font-size:							12px;
+@nav-header-font-weight:						bold;
+@nav-header-text-transform:						uppercase;
+@nav-header-margin-top:							15px;
+
+@nav-divider-margin-vertical:					9px;
+@nav-divider-margin-horizontal:					@nav-padding-horizontal;
+
+@nav-subtitle-font-size:						12px;
+@nav-subtitle-line-height:						18px;
+
+@nav-nested-padding-vertical:					2px;
+@nav-nested-padding-horizontal:					0;
+
+@nav-sub-padding-vertical:						5px;
+@nav-sub-padding-left:							@nav-padding-horizontal;
+
+@nav-parent-icon:								"\f104";
+@nav-parent-open-icon:							"\f107";
+@nav-parent-icon-width:							20px;
+@nav-parent-icon-margin-right:					-10px;
+
+@nav-side-color:								#444;
+@nav-side-hover-background:						rgba(0,0,0,0.05);
+@nav-side-hover-color:							#444;
+@nav-side-active-background:					#00a8e6;
+@nav-side-active-color:							#fff;
+@nav-side-header-color:							#444;
+@nav-side-divider-border:						#ddd;
+@nav-side-nested-color:							#07D;
+@nav-side-nested-hover-color:					#059;
+
+@nav-dropdown-color:							#444;
+@nav-dropdown-hover-background:					#00a8e6;
+@nav-dropdown-hover-color:						#fff;
+@nav-dropdown-header-color:						#999;
+@nav-dropdown-divider-border:					#ddd;
+@nav-dropdown-nested-color:						#07D;
+@nav-dropdown-nested-hover-color:				#059;
+
+@nav-navbar-color:								#444;
+@nav-navbar-hover-background:					#00a8e6;
+@nav-navbar-hover-color:						#fff;
+@nav-navbar-header-color:						#999;
+@nav-navbar-divider-border:						#ddd;
+@nav-navbar-nested-color:						#07D;
+@nav-navbar-nested-hover-color:					#059;
+
+@nav-search-color:								#444;
+@nav-search-active-background:					#00a8e6;
+@nav-search-active-color:						#fff;
+@nav-search-header-color:						#999;
+@nav-search-divider-border:						#ddd;
+@nav-search-nested-color:						#07D;
+@nav-search-nested-hover-color:					#059;
+
+@nav-offcanvas-padding-vertical:				10px;
+@nav-offcanvas-padding-horizontal:				15px;
+@nav-offcanvas-color:							#ccc;
+@nav-offcanvas-hover-background:				#404040;
+@nav-offcanvas-hover-color:						#fff;
+@nav-offcanvas-active-background:				#1a1a1a;
+@nav-offcanvas-active-color:					#fff;
+@nav-offcanvas-header-color:					#777;
+@nav-offcanvas-divider-border:					#1a1a1a;
+@nav-offcanvas-nested-color:					#ccc;
+@nav-offcanvas-nested-hover-color:				#fff;
+
+
+/* ========================================================================
+   Component: Nav
+ ========================================================================== */
 
 .uk-nav,
 .uk-nav ul {
@@ -396,85 +475,10 @@ html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
 html:not(.uk-touch) .uk-nav-offcanvas ul a:hover { color: @nav-offcanvas-nested-hover-color; }
 
 
-// Variables
-// ========================================================================
-
-@nav-padding-vertical:							5px;
-@nav-padding-horizontal:						15px;
-
-@nav-header-padding-vertical:					@nav-padding-vertical;
-@nav-header-padding-horizontal:					@nav-padding-horizontal;
-@nav-header-font-size:							12px;
-@nav-header-font-weight:						bold;
-@nav-header-text-transform:						uppercase;
-@nav-header-margin-top:							15px;
-
-@nav-divider-margin-vertical:					9px;
-@nav-divider-margin-horizontal:					@nav-padding-horizontal;
-
-@nav-subtitle-font-size:						12px;
-@nav-subtitle-line-height:						18px;
-
-@nav-nested-padding-vertical:					2px;
-@nav-nested-padding-horizontal:					0;
-
-@nav-sub-padding-vertical:						5px;
-@nav-sub-padding-left:							@nav-padding-horizontal;
-
-@nav-parent-icon:								"\f104";
-@nav-parent-open-icon:							"\f107";
-@nav-parent-icon-width:							20px;
-@nav-parent-icon-margin-right:					-10px;
-
-@nav-side-color:								#444;
-@nav-side-hover-background:						rgba(0,0,0,0.05);
-@nav-side-hover-color:							#444;
-@nav-side-active-background:					#00a8e6;
-@nav-side-active-color:							#fff;
-@nav-side-header-color:							#444;
-@nav-side-divider-border:						#ddd;
-@nav-side-nested-color:							#07D;
-@nav-side-nested-hover-color:					#059;
-
-@nav-dropdown-color:							#444;
-@nav-dropdown-hover-background:					#00a8e6;
-@nav-dropdown-hover-color:						#fff;
-@nav-dropdown-header-color:						#999;
-@nav-dropdown-divider-border:					#ddd;
-@nav-dropdown-nested-color:						#07D;
-@nav-dropdown-nested-hover-color:				#059;
-
-@nav-navbar-color:								#444;
-@nav-navbar-hover-background:					#00a8e6;
-@nav-navbar-hover-color:						#fff;
-@nav-navbar-header-color:						#999;
-@nav-navbar-divider-border:						#ddd;
-@nav-navbar-nested-color:						#07D;
-@nav-navbar-nested-hover-color:					#059;
-
-@nav-search-color:								#444;
-@nav-search-active-background:					#00a8e6;
-@nav-search-active-color:						#fff;
-@nav-search-header-color:						#999;
-@nav-search-divider-border:						#ddd;
-@nav-search-nested-color:						#07D;
-@nav-search-nested-hover-color:					#059;
-
-@nav-offcanvas-padding-vertical:				10px;
-@nav-offcanvas-padding-horizontal:				15px;
-@nav-offcanvas-color:							#ccc;
-@nav-offcanvas-hover-background:				#404040;
-@nav-offcanvas-hover-color:						#fff;
-@nav-offcanvas-active-background:				#1a1a1a;
-@nav-offcanvas-active-color:					#fff;
-@nav-offcanvas-header-color:					#777;
-@nav-offcanvas-divider-border:					#1a1a1a;
-@nav-offcanvas-nested-color:					#ccc;
-@nav-offcanvas-nested-hover-color:				#fff;
-
-
 // Hooks
 // ========================================================================
+
+.hook-nav-misc;
 
 .hook-nav-header() {}
 .hook-nav-divider() {}
@@ -508,5 +512,4 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover { color: @nav-offcanvas-nested-
 .hook-nav-offcanvas-header() {}
 .hook-nav-offcanvas-divider() {}
 
-.hook-nav-misc;
 .hook-nav-misc() {}

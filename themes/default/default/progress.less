@@ -4,6 +4,20 @@
 // ========================================================================
 
 
+// Variables
+// ========================================================================
+
+@progress-margin-vertical:						@global-margin;
+
+@progress-bar-background:						@global-primary-background;
+@progress-bar-font-size:						round(@global-font-size * 0.85); // 12px
+@progress-bar-color:							@global-contrast-color;
+
+@progress-bar-success-background:				@global-success-background;
+@progress-bar-warning-background:				@global-warning-background;
+@progress-bar-danger-background:				@global-danger-background;
+
+
 // Component
 // ========================================================================
 
@@ -30,17 +44,3 @@
 // ========================================================================
 
 .hook-progress-misc() {}
-
-
-// Variables
-// ========================================================================
-
-@progress-margin-vertical:						@global-margin;
-
-@progress-bar-background:						@global-primary-background;
-@progress-bar-font-size:						round(@global-font-size * 0.85); // 12px
-@progress-bar-color:							@global-contrast-color;
-
-@progress-bar-success-background:				@global-success-background;
-@progress-bar-warning-background:				@global-warning-background;
-@progress-bar-danger-background:				@global-danger-background;

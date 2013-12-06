@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Modal
- ========================================================================== */
-//
+// Name:			Modal
 // Description:		Defines styles for modal dialogs
 //
 // Component: 		`uk-modal`
@@ -17,6 +14,22 @@
 // Uses:			Close: `uk-close`
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@modal-z-index:									1020;
+@modal-background:								rgba(0,0,0,0.6);
+
+@modal-dialog-padding:							20px;
+@modal-dialog-width:							600px;
+@modal-dialog-background:						#fff;
+
+
+/* ========================================================================
+   Component: Modal
+ ========================================================================== */
 
 /*
  * This is the modal overlay and modal dialog container
@@ -181,22 +194,11 @@
 }
 
 
-// Variables
-// ========================================================================
-
-@modal-z-index:									1020;
-@modal-background:								rgba(0,0,0,0.6);
-
-@modal-dialog-padding:							20px;
-@modal-dialog-width:							600px;
-@modal-dialog-background:						#fff;
-
-
 // Hooks
 // ========================================================================
 
+.hook-modal-misc;
+
 .hook-modal() {}
 .hook-modal-dialog() {}
-
-.hook-modal-misc;
 .hook-modal-misc() {}
