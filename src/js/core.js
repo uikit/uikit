@@ -137,12 +137,11 @@
     // add touch identifier class
     $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
 
-
-
-    if (!UI.support.touch) {
+    // remove css hover rules for touch devices
+    if (UI.support.touch) {
 
       $(function(){
-
+          UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
       });
     }
 
