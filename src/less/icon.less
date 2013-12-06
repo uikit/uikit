@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Icon
- ========================================================================== */
-//
+// Name:			Icon
 // Description:		Defines styles for icons
 //
 // Adapted from http://fortawesome.github.com/Font-Awesome (Version 3.2.1)
@@ -18,6 +15,30 @@
 // Uses:			Animation
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@icon-font-path:								"../fonts";
+
+@icon-button-width: 							35px;
+@icon-button-height: 							@icon-button-width;
+@icon-button-border-radius: 					100%;
+@icon-button-background: 						#eee;
+@icon-button-font-size: 						round(@icon-button-width * 0.5);
+@icon-button-color: 							#444;
+
+@icon-button-hover-background: 					#f5f5f5;
+@icon-button-hover-color: 						#444;
+
+@icon-button-active-background: 				#ddd;
+@icon-button-active-color: 						#444;
+
+
+/* ========================================================================
+   Component: Icon
+ ========================================================================== */
 
 @font-face {
 	font-family: 'FontAwesome';
@@ -490,31 +511,12 @@
 .uk-icon-renren:before 				 	{ content: "\f18b"; }
 
 
-// Variables
-// ========================================================================
-
-@icon-font-path:								"../fonts";
-
-@icon-button-width: 							35px;
-@icon-button-height: 							@icon-button-width;
-@icon-button-border-radius: 					100%;
-@icon-button-background: 						#eee;
-@icon-button-font-size: 						round(@icon-button-width * 0.5);
-@icon-button-color: 							#444;
-
-@icon-button-hover-background: 					#f5f5f5;
-@icon-button-hover-color: 						#444;
-
-@icon-button-active-background: 				#ddd;
-@icon-button-active-color: 						#444;
-
-
 // Hooks
 // ========================================================================
+
+.hook-icon-misc;
 
 .hook-icon-button() {}
 .hook-icon-button-hover() {}
 .hook-icon-button-active() {}
-
-.hook-icon-misc;
 .hook-icon-misc() {}

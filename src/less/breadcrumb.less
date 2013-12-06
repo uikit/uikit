@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Breadcrumb
- ========================================================================== */
-//
+// Name:			Breadcrumb
 // Description:		Defines styles for a breadcrumb navigation
 //
 // Component:		`uk-breadcrumb`
@@ -9,6 +6,19 @@
 // States:		 	`uk-active`
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@breadcrumb-divider:							"/";
+@breadcrumb-divider-margin:						8px;
+@breadcrumb-disabled-color:						#999;
+
+
+/* ========================================================================
+   Component: Breadcrumb
+ ========================================================================== */
 
 /*
  * 1. Remove default list style
@@ -53,19 +63,11 @@
 .uk-breadcrumb > li:not(.uk-active) > span { color: @breadcrumb-disabled-color; }
 
 
-// Variables
-// ========================================================================
-
-@breadcrumb-divider:							"/";
-@breadcrumb-divider-margin:						8px;
-@breadcrumb-disabled-color:						#999;
-
-
 // Hooks
 // ========================================================================
 
+.hook-breadcrumb-misc;
+
 .hook-breadcrumb() {}
 .hook-breadcrumb-divider() {}
-
-.hook-breadcrumb-misc;
 .hook-breadcrumb-misc() {}

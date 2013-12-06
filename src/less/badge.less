@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Badge
- ========================================================================== */
-//
+// Name:			Badge
 // Description:		Defines styles for badges 
 //
 // Component:		`uk-badge`
@@ -11,7 +8,31 @@
 //					`uk-badge-danger`
 //
 // ========================================================================
- 
+
+
+// Variables
+// ========================================================================
+
+@badge-background:								#00a8e6;
+@badge-padding-horizontal:						5px;
+@badge-font-size:								10px;
+@badge-font-weight:								bold;
+@badge-line-height:								14px;
+@badge-color:									#fff;
+@badge-text-transform:							none;
+
+@badge-notification-font-size:					12px;
+@badge-notification-line-height:				18px;
+
+@badge-success-background:						#8cc14c;
+@badge-warning-background:						#faa732;
+@badge-danger-background:						#da314b;
+
+
+/* ========================================================================
+   Component: Badge
+ ========================================================================== */
+
 .uk-badge {
 	display: inline-block;
 	padding: 0 @badge-padding-horizontal;
@@ -71,32 +92,13 @@
 }
 
 
-// Variables
-// ========================================================================
-
-@badge-background:								#00a8e6;
-@badge-padding-horizontal:						5px;
-@badge-font-size:								10px;
-@badge-font-weight:								bold;
-@badge-line-height:								14px;
-@badge-color:									#fff;
-@badge-text-transform:							none;
-
-@badge-notification-font-size:					12px;
-@badge-notification-line-height:				18px;
-
-@badge-success-background:						#8cc14c;
-@badge-warning-background:						#faa732;
-@badge-danger-background:						#da314b;
-
-
 // Hooks
 // ========================================================================
+
+.hook-badge-misc;
 
 .hook-badge() {}
 .hook-badge-success() {}
 .hook-badge-warning() {}
 .hook-badge-danger() {}
-
-.hook-badge-misc;
 .hook-badge-misc() {}

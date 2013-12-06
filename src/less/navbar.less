@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Navbar
- ========================================================================== */
-//
+// Name:			Navbar
 // Description:		Defines styles for the navigation bar
 //
 // Component:		`uk-navbar`
@@ -24,6 +21,46 @@
 // Used by:			Dropdown
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@navbar-background:								#eee;
+@navbar-color:									#444;
+@navbar-link-color:								#07D;
+@navbar-link-hover-color:						#059;
+
+@navbar-nav-height:								40px;
+@navbar-nav-line-height:						@navbar-nav-height;
+@navbar-nav-padding-horizontal:					15px;
+@navbar-nav-color:								#444;
+@navbar-nav-font-size: 							14px;
+@navbar-nav-font-weight: 						normal;
+@navbar-nav-font-family: 						"Helvetica Neue", Helvetica, Arial, sans-serif;
+@navbar-nav-hover-background:					#f5f5f5;
+@navbar-nav-hover-color:						#444;
+@navbar-nav-onclick-background:					#ddd;
+@navbar-nav-onclick-color:						#444;
+@navbar-nav-active-background:					#f5f5f5;
+@navbar-nav-active-color:						#444;
+@navbar-nav-subtitle-font-size:					10px;
+@navbar-nav-subtitle-offset:					2px;
+
+@navbar-brand-font-size:						18px;
+@navbar-brand-color:							#444;
+@navbar-brand-hover-color:						#444;
+
+@navbar-toggle-font-size:						18px;
+@navbar-toggle-color:							#444;
+@navbar-toggle-hover-color:						#444;
+@navbar-toggle-icon:							"\f0c9";
+@navbar-toggle-icon-alt:						"\f002";
+
+
+/* ========================================================================
+   Component: Navbar
+ ========================================================================== */
 
 .uk-navbar {
 	background: @navbar-background;
@@ -256,43 +293,10 @@
 .uk-navbar-flip { float: right; }
 
 
-// Variables
-// ========================================================================
-
-@navbar-background:								#eee;
-@navbar-color:									#444;
-@navbar-link-color:								#07D;
-@navbar-link-hover-color:						#059;
-
-@navbar-nav-height:								40px;
-@navbar-nav-line-height:						@navbar-nav-height;
-@navbar-nav-padding-horizontal:					15px;
-@navbar-nav-color:								#444;
-@navbar-nav-font-size: 							14px;
-@navbar-nav-font-weight: 						normal;
-@navbar-nav-font-family: 						"Helvetica Neue", Helvetica, Arial, sans-serif;
-@navbar-nav-hover-background:					#f5f5f5;
-@navbar-nav-hover-color:						#444;
-@navbar-nav-onclick-background:					#ddd;
-@navbar-nav-onclick-color:						#444;
-@navbar-nav-active-background:					#f5f5f5;
-@navbar-nav-active-color:						#444;
-@navbar-nav-subtitle-font-size:					10px;
-@navbar-nav-subtitle-offset:					2px;
-
-@navbar-brand-font-size:						18px;
-@navbar-brand-color:							#444;
-@navbar-brand-hover-color:						#444;
-
-@navbar-toggle-font-size:						18px;
-@navbar-toggle-color:							#444;
-@navbar-toggle-hover-color:						#444;
-@navbar-toggle-icon:							"\f0c9";
-@navbar-toggle-icon-alt:						"\f002";
-
-
 // Hooks
 // ========================================================================
+
+.hook-navbar-misc;
 
 .hook-navbar() {}
 .hook-navbar-nav() {}
@@ -300,6 +304,4 @@
 .hook-navbar-nav-onclick() {}
 .hook-navbar-nav-active() {}
 .hook-navbar-content() {}
-
-.hook-navbar-misc;
 .hook-navbar-misc() {}

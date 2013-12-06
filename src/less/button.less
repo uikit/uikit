@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Button
- ========================================================================== */
-//
+// Name:			Button
 // Description:		Defines styles for buttons
 //
 // Component:		`uk-button`
@@ -21,6 +18,69 @@
 // States:		 	`uk-active`
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@button-height:									30px;
+@button-mini-height:							20px;
+@button-small-height:							25px;
+@button-large-height:							40px;
+
+@button-line-height:							30px;
+@button-mini-line-height:						20px;
+@button-small-line-height:						25px;
+@button-large-line-height:						40px;
+
+@button-mini-font-size:							11px;
+@button-small-font-size:						12px;
+@button-large-font-size:						16px;
+
+@button-padding-horizontal:						12px;
+@button-mini-padding-horizontal:				6px;
+@button-small-padding-horizontal:				10px;
+@button-large-padding-horizontal:				15px;
+
+@button-background:								#eee;
+@button-color:									#444;
+@button-hover-background:						#f5f5f5;
+@button-hover-color:							#444;
+@button-active-background:						#ddd;
+@button-active-color:							#444;
+
+@button-primary-background:						#00a8e6;
+@button-primary-color:							#fff;
+@button-primary-hover-background:				#35b3ee;
+@button-primary-hover-color:					#fff;
+@button-primary-active-background:				#0091ca;
+@button-primary-active-color:					#fff;
+
+@button-success-background:						#8cc14c;
+@button-success-color:							#fff;
+@button-success-hover-background:				#8ec73b;
+@button-success-hover-color:					#fff;
+@button-success-active-background:				#72ae41;
+@button-success-active-color:					#fff;
+
+@button-danger-background:						#da314b;
+@button-danger-color:							#fff;
+@button-danger-hover-background:				#e4354f;
+@button-danger-hover-color:						#fff;
+@button-danger-active-background:				#c91032;
+@button-danger-active-color:					#fff;
+
+@button-disabled-background:					#f5f5f5;
+@button-disabled-color:							#999;
+
+@button-link-color:								#07D;
+@button-link-hover-color:						#059;
+@button-link-disabled-color:					#999;
+
+
+/* ========================================================================
+   Component: Button
+ ========================================================================== */
 
 /*
  * 1. Required for `a` elements. Can't be moved to `a.button` selector because needs to be overwritable for `uk-button-link` and `uk-button-expand`
@@ -280,66 +340,10 @@ a.uk-button {
 }
 
 
-// Variables
-// ========================================================================
-
-@button-height:									30px;
-@button-mini-height:							20px;
-@button-small-height:							25px;
-@button-large-height:							40px;
-
-@button-line-height:							30px;
-@button-mini-line-height:						20px;
-@button-small-line-height:						25px;
-@button-large-line-height:						40px;
-
-@button-mini-font-size:							11px;
-@button-small-font-size:						12px;
-@button-large-font-size:						16px;
-
-@button-padding-horizontal:						12px;
-@button-mini-padding-horizontal:				6px;
-@button-small-padding-horizontal:				10px;
-@button-large-padding-horizontal:				15px;
-
-@button-background:								#eee;
-@button-color:									#444;
-@button-hover-background:						#f5f5f5;
-@button-hover-color:							#444;
-@button-active-background:						#ddd;
-@button-active-color:							#444;
-
-@button-primary-background:						#00a8e6;
-@button-primary-color:							#fff;
-@button-primary-hover-background:				#35b3ee;
-@button-primary-hover-color:					#fff;
-@button-primary-active-background:				#0091ca;
-@button-primary-active-color:					#fff;
-
-@button-success-background:						#8cc14c;
-@button-success-color:							#fff;
-@button-success-hover-background:				#8ec73b;
-@button-success-hover-color:					#fff;
-@button-success-active-background:				#72ae41;
-@button-success-active-color:					#fff;
-
-@button-danger-background:						#da314b;
-@button-danger-color:							#fff;
-@button-danger-hover-background:				#e4354f;
-@button-danger-hover-color:						#fff;
-@button-danger-active-background:				#c91032;
-@button-danger-active-color:					#fff;
-
-@button-disabled-background:					#f5f5f5;
-@button-disabled-color:							#999;
-
-@button-link-color:								#07D;
-@button-link-hover-color:						#059;
-@button-link-disabled-color:					#999;
-
-
 // Hooks
 // ========================================================================
+
+.hook-button-misc;
 
 .hook-button() {}
 .hook-button-hover() {}
@@ -356,6 +360,4 @@ a.uk-button {
 .hook-button-disable() {}
 .hook-button-link() {}
 .hook-button-large() {}
-
-.hook-button-misc;
 .hook-button-misc() {}

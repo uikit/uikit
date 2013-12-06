@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Overlay
- ========================================================================== */
-//
+// Name:			Overlay
 // Description:		Defines styles for image overlays
 //
 // Component:		`uk-overlay`
@@ -11,6 +8,24 @@
 //					`uk-overlay-toggle`
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@overlay-area-background:						rgba(0,0,0,0.3);
+@overlay-area-icon:								"\f002";
+@overlay-area-icon-size:						50px;
+@overlay-area-icon-color:						#fff;
+
+@overlay-caption-background:					rgba(0,0,0,0.5);
+@overlay-caption-padding:						15px;
+@overlay-caption-color:							#fff;
+
+
+/* ========================================================================
+   Component: Overlay
+ ========================================================================== */
 
 /*
  * 1. Container width fits its content
@@ -121,25 +136,12 @@
 .uk-overlay-toggle:hover .uk-overlay-caption { opacity: 1; } /* 1 */
 
 
-// Variables
-// ========================================================================
-
-@overlay-area-background:						rgba(0,0,0,0.3);
-@overlay-area-icon:								"\f002";
-@overlay-area-icon-size:						50px;
-@overlay-area-icon-color:						#fff;
-
-@overlay-caption-background:					rgba(0,0,0,0.5);
-@overlay-caption-padding:						15px;
-@overlay-caption-color:							#fff;
-
-
 // Hooks
 // ========================================================================
+
+.hook-overlay-misc;
 
 .hook-overlay-area() {}
 .hook-overlay-area-icon() {}
 .hook-overlay-caption() {}
-
-.hook-overlay-misc;
 .hook-overlay-misc() {}

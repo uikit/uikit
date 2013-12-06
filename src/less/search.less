@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Search
- ========================================================================== */
-//
+// Name:			Search
 // Description:		Defines a search component
 //
 // Component:		`uk-search`
@@ -18,6 +15,33 @@
 // Used by:			Off-canvas
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@search-width:									120px;
+@search-focus-width:							180px;
+@search-height: 								30px;
+@search-padding: 								30px;
+@search-border: 								rgba(0,0,0,0);
+@search-background: 							rgba(0,0,0,0);
+@search-color:									#444;
+@search-placeholder-color:						#999;
+
+@search-icon: 									"\f002";
+@search-icon-size: 								14px;
+@search-icon-color:			 					rgba(0,0,0,0.2);
+
+@search-close-icon: 							"\f00d";
+@search-close-size: 							14px;
+@search-close-color: 							rgba(0,0,0,0.2);
+@search-close-icon-loading: 					"\f110";
+
+
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
 
 /*
  * 1. Create position context for dropdowns
@@ -142,36 +166,14 @@ input.uk-search-field { -webkit-appearance: none; }
 }
 
 
-// Variables
-// ========================================================================
-
-@search-width:									120px;
-@search-focus-width:							180px;
-@search-height: 								30px;
-@search-padding: 								30px;
-@search-border: 								rgba(0,0,0,0);
-@search-background: 							rgba(0,0,0,0);
-@search-color:									#444;
-@search-placeholder-color:						#999;
-
-@search-icon: 									"\f002";
-@search-icon-size: 								14px;
-@search-icon-color:			 					rgba(0,0,0,0.2);
-
-@search-close-icon: 							"\f00d";
-@search-close-size: 							14px;
-@search-close-color: 							rgba(0,0,0,0.2);
-@search-close-icon-loading: 					"\f110";
-
-
 // Hooks
 // ========================================================================
+
+.hook-search-misc;
 
 .hook-search() {}
 .hook-search-icon() {}
 .hook-search-field() {}
 .hook-search-field-focus() {}
 .hook-search-close() {}
-
-.hook-search-misc;
 .hook-search-misc() {}

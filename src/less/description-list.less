@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Description list
- ========================================================================== */
-//
+// Name:			Description list
 // Description:		Defines styles for description lists
 //
 // Component:		`uk-description-list`
@@ -10,6 +7,18 @@
 //					`uk-description-list-line`
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@description-list-line-border:					#ddd;
+@description-list-line-color:					#999;
+
+
+/* ========================================================================
+   Component: Description list
+ ========================================================================== */
 
 
 /* Modifier: `uk-description-list-horizontal`
@@ -48,15 +57,9 @@
 .uk-description-list-line > dd { color: @description-list-line-color; }
 
 
-// Variables
-// ========================================================================
-
-@description-list-line-border:					#ddd;
-@description-list-line-color:					#999;
-
-
 // Hooks
 // ========================================================================
 
 .hook-description-list-misc;
+
 .hook-description-list-misc() {}

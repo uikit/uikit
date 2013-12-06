@@ -1,7 +1,4 @@
-/* ========================================================================
-   Component: Off-canvas
- ========================================================================== */
-//
+// Name:			Off-canvas
 // Description:		Defines styles for an off-canvas sidebar that slides in and out of the page
 //
 // Component:		`uk-offcanvas`
@@ -17,6 +14,34 @@
 //					Search: `uk-search`, `uk-search-field`
 //
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@offcanvas-z-index:								1010;
+@offcanvas-background:							rgba(0,0,0,0.1);
+
+@offcanvas-bar-width:							270px;
+@offcanvas-bar-background:						#333;
+
+@offcanvas-panel-margin:						20px 15px;
+@offcanvas-panel-color:							#777;
+@offcanvas-panel-title-color:					@offcanvas-panel-link-color;
+@offcanvas-panel-link-color:					#ccc;
+@offcanvas-panel-link-hover-color:				#fff;
+
+@offcanvas-search-margin:						20px 15px;
+@offcanvas-search-background: 					darken(@offcanvas-bar-background, 10%);
+@offcanvas-search-border: 						rgba(0,0,0,0);
+@offcanvas-search-color:						@offcanvas-panel-link-color;
+@offcanvas-search-placeholder-color:			@offcanvas-panel-color;
+@offcanvas-search-icon-color:			 		@offcanvas-panel-color;
+
+
+/* ========================================================================
+   Component: Off-canvas
+ ========================================================================== */
 
 /*
  * This is the offcanvas overlay and bar container
@@ -148,36 +173,13 @@
 .uk-offcanvas .uk-search-field::-webkit-input-placeholder { color: @offcanvas-search-placeholder-color; }
 
 
-// Variables
-// ========================================================================
-
-@offcanvas-z-index:								1010;
-@offcanvas-background:							rgba(0,0,0,0.1);
-
-@offcanvas-bar-width:							270px;
-@offcanvas-bar-background:						#333;
-
-@offcanvas-panel-margin:						20px 15px;
-@offcanvas-panel-color:							#777;
-@offcanvas-panel-title-color:					@offcanvas-panel-link-color;
-@offcanvas-panel-link-color:					#ccc;
-@offcanvas-panel-link-hover-color:				#fff;
-
-@offcanvas-search-margin:						20px 15px;
-@offcanvas-search-background: 					darken(@offcanvas-bar-background, 10%);
-@offcanvas-search-border: 						rgba(0,0,0,0);
-@offcanvas-search-color:						@offcanvas-panel-link-color;
-@offcanvas-search-placeholder-color:			@offcanvas-panel-color;
-@offcanvas-search-icon-color:			 		@offcanvas-panel-color;
-
-
 // Hooks
 // ========================================================================
+
+.hook-offcanvas-misc;
 
 .hook-offcanvas() {}
 .hook-offcanvas-bar() {}
 .hook-offcanvas-panel() {}
 .hook-offcanvas-search-field() {}
-
-.hook-offcanvas-misc;
 .hook-offcanvas-misc() {}
