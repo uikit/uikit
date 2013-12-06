@@ -109,5 +109,9 @@
         observer.observe(document.body, { childList: true, subtree: true });
     });
 
+    // add touch identifier class
+    if (UI.support.touch) {
+        $("html").addClass("uk-touch");
+    }
 
 })(jQuery, document);
