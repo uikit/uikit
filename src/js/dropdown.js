@@ -187,7 +187,11 @@
 
             var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
-            ele.trigger(UI.support.touch ? "click" : (dropdown.options.mode == "hover" ? "mouseenter":"click"));
+            if (UI.support.touch) {
+                ele.trigger("click");
+            } else if(dropdown.options.mode == "hover") {
+                ele.trigger("mouseenter");
+            }
         }
     });
 

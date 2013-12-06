@@ -28,12 +28,6 @@
                 }
 
             });
-
-            if (this.options.keyboard) {
-                $(document).on('keyup.ui.modal.escape', function(e) {
-                    if (active && e.which == 27 && $this.isActive()) $this.hide();
-                });
-            }
         };
 
     $.extend(Modal.prototype, {
@@ -156,6 +150,15 @@
             modal.show();
         }
 
+    });
+
+    // close modal on esc button
+    $(document).on('keydown.modal.uikit', function (e) {
+
+        if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
+            e.preventDefault();
+            active.hide();
+        }
     });
 
     $win.on("resize orientationchange", UI.Utils.debounce(function(){
