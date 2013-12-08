@@ -4,13 +4,28 @@
 // ========================================================================
 
 
-// Modifier `uk-icon-button`
+// Variables
+// ========================================================================
+
+@icon-button-height:							@icon-button-width;
+@icon-button-background:						@theme_global-default-background;
+@icon-button-font-size:							round(@icon-button-width * 0.5);
+@icon-button-color:								@global-color;
+
+@icon-button-hover-background:					@theme_global-default-hover-background;
+@icon-button-hover-color:						@global-color;
+
+@icon-button-active-background:					@theme_global-default-active-background;
+@icon-button-active-color:						@global-color;
+
+
+// Modifier: `uk-icon-button`
 // ========================================================================
 
 .hook-icon-button() {
 	border: 1px solid @theme_icon-button-border;
 	border-bottom-color: @theme_icon-button-border-bottom;
-	background-origin: border-box; // 1 */
+	background-origin: border-box;
 	background-image: -webkit-linear-gradient(top, @theme_icon-button-gradient-top, @theme_icon-button-gradient-bottom);
 	background-image: linear-gradient(to bottom, @theme_icon-button-gradient-top, @theme_icon-button-gradient-bottom);
 	text-shadow: 0 1px 0 @theme_icon-button-text-shadow;
