@@ -15,23 +15,23 @@
 // Components variables
 //
 
-@datepicker-table-hover-background:				@theme_global-default-hover-background;
-@datepicker-table-onclick-background:			@theme_global-default-active-background;
+@datepicker-table-hover-background:				@global-default-hover-background;
+@datepicker-table-onclick-background:			@global-default-active-background;
 
 //
 // Theme component variables
 //
 
-@theme_datepicker-border:						rgba(0,0,0,0.2);
-@theme_datepicker-border-bottom:				rgba(0,0,0,0.3);
-@theme_datepicker-active-border:				rgba(0,0,0,0.2);
-@theme_datepicker-active-border-bottom:			rgba(0,0,0,0.4);
-@theme_datepicker-text-shadow:					@theme_global-text-shadow;
+@datepicker-border:						rgba(0,0,0,0.2);
+@datepicker-border-bottom:				rgba(0,0,0,0.3);
+@datepicker-active-border:				rgba(0,0,0,0.2);
+@datepicker-active-border-bottom:			rgba(0,0,0,0.4);
+@datepicker-text-shadow:					@global-text-shadow;
 
-@theme_datepicker-contrast-text-shadow:			@theme_global-contrast-text-shadow;
+@datepicker-contrast-text-shadow:			@global-contrast-text-shadow;
 
-@theme_datepicker-primary-gradient-top:			@theme_global-primary-gradient-top;
-@theme_datepicker-primary-gradient-bottom:		@theme_global-primary-gradient-bottom;
+@datepicker-primary-gradient-top:			@global-primary-gradient-top;
+@datepicker-primary-gradient-bottom:		@global-primary-gradient-bottom;
 
 
 // Hooks
@@ -43,28 +43,28 @@
 
 .hook-datepicker-table-item() {
 	border: 1px solid transparent;
-	border-radius: @theme_global-border-radius;
+	border-radius: @global-border-radius;
 	background-origin: border-box;
 }
 
 .hook-datepicker-table-item-hover() {
-	border-color: @theme_datepicker-border;
-	border-bottom-color: @theme_datepicker-border-bottom;
-	text-shadow: 0 1px 0 @theme_datepicker-text-shadow;
+	border-color: @datepicker-border;
+	border-bottom-color: @datepicker-border-bottom;
+	text-shadow: 0 1px 0 @datepicker-text-shadow;
 }
 
 .hook-datepicker-table-item-onclick() {
-	border-color: @theme_datepicker-border;
-	border-top-color: @theme_datepicker-border-bottom;
+	border-color: @datepicker-border;
+	border-top-color: @datepicker-border-bottom;
 	background-image: none;
 	box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .hook-datepicker-table-item-active() {
-	border: 1px solid @theme_datepicker-active-border;
-	border-bottom-color: @theme_datepicker-active-border-bottom;
+	border: 1px solid @datepicker-active-border;
+	border-bottom-color: @datepicker-active-border-bottom;
 	background-origin: border-box;
-	background-image: -webkit-linear-gradient(top, @theme_datepicker-primary-gradient-top, @theme_datepicker-primary-gradient-bottom);
-	background-image: linear-gradient(to bottom, @theme_datepicker-primary-gradient-top, @theme_datepicker-primary-gradient-bottom);
-	text-shadow: 0 -1px 0 @theme_datepicker-contrast-text-shadow;
+	background-image: -webkit-linear-gradient(top, @datepicker-primary-gradient-top, @datepicker-primary-gradient-bottom);
+	background-image: linear-gradient(to bottom, @datepicker-primary-gradient-top, @datepicker-primary-gradient-bottom);
+	text-shadow: 0 -1px 0 @datepicker-contrast-text-shadow;
 }

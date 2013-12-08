@@ -23,6 +23,12 @@
 @article-divider-margin:						@global-large-margin;
 @article-divider-border:						@global-border;
 
+//
+// New
+//
+
+@article-border:								@global-border;
+
 
 // Sub-object `uk-article-title`
 // ========================================================================
@@ -55,7 +61,7 @@
 
 	.uk-article + .uk-article {
 		padding-top: @article-margin-top;
-		border-top: 1px solid @theme_article-border;
+		border-top: 1px solid @article-border;
 	}
 
 }

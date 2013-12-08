@@ -145,240 +145,210 @@
             "label": "Alert",
             "advanced": true,
             "vars": [
-                "@alert-*",
-                "@theme_alert-*"
+                "@alert-*"
             ]
         },
         {
             "label": "Article",
             "advanced": true,
             "vars": [
-                "@article-*",
-                "@theme_article-*"
+                "@article-*"
             ]
         },
         {
             "label": "Badge",
             "advanced": true,
             "vars": [
-                "@badge-*",
-                "@theme_badge-*"
+                "@badge-*"
             ]
         },
         {
             "label": "Base",
             "advanced": true,
             "vars": [
-                "@base-*",
-                "@theme_base-*"
+                "@base-*"
             ]
         },
         {
             "label": "Breadcrumb",
             "advanced": true,
             "vars": [
-                "@breadcrumb-*",
-                "@theme_breadcrumb-*"
+                "@breadcrumb-*"
             ]
         },
         {
             "label": "Button",
             "advanced": true,
             "vars": [
-                "@button-*",
-                "@theme_button-*"
+                "@button-*"
             ]
         },
         {
             "label": "Close",
             "advanced": true,
             "vars": [
-                "@close-*",
-                "@theme_close-*"
+                "@close-*"
             ]
         },
         {
             "label": "Comment",
             "advanced": true,
             "vars": [
-                "@comment-*",
-                "@theme_comment-*"
+                "@comment-*"
             ]
         },
         {
             "label": "Description",
             "advanced": true,
             "vars": [
-                "@description-*",
-                "@theme_description-*"
+                "@description-*"
             ]
         },
         {
             "label": "Dropdown",
             "advanced": true,
             "vars": [
-                "@dropdown-*",
-                "@theme_dropdown-*"
+                "@dropdown-*"
             ]
         },
         {
             "label": "Form",
             "advanced": true,
             "vars": [
-                "@form-*",
-                "@theme_form-*"
+                "@form-*"
             ]
         },
         {
             "label": "Grid",
             "advanced": true,
             "vars": [
-                "@grid-*",
-                "@theme_grid-*"
+                "@grid-*"
             ]
         },
         {
             "label": "Icon",
             "advanced": true,
             "vars": [
-                "@icon-*",
-                "@theme_icon-*"
+                "@icon-*"
             ]
         },
         {
             "label": "List",
             "advanced": true,
             "vars": [
-                "@list-*",
-                "@theme_list-*"
+                "@list-*"
             ]
         },
         {
             "label": "Modal",
             "advanced": true,
             "vars": [
-                "@modal-*",
-                "@theme_modal-*"
+                "@modal-*"
             ]
         },
         {
             "label": "Nav",
             "advanced": true,
             "vars": [
-                "@nav-*",
-                "@theme_nav-*"
+                "@nav-*"
             ]
         },
         {
             "label": "Navbar",
             "advanced": true,
             "vars": [
-                "@navbar-*",
-                "@theme_navbar-*"
+                "@navbar-*"
             ]
         },
         {
             "label": "Offcanvas",
             "advanced": true,
             "vars": [
-                "@offcanvas-*",
-                "@theme_offcanvas-*"
+                "@offcanvas-*"
             ]
         },
         {
             "label": "Overlay",
             "advanced": true,
             "vars": [
-                "@overlay-*",
-                "@theme_overlay-*"
+                "@overlay-*"
             ]
         },
         {
             "label": "Pagination",
             "advanced": true,
             "vars": [
-                "@pagination-*",
-                "@theme_pagination-*"
+                "@pagination-*"
             ]
         },
         {
             "label": "Panel",
             "advanced": true,
             "vars": [
-                "@panel-*",
-                "@theme_panel-*"
+                "@panel-*"
             ]
         },
         {
             "label": "Progress",
             "advanced": true,
             "vars": [
-                "@progress-*",
-                "@theme_progress-*"
+                "@progress-*"
             ]
         },
         {
             "label": "Search",
             "advanced": true,
             "vars": [
-                "@search-*",
-                "@theme_search-*"
+                "@search-*"
             ]
         },
         {
             "label": "Subnav",
             "advanced": true,
             "vars": [
-                "@subnav-*",
-                "@theme_subnav-*"
+                "@subnav-*"
             ]
         },
         {
             "label": "Tab",
             "advanced": true,
             "vars": [
-                "@tab-*",
-                "@theme_tab-*"
+                "@tab-*"
             ]
         },
         {
             "label": "Table",
             "advanced": true,
             "vars": [
-                "@table-*",
-                "@theme_table-*"
+                "@table-*"
             ]
         },
         {
             "label": "Text",
             "advanced": true,
             "vars": [
-                "@text-*",
-                "@theme_text-*"
+                "@text-*"
             ]
         },
         {
             "label": "Thumbnail",
             "advanced": true,
             "vars": [
-                "@thumbnail-*",
-                "@theme_thumbnail-*"
+                "@thumbnail-*"
             ]
         },
         {
             "label": "Tooltip",
             "advanced": true,
             "vars": [
-                "@tooltip-*",
-                "@theme_tooltip-*"
+                "@tooltip-*"
             ]
         },
         {
             "label": "Utility",
             "advanced": true,
             "vars": [
-                "@utility-*",
-                "@theme_utility-*"
+                "@utility-*"
             ]
         }
     ]

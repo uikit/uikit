@@ -19,6 +19,29 @@
 @badge-warning-background:						@global-warning-background;
 @badge-danger-background:						@global-danger-background;
 
+//
+// New
+//
+
+@badge-border:									rgba(0,0,0,0.2);
+@badge-border-bottom:							rgba(0,0,0,0.3);
+@badge-text-shadow:								@global-contrast-text-shadow;
+
+@badge-gradient-top:							@global-default-gradient-top;
+@badge-gradient-bottom:							@global-default-gradient-bottom;
+
+@badge-primary-gradient-top:					@global-primary-gradient-top;
+@badge-primary-gradient-bottom:					@global-primary-gradient-bottom;
+
+@badge-success-gradient-top:					@global-success-gradient-top;
+@badge-success-gradient-bottom:					@global-success-gradient-bottom;
+
+@badge-warning-gradient-top:					@global-warning-gradient-top;
+@badge-warning-gradient-bottom:					@global-warning-gradient-bottom;
+
+@badge-danger-gradient-top:						@global-danger-gradient-top;
+@badge-danger-gradient-bottom:					@global-danger-gradient-bottom;
+
 
 // Component
 // ========================================================================
@@ -28,28 +51,28 @@
 //
 
 .hook-badge() {
-	border: 1px solid @theme_badge-border;
-	border-bottom-color: @theme_badge-border-bottom;
+	border: 1px solid @badge-border;
+	border-bottom-color: @badge-border-bottom;
 	background-origin: border-box; // 1
-	background-image: -webkit-linear-gradient(top, @theme_badge-primary-gradient-top, @theme_badge-primary-gradient-bottom);
-	background-image: linear-gradient(to bottom, @theme_badge-primary-gradient-top, @theme_badge-primary-gradient-bottom);
+	background-image: -webkit-linear-gradient(top, @badge-primary-gradient-top, @badge-primary-gradient-bottom);
+	background-image: linear-gradient(to bottom, @badge-primary-gradient-top, @badge-primary-gradient-bottom);
 	border-radius: 2px;
-	text-shadow: 0 -1px 0 @theme_badge-text-shadow;
+	text-shadow: 0 -1px 0 @badge-text-shadow;
 }
 
 .hook-badge-success() {
-	background-image: -webkit-linear-gradient(top, @theme_badge-success-gradient-top, @theme_badge-success-gradient-bottom);
-	background-image: linear-gradient(to bottom, @theme_badge-success-gradient-top, @theme_badge-success-gradient-bottom);
+	background-image: -webkit-linear-gradient(top, @badge-success-gradient-top, @badge-success-gradient-bottom);
+	background-image: linear-gradient(to bottom, @badge-success-gradient-top, @badge-success-gradient-bottom);
 }
 
 .hook-badge-warning() {
-	background-image: -webkit-linear-gradient(top, @theme_badge-warning-gradient-top, @theme_badge-warning-gradient-bottom);
-	background-image: linear-gradient(to bottom, @theme_badge-warning-gradient-top, @theme_badge-warning-gradient-bottom);
+	background-image: -webkit-linear-gradient(top, @badge-warning-gradient-top, @badge-warning-gradient-bottom);
+	background-image: linear-gradient(to bottom, @badge-warning-gradient-top, @badge-warning-gradient-bottom);
 }
 
 .hook-badge-danger() {
-	background-image: -webkit-linear-gradient(top, @theme_badge-danger-gradient-top, @theme_badge-danger-gradient-bottom);
-	background-image: linear-gradient(to bottom, @theme_badge-danger-gradient-top, @theme_badge-danger-gradient-bottom);
+	background-image: -webkit-linear-gradient(top, @badge-danger-gradient-top, @badge-danger-gradient-bottom);
+	background-image: linear-gradient(to bottom, @badge-danger-gradient-top, @badge-danger-gradient-bottom);
 }
 
 

@@ -19,14 +19,21 @@
 @badge-warning-background:						@global-warning-background;
 @badge-danger-background:						@global-danger-background;
 
+//
+// New
+//
+
+@badge-border:									rgba(0,0,0,0.06);
+@badge-text-shadow:								@global-contrast-text-shadow;
+
 
 // Component
 // ========================================================================
 
 .hook-badge() {
-	border: 1px solid @theme_badge-border;
+	border: 1px solid @badge-border;
 	border-radius: 2px;
-	text-shadow: 0 1px 0 @theme_badge-text-shadow;
+	text-shadow: 0 1px 0 @badge-text-shadow;
 }
 
 

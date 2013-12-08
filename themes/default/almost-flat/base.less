@@ -48,6 +48,14 @@
 @base-pre-font-size:							round(@global-font-size * 0.85); // 12px
 @base-pre-line-height:							round(@base-pre-font-size * 1.5); // 18px
 
+//
+// New
+//
+
+@base-code-border:								@global-border;
+@base-code-background:							#fafafa;
+@base-pre-border:								@global-border;
+
 
 // Body
 // ========================================================================
@@ -60,9 +68,9 @@
 
 .hook-base-code() {
 	padding: 0 4px;
-	border: 1px solid @theme_base-code-border;
+	border: 1px solid @base-code-border;
 	border-radius: 3px;
-	background: @theme_base-code-background;
+	background: @base-code-background;
 }
 
 .hook-base-code-reset() {
@@ -72,7 +80,7 @@
 }
 
 .hook-base-pre() {
-	border: 1px solid @theme_base-pre-border;
+	border: 1px solid @base-pre-border;
 	border-radius: 3px;
 }
 

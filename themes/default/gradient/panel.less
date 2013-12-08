@@ -27,6 +27,13 @@
 @panel-divider-large-gutter:					@global-grid-large-gutter;
 @panel-divider-border:							@global-border;
 
+//
+// New
+//
+
+@panel-box-border:								@global-border;
+@panel-box-primary-border:						fade(@panel-box-primary-color, 30%);
+
 
 // Sub-object: `uk-panel-title`
 // ========================================================================
@@ -44,11 +51,11 @@
 // ========================================================================
 
 .hook-panel-box() {
-	border: 1px solid @theme_panel-box-border;
-	border-radius: @theme_global-border-radius;
+	border: 1px solid @panel-box-border;
+	border-radius: @global-border-radius;
 }
 
-.hook-panel-box-primary() { border-color: @theme_panel-box-primary-border; }
+.hook-panel-box-primary() { border-color: @panel-box-primary-border; }
 
 .hook-panel-box-secondary() {}
 
