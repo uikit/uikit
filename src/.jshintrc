@@ -5,6 +5,7 @@
 	"browser": true,
 	"globals": {
 	    "module": false,
-        "require": true
+        "require": true,
+        "CSSRule": true
 	}
 }
