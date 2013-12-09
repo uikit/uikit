@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 
                             var files = {};
 
-                            if(t=="uikit") {
+                            if(t=="default") {
                                 files[distpath+"/uikit.css"] = [themepath+"/uikit.less"];
                             } else {
                                 files[distpath+"/uikit."+t+".css"] = [themepath+"/uikit.less"];
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 
                             var filesmin = {};
 
-                            if(t=="uikit") {
+                            if(t=="default") {
                                 filesmin[distpath+"/uikit.min.css"] = [themepath+"/uikit.less"];
                             } else {
                                 filesmin[distpath+"/uikit."+t+".min.css"] = [themepath+"/uikit.less"];
