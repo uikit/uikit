@@ -18,6 +18,7 @@
 **Documentation and repository**
 
   - Refactored repository structure
+  - Refactored variables
   - Added Grunt task to index new themes ( usage: grunt indexthemes )
   - Added UIkit addons
   - UIkit tests moved to /src
