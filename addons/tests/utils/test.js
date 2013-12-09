@@ -20,11 +20,12 @@
             "timepicker"
         ],
         themes = {
-            "Uikit":"../../themes/default/uikit/uikit.less",
+            "Default":"../../themes/default/uikit/uikit.less",
             "Almost Flat":"../../themes/default/almost-flat/uikit.less",
-            "Gradient":"../../themes/default/gradient/uikit.less"
+            "Gradient":"../../themes/default/gradient/uikit.less",
+            "UIkit": "../../src/less/uikit.less"
         },
-        theme      = localStorage["uikit.theme"] || 'Uikit',
+        theme      = localStorage["uikit.theme"] || 'Default',
         direction  = localStorage["uikit.direction"] || 'ltr',
         addon      = location.href.match(/tests\/(.+?)\.html/)[1];
 
@@ -35,14 +36,16 @@
 
             if (type==="success") {
 
-                themes = {};
+                themes = {
+                    "UIkit": "../../src/less/uikit.less"
+                };
 
                 data.forEach(function(item){
                     themes[item.name] = '../'+item.url;
                 });
             }
 
-            theme  = themes[theme] ? theme : 'Uikit';
+            theme  = themes[theme] ? theme : 'Default';
 
             render();
         });
@@ -51,7 +54,7 @@
 
     function render() {
 
-        theme  = themes[theme] ? theme : 'UIkit';
+        theme  = themes[theme] ? theme : 'Default';
 
         var testfolder = $("script[src$='utils/test.js']").attr("src").replace("utils/test.js", ""),
             testselect = $('<select><option value="">- Select Test -</option></select>').css("margin", "20px 5px")

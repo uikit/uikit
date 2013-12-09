@@ -64,11 +64,12 @@
             "utility"
         ],
         themes = {
-            "Uikit":"../../themes/default/uikit/uikit.less",
+            "Default":"../../themes/default/uikit/uikit.less",
             "Almost Flat":"../../themes/default/almost-flat/uikit.less",
-            "Gradient":"../../themes/default/gradient/uikit.less"
+            "Gradient":"../../themes/default/gradient/uikit.less",
+            "UIkit": "../less/uikit.less"
         },
-        theme      = localStorage["uikit.theme"] || 'Uikit',
+        theme      = localStorage["uikit.theme"] || 'Default',
         direction  = localStorage["uikit.direction"] || 'ltr';
 
 
@@ -78,7 +79,7 @@
         var incustomizer = (iniframe && !window.parent.themes);
 
         themes = $.extend(themes, window.parent.themes ? window.parent.themes:{});
-        theme  = themes[theme] ? theme : 'Uikit';
+        theme  = themes[theme] ? theme : 'Default';
 
         var testfolder = $("script[src$='utils/test.js']").attr("src").replace("utils/test.js", ""),
 
@@ -109,15 +110,17 @@
 
             if (type==="success") {
 
-                themes = {};
+                themes = {
+                    "UIkit": "../less/uikit.less"
+                };
 
                 data.forEach(function(item){
                     themes[item.name] = '../'+item.url;
                 });
             }
 
-            theme  = localStorage["uikit.theme"] || 'Uikit';
-            theme  = themes[theme] ? theme : 'Uikit';
+            theme  = localStorage["uikit.theme"] || 'Default';
+            theme  = themes[theme] ? theme : 'Default';
 
             render();
         });
