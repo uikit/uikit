@@ -50,7 +50,7 @@
         return transitionEnd && { end: transitionEnd };
     })();
 
-    UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60) };
+    UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60); };
     UI.support.touch                 = (('ontouchstart' in window) || (global.DocumentTouch && document instanceof global.DocumentTouch)  || (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || false);
     UI.support.mutationobserver      = (global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver || null);
 
