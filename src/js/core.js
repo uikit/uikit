@@ -8,6 +8,8 @@
         return;
     }
 
+    UI.version = '1.2.x';
+
     UI.fn = function(command, options) {
 
         var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
@@ -24,7 +26,6 @@
         });
     };
 
-    UI.version = '1.2.0';
 
     UI.support = {};
     UI.support.transition = (function() {
