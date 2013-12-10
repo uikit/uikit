@@ -49,8 +49,8 @@
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
 							<li class="uk-nav-header">Developers</li>
 							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li class="uk-active"><a href="documentation_create-a-theme.html">Create a theme</a></li>
+							<li><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
 
 						</ul>
@@ -70,13 +70,15 @@
 
 							<h3>1. Create the theme directory</h3>
 
-							<p>Download or clone UIkit, install Node and Grunt and create a new folder inside <code>/themes/custom</code>.</p>
+							<p>Download or clone UIkit and install Node and Grunt. Create a new <code>/themes/custom</code> folder and a <code>/themes/custom/THEME-NAME</code> folder.</p>
+
+							<p><span class="uk-badge">NOTE</span> The <code>/themes/custom/</code> folder is not taken by pull request. This is caused by the <em>git ignore</em> list of UIkit and save custom themes to get override.</p>
 
 							<h3>2. Add your theme</h3>
 
 							<p>Create the <code>uikit.less</code> file and add the <code>@import "../../../src/less/uikit.less";</code> rule to access all LESS files from the core framework and adopt its basic styling. That's it! You can start adding your own theme from scratch.</p>
 
-							<p><span class="uk-badge">NOTE</span> To get you started right away, we provide the default, gradient and almost-flat theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder into the <code>custom</code> directory and edit the <code>@import "../../../src/less/uikit.less";</code> to <code>@import "../../../src/less/uikit.less";</code>. Then you can start creating your own theme.</p>
+							<p><span class="uk-badge">NOTE</span> To get you started right away, we provide the default, gradient and almost-flat theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder into the <code>/custom</code> directory and edit the <code>@import "../../../src/less/uikit.less";</code> to <code>@import "../../../src/less/uikit.less";</code>. Then you can start creating your own theme.</p>
 
 							<hr class="uk-article-divider">
 
@@ -87,7 +89,7 @@
 							<h3>1. Use variables</h3>
 							<p>UIkit uses variables based on legendary <a href="http://lesscss.org">LESS CSS</a>. It is very likely that you will use certain values repeatedly throughout a document. This can cause quite a hassle, for example when subsequently adjusting a website's color scheme. Variables allow you to easily make these global changes and avoid redundant code.</p>
 
-							<p>The first thing to do is to customize the values of already declared variables. You can find all variables inside the <code>button.less</code> of the core framework and override them in your theme.</p>
+							<p>The first thing to do is to customize the values of already declared variables. You can find all variables for each component inside there LESS files of the core framework and override them in your theme.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
@@ -95,14 +97,14 @@
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/src/less/button.less</code></p>
-<pre><code>&lt;!-- default variable --&gt;
+<pre><code>// default variable
 @button-height:	30px;</code></pre>
 
 								</div>
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/themes/custom/THEME-NAME/button.less</code></p>
-<pre><code>&lt;!-- override variable --&gt;
+<pre><code>// override variable
 @button-height:	35px;</code></pre>
 
 								</div>
@@ -117,18 +119,18 @@
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/src/less/panel.less</code></p>
-<pre><code>&lt;!-- default variable --&gt;
+<pre><code>// default variable
 .uk-panel {
 	background: @background;
 
-	&lt;!-- mixin to add new declaration --&gt;
+	// mixin to add new declaration
 	.hook-panel;
 }</code></pre>
 								</div>
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/themes/custom/THEME-NAME/panel.less</code></p>
-<pre><code>&lt;!-- mixin to add new declaration --&gt;
+<pre><code>// mixin to add new declaration
 .hook-panel&#40;&#41; { color: #fff; }
 
 
@@ -142,14 +144,14 @@
 
 
 							<h3>3. Add selectors</h3>
-							<p>Should there be neither a variable or a hook available, you can of course create your own selector. To do so, use the <code>.hook-button-misc</code> hook and write your selector inside. This will sort your new selector to the right place of the compiled css file.</p>
+							<p>Should there be neither a variable or a hook available, you can of course create your own selector. To do so, use the <em>.hook-button-misc</em> hook and write your selector inside. This will sort your new selector to the right place of the compiled css file.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
 							<div class="uk-width-medium-1-2">
 
 								<p><code>/themes/custom/THEME-NAME/panel.less</code></p>
-<pre><code>&lt;!-- new rule with additional selector --&gt;
+<pre><code>// new rule with additional selector
 .hook-button-misc() {
 	.uk-panel a { color: #f00; }
 }</code></pre>
