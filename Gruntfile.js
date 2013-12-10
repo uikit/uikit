@@ -168,7 +168,7 @@ module.exports = function(grunt) {
                 banner: "<%= meta.banner %>\n"
               },
               files: {
-                src: [ 'dist/css/*.css', 'dist/js/*.js' ]
+                src: [ 'dist/css/*.css', 'dist/js/*.js', 'dist/addons/css/*.css', 'dist/addons/js/*.js' ]
               }
             }
         },
