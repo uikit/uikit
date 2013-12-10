@@ -2,9 +2,15 @@
 
     "use strict";
 
-    var $win        = $(window),
+    var $win           = $(window),
+        scrollspies    = [],
+        checkScrollSpy = function() {
+            for(var i=0; i < scrollspies.length; i++) {
+                UI.support.requestAnimationFrame.apply(window, [scrollspies[i].check]);
+            }
+        },
 
-        ScrollSpy   = function(element, options) {
+        ScrollSpy = function(element, options) {
 
             var $element = $(element);
 
@@ -50,11 +56,12 @@
                     }
                 };
 
-            $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
-
             fn();
 
             this.element.data("scrollspy", this);
+
+            this.check = fn;
+            scrollspies.push(this);
         };
 
     ScrollSpy.defaults = {
@@ -66,9 +73,17 @@
         "delay"      : 0
     };
 
+
     UI["scrollspy"] = ScrollSpy;
 
-    var ScrollSpyNav = function(element, options) {
+    var scrollspynavs = [],
+        checkScrollSpyNavs = function() {
+            for(var i=0; i < scrollspynavs.length; i++) {
+                UI.support.requestAnimationFrame.apply(window, [scrollspynavs[i].check]);
+            }
+        },
+
+        ScrollSpyNav = function(element, options) {
 
         var $element = $(element);
 
@@ -120,9 +135,10 @@
 
         fn();
 
-        $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
-
         this.element.data("scrollspynav", this);
+
+        this.check = fn;
+        scrollspynavs.push(this);
     };
 
     ScrollSpyNav.defaults = {
@@ -134,6 +150,14 @@
     };
 
     UI["scrollspynav"] = ScrollSpyNav;
+
+    var fnCheck = function(){
+        checkScrollSpy();
+        checkScrollSpyNavs();
+    };
+
+    // listen to scroll and resize
+    $win.on("scroll", fnCheck).on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
 
     // init code
     $(document).on("uk-domready", function(e) {
