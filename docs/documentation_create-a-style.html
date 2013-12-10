@@ -49,8 +49,8 @@
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
 							<li class="uk-nav-header">Developers</li>
 							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li class="uk-active"><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+							<li class="uk-active"><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
 
 						</ul>
@@ -64,11 +64,23 @@
 
 							<p class="uk-article-lead">Extend UIkit and add your own unique style.</p>
 
-							<p>UIkit uses variables based on legendary <a href="http://lesscss.org">LESS</a> CSS. It is very likely that you will use certain values repeatedly throughout a document. This can cause quite a hassle, for example when subsequently adjusting a website's color scheme. Variables allow you to easily make these global changes and avoid redundant code.</p>
+							<p>You can create unlimited styles for each theme. To create your own style, follow these steps:</p>
 
-							<h2>Create a style</h2>
+							<h3>1. Add the styles folder</h3>
 
-							<p>Creating a new style is very easy. To do so, go to your theme, which should be customized. For example the default theme <code>/themes/default/default/styles</code> and create a new directory with the name of your new style. Create a style.less inside <code>themes/default/default/</code></p>
+							<p>Create a new <code>/styles</code> folder in the <code>/themes/custom/THEME-NAME</code> directory.</p>
+
+							<h3>2. Add the style folder</h3>
+
+							<p>Create a new <code>/STYLE-NAME</code> folder inside the <code>/themes/custom/THEME-NAME/styles</code> folder and add a blank <em>style.less</em>. You need the the <em>style.less</em> to display your style in the Customizer.</p>
+
+							<h3>3. Include to the Customizer</h3>
+
+							<p>Run the grunt task <em>grunt indexthemes</em> on the UIkit directory to list your newly created style into the Customizer.</p>
+
+							<h3>4. Customize your style</h3>
+
+							<p>Now you can <a href="documentation_how-to-customize.html">customize</a> your style. When you are finish, hit the <em>Get LESS</em> button. Save your customized <em>style.less</em> in your theme style folder and override the blank <em>style.less</em>.</p>
 
 
 						</article>
