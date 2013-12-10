@@ -101,11 +101,23 @@ module.exports = function(grunt) {
 
                      if(fs.existsSync(override)) {
 
-                       lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
-                       lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".css"] = [override];
+                       if(theme.dir=="default" && theme.name=="default") {
 
-                       lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
-                       lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".min.css"] = [override];
+                         lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
+                         lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+f+".css"] = [override];
+
+                         lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
+                         lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+f+".min.css"] = [override];
+
+                       } else {
+
+                          lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
+                          lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".css"] = [override];
+
+                          lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
+                          lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+f+"."+theme.name+".min.css"] = [override];
+
+                       }
                      }
                   });
                 }
@@ -195,7 +207,7 @@ module.exports = function(grunt) {
                     archive: ("dist/uikit-"+pkginfo.version+".zip")
                 },
                 files: [
-                    { expand: true, cwd: "dist/", src: ["css/*", "js/*", "fonts/*"], dest: "" }
+                    { expand: true, cwd: "dist/", src: ["css/*", "js/*", "fonts/*", "addons/css/*", "addons/js/*"], dest: "" }
                 ]
             }
         },
