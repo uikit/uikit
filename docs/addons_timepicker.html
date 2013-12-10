@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Form Password - UIkit documentation</title>
+		<title>Timepicker - UIkit documentation</title>
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +14,8 @@
 		<script src="../dist/js/uikit.min.js"></script>
 		<script src="../vendor/highlight/highlight.js"></script>
 		<script src="js/docs.js"></script>
-		<script src="../dist/addons/js/form-password.js"></script>
-		<link rel="stylesheet" href="../dist/addons/css/form-password.css">
+		<script src="../dist/addons/js/timepicker.js"></script>
+		<link rel="stylesheet" href="../dist/addons/css/timepicker.css">
 	</head>
 
 	<body class="tm-background">
@@ -47,11 +47,11 @@
 
 						<ul class="tm-nav uk-nav" data-uk-nav>
 							<li><a href="addons_datepicker.html">Datepicker</a></li>
-							<li><a class="uk-active" href="addons_form-password.html">Form Password</a></li>
+							<li><a href="addons_form-password.html">Form Password</a></li>
 							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
 							<li><a href="addons_sortable.html">Sortable</a></li>
 							<li><a href="addons_sticky.html">Sticky</a></li>
-							<li><a href="addons_timepicker.html">Timepicker</a></li>
+							<li><a class="uk-active" href="addons_timepicker.html">Timepicker</a></li>
 						</ul>
 
 					</div>
@@ -59,33 +59,23 @@
 
 						<article class="uk-article">
 
-							<h1>Form Password</h1>
+							<h1>Timepicker</h1>
 
 							<p class="uk-article-lead">Create a form password with a toggler to conceal or show passwords.</p>
 
 							<h2>Usage</h2>
 
-							<p>To apply the form password, add the <code>uk-form-password</code> class to a <code>&lt;div&gt;</code> inside a form and wrap it around a password input field.</p>
-
-							<p>To create a toggler for showing or hiding passwords, just add the <code>.uk-form-password-toggle</code> class and the <code>data-uk-form-password</code> attribute to an <code>&lt;a&gt;</code> element.</p>
+							<p>To apply this addon, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<form class="uk-form">
-								<div class="uk-form-password">
-									<input type="password">
-									<a href="" class="uk-form-password-toggle" data-uk-form-password>Show</a>
-								</div>
-							</form>
+							<textarea data-uk-markdownarea>**test**</textarea>
+
+							<textarea data-uk-markdownarea="{mode:'tab'}">**test**</textarea>
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;form class="uk-form"&gt;
-	&lt;div class="uk-form-password"&gt;
-		&lt;input type="password"&gt;
-		&lt;a href="" class="uk-form-password-toggle" data-uk-form-password&gt;...&lt;/a&gt;
-	&lt;/div&gt;
-&lt;/form&gt;</code></pre>
+<pre><code>&lt;textarea data-uk-markdownarea&gt;...&lt;/textarea&gt;</code></pre>
 
 						</article>
 
@@ -194,11 +184,11 @@
 					<li class="uk-parent"><a href="#"><i class="uk-icon-puzzle-piece"></i> Addons</a>
 						<ul class="uk-nav-sub">
 							<li><a href="addons_datepicker.html">Datepicker</a></li>
-							<li><a class="uk-active" href="addons_form-password.html">Form Password</a></li>
+							<li><a href="addons_form-password.html">Form Password</a></li>
 							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
 							<li><a href="addons_sortable.html">Sortable</a></li>
 							<li><a href="addons_sticky.html">Sticky</a></li>
-							<li><a href="addons_timepicker.html">Timepicker</a></li>
+							<li><a class="uk-active" href="addons_timepicker.html">Timepicker</a></li>
 						</ul>
 					</li>
 				</ul>
