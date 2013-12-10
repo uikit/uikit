@@ -67,7 +67,7 @@
         this.element = $element.on("click", function(e) {
             e.preventDefault();
             $this.toggle();
-            $this.element.blur();
+            $element.trigger("change", [$element.blur().hasClass("uk-active")]);
         });
 
         this.element.data("button", this);
