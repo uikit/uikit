@@ -49,7 +49,7 @@
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
 							<li class="uk-nav-header">Developers</li>
 							<li class="uk-active"><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_variables.html">Variables</a></li>
+							<li><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
 							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
 
@@ -85,6 +85,14 @@
 								</thead>
 								<tbody>
 									<tr>
+										<td><code>/addons/src</code></td>
+										<td>Contains all add-on related LESS and JavaScript files.</td>
+									</tr>
+									<tr>
+										<td><code>/addons/tests</code></td>
+										<td>Contains test files of all add-on components.</td>
+									</tr>
+									<tr>
 										<td><code>/dist</code></td>
 										<td>Contains all compiled and minified CSS and JavaScript files, as well as fonts.</td>
 									</tr>
@@ -105,12 +113,12 @@
 										<td>Contains fonts used in UIkit.</td>
 									</tr>
 									<tr>
-										<td><code>/src/themes</code></td>
-										<td>Contains all additonal theme files organized in sub folders.</td>
+										<td><code>/src/tests</code></td>
+										<td>Contains test files of all UIkit components.</td>
 									</tr>
 									<tr>
-										<td><code>/tests</code></td>
-										<td>Contains test files of all UIkit components.</td>
+										<td><code>/themes</code></td>
+										<td>Contains all additonal theme files organized in sub folders.</td>
 									</tr>
 									<tr>
 										<td><code>/vendor</code></td>
@@ -140,6 +148,10 @@ npm install</code></pre>
 
 <pre><code>grunt watch</code></pre>
 
+							<p>You can index your own themes into the customizer.</p>
+
+<pre><code>grunt indexthemes</code></pre>
+
 							<hr class="uk-article-divider">
 
 							<h2>Tests</h2>
@@ -148,7 +160,7 @@ npm install</code></pre>
 
 							<p>Instead of pre-compiled CSS, we use client-side JavaScript to translate LESS files, so that you can see changes on-the-fly in your browser, when working on your own theme or modifying existing ones. You can switch between all components and themes within the tests and even switch to RTL mode.</p>
 
-							<p><a class="uk-button uk-button-large uk-button-primary" href="../tests/overview.html">Go to tests</a></p>
+							<p><a class="uk-button uk-button-large uk-button-primary" href="../src/tests/overview.html">Go to tests</a></p>
 
 						</article>
 
