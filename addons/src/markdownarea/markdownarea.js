@@ -188,7 +188,7 @@
     Markdownarea.commands = {
         "fullscreen": {
             "title"  : 'Fullscreen',
-            "label"  : '<i class="uk-icon-resize-full"></i>',
+            "label"  : '<i class="uk-icon-expand"></i>',
             "action" : function(editor){
 
                 editor.markdownarea.markdownarea.toggleClass("uk-markdownarea-fullscreen");
@@ -254,7 +254,7 @@
         },
         "picture" : {
             "title"  : "Picture",
-            "label"  : '<i class="uk-icon-picture"></i>',
+            "label"  : '<i class="uk-icon-picture-o"></i>',
             "action" : function(editor){
                 baseReplacer("![$1](http://)", editor);
             }
@@ -291,7 +291,7 @@
                                         '<ul class="uk-markdownarea-navbar-nav">' +
                                             '<li class="uk-markdown-button-markdown"><a>{:lblCodeview}</a></li>' +
                                             '<li class="uk-markdown-button-preview"><a>{:lblPreview}</a></li>' +
-                                            '<li><a data-markdownarea-cmd="fullscreen"><i class="uk-icon-resize-full"></i></a></li>' +
+                                            '<li><a data-markdownarea-cmd="fullscreen"><i class="uk-icon-expand"></i></a></li>' +
                                         '</ul>' +
                                     '</div>' +
                                 '</div>' +
