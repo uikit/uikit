@@ -12,7 +12,7 @@ jQuery(function($) {
         loaded      = false,
         coptions    = {
             "styles": [
-                {"name": "Default", "url": "../themes/default/uikit/uikit.less", "config": "../themes/default/uikit/customizer.json"},
+                {"name": "Default", "url": "../themes/default/default/uikit.less", "config": "../themes/default/default/customizer.json"},
                 {"name": "Gradient", "url": "../themes/default/gradient/uikit.less", "config": "../themes/default/gradient/customizer.json"},
                 {"name": "Almost Flat", "url": "../themes/default/almost-flat/uikit.less", "config": "../themes/default/almost-flat/customizer.json"}
             ]
