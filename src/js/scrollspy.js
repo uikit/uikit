@@ -16,7 +16,7 @@
             var $this = this, idle, inviewstate, initinview,
                 fn = function(){
 
-                    var inview = isInView($this.element, $this.options);
+                    var inview = UI.Utils.isInView($this.element, $this.options);
 
                     if(inview && !inviewstate) {
 
@@ -86,7 +86,7 @@
             inviews = [];
 
             for(var i=0 ; i < targets.length ; i++) {
-                if(isInView(targets.eq(i), $this.options)) {
+                if(UI.Utils.isInView(targets.eq(i), $this.options)) {
                     inviews.push(targets.eq(i));
                 }
             }
@@ -134,28 +134,6 @@
     };
 
     UI["scrollspynav"] = ScrollSpyNav;
-
-    // helper
-
-    function isInView(element, options) {
-
-        var $element = element;
-
-        if (!$element.is(':visible')) {
-            return false;
-        }
-
-        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
-
-        if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
-            left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
-          return true;
-        } else {
-          return false;
-        }
-    }
-
-    ScrollSpy.isInView = isInView;
 
     // init code
     $(document).on("uk-domready", function(e) {

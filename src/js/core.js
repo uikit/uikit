@@ -1,8 +1,8 @@
-(function($, doc) {
+(function($, doc, global) {
 
     "use strict";
 
-    var UI = $.UIkit || {}, $html = $("html");
+    var UI = $.UIkit || {}, $html = $("html"), $win = $(window);
 
     if (UI.fn) {
         return;
@@ -48,11 +48,11 @@
         }());
 
         return transitionEnd && { end: transitionEnd };
-
     })();
 
-    UI.support.touch            = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof window.DocumentTouch)  || (window.navigator['msPointerEnabled'] && window.navigator['msMaxTouchPoints'] > 0) || false);
-    UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null);
+    UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60) };
+    UI.support.touch                 = (('ontouchstart' in window) || (global.DocumentTouch && document instanceof global.DocumentTouch)  || (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || false);
+    UI.support.mutationobserver      = (global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver || null);
 
     UI.Utils = {};
 
@@ -96,8 +96,25 @@
         }, 0);
     };
 
-    UI.Utils.events       = {};
-    UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
+    UI.Utils.isInView = function(element, options) {
+
+        var $element = $(element);
+
+        if (!$element.is(':visible')) {
+            return false;
+        }
+
+        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
+
+        options = $.extend({topoffset:0, leftoffset:0}, options);
+
+        if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
+            left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
+          return true;
+        } else {
+          return false;
+        }
+    };
 
     UI.Utils.options = function(string) {
 
@@ -113,6 +130,9 @@
 
         return options;
     };
+
+    UI.Utils.events       = {};
+    UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
     $.UIkit = UI;
     $.fn.uk = UI.fn;
@@ -132,17 +152,14 @@
 
         // pass in the target node, as well as the observer options
         observer.observe(document.body, { childList: true, subtree: true });
+
+        // remove css hover rules for touch devices
+        if (UI.support.touch) {
+            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+        }
     });
 
     // add touch identifier class
     $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
 
-    // remove css hover rules for touch devices
-    if (UI.support.touch) {
-
-      $(function(){
-          UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
-      });
-    }
-
-})(jQuery, document);
+})(jQuery, document, window);
