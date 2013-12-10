@@ -7,6 +7,7 @@
  * Sub-objects: 	`uk-nav-header`
  *					`uk-nav-divider`
  *					`uk-nav-sub`
+ *					`uk-parent-ul`
  *
  * Modifiers:		`uk-nav-parent-icon`
  *					`uk-nav-side`
@@ -102,6 +103,10 @@ ul.uk-nav-sub {
 	.hook-nav-sub;
 }
 
+/* Sub-object: `uk-parent-ul`
+ ========================================================================== */
+
+.uk-parent-ul li a { padding: @nav-nested-padding-vertical @nav-padding-horizontal @nav-nested-padding-vertical @nav-nested-padding-horizontal; }
 
 /* Modifier: `uk-nav-parent-icon`
  ========================================================================== */
