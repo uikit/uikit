@@ -33,7 +33,7 @@
 				<a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
 				<ul class="uk-navbar-nav uk-hidden-small">
-					<li><a href="documentation.html">Get Started</a></li>
+					<li><a href="documentation_get-started.html">Get Started</a></li>
 					<li><a href="components.html">Components</a></li>
 					<li class="uk-active"><a href="addons.html">Add-ons</a></li>
 					<li><a href="customizer.html">Customizer</a></li>
@@ -73,7 +73,34 @@
 
 							<h2>Usage</h2>
 
-							<p>To apply this add-on, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
+							<p>To apply this add-on, you firstly need to include the necessary <a href="http://codemirror.net/">CodeMirror</a> and <a href="https://github.com/chjj/marked">marked</a> dependencies. To do so, just add the appropriate script to the header of your project.</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;link rel="stylesheet" href="uikit.min.css" /&gt;
+		&lt;script src="jquery.js">&lt;/script&gt;
+		&lt;script src="uikit.min.js">&lt;/script&gt;
+		&lt;link rel="stylesheet" href="codemirror.css"&gt;
+
+		&lt;!-- Codemirror and marked dependencies --&gt;
+		&lt;script src="codemirror.js"&gt;&lt;/script&gt;
+		&lt;script src="markdown.js"&gt;&lt;/script&gt;
+		&lt;script src="overlay.js"&gt;&lt;/script&gt;
+		&lt;script src="xml.js"&gt;&lt;/script&gt;
+		&lt;script src="gfm.js"&gt;&lt;/script&gt;
+		&lt;script src="marked.js"&gt;&lt;/script&gt;
+
+		&lt;!-- Markdown Area JavaScript and CSS --&gt;
+		&lt;script src="markdownarea.js"&gt;&lt;/script&gt;
+		&lt;link rel="stylesheet" href="markdownarea.css"&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+							<p>Afterwards, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
