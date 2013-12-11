@@ -429,14 +429,14 @@
 
 							<h3>Button group with dropdowns</h3>
 
-							<p>Use button groups to split buttons into a standard action on the left and a dropdown toggle on the right. Just wrap a <code>&lt;div&gt;</code> element around the button and the dropdown and add the <code>data-uk-dropdown</code> attribute. Of course, a dropdown can also be applied to a button within a button group.</p>
+							<p>Use button groups to split buttons into a standard action on the left and a dropdown toggle on the right. Just wrap a <code>&lt;div&gt;</code> element around the button and the dropdown and add the <code>data-uk-dropdown="{mode:'click'}"</code> attribute. Of course, a dropdown can also be applied to a button within a button group.</p>
 
 							<h4 class="tm-article-subtitle">Example</h4>
 
 							<div class="uk-margin">
 								<div class="uk-button-group">
 									<button class="uk-button">Button</button>
-									<div data-uk-dropdown>
+									<div data-uk-dropdown="{mode:'click'}">
 										<button class="uk-button"><i class="uk-icon-caret-down"></i></button>
 										<div class="uk-dropdown uk-dropdown-small">
 											<ul class="uk-nav uk-nav-dropdown">
@@ -454,7 +454,7 @@
 
 								<div class="uk-button-group">
 									<button class="uk-button uk-button-primary">Button</button>
-									<div data-uk-dropdown>
+									<div data-uk-dropdown="{mode:'click'}">
 										<button class="uk-button uk-button-primary"><i class="uk-icon-caret-down"></i></button>
 										<div class="uk-dropdown uk-dropdown-small">
 											<ul class="uk-nav uk-nav-dropdown">
@@ -472,7 +472,7 @@
 
 								<div class="uk-button-group">
 									<button class="uk-button uk-button-success">Button</button>
-									<div data-uk-dropdown>
+									<div data-uk-dropdown="{mode:'click'}">
 										<button class="uk-button uk-button-success"><i class="uk-icon-caret-down"></i></button>
 										<div class="uk-dropdown uk-dropdown-small">
 											<ul class="uk-nav uk-nav-dropdown">
@@ -490,7 +490,7 @@
 
 								<div class="uk-button-group">
 									<button class="uk-button uk-button-danger">Button</button>
-									<div data-uk-dropdown>
+									<div data-uk-dropdown="{mode:'click'}">
 										<button class="uk-button uk-button-danger"><i class="uk-icon-caret-down"></i></button>
 										<div class="uk-dropdown uk-dropdown-small">
 											<ul class="uk-nav uk-nav-dropdown">
@@ -508,7 +508,7 @@
 
 								<div class="uk-button-group">
 									<button class="uk-button" disabled>Button</button>
-									<div data-uk-dropdown>
+									<div data-uk-dropdown="{mode:'click'}">
 										<button class="uk-button" disabled><i class="uk-icon-caret-down"></i></button>
 										<div class="uk-dropdown uk-dropdown-small">
 											<ul class="uk-nav uk-nav-dropdown">
@@ -533,7 +533,7 @@
 	&lt;button class="uk-button"&gt;...&lt;/button&gt;
 
 	&lt;!-- This is the container enabling the JavaScript --&gt;
-	&lt;div data-uk-dropdown&gt;
+	&lt;div data-uk-dropdown="{mode:'click'}"&gt;
 
 		&lt;!-- This is the button toggling the dropdown --&gt;
 		&lt;a href="" class="uk-button"&gt;...&lt;/a&gt;
