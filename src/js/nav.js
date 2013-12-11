@@ -8,7 +8,7 @@
 
         if($element.data("nav")) return;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, Nav.defaults, options);
         this.element = $element.on("click", this.options.toggler, function(e) {
             e.preventDefault();
 
@@ -32,12 +32,6 @@
     };
 
     $.extend(Nav.prototype, {
-
-        options: {
-            "toggler": ">li.uk-parent > a[href='#']",
-            "lists": ">li.uk-parent > ul",
-            "multiple": false
-        },
 
         open: function(li, noanimation) {
 
@@ -68,6 +62,12 @@
         }
 
     });
+
+    Nav.defaults = {
+        "toggler": ">li.uk-parent > a[href='#']",
+        "lists": ">li.uk-parent > ul",
+        "multiple": false
+    };
 
     UI["nav"] = Nav;
 

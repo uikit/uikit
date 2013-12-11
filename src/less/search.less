@@ -1,24 +1,46 @@
-/*
- * Name:			Search
- * Description:		Defines a search component
- *
- * Component:		`uk-search`
- *
- * Sub-objects:		`uk-search-field`
- *					`uk-search-close`
- *
- * States:		 	`uk-active`
- *					`uk-loading`
- *
- * Uses:			Animation
- *					Icon: FontAwesome
- *
- * Used by:			Off-canvas
- *
- ========================================================================== */
+// Name:			Search
+// Description:		Defines a search component
+//
+// Component:		`uk-search`
+//
+// Sub-objects:		`uk-search-field`
+//					`uk-search-close`
+//
+// States:		 	`uk-active`
+//					`uk-loading`
+//
+// Uses:			Animation
+//					Icon: FontAwesome
+//
+// Used by:			Off-canvas
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@search-width:									120px;
+@search-focus-width:							180px;
+@search-height: 								30px;
+@search-padding: 								30px;
+@search-border: 								rgba(0,0,0,0);
+@search-background: 							rgba(0,0,0,0);
+@search-color:									#444;
+@search-placeholder-color:						#999;
+
+@search-icon: 									"\f002";
+@search-icon-size: 								14px;
+@search-icon-color:			 					rgba(0,0,0,0.2);
+
+@search-close-icon: 							"\f00d";
+@search-close-size: 							14px;
+@search-close-color: 							rgba(0,0,0,0.2);
+@search-close-icon-loading: 					"\f110";
+
+
+/* ========================================================================
+   Component: Search
  ========================================================================== */
 
 /*
@@ -45,7 +67,7 @@
 	width: @search-padding;
 	line-height: @search-height;
 	text-align: center;
-	font-family: "FontAwesome";
+	font-family: FontAwesome;
 	font-size: @search-icon-size;
 	color: @search-icon-color;
 	.hook-search-icon;
@@ -133,7 +155,7 @@ input.uk-search-field { -webkit-appearance: none; }
 .uk-search-close:after {
 	display: block;
 	content: @search-close-icon;
-	font-family: "FontAwesome";
+	font-family: FontAwesome;
 }
 
 /* Loading icon */
@@ -144,11 +166,14 @@ input.uk-search-field { -webkit-appearance: none; }
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-search-misc;
 
 .hook-search() {}
 .hook-search-icon() {}
 .hook-search-field() {}
 .hook-search-field-focus() {}
 .hook-search-close() {}
+.hook-search-misc() {}

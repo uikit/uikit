@@ -1,22 +1,40 @@
-/*
- * Name:			Pagination
- * Description:		Defines styles for a navigation between pages
- *
- * Component:		`uk-pagination`
- *
- * Sub-objects:		`uk-pagination-previous`
- *					`uk-pagination-next`
- *
- * States:		 	`uk-active`
- *					`uk-disabled`
- *
- * Modifiers:		`uk-pagination-left`
- *					`uk-pagination-right`
- *
- ========================================================================== */
+// Name:			Pagination
+// Description:		Defines styles for a navigation between pages
+//
+// Component:		`uk-pagination`
+//
+// Sub-objects:		`uk-pagination-previous`
+//					`uk-pagination-next`
+//
+// States:		 	`uk-active`
+//					`uk-disabled`
+//
+// Modifiers:		`uk-pagination-left`
+//					`uk-pagination-right`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@pagination-line-height:						20px;
+@pagination-background:							#eee;
+@pagination-color:								#444;
+@pagination-hover-background:					#f5f5f5;
+@pagination-hover-color:						#444;
+@pagination-onclick-background:					#ddd;
+@pagination-onclick-color:						#444;
+
+@pagination-active-background:					#00a8e6;
+@pagination-active-color:						#fff;
+
+@pagination-disabled-background:				#f5f5f5;
+@pagination-disabled-color:						#999;
+
+
+/* ========================================================================
+   Component: Pagination
  ========================================================================== */
 
 /*
@@ -147,8 +165,10 @@
 .uk-pagination-right { text-align: right; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-pagination-misc;
 
 .hook-pagination-item() {}
 .hook-pagination-link() {}
@@ -156,3 +176,4 @@
 .hook-pagination-link-active() {}
 .hook-pagination-active() {}
 .hook-pagination-disabled() {}
+.hook-pagination-misc() {}

@@ -1,28 +1,28 @@
-/*
- * Name:			Animation
- * Description:		Provides a useful set of keyframe animations
- *
- * Component:		`uk-animation-*`
- *
- * Modifiers:		`uk-animation-fade`
- *					`uk-animation-scale-up`
- *					`uk-animation-scale-down`
- *					`uk-animation-slide-top`
- *					`uk-animation-slide-bottom`
- *					`uk-animation-slide-left`
- *					`uk-animation-slide-right`
- *					`uk-animation-reverse`
- *
- * Uses:			Scrollspy
- *
- * Used by:			Dropdown
- *					Icon
- *					Search
- *
- ========================================================================== */
+// Name:			Animation
+// Description:		Provides a useful set of keyframe animations
+//
+// Component:		`uk-animation-*`
+//
+// Modifiers:		`uk-animation-fade`
+//					`uk-animation-scale-up`
+//					`uk-animation-scale-down`
+//					`uk-animation-slide-top`
+//					`uk-animation-slide-bottom`
+//					`uk-animation-slide-left`
+//					`uk-animation-slide-right`
+//					`uk-animation-reverse`
+//
+// Uses:			Scrollspy
+//
+// Used by:			Dropdown
+//					Icon
+//					Search
+//
+// ========================================================================
 
 
-/* Component
+/* ========================================================================
+   Component: Animation
  ========================================================================== */
 
 [class*='uk-animation-'] {
@@ -36,7 +36,6 @@
 
 /* Hide animated element if scrollspy is used */
 [data-uk-scrollspy*='uk-animation-'] { opacity: 0; }
-
 
 /*
  * Fade
@@ -392,3 +391,10 @@
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(359deg); }
 }
+
+// Hooks
+// ========================================================================
+
+.hook-animation-misc;
+
+.hook-animation-misc() {}

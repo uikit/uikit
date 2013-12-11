@@ -1,23 +1,34 @@
-/*
- * Name:			Modal
- * Description:		Defines styles for modal dialogs
- *
- * Component: 		`uk-modal`
- *
- * Sub-objects:		`uk-modal-dialog`
- *					`uk-modal-close`
- *
- * Modifiers:		`uk-modal-dialog-slide`
- *					`uk-modal-dialog-frameless`
- *
- * States:			`uk-open`
- *
- * Uses:			Close: `uk-close`
- *
- ========================================================================== */
+// Name:			Modal
+// Description:		Defines styles for modal dialogs
+//
+// Component: 		`uk-modal`
+//
+// Sub-objects:		`uk-modal-dialog`
+//					`uk-modal-close`
+//
+// Modifiers:		`uk-modal-dialog-slide`
+//					`uk-modal-dialog-frameless`
+//
+// States:			`uk-open`
+//
+// Uses:			Close: `uk-close`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@modal-z-index:									1020;
+@modal-background:								rgba(0,0,0,0.6);
+
+@modal-dialog-padding:							20px;
+@modal-dialog-width:							600px;
+@modal-dialog-background:						#fff;
+
+
+/* ========================================================================
+   Component: Modal
  ========================================================================== */
 
 /*
@@ -183,8 +194,11 @@
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-modal-misc;
 
 .hook-modal() {}
 .hook-modal-dialog() {}
+.hook-modal-misc() {}

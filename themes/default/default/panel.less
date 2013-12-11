@@ -1,0 +1,67 @@
+//
+// Component: Panel
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@panel-title-margin-bottom:						@global-margin;
+@panel-title-font-size:							round(@global-font-size * 1.28); // 18px
+@panel-title-line-height:						round(@panel-title-font-size * 1.33); // 24px
+@panel-title-color:								@global-color;
+
+@panel-box-padding:								@global-margin;
+@panel-box-color:								@global-color;
+@panel-box-title-color:							@global-color;
+@panel-box-badge-right:							@panel-box-badge-top;
+
+@panel-header-title-border:						@global-border;
+@panel-header-title-color:						@global-color;
+
+@panel-divider-gutter:							@global-grid-gutter;
+@panel-divider-large-gutter:					@global-grid-large-gutter;
+@panel-divider-border:							@global-border;
+
+
+// Sub-object: `uk-panel-title`
+// ========================================================================
+
+.hook-panel-title() {}
+
+
+// Sub-object: `uk-panel-badge`
+// ========================================================================
+
+.hook-panel-badge() {}
+
+
+// Modifier: `uk-panel-box`
+// ========================================================================
+
+.hook-panel-box() {}
+
+//
+// Sub-modifier: `uk-panel-box-primary`
+//
+
+.hook-panel-box-primary() {}
+
+//
+// Sub-modifier: `uk-panel-box-secondary`
+//
+
+.hook-panel-box-secondary() {}
+
+
+// Modifier: `uk-panel-header`
+// ========================================================================
+
+.hook-panel-header() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-panel-misc() {}

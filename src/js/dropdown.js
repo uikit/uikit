@@ -9,7 +9,7 @@
 
         if($element.data("dropdown")) return;
 
-        this.options  = $.extend({}, this.options, options);
+        this.options  = $.extend({}, Dropdown.defaults, options);
         this.element  = $element;
         this.dropdown = this.element.find(".uk-dropdown");
 
@@ -22,12 +22,15 @@
             this.boundary = $(window);
         }
 
-        if (this.options.mode == "click") {
+        if (this.options.mode == "click" || UI.support.touch) {
 
             this.element.on("click", function(e) {
 
-                if (!$(e.target).parents(".uk-dropdown").length) {
+                var $target = $(e.target);
+
+                if (!$target.parents(".uk-dropdown").length) {
                     e.preventDefault();
+                    $target.blur();
                 }
 
                 if (active && active[0] != $this.element[0]) {
@@ -42,18 +45,7 @@
 
                     active = $this.element;
 
-                    $(document).off("click.outer.dropdown");
-
-                    setTimeout(function() {
-                        $(document).on("click.outer.dropdown", function(e) {
-
-                            if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
-                                active.removeClass("uk-open");
-
-                                $(document).off("click.outer.dropdown");
-                            }
-                        });
-                    }, 10);
+                    $this.registerOuterClick();
 
                 } else {
 
@@ -83,6 +75,8 @@
 
             }).on("mouseleave", function() {
 
+                $this.registerOuterClick();
+
                 $this.remainIdle = setTimeout(function() {
 
                     $this.element.removeClass("uk-open");
@@ -95,18 +89,27 @@
         }
 
         this.element.data("dropdown", this);
-
     };
 
     $.extend(Dropdown.prototype, {
 
         remainIdle: false,
 
-        options: {
-            "mode": "hover",
-            "remaintime": 800,
-            "justify": false,
-            "boundary": $(window)
+        registerOuterClick: function(){
+
+            var $this = this;
+
+            $(document).off("click.outer.dropdown");
+
+            setTimeout(function() {
+                $(document).on("click.outer.dropdown", function(e) {
+
+                    if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
+                        active.removeClass("uk-open");
+                        $(document).off("click.outer.dropdown");
+                    }
+                });
+            }, 10);
         },
 
         checkDimensions: function() {
@@ -167,10 +170,17 @@
 
     });
 
+    Dropdown.defaults = {
+        "mode": "hover",
+        "remaintime": 800,
+        "justify": false,
+        "boundary": $(window)
+    };
+
     UI["dropdown"] = Dropdown;
 
 
-    var triggerevent = UI.support.touch ? "touchstart":"mouseenter";
+    var triggerevent = UI.support.touch ? UI.Utils.events.click:"mouseenter";
 
     // init code
     $(document).on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
@@ -180,7 +190,9 @@
 
             var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
-            if(triggerevent == "mouseenter" && dropdown.options.mode == "hover") {
+            if (UI.support.touch) {
+                ele.trigger("click");
+            } else if(dropdown.options.mode == "hover") {
                 ele.trigger("mouseenter");
             }
         }

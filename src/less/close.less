@@ -1,20 +1,26 @@
-/*
- * Name:			Close
- * Description:		Defines styles for a close button
- *
- * Component:		`uk-close`
- *
- * Modifiers:		`uk-close-alt`
- *
- * Uses:			Icon: FontAwesome
- *
- * Used by:			Alert
- *					Modal
- *
- ========================================================================== */
+// Name:			Close
+// Description:		Defines styles for a close button
+//
+// Component:		`uk-close`
+//
+// Modifiers:		`uk-close-alt`
+//
+// Uses:			Icon: FontAwesome
+//
+// Used by:			Alert
+//					Modal
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@close-alt-background:							#eee;
+
+
+/* ========================================================================
+   Component: Close
  ========================================================================== */
 
 /*
@@ -44,7 +50,7 @@
 .uk-close:after {
 	display: block;
 	content: "\f00d";
-	font-family: "FontAwesome";
+	font-family: FontAwesome;
 }
 
 /*
@@ -89,8 +95,11 @@ a.uk-close:hover {
 .uk-close-alt:focus:after { opacity: 0.8; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-close-misc;
 
 .hook-close() {}
 .hook-close-alt() {}
+.hook-close-misc() {}

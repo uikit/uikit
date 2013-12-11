@@ -1,0 +1,55 @@
+//
+// Component: Alert
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@alert-margin-vertical:							@global-margin;
+
+//
+// New
+//
+
+@alert-border:									fade(@alert-color, 30%);
+@alert-text-shadow:								@global-text-shadow;
+
+@alert-success-border:							fade(@alert-success-color, 30%);
+@alert-warning-border:							fade(@alert-warning-color, 30%);
+@alert-danger-border:							fade(@alert-danger-color, 30%);
+
+
+// Component
+// ========================================================================
+
+.hook-alert() {
+	border: 1px solid @alert-border;
+	border-radius: @global-border-radius;
+	text-shadow: 0 1px 0 @alert-text-shadow;
+}
+
+
+// Modifier: `uk-alert-success`
+// ========================================================================
+
+.hook-alert-success() { border-color: @alert-success-border; }
+
+
+// Modifier: `uk-alert-warning`
+// ========================================================================
+
+.hook-alert-warning() { border-color: @alert-warning-border; }
+
+
+// Modifier: `uk-alert-danger`
+// ========================================================================
+
+.hook-alert-danger() { border-color: @alert-danger-border; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-alert-misc() {}

@@ -1,0 +1,161 @@
+//
+// Component: Navbar
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@navbar-background:								@global-default-background;
+@navbar-color:									@global-color;
+@navbar-link-color:								@global-link-color;
+@navbar-link-hover-color:						@global-link-hover-color;
+
+@navbar-nav-line-height:						@navbar-nav-height;
+@navbar-nav-color:								@global-color;
+@navbar-nav-font-size:							@global-font-size;
+@navbar-nav-hover-background:					transparent;
+@navbar-nav-hover-color:						@global-color;
+@navbar-nav-onclick-background:					@global-default-active-background;
+@navbar-nav-onclick-color:						@global-color;
+@navbar-nav-active-background:					#fafafa;
+@navbar-nav-active-color:						@global-color;
+
+@navbar-brand-font-size:						round(@global-font-size * 1.28); // 18px
+@navbar-brand-color:							@global-color;
+@navbar-brand-hover-color:						@global-color;
+
+@navbar-toggle-font-size:						round(@global-font-size * 1.28); // 18px
+@navbar-toggle-color:							@global-color;
+@navbar-toggle-hover-color:						@global-color;
+
+//
+// New
+//
+
+@navbar-border:									rgba(0,0,0,0.1);
+@navbar-border-bottom:							rgba(0,0,0,0.3);
+@navbar-gradient-top:							@global-default-gradient-top;
+@navbar-gradient-bottom:						@global-default-gradient-bottom;
+@navbar-text-shadow:							@global-text-shadow;
+
+@navbar-nav-hover-border:						rgba(0,0,0,0.1);
+@navbar-nav-hover-border-top:					rgba(0,0,0,0.1);
+@navbar-nav-onclick-border-top:					rgba(0,0,0,0.2);
+
+@navbar-nav-hover-box-shadow:					rgba(0,0,0,0.1);
+@navbar-nav-onclick-box-shadow:					rgba(0,0,0,0.1);
+
+
+// Component
+// ========================================================================
+
+//
+// 1. `background-origin` is needed to prevent the background-image gradients from repeating under the border
+//
+
+.hook-navbar() {
+	border: 1px solid @navbar-border;
+	border-bottom-color: @navbar-border-bottom;
+	background-origin: border-box; // 1 */
+	background-image: -webkit-linear-gradient(top, @navbar-gradient-top, @navbar-gradient-bottom);
+	background-image: linear-gradient(to bottom, @navbar-gradient-top, @navbar-gradient-bottom);
+}
+
+
+// Sub-object: `uk-navbar-nav`
+// ========================================================================
+
+//
+// 1. Overlap top border
+// 2. Collapse horizontal borders
+// 3. Adjust height because of 1. and `box-sizing` set to `border-box`
+//
+
+.hook-navbar-nav() {
+	margin-top: -1px; // 1
+	margin-left: -1px; // 2
+	height: @navbar-nav-height + 1; // 3
+	border: 1px solid transparent;
+	border-bottom-width: 0;
+	text-shadow: 0 1px 0 @navbar-text-shadow;
+}
+
+/*
+ * Needed for hover
+ * 1. Create position context to superimpose the successor elements border
+ * 2. Needed because the `li` elements have already a position context
+ */
+
+// Hover
+.hook-navbar-nav-hover() {
+	position: relative; // 1 */
+	z-index: 1; // 2 */
+	border-left-color: @navbar-nav-hover-border;
+	border-right-color: @navbar-nav-hover-border;
+	border-top-color: @navbar-nav-hover-border-top;
+	box-shadow: inset 0 2px 4px @navbar-nav-hover-box-shadow;
+}
+
+// OnClick
+.hook-navbar-nav-onclick() {
+	border-left-color: @navbar-nav-hover-border;
+	border-right-color: @navbar-nav-hover-border;
+	border-top-color: @navbar-nav-onclick-border-top;
+	box-shadow: inset 0 2px 4px @navbar-nav-onclick-box-shadow;
+}
+
+// Active
+.hook-navbar-nav-active() {
+	border-left-color: @navbar-nav-hover-border;
+	border-right-color: @navbar-nav-hover-border;
+	border-top-color: @navbar-nav-onclick-border-top;
+	box-shadow: inset 0 2px 4px @navbar-nav-onclick-box-shadow;
+}
+
+
+// Sub-object: `uk-navbar-content`
+// ========================================================================
+
+.hook-navbar-content() { text-shadow: 0 1px 0 @navbar-text-shadow; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-navbar-misc() {
+
+	.uk-navbar:not(.uk-navbar-attached) { border-radius: @global-border-radius; }
+
+	/*
+	 * Apply same `border-radius` as `uk-navbar`
+	 */
+
+	.uk-navbar:not(.uk-navbar-attached) .uk-navbar-nav:first-child > li:first-child > a {
+		border-top-left-radius: @global-border-radius;
+		border-bottom-left-radius: @global-border-radius;
+	}
+
+	/*
+	 * Sub-modifier `uk-navbar-flip`
+	 */
+
+	// Collapse border */
+	.uk-navbar .uk-navbar-flip .uk-navbar-nav > li > a {
+		margin-left: 0;
+		margin-right: -1px;
+	}
+
+	// Apply same `border-radius` as `uk-navbar` */
+	.uk-navbar .uk-navbar-flip .uk-navbar-nav:first-child > li:first-child > a {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	.uk-navbar:not(.uk-navbar-attached) .uk-navbar-flip .uk-navbar-nav:last-child > li:last-child > a {
+		border-top-right-radius: @global-border-radius;
+		border-bottom-right-radius: @global-border-radius;
+	}
+
+}

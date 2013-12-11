@@ -1,5 +1,28 @@
 # Changelog
 
+### 2.0.0 (December 11, 2013)
+
+  - Added new toggle component
+  - Added new form-icon to form component
+  - Added new datepicker addon
+  - Added new form-password addon
+  - Added new markdown area addon
+  - Added new sortable addon
+  - Added new sticky addon
+  - Added new timepicker addon
+  - Added outerclick support for dropdowns in hover mode
+  - Added touch events support for Windows 8 phones
+  - Added miscellaneous hooks
+  - Changed comments to compile nicer CSS output
+
+**Documentation and repository**
+
+  - Refactored repository structure
+  - Refactored variables
+  - Added Grunt task to index new themes ( usage: grunt indexthemes )
+  - Added new UIkit addons and components
+  - UIkit tests moved to /src
+
 ### 1.2.1 (December 03, 2013)
 
   - Fixed off canvas scrolling on windows phones
@@ -22,7 +45,7 @@
   - Changed box-sizing for scrollable-box
   - Fixed link-muted
   - Fixed form-controls-condensed margin
-  - Fixed rare customizer unknown less var error
+  - Fixed rare customizer unknown LESS var error
   - Fixed smooth-scroll offset position
 
 ### 1.1.0 (August 21, 2013)

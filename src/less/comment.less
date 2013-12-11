@@ -1,20 +1,38 @@
-/*
- * Name:			Comment
- * Description:		Defines styles for comment threads
- *
- * Component:		`uk-comment`
- *
- * Sub-objects:		`uk-comment-header`
- *					`uk-comment-avatar`
- *					`uk-comment-title`
- *					`uk-comment-meta`
- *					`uk-comment-body`
- *					`uk-comment-list`
- *
- ========================================================================== */
+// Name:			Comment
+// Description:		Defines styles for comment threads
+//
+// Component:		`uk-comment`
+//
+// Sub-objects:		`uk-comment-header`
+//					`uk-comment-avatar`
+//					`uk-comment-title`
+//					`uk-comment-meta`
+//					`uk-comment-body`
+//					`uk-comment-list`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@comment-header-margin-bottom:					15px;
+
+@comment-avatar-margin-right: 					15px;
+
+@comment-title-font-size: 						16px;
+@comment-title-line-height: 					22px;
+
+@comment-meta-color: 							#999;
+@comment-meta-font-size: 						11px;
+@comment-meta-line-height: 						16px;
+
+@comment-list-margin-top: 						15px;
+@comment-list-padding-left: 					100px;
+
+
+/* ========================================================================
+   Component: Comment
  ========================================================================== */
 
 
@@ -100,10 +118,13 @@
 .uk-comment-list .uk-comment + ul > li:nth-child(n+2) { margin-top: @comment-list-margin-top; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-comment-misc;
 
 .hook-comment-header() {}
 .hook-comment-avatar() {}
 .hook-comment-title() {}
 .hook-comment-meta() {}
+.hook-comment-misc() {}

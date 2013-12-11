@@ -1,32 +1,73 @@
 jQuery(function($) {
 
-    var $customizer = $("#customizer"), $iframe = $("#cm-theme-preview"), $spinner = $("i.cm-spinner"), $error = $(".cm-error"), $minify = $("input[name=minify]"), $modal = $("#modal"), $download = (typeof document.createElement('a').download != "undefined"), $url = window.URL || window.webkitURL, $rtl, $style, loaded = false;
+    var $rtl, $style,
+        $customizer = $("#customizer"),
+        $iframe     = $("#cm-theme-preview"),
+        $spinner    = $("i.cm-spinner"),
+        $error      = $(".cm-error"),
+        $minify     = $("input[name=minify]"),
+        $modal      = $("#modal"),
+        $download   = (typeof document.createElement('a').download != "undefined"),
+        $url        = window.URL || window.webkitURL,
+        loaded      = false,
+        coptions    = {
+            "styles": [
+                {"name": "Default", "url": "../themes/default/default/uikit.less", "config": "../themes/default/default/customizer.json"},
+                {"name": "Gradient", "url": "../themes/default/gradient/uikit.less", "config": "../themes/default/gradient/customizer.json"},
+                {"name": "Almost Flat", "url": "../themes/default/almost-flat/uikit.less", "config": "../themes/default/almost-flat/customizer.json"}
+            ]
+        };
 
     $iframe.css("visibility", "hidden");
+    $spinner.show();
 
-    $customizer.customizer($.extend({
-        "updating": function(e, style) {
-            $iframe.css("visibility", "hidden");
-            $spinner.show();
-        },
-        "updated": function(e, style) {
+    $.get("../themes/themes.json", {nocache:Math.random()}).always(function(data, type){
 
-            var url;
+        if (type==="success") {
 
-            style.fonts = "";
+            coptions.styles = [];
 
-            $("option[data-url]:selected", $customizer).each(function(){
-                if ((url = $(this).data("url")) && style.fonts.indexOf("'" + url + "'") == -1) {
-                    style.fonts += "@import '" + url + "';\n";
+            for (var i = 0; i < data.length; i++) {
+
+                coptions.styles.push(data[i]);
+
+                // theme styles?
+                if(data[i].styles) {
+                    for(var style in data[i].styles) {
+                        coptions.styles.push({
+                            "name" : data[i].name+" - "+style,
+                            "url"  : [data[i].url, data[i].styles[style]],
+                            "config": data[i].config
+                        });
+                    }
                 }
-            });
-
-            renderPreview($style = style);
+            }
         }
-    }, customizer || {}));
 
-    $iframe.on("load", function() {
-        $customizer.trigger("update", [false, $iframe[0].contentWindow["CustomizerForceUpdate"]]);
+        $customizer.customizer($.extend({
+            "updating": function(e, style) {
+                $iframe.css("visibility", "hidden");
+                $spinner.show();
+            },
+            "updated": function(e, style) {
+
+                var url;
+
+                style.fonts = "";
+
+                $("option[data-url]:selected", $customizer).each(function(){
+                    if ((url = $(this).data("url")) && style.fonts.indexOf("'" + url + "'") == -1) {
+                        style.fonts += "@import '" + url + "';\n";
+                    }
+                });
+
+                renderPreview($style = style);
+            }
+        }, coptions));
+
+        $iframe.on("load", function() {
+            $customizer.trigger("update", [false, $iframe[0].contentWindow["CustomizerForceUpdate"]]);
+        });
     });
 
     $error.on({
@@ -180,7 +221,7 @@ jQuery(function($) {
             $.each(grp.vars, function(i, opt) {
                 $.each(style.variables, function(name, value) {
                     if(style.matchName(opt, name)) {
-                        if (first) source.push("\n/*\n * "+grp.label+"\n */\n");
+                        if (first) source.push("\n//\n// "+grp.label+"\n//\n");
                         source.push(name + ": " + value + ";");
                         first = false;
                     }

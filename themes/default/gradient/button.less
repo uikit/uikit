@@ -1,0 +1,247 @@
+//
+// Component: Button
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@button-height:									@global-height;
+@button-mini-height:							@global-mini-height;
+@button-small-height:							@global-small-height;
+@button-large-height:							@global-large-height;
+
+@button-line-height:							@global-height - 2;
+@button-mini-line-height:						@global-mini-height - 2;
+@button-small-line-height:						@global-small-height - 2;
+@button-large-line-height:						@global-large-height - 2;
+
+@button-mini-font-size:							round(@global-font-size * 0.78); // 11px
+@button-small-font-size:						round(@global-font-size * 0.85); // 12px
+@button-large-font-size:						round(@global-font-size * 1.14); // 16px
+
+@button-background:								@global-default-background;
+@button-color:									@global-color;
+@button-hover-background:						@global-default-hover-background;
+@button-hover-color:							@global-color;
+@button-active-background:						@global-default-active-background;
+@button-active-color:							@global-color;
+
+@button-primary-background:						@global-primary-background;
+@button-primary-color:							@global-contrast-color;
+@button-primary-hover-background:				saturate(lighten(@global-primary-background, 5%), 10%);
+@button-primary-hover-color:					@global-contrast-color;
+@button-primary-active-background:				saturate(darken(@global-primary-background, 5%), 10%);
+@button-primary-active-color:					@global-contrast-color;
+
+@button-success-background:						@global-success-background;
+@button-success-color:							@global-contrast-color;
+@button-success-hover-background:				saturate(lighten(@global-success-background, 5%), 10%);
+@button-success-hover-color:					@global-contrast-color;
+@button-success-active-background:				saturate(darken(@global-success-background, 5%), 10%);
+@button-success-active-color:					@global-contrast-color;
+@button-danger-background:						@global-danger-background;
+
+@button-danger-color:							@global-contrast-color;
+@button-danger-hover-background:				saturate(lighten(@global-danger-background, 5%), 10%);
+@button-danger-hover-color:						@global-contrast-color;
+@button-danger-active-background:				saturate(darken(@global-danger-background, 5%), 10%);
+@button-danger-active-color:					@global-contrast-color;
+
+@button-disabled-background:					#fafafa;
+@button-disabled-color:							@global-muted-color;
+
+@button-link-color:								@global-link-color;
+@button-link-hover-color:						@global-link-hover-color;
+@button-link-disabled-color:					@global-muted-color;
+
+//
+// New
+//
+
+@button-border:									rgba(0,0,0,0.2);
+@button-border-bottom:							rgba(0,0,0,0.3);
+@button-text-shadow:							@global-text-shadow;
+
+@button-contrast-border:						rgba(0,0,0,0.2);
+@button-contrast-border-bottom:					rgba(0,0,0,0.4);
+@button-contrast-text-shadow:					@global-contrast-text-shadow;
+
+@button-gradient-top:							@global-default-gradient-top;
+@button-gradient-bottom:						@global-default-gradient-bottom;
+
+@button-primary-gradient-top:					@global-primary-gradient-top;
+@button-primary-gradient-bottom:				@global-primary-gradient-bottom;
+
+@button-success-gradient-top:					@global-success-gradient-top;
+@button-success-gradient-bottom:				@global-success-gradient-bottom;
+
+@button-warning-gradient-top:					@global-warning-gradient-top;
+@button-warning-gradient-bottom:				@global-warning-gradient-bottom;
+
+@button-danger-gradient-top:					@global-danger-gradient-top;
+@button-danger-gradient-bottom:					@global-danger-gradient-bottom;
+
+
+// Component
+// ========================================================================
+
+//
+// 1.  `background-origin` is needed to prevent the background-image gradients from repeating under the border
+//
+
+.hook-button() {
+	border: 1px solid @button-border;
+	border-bottom-color: @button-border-bottom;
+	background-origin: border-box; // 1
+	background-image: -webkit-linear-gradient(top, @button-gradient-top, @button-gradient-bottom);
+	background-image: linear-gradient(to bottom, @button-gradient-top, @button-gradient-bottom);
+	border-radius: @global-border-radius;
+	text-shadow: 0 1px 0 @button-text-shadow;
+}
+
+.hook-button-hover() { background-image: none; }
+
+.hook-button-active() {
+	border-color: @button-border;
+	border-top-color: @button-border-bottom;
+	background-image: none;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+// Color modifiers
+// ========================================================================
+
+//
+// Modifier: `uk-button-primary`
+//
+
+.hook-button-primary() {
+	background-image: -webkit-linear-gradient(top, @button-primary-gradient-top, @button-primary-gradient-bottom);
+	background-image: linear-gradient(to bottom, @button-primary-gradient-top, @button-primary-gradient-bottom);
+	border-color: @button-contrast-border;
+	border-bottom-color: @button-contrast-border-bottom;
+	text-shadow: 0 -1px 0 @button-contrast-text-shadow;
+}
+
+.hook-button-primary-hover() { background-image: none; }
+.hook-button-primary-active() {
+	background-image: none;
+	border-color: @button-contrast-border;
+	border-top-color: @button-contrast-border-bottom;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+//
+// Modifier: `uk-button-success`
+//
+
+.hook-button-success() {
+	background-image: -webkit-linear-gradient(top, @button-success-gradient-top, @button-success-gradient-bottom);
+	background-image: linear-gradient(to bottom, @button-success-gradient-top, @button-success-gradient-bottom);
+	border-color: @button-contrast-border;
+	border-bottom-color: @button-contrast-border-bottom;
+	text-shadow: 0 -1px 0 @button-contrast-text-shadow;
+}
+
+.hook-button-success-hover() { background-image: none; }
+.hook-button-success-active() {
+	background-image: none;
+	border-color: @button-contrast-border;
+	border-top-color: @button-contrast-border-bottom;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+//
+// Modifier: `uk-button-danger`
+//
+
+.hook-button-danger() {
+	background-image: -webkit-linear-gradient(top, @button-danger-gradient-top, @button-danger-gradient-bottom);
+	background-image: linear-gradient(to bottom, @button-danger-gradient-top, @button-danger-gradient-bottom);
+	border-color: @button-contrast-border;
+	border-bottom-color: @button-contrast-border-bottom;
+	text-shadow: 0 -1px 0 @button-contrast-text-shadow;
+}
+
+.hook-button-danger-hover() { background-image: none; }
+.hook-button-danger-active() {
+	background-image: none;
+	border-color: @button-contrast-border;
+	border-top-color: @button-contrast-border-bottom;
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+
+// Disabled state
+// ========================================================================
+
+.hook-button-disable() {
+	border-color: @button-border;
+	background-image: none;
+	box-shadow: none;
+	text-shadow: 0 1px 0 @button-text-shadow;
+}
+
+
+// Modifier: `uk-button-link`
+// ========================================================================
+
+.hook-button-link() {
+	box-shadow: none;
+	text-shadow: none;
+}
+
+
+// Size modifiers
+// ========================================================================
+
+.hook-button-large() { border-radius: @global-border-radius + 1; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-button-misc() {
+
+	/* Sub-object `uk-button-group`
+	 ========================================================================== */
+
+	/*
+	 * Reset border-radius
+	 */
+
+	.uk-button-group > .uk-button:not(:first-child):not(:last-child),
+	.uk-button-group > div:not(:first-child):not(:last-child) .uk-button { border-radius: 0; }
+
+	.uk-button-group > .uk-button:first-child,
+	.uk-button-group > div:first-child .uk-button {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	.uk-button-group > .uk-button:last-child,
+	.uk-button-group > div:last-child .uk-button {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	/*
+	 * Collapse border
+	 */
+
+	.uk-button-group > .uk-button:nth-child(n+2),
+	.uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -1px; }
+
+	/*
+	 * Create position context to superimpose the successor elements border
+	 * Known issue: If you use an `a` element as button and an icon inside,
+	 * the active state will not work if you click the icon inside the button
+	 * Workaround: Just use a `button` or `input` element as button
+	 */
+
+	.uk-button-group .uk-button:active { position: relative; }
+
+}

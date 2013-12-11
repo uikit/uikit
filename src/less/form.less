@@ -1,34 +1,79 @@
-/*
- * Name:			Form
- * Description:		Defines styles for forms
- *
- * Component:		`uk-form`
- *
- * Sub-objects:		`uk-form-row`
- *					`uk-form-help-inline`
- *					`uk-form-help-block`
- *					`uk-form-label`
- *					`uk-form-controls`
- *					`uk-form-controls-condensed`
- *
- * Modifiers:		`uk-form-stacked`
- *					`uk-form-horizontal`
- *
- * Sub-modifiers:	`uk-form-danger`
- *					`uk-form-success`
- *					`uk-form-small`
- *					`uk-form-large`
- *					`uk-form-blank`
- *					`uk-form-width-mini`
- *					`uk-form-width-small`
- *					`uk-form-width-medium`
- *					`uk-form-width-large`
- *					`uk-form-controls-text`
- *
- ========================================================================== */
+// Name:			Form
+// Description:		Defines styles for forms
+//
+// Component:		`uk-form`
+//
+// Sub-objects:		`uk-form-row`
+//					`uk-form-help-inline`
+//					`uk-form-help-block`
+//					`uk-form-label`
+//					`uk-form-controls`
+//					`uk-form-controls-condensed`
+//
+// Modifiers:		`uk-form-stacked`
+//					`uk-form-horizontal`
+//
+// Sub-modifiers:	`uk-form-danger`
+//					`uk-form-success`
+//					`uk-form-small`
+//					`uk-form-large`
+//					`uk-form-blank`
+//					`uk-form-width-mini`
+//					`uk-form-width-small`
+//					`uk-form-width-medium`
+//					`uk-form-width-large`
+//					`uk-form-controls-text`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@form-height:									30px;
+@form-small-height:								25px;
+@form-large-height:								40px;
+@form-small-font-size:							12px;
+@form-large-font-size: 							16px;
+
+@form-border:									#ddd;
+@form-background:								#fff;
+@form-color:									#444;
+@form-placeholder-color:						#999;
+@form-focus-border:								#99baca;
+@form-focus-background:							#f5fbfe;
+@form-focus-color:								#444;
+@form-disabled-border:							#ddd;
+@form-disabled-background:						#f5f5f5;
+@form-disabled-color:							#999;
+
+@form-danger-border:							#dc8d99;
+@form-danger-background:						#fff7f8;
+@form-danger-color:								#c91032;
+
+@form-success-border:							#8ec73b;
+@form-success-background:						#fafff2;
+@form-success-color:							#539022;
+
+@form-blank-outline:							#ddd;
+
+@form-mini-width:								40px;
+@form-small-width:								130px;
+@form-medium-width:								200px;
+@form-large-width:								500px;
+
+@form-legend-border:							#ddd;
+@form-legend-font-size:							18px;
+@form-legend-line-height:						30px;
+
+@form-gutter:									15px;
+
+@form-icon-width:								30px;
+@form-icon-color:								#999;
+
+
+/* ========================================================================
+   Component: Form
  ========================================================================== */
 
 /*
@@ -41,7 +86,7 @@
  * Controls
  * Exept for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
- * 2. Responsiveness: Sets a maxium width relative to the parent to scale on narrower viewports
+ * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
  */
 
 .uk-form select,
@@ -281,12 +326,12 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
 @media (max-width: @breakpoint-medium-max) {
 
 	.uk-form-horizontal .uk-form-label {
-		
+
 		/* Behave like `uk-form-stacked` */
 		display: block;
 		margin-bottom: 5px;
 		font-weight: bold;
-		
+
 	}
 
 }
@@ -308,11 +353,34 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
 }
 
 
-/* Hooks
+/* Sub-object: `uk-form-icon`
  ========================================================================== */
+
+.uk-form-icon {
+	position: relative;
+	display: inline-block;
+	max-width: 100%;
+}
+
+.uk-form-icon > [class*='uk-icon-'] {
+	position: absolute;
+	width: @form-icon-width;
+	line-height: @form-icon-width;
+	color: @form-icon-color;
+	text-align: center;
+}
+
+.uk-form-icon > input { padding-left: @form-icon-width !important; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-form-misc;
 
 .hook-form() {}
 .hook-form-focus() {}
 .hook-form-disabled() {}
 .hook-form-danger() {}
 .hook-form-success() {}
+.hook-form-misc() {}

@@ -1,21 +1,42 @@
+// Name:			Table
+// Description:		Defines styles for tables
+//
+// Component:		`uk-table`
+//
+// Modifiers:		`uk-table-middle`
+//					`uk-table-striped`
+//					`uk-table-condensed`
+//					`uk-table-hover`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@table-margin-vertical:							15px;
+@table-padding-vertical:						8px;
+@table-padding-horizontal:						8px;
+
+@table-caption-color:							#999;
+@table-caption-font-size:						12px;
+
+@table-striped-background:						#f5f5f5;
+
+@table-condensed-padding-vertical:				4px;
+@table-condensed-padding-horizontal:			8px;
+
+@table-hover-background:						#EEE;
+
+
+/* ========================================================================
+   Component: Table
+ ========================================================================== */
+
 /*
- * Name:			Table
- * Description:		Defines styles for tables
- *
- * Component:		`uk-table`
- *
- * Modifiers:		`uk-table-middle`
- *					`uk-table-striped`
- *					`uk-table-condensed`
- *					`uk-table-hover`
- *
- ========================================================================== */
+ * Block element behavior
+ */
 
-
-/* Component
- ========================================================================== */
-
-/* Block element behavior */
 .uk-table {
 	width: 100%;
 	margin-bottom: @table-margin-vertical;
@@ -33,7 +54,10 @@
 	.hook-table;
 }
 
-/* Set alignment */
+/*
+ * Set alignment
+ */
+
 .uk-table th { text-align: left; }
 .uk-table td { vertical-align: top; }
 
@@ -80,7 +104,10 @@
 .uk-table-hover tbody tr:hover td { background: @table-hover-background; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-table-misc;
 
 .hook-table() {}
+.hook-table-misc() {}

@@ -1,24 +1,40 @@
-/*
- * Name:			Tab
- * Description:		Defines styles for a tabbed navigation
- *
- * Component:		`uk-tab`
- *
- * Modifiers:		`uk-tab-flip`
- *					`uk-tab-center`
- *					`uk-tab-grid`
- *					`uk-tab-bottom`
- *					`uk-tab-left`
- *					`uk-tab-right`
- *					`uk-tab-responsive`
- *
- * States:			`uk-active`
- *					`uk-disabled`
- *
- ========================================================================== */
+// Name:			Tab
+// Description:		Defines styles for a tabbed navigation
+//
+// Component:		`uk-tab`
+//
+// Modifiers:		`uk-tab-flip`
+//					`uk-tab-center`
+//					`uk-tab-grid`
+//					`uk-tab-bottom`
+//					`uk-tab-left`
+//					`uk-tab-right`
+//					`uk-tab-responsive`
+//
+// States:			`uk-active`
+//					`uk-disabled`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@tab-border:									#ddd;
+@tab-padding-horizontal: 						12px;
+@tab-padding-vertical: 							8px;
+@tab-color:										#07D;
+@tab-hover-border:								#f5f5f5;
+@tab-hover-background:							#f5f5f5;
+@tab-hover-color:								#059;
+@tab-active-border:								#ddd;
+@tab-active-background:							#fff;
+@tab-active-color:								#444;
+@tab-disabled-color:							#999;
+
+
+/* ========================================================================
+   Component: Tab
  ========================================================================== */
 
 .uk-tab {
@@ -133,7 +149,7 @@
 
 .uk-tab-responsive > a:before {
 	content: "\f0c9\00a0";
-	font-family: "FontAwesome";
+	font-family: FontAwesome;
 }
 
 /* Only phones */
@@ -321,10 +337,13 @@
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-tab-misc;
 
 .hook-tab() {}
 .hook-tab-hover() {}
 .hook-tab-active() {}
 .hook-tab-disabled() {}
+.hook-tab-misc() {}

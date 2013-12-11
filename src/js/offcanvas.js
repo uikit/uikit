@@ -2,10 +2,6 @@
 
     "use strict";
 
-    if (UI.support.touch) {
-        $("html").addClass("uk-touch");
-    }
-
     var $win      = $(window),
         $doc      = $(document),
         Offcanvas = {

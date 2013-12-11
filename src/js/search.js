@@ -10,7 +10,7 @@
 
         if($element.data("search")) return;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, Search.defaults, options);
 
         this.element = $element;
 
@@ -57,7 +57,7 @@
             }
         });
 
-        this.form.find('button[type=reset]').bind('click', function() {
+        this.form.find('button[type=reset]').bind("click", function() {
             $this.form.removeClass("uk-open").removeClass("uk-loading").removeClass("uk-active");
             $this.value = null;
             $this.input.focus();
@@ -79,23 +79,6 @@
     };
 
     $.extend(Search.prototype, {
-
-        options: {
-            source: false,
-            param: 'search',
-            method: 'post',
-            minLength: 3,
-            delay: 300,
-            flipDropdown: false,
-            match: ':not(.uk-skip)',
-            skipClass: 'uk-skip',
-            loadingClass: 'uk-loading',
-            filledClass: 'uk-active',
-            listClass: 'results',
-            hoverClass: 'uk-active',
-            onLoadedResults: function(results) { return results; },
-            renderer: "default"
-        },
 
         request: function(options) {
             var $this = this;
@@ -215,6 +198,23 @@
 
     Search.addRenderer = function(name, klass) {
         renderers[name] = klass;
+    };
+
+    Search.defaults = {
+        source: false,
+        param: 'search',
+        method: 'post',
+        minLength: 3,
+        delay: 300,
+        flipDropdown: false,
+        match: ':not(.uk-skip)',
+        skipClass: 'uk-skip',
+        loadingClass: 'uk-loading',
+        filledClass: 'uk-active',
+        listClass: 'results',
+        hoverClass: 'uk-active',
+        onLoadedResults: function(results) { return results; },
+        renderer: "default"
     };
 
 

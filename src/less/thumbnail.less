@@ -1,21 +1,33 @@
-/*
- * Name:			Thumbnail
- * Description:		Defines styles for image thumbnails
- *
- * Component:		`uk-thumbnail`
- *
- * Sub-objects: 	`uk-thumbnail-caption`
- *
- * Modifiers:		`uk-thumbnail-mini`
- *					`uk-thumbnail-small`
- *					`uk-thumbnail-medium`
- *					`uk-thumbnail-large`
- *					`uk-thumbnail-expand`
- *
- ========================================================================== */
+// Name:			Thumbnail
+// Description:		Defines styles for image thumbnails
+//
+// Component:		`uk-thumbnail`
+//
+// Sub-objects: 	`uk-thumbnail-caption`
+//
+// Modifiers:		`uk-thumbnail-mini`
+//					`uk-thumbnail-small`
+//					`uk-thumbnail-medium`
+//					`uk-thumbnail-large`
+//					`uk-thumbnail-expand`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@thumbnail-padding:								4px;
+@thumbnail-border:								#ddd;
+@thumbnail-background:							#fff;
+@thumbnail-hover-border:						#aaa;
+@thumbnail-hover-background:					#fff;
+
+@thumbnail-caption-color:						#444;
+
+
+/* ========================================================================
+   Component: Thumbnail
  ========================================================================== */
 
 /*
@@ -77,9 +89,12 @@ a.uk-thumbnail:focus { /* 1 */
 .uk-thumbnail-expand > img { width: 100%; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-thumbnail-misc;
 
 .hook-thumbnail() {}
 .hook-thumbnail-hover() {}
 .hook-thumbnail-caption() {}
+.hook-thumbnail-misc() {}

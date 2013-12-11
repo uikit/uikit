@@ -2,8 +2,10 @@
 
     var Customizer = function($element, $options) {
 
-        var $select = $($options.select, $element), $sidebar = $($options.sidebar, $element), $advanced = $($options.advanced, $element), $style;
-
+        var $select   = $($options.select, $element),
+            $sidebar  = $($options.sidebar, $element),
+            $advanced = $($options.advanced, $element),
+            $style;
 
         this.$options = $options;
         this.$select  = $select;
@@ -73,13 +75,22 @@
 
         function loadStyle(style) {
 
-            var deferred = $.Deferred();
+            var deferred = $.Deferred(),
+                imports  = "";
 
             if (style.less) {
                 return deferred.resolve();
             }
 
-            $.less.resolveImports("@import url(" + style.url + ");").done(function(less) {
+            if($.isArray(style.url)) {
+                for (var i = 0; i < style.url.length; i++) {
+                    imports += "@import url(" + style.url[i] + ");";
+                }
+            } else {
+                imports  = "@import url(" + style.url + ");";
+            }
+
+            $.less.resolveImports(imports).done(function(less) {
                 $.ajax({"url": style.config, "cache": false, "dataType": "json"}).done(function(config) {
 
                     var vars = $.less.getVars(less);

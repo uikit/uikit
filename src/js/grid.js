@@ -11,7 +11,7 @@
 
             if($element.data("gridMatchHeight")) return;
 
-            this.options  = $.extend({}, this.options, options);
+            this.options  = $.extend({}, GridMatch.defaults, options);
 
             this.element  = $element;
             this.columns  = this.element.children();
@@ -42,10 +42,6 @@
         };
 
     $.extend(GridMatch.prototype, {
-
-        options: {
-            "target": false
-        },
 
         match: function() {
 
@@ -82,6 +78,10 @@
         }
 
     });
+
+    GridMatch.defaults = {
+        "target": false
+    };
 
     var GridMargin = function(element) {
 
@@ -154,6 +154,8 @@
         }
 
     });
+
+    GridMargin.defaults = {};
 
     UI["gridMatch"]  = GridMatch;
     UI["gridMargin"] = GridMargin;

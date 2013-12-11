@@ -1,18 +1,35 @@
-/*
- * Name:			Subnav
- * Description:		Defines styles for the sub navigation
- *
- * Component:		`uk-subnav`
- *
- * Modifiers: 		`uk-subnav-line`
- *					`uk-subnav-pill`
- *
- * States:		 	`uk-active`
- *
- ========================================================================== */
+// Name:			Subnav
+// Description:		Defines styles for the sub navigation
+//
+// Component:		`uk-subnav`
+//
+// Modifiers: 		`uk-subnav-line`
+//					`uk-subnav-pill`
+//
+// States:		 	`uk-active`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@subnav-margin:									10px;
+@subnav-color:									#07D;
+@subnav-hover-color:							#059;
+@subnav-disabled-color:							#999;
+
+@subnav-line-border-height:						10px;
+@subnav-line-border:							#ddd;
+
+@subnav-pill-hover-background:					#eee;
+@subnav-pill-hover-color:						#444;
+@subnav-pill-active-background:					#00a8e6;
+@subnav-pill-active-color:						#fff;
+
+
+/* ========================================================================
+   Component: Subnav
  ========================================================================== */
 
 /*
@@ -112,10 +129,13 @@
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-subnav-misc;
 
 .hook-subnav-line-divider() {}
 .hook-subnav-pill() {}
 .hook-subnav-pill-hover() {}
 .hook-subnav-pill-active() {}
+.hook-subnav-misc() {}

@@ -26,6 +26,7 @@
 				<ul class="uk-navbar-nav uk-hidden-small">
 					<li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
 					<li><a href="components.html">Components</a></li>
+					<li><a href="addons.html">Add-ons</a></li>
 					<li><a href="customizer.html">Customizer</a></li>
 				</ul>
 
@@ -49,8 +50,8 @@
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
 							<li class="uk-nav-header">Developers</li>
 							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_variables.html">Variables</a></li>
 							<li class="uk-active"><a href="documentation_create-a-theme.html">Create a theme</a></li>
+							<li><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
 
 						</ul>
@@ -62,21 +63,27 @@
 
 							<h1>Create a theme</h1>
 
-							<p class="uk-article-lead">Extend UIkit and add your own unique style.</p>
+							<p class="uk-article-lead">Extend UIkit and add your own unique theme.</p>
 
 							<h2>How to start</h2>
 
-							<p>By default, UIkit comes with a very basic style. To modify this style or to add your own, you don't want to edit any of the core framework files. Instead, you can extend UIkit by creating a theme. This allows you to easily update UIkit, because modifications are outsourced from the core. We even provide some neat themes to get you started. To create your own theme, follow these steps:</p>
+							<p>By default, UIkit comes with a very basic theme. To modify the style, you don't have to edit any of the core framework files. Instead, you can extend UIkit by creating a custom theme. This allows you to easily update UIkit core files. We even provide some neat themes to get you started. To create your own theme, follow these steps:</p>
 
-							<h3>1. Create the directory</h3>
+							<h3>1. Create the theme directory</h3>
 
-							<p>Download or clone UIkit, install Node and Grunt and create a new folder inside <code>/src/themes</code>.</p>
+							<p>Download or clone UIkit and install Node and Grunt. Finally create your theme folder here <code>/themes/custom/THEME-NAME</code>.</p>
 
-							<h3>2. Add your style</h3>
+							<p><span class="uk-badge">NOTE</span> The <code>/custom</code> folder is set to git ignore, which prevents your custom files from being pushed into the UIkit repository.</p>
 
-							<p>Create the <code>uikit.less</code> file and add the <code>@import "../../less/uikit.less";</code> rule to access all LESS files from the default framework and adopt its basic styling. That's it! You can start adding your own style to your new theme.</p>
+							<h3>2. Add your theme</h3>
 
-							<p>You can also adjust background and font colors and spacing with our online <a href="customizer.html">Customizer</a> and download all variables in one LESS file.</p>
+							<p>Create the <code>uikit.less</code> file in the <code>/themes/custom/THEME-NAME</code> folder and add the <code>@import "../../../src/less/uikit.less";</code> rule to access all LESS files from the core framework and adopt its basic styling. That's it! You can start adding your own theme from scratch.</p>
+
+							<p><span class="uk-badge">NOTE</span> To get you started right away, we provide the default, gradient and almost-flat theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder into the <code>/custom</code> directory.</p>
+
+							<h3>3. Customizer and Tests</h3>
+
+							<p>Run the grunt task <code>indexthemes</code> on your UIkit folder. Now the newly created themes will be available automatically in the Customizer and test files.</p>
 
 							<hr class="uk-article-divider">
 
@@ -85,23 +92,24 @@
 							<p>There are different approaches to style your theme. We recommend the following workflow.</p>
 
 							<h3>1. Use variables</h3>
-							<p>The first thing to do is to customize the values of already declared variables. You can find all variables inside the <code>variables.less</code> of the core framework and override them in your theme.</p>
+
+							<p>The first thing to do is to customize the values of already declared variables. You can find all variables for each component inside there LESS files of the core framework and override them in your theme.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
 							<div class="uk-grid" data-uk-grid-margin>
 								<div class="uk-width-medium-1-2">
 
-									<p><code>/src/less/variables.less</code></p>
-<pre><code>&lt;!-- default variable --&gt;
-@background:	#fff;</code></pre>
+									<p><code>/src/less/button.less</code></p>
+<pre><code>// default value
+@button-height:	30px;</code></pre>
 
 								</div>
 								<div class="uk-width-medium-1-2">
 
-									<p><code>/src/themes/THEME-NAME/variables.less</code></p>
-<pre><code>&lt;!-- override variable --&gt;
-@background:	#000;</code></pre>
+									<p><code>/themes/custom/THEME-NAME/button.less</code></p>
+<pre><code>// new value
+@button-height:	35px;</code></pre>
 
 								</div>
 							</div>
@@ -115,18 +123,18 @@
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/src/less/panel.less</code></p>
-<pre><code>&lt;!-- default variable --&gt;
+<pre><code>// CSS rule
 .uk-panel {
 	background: @background;
 
-	&lt;!-- mixin to add new declaration --&gt;
+	// mixin to add new declaration
 	.hook-panel;
 }</code></pre>
 								</div>
 								<div class="uk-width-medium-1-2">
 
-									<p><code>/src/themes/THEME-NAME/panel.less</code></p>
-<pre><code>&lt;!-- mixin to add new declaration --&gt;
+									<p><code>/themes/custom/THEME-NAME/panel.less</code></p>
+<pre><code>// mixin to add new declaration
 .hook-panel&#40;&#41; { color: #fff; }
 
 
@@ -139,20 +147,22 @@
 							</div>
 
 
-							<h3>3. Add selectors</h3>
-							<p>Should there be neither a variable nor a hook available, you can of course create your own selector.</p>
+							<h3>3. Miscellaneous hooks</h3>
+							<p>Should there be neither a variable nor a hook available, you can of course create your own selector. To do so, use the <em>.hook-button-misc</em> hook and write your selector inside. This will sort your new selector to the right place of the compiled CSS file.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
 							<div class="uk-width-medium-1-2">
 
-								<p><code>/src/themes/THEME-NAME/panel.less</code></p>
-<pre><code>&lt;!-- new rule with additional selector --&gt;
-.uk-panel a { color: #f00; }</code></pre>
+								<p><code>/themes/custom/THEME-NAME/panel.less</code></p>
+<pre><code>// misc mixin
+.hook-button-misc() {
+
+	// new rule
+	.uk-panel a { color: #f00; }
+}</code></pre>
 
 							</div>
-
-							<p><span class="uk-badge">NOTE</span> To get you started right away, we provide the blank theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder. Then you can start adding your own styles.</p>
 
 						</article>
 
@@ -190,9 +200,10 @@
 							<li><a href="documentation_get-started.html">Get started</a></li>
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
 							<li><a href="components.html">Components</a></li>
+							<li><a href="addons.html">Add-ons</a></li>
 							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_variables.html">Variables</a></li>
 							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+							<li><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
 						</ul>
 					</li>
@@ -213,7 +224,7 @@
 							<li><a href="utility.html">Utility</a></li>
 						</ul>
 					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-reorder"></i> Navigations</a>
+					<li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
 						<ul class="uk-nav-sub">
 							<li><a href="nav.html">Nav</a></li>
 							<li><a href="navbar.html">Navbar</a></li>
@@ -223,7 +234,7 @@
 							<li><a href="tab.html">Tab</a></li>
 						</ul>
 					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-ok"></i> Elements</a>
+					<li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
 						<ul class="uk-nav-sub">
 							<li><a href="list.html">List</a></li>
 							<li><a href="description-list.html">Description list</a></li>
@@ -252,9 +263,19 @@
 							<li><a href="modal.html">Modal</a></li>
 							<li><a href="offcanvas.html">Off-canvas</a></li>
 							<li><a href="switcher.html">Switcher</a></li>
-							<li><a href="tooltip.html">Tooltip</a></li>
+							<li><a href="toggle.html">Toggle</a></li>
 							<li><a href="scrollspy.html">Scrollspy</a></li>
 							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
+						</ul>
+					</li>
+					<li class="uk-parent"><a href="#">Add-ons</a>
+						<ul class="uk-nav-sub">
+							<li><a href="addons_datepicker.html">Datepicker</a></li>
+							<li><a href="addons_form-password.html">Form Password</a></li>
+							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
+							<li><a href="addons_sortable.html">Sortable</a></li>
+							<li><a href="addons_sticky.html">Sticky</a></li>
+							<li><a href="addons_timepicker.html">Timepicker</a></li>
 						</ul>
 					</li>
 				</ul>

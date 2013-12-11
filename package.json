@@ -2,7 +2,7 @@
     "name": "uikit",
     "title": "UIkit",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-    "version": "1.2.1",
+    "version": "2.0.0",
     "homepage": "http://www.getuikit.com",
     "author": {
         "name": "UIkit Team",
@@ -31,5 +31,6 @@
         "grunt-banner": "0.1.4",
         "grunt": "~0.4.0"
     },
-    "keywords": []
+    "keywords": [],
+    "main": "server.js"
 }

@@ -1,0 +1,74 @@
+//
+// Component: Comment
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@comment-header-margin-bottom:					@global-margin;
+
+@comment-avatar-margin-right:					@global-margin;
+
+@comment-title-font-size:						round(@global-font-size * 1.14); // 16px
+@comment-title-line-height:						round(@comment-title-font-size * 1.37); // 22px
+
+@comment-meta-color:							@global-muted-color;
+@comment-meta-font-size:						round(@global-font-size * 0.78); // 11px
+@comment-meta-line-height:						round(@comment-meta-font-size * 1.45); // 16px
+
+@comment-list-margin-top:						@global-margin + 10px;
+
+//
+// New
+//
+
+@comment-padding:								10px;
+@comment-border:								@global-border;
+@comment-background:							#fafafa;
+
+
+// Sub-object `uk-comment-header`
+// ========================================================================
+
+.hook-comment-header() {
+	padding: @comment-padding;
+	border: 1px solid @comment-border;
+	border-radius: @global-border-radius;
+	background: @comment-background;
+}
+
+
+// Sub-object `uk-comment-avatar`
+// ========================================================================
+
+.hook-comment-avatar() {}
+
+
+// Sub-object `uk-comment-title`
+// ========================================================================
+
+.hook-comment-title() {}
+
+
+// Sub-object `uk-comment-meta`
+// ========================================================================
+
+.hook-comment-meta() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-comment-misc() {
+
+	/* Sub-object `uk-comment-body`
+	 ========================================================================== */
+
+	.uk-comment-body {
+		padding-left: @comment-padding;
+		padding-right: @comment-padding;
+	}
+
+}

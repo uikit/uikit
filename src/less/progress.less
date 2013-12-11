@@ -1,22 +1,41 @@
-/*
- * Name:			Progress
- * Description:		Defines styles for progress bars
- *
- * Component: 		`uk-progress`
- *
- * Sub-objects: 	`uk-progress-bar`
- * 
- * Modifiers:		`uk-progress-mini`
- *					`uk-progress-small`
- *					`uk-progress-success`
- *					`uk-progress-warning`
- *					`uk-progress-danger`
- *					`uk-progress-striped`
- *
- ========================================================================== */
+// Name:			Progress
+// Description:		Defines styles for progress bars
+//
+// Component: 		`uk-progress`
+//
+// Sub-objects: 	`uk-progress-bar`
+// 
+// Modifiers:		`uk-progress-mini`
+//					`uk-progress-small`
+//					`uk-progress-success`
+//					`uk-progress-warning`
+//					`uk-progress-danger`
+//					`uk-progress-striped`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@progress-height:								20px;
+@progress-mini-height:							6px;
+@progress-small-height:							12px;
+
+@progress-margin-vertical:						15px;
+@progress-background:							#eee;
+
+@progress-bar-background:						#00a8e6;
+@progress-bar-font-size:						12px;
+@progress-bar-color:							#fff;
+
+@progress-bar-success-background:				#8cc14c;
+@progress-bar-warning-background:				#faa732;
+@progress-bar-danger-background:				#da314b;
+
+
+/* ========================================================================
+   Component: Progress
  ========================================================================== */
 
 /*
@@ -126,8 +145,10 @@
 }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-progress-misc;
 
 .hook-progress() {}
 .hook-progress-bar() {}
@@ -136,3 +157,4 @@
 .hook-progress-bar-success() {}
 .hook-progress-bar-warning() {}
 .hook-progress-bar-danger() {}
+.hook-progress-misc() {}

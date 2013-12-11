@@ -6,7 +6,7 @@
 
         var $this = this;
 
-        this.options = $.extend({}, this.options, options);
+        this.options = $.extend({}, Alert.defaults, options);
         this.element = $(element);
 
         if(this.element.data("alert")) return;
@@ -20,12 +20,6 @@
     };
 
     $.extend(Alert.prototype, {
-
-        options: {
-            "fade": true,
-            "duration": 200,
-            "trigger": ".uk-alert-close"
-        },
 
         close: function() {
 
@@ -50,6 +44,12 @@
         }
 
     });
+
+    Alert.defaults = {
+        "fade": true,
+        "duration": 200,
+        "trigger": ".uk-alert-close"
+    };
 
     UI["alert"] = Alert;
 

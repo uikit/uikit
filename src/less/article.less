@@ -1,18 +1,41 @@
-/*
- * Name:			Article
- * Description:		Defines styles for articles within your page
- *
- * Component:		`uk-article`
- *
- * Sub-objects:		`uk-article-title`
- *					`uk-article-meta`
- *					`uk-article-lead`
- *					`uk-article-divider`
- *
- ========================================================================== */
+// Name:			Article
+// Description:		Defines styles for articles within your page
+//
+// Component:		`uk-article`
+//
+// Sub-objects:		`uk-article-title`
+//					`uk-article-meta`
+//					`uk-article-lead`
+//					`uk-article-divider`
+//
+// ========================================================================
 
 
-/* Component
+// Variables
+// ========================================================================
+
+@article-margin-top: 							15px;
+
+@article-title-font-size:						36px;
+@article-title-line-height:						42px;
+@article-title-font-weight:						normal;
+@article-title-text-transform:					none;
+
+@article-meta-font-size:						12px;
+@article-meta-line-height:						18px;
+@article-meta-color: 							#999;
+
+@article-lead-color:							#444;
+@article-lead-font-size:						18px;
+@article-lead-line-height:						24px;
+@article-lead-font-weight:						normal;
+
+@article-divider-margin:						25px;
+@article-divider-border: 						#ddd;
+
+
+/* ========================================================================
+   Component: Article
  ========================================================================== */
 
 /*
@@ -47,7 +70,7 @@
 	font-size: @article-title-font-size;
 	line-height: @article-title-line-height;
 	font-weight: @article-title-font-weight;
-	text-transform: @article-text-transform;
+	text-transform: @article-title-text-transform;
 	.hook-article-title; 
 }
 
@@ -92,10 +115,13 @@
 * + .uk-article-divider { margin-top: @article-divider-margin; }
 
 
-/* Hooks
- ========================================================================== */
+// Hooks
+// ========================================================================
+
+.hook-article-misc;
 
 .hook-article-title() {}
 .hook-article-meta() {}
 .hook-article-lead() {}
 .hook-article-divider() {}
+.hook-article-misc() {}

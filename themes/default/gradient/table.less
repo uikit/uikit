@@ -1,0 +1,35 @@
+//
+// Component: Table
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@table-margin-vertical:							@global-margin;
+
+@table-caption-color:							@global-muted-color;
+@table-caption-font-size:						round(@global-font-size * 0.85); // 12px
+
+@table-striped-background:						#fafafa;
+
+@table-hover-background:						darken(@table-striped-background, 4%);
+
+//
+// New
+//
+
+@table-border:									@global-border;
+
+
+// Component
+// ========================================================================
+
+.hook-table() { border-bottom: 1px solid @table-border; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-table-misc() {}
