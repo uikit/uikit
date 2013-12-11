@@ -26,8 +26,11 @@
 
             this.element.on("click", function(e) {
 
-                if (!$(e.target).parents(".uk-dropdown").length) {
+                var $target = $(e.target);
+
+                if (!$target.parents(".uk-dropdown").length) {
                     e.preventDefault();
+                    $target.blur();
                 }
 
                 if (active && active[0] != $this.element[0]) {
