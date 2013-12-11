@@ -1,18 +1,18 @@
-// Name:			Search
-// Description:		Defines a search component
+// Name:            Search
+// Description:     Defines a search component
 //
-// Component:		`uk-search`
+// Component:       `uk-search`
 //
-// Sub-objects:		`uk-search-field`
-//					`uk-search-close`
+// Sub-objects:     `uk-search-field`
+//                  `uk-search-close`
 //
-// States:		 	`uk-active`
-//					`uk-loading`
+// States:          `uk-active`
+//                  `uk-loading`
 //
-// Uses:			Animation
-//					Icon: FontAwesome
+// Uses:            Animation
+//                  Icon: FontAwesome
 //
-// Used by:			Off-canvas
+// Used by:         Off-canvas
 //
 // ========================================================================
 
@@ -20,23 +20,23 @@
 // Variables
 // ========================================================================
 
-@search-width:									120px;
-@search-focus-width:							180px;
-@search-height: 								30px;
-@search-padding: 								30px;
-@search-border: 								rgba(0,0,0,0);
-@search-background: 							rgba(0,0,0,0);
-@search-color:									#444;
-@search-placeholder-color:						#999;
+@search-width:                                  120px;
+@search-focus-width:                            180px;
+@search-height:                                 30px;
+@search-padding:                                30px;
+@search-border:                                 rgba(0,0,0,0);
+@search-background:                             rgba(0,0,0,0);
+@search-color:                                  #444;
+@search-placeholder-color:                      #999;
 
-@search-icon: 									"\f002";
-@search-icon-size: 								14px;
-@search-icon-color:			 					rgba(0,0,0,0.2);
+@search-icon:                                   "\f002";
+@search-icon-size:                              14px;
+@search-icon-color:                             rgba(0,0,0,0.2);
 
-@search-close-icon: 							"\f00d";
-@search-close-size: 							14px;
-@search-close-color: 							rgba(0,0,0,0.2);
-@search-close-icon-loading: 					"\f110";
+@search-close-icon:                             "\f00d";
+@search-close-size:                             14px;
+@search-close-color:                            rgba(0,0,0,0.2);
+@search-close-icon-loading:                     "\f110";
 
 
 /* ========================================================================
@@ -49,10 +49,10 @@
  */
 
 .uk-search {
-	display: inline-block;
-	position: relative; /* 1 */
-	margin: 0; /* 2 */
-	.hook-search;
+    display: inline-block;
+    position: relative; /* 1 */
+    margin: 0; /* 2 */
+    .hook-search;
 }
 
 /*
@@ -60,17 +60,17 @@
  */
 
 .uk-search:before {
-	content: @search-icon;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: @search-padding;
-	line-height: @search-height;
-	text-align: center;
-	font-family: FontAwesome;
-	font-size: @search-icon-size;
-	color: @search-icon-color;
-	.hook-search-icon;
+    content: @search-icon;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: @search-padding;
+    line-height: @search-height;
+    text-align: center;
+    font-family: FontAwesome;
+    font-size: @search-icon-size;
+    color: @search-icon-color;
+    .hook-search-icon;
 }
 
 
@@ -82,16 +82,16 @@
  */
 
 .uk-search-field { /* 1 */
-	width: @search-width;
-	height: @search-height;
-	padding: 0 @search-padding;
-	border: 1px solid @search-border;
-	border-radius: 0; /* 1 */
-	background: @search-background;
-	color: @search-color;
-	-webkit-transition: all linear 0.2s;
-	transition: all linear 0.2s;
-	.hook-search-field;
+    width: @search-width;
+    height: @search-height;
+    padding: 0 @search-padding;
+    border: 1px solid @search-border;
+    border-radius: 0; /* 1 */
+    background: @search-background;
+    color: @search-color;
+    -webkit-transition: all linear 0.2s;
+    transition: all linear 0.2s;
+    .hook-search-field;
 }
 
 /*
@@ -111,8 +111,8 @@ input.uk-search-field { -webkit-appearance: none; }
 
 /* Focus */
 .uk-search-field:focus {
-	outline: 0;
-	.hook-search-field-focus;
+    outline: 0;
+    .hook-search-field-focus;
 }
 
 /* Focus + active */
@@ -128,21 +128,21 @@ input.uk-search-field { -webkit-appearance: none; }
  */
 
 .uk-search-close {
-	display: none;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: @search-padding;
-	line-height: @search-height;
-	text-align: center;
-	font-size: @search-close-size;
-	color: @search-close-color;
-	/* 1. */
-	padding: 0;
-	border: 0;
-	-webkit-appearance: none;
-	background: transparent; /* Needed for Sarari */
-	.hook-search-close;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: @search-padding;
+    line-height: @search-height;
+    text-align: center;
+    font-size: @search-close-size;
+    color: @search-close-color;
+    /* 1. */
+    padding: 0;
+    border: 0;
+    -webkit-appearance: none;
+    background: transparent; /* Needed for Sarari */
+    .hook-search-close;
 }
 
 .uk-loading > .uk-search-close,
@@ -153,16 +153,16 @@ input.uk-search-field { -webkit-appearance: none; }
  */
 
 .uk-search-close:after {
-	display: block;
-	content: @search-close-icon;
-	font-family: FontAwesome;
+    display: block;
+    content: @search-close-icon;
+    font-family: FontAwesome;
 }
 
 /* Loading icon */
 .uk-loading > .uk-search-close:after {
-	content: @search-close-icon-loading;
-	-webkit-animation: uk-spin 2s infinite linear;
-	animation: uk-spin 2s infinite linear;
+    content: @search-close-icon-loading;
+    -webkit-animation: uk-spin 2s infinite linear;
+    animation: uk-spin 2s infinite linear;
 }
 
 

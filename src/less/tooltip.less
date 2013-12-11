@@ -1,16 +1,16 @@
-// Name:			Tooltip
-// Description:		Defines styles for tooltips
+// Name:            Tooltip
+// Description:     Defines styles for tooltips
 //
-// Component: 		`uk-tooltip`
+// Component:       `uk-tooltip`
 //
-// Modifiers		`uk-tooltip-top`
-//					`uk-tooltip-top-left`
-//					`uk-tooltip-top-right`
-//					`uk-tooltip-bottom`
-//					`uk-tooltip-bottom-left`
-//					`uk-tooltip-bottom-right`
-//					`uk-tooltip-left`
-//					`uk-tooltip-right`
+// Modifiers        `uk-tooltip-top`
+//                  `uk-tooltip-top-left`
+//                  `uk-tooltip-top-right`
+//                  `uk-tooltip-bottom`
+//                  `uk-tooltip-bottom-left`
+//                  `uk-tooltip-bottom-right`
+//                  `uk-tooltip-left`
+//                  `uk-tooltip-right`
 //
 // ========================================================================
 
@@ -18,14 +18,14 @@
 // Variables
 // ========================================================================
 
-@tooltip-z-index:								1030;
-@tooltip-max-width:								200px;
-@tooltip-background:							#333;
-@tooltip-triangle-size:							5px;
+@tooltip-z-index:                               1030;
+@tooltip-max-width:                             200px;
+@tooltip-background:                            #333;
+@tooltip-triangle-size:                         5px;
 
-@tooltip-color:									rgba(255,255,255,0.7);
-@tooltip-font-size:								12px;
-@tooltip-line-height:							18px;
+@tooltip-color:                                 rgba(255,255,255,0.7);
+@tooltip-font-size:                             12px;
+@tooltip-line-height:                           18px;
 
 
 /* ========================================================================
@@ -40,23 +40,23 @@
  */
 
 .uk-tooltip {
-	/* 1 */
-	display: none;
-	/* 2 */
-	position: absolute;
-	z-index: @tooltip-z-index;
-	/* 3 */
-	-moz-box-sizing: border-box;
-	box-sizing: border-box; 
-	max-width: @tooltip-max-width;
-	padding: 5px 8px;
-	/* 4 */
-	background: @tooltip-background;
-	color: @tooltip-color;
-	font-size: @tooltip-font-size;
-	line-height: @tooltip-line-height;
-	text-align: center;
-	.hook-tooltip;
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: @tooltip-z-index;
+    /* 3 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; 
+    max-width: @tooltip-max-width;
+    padding: 5px 8px;
+    /* 4 */
+    background: @tooltip-background;
+    color: @tooltip-color;
+    font-size: @tooltip-font-size;
+    line-height: @tooltip-line-height;
+    text-align: center;
+    .hook-tooltip;
 }
 
 
@@ -68,12 +68,12 @@
  */
 
 .uk-tooltip:after {
-	content: "";
-	display: block;
-	position: absolute;
-	width: 0; 
-	height: 0; 
-	border: @tooltip-triangle-size dashed @tooltip-background; /* 1 */
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    border: @tooltip-triangle-size dashed @tooltip-background; /* 1 */
 }
 
 
@@ -87,12 +87,12 @@
 .uk-tooltip-top:after,
 .uk-tooltip-top-left:after,
 .uk-tooltip-top-right:after {
-	bottom: -@tooltip-triangle-size;
-	border-top-style: solid;
-	border-bottom: none;
-	border-left-color: transparent;
-	border-right-color: transparent;
-	border-top-color: @tooltip-background;
+    bottom: -@tooltip-triangle-size;
+    border-top-style: solid;
+    border-bottom: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: @tooltip-background;
 }
 
 /*
@@ -102,12 +102,12 @@
 .uk-tooltip-bottom:after,
 .uk-tooltip-bottom-left:after,
 .uk-tooltip-bottom-right:after {
-	top: -@tooltip-triangle-size;
-	border-bottom-style: solid; 
-	border-top: none; 
-	border-left-color: transparent; 
-	border-right-color: transparent; 
-	border-bottom-color: @tooltip-background;
+    top: -@tooltip-triangle-size;
+    border-bottom-style: solid; 
+    border-top: none; 
+    border-left-color: transparent; 
+    border-right-color: transparent; 
+    border-bottom-color: @tooltip-background;
 }
 
 /*
@@ -116,8 +116,8 @@
 
 .uk-tooltip-top:after,
 .uk-tooltip-bottom:after { 
-	left: 50%; 
-	margin-left: -@tooltip-triangle-size; 
+    left: 50%; 
+    margin-left: -@tooltip-triangle-size; 
 }
 
 /*
@@ -139,14 +139,14 @@
  */
 
 .uk-tooltip-left:after {
-	right: -@tooltip-triangle-size;
-	top: 50%;
-	margin-top: -@tooltip-triangle-size;
-	border-left-style: solid;
-	border-right: none;
-	border-top-color: transparent;
-	border-bottom-color: transparent;
-	border-left-color: @tooltip-background;
+    right: -@tooltip-triangle-size;
+    top: 50%;
+    margin-top: -@tooltip-triangle-size;
+    border-left-style: solid;
+    border-right: none;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: @tooltip-background;
 }
 
 /*
@@ -154,14 +154,14 @@
  */
 
 .uk-tooltip-right:after {
-	left: -@tooltip-triangle-size;
-	top: 50%;
-	margin-top: -@tooltip-triangle-size;
-	border-right-style: solid;
-	border-left: none;
-	border-top-color: transparent;
-	border-bottom-color: transparent;
-	border-right-color: @tooltip-background;
+    left: -@tooltip-triangle-size;
+    top: 50%;
+    margin-top: -@tooltip-triangle-size;
+    border-right-style: solid;
+    border-left: none;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: @tooltip-background;
 }
 
 

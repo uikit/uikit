@@ -1,17 +1,17 @@
-// Name:			Off-canvas
-// Description:		Defines styles for an off-canvas sidebar that slides in and out of the page
+// Name:            Off-canvas
+// Description:     Defines styles for an off-canvas sidebar that slides in and out of the page
 //
-// Component:		`uk-offcanvas`
+// Component:       `uk-offcanvas`
 //
-// Sub-objects:		`uk-offcanvas-page`
-//					`uk-offcanvas-bar`
+// Sub-objects:     `uk-offcanvas-page`
+//                  `uk-offcanvas-bar`
 //
-// Modifiers:		`uk-offcanvas-bar-flip`
+// Modifiers:       `uk-offcanvas-bar-flip`
 //
-// States:		 	`uk-active`
+// States:          `uk-active`
 //
-// Uses:			Panel: `uk-panel`
-//					Search: `uk-search`, `uk-search-field`
+// Uses:            Panel: `uk-panel`
+//                  Search: `uk-search`, `uk-search-field`
 //
 // ========================================================================
 
@@ -19,24 +19,24 @@
 // Variables
 // ========================================================================
 
-@offcanvas-z-index:								1010;
-@offcanvas-background:							rgba(0,0,0,0.1);
+@offcanvas-z-index:                             1010;
+@offcanvas-background:                          rgba(0,0,0,0.1);
 
-@offcanvas-bar-width:							270px;
-@offcanvas-bar-background:						#333;
+@offcanvas-bar-width:                           270px;
+@offcanvas-bar-background:                      #333;
 
-@offcanvas-panel-margin:						20px 15px;
-@offcanvas-panel-color:							#777;
-@offcanvas-panel-title-color:					@offcanvas-panel-link-color;
-@offcanvas-panel-link-color:					#ccc;
-@offcanvas-panel-link-hover-color:				#fff;
+@offcanvas-panel-margin:                        20px 15px;
+@offcanvas-panel-color:                         #777;
+@offcanvas-panel-title-color:                   @offcanvas-panel-link-color;
+@offcanvas-panel-link-color:                    #ccc;
+@offcanvas-panel-link-hover-color:              #fff;
 
-@offcanvas-search-margin:						20px 15px;
-@offcanvas-search-background: 					darken(@offcanvas-bar-background, 10%);
-@offcanvas-search-border: 						rgba(0,0,0,0);
-@offcanvas-search-color:						@offcanvas-panel-link-color;
-@offcanvas-search-placeholder-color:			@offcanvas-panel-color;
-@offcanvas-search-icon-color:			 		@offcanvas-panel-color;
+@offcanvas-search-margin:                       20px 15px;
+@offcanvas-search-background:                   darken(@offcanvas-bar-background, 10%);
+@offcanvas-search-border:                       rgba(0,0,0,0);
+@offcanvas-search-color:                        @offcanvas-panel-link-color;
+@offcanvas-search-placeholder-color:            @offcanvas-panel-color;
+@offcanvas-search-icon-color:                   @offcanvas-panel-color;
 
 
 /* ========================================================================
@@ -51,18 +51,18 @@
  */
 
 .uk-offcanvas {
-	/* 1 */
-	display: none;
-	/* 2 */
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: @offcanvas-z-index;
-	/* 3 */
-	background: @offcanvas-background;
-	.hook-offcanvas;
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @offcanvas-z-index;
+    /* 3 */
+    background: @offcanvas-background;
+    .hook-offcanvas;
 }
 
 .uk-offcanvas.uk-active { display: block; }
@@ -78,11 +78,11 @@
  */
 
 .uk-offcanvas-page {
-	/* 1 */
-	position: fixed;
-	/* 2 */
-	-webkit-transition: margin-left 0.3s ease-in-out 50ms;
-	transition: margin-left 0.3s ease-in-out 50ms;
+    /* 1 */
+    position: fixed;
+    /* 2 */
+    -webkit-transition: margin-left 0.3s ease-in-out 50ms;
+    transition: margin-left 0.3s ease-in-out 50ms;
 }
 
 
@@ -98,40 +98,40 @@
  */
 
 .uk-offcanvas-bar {
-	/* 1 */
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	-webkit-transform: translateX(-100%);
-	transform: translateX(-100%);
-	z-index: @offcanvas-z-index + 1;
-	/* 2 */
-	width: @offcanvas-bar-width;
-	max-width: 100%;
-	background: @offcanvas-bar-background;
-	/* 3 */
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-	/* 4 */
-	-webkit-transition: -webkit-transform 0.3s ease-in-out;
-	transition: transform 0.3s ease-in-out;
-	.hook-offcanvas-bar;
+    /* 1 */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    z-index: @offcanvas-z-index + 1;
+    /* 2 */
+    width: @offcanvas-bar-width;
+    max-width: 100%;
+    background: @offcanvas-bar-background;
+    /* 3 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 4 */
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    .hook-offcanvas-bar;
 }
 
 .uk-offcanvas.uk-active .uk-offcanvas-bar.uk-offcanvas-bar-show {
-	-webkit-transform: translateX(0%);
-	transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
 }
 
 /* Modifier `uk-offcanvas-bar-flip`
  ========================================================================== */
 
 .uk-offcanvas-bar-flip {
-	left: auto;
-	right: 0;
-	-webkit-transform: translateX(100%);
-	transform: translateX(100%);
+    left: auto;
+    right: 0;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
 }
 
 
@@ -139,9 +139,9 @@
  ========================================================================== */
 
 .uk-offcanvas .uk-panel {
-	margin: @offcanvas-panel-margin;
-	color: @offcanvas-panel-color;
-	.hook-offcanvas-panel;
+    margin: @offcanvas-panel-margin;
+    color: @offcanvas-panel-color;
+    .hook-offcanvas-panel;
 }
 
 .uk-offcanvas .uk-panel-title { color: @offcanvas-panel-title-color; }
@@ -154,18 +154,18 @@
  ========================================================================== */
 
 .uk-offcanvas .uk-search {
-	display: block;
-	margin: @offcanvas-search-margin;
+    display: block;
+    margin: @offcanvas-search-margin;
 }
 
 .uk-offcanvas .uk-search:before { color: @offcanvas-search-icon-color; }
 
 .uk-offcanvas .uk-search-field {
-	width: 100%;
-	border-color: @offcanvas-search-border;
-	background: @offcanvas-search-background;
-	color: @offcanvas-search-color;
-	.hook-offcanvas-search-field;
+    width: 100%;
+    border-color: @offcanvas-search-border;
+    background: @offcanvas-search-background;
+    color: @offcanvas-search-color;
+    .hook-offcanvas-search-field;
 }
 
 .uk-offcanvas .uk-search-field:-ms-input-placeholder { color: @offcanvas-search-placeholder-color; }

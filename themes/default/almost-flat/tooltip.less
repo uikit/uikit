@@ -7,24 +7,24 @@
 // Variables
 // ========================================================================
 
-@tooltip-z-index:								(@global-z-index + 30);
+@tooltip-z-index:                               (@global-z-index + 30);
 
-@tooltip-font-size:								round(@global-font-size * 0.85); // 12px
-@tooltip-line-height:							round(@tooltip-font-size * 1.5); // 18px
+@tooltip-font-size:                             round(@global-font-size * 0.85); // 12px
+@tooltip-line-height:                           round(@tooltip-font-size * 1.5); // 18px
 
 //
 // New
 //
 
-@tooltip-text-shadow:							rgba(0,0,0,0.5);
+@tooltip-text-shadow:                           rgba(0,0,0,0.5);
 
 
 // Component
 // ========================================================================
 
 .hook-tooltip() {
-	border-radius: 3px;
-	text-shadow: 0 1px 0 @tooltip-text-shadow;
+    border-radius: 3px;
+    text-shadow: 0 1px 0 @tooltip-text-shadow;
 }
 
 

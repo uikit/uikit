@@ -7,27 +7,27 @@
 // Variables
 // ========================================================================
 
-@alert-margin-vertical:							@global-margin;
+@alert-margin-vertical:                         @global-margin;
 
 //
 // New
 //
 
-@alert-border:									fade(@alert-color, 30%);
-@alert-text-shadow:								@global-text-shadow;
+@alert-border:                                  fade(@alert-color, 30%);
+@alert-text-shadow:                             @global-text-shadow;
 
-@alert-success-border:							fade(@alert-success-color, 30%);
-@alert-warning-border:							fade(@alert-warning-color, 30%);
-@alert-danger-border:							fade(@alert-danger-color, 30%);
+@alert-success-border:                          fade(@alert-success-color, 30%);
+@alert-warning-border:                          fade(@alert-warning-color, 30%);
+@alert-danger-border:                           fade(@alert-danger-color, 30%);
 
 
 // Component
 // ========================================================================
 
 .hook-alert() {
-	border: 1px solid @alert-border;
-	border-radius: @global-border-radius;
-	text-shadow: 0 1px 0 @alert-text-shadow;
+    border: 1px solid @alert-border;
+    border-radius: @global-border-radius;
+    text-shadow: 0 1px 0 @alert-text-shadow;
 }
 
 

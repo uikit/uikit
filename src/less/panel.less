@@ -1,23 +1,23 @@
-// Name:			Panel
-// Description:		Defines styles for reusable content areas
+// Name:            Panel
+// Description:     Defines styles for reusable content areas
 //
-// Component:		`uk-panel`
+// Component:       `uk-panel`
 //
-// Sub-objects:		`uk-panel-title`
-//					`uk-panel-badge`
+// Sub-objects:     `uk-panel-title`
+//                  `uk-panel-badge`
 //
-// Modifiers:		`uk-panel-box`
-//					`uk-panel-box-primary`
-//					`uk-panel-box-secondary`
-//					`uk-panel-header`
-//					`uk-panel-space`
-//					`uk-panel-divider`
+// Modifiers:       `uk-panel-box`
+//                  `uk-panel-box-primary`
+//                  `uk-panel-box-secondary`
+//                  `uk-panel-header`
+//                  `uk-panel-space`
+//                  `uk-panel-divider`
 //
-// Uses:			Nav: `uk-nav-side`
+// Uses:            Nav: `uk-nav-side`
 //
-// Used by:			Dropdown
-//					Off-canvas
-//					Grid
+// Used by:         Dropdown
+//                  Off-canvas
+//                  Grid
 //
 // ========================================================================
 
@@ -25,37 +25,37 @@
 // Variables
 // ========================================================================
 
-@panel-title-margin-bottom:						15px;
-@panel-title-font-size:							18px;
-@panel-title-line-height:						24px;
-@panel-title-font-weight:						normal;
-@panel-title-color:								#444;
-@panel-title-text-transform:							none;
+@panel-title-margin-bottom:                     15px;
+@panel-title-font-size:                         18px;
+@panel-title-line-height:                       24px;
+@panel-title-font-weight:                       normal;
+@panel-title-color:                             #444;
+@panel-title-text-transform:                            none;
 
-@panel-box-padding:								15px;
-@panel-box-background:							#f5f5f5;
-@panel-box-color:								#444;
-@panel-box-title-color:							#444;
-@panel-box-badge-top:							10px;
-@panel-box-badge-right:							@panel-box-badge-top;
+@panel-box-padding:                             15px;
+@panel-box-background:                          #f5f5f5;
+@panel-box-color:                               #444;
+@panel-box-title-color:                         #444;
+@panel-box-badge-top:                           10px;
+@panel-box-badge-right:                         @panel-box-badge-top;
 
-@panel-box-primary-background:					#ebf7fd;
-@panel-box-primary-color:						#2d7091;
-@panel-box-primary-title-color:					#2d7091;
+@panel-box-primary-background:                  #ebf7fd;
+@panel-box-primary-color:                       #2d7091;
+@panel-box-primary-title-color:                 #2d7091;
 
-@panel-box-secondary-background:				#eee;
-@panel-box-secondary-color:						#444;
-@panel-box-secondary-title-color:				#444;
+@panel-box-secondary-background:                #eee;
+@panel-box-secondary-color:                     #444;
+@panel-box-secondary-title-color:               #444;
 
-@panel-header-title-padding:					10px;
-@panel-header-title-border:						#ddd;
-@panel-header-title-color:						#444;
+@panel-header-title-padding:                    10px;
+@panel-header-title-border:                     #ddd;
+@panel-header-title-color:                      #444;
 
-@panel-space-padding:							30px;
+@panel-space-padding:                           30px;
 
-@panel-divider-gutter:							25px;
-@panel-divider-large-gutter:					35px;
-@panel-divider-border:							#ddd;
+@panel-divider-gutter:                          25px;
+@panel-divider-large-gutter:                    35px;
+@panel-divider-border:                          #ddd;
 
 
 /* ========================================================================
@@ -74,8 +74,8 @@
 
 .uk-panel:before,
 .uk-panel:after {
-	content: " ";
-	display: table;
+    content: " ";
+    display: table;
 }
 
 .uk-panel:after { clear: both; }
@@ -91,13 +91,13 @@
  ========================================================================== */
 
 .uk-panel-title {
-	margin-bottom: @panel-title-margin-bottom;
-	font-size: @panel-title-font-size;
-	line-height: @panel-title-line-height;
-	font-weight: @panel-title-font-weight;
-	text-transform: @panel-title-text-transform;
-	color: @panel-title-color;
-	.hook-panel-title;
+    margin-bottom: @panel-title-margin-bottom;
+    font-size: @panel-title-font-size;
+    line-height: @panel-title-line-height;
+    font-weight: @panel-title-font-weight;
+    text-transform: @panel-title-text-transform;
+    color: @panel-title-color;
+    .hook-panel-title;
 }
 
 
@@ -105,11 +105,11 @@
  ========================================================================== */
 
 .uk-panel-badge {
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 1;
-	.hook-panel-badge;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    .hook-panel-badge;
 }
 
 /*
@@ -123,17 +123,17 @@
  ========================================================================== */
 
 .uk-panel-box {
-	padding: @panel-box-padding;
-	background: @panel-box-background;
-	color: @panel-box-color;
-	.hook-panel-box;
+    padding: @panel-box-padding;
+    background: @panel-box-background;
+    color: @panel-box-color;
+    .hook-panel-box;
 }
 
 .uk-panel-box .uk-panel-title { color: @panel-box-title-color; }
 
 .uk-panel-box .uk-panel-badge {
-	top: @panel-box-badge-top;
-	right: @panel-box-badge-right;
+    top: @panel-box-badge-top;
+    right: @panel-box-badge-right;
 }
 
 /*
@@ -147,9 +147,9 @@
  */
 
 .uk-panel-box-primary {
-	background-color: @panel-box-primary-background;
-	color: @panel-box-primary-color;
-	.hook-panel-box-primary;
+    background-color: @panel-box-primary-background;
+    color: @panel-box-primary-color;
+    .hook-panel-box-primary;
 }
 
 .uk-panel-box-primary .uk-panel-title { color: @panel-box-primary-title-color; }
@@ -159,9 +159,9 @@
  */
 
 .uk-panel-box-secondary {
-	background-color: @panel-box-secondary-background;
-	color: @panel-box-secondary-color;
-	.hook-panel-box-secondary;
+    background-color: @panel-box-secondary-background;
+    color: @panel-box-secondary-color;
+    .hook-panel-box-secondary;
 }
 
 .uk-panel-box-secondary .uk-panel-title { color: @panel-box-secondary-title-color; }
@@ -171,10 +171,10 @@
  ========================================================================== */
 
 .uk-panel-header .uk-panel-title {
-	padding-bottom: @panel-header-title-padding;
-	border-bottom: 1px solid @panel-header-title-border;
-	color: @panel-header-title-color;
-	.hook-panel-header;
+    padding-bottom: @panel-header-title-padding;
+    border-bottom: 1px solid @panel-header-title-border;
+    color: @panel-header-title-color;
+    .hook-panel-header;
 }
 
 
@@ -184,8 +184,8 @@
 .uk-panel-space { padding: @panel-space-padding; }
 
 .uk-panel-space .uk-panel-badge {
-	top: @panel-space-padding;
-	right: @panel-space-padding;
+    top: @panel-space-padding;
+    right: @panel-space-padding;
 }
 
 
@@ -195,20 +195,20 @@
 .uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter * 2) !important; }
 
 .uk-panel + .uk-panel-divider:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: -(@panel-divider-gutter);
-	left: 0;
-	right: 0;
-	border-top: 1px solid @panel-divider-border;
+    content: "";
+    display: block;
+    position: absolute;
+    top: -(@panel-divider-gutter);
+    left: 0;
+    right: 0;
+    border-top: 1px solid @panel-divider-border;
 }
 
 /* Only large screens */
 @media (min-width: @breakpoint-xlarge) {
 
-	.uk-panel + .uk-panel-divider { margin-top: (@panel-divider-large-gutter * 2) !important; }
-	.uk-panel + .uk-panel-divider:before { top: -(@panel-divider-large-gutter); }
+    .uk-panel + .uk-panel-divider { margin-top: (@panel-divider-large-gutter * 2) !important; }
+    .uk-panel + .uk-panel-divider:before { top: -(@panel-divider-large-gutter); }
 
 }
 

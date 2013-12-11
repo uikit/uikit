@@ -1,359 +1,359 @@
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Text component - UIkit documentation</title>
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
-		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
-		<link rel="stylesheet" href="css/docs.css">
-		<link rel="stylesheet" href="../vendor/highlight/highlight.css">
-		<script src="../vendor/jquery.js"></script>
-		<script src="../dist/js/uikit.min.js"></script>
-		<script src="../vendor/highlight/highlight.js"></script>
-		<script src="js/docs.js"></script>
-	</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Text component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="../dist/js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
 
-	<body class="tm-background">
+    <body class="tm-background">
 
-		<nav class="tm-navbar uk-navbar uk-navbar-attached">
-			<div class="uk-container uk-container-center">
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
 
-				<a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
-				<ul class="uk-navbar-nav uk-hidden-small">
-					<li><a href="documentation_get-started.html">Get Started</a></li>
-					<li class="uk-active"><a href="components.html">Components</a></li>
-					<li><a href="addons.html">Add-ons</a></li>
-					<li><a href="customizer.html">Customizer</a></li>
-				</ul>
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="components.html">Components</a></li>
+                    <li><a href="addons.html">Add-ons</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                </ul>
 
-				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
 
-				<div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
 
-			</div>
-		</nav>
+            </div>
+        </nav>
 
-		<div class="tm-middle">
-			<div class="uk-container uk-container-center">
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
 
-				<div class="uk-grid" data-uk-grid-margin>
-					<div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
 
-						<ul class="tm-nav uk-nav" data-uk-nav>
+                        <ul class="tm-nav uk-nav" data-uk-nav>
 
-							<li class="uk-nav-header">Defaults</li>
-							<li><a href="normalize.html">Normalize</a></li>
-							<li><a href="base.html">Base</a></li>
-							<li><a href="print.html">Print</a></li>
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="normalize.html">Normalize</a></li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
 
-							<li class="uk-nav-header">Layout</li>
-							<li><a href="grid.html">Grid</a></li>
-							<li><a href="panel.html">Panel</a></li>
-							<li><a href="article.html">Article</a></li>
-							<li><a href="comment.html">Comment</a></li>
-							<li><a href="utility.html">Utility</a></li>
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
 
-							<li class="uk-nav-header">Navigations</li>
-							<li><a href="nav.html">Nav</a></li>
-							<li><a href="navbar.html">Navbar</a></li>
-							<li><a href="subnav.html">Subnav</a></li>
-							<li><a href="breadcrumb.html">Breadcrumb</a></li>
-							<li><a href="pagination.html">Pagination</a></li>
-							<li><a href="tab.html">Tab</a></li>
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
 
-							<li class="uk-nav-header">Elements</li>
-							<li><a href="list.html">List</a></li>
-							<li><a href="description-list.html">Description list</a></li>
-							<li><a href="table.html">Table</a></li>
-							<li><a href="form.html">Form</a></li>
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
 
-							<li class="uk-nav-header">Common</li>
-							<li><a href="button.html">Button</a></li>
-							<li><a href="icon.html">Icon</a></li>
-							<li><a href="close.html">Close</a></li>
-							<li><a href="badge.html">Badge</a></li>
-							<li><a href="alert.html">Alert</a></li>
-							<li><a href="thumbnail.html">Thumbnail</a></li>
-							<li><a href="overlay.html">Overlay</a></li>
-							<li><a href="progress.html">Progress</a></li>
-							<li><a href="search.html">Search</a></li>
-							<li class="uk-active"><a href="text.html">Text</a></li>
-							<li><a href="animation.html">Animation</a></li>
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li class="uk-active"><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
 
-							<li class="uk-nav-header">JavaScript</li>
-							<li><a href="dropdown.html">Dropdown</a></li>
-							<li><a href="modal.html">Modal</a></li>
-							<li><a href="offcanvas.html">Off-canvas</a></li>
-							<li><a href="switcher.html">Switcher</a></li>
-							<li><a href="toggle.html">Toggle</a></li>
-							<li><a href="scrollspy.html">Scrollspy</a></li>
-							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
 
-						</ul>
+                        </ul>
 
-					</div>
-					<div class="tm-main uk-width-medium-3-4">
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
 
-						<article class="uk-article">
+                        <article class="uk-article">
 
-							<h1 class="uk-article-title">Text</h1>
+                            <h1 class="uk-article-title">Text</h1>
 
-							<p class="uk-article-lead">A collection of useful text utility classes to style your content.</p>
+                            <p class="uk-article-lead">A collection of useful text utility classes to style your content.</p>
 
-							<h2>Text styles</h2>
+                            <h2>Text styles</h2>
 
-							<p>UIkit offers various text utlities to style your text. </p>
+                            <p>UIkit offers various text utlities to style your text. </p>
 
-							<table class="uk-table uk-table-condensed">
-								<thead>
-									<tr>
-										<th class="uk-width-1-4">Class</th>
-										<th class="uk-width-3-4">Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><code>.uk-text-small</code></td>
-										<td><span class="uk-text-small">Add this class to decrease the font size.</span></td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-large</code></td>
-										<td><span class="uk-text-large">Add this class to increase the font size.</span></td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-bold</code></td>
-										<td><span class="uk-text-bold">Add this class to create bold text.</span></td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-muted</code></td>
-										<td><span class="uk-text-muted">Add this class to mute your text.</span></td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-info</code></td>
-										<td><span class="uk-text-info">Add this class for additional text information.</span></td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-success</code></td>
-										<td><span class="uk-text-success">Add this class to indicate success.</span></td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-warning</code></td>
-										<td><span class="uk-text-warning">Add this class to indicate a warning.</span></td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-danger</code></td>
-										<td><span class="uk-text-danger">Add this class to indicate danger.</span></td>
-									</tr>
-								</tbody>
-							</table>
+                            <table class="uk-table uk-table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="uk-width-1-4">Class</th>
+                                        <th class="uk-width-3-4">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.uk-text-small</code></td>
+                                        <td><span class="uk-text-small">Add this class to decrease the font size.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-large</code></td>
+                                        <td><span class="uk-text-large">Add this class to increase the font size.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-bold</code></td>
+                                        <td><span class="uk-text-bold">Add this class to create bold text.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-muted</code></td>
+                                        <td><span class="uk-text-muted">Add this class to mute your text.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-info</code></td>
+                                        <td><span class="uk-text-info">Add this class for additional text information.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-success</code></td>
+                                        <td><span class="uk-text-success">Add this class to indicate success.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-warning</code></td>
+                                        <td><span class="uk-text-warning">Add this class to indicate a warning.</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-danger</code></td>
+                                        <td><span class="uk-text-danger">Add this class to indicate danger.</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-							<hr class="uk-article-divider">
+                            <hr class="uk-article-divider">
 
-							<h2>Text alignment</h2>
+                            <h2>Text alignment</h2>
 
-							<p>Add one of these useful classes to align your text.</p>
+                            <p>Add one of these useful classes to align your text.</p>
 
-							<table class="uk-table uk-table-condensed">
-								<thead>
-									<tr>
-										<th class="uk-width-1-4">Class</th>
-										<th class="uk-width-3-4">Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><code>.uk-text-left</code></td>
-										<td>Aligns text to the left.</td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-right</code></td>
-										<td>Aligns text to the right.</td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-center</code></td>
-										<td>Centers text horizontallly.</td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-justify</code></td>
-										<td>Justifies text.</td>
-									</tr>
-								</tbody>
-							</table>
+                            <table class="uk-table uk-table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="uk-width-1-4">Class</th>
+                                        <th class="uk-width-3-4">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.uk-text-left</code></td>
+                                        <td>Aligns text to the left.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-right</code></td>
+                                        <td>Aligns text to the right.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-center</code></td>
+                                        <td>Centers text horizontallly.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-justify</code></td>
+                                        <td>Justifies text.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-							<h3 class="tm-article-subtitle">Example</h3>
+                            <h3 class="tm-article-subtitle">Example</h3>
 
-							<div class="uk-grid" data-uk-grid-margin>
-								<div class="uk-width-medium-1-4">
-									<div class="uk-panel uk-panel-box uk-text-left">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-left</code></div>
-								</div>
-								<div class="uk-width-medium-1-4">
-									<div class="uk-panel uk-panel-box uk-text-right">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-right</code></div>
-								</div>
-								<div class="uk-width-medium-1-4">
-									<div class="uk-panel uk-panel-box uk-text-center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-center</code></div>
-								</div>
-								<div class="uk-width-medium-1-4">
-									<div class="uk-panel uk-panel-box uk-text-justify">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-justify</code></div>
-								</div>
-							</div>
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-text-left">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-left</code></div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-text-right">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-right</code></div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-text-center">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-center</code></div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-text-justify">Lorem ipsum dolor sit amet, consetetur sadipscing elitr. <code>.uk-text-justify</code></div>
+                                </div>
+                            </div>
 
-							<hr class="uk-article-divider">
+                            <hr class="uk-article-divider">
 
-							<h2>Text wrapping</h2>
+                            <h2>Text wrapping</h2>
 
-							<p>Add one of these useful classes to wrap your text.</p>
+                            <p>Add one of these useful classes to wrap your text.</p>
 
-							<table class="uk-table uk-table-condensed">
-								<thead>
-									<tr>
-										<th class="uk-width-1-4">Class</th>
-										<th class="uk-width-3-4">Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><code>.uk-text-break</code></td>
-										<td>Breaks long words.</td>
-									</tr>
-									<tr>
-										<td><code>.uk-text-truncate</code></td>
-										<td>Truncates text.</td>
-									</tr>
-								</tbody>
-							</table>
+                            <table class="uk-table uk-table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="uk-width-1-4">Class</th>
+                                        <th class="uk-width-3-4">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.uk-text-break</code></td>
+                                        <td>Breaks long words.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-truncate</code></td>
+                                        <td>Truncates text.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-							<div class="uk-grid uk-margin" data-uk-grid-margin>
-								<div class="uk-width-medium-1-2">
-									<div class="uk-panel uk-panel-box uk-text-break">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elit <code>.uk-text-break</code></div>
-								</div>
-								<div class="uk-width-medium-1-2">
-									<div class="uk-panel uk-panel-box"><p class="uk-margin-remove uk-text-truncate">Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac.</p> <code>.uk-text-truncate</code></div>
-								</div>
-							</div>
+                            <div class="uk-grid uk-margin" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+                                    <div class="uk-panel uk-panel-box uk-text-break">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elit <code>.uk-text-break</code></div>
+                                </div>
+                                <div class="uk-width-medium-1-2">
+                                    <div class="uk-panel uk-panel-box"><p class="uk-margin-remove uk-text-truncate">Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac.</p> <code>.uk-text-truncate</code></div>
+                                </div>
+                            </div>
 
-						</article>
+                        </article>
 
-					</div>
-				</div>
+                    </div>
+                </div>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div class="tm-footer">
-			<div class="uk-container uk-container-center uk-text-center">
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
 
-				<ul class="uk-subnav uk-subnav-line">
-					<li><a href="http://github.com/uikit/uikit">GitHub</a></li>
-					<li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
-					<li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
-					<li><a href="https://twitter.com/getuikit">Twitter</a></li>
-				</ul>
+                <ul class="uk-subnav uk-subnav-line">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
 
-				<div class="uk-panel">
-					<p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
-					<a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
-				</div>
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div id="tm-offcanvas" class="uk-offcanvas">
+        <div id="tm-offcanvas" class="uk-offcanvas">
 
-			<div class="uk-offcanvas-bar">
+            <div class="uk-offcanvas-bar">
 
-				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-					<li class="uk-parent"><a href="#">Documentation</a>
-						<ul class="uk-nav-sub">
-							<li><a href="documentation_get-started.html">Get started</a></li>
-							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
-							<li><a href="components.html">Components</a></li>
-							<li><a href="addons.html">Add-ons</a></li>
-							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-							<li><a href="documentation_create-a-style.html">Create a style</a></li>
-							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-						</ul>
-					</li>
-					<li class="uk-nav-header">Components</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
-						<ul class="uk-nav-sub">
-							<li><a href="normalize.html">Normalize</a></li>
-							<li><a href="base.html">Base</a></li>
-							<li><a href="print.html">Print</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
-						<ul class="uk-nav-sub">
-							<li><a href="grid.html">Grid</a></li>
-							<li><a href="panel.html">Panel</a></li>
-							<li><a href="article.html">Article</a></li>
-							<li><a href="comment.html">Comment</a></li>
-							<li><a href="utility.html">Utility</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
-						<ul class="uk-nav-sub">
-							<li><a href="nav.html">Nav</a></li>
-							<li><a href="navbar.html">Navbar</a></li>
-							<li><a href="subnav.html">Subnav</a></li>
-							<li><a href="breadcrumb.html">Breadcrumb</a></li>
-							<li><a href="pagination.html">Pagination</a></li>
-							<li><a href="tab.html">Tab</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
-						<ul class="uk-nav-sub">
-							<li><a href="list.html">List</a></li>
-							<li><a href="description-list.html">Description list</a></li>
-							<li><a href="table.html">Table</a></li>
-							<li><a href="form.html">Form</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
-						<ul class="uk-nav-sub">
-							<li><a href="button.html">Button</a></li>
-							<li><a href="icon.html">Icon</a></li>
-							<li><a href="close.html">Close</a></li>
-							<li><a href="badge.html">Badge</a></li>
-							<li><a href="alert.html">Alert</a></li>
-							<li><a href="thumbnail.html">Thumbnail</a></li>
-							<li><a href="overlay.html">Overlay</a></li>
-							<li><a href="progress.html">Progress</a></li>
-							<li><a href="search.html">Search</a></li>
-							<li><a href="text.html">Text</a></li>
-							<li><a href="animation.html">Animation</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
-						<ul class="uk-nav-sub">
-							<li><a href="dropdown.html">Dropdown</a></li>
-							<li><a href="modal.html">Modal</a></li>
-							<li><a href="offcanvas.html">Off-canvas</a></li>
-							<li><a href="switcher.html">Switcher</a></li>
-							<li><a href="toggle.html">Toggle</a></li>
-							<li><a href="scrollspy.html">Scrollspy</a></li>
-							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#">Add-ons</a>
-						<ul class="uk-nav-sub">
-							<li><a href="addons_datepicker.html">Datepicker</a></li>
-							<li><a href="addons_form-password.html">Form Password</a></li>
-							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
-							<li><a href="addons_sortable.html">Sortable</a></li>
-							<li><a href="addons_sticky.html">Sticky</a></li>
-							<li><a href="addons_timepicker.html">Timepicker</a></li>
-						</ul>
-					</li>
-				</ul>
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="addons.html">Add-ons</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="normalize.html">Normalize</a></li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#">Add-ons</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="addons_datepicker.html">Datepicker</a></li>
+                            <li><a href="addons_form-password.html">Form Password</a></li>
+                            <li><a href="addons_markdownarea.html">Markdown Area</a></li>
+                            <li><a href="addons_sortable.html">Sortable</a></li>
+                            <li><a href="addons_sticky.html">Sticky</a></li>
+                            <li><a href="addons_timepicker.html">Timepicker</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-	</body>
+    </body>
 </html>

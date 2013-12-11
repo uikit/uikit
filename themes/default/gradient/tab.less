@@ -7,21 +7,21 @@
 // Variables
 // ========================================================================
 
-@tab-border:									@global-border;
-@tab-color:										@global-link-color;
-@tab-hover-border:								@global-border;
-@tab-hover-background:							#fafafa;
-@tab-hover-color:								@global-link-hover-color;
-@tab-active-border:								@global-border;
-@tab-active-background:							@global-background;
-@tab-active-color:								@global-color;
-@tab-disabled-color:							@global-muted-color;
+@tab-border:                                    @global-border;
+@tab-color:                                     @global-link-color;
+@tab-hover-border:                              @global-border;
+@tab-hover-background:                          #fafafa;
+@tab-hover-color:                               @global-link-hover-color;
+@tab-active-border:                             @global-border;
+@tab-active-background:                         @global-background;
+@tab-active-color:                              @global-color;
+@tab-disabled-color:                            @global-muted-color;
 
 //
 // New
 //
 
-@tab-text-shadow:								@global-text-shadow;
+@tab-text-shadow:                               @global-text-shadow;
 
 
 // Component
@@ -32,8 +32,8 @@
 //
 
 .hook-tab() {
-	border-radius: @global-border-radius @global-border-radius 0 0;
-	text-shadow: 0 1px 0 @tab-text-shadow;
+    border-radius: @global-border-radius @global-border-radius 0 0;
+    text-shadow: 0 1px 0 @tab-text-shadow;
 }
 
 // Hover
@@ -51,30 +51,30 @@
 
 .hook-tab-misc() {
 
-	/* Modifier: `uk-tab-bottom'
-	 ========================================================================== */
+    /* Modifier: `uk-tab-bottom'
+     ========================================================================== */
 
-	.uk-tab-bottom > li > a { border-radius: 0 0 @global-border-radius @global-border-radius; }
+    .uk-tab-bottom > li > a { border-radius: 0 0 @global-border-radius @global-border-radius; }
 
 
-	/* Modifier: `uk-tab-left', `uk-tab-right'
-	========================================================================== */
+    /* Modifier: `uk-tab-left', `uk-tab-right'
+    ========================================================================== */
 
-	/* Only tablets and desktops */
-	@media (min-width: @breakpoint-medium) {
+    /* Only tablets and desktops */
+    @media (min-width: @breakpoint-medium) {
 
-		/*
-		 * Modifier: `uk-tab-left'
-		 */
+        /*
+         * Modifier: `uk-tab-left'
+         */
 
-		.uk-tab-left > li > a { border-radius: @global-border-radius 0 0 @global-border-radius; }
+        .uk-tab-left > li > a { border-radius: @global-border-radius 0 0 @global-border-radius; }
 
-		/*
-		 * Modifier: `uk-tab-right'
-		 */
+        /*
+         * Modifier: `uk-tab-right'
+         */
 
-		.uk-tab-right > li > a { border-radius: 0 @global-border-radius @global-border-radius 0; }
+        .uk-tab-right > li > a { border-radius: 0 @global-border-radius @global-border-radius 0; }
 
-	}
+    }
 
 }

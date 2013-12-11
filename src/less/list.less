@@ -1,11 +1,11 @@
-// Name:			List
-// Description:		Defines styles for ordered and unordered lists
+// Name:            List
+// Description:     Defines styles for ordered and unordered lists
 //
-// Component:		`uk-list`
+// Component:       `uk-list`
 //
-// Modifiers:		`uk-list-line`
-//					`uk-list-striped`
-//					`uk-list-space`
+// Modifiers:       `uk-list-line`
+//                  `uk-list-striped`
+//                  `uk-list-space`
 //
 // ========================================================================
 
@@ -13,16 +13,16 @@
 // Variables
 // ========================================================================
 
-@list-nested-padding-left:						20px;
+@list-nested-padding-left:                      20px;
 
-@list-line-margin-top:							5px;
-@list-line-border:								#ddd;
+@list-line-margin-top:                          5px;
+@list-line-border:                              #ddd;
 
-@list-striped-padding-vertical:					5px;
-@list-striped-padding-horizontal:				5px;
-@list-striped-background:						#f5f5f5;
+@list-striped-padding-vertical:                 5px;
+@list-striped-padding-horizontal:               5px;
+@list-striped-background:                       #f5f5f5;
 
-@list-space-margin-top:							10px;
+@list-space-margin-top:                         10px;
 
 
 /* ========================================================================
@@ -30,8 +30,8 @@
  ========================================================================== */
 
 .uk-list {
-	padding: 0;
-	list-style: none;
+    padding: 0;
+    list-style: none;
 }
 
 /*
@@ -39,9 +39,9 @@
  */
 
 .uk-list ul {
-	margin: 0;
-	padding-left: @list-nested-padding-left;
-	list-style: none;
+    margin: 0;
+    padding-left: @list-nested-padding-left;
+    list-style: none;
 }
 
 
@@ -49,10 +49,10 @@
  ========================================================================== */
 
 .uk-list-line > li:nth-child(n+2) {
-	margin-top: @list-line-margin-top;
-	padding-top: @list-line-margin-top;
-	border-top: 1px solid @list-line-border;
-	.hook-list-line;
+    margin-top: @list-line-margin-top;
+    padding-top: @list-line-margin-top;
+    border-top: 1px solid @list-line-border;
+    .hook-list-line;
 }
 
 
@@ -60,8 +60,8 @@
  ========================================================================== */
 
 .uk-list-striped > li {
-	padding: @list-striped-padding-vertical @list-striped-padding-horizontal;
-	.hook-list-striped;
+    padding: @list-striped-padding-vertical @list-striped-padding-horizontal;
+    .hook-list-striped;
 }
 
 .uk-list-striped > li:nth-of-type(odd) { background: @list-striped-background; }

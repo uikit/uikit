@@ -1,16 +1,16 @@
-// Name:			Progress
-// Description:		Defines styles for progress bars
+// Name:            Progress
+// Description:     Defines styles for progress bars
 //
-// Component: 		`uk-progress`
+// Component:       `uk-progress`
 //
-// Sub-objects: 	`uk-progress-bar`
+// Sub-objects:     `uk-progress-bar`
 // 
-// Modifiers:		`uk-progress-mini`
-//					`uk-progress-small`
-//					`uk-progress-success`
-//					`uk-progress-warning`
-//					`uk-progress-danger`
-//					`uk-progress-striped`
+// Modifiers:       `uk-progress-mini`
+//                  `uk-progress-small`
+//                  `uk-progress-success`
+//                  `uk-progress-warning`
+//                  `uk-progress-danger`
+//                  `uk-progress-striped`
 //
 // ========================================================================
 
@@ -18,20 +18,20 @@
 // Variables
 // ========================================================================
 
-@progress-height:								20px;
-@progress-mini-height:							6px;
-@progress-small-height:							12px;
+@progress-height:                               20px;
+@progress-mini-height:                          6px;
+@progress-small-height:                         12px;
 
-@progress-margin-vertical:						15px;
-@progress-background:							#eee;
+@progress-margin-vertical:                      15px;
+@progress-background:                           #eee;
 
-@progress-bar-background:						#00a8e6;
-@progress-bar-font-size:						12px;
-@progress-bar-color:							#fff;
+@progress-bar-background:                       #00a8e6;
+@progress-bar-font-size:                        12px;
+@progress-bar-color:                            #fff;
 
-@progress-bar-success-background:				#8cc14c;
-@progress-bar-warning-background:				#faa732;
-@progress-bar-danger-background:				#da314b;
+@progress-bar-success-background:               #8cc14c;
+@progress-bar-warning-background:               #faa732;
+@progress-bar-danger-background:                #da314b;
 
 
 /* ========================================================================
@@ -44,14 +44,14 @@
  */
 
 .uk-progress {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	height: @progress-height;
-	margin-bottom: @progress-margin-vertical;
-	background: @progress-background;
-	overflow: hidden; /* 1 */
-	line-height: @progress-height; /* 2 */
-	.hook-progress;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: @progress-height;
+    margin-bottom: @progress-margin-vertical;
+    background: @progress-background;
+    overflow: hidden; /* 1 */
+    line-height: @progress-height; /* 2 */
+    .hook-progress;
 }
 
 /*
@@ -65,18 +65,18 @@
  ========================================================================== */
 
 .uk-progress-bar {
-	width: 0;
-	height: 100%;
-	background: @progress-bar-background;
-	float: left;
-	/* Transition */
-	-webkit-transition: width 0.6s ease;
-	transition: width 0.6s ease;
-	/* Allow text */
-	font-size: @progress-bar-font-size;
-	color: @progress-bar-color;
-	text-align: center;
-	.hook-progress-bar;
+    width: 0;
+    height: 100%;
+    background: @progress-bar-background;
+    float: left;
+    /* Transition */
+    -webkit-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+    /* Allow text */
+    font-size: @progress-bar-font-size;
+    color: @progress-bar-color;
+    text-align: center;
+    .hook-progress-bar;
 }
 
 
@@ -85,15 +85,15 @@
 
 /* Mini */
 .uk-progress-mini {
-	height: @progress-mini-height;
-	.hook-progress-mini;
+    height: @progress-mini-height;
+    .hook-progress-mini;
 }
 
 
 /* Small */
 .uk-progress-small {
-	height: @progress-small-height;
-	.hook-progress-small;
+    height: @progress-small-height;
+    .hook-progress-small;
 }
 
 
@@ -101,18 +101,18 @@
  ========================================================================== */
 
 .uk-progress-success .uk-progress-bar {
-	background-color: @progress-bar-success-background;
-	.hook-progress-bar-success;
+    background-color: @progress-bar-success-background;
+    .hook-progress-bar-success;
 }
 
 .uk-progress-warning .uk-progress-bar {
-	background-color: @progress-bar-warning-background;
-	.hook-progress-bar-warning;
+    background-color: @progress-bar-warning-background;
+    .hook-progress-bar-warning;
 }
 
 .uk-progress-danger .uk-progress-bar {
-	background-color: @progress-bar-danger-background;
-	.hook-progress-bar-danger;
+    background-color: @progress-bar-danger-background;
+    .hook-progress-bar-danger;
 }
 
 
@@ -120,9 +120,9 @@
  ========================================================================== */
 
 .uk-progress-striped .uk-progress-bar {
-	background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-	background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-	background-size: 30px 30px;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 30px 30px;
 }
 
 /*
@@ -130,18 +130,18 @@
  */
 
 .uk-progress-striped.uk-active .uk-progress-bar {
-	-webkit-animation: uk-progress-bar-stripes 2s linear infinite;
-	animation: uk-progress-bar-stripes 2s linear infinite;
+    -webkit-animation: uk-progress-bar-stripes 2s linear infinite;
+    animation: uk-progress-bar-stripes 2s linear infinite;
 }
 
 @-webkit-keyframes uk-progress-bar-stripes {
-	0% { background-position: 0 0;}
-	100% { background-position: 30px 0; }
+    0% { background-position: 0 0;}
+    100% { background-position: 30px 0; }
 }
 
 @keyframes uk-progress-bar-stripes {
-	0% { background-position: 0 0;}
-	100% { background-position: 30px 0; }
+    0% { background-position: 0 0;}
+    100% { background-position: 30px 0; }
 }
 
 

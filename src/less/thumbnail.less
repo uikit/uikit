@@ -1,15 +1,15 @@
-// Name:			Thumbnail
-// Description:		Defines styles for image thumbnails
+// Name:            Thumbnail
+// Description:     Defines styles for image thumbnails
 //
-// Component:		`uk-thumbnail`
+// Component:       `uk-thumbnail`
 //
-// Sub-objects: 	`uk-thumbnail-caption`
+// Sub-objects:     `uk-thumbnail-caption`
 //
-// Modifiers:		`uk-thumbnail-mini`
-//					`uk-thumbnail-small`
-//					`uk-thumbnail-medium`
-//					`uk-thumbnail-large`
-//					`uk-thumbnail-expand`
+// Modifiers:       `uk-thumbnail-mini`
+//                  `uk-thumbnail-small`
+//                  `uk-thumbnail-medium`
+//                  `uk-thumbnail-large`
+//                  `uk-thumbnail-expand`
 //
 // ========================================================================
 
@@ -17,13 +17,13 @@
 // Variables
 // ========================================================================
 
-@thumbnail-padding:								4px;
-@thumbnail-border:								#ddd;
-@thumbnail-background:							#fff;
-@thumbnail-hover-border:						#aaa;
-@thumbnail-hover-background:					#fff;
+@thumbnail-padding:                             4px;
+@thumbnail-border:                              #ddd;
+@thumbnail-background:                          #fff;
+@thumbnail-hover-border:                        #aaa;
+@thumbnail-hover-background:                    #fff;
 
-@thumbnail-caption-color:						#444;
+@thumbnail-caption-color:                       #444;
 
 
 /* ========================================================================
@@ -37,16 +37,16 @@
  */
 
 .uk-thumbnail {
-	/* Required for `a`, `div` or `figure` elements */
-	display: inline-block;
-	-moz-box-sizing: border-box; /* 1 */
-	box-sizing: border-box;
-	max-width: 100%; /* 2 */
-	margin: 0; /* 3 */
-	padding: @thumbnail-padding;
-	border: 1px solid @thumbnail-border;
-	background: @thumbnail-background;
-	.hook-thumbnail;
+    /* Required for `a`, `div` or `figure` elements */
+    display: inline-block;
+    -moz-box-sizing: border-box; /* 1 */
+    box-sizing: border-box;
+    max-width: 100%; /* 2 */
+    margin: 0; /* 3 */
+    padding: @thumbnail-padding;
+    border: 1px solid @thumbnail-border;
+    background: @thumbnail-background;
+    .hook-thumbnail;
 }
 
 /*
@@ -58,11 +58,11 @@
 
 a.uk-thumbnail:hover,
 a.uk-thumbnail:focus { /* 1 */
-	border-color: @thumbnail-hover-border;
-	background-color: @thumbnail-hover-background;
-	text-decoration: none; /* 2 */
-	outline: none; /* 3 */
-	.hook-thumbnail-hover;
+    border-color: @thumbnail-hover-border;
+    background-color: @thumbnail-hover-background;
+    text-decoration: none; /* 2 */
+    outline: none; /* 3 */
+    .hook-thumbnail-hover;
 }
 
 
@@ -70,10 +70,10 @@ a.uk-thumbnail:focus { /* 1 */
  ========================================================================== */
 
 .uk-thumbnail-caption {
-	padding-top: @thumbnail-padding;
-	text-align: center;
-	color: @thumbnail-caption-color;
-	.hook-thumbnail-caption;
+    padding-top: @thumbnail-padding;
+    text-align: center;
+    color: @thumbnail-caption-color;
+    .hook-thumbnail-caption;
 }
 
 

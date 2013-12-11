@@ -7,33 +7,33 @@
 // Variables
 // ========================================================================
 
-@dropdown-z-index:								@global-z-index;
-@dropdown-background:							#fff;
-@dropdown-color:								@global-color;
-@dropdown-divider-border:						@global-border;
+@dropdown-z-index:                              @global-z-index;
+@dropdown-background:                           #fff;
+@dropdown-color:                                @global-color;
+@dropdown-divider-border:                       @global-border;
 
-@dropdown-navbar-margin:						6px;
-@dropdown-navbar-background:					#fff;
-@dropdown-navbar-color:							@global-color;
+@dropdown-navbar-margin:                        6px;
+@dropdown-navbar-background:                    #fff;
+@dropdown-navbar-color:                         @global-color;
 
-@dropdown-search-background:					#fff;
-@dropdown-search-color:							@global-color;
-@dropdown-search-navbar-margin-top:				(((@navbar-nav-height) - @search-height) / 2) + @dropdown-navbar-margin;
-@dropdown-search-navbar-margin-right:			(-@navbar-nav-padding-horizontal) - 1;
+@dropdown-search-background:                    #fff;
+@dropdown-search-color:                         @global-color;
+@dropdown-search-navbar-margin-top:             (((@navbar-nav-height) - @search-height) / 2) + @dropdown-navbar-margin;
+@dropdown-search-navbar-margin-right:           (-@navbar-nav-padding-horizontal) - 1;
 
 //
 // New
 //
 
-@dropdown-border:								@global-border;
+@dropdown-border:                               @global-border;
 
 
 // Component
 // ========================================================================
 
 .hook-dropdown() {
-	border: 1px solid @dropdown-border;
-	border-radius: @global-border-radius;
+    border: 1px solid @dropdown-border;
+    border-radius: @global-border-radius;
 }
 
 
@@ -41,9 +41,9 @@
 // ========================================================================
 
 .hook-dropdown-navbar() {
-	left: -1px;
-	border: 1px solid @dropdown-border;
-	border-radius: @global-border-radius;
+    left: -1px;
+    border: 1px solid @dropdown-border;
+    border-radius: @global-border-radius;
 }
 
 
@@ -58,6 +58,6 @@
 
 .hook-dropdown-misc() {
 
-	.uk-dropdown-navbar.uk-dropdown-flip { left: auto; }
+    .uk-dropdown-navbar.uk-dropdown-flip { left: auto; }
 
 }

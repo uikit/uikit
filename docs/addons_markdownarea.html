@@ -1,110 +1,110 @@
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Markdown area add-on - UIkit documentation</title>
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
-		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
-		<link rel="stylesheet" href="css/docs.css">
-		<link rel="stylesheet" href="../vendor/highlight/highlight.css">
-		<script src="../vendor/jquery.js"></script>
-		<script src="../dist/js/uikit.min.js"></script>
-		<script src="../vendor/highlight/highlight.js"></script>
-		<script src="js/docs.js"></script>
-		<link rel="stylesheet" href="../vendor/codemirror/lib/codemirror.css">
-		<script src="../vendor/codemirror/lib/codemirror.js"></script>
-		<script src="../vendor/codemirror/mode/markdown/markdown.js"></script>
-		<script src="../vendor/codemirror/addon/mode/overlay.js"></script>
-		<script src="../vendor/codemirror/mode/xml/xml.js"></script>
-		<script src="../vendor/codemirror/mode/gfm/gfm.js"></script>
-		<script src="../vendor/marked.js"></script>
-		<script src="../dist/addons/js/markdownarea.js"></script>
-		<link rel="stylesheet" href="../dist/addons/css/markdownarea.gradient.css">
-	</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Markdown area add-on - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="../dist/js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+        <link rel="stylesheet" href="../vendor/codemirror/lib/codemirror.css">
+        <script src="../vendor/codemirror/lib/codemirror.js"></script>
+        <script src="../vendor/codemirror/mode/markdown/markdown.js"></script>
+        <script src="../vendor/codemirror/addon/mode/overlay.js"></script>
+        <script src="../vendor/codemirror/mode/xml/xml.js"></script>
+        <script src="../vendor/codemirror/mode/gfm/gfm.js"></script>
+        <script src="../vendor/marked.js"></script>
+        <script src="../dist/addons/js/markdownarea.js"></script>
+        <link rel="stylesheet" href="../dist/addons/css/markdownarea.gradient.css">
+    </head>
 
-	<body class="tm-background">
+    <body class="tm-background">
 
-		<nav class="tm-navbar uk-navbar uk-navbar-attached">
-			<div class="uk-container uk-container-center">
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
 
-				<a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
-				<ul class="uk-navbar-nav uk-hidden-small">
-					<li><a href="documentation_get-started.html">Get Started</a></li>
-					<li><a href="components.html">Components</a></li>
-					<li class="uk-active"><a href="addons.html">Add-ons</a></li>
-					<li><a href="customizer.html">Customizer</a></li>
-				</ul>
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li class="uk-active"><a href="addons.html">Add-ons</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                </ul>
 
-				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
 
-				<div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
 
-			</div>
-		</nav>
+            </div>
+        </nav>
 
-		<div class="tm-middle">
-			<div class="uk-container uk-container-center">
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
 
-				<div class="uk-grid" data-uk-grid-margin>
-					<div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
 
-						<ul class="tm-nav uk-nav" data-uk-nav>
-							<li class="uk-nav-header">Add-ons</li>
-							<li><a href="addons_datepicker.html">Datepicker</a></li>
-							<li><a href="addons_form-password.html">Form Password</a></li>
-							<li class="uk-active"><a href="addons_markdownarea.html">Markdown Area</a></li>
-							<li><a href="addons_sortable.html">Sortable</a></li>
-							<li><a href="addons_sticky.html">Sticky</a></li>
-							<li><a href="addons_timepicker.html">Timepicker</a></li>
-						</ul>
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+                            <li class="uk-nav-header">Add-ons</li>
+                            <li><a href="addons_datepicker.html">Datepicker</a></li>
+                            <li><a href="addons_form-password.html">Form Password</a></li>
+                            <li class="uk-active"><a href="addons_markdownarea.html">Markdown Area</a></li>
+                            <li><a href="addons_sortable.html">Sortable</a></li>
+                            <li><a href="addons_sticky.html">Sticky</a></li>
+                            <li><a href="addons_timepicker.html">Timepicker</a></li>
+                        </ul>
 
-					</div>
-					<div class="tm-main uk-width-medium-3-4">
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
 
-						<article class="uk-article">
+                        <article class="uk-article">
 
-							<h1>Markdown area</h1>
+                            <h1>Markdown area</h1>
 
-							<p class="uk-article-lead">Create a rich markdown editor with an immediate preview and support for HTML syntax highlightning.</p>
+                            <p class="uk-article-lead">Create a rich markdown editor with an immediate preview and support for HTML syntax highlightning.</p>
 
-							<p>The Markdown area allows you to write in Markdown and HTML while it generates a real-time preview. It includes a toolbar that helps you to change text appearences and add links, pictures, blockquotes and lists without having to write code. The editor provides syntax highlighting for both Markdown and HTML and you can even toggle to fullscreen mode, so that you can work undisturbed on your content.</p>
+                            <p>The Markdown area allows you to write in Markdown and HTML while it generates a real-time preview. It includes a toolbar that helps you to change text appearences and add links, pictures, blockquotes and lists without having to write code. The editor provides syntax highlighting for both Markdown and HTML and you can even toggle to fullscreen mode, so that you can work undisturbed on your content.</p>
 
-							<h2>Usage</h2>
+                            <h2>Usage</h2>
 
-							<p>To apply this add-on, you firstly need to include the necessary <a href="http://codemirror.net/">CodeMirror</a> and <a href="https://github.com/chjj/marked">marked</a> dependencies. To do so, just add the appropriate script to the header of your project.</p>
+                            <p>To apply this add-on, you firstly need to include the necessary <a href="http://codemirror.net/">CodeMirror</a> and <a href="https://github.com/chjj/marked">marked</a> dependencies. To do so, just add the appropriate script to the header of your project.</p>
 
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-	&lt;head&gt;
-		&lt;title&gt;&lt;/title&gt;
-		&lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-		&lt;script src="jquery.js">&lt;/script&gt;
-		&lt;script src="uikit.min.js">&lt;/script&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+        &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
+        &lt;script src="jquery.js">&lt;/script&gt;
+        &lt;script src="uikit.min.js">&lt;/script&gt;
 
-		&lt;!-- Codemirror and marked dependencies --&gt;
-		&lt;link rel="stylesheet" href="codemirror/lib/codemirror.css"&gt;
-		&lt;script src="codemirror/lib/codemirror.js"&gt;&lt;/script&gt;
-		&lt;script src="codemirror/mode/markdown/markdown.js"&gt;&lt;/script&gt;
-		&lt;script src="codemirror/addon/mode/overlay.js"&gt;&lt;/script&gt;
-		&lt;script src="codemirror/mode/xml/xml.js"&gt;&lt;/script&gt;
-		&lt;script src="codemirror/mode/gfm/gfm.js"&gt;&lt;/script&gt;
-		&lt;script src="marked.js"&gt;&lt;/script&gt;
+        &lt;!-- Codemirror and marked dependencies --&gt;
+        &lt;link rel="stylesheet" href="codemirror/lib/codemirror.css"&gt;
+        &lt;script src="codemirror/lib/codemirror.js"&gt;&lt;/script&gt;
+        &lt;script src="codemirror/mode/markdown/markdown.js"&gt;&lt;/script&gt;
+        &lt;script src="codemirror/addon/mode/overlay.js"&gt;&lt;/script&gt;
+        &lt;script src="codemirror/mode/xml/xml.js"&gt;&lt;/script&gt;
+        &lt;script src="codemirror/mode/gfm/gfm.js"&gt;&lt;/script&gt;
+        &lt;script src="marked.js"&gt;&lt;/script&gt;
 
-		&lt;!-- Markdown Area JavaScript and CSS --&gt;
-		&lt;script src="markdownarea.js"&gt;&lt;/script&gt;
-		&lt;link rel="stylesheet" href="markdownarea.css"&gt;
-	&lt;/head&gt;
-	&lt;body&gt;
-	&lt;/body&gt;
+        &lt;!-- Markdown Area JavaScript and CSS --&gt;
+        &lt;script src="markdownarea.js"&gt;&lt;/script&gt;
+        &lt;link rel="stylesheet" href="markdownarea.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 
-							<p>Afterwards, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
+                            <p>Afterwards, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
 
-							<h3 class="tm-article-subtitle">Example</h3>
+                            <h3 class="tm-article-subtitle">Example</h3>
 
 <textarea data-uk-markdownarea="{maxsplitsize:600}">#Heading
 
@@ -122,17 +122,17 @@ Ut enim ad *minim* veniam, quis nostrud exercitation ullamco laboris nisi ut ali
 
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
 
-							<h3 class="tm-article-subtitle">Markup</h3>
+                            <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;textarea data-uk-markdownarea&gt;...&lt;/textarea&gt;</code></pre>
 
-							<hr class="uk-article-divider">
+                            <hr class="uk-article-divider">
 
-							<h2>Tab mode</h2>
+                            <h2>Tab mode</h2>
 
-							<p>You can also switch between Markdown and Preview mode. Just add the <code>data-uk-markdownarea="{mode:'tab'}</code> attribute.</p>
+                            <p>You can also switch between Markdown and Preview mode. Just add the <code>data-uk-markdownarea="{mode:'tab'}</code> attribute.</p>
 
-							<h3 class="tm-article-subtitle">Example</h3>
+                            <h3 class="tm-article-subtitle">Example</h3>
 
 <textarea data-uk-markdownarea="{mode:'tab'}">#Heading
 
@@ -150,181 +150,181 @@ Ut enim ad *minim* veniam, quis nostrud exercitation ullamco laboris nisi ut ali
 
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
 
-							<h3 class="tm-article-subtitle">Markup</h3>
+                            <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;textarea data-uk-markdownarea="{mode:'tab'}"&gt;...&lt;/textarea&gt;</code></pre>
 
 
-							<hr class="uk-article-divider">
+                            <hr class="uk-article-divider">
 
-							<h2>Javascript options</h2>
+                            <h2>Javascript options</h2>
 
-							<p>This is an example of how to set options via attribute:</p>
+                            <p>This is an example of how to set options via attribute:</p>
 
-							<pre><code>data-uk-markdownarea=&quot;{mode:'split', maxsplitsize:600}&quot;</code></pre>
+                            <pre><code>data-uk-markdownarea=&quot;{mode:'split', maxsplitsize:600}&quot;</code></pre>
 
-							<table class="uk-table uk-table-striped">
-								<thead>
-									<tr>
-										<th>Option</th>
-										<th>Possible value</th>
-										<th>Default</th>
-										<th>Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><code>mode</code></td>
-										<td><em>'split', 'tab'</em></td>
-										<td>'split'</td>
-										<td>View mode</td>
-									</tr>
-									<tr>
-										<td><code>toolbar</code></td>
-										<td><em>Array</em></td>
-										<td>[ "bold", "italic", "strike", "link", "picture", ... ]</td>
-										<td>Button list to appear in the toolbar</td>
-									</tr>
-									<tr>
-										<td><code>maxsplitsize</code></td>
-										<td><em>integer</em></td>
-										<td>1000</td>
-										<td>Min. browser width when to switch to responsive tab mode when in split mode</td>
-									</tr>
-									<tr>
-										<td><code>lblPreview</code></td>
-										<td><em>any string</em></td>
-										<td>'Preview'</td>
-										<td>Label string for preview mode</td>
-									</tr>
-									<tr>
-										<td><code>lblCodeview</code></td>
-										<td><em>any string</em></td>
-										<td>'Markdown'</td>
-										<td>Label string for code mode</td>
-									</tr>
-								</tbody>
-							</table>
+                            <table class="uk-table uk-table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Option</th>
+                                        <th>Possible value</th>
+                                        <th>Default</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>mode</code></td>
+                                        <td><em>'split', 'tab'</em></td>
+                                        <td>'split'</td>
+                                        <td>View mode</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>toolbar</code></td>
+                                        <td><em>Array</em></td>
+                                        <td>[ "bold", "italic", "strike", "link", "picture", ... ]</td>
+                                        <td>Button list to appear in the toolbar</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>maxsplitsize</code></td>
+                                        <td><em>integer</em></td>
+                                        <td>1000</td>
+                                        <td>Min. browser width when to switch to responsive tab mode when in split mode</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>lblPreview</code></td>
+                                        <td><em>any string</em></td>
+                                        <td>'Preview'</td>
+                                        <td>Label string for preview mode</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>lblCodeview</code></td>
+                                        <td><em>any string</em></td>
+                                        <td>'Markdown'</td>
+                                        <td>Label string for code mode</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-						</article>
+                        </article>
 
-					</div>
-				</div>
+                    </div>
+                </div>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div class="tm-footer">
-			<div class="uk-container uk-container-center uk-text-center">
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
 
-				<ul class="uk-subnav uk-subnav-line">
-					<li><a href="http://github.com/uikit/uikit">GitHub</a></li>
-					<li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
-					<li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
-					<li><a href="https://twitter.com/getuikit">Twitter</a></li>
-				</ul>
+                <ul class="uk-subnav uk-subnav-line">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
 
-				<div class="uk-panel">
-					<p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
-					<a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
-				</div>
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div id="tm-offcanvas" class="uk-offcanvas">
+        <div id="tm-offcanvas" class="uk-offcanvas">
 
-			<div class="uk-offcanvas-bar">
+            <div class="uk-offcanvas-bar">
 
-				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-					<li class="uk-parent uk-active"><a href="#">Documentation</a>
-						<ul class="uk-nav-sub">
-							<li><a href="documentation_get-started.html">Get started</a></li>
-							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
-							<li><a href="components.html">Components</a></li>
-							<li><a href="addons.html">Add-ons</a></li>
-							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-							<li><a href="documentation_create-a-style.html">Create a style</a></li>
-							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-						</ul>
-					</li>
-					<li class="uk-nav-header">Components</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
-						<ul class="uk-nav-sub">
-							<li><a href="normalize.html">Normalize</a></li>
-							<li><a href="base.html">Base</a></li>
-							<li><a href="print.html">Print</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
-						<ul class="uk-nav-sub">
-							<li><a href="grid.html">Grid</a></li>
-							<li><a href="panel.html">Panel</a></li>
-							<li><a href="article.html">Article</a></li>
-							<li><a href="comment.html">Comment</a></li>
-							<li><a href="utility.html">Utility</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
-						<ul class="uk-nav-sub">
-							<li><a href="nav.html">Nav</a></li>
-							<li><a href="navbar.html">Navbar</a></li>
-							<li><a href="subnav.html">Subnav</a></li>
-							<li><a href="breadcrumb.html">Breadcrumb</a></li>
-							<li><a href="pagination.html">Pagination</a></li>
-							<li><a href="tab.html">Tab</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
-						<ul class="uk-nav-sub">
-							<li><a href="list.html">List</a></li>
-							<li><a href="description-list.html">Description list</a></li>
-							<li><a href="table.html">Table</a></li>
-							<li><a href="form.html">Form</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
-						<ul class="uk-nav-sub">
-							<li><a href="button.html">Button</a></li>
-							<li><a href="icon.html">Icon</a></li>
-							<li><a href="close.html">Close</a></li>
-							<li><a href="badge.html">Badge</a></li>
-							<li><a href="alert.html">Alert</a></li>
-							<li><a href="thumbnail.html">Thumbnail</a></li>
-							<li><a href="overlay.html">Overlay</a></li>
-							<li><a href="progress.html">Progress</a></li>
-							<li><a href="search.html">Search</a></li>
-							<li><a href="text.html">Text</a></li>
-							<li><a href="animation.html">Animation</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
-						<ul class="uk-nav-sub">
-							<li><a href="dropdown.html">Dropdown</a></li>
-							<li><a href="modal.html">Modal</a></li>
-							<li><a href="offcanvas.html">Off-canvas</a></li>
-							<li><a href="switcher.html">Switcher</a></li>
-							<li><a href="toggle.html">Toggle</a></li>
-							<li><a href="scrollspy.html">Scrollspy</a></li>
-							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent uk-active"><a href="#">Add-ons</a>
-						<ul class="uk-nav-sub">
-							<li><a href="addons_datepicker.html">Datepicker</a></li>
-							<li><a href="addons_form-password.html">Form Password</a></li>
-							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
-							<li><a href="addons_sortable.html">Sortable</a></li>
-							<li><a href="addons_sticky.html">Sticky</a></li>
-							<li><a href="addons_timepicker.html">Timepicker</a></li>
-						</ul>
-					</li>
-				</ul>
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="addons.html">Add-ons</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="normalize.html">Normalize</a></li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#">Add-ons</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="addons_datepicker.html">Datepicker</a></li>
+                            <li><a href="addons_form-password.html">Form Password</a></li>
+                            <li><a href="addons_markdownarea.html">Markdown Area</a></li>
+                            <li><a href="addons_sortable.html">Sortable</a></li>
+                            <li><a href="addons_sticky.html">Sticky</a></li>
+                            <li><a href="addons_timepicker.html">Timepicker</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-	</body>
+    </body>
 </html>

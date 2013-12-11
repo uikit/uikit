@@ -1,76 +1,76 @@
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Thumbnail component - UIkit tests</title>
-		<script src="../../vendor/jquery.js"></script>
-		<script src="utils/test.js"></script>
-	</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Thumbnail component - UIkit tests</title>
+        <script src="../../vendor/jquery.js"></script>
+        <script src="utils/test.js"></script>
+    </head>
 
-	<body>
+    <body>
 
-		<div class="uk-container uk-container-center">
+        <div class="uk-container uk-container-center">
 
-			<h1>Thumbnail</h1>
+            <h1>Thumbnail</h1>
 
-			<h2>Image, anchor, figure</h2>
+            <h2>Image, anchor, figure</h2>
 
-			<div class="uk-margin">
-				<img class="uk-thumbnail" src="http://placekitten.com/200/100" alt="">
-				<a class="uk-thumbnail" href="#"><img src="http://placekitten.com/200/100" alt=""></a>
-				<figure class="uk-thumbnail"><img src="http://placekitten.com/200/100" alt=""></figure>
-			</div>
+            <div class="uk-margin">
+                <img class="uk-thumbnail" src="http://placekitten.com/200/100" alt="">
+                <a class="uk-thumbnail" href="#"><img src="http://placekitten.com/200/100" alt=""></a>
+                <figure class="uk-thumbnail"><img src="http://placekitten.com/200/100" alt=""></figure>
+            </div>
 
-			<div class="uk-margin">
-				<div class="uk-thumbnail">
-					<img src="http://placekitten.com/200/100" alt="">
-					<div class="uk-thumbnail-caption">Caption <code>&lt;div&gt;</code></div>
-				</div>
-				<a class="uk-thumbnail" href="#">
-					<img src="http://placekitten.com/200/100" alt="">
-					<div class="uk-thumbnail-caption">Caption <code>&lt;a&gt;</code></div>
-				</a>
-				<figure class="uk-thumbnail">
-					<img src="http://placekitten.com/200/100" alt="">
-					<figcaption class="uk-thumbnail-caption">Caption <code>&lt;figure&gt;</code></figcaption>
-				</figure>
-			</div>
+            <div class="uk-margin">
+                <div class="uk-thumbnail">
+                    <img src="http://placekitten.com/200/100" alt="">
+                    <div class="uk-thumbnail-caption">Caption <code>&lt;div&gt;</code></div>
+                </div>
+                <a class="uk-thumbnail" href="#">
+                    <img src="http://placekitten.com/200/100" alt="">
+                    <div class="uk-thumbnail-caption">Caption <code>&lt;a&gt;</code></div>
+                </a>
+                <figure class="uk-thumbnail">
+                    <img src="http://placekitten.com/200/100" alt="">
+                    <figcaption class="uk-thumbnail-caption">Caption <code>&lt;figure&gt;</code></figcaption>
+                </figure>
+            </div>
 
-			<h2>Auto sizes</h2>
+            <h2>Auto sizes</h2>
 
-			<div class="uk-margin">
-				<img class="uk-thumbnail uk-thumbnail-large" src="http://placekitten.com/600/400" alt="">
-				<a class="uk-thumbnail uk-thumbnail-large" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
-			</div>
-			<div class="uk-margin">
-				<img class="uk-thumbnail uk-thumbnail-medium" src="http://placekitten.com/600/400" alt="">
-				<a class="uk-thumbnail uk-thumbnail-medium" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
-			</div>
-			<div class="uk-margin">
-				<img class="uk-thumbnail uk-thumbnail-small" src="http://placekitten.com/600/400" alt="">
-				<a class="uk-thumbnail uk-thumbnail-small" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
-			</div>
-			<div class="uk-margin">
-				<img class="uk-thumbnail uk-thumbnail-mini" src="http://placekitten.com/600/400" alt="">
-				<a class="uk-thumbnail uk-thumbnail-mini" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
-			</div>
+            <div class="uk-margin">
+                <img class="uk-thumbnail uk-thumbnail-large" src="http://placekitten.com/600/400" alt="">
+                <a class="uk-thumbnail uk-thumbnail-large" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
+            </div>
+            <div class="uk-margin">
+                <img class="uk-thumbnail uk-thumbnail-medium" src="http://placekitten.com/600/400" alt="">
+                <a class="uk-thumbnail uk-thumbnail-medium" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
+            </div>
+            <div class="uk-margin">
+                <img class="uk-thumbnail uk-thumbnail-small" src="http://placekitten.com/600/400" alt="">
+                <a class="uk-thumbnail uk-thumbnail-small" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
+            </div>
+            <div class="uk-margin">
+                <img class="uk-thumbnail uk-thumbnail-mini" src="http://placekitten.com/600/400" alt="">
+                <a class="uk-thumbnail uk-thumbnail-mini" href="#"><img src="http://placekitten.com/600/400" alt=""></a>
+            </div>
 
-			<h2>List of thumbnails as floating grid boxes</h2>
+            <h2>List of thumbnails as floating grid boxes</h2>
 
-			<ul class="uk-grid" data-uk-grid-margin>
-				<li class="uk-width-medium-1-2"><img class="uk-thumbnail" src="http://placekitten.com/600/400" alt=""></li>
-				<li class="uk-width-medium-3-10"><img class="uk-thumbnail" src="http://placekitten.com/600/315" alt=""></li>
-				<li class="uk-width-medium-1-5"><img class="uk-thumbnail" src="http://placekitten.com/600/500" alt=""></li>
-				<li class="uk-width-medium-3-10"><img class="uk-thumbnail" src="http://placekitten.com/600/315" alt=""></li>
-				<li class="uk-width-medium-1-5"><a class="uk-thumbnail" href="#"><img src="http://placekitten.com/600/500" alt=""></a></li>
-				<li class="uk-width-medium-1-3"><a class="uk-thumbnail uk-thumbnail-expand" href="#"><img src="http://placekitten.com/100/50" alt=""></a></li>
-				<li class="uk-width-medium-1-3"><a class="uk-thumbnail" href="#"><img src="http://placekitten.com/600/300" alt=""></a></li>
-				<li class="uk-width-medium-1-3"><a class="uk-thumbnail" href="#"><img src="http://placekitten.com/600/300" alt=""></a></li>
-			</ul>
+            <ul class="uk-grid" data-uk-grid-margin>
+                <li class="uk-width-medium-1-2"><img class="uk-thumbnail" src="http://placekitten.com/600/400" alt=""></li>
+                <li class="uk-width-medium-3-10"><img class="uk-thumbnail" src="http://placekitten.com/600/315" alt=""></li>
+                <li class="uk-width-medium-1-5"><img class="uk-thumbnail" src="http://placekitten.com/600/500" alt=""></li>
+                <li class="uk-width-medium-3-10"><img class="uk-thumbnail" src="http://placekitten.com/600/315" alt=""></li>
+                <li class="uk-width-medium-1-5"><a class="uk-thumbnail" href="#"><img src="http://placekitten.com/600/500" alt=""></a></li>
+                <li class="uk-width-medium-1-3"><a class="uk-thumbnail uk-thumbnail-expand" href="#"><img src="http://placekitten.com/100/50" alt=""></a></li>
+                <li class="uk-width-medium-1-3"><a class="uk-thumbnail" href="#"><img src="http://placekitten.com/600/300" alt=""></a></li>
+                <li class="uk-width-medium-1-3"><a class="uk-thumbnail" href="#"><img src="http://placekitten.com/600/300" alt=""></a></li>
+            </ul>
 
-		</div>
+        </div>
 
-	</body>
+    </body>
 </html>

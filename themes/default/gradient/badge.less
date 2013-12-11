@@ -7,40 +7,40 @@
 // Variables
 // ========================================================================
 
-@badge-background:								@global-primary-background;
-@badge-font-size:								round(@global-font-size * 0.71); // 10px
-@badge-line-height:								round(@badge-font-size * 1.4); // 14px
-@badge-color:									@global-contrast-color;
+@badge-background:                              @global-primary-background;
+@badge-font-size:                               round(@global-font-size * 0.71); // 10px
+@badge-line-height:                             round(@badge-font-size * 1.4); // 14px
+@badge-color:                                   @global-contrast-color;
 
-@badge-notification-font-size:					round(@global-font-size * 0.85); // 12px
-@badge-notification-line-height:				round(@badge-notification-font-size * 1.5); // 18px
+@badge-notification-font-size:                  round(@global-font-size * 0.85); // 12px
+@badge-notification-line-height:                round(@badge-notification-font-size * 1.5); // 18px
 
-@badge-success-background:						@global-success-background;
-@badge-warning-background:						@global-warning-background;
-@badge-danger-background:						@global-danger-background;
+@badge-success-background:                      @global-success-background;
+@badge-warning-background:                      @global-warning-background;
+@badge-danger-background:                       @global-danger-background;
 
 //
 // New
 //
 
-@badge-border:									rgba(0,0,0,0.2);
-@badge-border-bottom:							rgba(0,0,0,0.3);
-@badge-text-shadow:								@global-contrast-text-shadow;
+@badge-border:                                  rgba(0,0,0,0.2);
+@badge-border-bottom:                           rgba(0,0,0,0.3);
+@badge-text-shadow:                             @global-contrast-text-shadow;
 
-@badge-gradient-top:							@global-default-gradient-top;
-@badge-gradient-bottom:							@global-default-gradient-bottom;
+@badge-gradient-top:                            @global-default-gradient-top;
+@badge-gradient-bottom:                         @global-default-gradient-bottom;
 
-@badge-primary-gradient-top:					@global-primary-gradient-top;
-@badge-primary-gradient-bottom:					@global-primary-gradient-bottom;
+@badge-primary-gradient-top:                    @global-primary-gradient-top;
+@badge-primary-gradient-bottom:                 @global-primary-gradient-bottom;
 
-@badge-success-gradient-top:					@global-success-gradient-top;
-@badge-success-gradient-bottom:					@global-success-gradient-bottom;
+@badge-success-gradient-top:                    @global-success-gradient-top;
+@badge-success-gradient-bottom:                 @global-success-gradient-bottom;
 
-@badge-warning-gradient-top:					@global-warning-gradient-top;
-@badge-warning-gradient-bottom:					@global-warning-gradient-bottom;
+@badge-warning-gradient-top:                    @global-warning-gradient-top;
+@badge-warning-gradient-bottom:                 @global-warning-gradient-bottom;
 
-@badge-danger-gradient-top:						@global-danger-gradient-top;
-@badge-danger-gradient-bottom:					@global-danger-gradient-bottom;
+@badge-danger-gradient-top:                     @global-danger-gradient-top;
+@badge-danger-gradient-bottom:                  @global-danger-gradient-bottom;
 
 
 // Component
@@ -51,28 +51,28 @@
 //
 
 .hook-badge() {
-	border: 1px solid @badge-border;
-	border-bottom-color: @badge-border-bottom;
-	background-origin: border-box; // 1
-	background-image: -webkit-linear-gradient(top, @badge-primary-gradient-top, @badge-primary-gradient-bottom);
-	background-image: linear-gradient(to bottom, @badge-primary-gradient-top, @badge-primary-gradient-bottom);
-	border-radius: 2px;
-	text-shadow: 0 -1px 0 @badge-text-shadow;
+    border: 1px solid @badge-border;
+    border-bottom-color: @badge-border-bottom;
+    background-origin: border-box; // 1
+    background-image: -webkit-linear-gradient(top, @badge-primary-gradient-top, @badge-primary-gradient-bottom);
+    background-image: linear-gradient(to bottom, @badge-primary-gradient-top, @badge-primary-gradient-bottom);
+    border-radius: 2px;
+    text-shadow: 0 -1px 0 @badge-text-shadow;
 }
 
 .hook-badge-success() {
-	background-image: -webkit-linear-gradient(top, @badge-success-gradient-top, @badge-success-gradient-bottom);
-	background-image: linear-gradient(to bottom, @badge-success-gradient-top, @badge-success-gradient-bottom);
+    background-image: -webkit-linear-gradient(top, @badge-success-gradient-top, @badge-success-gradient-bottom);
+    background-image: linear-gradient(to bottom, @badge-success-gradient-top, @badge-success-gradient-bottom);
 }
 
 .hook-badge-warning() {
-	background-image: -webkit-linear-gradient(top, @badge-warning-gradient-top, @badge-warning-gradient-bottom);
-	background-image: linear-gradient(to bottom, @badge-warning-gradient-top, @badge-warning-gradient-bottom);
+    background-image: -webkit-linear-gradient(top, @badge-warning-gradient-top, @badge-warning-gradient-bottom);
+    background-image: linear-gradient(to bottom, @badge-warning-gradient-top, @badge-warning-gradient-bottom);
 }
 
 .hook-badge-danger() {
-	background-image: -webkit-linear-gradient(top, @badge-danger-gradient-top, @badge-danger-gradient-bottom);
-	background-image: linear-gradient(to bottom, @badge-danger-gradient-top, @badge-danger-gradient-bottom);
+    background-image: -webkit-linear-gradient(top, @badge-danger-gradient-top, @badge-danger-gradient-bottom);
+    background-image: linear-gradient(to bottom, @badge-danger-gradient-top, @badge-danger-gradient-bottom);
 }
 
 

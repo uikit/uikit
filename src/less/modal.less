@@ -1,17 +1,17 @@
-// Name:			Modal
-// Description:		Defines styles for modal dialogs
+// Name:            Modal
+// Description:     Defines styles for modal dialogs
 //
-// Component: 		`uk-modal`
+// Component:       `uk-modal`
 //
-// Sub-objects:		`uk-modal-dialog`
-//					`uk-modal-close`
+// Sub-objects:     `uk-modal-dialog`
+//                  `uk-modal-close`
 //
-// Modifiers:		`uk-modal-dialog-slide`
-//					`uk-modal-dialog-frameless`
+// Modifiers:       `uk-modal-dialog-slide`
+//                  `uk-modal-dialog-frameless`
 //
-// States:			`uk-open`
+// States:          `uk-open`
 //
-// Uses:			Close: `uk-close`
+// Uses:            Close: `uk-close`
 //
 // ========================================================================
 
@@ -19,12 +19,12 @@
 // Variables
 // ========================================================================
 
-@modal-z-index:									1020;
-@modal-background:								rgba(0,0,0,0.6);
+@modal-z-index:                                 1020;
+@modal-background:                              rgba(0,0,0,0.6);
 
-@modal-dialog-padding:							20px;
-@modal-dialog-width:							600px;
-@modal-dialog-background:						#fff;
+@modal-dialog-padding:                          20px;
+@modal-dialog-width:                            600px;
+@modal-dialog-background:                       #fff;
 
 
 /* ========================================================================
@@ -42,27 +42,27 @@
  */
 
 .uk-modal {
-	/* 1 */
-	display: none; 
-	/* 2 */
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: @modal-z-index;
-	/* 3 */
-	height: 100%;
-	/* 4 */
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-	/* 5 */
-	background: @modal-background;
-	/* 6 */
-	opacity: 0;
-	-webkit-transition: opacity 0.15s linear;
-	transition: opacity 0.15s linear;
-	.hook-modal;
+    /* 1 */
+    display: none; 
+    /* 2 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @modal-z-index;
+    /* 3 */
+    height: 100%;
+    /* 4 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 5 */
+    background: @modal-background;
+    /* 6 */
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+    .hook-modal;
 }
 
 /*
@@ -89,36 +89,36 @@
  */
 
 .uk-modal-dialog {
-	/* 1 */
-	position: relative;
-	top: 10%;
-	left: 50%;
-	/* 2 */
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	padding: @modal-dialog-padding;
-	width: @modal-dialog-width;
-	/* 3 */
-	margin-left: (@modal-dialog-width / -2);
-	/* 4 */
-	background: @modal-dialog-background;
-	.hook-modal-dialog;
+    /* 1 */
+    position: relative;
+    top: 10%;
+    left: 50%;
+    /* 2 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: @modal-dialog-padding;
+    width: @modal-dialog-width;
+    /* 3 */
+    margin-left: (@modal-dialog-width / -2);
+    /* 4 */
+    background: @modal-dialog-background;
+    .hook-modal-dialog;
 }
 
 /* Only phones */
 @media (max-width: @breakpoint-small-max) {
 
-	/*
-	 * Fit the phone width perfectly
-	 */
+    /*
+     * Fit the phone width perfectly
+     */
 
-	.uk-modal-dialog {
-		top: 0;
-		left: 0;
-		right: 0;
-		width: auto;
-		margin: 10px;
-	}
+    .uk-modal-dialog {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: auto;
+        margin: 10px;
+    }
 
 }
 
@@ -137,17 +137,17 @@
  */
 
 .uk-modal-dialog-slide {
-	opacity: 0;
-	-webkit-transform: translateY(-25%);
-	transform: translateY(-25%);
-	-webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
-	transition: opacity 0.3s linear, transform 0.3s ease-out;
+    opacity: 0;
+    -webkit-transform: translateY(-25%);
+    transform: translateY(-25%);
+    -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
+    transition: opacity 0.3s linear, transform 0.3s ease-out;
 }
 
 .uk-open .uk-modal-dialog-slide {
-	opacity: 1;
-	-webkit-transform: translateY(0);
-	transform: translateY(0);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
 }
 
 
@@ -155,8 +155,8 @@
  ========================================================================== */
 
 .uk-modal-dialog > .uk-close:first-child {
-	margin: -10px -10px 0 0;
-	float: right;
+    margin: -10px -10px 0 0;
+    float: right;
 }
 
 /*
@@ -176,20 +176,20 @@
  */
 
 .uk-modal-dialog-frameless > .uk-close:first-child {
-	position: absolute;
-	top: -12px;
-	right: -12px;
-	margin: 0;
-	float: none;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    margin: 0;
+    float: none;
 }
 
 /* Only phones */
 @media (max-width: @breakpoint-small-max) {
 
-	.uk-modal-dialog-frameless > .uk-close:first-child {
-		top: -7px;
-		right: -7px;
-	}
+    .uk-modal-dialog-frameless > .uk-close:first-child {
+        top: -7px;
+        right: -7px;
+    }
 
 }
 

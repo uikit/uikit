@@ -1,12 +1,12 @@
-// Name:			Subnav
-// Description:		Defines styles for the sub navigation
+// Name:            Subnav
+// Description:     Defines styles for the sub navigation
 //
-// Component:		`uk-subnav`
+// Component:       `uk-subnav`
 //
-// Modifiers: 		`uk-subnav-line`
-//					`uk-subnav-pill`
+// Modifiers:       `uk-subnav-line`
+//                  `uk-subnav-pill`
 //
-// States:		 	`uk-active`
+// States:          `uk-active`
 //
 // ========================================================================
 
@@ -14,18 +14,18 @@
 // Variables
 // ========================================================================
 
-@subnav-margin:									10px;
-@subnav-color:									#07D;
-@subnav-hover-color:							#059;
-@subnav-disabled-color:							#999;
+@subnav-margin:                                 10px;
+@subnav-color:                                  #07D;
+@subnav-hover-color:                            #059;
+@subnav-disabled-color:                         #999;
 
-@subnav-line-border-height:						10px;
-@subnav-line-border:							#ddd;
+@subnav-line-border-height:                     10px;
+@subnav-line-border:                            #ddd;
 
-@subnav-pill-hover-background:					#eee;
-@subnav-pill-hover-color:						#444;
-@subnav-pill-active-background:					#00a8e6;
-@subnav-pill-active-color:						#fff;
+@subnav-pill-hover-background:                  #eee;
+@subnav-pill-hover-color:                       #444;
+@subnav-pill-active-background:                 #00a8e6;
+@subnav-pill-active-color:                      #fff;
 
 
 /* ========================================================================
@@ -38,11 +38,11 @@
  */
 
 .uk-subnav {
-	/* 1 */
-	padding: 0;
-	list-style: none;
-	/* 2 */
-	letter-spacing: -0.31em;
+    /* 1 */
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    letter-spacing: -0.31em;
 }
 
 
@@ -55,8 +55,8 @@
  */
 
 .uk-subnav > li {
-	position: relative; /* 1 */
-	letter-spacing: normal; /* 2 */
+    position: relative; /* 1 */
+    letter-spacing: normal; /* 2 */
 }
 
 .uk-subnav > li,
@@ -84,12 +84,12 @@
  ========================================================================== */
 
 .uk-subnav-line > li:nth-child(n+2):before {
-	content: "";
-	display: inline-block;
-	height: @subnav-line-border-height;
-	margin-right: @subnav-margin;
-	border-left: 1px solid @subnav-line-border;
-	.hook-subnav-line-divider;
+    content: "";
+    display: inline-block;
+    height: @subnav-line-border-height;
+    margin-right: @subnav-margin;
+    border-left: 1px solid @subnav-line-border;
+    .hook-subnav-line-divider;
 }
 
 
@@ -98,9 +98,9 @@
 
 .uk-subnav-pill > li > a,
 .uk-subnav-pill > li > span {
-	padding: 3px 9px;
-	text-decoration: none;
-	.hook-subnav-pill;
+    padding: 3px 9px;
+    text-decoration: none;
+    .hook-subnav-pill;
 }
 
 /*
@@ -111,10 +111,10 @@
 
 .uk-subnav-pill > li > a:hover,
 .uk-subnav-pill > li > a:focus { /* 1 */
-	background: @subnav-pill-hover-background;
-	color: @subnav-pill-hover-color;
-	outline: none; /* 2 */
-	.hook-subnav-pill-hover;
+    background: @subnav-pill-hover-background;
+    color: @subnav-pill-hover-color;
+    outline: none; /* 2 */
+    .hook-subnav-pill-hover;
 }
 
 /*
@@ -123,9 +123,9 @@
  */
 
 .uk-subnav-pill > li.uk-active > a {
-	background: @subnav-pill-active-background;
-	color: @subnav-pill-active-color;
-	.hook-subnav-pill-active;
+    background: @subnav-pill-active-background;
+    color: @subnav-pill-active-color;
+    .hook-subnav-pill-active;
 }
 
 

@@ -1,14 +1,14 @@
-// Name:			Close
-// Description:		Defines styles for a close button
+// Name:            Close
+// Description:     Defines styles for a close button
 //
-// Component:		`uk-close`
+// Component:       `uk-close`
 //
-// Modifiers:		`uk-close-alt`
+// Modifiers:       `uk-close-alt`
 //
-// Uses:			Icon: FontAwesome
+// Uses:            Icon: FontAwesome
 //
-// Used by:			Alert
-//					Modal
+// Used by:         Alert
+//                  Modal
 //
 // ========================================================================
 
@@ -16,7 +16,7 @@
 // Variables
 // ========================================================================
 
-@close-alt-background:							#eee;
+@close-alt-background:                          #eee;
 
 
 /* ========================================================================
@@ -30,27 +30,27 @@
  */
 
 .uk-close {
-	-moz-box-sizing: content-box;
-	box-sizing: content-box; /* 1 */
-	display: inline-block;
-	width: 20px;
-	line-height: 20px;
-	text-align: center;
-	color: inherit;
-	opacity: 0.3;
-	/* 2. */
-	padding: 0;
-	border: 0;
-	-webkit-appearance: none;
-	background: transparent; /* Needed for Sarari */
-	.hook-close;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box; /* 1 */
+    display: inline-block;
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: inherit;
+    opacity: 0.3;
+    /* 2. */
+    padding: 0;
+    border: 0;
+    -webkit-appearance: none;
+    background: transparent; /* Needed for Sarari */
+    .hook-close;
 }
 
 /* Icon */
 .uk-close:after {
-	display: block;
-	content: "\f00d";
-	font-family: FontAwesome;
+    display: block;
+    content: "\f00d";
+    font-family: FontAwesome;
 }
 
 /*
@@ -61,15 +61,15 @@
 
 .uk-close:hover,
 .uk-close:focus { /* 1 */
-	opacity: 0.5;
-	outline: none; /* 2 */
+    opacity: 0.5;
+    outline: none; /* 2 */
 }
 
 /* Required for `a` elements */
 a.uk-close:hover {
-	color: inherit;
-	text-decoration: none;
-	cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 
@@ -77,11 +77,11 @@ a.uk-close:hover {
  ========================================================================== */
 
 .uk-close-alt {
-	padding: 2px;
-	border-radius: 100%;
-	background: @close-alt-background;
-	opacity: 1;
-	.hook-close-alt;
+    padding: 2px;
+    border-radius: 100%;
+    background: @close-alt-background;
+    opacity: 1;
+    .hook-close-alt;
 }
 
 /* Hover */

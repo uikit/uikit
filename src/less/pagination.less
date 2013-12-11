@@ -1,16 +1,16 @@
-// Name:			Pagination
-// Description:		Defines styles for a navigation between pages
+// Name:            Pagination
+// Description:     Defines styles for a navigation between pages
 //
-// Component:		`uk-pagination`
+// Component:       `uk-pagination`
 //
-// Sub-objects:		`uk-pagination-previous`
-//					`uk-pagination-next`
+// Sub-objects:     `uk-pagination-previous`
+//                  `uk-pagination-next`
 //
-// States:		 	`uk-active`
-//					`uk-disabled`
+// States:          `uk-active`
+//                  `uk-disabled`
 //
-// Modifiers:		`uk-pagination-left`
-//					`uk-pagination-right`
+// Modifiers:       `uk-pagination-left`
+//                  `uk-pagination-right`
 //
 // ========================================================================
 
@@ -18,19 +18,19 @@
 // Variables
 // ========================================================================
 
-@pagination-line-height:						20px;
-@pagination-background:							#eee;
-@pagination-color:								#444;
-@pagination-hover-background:					#f5f5f5;
-@pagination-hover-color:						#444;
-@pagination-onclick-background:					#ddd;
-@pagination-onclick-color:						#444;
+@pagination-line-height:                        20px;
+@pagination-background:                         #eee;
+@pagination-color:                              #444;
+@pagination-hover-background:                   #f5f5f5;
+@pagination-hover-color:                        #444;
+@pagination-onclick-background:                 #ddd;
+@pagination-onclick-color:                      #444;
 
-@pagination-active-background:					#00a8e6;
-@pagination-active-color:						#fff;
+@pagination-active-background:                  #00a8e6;
+@pagination-active-color:                       #fff;
 
-@pagination-disabled-background:				#f5f5f5;
-@pagination-disabled-color:						#999;
+@pagination-disabled-background:                #f5f5f5;
+@pagination-disabled-color:                     #999;
 
 
 /* ========================================================================
@@ -44,13 +44,13 @@
  */
 
 .uk-pagination {
-	/* 1 */
-	padding: 0;
-	list-style: none;
-	/* 2 */
-	text-align: center;
-	/* 3 */
-	letter-spacing: -0.31em;
+    /* 1 */
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    text-align: center;
+    /* 3 */
+    letter-spacing: -0.31em;
 }
 
 /*
@@ -60,8 +60,8 @@
 
 .uk-pagination:before,
 .uk-pagination:after {
-	content: " ";
-	display: table;
+    content: " ";
+    display: table;
 }
 
 .uk-pagination:after { clear: both; }
@@ -75,8 +75,8 @@
  */
 
 .uk-pagination > li {
-	display: inline-block;
-	letter-spacing: normal; /* 1 */
+    display: inline-block;
+    letter-spacing: normal; /* 1 */
 }
 
 .uk-pagination > li:nth-child(n+2) { margin-left: 5px; }
@@ -88,15 +88,15 @@
 
 .uk-pagination > li > a,
 .uk-pagination > li > span {
-	-moz-box-sizing: content-box;
-	box-sizing: content-box; /* 1 */
-	display: inline-block;
-	min-width: @pagination-line-height - 4;
-	padding: 3px 5px;
-	line-height: @pagination-line-height;
-	text-decoration: none;
-	text-align: center; /* 2 */
-	.hook-pagination-item;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box; /* 1 */
+    display: inline-block;
+    min-width: @pagination-line-height - 4;
+    padding: 3px 5px;
+    line-height: @pagination-line-height;
+    text-decoration: none;
+    text-align: center; /* 2 */
+    .hook-pagination-item;
 }
 
 /*
@@ -104,9 +104,9 @@
  */
 
 .uk-pagination > li > a {
-	background: @pagination-background;
-	color: @pagination-color;
-	.hook-pagination-link;
+    background: @pagination-background;
+    color: @pagination-color;
+    .hook-pagination-link;
 }
 
 /*
@@ -117,17 +117,17 @@
 
 .uk-pagination > li > a:hover,
 .uk-pagination > li > a:focus { /* 1 */
-	background-color: @pagination-hover-background;
-	color: @pagination-hover-color;
-	outline: none; /* 2 */
-	.hook-pagination-link-hover;
+    background-color: @pagination-hover-background;
+    color: @pagination-hover-color;
+    outline: none; /* 2 */
+    .hook-pagination-link-hover;
 }
 
 /* OnClick */
 .uk-pagination > li > a:active {
-	background-color: @pagination-onclick-background;
-	color: @pagination-onclick-color;
-	.hook-pagination-link-active;
+    background-color: @pagination-onclick-background;
+    color: @pagination-onclick-color;
+    .hook-pagination-link-active;
 }
 
 /*
@@ -135,9 +135,9 @@
  */
 
 .uk-pagination > .uk-active > span {
-	background: @pagination-active-background;
-	color: @pagination-active-color;
-	.hook-pagination-active;
+    background: @pagination-active-background;
+    color: @pagination-active-color;
+    .hook-pagination-active;
 }
 
 /*
@@ -145,9 +145,9 @@
  */
 
 .uk-pagination > .uk-disabled > span {
-	background-color: @pagination-disabled-background;
-	color: @pagination-disabled-color;
-	.hook-pagination-disabled;
+    background-color: @pagination-disabled-background;
+    color: @pagination-disabled-color;
+    .hook-pagination-disabled;
 }
 
 

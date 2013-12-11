@@ -1,21 +1,21 @@
-// Name:			Button
-// Description:		Defines styles for buttons
+// Name:            Button
+// Description:     Defines styles for buttons
 //
-// Component:		`uk-button`
+// Component:       `uk-button`
 //
-// Sub-objects:		`uk-button-group`
-//					`uk-button-dropdown`
+// Sub-objects:     `uk-button-group`
+//                  `uk-button-dropdown`
 //
-// Modifiers:		`uk-button-primary`
-//					`uk-button-success`
-//					`uk-button-danger`
-//					`uk-button-link`
-//					`uk-button-mini`
-//					`uk-button-small`
-//					`uk-button-large`
-//					`uk-button-expand`
+// Modifiers:       `uk-button-primary`
+//                  `uk-button-success`
+//                  `uk-button-danger`
+//                  `uk-button-link`
+//                  `uk-button-mini`
+//                  `uk-button-small`
+//                  `uk-button-large`
+//                  `uk-button-expand`
 //
-// States:		 	`uk-active`
+// States:          `uk-active`
 //
 // ========================================================================
 
@@ -23,59 +23,59 @@
 // Variables
 // ========================================================================
 
-@button-height:									30px;
-@button-mini-height:							20px;
-@button-small-height:							25px;
-@button-large-height:							40px;
+@button-height:                                 30px;
+@button-mini-height:                            20px;
+@button-small-height:                           25px;
+@button-large-height:                           40px;
 
-@button-line-height:							30px;
-@button-mini-line-height:						20px;
-@button-small-line-height:						25px;
-@button-large-line-height:						40px;
+@button-line-height:                            30px;
+@button-mini-line-height:                       20px;
+@button-small-line-height:                      25px;
+@button-large-line-height:                      40px;
 
-@button-mini-font-size:							11px;
-@button-small-font-size:						12px;
-@button-large-font-size:						16px;
+@button-mini-font-size:                         11px;
+@button-small-font-size:                        12px;
+@button-large-font-size:                        16px;
 
-@button-padding-horizontal:						12px;
-@button-mini-padding-horizontal:				6px;
-@button-small-padding-horizontal:				10px;
-@button-large-padding-horizontal:				15px;
+@button-padding-horizontal:                     12px;
+@button-mini-padding-horizontal:                6px;
+@button-small-padding-horizontal:               10px;
+@button-large-padding-horizontal:               15px;
 
-@button-background:								#eee;
-@button-color:									#444;
-@button-hover-background:						#f5f5f5;
-@button-hover-color:							#444;
-@button-active-background:						#ddd;
-@button-active-color:							#444;
+@button-background:                             #eee;
+@button-color:                                  #444;
+@button-hover-background:                       #f5f5f5;
+@button-hover-color:                            #444;
+@button-active-background:                      #ddd;
+@button-active-color:                           #444;
 
-@button-primary-background:						#00a8e6;
-@button-primary-color:							#fff;
-@button-primary-hover-background:				#35b3ee;
-@button-primary-hover-color:					#fff;
-@button-primary-active-background:				#0091ca;
-@button-primary-active-color:					#fff;
+@button-primary-background:                     #00a8e6;
+@button-primary-color:                          #fff;
+@button-primary-hover-background:               #35b3ee;
+@button-primary-hover-color:                    #fff;
+@button-primary-active-background:              #0091ca;
+@button-primary-active-color:                   #fff;
 
-@button-success-background:						#8cc14c;
-@button-success-color:							#fff;
-@button-success-hover-background:				#8ec73b;
-@button-success-hover-color:					#fff;
-@button-success-active-background:				#72ae41;
-@button-success-active-color:					#fff;
+@button-success-background:                     #8cc14c;
+@button-success-color:                          #fff;
+@button-success-hover-background:               #8ec73b;
+@button-success-hover-color:                    #fff;
+@button-success-active-background:              #72ae41;
+@button-success-active-color:                   #fff;
 
-@button-danger-background:						#da314b;
-@button-danger-color:							#fff;
-@button-danger-hover-background:				#e4354f;
-@button-danger-hover-color:						#fff;
-@button-danger-active-background:				#c91032;
-@button-danger-active-color:					#fff;
+@button-danger-background:                      #da314b;
+@button-danger-color:                           #fff;
+@button-danger-hover-background:                #e4354f;
+@button-danger-hover-color:                     #fff;
+@button-danger-active-background:               #c91032;
+@button-danger-active-color:                    #fff;
 
-@button-disabled-background:					#f5f5f5;
-@button-disabled-color:							#999;
+@button-disabled-background:                    #f5f5f5;
+@button-disabled-color:                         #999;
 
-@button-link-color:								#07D;
-@button-link-hover-color:						#059;
-@button-link-disabled-color:					#999;
+@button-link-color:                             #07D;
+@button-link-hover-color:                       #059;
+@button-link-disabled-color:                    #999;
 
 
 /* ========================================================================
@@ -91,23 +91,23 @@
  */
 
 .uk-button {
-	display: inline-block; /* 1 */
-	min-height: @button-height; /* 2 */
-	padding: 0 @button-padding-horizontal;
-	border: none; /* 3 */
-	background: @button-background;
-	line-height: @button-line-height; /* 4 */
-	color: @button-color;
-	letter-spacing: normal; /* 5 */
-	.hook-button;
+    display: inline-block; /* 1 */
+    min-height: @button-height; /* 2 */
+    padding: 0 @button-padding-horizontal;
+    border: none; /* 3 */
+    background: @button-background;
+    line-height: @button-line-height; /* 4 */
+    color: @button-color;
+    letter-spacing: normal; /* 5 */
+    .hook-button;
 }
 
 /* Required for `a` elements */
 a.uk-button {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	vertical-align: middle;
-	text-decoration: none;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-decoration: none;
 }
 
 /*
@@ -118,18 +118,18 @@ a.uk-button {
 
 .uk-button:hover,
 .uk-button:focus { /* 1 */
-	background-color: @button-hover-background;
-	color: @button-hover-color;
-	outline: none; /* 2 */
-	.hook-button-hover;
+    background-color: @button-hover-background;
+    color: @button-hover-color;
+    outline: none; /* 2 */
+    .hook-button-hover;
 }
 
 /* Active */
 .uk-button:active,
 .uk-button.uk-active {
-	background-color: @button-active-background;
-	color: @button-active-color;
-	.hook-button-active;
+    background-color: @button-active-background;
+    color: @button-active-color;
+    .hook-button-active;
 }
 
 
@@ -141,25 +141,25 @@ a.uk-button {
  */
 
 .uk-button-primary {
-	background-color: @button-primary-background;
-	color: @button-primary-color;
-	.hook-button-primary;
+    background-color: @button-primary-background;
+    color: @button-primary-color;
+    .hook-button-primary;
 }
 
 /* Hover */
 .uk-button-primary:hover,
 .uk-button-primary:focus {
-	background-color: @button-primary-hover-background;
-	color: @button-primary-hover-color;
-	.hook-button-primary-hover;
+    background-color: @button-primary-hover-background;
+    color: @button-primary-hover-color;
+    .hook-button-primary-hover;
 }
 
 /* Active */
 .uk-button-primary:active,
 .uk-button-primary.uk-active {
-	background-color: @button-primary-active-background;
-	color: @button-primary-active-color;
-	.hook-button-primary-active;
+    background-color: @button-primary-active-background;
+    color: @button-primary-active-color;
+    .hook-button-primary-active;
 }
 
 /*
@@ -167,25 +167,25 @@ a.uk-button {
  */
 
 .uk-button-success {
-	background-color: @button-success-background;
-	color: @button-success-color;
-	.hook-button-success;
+    background-color: @button-success-background;
+    color: @button-success-color;
+    .hook-button-success;
 }
 
 /* Hover */
 .uk-button-success:hover,
 .uk-button-success:focus {
-	background-color: @button-success-hover-background;
-	color: @button-success-hover-color;
-	.hook-button-success-hover;
+    background-color: @button-success-hover-background;
+    color: @button-success-hover-color;
+    .hook-button-success-hover;
 }
 
 /* Active */
 .uk-button-success:active,
 .uk-button-success.uk-active {
-	background-color: @button-success-active-background;
-	color: @button-success-active-color;
-	.hook-button-success-active;
+    background-color: @button-success-active-background;
+    color: @button-success-active-color;
+    .hook-button-success-active;
 }
 
 /*
@@ -193,25 +193,25 @@ a.uk-button {
  */
 
 .uk-button-danger {
-	background-color: @button-danger-background;
-	color: @button-danger-color;
-	.hook-button-danger;
+    background-color: @button-danger-background;
+    color: @button-danger-color;
+    .hook-button-danger;
 }
 
 /* Hover */
 .uk-button-danger:hover,
 .uk-button-danger:focus {
-	background-color: @button-danger-hover-background;
-	color: @button-danger-hover-color;
-	.hook-button-danger-hover;
+    background-color: @button-danger-hover-background;
+    color: @button-danger-hover-color;
+    .hook-button-danger-hover;
 }
 
 /* Active */
 .uk-button-danger:active,
 .uk-button-danger.uk-active {
-	background-color: @button-danger-active-background;
-	color: @button-danger-active-color;
-	.hook-button-danger-active;
+    background-color: @button-danger-active-background;
+    color: @button-danger-active-color;
+    .hook-button-danger-active;
 }
 
 
@@ -221,9 +221,9 @@ a.uk-button {
 
 /* Equal for all button types */
 .uk-button:disabled {
-	background-color: @button-disabled-background;
-	color: @button-disabled-color;
-	.hook-button-disable;
+    background-color: @button-disabled-background;
+    color: @button-disabled-color;
+    .hook-button-disable;
 }
 
 
@@ -237,10 +237,10 @@ a.uk-button {
 .uk-button-link:active,
 .uk-button-link.uk-active,
 .uk-button-link:disabled {
-	display: inline;
-	border: none;
-	background: none;
-	.hook-button-link;
+    display: inline;
+    border: none;
+    background: none;
+    .hook-button-link;
 }
 
 /* Color */
@@ -250,8 +250,8 @@ a.uk-button {
 .uk-button-link:focus,
 .uk-button-link:active,
 .uk-button-link.uk-active {
-	color: @button-link-hover-color;
-	text-decoration: underline;
+    color: @button-link-hover-color;
+    text-decoration: underline;
 }
 
 .uk-button-link:disabled { color: @button-link-disabled-color; }
@@ -264,25 +264,25 @@ a.uk-button {
  ========================================================================== */
 
 .uk-button-mini {
-	min-height: @button-mini-height;
-	padding: 0 @button-mini-padding-horizontal;
-	line-height: @button-mini-line-height;
-	font-size: @button-mini-font-size;
+    min-height: @button-mini-height;
+    padding: 0 @button-mini-padding-horizontal;
+    line-height: @button-mini-line-height;
+    font-size: @button-mini-font-size;
 }
 
 .uk-button-small {
-	min-height: @button-small-height;
-	padding: 0 @button-small-padding-horizontal;
-	line-height: @button-small-line-height;
-	font-size: @button-small-font-size;
+    min-height: @button-small-height;
+    padding: 0 @button-small-padding-horizontal;
+    line-height: @button-small-line-height;
+    font-size: @button-small-font-size;
 }
 
 .uk-button-large {
-	min-height: @button-large-height;
-	padding: 0 @button-large-padding-horizontal;
-	line-height: @button-large-line-height;
-	font-size: @button-large-font-size;
-	.hook-button-large;
+    min-height: @button-large-height;
+    padding: 0 @button-large-padding-horizontal;
+    line-height: @button-large-line-height;
+    font-size: @button-large-font-size;
+    .hook-button-large;
 }
 
 /*
@@ -290,9 +290,9 @@ a.uk-button {
  */
 
 .uk-button-expand {
-	display: block;
-	width: 100%;
-	text-align: center;
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .uk-button-expand + .uk-button-expand { margin-top: 10px; }
@@ -309,15 +309,15 @@ a.uk-button {
  */
 
 .uk-button-group {
-	/* 1 */
-	display: inline-block;
-	vertical-align: middle;
-	/* 2 */
-	position: relative;
-	/* 3 */
-	letter-spacing: -0.31em;
-	/* 4 */
-	white-space: nowrap;
+    /* 1 */
+    display: inline-block;
+    vertical-align: middle;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    letter-spacing: -0.31em;
+    /* 4 */
+    white-space: nowrap;
 }
 
 .uk-button-group > * { display: inline-block; }
@@ -332,11 +332,11 @@ a.uk-button {
  */
 
 .uk-button-dropdown {
-	/* 1 */
-	display: inline-block;
-	vertical-align: middle;
-	/* 2 */
-	position: relative;
+    /* 1 */
+    display: inline-block;
+    vertical-align: middle;
+    /* 2 */
+    position: relative;
 }
 
 

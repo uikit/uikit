@@ -1,131 +1,131 @@
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Utility component - UIkit tests</title>
-		<script src="../../vendor/jquery.js"></script>
-		<script src="utils/test.js"></script>
-		<style type="text/css">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Utility component - UIkit tests</title>
+        <script src="../../vendor/jquery.js"></script>
+        <script src="utils/test.js"></script>
+        <style type="text/css">
 
-			/*
-			 * Responsive utility classes
-			 */
+            /*
+             * Responsive utility classes
+             */
 
-			.uk-list.uk-grid .uk-panel {
-				position: relative;
-				padding: 10px;
-				border: 1px solid #ddd;
-				background: #f0f0f0;
-				text-align: center;
-			}
+            .uk-list.uk-grid .uk-panel {
+                position: relative;
+                padding: 10px;
+                border: 1px solid #ddd;
+                background: #f0f0f0;
+                text-align: center;
+            }
 
-			.uk-list.uk-grid .uk-panel > span {
-				position: absolute;
-				left: -1px;
-				right: -1px;
-				top: -1px;
-				bottom: -1px;
-				padding: 10px;
-				border: 1px solid #D6E9C6;
-				background: #DFF0D8;
-				border-radius: 4px;
-				color: #468847;
-			}
+            .uk-list.uk-grid .uk-panel > span {
+                position: absolute;
+                left: -1px;
+                right: -1px;
+                top: -1px;
+                bottom: -1px;
+                padding: 10px;
+                border: 1px solid #D6E9C6;
+                background: #DFF0D8;
+                border-radius: 4px;
+                color: #468847;
+            }
 
-		</style>
-	</head>
+        </style>
+    </head>
 
-	<body>
+    <body>
 
-		<div class="uk-container uk-container-center">
+        <div class="uk-container uk-container-center">
 
-			<h1>Alignment</h1>
+            <h1>Alignment</h1>
 
-			<p class="uk-clearfix"><img class="uk-align-medium-right" src="http://placekitten.com/400/150" alt="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="uk-clearfix"><img class="uk-align-medium-right" src="http://placekitten.com/400/150" alt="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-			<p class="uk-clearfix"><img class="uk-align-right" src="http://placekitten.com/200/100" alt="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="uk-clearfix"><img class="uk-align-right" src="http://placekitten.com/200/100" alt="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-			<p class="uk-clearfix"><img class="uk-align-center" src="http://placekitten.com/400/150" alt="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="uk-clearfix"><img class="uk-align-center" src="http://placekitten.com/400/150" alt="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-			<h1>Vertical alignment</h1>
+            <h1>Vertical alignment</h1>
 
-			<div class="uk-grid uk-margin" data-uk-grid-margin>
-				<div class="uk-width-medium-1-2">
-					<div class="uk-text-center uk-vertical-align" style="height: 200px; background: #f0f0f0;">
-						<div class="uk-vertical-align-middle" style="width: 300px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-					</div>
-				</div>
-				<div class="uk-width-medium-1-2">
-					<div class="uk-text-center uk-vertical-align" style="height: 200px; background: #f0f0f0;">
-						<div class="uk-vertical-align-bottom" style="width: 300px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-					</div>
-				</div>
-			</div>
+            <div class="uk-grid uk-margin" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+                    <div class="uk-text-center uk-vertical-align" style="height: 200px; background: #f0f0f0;">
+                        <div class="uk-vertical-align-middle" style="width: 300px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-2">
+                    <div class="uk-text-center uk-vertical-align" style="height: 200px; background: #f0f0f0;">
+                        <div class="uk-vertical-align-bottom" style="width: 300px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+                    </div>
+                </div>
+            </div>
 
-			<h1>Respsonsive width and height</h1>
-			<p><video controls class="uk-responsive-width" width="600" height="350"></video></p>
-			<p><audio controls class="uk-responsive-width"></audio></p>
-			<p style="height: 50px; "><img class="uk-responsive-height" src="http://placekitten.com/400/150" alt=""></p>
+            <h1>Respsonsive width and height</h1>
+            <p><video controls class="uk-responsive-width" width="600" height="350"></video></p>
+            <p><audio controls class="uk-responsive-width"></audio></p>
+            <p style="height: 50px; "><img class="uk-responsive-height" src="http://placekitten.com/400/150" alt=""></p>
 
-			<h1 class="uk-heading-large">Heading large</h1>
+            <h1 class="uk-heading-large">Heading large</h1>
 
-			<h1 class="uk-link-muted"><a href="">Link muted</a></h1>
+            <h1 class="uk-link-muted"><a href="">Link muted</a></h1>
 
-			<ul class="uk-list uk-width-medium-1-4 uk-link-muted">
-				<li><a href="">List item 1</a></li>
-				<li><a href="">List item 2</a></li>
-				<li><a href="">List item 3</a></li>
-				<li><a href="">List item 3</a></li>
-			</ul>
+            <ul class="uk-list uk-width-medium-1-4 uk-link-muted">
+                <li><a href="">List item 1</a></li>
+                <li><a href="">List item 2</a></li>
+                <li><a href="">List item 3</a></li>
+                <li><a href="">List item 3</a></li>
+            </ul>
 
-			<h1>Scrollable box</h1>
+            <h1>Scrollable box</h1>
 
-			<div class="uk-scrollable-box">
-				<ul class="uk-list">
-					<li><label><input type="checkbox"> Category 1</label></li>
-					<li>
-						<label><input type="checkbox"> Category 2</label>
-						<ul>
-							<li><label><input type="checkbox"> Category 2.1</label></li>
-							<li><label><input type="checkbox"> Category 2.2</label></li>
-							<li>
-								<label><input type="checkbox"> Category 2.3</label>
-								<ul>
-									<li><label><input type="checkbox"> Category 2.3.1</label></li>
-									<li><label><input type="checkbox"> Category 2.3.2</label></li>
-								</ul>
-							</li>
-							<li><label><input type="checkbox"> Category 2.4</label></li>
-						</ul>
-					</li>
-					<li><label><input type="checkbox"> Category 3</label></li>
-					<li><label><input type="checkbox"> Category 4</label></li>
-				</ul>
-			</div>
+            <div class="uk-scrollable-box">
+                <ul class="uk-list">
+                    <li><label><input type="checkbox"> Category 1</label></li>
+                    <li>
+                        <label><input type="checkbox"> Category 2</label>
+                        <ul>
+                            <li><label><input type="checkbox"> Category 2.1</label></li>
+                            <li><label><input type="checkbox"> Category 2.2</label></li>
+                            <li>
+                                <label><input type="checkbox"> Category 2.3</label>
+                                <ul>
+                                    <li><label><input type="checkbox"> Category 2.3.1</label></li>
+                                    <li><label><input type="checkbox"> Category 2.3.2</label></li>
+                                </ul>
+                            </li>
+                            <li><label><input type="checkbox"> Category 2.4</label></li>
+                        </ul>
+                    </li>
+                    <li><label><input type="checkbox"> Category 3</label></li>
+                    <li><label><input type="checkbox"> Category 4</label></li>
+                </ul>
+            </div>
 
-			<h1>Visibility</h1>
+            <h1>Visibility</h1>
 
-			<ul class="uk-list uk-grid uk-text-center">
-				<li class="uk-width-1-3"><div class="uk-panel">Small (Phone)<span class="uk-visible-small">✔ Small (Phone)</span></div></li>
-				<li class="uk-width-1-3"><div class="uk-panel">Medium (Tablet)<span class="uk-visible-medium">✔ Medium (Tablet)</span></div></li>
-				<li class="uk-width-1-3"><div class="uk-panel">Large (Desktop)<span class="uk-visible-large">✔ Large (Desktop)</span></div></li>
-			</ul>
-			<ul class="uk-list uk-grid uk-text-center">
-				<li class="uk-width-1-3"><div class="uk-panel">Medium (Tablet) + Large (Desktop)<span class="uk-hidden-small">✔ Medium (Tablet) + Large (Desktop)</span></div></li>
-				<li class="uk-width-1-3"><div class="uk-panel">Small (Phone) + Large (Desktop)<span class="uk-hidden-medium">✔ Small (Phone) + Large (Desktop)</span></div></li>
-				<li class="uk-width-1-3"><div class="uk-panel">Small (Phone) + Medium (Tablet)<span class="uk-hidden-large">✔ Small (Phone) + Medium (Tablet)</span></div></li>
-			</ul>
+            <ul class="uk-list uk-grid uk-text-center">
+                <li class="uk-width-1-3"><div class="uk-panel">Small (Phone)<span class="uk-visible-small">✔ Small (Phone)</span></div></li>
+                <li class="uk-width-1-3"><div class="uk-panel">Medium (Tablet)<span class="uk-visible-medium">✔ Medium (Tablet)</span></div></li>
+                <li class="uk-width-1-3"><div class="uk-panel">Large (Desktop)<span class="uk-visible-large">✔ Large (Desktop)</span></div></li>
+            </ul>
+            <ul class="uk-list uk-grid uk-text-center">
+                <li class="uk-width-1-3"><div class="uk-panel">Medium (Tablet) + Large (Desktop)<span class="uk-hidden-small">✔ Medium (Tablet) + Large (Desktop)</span></div></li>
+                <li class="uk-width-1-3"><div class="uk-panel">Small (Phone) + Large (Desktop)<span class="uk-hidden-medium">✔ Small (Phone) + Large (Desktop)</span></div></li>
+                <li class="uk-width-1-3"><div class="uk-panel">Small (Phone) + Medium (Tablet)<span class="uk-hidden-large">✔ Small (Phone) + Medium (Tablet)</span></div></li>
+            </ul>
 
-			<h2>Visible on hover</h2>
-			<div class="uk-visible-hover uk-margin uk-clearfix">
-				<div class="uk-float-left">Hover me...</div>
-				<div class="uk-hidden">Bazinga!</div>
-			</div>
-			<div class="uk-visible-hover-inline uk-margin">Hover me... <div class="uk-hidden">Bazinga!</div></div>
+            <h2>Visible on hover</h2>
+            <div class="uk-visible-hover uk-margin uk-clearfix">
+                <div class="uk-float-left">Hover me...</div>
+                <div class="uk-hidden">Bazinga!</div>
+            </div>
+            <div class="uk-visible-hover-inline uk-margin">Hover me... <div class="uk-hidden">Bazinga!</div></div>
 
-		</div>
+        </div>
 
-	</body>
+    </body>
 </html>
