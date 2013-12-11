@@ -57,31 +57,28 @@
 					</div>
 					<div class="tm-main uk-width-medium-3-4">
 
-						<article class="uk-article">
+						<article class="uk-article" style="height: 1200px;">
 
 							<h1>Sticky</h1>
 
-							<p class="uk-article-lead">Create a form password with a toggler to conceal or show passwords.</p>
+							<p class="uk-article-lead">Make elements remain at the top of the viewport, like a sticky navbar.</p>
 
 							<h2>Usage</h2>
 
-							<p>To apply this addon, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
+							<p>To create an element that remains at the top of the viewport when scrolling down the site, add the <code>data-uk-sticky</code> attribute to that element.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<div class="uk-container uk-container-center" style="height: 1000px;">
+							<div class="uk-panel uk-panel-box" data-uk-sticky>Stick to the top</div>
 
-								<div class="uk-panel uk-panel-box" data-uk-sticky>Stick at the top</div>
+							<p><span class="uk-badge">NOTE</span> You can also position the element below the viewport edge. For example, add the <code>data-uk-sticky="{top:100}"</code> attribute to create a margin of 100px.</p>
 
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-								<div class="uk-panel uk-panel-box" data-uk-sticky="{top:100}">Stick 100px below the top</div>
-
-							</div>
+							<div class="uk-panel uk-panel-box" data-uk-sticky="{top:100}">Stick 100px below the top</div>
 
 							<h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;textarea data-uk-markdownarea&gt;...&lt;/textarea&gt;</code></pre>
+<pre><code>&lt;div data-uk-sticky&gt;...&lt;/div&gt;
+&lt;div data-uk-sticky="{top:100}"&gt;...&lt;/div&gt;</code></pre>
 
 						</article>
 
