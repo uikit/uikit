@@ -64,6 +64,8 @@
 
 							<p class="uk-article-lead">Create nestable lists that can be sorted by drag and drop.</p>
 
+							<p>The Sortable allows you to sort items through drag and drop. This is great, if you want to organize different categories or menu items in administration areas, for example.</p>
+
 							<h2>Usage</h2>
 
 							<p>A sortable list consists of the list itself and its items, a handle and a toggle.</p>
@@ -141,11 +143,11 @@
 
 						<h2>Sort multiple lists</h2>
 
-						<p>You can even sort more than one list.</p>
+						<p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-sortable="{group:'GROUP-NAME'}"</code> attribute to each list. By default, lists without any group name are automatically in the same group.</p>
 
 						<h3 class="tm-article-subtitle">Example</h3>
 
-						<ul class="uk-sortable" data-uk-sortable>
+						<ul class="uk-sortable" data-uk-sortable="{group:'my-group'}">
 							<li>
 								<div class="uk-sortable-item">
 									<div class="uk-sortable-handle"></div>
@@ -171,7 +173,7 @@
 
 						<h3>Second list</h3>
 
-						<ul class="uk-sortable" data-uk-sortable>
+						<ul class="uk-sortable" data-uk-sortable="{group:'my-group'}">
 							<li>
 								<div class="uk-sortable-item">
 									<div class="uk-sortable-handle"></div>
@@ -181,19 +183,16 @@
 							</li>
 						</ul>
 
-						<p><span class="uk-badge">NOTE</span> To disable this feature, just add the <code>data-uk-sortable="{group:'my-group'}"</code> attribute to one of the lists, so that it functions as a closed group.</p>
-
 						<h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;
-
-&lt;ul class="uk-sortable" data-uk-sortable&gt;...&lt;/ul&gt;</code></pre>
+&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;</code></pre>
 
 						<hr class="uk-article-divider">
 
 						<h2>Disable nesting</h2>
 
-						<p>To disable nesting of list items, just add the <code>data-uk-sortable="{maxDepth:1}"</code> attribute.</p>
+						<p>To disable nesting of list items, just add the <code>data-uk-sortable="{maxDepth:1}"</code> attribute. You can also use this data attribute to determine to what depth nesting is possible.</p>
 
 						<ul class="uk-sortable" data-uk-sortable="{maxDepth:1}">
 							<li>

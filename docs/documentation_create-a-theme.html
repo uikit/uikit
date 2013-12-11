@@ -67,11 +67,11 @@
 
 							<h2>How to start</h2>
 
-							<p>By default, UIkit comes with a very basic theme. To modify this theme or to add your own, you don't want to edit any of the core framework files. Instead, you can extend UIkit by creating a custom theme. This allows you to easily update UIkit, because modifications are outsourced from the core. We even provide some neat themes to get you started. To create your own theme, follow these steps:</p>
+							<p>By default, UIkit comes with a very basic theme. To modify the style, you don't have to edit any of the core framework files. Instead, you can extend UIkit by creating a custom theme. This allows you to easily update UIkit core files. We even provide some neat themes to get you started. To create your own theme, follow these steps:</p>
 
 							<h3>1. Create the theme directory</h3>
 
-							<p>Download or clone UIkit and install Node and Grunt. Create a <code>/custom</code> folder in the <code>/themes</code> directory and finally a <code>/themes/custom/THEME-NAME</code> folder.</p>
+							<p>Download or clone UIkit and install Node and Grunt. Finally create your theme folder here <code>/themes/custom/THEME-NAME</code>.</p>
 
 							<p><span class="uk-badge">NOTE</span> The <code>/custom</code> folder is set to git ignore, which prevents your custom files from being pushed into the UIkit repository.</p>
 
@@ -83,7 +83,7 @@
 
 							<h3>3. Customizer and Tests</h3>
 
-							<p>Run the grunt task <em>indexthemes</em> on your UIkit folder. Now the newly created themes will be available automatically in the Customizer and test files.</p>
+							<p>Run the grunt task <code>indexthemes</code> on your UIkit folder. Now the newly created themes will be available automatically in the Customizer and test files.</p>
 
 							<hr class="uk-article-divider">
 
@@ -92,7 +92,6 @@
 							<p>There are different approaches to style your theme. We recommend the following workflow.</p>
 
 							<h3>1. Use variables</h3>
-							<p>UIkit uses variables based on the legendary <a href="http://lesscss.org">LESS CSS</a>. It is very likely that you will use certain values repeatedly throughout a document. This can cause quite a hassle, for example when subsequently adjusting a website's color scheme. Variables allow you to easily make these global changes and avoid redundant code.</p>
 
 							<p>The first thing to do is to customize the values of already declared variables. You can find all variables for each component inside there LESS files of the core framework and override them in your theme.</p>
 
@@ -102,14 +101,14 @@
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/src/less/button.less</code></p>
-<pre><code>// default variable
+<pre><code>// default value
 @button-height:	30px;</code></pre>
 
 								</div>
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/themes/custom/THEME-NAME/button.less</code></p>
-<pre><code>// override variable
+<pre><code>// new value
 @button-height:	35px;</code></pre>
 
 								</div>
@@ -124,7 +123,7 @@
 								<div class="uk-width-medium-1-2">
 
 									<p><code>/src/less/panel.less</code></p>
-<pre><code>// default variable
+<pre><code>// CSS rule
 .uk-panel {
 	background: @background;
 
@@ -156,8 +155,10 @@
 							<div class="uk-width-medium-1-2">
 
 								<p><code>/themes/custom/THEME-NAME/panel.less</code></p>
-<pre><code>// new rule with additional selector
+<pre><code>// misc mixin
 .hook-button-misc() {
+
+	// new rule
 	.uk-panel a { color: #f00; }
 }</code></pre>
 
