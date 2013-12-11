@@ -14,8 +14,6 @@
 		<script src="../dist/js/uikit.min.js"></script>
 		<script src="../vendor/highlight/highlight.js"></script>
 		<script src="js/docs.js"></script>
-		<script src="../dist/addons/js/sortable.js"></script>
-		<link rel="stylesheet" href="../dist/addons/css/sortable.css">
 	</head>
 
 	<body class="tm-background">
@@ -62,17 +60,54 @@
 
 							<h1>Add-ons</h1>
 
-							<p class="uk-article-lead">Cool additional components, that you can include seperately in your project.</p>
+							<p class="uk-article-lead">All kind of usefull, additional components which are not included in UIkit itself.</p>
+
+							<p>UIkit offers some advanced components that are not included in the UIkit core framework. Usually you wouldn't use these add-ons in your everyday website. They include stuff like sortables and datepickers and will come handy if you create advanced user interfaces like administration areas.
 
 							<h2>Usage</h2>
 
-							<p>UIkit offers some external components that are not included in the UIkit core framework. Usually you wouldn't use these add-ons in your everyday website. But they will come in handy for styling administration UI. That's why you can apply them seperately.</p>
+							<p>When you <a data-uikit-download>download UIkit</a> you can find the add-ons in the the <code>addons</code> folder. This is what the file structure looks like for the datepicker add-on.</p>
+
+<pre><code>/addons/css
+	&lt;!-- The datepicker add-on with the basic style --&gt;
+	datepicker.css
+	datepicker.min.css
+	...
+
+	&lt;!-- The datepicker add-on with Gradient style --&gt;
+	datepicker.gradient.css
+	datepicker.gradient.min.css
+	...
+
+	&lt;!-- The datepicker add-on with Almost flat style --&gt;
+	datepicker.almost-flat.css
+	datepicker.almost-flat.min.css
+	...
+
+/addons/js
+	&lt;!-- JavaScript and minified version --&gt;
+	datepicker.js
+	datepicker.min.js
+	...</code></pre>
+
 							<p>To use one of these add-ons, all you need to do is to add its JavaScript and CSS to the header of your document.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;script src="datepicker.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="datepicker.css"&gt;</code></pre>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;link rel="stylesheet" href="uikit.min.css" /&gt;
+		&lt;script src="jquery.js">&lt;/script&gt;
+		&lt;script src="uikit.min.js">&lt;/script&gt;
+		&lt;!-- Datepicker add-on --&gt;
+		&lt;script src="datepicker.js"&gt;&lt;/script&gt;
+		&lt;link rel="stylesheet" href="datepicker.css"&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
 						</article>
 
