@@ -116,7 +116,7 @@
             this.markdownarea.on("click", "a[data-markdownarea-cmd]", function(){
                 var cmd = $(this).data("markdownareaCmd");
 
-                if(cmd && Markdownarea.commands[cmd]) {
+                if(cmd && Markdownarea.commands[cmd] && (!$this.activetab || $this.activetab=="code")) {
                     Markdownarea.commands[cmd].action.apply($this, [$this.editor])
                 }
 
