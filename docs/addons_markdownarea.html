@@ -14,6 +14,16 @@
 		<script src="../dist/js/uikit.min.js"></script>
 		<script src="../vendor/highlight/highlight.js"></script>
 		<script src="js/docs.js"></script>
+
+		<link rel="stylesheet" href="../vendor/codemirror/lib/codemirror.css">
+		<script src="../vendor/codemirror/lib/codemirror.js"></script>
+		<script src="../vendor/codemirror/mode/markdown/markdown.js"></script>
+		<script src="../vendor/codemirror/addon/mode/overlay.js"></script>
+		<script src="../vendor/codemirror/mode/xml/xml.js"></script>
+		<script src="../vendor/codemirror/mode/gfm/gfm.js"></script>
+		<script src="../vendor/marked.js"></script>
+
+
 		<script src="../dist/addons/js/markdownarea.js"></script>
 		<link rel="stylesheet" href="../dist/addons/css/markdownarea.css">
 	</head>
@@ -69,7 +79,7 @@
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<textarea data-uk-markdownarea>**test**</textarea>
+							<textarea data-uk-markdownarea="{maxsplitsize:600}">**test**</textarea>
 
 							<p><span class="uk-badge">NOTE</span> You can also switch between Markdown and Preview mode. Just add <code>data-uk-markdownarea="{mode:'tab'}</code> attribute.</p>
 
@@ -115,10 +125,9 @@
 						<ul class="uk-nav-sub">
 							<li><a href="documentation_get-started.html">Get started</a></li>
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
-							<li><a href="components.html">Components</a></li>
 							<li><a href="documentation_project-structure.html">Project structure</a></li>
-							<li><a href="documentation_variables.html">Variables</a></li>
 							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+							<li><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
 						</ul>
 					</li>
