@@ -1,14 +1,16 @@
-/*! UIkit 1.2.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
+/*! UIkit 2.0.0 | http://www.getuikit.com | (c) 2013 YOOtheme | MIT License */
 
-(function($, doc) {
+(function($, doc, global) {
 
     "use strict";
 
-    var UI = $.UIkit || {};
+    var UI = $.UIkit || {}, $html = $("html"), $win = $(window);
 
     if (UI.fn) {
         return;
     }
+
+    UI.version = '2.0.0';
 
     UI.fn = function(command, options) {
 
@@ -26,7 +28,6 @@
         });
     };
 
-    UI.version = '1.2.0';
 
     UI.support = {};
     UI.support.transition = (function() {
@@ -50,11 +51,11 @@
         }());
 
         return transitionEnd && { end: transitionEnd };
-
     })();
 
-    UI.support.touch            = (('ontouchstart' in window) || (window.DocumentTouch && document instanceof window.DocumentTouch)  || (window.navigator['msPointerEnabled'] && window.navigator['msMaxTouchPoints'] > 0) || false);
-    UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null);
+    UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60); };
+    UI.support.touch                 = (('ontouchstart' in window) || (global.DocumentTouch && document instanceof global.DocumentTouch)  || (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || false);
+    UI.support.mutationobserver      = (global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver || null);
 
     UI.Utils = {};
 
@@ -73,8 +74,50 @@
         };
     };
 
-    UI.Utils.events       = {};
-    UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
+    UI.Utils.removeCssRules = function(selectorRegEx) {
+        var idx, idxs, stylesheet, _i, _j, _k, _len, _len1, _len2, _ref;
+
+        if(!selectorRegEx) return;
+
+        setTimeout(function(){
+            try {
+              _ref = document.styleSheets;
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                stylesheet = _ref[_i];
+                idxs = [];
+                stylesheet.cssRules = stylesheet.cssRules;
+                for (idx = _j = 0, _len1 = stylesheet.cssRules.length; _j < _len1; idx = ++_j) {
+                  if (stylesheet.cssRules[idx].type === CSSRule.STYLE_RULE && selectorRegEx.test(stylesheet.cssRules[idx].selectorText)) {
+                    idxs.unshift(idx);
+                  }
+                }
+                for (_k = 0, _len2 = idxs.length; _k < _len2; _k++) {
+                  stylesheet.deleteRule(idxs[_k]);
+                }
+              }
+            } catch (_error) {}
+        }, 0);
+    };
+
+    UI.Utils.isInView = function(element, options) {
+
+        var $element = $(element);
+
+        if (!$element.is(':visible')) {
+            return false;
+        }
+
+        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
+
+        options = $.extend({topoffset:0, leftoffset:0}, options);
+
+        if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
+            left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
+          return true;
+        } else {
+          return false;
+        }
+    };
 
     UI.Utils.options = function(string) {
 
@@ -91,10 +134,13 @@
         return options;
     };
 
+    UI.Utils.events       = {};
+    UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
+
     $.UIkit = UI;
     $.fn.uk = UI.fn;
 
-    $.UIkit.langdirection = $("html").attr("dir") == "rtl" ? "right" : "left";
+    $.UIkit.langdirection = $html.attr("dir") == "rtl" ? "right" : "left";
 
     $(function(){
 
@@ -109,10 +155,17 @@
 
         // pass in the target node, as well as the observer options
         observer.observe(document.body, { childList: true, subtree: true });
+
+        // remove css hover rules for touch devices
+        if (UI.support.touch) {
+            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+        }
     });
 
+    // add touch identifier class
+    $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
 
-})(jQuery, document);
+})(jQuery, document, window);
 
 //  Based on Zeptos touch.js
 //  https://raw.github.com/madrobby/zepto/master/src/touch.js
@@ -415,7 +468,7 @@
         this.element = $element.on("click", function(e) {
             e.preventDefault();
             $this.toggle();
-            $this.element.blur();
+            $element.trigger("change", [$element.blur().hasClass("uk-active")]);
         });
 
         this.element.data("button", this);
@@ -663,7 +716,11 @@
 
             var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
-            ele.trigger(UI.support.touch ? "click" : (dropdown.options.mode == "hover" ? "mouseenter":"click"));
+            if (UI.support.touch) {
+                ele.trigger("click");
+            } else if(dropdown.options.mode == "hover") {
+                ele.trigger("mouseenter");
+            }
         }
     });
 
@@ -878,12 +935,6 @@
                 }
 
             });
-
-            if (this.options.keyboard) {
-                $(document).on('keyup.ui.modal.escape', function(e) {
-                    if (active && e.which == 27 && $this.isActive()) $this.hide();
-                });
-            }
         };
 
     $.extend(Modal.prototype, {
@@ -1008,6 +1059,15 @@
 
     });
 
+    // close modal on esc button
+    $(document).on('keydown.modal.uikit', function (e) {
+
+        if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
+            e.preventDefault();
+            active.hide();
+        }
+    });
+
     $win.on("resize orientationchange", UI.Utils.debounce(function(){
 
         if(active) active.resize();
@@ -1019,10 +1079,6 @@
 (function($, UI) {
 
     "use strict";
-
-    if (UI.support.touch) {
-        $("html").addClass("uk-touch");
-    }
 
     var $win      = $(window),
         $doc      = $(document),
@@ -1908,9 +1964,15 @@
 
     "use strict";
 
-    var $win        = $(window),
+    var $win           = $(window),
+        scrollspies    = [],
+        checkScrollSpy = function() {
+            for(var i=0; i < scrollspies.length; i++) {
+                UI.support.requestAnimationFrame.apply(window, [scrollspies[i].check]);
+            }
+        },
 
-        ScrollSpy   = function(element, options) {
+        ScrollSpy = function(element, options) {
 
             var $element = $(element);
 
@@ -1922,7 +1984,7 @@
             var $this = this, idle, inviewstate, initinview,
                 fn = function(){
 
-                    var inview = isInView($this.element, $this.options);
+                    var inview = UI.Utils.isInView($this.element, $this.options);
 
                     if(inview && !inviewstate) {
 
@@ -1956,11 +2018,12 @@
                     }
                 };
 
-            $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
-
             fn();
 
             this.element.data("scrollspy", this);
+
+            this.check = fn;
+            scrollspies.push(this);
         };
 
     ScrollSpy.defaults = {
@@ -1972,9 +2035,17 @@
         "delay"      : 0
     };
 
+
     UI["scrollspy"] = ScrollSpy;
 
-    var ScrollSpyNav = function(element, options) {
+    var scrollspynavs = [],
+        checkScrollSpyNavs = function() {
+            for(var i=0; i < scrollspynavs.length; i++) {
+                UI.support.requestAnimationFrame.apply(window, [scrollspynavs[i].check]);
+            }
+        },
+
+        ScrollSpyNav = function(element, options) {
 
         var $element = $(element);
 
@@ -1992,7 +2063,7 @@
             inviews = [];
 
             for(var i=0 ; i < targets.length ; i++) {
-                if(isInView(targets.eq(i), $this.options)) {
+                if(UI.Utils.isInView(targets.eq(i), $this.options)) {
                     inviews.push(targets.eq(i));
                 }
             }
@@ -2026,9 +2097,10 @@
 
         fn();
 
-        $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
-
         this.element.data("scrollspynav", this);
+
+        this.check = fn;
+        scrollspynavs.push(this);
     };
 
     ScrollSpyNav.defaults = {
@@ -2041,27 +2113,13 @@
 
     UI["scrollspynav"] = ScrollSpyNav;
 
-    // helper
+    var fnCheck = function(){
+        checkScrollSpy();
+        checkScrollSpyNavs();
+    };
 
-    function isInView(element, options) {
-
-        var $element = element;
-
-        if (!$element.is(':visible')) {
-            return false;
-        }
-
-        var window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
-
-        if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
-            left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
-          return true;
-        } else {
-          return false;
-        }
-    }
-
-    ScrollSpy.isInView = isInView;
+    // listen to scroll and resize
+    $win.on("scroll", fnCheck).on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
 
     // init code
     $(document).on("uk-domready", function(e) {
@@ -2133,7 +2191,6 @@
     if (!$.easing['easeOutExpo']) {
         $.easing['easeOutExpo'] = function(x, t, b, c, d) { return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b; };
     }
-
 
     // init code
     $(document).on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {

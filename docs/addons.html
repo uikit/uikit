@@ -14,8 +14,6 @@
 		<script src="../dist/js/uikit.min.js"></script>
 		<script src="../vendor/highlight/highlight.js"></script>
 		<script src="js/docs.js"></script>
-		<script src="../dist/addons/js/sortable.js"></script>
-		<link rel="stylesheet" href="../dist/addons/css/sortable.css">
 	</head>
 
 	<body class="tm-background">
@@ -46,7 +44,7 @@
 					<div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
 
 						<ul class="tm-nav uk-nav" data-uk-nav>
-							<li class="uk-active"><a href="addons.html">Add-ons</a></li>
+							<li class="uk-nav-header">Add-ons</li>
 							<li><a href="addons_datepicker.html">Datepicker</a></li>
 							<li><a href="addons_form-password.html">Form Password</a></li>
 							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
@@ -62,17 +60,54 @@
 
 							<h1>Add-ons</h1>
 
-							<p class="uk-article-lead">Use additional components with UIkit, that you can include seperately.</p>
+							<p class="uk-article-lead">All kinds of useful, additional components which are not included in UIkit itself.</p>
+
+							<p>UIkit offers some advanced components that are not included in the UIkit core framework. Usually you wouldn't use these add-ons in your everyday website. They include stuff like sortables and datepickers, which will come in handy, if you create advanced user interfaces like administration areas.
 
 							<h2>Usage</h2>
 
-							<p>UIkit offers some external components that are not included in the UIkit core framework. These add-ons include a datepicker, a form password, a markdown area, sortable lists, a sticky and a timepicker.</p>
-							<p>To use one of these add-ons, all you need to do is to embed its JavaScript and CSS into your documents head.</p>
+							<p>After you <a data-uikit-download>download UIkit</a>, you can find the add-ons in the the <code>/addons</code> folder. This is what the file structure looks like for the datepicker add-on.</p>
+
+<pre><code>/addons/css
+	&lt;!-- The datepicker add-on with the basic style --&gt;
+	datepicker.css
+	datepicker.min.css
+	...
+
+	&lt;!-- The datepicker add-on with Gradient style --&gt;
+	datepicker.gradient.css
+	datepicker.gradient.min.css
+	...
+
+	&lt;!-- The datepicker add-on with Almost flat style --&gt;
+	datepicker.almost-flat.css
+	datepicker.almost-flat.min.css
+	...
+
+/addons/js
+	&lt;!-- JavaScript and minified version --&gt;
+	datepicker.js
+	datepicker.min.js
+	...</code></pre>
+
+							<p>To use one of these add-ons, all you need to do is to add its JavaScript and CSS to the header of your document.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;script src="../dist/addons/js/datepicker.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="../dist/addons/css/datepicker.css"&gt;</code></pre>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;&lt;/title&gt;
+		&lt;link rel="stylesheet" href="uikit.min.css" /&gt;
+		&lt;script src="jquery.js">&lt;/script&gt;
+		&lt;script src="uikit.min.js">&lt;/script&gt;
+		&lt;!-- Datepicker add-on --&gt;
+		&lt;script src="datepicker.js"&gt;&lt;/script&gt;
+		&lt;link rel="stylesheet" href="datepicker.css"&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
 						</article>
 
