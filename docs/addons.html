@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Sortable - UIkit documentation</title>
+		<title>Add-ons - UIkit documentation</title>
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -28,7 +28,7 @@
 				<ul class="uk-navbar-nav uk-hidden-small">
 					<li><a href="documentation_get-started.html">Get Started</a></li>
 					<li><a href="components.html">Components</a></li>
-					<li class="uk-active"><a href="addons.html">Addons</a></li>
+					<li class="uk-active"><a href="addons.html">Add-ons</a></li>
 					<li><a href="customizer.html">Customizer</a></li>
 				</ul>
 
@@ -59,166 +59,19 @@
 
 						<article class="uk-article">
 
-							<h1>Sortable</h1>
+							<h1>Add-ons</h1>
 
-							<p class="uk-article-lead">Create lists that can be sorted by dragging and dropping.</p>
+							<p class="uk-article-lead">Use additional components with UIkit, that you can include seperately.</p>
 
 							<h2>Usage</h2>
 
-							<p>A sortable list consists of the list itself and its items, a handle and a toggle.</p>
-
-							<table class="uk-table">
-								<thead>
-									<tr>
-										<th>Class/Data attribute</th>
-										<th>Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><code>.uk-sortable</code></td>
-										<td>Add this class to a <code>&lt;ul&gt;</code> element to define the addon.</td>
-									</tr>
-									<tr>
-										<td><code>data-uk-sortable</code></td>
-										<td>To enable the necessary JavaScript, just add this data attribute.</td>
-									</tr>
-									<tr>
-										<td><code>.uk-sortable-item</code></td>
-										<td>Add this class to a <code>&lt;div&gt;</code> element inside each list item.</td>
-									</tr>
-									<tr>
-										<td><code>.uk-sortable-handle</code></td>
-										<td>This class creates the handle to enable drag and drop sorting.</td>
-									</tr>
-									<tr>
-										<td><code>data-sortable-action="toggle"</code></td>
-										<td>This data attribute allows you to hide or show nested list items.</td>
-									</tr>
-								</tbody>
-							</table>
+							<p>UIkit offers some external components that are not included in the UIkit core framework. These add-ons include a datepicker, a form password, a markdown area, sortable lists, a sticky and a timepicker.</p>
+							<p>To use one of these add-ons, all you need to do is to embed its JavaScript and CSS into your documents head.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<ul class="uk-sortable" data-uk-sortable>
-								<li>
-									<div class="uk-sortable-item">
-										<div class="uk-sortable-handle"></div>
-										<div data-sortable-action="toggle"></div>
-										Item 1
-									</div>
-								</li>
-								<li>
-									<div class="uk-sortable-item">
-										<div class="uk-sortable-handle"></div>
-										<div data-sortable-action="toggle"></div>
-										Item 2
-									</div>
-								</li>
-								<li>
-									<div class="uk-sortable-item">
-										<div class="uk-sortable-handle"></div>
-										<div data-sortable-action="toggle"></div>
-										Item 3
-									</div>
-								</li>
-							</ul>
-
-							<h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable&gt;
-	&lt;li&gt;
-		&lt;div class="uk-sortable-item"&gt;
-			&lt;div class="uk-sortable-handle"&gt;&lt;/div&gt;
-			&lt;div data-sortable-action="toggle"&gt;&lt;/div&gt;
-			...
-		&lt;/div&gt;
-	&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
-
-						<hr class="uk-article-divider">
-
-						<h3>Sort multiple lists</h3>
-
-						<p>You can even sort more than one list.</p>
-
-						<ul class="uk-sortable" data-uk-sortable>
-							<li>
-								<div class="uk-sortable-item">
-									<div class="uk-sortable-handle"></div>
-									<div data-sortable-action="toggle"></div>
-									Item 1
-								</div>
-							</li>
-							<li>
-								<div class="uk-sortable-item">
-									<div class="uk-sortable-handle"></div>
-									<div data-sortable-action="toggle"></div>
-									Item 2
-								</div>
-							</li>
-							<li>
-								<div class="uk-sortable-item">
-									<div class="uk-sortable-handle"></div>
-									<div data-sortable-action="toggle"></div>
-									Item 3
-								</div>
-							</li>
-						</ul>
-
-						<h4>Second list</h4>
-
-						<ul class="uk-sortable" data-uk-sortable>
-							<li>
-								<div class="uk-sortable-item">
-									<div class="uk-sortable-handle"></div>
-									<div data-sortable-action="toggle"></div>
-									Item 4
-								</div>
-							</li>
-						</ul>
-
-						<p><span class="uk-badge">NOTE</span> To disable this feature, just add <code>data-uk-sortable="{group:'my-group'}"</code> attribute to one of the lists, so that it functions as a closed group.</p>
-
-						<h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;
-
-&lt;ul class="uk-sortable" data-uk-sortable&gt;...&lt;/ul&gt;</code></pre>
-
-						<hr class="uk-article-divider">
-
-						<h3>Nesting Disabled</h3>
-
-						<p>To disable nesting of list items, just add the <code>data-uk-sortable="{maxDepth:1}"</code> attribute.</p>
-
-						<ul class="uk-sortable" data-uk-sortable="{maxDepth:1}">
-							<li>
-								<div class="uk-sortable-item">
-									<div class="uk-sortable-handle"></div>
-									<div data-sortable-action="toggle"></div>
-									Item 1
-								</div>
-							</li>
-							<li>
-								<div class="uk-sortable-item">
-									<div class="uk-sortable-handle"></div>
-									<div data-sortable-action="toggle"></div>
-									Item 2
-								</div>
-							</li>
-							<li>
-								<div class="uk-sortable-item">
-									<div class="uk-sortable-handle"></div>
-									<div data-sortable-action="toggle"></div>
-									Item 3
-								</div>
-							</li>
-						</ul>
-
-						<h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{maxDepth:1}"&gt;...&lt;/ul&gt;</code></pre>
+<pre><code>&lt;script src="../dist/addons/js/datepicker.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="../dist/addons/css/datepicker.css"&gt;</code></pre>
 
 						</article>
 
