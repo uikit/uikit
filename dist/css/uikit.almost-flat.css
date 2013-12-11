@@ -340,8 +340,8 @@ body {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-	 * Break strings if their length exceeds the width of their container
-	 */
+     * Break strings if their length exceeds the width of their container
+     */
   body {
     word-wrap: break-word;
     -webkit-hyphens: auto;
@@ -762,8 +762,8 @@ iframe {
 /* Only large screens */
 @media (min-width: 1220px) {
   /*
-	 * Grid
-	 */
+     * Grid
+     */
   /* Horizontal gutter */
   .uk-grid:not(.uk-grid-preserve) {
     margin-left: -35px;
@@ -783,8 +783,8 @@ iframe {
     margin-top: 35px;
   }
   /*
-	 * Modifier: `uk-grid-divider`
-	 */
+     * Modifier: `uk-grid-divider`
+     */
   .uk-grid-divider:not(.uk-grid-preserve):not(:empty) {
     margin-left: -35px;
     margin-right: -35px;
@@ -1019,8 +1019,8 @@ iframe {
     position: relative;
   }
   /*
-	 * Push
-	 */
+     * Push
+     */
   /* Halves */
   .uk-push-1-2,
   .uk-push-2-4,
@@ -1082,8 +1082,8 @@ iframe {
     left: 90%;
   }
   /*
-	 * Pull
-	 */
+     * Pull
+     */
   /* Halves */
   .uk-pull-1-2,
   .uk-pull-2-4,
@@ -1411,7 +1411,7 @@ iframe {
   margin-top: 25px;
 }
 /* Sub-object `uk-comment-body`
-	 ========================================================================== */
+     ========================================================================== */
 .uk-comment-body {
   padding-left: 10px;
   padding-right: 10px;
@@ -1737,15 +1737,15 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   color: #ffffff;
 }
 /*
-	 * Modifier `uk-nav-offcanvas`
-	 */
+     * Modifier `uk-nav-offcanvas`
+     */
 .uk-nav-offcanvas {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 /*
-	 * Sub-object: `uk-nav-sub`
-	 */
+     * Sub-object: `uk-nav-sub`
+     */
 .uk-nav-offcanvas .uk-nav-sub {
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -1974,15 +1974,15 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   border-radius: 4px;
 }
 /*
-	 * Apply same `border-radius` as `uk-navbar`
-	 */
+     * Apply same `border-radius` as `uk-navbar`
+     */
 .uk-navbar:not(.uk-navbar-attached) .uk-navbar-nav:first-child > li:first-child > a {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 /*
-	 * Sub-modifier `uk-navbar-flip`
-	 */
+     * Sub-modifier `uk-navbar-flip`
+     */
 /* Collapse border */
 .uk-navbar .uk-navbar-flip .uk-navbar-nav > li > a {
   margin-left: 0;
@@ -2482,8 +2482,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
     border-color: #dddddd;
   }
   /*
-	 * Modifier: 'tab-left'
-	 */
+     * Modifier: 'tab-left'
+     */
   .uk-tab-left {
     border-right: 1px solid #dddddd;
   }
@@ -2505,8 +2505,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
     border-right-color: transparent;
   }
   /*
-	 * Modifier: 'tab-right'
-	 */
+     * Modifier: 'tab-right'
+     */
   .uk-tab-right {
     border-left: 1px solid #dddddd;
   }
@@ -2529,23 +2529,23 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   }
 }
 /* Modifier: `uk-tab-bottom'
-	 ========================================================================== */
+     ========================================================================== */
 .uk-tab-bottom > li > a {
   border-radius: 0 0 4px 4px;
 }
 /* Modifier: `uk-tab-left', `uk-tab-right'
-	========================================================================== */
+    ========================================================================== */
 /* Only tablets and desktops */
 @media (min-width: 768px) {
   /*
-		 * Modifier: `uk-tab-left'
-		 */
+         * Modifier: `uk-tab-left'
+         */
   .uk-tab-left > li > a {
     border-radius: 4px 0 0 4px;
   }
   /*
-		 * Modifier: `uk-tab-right'
-		 */
+         * Modifier: `uk-tab-right'
+         */
   .uk-tab-right > li > a {
     border-radius: 0 4px 4px 0;
   }
@@ -3223,7 +3223,7 @@ a.uk-button {
   position: relative;
 }
 /* Color modifiers
-	 ========================================================================== */
+     ========================================================================== */
 .uk-button-primary,
 .uk-button-success,
 .uk-button-danger {
@@ -3239,10 +3239,10 @@ a.uk-button {
   border-color: rgba(0, 0, 0, 0.21);
 }
 /* Sub-object `uk-button-group`
-	 ========================================================================== */
+     ========================================================================== */
 /*
-	 * Reset border-radius
-	 */
+     * Reset border-radius
+     */
 .uk-button-group > .uk-button:not(:first-child):not(:last-child),
 .uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
   border-left-color: rgba(0, 0, 0, 0.1);
@@ -3262,18 +3262,18 @@ a.uk-button {
   border-bottom-left-radius: 0;
 }
 /*
-	 * Collapse border
-	 */
+     * Collapse border
+     */
 .uk-button-group > .uk-button:nth-child(n+2),
 .uk-button-group > div:nth-child(n+2) .uk-button {
   margin-left: -1px;
 }
 /*
-	 * Create position context to superimpose the successor elements border
-	 * Known issue: If you use an `a` element as button and an icon inside,
-	 * the active state will not work if you click the icon inside the button
-	 * Workaround: Just use a `button` or `input` element as button
-	 */
+     * Create position context to superimpose the successor elements border
+     * Known issue: If you use an `a` element as button and an icon inside,
+     * the active state will not work if you click the icon inside the button
+     * Workaround: Just use a `button` or `input` element as button
+     */
 .uk-button-group .uk-button:hover,
 .uk-button-group .uk-button:active {
   position: relative;
@@ -4967,7 +4967,7 @@ a.uk-thumbnail:focus {
   }
 }
 /* Size modifiers
-	 ========================================================================== */
+     ========================================================================== */
 .uk-progress-mini,
 .uk-progress-small {
   border-radius: 500px;
@@ -5537,8 +5537,8 @@ input.uk-search-field {
 /* Only tablets and desktops */
 @media (min-width: 768px) {
   /*
-	 * Horizontal gutter
-	 */
+     * Horizontal gutter
+     */
   .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid {
     margin-left: -15px;
     margin-right: -15px;
@@ -5548,14 +5548,14 @@ input.uk-search-field {
     padding-right: 15px;
   }
   /*
-	 * Column divider
-	 */
+     * Column divider
+     */
   .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
     border-left: 1px solid #dddddd;
   }
   /*
-	 * Width multiplier for dropdown columns
-	 */
+     * Width multiplier for dropdown columns
+     */
   .uk-dropdown-width-2:not(.uk-dropdown-stack) {
     width: 400px;
   }
@@ -5572,14 +5572,14 @@ input.uk-search-field {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-	 * Stack columns and take full width
-	 */
+     * Stack columns and take full width
+     */
   .uk-dropdown > .uk-grid > [class*='uk-width-'] {
     width: 100%;
   }
   /*
-	 * Vertical gutter
-	 */
+     * Vertical gutter
+     */
   .uk-dropdown > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
     margin-top: 15px;
   }
@@ -5720,8 +5720,8 @@ input.uk-search-field {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-	 * Fit the phone width perfectly
-	 */
+     * Fit the phone width perfectly
+     */
   .uk-modal-dialog {
     top: 0;
     left: 0;
