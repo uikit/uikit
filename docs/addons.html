@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Sticky - UIkit documentation</title>
+		<title>Add-ons - UIkit documentation</title>
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
 		<link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +14,8 @@
 		<script src="../dist/js/uikit.min.js"></script>
 		<script src="../vendor/highlight/highlight.js"></script>
 		<script src="js/docs.js"></script>
-		<script src="../dist/addons/js/sticky.js"></script>
-		<link rel="stylesheet" href="../dist/addons/css/sticky.css">
+		<script src="../dist/addons/js/sortable.js"></script>
+		<link rel="stylesheet" href="../dist/addons/css/sortable.css">
 	</head>
 
 	<body class="tm-background">
@@ -28,7 +28,7 @@
 				<ul class="uk-navbar-nav uk-hidden-small">
 					<li><a href="documentation_get-started.html">Get Started</a></li>
 					<li><a href="components.html">Components</a></li>
-					<li class="uk-active"><a href="addons.html">Addons</a></li>
+					<li class="uk-active"><a href="addons.html">Add-ons</a></li>
 					<li><a href="customizer.html">Customizer</a></li>
 				</ul>
 
@@ -49,36 +49,29 @@
 							<li><a href="addons_datepicker.html">Datepicker</a></li>
 							<li><a href="addons_form-password.html">Form Password</a></li>
 							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
-							<li><a href="addons_sortable.html">Sortable</a></li>
-							<li><a class="uk-active" href="addons_sticky.html">Sticky</a></li>
+							<li><a class="uk-active" href="addons_sortable.html">Sortable</a></li>
+							<li><a href="addons_sticky.html">Sticky</a></li>
 							<li><a href="addons_timepicker.html">Timepicker</a></li>
 						</ul>
 
 					</div>
 					<div class="tm-main uk-width-medium-3-4">
 
-						<article class="uk-article" style="height: 1200px;">
+						<article class="uk-article">
 
-							<h1>Sticky</h1>
+							<h1>Add-ons</h1>
 
-							<p class="uk-article-lead">Make elements remain at the top of the viewport, like a sticky navbar.</p>
+							<p class="uk-article-lead">Use additional components with UIkit, that you can include seperately.</p>
 
 							<h2>Usage</h2>
 
-							<p>To create an element that remains at the top of the viewport when scrolling down the site, add the <code>data-uk-sticky</code> attribute to that element.</p>
+							<p>UIkit offers some external components that are not included in the UIkit core framework. These add-ons include a datepicker, a form password, a markdown area, sortable lists, a sticky and a timepicker.</p>
+							<p>To use one of these add-ons, all you need to do is to embed its JavaScript and CSS into your documents head.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
-							<div class="uk-panel uk-panel-box" data-uk-sticky>Stick to the top</div>
-
-							<p><span class="uk-badge">NOTE</span> You can also position the element below the viewport edge. For example, add the <code>data-uk-sticky="{top:100}"</code> attribute to create a margin of 100px.</p>
-
-							<div class="uk-panel uk-panel-box" data-uk-sticky="{top:100}">Stick 100px below the top</div>
-
-							<h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div data-uk-sticky&gt;...&lt;/div&gt;
-&lt;div data-uk-sticky="{top:100}"&gt;...&lt;/div&gt;</code></pre>
+<pre><code>&lt;script src="../dist/addons/js/datepicker.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="../dist/addons/css/datepicker.css"&gt;</code></pre>
 
 						</article>
 
@@ -115,9 +108,10 @@
 						<ul class="uk-nav-sub">
 							<li><a href="documentation_get-started.html">Get started</a></li>
 							<li><a href="documentation_how-to-customize.html">How to customize</a></li>
+							<li><a href="components.html">Components</a></li>
 							<li><a href="documentation_project-structure.html">Project structure</a></li>
+							<li><a href="documentation_variables.html">Variables</a></li>
 							<li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-							<li><a href="documentation_create-a-style.html">Create a style</a></li>
 							<li><a href="documentation_customizer-json.html">Customizer.json</a></li>
 						</ul>
 					</li>
@@ -188,8 +182,8 @@
 							<li><a href="addons_datepicker.html">Datepicker</a></li>
 							<li><a href="addons_form-password.html">Form Password</a></li>
 							<li><a href="addons_markdownarea.html">Markdown Area</a></li>
-							<li><a href="addons_sortable.html">Sortable</a></li>
-							<li><a class="uk-active" href="addons_sticky.html">Sticky</a></li>
+							<li><a class="uk-active" href="addons_sortable.html">Sortable</a></li>
+							<li><a href="addons_sticky.html">Sticky</a></li>
 							<li><a href="addons_timepicker.html">Timepicker</a></li>
 						</ul>
 					</li>
