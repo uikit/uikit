@@ -73,13 +73,17 @@
 
 							<p>Download or clone UIkit and install Node and Grunt. Create a <code>custom</code> folder in <code>/themes</code> and a finally your theme folder <code>/themes/custom/THEME-NAME</code>.</p>
 
-							<p><span class="uk-badge">NOTE</span> The <code>/themes/custom</code> folder is not taken by pull request. This is caused by the <em>git ignore</em> list of UIkit and save custom themes to get override.</p>
+							<p><span class="uk-badge">NOTE</span> The <code>/custom</code> folder is set to git ignore, which prevents your custom files from being pushed into the UIkit repository.</p>
 
 							<h3>2. Add your theme</h3>
 
-							<p>Create the <code>uikit.less</code> file and add the <code>@import "../../../src/less/uikit.less";</code> rule to access all LESS files from the core framework and adopt its basic styling. That's it! You can start adding your own theme from scratch.</p>
+							<p>Create the <code>uikit.less</code> file in the <code>/themes/custom/THEME-NAME</code> folder and add the <code>@import "../../../src/less/uikit.less";</code> rule to access all LESS files from the core framework and adopt its basic styling. That's it! You can start adding your own theme from scratch.</p>
 
-							<p><span class="uk-badge">NOTE</span> To get you started right away, we provide the default, gradient and almost-flat theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder into the <code>/custom</code> directory and edit the <code>@import "../../../src/less/uikit.less";</code> to <code>@import "../../../src/less/uikit.less";</code>. Then you can start creating your own theme.</p>
+							<p><span class="uk-badge">NOTE</span> To get you started right away, we provide the default, gradient and almost-flat theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder into the <code>/custom</code> directory.</p>
+
+							<h3>3. Customizer and Tests</h3>
+
+							<p>Run the grunt task <em>indexthemes</em> on your UIkit folder. Now the newly created themes will be available automatically in the Customizer and test files.</p>
 
 							<hr class="uk-article-divider">
 
@@ -145,7 +149,7 @@
 
 
 							<h3>3. Add selectors</h3>
-							<p>Should there be neither a variable or a hook available, you can of course create your own selector. To do so, use the <em>.hook-button-misc</em> hook and write your selector inside. This will sort your new selector to the right place of the compiled css file.</p>
+							<p>Should there be neither a variable nor a hook available, you can of course create your own selector. To do so, use the <em>.hook-button-misc</em> hook and write your selector inside. This will sort your new selector to the right place of the compiled css file.</p>
 
 							<h3 class="tm-article-subtitle">Example</h3>
 
