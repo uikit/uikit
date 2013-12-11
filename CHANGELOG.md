@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.0.0 (December 11, 2013)
 
   - Added new toggle component
   - Added new form-icon to form component
@@ -20,7 +20,7 @@
   - Refactored repository structure
   - Refactored variables
   - Added Grunt task to index new themes ( usage: grunt indexthemes )
-  - Added UIkit addons
+  - Added new UIkit addons and components
   - UIkit tests moved to /src
 
 ### 1.2.1 (December 03, 2013)
