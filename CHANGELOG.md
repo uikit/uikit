@@ -13,6 +13,7 @@
   - Added outerclick support for dropdowns in hover mode
   - Added touch events support for Windows 8 phones
   - Added miscellaneous hooks
+  - Updated icon component to Font Awesome to 4.0.3
   - Changed comments to compile nicer CSS output
 
 **Documentation and repository**
