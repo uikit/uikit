@@ -1,15 +1,18 @@
 # Changelog
 
+### WIP
+  - Added border-circle to utility component
+
 ### 2.0.0 (December 11, 2013)
 
-  - Added new toggle component
-  - Added new form-icon to form component
-  - Added new datepicker addon
-  - Added new form-password addon
-  - Added new markdown area addon
-  - Added new sortable addon
-  - Added new sticky addon
-  - Added new timepicker addon
+  - Added toggle component
+  - Added form-icon to form component
+  - Added datepicker addon
+  - Added form-password addon
+  - Added markdown area addon
+  - Added sortable addon
+  - Added sticky addon
+  - Added timepicker addon
   - Added outerclick support for dropdowns in hover mode
   - Added touch events support for Windows 8 phones
   - Added miscellaneous hooks
@@ -51,9 +54,9 @@
 
 ### 1.1.0 (August 21, 2013)
 
-  - Added new scrollspy component
-  - Added new animation component
-  - Added new link-muted to utility component
+  - Added scrollspy component
+  - Added animation component
+  - Added link-muted to utility component
   - Added subtitle support for navbar items
   - Off-canvas now uses hardware accelerated translateX for bar animation
   - Added responsive tab dropdown indicator
