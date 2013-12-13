@@ -17,7 +17,8 @@
             "markdownarea",
             "sortable",
             "sticky",
-            "timepicker"
+            "timepicker",
+            "notify"
         ],
         themes = {
             "Default":"../../themes/default/uikit/uikit.less",

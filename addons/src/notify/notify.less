@@ -1,0 +1,63 @@
+// Name:            Notify
+// Description:     Notifications addon
+//
+// Component:       `uk-notify`
+//
+// Sub-objects:     `uk-notify-container`
+//                  `uk-notify-message`
+//
+// ========================================================================
+
+@import "../../../src/less/variables.less";
+
+
+// Variables
+// ========================================================================
+
+@notify-font-size:            13px;
+@notify-z-index:              1000;
+
+
+/* ========================================================================
+   Addon: notify
+ ========================================================================== */
+
+.uk-notify-container {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    width: 350px;
+    font-size: @notify-font-size;
+    z-index: @notify-z-index;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.uk-notify-message {
+    position: relative;
+    padding: 10px 20px 10px 10px;
+    margin-bottom: 5px;
+    background: #39f;
+    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.uk-notify-message > .uk-close {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+
+.uk-notify-message > strong { color: #fff; }
+
+.uk-notify-message > span {
+    position: absolute;
+    left: 10px;
+    top: 13px;
+}
+
+.uk-notify-message.uk-notify-message-icon { padding-left: 30px; }
+
+.uk-notify-message[data-status=success] { background: #8cc14c; }
+.uk-notify-message[data-status=warning] { background: #faa732; }
+.uk-notify-message[data-status=danger] { background: #da314b; }
