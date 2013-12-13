@@ -2,6 +2,7 @@
 
 ### WIP
   - Added border-circle to utility component
+  - Fixed background position in RTL mode
 
 ### 2.0.0 (December 11, 2013)
 
