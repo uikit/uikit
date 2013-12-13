@@ -180,7 +180,7 @@
     UI["dropdown"] = Dropdown;
 
 
-    var triggerevent = UI.support.touch ? UI.Utils.events.click:"mouseenter";
+    var triggerevent = UI.support.touch ? "click":"mouseenter";
 
     // init code
     $(document).on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
