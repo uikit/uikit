@@ -2,7 +2,9 @@
 
 ### WIP
   - Added border-circle to utility component
+  - Added notify addon
   - Fixed background position in RTL mode
+  - Fixed delayed dropdown trigger on touch devices
 
 ### 2.0.0 (December 11, 2013)
 
