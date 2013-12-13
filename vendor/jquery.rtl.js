@@ -85,7 +85,7 @@
       if (m && (m.length == 1) && v.match(/(\d+)([a-z]{2}|%)/)) {
         v = 'right ' + v;
       }
-      if (m && m.length == 2 && m[0].match(/\d+%/)) {
+      if (m && m.length == 2 && m[0].match(/\d+%?/)) {
         // 30% => 70% (100 - x)
         v = (100 - parseInt(m[0], 10)) + '% ' + m[1];
       }
