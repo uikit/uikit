@@ -4,8 +4,12 @@
         messages  = {},
         notify    =  function(options){
 
-            if(typeof options == 'string' || options instanceof String) {
-                options = { message: options, status: (arguments[1] ? arguments[1]:'info') };
+            if ($.type(options) == 'string') {
+                options = { message: options };
+            }
+
+            if (arguments[1]) {
+                options = $.extend(options, $.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
             }
 
             return (new Message(options)).show();
@@ -38,7 +42,7 @@
         ].join('')).data("notifyMessage", this);
 
         // icon
-        if(this.options.icon!==false) {
+        if (this.options.icon!==false) {
 
             var icon = "";
 
@@ -63,13 +67,13 @@
 
         show: function() {
 
-            if(this.element.is(":visible")) return;
+            if (this.element.is(":visible")) return;
 
             var $this = this;
 
             container.prepend(this.element);
 
-            if(this.options.timeout) {
+            if (this.options.timeout) {
 
                 var closefn = function(){ $this.close(); };
 
@@ -105,7 +109,7 @@
 
         container = $('<div class="uk-notify-container"></div>').appendTo('body').on("click", ".uk-close", function(){
             msg = $(this).closest('.uk-notify-message');
-            if(msg.length)  msg.data("notifyMessage").close();
+            if (msg.length) msg.data("notifyMessage").close();
         });
     });
 
