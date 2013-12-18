@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add-ons - UIkit documentation</title>
+        <title>Notify add-on - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,6 +14,16 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
+        <script src="../dist/addons/js/notify.js"></script>
+        <link rel="stylesheet" href="../dist/addons/css/notify.css">
+
+        <script>
+        $(function(){
+            $("body").on("click", ".uk-button-notify", function(){
+                $.UIkit.notify($(this).data());
+            });
+        })
+        </script>
     </head>
 
     <body class="tm-background">
@@ -50,65 +60,49 @@
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
                             <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
+                            <li class="uk-active"><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_form-password.html">Form Password</a></li>
                         </ul>
 
                     </div>
                     <div class="tm-main uk-width-medium-3-4">
 
-                        <article class="uk-article">
+                        <article class="uk-article" style="height: 1800px;">
 
-                            <h1>Add-ons</h1>
+                            <h1>Notify</h1>
 
-                            <p class="uk-article-lead">All kinds of useful, additional components which are not included in UIkit itself.</p>
-
-                            <p>UIkit offers some advanced components that are not included in the UIkit core framework. Usually you wouldn't use these add-ons in your everyday website. They include stuff like sortables and datepickers, which will come in handy, if you create advanced user interfaces like administration areas.
+                            <p class="uk-article-lead">Show status notifications, icon support included.</p>
 
                             <h2>Usage</h2>
 
-                            <p>After you <a data-uikit-download>download UIkit</a>, you can find the add-ons in the the <code>/addons</code> folder. This is what the file structure looks like for the datepicker add-on.</p>
-
-<pre><code>/addons/css
-    &lt;!-- The datepicker add-on with the basic style --&gt;
-    datepicker.css
-    datepicker.min.css
-    ...
-
-    &lt;!-- The datepicker add-on with Gradient style --&gt;
-    datepicker.gradient.css
-    datepicker.gradient.min.css
-    ...
-
-    &lt;!-- The datepicker add-on with Almost flat style --&gt;
-    datepicker.almost-flat.css
-    datepicker.almost-flat.min.css
-    ...
-
-/addons/js
-    &lt;!-- JavaScript and minified version --&gt;
-    datepicker.js
-    datepicker.min.js
-    ...</code></pre>
-
-                            <p>To use one of these add-ons, all you need to do is to add its JavaScript and CSS to the header of your document.</p>
+                            <p>Notify provides a simple api which you can reuse in your application code.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;&lt;/title&gt;
-        &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-        &lt;script src="jquery.js">&lt;/script&gt;
-        &lt;script src="uikit.min.js">&lt;/script&gt;
-        &lt;!-- Datepicker add-on --&gt;
-        &lt;script src="datepicker.js"&gt;&lt;/script&gt;
-        &lt;link rel="stylesheet" href="datepicker.css"&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+                            <button class="uk-button uk-button-notify" data-message="Info message...">Info</button>
+                            <button class="uk-button uk-button-notify" data-message="Warning message..." data-status="warning">Warning</button>
+                            <button class="uk-button uk-button-success uk-button-notify" data-message="Success message..." data-status="success">Success</button>
+                            <button class="uk-button uk-button-danger  uk-button-notify" data-message="Danger message..." data-status="danger" data-title="I have title...">Danger</button>
+
+                            <h3 class="tm-article-subtitle">Code</h3>
+
+<pre><code>&lt;script&gt;
+
+$.UIkit.notify({
+    message : 'Bazinga!',
+    status  : 'info',
+    title   : 'Any title'
+});
+
+
+// Shortcuts
+$.UIkit.notify('My message');
+$.UIkit.notify('My message', status);
+$.UIkit.notify('My message', { /* options */ });
+
+&lt;/script&gt;</code></pre>
+
+
 
                         </article>
 
@@ -210,12 +204,11 @@
                             <li><a href="offcanvas.html">Off-canvas</a></li>
                             <li><a href="switcher.html">Switcher</a></li>
                             <li><a href="toggle.html">Toggle</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
                             <li><a href="scrollspy.html">Scrollspy</a></li>
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#">Add-ons</a>
+                    <li class="uk-parent uk-active"><a href="#">Add-ons</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_markdownarea.html">Markdown Area</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
