@@ -29,7 +29,6 @@
                 var $target = $(e.target);
 
                 if (!$target.parents(".uk-dropdown").length) {
-                    e.preventDefault();
                     $target.blur();
                 }
 
@@ -188,7 +187,9 @@
                 dropdown.show();
             }
 
-            e.preventDefault();
+            if(dropdown.element.find('.uk-dropdown').length) {
+                e.preventDefault();
+            }
         }
     });
 
