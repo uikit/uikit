@@ -29,6 +29,11 @@
                 var $target = $(e.target);
 
                 if (!$target.parents(".uk-dropdown").length) {
+                    
+                    if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                        e.preventDefault();
+                    }
+
                     $target.blur();
                 }
 
@@ -38,7 +43,7 @@
 
                 } else {
 
-                    if ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length) {
+                    if ($target.is("a") || !$this.element.find(".uk-dropdown").find(e.target).length) {
                         $this.element.removeClass("uk-open");
                         active = false;
                     }
