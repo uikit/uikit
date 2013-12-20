@@ -5,6 +5,7 @@
   - Added notify addon
   - Fixed background position in RTL mode
   - Fixed delayed dropdown trigger on touch devices
+  - Fixed jumping when dragging sortables
 
 ### 2.0.0 (December 11, 2013)
 
