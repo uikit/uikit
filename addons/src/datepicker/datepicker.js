@@ -64,25 +64,30 @@
 
             content += '<table class="uk-datepicker-table">';
             content += '<thead>';
-            for(var i in data.weekdays) {
-                content += '<th>'+data.weekdays[i]+'</th>';
+            for(var i = 0; i < data.weekdays; i++) {
+                if (data.weekdays[i]) {
+                    content += '<th>'+data.weekdays[i]+'</th>';
+                }
             }
             content += '</thead>';
 
             content += '<tbody>';
-            for(var i in data.days) {
-                content += '<tr>';
-                for(var d in data.days[i]) {
+            for(var i = 0; i < data.days; i++) {
+                if (data.days[i]){
+                    content += '<tr>';
+                    for(var d = 0; d < data.days[i]; d++) {
+                        if (data.days[i][d]) {
+                            var day = data.days[i][d],
+                                cls = [];
 
-                    var day = data.days[i][d],
-                        cls = [];
+                            if(!day.inmonth) cls.push("uk-datepicker-table-muted");
+                            if(day.selected) cls.push("uk-active");
 
-                    if(!day.inmonth) cls.push("uk-datepicker-table-muted");
-                    if(day.selected) cls.push("uk-active");
-
-                    content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
+                            content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
+                        }
+                    }
+                    content += '</tr>';
                 }
-                content += '</tr>';
             }
             content += '</tbody>';
 
