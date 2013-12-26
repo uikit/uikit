@@ -27,7 +27,8 @@
             "sticky",
             "thumbnailnav",
             "timepicker",
-            "upload"
+            "upload",
+            "nav-tree"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",

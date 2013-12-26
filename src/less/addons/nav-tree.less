@@ -1,0 +1,47 @@
+// Name:            nav-tree
+// Description:     nav tree addon
+//
+// Sub-objects:     `uk-parent-ul`
+//                  `uk-parent-offcanvas`
+//
+// ========================================================================
+
+@import "../../../src/less/nav.less";
+
+/* ========================================================================
+   Addon: nav-tree
+   Sub-object: `uk-parent-ul`
+ ========================================================================== */
+
+.uk-dropdown .uk-nav .uk-parent-ul { margin: 0; }
+
+.uk-parent-ul li a { padding: @nav-nested-padding-vertical @nav-padding-horizontal @nav-nested-padding-vertical @nav-nested-padding-horizontal; }
+
+.uk-parent-ul > .uk-parent > a {
+    color: @nav-side-color;
+}
+
+.uk-parent-ul > .uk-parent > a:hover,
+.uk-parent-ul > .uk-parent > a:focus {
+    background: @nav-side-hover-background;
+    color: @nav-side-hover-color;
+    outline: none;
+}
+
+/* Sub-object: `uk-parent-offcanvas`
+ ========================================================================== */
+
+.uk-dropdown .uk-nav .uk-parent-offcanvas { margin: 0; }
+
+.uk-parent-offcanvas li a { padding: @nav-nested-padding-vertical @nav-padding-horizontal @nav-nested-padding-vertical @nav-nested-padding-horizontal; }
+
+.uk-parent-offcanvas > .uk-parent > a {
+    color: @nav-offcanvas-color;
+}
+
+.uk-parent-offcanvas > .uk-parent > a:hover,
+.uk-parent-offcanvas > .uk-parent > a:focus {
+    background: @nav-offcanvas-hover-background;
+    color: @nav-offcanvas-hover-color;
+    outline: none;
+}
