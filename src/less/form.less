@@ -370,8 +370,11 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
     text-align: center;
 }
 
+.uk-form-icon > .uk-align-icon-right { right: 0; }
+
 .uk-form-icon > input { padding-left: @form-icon-width !important; }
 
+.uk-form-icon > .uk-align-icon-right + input { padding-right: @form-icon-width !important; }
 
 // Hooks
 // ========================================================================
