@@ -1,8 +1,9 @@
 # Changelog
 
 ### WIP
-  - Added border-circle to utility component
   - Added notify addon
+  - Added border-circle to utility component 
+  - Added more variables to sortable addon
   - Fixed background position in RTL mode
   - Fixed delayed dropdown trigger on touch devices
   - Fixed jumping when dragging sortables

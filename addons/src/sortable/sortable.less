@@ -33,6 +33,8 @@
 
 @sortable-placeholder-border:                   #ddd;
 
+@sortable-empty-height:                         40px;
+
 @sortable-handle-font-size:                     18px;
 @sortable-handle-color:                         #ddd;
 @sortable-handle-icon:                          "\f0c9";
@@ -105,7 +107,7 @@
  ========================================================================== */
 
 .uk-sortable-empty {
-    min-height: 40px;
+    min-height: @sortable-empty-height;
     .hook-sortable-empty;
 }
 
