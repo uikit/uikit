@@ -110,12 +110,18 @@
 
 .uk-comment-list .uk-comment + ul {
     margin: @comment-list-margin-top 0 0 0;
-    padding-left: @comment-list-padding-left;
     list-style: none;
 }
 
 .uk-comment-list > li:nth-child(n+2),
 .uk-comment-list .uk-comment + ul > li:nth-child(n+2) { margin-top: @comment-list-margin-top; }
+
+/* Only tablets and desktops */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-comment-list .uk-comment + ul { padding-left: @comment-list-padding-left; }
+    
+}
 
 
 // Hooks

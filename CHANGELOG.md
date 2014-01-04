@@ -7,6 +7,7 @@
   - Fixed background position in RTL mode
   - Fixed delayed dropdown trigger on touch devices
   - Fixed jumping when dragging sortables
+  - Fixed nested comments indention on small screens
 
 ### 2.0.0 (December 11, 2013)
 
