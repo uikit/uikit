@@ -8,6 +8,7 @@
   - Fixed delayed dropdown trigger on touch devices
   - Fixed jumping when dragging sortables
   - Fixed nested comments indention on small screens
+  - Fixed style for inputs without type attribute
 
 ### 2.0.0 (December 11, 2013)
 

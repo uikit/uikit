@@ -84,13 +84,14 @@
 
 /*
  * Controls
- * Exept for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
+ * Except for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
  * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
  */
 
 .uk-form select,
 .uk-form textarea,
+.uk-form input:not([type]),
 .uk-form input[type="text"],
 .uk-form input[type="password"],
 .uk-form input[type="datetime"],
@@ -325,13 +326,11 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
 /* Only phones and tablets portrait */
 @media (max-width: @breakpoint-medium-max) {
 
+    /* Behave like `uk-form-stacked` */
     .uk-form-horizontal .uk-form-label {
-
-        /* Behave like `uk-form-stacked` */
         display: block;
         margin-bottom: 5px;
         font-weight: bold;
-
     }
 
 }
