@@ -69,6 +69,7 @@
 @form-gutter:                                   15px;
 
 @form-icon-width:                               30px;
+@form-icon-font-size:                           14px;
 @form-icon-color:                               #999;
 
 
@@ -363,13 +364,22 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
 
 .uk-form-icon > [class*='uk-icon-'] {
     position: absolute;
+    top: 50%;
     width: @form-icon-width;
-    line-height: @form-icon-width;
+    margin-top: round(@form-icon-font-size / -2);
+    font-size: @form-icon-font-size;
     color: @form-icon-color;
     text-align: center;
 }
 
-.uk-form-icon > input { padding-left: @form-icon-width !important; }
+.uk-form-icon:not(.uk-form-icon-flip) > input { padding-left: @form-icon-width !important; }
+
+/*
+ * Sub-modifier: `uk-form-icon-flip`
+ */
+
+.uk-form-icon-flip > [class*='uk-icon-'] { right: 0; }
+.uk-form-icon-flip > input { padding-right: @form-icon-width !important; }
 
 
 // Hooks
