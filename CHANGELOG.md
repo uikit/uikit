@@ -1,9 +1,11 @@
 # Changelog
 
 ### WIP
-  - Added notify addon
+  - Added notify add-on
   - Added border-circle to utility component 
-  - Added more variables to sortable addon
+  - Added more variables to sortable add-on
+  - Added modifier to flip form icons
+  - Updated form icons to work with form size modifiers
   - Fixed background position in RTL mode
   - Fixed delayed dropdown trigger on touch devices
   - Fixed jumping when dragging sortables
@@ -14,12 +16,12 @@
 
   - Added toggle component
   - Added form-icon to form component
-  - Added datepicker addon
-  - Added form-password addon
-  - Added markdown area addon
-  - Added sortable addon
-  - Added sticky addon
-  - Added timepicker addon
+  - Added datepicker add-on
+  - Added form-password add-on
+  - Added markdown area add-on
+  - Added sortable add-on
+  - Added sticky add-on
+  - Added timepicker add-on
   - Added outerclick support for dropdowns in hover mode
   - Added touch events support for Windows 8 phones
   - Added miscellaneous hooks
@@ -31,7 +33,7 @@
   - Refactored repository structure
   - Refactored variables
   - Added Grunt task to index new themes ( usage: grunt indexthemes )
-  - Added new UIkit addons and components
+  - Added new UIkit add-ons and components
   - UIkit tests moved to /src
 
 ### 1.2.1 (December 03, 2013)
