@@ -6,6 +6,7 @@
   - Added more variables to sortable add-on
   - Added modifier to flip form icons
   - Updated form icons to work with form size modifiers
+  - Replace fixed value with variable in nav component
   - Fixed background position in RTL mode
   - Fixed delayed dropdown trigger on touch devices
   - Fixed jumping when dragging sortables

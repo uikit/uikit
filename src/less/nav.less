@@ -46,6 +46,7 @@
 @nav-subtitle-font-size:                        12px;
 @nav-subtitle-line-height:                      18px;
 
+@nav-nested-padding-left:                       15px;
 @nav-nested-padding-vertical:                   2px;
 @nav-nested-padding-horizontal:                 0;
 
@@ -130,7 +131,7 @@
  * Nested items
  */
 
-.uk-nav ul { padding-left: 15px; }
+.uk-nav ul { padding-left: @nav-nested-padding-left; }
 
 .uk-nav ul a { padding: @nav-nested-padding-vertical @nav-nested-padding-horizontal; }
 
