@@ -123,6 +123,7 @@
     color: @notify-message-color;
     font-size: @notify-message-font-size;
     line-height: @notify-message-line-height;
+    cursor: pointer;
     .hook-notify-message;
 }
 
@@ -130,7 +131,12 @@
 /* Close in notify
  ========================================================================== */
 
-.uk-notify-message > .uk-close { float: right; }
+.uk-notify-message > .uk-close {
+    visibility: hidden;
+    float: right;
+}
+
+.uk-notify-message:hover > .uk-close { visibility: visible; }
 
 
 /* Modifier: `uk-alert-info`
@@ -177,7 +183,6 @@
 // ========================================================================
 
 .hook-notify() {}
-
 .hook-notify-message() {}
 .hook-notify-message-info() {}
 .hook-notify-message-success() {}
