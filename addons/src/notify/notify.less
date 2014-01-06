@@ -1,10 +1,21 @@
 // Name:            Notify
-// Description:     Defines styles for a toggleable notifications
+// Description:     Defines styles for toggleable notifications
 //
 // Component:       `uk-notify`
 //
-// Sub-objects:     `uk-notify`
-//                  `uk-notify-message`
+// Sub-objects:     `uk-notify-message`
+//
+// Modifiers:       `uk-notify-top-center`
+//                  `uk-notify-top-right`
+//                  `uk-notify-bottom-left`
+//                  `uk-notify-bottom-center`
+//                  `uk-notify-bottom-right`
+//                  `uk-notify-message-info`
+//                  `uk-notify-message-success`
+//                  `uk-notify-message-warning`
+//                  `uk-notify-message-danger`
+//
+// Uses:            Close: `uk-close`
 //
 // ========================================================================
 
@@ -24,6 +35,18 @@
 @notify-message-color:                          #fff;
 @notify-message-font-size:                      16px;
 @notify-message-line-height:                    22px;
+
+@notify-message-info-background:                #ebf7fd;
+@notify-message-info-color:                     #2d7091;
+
+@notify-message-success-background:             #f2fae3;
+@notify-message-success-color:                  #659f13;
+
+@notify-message-warning-background:             #fffceb;
+@notify-message-warning-color:                  #e28327;
+
+@notify-message-danger-background:              #fff1f0;
+@notify-message-danger-color:                   #d85030;
 
 
 /* ========================================================================
@@ -100,30 +123,65 @@
     color: @notify-message-color;
     font-size: @notify-message-font-size;
     line-height: @notify-message-line-height;
+    .hook-notify-message;
 }
 
 
-
-
-
-
-
+/* Close in notify
+ ========================================================================== */
 
 .uk-notify-message > .uk-close {
-    position: absolute;
-    right: 5px;
-    top: 10px;
+    float: right;
 }
 
 
-.uk-notify-message-info { background: #2d7091; }
-.uk-notify-message-success { background: #8cc14c; }
-.uk-notify-message-warning { background: #faa732; }
-.uk-notify-message-danger { background: #da314b; }
+/* Modifier: `uk-alert-info`
+ ========================================================================== */
 
+.uk-notify-message-info {
+    background: @notify-message-info-background;
+    color: @notify-message-info-color;
+    .hook-notify-message-info;
+}
+
+
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+
+.uk-notify-message-success {
+    background: @notify-message-success-background;
+    color: @notify-message-success-color;
+    .hook-notify-message-success;
+}
+
+
+/* Modifier: `uk-notify-message-warning`
+ ========================================================================== */
+
+.uk-notify-message-warning {
+    background: @notify-message-warning-background;
+    color: @notify-message-warning-color;
+    .hook-notify-message-warning;
+}
+
+
+/* Modifier: `uk-notify-message-danger`
+ ========================================================================== */
+
+.uk-notify-message-danger {
+    background: @notify-message-danger-background;
+    color: @notify-message-danger-color;
+    .hook-notify-message-danger;
+}
 
 
 // Hooks
 // ========================================================================
 
 .hook-notify() {}
+
+.hook-notify-message() {}
+.hook-notify-message-info() {}
+.hook-notify-message-success() {}
+.hook-notify-message-warning() {}
+.hook-notify-message-danger() {}
