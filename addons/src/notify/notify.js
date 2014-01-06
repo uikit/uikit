@@ -1,8 +1,8 @@
 (function($, UI){
 
-    var container = null,
-        messages  = {},
-        notify    =  function(options){
+    var containers = {},
+        messages   = {},
+        notify     =  function(options){
 
             if ($.type(options) == 'string') {
                 options = { message: options };
@@ -56,6 +56,13 @@
         }
 
         messages[this.uuid] = this;
+
+
+        if(!containers[this.options.pos]) {
+            containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
+                $(this).data("notifyMessage").close();
+            });
+        }
     };
 
 
@@ -71,7 +78,7 @@
 
             var $this = this;
 
-            container.prepend(this.element);
+            containers[this.options.pos].prepend(this.element);
 
             if (this.options.timeout) {
 
@@ -100,18 +107,9 @@
         title: false,
         message: "",
         status: "info",
-        timeout: 5000
+        timeout: 5000,
+        pos: 'top-center'
     };
-
-    $(function(){
-
-        var msg;
-
-        container = $('<div class="uk-notify"></div>').appendTo('body').on("click", ".uk-close", function(){
-            msg = $(this).closest('.uk-notify-message');
-            if (msg.length) msg.data("notifyMessage").close();
-        });
-    });
 
 
     UI["notify"]          = notify;
