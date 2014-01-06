@@ -16,12 +16,6 @@
         },
         closeAll  = function(){
             for(var id in messages) { messages[id].close(); }
-        },
-        icons     = {
-            "info"    : 'uk-icon-exclamation-circle',
-            "warning" : 'uk-icon-warning',
-            "success" : 'uk-icon-check',
-            "danger"  : 'uk-icon-bolt'
         };
 
     var Message = function(options){
@@ -47,15 +41,9 @@
         }
 
         // icon
-        if (this.options.icon!==false) {
+        if (this.options.icon) {
 
-            var icon = "";
-
-            if(!this.options.icon && icons[this.options.status]) {
-                icon = icons[this.options.status];
-            } else if(this.options.icon) {
-                icon = icons[this.options.icon] ? icons[this.options.icon] : this.options.icon;
-            }
+            var icon = this.options.icon;
 
             this.element.append('<i class="'+icon+'"></i>').addClass("uk-notify-message-icon");
         }
@@ -82,7 +70,9 @@
 
             var $this = this;
 
-            containers[this.options.pos].show().prepend(this.element);
+            containers[this.options.pos].show().prepend(this.element.css("opacity", 0));
+
+            this.element.css({"margin-top": -1*this.element.outerHeight()}).animate({"opacity":1, "margin-top": 0});
 
             if (this.options.timeout) {
 
@@ -101,15 +91,20 @@
 
         close: function() {
 
+            var $this = this;
+
             if(this.timeout) clearTimeout(this.timeout);
 
-            this.element.remove();
+            this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight()}, function(){
 
-            if(!containers[this.options.pos].children().length) {
-                containers[this.options.pos].hide();
-            }
+                $this.element.remove();
 
-            delete messages[this.uuid];
+                if(!containers[$this.options.pos].children().length) {
+                    containers[$this.options.pos].hide();
+                }
+
+                delete messages[$this.uuid];
+            });
         }
     });
 
