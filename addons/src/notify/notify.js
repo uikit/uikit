@@ -40,14 +40,6 @@
             this.element.addClass('uk-notify-message-'+this.options.status);
         }
 
-        // icon
-        if (this.options.icon) {
-
-            var icon = this.options.icon;
-
-            this.element.append('<i class="'+icon+'"></i>').addClass("uk-notify-message-icon");
-        }
-
         messages[this.uuid] = this;
 
         if(!containers[this.options.pos]) {
@@ -74,19 +66,21 @@
 
             var marginbottom = parseInt(this.element.css("margin-bottom"), 10);
 
-            this.element.css({"opacity":0, "margin-top": -1*this.element.outerHeight(), "margin-bottom":0}).animate({"opacity":1, "margin-top": 0, "margin-bottom":marginbottom});
+            this.element.css({"opacity":0, "margin-top": -1*this.element.outerHeight(), "margin-bottom":0}).animate({"opacity":1, "margin-top": 0, "margin-bottom":marginbottom}, function(){
 
-            if (this.options.timeout) {
+                if ($this.options.timeout) {
 
-                var closefn = function(){ $this.close(); };
+                    var closefn = function(){ $this.close(); };
 
-                this.timeout = setTimeout(closefn, $this.options.timeout);
+                    $this.timeout = setTimeout(closefn, $this.options.timeout);
 
-                this.element.hover(
-                    function() { clearTimeout($this.timeout); },
-                    function() { $this.timeout = setTimeout(closefn, $this.options.timeout);  }
-                );
-            }
+                    $this.element.hover(
+                        function() { clearTimeout($this.timeout); },
+                        function() { $this.timeout = setTimeout(closefn, $this.options.timeout);  }
+                    );
+                }
+
+            });
 
             return this;
         },
@@ -97,7 +91,7 @@
 
             if(this.timeout) clearTimeout(this.timeout);
 
-            this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight()}, function(){
+            this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
 
                 $this.element.remove();
 
@@ -111,7 +105,6 @@
     });
 
     Message.defaults = {
-        icon: null,
         title: false,
         message: "",
         status: "",
