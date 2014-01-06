@@ -32,23 +32,16 @@
 
 /*
  * Message container for positioning
- * 1. Set position
- * 2. Set box sizing
- * 3. Center notification box
  */
 
 .uk-notify {
-    /* 1 */
     position: fixed;
     top: @notify-position;
-    left: 50%;
+    left: @notify-position;
     z-index: @notify-z-index;
-    /* 2 */
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: @notify-width;
-    /* 3 */
-    margin-left: (@notify-width / -2);
     .hook-notify;
 }
 
@@ -56,15 +49,22 @@
 /* Position modifiers
 ========================================================================== */
 
-.uk-notify-left {
-    left: @notify-position;
-    margin: 0;
-}
-
-.uk-notify-right {
+.uk-notify-top-right,
+.uk-notify-bottom-right  {
     left: auto;
     right: @notify-position;
-    margin: 0;
+}
+
+.uk-notify-top-center,
+.uk-notify-bottom-center {
+    left: 50%;
+    margin-left: (@notify-width / -2);
+}
+
+.uk-notify-bottom-left,
+.uk-notify-bottom-right {
+    top: auto;
+    bottom: @notify-position;
 }
 
 
@@ -114,15 +114,7 @@
     top: 10px;
 }
 
-.uk-notify-message > strong { color: #fff; }
 
-.uk-notify-message > span {
-    position: absolute;
-    left: 10px;
-    top: 13px;
-}
-
-.uk-notify-message.uk-notify-message-icon { padding-left: 30px; }
 
 .uk-notify-message[data-status=success] { background: #8cc14c; }
 .uk-notify-message[data-status=warning] { background: #faa732; }
