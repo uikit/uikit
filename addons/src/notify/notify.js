@@ -33,13 +33,18 @@
         this.uuid    = "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
         this.element = this.status = $([
 
-            '<div class="uk-notify-message" data-status="'+this.options.status+'">',
+            '<div class="uk-notify-message">',
                 '<a class="uk-close"></a>',
                 (this.options.title ? '<strong>'+this.options.title+'</strong>':''),
                 '<div>'+this.options.message+'</div>',
             '</div>'
 
         ].join('')).data("notifyMessage", this);
+
+        // status
+        if (this.options.status) {
+            this.element.addClass('uk-notify-message-'+this.options.status);
+        }
 
         // icon
         if (this.options.icon!==false) {
@@ -49,14 +54,13 @@
             if(!this.options.icon && icons[this.options.status]) {
                 icon = icons[this.options.status];
             } else if(this.options.icon) {
-                icon = icons[this.options.icon];
+                icon = icons[this.options.icon] ? icons[this.options.icon] : this.options.icon;
             }
 
-            this.element.append('<span class="'+icon+'"></span>').addClass("uk-notify-message-icon");
+            this.element.append('<i class="'+icon+'"></i>').addClass("uk-notify-message-icon");
         }
 
         messages[this.uuid] = this;
-
 
         if(!containers[this.options.pos]) {
             containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
@@ -78,7 +82,7 @@
 
             var $this = this;
 
-            containers[this.options.pos].prepend(this.element);
+            containers[this.options.pos].show().prepend(this.element);
 
             if (this.options.timeout) {
 
@@ -96,9 +100,16 @@
         },
 
         close: function() {
+
             if(this.timeout) clearTimeout(this.timeout);
-            delete messages[this.uuid];
+
             this.element.remove();
+
+            if(!containers[this.options.pos].children().length) {
+                containers[this.options.pos].hide();
+            }
+
+            delete messages[this.uuid];
         }
     });
 
@@ -106,7 +117,7 @@
         icon: null,
         title: false,
         message: "",
-        status: "info",
+        status: "",
         timeout: 5000,
         pos: 'top-center'
     };
