@@ -70,9 +70,11 @@
 
             var $this = this;
 
-            containers[this.options.pos].show().prepend(this.element.css("opacity", 0));
+            containers[this.options.pos].show().prepend(this.element);
 
-            this.element.css({"margin-top": -1*this.element.outerHeight()}).animate({"opacity":1, "margin-top": 0});
+            var marginbottom = parseInt(this.element.css("margin-bottom"), 10);
+
+            this.element.css({"opacity":0, "margin-top": -1*this.element.outerHeight(), "margin-bottom":0}).animate({"opacity":1, "margin-top": 0, "margin-bottom":marginbottom});
 
             if (this.options.timeout) {
 
