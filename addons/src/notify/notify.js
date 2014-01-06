@@ -107,7 +107,7 @@
 
         var msg;
 
-        container = $('<div class="uk-notify-container"></div>').appendTo('body').on("click", ".uk-close", function(){
+        container = $('<div class="uk-notify"></div>').appendTo('body').on("click", ".uk-close", function(){
             msg = $(this).closest('.uk-notify-message');
             if (msg.length) msg.data("notifyMessage").close();
         });

@@ -1,9 +1,9 @@
 // Name:            Notify
-// Description:     Notifications addon
+// Description:     Defines styles for a toggleable notifications
 //
 // Component:       `uk-notify`
 //
-// Sub-objects:     `uk-notify-container`
+// Sub-objects:     `uk-notify`
 //                  `uk-notify-message`
 //
 // ========================================================================
@@ -14,33 +14,99 @@
 // Variables
 // ========================================================================
 
-@notify-font-size:            13px;
-@notify-z-index:              1000;
+@notify-position:                               10px;
+@notify-z-index:                                1030;
+@notify-width:                                  350px;
+
+@notify-message-margin-bottom:                  10px;
+@notify-message-padding:                        20px;
+@notify-message-background:                     #444;
+@notify-message-color:                          #fff;
+@notify-message-font-size:                      16px;
+@notify-message-line-height:                    22px;
 
 
 /* ========================================================================
-   Addon: notify
+   Addon: Notify
  ========================================================================== */
 
-.uk-notify-container {
+/*
+ * Message container for positioning
+ * 1. Set position
+ * 2. Set box sizing
+ * 3. Center notification box
+ */
+
+.uk-notify {
+    /* 1 */
     position: fixed;
-    top: 5px;
-    right: 5px;
-    width: 350px;
-    font-size: @notify-font-size;
+    top: @notify-position;
+    left: 50%;
     z-index: @notify-z-index;
+    /* 2 */
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    width: @notify-width;
+    /* 3 */
+    margin-left: (@notify-width / -2);
+    .hook-notify;
 }
+
+
+/* Position modifiers
+========================================================================== */
+
+.uk-notify-left {
+    left: @notify-position;
+    margin: 0;
+}
+
+.uk-notify-right {
+    left: auto;
+    right: @notify-position;
+    margin: 0;
+}
+
+
+/* Responsiveness
+========================================================================== */
+
+/* Only phones portrait */
+@media (max-width: @breakpoint-mini-max) {
+
+    /*
+     * Fit in small screen
+     */
+
+    .uk-notify {
+        left: 10px;
+        right: 10px;
+        width: auto;
+        margin: 0;
+    }
+
+}
+
+
+/* Sub-object: `uk-notify-message`
+========================================================================== */
 
 .uk-notify-message {
     position: relative;
-    padding: 10px 20px 10px 10px;
-    margin-bottom: 5px;
-    background: #39f;
-    color: #fff;
-    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: @notify-message-margin-bottom;
+    padding: @notify-message-margin-bottom;
+    background: @notify-message-background;
+    color: @notify-message-color;
+    font-size: @notify-message-font-size;
+    line-height: @notify-message-line-height;
 }
+
+
+
+
+
+
+
 
 .uk-notify-message > .uk-close {
     position: absolute;
@@ -61,3 +127,10 @@
 .uk-notify-message[data-status=success] { background: #8cc14c; }
 .uk-notify-message[data-status=warning] { background: #faa732; }
 .uk-notify-message[data-status=danger] { background: #da314b; }
+
+
+
+// Hooks
+// ========================================================================
+
+.hook-notify() {}
