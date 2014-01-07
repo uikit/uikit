@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.1.0 (January 07, 2014)
   - Added notify add-on
   - Added border-circle to utility component 
   - Added more variables to sortable add-on
@@ -12,6 +12,12 @@
   - Fixed jumping when dragging sortables
   - Fixed nested comments indention on small screens
   - Fixed style for inputs without type attribute
+
+**Documentation and repository**
+
+  - Added new notify add-on
+  - Fixed tooltip component
+  - Fixed tests link
 
 ### 2.0.0 (December 11, 2013)
 
