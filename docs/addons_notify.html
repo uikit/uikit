@@ -82,7 +82,8 @@
 <pre><code>$.UIkit.notify({
     message : 'Bazinga!',
     status  : 'info',
-    pos     : 'Any position'
+    timeout : 5000,
+    pos     : 'top-center'
 });
 
 
@@ -97,24 +98,30 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                 <button class="uk-button" data-message="Message..." data-pos="top-center">Click me</button>
                             </p>
 
+                            <pre><code>$.UIkit.notify("Message...");</code></pre>
+
                             <p>You can use HTML inside your notification message, like an icon from the <a href="icon.html">Icon component</a>.</p>
 
                             <p>
                                 <button class="uk-button" data-message="<i class='uk-icon-check'></i> Message with an icon...">With icon</button>
                             </p>
 
-                            
+                            <pre><code>$.UIkit.notify("&lt;i class='uk-icon-check'&gt;&lt;/i&gt; Message with an icon...");</code></pre>
+
+
                             <hr class="uk-article-divider">
 
                             <h3>Sticky</h3>
 
-                            <p>You can also create a sticky message that remains at the top of the page when scrolling.</p>
+                            <p>You can also create a sticky message that only hides after clicking on it.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <p>
                                 <button class="uk-button" data-message="Sticky message..." data-timeout="0">Sticky</button>
                             </p>
+
+                            <pre><code>$.UIkit.notify("Message...", {timeout: 0});</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -132,34 +139,58 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><code>pos:'top'</code></td>
-                                        <td>Positions the notification at center of the top. This is the default position.</td>
-                                        <td><button class="uk-button" data-message="Message..." data-pos="top-center">Top Center</button></td>
+                                        <td><code>top</code></td>
+                                        <td>
+                                            <p>Positions the notification at center of the top. This is the default position.</p>
+
+                                            <pre><code>$.UIkit.notify("...", {pos:'top'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-center">Top Center</button></td>
                                     </tr>
                                     <tr>
-                                        <td><code>pos:'top-left'</code></td>
-                                        <td>Positions the notification at the top left.</td>
-                                        <td><button class="uk-button" data-message="Message..." data-pos="top-left">Top Left</button></td>
+                                        <td><code>top-left</code></td>
+                                        <td>
+                                            <p>Positions the notification at the top left.</p>
+
+                                            <pre><code>$.UIkit.notify("...", {pos:'top-left'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-left">Top Left</button></td>
                                     </tr>
                                     <tr>
-                                        <td><code>pos:'top-right'</code></td>
-                                        <td>Positions the notification at the top right.</td>
-                                        <td><button class="uk-button" data-message="Message..." data-pos="top-right">Top Right</button></td>
+                                        <td><code>top-right</code></td>
+                                        <td>
+                                            <p>Positions the notification at the top right.</p>
+
+                                            <pre><code>$.UIkit.notify("...", {pos:'top-right'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-right">Top Right</button></td>
                                     </tr>
                                     <tr>
-                                        <td><code>pos:'bottom'</code></td>
-                                        <td>Positions the notification at the center of the bottom.</td>
-                                        <td><button class="uk-button" data-message="Message..." data-pos="bottom-center">Bottom Center</button></td>
+                                        <td><code>bottom</code></td>
+                                        <td>
+                                            <p>Positions the notification at the center of the bottom.</p>
+
+                                            <pre><code>$.UIkit.notify("...", {pos:'bottom'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-center">Bottom Center</button></td>
                                     </tr>
                                     <tr>
-                                        <td><code>pos:'bottom-left'</code></td>
-                                        <td>Positions the notification at the bottom left.</td>
-                                        <td><button class="uk-button" data-message="Message..." data-pos="bottom-left">Bottom Left</button></td>
+                                        <td><code>bottom-left</code></td>
+                                        <td>
+                                            <p>Positions the notification at the bottom left.</p>
+
+                                            <pre><code>$.UIkit.notify("...", {pos:'bottom-left'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-left">Bottom Left</button></td>
                                     </tr>
                                     <tr>
-                                        <td><code>pos:'bottom-right'</code></td>
-                                        <td>Positions the notification at the bottom right.</td>
-                                        <td><button class="uk-button" data-message="Message..." data-pos="bottom-right">Bottom Right</button></td>
+                                        <td><code>bottom-right</code></td>
+                                        <td>
+                                            <p>Positions the notification at the bottom right.</p>
+
+                                            <pre><code>$.UIkit.notify("...", {pos:'bottom-right'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-right">Bottom Right</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -181,23 +212,35 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                 <tbody>
                                     <tr>
                                         <td><code>info</code></td>
-                                        <td>Use this status to create an info message.</td>
-                                        <td><button class="uk-button" data-message="Info message..." data-status="info">Info</button></td>
+                                        <td>
+                                            <p>Use this status to create an info message.</p>
+                                            <pre><code>$.UIkit.notify("...", {status:'info'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Info message..." data-status="info">Info</button></td>
                                     </tr>
                                     <tr>
                                         <td><code>success</code></td>
-                                        <td>Use this status to indicate success or a positive message.</td>
-                                        <td><button class="uk-button" data-message="Success message..." data-status="success">Success</button></td>
+                                        <td>
+                                            <p>Use this status to indicate success or a positive message.</p>
+                                            <pre><code>$.UIkit.notify("...", {status:'success'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Success message..." data-status="success">Success</button></td>
                                     </tr>
                                     <tr>
                                         <td><code>warning</code></td>
-                                        <td>Use this status to indicate a message containing a warning</td>
-                                        <td><button class="uk-button" data-message="Warning message..." data-status="warning">Warning</button></td>
+                                        <td>
+                                            <p>Use this status to indicate a message containing a warning</p>
+                                            <pre><code>$.UIkit.notify("...", {status:'warning'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Warning message..." data-status="warning">Warning</button></td>
                                     </tr>
                                     <tr>
                                         <td><code>danger</code></td>
-                                        <td>Use this status to indicate an important message</td>
-                                        <td><button class="uk-button" data-message="Danger message..." data-status="danger">Danger</button></td>
+                                        <td>
+                                            <p>Use this status to indicate an important message</p>
+                                            <pre><code>$.UIkit.notify("...", {status:'danger'})</code></pre>
+                                        </td>
+                                        <td><button class="uk-button uk-width-1-1" data-message="Danger message..." data-status="danger">Danger</button></td>
                                     </tr>
                                 </tbody>
                             </table>
