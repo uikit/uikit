@@ -77,7 +77,7 @@
 
             if(stickyElement.data("sticky")) return;
 
-            var stickyId      = stickyElement.attr('id') || ("s"+Math.random()),
+            var stickyId      = stickyElement.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
                 wrapper       = $('<div></div>').attr('id', stickyId + '-sticky-wrapper').addClass(o.clswrapper);
 
             stickyElement.wrapAll(wrapper);

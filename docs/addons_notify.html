@@ -15,8 +15,7 @@
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
         <script src="../dist/addons/js/notify.js"></script>
-        <link rel="stylesheet" href="../dist/addons/css/notify.almost-flat.css">
-
+        <link rel="stylesheet" href="../dist/addons/css/notify.gradient.css">
         <script>
         $(function(){
             $("body").on("click", ".uk-button[data-message]", function(){
@@ -73,6 +72,8 @@
 
                             <p class="uk-article-lead">Create toggleable notifications that fade out automatically.</p>
 
+                            <p>The notification will not fade out and remain when you hover the message until you stop hovering. You can also close the notification by clicking it.</p>
+
                             <h2>Usage</h2>
 
                             <p>Notify provides a simple API which you can reuse in your application code. The following JavaScript code snippet gets you started.</p>
@@ -100,14 +101,19 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
 
                             <pre><code>$.UIkit.notify("Message...");</code></pre>
 
+                            <hr class="uk-article-divider">
+
+                            <h3>HTML Message</h3>
+
                             <p>You can use HTML inside your notification message, like an icon from the <a href="icon.html">Icon component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
 
                             <p>
                                 <button class="uk-button" data-message="<i class='uk-icon-check'></i> Message with an icon...">With icon</button>
                             </p>
 
                             <pre><code>$.UIkit.notify("&lt;i class='uk-icon-check'&gt;&lt;/i&gt; Message with an icon...");</code></pre>
-
 
                             <hr class="uk-article-divider">
 

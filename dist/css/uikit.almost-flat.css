@@ -1403,12 +1403,17 @@ iframe {
 }
 .uk-comment-list .uk-comment + ul {
   margin: 25px 0 0 0;
-  padding-left: 100px;
   list-style: none;
 }
 .uk-comment-list > li:nth-child(n+2),
 .uk-comment-list .uk-comment + ul > li:nth-child(n+2) {
   margin-top: 25px;
+}
+/* Only tablets and desktops */
+@media (min-width: 768px) {
+  .uk-comment-list .uk-comment + ul {
+    padding-left: 100px;
+  }
 }
 /* Sub-object `uk-comment-body`
      ========================================================================== */
@@ -1870,6 +1875,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-toggle {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  display: block;
   height: 40px;
   padding: 0 15px;
   float: left;
@@ -2701,12 +2707,13 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /*
  * Controls
- * Exept for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
+ * Except for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
  * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
  */
 .uk-form select,
 .uk-form textarea,
+.uk-form input:not([type]),
 .uk-form input[type="text"],
 .uk-form input[type="password"],
 .uk-form input[type="datetime"],
@@ -2737,6 +2744,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 .uk-form select:focus,
 .uk-form textarea:focus,
+.uk-form input:not([type]):focus,
 .uk-form input[type="text"]:focus,
 .uk-form input[type="password"]:focus,
 .uk-form input[type="datetime"]:focus,
@@ -2758,6 +2766,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 .uk-form select:disabled,
 .uk-form textarea:disabled,
+.uk-form input:not([type]):disabled,
 .uk-form input[type="text"]:disabled,
 .uk-form input[type="password"]:disabled,
 .uk-form input[type="datetime"]:disabled,
@@ -2958,8 +2967,8 @@ select.uk-form-width-mini {
  ========================================================================== */
 /* Only phones and tablets portrait */
 @media (max-width: 959px) {
+  /* Behave like `uk-form-stacked` */
   .uk-form-horizontal .uk-form-label {
-    /* Behave like `uk-form-stacked` */
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -2989,13 +2998,24 @@ select.uk-form-width-mini {
 }
 .uk-form-icon > [class*='uk-icon-'] {
   position: absolute;
+  top: 50%;
   width: 30px;
-  line-height: 30px;
+  margin-top: -7px;
+  font-size: 14px;
   color: #999999;
   text-align: center;
 }
-.uk-form-icon > input {
+.uk-form-icon:not(.uk-form-icon-flip) > input {
   padding-left: 30px !important;
+}
+/*
+ * Sub-modifier: `uk-form-icon-flip`
+ */
+.uk-form-icon-flip > [class*='uk-icon-'] {
+  right: 0;
+}
+.uk-form-icon-flip > input {
+  padding-right: 30px !important;
 }
 /* ========================================================================
    Component: Button
@@ -5720,7 +5740,7 @@ input.uk-search-field {
 /* Only phones */
 @media (max-width: 767px) {
   /*
-     * Fit the phone width perfectly
+     * Fit in small screen
      */
   .uk-modal-dialog {
     top: 0;
@@ -6079,19 +6099,19 @@ input.uk-search-field {
 /* Color modifiers
  ========================================================================== */
 .uk-text-muted {
-  color: #999999;
+  color: #999999 !important;
 }
 .uk-text-info {
-  color: #2d7091;
+  color: #2d7091 !important;
 }
 .uk-text-success {
-  color: #659f13;
+  color: #659f13 !important;
 }
 .uk-text-warning {
-  color: #e28327;
+  color: #e28327 !important;
 }
 .uk-text-danger {
-  color: #d85030;
+  color: #d85030 !important;
 }
 /* Alignment modifiers
  ========================================================================== */
@@ -6342,6 +6362,11 @@ input.uk-search-field {
 }
 .uk-margin-bottom-remove {
   margin-bottom: 0 !important;
+}
+/* Border
+ ========================================================================== */
+.uk-border-circle {
+  border-radius: 50%;
 }
 /* Headings
  ========================================================================== */
