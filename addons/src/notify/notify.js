@@ -29,7 +29,6 @@
 
             '<div class="uk-notify-message">',
                 '<a class="uk-close"></a>',
-                (this.options.title ? '<strong>'+this.options.title+'</strong>':''),
                 '<div>'+this.options.message+'</div>',
             '</div>'
 
@@ -105,7 +104,6 @@
     });
 
     Message.defaults = {
-        title: false,
         message: "",
         status: "",
         timeout: 5000,
