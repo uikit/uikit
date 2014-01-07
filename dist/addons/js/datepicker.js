@@ -66,7 +66,7 @@
 
             content += '<table class="uk-datepicker-table">';
             content += '<thead>';
-            for(var i = 0; i < data.weekdays; i++) {
+            for(var i = 0; i < data.weekdays.length; i++) {
                 if (data.weekdays[i]) {
                     content += '<th>'+data.weekdays[i]+'</th>';
                 }
@@ -74,10 +74,10 @@
             content += '</thead>';
 
             content += '<tbody>';
-            for(var i = 0; i < data.days; i++) {
-                if (data.days[i]){
+            for(var i = 0; i < data.days.length; i++) {
+                if (data.days[i] && data.days[i].length){
                     content += '<tr>';
-                    for(var d = 0; d < data.days[i]; d++) {
+                    for(var d = 0; d < data.days[i].length; d++) {
                         if (data.days[i][d]) {
                             var day = data.days[i][d],
                                 cls = [];
@@ -94,6 +94,8 @@
             content += '</tbody>';
 
             content += '</table>';
+
+
 
             return content;
         }
