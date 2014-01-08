@@ -1,8 +1,12 @@
 # Changelog
 
+### WIP
+
+- Updated switcher componet - activates first toggler when no uk-active class is set
+
 ### 2.1.0 (January 07, 2014)
   - Added notify add-on
-  - Added border-circle to utility component 
+  - Added border-circle to utility component
   - Added more variables to sortable add-on
   - Added modifier to flip form icons
   - Updated form icons to work with form size modifiers

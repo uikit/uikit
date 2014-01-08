@@ -25,9 +25,7 @@
             if (active.length) {
                 this.show(active);
             } else {
-
-                active = togglers.eq(this.options.active);
-
+                active = togglers.eq(0);
                 if (active.length) this.show(active);
             }
         }
@@ -62,8 +60,7 @@
 
     Switcher.defaults = {
         connect : false,
-        toggler : ">*",
-        active  : 0
+        toggler : ">*"
     };
 
     UI["switcher"] = Switcher;
