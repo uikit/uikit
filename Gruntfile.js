@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         pkg: pkginfo,
 
         meta: {
-          banner: "/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2013 YOOtheme | MIT License */"
+          banner: "/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2014 YOOtheme | MIT License */"
         },
 
         jshint: {
