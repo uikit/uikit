@@ -2,7 +2,7 @@
 
 ### WIP
 
-- Updated switcher componet - activates first toggler when no uk-active class is set
+- Updated switcher - activates first toggler when no uk-active class is set
 
 ### 2.1.0 (January 07, 2014)
   - Added notify add-on
