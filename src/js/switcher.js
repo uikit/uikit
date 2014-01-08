@@ -19,10 +19,16 @@
 
             this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
 
-            var active = this.element.find(this.options.toggler).filter(".uk-active");
+            var togglers = this.element.find(this.options.toggler),
+                active   = togglers.filter(".uk-active");
 
             if (active.length) {
                 this.show(active);
+            } else {
+
+                active = togglers.eq(this.options.active);
+
+                if (active.length) this.show(active);
             }
         }
 
@@ -55,8 +61,9 @@
     });
 
     Switcher.defaults = {
-        connect: false,
-        toggler: ">*"
+        connect : false,
+        toggler : ">*",
+        active  : 0
     };
 
     UI["switcher"] = Switcher;
