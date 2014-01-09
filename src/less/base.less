@@ -111,11 +111,15 @@ body {
  * Links
  */
 
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
+a {
+    color: @base-link-color;
+    text-decoration: none;
+}
 
-a { color: @base-link-color; }
-a:hover { color: @base-link-hover-color; }
+a:hover {
+    color: @base-link-hover-color;
+    text-decoration: underline;
+}
 
 /*
  * Emphasize
