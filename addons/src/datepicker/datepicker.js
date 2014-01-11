@@ -43,11 +43,21 @@
         this.element.data("datepicker", this);
     };
 
+    var language = (navigator.language || navigator.browserLanguage || navigator.userLanguage).substr(0,2) || 'en',
+        MONTHS = {
+            'en': ['January','February','March','April','May','June','July','August','September','October','November','December'],
+            'fr': ['janvier', 'f&eacute;vrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'ao&ucirc;t', 'septembre', 'novembre', 'd&eacute;cembre']
+        },
+        WEEKDAYS = {
+            'en': ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+            'fr': ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']
+        };
+
     DatePicker.defaults = {
         weekstart: 1,
         i18n: {
-            months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
-            weekdays      : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+            months        : MONTHS[language],
+            weekdays      : WEEKDAYS[language]
         },
         format: "DD.MM.YYYY",
         offsettop: 5,
