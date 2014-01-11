@@ -8,6 +8,7 @@
  */
 .uk-datepicker {
   width: auto;
+  z-index: 10010;
 }
 /* Sub-object: `uk-datepicker-nav`
 ========================================================================== */
