@@ -89,7 +89,7 @@
                         "<div class='sp-alpha'><div class='sp-alpha-inner'><div class='sp-alpha-handle'></div></div></div>",
                     "</div>",
                     "<div class='sp-input-container sp-cf'>",
-                        "<input class='sp-input' type='text' spellcheck='false'  />",
+                        "<input class='sp-input' placeholder='default' type='text' spellcheck='false'  />",
                     "</div>",
                     "<div class='sp-initial sp-thumb sp-cf'></div>",
                     "<div class='sp-button-container sp-cf'>",
@@ -305,6 +305,12 @@
                     updateOriginalInput(true);
                     hide();
                 }
+
+                if(textInput.val()=="") {
+                    set(tinycolor("rgba(0,0,0,0)"));
+                    boundElement.val("");
+                    hide();
+                }
             });
 
             draggable(alphaSlider, function (dragX, dragY, e) {
@@ -447,6 +453,11 @@
         }
 
         function setFromTextInput() {
+
+            if(!textInput.val()) {
+                return;
+            }
+
             var tiny = tinycolor(textInput.val());
             if (tiny.ok) {
                 set(tiny);

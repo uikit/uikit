@@ -168,7 +168,8 @@
                                     input.spectrum({
                                         "showInput": true,
                                         "showAlpha": true,
-                                        "color": value,
+                                        "preferredFormat": "hex6",
+                                        "color": (value=='inherit' ? '':value),
                                         "change": function(color) {
                                             if (color.toRgb().a < 1) {
                                                 input.val(color.toRgbString()).trigger("change");
