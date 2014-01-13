@@ -141,6 +141,33 @@
 
                             <hr class="uk-article-divider">
 
+                            <h2>Overlay area content</h2>
+
+                            <p>By default, the overlay displays an icon. But you can also enter your own content, like text or a button. Just add the <code>.uk-overlay-area-content</code> class to a <code>&lt;div&gt;</code> element inside the overlay area.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-width-medium-1-3">
+                                <div class="uk-overlay">
+                                    <img src="http://placekitten.com/400/250" alt="">
+                                    <div class="uk-overlay-area">
+                                        <div class="uk-overlay-area-content">
+                                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
+                                            <button class="uk-button uk-button-primary">Button</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+<pre><code>&lt;div class="uk-overlay"&gt;
+    &lt;img src="" alt=""&gt;
+    &lt;div class="uk-overlay-area"&gt;
+        &lt;div class="uk-overlay-area-content"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
                             <h2>Overlay toggle</h2>
 
                             <p>To toggle the overlay by hovering the area around it, like a caption for example, just add the <code>.uk-overlay-toggle</code> class.</p>
@@ -148,13 +175,13 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-width-medium-1-2">
-                                    <figure class="uk-overlay-toggle">
-                                        <div class="uk-overlay">
-                                            <img src="http://placekitten.com/200/100" alt="">
-                                            <div class="uk-overlay-area"></div>
-                                        </div>
-                                        <figcaption>Caption</figcaption>
-                                    </figure>
+                                <figure class="uk-overlay-toggle">
+                                    <div class="uk-overlay">
+                                        <img src="http://placekitten.com/200/100" alt="">
+                                        <div class="uk-overlay-area"></div>
+                                    </div>
+                                    <figcaption>Caption</figcaption>
+                                </figure>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
