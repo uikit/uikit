@@ -180,7 +180,7 @@
                                                 spectrum = $.fn.spectrum.get(input.data("spectrum.id"));
                                                 spectrum.container.find('.sp-cancel').after($('<a href="#" class="sp-reset">reset</a>').on("click", function(e) {
                                                     e.preventDefault();
-                                                    spectrum.set(input.data("default"));
+                                                    spectrum.set(input.data("default")=="inherit" ? "rgba(0,0,0,0)":input.data("default"));
                                                     spectrum.hide();
                                                     input.val("");
                                                 }));
