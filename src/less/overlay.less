@@ -4,6 +4,7 @@
 // Component:       `uk-overlay`
 //
 // Sub-objects:     `uk-overlay-area`
+//                  `uk-overlay-area-content`
 //                  `uk-overlay-caption`
 //                  `uk-overlay-toggle`
 //
@@ -14,9 +15,14 @@
 // ========================================================================
 
 @overlay-area-background:                       rgba(0,0,0,0.3);
+
 @overlay-area-icon:                             "\f002";
 @overlay-area-icon-size:                        50px;
 @overlay-area-icon-color:                       #fff;
+
+@overlay-area-content-padding-horizontal:       15px;
+@overlay-area-content-color:                    #fff;
+@overlay-area-content-link-color:               inherit;
 
 @overlay-caption-background:                    rgba(0,0,0,0.5);
 @overlay-caption-padding:                       15px;
@@ -83,7 +89,7 @@
  * Icon
  */
 
-.uk-overlay-area:before {
+.uk-overlay-area:empty:before {
     content: @overlay-area-icon;
     position: absolute;
     top: 50%;
@@ -99,6 +105,63 @@
     color: @overlay-area-icon-color;
     .hook-overlay-area-icon;
 }
+
+
+/* Sub-object `uk-overlay-area-content`
+ ========================================================================== */
+
+/*
+ * Remove whitespace between child elements when using `inline-block`
+ * Needed for Firefox
+ */
+
+.uk-overlay-area:not(:empty) { letter-spacing: -0.31em; }
+
+/*
+ * 1. Needed for vertical alignment
+ */
+
+.uk-overlay-area:not(:empty):before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+/*
+ * 1. Set vertical alignment
+ * 2. Reset whitespace hack
+ * 3. Set horizontal alignment
+ * 4. Set style
+ */
+
+.uk-overlay-area-content {
+    /* 1 */
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+    /* 2 */
+    letter-spacing: normal;
+    /* 3 */
+    text-align: center;
+    /* 4 */
+    padding: 0 @overlay-area-content-padding-horizontal;
+    color: @overlay-area-content-color;
+    .hook-overlay-area-content;
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-overlay-area-content > :last-child { margin-bottom: 0; }
+
+/*
+ * Links in overlay area
+ */
+
+.uk-overlay-area-content a,
+.uk-overlay-area-content a:hover { color: @overlay-area-content-link-color; }
 
 
 /* Sub-object `uk-overlay-caption`
@@ -143,5 +206,6 @@
 
 .hook-overlay-area() {}
 .hook-overlay-area-icon() {}
+.hook-overlay-area-content() {}
 .hook-overlay-caption() {}
 .hook-overlay-misc() {}

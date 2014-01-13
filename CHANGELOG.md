@@ -2,7 +2,12 @@
 
 ### WIP
 
-- Updated switcher - activates first toggler when no uk-active class is set
+  - Added overlay-area-content to overlay component
+  - Switcher now activates first toggler when no uk-active class is set
+
+**Documentation and repository**
+
+  - Updated overlay docs and tests
 
 ### 2.1.0 (January 07, 2014)
   - Added notify add-on
