@@ -296,6 +296,8 @@
             this.dragEl = $(document.createElement(this.options.listNodeName)).addClass(this.options.listClass + ' ' + this.options.dragClass);
             this.dragEl.css('width', dragItem.width());
 
+            this.tmpDragOnSiblings = [dragItem[0].previousSibling, dragItem[0].nextSibling];
+
             // fix for zepto.js
             //dragItem.after(this.placeEl).detach().appendTo(this.dragEl);
             dragItem.after(this.placeEl);
@@ -332,10 +334,13 @@
 
             this.dragEl.remove();
 
-            this.el.trigger('sortable-change');
+            if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || this.tmpDragOnSiblings[0]!=el[0].previousSibling) {
 
-            if (this.hasNewRoot) {
-                this.dragRootEl.trigger('sortable-change');
+                this.el.trigger('sortable-change');
+
+                if (this.hasNewRoot) {
+                    this.dragRootEl.trigger('sortable-change');
+                }
             }
 
             this.reset();
