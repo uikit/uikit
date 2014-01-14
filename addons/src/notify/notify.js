@@ -104,7 +104,7 @@
 
         content: function(html){
 
-            var container = this.element.find(".uk-notify-message>div");
+            var container = this.element.find(">div");
 
             if(!html) {
                 return container.html();
