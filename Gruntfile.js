@@ -141,6 +141,7 @@ module.exports = function(grunt) {
                     separator: "\n\n"
                 },
                 src: ["src/js/core.js",
+                      "src/js/utility.js",
                       "src/js/touch.js",
                       "src/js/alert.js",
                       "src/js/button.js",
