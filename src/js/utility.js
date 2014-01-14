@@ -170,11 +170,11 @@
             var ele = $(this), obj;
 
             if (ele.is("[data-uk-match-height]") && !ele.data("matchHeight")) {
-                obj = new MatchHeight(grid, UI.Utils.options(ele.attr("data-uk-match-height")));
+                obj = new MatchHeight(ele, UI.Utils.options(ele.attr("data-uk-match-height")));
             }
 
             if (ele.is("[data-uk-margin]") && !ele.data("stackMargin")) {
-                obj = new StackMargin(grid, UI.Utils.options(ele.attr("data-uk-margin")));
+                obj = new StackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
             }
         });
     });
