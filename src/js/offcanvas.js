@@ -52,18 +52,18 @@
 
             var doc   = $("html"),
                 panel = $(".uk-offcanvas.uk-active"),
+                rtl   = ($.UIkit.langdirection == "right"),
                 bar   = panel.find(".uk-offcanvas-bar:first");
 
             if (!panel.length) return;
 
             if ($.UIkit.support.transition && !force) {
 
-
                 doc.one($.UIkit.support.transition.end, function() {
                     doc.removeClass("uk-offcanvas-page").attr("style", "");
                     panel.removeClass("uk-active");
                     window.scrollTo(scrollpos.x, scrollpos.y);
-                }).css("margin-left", "");
+                }).css((rtl ? "margin-right" : "margin-left"), "");
 
                 setTimeout(function(){
                     bar.removeClass("uk-offcanvas-bar-show");
