@@ -14,7 +14,8 @@
 
             var doc       = $("html"),
                 bar       = element.find(".uk-offcanvas-bar:first"),
-                dir       = bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1,
+                rtl       = ($.UIkit.langdirection == "right"),
+                dir       = (bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1) * (rtl ? -1 : 1),
                 scrollbar = dir == -1 && $win.width() < window.innerWidth ? (window.innerWidth - $win.width()) : 0;
 
             scrollpos = {x: window.scrollX, y: window.scrollY};
@@ -22,7 +23,7 @@
             element.addClass("uk-active");
 
             doc.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
-            doc.css("margin-left", ((bar.outerWidth() - scrollbar) * dir)).width(); // .width() - force redraw
+            doc.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * ((bar.outerWidth() - scrollbar) * dir)).width(); // .width() - force redraw
 
             bar.addClass("uk-offcanvas-bar-show").width();
 
