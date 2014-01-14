@@ -173,7 +173,7 @@
                 obj = new MatchHeight(grid, UI.Utils.options(ele.attr("data-uk-match-height")));
             }
 
-            if (ele.is("[data-uk-stack-margin]") && !ele.data("stackMargin")) {
+            if (ele.is("[data-uk-margin]") && !ele.data("stackMargin")) {
                 obj = new StackMargin(grid, UI.Utils.options(ele.attr("data-uk-margin")));
             }
         });
