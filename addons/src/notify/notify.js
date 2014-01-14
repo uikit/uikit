@@ -100,6 +100,19 @@
 
                 delete messages[$this.uuid];
             });
+        },
+
+        content: function(html){
+
+            var container = this.element.find(".uk-notify-message>div");
+
+            if(!html) {
+                return container.html();
+            }
+
+            container.html(html);
+
+            return this;
         }
     });
 
