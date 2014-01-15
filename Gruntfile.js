@@ -1,4 +1,3 @@
-
 module.exports = function(grunt) {
 
     "use strict";
@@ -289,12 +288,15 @@ module.exports = function(grunt) {
       });
 
       // convert set back to list
+      /*
       classesList = [];
       for( var c in classesSet ) {
           if (classesSet.hasOwnProperty(c)){
              classesList.push(c);
           }
       }
+      */
+      classesList = Object.keys(classesSet);
 
       pystring += 'uikit_classes = ["' + classesList.join('", "') + '"]\n';
 
@@ -308,12 +310,15 @@ module.exports = function(grunt) {
         dataSet     = {};
 
       dataList.forEach(function(s) { dataSet[s] = true; });
+      /*
       dataList = [];
       for (var p in dataSet) {
         if (dataSet.hasOwnProperty(p)) {
           dataList.push(p);
         }
       }
+      */
+      dataList = Object.keys(dataSet);
       pystring += 'uikit_data = ["' + dataList.join('", "') + '"]\n';
 
       grunt.file.write('dist/uikit_completions.py', pystring);
