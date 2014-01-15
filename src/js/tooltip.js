@@ -112,6 +112,9 @@
                 if (tmppos.length == 2) tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
             }
 
+
+            tcss.left -= $("body").position().left;
+
             tooltipdelay = setTimeout(function(){
 
                 $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position);
