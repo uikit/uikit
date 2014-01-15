@@ -3,13 +3,18 @@
 ### WIP
 
   - Added overlay-area-content to overlay component
+  - Added data-uk-margin to utility component
+  - Added data-uk-match-height to utility component
   - Switcher now activates first toggler when no uk-active class is set
-  - Fixed Offcanvas in RTL mode
   - Extended Notify message api wit content+status methods
+  - Fixed Offcanvas in RTL mode
+  - Removed hgroup in normalize because it was deprecated in HTML5
 
 **Documentation and repository**
 
   - Updated overlay docs and tests
+  - Updated utility docs and tests
+  - Optimized docs and tests with data-uk-margin
 
 ### 2.1.0 (January 07, 2014)
   - Added notify add-on
