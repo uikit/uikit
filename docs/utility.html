@@ -380,7 +380,7 @@
 
                             <h2>Margin</h2>
 
-                            <p>Add one of the following classes to add or remove spacing from block elements.</p>
+                            <p>Add one of the following classes to add spacing to block elements.</p>
 
                             <table class="uk-table uk-table-condensed">
                                 <thead>
@@ -403,6 +403,64 @@
                                         <td>Adds bottom margin.</td>
                                     </tr>
                                     <tr>
+                                        <td><code>.uk-margin-left</code></td>
+                                        <td>Adds left margin.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-margin-right</code></td>
+                                        <td>Adds right margin.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <hr class="uk-article-divider"> 
+
+                            <h3>Smaller margin</h3>
+
+                            <p>Add one of the following classes to add smaller spacing to block elements.</p>
+
+                            <table class="uk-table uk-table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="uk-width-1-4">Class</th>
+                                        <th class="uk-width-3-4">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.uk-margin-small-top</code></td>
+                                        <td>Adds small top margin.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-margin-small-bottom</code></td>
+                                        <td>Adds small bottom margin.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-margin-small-left</code></td>
+                                        <td>Adds small left margin.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-margin-small-right</code></td>
+                                        <td>Adds small right margin.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <hr class="uk-article-divider"> 
+
+                            <h3>Remove margin</h3>
+
+                            <p>Add one of the following classes to remove spacing from block elements.</p>
+
+                            <table class="uk-table uk-table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="uk-width-1-4">Class</th>
+                                        <th class="uk-width-3-4">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
                                         <td><code>.uk-margin-remove</code></td>
                                         <td>Removes all margins.</td>
                                     </tr>
@@ -416,6 +474,36 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Auto margin</h2>
+
+                            <p>To add spacing to stacking elements, for example inline elements that wrap on smaller vieports, just add the <code>data-uk-margin</code> attribute to their parent container. It will automatically add the <code>.uk-margin-small-top</code> to the lower element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p class="uk-width-1-2" data-uk-margin>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                            </p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;p data-uk-margin&gt;
+    &lt;button class="uk-button"&gt;...&lt;/button&gt;
+    &lt;button class="uk-button"&gt;...&lt;/button&gt;
+&lt;/p&gt;</code></pre>
+
+                            <p><span class="uk-badge">NOTE</span> By default, the data attribute adds the <code>.uk-margin-small-top</code> class to stacking elements. To apply a bigger margin, just add the <code>{cls:'.uk-margin-top'}</code> option.</p>
 
                             <hr class="uk-article-divider">
 
