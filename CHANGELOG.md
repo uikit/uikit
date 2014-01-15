@@ -2,7 +2,6 @@
 
 ### WIP
 
-  - DEPRECATED: data-uk-grid-match - use data-uk-match-height instead!
   - Added overlay-area-content to overlay component
   - Added uk-margin-small classes to utility component
   - Added data-uk-margin to utility component
