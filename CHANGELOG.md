@@ -5,7 +5,6 @@
   - Added overlay-area-content to overlay component
   - Added uk-margin-small classes to utility component
   - Added data-uk-margin to utility component
-  - Added data-uk-match-height to utility component
   - Switcher now activates first toggler when no uk-active class is set
   - Extended Notify message api wit content+status methods
   - Fixed Offcanvas in RTL mode
