@@ -271,6 +271,55 @@ module.exports = function(grunt) {
        fs.writeFileSync("themes/themes.json", JSON.stringify(themes, " ", 4));
     });
 
+    grunt.registerTask('sublime', 'Building Sublime Text Package', function() {
+      var filepath = 'dist/css/uikit.css';
+      if (!fs.existsSync(filepath)) {
+        grunt.log.error("Not found: " + filepath);
+        return;
+      }
+      var cssContent   = grunt.file.read(filepath),
+          classesList = cssContent.match(/\.(uk-[a-z\d\-]+)/g),
+          classesSet  = {},
+          pystring    = '# copy & paste into sublime plugin code:\n';
+
+      // use object as set (no duplicates)
+      classesList.forEach(function(c) {
+        c = c.substr(1); // remove leading dot
+        classesSet[c] = true;
+      });
+
+      // convert set back to list
+      classesList = [];
+      for( var c in classesSet ) {
+          if (classesSet.hasOwnProperty(c)){
+             classesList.push(c);
+          }
+      }
+
+      pystring += 'uikit_classes = ["' + classesList.join('", "') + '"]\n';
+
+      filepath = 'dist/js/uikit.js';
+      if (!fs.existsSync(filepath)) {
+        grunt.log.error("Not found: " + filepath);
+        return;
+      }
+      var jsContent = grunt.file.read(filepath),
+        dataList    = jsContent.match(/data-uk-[a-z\d\-]+/g),
+        dataSet     = {};
+
+      dataList.forEach(function(s) { dataSet[s] = true; });
+      dataList = [];
+      for (var p in dataSet) {
+        if (dataSet.hasOwnProperty(p)) {
+          dataList.push(p);
+        }
+      }
+      pystring += 'uikit_data = ["' + dataList.join('", "') + '"]\n';
+
+      grunt.file.write('dist/uikit_completions.py', pystring);
+      grunt.log.writeln('Written: dist/uikit_completions.py');
+    });
+
     // Load grunt tasks from NPM packages
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-copy");

@@ -1,4 +1,5 @@
 /dist/*.zip
+/dist/uikit_completions.py
 /node_modules
 /docs/fonts/ProximaNova-Light-webfont.*
 /docs/fonts/ProximaNova-Reg-webfont.*
