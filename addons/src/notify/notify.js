@@ -25,7 +25,7 @@
         this.options = $.extend({}, Message.defaults, options);
 
         this.uuid    = "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
-        this.element = this.status = $([
+        this.element = $([
 
             '<div class="uk-notify-message">',
                 '<a class="uk-close"></a>',
@@ -37,6 +37,7 @@
         // status
         if (this.options.status) {
             this.element.addClass('uk-notify-message-'+this.options.status);
+            this.currentstatus = this.options.status;
         }
 
         messages[this.uuid] = this;
@@ -54,6 +55,7 @@
         uuid: false,
         element: false,
         timout: false,
+        currentstatus: "",
 
         show: function() {
 
@@ -100,6 +102,32 @@
 
                 delete messages[$this.uuid];
             });
+        },
+
+        content: function(html){
+
+            var container = this.element.find(">div");
+
+            if(!html) {
+                return container.html();
+            }
+
+            container.html(html);
+
+            return this;
+        },
+
+        status: function(status) {
+
+            if(!status) {
+                return this.currentstatus;
+            }
+
+            this.element.removeClass('uk-notify-message-'+this.currentstatus).addClass('uk-notify-message-'+status);
+
+            this.currentstatus = status;
+
+            return this;
         }
     });
 

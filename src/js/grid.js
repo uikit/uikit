@@ -2,160 +2,40 @@
 
     "use strict";
 
-    var win         = $(window),
-        event       = 'resize orientationchange',
+    var GridMatch = function(element, options) {
 
-        GridMatch = function(element, options) {
+        var $element = $(element);
 
-            var $this = this, $element = $(element);
+        if($element.data("gridMatchHeight")) return;
 
-            if($element.data("gridMatchHeight")) return;
+        this.options  = $.extend({}, GridMatch.defaults, options);
 
-            this.options  = $.extend({}, GridMatch.defaults, options);
+        var matchHeight = new UI.matchHeight($element, this.options);
 
-            this.element  = $element;
-            this.columns  = this.element.children();
-            this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
+        $element.data("gridMatchHeight", matchHeight);
+    };
 
-            if (!this.columns.length) return;
-
-            win.on(event, (function() {
-                var fn = function() {
-                    $this.match();
-                };
-
-                $(function() {
-                    fn();
-                    win.on("load", fn);
-                });
-
-                return UI.Utils.debounce(fn, 150);
-            })());
-
-            $(document).on("uk-domready", function(e) {
-                $this.columns  = $this.element.children();
-                $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
-                $this.match();
-            });
-
-            this.element.data("gridMatch", this);
-        };
-
-    $.extend(GridMatch.prototype, {
-
-        match: function() {
-
-            this.revert();
-
-            var firstvisible = this.columns.filter(":visible:first");
-
-            if (!firstvisible.length) return;
-
-            var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100 ? true : false,
-                max     = 0,
-                $this   = this;
-
-            if (stacked) return;
-
-            this.elements.each(function() {
-                max = Math.max(max, $(this).outerHeight());
-            }).each(function(i) {
-
-                var element   = $(this),
-                    boxheight = element.css("box-sizing") == "border-box" ? "outerHeight" : "height",
-                    box       = $this.columns.eq(i),
-                    height    = (element.height() + (max - box[boxheight]()));
-
-                element.css('min-height', height + 'px');
-            });
-
-            return this;
-        },
-
-        revert: function() {
-            this.elements.css('min-height', '');
-            return this;
-        }
-
-    });
 
     GridMatch.defaults = {
         "target": false
     };
 
-    var GridMargin = function(element) {
+    var GridMargin = function(element, options) {
 
-        var $this = this, $element = $(element);
+        var $element = $(element);
 
         if($element.data("gridMargin")) return;
 
-        this.element = $element;
-        this.columns = this.element.children();
+        this.options  = $.extend({}, GridMargin.defaults, options);
 
-        if (!this.columns.length) return;
+        var stackMargin = new UI.stackMargin($element, this.options);
 
-        win.on(event, (function() {
-            var fn = function() {
-                $this.process();
-            };
-
-            $(function() {
-                fn();
-                win.on("load", fn);
-            });
-
-            return UI.Utils.debounce(fn, 150);
-        })());
-
-        $(document).on("uk-domready", function(e) {
-            $this.columns  = $this.element.children();
-            $this.process();
-        });
-
-        this.element.data("gridMargin", this);
+        $element.data("gridMargin", stackMargin);
     };
 
-    $.extend(GridMargin.prototype, {
-
-        process: function() {
-
-            this.revert();
-
-            var skip         = false,
-                firstvisible = this.columns.filter(":visible:first"),
-                offset       = firstvisible.length ? firstvisible.offset().top : false;
-
-            if (offset === false) return;
-
-            this.columns.each(function() {
-
-                var column = $(this);
-
-                if (column.is(":visible")) {
-
-                    if (skip) {
-                        column.addClass("uk-grid-margin");
-                    } else {
-                        if (column.offset().top != offset) {
-                            column.addClass("uk-grid-margin");
-                            skip = true;
-                        }
-                    }
-                }
-
-            });
-
-            return this;
-        },
-
-        revert: function() {
-            this.columns.removeClass('uk-grid-margin');
-            return this;
-        }
-
-    });
-
-    GridMargin.defaults = {};
+    GridMargin.defaults = {
+        cls: 'uk-grid-margin'
+    };
 
     UI["gridMatch"]  = GridMatch;
     UI["gridMargin"] = GridMargin;
@@ -165,7 +45,7 @@
         $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
             var grid = $(this), obj;
 
-            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatch")) {
+            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {
                 obj = new GridMatch(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
             }
 
