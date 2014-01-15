@@ -4,6 +4,8 @@
 
   - Added overlay-area-content to overlay component
   - Switcher now activates first toggler when no uk-active class is set
+  - Fixed Offcanvas in RTL mode
+  - Extended Notify message api wit content+status methods
 
 **Documentation and repository**
 
