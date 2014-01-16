@@ -11,6 +11,7 @@
   - Fixed Offcanvas in RTL mode
   - Fixed Tooltips in Offcanvas
   - Removed hgroup in normalize because it was deprecated in HTML5
+  - Fixed data-uk-grid-match
 
 **Documentation and repository**
 
