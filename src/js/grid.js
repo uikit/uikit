@@ -60,10 +60,8 @@
                 max = Math.max(max, $(this).outerHeight());
             }).each(function(i) {
 
-                var element   = $(this),
-                    boxheight = element.css("box-sizing") == "border-box" ? "outerHeight" : "height",
-                    box       = $this.columns.eq(i),
-                    height    = (element.height() + (max - box[boxheight]()));
+                var element = $(this),
+                    height  = max - (element.outerHeight() - element.height());
 
                 element.css('min-height', height + 'px');
             });
