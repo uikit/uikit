@@ -28,6 +28,11 @@
 @comment-border:                                @global-border;
 @comment-background:                            #fafafa;
 
+@comment-primary-border:                        fade(@comment-primary-color, 30%);
+@comment-primary-background:                    #ebf7fd;
+@comment-primary-color:                         #2d7091;
+@comment-primary-text-shadow:                   @global-text-shadow;
+
 
 // Sub-object `uk-comment-header`
 // ========================================================================
@@ -58,6 +63,12 @@
 .hook-comment-meta() {}
 
 
+// Sub-object `uk-comment-primary`
+// ========================================================================
+
+.hook-comment-primary() {}
+
+
 // Miscellaneous
 // ========================================================================
 
@@ -69,6 +80,13 @@
     .uk-comment-body {
         padding-left: @comment-padding;
         padding-right: @comment-padding;
+    }
+
+    .uk-comment-primary .uk-comment-header {
+        border-color: @comment-primary-border;
+        background-color: @comment-primary-background;
+        color: @comment-primary-color;
+        text-shadow: 0 1px 0 @comment-primary-text-shadow;
     }
 
 }

@@ -2,9 +2,10 @@
 
 ### WIP
 
+  - Added primary comment to comment component
   - Added overlay-area-content to overlay component
-  - Added uk-margin-small classes to utility component
-  - Added uk-text-nowrap to text component
+  - Added margin-small classes to utility component
+  - Added text-nowrap to text component
   - Added data-uk-margin to utility component
   - Switcher now activates first toggler when no uk-active class is set
   - Extended Notify message api wit content+status methods
@@ -12,12 +13,13 @@
   - Fixed Tooltips in Offcanvas
   - Removed hgroup in normalize because it was deprecated in HTML5
   - Fixed data-uk-grid-match
-  - Updated LESS to 1.6.1
 
 **Documentation and repository**
 
+  - Updated LESS to 1.6.1
   - Updated overlay docs and tests
   - Updated utility docs and tests
+  - Updated comment docs and tests
   - Optimized docs and tests with data-uk-margin
 
 ### 2.1.0 (January 07, 2014)
