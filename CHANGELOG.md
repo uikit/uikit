@@ -12,6 +12,7 @@
   - Fixed Tooltips in Offcanvas
   - Removed hgroup in normalize because it was deprecated in HTML5
   - Fixed data-uk-grid-match
+  - Updated LESS to 1.6.1
 
 **Documentation and repository**
 
