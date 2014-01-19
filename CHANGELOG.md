@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added form-file add-on
   - Added primary comment to comment component
   - Added overlay-area-content to overlay component
   - Added margin-small classes to utility component

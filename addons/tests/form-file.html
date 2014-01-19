@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Form-file - UIkit tests</title>
+        <script src="../../vendor/jquery.js"></script>
+        <script src="utils/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Form file</h1>
+
+            <form action="" class="uk-form" onsubmit="return false">
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="form-file">Upload file</label>
+                    <div class="uk-form-controls">
+                        <input id="form-input" type="text" disabled>
+                        <div class="uk-form-file">
+                            <button class="uk-button">Search</button>
+                            <input id="form-file" type="file" onchange="javascript: document.getElementById('form-input').value = this.value.replace(/^.*[\/\\]/g, '');">
+                        </div>
+                        <button class="uk-button uk-button-success">Upload</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+</html>
