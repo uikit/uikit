@@ -210,6 +210,8 @@
         }
     });
 
+    UI["datepicker"] = DatePicker;
+
     // init code
     $(document).on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
 
