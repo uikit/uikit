@@ -177,7 +177,7 @@
         var modal = ModalTrigger.dialog(([
             '<div class="uk-margin">'+String(content)+'</div>',
             '<button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button>'
-        ]).join(""), $.extend({bgclose:false, keyboard:false}, options))
+        ]).join(""), $.extend({bgclose:false, keyboard:false}, options));
 
         modal.element.find(".js-modal-confirm").on("click", function(){
             onconfirm();

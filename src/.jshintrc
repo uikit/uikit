@@ -6,6 +6,7 @@
 	"globals": {
 	    "module": false,
         "require": true,
-        "CSSRule": true
+        "CSSRule": true,
+        "jQuery": true
 	}
 }
