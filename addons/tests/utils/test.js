@@ -14,6 +14,7 @@
     var tests = [
             "datepicker",
             "form-password",
+            "form-file",
             "markdownarea",
             "sortable",
             "sticky",
