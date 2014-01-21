@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added alert, confirm shorcut methods to modal component
   - Added form-file add-on
   - Added primary comment to comment component
   - Added overlay-area-content to overlay component

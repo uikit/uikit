@@ -4,6 +4,7 @@
 
     var active = false,
         html   = $("html"),
+        tpl    = '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>',
 
         Modal  = function(element, options) {
 
@@ -36,6 +37,8 @@
 
         toggle: function() {
             this[this.isActive() ? "hide" : "show"]();
+
+            return this;
         },
 
         show: function() {
@@ -53,6 +56,8 @@
             html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
+
+            return this;
         },
 
         hide: function(force) {
@@ -71,6 +76,8 @@
 
                 this._hide();
             }
+
+            return this;
         },
 
         resize: function() {
@@ -137,6 +144,49 @@
         this.element.data("modal", this);
     };
 
+
+    ModalTrigger.dialog = function(content, options) {
+
+        var modal = new Modal($(tpl).appendTo("body"), options);
+
+        modal.element.on("uk.modal.hide", function(){
+            if (modal.persist) {
+                modal.persist.appendTo(modal.persist.data("modalPersistParent"));
+                modal.persist = false;
+            }
+            modal.element.remove();
+        });
+
+        setContent(content, modal);
+
+        return modal;
+    };
+
+    ModalTrigger.alert = function(content, options) {
+
+        ModalTrigger.dialog(([
+            '<div class="uk-margin">'+String(content)+'</div>',
+            '<button class="uk-button uk-button-primary uk-modal-close">Ok</button>'
+        ]).join(""), $.extend({bgclose:false, keyboard:false}, options)).show();
+    };
+
+    ModalTrigger.confirm = function(content, onconfirm, options) {
+
+        onconfirm = $.isFunction(onconfirm) ? onconfirm : function(){};
+
+        var modal = ModalTrigger.dialog(([
+            '<div class="uk-margin">'+String(content)+'</div>',
+            '<button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button>'
+        ]).join(""), $.extend({bgclose:false, keyboard:false}, options))
+
+        modal.element.find(".js-modal-confirm").on("click", function(){
+            onconfirm();
+            modal.hide();
+        });
+
+        modal.show();
+    };
+
     ModalTrigger.Modal = Modal;
 
     UI["modal"] = ModalTrigger;
@@ -166,5 +216,33 @@
         if(active) active.resize();
 
     }, 150));
+
+
+    // helper functions
+    function setContent(content, modal){
+
+        if(!modal) return;
+
+        if (typeof content === 'object') {
+
+            // convert DOM object to a jQuery object
+            content = content instanceof jQuery ? content : $(content);
+
+            if(content.parent().length) {
+                modal.persist = content;
+                modal.persist.data("modalPersistParent", content.parent());
+            }
+        }else if (typeof content === 'string' || typeof content === 'number') {
+                // just insert the data as innerHTML
+                content = $('<div></div>').html(content);
+        }else {
+                // unsupported data type!
+                content = $('<div></div>').html('$.UIkitt.modal Error: Unsupported data type: ' + typeof content);
+        }
+
+        content.appendTo(modal.element.find('.uk-modal-dialog'));
+
+        return modal;
+    }
 
 })(jQuery, jQuery.UIkit, jQuery(window));
