@@ -136,4 +136,4 @@
       }, 0);
     });
 
-})(this, jQuery, jQuery.UIkit, $(window), $(document));
+})(this, jQuery, jQuery.UIkit, jQuery(window), jQuery(document));

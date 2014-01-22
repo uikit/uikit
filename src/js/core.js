@@ -52,7 +52,13 @@
     })();
 
     UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60); };
-    UI.support.touch                 = (('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) || (global.DocumentTouch && document instanceof global.DocumentTouch)  || (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || false);
+    UI.support.touch                 = (
+        ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
+        (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
+        (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || //IE 10
+        (global.navigator['pointerEnabled'] && global.navigator['maxTouchPoints'] > 0) || //IE >=11
+        false
+    );
     UI.support.mutationobserver      = (global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver || null);
 
     UI.Utils = {};
@@ -156,7 +162,7 @@
 
         // remove css hover rules for touch devices
         if (UI.support.touch) {
-            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+            //UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
         }
     });
 
