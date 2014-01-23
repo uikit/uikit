@@ -1,4 +1,4 @@
-/*! UIkit 2.1.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /*
  * Based on https://github.com/garand/sticky
@@ -138,4 +138,4 @@
       }, 0);
     });
 
-})(this, jQuery, jQuery.UIkit, $(window), $(document));
+})(this, jQuery, jQuery.UIkit, jQuery(window), jQuery(document));
