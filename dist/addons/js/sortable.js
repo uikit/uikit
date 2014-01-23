@@ -1,4 +1,4 @@
-/*! UIkit 2.1.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
@@ -550,20 +550,20 @@
     };
 
     $.fn.uksortable.defaults = {
-        prefix          : 'uk-sortable',
+        prefix          : 'uk',
         listNodeName    : 'ul',
         itemNodeName    : 'li',
-        listBaseClass   : '{prefix}',
-        listClass       : '{prefix}-list',
-        listitemClass   : '{prefix}-list-item',
-        itemClass       : '{prefix}-item',
-        dragClass       : '{prefix}-list-dragged',
-        movingClass     : '{prefix}-moving',
-        handleClass     : '{prefix}-handle',
-        collapsedClass  : 'uk-collapsed',
-        placeClass      : '{prefix}-placeholder',
-        noDragClass     : '{prefix}-nodrag',
-        emptyClass      : '{prefix}-empty',
+        listBaseClass   : '{prefix}-sortable',
+        listClass       : '{prefix}-sortable-list',
+        listitemClass   : '{prefix}-sortable-list-item',
+        itemClass       : '{prefix}-sortable-item',
+        dragClass       : '{prefix}-sortable-list-dragged',
+        movingClass     : '{prefix}-sortable-moving',
+        handleClass     : '{prefix}-sortable-handle',
+        collapsedClass  : '{prefix}-collapsed',
+        placeClass      : '{prefix}-sortable-placeholder',
+        noDragClass     : '{prefix}-sortable-nodrag',
+        emptyClass      : '{prefix}-sortable-empty',
         group           : 0,
         maxDepth        : 10,
         threshold       : 20

@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.2.0 (January 23, 2014)
 
   - Added alert, confirm shorcut methods to modal component
   - Added form-file add-on
@@ -13,11 +13,13 @@
   - Extended Notify message api wit content+status methods
   - Fixed Offcanvas in RTL mode
   - Fixed Tooltips in Offcanvas
+  - Fixed sticky add-on jQuery error where $ is not available
   - Removed hgroup in normalize because it was deprecated in HTML5
   - Fixed data-uk-grid-match
 
 **Documentation and repository**
 
+  - Added form-file docs and tests
   - Updated LESS to 1.6.1
   - Updated overlay docs and tests
   - Updated utility docs and tests

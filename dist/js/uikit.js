@@ -1,4 +1,4 @@
-/*! UIkit 2.1.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function($, doc, global) {
 
@@ -10,7 +10,7 @@
         return;
     }
 
-    UI.version = '2.1.0';
+    UI.version = '2.2.0';
 
     UI.fn = function(command, options) {
 
@@ -54,7 +54,13 @@
     })();
 
     UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60); };
-    UI.support.touch                 = (('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) || (global.DocumentTouch && document instanceof global.DocumentTouch)  || (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || false);
+    UI.support.touch                 = (
+        ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
+        (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
+        (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || //IE 10
+        (global.navigator['pointerEnabled'] && global.navigator['maxTouchPoints'] > 0) || //IE >=11
+        false
+    );
     UI.support.mutationobserver      = (global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver || null);
 
     UI.Utils = {};
@@ -158,7 +164,7 @@
 
         // remove css hover rules for touch devices
         if (UI.support.touch) {
-            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+            //UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
         }
     });
 
@@ -167,6 +173,107 @@
 
 })(jQuery, document, window);
 
+
+(function($, UI) {
+
+    "use strict";
+
+    var win = $(window), event = 'resize orientationchange';
+
+    var StackMargin = function(element, options) {
+
+        var $this = this, $element = $(element);
+
+        if($element.data("stackMargin")) return;
+
+        this.element = $element;
+        this.columns = this.element.children();
+        this.options = $.extend({}, StackMargin.defaults, options);
+
+        if (!this.columns.length) return;
+
+        win.on(event, (function() {
+            var fn = function() {
+                $this.process();
+            };
+
+            $(function() {
+                fn();
+                win.on("load", fn);
+            });
+
+            return UI.Utils.debounce(fn, 150);
+        })());
+
+        $(document).on("uk-domready", function(e) {
+            $this.columns  = $this.element.children();
+            $this.process();
+        });
+
+        this.element.data("stackMargin", this);
+    };
+
+    $.extend(StackMargin.prototype, {
+
+        process: function() {
+
+            var $this = this;
+
+            this.revert();
+
+            var skip         = false,
+                firstvisible = this.columns.filter(":visible:first"),
+                offset       = firstvisible.length ? firstvisible.offset().top : false;
+
+            if (offset === false) return;
+
+            this.columns.each(function() {
+
+                var column = $(this);
+
+                if (column.is(":visible")) {
+
+                    if (skip) {
+                        column.addClass($this.options.cls);
+                    } else {
+                        if (column.offset().top != offset) {
+                            column.addClass($this.options.cls);
+                            skip = true;
+                        }
+                    }
+                }
+            });
+
+            return this;
+        },
+
+        revert: function() {
+            this.columns.removeClass(this.options.cls);
+            return this;
+        }
+
+    });
+
+    StackMargin.defaults = {
+        'cls': 'uk-margin-small-top'
+    };
+
+
+    UI["stackMargin"] = StackMargin;
+
+    // init code
+    $(document).on("uk-domready", function(e) {
+        $("[data-uk-margin]").each(function() {
+            var ele = $(this), obj;
+
+            if (!ele.data("stackMargin")) {
+                obj = new StackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+            }
+        });
+    });
+
+
+})(jQuery, jQuery.UIkit);
 
 //  Based on Zeptos touch.js
 //  https://raw.github.com/madrobby/zepto/master/src/touch.js
@@ -734,46 +841,45 @@
 
     "use strict";
 
-    var win         = $(window),
-        event       = 'resize orientationchange',
+    var win = $(window), event = 'resize orientationchange';
 
-        GridMatch = function(element, options) {
+    var GridMatchHeight = function(element, options) {
 
-            var $this = this, $element = $(element);
+        var $this = this, $element = $(element);
 
-            if($element.data("gridMatchHeight")) return;
+        if($element.data("gridMatchHeight")) return;
 
-            this.options  = $.extend({}, GridMatch.defaults, options);
+        this.options  = $.extend({}, GridMatchHeight.defaults, options);
 
-            this.element  = $element;
-            this.columns  = this.element.children();
-            this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
+        this.element  = $element;
+        this.columns  = this.element.children();
+        this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
 
-            if (!this.columns.length) return;
+        if (!this.columns.length) return;
 
-            win.on(event, (function() {
-                var fn = function() {
-                    $this.match();
-                };
-
-                $(function() {
-                    fn();
-                    win.on("load", fn);
-                });
-
-                return UI.Utils.debounce(fn, 150);
-            })());
-
-            $(document).on("uk-domready", function(e) {
-                $this.columns  = $this.element.children();
-                $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
+        win.on(event, (function() {
+            var fn = function() {
                 $this.match();
+            };
+
+            $(function() {
+                fn();
+                win.on("load", fn);
             });
 
-            this.element.data("gridMatch", this);
-        };
+            return UI.Utils.debounce(fn, 150);
+        })());
 
-    $.extend(GridMatch.prototype, {
+        $(document).on("uk-domready", function(e) {
+            $this.columns  = $this.element.children();
+            $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
+            $this.match();
+        });
+
+        this.element.data("gridMatchHeight", this);
+    };
+
+    $.extend(GridMatchHeight.prototype, {
 
         match: function() {
 
@@ -793,10 +899,8 @@
                 max = Math.max(max, $(this).outerHeight());
             }).each(function(i) {
 
-                var element   = $(this),
-                    boxheight = element.css("box-sizing") == "border-box" ? "outerHeight" : "height",
-                    box       = $this.columns.eq(i),
-                    height    = (element.height() + (max - box[boxheight]()));
+                var element = $(this),
+                    height  = max - (element.outerHeight() - element.height());
 
                 element.css('min-height', height + 'px');
             });
@@ -811,85 +915,28 @@
 
     });
 
-    GridMatch.defaults = {
+    GridMatchHeight.defaults = {
         "target": false
     };
 
-    var GridMargin = function(element) {
+    var GridMargin = function(element, options) {
 
-        var $this = this, $element = $(element);
+        var $element = $(element);
 
         if($element.data("gridMargin")) return;
 
-        this.element = $element;
-        this.columns = this.element.children();
+        this.options  = $.extend({}, GridMargin.defaults, options);
 
-        if (!this.columns.length) return;
+        var stackMargin = new UI.stackMargin($element, this.options);
 
-        win.on(event, (function() {
-            var fn = function() {
-                $this.process();
-            };
-
-            $(function() {
-                fn();
-                win.on("load", fn);
-            });
-
-            return UI.Utils.debounce(fn, 150);
-        })());
-
-        $(document).on("uk-domready", function(e) {
-            $this.columns  = $this.element.children();
-            $this.process();
-        });
-
-        this.element.data("gridMargin", this);
+        $element.data("gridMargin", stackMargin);
     };
 
-    $.extend(GridMargin.prototype, {
+    GridMargin.defaults = {
+        cls: 'uk-grid-margin'
+    };
 
-        process: function() {
-
-            this.revert();
-
-            var skip         = false,
-                firstvisible = this.columns.filter(":visible:first"),
-                offset       = firstvisible.length ? firstvisible.offset().top : false;
-
-            if (offset === false) return;
-
-            this.columns.each(function() {
-
-                var column = $(this);
-
-                if (column.is(":visible")) {
-
-                    if (skip) {
-                        column.addClass("uk-grid-margin");
-                    } else {
-                        if (column.offset().top != offset) {
-                            column.addClass("uk-grid-margin");
-                            skip = true;
-                        }
-                    }
-                }
-
-            });
-
-            return this;
-        },
-
-        revert: function() {
-            this.columns.removeClass('uk-grid-margin');
-            return this;
-        }
-
-    });
-
-    GridMargin.defaults = {};
-
-    UI["gridMatch"]  = GridMatch;
+    UI["gridMatchHeight"]  = GridMatchHeight;
     UI["gridMargin"] = GridMargin;
 
     // init code
@@ -897,8 +944,8 @@
         $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
             var grid = $(this), obj;
 
-            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatch")) {
-                obj = new GridMatch(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {
+                obj = new GridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
             }
 
             if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
@@ -915,6 +962,7 @@
 
     var active = false,
         html   = $("html"),
+        tpl    = '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>',
 
         Modal  = function(element, options) {
 
@@ -947,6 +995,8 @@
 
         toggle: function() {
             this[this.isActive() ? "hide" : "show"]();
+
+            return this;
         },
 
         show: function() {
@@ -964,6 +1014,8 @@
             html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
+
+            return this;
         },
 
         hide: function(force) {
@@ -982,6 +1034,8 @@
 
                 this._hide();
             }
+
+            return this;
         },
 
         resize: function() {
@@ -1048,6 +1102,49 @@
         this.element.data("modal", this);
     };
 
+
+    ModalTrigger.dialog = function(content, options) {
+
+        var modal = new Modal($(tpl).appendTo("body"), options);
+
+        modal.element.on("uk.modal.hide", function(){
+            if (modal.persist) {
+                modal.persist.appendTo(modal.persist.data("modalPersistParent"));
+                modal.persist = false;
+            }
+            modal.element.remove();
+        });
+
+        setContent(content, modal);
+
+        return modal;
+    };
+
+    ModalTrigger.alert = function(content, options) {
+
+        ModalTrigger.dialog(([
+            '<div class="uk-margin">'+String(content)+'</div>',
+            '<button class="uk-button uk-button-primary uk-modal-close">Ok</button>'
+        ]).join(""), $.extend({bgclose:false, keyboard:false}, options)).show();
+    };
+
+    ModalTrigger.confirm = function(content, onconfirm, options) {
+
+        onconfirm = $.isFunction(onconfirm) ? onconfirm : function(){};
+
+        var modal = ModalTrigger.dialog(([
+            '<div class="uk-margin">'+String(content)+'</div>',
+            '<button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button>'
+        ]).join(""), $.extend({bgclose:false, keyboard:false}, options));
+
+        modal.element.find(".js-modal-confirm").on("click", function(){
+            onconfirm();
+            modal.hide();
+        });
+
+        modal.show();
+    };
+
     ModalTrigger.Modal = Modal;
 
     UI["modal"] = ModalTrigger;
@@ -1078,6 +1175,34 @@
 
     }, 150));
 
+
+    // helper functions
+    function setContent(content, modal){
+
+        if(!modal) return;
+
+        if (typeof content === 'object') {
+
+            // convert DOM object to a jQuery object
+            content = content instanceof jQuery ? content : $(content);
+
+            if(content.parent().length) {
+                modal.persist = content;
+                modal.persist.data("modalPersistParent", content.parent());
+            }
+        }else if (typeof content === 'string' || typeof content === 'number') {
+                // just insert the data as innerHTML
+                content = $('<div></div>').html(content);
+        }else {
+                // unsupported data type!
+                content = $('<div></div>').html('$.UIkitt.modal Error: Unsupported data type: ' + typeof content);
+        }
+
+        content.appendTo(modal.element.find('.uk-modal-dialog'));
+
+        return modal;
+    }
+
 })(jQuery, jQuery.UIkit, jQuery(window));
 
 (function($, UI) {
@@ -1096,7 +1221,8 @@
 
             var doc       = $("html"),
                 bar       = element.find(".uk-offcanvas-bar:first"),
-                dir       = bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1,
+                rtl       = ($.UIkit.langdirection == "right"),
+                dir       = (bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1) * (rtl ? -1 : 1),
                 scrollbar = dir == -1 && $win.width() < window.innerWidth ? (window.innerWidth - $win.width()) : 0;
 
             scrollpos = {x: window.scrollX, y: window.scrollY};
@@ -1104,7 +1230,7 @@
             element.addClass("uk-active");
 
             doc.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
-            doc.css("margin-left", ((bar.outerWidth() - scrollbar) * dir)).width(); // .width() - force redraw
+            doc.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * ((bar.outerWidth() - scrollbar) * dir)).width(); // .width() - force redraw
 
             bar.addClass("uk-offcanvas-bar-show").width();
 
@@ -1133,18 +1259,18 @@
 
             var doc   = $("html"),
                 panel = $(".uk-offcanvas.uk-active"),
+                rtl   = ($.UIkit.langdirection == "right"),
                 bar   = panel.find(".uk-offcanvas-bar:first");
 
             if (!panel.length) return;
 
             if ($.UIkit.support.transition && !force) {
 
-
                 doc.one($.UIkit.support.transition.end, function() {
                     doc.removeClass("uk-offcanvas-page").attr("style", "");
                     panel.removeClass("uk-active");
                     window.scrollTo(scrollpos.x, scrollpos.y);
-                }).css("margin-left", "");
+                }).css((rtl ? "margin-right" : "margin-left"), "");
 
                 setTimeout(function(){
                     bar.removeClass("uk-offcanvas-bar-show");
@@ -1427,6 +1553,9 @@
                 if (tmppos.length == 2) tcss.left = (tmppos[1] == 'left') ? (pos.left) : ((pos.left + pos.width) - width);
             }
 
+
+            tcss.left -= $("body").position().left;
+
             tooltipdelay = setTimeout(function(){
 
                 $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position);
@@ -1523,10 +1652,14 @@
 
             this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
 
-            var active = this.element.find(this.options.toggler).filter(".uk-active");
+            var togglers = this.element.find(this.options.toggler),
+                active   = togglers.filter(".uk-active");
 
             if (active.length) {
                 this.show(active);
+            } else {
+                active = togglers.eq(0);
+                if (active.length) this.show(active);
             }
         }
 
@@ -1559,8 +1692,8 @@
     });
 
     Switcher.defaults = {
-        connect: false,
-        toggler: ">*"
+        connect : false,
+        toggler : ">*"
     };
 
     UI["switcher"] = Switcher;

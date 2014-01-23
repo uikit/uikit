@@ -1,4 +1,4 @@
-/*! UIkit 2.1.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -15,7 +15,6 @@ figcaption,
 figure,
 footer,
 header,
-hgroup,
 main,
 nav,
 section,
@@ -358,16 +357,12 @@ body {
  * Links
  */
 a {
+  color: #0077dd;
   text-decoration: none;
 }
 a:hover {
-  text-decoration: underline;
-}
-a {
-  color: #0077dd;
-}
-a:hover {
   color: #005599;
+  text-decoration: underline;
 }
 /*
  * Emphasize
@@ -1417,11 +1412,19 @@ iframe {
     padding-left: 100px;
   }
 }
+/* Modifier `uk-comment-primary`
+ ========================================================================== */
 /* Sub-object `uk-comment-body`
      ========================================================================== */
 .uk-comment-body {
   padding-left: 10px;
   padding-right: 10px;
+}
+.uk-comment-primary .uk-comment-header {
+  border-color: rgba(45, 112, 145, 0.3);
+  background-color: #ebf7fd;
+  color: #2d7091;
+  text-shadow: 0 1px 0 #ffffff;
 }
 /* ========================================================================
    Component: Nav
@@ -4905,7 +4908,7 @@ a.uk-thumbnail:focus {
 /*
  * Icon
  */
-.uk-overlay-area:before {
+.uk-overlay-area:empty:before {
   content: "\f002";
   position: absolute;
   top: 50%;
@@ -4919,6 +4922,58 @@ a.uk-thumbnail:focus {
   font-family: FontAwesome;
   text-align: center;
   color: #ffffff;
+}
+/* Sub-object `uk-overlay-area-content`
+ ========================================================================== */
+/*
+ * Remove whitespace between child elements when using `inline-block`
+ * Needed for Firefox
+ */
+.uk-overlay-area:not(:empty) {
+  letter-spacing: -0.31em;
+}
+/*
+ * 1. Needed for vertical alignment
+ */
+.uk-overlay-area:not(:empty):before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+/*
+ * 1. Set vertical alignment
+ * 2. Reset whitespace hack
+ * 3. Set horizontal alignment
+ * 4. Set style
+ */
+.uk-overlay-area-content {
+  /* 1 */
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  vertical-align: middle;
+  /* 2 */
+  letter-spacing: normal;
+  /* 3 */
+  text-align: center;
+  /* 4 */
+  padding: 0 15px;
+  color: #ffffff;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-overlay-area-content > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Links in overlay area
+ */
+.uk-overlay-area-content a,
+.uk-overlay-area-content a:hover {
+  color: inherit;
 }
 /* Sub-object `uk-overlay-caption`
  ========================================================================== */
@@ -6199,6 +6254,12 @@ input.uk-search-field {
 /* Wrap modifiers
  ========================================================================== */
 /*
+ * Prevent text from wrapping onto multiple lines
+ */
+.uk-text-nowrap {
+  white-space: nowrap;
+}
+/*
  * Prevent text from wrapping onto multiple lines, and truncate with an ellipsis
  */
 .uk-text-truncate {
@@ -6419,6 +6480,21 @@ input.uk-search-field {
 }
 .uk-margin-right {
   margin-right: 15px !important;
+}
+/*
+ * Smaller margins
+ */
+.uk-margin-small-top {
+  margin-top: 5px !important;
+}
+.uk-margin-small-bottom {
+  margin-bottom: 5px !important;
+}
+.uk-margin-small-left {
+  margin-left: 5px !important;
+}
+.uk-margin-small-right {
+  margin-right: 5px !important;
 }
 /*
  * Remove margins
