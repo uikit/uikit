@@ -17,6 +17,7 @@
 //                  `uk-display-*`
 //                  `uk-visible-*`
 //                  `uk-hidden-*`
+//                  `uk-invisible`
 //
 // ========================================================================
 
@@ -415,13 +416,18 @@
     visibility: hidden !important;
 }
 
+/* It's hidden, but still affects layout */
+.uk-invisible { visibility: hidden !important; }
+
 /* Show on hover */
-.uk-visible-hover:hover .uk-hidden {
+.uk-visible-hover:hover .uk-hidden,
+.uk-visible-hover:hover .uk-invisible {
     display: block !important;
     visibility: visible !important;
 }
 
-.uk-visible-hover-inline:hover .uk-hidden {
+.uk-visible-hover-inline:hover .uk-hidden,
+.uk-visible-hover-inline:hover .uk-invisible {
     display: inline-block !important;
     visibility: visible !important;
 }

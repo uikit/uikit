@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Added invisible to utility component
+
 ### 2.2.0 (January 23, 2014)
 
   - Added alert, confirm shorcut methods to modal component
