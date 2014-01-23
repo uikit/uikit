@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.2.0 (January 23, 2014)
 
   - Added alert, confirm shorcut methods to modal component
   - Added form-file add-on
@@ -18,6 +18,7 @@
 
 **Documentation and repository**
 
+  - Added form-file docs and tests
   - Updated LESS to 1.6.1
   - Updated overlay docs and tests
   - Updated utility docs and tests
