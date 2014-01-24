@@ -3,6 +3,7 @@
 ### WIP
 
   - Added invisible to utility component
+  - Added padding variable for thumbnail caption
 
 ### 2.2.0 (January 23, 2014)
 
