@@ -17,6 +17,7 @@
 @panel-box-color:                               @global-color;
 @panel-box-title-color:                         @global-color;
 @panel-box-badge-right:                         @panel-box-badge-top;
+@panel-box-teaser-margin:                       -(@panel-box-padding + 1);
 
 @panel-box-secondary-background:                #fff;
 
@@ -69,4 +70,11 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-panel-misc() {}
+.hook-panel-misc() {
+
+    .uk-panel-box img {
+        border-top-left-radius: @global-border-radius;
+        border-top-right-radius: @global-border-radius;
+    }
+
+}

@@ -39,6 +39,8 @@
 @panel-box-title-color:                         #444;
 @panel-box-badge-top:                           10px;
 @panel-box-badge-right:                         @panel-box-badge-top;
+@panel-box-teaser-margin:                       -@panel-box-padding;
+@panel-box-teaser-margin-bottom:                @panel-title-margin-bottom;
 
 @panel-box-primary-background:                  #ebf7fd;
 @panel-box-primary-color:                       #2d7091;
@@ -138,7 +140,7 @@
     right: @panel-box-badge-right;
 }
 
-.uk-panel-box .uk-panel-teaser { margin: -@panel-box-padding -@panel-box-padding @panel-title-margin-bottom -@panel-box-padding; }
+.uk-panel-box .uk-panel-teaser { margin: @panel-box-teaser-margin @panel-box-teaser-margin @panel-box-teaser-margin-bottom @panel-box-teaser-margin; }
 
 /*
  * Nav in panel
