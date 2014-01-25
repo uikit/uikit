@@ -6,6 +6,7 @@
   - Added invisible to utility component
   - Added padding variable for thumbnail caption
   - Panel component works now with inline elements
+  - Background color now set on tr elements in table component
 
 **Documentation and repository**
 
