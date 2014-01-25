@@ -63,10 +63,16 @@
  ========================================================================== */
 
 /*
- * Create position context for badges
+ * 1. Needed for `a` elements
+ * 2. Create position context for badges
  */
 
-.uk-panel { position: relative; }
+.uk-panel {
+    /* 1 */
+    display: block; 
+    /* 2 */
+    position: relative; 
+}
 
 /*
  * Micro clearfix to make panels more robust
