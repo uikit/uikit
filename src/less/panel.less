@@ -5,6 +5,7 @@
 //
 // Sub-objects:     `uk-panel-title`
 //                  `uk-panel-badge`
+//                  `uk-panel-teaser`
 //
 // Modifiers:       `uk-panel-box`
 //                  `uk-panel-box-primary`
@@ -30,7 +31,7 @@
 @panel-title-line-height:                       24px;
 @panel-title-font-weight:                       normal;
 @panel-title-color:                             #444;
-@panel-title-text-transform:                            none;
+@panel-title-text-transform:                    none;
 
 @panel-box-padding:                             15px;
 @panel-box-background:                          #f5f5f5;
@@ -97,6 +98,7 @@
  ========================================================================== */
 
 .uk-panel-title {
+    margin-top: 0;
     margin-bottom: @panel-title-margin-bottom;
     font-size: @panel-title-font-size;
     line-height: @panel-title-line-height;
@@ -118,12 +120,6 @@
     .hook-panel-badge;
 }
 
-/*
- * Remove margin from adjacent element
- */
-
-.uk-panel-badge + * { margin-top: 0; }
-
 
 /* Modifier: `uk-panel-box`
  ========================================================================== */
@@ -141,6 +137,8 @@
     top: @panel-box-badge-top;
     right: @panel-box-badge-right;
 }
+
+.uk-panel-box .uk-panel-teaser { margin: -@panel-box-padding -@panel-box-padding @panel-title-margin-bottom -@panel-box-padding; }
 
 /*
  * Nav in panel
