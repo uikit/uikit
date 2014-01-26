@@ -7,6 +7,7 @@
   - Added padding variable for thumbnail caption
   - Panel component works now with inline elements
   - Background color now set on tr elements in table component
+  - Fixed button link in button component
 
 **Documentation and repository**
 
