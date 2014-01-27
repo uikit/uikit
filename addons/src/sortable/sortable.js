@@ -336,10 +336,10 @@
 
             if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || this.tmpDragOnSiblings[0]!=el[0].previousSibling) {
 
-                this.el.trigger('sortable-change');
+                this.el.trigger('sortable-change',[el, this.hasNewRoot ? "added":"moved"]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('sortable-change');
+                    this.dragRootEl.trigger('sortable-change', [el, "removed"]);
                 }
             }
 
