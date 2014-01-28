@@ -5,7 +5,7 @@
         var $select   = $($options.select, $element),
             $sidebar  = $($options.sidebar, $element),
             $advanced = $($options.advanced, $element),
-            $style;
+            $style, memory = window.sessionStorage || {};
 
         this.$options = $options;
         this.$select  = $select;
@@ -15,6 +15,10 @@
 
                 if ($("option", $select).length != $options.styles.length) {
                     $select.html($.mustache($options.template.select, $options));
+
+                    if(memory["uikit-customizer-last-theme"]) {
+                        $select.val(memory["uikit-customizer-last-theme"]);
+                    }
                 }
 
                 if (value) {
@@ -44,6 +48,9 @@
         });
 
         $select.on("change", function(e) {
+
+            memory["uikit-customizer-last-theme"] = $select.val();
+
             setTimeout(function() {
                 $element.trigger("update");
             }, 1);
