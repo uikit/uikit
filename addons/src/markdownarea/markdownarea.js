@@ -38,18 +38,23 @@
             this.editor.on("change", (function(){
                 var render = function(){
 
-                    var value    = $this.editor.getValue();
+                    var value = $this.editor.getValue();
 
-                    marked(value, function (err, markdown) {
+                    $this.originalvalue = String(value);
+                    $this.currentvalue  = String(value);
+
+                    $this.element.trigger("markdownarea-before", [$this]);
+
+                    marked($this.currentvalue, function (err, markdown) {
 
                       if (err) throw err;
 
                       $this.preview.html(markdown);
-                      $this.element.val(value).trigger("update", [$this]);
+                      $this.element.val($this.currentvalue).trigger("markdownarea-update", [$this]);
                     });
                 };
                 render();
-                return render;
+                return UI.Utils.debounce(render, 200);
             })());
 
             this._buildtoolbar();
