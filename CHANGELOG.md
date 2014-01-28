@@ -8,6 +8,7 @@
   - Panel component works now with inline elements
   - Background color now set on tr elements in table component
   - Fixed button link in button component
+  - Fixed links in overlay-area-content
 
 **Documentation and repository**
 
@@ -160,4 +161,4 @@
 
 ### 1.0.0 (July 19, 2013)
 
-  * Initial Release
+  - Initial Release
