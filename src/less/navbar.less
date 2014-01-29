@@ -96,8 +96,9 @@
  */
 
 .uk-navbar-nav > li {
-    position: relative; /* 1 */
     float: left;
+    /* 1 */
+    position: relative;
 }
 
 /*
@@ -133,11 +134,12 @@
  */
 
 .uk-navbar-nav > li:hover > a,
-.uk-navbar-nav > li > a:focus, /* 1 */
-.uk-navbar-nav > li.uk-open > a { /* 2 */
+.uk-navbar-nav > li > a:focus, // 1
+.uk-navbar-nav > li.uk-open > a { // 2
     background-color: @navbar-nav-hover-background;
     color: @navbar-nav-hover-color;
-    outline: none; /* 3 */
+    /* 3 */
+    outline: none;
     .hook-navbar-nav-hover;
 }
 
@@ -232,10 +234,11 @@
  */
 
 .uk-navbar-brand:hover,
-.uk-navbar-brand:focus { /* 1 */
+.uk-navbar-brand:focus { // 1
     color: @navbar-brand-hover-color;
     text-decoration: none;
-    outline: none; /* 2 */
+    /* 2 */
+    outline: none;
 }
 
 
@@ -253,10 +256,11 @@
  */
 
 .uk-navbar-toggle:hover,
-.uk-navbar-toggle:focus { /* 1 */
+.uk-navbar-toggle:focus { // 1
     color: @navbar-toggle-hover-color;
     text-decoration: none;
-    outline: none; /* 2 */
+    /* 2 */
+    outline: none;
 }
 
 /*
@@ -266,7 +270,8 @@
 .uk-navbar-toggle:after {
     content: @navbar-toggle-icon;
     font-family: FontAwesome;
-    vertical-align: middle; /* 1 */
+    /* 1 */
+    vertical-align: middle;
 }
 
 .uk-navbar-toggle-alt:after { content: @navbar-toggle-icon-alt; }
@@ -281,10 +286,11 @@
  */
 
 .uk-navbar-center {
-    max-width: 50%; /* 1 */
-    margin: auto; /* 1 */
     float: none;
     text-align: center;
+    /* 1 */
+    max-width: 50%; 
+    margin: auto;
 }
 
 

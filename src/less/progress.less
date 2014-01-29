@@ -49,8 +49,10 @@
     height: @progress-height;
     margin-bottom: @progress-margin-vertical;
     background: @progress-background;
-    overflow: hidden; /* 1 */
-    line-height: @progress-height; /* 2 */
+    /* 1 */
+    overflow: hidden;
+    /* 2 */
+    line-height: @progress-height;
     .hook-progress;
 }
 
@@ -64,15 +66,20 @@
 /* Sub-object: `uk-progress-bar`
  ========================================================================== */
 
+/*
+ * 1. Transition
+ * 2. Needed for text
+ */
+
 .uk-progress-bar {
     width: 0;
     height: 100%;
     background: @progress-bar-background;
     float: left;
-    /* Transition */
+    /* 1 */
     -webkit-transition: width 0.6s ease;
     transition: width 0.6s ease;
-    /* Allow text */
+    /* 2 */
     font-size: @progress-bar-font-size;
     color: @progress-bar-color;
     text-align: center;

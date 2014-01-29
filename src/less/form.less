@@ -88,6 +88,7 @@
  * Except for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
  * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
+ * 3. Style
  */
 
 .uk-form select,
@@ -107,8 +108,11 @@
 .uk-form input[type="search"],
 .uk-form input[type="tel"],
 .uk-form input[type="color"] {
-    height: @form-height; /* 1 */
-    max-width: 100%; /* 2 */
+    /* 1 */
+    height: @form-height;
+    /* 2 */
+    max-width: 100%;
+    /* 3 */
     padding: 4px 6px;
     border: 1px solid @form-border;
     background: @form-background;
@@ -152,11 +156,14 @@
  * Legend style
  * 1. `margin-bottom` is not working in Safari and Opera.
  *    Using `padding` and :after instead to create the border
+ * 2. Style
  */
 
 .uk-form legend {
     width: 100%;
-    padding-bottom: @form-gutter; /* 1 */
+    /* 1 */
+    padding-bottom: @form-gutter;
+    /* 2 */
     font-size: @form-legend-font-size;
     line-height: @form-legend-line-height;
 }
@@ -245,11 +252,11 @@
 
 /*
  * Fixed widths
- * 1. Different widths for mini sized `input` and `select` elements
+ * Different widths for mini sized `input` and `select` elements
  */
 
-input.uk-form-width-mini { width: @form-mini-width; } /* 1 */
-select.uk-form-width-mini { width: (@form-mini-width + 25px); } /* 1 */
+input.uk-form-width-mini { width: @form-mini-width; }
+select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .uk-form-width-small { width: @form-small-width; }
 .uk-form-width-medium { width: @form-medium-width; }
 .uk-form-width-large { width: @form-large-width; }

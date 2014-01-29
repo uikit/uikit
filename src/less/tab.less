@@ -62,9 +62,10 @@
  */
 
 .uk-tab > li {
-    position: relative; /* 1 */
     margin-bottom: -1px;
     float: left;
+    /* 1 */
+    position: relative;
 }
 
 .uk-tab > li > a {
@@ -87,12 +88,13 @@
  */
 
 .uk-tab > li > a:hover,
-.uk-tab > li > a:focus, /* 1 */
-.uk-tab > li.uk-open > a { /* 2 */
+.uk-tab > li > a:focus, // 1
+.uk-tab > li.uk-open > a { // 2
     border-color: @tab-hover-border;
     background: @tab-hover-background;
     color: @tab-hover-color;
-    outline: none; /* 3 */
+    /* 2 */
+    outline: none;
     .hook-tab-hover;
 }
 
@@ -241,10 +243,11 @@
  */
 
 .uk-tab-grid {
-    position: relative;
-    z-index: 0; /* 1 */
     margin-left: -5px;
     border-bottom: none;
+    /* 1 */
+    position: relative;
+    z-index: 0;
 }
 
 .uk-tab-grid:before {
@@ -253,8 +256,9 @@
     left: 5px;
     right: 0px;
     bottom: -1px;
-    z-index: -1; /* 1 */
     border-top: 1px solid @tab-border;
+    /* 1 */
+    z-index: -1;
 }
 
 .uk-tab-grid > li:first-child > a { margin-left: 5px; }

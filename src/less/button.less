@@ -13,7 +13,6 @@
 //                  `uk-button-mini`
 //                  `uk-button-small`
 //                  `uk-button-large`
-//                  `uk-button-expand`
 //
 // States:          `uk-active`
 //
@@ -83,31 +82,35 @@
  ========================================================================== */
 
 /*
- * 1. Required for `a` elements. Can't be moved to `a.button` selector because needs to be overwritable for `uk-button-link` and `uk-button-expand`
- * 2. `min-height` is neccesary for `input` elments in Firefox and Opera because `line-height` is not working.
- * 3. Required for `button` and `input` elements
- * 4. `line-height` is used to create a height
+ * 1. Required for `a` elements
+ * 2. Required for `button` and `input` elements
+ * 3. `line-height` is used to create a height
+ * 4. `min-height` is neccesary for `input` elments in Firefox and Opera because `line-height` is not working.
  * 5. Reset button group whitespace hack
+ * 6. Style
  */
 
 .uk-button {
-    display: inline-block; /* 1 */
-    min-height: @button-height; /* 2 */
-    padding: 0 @button-padding-horizontal;
-    border: none; /* 3 */
-    background: @button-background;
-    line-height: @button-line-height; /* 4 */
-    color: @button-color;
-    letter-spacing: normal; /* 5 */
-    .hook-button;
-}
-
-/* Required for `a` elements */
-a.uk-button {
+    /* 1 */
+    display: inline-block;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     vertical-align: middle;
     text-decoration: none;
+    text-align: center;
+    /* 2 */
+    border: none;
+    /* 3 */
+    line-height: @button-line-height;
+    /* 4 */
+    min-height: @button-height;
+    /* 5 */
+    letter-spacing: normal;
+    /* 6 */
+    padding: 0 @button-padding-horizontal;
+    background: @button-background;
+    color: @button-color;
+    .hook-button;
 }
 
 /*
@@ -117,10 +120,11 @@ a.uk-button {
  */
 
 .uk-button:hover,
-.uk-button:focus { /* 1 */
+.uk-button:focus { // 1
     background-color: @button-hover-background;
     color: @button-hover-color;
-    outline: none; /* 2 */
+    /* 2 */
+    outline: none;
     .hook-button-hover;
 }
 
@@ -237,8 +241,7 @@ a.uk-button {
 .uk-button-link:active,
 .uk-button-link.uk-active,
 .uk-button-link:disabled {
-    display: inline-block;
-    border: none;
+    border-color: transparent;
     background: none;
     .hook-button-link;
 }
@@ -284,18 +287,6 @@ a.uk-button {
     font-size: @button-large-font-size;
     .hook-button-large;
 }
-
-/*
- * Behave like a block element and take the full width
- */
-
-.uk-button-expand {
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-
-.uk-button-expand + .uk-button-expand { margin-top: 10px; }
 
 
 /* Sub-object `uk-button-group`
