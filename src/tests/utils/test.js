@@ -65,10 +65,9 @@
             "utility"
         ],
         themes = {
-            "Default":"../../themes/default/uikit/uikit.less",
+            "Default":"../../themes/default/default/uikit.less",
             "Almost Flat":"../../themes/default/almost-flat/uikit.less",
-            "Gradient":"../../themes/default/gradient/uikit.less",
-            "UIkit": "../less/uikit.less"
+            "Gradient":"../../themes/default/gradient/uikit.less"
         },
         theme      = localStorage["uikit.theme"] || 'Default',
         direction  = localStorage["uikit.direction"] || 'ltr';
