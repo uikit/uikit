@@ -135,7 +135,9 @@
 /* Sub-object `uk-sortable-moving`
  ========================================================================== */
 
-.uk-sortable-moving { cursor: move; }
+.uk-sortable-moving,
+/* Needed if moving over links or buttons */
+.uk-sortable-moving * { cursor: move; }
 
 
 /* Sub-object `[data-action='toggle']`

@@ -5,9 +5,11 @@
   - Added panel teaser to panel component
   - Added invisible to utility component
   - Added padding variable for thumbnail caption
+  - Updated links in base component
   - Panel component works now with inline elements
   - Background color now set on tr elements in table component
   - Fixed button link in button component
+  - Fixed cursor in sortable add-on
 
 **Documentation and repository**
 

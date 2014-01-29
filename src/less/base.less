@@ -2,6 +2,7 @@
 // Description:     Sets default values for HTML elements
 //
 // Component:       `uk-h1`, `uk-h2`, `uk-h3`, `uk-h4`, `uk-h5`, `uk-h6`
+//                  `uk-link`
 //                  `uk-img-preserve`
 //
 // ========================================================================
@@ -18,7 +19,9 @@
 @base-body-color:                               #444;
 
 @base-link-color:                               #07D;
+@base-link-text-decoration:                     none;
 @base-link-hover-color:                         #059;
+@base-link-hover-text-decoration:               underline;
 @base-em-color:                                 #D05;
 @base-ins-background:                           #ffa;
 @base-ins-color:                                #444;
@@ -111,14 +114,17 @@ body {
  * Links
  */
 
-a {
+a,
+.uk-link {
     color: @base-link-color;
-    text-decoration: none;
+    text-decoration: @base-link-text-decoration;
+    cursor: pointer;
 }
 
-a:hover {
+a:hover,
+.uk-link:hover {
     color: @base-link-hover-color;
-    text-decoration: underline;
+    text-decoration: @base-link-hover-text-decoration;
 }
 
 /*
@@ -256,10 +262,6 @@ h1, h2, h3, h4, h5, h6 {
 * + h4,
 * + h5,
 * + h6 { margin-top: @base-heading-margin-top; }
-
-/*
- * TODO: Use `:extend` to move heading classes to the utility component
- */
 
 h1, .uk-h1 {
     font-size: @base-h1-font-size;
