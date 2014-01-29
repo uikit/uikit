@@ -69,7 +69,7 @@
             try {
                 deferred.resolve(tree.toCSS(opts));
             } catch (e) {
-                
+
                 if (opts.id && cache[opts.id]) {
                     delete cache[opts.id];
                 }
@@ -175,7 +175,7 @@
 
     function rewriteUrls(source, baseUrl) {
         return source.replace(/url\s*\(['"]?(.+?)['"]?\)/g, function(match, url) {
-            return match.match(/data\:image\//) ? match : match.replace(url, pathDiff(extractUrlParts(url, baseUrl).url, baseUrl));
+            return (url.match(/^(http|\/\/)/) || match.match(/data\:image\//)) ? match : match.replace(url, pathDiff(extractUrlParts(url, baseUrl).url, baseUrl));
         });
     }
 
