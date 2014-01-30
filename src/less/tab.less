@@ -21,7 +21,7 @@
 // ========================================================================
 
 @tab-border:                                    #ddd;
-@tab-border-size:                               1px;
+@tab-border-width:                               1px;
 @tab-padding-horizontal:                        12px;
 @tab-padding-vertical:                          8px;
 @tab-padding-top:                               @tab-padding-vertical;
@@ -46,7 +46,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    border-bottom: @tab-border-size solid @tab-border;
+    border-bottom: @tab-border-width solid @tab-border;
 }
 
 /*
@@ -67,7 +67,7 @@
  */
 
 .uk-tab > li {
-    margin-bottom: -@tab-border-size;
+    margin-bottom: -@tab-border-width;
     float: left;
     /* 1 */
     position: relative;
@@ -76,7 +76,7 @@
 .uk-tab > li > a {
     display: block;
     padding: @tab-padding-top @tab-padding-horizontal @tab-padding-bottom @tab-padding-horizontal;
-    border: @tab-border-size solid transparent;
+    border: @tab-border-width solid transparent;
     border-bottom-width: 0;
     color: @tab-color;
     text-decoration: none;
@@ -106,8 +106,8 @@
 .uk-tab > li:not(.uk-active) > a:hover,
 .uk-tab > li:not(.uk-active) > a:focus,
 .uk-tab > li.uk-open:not(.uk-active) > a {
-    margin-bottom: @tab-border-size;
-    padding-bottom: @tab-padding-bottom - @tab-border-size;
+    margin-bottom: @tab-border-width;
+    padding-bottom: @tab-padding-bottom - @tab-border-width;
 }
 
 /* Active */
@@ -177,11 +177,11 @@
 /* Modifier: 'tab-center'
  ========================================================================== */
 
-.uk-tab-center { border-bottom: @tab-border-size solid @tab-border; }
+.uk-tab-center { border-bottom: @tab-border-width solid @tab-border; }
 
 .uk-tab-center-bottom {
     border-bottom: none;
-    border-top: @tab-border-size solid @tab-border;
+    border-top: @tab-border-width solid @tab-border;
 }
 
 .uk-tab-center:before,
@@ -211,19 +211,19 @@
  ========================================================================== */
 
 .uk-tab-bottom {
-    border-top: @tab-border-size solid @tab-border;
+    border-top: @tab-border-width solid @tab-border;
     border-bottom: none;
 }
 
 .uk-tab-bottom > li {
-    margin-top: -@tab-border-size;
+    margin-top: -@tab-border-width;
     margin-bottom: 0;
 }
 
 .uk-tab-bottom > li > a {
     padding-top: @tab-padding-bottom;
     padding-bottom: @tab-padding-top;
-    border-bottom-width: @tab-border-size;
+    border-bottom-width: @tab-border-width;
     border-top-width: 0;
 }
 
@@ -231,9 +231,9 @@
 .uk-tab-bottom > li:not(.uk-active) > a:focus,
 .uk-tab-bottom > li.uk-open:not(.uk-active) > a {
     margin-bottom: 0;
-    margin-top: @tab-border-size;
+    margin-top: @tab-border-width;
     padding-bottom: @tab-padding-top;
-    padding-top: @tab-padding-bottom - @tab-border-size;
+    padding-top: @tab-padding-bottom - @tab-border-width;
 }
 
 .uk-tab-bottom > li.uk-active > a {
@@ -262,8 +262,8 @@
     position: absolute;
     left: @tab-margin-horizontal;
     right: 0;
-    bottom: -@tab-border-size;
-    border-top: @tab-border-size solid @tab-border;
+    bottom: -@tab-border-width;
+    border-top: @tab-border-width solid @tab-border;
     /* 1 */
     z-index: -1;
 }
@@ -278,7 +278,7 @@
 
 .uk-tab-grid.uk-tab-bottom { border-top: none; }
 .uk-tab-grid.uk-tab-bottom:before {
-    top: -@tab-border-size;
+    top: -@tab-border-width;
     bottom: auto;
 }
 
@@ -317,18 +317,18 @@
      * Modifier: 'tab-left'
      */
 
-    .uk-tab-left { border-right: @tab-border-size solid @tab-border; }
-    .uk-tab-left > li { margin-right: -@tab-border-size; }
+    .uk-tab-left { border-right: @tab-border-width solid @tab-border; }
+    .uk-tab-left > li { margin-right: -@tab-border-width; }
     .uk-tab-left > li > a {
-        border-bottom-width: @tab-border-size;
+        border-bottom-width: @tab-border-width;
         border-right-width: 0;
     }
     .uk-tab-left > li:not(.uk-active) > a:hover,
     .uk-tab-left > li:not(.uk-active) > a:focus {
         margin-bottom: 0;
-        margin-right: @tab-border-size;
+        margin-right: @tab-border-width;
         padding-bottom: @tab-padding-vertical;
-        padding-right: @tab-padding-horizontal - @tab-border-size;
+        padding-right: @tab-padding-horizontal - @tab-border-width;
     }
     .uk-tab-left > li.uk-active > a { border-right-color: transparent; }
 
@@ -336,18 +336,18 @@
      * Modifier: 'tab-right'
      */
 
-    .uk-tab-right { border-left: @tab-border-size solid @tab-border; }
-    .uk-tab-right > li { margin-left: -@tab-border-size; }
+    .uk-tab-right { border-left: @tab-border-width solid @tab-border; }
+    .uk-tab-right > li { margin-left: -@tab-border-width; }
     .uk-tab-right > li > a {
-        border-bottom-width: @tab-border-size;
+        border-bottom-width: @tab-border-width;
         border-left-width: 0;
     }
     .uk-tab-right > li:not(.uk-active) > a:hover,
     .uk-tab-right > li:not(.uk-active) > a:focus {
         margin-bottom: 0;
-        margin-left: @tab-border-size;
+        margin-left: @tab-border-width;
         padding-bottom: @tab-padding-vertical;
-        padding-left: @tab-padding-horizontal - @tab-border-size;
+        padding-left: @tab-padding-horizontal - @tab-border-width;
     }
     .uk-tab-right > li.uk-active > a { border-left-color: transparent; }
 
