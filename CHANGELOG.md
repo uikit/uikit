@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Removed uk-button-expand, use uk-width-1-1 instead
+  - Added more variables to tab component 
   - Added panel teaser to panel component
   - Added invisible to utility component
   - Added padding variable for thumbnail caption
