@@ -50,9 +50,14 @@
 @base-h6-font-size:                             12px;
 @base-h6-line-height:                           18px;
 
-@base-hr-border:                                #ddd;
+@base-list-padding:                             30px;
 
+@base-hr-border:                                #ddd;
+@base-hr-border-width:                          1px;
+
+@base-blockquote-padding:                       15px;
 @base-blockquote-border:                        #ddd;
+@base-blockquote-border-width:                  5px;
 @base-blockquote-small-color:                   #999;
 @base-blockquote-font-size:                     16px;
 @base-blockquote-line-height:                   22px;
@@ -61,6 +66,7 @@
 @base-code-font-size:                           12px;
 @base-code-font-family:                         Consolas, monospace, serif;
 
+@base-pre-padding:                              10px;
 @base-pre-background:                           #f5f5f5;
 @base-pre-color:                                #444;
 @base-pre-font-size:                            12px;
@@ -305,7 +311,7 @@ h6, .uk-h6 {
  */
 
 ul,
-ol { padding-left: 30px }
+ol { padding-left: @base-list-padding; }
 
 /* Reset margin for nested lists */
 ul > li > ul,
@@ -328,7 +334,7 @@ hr {
     display: block;
     padding: 0;
     border: 0;
-    border-top: 1px solid @base-hr-border;
+    border-top: @base-hr-border-width solid @base-hr-border;
 }
 
 
@@ -345,8 +351,8 @@ q,
 blockquote { font-style: italic; }
 
 blockquote {
-    padding-left: 15px;
-    border-left: 5px solid @base-blockquote-border;
+    padding-left: @base-blockquote-padding;
+    border-left: @base-blockquote-border-width solid @base-blockquote-border;
     font-size: @base-blockquote-font-size;
     line-height: @base-blockquote-line-height;
 }
@@ -380,7 +386,7 @@ pre code {
 }
 
 pre {
-    padding: 10px;
+    padding: @base-pre-padding;
     background: @base-pre-background;
     color: @base-pre-color;
     font-size: @base-pre-font-size;

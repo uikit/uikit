@@ -16,6 +16,9 @@
 // Variables
 // ========================================================================
 
+@close-size:                                    20px;
+
+@close-alt-padding:                             2px;
 @close-alt-background:                          #eee;
 
 
@@ -37,8 +40,8 @@
     box-sizing: content-box; 
     /* 2 */
     display: inline-block;
-    width: 20px;
-    line-height: 20px;
+    width: @close-size;
+    line-height: @close-size;
     text-align: center;
     color: inherit;
     opacity: 0.3;
@@ -81,7 +84,7 @@
  ========================================================================== */
 
 .uk-close-alt {
-    padding: 2px;
+    padding: @close-alt-padding;
     border-radius: 50%;
     background: @close-alt-background;
     opacity: 1;
