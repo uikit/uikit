@@ -3,6 +3,7 @@
 ### 2.3.0 (January 31, 2014)
 
   - IMPORTANT: Removed uk-button-expand, use uk-width-1-1 instead
+  - IMPORTANG: Renamed @form-blank-outline to @form-blank-border
   - Updated to Normalize 3.0.0
   - Added more variables to all components
   - Added panel teaser to panel component

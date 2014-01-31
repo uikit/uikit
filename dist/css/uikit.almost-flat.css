@@ -2904,11 +2904,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-form-blank {
   border-color: transparent !important;
+  border-style: dashed !important;
   background: none !important;
-  outline: 1px dashed transparent !important;
 }
 .uk-form-blank:focus {
-  outline-color: #dddddd !important;
+  border-color: #dddddd !important;
 }
 /* Size sub-modifiers
  ========================================================================== */
@@ -6617,3 +6617,5 @@ input.uk-search-field {
     page-break-after: avoid;
   }
 }
+/* Style modifiers
+ ========================================================================== */

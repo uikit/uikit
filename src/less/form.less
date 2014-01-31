@@ -69,9 +69,8 @@
 @form-success-background:                       #fafff2;
 @form-success-color:                            #539022;
 
-@form-blank-outline:                            #ddd;
-@form-blank-outline-width:                      1px;
-@form-blank-outline-style:                      dashed;
+@form-blank-border:                            #ddd;
+@form-blank-border-style:                       dashed;
 
 @form-mini-width:                               40px;
 @form-small-width:                              130px;
@@ -263,11 +262,15 @@
 
 .uk-form-blank {
     border-color: transparent !important;
+    border-style: @form-blank-border-style !important;
     background: none !important;
-    outline: 1px dashed transparent !important;
+    .hook-form-blank;
 }
 
-.uk-form-blank:focus { outline-color: @form-blank-outline !important; }
+.uk-form-blank:focus {
+    border-color: @form-blank-border !important;
+    .hook-form-blank-focus;
+}
 
 
 /* Size sub-modifiers
@@ -422,4 +425,6 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .hook-form-disabled() {}
 .hook-form-danger() {}
 .hook-form-success() {}
+.hook-form-blank() {}
+.hook-form-blank-focus() {}
 .hook-form-misc() {}
