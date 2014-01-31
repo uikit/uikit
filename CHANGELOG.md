@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Removed uk-button-expand, use uk-width-1-1 instead
+  - Updated to Normalize 3.0.0
   - Added more variables to all components
   - Added panel teaser to panel component
   - Added invisible to utility component

@@ -27,6 +27,7 @@
 @grid-large-gutter-vertical:                    35px;
 
 @grid-divider-border:                           #ddd;
+@grid-divider-border-width:                     1px;
 
 
 /* ========================================================================
@@ -127,19 +128,19 @@
 .uk-grid-divider:not(:empty) > [class*='uk-width-6-']:nth-child(n+2),
 .uk-grid-divider:not(:empty) > [class*='uk-width-7-']:nth-child(n+2),
 .uk-grid-divider:not(:empty) > [class*='uk-width-8-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-9-']:nth-child(n+2) { border-left: 1px solid @grid-divider-border; }
+.uk-grid-divider:not(:empty) > [class*='uk-width-9-']:nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
 
 /* Only tablets and desktop */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-grid-divider:not(:empty) > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: 1px solid @grid-divider-border; }
+    .uk-grid-divider:not(:empty) > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
 
 }
 
 /* Only desktop */
 @media (min-width: @breakpoint-large) {
 
-    .uk-grid-divider:not(:empty) > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) { border-left: 1px solid @grid-divider-border; }
+    .uk-grid-divider:not(:empty) > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
 
 }
 
@@ -150,7 +151,7 @@
 .uk-grid-divider:empty {
     margin-top: @grid-gutter-vertical;
     margin-bottom: @grid-gutter-vertical;
-    border-top: 1px solid @grid-divider-border;
+    border-top: @grid-divider-border-width solid @grid-divider-border;
 }
 
 

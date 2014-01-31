@@ -20,12 +20,16 @@
 
 @tooltip-z-index:                               1030;
 @tooltip-max-width:                             200px;
+@tooltip-padding-vertical:                      5px;
+@tooltip-padding-horizontal:                    8px;
 @tooltip-background:                            #333;
 @tooltip-triangle-size:                         5px;
 
 @tooltip-color:                                 rgba(255,255,255,0.7);
 @tooltip-font-size:                             12px;
 @tooltip-line-height:                           18px;
+
+@tooltip-offset-horizontal:                     10px;
 
 
 /* ========================================================================
@@ -49,7 +53,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box; 
     max-width: @tooltip-max-width;
-    padding: 5px 8px;
+    padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
     /* 4 */
     background: @tooltip-background;
     color: @tooltip-color;
@@ -126,14 +130,14 @@
  */
 
 .uk-tooltip-top-left:after,
-.uk-tooltip-bottom-left:after { left: 10px; }
+.uk-tooltip-bottom-left:after { left: @tooltip-offset-horizontal; }
 
 /*
  * Top/Bottom right
  */
 
 .uk-tooltip-top-right:after,
-.uk-tooltip-bottom-right:after { right: 10px; }
+.uk-tooltip-bottom-right:after { right: @tooltip-offset-horizontal; }
 
 /*
  * Left

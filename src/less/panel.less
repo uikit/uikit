@@ -52,6 +52,7 @@
 
 @panel-header-title-padding:                    10px;
 @panel-header-title-border:                     #ddd;
+@panel-header-title-border-width:               1px;
 @panel-header-title-color:                      #444;
 
 @panel-space-padding:                           30px;
@@ -59,6 +60,7 @@
 @panel-divider-gutter:                          25px;
 @panel-divider-large-gutter:                    35px;
 @panel-divider-border:                          #ddd;
+@panel-divider-border-width:                    1px;
 
 
 /* ========================================================================
@@ -178,7 +180,7 @@
 
 .uk-panel-header .uk-panel-title {
     padding-bottom: @panel-header-title-padding;
-    border-bottom: 1px solid @panel-header-title-border;
+    border-bottom: @panel-header-title-border-width solid @panel-header-title-border;
     color: @panel-header-title-color;
     .hook-panel-header;
 }
@@ -207,7 +209,7 @@
     top: -(@panel-divider-gutter);
     left: 0;
     right: 0;
-    border-top: 1px solid @panel-divider-border;
+    border-top: @panel-divider-border-width solid @panel-divider-border;
 }
 
 /* Only large screens */

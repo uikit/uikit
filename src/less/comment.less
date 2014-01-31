@@ -21,9 +21,11 @@
 
 @comment-avatar-margin-right:                   15px;
 
+@comment-title-margin-top:                      5px;
 @comment-title-font-size:                       16px;
 @comment-title-line-height:                     22px;
 
+@comment-meta-margin-top:                       2px;
 @comment-meta-color:                            #999;
 @comment-meta-font-size:                        11px;
 @comment-meta-line-height:                      16px;
@@ -72,7 +74,7 @@
  ========================================================================== */
 
 .uk-comment-title { 
-    margin: 5px 0 0 0;
+    margin: @comment-title-margin-top 0 0 0;
     font-size: @comment-title-font-size;
     line-height: @comment-title-line-height;
     .hook-comment-title; 
@@ -83,7 +85,7 @@
  ========================================================================== */
 
 .uk-comment-meta {
-    margin: 2px 0 0 0;
+    margin: @comment-meta-margin-top 0 0 0;
     font-size: @comment-meta-font-size;
     line-height: @comment-meta-line-height;
     color: @comment-meta-color;

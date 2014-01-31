@@ -17,6 +17,7 @@
 
 @list-line-margin-top:                          5px;
 @list-line-border:                              #ddd;
+@list-line-border-width:                        1px;
 
 @list-striped-padding-vertical:                 5px;
 @list-striped-padding-horizontal:               5px;
@@ -51,7 +52,7 @@
 .uk-list-line > li:nth-child(n+2) {
     margin-top: @list-line-margin-top;
     padding-top: @list-line-margin-top;
-    border-top: 1px solid @list-line-border;
+    border-top: @list-line-border-width solid @list-line-border;
     .hook-list-line;
 }
 

@@ -22,6 +22,14 @@
 
 @icon-font-path:                                "../fonts";
 
+@icon-small-font-size:                          150%;
+@icon-medium-font-size:                         200%;
+@icon-large-font-size:                          250%;
+
+@icon-small-vertical-align:                     -10%;
+@icon-medium-vertical-align:                    -16%;
+@icon-large-vertical-align:                     -22%;
+
 @icon-button-width:                             35px;
 @icon-button-height:                            @icon-button-width;
 @icon-button-border-radius:                     100%;
@@ -75,9 +83,9 @@
 /* Size modifiers
  ========================================================================== */
 
-.uk-icon-small:before { font-size: 150%; vertical-align: -10%; }
-.uk-icon-medium:before { font-size: 200%; vertical-align: -16%; }
-.uk-icon-large:before { font-size: 250%; vertical-align: -22%; }
+.uk-icon-small:before { font-size: @icon-small-font-size; vertical-align: @icon-small-vertical-align; }
+.uk-icon-medium:before { font-size: @icon-medium-font-size; vertical-align: @icon-medium-vertical-align; }
+.uk-icon-large:before { font-size: @icon-large-font-size; vertical-align: @icon-large-vertical-align; }
 
 
 /* Modifier: `uk-icon-spin`

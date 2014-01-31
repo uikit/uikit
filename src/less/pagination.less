@@ -18,6 +18,9 @@
 // Variables
 // ========================================================================
 
+@pagination-margin-left:                        5px;
+@pagination-padding-vertical:                   3px;
+@pagination-padding-horizontal:                 5px;
 @pagination-line-height:                        20px;
 @pagination-background:                         #eee;
 @pagination-color:                              #444;
@@ -80,7 +83,7 @@
     letter-spacing: normal;
 }
 
-.uk-pagination > li:nth-child(n+2) { margin-left: 5px; }
+.uk-pagination > li:nth-child(n+2) { margin-left: @pagination-margin-left; }
 
 /*
  * 1. Makes pagination more robust against different box-sizing use
@@ -90,8 +93,8 @@
 .uk-pagination > li > a,
 .uk-pagination > li > span {
     display: inline-block;
-    min-width: @pagination-line-height - 4;
-    padding: 3px 5px;
+    min-width: @pagination-line-height + (2 * @pagination-padding-vertical) - (2 * @pagination-padding-horizontal);
+    padding: @pagination-padding-vertical @pagination-padding-horizontal;
     line-height: @pagination-line-height;
     text-decoration: none;
     /* 1 */

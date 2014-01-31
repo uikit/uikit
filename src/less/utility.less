@@ -50,6 +50,7 @@
 @utility-scrollable-box-height:                 170px;
 @utility-scrollable-box-padding:                10px;
 @utility-scrollable-box-border:                 #ddd;
+@utility-scrollable-box-border-width:           1px;
 
 
 /* ========================================================================
@@ -356,7 +357,7 @@
     box-sizing: border-box;
     max-height: @utility-scrollable-box-height;
     padding: @utility-scrollable-box-padding;
-    border: 1px solid @utility-scrollable-box-border;
+    border: @utility-scrollable-box-border-width solid @utility-scrollable-box-border;
     overflow: auto;
     .hook-scrollable-box;
 }

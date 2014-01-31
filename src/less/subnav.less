@@ -21,7 +21,10 @@
 
 @subnav-line-border-height:                     10px;
 @subnav-line-border:                            #ddd;
+@subnav-line-border-width:                      1px;
 
+@subnav-pill-padding-vertical:                  3px;
+@subnav-pill-padding-horizontal:                9px;
 @subnav-pill-hover-background:                  #eee;
 @subnav-pill-hover-color:                       #444;
 @subnav-pill-active-background:                 #00a8e6;
@@ -90,7 +93,7 @@
     display: inline-block;
     height: @subnav-line-border-height;
     margin-right: @subnav-margin;
-    border-left: 1px solid @subnav-line-border;
+    border-left: @subnav-line-border-width solid @subnav-line-border;
     .hook-subnav-line-divider;
 }
 
@@ -100,7 +103,7 @@
 
 .uk-subnav-pill > li > a,
 .uk-subnav-pill > li > span {
-    padding: 3px 9px;
+    padding: @subnav-pill-padding-vertical @subnav-pill-padding-horizontal;
     text-decoration: none;
     .hook-subnav-pill;
 }

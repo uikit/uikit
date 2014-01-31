@@ -19,12 +19,18 @@
 
 @thumbnail-padding:                             4px;
 @thumbnail-border:                              #ddd;
+@thumbnail-border-width:                        1px;
 @thumbnail-background:                          #fff;
 @thumbnail-hover-border:                        #aaa;
 @thumbnail-hover-background:                    #fff;
 
 @thumbnail-caption-padding:                     @thumbnail-padding;      
 @thumbnail-caption-color:                       #444;
+
+@thumbnail-mini-width:                          150px;
+@thumbnail-small-width:                         200px;
+@thumbnail-medium-width:                        300px;
+@thumbnail-large-width:                         400px;
 
 
 /* ========================================================================
@@ -49,7 +55,7 @@
     margin: 0;
     /* 4 */
     padding: @thumbnail-padding;
-    border: 1px solid @thumbnail-border;
+    border: @thumbnail-border-width solid @thumbnail-border;
     background: @thumbnail-background;
     .hook-thumbnail;
 }
@@ -87,10 +93,10 @@ a.uk-thumbnail:focus { // 1
 /* Sizes
  ========================================================================== */
 
-.uk-thumbnail-mini { width: 150px; }
-.uk-thumbnail-small { width: 200px; }
-.uk-thumbnail-medium { width: 300px; }
-.uk-thumbnail-large { width: 400px; }
+.uk-thumbnail-mini { width: @thumbnail-mini-width; }
+.uk-thumbnail-small { width: @thumbnail-small-width; }
+.uk-thumbnail-medium { width: @thumbnail-medium-width; }
+.uk-thumbnail-large { width: @thumbnail-large-width; }
 
 .uk-thumbnail-expand,
 .uk-thumbnail-expand > img { width: 100%; }
