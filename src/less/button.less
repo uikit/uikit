@@ -117,6 +117,7 @@
  * Hover
  * 1. Apply hover style also to focus state
  * 2. Remove default focus style
+ * 3. Required for `a` elements
  */
 
 .uk-button:hover,
@@ -125,6 +126,8 @@
     color: @button-hover-color;
     /* 2 */
     outline: none;
+    /* 3 */
+    text-decoration: none;
     .hook-button-hover;
 }
 
