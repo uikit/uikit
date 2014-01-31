@@ -1,4 +1,4 @@
-/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function($, doc, global) {
 
@@ -10,7 +10,7 @@
         return;
     }
 
-    UI.version = '2.3.0';
+    UI.version = '2.3.1';
 
     UI.fn = function(command, options) {
 
