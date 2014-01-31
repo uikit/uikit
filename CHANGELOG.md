@@ -15,6 +15,7 @@
   - Fixed button link in button component
   - Fixed cursor in sortable add-on
   - Fixed links in overlay-area-content
+  - Fixed tooltip boundary check
 
 **Documentation and repository**
 
