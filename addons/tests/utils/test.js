@@ -22,7 +22,7 @@
             "notify"
         ],
         themes = {
-            "Default":"../../themes/default/uikit/uikit.less",
+            "Default":"../../themes/default/default/uikit.less",
             "Almost Flat":"../../themes/default/almost-flat/uikit.less",
             "Gradient":"../../themes/default/gradient/uikit.less",
             "UIkit": "../../src/less/uikit.less"
