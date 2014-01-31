@@ -1,8 +1,27 @@
-/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
  ========================================================================== */
+/* Base
+ ========================================================================== */
+/*
+ * 1. Sets default font family to sans-serif.
+ * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom.
+ */
+html {
+  /* 1 */
+  font-family: sans-serif;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+/*
+ * Removes default margin.
+ */
+body {
+  margin: 0;
+}
 /* HTML5 display definitions
  ========================================================================== */
 /*
@@ -22,12 +41,17 @@ summary {
   display: block;
 }
 /*
- * Corrects `inline-block` display not defined in IE 8/9.
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
 audio,
 canvas,
+progress,
 video {
+  /* 1 */
   display: inline-block;
+  /* 2 */
+  vertical-align: baseline;
 }
 /*
  * Prevents modern browsers from displaying `audio` without controls.
@@ -38,38 +62,20 @@ audio:not([controls]) {
   height: 0;
 }
 /*
- * Addresses styling for `hidden` attribute not present in IE 8/9.
+ * Address `[hidden]` styling not present in IE 8/9.
+ * Hide the `template` element in IE, Safari, and Firefox < 22.
  */
-[hidden] {
+[hidden],
+template {
   display: none;
-}
-/* Base
- ========================================================================== */
-/*
- * 1. Sets default font family to sans-serif.
- * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom.
- */
-html {
-  font-family: sans-serif;
-  /* 1 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
-  -ms-text-size-adjust: 100%;
-  /* 2 */
-}
-/*
- * Removes default margin.
- */
-body {
-  margin: 0;
 }
 /* Links
  ========================================================================== */
 /*
- * Addresses `outline` inconsistency between Chrome and other browsers.
+ * Remove the gray background color from active links in IE 10.
  */
-a:focus {
-  outline: thin dotted;
+a {
+  background: transparent;
 }
 /*
  * Improves readability when focused and also mouse hovered in all browsers.
@@ -78,7 +84,7 @@ a:active,
 a:hover {
   outline: 0;
 }
-/* Typography
+/* Text-level semantics
  ========================================================================== */
 /*
  * Addresses styling not present in IE 8/9, Safari 5, and Chrome.
@@ -98,38 +104,6 @@ strong {
  */
 dfn {
   font-style: italic;
-}
-/*
- * Address differences between Firefox and other browsers.
- */
-hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-/*
- * Corrects font family set oddly in Safari 5 and Chrome.
- * 1. Consolas has a better baseline in running text compared to `Courier`
- */
-code,
-kbd,
-pre,
-samp {
-  font-family: Consolas, monospace, serif;
-  /* 1 */
-  font-size: 1em;
-}
-/*
- * Improves readability of pre-formatted text in all browsers.
- */
-pre {
-  white-space: pre-wrap;
-}
-/*
- * Sets consistent quote types.
- */
-q {
-  quotes: "\201C" "\201D" "\2018" "\2019";
 }
 /*
  * Addresses inconsistent and variable font size in all browsers.
@@ -167,7 +141,7 @@ img {
 svg:not(:root) {
   overflow: hidden;
 }
-/* Figures
+/* Grouping content
  ========================================================================== */
 /*
  * Addresses margin not present in IE 8/9 and Safari 5.
@@ -175,30 +149,38 @@ svg:not(:root) {
 figure {
   margin: 0;
 }
+/*
+ * Address differences between Firefox and other browsers.
+ */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+/*
+ * Contain overflow in all browsers.
+ */
+pre {
+  overflow: auto;
+}
+/*
+ * Address odd `em`-unit font size rendering in all browsers.
+ * 1. Consolas has a better baseline in running text compared to `Courier`
+ */
+code,
+kbd,
+pre,
+samp {
+  font-size: 1em;
+  /* 1 */
+  font-family: Consolas, monospace, serif;
+}
 /* Forms
  ========================================================================== */
 /*
- * Define consistent border, margin, and padding.
- */
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-/*
- * 1. Corrects color not being inherited in IE 8/9.
- * 2. Remove padding so people aren't caught out if they zero out fieldsets.
- */
-legend {
-  border: 0;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-}
-/*
- * 1. Corrects font family not being inherited in all browsers.
- * 2. Corrects font size not being inherited in all browsers.
- * 3. Addresses margins set differently in Firefox 4+, Safari 5, and Chrome
+ * 1. Correct color not being inherited. Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
  * 4. Define consistent box sizing
  *    Defaults:   `button`, `input` and `textarea` have box sizing set to `content-box`
  *                `select`, `input[type="checkbox"]` and `input[type="radio"]` have box sizing set to `border-box`
@@ -207,31 +189,38 @@ legend {
  */
 button,
 input,
+optgroup,
 select,
 textarea {
-  font-family: inherit;
   /* 1 */
-  font-size: 100%;
+  color: inherit;
   /* 2 */
-  margin: 0;
+  font: inherit;
   /* 3 */
-  -moz-box-sizing: border-box;
+  margin: 0;
   /* 4 */
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/*
- * Addresses Firefox 4+ setting `line-height` on `input` using `!important` in the UA stylesheet.
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
  */
-button,
-input {
-  line-height: normal;
+optgroup {
+  font-weight: bold;
+}
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10.
+ */
+button {
+  overflow: visible;
 }
 /*
  * Address inconsistent `text-transform` inheritance for `button` and `select`.
  * All other form control elements do not inherit `text-transform` values.
- * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
- * Correct `select` style inheritance in Firefox 4+ and Opera.
+ * Correct `button` style inheritance in Firefox, IE 8+, and Opera
+ * Correct `select` style inheritance in Firefox.
  */
 button,
 select {
@@ -239,51 +228,24 @@ select {
 }
 /*
  * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio` and `video` controls.
- * 2. Corrects inability to style clickable `input` types in iOS.
- * 3. Improves usability and consistency of cursor style between image-type `input` and others.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type `input` and others.
  */
 button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  -webkit-appearance: button;
   /* 2 */
-  cursor: pointer;
+  -webkit-appearance: button;
   /* 3 */
-}
-/*
- * Improves consistency of cursor style for clickable elements
- */
-input[type="radio"],
-input[type="checkbox"] {
   cursor: pointer;
 }
 /*
  * Re-set default cursor for disabled elements.
  */
 button:disabled,
-input:disabled {
+html input:disabled {
   cursor: default;
-}
-/*
- * 2. Removes excess padding in IE 8/9.
- */
-input[type="checkbox"],
-input[type="radio"] {
-  padding: 0;
-}
-/*
- * 1. Addresses `appearance` set to `searchfield` in Safari 5 and Chrome.
- */
-input[type="search"] {
-  -webkit-appearance: textfield;
-}
-/*
- * Removes inner padding and search cancel button in Safari 5 and Chrome on OS X.
- */
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
 }
 /*
  * Removes inner padding and border in Firefox 4+.
@@ -294,8 +256,67 @@ input::-moz-focus-inner {
   padding: 0;
 }
 /*
- * 1. Removes default vertical scrollbar in IE 8/9.
- * 2. Improves readability and alignment in all browsers.
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in the UA stylesheet.
+ */
+input {
+  line-height: normal;
+}
+/*
+ * 1. Removes excess padding in IE 8/9.
+ * 2. Improves consistency of cursor style for clickable elements
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  /* 1 */
+  padding: 0;
+  /* 2 */
+  cursor: pointer;
+}
+/*
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+/*
+ * Addresses `appearance` set to `searchfield` in Safari 5 and Chrome.
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+/*
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/*
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+/*
+ * 1. Corrects color not being inherited in IE 8/9.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  /* 1 */
+  border: 0;
+  /* 2 */
+  padding: 0;
+}
+/**
+ * 1. Remove default vertical scrollbar in IE 8/9.
+ * 2. Improve readability and alignment in all browsers.
  */
 textarea {
   overflow: auto;
@@ -354,11 +375,14 @@ body {
 /*
  * Links
  */
-a {
+a,
+.uk-link {
   color: #0077dd;
   text-decoration: none;
+  cursor: pointer;
 }
-a:hover {
+a:hover,
+.uk-link:hover {
   color: #005599;
   text-decoration: underline;
 }
@@ -416,15 +440,14 @@ dfn[title] {
  * 3. Remove the gap between images and the bottom of their containers
  */
 img {
+  /* 1 */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  /* 1 */
+  /* 2 */
   max-width: 100%;
-  /* 2 */
   height: auto;
-  /* 2 */
-  vertical-align: middle;
   /* 3 */
+  vertical-align: middle;
 }
 /*
  * Preserve original image dimensions
@@ -492,9 +515,6 @@ h6 {
 * + h6 {
   margin-top: 25px;
 }
-/*
- * TODO: Use `:extend` to move heading classes to the utility component
- */
 h1,
 .uk-h1 {
   font-size: 36px;
@@ -1135,9 +1155,13 @@ iframe {
    Component: Panel
  ========================================================================== */
 /*
- * Create position context for badges
+ * 1. Needed for `a` elements
+ * 2. Create position context for badges
  */
 .uk-panel {
+  /* 1 */
+  display: block;
+  /* 2 */
   position: relative;
 }
 /*
@@ -1160,6 +1184,7 @@ iframe {
 /* Sub-object: `uk-panel-title`
  ========================================================================== */
 .uk-panel-title {
+  margin-top: 0;
   margin-bottom: 15px;
   font-size: 18px;
   line-height: 24px;
@@ -1175,12 +1200,6 @@ iframe {
   right: 0;
   z-index: 1;
 }
-/*
- * Remove margin from adjacent element
- */
-.uk-panel-badge + * {
-  margin-top: 0;
-}
 /* Modifier: `uk-panel-box`
  ========================================================================== */
 .uk-panel-box {
@@ -1194,6 +1213,9 @@ iframe {
 .uk-panel-box .uk-panel-badge {
   top: 10px;
   right: 10px;
+}
+.uk-panel-box .uk-panel-teaser {
+  margin: -15px -15px 15px -15px;
 }
 /*
  * Nav in panel
@@ -1479,11 +1501,10 @@ ul.uk-nav-sub {
  */
 .uk-nav-side > li > a:hover,
 .uk-nav-side > li > a:focus {
-  /* 1 */
   background: rgba(0, 0, 0, 0.05);
   color: #444444;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /* Active */
 .uk-nav-side > li.uk-active > a {
@@ -1526,11 +1547,10 @@ ul.uk-nav-sub {
  */
 .uk-nav-dropdown > li > a:hover,
 .uk-nav-dropdown > li > a:focus {
-  /* 1 */
   background: #00a8e6;
   color: #ffffff;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /*
  * Sub-object: `uk-nav-header`
@@ -1568,11 +1588,10 @@ ul.uk-nav-sub {
  */
 .uk-nav-navbar > li > a:hover,
 .uk-nav-navbar > li > a:focus {
-  /* 1 */
   background: #00a8e6;
   color: #ffffff;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /*
  * Sub-object: `uk-nav-header`
@@ -1610,8 +1629,8 @@ ul.uk-nav-sub {
 .uk-nav-search > li.uk-active > a {
   background: #00a8e6;
   color: #ffffff;
+  /* 1 */
   outline: none;
-  /* 2 */
 }
 /*
  * Sub-object: `uk-nav-header`
@@ -1652,11 +1671,10 @@ ul.uk-nav-sub {
 .uk-nav-offcanvas > .uk-open > a,
 html:not(.uk-touch) .uk-nav-offcanvas > li > a:hover,
 html:not(.uk-touch) .uk-nav-offcanvas > li > a:focus {
-  /* 1 */
   background: #404040;
   color: #ffffff;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /*
  * Active
@@ -1718,9 +1736,9 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 1. Create position context for dropdowns
  */
 .uk-navbar-nav > li {
-  position: relative;
-  /* 1 */
   float: left;
+  /* 1 */
+  position: relative;
 }
 /*
  * 1. Dimensions
@@ -1754,11 +1772,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-nav > li:hover > a,
 .uk-navbar-nav > li > a:focus,
 .uk-navbar-nav > li.uk-open > a {
-  /* 2 */
   background-color: #f5f5f5;
   color: #444444;
-  outline: none;
   /* 3 */
+  outline: none;
 }
 /* OnClick */
 .uk-navbar-nav > li > a:active {
@@ -1835,11 +1852,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-navbar-brand:hover,
 .uk-navbar-brand:focus {
-  /* 1 */
   color: #444444;
   text-decoration: none;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /* Sub-object: `uk-navbar-toggle`
  ========================================================================== */
@@ -1853,11 +1869,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-navbar-toggle:hover,
 .uk-navbar-toggle:focus {
-  /* 1 */
   color: #444444;
   text-decoration: none;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /*
  * 1. Center icon vertically
@@ -1865,8 +1880,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-toggle:after {
   content: "\f0c9";
   font-family: FontAwesome;
-  vertical-align: middle;
   /* 1 */
+  vertical-align: middle;
 }
 .uk-navbar-toggle-alt:after {
   content: "\f002";
@@ -1878,12 +1893,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 1. This hack is needed because other float elements shift centered text
  */
 .uk-navbar-center {
-  max-width: 50%;
-  /* 1 */
-  margin: auto;
-  /* 1 */
   float: none;
   text-align: center;
+  /* 1 */
+  max-width: 50%;
+  margin: auto;
 }
 /* Sub-object: `uk-navbar-flip`
  ========================================================================== */
@@ -1911,10 +1925,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 2. Reset whitespace hack
  */
 .uk-subnav > li {
-  position: relative;
   /* 1 */
-  letter-spacing: normal;
+  position: relative;
   /* 2 */
+  letter-spacing: normal;
 }
 .uk-subnav > li,
 .uk-subnav > li > a,
@@ -1962,11 +1976,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-subnav-pill > li > a:hover,
 .uk-subnav-pill > li > a:focus {
-  /* 1 */
   background: #eeeeee;
   color: #444444;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /*
  * Active
@@ -2007,8 +2020,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   content: "/";
   display: inline-block;
   margin: 0 8px;
-  vertical-align: top;
-  /* 2 */
 }
 /*
  * Disabled
@@ -2052,8 +2063,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-pagination > li {
   display: inline-block;
-  letter-spacing: normal;
   /* 1 */
+  letter-spacing: normal;
 }
 .uk-pagination > li:nth-child(n+2) {
   margin-left: 5px;
@@ -2064,16 +2075,16 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-pagination > li > a,
 .uk-pagination > li > span {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  /* 1 */
   display: inline-block;
   min-width: 16px;
   padding: 3px 5px;
   line-height: 20px;
   text-decoration: none;
-  text-align: center;
+  /* 1 */
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
   /* 2 */
+  text-align: center;
 }
 /*
  * Links
@@ -2089,11 +2100,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-pagination > li > a:hover,
 .uk-pagination > li > a:focus {
-  /* 1 */
   background-color: #f5f5f5;
   color: #444444;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /* OnClick */
 .uk-pagination > li > a:active {
@@ -2155,14 +2165,14 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 1. Create position context for dropdowns
  */
 .uk-tab > li {
-  position: relative;
-  /* 1 */
   margin-bottom: -1px;
   float: left;
+  /* 1 */
+  position: relative;
 }
 .uk-tab > li > a {
   display: block;
-  padding: 8px 12px;
+  padding: 8px 12px 8px 12px;
   border: 1px solid transparent;
   border-bottom-width: 0;
   color: #0077dd;
@@ -2180,12 +2190,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab > li > a:hover,
 .uk-tab > li > a:focus,
 .uk-tab > li.uk-open > a {
-  /* 2 */
   border-color: #f5f5f5;
   background: #f5f5f5;
   color: #005599;
+  /* 2 */
   outline: none;
-  /* 3 */
 }
 .uk-tab > li:not(.uk-active) > a:hover,
 .uk-tab > li:not(.uk-active) > a:focus,
@@ -2286,6 +2295,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   margin-bottom: 0;
 }
 .uk-tab-bottom > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
   border-bottom-width: 1px;
   border-top-width: 0;
 }
@@ -2307,21 +2318,21 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 1. Create position context to prevent hidden border because of negative `z-index`
  */
 .uk-tab-grid {
-  position: relative;
-  z-index: 0;
-  /* 1 */
   margin-left: -5px;
   border-bottom: none;
+  /* 1 */
+  position: relative;
+  z-index: 0;
 }
 .uk-tab-grid:before {
   display: block;
   position: absolute;
   left: 5px;
-  right: 0px;
+  right: 0;
   bottom: -1px;
-  z-index: -1;
-  /* 1 */
   border-top: 1px solid #dddddd;
+  /* 1 */
+  z-index: -1;
 }
 .uk-tab-grid > li:first-child > a {
   margin-left: 5px;
@@ -2351,6 +2362,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   .uk-tab-right > li {
     margin-bottom: 0;
     float: none;
+  }
+  .uk-tab-left > li > a,
+  .uk-tab-right > li > a {
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
   .uk-tab-left > li:nth-child(n+2) > a,
   .uk-tab-right > li:nth-child(n+2) > a {
@@ -2530,7 +2546,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /* Modifier: `uk-table-striped`
  ========================================================================== */
-.uk-table-striped tbody tr:nth-of-type(odd) td {
+.uk-table-striped tbody tr:nth-of-type(odd) {
   background: #f5f5f5;
 }
 /* Modifier: `uk-table-condensed`
@@ -2540,7 +2556,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /* Modifier: `uk-table-hover`
  ========================================================================== */
-.uk-table-hover tbody tr:hover td {
+.uk-table-hover tbody tr:hover {
   background: #eeeeee;
 }
 /* ========================================================================
@@ -2557,6 +2573,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Except for `range`, `radio`, `checkbox`, `file`, `submit`, `reset`, `button` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
  * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
+ * 3. Vertical `padding` needed for `select` elements in Firefox
+ * 4. Style
  */
 .uk-form select,
 .uk-form textarea,
@@ -2575,11 +2593,13 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-form input[type="search"],
 .uk-form input[type="tel"],
 .uk-form input[type="color"] {
-  height: 30px;
   /* 1 */
-  max-width: 100%;
+  height: 30px;
   /* 2 */
+  max-width: 100%;
+  /* 3 */
   padding: 4px 6px;
+  /* 4 */
   border: 1px solid #dddddd;
   background: #ffffff;
   color: #444444;
@@ -2659,11 +2679,13 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Legend style
  * 1. `margin-bottom` is not working in Safari and Opera.
  *    Using `padding` and :after instead to create the border
+ * 2. Style
  */
 .uk-form legend {
   width: 100%;
-  padding-bottom: 15px;
   /* 1 */
+  padding-bottom: 15px;
+  /* 2 */
   font-size: 18px;
   line-height: 30px;
 }
@@ -2720,9 +2742,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Blank form
  */
 .uk-form-blank {
-  border: none !important;
+  border-color: transparent !important;
   background: none !important;
-  box-shadow: none !important;
   outline: 1px dashed transparent !important;
 }
 .uk-form-blank:focus {
@@ -2732,16 +2753,14 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  ========================================================================== */
 /*
  * Fixed widths
- * 1. Different widths for mini sized `input` and `select` elements
+ * Different widths for mini sized `input` and `select` elements
  */
 input.uk-form-width-mini {
   width: 40px;
 }
-/* 1 */
 select.uk-form-width-mini {
   width: 65px;
 }
-/* 1 */
 .uk-form-width-small {
   width: 130px;
 }
@@ -2867,33 +2886,33 @@ select.uk-form-width-mini {
    Component: Button
  ========================================================================== */
 /*
- * 1. Required for `a` elements. Can't be moved to `a.button` selector because needs to be overwritable for `uk-button-link` and `uk-button-expand`
- * 2. `min-height` is neccesary for `input` elments in Firefox and Opera because `line-height` is not working.
- * 3. Required for `button` and `input` elements
- * 4. `line-height` is used to create a height
+ * 1. Required for `a` elements
+ * 2. Required for `button` and `input` elements
+ * 3. `line-height` is used to create a height
+ * 4. `min-height` is neccesary for `input` elments in Firefox and Opera because `line-height` is not working.
  * 5. Reset button group whitespace hack
+ * 6. Style
  */
 .uk-button {
-  display: inline-block;
   /* 1 */
-  min-height: 30px;
-  /* 2 */
-  padding: 0 12px;
-  border: none;
-  /* 3 */
-  background: #eeeeee;
-  line-height: 30px;
-  /* 4 */
-  color: #444444;
-  letter-spacing: normal;
-  /* 5 */
-}
-/* Required for `a` elements */
-a.uk-button {
+  display: inline-block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   vertical-align: middle;
   text-decoration: none;
+  text-align: center;
+  /* 2 */
+  border: none;
+  /* 3 */
+  line-height: 30px;
+  /* 4 */
+  min-height: 30px;
+  /* 5 */
+  letter-spacing: normal;
+  /* 6 */
+  padding: 0 12px;
+  background: #eeeeee;
+  color: #444444;
 }
 /*
  * Hover
@@ -2902,11 +2921,10 @@ a.uk-button {
  */
 .uk-button:hover,
 .uk-button:focus {
-  /* 1 */
   background-color: #f5f5f5;
   color: #444444;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /* Active */
 .uk-button:active,
@@ -2990,8 +3008,7 @@ a.uk-button {
 .uk-button-link:active,
 .uk-button-link.uk-active,
 .uk-button-link:disabled {
-  display: inline;
-  border: none;
+  border-color: transparent;
   background: none;
 }
 /* Color */
@@ -3031,17 +3048,6 @@ a.uk-button {
   padding: 0 15px;
   line-height: 40px;
   font-size: 16px;
-}
-/*
- * Behave like a block element and take the full width
- */
-.uk-button-expand {
-  display: block;
-  width: 100%;
-  text-align: center;
-}
-.uk-button-expand + .uk-button-expand {
-  margin-top: 10px;
 }
 /* Sub-object `uk-button-group`
  ========================================================================== */
@@ -3095,19 +3101,17 @@ a.uk-button {
  * 5. Better font rendering
  */
 [class*='uk-icon-'] {
-  display: inline-block;
-  /* 1 */
   font-family: FontAwesome;
+  /* 1 */
+  display: inline-block;
+  /* 2 */
   font-weight: normal;
-  /* 2 */
   font-style: normal;
-  /* 2 */
-  line-height: 1;
   /* 4 */
+  line-height: 1;
+  /* 5 */
   -webkit-font-smoothing: antialiased;
-  /* 5 */
   -moz-osx-font-smoothing: grayscale;
-  /* 5 */
 }
 /* Size modifiers
  ========================================================================== */
@@ -3152,12 +3156,11 @@ a.uk-button {
  */
 .uk-icon-button:hover,
 .uk-icon-button:focus {
-  /* 1 */
   background-color: #f5f5f5;
   color: #444444;
   text-decoration: none;
-  outline: none;
   /* 2 */
+  outline: none;
 }
 /* Active */
 .uk-icon-button:active {
@@ -4319,24 +4322,27 @@ a.uk-button {
 /*
  * 1. Required for `button` elements and makes
  *    close button more robust against different box-sizing use
- * 2. Required for `button` elements
+ * 2. Style
+ * 3. Required for `button` elements
+ * 4. Needed for Sarari
  */
 .uk-close {
+  /* 1 */
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  /* 1 */
+  /* 2 */
   display: inline-block;
   width: 20px;
   line-height: 20px;
   text-align: center;
   color: inherit;
   opacity: 0.3;
-  /* 2. */
+  /* 3. */
   padding: 0;
   border: 0;
   -webkit-appearance: none;
+  /* 4. */
   background: transparent;
-  /* Needed for Sarari */
 }
 /* Icon */
 .uk-close:after {
@@ -4348,16 +4354,14 @@ a.uk-button {
  * Hover
  * 1. Apply hover style also to focus state
  * 2. Remove default focus style
+ * 3. Required for `a` elements
  */
 .uk-close:hover,
 .uk-close:focus {
-  /* 1 */
   opacity: 0.5;
-  outline: none;
   /* 2 */
-}
-/* Required for `a` elements */
-a.uk-close:hover {
+  outline: none;
+  /* 3 */
   color: inherit;
   text-decoration: none;
   cursor: pointer;
@@ -4366,7 +4370,7 @@ a.uk-close:hover {
  ========================================================================== */
 .uk-close-alt {
   padding: 2px;
-  border-radius: 100%;
+  border-radius: 50%;
   background: #eeeeee;
   opacity: 1;
 }
@@ -4404,7 +4408,7 @@ a.uk-close:hover {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   min-width: 18px;
-  border-radius: 500px;
+  border-radius: 50%;
   font-size: 12px;
   line-height: 18px;
 }
@@ -4504,17 +4508,18 @@ a.uk-close:hover {
  * 1. Corrects max-width behavior (2.) if padding and border are used
  * 2. Responsive behavior
  * 3. Required for `figure` element
+ * 4. Style
  */
 .uk-thumbnail {
-  /* Required for `a`, `div` or `figure` elements */
   display: inline-block;
-  -moz-box-sizing: border-box;
   /* 1 */
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
-  max-width: 100%;
   /* 2 */
-  margin: 0;
+  max-width: 100%;
   /* 3 */
+  margin: 0;
+  /* 4 */
   padding: 4px;
   border: 1px solid #dddddd;
   background: #ffffff;
@@ -4527,13 +4532,12 @@ a.uk-close:hover {
  */
 a.uk-thumbnail:hover,
 a.uk-thumbnail:focus {
-  /* 1 */
   border-color: #aaaaaa;
   background-color: #ffffff;
-  text-decoration: none;
   /* 2 */
-  outline: none;
+  text-decoration: none;
   /* 3 */
+  outline: none;
 }
 /* Caption
  ========================================================================== */
@@ -4608,7 +4612,6 @@ a.uk-thumbnail:focus {
 .uk-overlay-toggle:hover .uk-overlay-area {
   opacity: 1;
 }
-/* 1 */
 /*
  * Icon
  */
@@ -4675,8 +4678,8 @@ a.uk-thumbnail:focus {
 /*
  * Links in overlay area
  */
-.uk-overlay-area-content a,
-.uk-overlay-area-content a:hover {
+.uk-overlay-area-content a:not([class]),
+.uk-overlay-area-content a:not([class]):hover {
   color: inherit;
 }
 /* Sub-object `uk-overlay-caption`
@@ -4709,7 +4712,6 @@ a.uk-thumbnail:focus {
 .uk-overlay-toggle:hover .uk-overlay-caption {
   opacity: 1;
 }
-/* 1 */
 /* ========================================================================
    Component: Progress
  ========================================================================== */
@@ -4723,10 +4725,10 @@ a.uk-thumbnail:focus {
   height: 20px;
   margin-bottom: 15px;
   background: #eeeeee;
-  overflow: hidden;
   /* 1 */
-  line-height: 20px;
+  overflow: hidden;
   /* 2 */
+  line-height: 20px;
 }
 /*
  * Add margin if adjacent element
@@ -4736,15 +4738,19 @@ a.uk-thumbnail:focus {
 }
 /* Sub-object: `uk-progress-bar`
  ========================================================================== */
+/*
+ * 1. Transition
+ * 2. Needed for text
+ */
 .uk-progress-bar {
   width: 0;
   height: 100%;
   background: #00a8e6;
   float: left;
-  /* Transition */
+  /* 1 */
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
-  /* Allow text */
+  /* 2 */
   font-size: 12px;
   color: #ffffff;
   text-align: center;
@@ -4809,10 +4815,10 @@ a.uk-thumbnail:focus {
  */
 .uk-search {
   display: inline-block;
-  position: relative;
   /* 1 */
-  margin: 0;
+  position: relative;
   /* 2 */
+  margin: 0;
 }
 /*
  * Icon
@@ -4835,17 +4841,16 @@ a.uk-thumbnail:focus {
  * 1. Needed to reset iOS `input[type="search"]` appearance
  */
 .uk-search-field {
-  /* 1 */
   width: 120px;
   height: 30px;
   padding: 0 30px;
   border: 1px solid rgba(0, 0, 0, 0);
-  border-radius: 0;
-  /* 1 */
   background: rgba(0, 0, 0, 0);
   color: #444444;
   -webkit-transition: all linear 0.2s;
   transition: all linear 0.2s;
+  /* 1 */
+  border-radius: 0;
 }
 /*
  * Needed to reset iOS `input[type="search"]` appearance
@@ -4881,6 +4886,7 @@ input.uk-search-field {
  ========================================================================== */
 /*
  * 1. Required for `button` elements
+ * 2. Needed for Sarari
  */
 .uk-search-close {
   display: none;
@@ -4896,8 +4902,8 @@ input.uk-search-field {
   padding: 0;
   border: 0;
   -webkit-appearance: none;
+  /* 2. */
   background: transparent;
-  /* Needed for Sarari */
 }
 .uk-loading > .uk-search-close,
 .uk-active > .uk-search-close {
@@ -5518,7 +5524,7 @@ input.uk-search-field {
  * 1. Set position
  * 2. Set box sizing
  * 3. Center dialog box
- * 4. Set style
+ * 4. Style
  */
 .uk-modal-dialog {
   /* 1 */
@@ -5776,8 +5782,8 @@ input.uk-search-field {
   position: absolute;
   width: 0;
   height: 0;
-  border: 5px dashed #333333;
   /* 1 */
+  border: 5px dashed #333333;
 }
 /* Direction modifiers
  ========================================================================== */
@@ -6001,10 +6007,10 @@ input.uk-search-field {
 .uk-float-right {
   float: right;
 }
+/* 1 */
 [class*='uk-float-'] {
   max-width: 100%;
 }
-/* 1 */
 /* Alignment of images and objects
  ========================================================================== */
 /*
@@ -6063,9 +6069,9 @@ input.uk-search-field {
 .uk-vertical-align-middle,
 .uk-vertical-align-bottom {
   display: inline-block;
-  letter-spacing: normal;
-  /* 1 */
   max-width: 100%;
+  /* 1 */
+  letter-spacing: normal;
 }
 .uk-vertical-align-middle {
   vertical-align: middle;
@@ -6270,12 +6276,18 @@ input.uk-search-field {
   display: none !important;
   visibility: hidden !important;
 }
+/* It's hidden, but still affects layout */
+.uk-invisible {
+  visibility: hidden !important;
+}
 /* Show on hover */
-.uk-visible-hover:hover .uk-hidden {
+.uk-visible-hover:hover .uk-hidden,
+.uk-visible-hover:hover .uk-invisible {
   display: block !important;
   visibility: visible !important;
 }
-.uk-visible-hover-inline:hover .uk-hidden {
+.uk-visible-hover-inline:hover .uk-hidden,
+.uk-visible-hover-inline:hover .uk-invisible {
   display: inline-block !important;
   visibility: visible !important;
 }

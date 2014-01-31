@@ -1,4 +1,4 @@
-/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Addon: Form file
@@ -17,12 +17,12 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  /* 1 */
   z-index: 1;
   width: 100%;
   opacity: 0;
-  font-size: 50px;
-  /* 2 */
   cursor: pointer;
+  /* 1 */
+  left: 0;
+  /* 2 */
+  font-size: 50px;
 }

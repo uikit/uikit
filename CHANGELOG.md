@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.3.0 (January 31, 2014)
 
   - IMPORTANT: Removed uk-button-expand, use uk-width-1-1 instead
   - Updated to Normalize 3.0.0
