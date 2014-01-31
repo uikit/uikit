@@ -8,7 +8,7 @@
         return;
     }
 
-    UI.version = '2.2.0';
+    UI.version = '2.3.0';
 
     UI.fn = function(command, options) {
 

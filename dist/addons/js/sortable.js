@@ -1,4 +1,4 @@
-/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
@@ -338,10 +338,10 @@
 
             if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || this.tmpDragOnSiblings[0]!=el[0].previousSibling) {
 
-                this.el.trigger('sortable-change');
+                this.el.trigger('sortable-change',[el, this.hasNewRoot ? "added":"moved"]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('sortable-change');
+                    this.dragRootEl.trigger('sortable-change', [el, "removed"]);
                 }
             }
 

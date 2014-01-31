@@ -65,6 +65,7 @@
 @nav-side-active-color:                         #fff;
 @nav-side-header-color:                         #444;
 @nav-side-divider-border:                       #ddd;
+@nav-side-divider-border-width:                 1px;
 @nav-side-nested-color:                         #07D;
 @nav-side-nested-hover-color:                   #059;
 
@@ -73,6 +74,7 @@
 @nav-dropdown-hover-color:                      #fff;
 @nav-dropdown-header-color:                     #999;
 @nav-dropdown-divider-border:                   #ddd;
+@nav-dropdown-divider-border-width:             1px;
 @nav-dropdown-nested-color:                     #07D;
 @nav-dropdown-nested-hover-color:               #059;
 
@@ -81,6 +83,7 @@
 @nav-navbar-hover-color:                        #fff;
 @nav-navbar-header-color:                       #999;
 @nav-navbar-divider-border:                     #ddd;
+@nav-navbar-divider-border-width:               1px;
 @nav-navbar-nested-color:                       #07D;
 @nav-navbar-nested-hover-color:                 #059;
 
@@ -89,6 +92,7 @@
 @nav-search-active-color:                       #fff;
 @nav-search-header-color:                       #999;
 @nav-search-divider-border:                     #ddd;
+@nav-search-divider-border-width:               1px;
 @nav-search-nested-color:                       #07D;
 @nav-search-nested-hover-color:                 #059;
 
@@ -101,6 +105,7 @@
 @nav-offcanvas-active-color:                    #fff;
 @nav-offcanvas-header-color:                    #777;
 @nav-offcanvas-divider-border:                  #1a1a1a;
+@nav-offcanvas-divider-border-width:            1px;
 @nav-offcanvas-nested-color:                    #ccc;
 @nav-offcanvas-nested-hover-color:              #fff;
 
@@ -245,7 +250,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-side .uk-nav-divider {
-    border-top: 1px solid @nav-side-divider-border;
+    border-top: @nav-side-divider-border-width solid @nav-side-divider-border;
     .hook-nav-side-divider;
 }
 
@@ -298,7 +303,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-dropdown .uk-nav-divider {
-    border-top: 1px solid @nav-dropdown-divider-border;
+    border-top: @nav-dropdown-divider-border-width solid @nav-dropdown-divider-border;
     .hook-nav-dropdown-divider;
 }
 
@@ -351,7 +356,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-navbar .uk-nav-divider {
-    border-top: 1px solid @nav-navbar-divider-border;
+    border-top: @nav-navbar-divider-border-width solid @nav-navbar-divider-border;
     .hook-nav-navbar-divider;
 }
 
@@ -402,7 +407,7 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-search .uk-nav-divider {
-    border-top: 1px solid @nav-search-divider-border;
+    border-top: @nav-search-divider-border-width solid @nav-search-divider-border;
     .hook-nav-search-divider;
 }
 
@@ -468,7 +473,7 @@ html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
  */
 
 .uk-nav-offcanvas .uk-nav-divider {
-    border-top: 1px solid @nav-offcanvas-divider-border;
+    border-top: @nav-offcanvas-divider-border-width solid @nav-offcanvas-divider-border;
     .hook-nav-offcanvas-divider;
 }
 

@@ -12,6 +12,11 @@
 // Variables
 // ========================================================================
 
+@description-list-horizontal-width:             160px;
+@description-list-horizontal-margin-left:       180px;
+
+@description-list-line-margin-top:              5px;
+@description-list-line-border-width:            1px;
 @description-list-line-border:                  #ddd;
 @description-list-line-color:                   #999;
 
@@ -30,7 +35,7 @@
     .uk-description-list-horizontal { overflow: hidden; }
 
     .uk-description-list-horizontal > dt {
-        width: 160px;
+        width: @description-list-horizontal-width;
         float: left;
         clear: both;
         overflow: hidden;
@@ -38,7 +43,7 @@
         white-space: nowrap;
     }
 
-    .uk-description-list-horizontal > dd { margin-left: 180px; }
+    .uk-description-list-horizontal > dd { margin-left: @description-list-horizontal-margin-left; }
 
 }
 
@@ -49,9 +54,9 @@
 .uk-description-list-line > dt { font-weight: normal; }
 
 .uk-description-list-line > dt:nth-child(n+2) {
-    margin-top: 5px;
-    padding-top: 5px;
-    border-top: 1px solid @description-list-line-border;
+    margin-top: @description-list-line-margin-top;
+    padding-top: @description-list-line-margin-top;
+    border-top: @description-list-line-border-width solid @description-list-line-border;
 }
 
 .uk-description-list-line > dd { color: @description-list-line-color; }

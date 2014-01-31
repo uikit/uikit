@@ -50,12 +50,12 @@
 @base-h6-font-size:                             12px;
 @base-h6-line-height:                           18px;
 
-@base-list-padding:                             30px;
+@base-list-padding-left:                        30px;
 
 @base-hr-border:                                #ddd;
 @base-hr-border-width:                          1px;
 
-@base-blockquote-padding:                       15px;
+@base-blockquote-padding-left:                  15px;
 @base-blockquote-border:                        #ddd;
 @base-blockquote-border-width:                  5px;
 @base-blockquote-small-color:                   #999;
@@ -311,7 +311,7 @@ h6, .uk-h6 {
  */
 
 ul,
-ol { padding-left: @base-list-padding; }
+ol { padding-left: @base-list-padding-left; }
 
 /* Reset margin for nested lists */
 ul > li > ul,
@@ -351,7 +351,7 @@ q,
 blockquote { font-style: italic; }
 
 blockquote {
-    padding-left: @base-blockquote-padding;
+    padding-left: @base-blockquote-padding-left;
     border-left: @base-blockquote-border-width solid @base-blockquote-border;
     font-size: @base-blockquote-font-size;
     line-height: @base-blockquote-line-height;

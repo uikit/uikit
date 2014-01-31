@@ -1,4 +1,4 @@
-/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function($, doc, global) {
 
@@ -10,7 +10,7 @@
         return;
     }
 
-    UI.version = '2.2.0';
+    UI.version = '2.3.0';
 
     UI.fn = function(command, options) {
 
@@ -1439,7 +1439,7 @@
 
 })(jQuery, jQuery.UIkit);
 
-(function($, UI) {
+(function($, UI, $win) {
 
     "use strict";
 
@@ -1592,12 +1592,12 @@
 
             var axis = "";
 
-            if(left < 0 || left+width > window.innerWidth) {
-                axis += "x";
+            if(left < 0 || ((left-$win.scrollLeft())+width) > window.innerWidth) {
+               axis += "x";
             }
 
-            if(top < 0 || top+height > window.innerHeight) {
-                axis += "y";
+            if(top < 0 || ((top-$win.scrollTop())+height) > window.innerHeight) {
+               axis += "y";
             }
 
             return axis;
@@ -1629,7 +1629,7 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, jQuery.UIkit, jQuery(window));
 
 (function($, UI) {
 

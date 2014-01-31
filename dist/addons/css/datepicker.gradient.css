@@ -1,4 +1,4 @@
-/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Addon: Datepicker
@@ -96,11 +96,10 @@ a.uk-datepicker-table-muted {
  */
 .uk-datepicker-table a:hover,
 .uk-datepicker-table a:focus {
-  /* 1 */
   background-color: #fafafa;
   color: #444444;
-  outline: none;
   /* 2 */
+  outline: none;
   border-color: rgba(0, 0, 0, 0.2);
   border-bottom-color: rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 0 #ffffff;

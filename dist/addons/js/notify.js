@@ -1,9 +1,10 @@
-/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function($, UI){
 
     var containers = {},
         messages   = {},
+
         notify     =  function(options){
 
             if ($.type(options) == 'string') {
@@ -14,10 +15,16 @@
                 options = $.extend(options, $.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
             }
 
+
+
             return (new Message(options)).show();
         },
-        closeAll  = function(){
-            for(var id in messages) { messages[id].close(); }
+        closeAll  = function(group, instantly){
+            if(group) {
+                for(var id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
+            } else {
+                for(var id in messages) { messages[id].close(instantly); }
+            }
         };
 
     var Message = function(options){
@@ -42,6 +49,8 @@
             this.currentstatus = this.options.status;
         }
 
+        this.group = this.options.group;
+
         messages[this.uuid] = this;
 
         if(!containers[this.options.pos]) {
@@ -58,6 +67,7 @@
         element: false,
         timout: false,
         currentstatus: "",
+        group: false,
 
         show: function() {
 
@@ -88,22 +98,28 @@
             return this;
         },
 
-        close: function() {
+        close: function(instantly) {
 
-            var $this = this;
+            var $this    = this,
+                finalize = function(){
+                    $this.element.remove();
+
+                    if(!containers[$this.options.pos].children().length) {
+                        containers[$this.options.pos].hide();
+                    }
+
+                    delete messages[$this.uuid];
+                };
 
             if(this.timeout) clearTimeout(this.timeout);
 
-            this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
-
-                $this.element.remove();
-
-                if(!containers[$this.options.pos].children().length) {
-                    containers[$this.options.pos].hide();
-                }
-
-                delete messages[$this.uuid];
-            });
+            if(instantly) {
+                finalize();
+            } else {
+                this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
+                    finalize();
+                });
+            }
         },
 
         content: function(html){
@@ -137,6 +153,7 @@
         message: "",
         status: "",
         timeout: 5000,
+        group: null,
         pos: 'top-center'
     };
 

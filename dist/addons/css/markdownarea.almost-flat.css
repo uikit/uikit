@@ -1,4 +1,4 @@
-/*! UIkit 2.2.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Addon: Markdownarea
@@ -55,7 +55,6 @@
  */
 .uk-markdownarea-navbar-nav > li:hover > a,
 .uk-markdownarea-navbar-nav > li > a:focus {
-  /* 1 */
   background-color: #f5f5f5;
   color: #444444;
   outline: none;

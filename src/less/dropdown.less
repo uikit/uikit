@@ -36,6 +36,8 @@
 @dropdown-background:                           #f5f5f5;
 @dropdown-color:                                #444;
 @dropdown-animation:                            uk-fade;
+
+@dropdown-divider-border-width:                 1px;
 @dropdown-divider-border:                       #ddd;
 
 @dropdown-small-padding:                        5px;
@@ -169,7 +171,7 @@
      * Column divider
      */
 
-    .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) { border-left: 1px solid @dropdown-divider-border; }
+    .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) { border-left: @dropdown-divider-border-width solid @dropdown-divider-border; }
 
     /*
      * Width multiplier for dropdown columns

@@ -25,6 +25,7 @@
 @search-height:                                 30px;
 @search-padding:                                30px;
 @search-border:                                 rgba(0,0,0,0);
+@search-border-width:                           1px;
 @search-background:                             rgba(0,0,0,0);
 @search-color:                                  #444;
 @search-placeholder-color:                      #999;
@@ -87,7 +88,7 @@
     width: @search-width;
     height: @search-height;
     padding: 0 @search-padding;
-    border: 1px solid @search-border;
+    border: @search-border-width solid @search-border;
     background: @search-background;
     color: @search-color;
     -webkit-transition: all linear 0.2s;
