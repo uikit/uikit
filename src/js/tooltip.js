@@ -1,4 +1,4 @@
-(function($, UI) {
+(function($, UI, $win) {
 
     "use strict";
 
@@ -151,12 +151,12 @@
 
             var axis = "";
 
-            if(left < 0 || left+width > window.innerWidth) {
-                axis += "x";
+            if(left < 0 || ((left-$win.scrollLeft())+width) > window.innerWidth) {
+               axis += "x";
             }
 
-            if(top < 0 || top+height > window.innerHeight) {
-                axis += "y";
+            if(top < 0 || ((top-$win.scrollTop())+height) > window.innerHeight) {
+               axis += "y";
             }
 
             return axis;
@@ -188,4 +188,4 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, jQuery.UIkit, jQuery(window));
