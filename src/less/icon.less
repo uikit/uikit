@@ -58,13 +58,17 @@
  */
 
 [class*='uk-icon-'] {
-    display: inline-block; /* 1 */
     font-family: FontAwesome;
-    font-weight: normal; /* 2 */
-    font-style: normal; /* 2 */
-    line-height: 1; /* 4 */
-    -webkit-font-smoothing: antialiased; /* 5 */
-    -moz-osx-font-smoothing: grayscale; /* 5 */
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    font-weight: normal;
+    font-style: normal;
+    /* 4 */
+    line-height: 1;
+    /* 5 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 
@@ -111,11 +115,12 @@
  */
 
 .uk-icon-button:hover,
-.uk-icon-button:focus { /* 1 */
+.uk-icon-button:focus { // 1
     background-color: @icon-button-hover-background;
     color: @icon-button-hover-color;
     text-decoration: none;
-    outline: none; /* 2 */
+    /* 2 */
+    outline: none;
     .hook-icon-button-hover;
 }
 

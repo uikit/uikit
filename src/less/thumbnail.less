@@ -35,15 +35,19 @@
  * 1. Corrects max-width behavior (2.) if padding and border are used
  * 2. Responsive behavior
  * 3. Required for `figure` element
+ * 4. Style
  */
 
 .uk-thumbnail {
-    /* Required for `a`, `div` or `figure` elements */
     display: inline-block;
-    -moz-box-sizing: border-box; /* 1 */
+    /* 1 */
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
-    max-width: 100%; /* 2 */
-    margin: 0; /* 3 */
+    /* 2 */
+    max-width: 100%;
+    /* 3 */
+    margin: 0;
+    /* 4 */
     padding: @thumbnail-padding;
     border: 1px solid @thumbnail-border;
     background: @thumbnail-background;
@@ -58,11 +62,13 @@
  */
 
 a.uk-thumbnail:hover,
-a.uk-thumbnail:focus { /* 1 */
+a.uk-thumbnail:focus { // 1
     border-color: @thumbnail-hover-border;
     background-color: @thumbnail-hover-background;
-    text-decoration: none; /* 2 */
-    outline: none; /* 3 */
+    /* 2 */
+    text-decoration: none;
+    /* 3 */
+    outline: none;
     .hook-thumbnail-hover;
 }
 

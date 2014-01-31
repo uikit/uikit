@@ -55,8 +55,10 @@
  */
 
 .uk-subnav > li {
-    position: relative; /* 1 */
-    letter-spacing: normal; /* 2 */
+    /* 1 */
+    position: relative;
+    /* 2 */
+    letter-spacing: normal;
 }
 
 .uk-subnav > li,
@@ -110,10 +112,11 @@
  */
 
 .uk-subnav-pill > li > a:hover,
-.uk-subnav-pill > li > a:focus { /* 1 */
+.uk-subnav-pill > li > a:focus { // 1
     background: @subnav-pill-hover-background;
     color: @subnav-pill-hover-color;
-    outline: none; /* 2 */
+    /* 2 */
+    outline: none;
     .hook-subnav-pill-hover;
 }
 

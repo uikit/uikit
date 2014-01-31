@@ -2,18 +2,22 @@
 
 ### WIP
 
+  - IMPORTANT: Removed uk-button-expand, use uk-width-1-1 instead
+  - Added more variables to all components
   - Added panel teaser to panel component
   - Added invisible to utility component
   - Added padding variable for thumbnail caption
   - Updated links in base component
   - Panel component works now with inline elements
   - Background color now set on tr elements in table component
+  - Removed vertical align from breadcrumbs
   - Fixed button link in button component
   - Fixed cursor in sortable add-on
   - Fixed links in overlay-area-content
 
 **Documentation and repository**
 
+  - Better comments for compiled CSS
   - Updated panel docs and tests
   - Fixed default theme in tests
 
