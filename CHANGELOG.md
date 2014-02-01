@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed z-index issues
+
 ### 2.3.1 (January 31, 2014)
 
   - Fixed button text decoration
