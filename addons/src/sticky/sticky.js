@@ -1,8 +1,16 @@
-/*
- * Based on https://github.com/garand/sticky
- */
+(function(addon) {
 
-(function(global, $, UI, $window, $document){
+    if (typeof define == "function" && define.amd) { // AMD
+        define(["uikit"], function(){
+            return addon(window, window.jQuery, window.jQuery.UIkit);
+        });
+    }
+
+    if(window && window.jQuery && window.jQuery.UIkit) {
+        addon(window, window.jQuery, window.jQuery.UIkit);
+    }
+
+})(function(global, $, UI){
 
   var defaults = {
         top          : 0,
@@ -11,6 +19,9 @@
         clswrapper   : 'uk-sticky-wrapper',
         getWidthFrom : ''
       },
+
+      $window = $(window),
+      $document = $(document),
 
       sticked = [],
 
@@ -136,4 +147,5 @@
       }, 0);
     });
 
-})(this, jQuery, jQuery.UIkit, jQuery(window), jQuery(document));
+    return $.fn.uksticky;
+});

@@ -1,4 +1,16 @@
-(function($, UI){
+(function(addon) {
+
+    if (typeof define == "function" && define.amd) { // AMD
+        define(["uikit"], function(){
+            return addon(window, window.jQuery, window.jQuery.UIkit);
+        });
+    }
+
+    if(window && window.jQuery && window.jQuery.UIkit) {
+        addon(window, window.jQuery, window.jQuery.UIkit);
+    }
+
+})(function(global, $, UI){
 
     var containers = {},
         messages   = {},
@@ -12,8 +24,6 @@
             if (arguments[1]) {
                 options = $.extend(options, $.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
             }
-
-
 
             return (new Message(options)).show();
         },
@@ -160,4 +170,6 @@
     UI["notify"].message  = Message;
     UI["notify"].closeAll = closeAll;
 
-})(jQuery, jQuery.UIkit);
+    return notify;
+
+});

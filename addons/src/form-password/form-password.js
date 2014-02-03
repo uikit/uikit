@@ -1,4 +1,16 @@
-(function($, UI){
+(function(addon) {
+
+    if (typeof define == "function" && define.amd) { // AMD
+        define(["uikit"], function(){
+            return addon(window, window.jQuery, window.jQuery.UIkit);
+        });
+    }
+
+    if(window && window.jQuery && window.jQuery.UIkit) {
+        addon(window, window.jQuery, window.jQuery.UIkit);
+    }
+
+})(function(global, $, UI){
 
     var FormPassword = function(element, options) {
 
@@ -45,4 +57,6 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+    return FormPassword;
+
+});
