@@ -3,6 +3,7 @@
 ### WIP
 
   - Fixed z-index issues
+  - Added AMD support
 
 ### 2.3.1 (January 31, 2014)
 
