@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         pkg: pkginfo,
 
         meta: {
-          banner: "/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2014 YOOtheme | MIT License */"
+            banner: "/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2014 YOOtheme | MIT License */"
         },
 
         jshint: {
@@ -131,6 +131,39 @@ module.exports = function(grunt) {
             },
             addons: {
               files: [{ expand: true, src: ["addons/src/**/*.js"], dest: "dist/addons/js", flatten: true }]
+            },
+            scss: {
+                files: [{ expand: true, cwd: "src/less", src: ["*"], dest: "src/scss/", ext: '.scss' }]
+            },
+            scssthemes: {
+                files: [{ expand: true, src: "themes/**/*.less", ext: '.scss' }]
+            }
+        },
+
+        // convert LESS to SCSS
+        replace: {
+            scss: {
+                src: ['src/scss/*.scss', 'themes/**/*.scss'],  // source files array
+                overwrite: true,
+                // dest: 'build/text/',   // destination directory or file
+                replacements: [ { // replace comments
+                    from: ' LESS ', to: ' SCSS '
+                }, { // change less/ dir to scss/ on imports
+                    from: '/less/', to: '/scss/'
+                }, { // change .less extensions to .scss on imports
+                    from: '\.less', to: '\.scss'
+                }, { // replace '@' with '$'
+                    from: '@', to: '$'
+                }, { // mixins
+                    from: /\.([\w\-]*)\s*\((.*)\)\s*\{/g, to: '@mixin $1($2){'
+                }, { // includes
+                    from: /\.([\w\-]*\(.*\)\s*;)/g, to: '@include $1'
+                }, { // replace valid '@' statements
+                    from: /\$(import|media|font-face)/g, to: '@$1'
+                }, { // string literals
+                    // from: /~"(.*)"/g, to: '#{"$1"}'
+                    from: /\$\{/g, to: '#{'
+                }]
             }
         },
 
@@ -333,10 +366,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-compress");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-text-replace");
     grunt.loadNpmTasks("grunt-banner");
 
     // Register grunt tasks
     grunt.registerTask("build", ["jshint", "indexthemes", "less", "concat", "copy", "uglify", "usebanner"]);
+    grunt.registerTask("build-scss", ["copy:scss", "copy:scssthemes", "replace:scss"]);
     grunt.registerTask("default", ["build", "compress"]);
 
 };
