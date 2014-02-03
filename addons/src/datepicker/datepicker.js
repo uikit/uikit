@@ -2,7 +2,7 @@
 
     if (typeof define == "function" && define.amd) { // AMD
         define(["uikit"], function(){
-            return addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.datepicker ? jQuery.UIkit.datepicker : addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }
 

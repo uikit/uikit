@@ -5,7 +5,7 @@
 
      if (typeof define == "function" && define.amd) { // AMD
          define(["uikit"], function(){
-             return addon(window.jQuery, jQuery.UIkit, window, document);
+            return jQuery.fn.uksortable ? jQuery.fn.uksortable : addon(window.jQuery, jQuery.UIkit, window, document);
          });
      }
 
@@ -599,6 +599,6 @@
         });
     });
 
-    return Plugin;
+    return $.fn.uksortable;
 
 });

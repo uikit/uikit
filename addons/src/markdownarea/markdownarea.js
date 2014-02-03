@@ -2,7 +2,7 @@
 
     if (typeof define == "function" && define.amd) { // AMD
         define(["uikit"], function(){
-            return addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.markdownarea ? jQuery.UIkit.markdownarea : addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }
 

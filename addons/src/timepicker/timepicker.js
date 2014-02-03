@@ -6,7 +6,7 @@
 
      if (typeof define == "function" && define.amd) { // AMD
          define(["uikit"], function(){
-             return addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.timepicker ? jQuery.UIkit.timepicker : addon(window, window.jQuery, window.jQuery.UIkit);
          });
      }
 
@@ -527,5 +527,9 @@
             ele.trigger("focus");
         }
     });
+
+    UI["timepicker"] = TimePicker;
+
+    return TimePicker;
 
 });

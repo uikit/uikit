@@ -22,7 +22,7 @@
     var UI = $.UIkit || {}, $html = $("html"), $win = $(window);
 
     if (UI.fn) {
-        return;
+        return UI;
     }
 
     UI.version = '2.3.1';
