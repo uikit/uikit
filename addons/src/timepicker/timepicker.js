@@ -2,7 +2,19 @@
  * Based on https://github.com/jdewit/bootstrap-timepicker
  */
 
-(function(global, $, UI){
+(function(addon) {
+
+     if (typeof define == "function" && define.amd) { // AMD
+         define(["uikit"], function(){
+             return addon(window, window.jQuery, window.jQuery.UIkit);
+         });
+     }
+
+     if(window && window.jQuery && window.jQuery.UIkit) {
+         addon(window, window.jQuery, window.jQuery.UIkit);
+     }
+
+})(function(global, $, UI){
 
     // Timepicker
 
@@ -516,4 +528,4 @@
         }
     });
 
-})(this, jQuery, jQuery.UIkit);
+});

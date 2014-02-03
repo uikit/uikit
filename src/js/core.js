@@ -1,4 +1,21 @@
-(function($, doc, global) {
+(function(core) {
+
+     if (typeof define == "function" && define.amd) { // AMD
+         define("uikit", function(){
+             return core(window, window.jQuery, window.document);
+         });
+     }
+
+     if (!window.jQuery) {
+         throw new Error( "UIkit requires jQuery" );
+     }
+
+     if(window && window.jQuery) {
+         core(window, window.jQuery, window.document);
+     }
+
+
+})(function(global, $, doc) {
 
     "use strict";
 
@@ -169,4 +186,6 @@
     // add touch identifier class
     $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
 
-})(jQuery, document, window);
+    return UI;
+
+});

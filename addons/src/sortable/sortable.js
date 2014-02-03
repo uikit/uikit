@@ -1,8 +1,20 @@
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
+ (function(addon) {
 
-(function($, UI, window, document, undefined) {
+     if (typeof define == "function" && define.amd) { // AMD
+         define(["uikit"], function(){
+             return addon(window.jQuery, jQuery.UIkit, window, document);
+         });
+     }
+
+     if(window && window.jQuery && window.jQuery.UIkit) {
+         addon(window.jQuery, jQuery.UIkit, window, document);
+     }
+
+ })(function($, UI, window, document, undefined) {
+
     var hasTouch     = 'ontouchstart' in window,
         html         = $("html"),
         touchedlists = [];
@@ -587,4 +599,6 @@
         });
     });
 
-})(window.jQuery, jQuery.UIkit, window, document);
+    return Plugin;
+
+});
