@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added AMD support
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
   - Fixed badge border-radius
