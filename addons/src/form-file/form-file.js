@@ -29,9 +29,6 @@
 
         var ele = $(this);
         if (!ele.data("formfile")) {
-
-            e.preventDefault();
-
             var obj = new FormFile(ele, UI.Utils.options(ele.attr("data-uk-form-file")));
             ele.trigger("click");
         }
