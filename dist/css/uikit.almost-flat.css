@@ -1,4 +1,4 @@
-/*! UIkit 2.3.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.3.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -3082,6 +3082,7 @@ select.uk-form-width-mini {
  * Hover
  * 1. Apply hover style also to focus state
  * 2. Remove default focus style
+ * 3. Required for `a` elements
  */
 .uk-button:hover,
 .uk-button:focus {
@@ -3089,6 +3090,8 @@ select.uk-form-width-mini {
   color: #444444;
   /* 2 */
   outline: none;
+  /* 3 */
+  text-decoration: none;
   border-color: rgba(0, 0, 0, 0.16);
 }
 /* Active */
