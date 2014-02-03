@@ -2,8 +2,9 @@
 
 ### WIP
 
-  - Fixed z-index issues
   - Added AMD support
+  - Fixed z-index issues
+  - Fixed double click issue in form-file add-on
 
 ### 2.3.1 (January 31, 2014)
 
