@@ -50,12 +50,14 @@
             this.editor.on("change", (function(){
                 var render = function(){
 
-                    var value = $this.editor.getValue();
+                    var value   = $this.editor.getValue();
 
                     $this.currentvalue  = String(value);
 
                     $this.element.trigger("markdownarea-before", [$this]);
 
+                    $this.applyPlugins();
+                    
                     marked($this.currentvalue, function (err, markdown) {
 
                       if (err) throw err;
@@ -108,6 +110,57 @@
             this.preview.parent().css("height", this.code.height());
         },
 
+        applyPlugins: function(){
+            
+            var $this   = this,
+                plugins = Object.keys(Markdownarea.plugins),
+                plgs    = Markdownarea.plugins;
+
+            this.markers = {};
+
+            if(plugins.length) {
+
+                var lines = this.currentvalue.split("\n");
+
+                plugins.forEach(function(name){
+                    this.markers[name] = [];
+                }, this);
+
+                for(var line=0,max=lines.length;line<max;line++) {
+
+                    (function(line){
+                        plugins.forEach(function(name){
+
+                            var i = 0;
+
+                            lines[line] = lines[line].replace(plgs[name].identifier, function(){
+
+                                var replacement =  plgs[name].cb({
+                                    "area" : $this,
+                                    "found": arguments,
+                                    "line" : line,
+                                    "pos"  : i++,
+                                    "uid"  : [name, line, i, (new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000))].join('-'),
+                                    "replace": function(strwith){
+                                        var src   = this.area.editor.getLine(this.line),
+                                            start = src.indexOf(this.found[0]);
+                                            end   = this.found[0].length;
+
+                                        this.area.editor.replaceRange(strwith, {"line": this.line, "ch":start}, {"line": this.line, "ch":end} );
+                                    }
+                                });
+
+                                return replacement;
+                            });
+                        });
+                    })(line);
+                }
+
+                this.currentvalue = lines.join("\n");
+
+            }
+        },
+
         _buildtoolbar: function(){
 
             if(!(this.options.toolbar && this.options.toolbar.length)) return;
@@ -158,6 +211,8 @@
                                  .filter(this.activetab=="code" ? '.uk-markdown-button-markdown':'.uk-markdown-button-preview').addClass("uk-active");
 
             }
+
+            this.editor.refresh();
 
             this.markdownarea.attr("data-mode", mode);
         },
@@ -316,6 +371,11 @@
                                     '<div class="uk-markdownarea-preview"><div></div></div>' +
                                 '</div>' +
                             '</div>';
+
+    Markdownarea.plugins   = {};
+    Markdownarea.addPlugin = function(name, identifier, callback) {
+        Markdownarea.plugins[name] = {"identifier":identifier, "cb":callback};
+    };
 
     UI["markdownarea"] = Markdownarea;
 
