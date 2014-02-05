@@ -10,7 +10,7 @@
          throw new Error( "UIkit requires jQuery" );
      }
 
-     if(window && window.jQuery) {
+     if (window && window.jQuery) {
          core(window, window.jQuery, window.document);
      }
 
@@ -179,7 +179,7 @@
 
         // remove css hover rules for touch devices
         if (UI.support.touch) {
-            //UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
         }
     });
 

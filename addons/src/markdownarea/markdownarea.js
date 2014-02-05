@@ -52,7 +52,6 @@
 
                     var value = $this.editor.getValue();
 
-                    $this.originalvalue = String(value);
                     $this.currentvalue  = String(value);
 
                     $this.element.trigger("markdownarea-before", [$this]);
@@ -66,7 +65,7 @@
                     });
                 };
                 render();
-                return UI.Utils.debounce(render, 200);
+                return UI.Utils.debounce(render, 150);
             })());
 
             this._buildtoolbar();
