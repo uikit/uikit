@@ -3,6 +3,7 @@
 ### WIP
 
   - Added AMD support
+  - Added margin-large to utility component
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
   - Fixed badge border-radius
@@ -41,7 +42,7 @@
   - Added form-file add-on
   - Added primary comment to comment component
   - Added overlay-area-content to overlay component
-  - Added margin-small classes to utility component
+  - Added margin-small to utility component
   - Added text-nowrap to text component
   - Added data-uk-margin to utility component
   - Switcher now activates first toggler when no uk-active class is set
