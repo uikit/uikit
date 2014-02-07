@@ -7,6 +7,7 @@
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
   - Fixed badge border-radius
+  - Changed whitespace hack to use font-size
 
 ### 2.3.1 (January 31, 2014)
 
