@@ -74,6 +74,7 @@
 
 @button-link-color:                             #07D;
 @button-link-hover-color:                       #059;
+@button-link-hover-text-decoration:             underline;
 @button-link-disabled-color:                    #999;
 
 
@@ -257,7 +258,7 @@
 .uk-button-link:active,
 .uk-button-link.uk-active {
     color: @button-link-hover-color;
-    text-decoration: underline;
+    text-decoration: @button-link-hover-text-decoration;
 }
 
 .uk-button-link:disabled { color: @button-link-disabled-color; }
