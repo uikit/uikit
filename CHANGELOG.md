@@ -7,7 +7,8 @@
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
   - Fixed badge border-radius
-  - Changed whitespace hack to use font-size
+  - Fixed wrong scaling calculation in overlay component for Chrome
+  - Whitespace hack now uses font-size
 
 ### 2.3.1 (January 31, 2014)
 

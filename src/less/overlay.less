@@ -51,6 +51,12 @@
     vertical-align: middle;
 }
 
+/*
+ * Fixed wrong scaling calculation for images in Chrome
+ */
+
+.uk-overlay > img:first-child { display: block; }
+
 
 /* Sub-object `uk-overlay-area`
  ========================================================================== */
@@ -74,6 +80,7 @@
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
+    -webkit-transform: translate3d(0,0,0);
     .hook-overlay-area;
 }
 
@@ -189,6 +196,7 @@
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
+    -webkit-transform: translate3d(0,0,0);
     .hook-overlay-caption;
 }
 
