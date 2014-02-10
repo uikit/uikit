@@ -22,7 +22,7 @@
 
 @notify-message-border:                         @notify-message-background;
 
-@notify-message-info-border:                    fade(@notify-message-info-color, 30%);
+@notify-message-primary-border:                    fade(@notify-message-primary-color, 30%);
 @notify-message-success-border:                 fade(@notify-message-success-color, 30%);
 @notify-message-warning-border:                 fade(@notify-message-warning-color, 30%);
 @notify-message-danger-border:                  fade(@notify-message-danger-color, 30%);
@@ -38,7 +38,7 @@
     border-radius: @global-border-radius;
 }
 
-.hook-notify-message-info() { border-color: @notify-message-info-border; }
+.hook-notify-message-primary() { border-color: @notify-message-primary-border; }
 
 .hook-notify-message-success() { border-color: @notify-message-success-border; }
 

@@ -2,6 +2,8 @@
 
 ### WIP
 
+  - IMPORTANT: Renamed uk-text-info to uk-text-primary including variable names
+  - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names
   - Added AMD support
   - Added margin-large to utility component
   - Fixed z-index issues
