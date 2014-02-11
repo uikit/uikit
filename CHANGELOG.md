@@ -6,10 +6,12 @@
   - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names
   - Added AMD support
   - Added margin-large to utility component
+  - Removes box-shadow for invalid controls in Firefox
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
   - Fixed badge border-radius
   - Fixed wrong scaling calculation in overlay component for Chrome
+  - Fixed notify padding
   - Whitespace hack now uses font-size
 
 ### 2.3.1 (January 31, 2014)

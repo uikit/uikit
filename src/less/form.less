@@ -176,6 +176,12 @@
 .uk-form :disabled::-webkit-input-placeholder { color: @form-disabled-color; }
 
 /*
+ * Removes box-shadow for invalid controls in Firefox.
+ */
+
+.uk-form :invalid { box-shadow: none; }
+
+/*
  * Legend style
  * 1. `margin-bottom` is not working in Safari and Opera.
  *    Using `padding` and :after instead to create the border
