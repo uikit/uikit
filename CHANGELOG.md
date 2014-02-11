@@ -6,7 +6,8 @@
   - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names
   - Added AMD support
   - Added margin-large to utility component
-  - Removes box-shadow for invalid controls in Firefox
+  - Removed box-shadow for invalid controls in Firefox
+  - Removed default input style for iOS
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
   - Fixed badge border-radius
