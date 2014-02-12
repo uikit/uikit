@@ -72,10 +72,17 @@
 .uk-modal.uk-open { opacity: 1; }
 
 /*
- * Prevents dublicated scrollbar caused by 4.
+ * 7. Prevents scrolling for the body content
+ * 8. Prevents dublicated scrollbar caused by 4.
  */
 
-.uk-modal-page { overflow: hidden; }
+.uk-modal-page,
+.uk-modal-page body {
+    /* 7 */
+    height: 100%;
+    /* 8 */
+    overflow: hidden;
+}
 
 
 /* Sub-object: `uk-modal-dialog`

@@ -13,6 +13,7 @@
   - Fixed badge border-radius
   - Fixed wrong scaling calculation in overlay component for Chrome
   - Fixed notify padding
+  - Fixed body content scrolling if modal is open
   - Whitespace hack now uses font-size
 
 ### 2.3.1 (January 31, 2014)
