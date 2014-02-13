@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Contact layout example - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link rel="stylesheet" href="css/uikit.docs.min.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="../dist/js/uikit.min.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+
+            <nav class="uk-navbar uk-margin-large-bottom">
+                <a class="uk-navbar-brand uk-hidden-small" href="layouts_frontpage.html">Brand</a>
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li>
+                        <a href="layouts_frontpage.html">Frontpage</a>
+                    </li>
+                    <li>
+                        <a href="layouts_portfolio.html">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="layouts_blog.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="layouts_documentation.html">Documentation</a>
+                    </li>
+                    <li class="uk-active">
+                        <a href="layouts_contact.html">Contact</a>
+                    </li>
+                    <li>
+                        <a href="layouts_login.html">Login</a>
+                    </li>
+                </ul>
+                <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small">Brand</div>
+            </nav>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1 uk-text-center">
+                    <h1 class="uk-heading-large">Contact</h1>
+                    <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                </div>
+
+                <div class="uk-width-medium-1-4 uk-push-1-4 uk-text-center">
+                     <div class="uk-thumbnail uk-overlay-toggle uk-border-circle">
+                        <div class="uk-overlay">
+                            <img width="250" height="250" class="uk-border-circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjUwcHgiIGhlaWdodD0iMjUwcHgiIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNTAgMjUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IGZpbGw9IiNGQUZBRkEiIHdpZHRoPSIyNTAiIGhlaWdodD0iMjUwIi8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRTBFMEUwIiBkPSJNMjI3LjgxOSwyMDcuMjQ1Yy0xLjA0NS01Ljg0Ni0yLjM3LTExLjI1OS0zLjk2NS0xNi4yNTJjLTEuNTk4LTQuOTk0LTMuNzQzLTkuODU5LTYuNDQyLTE0LjYwNg0KCQljLTIuNjk3LTQuNzQxLTUuNzg5LTguNzg1LTkuMjgzLTEyLjEzMWMtMy41MDEtMy4zNDMtNy43NjctNi4wMTUtMTIuODA5LTguMDEyYy01LjA0NC0xLjk5Ni0xMC42MTEtMi45OTUtMTYuNy0yLjk5NQ0KCQljLTAuODk3LDAtMi45OTQsMS4wNzQtNi4yOTEsMy4yMTljLTMuMjk1LDIuMTUtNy4wMTYsNC41NDYtMTEuMTU4LDcuMTg4Yy00LjE0NiwyLjY0Ny05LjUzNyw1LjA0NC0xNi4xNzYsNy4xOQ0KCQljLTYuNjQxLDIuMTQ4LTEzLjMwOCwzLjIyMS0xOS45OTUsMy4yMjFjLTYuNjg5LDAtMTMuMzU0LTEuMDcyLTE5Ljk5NS0zLjIyMWMtNi42NDMtMi4xNDYtMTIuMDM2LTQuNTQzLTE2LjE3Ni03LjE5DQoJCWMtNC4xNDgtMi42NDItNy44NjMtNS4wMzctMTEuMTU4LTcuMTg4Yy0zLjI5NS0yLjE0NS01LjM5MS0zLjIxOS02LjI5MS0zLjIxOWMtNi4wOTUsMC0xMS42NjEsMC45OTktMTYuNzAxLDIuOTk1DQoJCWMtNS4wNDEsMS45OTctOS4zMTMsNC42NjktMTIuODAzLDguMDEyYy0zLjUwMSwzLjM0Ni02LjU5Miw3LjM5LTkuMjg3LDEyLjEzMWMtMi42OTYsNC43NDctNC44NDcsOS42MTItNi40NDEsMTQuNjA2DQoJCWMtMS41OTcsNC45OTMtMi45MjIsMTAuNDA2LTMuOTcxLDE2LjI1MmMtMS4wNDYsNS44MzktMS43NDgsMTEuMjgxLTIuMDk2LDE2LjMyM2MtMC4zNDksNS4wNDMtMC41MjQsMTAuMjEzLTAuNTI0LDE1LjUNCgkJYzAsMy45MjUsMC40MzIsNy41NSwxLjIxMSwxMC45MzJoMjA4LjQ2NGMwLjc4MS0zLjM4MiwxLjIxMy03LjAwNywxLjIxMy0xMC45MzJjMC01LjI4Ny0wLjE3NS0xMC40NTctMC41MjYtMTUuNQ0KCQlDMjI5LjU2NywyMTguNTI2LDIyOC44NjksMjEzLjA4NCwyMjcuODE5LDIwNy4yNDV6Ii8+DQoJPHBhdGggZmlsbD0iI0UwRTBFMCIgZD0iTTEyNSwxNjIuODM0YzE1Ljg3NSwwLDI5LjQzLTUuNjE3LDQwLjY2Ni0xNi44NWMxMS4yMzItMTEuMjM1LDE2Ljg1LTI0Ljc4OCwxNi44NS00MC42NjYNCgkJYzAtMTUuODc3LTUuNjE3LTI5LjQyOS0xNi44NS00MC42NjNDMTU0LjQzLDUzLjQyMiwxNDAuODc1LDQ3LjgwNCwxMjUsNDcuODA0cy0yOS40MzQsNS42MTktNDAuNjY0LDE2Ljg1Mg0KCQlDNzMuMSw3NS44OSw2Ny40ODQsODkuNDQxLDY3LjQ4NCwxMDUuMzE4YzAsMTUuODc4LDUuNjE1LDI5LjQzMSwxNi44NTIsNDAuNjY2Qzk1LjU2NiwxNTcuMjE3LDEwOS4xMjUsMTYyLjgzNCwxMjUsMTYyLjgzNHoiLz4NCjwvZz4NCjwvc3ZnPg0K" alt="">
+                            <div class="uk-overlay-area uk-border-circle">
+                                <div class="uk-overlay-area-content">
+                                    <a href="#" class="uk-icon-button uk-icon-envelope"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-google-plus"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="uk-margin-bottom-remove ">Name</h2>
+                    <p class="uk-text-large uk-margin-top-remove uk-text-muted">Job Description</p>
+                </div>
+
+                <div class="uk-width-medium-1-4 uk-push-1-4 uk-text-center">
+                    <div class="uk-thumbnail uk-overlay-toggle uk-border-circle">
+                        <div class="uk-overlay">
+                            <img width="250" height="250" class="uk-border-circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjUwcHgiIGhlaWdodD0iMjUwcHgiIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNTAgMjUwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IGZpbGw9IiNGQUZBRkEiIHdpZHRoPSIyNTAiIGhlaWdodD0iMjUwIi8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRTBFMEUwIiBkPSJNMjI3LjgxOSwyMDcuMjQ1Yy0xLjA0NS01Ljg0Ni0yLjM3LTExLjI1OS0zLjk2NS0xNi4yNTJjLTEuNTk4LTQuOTk0LTMuNzQzLTkuODU5LTYuNDQyLTE0LjYwNg0KCQljLTIuNjk3LTQuNzQxLTUuNzg5LTguNzg1LTkuMjgzLTEyLjEzMWMtMy41MDEtMy4zNDMtNy43NjctNi4wMTUtMTIuODA5LTguMDEyYy01LjA0NC0xLjk5Ni0xMC42MTEtMi45OTUtMTYuNy0yLjk5NQ0KCQljLTAuODk3LDAtMi45OTQsMS4wNzQtNi4yOTEsMy4yMTljLTMuMjk1LDIuMTUtNy4wMTYsNC41NDYtMTEuMTU4LDcuMTg4Yy00LjE0NiwyLjY0Ny05LjUzNyw1LjA0NC0xNi4xNzYsNy4xOQ0KCQljLTYuNjQxLDIuMTQ4LTEzLjMwOCwzLjIyMS0xOS45OTUsMy4yMjFjLTYuNjg5LDAtMTMuMzU0LTEuMDcyLTE5Ljk5NS0zLjIyMWMtNi42NDMtMi4xNDYtMTIuMDM2LTQuNTQzLTE2LjE3Ni03LjE5DQoJCWMtNC4xNDgtMi42NDItNy44NjMtNS4wMzctMTEuMTU4LTcuMTg4Yy0zLjI5NS0yLjE0NS01LjM5MS0zLjIxOS02LjI5MS0zLjIxOWMtNi4wOTUsMC0xMS42NjEsMC45OTktMTYuNzAxLDIuOTk1DQoJCWMtNS4wNDEsMS45OTctOS4zMTMsNC42NjktMTIuODAzLDguMDEyYy0zLjUwMSwzLjM0Ni02LjU5Miw3LjM5LTkuMjg3LDEyLjEzMWMtMi42OTYsNC43NDctNC44NDcsOS42MTItNi40NDEsMTQuNjA2DQoJCWMtMS41OTcsNC45OTMtMi45MjIsMTAuNDA2LTMuOTcxLDE2LjI1MmMtMS4wNDYsNS44MzktMS43NDgsMTEuMjgxLTIuMDk2LDE2LjMyM2MtMC4zNDksNS4wNDMtMC41MjQsMTAuMjEzLTAuNTI0LDE1LjUNCgkJYzAsMy45MjUsMC40MzIsNy41NSwxLjIxMSwxMC45MzJoMjA4LjQ2NGMwLjc4MS0zLjM4MiwxLjIxMy03LjAwNywxLjIxMy0xMC45MzJjMC01LjI4Ny0wLjE3NS0xMC40NTctMC41MjYtMTUuNQ0KCQlDMjI5LjU2NywyMTguNTI2LDIyOC44NjksMjEzLjA4NCwyMjcuODE5LDIwNy4yNDV6Ii8+DQoJPHBhdGggZmlsbD0iI0UwRTBFMCIgZD0iTTEyNSwxNjIuODM0YzE1Ljg3NSwwLDI5LjQzLTUuNjE3LDQwLjY2Ni0xNi44NWMxMS4yMzItMTEuMjM1LDE2Ljg1LTI0Ljc4OCwxNi44NS00MC42NjYNCgkJYzAtMTUuODc3LTUuNjE3LTI5LjQyOS0xNi44NS00MC42NjNDMTU0LjQzLDUzLjQyMiwxNDAuODc1LDQ3LjgwNCwxMjUsNDcuODA0cy0yOS40MzQsNS42MTktNDAuNjY0LDE2Ljg1Mg0KCQlDNzMuMSw3NS44OSw2Ny40ODQsODkuNDQxLDY3LjQ4NCwxMDUuMzE4YzAsMTUuODc4LDUuNjE1LDI5LjQzMSwxNi44NTIsNDAuNjY2Qzk1LjU2NiwxNTcuMjE3LDEwOS4xMjUsMTYyLjgzNCwxMjUsMTYyLjgzNHoiLz4NCjwvZz4NCjwvc3ZnPg0K" alt="">
+                            <div class="uk-overlay-area uk-border-circle">
+                                <div class="uk-overlay-area-content">
+                                    <a href="#" class="uk-icon-button uk-icon-envelope"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-google-plus"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="uk-margin-bottom-remove ">Name</h2>
+                    <p class="uk-text-large uk-margin-top-remove uk-text-muted">Job Description</p>
+                </div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-5 uk-text-center">
+                    <div class="uk-thumbnail uk-overlay-toggle uk-border-circle">
+                        <div class="uk-overlay">
+                            <img width="200" height="200" class="uk-border-circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjAwcHgiIGhlaWdodD0iMjAwcHgiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMDAgMjAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IGZpbGw9IiNGQUZBRkEiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIi8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRTBFMEUwIiBkPSJNMTgyLjI1NiwxNjUuNzk2Yy0wLjgzNi00LjY3Ny0xLjg5Ni05LjAwNy0zLjE3Mi0xMy4wMDFjLTEuMjc4LTMuOTk2LTIuOTk1LTcuODg4LTUuMTU0LTExLjY4Ng0KCQljLTIuMTU4LTMuNzkzLTQuNjMxLTcuMDI4LTcuNDI3LTkuNzA1Yy0yLjgwMS0yLjY3NC02LjIxMy00LjgxMi0xMC4yNDctNi40MDljLTQuMDM1LTEuNTk3LTguNDg4LTIuMzk2LTEzLjM1OS0yLjM5Ng0KCQljLTAuNzE5LDAtMi4zOTYsMC44NTktNS4wMzMsMi41NzRjLTIuNjM2LDEuNzIxLTUuNjEyLDMuNjM3LTguOTI3LDUuNzVjLTMuMzE2LDIuMTE4LTcuNjMsNC4wMzUtMTIuOTQsNS43NTMNCgkJYy01LjMxMiwxLjcxOS0xMC42NDYsMi41NzYtMTUuOTk2LDIuNTc2Yy01LjM1MiwwLTEwLjY4NC0wLjg1Ny0xNS45OTYtMi41NzZjLTUuMzE0LTEuNzE4LTkuNjI5LTMuNjM1LTEyLjk0LTUuNzUzDQoJCWMtMy4zMTktMi4xMTMtNi4yOTEtNC4wMjktOC45MjctNS43NWMtMi42MzYtMS43MTUtNC4zMTItMi41NzQtNS4wMzMtMi41NzRjLTQuODc2LDAtOS4zMjksMC43OTktMTMuMzYxLDIuMzk2DQoJCWMtNC4wMzMsMS41OTgtNy40NTEsMy43MzUtMTAuMjQyLDYuNDA5Yy0yLjgwMSwyLjY3Ny01LjI3Myw1LjkxMi03LjQzLDkuNzA1Yy0yLjE1NywzLjc5OC0zLjg3Nyw3LjY4OS01LjE1MywxMS42ODYNCgkJYy0xLjI3OCwzLjk5NC0yLjMzNyw4LjMyNC0zLjE3NywxMy4wMDFjLTAuODM3LDQuNjcxLTEuMzk4LDkuMDI1LTEuNjc3LDEzLjA1OWMtMC4yNzksNC4wMzQtMC40MTksOC4xNzEtMC40MTksMTIuNA0KCQljMCwzLjE0LDAuMzQ1LDYuMDQsMC45NjksOC43NDVoMTY2Ljc3MWMwLjYyNS0yLjcwNSwwLjk3MS01LjYwNSwwLjk3MS04Ljc0NWMwLTQuMjI5LTAuMTQtOC4zNjYtMC40MjEtMTIuNA0KCQlDMTgzLjY1NCwxNzQuODIxLDE4My4wOTYsMTcwLjQ2NywxODIuMjU2LDE2NS43OTZ6Ii8+DQoJPHBhdGggZmlsbD0iI0UwRTBFMCIgZD0iTTEwMCwxMzAuMjY4YzEyLjcsMCwyMy41NDQtNC40OTQsMzIuNTMzLTEzLjQ4YzguOTg1LTguOTg4LDEzLjQ3OS0xOS44MywxMy40NzktMzIuNTMyDQoJCXMtNC40OTQtMjMuNTQzLTEzLjQ3OS0zMi41MzFDMTIzLjU0NCw0Mi43MzgsMTEyLjcsMzguMjQzLDEwMCwzOC4yNDNzLTIzLjU0Nyw0LjQ5NS0zMi41MzEsMTMuNDgxDQoJCWMtOC45ODksOC45ODgtMTMuNDgxLDE5LjgyOS0xMy40ODEsMzIuNTMxczQuNDkyLDIzLjU0NCwxMy40ODEsMzIuNTMyQzc2LjQ1MywxMjUuNzczLDg3LjMsMTMwLjI2OCwxMDAsMTMwLjI2OHoiLz4NCjwvZz4NCjwvc3ZnPg0K" alt="">
+                            <div class="uk-overlay-area uk-border-circle">
+                                <div class="uk-overlay-area-content">
+                                    <a href="#" class="uk-icon-button uk-icon-envelope"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-google-plus"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="uk-margin-bottom-remove ">Name</h2>
+                    <p class="uk-text-large uk-margin-top-remove uk-text-muted">Job Description</p>
+                </div>
+
+                <div class="uk-width-medium-1-5 uk-text-center">
+                    <div class="uk-thumbnail uk-overlay-toggle uk-border-circle">
+                        <div class="uk-overlay">
+                            <img width="200" height="200" class="uk-border-circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjAwcHgiIGhlaWdodD0iMjAwcHgiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMDAgMjAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IGZpbGw9IiNGQUZBRkEiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIi8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRTBFMEUwIiBkPSJNMTgyLjI1NiwxNjUuNzk2Yy0wLjgzNi00LjY3Ny0xLjg5Ni05LjAwNy0zLjE3Mi0xMy4wMDFjLTEuMjc4LTMuOTk2LTIuOTk1LTcuODg4LTUuMTU0LTExLjY4Ng0KCQljLTIuMTU4LTMuNzkzLTQuNjMxLTcuMDI4LTcuNDI3LTkuNzA1Yy0yLjgwMS0yLjY3NC02LjIxMy00LjgxMi0xMC4yNDctNi40MDljLTQuMDM1LTEuNTk3LTguNDg4LTIuMzk2LTEzLjM1OS0yLjM5Ng0KCQljLTAuNzE5LDAtMi4zOTYsMC44NTktNS4wMzMsMi41NzRjLTIuNjM2LDEuNzIxLTUuNjEyLDMuNjM3LTguOTI3LDUuNzVjLTMuMzE2LDIuMTE4LTcuNjMsNC4wMzUtMTIuOTQsNS43NTMNCgkJYy01LjMxMiwxLjcxOS0xMC42NDYsMi41NzYtMTUuOTk2LDIuNTc2Yy01LjM1MiwwLTEwLjY4NC0wLjg1Ny0xNS45OTYtMi41NzZjLTUuMzE0LTEuNzE4LTkuNjI5LTMuNjM1LTEyLjk0LTUuNzUzDQoJCWMtMy4zMTktMi4xMTMtNi4yOTEtNC4wMjktOC45MjctNS43NWMtMi42MzYtMS43MTUtNC4zMTItMi41NzQtNS4wMzMtMi41NzRjLTQuODc2LDAtOS4zMjksMC43OTktMTMuMzYxLDIuMzk2DQoJCWMtNC4wMzMsMS41OTgtNy40NTEsMy43MzUtMTAuMjQyLDYuNDA5Yy0yLjgwMSwyLjY3Ny01LjI3Myw1LjkxMi03LjQzLDkuNzA1Yy0yLjE1NywzLjc5OC0zLjg3Nyw3LjY4OS01LjE1MywxMS42ODYNCgkJYy0xLjI3OCwzLjk5NC0yLjMzNyw4LjMyNC0zLjE3NywxMy4wMDFjLTAuODM3LDQuNjcxLTEuMzk4LDkuMDI1LTEuNjc3LDEzLjA1OWMtMC4yNzksNC4wMzQtMC40MTksOC4xNzEtMC40MTksMTIuNA0KCQljMCwzLjE0LDAuMzQ1LDYuMDQsMC45NjksOC43NDVoMTY2Ljc3MWMwLjYyNS0yLjcwNSwwLjk3MS01LjYwNSwwLjk3MS04Ljc0NWMwLTQuMjI5LTAuMTQtOC4zNjYtMC40MjEtMTIuNA0KCQlDMTgzLjY1NCwxNzQuODIxLDE4My4wOTYsMTcwLjQ2NywxODIuMjU2LDE2NS43OTZ6Ii8+DQoJPHBhdGggZmlsbD0iI0UwRTBFMCIgZD0iTTEwMCwxMzAuMjY4YzEyLjcsMCwyMy41NDQtNC40OTQsMzIuNTMzLTEzLjQ4YzguOTg1LTguOTg4LDEzLjQ3OS0xOS44MywxMy40NzktMzIuNTMyDQoJCXMtNC40OTQtMjMuNTQzLTEzLjQ3OS0zMi41MzFDMTIzLjU0NCw0Mi43MzgsMTEyLjcsMzguMjQzLDEwMCwzOC4yNDNzLTIzLjU0Nyw0LjQ5NS0zMi41MzEsMTMuNDgxDQoJCWMtOC45ODksOC45ODgtMTMuNDgxLDE5LjgyOS0xMy40ODEsMzIuNTMxczQuNDkyLDIzLjU0NCwxMy40ODEsMzIuNTMyQzc2LjQ1MywxMjUuNzczLDg3LjMsMTMwLjI2OCwxMDAsMTMwLjI2OHoiLz4NCjwvZz4NCjwvc3ZnPg0K" alt="">
+                            <div class="uk-overlay-area uk-border-circle">
+                                <div class="uk-overlay-area-content">
+                                    <a href="#" class="uk-icon-button uk-icon-envelope"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-google-plus"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="uk-margin-bottom-remove ">Name</h2>
+                    <p class="uk-text-large uk-margin-top-remove uk-text-muted">Job Description</p>
+                </div>
+                <div class="uk-width-medium-1-5 uk-text-center">
+                    <div class="uk-thumbnail uk-overlay-toggle uk-border-circle">
+                        <div class="uk-overlay">
+                            <img width="200" height="200" class="uk-border-circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjAwcHgiIGhlaWdodD0iMjAwcHgiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMDAgMjAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IGZpbGw9IiNGQUZBRkEiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIi8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRTBFMEUwIiBkPSJNMTgyLjI1NiwxNjUuNzk2Yy0wLjgzNi00LjY3Ny0xLjg5Ni05LjAwNy0zLjE3Mi0xMy4wMDFjLTEuMjc4LTMuOTk2LTIuOTk1LTcuODg4LTUuMTU0LTExLjY4Ng0KCQljLTIuMTU4LTMuNzkzLTQuNjMxLTcuMDI4LTcuNDI3LTkuNzA1Yy0yLjgwMS0yLjY3NC02LjIxMy00LjgxMi0xMC4yNDctNi40MDljLTQuMDM1LTEuNTk3LTguNDg4LTIuMzk2LTEzLjM1OS0yLjM5Ng0KCQljLTAuNzE5LDAtMi4zOTYsMC44NTktNS4wMzMsMi41NzRjLTIuNjM2LDEuNzIxLTUuNjEyLDMuNjM3LTguOTI3LDUuNzVjLTMuMzE2LDIuMTE4LTcuNjMsNC4wMzUtMTIuOTQsNS43NTMNCgkJYy01LjMxMiwxLjcxOS0xMC42NDYsMi41NzYtMTUuOTk2LDIuNTc2Yy01LjM1MiwwLTEwLjY4NC0wLjg1Ny0xNS45OTYtMi41NzZjLTUuMzE0LTEuNzE4LTkuNjI5LTMuNjM1LTEyLjk0LTUuNzUzDQoJCWMtMy4zMTktMi4xMTMtNi4yOTEtNC4wMjktOC45MjctNS43NWMtMi42MzYtMS43MTUtNC4zMTItMi41NzQtNS4wMzMtMi41NzRjLTQuODc2LDAtOS4zMjksMC43OTktMTMuMzYxLDIuMzk2DQoJCWMtNC4wMzMsMS41OTgtNy40NTEsMy43MzUtMTAuMjQyLDYuNDA5Yy0yLjgwMSwyLjY3Ny01LjI3Myw1LjkxMi03LjQzLDkuNzA1Yy0yLjE1NywzLjc5OC0zLjg3Nyw3LjY4OS01LjE1MywxMS42ODYNCgkJYy0xLjI3OCwzLjk5NC0yLjMzNyw4LjMyNC0zLjE3NywxMy4wMDFjLTAuODM3LDQuNjcxLTEuMzk4LDkuMDI1LTEuNjc3LDEzLjA1OWMtMC4yNzksNC4wMzQtMC40MTksOC4xNzEtMC40MTksMTIuNA0KCQljMCwzLjE0LDAuMzQ1LDYuMDQsMC45NjksOC43NDVoMTY2Ljc3MWMwLjYyNS0yLjcwNSwwLjk3MS01LjYwNSwwLjk3MS04Ljc0NWMwLTQuMjI5LTAuMTQtOC4zNjYtMC40MjEtMTIuNA0KCQlDMTgzLjY1NCwxNzQuODIxLDE4My4wOTYsMTcwLjQ2NywxODIuMjU2LDE2NS43OTZ6Ii8+DQoJPHBhdGggZmlsbD0iI0UwRTBFMCIgZD0iTTEwMCwxMzAuMjY4YzEyLjcsMCwyMy41NDQtNC40OTQsMzIuNTMzLTEzLjQ4YzguOTg1LTguOTg4LDEzLjQ3OS0xOS44MywxMy40NzktMzIuNTMyDQoJCXMtNC40OTQtMjMuNTQzLTEzLjQ3OS0zMi41MzFDMTIzLjU0NCw0Mi43MzgsMTEyLjcsMzguMjQzLDEwMCwzOC4yNDNzLTIzLjU0Nyw0LjQ5NS0zMi41MzEsMTMuNDgxDQoJCWMtOC45ODksOC45ODgtMTMuNDgxLDE5LjgyOS0xMy40ODEsMzIuNTMxczQuNDkyLDIzLjU0NCwxMy40ODEsMzIuNTMyQzc2LjQ1MywxMjUuNzczLDg3LjMsMTMwLjI2OCwxMDAsMTMwLjI2OHoiLz4NCjwvZz4NCjwvc3ZnPg0K" alt="">
+                            <div class="uk-overlay-area uk-border-circle">
+                                <div class="uk-overlay-area-content">
+                                    <a href="#" class="uk-icon-button uk-icon-envelope"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-google-plus"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="uk-margin-bottom-remove ">Name</h2>
+                    <p class="uk-text-large uk-margin-top-remove uk-text-muted">Job Description</p>
+                </div>
+
+                <div class="uk-width-medium-1-5 uk-text-center">
+                    <div class="uk-thumbnail uk-overlay-toggle uk-border-circle">
+                        <div class="uk-overlay">
+                            <img width="200" height="200" class="uk-border-circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjAwcHgiIGhlaWdodD0iMjAwcHgiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMDAgMjAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IGZpbGw9IiNGQUZBRkEiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIi8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRTBFMEUwIiBkPSJNMTgyLjI1NiwxNjUuNzk2Yy0wLjgzNi00LjY3Ny0xLjg5Ni05LjAwNy0zLjE3Mi0xMy4wMDFjLTEuMjc4LTMuOTk2LTIuOTk1LTcuODg4LTUuMTU0LTExLjY4Ng0KCQljLTIuMTU4LTMuNzkzLTQuNjMxLTcuMDI4LTcuNDI3LTkuNzA1Yy0yLjgwMS0yLjY3NC02LjIxMy00LjgxMi0xMC4yNDctNi40MDljLTQuMDM1LTEuNTk3LTguNDg4LTIuMzk2LTEzLjM1OS0yLjM5Ng0KCQljLTAuNzE5LDAtMi4zOTYsMC44NTktNS4wMzMsMi41NzRjLTIuNjM2LDEuNzIxLTUuNjEyLDMuNjM3LTguOTI3LDUuNzVjLTMuMzE2LDIuMTE4LTcuNjMsNC4wMzUtMTIuOTQsNS43NTMNCgkJYy01LjMxMiwxLjcxOS0xMC42NDYsMi41NzYtMTUuOTk2LDIuNTc2Yy01LjM1MiwwLTEwLjY4NC0wLjg1Ny0xNS45OTYtMi41NzZjLTUuMzE0LTEuNzE4LTkuNjI5LTMuNjM1LTEyLjk0LTUuNzUzDQoJCWMtMy4zMTktMi4xMTMtNi4yOTEtNC4wMjktOC45MjctNS43NWMtMi42MzYtMS43MTUtNC4zMTItMi41NzQtNS4wMzMtMi41NzRjLTQuODc2LDAtOS4zMjksMC43OTktMTMuMzYxLDIuMzk2DQoJCWMtNC4wMzMsMS41OTgtNy40NTEsMy43MzUtMTAuMjQyLDYuNDA5Yy0yLjgwMSwyLjY3Ny01LjI3Myw1LjkxMi03LjQzLDkuNzA1Yy0yLjE1NywzLjc5OC0zLjg3Nyw3LjY4OS01LjE1MywxMS42ODYNCgkJYy0xLjI3OCwzLjk5NC0yLjMzNyw4LjMyNC0zLjE3NywxMy4wMDFjLTAuODM3LDQuNjcxLTEuMzk4LDkuMDI1LTEuNjc3LDEzLjA1OWMtMC4yNzksNC4wMzQtMC40MTksOC4xNzEtMC40MTksMTIuNA0KCQljMCwzLjE0LDAuMzQ1LDYuMDQsMC45NjksOC43NDVoMTY2Ljc3MWMwLjYyNS0yLjcwNSwwLjk3MS01LjYwNSwwLjk3MS04Ljc0NWMwLTQuMjI5LTAuMTQtOC4zNjYtMC40MjEtMTIuNA0KCQlDMTgzLjY1NCwxNzQuODIxLDE4My4wOTYsMTcwLjQ2NywxODIuMjU2LDE2NS43OTZ6Ii8+DQoJPHBhdGggZmlsbD0iI0UwRTBFMCIgZD0iTTEwMCwxMzAuMjY4YzEyLjcsMCwyMy41NDQtNC40OTQsMzIuNTMzLTEzLjQ4YzguOTg1LTguOTg4LDEzLjQ3OS0xOS44MywxMy40NzktMzIuNTMyDQoJCXMtNC40OTQtMjMuNTQzLTEzLjQ3OS0zMi41MzFDMTIzLjU0NCw0Mi43MzgsMTEyLjcsMzguMjQzLDEwMCwzOC4yNDNzLTIzLjU0Nyw0LjQ5NS0zMi41MzEsMTMuNDgxDQoJCWMtOC45ODksOC45ODgtMTMuNDgxLDE5LjgyOS0xMy40ODEsMzIuNTMxczQuNDkyLDIzLjU0NCwxMy40ODEsMzIuNTMyQzc2LjQ1MywxMjUuNzczLDg3LjMsMTMwLjI2OCwxMDAsMTMwLjI2OHoiLz4NCjwvZz4NCjwvc3ZnPg0K" alt="">
+                            <div class="uk-overlay-area uk-border-circle">
+                                <div class="uk-overlay-area-content">
+                                    <a href="#" class="uk-icon-button uk-icon-envelope"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-google-plus"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="uk-margin-bottom-remove ">Name</h2>
+                    <p class="uk-text-large uk-margin-top-remove uk-text-muted">Job Description</p>
+                </div>
+
+                <div class="uk-width-medium-1-5 uk-text-center">
+                    <div class="uk-thumbnail uk-overlay-toggle uk-border-circle">
+                        <div class="uk-overlay">
+                            <img width="200" height="200" class="uk-border-circle" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjAwcHgiIGhlaWdodD0iMjAwcHgiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMDAgMjAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IGZpbGw9IiNGQUZBRkEiIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIi8+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRTBFMEUwIiBkPSJNMTgyLjI1NiwxNjUuNzk2Yy0wLjgzNi00LjY3Ny0xLjg5Ni05LjAwNy0zLjE3Mi0xMy4wMDFjLTEuMjc4LTMuOTk2LTIuOTk1LTcuODg4LTUuMTU0LTExLjY4Ng0KCQljLTIuMTU4LTMuNzkzLTQuNjMxLTcuMDI4LTcuNDI3LTkuNzA1Yy0yLjgwMS0yLjY3NC02LjIxMy00LjgxMi0xMC4yNDctNi40MDljLTQuMDM1LTEuNTk3LTguNDg4LTIuMzk2LTEzLjM1OS0yLjM5Ng0KCQljLTAuNzE5LDAtMi4zOTYsMC44NTktNS4wMzMsMi41NzRjLTIuNjM2LDEuNzIxLTUuNjEyLDMuNjM3LTguOTI3LDUuNzVjLTMuMzE2LDIuMTE4LTcuNjMsNC4wMzUtMTIuOTQsNS43NTMNCgkJYy01LjMxMiwxLjcxOS0xMC42NDYsMi41NzYtMTUuOTk2LDIuNTc2Yy01LjM1MiwwLTEwLjY4NC0wLjg1Ny0xNS45OTYtMi41NzZjLTUuMzE0LTEuNzE4LTkuNjI5LTMuNjM1LTEyLjk0LTUuNzUzDQoJCWMtMy4zMTktMi4xMTMtNi4yOTEtNC4wMjktOC45MjctNS43NWMtMi42MzYtMS43MTUtNC4zMTItMi41NzQtNS4wMzMtMi41NzRjLTQuODc2LDAtOS4zMjksMC43OTktMTMuMzYxLDIuMzk2DQoJCWMtNC4wMzMsMS41OTgtNy40NTEsMy43MzUtMTAuMjQyLDYuNDA5Yy0yLjgwMSwyLjY3Ny01LjI3Myw1LjkxMi03LjQzLDkuNzA1Yy0yLjE1NywzLjc5OC0zLjg3Nyw3LjY4OS01LjE1MywxMS42ODYNCgkJYy0xLjI3OCwzLjk5NC0yLjMzNyw4LjMyNC0zLjE3NywxMy4wMDFjLTAuODM3LDQuNjcxLTEuMzk4LDkuMDI1LTEuNjc3LDEzLjA1OWMtMC4yNzksNC4wMzQtMC40MTksOC4xNzEtMC40MTksMTIuNA0KCQljMCwzLjE0LDAuMzQ1LDYuMDQsMC45NjksOC43NDVoMTY2Ljc3MWMwLjYyNS0yLjcwNSwwLjk3MS01LjYwNSwwLjk3MS04Ljc0NWMwLTQuMjI5LTAuMTQtOC4zNjYtMC40MjEtMTIuNA0KCQlDMTgzLjY1NCwxNzQuODIxLDE4My4wOTYsMTcwLjQ2NywxODIuMjU2LDE2NS43OTZ6Ii8+DQoJPHBhdGggZmlsbD0iI0UwRTBFMCIgZD0iTTEwMCwxMzAuMjY4YzEyLjcsMCwyMy41NDQtNC40OTQsMzIuNTMzLTEzLjQ4YzguOTg1LTguOTg4LDEzLjQ3OS0xOS44MywxMy40NzktMzIuNTMyDQoJCXMtNC40OTQtMjMuNTQzLTEzLjQ3OS0zMi41MzFDMTIzLjU0NCw0Mi43MzgsMTEyLjcsMzguMjQzLDEwMCwzOC4yNDNzLTIzLjU0Nyw0LjQ5NS0zMi41MzEsMTMuNDgxDQoJCWMtOC45ODksOC45ODgtMTMuNDgxLDE5LjgyOS0xMy40ODEsMzIuNTMxczQuNDkyLDIzLjU0NCwxMy40ODEsMzIuNTMyQzc2LjQ1MywxMjUuNzczLDg3LjMsMTMwLjI2OCwxMDAsMTMwLjI2OHoiLz4NCjwvZz4NCjwvc3ZnPg0K" alt="">
+                            <div class="uk-overlay-area uk-border-circle">
+                                <div class="uk-overlay-area-content">
+                                    <a href="#" class="uk-icon-button uk-icon-envelope"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                                    <a href="#" class="uk-icon-button uk-icon-google-plus"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="uk-margin-bottom-remove ">Name</h2>
+                    <p class="uk-text-large uk-margin-top-remove uk-text-muted">Job Description</p>
+                </div>
+            </div>
+
+            <hr class="uk-grid-divider">
+
+            <div class="uk-grid uk-margin-large" data-uk-grid-margin>
+
+                <div class="uk-width-medium-2-3">
+                    <div class="uk-panel uk-panel-header">
+
+                        <h3 class="uk-panel-title">Message</h3>
+
+                        <form class="uk-form">
+
+                            <div class="uk-form-row">
+                                <label class="uk-form-label">Your Name<span class="uk-text-primary">*</span></label>
+                                <div class="uk-form-controls">
+                                    <input type="text" placeholder="" class="uk-width-1-1">
+                                </div>
+                            </div>
+
+                            <div class="uk-form-row">
+                                <label class="uk-form-label">Your Email<span class="uk-text-primary">*</span></label>
+                                <div class="uk-form-controls">
+                                    <input type="text" placeholder="" class="uk-width-1-1">
+                                </div>
+                            </div>
+
+                            <div class="uk-form-row">
+                                <label class="uk-form-label">Subject<span class="uk-text-primary">*</span></label>
+                                <div class="uk-form-controls">
+                                    <select class="uk-width-1-1" id="form-h-s">
+                                        <option>Option 01</option>
+                                        <option>Option 02</option>
+                                        <option>Option 03</option>
+                                        <option>Option 04</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="uk-form-row">
+                                <label class="uk-form-label">Your Message<span class="uk-text-primary">*</span></label>
+                                <div class="uk-form-controls">
+                                    <textarea class="uk-width-1-1" id="form-h-t" cols="100" rows="9"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="uk-form-row">
+                                <div class="uk-form-controls">
+                                    <button class="uk-button uk-button-primary">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="uk-width-medium-1-3">
+                    <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+                        <h3 class="uk-panel-title">Contact Details</h3>
+                        <p><strong>Sample Company Inc</strong><br/>Company Name<br/>Street, Country<br/>Postal Zip Code</p>
+                        <p>Email: <a>youremail@yourdomain.com</a><br/>
+                        Twitter: <a>@YourTwitterAccount</a><br/>
+                        Phone: +44 (0) 208 0000 000<br/>
+                        Fax: +44 (0) 208 0000 001</p>
+                        <h3>Follow Us</h3>
+                        <a href="#" class="uk-icon-button uk-icon-github"></a>
+                        <a href="#" class="uk-icon-button uk-icon-twitter"></a>
+                        <a href="#" class="uk-icon-button uk-icon-dribbble"></a>
+                        <a href="#" class="uk-icon-button uk-icon-html5"></a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="uk-grid-divider">
+
+        </div>
+
+        <div id="offcanvas" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar">
+                <ul class="uk-nav uk-nav-offcanvas">
+                    <li>
+                        <a href="layouts_frontpage.html">Frontpage</a>
+                    </li>
+                       <li>
+                        <a href="layouts_portfolio.html">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="layouts_blog.html">Blog</a>
+                    </li>
+                       <li>
+                        <a href="layouts_documentation.html">Documentation</a>
+                    </li>
+                    <li class="uk-active">
+                        <a href="layouts_contact.html">Contact</a>
+                    </li>
+                    <li>
+                        <a href="layouts_login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </body>
+</html>

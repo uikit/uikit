@@ -16,6 +16,10 @@
   - Fixed body content scrolling if modal is open
   - Whitespace hack now uses font-size
 
+**Documentation and repository**
+
+  - Added layout examples
+
 ### 2.3.1 (January 31, 2014)
 
   - Fixed button text decoration
