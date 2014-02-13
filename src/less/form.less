@@ -176,6 +176,25 @@
 .uk-form :disabled::-webkit-input-placeholder { color: @form-disabled-color; }
 
 /*
+ * Reset style on iOS.
+ */
+
+.uk-form textarea,
+.uk-form input:not([type]),
+.uk-form input[type="text"],
+.uk-form input[type="password"],
+.uk-form input[type="email"],
+.uk-form input[type="url"],
+.uk-form input[type="search"],
+.uk-form input[type="tel"] { -webkit-appearance: none; }
+
+/*
+ * Removes box-shadow for invalid controls in Firefox.
+ */
+
+.uk-form :invalid { box-shadow: none; }
+
+/*
  * Legend style
  * 1. `margin-bottom` is not working in Safari and Opera.
  *    Using `padding` and :after instead to create the border

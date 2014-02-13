@@ -2,10 +2,23 @@
 
 ### WIP
 
+  - IMPORTANT: Renamed uk-text-info to uk-text-primary including variable names
+  - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names
   - Added AMD support
+  - Added margin classes to utility component
+  - Removed box-shadow for invalid controls in Firefox
+  - Removed default input style for iOS
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
   - Fixed badge border-radius
+  - Fixed wrong scaling calculation in overlay component for Chrome
+  - Fixed notify padding
+  - Fixed body content scrolling if modal is open
+  - Whitespace hack now uses font-size
+
+**Documentation and repository**
+
+  - Added layout examples
 
 ### 2.3.1 (January 31, 2014)
 
@@ -41,7 +54,7 @@
   - Added form-file add-on
   - Added primary comment to comment component
   - Added overlay-area-content to overlay component
-  - Added margin-small classes to utility component
+  - Added margin-small to utility component
   - Added text-nowrap to text component
   - Added data-uk-margin to utility component
   - Switcher now activates first toggler when no uk-active class is set

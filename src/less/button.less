@@ -74,6 +74,7 @@
 
 @button-link-color:                             #07D;
 @button-link-hover-color:                       #059;
+@button-link-hover-text-decoration:             underline;
 @button-link-disabled-color:                    #999;
 
 
@@ -105,7 +106,7 @@
     /* 4 */
     min-height: @button-height;
     /* 5 */
-    letter-spacing: normal;
+    font-size: 1rem;
     /* 6 */
     padding: 0 @button-padding-horizontal;
     background: @button-background;
@@ -257,7 +258,7 @@
 .uk-button-link:active,
 .uk-button-link.uk-active {
     color: @button-link-hover-color;
-    text-decoration: underline;
+    text-decoration: @button-link-hover-text-decoration;
 }
 
 .uk-button-link:disabled { color: @button-link-disabled-color; }
@@ -309,7 +310,7 @@
     /* 2 */
     position: relative;
     /* 3 */
-    letter-spacing: -0.31em;
+    font-size: 0;
     /* 4 */
     white-space: nowrap;
 }
