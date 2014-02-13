@@ -15,8 +15,8 @@
   var defaults = {
         top          : 0,
         bottom       : 0,
-        clsactive    : 'uk-sticky-active',
-        clswrapper   : 'uk-sticky-wrapper',
+        clsactive    : 'uk-active',
+        clswrapper   : 'uk-sticky',
         getWidthFrom : ''
       },
 
