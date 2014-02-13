@@ -161,6 +161,75 @@ html { overflow-y: scroll; }
 .tm-image-pull { margin-bottom: -10px; }
 
 /*
+ * Community
+ */
+
+.tm-margin-large-bottom { margin-bottom: 80px; }
+
+.tm-panel-link,
+.tm-panel-link:hover {
+    text-decoration: none;
+    color: #444;
+}
+
+.tm-panel-link {
+    padding: 30px;
+    border: 1px solid #e5e5e5;
+}
+
+.tm-panel-link:after {
+    content: "";
+    display: none;
+    position: absolute;
+    height: 5px;
+    right: -1px;
+    left: -1px;
+    bottom: -1px;
+    background: #0BA1D8;
+}
+
+.tm-panel-link:hover:after { display: block; }
+
+.tm-panel-link:hover h2 { color: #0BA1D8; }
+
+/* Only phones */
+.tm-grid-margin-large .uk-grid-margin { margin-top: 50px; }
+
+.tm-icon {
+    position: relative;
+    width: 80px;
+    margin: -60px auto 0 auto;
+    border-radius: 5px;
+    background: #0BA1D8;
+    line-height: 80px;
+    color: #fff;
+}
+
+.tm-icon:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -10px;
+    border: 10px solid #0BA1D8;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-bottom: none;
+}
+
+.tm-panel-link { -webkit-backface-visibility: hidden; }
+
+.tm-panel-link:hover .tm-icon {
+    transform: translateY(5px);
+    -webkit-transform: translateY(5px);
+    transition: all 0.1s ease-out;
+    -webkit-transition: all 0.1s ease-out;
+}
+
+/*
  * Footer
  */
 

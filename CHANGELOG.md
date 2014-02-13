@@ -19,6 +19,7 @@
 **Documentation and repository**
 
   - Added layout examples
+  - Updated community section on frontpage
 
 ### 2.3.1 (January 31, 2014)
 
