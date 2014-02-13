@@ -87,7 +87,7 @@
             if(stickyElement.data("sticky")) return;
 
             var stickyId      = stickyElement.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
-                wrapper       = $('<div></div>').attr('id', stickyId + '-sticky-wrapper').addClass(o.clswrapper);
+                wrapper       = $('<div></div>').attr('id', 'sticky-'+stickyId).addClass(o.clswrapper);
 
             stickyElement.wrapAll(wrapper);
 
@@ -115,13 +115,8 @@
       };
 
     // should be more efficient than using $window.scroll(scroller) and $window.resize(resizer):
-    if (window.addEventListener) {
-      window.addEventListener('scroll', scroller, false);
-      window.addEventListener('resize', resizer, false);
-    } else if (window.attachEvent) {
-      window.attachEvent('onscroll', scroller);
-      window.attachEvent('onresize', resizer);
-    }
+    window.addEventListener('scroll', scroller, false);
+    window.addEventListener('resize', resizer, false);
 
     $.fn.uksticky = function(method) {
       if (methods[method]) {
