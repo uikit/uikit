@@ -4,7 +4,14 @@
 
   - IMPORTANT: Renamed uk-text-info to uk-text-primary including variable names
   - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names
+  - IMPORTANT: Renamed @grid-large-gutter-horizontal to @grid-gutter-large-horizontal
+  - IMPORTANT: Renamed @grid-large-gutter-vertical to @grid-gutter-large-vertical
+  - IMPORTANT: Renamed @panel-divider-large-gutter to @panel-divider-gutter-large
+  - Renamed some global variables in themes
   - Refactored grid component
+  - Added grid width classes
+  - Added grid gutter small classes
+  - Added width small classes
   - Added AMD support
   - Added margin classes to utility component
   - Added border rounded to utility component
@@ -22,6 +29,7 @@
 
   - Added layout examples
   - Updated community section on frontpage
+  - Renamed uk-width-custom to uk-width in docs and tests
 
 ### 2.3.1 (January 31, 2014)
 
