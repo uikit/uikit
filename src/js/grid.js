@@ -93,6 +93,8 @@
 
         matchHeights: function(elements){
 
+            if(elements.length < 2) return;
+
             var max = 0;
 
             elements.each(function() {
