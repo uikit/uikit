@@ -119,9 +119,9 @@
             "advanced": true,
             "vars": [
                 "@global-margin",
-                "@global-large-margin",
+                "@global-margin-large",
                 "@global-grid-gutter",
-                "@global-grid-large-gutter"
+                "@global-grid-gutter-large"
             ]
         },
         {
@@ -129,9 +129,9 @@
             "advanced": true,
             "vars": [
                 "@global-height",
-                "@global-mini-height",
-                "@global-small-height",
-                "@global-large-height"
+                "@global-height-mini",
+                "@global-height-small",
+                "@global-height-large"
             ]
         },
         {
