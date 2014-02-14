@@ -56,15 +56,48 @@
 
             if (stacked) return;
 
-            this.elements.each(function() {
-                max = Math.max(max, $(this).outerHeight());
-            }).each(function(i) {
+            if(this.options.row) {
 
-                var element = $(this),
-                    height  = max - (element.outerHeight() - element.height());
+                var groups = {};
 
-                element.css('min-height', height + 'px');
-            });
+                this.elements.each(function() {
+                    var ele = $(this), offset = ele.offset().top;
+
+                    if(!groups[offset]) {
+                        groups[offset] = [];
+                    }
+
+                    groups[offset].push(ele);
+                });
+
+                for(var offset in groups) {
+
+                    max = 0;
+
+                    // get max
+                    groups[offset].forEach(function(element){
+                        max = Math.max(max, element.outerHeight());
+                    });
+
+                    // apply max
+                    groups[offset].forEach(function(element){
+                        var height = max - (element.outerHeight() - element.height());
+                        element.css('min-height', height + 'px');
+                    });
+                }
+
+            } else {
+
+                this.elements.each(function() {
+                    max = Math.max(max, $(this).outerHeight());
+                }).each(function(i) {
+
+                    var element = $(this),
+                        height  = max - (element.outerHeight() - element.height());
+
+                    element.css('min-height', height + 'px');
+                });
+            }
 
             return this;
         },
@@ -77,7 +110,8 @@
     });
 
     GridMatchHeight.defaults = {
-        "target": false
+        "target" : false,
+        "row"    : false
     };
 
     var GridMargin = function(element, options) {
