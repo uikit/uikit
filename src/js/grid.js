@@ -71,7 +71,7 @@
                     }
 
                     group.push(ele);
-                    lastoffset = offset
+                    lastoffset = offset;
                 });
 
                 if(group.length) {
