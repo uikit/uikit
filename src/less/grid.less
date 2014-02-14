@@ -27,8 +27,8 @@
 @grid-gutter-small-horizontal:                  10px;
 @grid-gutter-small-vertical:                    10px;
 
-@grid-large-gutter-horizontal:                  35px;
-@grid-large-gutter-vertical:                    35px;
+@grid-gutter-large-horizontal:                  35px;
+@grid-gutter-large-vertical:                    35px;
 
 @grid-divider-border:                           #ddd;
 @grid-divider-border-width:                     1px;
@@ -128,15 +128,15 @@
 @media (min-width: @breakpoint-xlarge) {
 
     /* Horizontal gutter */
-    .uk-grid:not(.uk-grid-preserve) { margin-left: -@grid-large-gutter-horizontal; }
-    .uk-grid:not(.uk-grid-preserve) > * { padding-left: @grid-large-gutter-horizontal; }
+    .uk-grid:not(.uk-grid-preserve) { margin-left: -@grid-gutter-large-horizontal; }
+    .uk-grid:not(.uk-grid-preserve) > * { padding-left: @grid-gutter-large-horizontal; }
 
     /* Vertical gutter */
-    .uk-grid:not(.uk-grid-preserve) + .uk-grid { margin-top: @grid-large-gutter-vertical; }
-    .uk-grid:not(.uk-grid-preserve) > .uk-grid-margin { margin-top: @grid-large-gutter-vertical; }
+    .uk-grid:not(.uk-grid-preserve) + .uk-grid { margin-top: @grid-gutter-large-vertical; }
+    .uk-grid:not(.uk-grid-preserve) > .uk-grid-margin { margin-top: @grid-gutter-large-vertical; }
 
     /* Vertical gutter for panels */
-    .uk-grid:not(.uk-grid-preserve) > * > .uk-panel + .uk-panel { margin-top: @grid-large-gutter-vertical; }
+    .uk-grid:not(.uk-grid-preserve) > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
 
 }
 
@@ -186,18 +186,18 @@
      */
 
     .uk-grid-divider:not(.uk-grid-preserve):not(:empty) {
-        margin-left: -@grid-large-gutter-horizontal;
-        margin-right: -@grid-large-gutter-horizontal;
+        margin-left: -@grid-gutter-large-horizontal;
+        margin-right: -@grid-gutter-large-horizontal;
     }
 
     .uk-grid-divider:not(.uk-grid-preserve) > * {
-        padding-left: @grid-large-gutter-horizontal;
-        padding-right: @grid-large-gutter-horizontal;
+        padding-left: @grid-gutter-large-horizontal;
+        padding-right: @grid-gutter-large-horizontal;
     }
 
     .uk-grid-divider:not(.uk-grid-preserve):empty {
-        margin-top: @grid-large-gutter-vertical;
-        margin-bottom: @grid-large-gutter-vertical
+        margin-top: @grid-gutter-large-vertical;
+        margin-bottom: @grid-gutter-large-vertical
     }
 
 }
@@ -216,7 +216,7 @@
 /* Even grid cell widths 
  ========================================================================== */
 
-[class*='uk-grid-width'] > *
+[class*='uk-grid-width'] > * {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
