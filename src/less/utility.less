@@ -10,7 +10,7 @@
 //                  `uk-height-1-1`
 //                  `uk-responsive-*`
 //                  `uk-margin-*`
-//                  `uk-border-circle`
+//                  `uk-border-*`
 //                  `uk-heading-*`
 //                  `uk-link-muted`
 //                  `uk-scrollable-*`
@@ -37,6 +37,8 @@
 @utility-margin:                                15px;
 @utility-margin-small:                          5px;
 @utility-margin-large:                          50px;
+
+@utility-border-rounded:                        5px;
 
 @utility-heading-large-font-size:               52px;
 @utility-heading-large-line-height:             64px;
@@ -316,6 +318,7 @@
  ========================================================================== */
 
 .uk-border-circle { border-radius: 50%; }
+.uk-border-rounded { border-radius: @utility-border-rounded; }
 
 
 /* Headings

@@ -6,6 +6,7 @@
   - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names
   - Added AMD support
   - Added margin classes to utility component
+  - Added border rounded to utility component
   - Removed box-shadow for invalid controls in Firefox
   - Removed default input style for iOS
   - Fixed z-index issues
