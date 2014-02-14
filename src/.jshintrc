@@ -3,6 +3,7 @@
 	"sub": true,
 	"evil": true,
 	"browser": true,
+    "loopfunc": true,
 	"globals": {
 	    "module": false,
         "require": true,

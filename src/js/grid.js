@@ -67,6 +67,11 @@
                         groups[offset] = [];
                     }
 
+                    ele.data("ukgmhdata", {
+                        'oh' : ele.outerHeight(),
+                        'h'  : ele.height()
+                    });
+
                     groups[offset].push(ele);
                 });
 
@@ -76,12 +81,12 @@
 
                     // get max
                     groups[offset].forEach(function(element){
-                        max = Math.max(max, element.outerHeight());
+                        max = Math.max(max, element.data("ukgmhdata").oh);
                     });
 
                     // apply max
                     groups[offset].forEach(function(element){
-                        var height = max - (element.outerHeight() - element.height());
+                        var height = max - (element.data("ukgmhdata").oh - element.data("ukgmhdata").h);
                         element.css('min-height', height + 'px');
                     });
                 }
