@@ -58,50 +58,29 @@
 
             if(this.options.row) {
 
-                var groups = {};
+                var lastoffset = false, group = [];
 
-                this.elements.each(function() {
+                this.elements.each(function(i) {
                     var ele = $(this), offset = ele.offset().top;
 
-                    if(!groups[offset]) {
-                        groups[offset] = [];
+                    if(offset != lastoffset && group.length) {
+
+                        $this.matchHeights($(group));
+                        group  = [];
+                        offset = ele.offset().top;
                     }
 
-                    ele.data("ukgmhdata", {
-                        'oh' : ele.outerHeight(),
-                        'h'  : ele.height()
-                    });
-
-                    groups[offset].push(ele);
+                    group.push(ele);
+                    lastoffset = offset
                 });
 
-                for(var offset in groups) {
-
-                    max = 0;
-
-                    // get max
-                    groups[offset].forEach(function(element){
-                        max = Math.max(max, element.data("ukgmhdata").oh);
-                    });
-
-                    // apply max
-                    groups[offset].forEach(function(element){
-                        var height = max - (element.data("ukgmhdata").oh - element.data("ukgmhdata").h);
-                        element.css('min-height', height + 'px');
-                    });
+                if(group.length) {
+                    this.matchHeights($(group));
                 }
 
             } else {
 
-                this.elements.each(function() {
-                    max = Math.max(max, $(this).outerHeight());
-                }).each(function(i) {
-
-                    var element = $(this),
-                        height  = max - (element.outerHeight() - element.height());
-
-                    element.css('min-height', height + 'px');
-                });
+                this.matchHeights(this.elements);
             }
 
             return this;
@@ -110,6 +89,21 @@
         revert: function() {
             this.elements.css('min-height', '');
             return this;
+        },
+
+        matchHeights: function(elements){
+
+            var max = 0;
+
+            elements.each(function() {
+                max = Math.max(max, $(this).outerHeight());
+            }).each(function(i) {
+
+                var element = $(this),
+                    height  = max - (element.outerHeight() - element.height());
+
+                element.css('min-height', height + 'px');
+            });
         }
 
     });

@@ -9,6 +9,7 @@
   - IMPORTANT: Renamed @panel-divider-large-gutter to @panel-divider-gutter-large
   - Renamed some global variables in themes
   - Refactored grid component
+  - Added grid-match only within rows option
   - Added grid width classes
   - Added grid gutter small classes
   - Added width small classes
