@@ -58,7 +58,7 @@
 @panel-space-padding:                           30px;
 
 @panel-divider-gutter:                          25px;
-@panel-divider-large-gutter:                    35px;
+@panel-divider-gutter-large:                    35px;
 @panel-divider-border:                          #ddd;
 @panel-divider-border-width:                    1px;
 
@@ -212,11 +212,11 @@
     border-top: @panel-divider-border-width solid @panel-divider-border;
 }
 
-/* Only large screens */
+/* Large screen and bigger */
 @media (min-width: @breakpoint-xlarge) {
 
-    .uk-panel + .uk-panel-divider { margin-top: (@panel-divider-large-gutter * 2) !important; }
-    .uk-panel + .uk-panel-divider:before { top: -(@panel-divider-large-gutter); }
+    .uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter-large * 2) !important; }
+    .uk-panel + .uk-panel-divider:before { top: -(@panel-divider-gutter-large); }
 
 }
 
