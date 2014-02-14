@@ -4,6 +4,7 @@
 
   - IMPORTANT: Renamed uk-text-info to uk-text-primary including variable names
   - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names
+  - Refactored grid component
   - Added AMD support
   - Added margin classes to utility component
   - Added border rounded to utility component
