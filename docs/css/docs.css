@@ -42,7 +42,7 @@ html { overflow-y: scroll; }
 .tm-section,
 .tm-footer { padding: 50px 0; }
 
-/* Only tablets and desktop */
+/* Tablet and bigger */
 @media (min-width: 768px) {
 
     .tm-middle,
@@ -51,7 +51,7 @@ html { overflow-y: scroll; }
 
 }
 
-/* Only large screens */
+/* Large screen and bigger */
 @media (min-width: 1220px) {
 
     .tm-middle,
@@ -67,7 +67,7 @@ html { overflow-y: scroll; }
 
 .tm-middle { background: #fff; }
 
-/* All except phones */
+/* Tablet and bigger */
 @media (min-width: 768px) {
 
     .tm-sidebar {
@@ -91,7 +91,7 @@ html { overflow-y: scroll; }
 
 .tm-section-color-1 { background: #2ba3d4 url("../images/bg_teaser.svg") 50% 50% no-repeat; }
 
-/* Only phones */
+/* Desktop and bigger */
 @media (max-width: 959px) {
 
     .tm-section-color-1 { background-image: none; }
@@ -109,7 +109,7 @@ html { overflow-y: scroll; }
 
 .tm-section-color-white { background: #fff; }
 
-/* Only tablets and desktop */
+/* Tablet and bigger */
 @media (min-width: 768px) {
 
     .tm-section-color-white .uk-grid-divider:not(:empty) > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: 1px dashed #ddd; }

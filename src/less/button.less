@@ -87,8 +87,7 @@
  * 2. Required for `button` and `input` elements
  * 3. `line-height` is used to create a height
  * 4. `min-height` is necessary for `input` elements in Firefox and Opera because `line-height` is not working.
- * 5. Reset button group whitespace hack
- * 6. Style
+ * 5. Style
  */
 
 .uk-button {
@@ -106,9 +105,6 @@
     /* 4 */
     min-height: @button-height;
     /* 5 */
-    font-size: 1rem;
-    vertical-align: top;
-    /* 6 */
     padding: 0 @button-padding-horizontal;
     background: @button-background;
     color: @button-color;
@@ -302,6 +298,7 @@
  * 2. Create position context for dropdowns
  * 3. Remove whitespace between child elements when using `inline-block`
  * 4. Prevent buttons from wrapping
+ * 5. Reset button group whitespace hack
  */
 
 .uk-button-group {
@@ -318,6 +315,11 @@
 
 .uk-button-group > * { display: inline-block; }
 
+.uk-button-group .uk-button {
+    /* 5 */
+    font-size: 1rem;
+    vertical-align: top;
+}
 
 /* Sub-object: `uk-button-dropdown`
  ========================================================================== */
