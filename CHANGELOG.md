@@ -16,6 +16,7 @@
   - Added AMD support
   - Added margin classes to utility component
   - Added border rounded to utility component
+  - Added markdownarea style for gradient and almost flat theme
   - Removed box-shadow for invalid controls in Firefox
   - Removed default input style for iOS
   - Fixed z-index issues
@@ -24,6 +25,7 @@
   - Fixed wrong scaling calculation in overlay component for Chrome
   - Fixed notify padding
   - Fixed body content scrolling if modal is open
+  - Fixed gap in navbar gradient and almost flat theme
   - Whitespace hack now uses font-size
 
 **Documentation and repository**
