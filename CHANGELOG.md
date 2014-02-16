@@ -31,6 +31,7 @@
   - Added layout examples
   - Updated community section on frontpage
   - Renamed uk-width-custom to uk-width in docs and tests
+  - Fixed overview test
 
 ### 2.3.1 (January 31, 2014)
 

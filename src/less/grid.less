@@ -24,11 +24,11 @@
 @grid-gutter-horizontal:                        25px;
 @grid-gutter-vertical:                          25px;
 
-@grid-gutter-small-horizontal:                  10px;
-@grid-gutter-small-vertical:                    10px;
-
 @grid-gutter-large-horizontal:                  35px;
 @grid-gutter-large-vertical:                    35px;
+
+@grid-gutter-small-horizontal:                  10px;
+@grid-gutter-small-vertical:                    10px;
 
 @grid-divider-border:                           #ddd;
 @grid-divider-border-width:                     1px;
@@ -109,18 +109,6 @@
 .uk-grid > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
 
 /*
- * Small gutter
- */
-
-.uk-grid-small { margin-left: -@grid-gutter-small-horizontal; }
-.uk-grid-small > * { padding-left: @grid-gutter-small-horizontal; }
-
-.uk-grid-small + .uk-grid-small { margin-top: @grid-gutter-small-vertical; }
-.uk-grid-small > .uk-grid-margin { margin-top: @grid-gutter-small-vertical; }
-
-.uk-grid-small > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-small-vertical; }
-
-/*
  * Larger gutter for large screens
  */
 
@@ -139,6 +127,19 @@
     .uk-grid:not(.uk-grid-preserve) > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
 
 }
+
+/*
+ * Small gutter
+ * Higher specificity to override large gutter
+ */
+
+.uk-grid.uk-grid-small { margin-left: -@grid-gutter-small-horizontal; }
+.uk-grid.uk-grid-small > * { padding-left: @grid-gutter-small-horizontal; }
+
+.uk-grid.uk-grid-small + .uk-grid-small { margin-top: @grid-gutter-small-vertical; }
+.uk-grid.uk-grid-small > .uk-grid-margin { margin-top: @grid-gutter-small-vertical; }
+
+.uk-grid.uk-grid-small > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-small-vertical; }
 
 
 /* Modifier: `uk-grid-divider`
