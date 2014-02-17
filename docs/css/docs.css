@@ -173,7 +173,7 @@ html { overflow-y: scroll; }
 }
 
 .tm-panel-link {
-    padding: 30px;
+    padding: 30px 30px 60px 30px;
     border: 1px solid #e5e5e5;
 }
 
