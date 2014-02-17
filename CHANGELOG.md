@@ -13,6 +13,7 @@
   - Added grid width classes
   - Added grid gutter small classes
   - Added width small classes
+  - Added uk-text-center-small class
   - Added AMD support
   - Added margin classes to utility component
   - Added border rounded to utility component
