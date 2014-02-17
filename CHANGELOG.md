@@ -13,10 +13,10 @@
   - Added grid width classes
   - Added grid gutter small classes
   - Added width small classes
-  - Added uk-text-center-small class
   - Added AMD support
   - Added margin classes to utility component
   - Added border rounded to utility component
+  - Added text center small and medium classes
   - Added markdownarea style for gradient and almost flat theme
   - Removed box-shadow for invalid controls in Firefox
   - Removed default input style for iOS
