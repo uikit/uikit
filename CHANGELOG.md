@@ -18,7 +18,7 @@
   - Added border rounded to utility component
   - Added text center small and medium classes
   - Added markdownarea style for gradient and almost flat theme
-  - Added new hooks to comment component
+  - Added new hooks to comment and form component
   - Removed box-shadow for invalid controls in Firefox
   - Removed default input style for iOS
   - Fixed z-index issues
