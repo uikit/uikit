@@ -58,25 +58,31 @@
 
             if(this.options.row) {
 
-                var lastoffset = false, group = [];
+                this.element.width(); // force redraw
 
-                this.elements.each(function(i) {
-                    var ele = $(this), offset = ele.offset().top;
+                setTimeout(function(){
 
-                    if(offset != lastoffset && group.length) {
+                    var lastoffset = false, group = [];
 
+                    $this.elements.each(function(i) {
+                        var ele = $(this), offset = ele.offset().top;
+
+                        if(offset != lastoffset && group.length) {
+
+                            $this.matchHeights($(group));
+                            group  = [];
+                            offset = ele.offset().top;
+                        }
+
+                        group.push(ele);
+                        lastoffset = offset;
+                    });
+
+                    if(group.length) {
                         $this.matchHeights($(group));
-                        group  = [];
-                        offset = ele.offset().top;
                     }
 
-                    group.push(ele);
-                    lastoffset = offset;
-                });
-
-                if(group.length) {
-                    this.matchHeights($(group));
-                }
+                }, 0);
 
             } else {
 
