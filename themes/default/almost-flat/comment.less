@@ -34,6 +34,12 @@
 @comment-primary-text-shadow:                   @global-text-shadow;
 
 
+// Component
+// ========================================================================
+
+.hook-comment() {}
+
+
 // Sub-object `uk-comment-header`
 // ========================================================================
 
@@ -63,6 +69,15 @@
 .hook-comment-meta() {}
 
 
+// Sub-object `uk-comment-body`
+// ========================================================================
+
+.hook-comment-body() {
+    padding-left: @comment-padding;
+    padding-right: @comment-padding;
+}
+
+
 // Sub-object `uk-comment-primary`
 // ========================================================================
 
@@ -73,14 +88,6 @@
 // ========================================================================
 
 .hook-comment-misc() {
-
-    /* Sub-object `uk-comment-body`
-     ========================================================================== */
-
-    .uk-comment-body {
-        padding-left: @comment-padding;
-        padding-right: @comment-padding;
-    }
 
     .uk-comment-primary .uk-comment-header {
         border-color: @comment-primary-border;

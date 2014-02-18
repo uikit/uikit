@@ -38,6 +38,10 @@
    Component: Comment
  ========================================================================== */
 
+.uk-comment {
+    .hook-comment;
+}
+
 
 /* Sub-object `uk-comment-header`
  ========================================================================== */
@@ -96,6 +100,10 @@
 /* Sub-object `uk-comment-body`
  ========================================================================== */
 
+.uk-comment-body {
+    .hook-comment-body;
+}
+
 /*
  * Remove margin from the last-child
  */
@@ -130,7 +138,7 @@
 /* Modifier `uk-comment-primary`
  ========================================================================== */
 
- .uk-comment-primary {
+.uk-comment-primary {
     .hook-comment-primary;
 }
 
@@ -140,9 +148,11 @@
 
 .hook-comment-misc;
 
+.hook-comment() {}
 .hook-comment-header() {}
 .hook-comment-avatar() {}
 .hook-comment-title() {}
 .hook-comment-meta() {}
+.hook-comment-body() {}
 .hook-comment-primary() {}
 .hook-comment-misc() {}
