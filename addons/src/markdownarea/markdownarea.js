@@ -213,6 +213,7 @@
             }
 
             this.editor.refresh();
+            this.preview.parent().css("height", this.code.height());
 
             this.markdownarea.attr("data-mode", mode);
         },
