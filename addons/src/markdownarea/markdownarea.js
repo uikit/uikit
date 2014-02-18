@@ -57,7 +57,7 @@
                     $this.element.trigger("markdownarea-before", [$this]);
 
                     $this.applyPlugins();
-                    
+
                     marked($this.currentvalue, function (err, markdown) {
 
                       if (err) throw err;
@@ -111,7 +111,7 @@
         },
 
         applyPlugins: function(){
-            
+
             var $this   = this,
                 plugins = Object.keys(Markdownarea.plugins),
                 plgs    = Markdownarea.plugins;
@@ -185,7 +185,7 @@
             this.markdownarea.on("click", "a[data-markdownarea-cmd]", function(){
                 var cmd = $(this).data("markdownareaCmd");
 
-                if(cmd && Markdownarea.commands[cmd] && (!$this.activetab || $this.activetab=="code")) {
+                if(cmd && Markdownarea.commands[cmd] && (!$this.activetab || $this.activetab=="code" || cmd=="fullscreen")) {
                     Markdownarea.commands[cmd].action.apply($this, [$this.editor])
                 }
 
@@ -213,6 +213,7 @@
             }
 
             this.editor.refresh();
+            this.preview.parent().css("height", this.code.height());
 
             this.markdownarea.attr("data-mode", mode);
         },

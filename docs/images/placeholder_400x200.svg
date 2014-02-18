@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="placeholder" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="400px" height="200px" viewBox="0 0 400 200" enable-background="new 0 0 400 200" xml:space="preserve">
+<radialGradient id="SVGID_1_" cx="196.5469" cy="94.4341" r="276.6305" gradientUnits="userSpaceOnUse">
+	<stop  offset="0" style="stop-color:#3AA9D7"/>
+	<stop  offset="1" style="stop-color:#2BA3D4"/>
+</radialGradient>
+<rect fill="url(#SVGID_1_)" width="400" height="200"/>
+<g>
+	<path fill="#FFFFFF" d="M145.254,56.93v86.14h109.492V56.93H145.254z M245.924,133.729h-91.33V66.27h91.33V133.729L245.924,133.729
+		z"/>
+	<polygon fill="#FFFFFF" points="159.506,126.463 178.329,106.68 185.382,109.73 207.635,86.04 216.393,96.519 220.348,94.132
+		241.732,126.463 	"/>
+	<circle fill="#FFFFFF" cx="181.251" cy="83.424" r="8.222"/>
+</g>
+</svg>
