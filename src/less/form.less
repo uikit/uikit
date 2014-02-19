@@ -164,14 +164,14 @@
 
 /*
  * Placeholder
- * 1. Higher specificity needed to override color in IE
+ * Higher specificity (!imporntant) needed to override color in IE
  */
 
-.uk-form :-ms-input-placeholder { color: @form-placeholder-color !important; } /* 1. */
+.uk-form :-ms-input-placeholder { color: @form-placeholder-color !important; }
 .uk-form ::-moz-placeholder { color: @form-placeholder-color; }
 .uk-form ::-webkit-input-placeholder { color: @form-placeholder-color; }
 
-.uk-form :disabled:-ms-input-placeholder { color: @form-disabled-color !important; } /* 1. */
+.uk-form :disabled:-ms-input-placeholder { color: @form-disabled-color !important; }
 .uk-form :disabled::-moz-placeholder { color: @form-disabled-color; }
 .uk-form :disabled::-webkit-input-placeholder { color: @form-disabled-color; }
 
@@ -220,18 +220,24 @@
 
 
 /* Size modifiers
- * Using !important to keep the selector simple
+ * Higher specificity needed to override defaults
  ========================================================================== */
 
-.uk-form-small {
-    height: @form-small-height !important;
-    padding: @form-small-padding !important;
+select.uk-form-small,
+textarea.uk-form-small,
+input[type].uk-form-small,
+input:not([type]).uk-form-small {
+    height: @form-small-height;
+    padding: @form-small-padding;
     font-size: @form-small-font-size;
 }
 
-.uk-form-large {
-    height: @form-large-height !important;
-    padding: @form-large-padding !important;
+select.uk-form-large,
+textarea.uk-form-large,
+input[type].uk-form-large,
+input:not([type]).uk-form-large  {
+    height: @form-large-height;
+    padding: @form-large-padding;
     font-size: @form-large-font-size;
 }
 
@@ -242,7 +248,7 @@
 
 .uk-form textarea,
 .uk-form select[multiple],
-.uk-form select[size] { height: auto !important; }
+.uk-form select[size] { height: auto; }
 
 
 /* Validation states
