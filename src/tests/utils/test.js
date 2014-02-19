@@ -4,6 +4,7 @@
 
     window.less = { env: "development" };
 
+    document.writeln('<script src="../../vendor/holder.js"></script>');
     document.writeln('<script src="../../vendor/less.js"></script>');
     document.writeln('<script src="../../vendor/jquery.less.js"></script>');
     document.writeln('<script src="../../vendor/jquery.rtl.js"></script>');
