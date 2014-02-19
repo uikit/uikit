@@ -23,6 +23,7 @@
   - Removed default input style for iOS
   - Fixed z-index issues
   - Fixed double click issue in form-file add-on
+  - Fixed textarea height not being resizable
   - Fixed badge border-radius
   - Fixed wrong scaling calculation in overlay component for Chrome
   - Fixed notify padding
@@ -33,6 +34,8 @@
 **Documentation and repository**
 
   - Added layout examples
+  - Added placeholder images in docs
+  - Added holder.js for placeholder images in tests
   - Updated community section on frontpage
   - Renamed uk-width-custom to uk-width in docs and tests
   - Fixed overview test
