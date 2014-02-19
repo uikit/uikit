@@ -35,12 +35,13 @@
 // Component
 // ========================================================================
 
+//
+// Items
+//
+
 .hook-pagination-item() { border-radius: @global-border-radius; }
 
-
-// Items
-// ========================================================================
-
+// Link
 .hook-pagination-link() {
     border: 1px solid @pagination-border;
     text-shadow: 0 1px 0 @pagination-text-shadow;
@@ -50,19 +51,13 @@
 
 .hook-pagination-link-active() {}
 
-//
 // Active
-//
-
 .hook-pagination-active() {
     box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
     text-shadow: 0 -1px 0 @pagination-contrast-text-shadow;
 }
 
-//
 // Disabled
-//
-
 .hook-pagination-disabled() {
     border: 1px solid @pagination-border;
     text-shadow: 0 1px 0 @pagination-text-shadow;
