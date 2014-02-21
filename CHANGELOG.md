@@ -16,6 +16,7 @@
   - Added AMD support
   - Added margin classes to utility component
   - Added border rounded to utility component
+  - Added resize property to scrollables in utility component
   - Added text center small and medium classes
   - Added markdownarea style for gradient and almost flat theme
   - Added new hooks to comment, form and subnav component

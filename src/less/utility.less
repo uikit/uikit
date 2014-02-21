@@ -353,8 +353,9 @@
  */
 
 .uk-scrollable-text {
-    max-height: @utility-scrollable-text-height;
+    height: @utility-scrollable-text-height;
     overflow-y: scroll;
+    resize: both;
 }
 
 /*
@@ -364,10 +365,11 @@
 .uk-scrollable-box {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    max-height: @utility-scrollable-box-height;
+    height: @utility-scrollable-box-height;
     padding: @utility-scrollable-box-padding;
     border: @utility-scrollable-box-border-width solid @utility-scrollable-box-border;
     overflow: auto;
+    resize: both;
     .hook-scrollable-box;
 }
 
