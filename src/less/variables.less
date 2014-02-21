@@ -13,15 +13,22 @@
 // Breakpoints
 //
 
-@breakpoint-mini-max:                           (@breakpoint-small - 1);
-
-@breakpoint-small:                              480px;
-@breakpoint-small-max:                          (@breakpoint-medium - 1);
-
-@breakpoint-medium:                             768px;
-@breakpoint-medium-max:                         (@breakpoint-large - 1);
+@breakpoint-xlarge:                             1220px;
 
 @breakpoint-large:                              960px;
 @breakpoint-large-max:                          (@breakpoint-xlarge - 1);
 
-@breakpoint-xlarge:                             1220px;
+@breakpoint-medium:                             768px;
+@breakpoint-medium-max:                         (@breakpoint-large - 1);
+
+@breakpoint-small:                              480px;
+@breakpoint-small-max:                          (@breakpoint-medium - 1);
+
+@breakpoint-mini-max:                           (@breakpoint-small - 1);
+
+
+//
+// Font
+//
+
+@base-code-font-family:                         Consolas, monospace, serif;
