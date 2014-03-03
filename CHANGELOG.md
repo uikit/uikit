@@ -7,8 +7,10 @@
   - IMPORTANT: Renamed @grid-large-gutter-horizontal to @grid-gutter-large-horizontal
   - IMPORTANT: Renamed @grid-large-gutter-vertical to @grid-gutter-large-vertical
   - IMPORTANT: Renamed @panel-divider-large-gutter to @panel-divider-gutter-large
+  - IMPORTANT: Removed uk-modal-dialog-slide
   - Renamed some global variables in themes
   - Refactored grid component
+  - Refactored modal component
   - Added grid-match only within rows option
   - Added grid width classes
   - Added grid gutter small classes
