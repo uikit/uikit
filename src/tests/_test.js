@@ -82,7 +82,7 @@
         themes = $.extend(themes, window.parent.themes ? window.parent.themes:{});
         theme  = themes[theme] ? theme : 'Default';
 
-        var testfolder = $("script[src$='utils/test.js']").attr("src").replace("utils/test.js", ""),
+        var testfolder = $("script[src$='_test.js']").attr("src").replace("_test.js", ""),
 
             testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "20px 5px"),
             optgroup   = $('<optgroup label="Components"></optgroup>').appendTo(testselect);

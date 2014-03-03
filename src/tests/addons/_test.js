@@ -4,11 +4,11 @@
 
     window.less = { env: "development" };
 
-    document.writeln('<script src="../../vendor/less.js"></script>');
-    document.writeln('<script src="../../vendor/jquery.less.js"></script>');
-    document.writeln('<script src="../../vendor/jquery.rtl.js"></script>');
-    document.writeln('<script src="../../dist/js/uikit.js"></script>');
-    document.writeln('<link rel="stylesheet" href="../../dist/css/uikit.min.css" data-compiled-css>');
+    document.writeln('<script src="../../../vendor/less.js"></script>');
+    document.writeln('<script src="../../../vendor/jquery.less.js"></script>');
+    document.writeln('<script src="../../../vendor/jquery.rtl.js"></script>');
+    document.writeln('<script src="../../../dist/js/uikit.js"></script>');
+    document.writeln('<link rel="stylesheet" href="../../../dist/css/uikit.min.css" data-compiled-css>');
     document.writeln('<style>body{ visibility: hidden; }</style>');
 
     var tests = [
@@ -22,28 +22,27 @@
             "notify"
         ],
         themes = {
-            "Default":"../../themes/default/default/uikit.less",
-            "Almost Flat":"../../themes/default/almost-flat/uikit.less",
-            "Gradient":"../../themes/default/gradient/uikit.less",
-            "UIkit": "../../src/less/uikit.less"
+            "Default":"../../../themes/default/default/uikit.less",
+            "Almost Flat":"../../../themes/default/almost-flat/uikit.less",
+            "Gradient":"../../../themes/default/gradient/uikit.less",
+            "UIkit": "../../less/uikit.less"
         },
         theme      = localStorage["uikit.theme"] || 'Default',
         direction  = localStorage["uikit.direction"] || 'ltr',
-        addon      = location.href.match(/tests\/(.+?)\.html/)[1];
-
+        addon      = location.href.match(/tests\/addons\/(.+?)\.html/)[1];
 
     $(function(){
 
-        $.get("../../themes/themes.json", {nocache:Math.random()}).always(function(data, type){
+        $.get("../../../themes/themes.json", {nocache:Math.random()}).always(function(data, type){
 
             if (type==="success") {
 
                 themes = {
-                    "UIkit": "../../src/less/uikit.less"
+                    "UIkit": "../../less/uikit.less"
                 };
 
                 data.forEach(function(item){
-                    themes[item.name] = '../'+item.url;
+                    themes[item.name] = '../../'+item.url;
                 });
             }
 
@@ -58,7 +57,7 @@
 
         theme  = themes[theme] ? theme : 'Default';
 
-        var testfolder = $("script[src$='utils/test.js']").attr("src").replace("utils/test.js", ""),
+        var testfolder = $("script[src$='_test.js']").attr("src").replace("_test.js", ""),
             testselect = $('<select><option value="">- Select Test -</option></select>').css("margin", "20px 5px")
 
 
@@ -135,10 +134,10 @@
 
             } else {
 
-                $.get('../src/'+addon+'/'+addon+'.less', {nc:Math.random()}).always(function(data, type){
+                $.get('../../less/addons/'+addon+'.less', {nc:Math.random()}).always(function(data, type){
 
                     if (type==="success") {
-                        lesscode.push('@import "../src/'+addon+'/'+addon+'.less";');
+                        lesscode.push('@import "../../less/addons/'+addon+'.less";');
                     }
 
                     compile();
