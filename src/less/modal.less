@@ -25,7 +25,7 @@
 @modal-dialog-padding:                          20px;
 @modal-dialog-width:                            600px;
 @modal-dialog-background:                       #fff;
-@modal-dialog-animation:                        uk-slide-top-fixed;
+@modal-dialog-animation:                        uk-slide-top;
 
 
 /* ========================================================================
@@ -65,11 +65,14 @@
 
 /*
  * Open state
+ * 1. Fixed Webkit bug when animated
  */
 
 .uk-modal.uk-open {
     -webkit-animation: uk-fade 0.15s linear;
     animation: uk-fade 0.15s linear;
+    /* 1 */
+    -webkit-transform: translateZ(0);
 }
 
 /*
