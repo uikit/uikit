@@ -6,7 +6,7 @@
  (function(addon) {
 
      if (typeof define == "function" && define.amd) { // AMD
-         define(["uikit"], function(){
+         define("uikit-sortable", ["uikit"], function(){
             return jQuery.fn.uksortable ? jQuery.fn.uksortable : addon(window.jQuery, jQuery.UIkit, window, document);
          });
      }
