@@ -25,6 +25,7 @@
 @modal-dialog-padding:                          20px;
 @modal-dialog-width:                            600px;
 @modal-dialog-background:                       #fff;
+@modal-dialog-animation:                        uk-slide-top-fixed;
 
 
 /* ========================================================================
@@ -35,7 +36,6 @@
  * This is the modal overlay and modal dialog container
  * 1. Hide by default
  * 2. Set fixed position
- * 3. Webkit needs a height to position the modal dialog vertically in percent
  * 4. Allow scrolling for the modal dialog
  * 5. Mask the background page
  * 6. Fade-in transition
@@ -51,17 +51,15 @@
     bottom: 0;
     left: 0;
     z-index: @modal-z-index;
-    /* 3 */
-    height: 100%;
     /* 4 */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 5 */
     background: @modal-background;
     /* 6 */
-    opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
-    transition: opacity 0.15s linear;
+    // opacity: 0;
+    // -webkit-transition: opacity 0.15s linear;
+    // transition: opacity 0.15s linear;
     .hook-modal;
 }
 
@@ -69,7 +67,10 @@
  * Open state
  */
 
-.uk-modal.uk-open { opacity: 1; }
+.uk-modal.uk-open {
+    -webkit-animation: uk-fade 0.15s linear;
+    animation: uk-fade 0.15s linear;
+}
 
 /*
  * 7. Prevents scrolling for the body content
@@ -89,25 +90,22 @@
  ========================================================================== */
 
 /*
- * 1. Set position
+ * 1. Create position context for `uk-modal-dialog-frameless`
  * 2. Set box sizing
- * 3. Center dialog box
- * 4. Style
+ * 3. Set style
  */
 
 .uk-modal-dialog {
     /* 1 */
     position: relative;
-    top: 10%;
-    left: 50%;
     /* 2 */
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    margin: 30px auto;
     padding: @modal-dialog-padding;
     width: @modal-dialog-width;
+    max-width: 100%;
     /* 3 */
-    margin-left: (@modal-dialog-width / -2);
-    /* 4 */
     background: @modal-dialog-background;
     .hook-modal-dialog;
 }
@@ -120,9 +118,6 @@
      */
 
     .uk-modal-dialog {
-        top: 0;
-        left: 0;
-        right: 0;
         width: auto;
         margin: 10px;
     }
@@ -135,6 +130,11 @@
 
 .uk-modal-dialog > :last-child { margin-bottom: 0; }
 
+.uk-open .uk-modal-dialog {
+    -webkit-animation: @modal-dialog-animation 0.3s ease-out;
+    animation: @modal-dialog-animation 0.3s ease-out;
+}
+
 
 /* Modifier: `uk-modal-dialog-slide`
  ========================================================================== */
@@ -144,17 +144,17 @@
  */
 
 .uk-modal-dialog-slide {
-    opacity: 0;
-    -webkit-transform: translateY(-25%);
-    transform: translateY(-25%);
-    -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
-    transition: opacity 0.3s linear, transform 0.3s ease-out;
+    // opacity: 0;
+    // -webkit-transform: translateY(-25%);
+    // transform: translateY(-25%);
+    // -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
+    // transition: opacity 0.3s linear, transform 0.3s ease-out;
 }
 
 .uk-open .uk-modal-dialog-slide {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
+    // opacity: 1;
+    // -webkit-transform: translateY(0);
+    // transform: translateY(0);
 }
 
 
