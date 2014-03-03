@@ -1,3 +1,0 @@
-/*! UIkit 2.3.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-
-(function(t,e){var n=function(e,i){var s=this,o=t(e);o.data("formfile")||(this.options=t.extend({},n.defaults,i),this.element=o,this.input=this.element.find("input[type='text']:first"),this.file=this.element.find("input[type='file']:first"),this.file.on("change",function(){s.input.val(this.value.replace(/^.*[\/\\]/g,""))}),this.element.data("formfile",this))};n.defaults={},e.formfile=n,t(document).on("click.formfile.uikit","[data-uk-form-file]",function(i){var s=t(this);s.data("formfile")||(i.preventDefault(),new n(s,e.Utils.options(s.attr("data-uk-form-file"))),s.trigger("click"))})})(jQuery,jQuery.UIkit);

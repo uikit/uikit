@@ -357,7 +357,7 @@ body {
   line-height: 20px;
   color: #444444;
 }
-/* Only phones */
+/* Phone landscape and smaller */
 @media (max-width: 767px) {
   /*
      * Break strings if their length exceeds the width of their container
@@ -436,7 +436,7 @@ dfn[title] {
  ========================================================================== */
 /*
  * 1. Corrects max-width behavior (2.) if padding and border are used
- * 2. Responsiveness: Sets a maxium width relative to the parent and auto scales the height
+ * 2. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
  * 3. Remove the gap between images and the bottom of their containers
  */
 img {
@@ -675,19 +675,12 @@ iframe {
   list-style: none;
 }
 /*
- * Vertical gutter
- */
-.uk-grid + .uk-grid {
-  margin-top: 25px;
-}
-/* Grid column
- ========================================================================== */
-/*
+ * Grid cell
  * 1. Makes grid more robust so that it can be used with other block elements
  * 2. Create horizontal gutter
  * 3. `float` is set by default so columns always behave the same and create a new block format context
  */
-.uk-grid > [class*='uk-width-'] {
+.uk-grid > * {
   /* 1 */
   margin: 0;
   /* 2 */
@@ -698,17 +691,72 @@ iframe {
 /*
  * Remove margin from the last-child
  */
-.uk-grid > [class*='uk-width-'] > :last-child {
+.uk-grid > * > :last-child {
   margin-bottom: 0;
 }
-/* Sub-modifier: `uk-grid-margin`
+/* Grid gutter
  ========================================================================== */
+/*
+ * Vertical gutter
+ */
+.uk-grid + .uk-grid {
+  margin-top: 25px;
+}
 /*
  * This class is set by JavaScript and applies a vertical gutter if the columns stack or float into the next row
  * Higher specificity to override margin
  */
 .uk-grid > .uk-grid-margin {
   margin-top: 25px;
+}
+/*
+ * Vertical gutter for panels
+ */
+.uk-grid > * > .uk-panel + .uk-panel {
+  margin-top: 25px;
+}
+/*
+ * Larger gutter for large screens
+ */
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  /* Horizontal gutter */
+  .uk-grid:not(.uk-grid-preserve) {
+    margin-left: -35px;
+  }
+  .uk-grid:not(.uk-grid-preserve) > * {
+    padding-left: 35px;
+  }
+  /* Vertical gutter */
+  .uk-grid:not(.uk-grid-preserve) + .uk-grid {
+    margin-top: 35px;
+  }
+  .uk-grid:not(.uk-grid-preserve) > .uk-grid-margin {
+    margin-top: 35px;
+  }
+  /* Vertical gutter for panels */
+  .uk-grid:not(.uk-grid-preserve) > * > .uk-panel + .uk-panel {
+    margin-top: 35px;
+  }
+}
+/*
+ * Small gutter
+ * Higher specificity to override large gutter
+ */
+.uk-grid.uk-grid-small {
+  margin-left: -10px;
+}
+.uk-grid.uk-grid-small > * {
+  padding-left: 10px;
+}
+.uk-grid.uk-grid-small + .uk-grid-small {
+  margin-top: 10px;
+}
+.uk-grid.uk-grid-small > .uk-grid-margin {
+  margin-top: 10px;
+}
+.uk-grid.uk-grid-small > * > .uk-panel + .uk-panel {
+  margin-top: 10px;
 }
 /* Modifier: `uk-grid-divider`
  ========================================================================== */
@@ -720,31 +768,46 @@ iframe {
   margin-left: -25px;
   margin-right: -25px;
 }
-.uk-grid-divider:not(:empty) > [class*='uk-width-'] {
+.uk-grid-divider > * {
   padding-left: 25px;
   padding-right: 25px;
 }
-.uk-grid-divider:not(:empty) > [class*='uk-width-1-']:not(.uk-width-1-1):nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-2-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-3-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-4-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-5-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-6-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-7-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-8-']:nth-child(n+2),
-.uk-grid-divider:not(:empty) > [class*='uk-width-9-']:nth-child(n+2) {
+.uk-grid-divider > [class*='uk-width-1-']:not(.uk-width-1-1):nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-2-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-3-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-4-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-5-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-6-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-7-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) {
   border-left: 1px solid #dddddd;
 }
-/* Only tablets and desktop */
+/* Tablet and bigger */
 @media (min-width: 768px) {
-  .uk-grid-divider:not(:empty) > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
+  .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
     border-left: 1px solid #dddddd;
   }
 }
-/* Only desktop */
+/* Desktop and bigger */
 @media (min-width: 960px) {
-  .uk-grid-divider:not(:empty) > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
+  .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
     border-left: 1px solid #dddddd;
+  }
+  /*
+     * Large gutter
+     */
+  .uk-grid-divider:not(.uk-grid-preserve):not(:empty) {
+    margin-left: -35px;
+    margin-right: -35px;
+  }
+  .uk-grid-divider:not(.uk-grid-preserve) > * {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  .uk-grid-divider:not(.uk-grid-preserve):empty {
+    margin-top: 35px;
+    margin-bottom: 35px;
   }
 }
 /*
@@ -755,58 +818,118 @@ iframe {
   margin-bottom: 25px;
   border-top: 1px solid #dddddd;
 }
-/* Panel in grid
+/* Even grid cell widths
  ========================================================================== */
-/*
- * Vertical gutter for panels
- */
-.uk-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
-  margin-top: 25px;
+[class*='uk-grid-width'] > * {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
 }
-/* Large gutter
- ========================================================================== */
-/* Only large screens */
+.uk-grid-width-1-2 > * {
+  width: 50%;
+}
+.uk-grid-width-1-3 > * {
+  width: 33.333%;
+}
+.uk-grid-width-1-4 > * {
+  width: 25%;
+}
+.uk-grid-width-1-5 > * {
+  width: 20%;
+}
+.uk-grid-width-1-6 > * {
+  width: 16.666%;
+}
+.uk-grid-width-1-10 > * {
+  width: 10%;
+}
+/* Phone landscape and bigger */
+@media (min-width: 480px) {
+  .uk-grid-width-small-1-2 > * {
+    width: 50%;
+  }
+  .uk-grid-width-small-1-3 > * {
+    width: 33.333%;
+  }
+  .uk-grid-width-small-1-4 > * {
+    width: 25%;
+  }
+  .uk-grid-width-small-1-5 > * {
+    width: 20%;
+  }
+  .uk-grid-width-small-1-6 > * {
+    width: 16.666%;
+  }
+  .uk-grid-width-small-1-10 > * {
+    width: 10%;
+  }
+}
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-grid-width-medium-1-2 > * {
+    width: 50%;
+  }
+  .uk-grid-width-medium-1-3 > * {
+    width: 33.333%;
+  }
+  .uk-grid-width-medium-1-4 > * {
+    width: 25%;
+  }
+  .uk-grid-width-medium-1-5 > * {
+    width: 20%;
+  }
+  .uk-grid-width-medium-1-6 > * {
+    width: 16.666%;
+  }
+  .uk-grid-width-medium-1-10 > * {
+    width: 10%;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-grid-width-large-1-2 > * {
+    width: 50%;
+  }
+  .uk-grid-width-large-1-3 > * {
+    width: 33.333%;
+  }
+  .uk-grid-width-large-1-4 > * {
+    width: 25%;
+  }
+  .uk-grid-width-large-1-5 > * {
+    width: 20%;
+  }
+  .uk-grid-width-large-1-6 > * {
+    width: 16.666%;
+  }
+  .uk-grid-width-large-1-10 > * {
+    width: 10%;
+  }
+}
+/* Large screen and bigger */
 @media (min-width: 1220px) {
-  /*
-     * Grid
-     */
-  /* Horizontal gutter */
-  .uk-grid:not(.uk-grid-preserve) {
-    margin-left: -35px;
+  .uk-grid-width-xlarge-1-2 > * {
+    width: 50%;
   }
-  .uk-grid:not(.uk-grid-preserve) > [class*='uk-width-'] {
-    padding-left: 35px;
+  .uk-grid-width-xlarge-1-3 > * {
+    width: 33.333%;
   }
-  /* Vertical gutter */
-  .uk-grid:not(.uk-grid-preserve) + .uk-grid {
-    margin-top: 35px;
+  .uk-grid-width-xlarge-1-4 > * {
+    width: 25%;
   }
-  .uk-grid:not(.uk-grid-preserve) > .uk-grid-margin {
-    margin-top: 35px;
+  .uk-grid-width-xlarge-1-5 > * {
+    width: 20%;
   }
-  /* Vertical gutter for panels */
-  .uk-grid:not(.uk-grid-preserve) > [class*='uk-width-'] > .uk-panel + .uk-panel {
-    margin-top: 35px;
+  .uk-grid-width-xlarge-1-6 > * {
+    width: 16.666%;
   }
-  /*
-     * Modifier: `uk-grid-divider`
-     */
-  .uk-grid-divider:not(.uk-grid-preserve):not(:empty) {
-    margin-left: -35px;
-    margin-right: -35px;
-  }
-  .uk-grid-divider:not(.uk-grid-preserve):not(:empty) > [class*='uk-width-'] {
-    padding-left: 35px;
-    padding-right: 35px;
-  }
-  .uk-grid-divider:not(.uk-grid-preserve):empty {
-    margin-top: 35px;
-    margin-bottom: 35px;
+  .uk-grid-width-xlarge-1-10 > * {
+    width: 10%;
   }
 }
-/* Sub-object: `uk-width-*`
+/* Sub-objects: `uk-width-*`
  ========================================================================== */
-[class*='uk-width-'] {
+[class*='uk-width'] {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
@@ -878,7 +1001,74 @@ iframe {
 .uk-width-9-10 {
   width: 90%;
 }
-/* Only tablets and desktop */
+/* Phone landscape and bigger */
+@media (min-width: 480px) {
+  /* Whole */
+  .uk-width-small-1-1 {
+    width: 100%;
+  }
+  /* Halves */
+  .uk-width-small-1-2,
+  .uk-width-small-2-4,
+  .uk-width-small-3-6,
+  .uk-width-small-5-10 {
+    width: 50%;
+  }
+  /* Thirds */
+  .uk-width-small-1-3,
+  .uk-width-small-2-6 {
+    width: 33.333%;
+  }
+  .uk-width-small-2-3,
+  .uk-width-small-4-6 {
+    width: 66.666%;
+  }
+  /* Quarters */
+  .uk-width-small-1-4 {
+    width: 25%;
+  }
+  .uk-width-small-3-4 {
+    width: 75%;
+  }
+  /* Fifths */
+  .uk-width-small-1-5,
+  .uk-width-small-2-10 {
+    width: 20%;
+  }
+  .uk-width-small-2-5,
+  .uk-width-small-4-10 {
+    width: 40%;
+  }
+  .uk-width-small-3-5,
+  .uk-width-small-6-10 {
+    width: 60%;
+  }
+  .uk-width-small-4-5,
+  .uk-width-small-8-10 {
+    width: 80%;
+  }
+  /* Sixths */
+  .uk-width-small-1-6 {
+    width: 16.666%;
+  }
+  .uk-width-small-5-6 {
+    width: 83.333%;
+  }
+  /* Tenths */
+  .uk-width-small-1-10 {
+    width: 10%;
+  }
+  .uk-width-small-3-10 {
+    width: 30%;
+  }
+  .uk-width-small-7-10 {
+    width: 70%;
+  }
+  .uk-width-small-9-10 {
+    width: 90%;
+  }
+}
+/* Tablet and bigger */
 @media (min-width: 768px) {
   /* Whole */
   .uk-width-medium-1-1 {
@@ -945,7 +1135,7 @@ iframe {
     width: 90%;
   }
 }
-/* Only desktop */
+/* Desktop and bigger */
 @media (min-width: 960px) {
   /* Whole */
   .uk-width-large-1-1 {
@@ -1018,7 +1208,7 @@ iframe {
  * Source ordering
  * Works only with `uk-width-medium-*`
  */
-/* Only tablets and desktop */
+/* Tablet and bigger */
 @media (min-width: 768px) {
   [class*='uk-push-'],
   [class*='uk-pull-'] {
@@ -1273,7 +1463,7 @@ iframe {
   right: 0;
   border-top: 1px solid #dddddd;
 }
-/* Only large screens */
+/* Large screen and bigger */
 @media (min-width: 1220px) {
   .uk-panel + .uk-panel-divider {
     margin-top: 70px !important;
@@ -1306,7 +1496,7 @@ iframe {
  * Vertical gutter for articles
  */
 .uk-article + .uk-article {
-  margin-top: 15px;
+  margin-top: 25px;
 }
 /* Sub-object `uk-article-title`
  ========================================================================== */
@@ -1406,7 +1596,7 @@ iframe {
 .uk-comment-list .uk-comment + ul > li:nth-child(n+2) {
   margin-top: 15px;
 }
-/* Only tablets and desktops */
+/* Tablet and bigger */
 @media (min-width: 768px) {
   .uk-comment-list .uk-comment + ul {
     padding-left: 100px;
@@ -1897,7 +2087,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   text-align: center;
   /* 1 */
   max-width: 50%;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* Sub-object: `uk-navbar-flip`
  ========================================================================== */
@@ -1916,7 +2107,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   padding: 0;
   list-style: none;
   /* 2 */
-  letter-spacing: -0.31em;
+  font-size: 0.01px;
 }
 /* Items
  ========================================================================== */
@@ -1928,7 +2119,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   /* 1 */
   position: relative;
   /* 2 */
-  letter-spacing: normal;
+  font-size: 1rem;
+  vertical-align: top;
 }
 .uk-subnav > li,
 .uk-subnav > li > a,
@@ -1947,6 +2139,9 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-subnav > li > a:hover {
   color: #005599;
 }
+/*
+ * Active
+ */
 /*
  * Disabled
  */
@@ -2001,7 +2196,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   padding: 0;
   list-style: none;
   /* 2 */
-  letter-spacing: -0.31em;
+  font-size: 0.01px;
 }
 /* Items
  ========================================================================== */
@@ -2009,7 +2204,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Reset whitespace hack
  */
 .uk-breadcrumb > li {
-  letter-spacing: normal;
+  font-size: 1rem;
+  vertical-align: top;
 }
 .uk-breadcrumb > li,
 .uk-breadcrumb > li > a,
@@ -2042,7 +2238,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   /* 2 */
   text-align: center;
   /* 3 */
-  letter-spacing: -0.31em;
+  font-size: 0.01px;
 }
 /*
  * Micro clearfix
@@ -2064,7 +2260,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-pagination > li {
   display: inline-block;
   /* 1 */
-  letter-spacing: normal;
+  font-size: 1rem;
+  vertical-align: top;
 }
 .uk-pagination > li:nth-child(n+2) {
   margin-left: 5px;
@@ -2241,7 +2438,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   content: "\f0c9\00a0";
   font-family: FontAwesome;
 }
-/* Only phones */
+/* Phone landscape and smaller */
 @media (max-width: 767px) {
   [data-uk-tab] > li {
     display: none;
@@ -2352,7 +2549,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /* Modifier: 'tab-left', 'tab-right'
  ========================================================================== */
-/* Only tablets and desktops */
+/* Tablet and bigger */
 @media (min-width: 768px) {
   .uk-tab-left,
   .uk-tab-right {
@@ -2464,7 +2661,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  ========================================================================== */
 /* Modifier: `uk-description-list-horizontal`
  ========================================================================== */
-/* Only tablets and desktops */
+/* Tablet and bigger */
 @media (min-width: 768px) {
   .uk-description-list-horizontal {
     overflow: hidden;
@@ -2538,7 +2735,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   text-align: left;
   color: #999999;
 }
-/* Sub-modifier: `uk-table-middel`
+/* Sub-modifier: `uk-table-middle`
  ========================================================================== */
 .uk-table-middle,
 .uk-table-middle td {
@@ -2653,12 +2850,11 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /*
  * Placeholder
- * 1. Higher specificity needed to override color in IE
+ * Higher specificity (!imporntant) needed to override color in IE
  */
 .uk-form :-ms-input-placeholder {
   color: #999999 !important;
 }
-/* 1. */
 .uk-form ::-moz-placeholder {
   color: #999999;
 }
@@ -2668,12 +2864,30 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-form :disabled:-ms-input-placeholder {
   color: #999999 !important;
 }
-/* 1. */
 .uk-form :disabled::-moz-placeholder {
   color: #999999;
 }
 .uk-form :disabled::-webkit-input-placeholder {
   color: #999999;
+}
+/*
+ * Reset style on iOS.
+ */
+.uk-form textarea,
+.uk-form input:not([type]),
+.uk-form input[type="text"],
+.uk-form input[type="password"],
+.uk-form input[type="email"],
+.uk-form input[type="url"],
+.uk-form input[type="search"],
+.uk-form input[type="tel"] {
+  -webkit-appearance: none;
+}
+/*
+ * Removes box-shadow for invalid controls in Firefox.
+ */
+.uk-form :invalid {
+  box-shadow: none;
 }
 /*
  * Legend style
@@ -2696,16 +2910,22 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   border-bottom: 1px solid #dddddd;
 }
 /* Size modifiers
- * Using !important to keep the selector simple
+ * Higher specificity needed to override defaults
  ========================================================================== */
-.uk-form-small {
-  height: 25px !important;
-  padding: 3px 3px !important;
+select.uk-form-small,
+textarea.uk-form-small,
+input[type].uk-form-small,
+input:not([type]).uk-form-small {
+  height: 25px;
+  padding: 3px 3px;
   font-size: 12px;
 }
-.uk-form-large {
-  height: 40px !important;
-  padding: 8px 6px !important;
+select.uk-form-large,
+textarea.uk-form-large,
+input[type].uk-form-large,
+input:not([type]).uk-form-large {
+  height: 40px;
+  padding: 8px 6px;
   font-size: 16px;
 }
 /* Reset height
@@ -2714,7 +2934,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-form textarea,
 .uk-form select[multiple],
 .uk-form select[size] {
-  height: auto !important;
+  height: auto;
 }
 /* Validation states
  * Using !important to keep the selector simple
@@ -2828,9 +3048,9 @@ select.uk-form-width-mini {
   font-weight: bold;
 }
 /* Modifier: `uk-form-horizontal`
- * Requrires sub-objects: `uk-form-label`, `uk-form-controls`
+ * Requires sub-objects: `uk-form-label`, `uk-form-controls`
  ========================================================================== */
-/* Only phones and tablets portrait */
+/* Tablet portrait and smaller */
 @media (max-width: 959px) {
   /* Behave like `uk-form-stacked` */
   .uk-form-horizontal .uk-form-label {
@@ -2839,7 +3059,7 @@ select.uk-form-width-mini {
     font-weight: bold;
   }
 }
-/* Only tablets and desktops */
+/* Desktop and bigger */
 @media (min-width: 960px) {
   .uk-form-horizontal .uk-form-label {
     width: 200px;
@@ -2889,7 +3109,7 @@ select.uk-form-width-mini {
  * 1. Required for `a` elements
  * 2. Required for `button` and `input` elements
  * 3. `line-height` is used to create a height
- * 4. `min-height` is neccesary for `input` elments in Firefox and Opera because `line-height` is not working.
+ * 4. `min-height` is necessary for `input` elements in Firefox and Opera because `line-height` is not working.
  * 5. Reset button group whitespace hack
  * 6. Style
  */
@@ -2908,7 +3128,7 @@ select.uk-form-width-mini {
   /* 4 */
   min-height: 30px;
   /* 5 */
-  letter-spacing: normal;
+  font-size: 1rem;
   /* 6 */
   padding: 0 12px;
   background: #eeeeee;
@@ -3059,6 +3279,7 @@ select.uk-form-width-mini {
  * 2. Create position context for dropdowns
  * 3. Remove whitespace between child elements when using `inline-block`
  * 4. Prevent buttons from wrapping
+ * 5. Reset button group whitespace hack
  */
 .uk-button-group {
   /* 1 */
@@ -3067,12 +3288,16 @@ select.uk-form-width-mini {
   /* 2 */
   position: relative;
   /* 3 */
-  letter-spacing: -0.31em;
+  font-size: 0.01px;
   /* 4 */
   white-space: nowrap;
 }
 .uk-button-group > * {
   display: inline-block;
+}
+/* 5 */
+.uk-button-group .uk-button {
+  vertical-align: top;
 }
 /* Sub-object: `uk-button-dropdown`
  ========================================================================== */
@@ -4327,7 +4552,7 @@ select.uk-form-width-mini {
  *    close button more robust against different box-sizing use
  * 2. Style
  * 3. Required for `button` elements
- * 4. Needed for Sarari
+ * 4. Needed for Safari
  */
 .uk-close {
   /* 1 */
@@ -4411,7 +4636,7 @@ select.uk-form-width-mini {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   min-width: 18px;
-  border-radius: 50%;
+  border-radius: 500px;
   font-size: 12px;
   line-height: 18px;
 }
@@ -4586,6 +4811,12 @@ a.uk-thumbnail:focus {
   /* 4 */
   vertical-align: middle;
 }
+/*
+ * Fixed wrong scaling calculation for images in Chrome
+ */
+.uk-overlay > img:first-child {
+  display: block;
+}
 /* Sub-object `uk-overlay-area`
  ========================================================================== */
 /*
@@ -4606,6 +4837,7 @@ a.uk-thumbnail:focus {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 /*
  * Hover
@@ -4640,7 +4872,7 @@ a.uk-thumbnail:focus {
  * Needed for Firefox
  */
 .uk-overlay-area:not(:empty) {
-  letter-spacing: -0.31em;
+  font-size: 0.01px;
 }
 /*
  * 1. Needed for vertical alignment
@@ -4665,7 +4897,7 @@ a.uk-thumbnail:focus {
   width: 100%;
   vertical-align: middle;
   /* 2 */
-  letter-spacing: normal;
+  font-size: 1rem;
   /* 3 */
   text-align: center;
   /* 4 */
@@ -4706,6 +4938,7 @@ a.uk-thumbnail:focus {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 /*
  * Hover
@@ -4889,7 +5122,7 @@ input.uk-search-field {
  ========================================================================== */
 /*
  * 1. Required for `button` elements
- * 2. Needed for Sarari
+ * 2. Needed for Safari
  */
 .uk-search-close {
   display: none;
@@ -5305,7 +5538,7 @@ input.uk-search-field {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 1020;
   /* 3 */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -5316,7 +5549,8 @@ input.uk-search-field {
   background: #f5f5f5;
   color: #444444;
   /* 5 */
-  letter-spacing: normal;
+  font-size: 1rem;
+  vertical-align: top;
 }
 /*
  * 1. Show dropdown
@@ -5369,7 +5603,7 @@ input.uk-search-field {
 .uk-dropdown > .uk-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
   margin-top: 15px;
 }
-/* Only tablets and desktops */
+/* Tablet and bigger */
 @media (min-width: 768px) {
   /*
      * Horizontal gutter
@@ -5404,7 +5638,7 @@ input.uk-search-field {
     width: 1000px;
   }
 }
-/* Only phones */
+/* Phone landscape and smaller */
 @media (max-width: 767px) {
   /*
      * Stack columns and take full width
@@ -5482,10 +5716,10 @@ input.uk-search-field {
  * This is the modal overlay and modal dialog container
  * 1. Hide by default
  * 2. Set fixed position
- * 3. Webkit needs a height to position the modal dialog vertically in percent
- * 4. Allow scrolling for the modal dialog
- * 5. Mask the background page
- * 6. Fade-in transition
+ * 3. Allow scrolling for the modal dialog
+ * 4. Mask the background page
+ * 5. Fade-in transition
+ * 6. Fix transition in Webkit
  */
 .uk-modal {
   /* 1 */
@@ -5496,18 +5730,18 @@ input.uk-search-field {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1020;
+  z-index: 1010;
   /* 3 */
-  height: 100%;
-  /* 4 */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  /* 5 */
+  /* 4 */
   background: rgba(0, 0, 0, 0.6);
-  /* 6 */
+  /* 5 */
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
+  /* 6 */
+  -webkit-transform: translateZ(0);
 }
 /*
  * Open state
@@ -5516,69 +5750,67 @@ input.uk-search-field {
   opacity: 1;
 }
 /*
- * Prevents dublicated scrollbar caused by 4.
+ * 7. Prevents scrolling for the body content
+ * 8. Prevents duplicated scrollbar caused by 4.
  */
-.uk-modal-page {
+.uk-modal-page,
+.uk-modal-page body {
+  /* 7 */
+  height: 100%;
+  /* 8 */
   overflow: hidden;
 }
 /* Sub-object: `uk-modal-dialog`
  ========================================================================== */
 /*
- * 1. Set position
+ * 1. Create position context for `uk-modal-dialog-frameless`
  * 2. Set box sizing
- * 3. Center dialog box
- * 4. Style
+ * 3. Set style
+ * 4. Slide-in transition
  */
 .uk-modal-dialog {
   /* 1 */
   position: relative;
-  top: 10%;
-  left: 50%;
   /* 2 */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin: 50px auto;
   padding: 20px;
   width: 600px;
+  max-width: 100%;
   /* 3 */
-  margin-left: -300px;
-  /* 4 */
   background: #ffffff;
+  /* 4 */
+  opacity: 0;
+  -webkit-transform: translateY(-100px);
+  transform: translateY(-100px);
+  -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
+  transition: opacity 0.3s linear, transform 0.3s ease-out;
 }
-/* Only phones */
+/* Phone landscape and smaller */
 @media (max-width: 767px) {
   /*
      * Fit in small screen
      */
   .uk-modal-dialog {
-    top: 0;
-    left: 0;
-    right: 0;
     width: auto;
     margin: 10px;
   }
+}
+/*
+ * Open state
+ */
+.uk-open .uk-modal-dialog {
+  /* 4 */
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
 }
 /*
  * Remove margin from the last-child
  */
 .uk-modal-dialog > :last-child {
   margin-bottom: 0;
-}
-/* Modifier: `uk-modal-dialog-slide`
- ========================================================================== */
-/*
- * Adds a slide-in transition to the modal dialog
- */
-.uk-modal-dialog-slide {
-  opacity: 0;
-  -webkit-transform: translateY(-25%);
-  transform: translateY(-25%);
-  -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
-  transition: opacity 0.3s linear, transform 0.3s ease-out;
-}
-.uk-open .uk-modal-dialog-slide {
-  opacity: 1;
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
 }
 /* Close in modal
  ========================================================================== */
@@ -5607,7 +5839,7 @@ input.uk-search-field {
   margin: 0;
   float: none;
 }
-/* Only phones */
+/* Phone landscape and smaller */
 @media (max-width: 767px) {
   .uk-modal-dialog-frameless > .uk-close:first-child {
     top: -7px;
@@ -5632,7 +5864,7 @@ input.uk-search-field {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1010;
+  z-index: 1000;
   /* 3 */
   background: rgba(0, 0, 0, 0.1);
 }
@@ -5670,7 +5902,7 @@ input.uk-search-field {
   left: 0;
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
-  z-index: 1011;
+  z-index: 1001;
   /* 2 */
   width: 270px;
   max-width: 100%;
@@ -5887,7 +6119,7 @@ input.uk-search-field {
 .uk-text-muted {
   color: #999999 !important;
 }
-.uk-text-info {
+.uk-text-primary {
   color: #2d7091 !important;
 }
 .uk-text-success {
@@ -5912,6 +6144,18 @@ input.uk-search-field {
 }
 .uk-text-justify {
   text-align: justify !important;
+}
+/* Only tablets portrait */
+@media (min-width: 768px) and (max-width: 959px) {
+  .uk-text-center-medium {
+    text-align: center !important;
+  }
+}
+/* Phone landscape and smaller */
+@media (max-width: 767px) {
+  .uk-text-center-small {
+    text-align: center !important;
+  }
 }
 /* Wrap modifiers
  ========================================================================== */
@@ -5950,7 +6194,7 @@ input.uk-search-field {
   max-width: 980px;
   padding: 0 25px;
 }
-/* Only large screens */
+/* Large screen and bigger */
 @media (min-width: 1220px) {
   .uk-container {
     max-width: 1200px;
@@ -6031,7 +6275,7 @@ input.uk-search-field {
   margin-left: 15px;
   float: right;
 }
-/* Only tablets and desktop */
+/* Tablet and bigger */
 @media (min-width: 768px) {
   .uk-align-medium-left {
     margin-right: 15px;
@@ -6054,9 +6298,9 @@ input.uk-search-field {
  * Remove whitespace between child elements when using `inline-block`
  */
 .uk-vertical-align {
-  letter-spacing: -0.31em;
+  font-size: 0.01px;
 }
-/*  
+/*
  *  The `uk-vertical-align` container needs a specific height
  */
 .uk-vertical-align:before {
@@ -6074,7 +6318,7 @@ input.uk-search-field {
   display: inline-block;
   max-width: 100%;
   /* 1 */
-  letter-spacing: normal;
+  font-size: 1rem;
 }
 .uk-vertical-align-middle {
   vertical-align: middle;
@@ -6082,7 +6326,7 @@ input.uk-search-field {
 .uk-vertical-align-bottom {
   vertical-align: bottom;
 }
-/*  
+/*
  *  This helper class is very useful to extend the `html` and `body` element to the full height of the page.
  */
 .uk-height-1-1 {
@@ -6100,14 +6344,14 @@ input.uk-search-field {
   box-sizing: border-box;
 }
 /*
- * Responsiveness: Sets a maxium width relative to the parent and auto scales the height
+ * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
  */
 .uk-responsive-width {
   max-width: 100%;
   height: auto;
 }
 /*
- * Responsiveness: Sets a maxium height relative to the parent and auto scales the width
+ * Responsiveness: Sets a maximum height relative to the parent and auto scales the width
  * Only works if the parent element has a fixed height.
  */
 .uk-responsive-height {
@@ -6116,21 +6360,16 @@ input.uk-search-field {
 }
 /* Margin
  ========================================================================== */
-/* 
+/*
  * Create a block with the same margin of a paragraph
+ * Add margin if adjacent element
  */
 .uk-margin {
   margin-bottom: 15px;
 }
-/*
- * Add margin if adjacent element
- */
 * + .uk-margin {
   margin-top: 15px;
 }
-/*
- * Margins
- */
 .uk-margin-top {
   margin-top: 15px !important;
 }
@@ -6144,8 +6383,35 @@ input.uk-search-field {
   margin-right: 15px !important;
 }
 /*
+ * Larger margins
+ */
+.uk-margin-large {
+  margin-bottom: 50px;
+}
+* + .uk-margin-large {
+  margin-top: 50px;
+}
+.uk-margin-large-top {
+  margin-top: 50px !important;
+}
+.uk-margin-large-bottom {
+  margin-bottom: 50px !important;
+}
+.uk-margin-large-left {
+  margin-left: 50px !important;
+}
+.uk-margin-large-right {
+  margin-right: 50px !important;
+}
+/*
  * Smaller margins
  */
+.uk-margin-small {
+  margin-bottom: 5px;
+}
+* + .uk-margin-small {
+  margin-top: 5px;
+}
 .uk-margin-small-top {
   margin-top: 5px !important;
 }
@@ -6175,9 +6441,12 @@ input.uk-search-field {
 .uk-border-circle {
   border-radius: 50%;
 }
+.uk-border-rounded {
+  border-radius: 5px;
+}
 /* Headings
  ========================================================================== */
-/* Only tablets and desktops */
+/* Tablet and bigger */
 @media (min-width: 768px) {
   .uk-heading-large {
     font-size: 52px;
@@ -6200,8 +6469,9 @@ input.uk-search-field {
  * Enable scrolling for preformatted text
  */
 .uk-scrollable-text {
-  max-height: 300px;
+  height: 300px;
   overflow-y: scroll;
+  resize: both;
 }
 /*
  * Box with scrolling enabled
@@ -6209,10 +6479,11 @@ input.uk-search-field {
 .uk-scrollable-box {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  max-height: 170px;
+  height: 170px;
   padding: 10px;
   border: 1px solid #dddddd;
   overflow: auto;
+  resize: both;
 }
 /*
  * Remove margin from the last-child
@@ -6238,7 +6509,7 @@ input.uk-search-field {
  * Visibility
  * Avoids setting display to `block`
  */
-/* Only desktops */
+/* Desktop and bigger */
 @media (min-width: 960px) {
   .uk-visible-small {
     display: none !important;
@@ -6262,7 +6533,7 @@ input.uk-search-field {
     display: none !important;
   }
 }
-/* Only phones */
+/* Phone landscape and smaller */
 @media (max-width: 767px) {
   .uk-visible-medium {
     display: none !important;

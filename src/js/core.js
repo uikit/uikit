@@ -1,18 +1,43 @@
 (function(core) {
 
-     if (typeof define == "function" && define.amd) { // AMD
-         define("uikit", function(){
-             return core(window, window.jQuery, window.document);
-         });
-     }
+    if (typeof define == "function" && define.amd) { // AMD
+        define("uikit", function(){
 
-     if (!window.jQuery) {
-         throw new Error( "UIkit requires jQuery" );
-     }
+            var uikit = core(window, window.jQuery, window.document);
 
-     if (window && window.jQuery) {
-         core(window, window.jQuery, window.document);
-     }
+            uikit.load = function(res, req, onload, config) {
+
+                var resources = res.split(','), load = [], i, base = (config.uikit && config.uikit.base ? config.uikit.base : "").replace(/\/+$/g, "");
+
+                if (!base) {
+                    throw new Error( "Please define base path to uikit in the requirejs config." );
+                }
+
+                for (i = 0; i < resources.length; i += 1) {
+
+                    var resource = resources[i].replace(/\./g, '/');
+
+                    if (resource.match(/^addons/)) resource = resource.replace(/([^\/]+)$/g, '$1/$1');
+
+                    load.push(base+'/'+resource);
+                }
+
+                req(load, function() {
+                    onload(uikit);
+                });
+            };
+
+            return uikit;
+        });
+    }
+
+    if (!window.jQuery) {
+        throw new Error( "UIkit requires jQuery" );
+    }
+
+    if (window && window.jQuery) {
+        core(window, window.jQuery, window.document);
+    }
 
 
 })(function(global, $, doc) {
