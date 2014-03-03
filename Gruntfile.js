@@ -82,41 +82,46 @@ module.exports = function(grunt) {
 
             fs.readdirSync('src/less/addons').forEach(function(f){
 
-                var addon = f.replace(".less", "");
+                if(f.match(/\.less$/)) {
 
-                  lessconf["addon-"+f] = {options: { paths: ['src/less/addons'] }, files: {} };
-                  lessconf["addon-"+f].files["dist/addons/"+addon+"/"+addon+".css"] = ['src/less/addons/'+f];
+                  var addon = f.replace(".less", "");
 
-                  lessconf["addon-min-"+f] = {options: { paths: ['src/less/addons'], cleancss: true }, files: {} };
-                  lessconf["addon-min-"+f].files["dist/addons/"+addon+"/"+addon+".min.css"] = ['src/less/addons/'+f];
 
-                  // look for theme overrides
-                  themes.forEach(function(theme){
 
-                     var override = theme.path+'/addon.'+f,
-                         distpath = theme.dir=="default" ? "dist/addons/"+addon : theme.path+"/dist/addons/"+addon;
+                    lessconf["addon-"+f] = {options: { paths: ['src/less/addons'] }, files: {} };
+                    lessconf["addon-"+f].files["dist/addons/"+addon+"/"+addon+".css"] = ['src/less/addons/'+f];
 
-                     if(fs.existsSync(override)) {
+                    lessconf["addon-min-"+f] = {options: { paths: ['src/less/addons'], cleancss: true }, files: {} };
+                    lessconf["addon-min-"+f].files["dist/addons/"+addon+"/"+addon+".min.css"] = ['src/less/addons/'+f];
 
-                       if(theme.dir=="default" && theme.name=="default") {
+                    // look for theme overrides
+                    themes.forEach(function(theme){
 
-                         lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
-                         lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+addon+".css"] = [override];
+                       var override = theme.path+'/addon.'+f,
+                           distpath = theme.dir=="default" ? "dist/addons/"+addon : theme.path+"/dist/addons/"+addon;
 
-                         lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
-                         lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+addon+".min.css"] = [override];
+                       if(fs.existsSync(override)) {
 
-                       } else {
+                         if(theme.dir=="default" && theme.name=="default") {
 
-                          lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
-                          lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+addon+"."+theme.name+".css"] = [override];
+                           lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
+                           lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+addon+".css"] = [override];
 
-                          lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
-                          lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+addon+"."+theme.name+".min.css"] = [override];
+                           lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
+                           lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+addon+".min.css"] = [override];
 
+                         } else {
+
+                            lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
+                            lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+addon+"."+theme.name+".css"] = [override];
+
+                            lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
+                            lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+addon+"."+theme.name+".min.css"] = [override];
+
+                         }
                        }
-                     }
-                  });
+                    });
+                }
 
             });
 
@@ -184,11 +189,15 @@ module.exports = function(grunt) {
 
                   fs.readdirSync('src/js/addons').forEach(function(f){
 
-                      var addon = f.replace(".js", "");
+                      if(f.match(/\.js/)) {
 
-                      grunt.file.copy('src/js/addons/'+f, 'dist/addons/'+addon+'/'+f);
+                        var addon = f.replace(".js", "");
 
-                      files['dist/addons/'+addon+'/'+addon+'.min.js'] = ['src/js/addons/'+f];
+                        grunt.file.copy('src/js/addons/'+f, 'dist/addons/'+addon+'/'+f);
+
+                        files['dist/addons/'+addon+'/'+addon+'.min.js'] = ['src/js/addons/'+f];
+
+                      }
                   });
 
                   return files;
