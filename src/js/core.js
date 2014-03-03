@@ -19,7 +19,7 @@
 
                     if (resource.match(/^addons/)) resource = resource.replace(/([^\/]+)$/g, '$1/$1');
 
-                    load.push(base+'/'+resource);
+                    load.push(base+'/addons/'+resource+'/'+resource);
                 }
 
                 req(load, function() {
