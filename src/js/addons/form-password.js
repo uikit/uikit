@@ -1,7 +1,7 @@
 (function(addon) {
 
     if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit"], function(){
+        define("uikit-form-password", ["uikit"], function(){
             return jQuery.UIkit.formPassword ? jQuery.UIkit.formPassword : addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }

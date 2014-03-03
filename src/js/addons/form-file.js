@@ -1,7 +1,7 @@
 (function(addon) {
 
     if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit"], function(){
+        define("uikit-form-file", ["uikit"], function(){
             return jQuery.UIkit.formfile ? jQuery.UIkit.formfile : addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }

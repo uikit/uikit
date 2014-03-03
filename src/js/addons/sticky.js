@@ -1,7 +1,7 @@
 (function(addon) {
 
     if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit"], function(){
+        define("uikit-sticky", ["uikit"], function(){
             return jQuery.fn.uksticky ? jQuery.fn.uksticky : addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }
