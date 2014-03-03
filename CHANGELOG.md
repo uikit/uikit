@@ -36,6 +36,7 @@
 
 **Documentation and repository**
 
+  - Refactored add-on structure
   - Added layout examples
   - Added placeholder images in docs
   - Added holder.js for placeholder images in tests
