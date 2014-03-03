@@ -80,23 +80,21 @@ module.exports = function(grunt) {
 
             //addons
 
-            fs.readdirSync('addons/src').forEach(function(f){
+            fs.readdirSync('src/less/addons').forEach(function(f){
 
-                var addon = 'addons/src/'+f+'/'+f+'.less';
+                var addon = f.replace(".less", "");
 
-                if(fs.existsSync(addon)) {
+                  lessconf["addon-"+f] = {options: { paths: ['src/less/addons'] }, files: {} };
+                  lessconf["addon-"+f].files["dist/addons/"+addon+"/"+addon+".css"] = ['src/less/addons/'+f];
 
-                  lessconf["addon-"+f] = {options: { paths: ['addons/src/'+f] }, files: {} };
-                  lessconf["addon-"+f].files["dist/addons/css/"+f+".css"] = [addon];
-
-                  lessconf["addon-min-"+f] = {options: { paths: ['addons/src/'+f], cleancss: true }, files: {} };
-                  lessconf["addon-min-"+f].files["dist/addons/css/"+f+".min.css"] = [addon];
+                  lessconf["addon-min-"+f] = {options: { paths: ['src/less/addons'], cleancss: true }, files: {} };
+                  lessconf["addon-min-"+f].files["dist/addons/"+addon+"/"+addon+".min.css"] = ['src/less/addons/'+f];
 
                   // look for theme overrides
                   themes.forEach(function(theme){
 
-                     var override = theme.path+'/addon.'+f+'.less',
-                         distpath = theme.dir=="default" ? "dist/addons/css" : theme.path+"/dist/addons";;
+                     var override = theme.path+'/addon.'+f,
+                         distpath = theme.dir=="default" ? "dist/addons/"+addon : theme.path+"/dist/addons/"+addon;
 
                      if(fs.existsSync(override)) {
 
@@ -119,7 +117,7 @@ module.exports = function(grunt) {
                        }
                      }
                   });
-                }
+
             });
 
             return lessconf;
@@ -128,9 +126,6 @@ module.exports = function(grunt) {
         copy: {
             fonts: {
                 files: [{ expand: true, cwd: "src/fonts", src: ["*"], dest: "dist/fonts/" }]
-            },
-            addons: {
-              files: [{ expand: true, src: ["addons/src/**/*.js"], dest: "dist/addons/js", flatten: true }]
             }
         },
 
@@ -168,7 +163,7 @@ module.exports = function(grunt) {
                 banner: "<%= meta.banner %>\n"
               },
               files: {
-                src: [ 'dist/css/*.css', 'dist/js/*.js', 'dist/addons/css/*.css', 'dist/addons/js/*.js' ]
+                src: [ 'dist/css/*.css', 'dist/js/*.js', 'dist/addons/**/*.css', 'dist/addons/**/*.js' ]
               }
             }
         },
@@ -187,13 +182,13 @@ module.exports = function(grunt) {
 
                   var files = {};
 
-                  fs.readdirSync('addons/src').forEach(function(f){
+                  fs.readdirSync('src/js/addons').forEach(function(f){
 
-                      var addon = 'addons/src/'+f+'/'+f+'.js';
+                      var addon = f.replace(".js", "");
 
-                      if(fs.existsSync(addon)) {
-                        files['dist/addons/js/'+f+'.min.js'] = [addon];
-                      }
+                      grunt.file.copy('src/js/addons/'+f, 'dist/addons/'+addon+'/'+f);
+
+                      files['dist/addons/'+addon+'/'+addon+'.min.js'] = ['src/js/addons/'+f];
                   });
 
                   return files;
@@ -288,14 +283,6 @@ module.exports = function(grunt) {
       });
 
       // convert set back to list
-      /*
-      classesList = [];
-      for( var c in classesSet ) {
-          if (classesSet.hasOwnProperty(c)){
-             classesList.push(c);
-          }
-      }
-      */
       classesList = Object.keys(classesSet);
 
       pystring += 'uikit_classes = ["' + classesList.join('", "') + '"]\n';
@@ -310,14 +297,6 @@ module.exports = function(grunt) {
         dataSet     = {};
 
       dataList.forEach(function(s) { dataSet[s] = true; });
-      /*
-      dataList = [];
-      for (var p in dataSet) {
-        if (dataSet.hasOwnProperty(p)) {
-          dataList.push(p);
-        }
-      }
-      */
       dataList = Object.keys(dataSet);
       pystring += 'uikit_data = ["' + dataList.join('", "') + '"]\n';
 
