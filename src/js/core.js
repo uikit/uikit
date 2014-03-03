@@ -58,14 +58,31 @@
                 }, name;
 
             for (name in transEndEventNames) {
-                if (element.style[name] !== undefined) {
-                    return transEndEventNames[name];
-                }
+                if (element.style[name] !== undefined) return transEndEventNames[name];
             }
-
         }());
 
         return transitionEnd && { end: transitionEnd };
+    })();
+
+    UI.support.animation = (function() {
+
+        var animationEnd = (function() {
+
+            var element = doc.body || doc.documentElement,
+                animEndEventNames = {
+                    WebkitAnimation: 'webkitAnimationEnd',
+                    MozAnimation: 'animationend',
+                    OAnimation: 'oAnimationEnd oanimationend',
+                    animation: 'animationend'
+                }, name;
+
+            for (name in animEndEventNames) {
+                if (element.style[name] !== undefined) return animEndEventNames[name];
+            }
+        }());
+
+        return animationEnd && { end: animationEnd };
     })();
 
     UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60); };

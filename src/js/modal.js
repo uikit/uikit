@@ -81,20 +81,15 @@
         },
 
         resize: function() {
-
-            this.dialog.css("margin-left", "");
-
-            var modalwidth = parseInt(this.dialog.css("width"), 10),
-                inview     = (modalwidth + parseInt(this.dialog.css("margin-left"),10) + parseInt(this.dialog.css("margin-right"),10)) < $win.width();
-
-            this.dialog.css("margin-left", modalwidth && inview ? -1*Math.ceil(modalwidth/2) : "");
+            this.scrollbarwidth = window.innerWidth - html.width();
+            html.css("padding-" + (UI.langdirection == 'left' ? "right":"left"), this.scrollbarwidth);
         },
 
         _hide: function() {
 
             this.element.hide().removeClass("uk-open");
 
-            html.removeClass("uk-modal-page");
+            html.removeClass("uk-modal-page").css("padding-" + (UI.langdirection == 'left' ? "right":"left"), "");
 
             if(active===this) active = false;
 
