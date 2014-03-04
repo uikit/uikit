@@ -7,7 +7,7 @@
 
             uikit.load = function(res, req, onload, config) {
 
-                var resources = res.split(','), load = [], i, base = (config.uikit && config.uikit.base ? config.uikit.base : "").replace(/\/+$/g, "");
+                var resources = res.split(','), load = [], i, base = (config.config && config.config.uikit && config.config.uikit.base ? config.config.uikit.base : "").replace(/\/+$/g, "");
 
                 if (!base) {
                     throw new Error( "Please define base path to uikit in the requirejs config." );
