@@ -23,6 +23,20 @@
         this.element = $element;
         this.options = $.extend({}, Markdownarea.defaults, options);
 
+        this.marked     = this.options.marked || marked;
+        this.CodeMirror = this.options.CodeMirror || CodeMirror;
+
+        this.marked.setOptions({
+          gfm: true,
+          tables: true,
+          breaks: true,
+          pedantic: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false,
+          langPrefix: 'lang-'
+        });
+
         this.init();
 
         this.element.data("markdownarea", this);
@@ -45,7 +59,7 @@
 
             this.element.before(this.markdownarea).appendTo(this.code);
 
-            this.editor   = CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
+            this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
 
             this.editor.markdownarea = this;
 
@@ -60,7 +74,7 @@
 
                     $this.applyPlugins();
 
-                    marked($this.currentvalue, function (err, markdown) {
+                    $this.marked($this.currentvalue, function (err, markdown) {
 
                       if (err) throw err;
 
@@ -384,17 +398,6 @@
 
     // init code
     $(function() {
-
-        marked.setOptions({
-          gfm: true,
-          tables: true,
-          breaks: true,
-          pedantic: false,
-          sanitize: false,
-          smartLists: true,
-          smartypants: false,
-          langPrefix: 'lang-'
-        });
 
         $("textarea[data-uk-markdownarea]").each(function() {
             var area = $(this), obj;
