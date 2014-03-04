@@ -208,7 +208,7 @@ jQuery(function($) {
 
     function downloadLESS(a, style) {
 
-        var source = [], first;
+        var source = [], first, cache = {};
 
         if (style.fonts) {
             source.push(style.fonts);
@@ -221,9 +221,14 @@ jQuery(function($) {
             $.each(grp.vars, function(i, opt) {
                 $.each(style.variables, function(name, value) {
                     if(style.matchName(opt, name)) {
-                        if (first) source.push("\n//\n// "+grp.label+"\n//\n");
-                        source.push(name + ": " + value + ";");
-                        first = false;
+
+                        if(!cache[name]) {
+
+                            if (first) source.push("\n//\n// "+grp.label+"\n//\n");
+                            source.push(name + ": " + value + ";");
+                            first = false;
+                            cache[name] = true;
+                        }
                     }
                   });
              });

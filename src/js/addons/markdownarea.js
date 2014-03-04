@@ -84,6 +84,8 @@
                 return UI.Utils.debounce(render, 150);
             })());
 
+            this.code.find(".CodeMirror").css("height", this.options.height);
+
             this._buildtoolbar();
             this.fit();
 
@@ -363,6 +365,7 @@
 
     Markdownarea.defaults = {
         "mode"         : "split",
+        "height"       : 500,
         "maxsplitsize" : 1000,
         "codemirror"   : { mode: 'gfm', tabMode: 'indent', tabindex: "2", lineWrapping: true, dragDrop: false },
         "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
