@@ -1755,8 +1755,8 @@
             if (active.length) {
                 this.show(active);
             } else {
-                active = togglers.eq(0);
-                if (active.length) this.show(active);
+                active = togglers.eq(this.options.active);
+                this.show(active.length ? active : togglers.eq(0));
             }
         }
 
@@ -1790,7 +1790,8 @@
 
     Switcher.defaults = {
         connect : false,
-        toggler : ">*"
+        toggler : ">*",
+        active  : 0
     };
 
     UI["switcher"] = Switcher;
