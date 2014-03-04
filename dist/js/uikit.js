@@ -1064,7 +1064,6 @@
 
     var active = false,
         html   = $("html"),
-        tpl    = '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>',
 
         Modal  = function(element, options) {
 
@@ -1162,6 +1161,9 @@
 
     });
 
+    Modal.dialog = {
+        tpl : '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>'
+    };
 
     Modal.defaults = {
         keyboard: true,
@@ -1202,7 +1204,7 @@
 
     ModalTrigger.dialog = function(content, options) {
 
-        var modal = new Modal($(tpl).appendTo("body"), options);
+        var modal = new Modal($(Modal.dialog.tpl).appendTo("body"), options);
 
         modal.element.on("uk.modal.hide", function(){
             if (modal.persist) {
@@ -1220,8 +1222,8 @@
     ModalTrigger.alert = function(content, options) {
 
         ModalTrigger.dialog(([
-            '<div class="uk-margin">'+String(content)+'</div>',
-            '<button class="uk-button uk-button-primary uk-modal-close">Ok</button>'
+            '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
+            '<div class="uk-modal-buttons"><button class="uk-button uk-button-primary uk-modal-close">Ok</button></div>'
         ]).join(""), $.extend({bgclose:false, keyboard:false}, options)).show();
     };
 
@@ -1230,8 +1232,8 @@
         onconfirm = $.isFunction(onconfirm) ? onconfirm : function(){};
 
         var modal = ModalTrigger.dialog(([
-            '<div class="uk-margin">'+String(content)+'</div>',
-            '<button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button>'
+            '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
+            '<div class="uk-modal-buttons"><button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
         ]).join(""), $.extend({bgclose:false, keyboard:false}, options));
 
         modal.element.find(".js-modal-confirm").on("click", function(){
