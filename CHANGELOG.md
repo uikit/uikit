@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.4.0 (March 05, 2014)
 
   - IMPORTANT: Renamed uk-text-info to uk-text-primary including variable names
   - IMPORTANT: Renamed uk-notify-message-info to uk-notify-message-primary including variable names

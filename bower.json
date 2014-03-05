@@ -1,6 +1,6 @@
 {
   "name": "uikit",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "main": [
     "dist/js/uikit.min.js",
     "dist/css/uikit.min.css",
