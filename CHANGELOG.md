@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Lists are now more robust
+
 ### 2.4.0 (March 05, 2014)
 
   - IMPORTANT: Renamed uk-text-info to uk-text-primary including variable names

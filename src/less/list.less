@@ -36,6 +36,24 @@
 }
 
 /*
+ * Micro clearfix to make list more robust
+ */
+
+.uk-list > li:before,
+.uk-list > li:after {
+    content: " ";
+    display: table;
+}
+
+.uk-list > li:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-list > li > :last-child { margin-bottom: 0; }
+
+/*
  * Nested lists
  */
 
