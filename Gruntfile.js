@@ -275,13 +275,25 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('sublime', 'Building Sublime Text Package', function() {
+      // css core
       var filepath = 'dist/css/uikit.css';
+      var cssFiles = [filepath];
       if (!fs.existsSync(filepath)) {
         grunt.log.error("Not found: " + filepath);
         return;
       }
-      var cssContent   = grunt.file.read(filepath),
-          classesList = cssContent.match(/\.(uk-[a-z\d\-]+)/g),
+      // css addons
+      fs.readdirSync('dist/addons').forEach(function(f){
+        var addon_css_file = 'dist/addons/'+f+'/'+f+'.css';
+        if (fs.existsSync(addon_css_file)) {
+          cssFiles.push(addon_css_file);
+        }
+      });
+      var cssContent = "";
+      for (var i in cssFiles) {
+        cssContent += grunt.file.read(cssFiles[i])+' ';
+      }
+      var classesList = cssContent.match(/\.(uk-[a-z\d\-]+)/g),
           classesSet  = {},
           pystring    = '# copy & paste into sublime plugin code:\n';
 
@@ -296,13 +308,27 @@ module.exports = function(grunt) {
 
       pystring += 'uikit_classes = ["' + classesList.join('", "') + '"]\n';
 
+      // JS core
       filepath = 'dist/js/uikit.js';
       if (!fs.existsSync(filepath)) {
         grunt.log.error("Not found: " + filepath);
         return;
       }
-      var jsContent = grunt.file.read(filepath),
-        dataList    = jsContent.match(/data-uk-[a-z\d\-]+/g),
+      var jsFiles = [filepath];
+
+      // JS addons
+      fs.readdirSync('dist/addons').forEach(function(f){
+        var addon_js_file = 'dist/addons/'+f+'/'+f+'.js';
+        if (fs.existsSync(addon_js_file)) {
+          jsFiles.push(addon_js_file);
+        }
+      });
+      var jsContent = "";
+      for (var i in jsFiles) {
+        jsContent += grunt.file.read(jsFiles[i]) + ' ';
+      }
+
+      var dataList    = jsContent.match(/data-uk-[a-z\d\-]+/g),
         dataSet     = {};
 
       dataList.forEach(function(s) { dataSet[s] = true; });
