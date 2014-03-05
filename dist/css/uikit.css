@@ -2107,7 +2107,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   padding: 0;
   list-style: none;
   /* 2 */
-  font-size: 0.01px;
+  font-size: 0.001px;
 }
 /* Items
  ========================================================================== */
@@ -2196,7 +2196,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   padding: 0;
   list-style: none;
   /* 2 */
-  font-size: 0.01px;
+  font-size: 0.001px;
 }
 /* Items
  ========================================================================== */
@@ -2238,7 +2238,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   /* 2 */
   text-align: center;
   /* 3 */
-  font-size: 0.01px;
+  font-size: 0.001px;
 }
 /*
  * Micro clearfix
@@ -3288,7 +3288,7 @@ select.uk-form-width-mini {
   /* 2 */
   position: relative;
   /* 3 */
-  font-size: 0.01px;
+  font-size: 0.001px;
   /* 4 */
   white-space: nowrap;
 }
@@ -4872,7 +4872,7 @@ a.uk-thumbnail:focus {
  * Needed for Firefox
  */
 .uk-overlay-area:not(:empty) {
-  font-size: 0.01px;
+  font-size: 0.001px;
 }
 /*
  * 1. Needed for vertical alignment
@@ -6298,7 +6298,7 @@ input.uk-search-field {
  * Remove whitespace between child elements when using `inline-block`
  */
 .uk-vertical-align {
-  font-size: 0.01px;
+  font-size: 0.001px;
 }
 /*
  *  The `uk-vertical-align` container needs a specific height

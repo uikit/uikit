@@ -255,13 +255,17 @@ html { overflow-y: scroll; }
 
 .tm-navbar .uk-navbar-content,
 .tm-navbar .uk-navbar-brand,
-.tm-navbar .uk-navbar-toggle { text-shadow: none; }
+.tm-navbar .uk-navbar-toggle {
+    height: 40px;
+    margin: 0;
+    text-shadow: none;
+}
 
 .tm-navbar .uk-navbar-nav > li > a {
     height: 40px;
     margin: 0;
     border: none;
-    border-radius: 3px;
+    border-radius: 3px !important;
     text-shadow: none;
     font-size: 15px;
 }
