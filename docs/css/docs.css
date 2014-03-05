@@ -257,7 +257,7 @@ html { overflow-y: scroll; }
 .tm-navbar .uk-navbar-brand,
 .tm-navbar .uk-navbar-toggle {
     height: 40px;
-    margin: 0;
+    margin-top: 0;
     text-shadow: none;
 }
 
