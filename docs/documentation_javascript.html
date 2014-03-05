@@ -81,22 +81,21 @@
 
                             <h2>AMD support</h2>
 
-                            <p>AMD (Asynchronous Module Definition) is a way of defining JavaScript modules and their dependencies so they can be loaded/required asynchronously.</p>
+                            <p>AMD (Asynchronous Module Definition) is a way of defining JavaScript modules and their dependencies so they can be loaded asynchronously.</p>
 
                             <h3 class="tm-article-subtitle">Usage</h3>
 
 <pre><code>/* Simple require of the UIkit core */
-
 require("path/to/uikit.js", function(UI){
 
     // UI is the global UIkit object a.k.a. $.UIkit
+
 });</code></pre>
 
 
                             <h3 class="tm-article-subtitle">Autoload UIkit and its add-ons</h3>
 
 <pre><code>/* setup require.js first */
-
 requirejs.config({
 
     paths: {
@@ -108,13 +107,14 @@ requirejs.config({
             "base": "path/to/uikit_dist_folder"
         }
     }
+
 });
 
 /* now you can autoload uikit + addons separated by a comma */
-
 require("uikit!notify,markdownarea", function(UI){
 
     // access loaded addons: UI.notify, UI.markdownarea
+    
 });</code></pre>
 
 
