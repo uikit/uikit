@@ -15,6 +15,11 @@
             this.transition = UI.support.transition;
             this.dialog     = this.element.find(".uk-modal-dialog");
 
+            this.scrollable = (function(){
+                var scrollable = $this.dialog.find('.uk-modal-scrollable-box:first');
+                return scrollable.length ? scrollable : false;
+            })();
+
             this.element.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
                 $this.hide();
@@ -32,12 +37,11 @@
 
     $.extend(Modal.prototype, {
 
+        scrollable: false,
         transition: false,
 
         toggle: function() {
-            this[this.isActive() ? "hide" : "show"]();
-
-            return this;
+            return this[this.isActive() ? "hide" : "show"]();
         },
 
         show: function() {
@@ -47,9 +51,9 @@
             if (this.isActive()) return;
             if (active) active.hide(true);
 
-            this.resize();
-
             this.element.removeClass("uk-open").show();
+
+            this.resize();
 
             active = this;
             html.addClass("uk-modal-page").height(); // force browser engine redraw
@@ -82,6 +86,18 @@
         resize: function() {
             this.scrollbarwidth = window.innerWidth - html.width();
             html.css("padding-" + (UI.langdirection == 'left' ? "right":"left"), this.scrollbarwidth);
+
+            if (this.scrollable) {
+
+                this.scrollable.css("height", 0);
+
+                var offset = Math.abs(parseInt(this.dialog.css("margin-top"), 10)),
+                    dh     = this.dialog.outerHeight(),
+                    wh     = window.innerHeight,
+                    h      = wh - 2*(offset < 20 ? 20:offset) - dh;
+
+                this.scrollable.css("height", dh >= wh ? "":h);
+            }
         },
 
         _hide: function() {
