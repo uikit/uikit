@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added placeholder add-on
   - Added modal dialog large
   - Added modal scrollable box
   - Added text vertical alignment modifiers

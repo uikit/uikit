@@ -19,7 +19,8 @@
             "sortable",
             "sticky",
             "timepicker",
-            "notify"
+            "notify",
+            "placeholder"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",
