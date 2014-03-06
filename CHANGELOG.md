@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added text vertical alignment modifiers
   - Lists are now more robust
 
 ### 2.4.0 (March 05, 2014)
