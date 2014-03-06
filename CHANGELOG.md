@@ -2,6 +2,8 @@
 
 ### WIP
 
+  - Added modal dialog large
+  - Added modal scrollable box
   - Added text vertical alignment modifiers
   - Lists are now more robust
 
