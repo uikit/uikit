@@ -77,7 +77,7 @@
                       if (err) throw err;
 
                       $this.preview.html(markdown);
-                      $this.element.val($this.currentvalue).trigger("markdownarea-update", [$this]);
+                      $this.element.val($this.editor.getValue()).trigger("markdownarea-update", [$this]);
                     });
                 };
                 render();
