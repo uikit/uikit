@@ -96,7 +96,7 @@
                     wh     = window.innerHeight,
                     h      = wh - 2*(offset < 20 ? 20:offset) - dh;
 
-                this.scrollable.css("height", dh >= wh ? "":h);
+                this.scrollable.css("height", h < this.options.minScrollHeight ? "":h);
             }
         },
 
@@ -124,7 +124,8 @@
     Modal.defaults = {
         keyboard: true,
         show: false,
-        bgclose: true
+        bgclose: true,
+        minScrollHeight: 150
     };
 
 
