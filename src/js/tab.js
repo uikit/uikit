@@ -43,7 +43,7 @@
             if (!$(this).parents(".uk-disabled:first").length) ul.append(item);
         });
 
-        this.element.uk("switcher", {"toggler": ">li:not(.uk-tab-responsive)", "connect": this.options.connect});
+        this.element.uk("switcher", {"toggler": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active});
 
         mobiletab.append(dropdown).uk("dropdown", {"mode": "click"});
 
@@ -59,7 +59,8 @@
     };
 
     Tab.defaults = {
-        connect: false
+        connect: false,
+        active: 0
     };
 
     UI["tab"] = Tab;
