@@ -20,7 +20,11 @@
             "sticky",
             "timepicker",
             "notify",
-            "placeholder"
+            "placeholder",
+            "dotnav",
+            "thumbnailnav",
+            "pager",
+            "accordion"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",

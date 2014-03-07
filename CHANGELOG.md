@@ -3,6 +3,10 @@
 ### WIP
 
   - Added placeholder add-on
+  - Added dotnov add-on
+  - Added accordion add-on
+  - Added pager add-on
+  - Added thumbnailnav add-on
   - Added modal dialog large
   - Added modal scrollable box
   - Added text vertical alignment modifiers
