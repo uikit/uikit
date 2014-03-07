@@ -211,7 +211,7 @@ module.exports = function(grunt) {
                     archive: ("dist/uikit-"+pkginfo.version+".zip")
                 },
                 files: [
-                    { expand: true, cwd: "dist/", src: ["css/*", "js/*", "fonts/*", "addons/css/*", "addons/js/*"], dest: "" }
+                    { expand: true, cwd: "dist/", src: ["css/*", "js/*", "fonts/*", "addons/**/*"], dest: "" }
                 ]
             }
         },
