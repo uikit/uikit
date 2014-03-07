@@ -240,7 +240,7 @@
           case 37: // left arrow
             e.preventDefault();
             this.highlightPrevUnit();
-            // this.updateFromElementVal();
+            this.updateFromElementVal();
             break;
           case 38: // up arrow
             e.preventDefault();
@@ -265,7 +265,7 @@
             break;
           case 39: // right arrow
             e.preventDefault();
-            //this.updateFromElementVal();
+            this.updateFromElementVal();
             this.highlightNextUnit();
             break;
           case 40: // down arrow
