@@ -11,6 +11,7 @@
   - Added modal scrollable box
   - Added text vertical alignment modifiers
   - Lists are now more robust
+  - Fixed page jumping to top for modal component
 
 ### 2.4.0 (March 05, 2014)
 
