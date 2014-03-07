@@ -207,7 +207,12 @@
 
     // init code
     $(document).on("click.modal.uikit", "[data-uk-modal]", function(e) {
+
         var ele = $(this);
+
+        if(ele.is("a")) {
+            e.preventDefault();
+        }
 
         if (!ele.data("modal")) {
             var modal = new ModalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
