@@ -3,7 +3,8 @@
 //
 // Component:       `uk-pager`
 //
-// Modifier:        `uk-pager-hover`
+// Sub-objects:     `uk-pager-previous`
+//                  `uk-pager-next`
 //
 // ========================================================================
 
@@ -13,7 +14,6 @@
 // Variables
 // ========================================================================
 
-@pager-margin:                                  20px;
 @pager-width:                                   40px;
 @pager-height:                                  @pager-width;
 @pager-border-radius:                           50%;
@@ -24,9 +24,12 @@
 
 @pager-hover-background:                        #f5f5f5;
 
-@pager-onclick-background:                      #ddd;
+@pager-active-background:                       #ddd;
 
+@pager-previous-left:                           20px;
 @pager-previous-icon:                           "\f104";
+
+@pager-next-right:                              20px;
 @pager-next-icon:                               "\f105";
 
 
@@ -46,7 +49,7 @@
 }
 
 
-/* Items
+/* Sub-object: `uk-pager-previous` & `uk-pager-next`
  ========================================================================== */
 
 /*
@@ -61,8 +64,6 @@
     position: absolute;
     top: 50%;
     margin-top: -(@pager-width / 2);
-    margin-right: @pager-margin;
-    margin-left: @pager-margin;
     /* 2 */
     width: @pager-width;
     height: @pager-height;
@@ -82,11 +83,12 @@
 }
 
 .uk-pager-previous {
-    left: 0;
+    left: @pager-previous-left;
     .hook-pager-previous;
 }
+
 .uk-pager-next {
-    right: 0;
+    right: @pager-next-right;
     .hook-pager-next;
 }
 
@@ -94,13 +96,13 @@
 [class*='uk-pager-']:hover,
 [class*='uk-pager-']:focus {
     background: @pager-hover-background;
-    .hook-pager-item-hover;
+    .hook-pager-hover;
 }
 
-/* OnClick */
+/* Active */
 [class*='uk-pager-']:active {
-    background: @pager-onclick-background;
-    .hook-pager-item-onclick;
+    background: @pager-active-background;
+    .hook-pager-active;
 }
 
 /* Icons */
@@ -111,8 +113,8 @@
 // Hooks
 // ========================================================================
 
-.hook-pager-item() { }
-.hook-pager-item-hover() { }
-.hook-pager-item-onclick() { }
-.hook-pager-previous() { }
-.hook-pager-next() { }
+.hook-pager-item() {}
+.hook-pager-hover() {}
+.hook-pager-active() {}
+.hook-pager-previous() {}
+.hook-pager-next() {}
