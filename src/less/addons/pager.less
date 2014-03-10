@@ -29,7 +29,7 @@
 @pager-previous-left:                           20px;
 @pager-previous-icon:                           "\f104";
 
-@pager-next-right:                              20px;
+@pager-next-right:                              @pager-previous-left;
 @pager-next-icon:                               "\f105";
 
 
@@ -63,7 +63,7 @@
     /* 1 */
     position: absolute;
     top: 50%;
-    margin-top: -(@pager-width / 2);
+    margin-top: -(@pager-height / 2);
     /* 2 */
     width: @pager-width;
     height: @pager-height;
