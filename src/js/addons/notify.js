@@ -2,7 +2,7 @@
 
     if (typeof define == "function" && define.amd) { // AMD
         define("uikit-notify", ["uikit"], function(){
-            return jQuery.UIkit.notify ? jQuery.UIkit.notify : addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.notify || addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }
 

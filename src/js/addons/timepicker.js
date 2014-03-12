@@ -6,7 +6,7 @@
 
      if (typeof define == "function" && define.amd) { // AMD
          define("uikit-timepicker", ["uikit"], function(){
-            return jQuery.UIkit.timepicker ? jQuery.UIkit.timepicker : addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.timepicker || addon(window, window.jQuery, window.jQuery.UIkit);
          });
      }
 
