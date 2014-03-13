@@ -1,0 +1,136 @@
+// Name:            Autocomplete
+// Description:     Defines a search component
+//
+// Component:       `uk-autocomplete`
+//
+// Sub-objects:
+//
+// States:          `uk-active`
+//                  `uk-loading`
+//
+// Uses:            Animation
+//                  Icon: FontAwesome
+//
+// Used by:         Off-canvas
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@autocomplete-width:                                  120px;
+@autocomplete-focus-width:                            180px;
+@autocomplete-height:                                 30px;
+@autocomplete-padding:                                10px;
+@autocomplete-border:                                 rgba(0,0,0,0.3);
+@autocomplete-border-width:                           1px;
+@autocomplete-background:                             rgba(0,0,0,0);
+@autocomplete-color:                                  #444;
+@autocomplete-placeholder-color:                      #999;
+
+@autocomplete-dropdown-width:                         300px;
+@autocomplete-dropdown-margin-top:                    0px;
+@autocomplete-dropdown-background:                    #f5f5f5;
+@autocomplete-dropdown-color:                         #444;
+@autocomplete-dropdown-animation:                     uk-slide-top-fixed;
+@autocomplete-dropdown-navbar-margin-top:             5px;
+@autocomplete-dropdown-navbar-margin-right:           -15px;
+
+
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
+
+/*
+ * 1. Create position context for dropdowns
+ * 2. Needed for `form` element
+ */
+
+.uk-autocomplete {
+    display: inline-block;
+    /* 1 */
+    position: relative;
+    /* 2 */
+    margin: 0;
+    .hook-autocomplete;
+}
+
+
+/* Sub-object `uk-autocomplete-field`
+ ========================================================================== */
+
+/*
+ * 1. Needed to reset iOS `input[type="search"]` appearance
+ */
+
+.uk-autocomplete > input {
+    width: @autocomplete-width;
+    height: @autocomplete-height;
+    padding: 0 @autocomplete-padding;
+    border: @autocomplete-border-width solid @autocomplete-border;
+    background: @autocomplete-background;
+    color: @autocomplete-color;
+    -webkit-transition: all linear 0.2s;
+    transition: all linear 0.2s;
+    /* 1 */
+    border-radius: 0;
+    .hook-autocomplete-field;
+}
+
+/*
+ * Needed to reset iOS `input[type="search"]` appearance
+ * Higher specificity to override appearance set by normalize.less
+ */
+
+ .uk-autocomplete > input { -webkit-appearance: none; }
+
+/* Placeholder */
+.uk-autocomplete > input:-ms-input-placeholder { color: @autocomplete-placeholder-color; }
+.uk-autocomplete > input::-moz-placeholder { color: @autocomplete-placeholder-color; }
+.uk-autocomplete > input::-webkit-input-placeholder { color: @autocomplete-placeholder-color; }
+
+/* Removes cancel button in IE10 */
+.uk-autocomplete > input::-ms-clear { display: none; }
+
+/* Focus */
+.uk-autocomplete > input:focus {
+    outline: 0;
+    .hook-autocomplete-field-focus;
+}
+
+/* Focus + active */
+.uk-autocomplete > input:focus,
+.uk-active .uk-autocomplete > input { width: @autocomplete-focus-width; }
+
+
+.uk-autocomplete-dropdown {
+    width: @autocomplete-dropdown-width;
+    margin-top: @autocomplete-dropdown-margin-top;
+    background: @autocomplete-dropdown-background;
+    color: @autocomplete-dropdown-color;
+    .hook-autocomplete-dropdown;
+}
+
+.uk-open > .uk-autocomplete-dropdown {
+    -webkit-animation: @autocomplete-dropdown-animation 0.2s ease-in-out;
+    animation: @autocomplete-dropdown-animation 0.2s ease-in-out;
+}
+
+/*
+ * Dependency `uk-navbar-flip`
+ */
+
+.uk-navbar-flip .uk-autocomplete-dropdown {
+    margin-top: @autocomplete-dropdown-navbar-margin-top;
+    margin-right: @autocomplete-dropdown-navbar-margin-right;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-autocomplete() {}
+.hook-autocomplete-field() {}
+.hook-autocomplete-field-focus() {}
+.hook-autocomplete-dropdown() {}

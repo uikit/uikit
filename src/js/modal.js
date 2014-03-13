@@ -84,8 +84,18 @@
         },
 
         resize: function() {
+            
+            var paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
+
             this.scrollbarwidth = window.innerWidth - html.width();
-            html.css("padding-" + (UI.langdirection == 'left' ? "right":"left"), this.scrollbarwidth);
+            
+            html.css(paddingdir, this.scrollbarwidth);
+
+            this.element.css(paddingdir, "");
+
+            if (this.dialog.offset().left > this.scrollbarwidth) {
+                this.element.css(paddingdir, this.scrollbarwidth);
+            }
 
             if (this.scrollable) {
 

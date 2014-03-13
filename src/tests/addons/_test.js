@@ -4,6 +4,7 @@
 
     window.less = { env: "development" };
 
+    document.writeln('<script src="../../../vendor/holder.js"></script>');
     document.writeln('<script src="../../../vendor/less.js"></script>');
     document.writeln('<script src="../../../vendor/jquery.less.js"></script>');
     document.writeln('<script src="../../../vendor/jquery.rtl.js"></script>');
@@ -12,15 +13,20 @@
     document.writeln('<style>body{ visibility: hidden; }</style>');
 
     var tests = [
+            "accordion",
+            "autocomplete",
             "datepicker",
+            "dotnav",
             "form-password",
             "form-file",
             "markdownarea",
+            "notify",
+            "pager",
+            "placeholder",
             "sortable",
             "sticky",
-            "timepicker",
-            "notify",
-            "placeholder"
+            "thumbnailnav",
+            "timepicker"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",

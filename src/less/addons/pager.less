@@ -1,0 +1,120 @@
+// Name:            Pager
+// Description:     Defines styles for a previous/next navigation between pages
+//
+// Component:       `uk-pager`
+//
+// Sub-objects:     `uk-pager-previous`
+//                  `uk-pager-next`
+//
+// ========================================================================
+
+@import "../../../src/less/variables.less";
+
+
+// Variables
+// ========================================================================
+
+@pager-width:                                   40px;
+@pager-height:                                  @pager-width;
+@pager-border-radius:                           50%;
+@pager-background:                              #eee;
+@pager-color:                                   #444;
+@pager-font-size:                               22px;
+@pager-line-height:                             @pager-height;
+
+@pager-hover-background:                        #f5f5f5;
+
+@pager-active-background:                       #ddd;
+
+@pager-previous-left:                           20px;
+@pager-previous-icon:                           "\f104";
+
+@pager-next-right:                              @pager-previous-left;
+@pager-next-icon:                               "\f105";
+
+
+/* ========================================================================
+   Addon: Pager
+ ========================================================================== */
+
+/*
+ * 1. Responsive behavior
+ */
+
+.uk-pager {
+    position: relative;
+    display: inline-block;
+    /* 1 */
+    max-width: 100%;
+}
+
+
+/* Sub-object: `uk-pager-previous` & `uk-pager-next`
+ ========================================================================== */
+
+/*
+ * 1. Define the position of the nav buttons
+ * 2. Define the appearance of the nav buttons
+ * 3. Remove default link style
+ * 4. Corrects max-width behavior
+ */
+
+[class*='uk-pager-'] {
+    /* 1 */
+    position: absolute;
+    top: 50%;
+    margin-top: -(@pager-height / 2);
+    /* 2 */
+    width: @pager-width;
+    height: @pager-height;
+    border-radius: @pager-border-radius;
+    background: @pager-background;
+    /* 3 */
+    color: @pager-color;
+    text-align: center;
+    font-size: @pager-font-size;
+    font-family: FontAwesome;
+    line-height: @pager-line-height;
+    text-decoration: none !important;
+    /* 4 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    .hook-pager-item;
+}
+
+.uk-pager-previous {
+    left: @pager-previous-left;
+    .hook-pager-previous;
+}
+
+.uk-pager-next {
+    right: @pager-next-right;
+    .hook-pager-next;
+}
+
+/* Hover */
+[class*='uk-pager-']:hover,
+[class*='uk-pager-']:focus {
+    background: @pager-hover-background;
+    .hook-pager-hover;
+}
+
+/* Active */
+[class*='uk-pager-']:active {
+    background: @pager-active-background;
+    .hook-pager-active;
+}
+
+/* Icons */
+.uk-pager-previous:before { content: @pager-previous-icon; }
+.uk-pager-next:before { content: @pager-next-icon; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-pager-item() {}
+.hook-pager-hover() {}
+.hook-pager-active() {}
+.hook-pager-previous() {}
+.hook-pager-next() {}

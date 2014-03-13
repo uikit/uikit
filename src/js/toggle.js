@@ -34,13 +34,15 @@
 
     UI["toggle"] = Toggle;
 
-    $(document).on("click.toggle.uikit", "[data-uk-toggle]", function(e) {
-        var ele = $(this);
+    $(document).on("uk-domready", function(e) {
 
-        if (!ele.data("toggle")) {
-           var obj = new Toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
-           ele.trigger("click");
-        }
+        $("[data-uk-toggle]").each(function() {
+            var ele = $(this);
+
+            if (!ele.data("toggle")) {
+               var obj = new Toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+            }
+        });
     });
 
 })(this, jQuery, jQuery.UIkit);

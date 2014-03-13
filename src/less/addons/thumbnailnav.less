@@ -1,9 +1,7 @@
 // Name:            Thumbnail nav
-// Description:     Extends form component
+// Description:     Defines styles for a thumbnail navigation
 //
 // Component:       `uk-thumbnailnav`
-//
-// Modifier:        `uk-thumbnailnav-vertical`
 //
 // ========================================================================
 
@@ -13,16 +11,12 @@
 // Variables
 // ========================================================================
 
-@thumbnailnav-padding:                     0;
-
 @thumbnailnav-width:                       100px;
-@thumbnailnav-margin:                      0px;
-
 @thumbnailnav-hover-opacity:               0.5;
 
 
 /* ========================================================================
-   Addon: Slidenav
+   Addon: Thumbnail nav
  ========================================================================== */
 
 /*
@@ -36,10 +30,10 @@
     /* 1 */
     max-width: 100%;
     /* 2 */
-    padding: @thumbnailnav-padding;
+    padding: 0;
     list-style: none;
     /* 3 */
-    letter-spacing: -0.31em;
+    font-size: 0.001px;
     /* 4 */
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -50,18 +44,21 @@
 /* Items
  ========================================================================== */
 
+/*
+ * 1. Reset whitespace hack
+ */
+
 .uk-thumbnailnav > li {
     display: inline-block;
-    letter-spacing: normal;
-    width: @thumbnailnav-width;
+    /* 1 */
+    font-size: 1rem;
+    max-width: @thumbnailnav-width;
     .hook-thumbnailnav-item;
 }
 
-.uk-thumbnailnav > li:nth-child(n+2) { margin-left: @thumbnailnav-margin; }
-
 /*
 * Hover
-* Define style for inaktive images
+* Define style for inactive images
 */
 
 .uk-thumbnailnav:hover > li:not(:hover) {
@@ -73,9 +70,6 @@
 // Hooks
 // ========================================================================
 
-.hook-thumbnailnav-misc;
-
 .hook-thumbnailnav() {}
 .hook-thumbnailnav-item() {}
 .hook-thumbnailnav-item-hover() {}
-.hook-thumbnailnav-misc() {}

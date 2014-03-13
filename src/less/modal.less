@@ -77,17 +77,11 @@
 .uk-modal.uk-open { opacity: 1; }
 
 /*
- * 7. Prevents scrolling for the body content
- * 8. Prevents duplicated scrollbar caused by 4.
+ * Prevents duplicated scrollbar caused by 4.
  */
 
 .uk-modal-page,
-.uk-modal-page body {
-    /* 7 */
-    height: 100%;
-    /* 8 */
-    overflow: hidden;
-}
+.uk-modal-page body { overflow: hidden; }
 
 
 /* Sub-object: `uk-modal-dialog`
@@ -223,6 +217,12 @@
     overflow: auto;
     .hook-modal-scrollable-box;
 }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-modal-scrollable-box > :last-child { margin-bottom: 0; }
 
 
 // Hooks

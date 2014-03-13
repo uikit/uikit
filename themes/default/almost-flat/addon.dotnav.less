@@ -1,0 +1,45 @@
+//
+// Addon: Dotnav
+//
+// ========================================================================
+
+@import "../../../src/less/addons/dotnav.less";
+@import "variables.less";
+
+
+// Variables
+// ========================================================================
+
+@dotnav-background:                        @global-default-background;
+@dotnav-border:                            @global-border;
+@dotnav-hover-background:                  @global-default-hover-background;
+@dotnav-active-background:                 @global-primary-background;
+@dotnav-active-border:                     @global-primary-background;
+@dotnav-onclick-background:                @global-primary-background;
+
+
+// Hooks
+// ========================================================================
+
+.hook-dotnav-item() {
+    background: -webkit-@dotnav-background;
+    border: 1px solid @dotnav-border;
+    transition: all 0.2s ease-in-out;
+}
+.hook-dotnav-item-hover() { background: none; }
+.hook-dotnav-item-active() {
+    background: -webkit-@dotnav-active-background;
+    border-color: @dotnav-active-border;
+    transform: scale(1.3);
+}
+.hook-dotnav-item-onclick() {
+    background: -webkit-@dotnav-onclick-background;
+    border-color: @dotnav-active-border;
+    transform: scale(1.3);
+}
+.hook-subnav-misc() {
+    .uk-dotnav > li > a:focus {
+        background: -webkit-@dotnav-active-background;
+        transform: scale(1.3);
+    }
+}

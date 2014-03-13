@@ -2,7 +2,7 @@
 
     if (typeof define == "function" && define.amd) { // AMD
         define("uikit-sticky", ["uikit"], function(){
-            return jQuery.fn.uksticky ? jQuery.fn.uksticky : addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.fn.uksticky || addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }
 

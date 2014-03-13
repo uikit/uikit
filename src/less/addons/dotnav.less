@@ -1,5 +1,5 @@
 // Name:            Dotnav
-// Description:     Extends form component
+// Description:     Defines styles for a dot navigation
 //
 // Component:       `uk-dotnav`
 //
@@ -18,9 +18,9 @@
 @dotnav-width:                             20px;
 @dotnav-height:                            @dotnav-width;
 @dotnav-background:                        #eee;
-@dotnav-hover-background:                  #f5f5f5;
-@dotnav-active-background:                 #00a8e6;
-@dotnav-onclick-background:                #ddd;
+@dotnav-hover-background:                  #bbb;
+@dotnav-active-background:                 #bbb;
+@dotnav-onclick-background:                #aaa;
 
 
 /* ========================================================================
@@ -37,12 +37,18 @@
     padding: 0;
     list-style: none;
     /* 2 */
-    letter-spacing: -0.31em;
+    font-size: 0.001px;
 }
 
 
 /* Items
  ========================================================================== */
+
+/*
+ * 1. Reset whitespace hack
+ */
+
+.uk-dotnav > li { font-size: 1rem; }
 
 .uk-dotnav > li,
 .uk-dotnav > li > a { display: inline-block; }
@@ -105,10 +111,7 @@
 // Hooks
 // ========================================================================
 
-.hook-subnav-misc;
-
 .hook-dotnav-item() {}
 .hook-dotnav-item-hover() {}
 .hook-dotnav-item-active() {}
 .hook-dotnav-item-onclick() {}
-.hook-subnav-misc() {}
