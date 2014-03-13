@@ -13,19 +13,20 @@
     document.writeln('<style>body{ visibility: hidden; }</style>');
 
     var tests = [
+            "accordion",
+            "autocomplete",
             "datepicker",
+            "dotnav",
             "form-password",
             "form-file",
             "markdownarea",
+            "notify",
+            "pager",
+            "placeholder",
             "sortable",
             "sticky",
-            "timepicker",
-            "notify",
-            "placeholder",
-            "dotnav",
             "thumbnailnav",
-            "pager",
-            "accordion"
+            "timepicker"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",
