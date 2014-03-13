@@ -9,7 +9,7 @@
         if($element.data("nav")) return;
 
         this.options = $.extend({}, Nav.defaults, options);
-        this.element = $element.on("click", this.options.toggler, function(e) {
+        this.element = $element.on("click", this.options.toggle, function(e) {
             e.preventDefault();
 
             var ele = $(this);
@@ -64,7 +64,7 @@
     });
 
     Nav.defaults = {
-        "toggler": ">li.uk-parent > a[href='#']",
+        "toggle": ">li.uk-parent > a[href='#']",
         "lists": ">li.uk-parent > ul",
         "multiple": false
     };
