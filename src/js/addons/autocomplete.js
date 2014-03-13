@@ -29,9 +29,9 @@
            this.dropdown = $('<div class="uk-dropdown uk-autocomplete-dropdown"></div>').appendTo($element);
         }
 
-        if(!this.resultItem.length) {
-            this.resultContainer = $('<ul class="uk-nav"></ul>').appendTo(this.dropdown);
-            this.resultItem      = '<li><a>{{value}}</a></ul>';
+        if (!this.resultItem.length) {
+            this.resultContainer = $(this.options.resultContainer).appendTo(this.dropdown);
+            this.resultItem      = this.options.resultItem;
         } else {
             this.resultContainer = this.resultItem.parent();
             this.resultItem      = this.resultItem.html();
@@ -122,7 +122,7 @@
 
         pick: function(item) {
 
-            var items    = this.resultContainer.children(),
+            var items    = this.resultContainer.children(':not(.'+this.options.skipClass+')'),
                 selected = false;
 
             if (typeof item !== "string" && !item.hasClass(this.options.skipClass)) {
@@ -253,29 +253,23 @@
 
             this.selected = false;
 
-            if(data && data.length) {
+            if (this.options.renderer) {
 
-                if (this.options.renderer) {
+                this.options.renderer.apply(this, [data]);
 
-                    this.options.renderer.apply(this, [data]);
+            } else if(data && data.length) {
 
-                } else {
+                data.forEach(function(item){
 
-                    var results = [];
+                    var resultitem = $this.resultItem;
 
-                    data.forEach(function(item){
+                    Object.keys(item).forEach(function(key){
+                        resultitem = resultitem.replace(new RegExp('{{'+key+'}}', 'g'), item[key]);
+                    });
 
-                        var resultitem = $this.resultItem;
+                    $this.resultContainer.append($(resultitem).data(item));
 
-                        Object.keys(item).forEach(function(key){
-                            resultitem = resultitem.replace(new RegExp('{{'+key+'}}', 'g'), item[key]);
-                        });
-
-                        $this.resultContainer.append($(resultitem).data(item));
-
-                    }, this);
-
-                }
+                }, this);
 
                 if(this.resultContainer.children().length) {
                     this.show();
@@ -295,7 +289,12 @@
         skipClass: 'uk-skip',
         hoverClass: 'uk-active',
         source: null,
-        renderer: null
+        renderer: null,
+
+        // template
+
+        resultContainer: '<ul class="uk-nav"></ul>',
+        resultItem: '<li><a>{{value}}</a>'
     };
 
     UI["autocomplete"] = Autocomplete;
