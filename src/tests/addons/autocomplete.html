@@ -9,6 +9,9 @@
         <script src="_test.js"></script>
         <script src="../../js/addons/autocomplete.js"></script>
 
+        <style>
+            .uk-nav > li.uk-active { background: #fafafa; }
+        </style>
         <script>
         $(function(){
 
@@ -24,9 +27,32 @@
             <h1>Autocomplete</h1>
 
              <div>
-
-                <div class="uk-autocomplete" data-uk-autocomplete>
+                <h3>Array source</h3>
+                <div class="uk-autocomplete" data-uk-autocomplete="{source:[{value:'Hamburg'},{value:'New York'},{value:'Moscow'},{value:'Amsterdam'}]}">
                     <input type="text">
+                </div>
+
+                <h3>Ajax source</h3>
+                <div class="uk-autocomplete" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                    <input type="text">
+                </div>
+
+
+                <h3>Custom render</h3>
+                <div class="uk-autocomplete" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                    <input type="text">
+                    <div class="uk-dropdown uk-autocomplete-dropdown">
+                        <ul class="uk-nav">
+                            <script type="text/js-item">
+                            <li>
+                                <a href="{{url}}">
+                                    {{title}}
+                                    <div>{{text}}</div>
+                                </a>
+                            </li>
+                            </script>
+                        </ul>
+                    </div>
                 </div>
 
              </div>
