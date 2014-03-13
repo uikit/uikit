@@ -8,6 +8,10 @@
   - Added text vertical alignment modifiers
   - Lists are now more robust
 
+**Documentation and repository**
+
+  - Fixed form password add-on doc
+
 ### 2.4.0 (March 05, 2014)
 
   - IMPORTANT: Renamed uk-text-info to uk-text-primary including variable names
