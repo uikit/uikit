@@ -9,8 +9,72 @@
         <script src="_test.js"></script>
         <script src="../../js/addons/autocomplete.js"></script>
 
+        <style>
+            .uk-nav > li.uk-active { background: #fafafa; }
+        </style>
         <script>
         $(function(){
+
+            var searchoptions = {
+                    resultsHeaderClass: 'uk-nav-header',
+                    moreResultsClass: 'uk-search-moreresults',
+                    noResultsClass: '',
+                    msgResultsHeader: 'Search Results',
+                    msgMoreResults: 'More Results',
+                    msgNoResults: 'No results found',
+                    resultContainer: '<ul class="uk-nav uk-nav-search"></ul>',
+                    renderer: function(data) {
+
+                        var $this = this;
+
+                        if (this.options.msgResultsHeader) {
+                            $('<li>').addClass(this.options.resultsHeaderClass + ' ' + this.options.skipClass).html(this.options.msgResultsHeader).appendTo($this.resultContainer);
+                        }
+
+                        if (data && data.length) {
+
+                            data.forEach(function(item){
+
+                                var resultitem = '<li><a href="{{url}}">{{title}}</a></li>';
+
+                                Object.keys(item).forEach(function(key){
+                                    resultitem = resultitem.replace(new RegExp('{{'+key+'}}', 'g'), item[key]);
+                                });
+
+                                resultitem = $(resultitem).data(item);
+
+                                if (item.text) {
+                                    resultitem.find("a").append('<div>' + item.text + '</div>');
+                                }
+
+                                $this.resultContainer.append(resultitem);
+
+                            }, this);
+
+
+                            if (this.options.msgMoreResults) {
+                                $('<li>').addClass('uk-nav-divider ' + $this.options.skipClass).appendTo($this.resultContainer);
+                                $('<li>').addClass($this.options.moreResultsClass).html('<a href="#">' + $this.options.msgMoreResults + '</a>').on("click", function(){
+                                    $this.resultContainer.closest("form").submit();
+                                }).appendTo($this.resultContainer);
+                            }
+
+                        } else if (this.options.msgNoResults) {
+                            $('<li>').addClass(this.options.noResultsClass + ' ' + this.options.skipClass).html('<a>' + this.options.msgNoResults + '</a>').appendTo($this.resultContainer);
+                        }
+
+                        this.show();
+                    }
+                };
+
+            // init code
+            $(document).on("focus.search.uikit", "[data-uk-acsearch]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("autocomplete")) {
+                    var obj = new $.UIkit.autocomplete(ele, $.extend({}, searchoptions, $.UIkit.Utils.options(ele.attr("data-uk-acsearch"))));
+                }
+            });
 
         })
         </script>
@@ -24,8 +88,38 @@
             <h1>Autocomplete</h1>
 
              <div>
+                <h3>Array source</h3>
+                <div class="uk-autocomplete" data-uk-autocomplete="{source:[{value:'Hamburg'},{value:'New York'},{value:'Moscow'},{value:'Amsterdam'}]}">
+                    <input type="text">
+                </div>
 
-                <div class="uk-autocomplete" data-uk-autocomplete>
+                <h3>Ajax source</h3>
+                <div class="uk-autocomplete" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                    <input type="text">
+                </div>
+
+
+                <h3>Custom render</h3>
+                <div class="uk-autocomplete" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                    <input type="text">
+                    <div class="uk-dropdown uk-autocomplete-dropdown">
+                        <ul class="uk-nav">
+                            <script type="text/js-item">
+                            <li>
+                                <a href="{{url}}">
+                                    {{title}}
+                                    <div>{{text}}</div>
+                                </a>
+                            </li>
+                            </script>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <h3>UIkit search</h3>
+                <div class="uk-autocomplete" data-uk-acsearch="{source:'_autocomplete.json'}">
                     <input type="text">
                 </div>
 
