@@ -12,72 +12,6 @@
         <style>
             .uk-nav > li.uk-active { background: #fafafa; }
         </style>
-        <script>
-        $(function(){
-
-            var searchoptions = {
-                    resultsHeaderClass: 'uk-nav-header',
-                    moreResultsClass: 'uk-search-moreresults',
-                    noResultsClass: '',
-                    msgResultsHeader: 'Search Results',
-                    msgMoreResults: 'More Results',
-                    msgNoResults: 'No results found',
-                    resultContainer: '<ul class="uk-nav uk-nav-search"></ul>',
-                    renderer: function(data) {
-
-                        var $this = this;
-
-                        if (this.options.msgResultsHeader) {
-                            $('<li>').addClass(this.options.resultsHeaderClass + ' ' + this.options.skipClass).html(this.options.msgResultsHeader).appendTo($this.resultContainer);
-                        }
-
-                        if (data && data.length) {
-
-                            data.forEach(function(item){
-
-                                var resultitem = '<li><a href="{{url}}">{{title}}</a></li>';
-
-                                Object.keys(item).forEach(function(key){
-                                    resultitem = resultitem.replace(new RegExp('{{'+key+'}}', 'g'), item[key]);
-                                });
-
-                                resultitem = $(resultitem).data(item);
-
-                                if (item.text) {
-                                    resultitem.find("a").append('<div>' + item.text + '</div>');
-                                }
-
-                                $this.resultContainer.append(resultitem);
-
-                            }, this);
-
-
-                            if (this.options.msgMoreResults) {
-                                $('<li>').addClass('uk-nav-divider ' + $this.options.skipClass).appendTo($this.resultContainer);
-                                $('<li>').addClass($this.options.moreResultsClass).html('<a href="#">' + $this.options.msgMoreResults + '</a>').on("click", function(){
-                                    $this.resultContainer.closest("form").submit();
-                                }).appendTo($this.resultContainer);
-                            }
-
-                        } else if (this.options.msgNoResults) {
-                            $('<li>').addClass(this.options.noResultsClass + ' ' + this.options.skipClass).html('<a>' + this.options.msgNoResults + '</a>').appendTo($this.resultContainer);
-                        }
-
-                        this.show();
-                    }
-                };
-
-            // init code
-            $(document).on("focus.search.uikit", "[data-uk-acsearch]", function(e) {
-                var ele = $(this);
-
-                if (!ele.data("autocomplete")) {
-                    var obj = new $.UIkit.autocomplete(ele, $.extend({}, searchoptions, $.UIkit.Utils.options(ele.attr("data-uk-acsearch"))));
-                }
-            });
-
-        })
-        </script>
 
     </head>
 
@@ -126,6 +60,89 @@
              </div>
 
         </div>
+
+
+        <script>
+
+        // implement uk-search with uk-autocomplete
+
+        $(function(){
+
+            var searchoptions = {
+
+                    resultsHeaderClass : 'uk-nav-header',
+                    moreResultsClass   : 'uk-search-moreresults',
+                    noResultsClass     : '',
+                    msgResultsHeader   : 'Search Results',
+                    msgMoreResults     : 'More Results',
+                    msgNoResults       : 'No results found',
+                    resultContainer    : '<ul class="uk-nav uk-nav-search"></ul>',
+
+                    renderer: function(data) {
+
+                        var $this = this, opts = this.options;
+
+                        if (opts.msgResultsHeader) {
+
+                            this.resultContainer.append([
+                                '<li class="'+([opts.resultsHeaderClass, opts.skipClass].join(' '))+'">',opts.msgResultsHeader,'</li>'
+                            ].join(''));
+                        }
+
+                        if (data && data.length) {
+
+                            data.forEach(function(item){
+
+                                var resultitem = '<li><a href="{{url}}">{{title}}</a></li>';
+
+                                Object.keys(item).forEach(function(key){
+                                    resultitem = resultitem.replace(new RegExp('{{'+key+'}}', 'g'), item[key]);
+                                });
+
+                                resultitem = $(resultitem).data(item);
+
+                                if (item.text) resultitem.find("a").append('<div>' + item.text + '</div>');
+
+                                this.resultContainer.append(resultitem);
+
+                            }, this);
+
+
+                            if (opts.msgMoreResults) {
+
+                                this.resultContainer.append([
+                                    '<li class="uk-nav-divider '+opts.skipClass+'"></li>',
+                                    '<li class="'+opts.moreResultsClass+'"><a href="#">',opts.msgMoreResults,'</a></li>'
+                                ].join(''));
+
+                                this.resultContainer.find('.'+opts.moreResultsClass).on("click", function(){
+                                    $this.resultContainer.closest("form").submit();
+                                });
+                            }
+
+                        } else if (opts.msgNoResults) {
+
+                            this.resultContainer.append([
+                                '<li class="'+([opts.noResultsClass, opts.skipClass].join(' '))+'"><a>',opts.msgNoResultsr,'</a></li>'
+                            ].join(''));
+                        }
+
+                        this.show();
+                    }
+                };
+
+            // init code
+            $(document).on("focus.search.uikit", "[data-uk-acsearch]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("autocomplete")) {
+                    var obj = new $.UIkit.autocomplete(ele, $.extend({}, searchoptions, $.UIkit.Utils.options(ele.attr("data-uk-acsearch"))));
+                }
+            });
+
+        });
+        </script>
+
 
     </body>
 </html>
