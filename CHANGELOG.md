@@ -7,8 +7,8 @@
   - Added accordion add-on
   - Added pager add-on
   - Added thumbnailnav add-on
-  - Added modal dialog large
-  - Added modal scrollable box
+  - Added large dialog to modal component
+  - Added overflow container to utility component
   - Added text vertical alignment modifiers
   - Lists are now more robust
   - Fixed page jumping to top for modal component

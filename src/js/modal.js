@@ -16,7 +16,7 @@
             this.dialog     = this.element.find(".uk-modal-dialog");
 
             this.scrollable = (function(){
-                var scrollable = $this.dialog.find('.uk-modal-scrollable-box:first');
+                var scrollable = $this.dialog.find('.uk-overflow-container:first');
                 return scrollable.length ? scrollable : false;
             })();
 
