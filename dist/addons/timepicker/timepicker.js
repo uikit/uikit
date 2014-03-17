@@ -8,7 +8,7 @@
 
      if (typeof define == "function" && define.amd) { // AMD
          define("uikit-timepicker", ["uikit"], function(){
-            return jQuery.UIkit.timepicker ? jQuery.UIkit.timepicker : addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.timepicker || addon(window, window.jQuery, window.jQuery.UIkit);
          });
      }
 
@@ -39,7 +39,7 @@
 
         this.setDefaultTime(this.options.defaultTime);
 
-        this.element.data("timepicker", this);
+        this.$element.data("timepicker", this);
     };
 
     TimePicker.defaults = {
@@ -161,7 +161,7 @@
           this.updateFromElementVal();
         },
 
-        decrementHour: function() {
+        decrementHour: function(noupdate) {
           if (this.options.showMeridian) {
             if (this.hour === 1) {
               this.hour = 12;
@@ -183,7 +183,8 @@
               this.hour--;
             }
           }
-          this.update();
+
+          if(!noupdate) this.update();
         },
 
         decrementMinute: function(step) {
@@ -191,7 +192,7 @@
           var newVal = (step) ? this.minute - step : this.minute - this.options.minuteStep;
 
           if (newVal < 0) {
-            this.decrementHour();
+            this.decrementHour(true);
             this.minute = newVal + 60;
           } else {
             this.minute = newVal;
@@ -440,7 +441,7 @@
           }
         },
 
-        incrementHour: function() {
+        incrementHour: function(noupdate) {
           if (this.options.showMeridian) {
             if (this.hour === 11) {
               this.hour++;
@@ -456,7 +457,8 @@
           }
 
           this.hour++;
-          this.update();
+
+          if(!noupdate) this.update();
         },
 
         incrementMinute: function(step) {
@@ -464,7 +466,7 @@
           var newVal = step ? (this.minute + step) : (this.minute + this.options.minuteStep - (this.minute % this.options.minuteStep));
 
           if (newVal > 59) {
-            this.incrementHour();
+            this.incrementHour(true);
             this.minute = newVal - 60;
           } else {
             this.minute = newVal;

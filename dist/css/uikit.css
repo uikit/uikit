@@ -2629,6 +2629,23 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   list-style: none;
 }
 /*
+ * Micro clearfix to make list more robust
+ */
+.uk-list > li:before,
+.uk-list > li:after {
+  content: " ";
+  display: table;
+}
+.uk-list > li:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-list > li > :last-child {
+  margin-bottom: 0;
+}
+/*
  * Nested lists
  */
 .uk-list ul {
@@ -5750,14 +5767,10 @@ input.uk-search-field {
   opacity: 1;
 }
 /*
- * 7. Prevents scrolling for the body content
- * 8. Prevents duplicated scrollbar caused by 4.
+ * Prevents duplicated scrollbar caused by 4.
  */
 .uk-modal-page,
 .uk-modal-page body {
-  /* 7 */
-  height: 100%;
-  /* 8 */
   overflow: hidden;
 }
 /* Sub-object: `uk-modal-dialog`
@@ -5778,6 +5791,7 @@ input.uk-search-field {
   padding: 20px;
   width: 600px;
   max-width: 100%;
+  max-width: calc(100% - 20px);
   /* 3 */
   background: #ffffff;
   /* 4 */
@@ -5844,6 +5858,20 @@ input.uk-search-field {
   .uk-modal-dialog-frameless > .uk-close:first-child {
     top: -7px;
     right: -7px;
+  }
+}
+/* Modifier: `uk-modal-dialog-large`
+ ========================================================================== */
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-modal-dialog-large {
+    width: 930px;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-modal-dialog-large {
+    width: 1130px;
   }
 }
 /* ========================================================================
@@ -6144,6 +6172,15 @@ input.uk-search-field {
 }
 .uk-text-justify {
   text-align: justify !important;
+}
+.uk-text-top {
+  vertical-align: top !important;
+}
+.uk-text-middle {
+  vertical-align: middle !important;
+}
+.uk-text-bottom {
+  vertical-align: bottom !important;
 }
 /* Only tablets portrait */
 @media (min-width: 768px) and (max-width: 959px) {
@@ -6471,6 +6508,7 @@ input.uk-search-field {
 .uk-scrollable-text {
   height: 300px;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   resize: both;
 }
 /*
@@ -6483,12 +6521,22 @@ input.uk-search-field {
   padding: 10px;
   border: 1px solid #dddddd;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   resize: both;
 }
-/*
- * Remove margin from the last-child
- */
 .uk-scrollable-box > :last-child {
+  margin-bottom: 0;
+}
+/* Overflow
+ ========================================================================== */
+/*
+ * Enable scrollbars if content is clipped
+ */
+.uk-overflow-container {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.uk-overflow-container > :last-child {
   margin-bottom: 0;
 }
 /* Display

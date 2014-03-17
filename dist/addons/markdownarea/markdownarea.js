@@ -4,7 +4,7 @@
 
     if (typeof define == "function" && define.amd) { // AMD
         define("uikit-markdownarea", ["uikit"], function(){
-            return jQuery.UIkit.markdownarea ? jQuery.UIkit.markdownarea : addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.markdownarea || addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }
 
@@ -79,7 +79,7 @@
                       if (err) throw err;
 
                       $this.preview.html(markdown);
-                      $this.element.val($this.currentvalue).trigger("markdownarea-update", [$this]);
+                      $this.element.val($this.editor.getValue()).trigger("markdownarea-update", [$this]);
                     });
                 };
                 render();
