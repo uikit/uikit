@@ -42,8 +42,12 @@
 
             <h1>Drag'n Drop</h1>
 
-            <div class="uk-placeholder uk-placeholder-large uk-text-center" data-uk-file-drop>
-                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select>selecting one</a>.
+            <div class="uk-placeholder uk-placeholder-large uk-text-center" data-uk-file-drop="{progressbar:'#upload-progress'}">
+                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select="{progressbar:'#upload-progress'}">selecting one</a>.
+
+                <div id="upload-progress" class="uk-progress">
+                    <div class="uk-progress-bar" style="width: 0%;">0%</div>
+                </div>
             </div>
 
         </div>

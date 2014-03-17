@@ -16,9 +16,36 @@
 
         var $this    = this,
             $element = $(element).addClass("uk-form-file"),
-            options  = $.extend({}, FileDrop.defaults, xhrupload.defaults, options);
+            options  = $.extend({}, xhrupload.defaults, FileSelect.defaults, options);
 
         if ($element.data("fileSelect")) return;
+
+
+        this.progressbar = options.progressbar ? $(options.progressbar) : false;
+
+        if (this.progressbar && this.progressbar.length) {
+
+            var bar           = this.progressbar.css("visibility", "hidden").find('.uk-progress-bar'),
+                onloadstart   = options.loadstart,
+                onprogress    = options.progress,
+                onallcomplete = options.nallcomplete;
+
+            options.loadstart = function() {
+                $this.progressbar.css("visibility", "visible");
+            };
+
+            options.progress = function(percent) {
+                percent = Math.ceil(percent);
+                bar.css("width", percent+"%");
+                onprogress(percent)
+            };
+
+            options.allcomplete = function(response) {
+                setTimeout(function(){
+                    $this.progressbar.css("visibility", "hidden");
+                }, 250);
+            };
+        }
 
         this.fileinput = $element.find('input[type="file"]');
 
@@ -50,6 +77,7 @@
     FileSelect.defaults = {
         'action': '/',
         'allow': '*.*',
+        'progressbar': false,
         // events
         'notallowed': function(file) {}
     };
@@ -58,9 +86,35 @@
 
         var $this    = this,
             $element = $(element),
-            options  = $.extend({}, FileDrop.defaults, xhrupload.defaults, options);
+            options  = $.extend({}, xhrupload.defaults, FileSelect.defaults, options);
 
         if ($element.data("fileDrop")) return;
+
+        this.progressbar = options.progressbar ? $(options.progressbar) : false;
+
+        if (this.progressbar && this.progressbar.length) {
+
+            var bar           = this.progressbar.css("visibility", "hidden").find('.uk-progress-bar'),
+                onloadstart   = options.loadstart,
+                onprogress    = options.progress,
+                onallcomplete = options.nallcomplete;
+
+            options.loadstart = function() {
+                $this.progressbar.css("visibility", "visible");
+            };
+
+            options.progress = function(percent) {
+                percent = Math.ceil(percent);
+                bar.css("width", percent+"%");
+                onprogress(percent)
+            };
+
+            options.allcomplete = function(response) {
+                setTimeout(function(){
+                    $this.progressbar.css("visibility", "hidden");
+                }, 250);
+            };
+        }
 
         $element.on("drop", function(e){
 
@@ -109,6 +163,7 @@
         'action': '/',
         'dragoverClass': 'uk-dragover',
         'allow': '*.*',
+        'progressbar': false,
         // events
         'notallowed': function(file) {}
     };
