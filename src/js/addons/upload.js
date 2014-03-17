@@ -31,16 +31,20 @@
                 onallcomplete = options.nallcomplete;
 
             options.loadstart = function() {
+                bar.css("width", "0%").text("0%");
                 $this.progressbar.css("visibility", "visible");
             };
 
             options.progress = function(percent) {
                 percent = Math.ceil(percent);
-                bar.css("width", percent+"%");
+                bar.css("width", percent+"%").text(percent+"%");
                 onprogress(percent)
             };
 
             options.allcomplete = function(response) {
+
+                bar.css("width", "100%").text("100%");
+
                 setTimeout(function(){
                     $this.progressbar.css("visibility", "hidden");
                 }, 250);
@@ -100,16 +104,20 @@
                 onallcomplete = options.nallcomplete;
 
             options.loadstart = function() {
+                bar.css("width", "0%").text("0%");
                 $this.progressbar.css("visibility", "visible");
             };
 
             options.progress = function(percent) {
                 percent = Math.ceil(percent);
-                bar.css("width", percent+"%");
+                bar.css("width", percent+"%").text(percent+"%");
                 onprogress(percent)
             };
 
             options.allcomplete = function(response) {
+
+                bar.css("width", "100%").text("100%");
+
                 setTimeout(function(){
                     $this.progressbar.css("visibility", "hidden");
                 }, 250);
