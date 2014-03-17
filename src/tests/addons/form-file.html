@@ -8,6 +8,13 @@
         <script src="../../../vendor/jquery.js"></script>
         <script src="_test.js"></script>
         <script src="../../js/addons/form-file.js"></script>
+        <script src="../../js/addons/upload.js"></script>
+
+        <link rel="stylesheet" href="../../../dist/addons/placeholder/placeholder.css">
+
+        <style>
+            .uk-dragover { box-shadow: 0 0 150px rgba(0,0,0,0.1) inset; }
+        </style>
     </head>
 
     <body>
@@ -31,6 +38,14 @@
                 </div>
 
             </form>
+
+
+            <h1>Drag'n Drop</h1>
+
+            <div class="uk-placeholder uk-placeholder-large uk-text-center" data-uk-file-drop>
+                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or selecting one.
+                <a data-uk-file-select>Or select a file.</a>
+            </div>
 
         </div>
 
