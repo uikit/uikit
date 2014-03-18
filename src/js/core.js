@@ -197,6 +197,51 @@
         return options;
     };
 
+    UI.Utils.template = function(str, data) {
+
+        var tokens = str.replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g),
+            i=0, toc, cmd, prop, val, fn, output = ['var __ret = []; with(d){'];
+
+        while(i < tokens.length) {
+
+            toc = tokens[i];
+
+            if(toc.match(/\{\{\s*(.+?)\s*\}\}/)) {
+                i = i + 1;
+                toc  = tokens[i];
+                cmd  = toc[0];
+                prop = toc.substring(toc.match(/^(\^|\#|\!|\~)/) ? 1:0);
+
+                switch(cmd) {
+                    case '~':
+                        output.push("for(var $index=0;$index<"+prop+".length;$index++) { var $item = "+prop+"[$index];");
+                        break;
+                    case '#':
+                        output.push("if("+prop+") {");
+                        break;
+                    case '^':
+                        output.push("if(!"+prop+") {");
+                        break;
+                    case '/':
+                        output.push("}");
+                        break;
+                    case '!':
+                        output.push("__ret.push(escape("+prop+" || ''));");
+                        break;
+                    default:
+                        output.push("__ret.push("+prop+" || '');");
+                        break;
+                }
+            } else {
+                output.push("__ret.push('"+toc+"');");
+            }
+            i = i + 1;
+        }
+        output.push("}; return __ret.join(''); function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}");
+        fn = new Function('d', output.join('\n'));
+        return data ? fn(data) : fn;
+    };
+
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
