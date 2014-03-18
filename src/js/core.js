@@ -233,10 +233,11 @@
                         break;
                 }
             } else {
-                output.push("__ret.push('"+toc+"');");
+                output.push("__ret.push('"+toc.replace(/\'/g, "\\'")+"');");
             }
             i = i + 1;
         }
+
         output.push("}; return __ret.join(''); function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}");
         fn = new Function('d', output.join('\n'));
         return data ? fn(data) : fn;
