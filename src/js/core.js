@@ -199,8 +199,8 @@
 
     UI.Utils.template = function(str, data) {
 
-        var tokens = str.replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g),
-            i=0, toc, cmd, prop, val, fn, output = ['var __ret = []; with(d){'];
+        var tokens = str.replace(/\n/g, '').replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g), 
+            i=0, toc, cmd, prop, val, fn, output = [];
 
         while(i < tokens.length) {
 
@@ -210,11 +210,14 @@
                 i = i + 1;
                 toc  = tokens[i];
                 cmd  = toc[0];
-                prop = toc.substring(toc.match(/^(\^|\#|\!|\~)/) ? 1:0);
+                prop = toc.substring(toc.match(/^(\^|\#|\!|\~|\*)/) ? 1:0);
 
                 switch(cmd) {
                     case '~':
                         output.push("for(var $index=0;$index<"+prop+".length;$index++) { var $item = "+prop+"[$index];");
+                        break;
+                    case '*':
+                        output.push("for(var $key in "+prop+") { var $val = "+prop+"[$key];");
                         break;
                     case '#':
                         output.push("if("+prop+") {");
@@ -226,10 +229,10 @@
                         output.push("}");
                         break;
                     case '!':
-                        output.push("__ret.push(escape("+prop+" || ''));");
+                        output.push("__ret.push("+prop+");");
                         break;
                     default:
-                        output.push("__ret.push("+prop+" || '');");
+                        output.push("__ret.push(escape("+prop+"));");
                         break;
                 }
             } else {
@@ -238,9 +241,15 @@
             i = i + 1;
         }
 
-        output.push("}; return __ret.join(''); function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}");
-        fn = new Function('d', output.join('\n'));
-        return data ? fn(data) : fn;
+        fn  = [
+            'var __ret = [];',
+            'with(d){', output.join(''), '};',
+            'return __ret.join("");',
+            "function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"
+        ].join("\n");
+
+        var func = new Function('d', fn);
+        return data ? func(data) : func;
     };
 
     UI.Utils.events       = {};
