@@ -199,7 +199,7 @@
 
     UI.Utils.template = function(str, data) {
 
-        var tokens = str.replace(/\n/g, '').replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g), 
+        var tokens = str.replace(/\n/g, '\\n').replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g), 
             i=0, toc, cmd, prop, val, fn, output = [];
 
         while(i < tokens.length) {
@@ -244,7 +244,7 @@
         fn  = [
             'var __ret = [];',
             'with(d){', output.join(''), '};',
-            'return __ret.join("");',
+            'return __ret.join("").replace(/\\n\\n/g, "\\n");',
             "function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"
         ].join("\n");
 
