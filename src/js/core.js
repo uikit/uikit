@@ -243,7 +243,9 @@
 
         fn  = [
             'var __ret = [];',
+            'try {',
             'with(d){', output.join(''), '};',
+            '}catch(e){__ret = [e.message];}',
             'return __ret.join("").replace(/\\n\\n/g, "\\n");',
             "function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"
         ].join("\n");

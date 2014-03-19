@@ -19,27 +19,18 @@
         if($element.data("autocomplete")) return;
 
         this.options = $.extend({}, Autocomplete.defaults, options);
-
         this.element = $element;
 
-        this.dropdown   = $element.find('.uk-autocomplete-dropdown');
-        this.resultItem = $element.find('script[type="text/js-item"]');
+        this.dropdown = $element.find('.uk-autocomplete-dropdown');
+        this.template = $element.find('script[type="text/autocomplete"]').html();
+        this.template = UI.Utils.template(this.template || this.options.template);
+        this.input    = $element.find("input:first");
+
+        this.element.data("autocomplete", this);
 
         if (!this.dropdown.length) {
            this.dropdown = $('<div class="uk-dropdown uk-autocomplete-dropdown"></div>').appendTo($element);
         }
-
-        if (!this.resultItem.length) {
-            this.resultContainer = $(this.options.resultContainer).appendTo(this.dropdown);
-            this.resultItem      = this.options.resultItem;
-        } else {
-            this.resultContainer = this.resultItem.parent();
-            this.resultItem      = this.resultItem.html();
-        }
-
-        this.input = $element.find("input:first");
-
-        this.element.data("autocomplete", this);
 
         this.init();
     };
@@ -96,11 +87,11 @@
                 }
             });
 
-            this.resultContainer.on("click", ">*", function(){
+            this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
                 $this.select();
             });
 
-            this.resultContainer.on("mouseover", ">*", function(){
+            this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function(){
                 $this.pick($(this));
             });
         },
@@ -122,7 +113,7 @@
 
         pick: function(item) {
 
-            var items    = this.resultContainer.children(':not(.'+this.options.skipClass+')'),
+            var items    = this.dropdown.find('.uk-autocomplete-results').children(':not(.'+this.options.skipClass+')'),
                 selected = false;
 
             if (typeof item !== "string" && !item.hasClass(this.options.skipClass)) {
@@ -156,9 +147,10 @@
 
             var data = this.selected.data();
 
+            this.element.trigger("autocomplete-select", [data, this]);
+
             if (data.value) {
                 this.input.val(data.value);
-                this.element.trigger("autocomplete-select");
             }
 
             this.hide();
@@ -205,15 +197,15 @@
 
                         if(source.length) {
 
-                            var data = [];
+                            var items = [];
 
                             source.forEach(function(item){
                                 if(item.value && item.value.toLowerCase().indexOf($this.value.toLowerCase())!=-1) {
-                                    data.push(item);
+                                    items.push(item);
                                 }
                             });
 
-                            release(data);
+                            release(items);
                         }
 
                         break;
@@ -230,7 +222,7 @@
                             type: this.options.method,
                             dataType: 'json',
                             complete: function(xhr) {
-                                release(xhr.responseJSON || null);
+                                release(xhr.responseJSON || []);
                             }
                         });
 
@@ -249,7 +241,7 @@
 
             var $this = this;
 
-            this.resultContainer.empty();
+            this.dropdown.empty();
 
             this.selected = false;
 
@@ -259,21 +251,8 @@
 
             } else if(data && data.length) {
 
-                data.forEach(function(item){
-
-                    var resultitem = $this.resultItem;
-
-                    Object.keys(item).forEach(function(key){
-                        resultitem = resultitem.replace(new RegExp('{{'+key+'}}', 'g'), item[key]);
-                    });
-
-                    $this.resultContainer.append($(resultitem).data(item));
-
-                }, this);
-
-                if(this.resultContainer.children().length) {
-                    this.show();
-                }
+                this.dropdown.append(this.template({"items":data}));
+                this.show();
             }
 
             return this;
@@ -293,8 +272,7 @@
 
         // template
 
-        resultContainer: '<ul class="uk-nav"></ul>',
-        resultItem: '<li><a>{{value}}</a>'
+        template: '<ul class="uk-nav uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
     };
 
     UI["autocomplete"] = Autocomplete;
@@ -309,5 +287,4 @@
     });
 
     return Autocomplete;
-
 });
