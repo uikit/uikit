@@ -4,14 +4,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Form-file - UIkit tests</title>
+        <title>Upload - UIkit tests</title>
         <script src="../../../vendor/jquery.js"></script>
         <script src="_test.js"></script>
-        <script src="../../js/addons/form-file.js"></script>
         <script src="../../js/addons/upload.js"></script>
-
         <link rel="stylesheet" href="../../../dist/addons/placeholder/placeholder.css">
-
+        <link rel="stylesheet" href="../../../dist/addons/form-file/form-file.css">
         <style>
             .uk-dragover { box-shadow: 0 0 150px rgba(0,0,0,0.1) inset; }
         </style>
@@ -21,31 +19,12 @@
 
         <div class="uk-container uk-container-center">
 
-            <h1>Form file</h1>
+            <h1>Upload</h1>
 
-            <form action="" class="uk-form" onsubmit="return false">
-
-                <div class="uk-form-row">
-                    <label class="uk-form-label" for="form-file">Upload file</label>
-                    <div class="uk-form-controls" data-uk-form-file>
-                        <div class="uk-form-file">
-                            <button class="uk-button">Select</button>
-                            <input id="form-file" type="file">
-                        </div>
-                        <input id="form-input" type="text" disabled>
-                        <button class="uk-button uk-button-success">Upload</button>
-                    </div>
-                </div>
-
-            </form>
-
-
-            <h1>Drag'n Drop</h1>
-
-            <div class="uk-placeholder uk-placeholder-large uk-text-center" data-uk-file-drop="{progressbar:'#upload-progress'}">
+            <div class="uk-placeholder uk-text-center" data-uk-file-drop="{progressbar:'#upload-progress'}">
                 <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select="{progressbar:'#upload-progress'}">selecting one</a>.
 
-                <div id="upload-progress" class="uk-progress">
+                <div id="upload-progress" class="uk-progress uk-hidden">
                     <div class="uk-progress-bar" style="width: 0%;">0%</div>
                 </div>
             </div>
