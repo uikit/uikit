@@ -21,13 +21,13 @@
 
             <h1>Upload</h1>
 
-
             <h2>On select</h2>
 
             <div class="uk-margin">
 
-                <div id="upload-select" class="uk-form-file uk-form-file-inline-block">
+                <div class="uk-form-file">
                     <button class="uk-button">Select</button>
+                    <input id="upload-select1" type="file">
                 </div>
 
             </div>
@@ -35,7 +35,7 @@
             <h2>Drop area</h2>
 
             <div id="upload-drop" class="uk-placeholder uk-text-center">
-                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a id="upload-select2" class="uk-form-file">selecting one</a>.
+                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a class="uk-form-file">selecting one<input id="upload-select2" type="file"></a>.
             </div>
 
             <div id="progressbar" class="uk-progress uk-hidden">
@@ -76,7 +76,7 @@
                     }
                 };
 
-                (new $.UIkit.upload.select($("#upload-select"), settings));
+                (new $.UIkit.upload.select($("#upload-select1"), settings));
                 (new $.UIkit.upload.select($("#upload-select2"), settings));
                 (new $.UIkit.upload.drop($("#upload-drop"), settings));
             });
