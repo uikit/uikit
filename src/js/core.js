@@ -200,7 +200,7 @@
     UI.Utils.template = function(str, data) {
 
         var tokens = str.replace(/\n/g, '\\n').replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g),
-            i=0, toc, cmd, prop, val, fn, output = [];
+            i=0, toc, cmd, prop, val, fn, output = [], openblocks = 0;
 
         while(i < tokens.length) {
 
@@ -215,18 +215,23 @@
                 switch(cmd) {
                     case '~':
                         output.push("for(var $i=0;$i<"+prop+".length;$i++) { var $item = "+prop+"[$i];");
+                        openblocks++;
                         break;
                     case ':':
                         output.push("for(var $key in "+prop+") { var $val = "+prop+"[$key];");
+                        openblocks++;
                         break;
                     case '#':
                         output.push("if("+prop+") {");
+                        openblocks++;
                         break;
                     case '^':
                         output.push("if(!"+prop+") {");
+                        openblocks++;
                         break;
                     case '/':
                         output.push("}");
+                        openblocks--;
                         break;
                     case '!':
                         output.push("__ret.push("+prop+");");
@@ -244,7 +249,7 @@
         fn  = [
             'var __ret = [];',
             'try {',
-            'with(d){', output.join(''), '};',
+            'with(d){', (!openblocks ? output.join('') : '__ret = ["Not all blocks are closed correctly."]'), '};',
             '}catch(e){__ret = [e.message];}',
             'return __ret.join("").replace(/\\n\\n/g, "\\n");',
             "function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"
