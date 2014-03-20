@@ -20,6 +20,8 @@
 
         if ($element.data("uploadSelect")) return;
 
+        this.element = $element;
+
         this.element.on("change", function() {
             if (options.allow!=='*.*') {
 
