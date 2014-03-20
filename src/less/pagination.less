@@ -6,11 +6,11 @@
 // Sub-objects:     `uk-pagination-previous`
 //                  `uk-pagination-next`
 //
-// States:          `uk-active`
-//                  `uk-disabled`
-//
 // Modifiers:       `uk-pagination-left`
 //                  `uk-pagination-right`
+//
+// States:          `uk-active`
+//                  `uk-disabled`
 //
 // ========================================================================
 
@@ -76,12 +76,14 @@
 
 /*
  * 1. Reset whitespace hack
+ * 2. Remove the gap at the bottom of it container
  */
 
 .uk-pagination > li {
     display: inline-block;
     /* 1 */
     font-size: @pagination-font-size;
+    /* 2 */
     vertical-align: top;
 }
 
