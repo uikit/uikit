@@ -15,10 +15,10 @@
     var UploadSelect = function(element, options) {
 
         var $this    = this,
-            $element = $(element).addClass("uk-form-file"),
+            $element = $(element),
             options  = $.extend({}, xhrupload.defaults, UploadSelect.defaults, options);
 
-        if ($element.data("fileSelect")) return;
+        if ($element.data("uploadSelect")) return;
 
         this.fileinput = $element.find('input[type="file"]');
 
@@ -44,7 +44,7 @@
             xhrupload(this.files, options);
         });
 
-        $element.data("fileSelect", this);
+        $element.data("uploadSelect", this);
     };
 
     UploadSelect.defaults = {
@@ -60,7 +60,7 @@
             $element = $(element),
             options  = $.extend({}, xhrupload.defaults, UploadDrop.defaults, options);
 
-        if ($element.data("fileDrop")) return;
+        if ($element.data("uploadDrop")) return;
 
         $element.on("drop", function(e){
 
@@ -102,7 +102,7 @@
             $element.removeClass(options.dragoverClass);
         });
 
-        $element.data("fileDrop", this);
+        $element.data("uploadDrop", this);
     };
 
     UploadDrop.defaults = {
