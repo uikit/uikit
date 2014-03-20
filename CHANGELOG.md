@@ -6,7 +6,7 @@
   - Added placeholder add-on
   - Added dotnov add-on
   - Added accordion add-on
-  - Added pager add-on
+  - Added slidenav add-on
   - Added thumbnailnav add-on
   - Added upload add-on
   - Added autocomplete add-on
