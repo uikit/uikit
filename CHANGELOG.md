@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - IMPORTANT: Removed form-file JavaScript
   - Added placeholder add-on
   - Added dotnov add-on
   - Added accordion add-on
@@ -10,6 +11,7 @@
   - Added large dialog to modal component
   - Added overflow container to utility component
   - Added text vertical alignment modifiers
+  - Form-file add-on now works great with text
   - Lists are now more robust
   - Fixed page jumping to top for modal component
 

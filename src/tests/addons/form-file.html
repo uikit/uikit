@@ -7,14 +7,6 @@
         <title>Form-file - UIkit tests</title>
         <script src="../../../vendor/jquery.js"></script>
         <script src="_test.js"></script>
-        <script src="../../js/addons/form-file.js"></script>
-        <script src="../../js/addons/upload.js"></script>
-
-        <link rel="stylesheet" href="../../../dist/addons/placeholder/placeholder.css">
-
-        <style>
-            .uk-dragover { box-shadow: 0 0 150px rgba(0,0,0,0.1) inset; }
-        </style>
     </head>
 
     <body>
@@ -23,31 +15,26 @@
 
             <h1>Form file</h1>
 
-            <form action="" class="uk-form" onsubmit="return false">
+            <div class="uk-margin">
 
-                <div class="uk-form-row">
-                    <label class="uk-form-label" for="form-file">Upload file</label>
-                    <div class="uk-form-controls" data-uk-form-file>
-                        <div class="uk-form-file">
-                            <button class="uk-button">Select</button>
-                            <input id="form-file" type="file">
-                        </div>
-                        <input id="form-input" type="text" disabled>
-                        <button class="uk-button uk-button-success">Upload</button>
-                    </div>
+                <div class="uk-form-file uk-form-file-inline-block">
+                    <button class="uk-button">Select</button>
+                    <input id="form-file" type="file">
                 </div>
 
-            </form>
+                <button class="uk-button">Another button</button>
 
+            </div>
 
-            <h1>Drag'n Drop</h1>
+            <div class="uk-margin">
 
-            <div class="uk-placeholder uk-placeholder-large uk-text-center" data-uk-file-drop="{progressbar:'#upload-progress'}">
-                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select="{progressbar:'#upload-progress'}">selecting one</a>.
+                Here is a text
 
-                <div id="upload-progress" class="uk-progress">
-                    <div class="uk-progress-bar" style="width: 0%;">0%</div>
-                </div>
+                <div class="uk-form-file uk-text-primary">
+                    <span>upload</span>
+                    <input id="form-file" type="file">
+                </div>.
+
             </div>
 
         </div>

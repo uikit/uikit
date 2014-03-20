@@ -17,8 +17,8 @@
             "autocomplete",
             "datepicker",
             "dotnav",
-            "form-password",
             "form-file",
+            "form-password",
             "markdownarea",
             "notify",
             "pager",
@@ -26,7 +26,8 @@
             "sortable",
             "sticky",
             "thumbnailnav",
-            "timepicker"
+            "timepicker",
+            "upload"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",
