@@ -20,12 +20,13 @@
 
         if ($element.data("uploadSelect")) return;
 
-        this.element = $element;
+        this.element = $element.on("change", function() {
 
-        this.element.on("change", function() {
+            var files = $this.element[0].files;
+
             if (options.allow!=='*.*') {
 
-                for(var i=0,file;file=e.dataTransfer.files[i];i++) {
+                for(var i=0,file;file=files[i];i++) {
                     if(!matchName(options.allow, file.name)) {
                         if(typeof(options.notallowed) == 'string') {
                            alert(options.notallowed);
@@ -37,7 +38,7 @@
                 }
             }
 
-            xhrupload($this.element.files, options);
+            xhrupload(files, options);
         });
 
         $element.data("uploadSelect", this);
@@ -64,11 +65,14 @@
 
                 e.stopPropagation();
                 e.preventDefault();
+
                 $element.removeClass(options.dragoverClass);
+
+                var files = e.dataTransfer.files;
 
                 if (options.allow!=='*.*') {
 
-                    for(var i=0,file;file=e.dataTransfer.files[i];i++) {
+                    for(var i=0,file;file=files[i];i++) {
 
                         if(!matchName(options.allow, file.name)) {
 
@@ -82,7 +86,7 @@
                     }
                 }
 
-                xhrupload(e.dataTransfer.files, options);
+                xhrupload(files, options);
             }
 
         }).on("dragenter", function(e){
@@ -139,6 +143,9 @@
         }
 
         settings = $.extend({}, xhrupload.defaults, settings);
+
+
+        console.dir(files)
 
         if (!files.length){
             return;
