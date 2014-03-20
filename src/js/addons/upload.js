@@ -12,44 +12,13 @@
 
 })(function($, UI){
 
-    var FileSelect = function(element, options) {
+    var UploadSelect = function(element, options) {
 
         var $this    = this,
             $element = $(element).addClass("uk-form-file"),
-            options  = $.extend({}, xhrupload.defaults, FileSelect.defaults, options);
+            options  = $.extend({}, xhrupload.defaults, UploadSelect.defaults, options);
 
         if ($element.data("fileSelect")) return;
-
-
-        this.progressbar = options.progressbar ? $(options.progressbar) : false;
-
-        if (this.progressbar && this.progressbar.length) {
-
-            var bar           = this.progressbar.css("visibility", "hidden").find('.uk-progress-bar'),
-                onloadstart   = options.loadstart,
-                onprogress    = options.progress,
-                onallcomplete = options.nallcomplete;
-
-            options.loadstart = function() {
-                bar.css("width", "0%").text("0%");
-                $this.progressbar.css("visibility", "visible");
-            };
-
-            options.progress = function(percent) {
-                percent = Math.ceil(percent);
-                bar.css("width", percent+"%").text(percent+"%");
-                onprogress(percent)
-            };
-
-            options.allcomplete = function(response) {
-
-                bar.css("width", "100%").text("100%");
-
-                setTimeout(function(){
-                    $this.progressbar.css("visibility", "hidden");
-                }, 250);
-            };
-        }
 
         this.fileinput = $element.find('input[type="file"]');
 
@@ -78,51 +47,20 @@
         $element.data("fileSelect", this);
     };
 
-    FileSelect.defaults = {
+    UploadSelect.defaults = {
         'action': '/',
         'allow': '*.*',
-        'progressbar': false,
         // events
         'notallowed': function(file) {}
     };
 
-    var FileDrop = function(element, options) {
+    var UploadDrop = function(element, options) {
 
         var $this    = this,
             $element = $(element),
-            options  = $.extend({}, xhrupload.defaults, FileSelect.defaults, options);
+            options  = $.extend({}, xhrupload.defaults, UploadDrop.defaults, options);
 
         if ($element.data("fileDrop")) return;
-
-        this.progressbar = options.progressbar ? $(options.progressbar) : false;
-
-        if (this.progressbar && this.progressbar.length) {
-
-            var bar           = this.progressbar.css("visibility", "hidden").find('.uk-progress-bar'),
-                onloadstart   = options.loadstart,
-                onprogress    = options.progress,
-                onallcomplete = options.nallcomplete;
-
-            options.loadstart = function() {
-                bar.css("width", "0%").text("0%");
-                $this.progressbar.css("visibility", "visible");
-            };
-
-            options.progress = function(percent) {
-                percent = Math.ceil(percent);
-                bar.css("width", percent+"%").text(percent+"%");
-                onprogress(percent)
-            };
-
-            options.allcomplete = function(response) {
-
-                bar.css("width", "100%").text("100%");
-
-                setTimeout(function(){
-                    $this.progressbar.css("visibility", "hidden");
-                }, 250);
-            };
-        }
 
         $element.on("drop", function(e){
 
@@ -167,31 +105,15 @@
         $element.data("fileDrop", this);
     };
 
-    FileDrop.defaults = {
+    UploadDrop.defaults = {
         'action': '/',
         'dragoverClass': 'uk-dragover',
         'allow': '*.*',
-        'progressbar': false,
         // events
         'notallowed': function(file) {}
     };
 
-    UI["fileDrop"]   = FileDrop;
-    UI["fileSelect"] = FileSelect;
-
-    $(document).on("uk-domready", function(e) {
-
-        $("[data-uk-file-drop], [data-uk-file-select]").each(function(){
-
-          var ele  = $(this),
-              attr = ele.is('[data-uk-file-drop]') ? 'data-uk-file-drop' : 'data-uk-file-select',
-              cls  = attr == 'data-uk-file-drop' ? 'fileDrop' : 'fileSelect';
-
-          if (!ele.data(cls)) {
-              var obj = new UI[cls](ele, UI.Utils.options(ele.attr(attr)));
-          }
-        });
-    });
+    UI["upload"] = { "select" : UploadSelect, "drop" : UploadDrop };
 
     UI.support.ajaxupload = (function() {
 
@@ -334,4 +256,5 @@
 
     UI.Utils.xhrupload = xhrupload;
 
+    return xhrupload;
 });

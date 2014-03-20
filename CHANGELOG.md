@@ -8,12 +8,17 @@
   - Added accordion add-on
   - Added pager add-on
   - Added thumbnailnav add-on
+  - Added upload add-on
+  - Added autocomplete add-on
+  - Added simple template engine
   - Added large dialog to modal component
   - Added overflow container to utility component
   - Added text vertical alignment modifiers
   - Form-file add-on now works great with text
   - Lists are now more robust
   - Fixed page jumping to top for modal component
+  - Fixed timpicker add-on events
+  - Fixed markdownarea add-on browser reload issue
 
 **Documentation and repository**
 
