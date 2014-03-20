@@ -79,7 +79,7 @@
             }
 
             panel.off(".ukoffcanvas");
-            $doc.off(".ukoffcanvas");
+            $doc.off("keydown.offcanvas");
         }
 
     }, scrollpos;
