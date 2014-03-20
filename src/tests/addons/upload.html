@@ -21,10 +21,58 @@
 
             <h1>Upload</h1>
 
-            <div class="uk-placeholder uk-text-center" data-uk-file-drop="{progressbar:'#upload-progress'}">
-                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select="{progressbar:'#upload-progress'}">selecting one</a>.
+            <h2>Button</h2>
 
-                <div id="upload-progress" class="uk-progress uk-hidden">
+            <h3>Without progress bar</h3>
+
+            <div class="uk-margin">
+
+                <div class="uk-form-file uk-form-file-inline-block">
+                    <button class="uk-button">Select</button>
+                    <input id="form-file" type="file">
+                </div>
+
+            </div>
+
+            <h3>With progress bar</h3>
+
+            <div class="uk-margin">
+
+                <div class="uk-form-file uk-form-file-inline-block">
+                    <button class="uk-button">Select</button>
+                    <input id="form-file" type="file">
+                </div>
+
+                <div id="progress1" class="uk-progress uk-hidden">
+                    <div class="uk-progress-bar" style="width: 0%;">0%</div>
+                </div>
+
+            </div>
+
+            <h2>Drop area</h2>
+
+            <h3>Without progress bar</h3>
+
+            <div class="uk-placeholder uk-text-center">
+                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select="{progressbar:'#upload-progress'}">selecting one</a>.
+            </div>
+
+            <h3>With progress bar</h3>
+
+            <div class="uk-placeholder uk-text-center" data-uk-file-drop="{progressbar:'#progress2'}">
+                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select="{progressbar:'#progress2'}">selecting one</a>.
+            </div>
+
+            <div id="progress2" class="uk-progress">
+                <div class="uk-progress-bar" style="width: 0%;">0%</div>
+            </div>
+
+            <h3>Progress bar hidden</h3>
+
+            <div class="uk-placeholder uk-text-center" data-uk-file-drop="{progressbar:'#progress3'}">
+                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a data-uk-file-select="{progressbar:'#progress3'}">selecting one</a>.
+
+                <div id="progress3" class="uk-progress uk-hidden">
                     <div class="uk-progress-bar" style="width: 0%;">0%</div>
                 </div>
             </div>
