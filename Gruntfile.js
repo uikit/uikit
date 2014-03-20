@@ -36,6 +36,8 @@ module.exports = function(grunt) {
 
             ["default", "custom"].forEach(function(f){
 
+                if(grunt.option('quick') && f=="custom") return;
+
                 if(fs.existsSync('themes/'+f)) {
 
                     fs.readdirSync('themes/'+f).forEach(function(t){
