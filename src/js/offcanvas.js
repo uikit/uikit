@@ -43,7 +43,7 @@
                 Offcanvas.hide();
             });
 
-            $doc.on('keydown.offcanvas', function(e) {
+            $doc.on('keydown.ukoffcanvas', function(e) {
                 if (e.keyCode === 27) { // ESC
                     Offcanvas.hide();
                 }
