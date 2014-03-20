@@ -20,13 +20,7 @@
 
         if ($element.data("uploadSelect")) return;
 
-        this.fileinput = $element.find('input[type="file"]');
-
-        if (!this.fileinput.length) {
-            this.fileinput = $('<input type="file" />').appendTo($element);
-        }
-
-        this.fileinput.on("change", function() {
+        this.element.on("change", function() {
             if (options.allow!=='*.*') {
 
                 for(var i=0,file;file=e.dataTransfer.files[i];i++) {
@@ -41,7 +35,7 @@
                 }
             }
 
-            xhrupload(this.files, options);
+            xhrupload($this.element.files, options);
         });
 
         $element.data("uploadSelect", this);
