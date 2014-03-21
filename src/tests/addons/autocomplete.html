@@ -8,11 +8,6 @@
         <script src="../../../vendor/jquery.js"></script>
         <script src="_test.js"></script>
         <script src="../../js/addons/autocomplete.js"></script>
-
-        <style>
-            .uk-nav > li.uk-active { background: #fafafa; }
-        </style>
-
     </head>
 
     <body>
@@ -21,40 +16,47 @@
 
             <h1>Autocomplete</h1>
 
-             <div>
-                <h3>Array source</h3>
-                <div class="uk-autocomplete" data-uk-autocomplete="{source:[{value:'Hamburg'},{value:'New York'},{value:'Moscow'},{value:'Amsterdam'}]}">
-                    <input type="text">
-                </div>
+            <p>Type: Hamburg, New York, Moscow or Amsterdam</p>
 
-                <h3>Ajax source</h3>
-                <div class="uk-autocomplete" data-uk-autocomplete="{source:'_autocomplete.json'}">
-                    <input type="text">
-                </div>
+            <h2>Sources</h2>
 
-                <h3>Custom render</h3>
-                <div class="uk-autocomplete" data-uk-autocomplete="{source:'_autocomplete.json'}">
-                    <input type="text">
-                    <script type="text/autocomplete">
-                        <ul class="uk-nav uk-autocomplete-results">
-                            {{~items}}
-                            <li data-value="{{ $item.value }}">
-                                <a>
-                                    {{ $item.title }}
-                                    <div>{{{ $item.text }}}</div>
-                                </a>
-                            </li>
-                            {{/items}}
-                        </ul>
-                    </script>
-                </div>
+            <h3>Array</h3>
 
-                <h3>UIkit search</h3>
-                <div class="uk-autocomplete" data-uk-acsearch="{source:'_autocomplete.json'}">
-                    <input type="text">
-                </div>
+            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:[{value:'Hamburg'},{value:'New York'},{value:'Moscow'},{value:'Amsterdam'}]}">
+                <input type="text">
+            </div>
 
-             </div>
+            <h3>Ajax</h3>
+
+            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                <input type="text">
+            </div>
+
+            <h2>Custom Templates</h2>
+
+            <h3>Custom</h3>
+
+            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                <input type="text">
+                <script type="text/autocomplete">
+                    <ul class="uk-nav uk-autocomplete-results">
+                        {{~items}}
+                        <li data-value="{{ $item.value }}">
+                            <a>
+                                {{ $item.title }}
+                                <div>{{{ $item.text }}}</div>
+                            </a>
+                        </li>
+                        {{/items}}
+                    </ul>
+                </script>
+            </div>
+
+            <h3>Search</h3>
+
+            <div class="uk-autocomplete uk-form" data-uk-acsearch="{source:'_autocomplete.json'}">
+                <input type="text">
+            </div>
 
         </div>
 
@@ -70,7 +72,7 @@
                     msgResultsHeader   : 'Search Results',
                     msgMoreResults     : 'More Results',
                     msgNoResults       : 'No results found',
-                    template           : '<ul class="uk-nav uk-autocomplete-results uk-nav-search">\
+                    template           : '<ul class="uk-nav uk-nav-search uk-autocomplete-results">\
                                               {{#msgResultsHeader}}<li class="uk-nav-header uk-skip">{{msgResultsHeader}}</li>{{/msgResultsHeader}}\
                                               {{#items && items.length}}\
                                                   {{~items}}\
