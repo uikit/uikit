@@ -46,14 +46,6 @@
 @nav-navbar-nested-color:                       @global-link-color;
 @nav-navbar-nested-hover-color:                 @global-link-hover-color;
 
-@nav-search-color:                              @global-color;
-@nav-search-active-background:                  @global-primary-background;
-@nav-search-active-color:                       @global-contrast-color;
-@nav-search-header-color:                       @global-muted-color;
-@nav-search-divider-border:                     @global-border;
-@nav-search-nested-color:                       @global-link-color;
-@nav-search-nested-hover-color:                 @global-link-hover-color;
-
 @nav-offcanvas-color:                           @offcanvas-panel-link-color;
 @nav-offcanvas-hover-background:                lighten(@offcanvas-bar-background, 5%);
 @nav-offcanvas-hover-color:                     @offcanvas-panel-link-hover-color;
@@ -167,35 +159,11 @@
 .hook-nav-navbar-divider() {}
 
 
-// Modifier `uk-nav-search`
-// ========================================================================
-
-//
-// Items
-//
-
-.hook-nav-search() {}
-
-// Active
-.hook-nav-search-active() {}
-
-//
-// Sub-object: `uk-nav-header`
-//
-
-.hook-nav-search-header() {}
-
-//
-// Sub-object: `uk-nav-divider`
-//
-
-.hook-nav-search-divider() {}
-
-
 // Modifier `uk-nav-offcanvas`
 // ========================================================================
 
 .hook-nav-offcanvas-link() {}
+
 .hook-nav-offcanvas-link-hover() {}
 
 //
