@@ -71,14 +71,14 @@
 
                             <h2>Usage</h2>
 
-                            <p>This pure JavaScript add-on provides the ability of uploading files via drag and drop. It does not, however, handle your file uploads on the server. There are two ways of uploading files: <em>select</em> and <em>drop</em>. While the <em>select</em> request can only be applied to <code>&lt;input&gt;</code> elements, you can basically use anything with <em>drop</em>.
+                            <p>This pure JavaScript add-on provides the ability of uploading files via drag and drop. It does not, however, handle your file uploads on the server. There are two ways of uploading files: <em>select</em> and <em>drop</em>. While the <em>select</em> request can only be applied to <code>&lt;input type=&quot;file&quot;&gt;</code> elements, you can basically use anything with <em>drop</em>.
 
-                            <p>It therefore makes sense to use the upload add-on with the <a href="addons_placeholder.html">Placeholder</a> or <a href="addons_form-file.html">Form file</a> add-ons. You need to include the <code>placeholder.css</code> and/or <code>form-file.css</code> files in the head of your document, as well as <code>upload.js</code>.</p>
+                            <p>It therefore makes sense to use the upload add-on with the <a href="addons_placeholder.html">Placeholder</a> or <a href="addons_form-file.html">Form file</a> add-ons. You need to include the <code>placeholder.css</code> and / or <code>form-file.css</code> files in the head of your document, as well as <code>upload.js</code>.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div id="upload-drop" class="uk-placeholder uk-text-center">
-                                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a class="uk-form-file">selecting one<input id="upload-select2" type="file"></a>.
+                                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a class="uk-form-file">selecting one<input id="upload-select" type="file"></a>.
                             </div>
 
                             <div id="progressbar" class="uk-progress uk-hidden">
@@ -94,6 +94,8 @@
                                         settings    = {
 
                                         action: '/', // upload url
+
+                                        allow : '*.(jpg|gif|png)', // allow only images
 
                                         loadstart: function() {
                                             bar.css("width", "0%").text("0%");
@@ -117,16 +119,16 @@
                                         }
                                     };
 
-                                    (new $.UIkit.upload.select($("#upload-select1"), settings));
-                                    (new $.UIkit.upload.select($("#upload-select2"), settings));
-                                    (new $.UIkit.upload.drop($("#upload-drop"), settings));
+                                    var select = new $.UIkit.upload.select($("#upload-select"), settings),
+                                        drop   = new $.UIkit.upload.drop($("#upload-drop"), settings);
                                 });
 
                             </script>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div id="upload-drop" class="uk-placeholder"&gt;...&lt;input id="upload-select2" type="file"&gt;&lt;/a&gt;.
+<pre><code>&lt;div id="upload-drop" class="uk-placeholder"&gt;
+    Info text... &lt;a class=&quot;uk-form-file&quot;&gt;Select a file&lt;input id="upload-select" type="file"&gt;&lt;/a&gt;.
 &lt;/div&gt;
 
 &lt;div id="progressbar" class="uk-progress uk-hidden"&gt;
@@ -148,6 +150,8 @@
             settings    = {
 
             action: '/', // upload url
+
+            allow : '*.(jpg|jpeg|gif|png)', // allow only images
 
             loadstart: function() {
                 bar.css("width", "0%").text("0%");
@@ -171,12 +175,119 @@
             }
         };
 
-        (new $.UIkit.upload.select($("#upload-select1"), settings));
-        (new $.UIkit.upload.select($("#upload-select2"), settings));
-        (new $.UIkit.upload.drop($("#upload-drop"), settings));
+        var select = new $.UIkit.upload.select($("#upload-select"), settings),
+            drop   = new $.UIkit.upload.drop($("#upload-drop"), settings);
     });
 
 &lt;/script&gt;</code></pre>
+
+                            <h2>JavaScript options</h2>
+
+                            <table class="uk-table uk-table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Option</th>
+                                        <th>Possible value</th>
+                                        <th>Default</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>action</code></td>
+                                        <td>string</td>
+                                        <td>''</td>
+                                        <td>Target url for the upload</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>single</code></td>
+                                        <td>boolean</td>
+                                        <td>true</td>
+                                        <td>Send each file one by one</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>param</code></td>
+                                        <td>string</td>
+                                        <td>files[]</td>
+                                        <td>Post query name</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>params</code></td>
+                                        <td>JSON Object</td>
+                                        <td>{}</td>
+                                        <td>Additional request parameters</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>allow</code></td>
+                                        <td>string</td>
+                                        <td>*.*</td>
+                                        <td>File filter</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>type</code></td>
+                                        <td>(text | json)</td>
+                                        <td>text</td>
+                                        <td>Response type from server</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3>Callback events</h3>
+
+                            <table class="uk-table uk-table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Parameter</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>before</code></td>
+                                        <td>settings</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>progress</code></td>
+                                        <td>percent</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>complete</code></td>
+                                        <td>response, xhr</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>allcomplete</code></td>
+                                        <td>response, xhr</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>notallowed</code></td>
+                                        <td>file, settings</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>loadstart</code></td>
+                                        <td>event</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>load</code></td>
+                                        <td>event</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>loadend</code></td>
+                                        <td>event</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>error</code></td>
+                                        <td>event</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>abort</code></td>
+                                        <td>event</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>readystatechange</code></td>
+                                        <td>event</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
                         </article>
 
