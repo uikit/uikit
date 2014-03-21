@@ -23,6 +23,7 @@
             "notify",
             "placeholder",
             "slidenav",
+            "slideshow",
             "sortable",
             "sticky",
             "thumbnailnav",
