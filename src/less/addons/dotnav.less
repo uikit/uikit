@@ -5,6 +5,8 @@
 //
 // Modifier:        `uk-dotnav-vertical`
 //
+// States:          `uk-active`
+//
 // ========================================================================
 
 @import "../../../src/less/variables.less";
@@ -13,14 +15,16 @@
 // Variables
 // ========================================================================
 
-@dotnav-margin:                            15px;
-@dotnav-vertical-margin:                   @dotnav-margin;
-@dotnav-width:                             20px;
-@dotnav-height:                            @dotnav-width;
-@dotnav-background:                        #eee;
-@dotnav-hover-background:                  #bbb;
-@dotnav-active-background:                 #bbb;
-@dotnav-onclick-background:                #aaa;
+@dotnav-margin-left:                            15px;
+@dotnav-width:                                  20px;
+@dotnav-height:                                 @dotnav-width;
+@dotnav-background:                             rgba(50,50,50,0.1);
+
+@dotnav-hover-background:                       rgba(50,50,50,0.4);
+@dotnav-onclick-background:                     rgba(50,50,50,0.6);
+@dotnav-active-background:                      rgba(50,50,50,0.4);
+
+@dotnav-vertical-margin-top:                    @dotnav-margin-left;
 
 
 /* ========================================================================
@@ -46,26 +50,36 @@
 
 /*
  * 1. Reset whitespace hack
+ * 2. Remove the gap at the bottom of it container
  */
 
-.uk-dotnav > li { font-size: 1rem; }
+.uk-dotnav > li {
+    display: inline-block;
+    /* 1 */
+    font-size: 1rem;
+    /* 2 */
+    vertical-align: top;
+}
 
-.uk-dotnav > li,
-.uk-dotnav > li > a { display: inline-block; }
-
-.uk-dotnav > li:nth-child(n+2) { margin-left: @dotnav-margin; }
+.uk-dotnav > li:nth-child(n+2) { margin-left: @dotnav-margin-left; }
 
 /*
  * Items
- * 1. Hide text
+ * 1. Remove the gap at the bottom of it container
+ * 2. Hide text if present
  */
 
 .uk-dotnav > li > a {
+    display: inline-block;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
     width: @dotnav-width;
     height: @dotnav-height;
     border-radius: 50%;
     background: @dotnav-background;
     /* 1 */
+    vertical-align: top;
+    /* 2 */
     overflow: hidden;
     text-indent: -999%;
     .hook-dotnav-item;
@@ -78,22 +92,23 @@
  */
 
 .uk-dotnav > li > a:hover,
-.uk-dotnav > li > a:focus { /* 1 */
+.uk-dotnav > li > a:focus { // 1
     background: @dotnav-hover-background;
-    outline: none; /* 2 */
+    /* 2 */
+    outline: none;
     .hook-dotnav-item-hover;
-}
-
-/* Active */
-.uk-dotnav > li.uk-active > a {
-    background: @dotnav-active-background;
-    .hook-dotnav-item-active;
 }
 
 /* OnClick */
 .uk-dotnav > li > a:active {
     background: @dotnav-onclick-background;
     .hook-dotnav-item-onclick;
+}
+
+/* Active */
+.uk-dotnav > li.uk-active > a {
+    background: @dotnav-active-background;
+    .hook-dotnav-item-active;
 }
 
 
@@ -104,7 +119,7 @@
 
 .uk-dotnav-vertical > li:nth-child(n+2) {
     margin-left: 0;
-    margin-top: @dotnav-vertical-margin;
+    margin-top: @dotnav-vertical-margin-top;
 }
 
 
@@ -113,5 +128,5 @@
 
 .hook-dotnav-item() {}
 .hook-dotnav-item-hover() {}
-.hook-dotnav-item-active() {}
 .hook-dotnav-item-onclick() {}
+.hook-dotnav-item-active() {}

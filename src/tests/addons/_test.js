@@ -25,7 +25,6 @@
             "slidenav",
             "sortable",
             "sticky",
-            "thumbnailnav",
             "timepicker",
             "upload"
         ],
