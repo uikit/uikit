@@ -21,7 +21,7 @@
         this.options = $.extend({}, Autocomplete.defaults, options);
         this.element = $element;
 
-        this.dropdown = $element.find('.uk-autocomplete-dropdown');
+        this.dropdown = $element.find('.uk-dropdown');
         this.template = $element.find('script[type="text/autocomplete"]').html();
         this.template = UI.Utils.template(this.template || this.options.template);
         this.input    = $element.find("input:first");
@@ -29,7 +29,7 @@
         this.element.data("autocomplete", this);
 
         if (!this.dropdown.length) {
-           this.dropdown = $('<div class="uk-dropdown uk-autocomplete-dropdown"></div>').appendTo($element);
+           this.dropdown = $('<div class="uk-dropdown"></div>').appendTo($element);
         }
 
         this.init();
@@ -272,7 +272,7 @@
 
         // template
 
-        template: '<ul class="uk-nav uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
+        template: '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
     };
 
     UI["autocomplete"] = Autocomplete;
