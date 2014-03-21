@@ -62,6 +62,14 @@
 @nav-search-nested-color:                       #07D;
 @nav-search-nested-hover-color:                 #059;
 
+// Nav modifier
+@offcanvas-search-margin:                       20px 15px;
+@offcanvas-search-background:                   darken(@offcanvas-bar-background, 10%);
+@offcanvas-search-border:                       rgba(0,0,0,0);
+@offcanvas-search-color:                        @offcanvas-panel-link-color;
+@offcanvas-search-placeholder-color:            @offcanvas-panel-color;
+@offcanvas-search-icon-color:                   @offcanvas-panel-color;
+
 
 /* ========================================================================
    Component: Search
@@ -272,6 +280,29 @@ input.uk-search-field { -webkit-appearance: none; }
 .uk-nav-search ul a:hover { color: @nav-search-nested-hover-color; }
 
 
+/* Search in offcanvas
+ ========================================================================== */
+
+.uk-offcanvas .uk-search {
+    display: block;
+    margin: @offcanvas-search-margin;
+}
+
+.uk-offcanvas .uk-search:before { color: @offcanvas-search-icon-color; }
+
+.uk-offcanvas .uk-search-field {
+    width: 100%;
+    border-color: @offcanvas-search-border;
+    background: @offcanvas-search-background;
+    color: @offcanvas-search-color;
+    .hook-offcanvas-search-field;
+}
+
+.uk-offcanvas .uk-search-field:-ms-input-placeholder { color: @offcanvas-search-placeholder-color; }
+.uk-offcanvas .uk-search-field::-moz-placeholder { color: @offcanvas-search-placeholder-color; }
+.uk-offcanvas .uk-search-field::-webkit-input-placeholder { color: @offcanvas-search-placeholder-color; }
+
+
 // Hooks
 // ========================================================================
 
@@ -287,3 +318,5 @@ input.uk-search-field { -webkit-appearance: none; }
 .hook-nav-search-active() {}
 .hook-nav-search-header() {}
 .hook-nav-search-divider() {}
+
+.hook-offcanvas-search-field() {}
