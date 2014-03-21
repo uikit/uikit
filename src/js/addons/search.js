@@ -68,7 +68,7 @@
     UI["search"] = Search;
 
     // init code
-    $(document).on("click.search.uikit", "[data-uk-search]", function(e) {
+    $(document).on("focus.search.uikit", "[data-uk-search]", function(e) {
         var ele = $(this);
 
         if (!ele.data("search")) {
