@@ -32,6 +32,10 @@
            this.dropdown = $('<div class="uk-dropdown"></div>').appendTo($element);
         }
 
+        if (this.options.flipDropdown) {
+            this.element.addClass('uk-dropdown-flip');
+        }
+
         this.init();
     };
 
@@ -265,6 +269,7 @@
         method: 'post',
         delay: 300,
         loadingClass: 'uk-loading',
+        flipDropdown: true,
         skipClass: 'uk-skip',
         hoverClass: 'uk-active',
         source: null,
