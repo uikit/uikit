@@ -47,14 +47,6 @@
 @nav-navbar-nested-color:                       @global-link-color;
 @nav-navbar-nested-hover-color:                 @global-link-hover-color;
 
-@nav-search-color:                              @global-color;
-@nav-search-active-background:                  @global-primary-background;
-@nav-search-active-color:                       @global-contrast-color;
-@nav-search-header-color:                       @global-muted-color;
-@nav-search-divider-border:                     @global-border;
-@nav-search-nested-color:                       @global-link-color;
-@nav-search-nested-hover-color:                 @global-link-hover-color;
-
 @nav-offcanvas-color:                           @offcanvas-panel-link-color;
 @nav-offcanvas-hover-background:                lighten(@offcanvas-bar-background, 5%);
 @nav-offcanvas-hover-color:                     @offcanvas-panel-link-hover-color;
@@ -78,9 +70,6 @@
 
 @nav-navbar-hover-text-shadow:                  @global-contrast-text-shadow;
 @nav-navbar-hover-box-shadow:                   rgba(0,0,0,0.2);
-
-@nav-search-active-text-shadow:                 @global-contrast-text-shadow;
-@nav-search-active-box-shadow:                  rgba(0,0,0,0.2);
 
 @nav-offcanvas-text-shadow:                     @offcanvas-panel-text-shadow;
 @nav-offcanvas-header-background:               lighten(@offcanvas-bar-background, 5%);
@@ -199,34 +188,6 @@
 //
 
 .hook-nav-navbar-divider() {}
-
-
-// Modifier `uk-nav-search`
-// ========================================================================
-
-//
-// Items
-//
-
-.hook-nav-search() { text-shadow: none; }
-
-// Active
-.hook-nav-search-active() {
-    box-shadow: inset 0 2px 4px @nav-search-active-box-shadow;
-    text-shadow: 0 -1px 0 @nav-search-active-text-shadow;
-}
-
-//
-// Sub-object: `uk-nav-header`
-//
-
-.hook-nav-search-header() { text-shadow: none; }
-
-//
-// Sub-object: `uk-nav-divider`
-//
-
-.hook-nav-search-divider() {}
 
 
 // Modifier `uk-nav-offcanvas`

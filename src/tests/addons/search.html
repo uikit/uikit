@@ -12,6 +12,14 @@
 
             body.uk-container { padding-bottom: 150px; }
 
+            .test-show {
+                display: block;
+                position: relative;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                width: 100%;
+            }
+
         </style>
     </head>
 
@@ -90,6 +98,95 @@
                         <input class="uk-search-field" type="search" placeholder="search...">
                         <button class="uk-search-close" type="reset"></button>
                     </form>
+
+                </div>
+
+            </div>
+
+                        <div class="uk-grid" data-uk-grid-margin>
+
+                <div class="uk-width-medium-1-4">
+
+                    <h3>Nav search</h3>
+
+                    <div class="test-show uk-dropdown uk-dropdown-search">
+
+                        <ul class="uk-nav uk-nav-search">
+                            <li class="uk-active"><a href="#">Active</a></li>
+
+                            <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a>
+                                        <ul>
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="#">Item <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div></a></li>
+
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#"><i class="uk-icon-star"></i> Item</a></li>
+                            <li><a href="#"><i class="uk-icon-twitter"></i> Item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#"><i class="uk-icon-rss"></i> Item</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="uk-width-medium-1-4">
+
+                    <h3>Accordion</h3>
+
+                    <div class="test-show uk-dropdown uk-dropdown-search">
+
+                        <ul class="uk-nav uk-nav-search uk-nav-parent-icon" data-uk-nav>
+                            <li class="uk-active"><a href="#">Active</a></li>
+
+                            <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a>
+                                        <ul>
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="#">Item <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div></a></li>
+
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#"><i class="uk-icon-star"></i> Item</a></li>
+                            <li><a href="#"><i class="uk-icon-twitter"></i> Item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#"><i class="uk-icon-rss"></i> Item</a></li>
+                        </ul>
+
+                    </div>
 
                 </div>
 
