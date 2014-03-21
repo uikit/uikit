@@ -55,6 +55,8 @@
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li class="uk-active"><a href="addons_form-file.html">Form file</a></li>
+                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="addons_upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -64,7 +66,7 @@
 
                             <h1>Form file</h1>
 
-                            <p class="uk-article-lead">Create a form control that lets the user select a file.</p>
+                            <p class="uk-article-lead">Replace the hideous default file input with this add-on.</p>
 
                             <h2>Usage</h2>
 
@@ -72,47 +74,25 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <form class="uk-form">
+                            <div class="uk-margin">
+
                                 <div class="uk-form-file">
                                     <button class="uk-button">Select</button>
-                                    <input type="file">
+                                    <input id="form-file" type="file">
                                 </div>
-                            </form>
+
+                                You can also use
+                                <div class="uk-form-file uk-text-primary">text<input id="form-file" type="file"></div>.
+                            </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;div class="uk-form-file"&gt;
     &lt;button class="uk-button"&gt;...&lt;/button&gt;
     &lt;input type="file"&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;
 
-                            <hr class="uk-article-divider">
-
-                            <h2>Display file name</h2>
-
-                            <p>If you want the name of the selected file to be displayed in an <code>&lt;input&gt;</code> element, just add the <code>data-uk-form-file</code> attribute to a container element.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <form class="uk-form" data-uk-form-file>
-                                <div class="uk-form-file">
-                                    <button class="uk-button">Select</button>
-                                    <input type="file">
-                                </div>
-                                <input type="text" disabled>
-                                <button class="uk-button uk-button-success">Upload</button>
-                            </form>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;form class="uk-form" data-uk-form-file&gt;
-    &lt;div class="uk-form-file"&gt;
-        &lt;button class="uk-button"&gt;...&lt;/button&gt;
-        &lt;input type="file"&gt;
-    &lt;/div&gt;
-    &lt;input type="text" disabled&gt;
-    &lt;button class="uk-button"&gt;...&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+&lt;div class="uk-form-file"&gt;Text&lt;input type="file"&gt;&lt;/div&gt;</code></pre>
 
                         </article>
 

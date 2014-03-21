@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sticky add-on - UIkit documentation</title>
+        <title>Placeholder add-on - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,7 +14,8 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/addons/sticky/sticky.js"></script>
+        <script src="../dist/addons/placeholder/placeholder.js"></script>
+        <link rel="stylesheet" href="../dist/addons/placeholder/placeholder.css">
     </head>
 
     <body class="tm-background">
@@ -50,48 +51,44 @@
                             <li><a href="addons_sortable.html">Sortable</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li class="uk-active"><a href="addons_sticky.html">Sticky</a></li>
+                            <li><a href="addons_sticky.html">Sticky</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li class="uk-active"><a href="addons_placeholder.html">Placeholder</a></li>
                             <li><a href="addons_upload.html">Upload</a></li>
                         </ul>
 
                     </div>
                     <div class="tm-main uk-width-medium-3-4">
 
-                        <article class="uk-article" style="height: 1800px;">
+                        <article class="uk-article">
 
-                            <h1>Sticky</h1>
+                            <h1>Placeholder</h1>
 
-                            <p class="uk-article-lead">Make elements remain at the top of the viewport, like a sticky navbar.</p>
+                            <p class="uk-article-lead">Create an area as a placeholder to style a drop area for images or other files.</p>
 
                             <h2>Usage</h2>
 
-                            <p>To create an element that remains at the top of the viewport when scrolling down the site, add the <code>data-uk-sticky</code> attribute to that element.</p>
+                            <p>This add-on applies a specially styled area to create a placeholder space. Just add the <code>.uk-placeholder</code> class to a <code>&lt;div&gt;</code> element.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box" data-uk-sticky>Stick to the top</div>
+                            <div class="uk-placeholder uk-text-center"></div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <pre><code>&lt;div data-uk-sticky&gt;...&lt;/div&gt;</code></pre>
+<pre><code>&lt;div class="uk-placeholder"&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2>Define an offset</h2>
+                            <h3>Large placeholder</h3>
 
-                            <p>You can also position the element below the viewport edge. For example, add the <code>data-uk-sticky="{top:100}"</code> attribute to create a margin of 100px.</p>
+                            <p>You can also increase the height of the placeholder area by adding the <code>.uk-placeholder-large</code> class.
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box" data-uk-sticky="{top:100}">Stick 100px below the top</div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-                            <pre><code>&lt;div data-uk-sticky="{top:100}"&gt;...&lt;/div&gt;</code></pre>
+                            <div class="uk-placeholder uk-placeholder-large uk-text-center"></div>
 
                         </article>
 
@@ -210,6 +207,7 @@
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
+                            <li><a href="addons_placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                 </ul>
