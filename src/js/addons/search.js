@@ -24,6 +24,13 @@
 
         this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
+        this.autocomplete.input.on("keyup", function(){
+            $element[this.value ? "addClass":"removeClass"]("uk-active");
+        }).closest("form").on("reset", function(){
+            this.value="";
+            $element.removeClass("uk-active");
+        });
+
         $element.on('autocomplete-select', function(e, data) {
             if(data.url) location.href = data.url;
         });
