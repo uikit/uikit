@@ -58,8 +58,6 @@
 
         renderer: function(data) {
 
-            console.log(data);
-
             var $this = this, opts = this.options;
 
             this.dropdown.append(this.template({"items":data.results || [], "msgResultsHeader":opts.msgResultsHeader, "msgMoreResults": opts.msgMoreResults, "msgNoResults": opts.msgNoResults}));
