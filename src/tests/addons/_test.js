@@ -23,7 +23,6 @@
             "notify",
             "placeholder",
             "slidenav",
-            "slideshow",
             "sortable",
             "sticky",
             "timepicker",
