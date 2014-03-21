@@ -10,36 +10,51 @@
 // Variables
 // ========================================================================
 
-@dotnav-background:                        linear-gradient(to bottom, @global-default-gradient-top, @global-default-gradient-bottom);
+@dotnav-background:                        @global-default-background;
+
+@dotnav-hover-background:                  @global-default-hover-background;
+@dotnav-onclick-background:                @global-primary-background;
+@dotnav-active-background:                 @global-primary-background;
+
+//
+// New
+//
+
 @dotnav-border:                            @global-border;
-@dotnav-hover-background:                  none;
-@dotnav-active-background:                 linear-gradient(to bottom, @global-primary-gradient-top, @global-primary-gradient-bottom);
 @dotnav-active-border:                     @global-primary-gradient-bottom;
-@dotnav-onclick-background:                linear-gradient(to bottom, @global-primary-gradient-top, @global-primary-gradient-bottom);
+@dotnav-onclick-border:                    @global-primary-gradient-bottom;
+
+@dotnav-gradient-top:                      @global-default-gradient-top;
+@dotnav-gradient-bottom:                   @global-default-gradient-bottom;
+
+@dotnav-primary-gradient-top:              @global-primary-gradient-top;
+@dotnav-primary-gradient-bottom:           @global-primary-gradient-bottom;
 
 
 // Hooks
 // ========================================================================
 
+//
+// 1. `background-origin` is needed to prevent the background-image gradients from repeating under the border
+//
+
 .hook-dotnav-item() {
-    background: -webkit-@dotnav-background;
     border: 1px solid @dotnav-border;
+    background-image: -webkit-linear-gradient(to bottom, @dotnav-gradient-top, @dotnav-gradient-bottom);
+    background-image: linear-gradient(to bottom, @dotnav-gradient-top, @dotnav-gradient-bottom);
+    background-origin: border-box; // 1
+    -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 }
-.hook-dotnav-item-hover() { background: none; }
+
+.hook-dotnav-item-hover() {}
+
+.hook-dotnav-item-onclick() { border-color: @dotnav-onclick-border; }
+
 .hook-dotnav-item-active() {
-    background: -webkit-@dotnav-active-background;
     border-color: @dotnav-active-border;
+    background-image: -webkit-linear-gradient(to bottom, @dotnav-primary-gradient-top, @dotnav-primary-gradient-bottom);
+    background-image: linear-gradient(to bottom, @dotnav-primary-gradient-top, @dotnav-primary-gradient-bottom);
+    -webkit-transform: scale(1.3);
     transform: scale(1.3);
-}
-.hook-dotnav-item-onclick() {
-    background: -webkit-@dotnav-onclick-background;
-    border-color: @dotnav-active-border;
-    transform: scale(1.3);
-}
-.hook-subnav-misc() {
-    .uk-dotnav > li > a:focus {
-        background: -webkit-@dotnav-active-background;
-        transform: scale(1.3);
-    }
 }

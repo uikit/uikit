@@ -26,7 +26,6 @@
             "slideshow",
             "sortable",
             "sticky",
-            "thumbnailnav",
             "timepicker",
             "upload"
         ],
