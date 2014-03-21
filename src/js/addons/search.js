@@ -1,14 +1,28 @@
-(function($, UI) {
+(function(addon) {
+
+    if (typeof define == "function" && define.amd) { // AMD
+        define("uikit-search", ["uikit"], function(){
+            return jQuery.UIkit.search || addon(window, window.jQuery, window.jQuery.UIkit);
+        });
+    }
+
+    if(window && window.jQuery && window.jQuery.UIkit) {
+        addon(window, window.jQuery, window.jQuery.UIkit);
+    }
+
+})(function(global, $, UI){
 
     "use strict";
 
     var Search = function(element, options) {
 
-        var $element = $(this);
+        var $element = $(element);
 
         if ($element.data("search")) return;
 
-        this.autocomplete = new $.UIkit.autocomplete($element, $.extend({}, Search.defaults, options));
+        this.autocomplete = new UI.autocomplete($element, $.extend({}, Search.defaults, options));
+
+        this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
         $element.on('autocomplete-select', function(e, data) {
             if(data.url) location.href = data.url;
@@ -16,7 +30,6 @@
 
         $element.data("search", this);
     };
-
 
     Search.defaults = {
         msgResultsHeader   : 'Search Results',
@@ -45,6 +58,8 @@
 
         renderer: function(data) {
 
+            console.log(data);
+
             var $this = this, opts = this.options;
 
             this.dropdown.append(this.template({"items":data.results || [], "msgResultsHeader":opts.msgResultsHeader, "msgMoreResults": opts.msgMoreResults, "msgNoResults": opts.msgNoResults}));
@@ -55,7 +70,7 @@
     UI["search"] = Search;
 
     // init code
-    $(document).on("focus.search.uikit", "[data-uk-search]", function(e) {
+    $(document).on("click.search.uikit", "[data-uk-search]", function(e) {
         var ele = $(this);
 
         if (!ele.data("search")) {
@@ -63,4 +78,6 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+    return Search;
+
+});

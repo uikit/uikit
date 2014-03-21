@@ -39,7 +39,7 @@
             <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'_autocomplete.json'}">
                 <input type="text">
                 <script type="text/autocomplete">
-                    <ul class="uk-nav uk-autocomplete-results">
+                    <ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">
                         {{~items}}
                         <li data-value="{{ $item.value }}">
                             <a>
@@ -52,72 +52,7 @@
                 </script>
             </div>
 
-            <h3>Search</h3>
-
-            <div class="uk-autocomplete uk-form" data-uk-acsearch="{source:'_autocomplete.json'}">
-                <input type="text">
-            </div>
-
         </div>
-
-
-        <script>
-
-        // implement uk-search with uk-autocomplete
-
-        $(function(){
-
-            var options = {
-
-                    msgResultsHeader   : 'Search Results',
-                    msgMoreResults     : 'More Results',
-                    msgNoResults       : 'No results found',
-                    template           : '<ul class="uk-nav uk-nav-search uk-autocomplete-results">\
-                                              {{#msgResultsHeader}}<li class="uk-nav-header uk-skip">{{msgResultsHeader}}</li>{{/msgResultsHeader}}\
-                                              {{#items && items.length}}\
-                                                  {{~items}}\
-                                                  <li data-url="{{!$item.url}}">\
-                                                      <a href="{{!$item.url}}">\
-                                                          {{$item.title}}\
-                                                          {{#$item.text}}<div>{{{$item.text}}}</div>{{/$item.text}}\
-                                                      </a>\
-                                                  </li>\
-                                                  {{/items}}\
-                                                  {{#msgMoreResults}}\
-                                                      <li class="uk-nav-divider uk-skip"></li>\
-                                                      <li class="uk-search-moreresults"><a href="javascript:jQuery(this).closest(\'form\').submit();">{{msgMoreResults}}</a></li>\
-                                                  {{/msgMoreResults}}\
-                                              {{/end}}\
-                                              {{^items.length}}\
-                                                {{#msgNoResults}}<li class="uk-skip"><a>{{msgNoResults}}</a></li>{{/msgNoResults}}\
-                                              {{/end}}\
-                                          </ul>',
-
-                    renderer: function(data) {
-
-                        var $this = this, opts = this.options;
-
-                        this.dropdown.append(this.template({"items":data, "msgResultsHeader":opts.msgResultsHeader, "msgMoreResults": opts.msgMoreResults, "msgNoResults": opts.msgNoResults}));
-                        this.show();
-                    }
-                };
-
-            // init code
-            $(document).on("focus.search.uikit", "[data-uk-acsearch]", function(e) {
-                var ele = $(this);
-
-                if (!ele.data("autocomplete")) {
-                    var obj = new $.UIkit.autocomplete(ele, $.extend({}, options, $.UIkit.Utils.options(ele.attr("data-uk-acsearch"))));
-
-                    ele.on('autocomplete-select', function(e, data) {
-                        if(data.url) location.href = data.url;
-                    });
-                }
-            });
-
-        });
-        </script>
-
 
     </body>
 </html>
