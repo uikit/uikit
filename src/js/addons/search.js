@@ -1,14 +1,28 @@
-(function($, UI) {
+(function(addon) {
+
+    if (typeof define == "function" && define.amd) { // AMD
+        define("uikit-search", ["uikit"], function(){
+            return jQuery.UIkit.search || addon(window, window.jQuery, window.jQuery.UIkit);
+        });
+    }
+
+    if(window && window.jQuery && window.jQuery.UIkit) {
+        addon(window, window.jQuery, window.jQuery.UIkit);
+    }
+
+})(function(global, $, UI){
 
     "use strict";
 
     var Search = function(element, options) {
 
-        var $element = $(this);
+        var $element = $(element);
 
         if ($element.data("search")) return;
 
-        this.autocomplete = new $.UIkit.autocomplete($element, $.extend({}, Search.defaults, options));
+        this.autocomplete = new UI.autocomplete($element, $.extend({}, Search.defaults, options));
+
+        this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
         $element.on('autocomplete-select', function(e, data) {
             if(data.url) location.href = data.url;
@@ -16,7 +30,6 @@
 
         $element.data("search", this);
     };
-
 
     Search.defaults = {
         msgResultsHeader   : 'Search Results',
@@ -63,4 +76,6 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+    return Search;
+
+});

@@ -179,7 +179,7 @@
             var $this   = this,
                 release = function(data) {
 
-                    if(data && data.length) {
+                    if(data) {
                         $this.render(data);
                     }
 
