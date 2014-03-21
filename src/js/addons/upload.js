@@ -21,35 +21,13 @@
         if ($element.data("uploadSelect")) return;
 
         this.element = $element.on("change", function() {
-
-            var files = $this.element[0].files;
-
-            if (options.allow!=='*.*') {
-
-                for(var i=0,file;file=files[i];i++) {
-                    if(!matchName(options.allow, file.name)) {
-                        if(typeof(options.notallowed) == 'string') {
-                           alert(options.notallowed);
-                        } else {
-                           options.notallowed(file);
-                        }
-                        return;
-                    }
-                }
-            }
-
-            xhrupload(files, options);
+            xhrupload($this.element[0].files, options);
         });
 
         $element.data("uploadSelect", this);
     };
 
-    UploadSelect.defaults = {
-        'action': '/',
-        'allow': '*.*',
-        // events
-        'notallowed': function(file) {}
-    };
+    UploadSelect.defaults = {};
 
     var UploadDrop = function(element, options) {
 
@@ -68,25 +46,7 @@
 
                 $element.removeClass(options.dragoverClass);
 
-                var files = e.dataTransfer.files;
-
-                if (options.allow!=='*.*') {
-
-                    for(var i=0,file;file=files[i];i++) {
-
-                        if(!matchName(options.allow, file.name)) {
-
-                            if(typeof(options.notallowed) == 'string') {
-                               alert(options.notallowed);
-                            } else {
-                               options.notallowed(file);
-                            }
-                            return;
-                        }
-                    }
-                }
-
-                xhrupload(files, options);
+                xhrupload(e.dataTransfer.files, options);
             }
 
         }).on("dragenter", function(e){
@@ -106,11 +66,7 @@
     };
 
     UploadDrop.defaults = {
-        'action': '/',
-        'dragoverClass': 'uk-dragover',
-        'allow': '*.*',
-        // events
-        'notallowed': function(file) {}
+        'dragoverClass': 'uk-dragover'
     };
 
     UI["upload"] = { "select" : UploadSelect, "drop" : UploadDrop };
@@ -144,11 +100,24 @@
 
         settings = $.extend({}, xhrupload.defaults, settings);
 
-
-        console.dir(files)
-
         if (!files.length){
             return;
+        }
+
+        if (settings.allow !== '*.*') {
+
+            for(var i=0,file;file=files[i];i++) {
+
+                if(!matchName(settings.allow, file.name)) {
+
+                    if(typeof(settings.notallowed) == 'string') {
+                       alert(settings.notallowed);
+                    } else {
+                       settings.notallowed(file, settings);
+                    }
+                    return;
+                }
+            }
         }
 
         var complete = settings.complete;
@@ -197,12 +166,13 @@
             }, false);
 
             xhr.addEventListener("loadstart", function(e){ settings.loadstart(e); }, false);
-            xhr.addEventListener("load",      function(e){ settings.load(e); }, false);
-            xhr.addEventListener("loadend",   function(e){ settings.loadend(e); }, false);
-            xhr.addEventListener("error",     function(e){ settings.error(e); }, false);
-            xhr.addEventListener("abort",     function(e){ settings.abort(e); }, false);
+            xhr.addEventListener("load",      function(e){ settings.load(e);      }, false);
+            xhr.addEventListener("loadend",   function(e){ settings.loadend(e);   }, false);
+            xhr.addEventListener("error",     function(e){ settings.error(e);     }, false);
+            xhr.addEventListener("abort",     function(e){ settings.abort(e);     }, false);
 
             xhr.open(settings.method, settings.action, true);
+
             xhr.onreadystatechange = function() {
 
                 settings.readystatechange(xhr);
@@ -233,16 +203,21 @@
         'method': 'POST',
         'param' : 'files[]',
         'params': {},
+        'allow' : '*.*',
+        'type'  : 'text',
 
         // events
         'before'          : function(o){},
         'loadstart'       : function(){},
         'load'            : function(){},
         'loadend'         : function(){},
+        'error'           : function(){},
+        'abort'           : function(){},
         'progress'        : function(){},
         'complete'        : function(){},
         'allcomplete'     : function(){},
-        'readystatechange': function(){}
+        'readystatechange': function(){},
+        'notallowed'      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); }
     };
 
     function matchName(pattern, path) {
