@@ -22,6 +22,7 @@
             "markdownarea",
             "notify",
             "placeholder",
+            "slideshow",
             "slidenav",
             "sortable",
             "sticky",
