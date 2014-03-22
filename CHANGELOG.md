@@ -18,6 +18,7 @@
   - Fixed page jumping to top for modal component
   - Fixed timpicker add-on events
   - Fixed markdownarea add-on browser reload issue
+  - Fixed fixed breakpoint for grid divider with large gutter
 
 **Documentation and repository**
 
