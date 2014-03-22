@@ -135,6 +135,16 @@
             ]
         },
         {
+            "label": "Dark",
+            "advanced": true,
+            "vars": [
+                "@global-dark-background",
+                "@global-dark-color",
+                "@global-dark-link-color",
+                "@global-dark-link-hover-color"
+            ]
+        },
+        {
             "label": "Breakpoints",
             "advanced": true,
             "vars": [
@@ -296,13 +306,6 @@
             ]
         },
         {
-            "label": "Search",
-            "advanced": true,
-            "vars": [
-                "@search-*"
-            ]
-        },
-        {
             "label": "Subnav",
             "advanced": true,
             "vars": [
@@ -349,6 +352,13 @@
             "advanced": true,
             "vars": [
                 "@utility-*"
+            ]
+        },
+        {
+            "label": "Search",
+            "advanced": true,
+            "vars": [
+                "@search-*"
             ]
         }
     ]
