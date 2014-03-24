@@ -35,8 +35,7 @@
             "type": "select",
             "vars": [
                 "@dropdown-animation",
-                "@dropdown-navbar-animation",
-                "@dropdown-search-animation"
+                "@dropdown-navbar-animation"
             ],
             "options": [
                 {"name": "Fade", "value": "uk-fade"},
@@ -352,13 +351,6 @@
             "advanced": true,
             "vars": [
                 "@utility-*"
-            ]
-        },
-        {
-            "label": "Search",
-            "advanced": true,
-            "vars": [
-                "@search-*"
             ]
         }
     ]
