@@ -13,7 +13,6 @@
     document.writeln('<style>body{ visibility: hidden; }</style>');
 
     var tests = [
-            "accordion",
             "autocomplete",
             "datepicker",
             "dotnav",
