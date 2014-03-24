@@ -1,0 +1,42 @@
+//
+// Component: Autocomplete
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@nav-autocomplete-color:                              @global-color;
+@nav-autocomplete-active-background:                  @global-primary-background;
+@nav-autocomplete-active-color:                       @global-contrast-color;
+@nav-autocomplete-header-color:                       @global-muted-color;
+@nav-autocomplete-divider-border:                     @global-border;
+
+//
+// New
+//
+
+@nav-autocomplete-active-text-shadow:                 @global-contrast-text-shadow;
+@nav-autocomplete-active-box-shadow:                  rgba(0,0,0,0.2);
+
+
+// Component
+// ========================================================================
+
+.hook-nav-autocomplete() {}
+
+.hook-nav-autocomplete-active() {
+	box-shadow: inset 0 2px 4px @nav-autocomplete-active-box-shadow;
+    text-shadow: 0 -1px 0 @nav-autocomplete-active-text-shadow;
+}
+
+.hook-nav-autocomplete-header() {}
+
+.hook-nav-autocomplete-divider() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-autocomplete-misc() {}
