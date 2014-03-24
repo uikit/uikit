@@ -82,49 +82,15 @@ module.exports = function(grunt) {
 
             //addons
 
-            fs.readdirSync('src/less/addons').forEach(function(f){
+            themes.forEach(function(theme){
+                if(fs.existsSync(theme.path+'/uikit-addons.less')) {
 
-                if(f.match(/\.less$/)) {
+                  lessconf["addons-"+theme.name] = {options: { paths: ['src/less/addons'] }, files: {} };
+                  lessconf["addons-"+theme.name].files["dist/css/addons/uikit."+theme.name+".addons.css"] = [theme.path+'/uikit-addons.less'];
 
-                  var addon = f.replace(".less", "");
-
-
-
-                    lessconf["addon-"+f] = {options: { paths: ['src/less/addons'] }, files: {} };
-                    lessconf["addon-"+f].files["dist/addons/"+addon+"/"+addon+".css"] = ['src/less/addons/'+f];
-
-                    lessconf["addon-min-"+f] = {options: { paths: ['src/less/addons'], cleancss: true }, files: {} };
-                    lessconf["addon-min-"+f].files["dist/addons/"+addon+"/"+addon+".min.css"] = ['src/less/addons/'+f];
-
-                    // look for theme overrides
-                    themes.forEach(function(theme){
-
-                       var override = theme.path+'/addon.'+f,
-                           distpath = theme.dir=="default" ? "dist/addons/"+addon : theme.path+"/dist/addons/"+addon;
-
-                       if(fs.existsSync(override)) {
-
-                         if(theme.dir=="default" && theme.name=="default") {
-
-                           lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
-                           lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+addon+".css"] = [override];
-
-                           lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
-                           lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+addon+".min.css"] = [override];
-
-                         } else {
-
-                            lessconf["addon-"+f+"-"+theme.name] = {options: { paths: [theme.path] }, files: {} };
-                            lessconf["addon-"+f+"-"+theme.name].files[distpath+"/"+addon+"."+theme.name+".css"] = [override];
-
-                            lessconf["addon-min-"+f+"-"+theme.name] = {options: { paths: [theme.path], cleancss: true }, files: {} };
-                            lessconf["addon-min-"+f+"-"+theme.name].files[distpath+"/"+addon+"."+theme.name+".min.css"] = [override];
-
-                         }
-                       }
-                    });
+                  lessconf["addons-min-"+theme.name] = {options: { paths: ['src/less/addons'], cleancss: true }, files: {} };
+                  lessconf["addons-min-"+theme.name].files["dist/css/addons/uikit."+theme.name+".addons.min.css"] = [theme.path+'/uikit-addons.less'];
                 }
-
             });
 
             return lessconf;
@@ -194,9 +160,9 @@ module.exports = function(grunt) {
 
                         var addon = f.replace(".js", "");
 
-                        grunt.file.copy('src/js/addons/'+f, 'dist/addons/'+addon+'/'+f);
+                        grunt.file.copy('src/js/addons/'+f, 'dist/js/addons/'+addon+'.js');
 
-                        files['dist/addons/'+addon+'/'+addon+'.min.js'] = ['src/js/addons/'+f];
+                        files['dist/js/addons/'+addon+'.min.js'] = ['src/js/addons/'+f];
 
                       }
                   });
