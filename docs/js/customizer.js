@@ -18,7 +18,7 @@ jQuery(function($) {
             ]
         };
 
-    $iframe.css("visibility", "hidden");
+    $iframe.css("opacity", "0");
     $spinner.show();
 
     $.get("../themes/themes.json", {nocache:Math.random()}).always(function(data, type){
@@ -46,7 +46,7 @@ jQuery(function($) {
 
         $customizer.customizer($.extend({
             "updating": function(e, style) {
-                $iframe.css("visibility", "hidden");
+                $iframe.css("opacity", "0");
                 $spinner.show();
             },
             "updated": function(e, style) {
@@ -73,11 +73,11 @@ jQuery(function($) {
     $error.on({
         "show": function(e, error) {
             $error.html($.mustache("<h1 class=\"uk-h3\">LESS {{type}} Error</h1><p>{{message}}</p>", error)).show();
-            $iframe.css("visibility", "hidden");
+            $iframe.css("opacity", "0");
         },
         "hide": function() {
             $error.hide();
-            $iframe.css("visibility", "visible");
+            $iframe.css("opacity", "1");
         }
     });
 
