@@ -1,10 +1,7 @@
 //
-// Addon: Datepicker
+// Component: Datepicker
 //
 // ========================================================================
-
-@import "../../../src/less/addons/datepicker.less";
-@import "variables.less";
 
 
 // Variables
@@ -42,7 +39,7 @@
 @datepicker-primary-gradient-bottom:            @global-primary-gradient-bottom;
 
 
-// Hooks
+// Component
 // ========================================================================
 
 .hook-datepicker-nav() {}
@@ -76,3 +73,9 @@
     background-image: linear-gradient(to bottom, @datepicker-primary-gradient-top, @datepicker-primary-gradient-bottom);
     text-shadow: 0 -1px 0 @datepicker-contrast-text-shadow;
 }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-datepicker-misc() {}

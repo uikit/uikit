@@ -1,10 +1,7 @@
 //
-// Addon: Notify
+// Component: Notify
 //
 // ========================================================================
-
-@import "../../../src/less/addons/notify.less";
-@import "variables.less";
 
 
 // Variables
@@ -27,7 +24,7 @@
 @notify-message-danger-border:                  fade(@notify-message-danger-color, 30%);
 
 
-// Hooks
+// Component
 // ========================================================================
 
 .hook-notify() {}
@@ -44,3 +41,9 @@
 .hook-notify-message-warning() { border-color: @notify-message-warning-border; }
 
 .hook-notify-message-danger() { border-color: @notify-message-danger-border; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-notify-misc() {}

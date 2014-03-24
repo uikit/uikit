@@ -1,10 +1,7 @@
 //
-// Addon: Markdown area
+// Component: Markdown area
 //
 // ========================================================================
-
-@import "../../../src/less/addons/markdownarea.less";
-@import "variables.less";
 
 
 // Variables
@@ -91,43 +88,47 @@
 }
 
 
-// Rules
+// Miscellaneous
 // ========================================================================
 
-/*
- * Apply same `border-radius` as `uk-markdownarea-navbar`
- */
+.hook-markdownarea-misc() {
 
-.uk-markdownarea-navbar-nav:first-child > li:first-child > a { border-top-left-radius: @global-border-radius; }
+    /*
+     * Apply same `border-radius` as `uk-markdownarea-navbar`
+     */
 
-/*
- * Sub-modifier `uk-markdownarea-navbar-flip`
- */
+    .uk-markdownarea-navbar-nav:first-child > li:first-child > a { border-top-left-radius: @global-border-radius; }
 
-/* Collapse border */
-.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav > li > a {
-    margin-left: 0;
-    margin-right: -1px;
+    /*
+     * Sub-modifier `uk-markdownarea-navbar-flip`
+     */
+
+    /* Collapse border */
+    .uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav > li > a {
+        margin-left: 0;
+        margin-right: -1px;
+    }
+
+    /* Apply same `border-radius` as `uk-markdownarea-navbar` */
+    .uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:first-child > li:first-child > a { border-top-left-radius: 0; }
+    .uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:last-child > li:last-child > a { border-top-right-radius: @global-border-radius; }
+
+    /*
+     * Sub-modifier `uk-markdownarea-fullscreen`
+     */
+
+    .uk-markdownarea-fullscreen .uk-markdownarea-navbar {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+
+    .uk-markdownarea-fullscreen .uk-markdownarea-content {
+        border: none;
+        border-radius: 0;
+    }
+
+    .uk-markdownarea-fullscreen .uk-markdownarea-navbar-nav > li > a { border-radius: 0 !important; }
+
 }
-
-/* Apply same `border-radius` as `uk-markdownarea-navbar` */
-.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:first-child > li:first-child > a { border-top-left-radius: 0; }
-.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:last-child > li:last-child > a { border-top-right-radius: @global-border-radius; }
-
-/*
- * Sub-modifier `uk-markdownarea-fullscreen`
- */
-
-.uk-markdownarea-fullscreen .uk-markdownarea-navbar {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-radius: 0;
-}
-
-.uk-markdownarea-fullscreen .uk-markdownarea-content {
-    border: none;
-    border-radius: 0;
-}
-
-.uk-markdownarea-fullscreen .uk-markdownarea-navbar-nav > li > a { border-radius: 0 !important; }

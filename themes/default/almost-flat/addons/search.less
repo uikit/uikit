@@ -1,10 +1,7 @@
 //
-// Addon: Search
+// Component: Search
 //
 // ========================================================================
-
-@import "../../../src/less/addons/search.less";
-@import "variables.less";
 
 
 // Variables
@@ -32,7 +29,6 @@
 //
 
 @nav-search-active-text-shadow:                 @global-contrast-text-shadow;
-@nav-search-active-box-shadow:                  rgba(0,0,0,0.2);
 
 
 // Component
@@ -57,7 +53,7 @@
 .hook-search-close() {}
 
 
-// Dropdown modifier: `uk-dropdown-search`
+// Dropdow modifier: `uk-dropdown-search`
 // ========================================================================
 
 .hook-dropdown-search() {}
@@ -70,11 +66,11 @@
 // Items
 //
 
-.hook-nav-search() { text-shadow: none; }
+.hook-nav-search() {}
 
 // Active
 .hook-nav-search-active() {
-    box-shadow: inset 0 2px 4px @nav-search-active-box-shadow;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
     text-shadow: 0 -1px 0 @nav-search-active-text-shadow;
 }
 
@@ -82,7 +78,7 @@
 // Sub-object: `uk-nav-header`
 //
 
-.hook-nav-search-header() { text-shadow: none; }
+.hook-nav-search-header() {}
 
 //
 // Sub-object: `uk-nav-divider`
@@ -95,3 +91,9 @@
 // ========================================================================
 
 .hook-offcanvas-search-field() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-search-misc() {}

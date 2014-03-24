@@ -1,10 +1,7 @@
 //
-// Addon: Notify
+// Component: Notify
 //
 // ========================================================================
-
-@import "../../../src/less/addons/notify.less";
-@import "variables.less";
 
 
 // Variables
@@ -16,13 +13,23 @@
 @notify-message-line-height:                    round(@notify-message-font-size * 1.37); // 22px
 
 
-// Hooks
+// Component
 // ========================================================================
 
 .hook-notify() {}
 
 .hook-notify-message() {}
+
 .hook-notify-message-primary() {}
+
 .hook-notify-message-success() {}
+
 .hook-notify-message-warning() {}
+
 .hook-notify-message-danger() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-notify-misc() {}
