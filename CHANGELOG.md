@@ -2,10 +2,10 @@
 
 ### WIP
 
+  - IMPORTANT: Moved search component to add-ons 
   - IMPORTANT: Removed form-file JavaScript
   - Added placeholder add-on
-  - Added dotnov add-on
-  - Added accordion add-on
+  - Added dotnav add-on
   - Added slidenav add-on
   - Added upload add-on
   - Added autocomplete add-on
