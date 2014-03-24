@@ -33,7 +33,7 @@
         }
 
         if (this.options.flipDropdown) {
-            this.element.addClass('uk-dropdown-flip');
+            this.dropdown.addClass('uk-dropdown-flip');
         }
 
         this.init();
@@ -269,7 +269,7 @@
         method: 'post',
         delay: 300,
         loadingClass: 'uk-loading',
-        flipDropdown: true,
+        flipDropdown: false,
         skipClass: 'uk-skip',
         hoverClass: 'uk-active',
         source: null,
