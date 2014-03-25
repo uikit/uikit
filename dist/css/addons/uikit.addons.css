@@ -91,12 +91,12 @@
   /* 2 */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   /* 3 */
-  line-height: 40px;
+  line-height: 60px;
   color: rgba(50, 50, 50, 0.4);
-  font-size: 40px;
+  font-size: 60px;
   text-align: center;
 }
 /*
@@ -157,7 +157,7 @@
   display: none;
   position: absolute;
   top: 50%;
-  margin-top: -20px;
+  margin-top: -30px;
 }
 .uk-slidenav-position:hover .uk-slidenav {
   display: block;
