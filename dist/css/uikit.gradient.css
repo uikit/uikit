@@ -1,4 +1,4 @@
-/*! UIkit 2.4.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -3021,7 +3021,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /*
  * Placeholder
- * Higher specificity (!imporntant) needed to override color in IE
+ * Higher specificity (!important) needed to override color in IE
  */
 .uk-form :-ms-input-placeholder {
   color: #999999 !important;
@@ -3211,7 +3211,7 @@ select.uk-form-width-mini {
   margin: 5px 0;
 }
 /* Modifier: `uk-form-stacked`
- * Requrires sub-object: `uk-form-label`
+ * Requires sub-object: `uk-form-label`
  ========================================================================== */
 .uk-form-stacked .uk-form-label {
   display: block;

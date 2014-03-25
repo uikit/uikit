@@ -1,3 +1,5 @@
+/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+
 (function(addon) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -24,7 +26,7 @@
         this.dropdown = $element.find('.uk-dropdown');
         this.template = $element.find('script[type="text/autocomplete"]').html();
         this.template = UI.Utils.template(this.template || this.options.template);
-        this.input    = $element.find("input:first");
+        this.input    = $element.find("input:first").attr("autocomplete", "off");
 
         this.element.data("autocomplete", this);
 

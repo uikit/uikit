@@ -140,7 +140,7 @@ module.exports = function(grunt) {
                     banner: "<%= meta.banner %>\n"
                 },
                 files: {
-                    src: [ 'dist/css/*.css', 'dist/js/*.js', 'dist/addons/**/*.css', 'dist/addons/**/*.js' ]
+                    src: [ 'dist/css/**/*.css', 'dist/js/**/*.js' ]
                 }
             }
         },

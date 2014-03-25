@@ -1,4 +1,4 @@
-/*! UIkit 2.4.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(core) {
 
@@ -18,8 +18,6 @@
                 for (i = 0; i < resources.length; i += 1) {
 
                     var resource = resources[i].replace(/\./g, '/');
-
-                    if (resource.match(/^addons/)) resource = resource.replace(/([^\/]+)$/g, '$1/$1');
 
                     load.push(base+'/js/addons/'+resource);
                 }
@@ -52,7 +50,7 @@
         return UI;
     }
 
-    UI.version = '2.4.0';
+    UI.version = '2.5.0';
 
     UI.fn = function(command, options) {
 
