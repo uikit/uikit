@@ -1,0 +1,45 @@
+//
+// Component: Sortable
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@sortable-dragged-z-index:                      (@global-z-index + 50);
+
+@sortable-item-background:                      @global-default-background;
+
+//
+// New
+//
+
+@sortable-border:                               rgba(0,0,0,0.06);
+@sortable-text-shadow:                          @global-text-shadow;
+
+
+// Component
+// ========================================================================
+
+.hook-sortable-list-dragged() {}
+
+.hook-sortable-item() {
+    border-radius: @global-border-radius;
+    border: 1px solid @sortable-border;
+    text-shadow: 0 1px 0 @sortable-text-shadow;
+}
+
+.hook-sortable-placeholder() {}
+
+.hook-sortable-empty() {}
+
+.hook-sortable-handle() {}
+
+.hook-sortable-toggle() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-sortable-misc() {}

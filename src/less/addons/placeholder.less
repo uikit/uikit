@@ -7,8 +7,6 @@
 //
 // ========================================================================
 
-@import "../variables.less";
-
 
 // Variables
 // ========================================================================
@@ -23,7 +21,7 @@
 
 
 /* ========================================================================
-   Addon: Placeholder
+   Component: Placeholder
  ========================================================================== */
 
 .uk-placeholder {
@@ -32,6 +30,7 @@
     border: 1px dashed @placeholder-border;
     background: @placeholder-background;
     color: @placeholder-color;
+    .hook-placeholder;
 }
 
 /*
@@ -53,4 +52,15 @@
 .uk-placeholder-large {
     padding-top: @placeholder-large-padding-vertical;
     padding-bottom: @placeholder-large-padding-vertical;
+    .hook-placeholder-large;
 }
+
+
+// Hooks
+// ========================================================================
+
+.hook-placeholder-misc;
+
+.hook-placeholder() {}
+.hook-placeholder-large() {}
+.hook-placeholder-misc() {}

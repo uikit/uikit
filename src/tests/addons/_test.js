@@ -130,7 +130,7 @@
 
         lesscode.push('@import "'+(themes[theme])+'";');
 
-        var addonoverride = [themes[theme].match(/(.+)\/uikit\.less$/)[1], "addon."+addon+".less"].join("/");
+        var addonoverride = [themes[theme].match(/(.+)\/uikit\.less$/)[1], "uikit-addons.less"].join("/");
 
         $.get(addonoverride, {nc:Math.random()}).always(function(data, type){
 
@@ -141,10 +141,10 @@
 
             } else {
 
-                $.get('../../less/addons/'+addon+'.less', {nc:Math.random()}).always(function(data, type){
+                $.get('../../less/uikit-addons.less', {nc:Math.random()}).always(function(data, type){
 
                     if (type==="success") {
-                        lesscode.push('@import "../../less/addons/'+addon+'.less";');
+                        lesscode.push('@import "../../less/uikit-addons.less";');
                     }
 
                     compile();

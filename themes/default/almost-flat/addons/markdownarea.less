@@ -1,0 +1,134 @@
+//
+// Component: Markdown area
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@markdownarea-navbar-background:                @global-default-background;
+
+@markdownarea-navbar-nav-height:                41px;
+@markdownarea-navbar-nav-line-height:           @markdownarea-navbar-nav-height - 1;
+@markdownarea-navbar-nav-color:                 @global-color;
+
+@markdownarea-navbar-nav-hover-background:      @global-default-hover-background;
+@markdownarea-navbar-nav-hover-color:           @global-color;
+@markdownarea-navbar-nav-onclick-background:    @global-default-active-background;
+@markdownarea-navbar-nav-onclick-color:         @global-color;
+@markdownarea-navbar-nav-active-background:     @global-default-hover-background;
+@markdownarea-navbar-nav-active-color:          @global-color;
+
+@markdownarea-content-border:                   @global-border;
+@markdownarea-content-background:               @global-background;
+
+@markdownarea-fullscreen-z-index:               (@global-z-index - 10);
+
+//
+// New
+//
+
+@markdownarea-navbar-border:                    rgba(0,0,0,0.06);
+@markdownarea-navbar-text-shadow:               @global-text-shadow;
+
+@markdown-navbar-nav-hover-border:              rgba(0,0,0,0.1);
+@markdown-navbar-nav-hover-border-top:          rgba(0,0,0,0.1);
+@markdown-navbar-nav-onclick-border-top:        rgba(0,0,0,0.2);
+
+
+// Hooks
+// ========================================================================
+
+
+.hook-markdownarea() {}
+
+.hook-markdownarea-navbar() {
+    border: 1px solid @markdownarea-navbar-border;
+    border-top-left-radius: @global-border-radius;
+    border-top-right-radius: @global-border-radius;
+}
+
+//
+// 1. Overlap top border
+// 2. Collapse horizontal borders
+//
+
+.hook-markdownarea-navbar-nav() {
+    margin-top: -1px; // 1
+    margin-left: -1px; // 2
+    border: 1px solid transparent;
+    border-bottom-width: 0;
+    text-shadow: 0 1px 0 @markdownarea-navbar-text-shadow;
+}
+
+.hook-markdownarea-navbar-nav-hover() {
+    position: relative; // 1
+    z-index: 1; // 2
+    border-left-color: @markdown-navbar-nav-hover-border;
+    border-right-color: @markdown-navbar-nav-hover-border;
+    border-top-color: @markdown-navbar-nav-hover-border-top;
+}
+
+.hook-markdownarea-navbar-nav-onclick() {
+    border-left-color: @markdown-navbar-nav-hover-border;
+    border-right-color: @markdown-navbar-nav-hover-border;
+    border-top-color: @markdown-navbar-nav-onclick-border-top;
+}
+
+.hook-markdownarea-navbar-nav-active() {
+    border-left-color: @markdown-navbar-nav-hover-border;
+    border-right-color: @markdown-navbar-nav-hover-border;
+    border-top-color: @markdown-navbar-nav-hover-border-top;
+}
+
+.hook-markdownarea-content() {
+    border-bottom-left-radius: @global-border-radius;
+    border-bottom-right-radius: @global-border-radius;
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-markdownarea-misc() {
+
+    /*
+     * Apply same `border-radius` as `uk-markdownarea-navbar`
+     */
+
+    .uk-markdownarea-navbar-nav:first-child > li:first-child > a { border-top-left-radius: @global-border-radius; }
+
+    /*
+     * Sub-modifier `uk-markdownarea-navbar-flip`
+     */
+
+    /* Collapse border */
+    .uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav > li > a {
+        margin-left: 0;
+        margin-right: -1px;
+    }
+
+    /* Apply same `border-radius` as `uk-markdownarea-navbar` */
+    .uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:first-child > li:first-child > a { border-top-left-radius: 0; }
+    .uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:last-child > li:last-child > a { border-top-right-radius: @global-border-radius; }
+
+    /*
+     * Sub-modifier `uk-markdownarea-fullscreen`
+     */
+
+    .uk-markdownarea-fullscreen .uk-markdownarea-navbar {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+
+    .uk-markdownarea-fullscreen .uk-markdownarea-content {
+        border: none;
+        border-radius: 0;
+    }
+
+    .uk-markdownarea-fullscreen .uk-markdownarea-navbar-nav > li > a { border-radius: 0 !important; }
+
+}

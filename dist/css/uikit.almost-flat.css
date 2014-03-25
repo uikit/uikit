@@ -803,6 +803,9 @@ iframe {
   .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
     border-left: 1px solid #dddddd;
   }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
   /*
      * Large gutter
      */
@@ -1847,47 +1850,6 @@ ul.uk-nav-sub {
 .uk-nav-navbar ul a:hover {
   color: #005599;
 }
-/* Modifier `uk-nav-search`
- ========================================================================== */
-/*
- * Items
- */
-.uk-nav-search > li > a {
-  color: #444444;
-}
-/*
- * Active
- * 1. Remove default focus style
- */
-.uk-nav-search > li.uk-active > a {
-  background: #00a8e6;
-  color: #ffffff;
-  /* 1 */
-  outline: none;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-/*
- * Sub-object: `uk-nav-header`
- */
-.uk-nav-search .uk-nav-header {
-  color: #999999;
-}
-/*
- * Sub-object: `uk-nav-divider`
- */
-.uk-nav-search .uk-nav-divider {
-  border-top: 1px solid #dddddd;
-}
-/*
- * Nested items
- */
-.uk-nav-search ul a {
-  color: #0077dd;
-}
-.uk-nav-search ul a:hover {
-  color: #005599;
-}
 /* Modifier `uk-nav-offcanvas`
  ========================================================================== */
 /*
@@ -2387,11 +2349,13 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  ========================================================================== */
 /*
  * 1. Reset whitespace hack
+ * 2. Remove the gap at the bottom of it container
  */
 .uk-pagination > li {
   display: inline-block;
   /* 1 */
   font-size: 1rem;
+  /* 2 */
   vertical-align: top;
 }
 .uk-pagination > li:nth-child(n+2) {
@@ -2790,6 +2754,23 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-list {
   padding: 0;
   list-style: none;
+}
+/*
+ * Micro clearfix to make list more robust
+ */
+.uk-list > li:before,
+.uk-list > li:after {
+  content: " ";
+  display: table;
+}
+.uk-list > li:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-list > li > :last-child {
+  margin-bottom: 0;
 }
 /*
  * Nested lists
@@ -3458,7 +3439,7 @@ select.uk-form-width-mini {
  * 2. Create position context for dropdowns
  * 3. Remove whitespace between child elements when using `inline-block`
  * 4. Prevent buttons from wrapping
- * 5. Reset button group whitespace hack
+ * 5. Remove whitespace between child elements when using `inline-block`
  */
 .uk-button-group {
   /* 1 */
@@ -5302,123 +5283,6 @@ a.uk-thumbnail:focus {
   border-radius: 500px;
 }
 /* ========================================================================
-   Component: Search
- ========================================================================== */
-/*
- * 1. Create position context for dropdowns
- * 2. Needed for `form` element
- */
-.uk-search {
-  display: inline-block;
-  /* 1 */
-  position: relative;
-  /* 2 */
-  margin: 0;
-}
-/*
- * Icon
- */
-.uk-search:before {
-  content: "\f002";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30px;
-  line-height: 30px;
-  text-align: center;
-  font-family: FontAwesome;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.2);
-}
-/* Sub-object `uk-search-field`
- ========================================================================== */
-/*
- * 1. Needed to reset iOS `input[type="search"]` appearance
- */
-.uk-search-field {
-  width: 120px;
-  height: 30px;
-  padding: 0 30px;
-  border: 1px solid rgba(0, 0, 0, 0);
-  background: rgba(0, 0, 0, 0);
-  color: #444444;
-  -webkit-transition: all linear 0.2s;
-  transition: all linear 0.2s;
-  /* 1 */
-  border-radius: 0;
-}
-/*
- * Needed to reset iOS `input[type="search"]` appearance
- * Higher specificity to override appearance set by normalize.less
- */
-input.uk-search-field {
-  -webkit-appearance: none;
-}
-/* Placeholder */
-.uk-search-field:-ms-input-placeholder {
-  color: #999999;
-}
-.uk-search-field::-moz-placeholder {
-  color: #999999;
-}
-.uk-search-field::-webkit-input-placeholder {
-  color: #999999;
-}
-/* Removes cancel button in IE10 */
-.uk-search-field::-ms-clear {
-  display: none;
-}
-/* Focus */
-.uk-search-field:focus {
-  outline: 0;
-}
-/* Focus + active */
-.uk-search-field:focus,
-.uk-active .uk-search-field {
-  width: 180px;
-}
-/* Sub-object `uk-search-close`
- ========================================================================== */
-/*
- * 1. Required for `button` elements
- * 2. Needed for Safari
- */
-.uk-search-close {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  line-height: 30px;
-  text-align: center;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.2);
-  /* 1. */
-  padding: 0;
-  border: 0;
-  -webkit-appearance: none;
-  /* 2. */
-  background: transparent;
-}
-.uk-loading > .uk-search-close,
-.uk-active > .uk-search-close {
-  display: block;
-}
-/*
- * Icon
- */
-.uk-search-close:after {
-  display: block;
-  content: "\f00d";
-  font-family: FontAwesome;
-}
-/* Loading icon */
-.uk-loading > .uk-search-close:after {
-  content: "\f110";
-  -webkit-animation: uk-spin 2s infinite linear;
-  animation: uk-spin 2s infinite linear;
-}
-/* ========================================================================
    Component: Animation
  ========================================================================== */
 [class*='uk-animation-'] {
@@ -5954,25 +5818,6 @@ input.uk-search-field {
   -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
   animation: uk-slide-top-fixed 0.2s ease-in-out;
 }
-/* Modifier: `uk-dropdown-search`
- ========================================================================== */
-.uk-dropdown-search {
-  width: 300px;
-  margin-top: 0;
-  background: #ffffff;
-  color: #444444;
-}
-.uk-open > .uk-dropdown-search {
-  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
-  animation: uk-slide-top-fixed 0.2s ease-in-out;
-}
-/*
- * Dependency `uk-navbar-flip`
- */
-.uk-navbar-flip .uk-dropdown-search {
-  margin-top: 11.5px;
-  margin-right: -16px;
-}
 .uk-dropdown-navbar.uk-dropdown-flip {
   left: auto;
 }
@@ -6017,14 +5862,10 @@ input.uk-search-field {
   opacity: 1;
 }
 /*
- * 7. Prevents scrolling for the body content
- * 8. Prevents duplicated scrollbar caused by 4.
+ * Prevents duplicated scrollbar caused by 4.
  */
 .uk-modal-page,
 .uk-modal-page body {
-  /* 7 */
-  height: 100%;
-  /* 8 */
   overflow: hidden;
 }
 /* Sub-object: `uk-modal-dialog`
@@ -6045,6 +5886,7 @@ input.uk-search-field {
   padding: 20px;
   width: 600px;
   max-width: 100%;
+  max-width: calc(100% - 20px);
   /* 3 */
   background: #ffffff;
   /* 4 */
@@ -6113,6 +5955,20 @@ input.uk-search-field {
   .uk-modal-dialog-frameless > .uk-close:first-child {
     top: -7px;
     right: -7px;
+  }
+}
+/* Modifier: `uk-modal-dialog-large`
+ ========================================================================== */
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-modal-dialog-large {
+    width: 930px;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-modal-dialog-large {
+    width: 1130px;
   }
 }
 /* ========================================================================
@@ -6210,30 +6066,6 @@ input.uk-search-field {
 }
 .uk-offcanvas .uk-panel a:not([class]):hover {
   color: #ffffff;
-}
-/* Search in offcanvas
- ========================================================================== */
-.uk-offcanvas .uk-search {
-  display: block;
-  margin: 20px 15px;
-}
-.uk-offcanvas .uk-search:before {
-  color: #777777;
-}
-.uk-offcanvas .uk-search-field {
-  width: 100%;
-  border-color: rgba(0, 0, 0, 0);
-  background: #1a1a1a;
-  color: #cccccc;
-}
-.uk-offcanvas .uk-search-field:-ms-input-placeholder {
-  color: #777777;
-}
-.uk-offcanvas .uk-search-field::-moz-placeholder {
-  color: #777777;
-}
-.uk-offcanvas .uk-search-field::-webkit-input-placeholder {
-  color: #777777;
 }
 .uk-offcanvas-bar:after {
   content: "";
@@ -6434,6 +6266,15 @@ input.uk-search-field {
 }
 .uk-text-justify {
   text-align: justify !important;
+}
+.uk-text-top {
+  vertical-align: top !important;
+}
+.uk-text-middle {
+  vertical-align: middle !important;
+}
+.uk-text-bottom {
+  vertical-align: bottom !important;
 }
 /* Only tablets portrait */
 @media (min-width: 768px) and (max-width: 959px) {
@@ -6761,6 +6602,7 @@ input.uk-search-field {
 .uk-scrollable-text {
   height: 300px;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   resize: both;
 }
 /*
@@ -6773,13 +6615,23 @@ input.uk-search-field {
   padding: 10px;
   border: 1px solid #dddddd;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   resize: both;
   border-radius: 3px;
 }
-/*
- * Remove margin from the last-child
- */
 .uk-scrollable-box > :last-child {
+  margin-bottom: 0;
+}
+/* Overflow
+ ========================================================================== */
+/*
+ * Enable scrollbars if content is clipped
+ */
+.uk-overflow-container {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.uk-overflow-container > :last-child {
   margin-bottom: 0;
 }
 /* Display

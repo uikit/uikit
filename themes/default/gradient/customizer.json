@@ -155,16 +155,6 @@
             ]
         },
         {
-            "label": "Dark",
-            "advanced": true,
-            "vars": [
-                "@global-dark-background",
-                "@global-dark-color",
-                "@global-dark-link-color",
-                "@global-dark-link-hover-color"
-            ]
-        },
-        {
             "label": "Breakpoints",
             "advanced": true,
             "vars": [

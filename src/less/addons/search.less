@@ -20,8 +20,6 @@
 //
 // ========================================================================
 
-@import "../variables.less";
-
 
 // Variables
 // ========================================================================
@@ -64,7 +62,7 @@
 @nav-search-nested-color:                       #07D;
 @nav-search-nested-hover-color:                 #059;
 
-// Nav modifier
+// Search in offcanvas
 @offcanvas-search-margin:                       20px 15px;
 @offcanvas-search-background:                   #1a1a1a;
 @offcanvas-search-border:                       rgba(0,0,0,0);
@@ -308,6 +306,8 @@ input.uk-search-field { -webkit-appearance: none; }
 // Hooks
 // ========================================================================
 
+.hook-search-misc;
+
 .hook-search() {}
 .hook-search-icon() {}
 .hook-search-field() {}
@@ -315,10 +315,10 @@ input.uk-search-field { -webkit-appearance: none; }
 .hook-search-close() {}
 
 .hook-dropdown-search() {}
-
 .hook-nav-search() {}
 .hook-nav-search-active() {}
 .hook-nav-search-header() {}
 .hook-nav-search-divider() {}
-
 .hook-offcanvas-search-field() {}
+
+.hook-search-misc() {}

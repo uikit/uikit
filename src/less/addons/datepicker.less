@@ -12,8 +12,6 @@
 //
 // ========================================================================
 
-@import "../variables.less";
-
 
 // Variables
 // ========================================================================
@@ -41,7 +39,7 @@
 
 
 /* ========================================================================
-   Addon: Datepicker
+   Component: Datepicker
  ========================================================================== */
 
 /*
@@ -171,9 +169,12 @@ a.uk-datepicker-table-muted { color: @datepicker-table-muted-color; }
 // Hooks
 // ========================================================================
 
+.hook-datepicker-misc;
+
 .hook-datepicker-nav() {}
 .hook-datepicker-nav-item() {}
 .hook-datepicker-table-item() {}
 .hook-datepicker-table-item-hover() {}
 .hook-datepicker-table-item-onclick() {}
 .hook-datepicker-table-item-active() {}
+.hook-datepicker-misc() {}
