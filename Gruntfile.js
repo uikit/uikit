@@ -247,6 +247,24 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('sublime', 'Building Sublime Text Package', function() {
+        // generates a python list (returns string representation)
+        var pythonList = function(classes) {
+
+            var result = [];
+
+            classes.forEach(function(cls) {
+                // wrap class name in double quotes, add comma (except for last element)
+                result.push(['"', cls, '"', (i !== classes.length-1 ? ", " : "")].join(''));
+
+                // break lines every n elements
+                if ((i !== 0) && (i%20 === 0)) {
+                    result.push("\n    ");
+                }
+            });
+
+            return "[" + result.join("") + "]";
+        };
+
         // css core
         var filepath = 'dist/css/uikit.css', cssFiles = [filepath];
 
@@ -282,7 +300,7 @@ module.exports = function(grunt) {
         // convert set back to list
         classesList = Object.keys(classesSet);
 
-        pystring += 'uikit_classes = ["' + classesList.join('", "') + '"]\n';
+        pystring += 'uikit_classes = ' + pythonList(classesList) + '\n';
 
         // JS core
         filepath = 'dist/js/uikit.js';
@@ -313,7 +331,7 @@ module.exports = function(grunt) {
 
         dataList.forEach(function(s) { dataSet[s] = true; });
         dataList  = Object.keys(dataSet);
-        pystring += 'uikit_data = ["' + dataList.join('", "') + '"]\n';
+        pystring += 'uikit_data = ' + pythonList(dataList) + '\n';
 
         grunt.file.write('dist/uikit_completions.py', pystring);
         grunt.log.writeln('Written: dist/uikit_completions.py');
