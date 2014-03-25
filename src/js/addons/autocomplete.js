@@ -24,7 +24,7 @@
         this.dropdown = $element.find('.uk-dropdown');
         this.template = $element.find('script[type="text/autocomplete"]').html();
         this.template = UI.Utils.template(this.template || this.options.template);
-        this.input    = $element.find("input:first");
+        this.input    = $element.find("input:first").attr("autocomplete", "off");
 
         this.element.data("autocomplete", this);
 
