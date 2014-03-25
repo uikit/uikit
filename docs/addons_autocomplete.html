@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Autocomplete add-on - UIkit documentation</title>
+        <title>Autocomplete component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -73,29 +73,13 @@
 
                             <p class="uk-article-lead"></p>
 
-                            <p class="uk-article-lead">Create forms that allow users to choose from a list of pre-generated values while typing.</p>
+                            <p class="uk-article-lead">Create inputs that allow users to choose from a list of pre-generated values while typing.</p>
 
                             <h2>Usage</h2>
 
-                            <p>To apply this add-on, add the <code>.uk-autocomplete</code> and the <code>.uk-form</code> class to a <code>&lt;div&gt;</code> element around a text input. To enable the necessary JavaScript for the autocomplete form, you also need to add the <code>data-uk-autocomplete</code> attribute.</p>
+                            <p>To apply this component, add the <code>.uk-autocomplete</code> and the <code>.uk-form</code> class to a <code>&lt;div&gt;</code> element around a text input. To enable the necessary JavaScript for the autocomplete input, you also need to add the <code>data-uk-autocomplete</code> attribute.</p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-autocomplete uk-form" data-uk-autocomplete>
-                                <input type="text">
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div class="uk-autocomplete uk-form" data-uk-autocomplete&gt;
-    &lt;input type="text"&gt;
-&lt;/div&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h2>Ajax autocomplete</h2>
-
-                            <p>You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display autocomplete suggestions. Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your autocomplete list, which needs to be formatted in JSON (<a href="../src/tests/addons/_autocomplete.json">Example</a>). This enables the Ajax and injects a dropdown displaying the autocomplete values. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
+                            <p>A dropdown from the <a href="dropdown.html">Dropdown component</a> is required to display autocomplete suggestions. Add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your autocomplete list, which needs to be formatted in JSON (<a href="../src/tests/addons/_autocomplete.json">Example</a>). This enables the Ajax and injects a dropdown displaying the autocomplete values. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -115,7 +99,7 @@
 
                             <h2>Custom templates</h2>
 
-                            <p>You can also create custom templates to display autocorrect results differently.</p>
+                            <p>You can also create custom templates to display the results differently.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
