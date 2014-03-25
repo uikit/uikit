@@ -1,0 +1,1037 @@
+/* ========================================================================
+   Component: Dotnav
+ ========================================================================== */
+/*
+ * 1. Remove default list style
+ * 2. Remove whitespace between child elements when using `inline-block`
+ */
+.uk-dotnav {
+  /* 1 */
+  padding: 0;
+  list-style: none;
+  /* 2 */
+  font-size: 0.001px;
+}
+/* Items
+ ========================================================================== */
+/*
+ * 1. Reset whitespace hack
+ * 2. Remove the gap at the bottom of it container
+ */
+.uk-dotnav > li {
+  display: inline-block;
+  /* 1 */
+  font-size: 1rem;
+  /* 2 */
+  vertical-align: top;
+}
+.uk-dotnav > li:nth-child(n+2) {
+  margin-left: 15px;
+}
+/*
+ * Items
+ * 1. Remove the gap at the bottom of it container
+ * 2. Hide text if present
+ */
+.uk-dotnav > li > a {
+  display: inline-block;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  /* 1 */
+  vertical-align: top;
+  /* 2 */
+  overflow: hidden;
+  text-indent: -999%;
+  border: 1px solid #dddddd;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-dotnav > li > a:hover,
+.uk-dotnav > li > a:focus {
+  background: #fafafa;
+  /* 2 */
+  outline: none;
+}
+/* OnClick */
+.uk-dotnav > li > a:active {
+  background: #00a8e6;
+  border-color: #00a8e6;
+}
+/* Active */
+.uk-dotnav > li.uk-active > a {
+  background: #00a8e6;
+  border-color: #00a8e6;
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
+}
+/* Modifier: 'dotnav-vertical'
+ ========================================================================== */
+.uk-dotnav-vertical > li {
+  display: block;
+}
+.uk-dotnav-vertical > li:nth-child(n+2) {
+  margin-left: 0;
+  margin-top: 15px;
+}
+/* ========================================================================
+   Component: Slidenav
+ ========================================================================== */
+/*
+ * 1. Required for `a` elements
+ * 2. Dimension
+ * 3. Style
+ */
+.uk-slidenav {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  /* 3 */
+  line-height: 40px;
+  color: rgba(50, 50, 50, 0.4);
+  font-size: 40px;
+  text-align: center;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ * 3. Required for `a` elements
+ * 4. Style
+ */
+.uk-slidenav:hover,
+.uk-slidenav:focus {
+  /* 2 */
+  outline: none;
+  /* 3 */
+  text-decoration: none;
+  /* 4 */
+  color: rgba(50, 50, 50, 0.7);
+  cursor: pointer;
+}
+/* Active */
+.uk-slidenav:active {
+  color: rgba(50, 50, 50, 0.9);
+}
+/*
+ * Icons
+ */
+.uk-slidenav-previous:before {
+  content: "\f104";
+  font-family: FontAwesome;
+}
+.uk-slidenav-next:before {
+  content: "\f105";
+  font-family: FontAwesome;
+}
+/* Sub-object: `uk-slidenav-position`
+ ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Corrects max-width behavior (3.) if padding and border are used
+ * 3. Responsive behavior
+ * 4. Create position context for dropdowns
+ */
+.uk-slidenav-position {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* 3 */
+  max-width: 100%;
+  /* 4 */
+  position: relative;
+}
+/*
+ * Center vertically
+ */
+.uk-slidenav-position .uk-slidenav {
+  display: none;
+  position: absolute;
+  top: 50%;
+  margin-top: -20px;
+}
+.uk-slidenav-position:hover .uk-slidenav {
+  display: block;
+}
+.uk-slidenav-position .uk-slidenav-previous {
+  left: 20px;
+}
+.uk-slidenav-position .uk-slidenav-next {
+  right: 20px;
+}
+/* ========================================================================
+   Component: Form file
+ ========================================================================== */
+.uk-form-file {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+/*
+ * 1. Required for Firefox
+ * 2. Required for the cursor
+ */
+.uk-form-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  /* 1 */
+  left: 0;
+  /* 2 */
+  font-size: 50px;
+}
+/* ========================================================================
+   Component: Form password
+ ========================================================================== */
+.uk-form-password {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.uk-form-password-toggle {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -6px;
+  font-size: 13px;
+  line-height: 13px;
+  color: #999999;
+}
+.uk-form-password-toggle:hover {
+  color: #999999;
+  text-decoration: none;
+}
+.uk-form-password > input {
+  padding-right: 50px !important;
+}
+/* ========================================================================
+   Component: Placeholder
+ ========================================================================== */
+.uk-placeholder {
+  margin-bottom: 15px;
+  padding: 20px;
+  border: 1px dashed #dddddd;
+  background: #fafafa;
+  color: #444444;
+}
+/*
+ * Add margin if adjacent element
+ */
+* + .uk-placeholder {
+  margin-top: 15px;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-placeholder > :last-child {
+  margin-bottom: 0;
+}
+/* Modifier: `uk-placeholder-large`
+ ========================================================================== */
+.uk-placeholder-large {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+/* ========================================================================
+   Component: Autocomplete
+ ========================================================================== */
+/*
+ * 1. Behave like form elements
+ * 2. Create position context for dropdowns
+ */
+.uk-autocomplete {
+  /* 1 */
+  display: inline-block;
+  vertical-align: middle;
+  /* 2 */
+  position: relative;
+}
+/* Nav modifier `uk-nav-autocomplete`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-autocomplete > li > a {
+  color: #444444;
+}
+/*
+ * Active
+ * 1. Remove default focus style
+ */
+.uk-nav-autocomplete > li.uk-active > a {
+  background: #00a8e6;
+  color: #ffffff;
+  /* 1 */
+  outline: none;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-autocomplete .uk-nav-header {
+  color: #999999;
+}
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-autocomplete .uk-nav-divider {
+  border-top: 1px solid #dddddd;
+}
+/* ========================================================================
+   Component: Datepicker
+ ========================================================================== */
+/*
+ * Reset dropdown width
+ */
+.uk-datepicker {
+  width: auto;
+}
+/* Sub-object: `uk-datepicker-nav`
+========================================================================== */
+.uk-datepicker-nav {
+  margin-bottom: 15px;
+  text-align: center;
+  line-height: 20px;
+}
+/*
+ * Micro clearfix
+ */
+.uk-datepicker-nav:before,
+.uk-datepicker-nav:after {
+  content: " ";
+  display: table;
+}
+.uk-datepicker-nav:after {
+  clear: both;
+}
+/*
+ * Previous and next navigation
+ */
+.uk-datepicker-nav a {
+  color: #444444;
+  text-decoration: none;
+}
+.uk-datepicker-nav a:hover {
+  color: #444444;
+}
+.uk-datepicker-previous {
+  float: left;
+}
+.uk-datepicker-next {
+  float: right;
+}
+.uk-datepicker-previous:after,
+.uk-datepicker-next:after {
+  width: 20px;
+  font-family: FontAwesome;
+}
+.uk-datepicker-previous:after {
+  content: "\f053";
+}
+.uk-datepicker-next:after {
+  content: "\f054";
+}
+/* Sub-object: `uk-datepicker-heading`
+========================================================================== */
+/* Sub-object: `uk-datepicker-table`
+========================================================================== */
+/* Block element behavior */
+.uk-datepicker-table {
+  width: 100%;
+}
+.uk-datepicker-table th,
+.uk-datepicker-table td {
+  padding: 2px;
+}
+.uk-datepicker-table th {
+  font-size: 12px;
+}
+/*
+ * Item
+ */
+.uk-datepicker-table a {
+  display: block;
+  width: 26px;
+  line-height: 24px;
+  text-align: center;
+  color: #444444;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+/*
+ * Sub-object: `uk-datepicker-table-muted`
+ */
+a.uk-datepicker-table-muted {
+  color: #999999;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-datepicker-table a:hover,
+.uk-datepicker-table a:focus {
+  background-color: #fafafa;
+  color: #444444;
+  /* 2 */
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.16);
+  text-shadow: 0 1px 0 #ffffff;
+}
+/* OnClick */
+.uk-datepicker-table a:active {
+  background-color: #eeeeee;
+  color: #444444;
+}
+/*
+ * Active
+ */
+.uk-datepicker-table a.uk-active {
+  background: #00a8e6;
+  color: #ffffff;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+/* ========================================================================
+   Component: Markdownarea
+ ========================================================================== */
+/* Sub-object `uk-markdownarea-navbar`
+ ========================================================================== */
+.uk-markdownarea-navbar {
+  background: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+/*
+ * Micro clearfix
+ */
+.uk-markdownarea-navbar:before,
+.uk-markdownarea-navbar:after {
+  content: " ";
+  display: table;
+}
+.uk-markdownarea-navbar:after {
+  clear: both;
+}
+/* Sub-object `uk-markdownarea-navbar-nav`
+ ========================================================================== */
+.uk-markdownarea-navbar-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  float: left;
+}
+.uk-markdownarea-navbar-nav > li {
+  float: left;
+}
+/*
+ * 1. Dimensions
+ * 2. Style
+ */
+.uk-markdownarea-navbar-nav > li > a {
+  display: block;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-decoration: none;
+  /* 1 */
+  height: 41px;
+  padding: 0 15px;
+  line-height: 40px;
+  /* 2 */
+  color: #444444;
+  font-size: 11px;
+  cursor: pointer;
+  margin-top: -1px;
+  margin-left: -1px;
+  border: 1px solid transparent;
+  border-bottom-width: 0;
+  text-shadow: 0 1px 0 #ffffff;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-markdownarea-navbar-nav > li:hover > a,
+.uk-markdownarea-navbar-nav > li > a:focus {
+  background-color: #fafafa;
+  color: #444444;
+  outline: none;
+  /* 2 */
+  position: relative;
+  z-index: 1;
+  border-left-color: rgba(0, 0, 0, 0.1);
+  border-right-color: rgba(0, 0, 0, 0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+/* OnClick */
+.uk-markdownarea-navbar-nav > li > a:active {
+  background-color: #eeeeee;
+  color: #444444;
+  border-left-color: rgba(0, 0, 0, 0.1);
+  border-right-color: rgba(0, 0, 0, 0.1);
+  border-top-color: rgba(0, 0, 0, 0.2);
+}
+/* Active */
+.uk-markdownarea-navbar-nav > li.uk-active > a {
+  background-color: #fafafa;
+  color: #444444;
+  border-left-color: rgba(0, 0, 0, 0.1);
+  border-right-color: rgba(0, 0, 0, 0.1);
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+/* Sub-object: `uk-markdownarea-navbar-flip`
+ ========================================================================== */
+.uk-markdownarea-navbar-flip {
+  float: right;
+}
+/* Sub-object for special buttons
+ ========================================================================== */
+[data-mode='split'] .uk-markdown-button-markdown,
+[data-mode='split'] .uk-markdown-button-preview {
+  display: none;
+}
+/* Sub-object `uk-markdownarea-content`
+ ========================================================================== */
+.uk-markdownarea-content {
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  background: #ffffff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+/*
+ * Micro clearfix
+ */
+.uk-markdownarea-content:before,
+.uk-markdownarea-content:after {
+  content: " ";
+  display: table;
+}
+.uk-markdownarea-content:after {
+  clear: both;
+}
+/* Modifier `uk-markdownarea-fullscreen`
+ ========================================================================== */
+.uk-markdownarea-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 990;
+}
+.uk-markdownarea-fullscreen .uk-markdownarea-content {
+  position: absolute;
+  top: 41px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.uk-markdownarea-fullscreen .uk-icon-expand:before {
+  content: "\f066";
+}
+/* Sub-objects `uk-markdownarea-code` and `uk-markdownarea-preview`
+ ========================================================================== */
+.uk-markdownarea-code,
+.uk-markdownarea-preview {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.uk-markdownarea-preview {
+  padding: 20px;
+  overflow-y: scroll;
+}
+/*
+ * Tab view
+ */
+[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-preview,
+[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-code {
+  display: none;
+}
+/*
+ * Split view
+ */
+[data-mode='split'] .uk-markdownarea-code,
+[data-mode='split'] .uk-markdownarea-preview {
+  float: left;
+  width: 50%;
+}
+[data-mode='split'] .uk-markdownarea-code {
+  border-right: 1px solid #eeeeee;
+}
+/* CodeMirror modifications
+ ========================================================================== */
+.uk-markdownarea .CodeMirror {
+  padding: 10px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+     * Apply same `border-radius` as `uk-markdownarea-navbar`
+     */
+.uk-markdownarea-navbar-nav:first-child > li:first-child > a {
+  border-top-left-radius: 4px;
+}
+/*
+     * Sub-modifier `uk-markdownarea-navbar-flip`
+     */
+/* Collapse border */
+.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav > li > a {
+  margin-left: 0;
+  margin-right: -1px;
+}
+/* Apply same `border-radius` as `uk-markdownarea-navbar` */
+.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:first-child > li:first-child > a {
+  border-top-left-radius: 0;
+}
+.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:last-child > li:last-child > a {
+  border-top-right-radius: 4px;
+}
+/*
+     * Sub-modifier `uk-markdownarea-fullscreen`
+     */
+.uk-markdownarea-fullscreen .uk-markdownarea-navbar {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+.uk-markdownarea-fullscreen .uk-markdownarea-content {
+  border: none;
+  border-radius: 0;
+}
+.uk-markdownarea-fullscreen .uk-markdownarea-navbar-nav > li > a {
+  border-radius: 0 !important;
+}
+/* ========================================================================
+   Component: Notify
+ ========================================================================== */
+/*
+ * Message container for positioning
+ */
+.uk-notify {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 980;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 350px;
+}
+/* Position modifiers
+========================================================================== */
+.uk-notify-top-right,
+.uk-notify-bottom-right {
+  left: auto;
+  right: 10px;
+}
+.uk-notify-top-center,
+.uk-notify-bottom-center {
+  left: 50%;
+  margin-left: -175px;
+}
+.uk-notify-bottom-left,
+.uk-notify-bottom-right,
+.uk-notify-bottom-center {
+  top: auto;
+  bottom: 10px;
+}
+/* Responsiveness
+========================================================================== */
+/* Phones portrait and smaller */
+@media (max-width: 479px) {
+  /*
+     * Fit in small screen
+     */
+  .uk-notify {
+    left: 10px;
+    right: 10px;
+    width: auto;
+    margin: 0;
+  }
+}
+/* Sub-object: `uk-notify-message`
+========================================================================== */
+.uk-notify-message {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 15px;
+  background: #444444;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
+  border: 1px solid #444444;
+  border-radius: 4px;
+}
+/* Close in notify
+ ========================================================================== */
+.uk-notify-message > .uk-close {
+  visibility: hidden;
+  float: right;
+}
+.uk-notify-message:hover > .uk-close {
+  visibility: visible;
+}
+/* Modifier: `uk-alert-info`
+ ========================================================================== */
+.uk-notify-message-primary {
+  background: #ebf7fd;
+  color: #2d7091;
+  border-color: rgba(45, 112, 145, 0.3);
+}
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+.uk-notify-message-success {
+  background: #f2fae3;
+  color: #659f13;
+  border-color: rgba(101, 159, 19, 0.3);
+}
+/* Modifier: `uk-notify-message-warning`
+ ========================================================================== */
+.uk-notify-message-warning {
+  background: #fffceb;
+  color: #e28327;
+  border-color: rgba(226, 131, 39, 0.3);
+}
+/* Modifier: `uk-notify-message-danger`
+ ========================================================================== */
+.uk-notify-message-danger {
+  background: #fff1f0;
+  color: #d85030;
+  border-color: rgba(216, 80, 48, 0.3);
+}
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
+/*
+ * 1. Create position context for dropdowns
+ * 2. Needed for `form` element
+ */
+.uk-search {
+  display: inline-block;
+  /* 1 */
+  position: relative;
+  /* 2 */
+  margin: 0;
+}
+/*
+ * Icon
+ */
+.uk-search:before {
+  content: "\f002";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-family: FontAwesome;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.2);
+}
+/* Sub-object `uk-search-field`
+ ========================================================================== */
+/*
+ * 1. Needed to reset iOS `input[type="search"]` appearance
+ */
+.uk-search-field {
+  width: 120px;
+  height: 30px;
+  padding: 0 30px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+  color: #444444;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  /* 1 */
+  border-radius: 0;
+}
+/*
+ * Needed to reset iOS `input[type="search"]` appearance
+ * Higher specificity to override appearance set by normalize.less
+ */
+input.uk-search-field {
+  -webkit-appearance: none;
+}
+/* Placeholder */
+.uk-search-field:-ms-input-placeholder {
+  color: #999999;
+}
+.uk-search-field::-moz-placeholder {
+  color: #999999;
+}
+.uk-search-field::-webkit-input-placeholder {
+  color: #999999;
+}
+/* Removes cancel button in IE10 */
+.uk-search-field::-ms-clear {
+  display: none;
+}
+/* Focus */
+.uk-search-field:focus {
+  outline: 0;
+}
+/* Focus + active */
+.uk-search-field:focus,
+.uk-active .uk-search-field {
+  width: 180px;
+}
+/* Sub-object `uk-search-close`
+ ========================================================================== */
+/*
+ * 1. Required for `button` elements
+ * 2. Needed for Safari
+ */
+.uk-search-close {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.2);
+  /* 1. */
+  padding: 0;
+  border: 0;
+  -webkit-appearance: none;
+  /* 2. */
+  background: transparent;
+}
+.uk-loading > .uk-search-close,
+.uk-active > .uk-search-close {
+  display: block;
+}
+/*
+ * Icon
+ */
+.uk-search-close:after {
+  display: block;
+  content: "\f00d";
+  font-family: FontAwesome;
+}
+/* Loading icon */
+.uk-loading > .uk-search-close:after {
+  content: "\f110";
+  -webkit-animation: uk-spin 2s infinite linear;
+  animation: uk-spin 2s infinite linear;
+}
+/* Dropdown modifier: `uk-dropdown-search`
+ ========================================================================== */
+.uk-dropdown-search {
+  width: 300px;
+  margin-top: 0;
+  background: #ffffff;
+  color: #444444;
+}
+.uk-open > .uk-dropdown-search {
+  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
+  animation: uk-slide-top-fixed 0.2s ease-in-out;
+}
+/*
+ * Dependency `uk-navbar-flip`
+ */
+.uk-navbar-flip .uk-dropdown-search {
+  margin-top: 12px;
+  margin-right: -16px;
+}
+/* Nav modifier `uk-nav-search`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-search > li > a {
+  color: #444444;
+}
+/*
+ * Active
+ * 1. Remove default focus style
+ */
+.uk-nav-search > li.uk-active > a {
+  background: #00a8e6;
+  color: #ffffff;
+  /* 1 */
+  outline: none;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-search .uk-nav-header {
+  color: #999999;
+}
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-search .uk-nav-divider {
+  border-top: 1px solid #dddddd;
+}
+/*
+ * Nested items
+ */
+.uk-nav-search ul a {
+  color: #0077dd;
+}
+.uk-nav-search ul a:hover {
+  color: #005599;
+}
+/* Search in offcanvas
+ ========================================================================== */
+.uk-offcanvas .uk-search {
+  display: block;
+  margin: 20px 15px;
+}
+.uk-offcanvas .uk-search:before {
+  color: #777777;
+}
+.uk-offcanvas .uk-search-field {
+  width: 100%;
+  border-color: rgba(0, 0, 0, 0);
+  background: #1a1a1a;
+  color: #cccccc;
+}
+.uk-offcanvas .uk-search-field:-ms-input-placeholder {
+  color: #777777;
+}
+.uk-offcanvas .uk-search-field::-moz-placeholder {
+  color: #777777;
+}
+.uk-offcanvas .uk-search-field::-webkit-input-placeholder {
+  color: #777777;
+}
+/* ========================================================================
+   Component: Sortable
+ ========================================================================== */
+.uk-sortable {
+  padding: 0;
+  list-style: none;
+}
+/* Sub-object `uk-sortable-list`
+ ========================================================================== */
+.uk-sortable-list {
+  margin: 0;
+  padding-left: 40px;
+  list-style: none;
+}
+/* Sub-modifier `uk-sortable-list-dragged`
+ ========================================================================== */
+.uk-sortable-list-dragged {
+  position: absolute;
+  z-index: 1050;
+  padding-left: 0;
+  pointer-events: none;
+}
+/* Sub-object `uk-sortable-item`
+ ========================================================================== */
+.uk-sortable-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  text-shadow: 0 1px 0 #ffffff;
+}
+/* Sub-object `uk-sortable-placeholder`
+ * The placeholder which marks the drop area
+ ========================================================================== */
+.uk-sortable-placeholder {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border: 1px dashed #dddddd;
+}
+/* Sub-object `uk-sortable-empty`
+ * The style of an empty list
+ ========================================================================== */
+.uk-sortable-empty {
+  min-height: 40px;
+}
+/* Sub-object `uk-sortable-handle`
+ ========================================================================== */
+.uk-sortable-handle {
+  display: inline-block;
+  font-size: 18px;
+  color: #dddddd;
+}
+/* Hover */
+.uk-sortable-handle:hover {
+  cursor: move;
+}
+/* Icon */
+.uk-sortable-handle:after {
+  content: "\f0c9";
+  font-family: FontAwesome;
+}
+/* Sub-object `uk-sortable-moving`
+ ========================================================================== */
+.uk-sortable-moving,
+.uk-sortable-moving * {
+  cursor: move;
+}
+/* Sub-object `[data-action='toggle']`
+ ========================================================================== */
+/* Hidden by default */
+[data-sortable-action='toggle'] {
+  display: inline-block;
+  color: #999999;
+  visibility: hidden;
+}
+/* Hover */
+[data-sortable-action='toggle']:hover {
+  color: #444444;
+  cursor: pointer;
+}
+/* Icon */
+[data-sortable-action='toggle']:after {
+  content: "\f147";
+  font-family: FontAwesome;
+}
+/*
+ * Show if nested
+ */
+.uk-parent > .uk-sortable-item [data-sortable-action='toggle'] {
+  visibility: visible;
+}
+/*
+ * Collapsed
+ */
+.uk-collapsed > .uk-sortable-item [data-sortable-action='toggle']:after {
+  content: "\f196";
+}
+.uk-collapsed .uk-sortable-list {
+  display: none;
+}
+/* ========================================================================
+   Component: Sticky
+ ========================================================================== */
+.uk-sticky {
+  z-index: 980;
+}
