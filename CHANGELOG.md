@@ -22,6 +22,8 @@
 
 **Documentation and repository**
 
+  - Refactored add-on structure
+  - Added docs and tests for new add-ons
   - Fixed form password add-on doc
 
 ### 2.4.0 (March 05, 2014)

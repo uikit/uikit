@@ -144,7 +144,7 @@
                 $.get('../../less/uikit-addons.less', {nc:Math.random()}).always(function(data, type){
 
                     if (type==="success") {
-                        lesscode.push('@import "../../less/uikit-addons.less";');
+                        //lesscode.push('@import "../../less/uikit-addons.less";');
                     }
 
                     compile();
