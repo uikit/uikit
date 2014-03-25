@@ -86,11 +86,13 @@ module.exports = function(grunt) {
 
                 if(fs.existsSync(theme.path+'/uikit-addons.less')) {
 
+                    var name = (theme.dir == 'default' && theme.name == 'default') ? 'uikit.addons' : 'uikit.'+theme.name+'.addons';
+
                     lessconf["addons-"+theme.name] = {options: { paths: ['src/less/addons'] }, files: {} };
-                    lessconf["addons-"+theme.name].files["dist/css/addons/uikit."+theme.name+".addons.css"] = [theme.path+'/uikit-addons.less'];
+                    lessconf["addons-"+theme.name].files["dist/css/addons/"+name+".css"] = [theme.path+'/uikit-addons.less'];
 
                     lessconf["addons-min-"+theme.name] = {options: { paths: ['src/less/addons'], cleancss: true }, files: {} };
-                    lessconf["addons-min-"+theme.name].files["dist/css/addons/uikit."+theme.name+".addons.min.css"] = [theme.path+'/uikit-addons.less'];
+                    lessconf["addons-min-"+theme.name].files["dist/css/addons/"+name+".min.css"] = [theme.path+'/uikit-addons.less'];
                 }
             });
 
