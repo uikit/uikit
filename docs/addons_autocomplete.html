@@ -14,7 +14,7 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/addons/autocomplete/autocomplete.js"></script>
+        <script src="../dist/js/addons/autocomplete.js"></script>
     </head>
 
     <body class="tm-background">
@@ -95,11 +95,11 @@
 
                             <h2>Ajax autocomplete</h2>
 
-                            <p>You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display autocomplete suggestions. Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your autocomplete list, which needs to be formatted in JSON (<a href="../vendor/autocomplete.json">Example</a>). This enables the Ajax and injects a dropdown displaying the autocomplete values. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
+                            <p>You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display autocomplete suggestions. Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your autocomplete list, which needs to be formatted in JSON (<a href="../src/tests/addons/_autocomplete.json">Example</a>). This enables the Ajax and injects a dropdown displaying the autocomplete values. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'../vendor/autocomplete.json'}">
+                            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'../src/tests/addons/_autocomplete.json'}">
                                 <input type="text">
                             </div>
 
@@ -119,7 +119,7 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'../vendor/autocomplete.json'}">
+                            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'../src/tests/addons/_autocomplete.json'}">
                                 <input type="text">
                                 <script type="text/autocomplete">
                                     <ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">
