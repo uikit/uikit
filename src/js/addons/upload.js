@@ -66,7 +66,7 @@
     };
 
     UploadDrop.defaults = {
-        'dragoverClass': 'uk-active'
+        'dragoverClass': 'uk-dragover'
     };
 
     UI["upload"] = { "select" : UploadSelect, "drop" : UploadDrop };

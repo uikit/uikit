@@ -44,21 +44,23 @@
                     <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
-                            <li class="uk-nav-header">Add-ons</li>
-                            <li><a href="addons_markdownarea.html">Markdown area</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li class="uk-nav-header">Navs</li>
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="addons_form-file.html">Form file</a></li>
+                            <li><a href="addons_form-password.html">Form password</a></li>
+                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li class="uk-nav-header">Common</li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
+                            <li><a href="addons_datepicker.html">Datepicker</a></li>
+                            <li><a href="addons_markdownarea.html">Markdown area</a></li>
+                            <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
+                            <li><a href="addons_sortable.html">Sortable</a></li>
+                            <li><a href="addons_sticky.html">Sticky</a></li>
+                            <li><a href="addons_timepicker.html">Timepicker</a></li>
+                            <li><a href="addons_upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -74,30 +76,31 @@
 
                             <h2>Usage</h2>
 
-                            <p>After you <a data-uikit-download>download UIkit</a>, you can find the add-ons in the the <code>/addons</code> folder. This is what the file structure looks like for the datepicker add-on.</p>
+                            <p>After you <a data-uikit-download>download UIkit</a>, you can find the add-ons in a seperate <code>/addons</code> folder inside the <code>/css</code> and <code>/js</code> folders. This is what the file structure looks like:</p>
 
-<pre><code>/addons/datepicker
-    &lt;!-- The datepicker add-on with the basic style --&gt;
-    datepicker.css
-    datepicker.min.css
+<pre><code>/css/addons
+    &lt;!-- Add-ons with the basic style --&gt;
+    uikit.addons.css
+    uikit.addons.min.css
 
-    &lt;!-- The datepicker add-on with Gradient style --&gt;
-    datepicker.gradient.css
-    datepicker.gradient.min.css
+    &lt;!-- Add-ons with the Gradient style --&gt;
+    uikit.gradient.addons.css
+    uikit.gradient.addons.min.css
 
-    &lt;!-- The datepicker add-on with Almost flat style --&gt;
-    datepicker.almost-flat.css
-    datepicker.almost-flat.min.css
+    &lt;!-- Add-ons with the Almost flat style --&gt;
+    uikit.almost-flat.addons.css
+    uikit.almost-flat.addons.min.css
     ...
 
-    &lt;!-- JavaScript and minified version --&gt;
+/js/addons
+    &lt;!-- JavaScript of each add-on and minified version --&gt;
+    autocomplete.js
+    autocomplete.min.js
     datepicker.js
     datepicker.min.js
+    ...</code></pre>
 
-/addons/form-file
-...</code></pre>
-
-                            <p>To use one of these add-ons, all you need to do is to add its JavaScript and CSS to the header of your document.</p>
+                            <p>To use one of these add-ons, all you need to do is to add the CSS and the add-on's JavaScript to the header of your document.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -108,9 +111,10 @@
         &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
         &lt;script src="jquery.js">&lt;/script&gt;
         &lt;script src="uikit.min.js">&lt;/script&gt;
+        &lt;!-- Add-ons CSS --&gt;
+        &lt;link rel="stylesheet" href="uikit.addons.css"&gt;
         &lt;!-- Datepicker add-on --&gt;
         &lt;script src="datepicker.js"&gt;&lt;/script&gt;
-        &lt;link rel="stylesheet" href="datepicker.css"&gt;
     &lt;/head&gt;
     &lt;body&gt;
     &lt;/body&gt;
