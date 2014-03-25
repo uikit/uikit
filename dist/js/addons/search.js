@@ -1,3 +1,5 @@
+/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+
 (function(addon) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -16,7 +18,7 @@
 
     var Search = function(element, options) {
 
-        var $element = $(element);
+        var $element = $(element), $this = this;
 
         if ($element.data("search")) return;
 
@@ -32,7 +34,11 @@
         });
 
         $element.on('autocomplete-select', function(e, data) {
-            if(data.url) location.href = data.url;
+            if (data.url) {
+              location.href = data.url;
+            } else if(data.moreresults) {
+              $this.autocomplete.input.closest('form').submit();
+            }
         });
 
         $element.data("search", this);
@@ -55,7 +61,7 @@
                                       {{/items}}\
                                       {{#msgMoreResults}}\
                                           <li class="uk-nav-divider uk-skip"></li>\
-                                          <li class="uk-search-moreresults"><a href="javascript:jQuery(this).closest(\'form\').submit();">{{msgMoreResults}}</a></li>\
+                                          <li class="uk-search-moreresults" data-moreresults="true"><a href="javascript:jQuery(this).closest(\'form\').submit();">{{msgMoreResults}}</a></li>\
                                       {{/msgMoreResults}}\
                                   {{/end}}\
                                   {{^items.length}}\
