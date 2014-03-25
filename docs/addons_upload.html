@@ -56,6 +56,10 @@
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-active"><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="addons_dotnav.html">Dotnav</a></li>
+                            <li><a href="addons_slidenav.html">Slidenav</a></li>
+                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
+                            <li><a href="addons_search.html">Search</a></li>
                         </ul>
 
                     </div>
@@ -69,13 +73,10 @@
 
                             <h2>Usage</h2>
 
-                            <p>
-                                This pure JavaScript add-on utilizes the latest XMLHttpRequest Level 2 specification, which provides the ability of uploading files via ajax including tracking of the upload progress.
-                                It does not, however, handle your file uploads on the server. The add-on provides two ways of uploading files: <em>select</em> and <em>drop</em>.
-                                While the <em>select</em> request can only be applied to <code>&lt;input type=&quot;file&quot;&gt;</code> elements, you can basically use any element with <em>drop</em>.
-                            </p>
+                            <p>This JavaScript add-on utilizes the latest XMLHttpRequest Level 2 specification and provides the ability of uploading files via ajax including tracking of the upload progress. The add-on provides two ways of uploading files: <em>select</em> and <em>drop</em>.
+                            While the <em>select</em> request can only be applied to <code>&lt;input type=&quot;file&quot;&gt;</code> elements, you can basically use any element with <em>drop</em>, which enables you to simply drag and drop files from your desktop into the specified element to upload them. Note that this add-on does not handle your file uploads on the server.</p>
 
-                            <p>It therefore makes sense to use the upload add-on with the <a href="addons_placeholder.html">Placeholder</a> or <a href="addons_form-file.html">Form file</a> add-ons. You need to include the <code>placeholder.css</code> and / or <code>form-file.css</code> files in the head of your document, as well as <code>upload.js</code>.</p>
+                            <p>The Upload add-on always needs to be implemented individually according to your requirements. In our example case we used the <a href="addons_placeholder.html">Placeholder</a> and the <a href="addons_form-file.html">Form file</a> add-ons, applying both the <em>drop</em> and <em>select</em> requests. Additionally we used the <a href="progress.html">Progress component</a> to illustrate the uploading progress.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -142,7 +143,7 @@
                             <h3>JavaScript</h3>
 
                             <p>
-                                To create <code>select</code> and <code>drop</code> upload listeners you need to instantiate each upload class with the target element and options which defines callbacks and useful settings.
+                                To create <em>select</em> and <em>drop</em> upload listeners you need to instantiate each upload class with the target element and options, which defines callbacks and useful settings.
                             </p>
 
 <pre><code>&lt;script&gt;

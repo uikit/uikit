@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Markdown area add-on - UIkit documentation</title>
+        <title>Dotnav add-on - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,14 +14,7 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <link rel="stylesheet" href="../vendor/codemirror/lib/codemirror.css">
-        <script src="../vendor/codemirror/lib/codemirror.js"></script>
-        <script src="../vendor/codemirror/mode/markdown/markdown.js"></script>
-        <script src="../vendor/codemirror/addon/mode/overlay.js"></script>
-        <script src="../vendor/codemirror/mode/xml/xml.js"></script>
-        <script src="../vendor/codemirror/mode/gfm/gfm.js"></script>
-        <script src="../vendor/marked.js"></script>
-        <script src="../dist/js/addons/markdownarea.js"></script>
+        <link rel="stylesheet" href="../dist/addons/slidenav/slidenav.css">
     </head>
 
     <body class="tm-background">
@@ -53,7 +46,7 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Add-ons</li>
-                            <li class="uk-active"><a href="addons_markdownarea.html">Markdown area</a></li>
+                            <li><a href="addons_markdownarea.html">Markdown area</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
@@ -64,7 +57,7 @@
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li><a href="addons_upload.html">Upload</a></li>
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
+                            <li class="uk-active"><a href="addons_slidenav.html">Slidenav</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                         </ul>
@@ -74,144 +67,48 @@
 
                         <article class="uk-article">
 
-                            <h1>Markdown area</h1>
+                            <h1>Slidenav</h1>
 
-                            <p class="uk-article-lead">Create a rich markdown editor with an immediate preview and support for HTML syntax highlighting.</p>
-
-                            <p>The Markdown area allows you to write in Markdown and HTML while it generates a real-time preview. It includes a toolbar that helps you to change text appearences and add links, pictures, blockquotes and lists without having to write code. The editor provides syntax highlighting for both Markdown and HTML and you can even toggle to fullscreen mode, so that you can work undisturbed on your content.</p>
+                            <p class="uk-article-lead">Defines navigation with previous and buttons to browse through slideshows.</p>
 
                             <h2>Usage</h2>
 
-                            <p>To apply this add-on, you firstly need to include the necessary <a href="http://codemirror.net/">CodeMirror</a> and <a href="https://github.com/chjj/marked">marked</a> dependencies. To do so, just add the appropriate script to the header of your project.</p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;&lt;/title&gt;
-        &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-        &lt;script src="jquery.js">&lt;/script&gt;
-        &lt;script src="uikit.min.js">&lt;/script&gt;
-
-        &lt;!-- Codemirror and marked dependencies --&gt;
-        &lt;link rel="stylesheet" href="codemirror/lib/codemirror.css"&gt;
-        &lt;script src="codemirror/lib/codemirror.js"&gt;&lt;/script&gt;
-        &lt;script src="codemirror/mode/markdown/markdown.js"&gt;&lt;/script&gt;
-        &lt;script src="codemirror/addon/mode/overlay.js"&gt;&lt;/script&gt;
-        &lt;script src="codemirror/mode/xml/xml.js"&gt;&lt;/script&gt;
-        &lt;script src="codemirror/mode/gfm/gfm.js"&gt;&lt;/script&gt;
-        &lt;script src="marked.js"&gt;&lt;/script&gt;
-
-        &lt;!-- Markdown Area JavaScript and CSS --&gt;
-        &lt;script src="markdownarea.js"&gt;&lt;/script&gt;
-        &lt;link rel="stylesheet" href="markdownarea.css"&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-
-                            <p>Afterwards, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
+                            <p>To create a navigation with previous and next buttons, just add the <code>.uk-slidenav</code> class to <code>&lt;a&gt;</code> elements. Add the <code>.uk-slidenav-previous</code> or <code>.uk-slidenav-next</code> class to style the nav items as previous or next buttons. This add-on is perfect to navigate through slideshows.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<textarea data-uk-markdownarea="{maxsplitsize:600}">#Heading
-
-Lorem ipsum dolor sit **amet**, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. [This is a link](#)
-
-* Item
-* Item
-* Item
-
-## Heading
-
-Ut enim ad *minim* veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-<a href="#">HTML syntax highlightning</a>
-
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+                            <p>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next"></a>
+                            </p>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;textarea data-uk-markdownarea&gt;...&lt;/textarea&gt;</code></pre>
+<pre><code>&lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+&lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2>Tab mode</h2>
+                            <h2>Position slidenav</h2>
 
-                            <p>You can also switch between Markdown and Preview mode. Just add the <code>data-uk-markdownarea="{mode:'tab'}</code> attribute.</p>
+                            <p>To style the Slidenav when it's positioned inside a slider or image, just wrap the nav and slider inside a container element and add the <code>.uk-slidenav-position</code> class. That way it will be centered vertically and the previous and next buttons will be aligned to the left and right.</p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+                            <div class="uk-slidenav-position">
 
-<textarea data-uk-markdownarea="{mode:'tab'}">#Heading
+                                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
 
-Lorem ipsum dolor sit **amet**, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. [This is a link](#)
+                                <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next"></a>
 
-* Item
-* Item
-* Item
-
-## Heading
-
-Ut enim ad *minim* veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-<a href="#">HTML syntax highlightning</a>
-
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;textarea data-uk-markdownarea="{mode:'tab'}"&gt;...&lt;/textarea&gt;</code></pre>
-
-
-                            <hr class="uk-article-divider">
-
-                            <h2>JavaScript options</h2>
-
-                            <p>This is an example of how to set options via attribute:</p>
-
-                            <pre><code>data-uk-markdownarea=&quot;{mode:'split', maxsplitsize:600}&quot;</code></pre>
-
-                            <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Option</th>
-                                        <th>Possible value</th>
-                                        <th>Default</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>mode</code></td>
-                                        <td>'split', 'tab'</td>
-                                        <td>'split'</td>
-                                        <td>View mode</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>toolbar</code></td>
-                                        <td>Array</td>
-                                        <td>[ "bold", "italic", "strike", "link", "picture", ... ]</td>
-                                        <td>Button list to appear in the toolbar</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>maxsplitsize</code></td>
-                                        <td>integer</td>
-                                        <td>1000</td>
-                                        <td>Min. browser width when to switch to responsive tab mode when in split mode</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>lblPreview</code></td>
-                                        <td>any string</td>
-                                        <td>'Preview'</td>
-                                        <td>Label string for preview mode</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>lblCodeview</code></td>
-                                        <td>any string</td>
-                                        <td>'Markdown'</td>
-                                        <td>Label string for code mode</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+<pre><code>&lt;div class="uk-slidenav-position"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
 
                         </article>
 
@@ -330,6 +227,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
+                            <li><a href="addons_placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                 </ul>
