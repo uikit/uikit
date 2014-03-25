@@ -31,9 +31,10 @@
 
     var UploadDrop = function(element, options) {
 
-        var $this    = this,
-            $element = $(element),
-            options  = $.extend({}, xhrupload.defaults, UploadDrop.defaults, options);
+        var $this      = this,
+            $element   = $(element),
+            options    = $.extend({}, xhrupload.defaults, UploadDrop.defaults, options),
+            hasdragCls = false;
 
         if ($element.data("uploadDrop")) return;
 
@@ -52,14 +53,19 @@
         }).on("dragenter", function(e){
             e.stopPropagation();
             e.preventDefault();
-            $element.addClass(options.dragoverClass);
         }).on("dragover", function(e){
             e.stopPropagation();
             e.preventDefault();
+
+            if (!hasdragCls) {
+                $element.addClass(options.dragoverClass);
+                hasdragCls = true;
+            }
         }).on("dragleave", function(e){
             e.stopPropagation();
             e.preventDefault();
             $element.removeClass(options.dragoverClass);
+            hasdragCls = false;
         });
 
         $element.data("uploadDrop", this);
