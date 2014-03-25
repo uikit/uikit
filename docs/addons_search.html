@@ -121,11 +121,11 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2>Ajax search results</h2>
+                            <h2>JSON search results</h2>
 
-                            <p>You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display search results. Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your search results, which need to be formatted in JSON (<a href="../src/tests/addons/_searchautocomplete.json">Example</a>). This enables the Ajax search and injects a dropdown with the <code>.uk-dropdown-search</code> class displaying the search results. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
+                            <p>Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your search results, which need to be formatted in JSON (<a href="../src/tests/addons/_searchautocomplete.json">Example</a>). You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display search results. A dropdown from the <a href="dropdown.html">Dropdown component</a> is injected to display the search results. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
 
-                            <p><span class="uk-badge">Note</span> The Ajax search results are based on the <a href="addons_autocomplete.html">Autocomplete component</a> and require its JavaScript.</p>
+                            <p><span class="uk-badge">Note</span> This is based on the <a href="addons_autocomplete.html">Autocomplete component</a> and require its JavaScript.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -137,26 +137,7 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
-    &lt;input class="uk-search-field" type="search" placeholder=""&gt;
-    &lt;button class="uk-search-close" type="reset"&gt;&lt;/button&gt;
-&lt;/form&gt;</code></pre>
 
-                            <hr class="uk-article-divider">
-
-                            <h2>Search, dropdown and nav</h2>
-
-                            <p>You can use dropdowns from the <a href="dropdown.html">Dropdown component</a> to display search results. The search JavaScript injects a dropdown with the <code>.uk-dropdown-search</code> class. To create a nav showing the search results, add the <code>.uk-nav-search</code> class to the nav.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
-                                <input class="uk-search-field" type="search" placeholder="search...">
-                                <button class="uk-search-close" type="reset"></button>
-                            </form>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
     &lt;input class="uk-search-field" type="search" placeholder=""&gt;
     &lt;button class="uk-search-close" type="reset"&gt;&lt;/button&gt;
 
@@ -164,6 +145,7 @@
     &lt;div class="uk-dropdown uk-dropdown-search"&gt;
         &lt;ul class="uk-nav uk-nav-search"&gt;...&lt;/ul&gt;
     &lt;/div&gt;
+
 &lt;/form&gt;</code></pre>
 
                             <hr class="uk-article-divider">
