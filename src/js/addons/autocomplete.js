@@ -197,6 +197,8 @@
 
                         this.options.source.apply(this, [release]);
 
+                        break;
+
                     case 'object':
 
                         if(source.length) {
