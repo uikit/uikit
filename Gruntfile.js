@@ -249,17 +249,20 @@ module.exports = function(grunt) {
     grunt.registerTask('sublime', 'Building Sublime Text Package', function() {
         // generates a python list (returns string representation)
         var pythonList = function(classes) {
-            var resultStr = "";
-            for (var i=0; i<classes.length; i++) {
+
+            var result = [];
+
+            classes.forEach(function(cls) {
                 // wrap class name in double quotes, add comma (except for last element)
-                resultStr += "\"" + classes[i] + "\"" + (i !== classes.length-1 ? ", " : "");
+                result.push(['"', cls, '"', (i !== classes.length-1 ? ", " : "")].join(''));
 
                 // break lines every n elements
                 if ((i !== 0) && (i%20 === 0)) {
-                    resultStr += "\n    ";
+                    result.push("\n    ");
                 }
-            }
-            return "[" + resultStr + "]";
+            });
+
+            return "[" + result.join("") + "]";
         };
 
         // css core
