@@ -14,8 +14,8 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/addons/autocomplete/autocomplete.js"></script>
-        <script src="../dist/addons/search/search.js"></script>
+        <script src="../dist/js/addons/autocomplete.js"></script>
+        <script src="../dist/js/addons/search.js"></script>
     </head>
 
     <body class="tm-background">
@@ -123,11 +123,11 @@
 
                             <h2>Ajax search results</h2>
 
-                            <p>You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display search results. Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your search results, which need to be formatted in JSON (<a href="../vendor/searchresults.json">Example</a>). This enables the Ajax search and injects a dropdown with the <code>.uk-dropdown-search</code> class displaying the search results. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
+                            <p>You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display search results. Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your search results, which need to be formatted in JSON (<a href="../src/tests/addons/_searchautocomplete.json">Example</a>). This enables the Ajax search and injects a dropdown with the <code>.uk-dropdown-search</code> class displaying the search results. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
+                            <form class="uk-search" data-uk-search="{source:'../src/tests/addons/_searchautocomplete.json'}">
                                 <input class="uk-search-field" type="search" placeholder="search...">
                                 <button class="uk-search-close" type="reset"></button>
                             </form>
@@ -151,7 +151,7 @@
 
                                 <div class="uk-navbar-flip">
                                     <div class="uk-navbar-content">
-                                        <form class="uk-search" data-uk-search="{flipDropdown:true, source:'../vendor/searchresults.json'}">
+                                        <form class="uk-search" data-uk-search="{flipDropdown:true, source:'../src/tests/addons/_searchautocomplete.json'}">
                                             <input class="uk-search-field" type="search" placeholder="search...">
                                             <button class="uk-search-close" type="reset"></button>
                                         </form>
