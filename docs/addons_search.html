@@ -143,6 +143,31 @@
 
                             <hr class="uk-article-divider">
 
+                            <h2>Search, dropdown and nav</h2>
+
+                            <p>You can use dropdowns from the <a href="dropdown.html">Dropdown component</a> to display search results. The search JavaScript injects a dropdown with the <code>.uk-dropdown-search</code> class. To create a nav showing the search results, add the <code>.uk-nav-search</code> class to the nav.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
+                                <input class="uk-search-field" type="search" placeholder="search...">
+                                <button class="uk-search-close" type="reset"></button>
+                            </form>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
+    &lt;input class="uk-search-field" type="search" placeholder=""&gt;
+    &lt;button class="uk-search-close" type="reset"&gt;&lt;/button&gt;
+
+    &lt;!-- This is the dropdown, which is injected through JavaScript --&gt;
+    &lt;div class="uk-dropdown uk-dropdown-search"&gt;
+        &lt;ul class="uk-nav uk-nav-search"&gt;...&lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
                             <h2>Search in navbars</h2>
 
                             <p>A search can be used inside a Navbar from the <a href="navbar.html">Navbar component</a>.</p>
@@ -173,6 +198,38 @@
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/nav&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Search in off-canvas</h2>
+
+                            <p>A search can also be placed inside the off-canvas bar.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-6'}">Open</button>
+                            <div id="offcanvas-6" class="uk-offcanvas">
+                                <div class="uk-offcanvas-bar">
+                                    <form class="uk-search">
+                                        <input class="uk-search-field" type="search" placeholder="search...">
+                                        <button class="uk-search-close" type="reset"></button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the button toggling the off-canvas sidebar --&gt;
+&lt;button class="uk-button" data-uk-offcanvas="{target:'#my-id'}"&gt;...&lt;/button&gt;
+
+&lt;!-- This is the off-canvas sidebar --&gt;
+&lt;div id="my-id" class="uk-offcanvas"&gt;
+    &lt;div class="uk-offcanvas-bar"&gt;
+        &lt;form class="uk-search"&gt;
+        ...
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                         </article>
 
