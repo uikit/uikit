@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Datepicker add-on - UIkit documentation</title>
+        <title>Dotnav add-on - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +14,7 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/addons/datepicker/datepicker.js"></script>
-        <link rel="stylesheet" href="../dist/addons/datepicker/datepicker.gradient.css">
+        <link rel="stylesheet" href="../dist/addons/slidenav/slidenav.css">
     </head>
 
     <body class="tm-background">
@@ -49,7 +48,7 @@
                             <li class="uk-nav-header">Add-ons</li>
                             <li><a href="addons_markdownarea.html">Markdown area</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li class="uk-active"><a href="addons_datepicker.html">Datepicker</a></li>
+                            <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
                             <li><a href="addons_sticky.html">Sticky</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
@@ -58,7 +57,7 @@
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li><a href="addons_upload.html">Upload</a></li>
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
+                            <li class="uk-active"><a href="addons_slidenav.html">Slidenav</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                         </ul>
@@ -68,70 +67,48 @@
 
                         <article class="uk-article">
 
-                            <h1>Datepicker</h1>
+                            <h1>Slidenav</h1>
 
-                            <p class="uk-article-lead">Create a toggleable dropdown with an datepicker.</p>
+                            <p class="uk-article-lead">Defines navigation with previous and buttons to browse through slideshows.</p>
 
                             <h2>Usage</h2>
 
-                            <p>To create a datepicker, just add the <code>data-uk-datepicker</code> attribute to an <code>&lt;input&gt;</code> element. You also have the possibility of customizing the date format. Just add the <em>format</em> option to the <code>data-uk-datepicker</code> attribute.</p>
+                            <p>To create a navigation with previous and next buttons, just add the <code>.uk-slidenav</code> class to <code>&lt;a&gt;</code> elements. Add the <code>.uk-slidenav-previous</code> or <code>.uk-slidenav-next</code> class to style the nav items as previous or next buttons. This add-on is perfect to navigate through slideshows.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <form class="uk-form">
-                                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                            </form>
+                            <p>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next"></a>
+                            </p>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;form class="uk-form"&gt;
-    &lt;input type="" data-uk-datepicker="{format:'DD.MM.YYYY'}"&gt;
-&lt;/form&gt;</code></pre>
+<pre><code>&lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+&lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2>JavaScript options</h2>
+                            <h2>Position slidenav</h2>
 
-                            <p>This is an example of how to set options via attribute:</p>
+                            <p>To style the Slidenav when it's positioned inside a slider or image, just wrap the nav and slider inside a container element and add the <code>.uk-slidenav-position</code> class. That way it will be centered vertically and the previous and next buttons will be aligned to the left and right.</p>
 
-                            <pre><code>data-uk-datepicker=&quot;{weekstart:0, format:'DD.MM.YYYY'}&quot;</code></pre>
+                            <div class="uk-slidenav-position">
 
-                            <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Option</th>
-                                        <th>Possible value</th>
-                                        <th>Default</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>weekstart</code></td>
-                                        <td>integer (0..6)</td>
-                                        <td>1</td>
-                                        <td>Start of the week</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>i18n</code></td>
-                                        <td>JSON object</td>
-                                        <td>{ months:['January',...], weekdays:['Sun',..,'Sat'] }</td>
-                                        <td>Language string definitions</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>format</code></td>
-                                        <td>any combination of DD, MM and YY</td>
-                                        <td>'DD.MM.YYYY'</td>
-                                        <td>Date format string</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>offsettop</code></td>
-                                        <td>integer</td>
-                                        <td>5</td>
-                                        <td>Offset to the input value</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+
+                                <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next"></a>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-slidenav-position"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
 
                         </article>
 
@@ -250,6 +227,7 @@
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
+                            <li><a href="addons_placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                 </ul>

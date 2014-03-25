@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Datepicker add-on - UIkit documentation</title>
+        <title>Search add-on - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +14,10 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/addons/datepicker/datepicker.js"></script>
-        <link rel="stylesheet" href="../dist/addons/datepicker/datepicker.gradient.css">
+        <script src="../dist/addons/autocomplete/autocomplete.js"></script>
+        <script src="../dist/addons/search/search.js"></script>
+        <link rel="stylesheet" href="../dist/addons/autocomplete/autocomplete.min.css">
+        <link rel="stylesheet" href="../dist/addons/search/search.min.css">
     </head>
 
     <body class="tm-background">
@@ -49,7 +51,7 @@
                             <li class="uk-nav-header">Add-ons</li>
                             <li><a href="addons_markdownarea.html">Markdown area</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li class="uk-active"><a href="addons_datepicker.html">Datepicker</a></li>
+                            <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
                             <li><a href="addons_sticky.html">Sticky</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
@@ -58,9 +60,9 @@
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li><a href="addons_upload.html">Upload</a></li>
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
+                            <li><a href="addons_Slidenav.html">Slidenav</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
+                            <li class="uk-active"><a href="addons_search.html">Search</a></li>
                         </ul>
 
                     </div>
@@ -68,70 +70,107 @@
 
                         <article class="uk-article">
 
-                            <h1>Datepicker</h1>
+                            <h1 class="uk-article-title">Search</h1>
 
-                            <p class="uk-article-lead">Create a toggleable dropdown with an datepicker.</p>
+                            <p class="uk-article-lead"></p>
+
+                            <p class="uk-article-lead">Easily create a nicely looking search.</p>
 
                             <h2>Usage</h2>
 
-                            <p>To create a datepicker, just add the <code>data-uk-datepicker</code> attribute to an <code>&lt;input&gt;</code> element. You also have the possibility of customizing the date format. Just add the <em>format</em> option to the <code>data-uk-datepicker</code> attribute.</p>
+                            <p>The Search add-on, which requires the <a href="addons_autocomplete.html">Autocomplete add-on</a>, consists of the search field itself and a close button.</p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <form class="uk-form">
-                                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                            </form>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;form class="uk-form"&gt;
-    &lt;input type="" data-uk-datepicker="{format:'DD.MM.YYYY'}"&gt;
-&lt;/form&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h2>JavaScript options</h2>
-
-                            <p>This is an example of how to set options via attribute:</p>
-
-                            <pre><code>data-uk-datepicker=&quot;{weekstart:0, format:'DD.MM.YYYY'}&quot;</code></pre>
-
-                            <table class="uk-table uk-table-striped">
+                            <table class="uk-table">
                                 <thead>
                                     <tr>
-                                        <th>Option</th>
-                                        <th>Possible value</th>
-                                        <th>Default</th>
+                                        <th>Class</th>
                                         <th>Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><code>weekstart</code></td>
-                                        <td>integer (0..6)</td>
-                                        <td>1</td>
-                                        <td>Start of the week</td>
+                                        <td><code>.uk-search</code></td>
+                                        <td>Add this class to a <code>&lt;form&gt;</code> element to define the Search component.</td>
                                     </tr>
                                     <tr>
-                                        <td><code>i18n</code></td>
-                                        <td>JSON object</td>
-                                        <td>{ months:['January',...], weekdays:['Sun',..,'Sat'] }</td>
-                                        <td>Language string definitions</td>
+                                        <td><code>.uk-search-field</code></td>
+                                        <td>Add this class to an <code>&lt;input&gt;</code> element to create the search field.</td>
                                     </tr>
                                     <tr>
-                                        <td><code>format</code></td>
-                                        <td>any combination of DD, MM and YY</td>
-                                        <td>'DD.MM.YYYY'</td>
-                                        <td>Date format string</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>offsettop</code></td>
-                                        <td>integer</td>
-                                        <td>5</td>
-                                        <td>Offset to the input value</td>
+                                        <td><code>.uk-search-close</code></td>
+                                        <td>Add this class to a <code>&lt;button&gt;</code> element to create a close button, resetting the search input.</td>
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <p>To enable the necessary JavaScript for the search, just add the <code>data-uk-search</code> attribute.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <form class="uk-search" data-uk-search>
+                                <input class="uk-search-field" type="search" placeholder="search...">
+                                <button class="uk-search-close" type="reset"></button>
+                            </form>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;form class="uk-search" data-uk-search&gt;
+    &lt;input class="uk-search-field" type="search" placeholder=""&gt;
+    &lt;button class="uk-search-close" type="reset"&gt;&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Ajax search results</h2>
+
+                            <p>You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display search results. Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your search results, which need to be formatted in JSON (<a href="../vendor/searchresults.json">Example</a>). This enables the Ajax search and injects a dropdown with the <code>.uk-dropdown-search</code> class displaying the search results. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <form class="uk-search" data-uk-search="{source:'../vendor/searchresults.json'}">
+                                <input class="uk-search-field" type="search" placeholder="search...">
+                                <button class="uk-search-close" type="reset"></button>
+                            </form>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
+    &lt;input class="uk-search-field" type="search" placeholder=""&gt;
+    &lt;button class="uk-search-close" type="reset"&gt;&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Search in navbars</h2>
+
+                            <p>A search can be used inside a Navbar from the <a href="navbar.html">Navbar component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <nav class="uk-navbar">
+
+                                <div class="uk-navbar-flip">
+                                    <div class="uk-navbar-content">
+                                        <form class="uk-search" data-uk-search="{flipDropdown:true, source:'../vendor/searchresults.json'}">
+                                            <input class="uk-search-field" type="search" placeholder="search...">
+                                            <button class="uk-search-close" type="reset"></button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </nav>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;nav class="uk-navbar"&gt;
+    &lt;div class="uk-navbar-flip"&gt;
+        &lt;div class="uk-navbar-content"&gt;
+            &lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
+            ...
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
 
                         </article>
 
@@ -213,7 +252,7 @@
                             <li><a href="form.html">Form</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
                             <li><a href="button.html">Button</a></li>
                             <li><a href="icon.html">Icon</a></li>
@@ -240,7 +279,7 @@
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#">Add-ons</a>
+                    <li class="uk-parent"><a href="#">Add-ons</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_markdownarea.html">Markdown area</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
