@@ -29,7 +29,7 @@
                 var $target = $(e.target);
 
                 if (!$target.parents(".uk-dropdown").length) {
-                    
+
                     if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
                         e.preventDefault();
                     }
@@ -70,6 +70,20 @@
                     if (active && active[0] == $this.element[0]) active = false;
 
                 }, $this.options.remaintime);
+
+            }).on("click", function(e){
+
+                var $target = $(e.target);
+
+                if ($this.remainIdle) {
+                    clearTimeout($this.remainIdle);
+                }
+
+                if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                    e.preventDefault();
+                }
+
+                $this.show();
             });
         }
 
