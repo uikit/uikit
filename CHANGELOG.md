@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed cursor issue if form file content is too large
+
 ### 2.5.0 (March 25, 2014)
 
   - IMPORTANT: Moved search component to add-ons 
