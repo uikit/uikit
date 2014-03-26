@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange';
+    var win = $(window), event = 'resize orientationchange', grids = [];
 
     var GridMatchHeight = function(element, options) {
 
@@ -38,6 +38,8 @@
         });
 
         this.element.data("gridMatchHeight", this);
+
+        grids.push(this);
     };
 
     $.extend(GridMatchHeight.prototype, {
@@ -153,6 +155,12 @@
             if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
                 obj = new GridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
             }
+        });
+    });
+
+    $(document).on("uk-check-display", function(e) {
+        grids.forEach(function(item) {
+            if(item.element.is(":visible")) item.match();
         });
     });
 

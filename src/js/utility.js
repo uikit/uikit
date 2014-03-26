@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange';
+    var win = $(window), event = 'resize orientationchange', stacks = [];
 
     var StackMargin = function(element, options) {
 
@@ -35,6 +35,8 @@
         });
 
         this.element.data("stackMargin", this);
+
+        stacks.push(this);
     };
 
     $.extend(StackMargin.prototype, {
@@ -96,5 +98,11 @@
         });
     });
 
+
+    $(document).on("uk-check-display", function(e) {
+        stacks.forEach(function(item) {
+            if(item.element.is(":visible")) item.process();
+        });
+    });
 
 })(jQuery, jQuery.UIkit);

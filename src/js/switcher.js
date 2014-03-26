@@ -54,6 +54,7 @@
             }
 
             this.element.trigger("uk.switcher.show", [active]);
+            $(document).trigger("uk-check-display");
         }
 
     });

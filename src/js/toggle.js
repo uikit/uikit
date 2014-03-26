@@ -24,6 +24,10 @@
             if(!this.totoggle.length) return;
 
             this.totoggle.toggleClass(this.options.cls);
+
+            if(this.options.cls == 'uk-hidden') {
+                $(document).trigger("uk-check-display");
+            }
         }
     });
 
