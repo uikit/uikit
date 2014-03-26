@@ -52,7 +52,7 @@
                                       {{~items}}\
                                       <li data-url="{{!$item.url}}">\
                                           <a href="{{!$item.url}}">\
-                                              {{$item.title}}\
+                                              {{{$item.title}}}\
                                               {{#$item.text}}<div>{{{$item.text}}}</div>{{/$item.text}}\
                                           </a>\
                                       </li>\
