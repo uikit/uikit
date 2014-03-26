@@ -3,10 +3,11 @@
 ### WIP
 
   - Fixed cursor issue if form file content is too large
+  - Fixed modal dialog padding issue, when body and modal have a scrollbar
 
 ### 2.5.0 (March 25, 2014)
 
-  - IMPORTANT: Moved search component to add-ons 
+  - IMPORTANT: Moved search component to add-ons
   - IMPORTANT: Removed form-file JavaScript
   - Added placeholder add-on
   - Added dotnav add-on
