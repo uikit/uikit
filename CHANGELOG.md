@@ -4,6 +4,9 @@
 
   - Fixed cursor issue if form file content is too large
   - Fixed modal dialog padding issue, when body and modal have a scrollbar
+  - Allow html markup in titles (search add-on)
+  - Allow click for dropdown in hover mode
+  - Added uk-check-display event
 
 ### 2.5.0 (March 25, 2014)
 
