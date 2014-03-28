@@ -160,7 +160,7 @@
                                     "replace": function(strwith){
                                         var src   = this.area.editor.getLine(this.line),
                                             start = src.indexOf(this.found[0]);
-                                            end   = this.found[0].length;
+                                            end   = start + this.found[0].length;
 
                                         this.area.editor.replaceRange(strwith, {"line": this.line, "ch":start}, {"line": this.line, "ch":end} );
                                     }
