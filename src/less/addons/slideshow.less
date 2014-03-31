@@ -63,49 +63,117 @@
     background-position: @slideshow-image-horizontal-position @slideshow-image-vertical-position;
     background-size: cover;
     background-repeat: no-repeat;
+    overflow: hidden;
+    opacity: 0;
 }
 
 /* 4 */
 .uk-slideshow > ul > li > img { visibility: hidden; }
 
 /* Active */
-.uk-slideshow > ul > li:uk.active { z-index: 10; }
+.uk-slideshow .uk-active { opacity: 1; }
+
+/*****************************************/
+/* Fade */
+/*****************************************/
+
+.fxFade .navInNext,
+.fxFade .navInPrev {
+    opacity: 1;
+    -webkit-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+}
+
+.fxFade .navOutNext,
+.fxFade .navOutPrev { opacity: 0; }
 
 
 /*****************************************/
-/* Side Swing */
+/* Press away */
 /*****************************************/
 
-.fxSideSwing .navOutNext {
-    -webkit-animation: slideOutScaleRight 1.2s forwards;
-    animation: slideOutScaleRight 1.2s forwards;
-    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
-    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
-    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+.fxPressAway .navOutNext {
+    -webkit-animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.fxSideSwing .navInNext {
+.fxPressAway .navInNext {
     opacity: 1;
-    -webkit-animation: slideInFromLeft 1.2s forwards;
-    animation: slideInFromLeft 1.2s forwards;
-    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
-    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
-    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+    -webkit-animation: slideInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.fxSideSwing .navOutPrev {
-    -webkit-animation: slideOutScaleLeft 1.2s forwards;
-    animation: slideOutScaleLeft 1.2s forwards;
-    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
-    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
-    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+.fxPressAway .navOutPrev {
+    -webkit-animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.fxSideSwing .navInPrev {
+.fxPressAway .navInPrev {
     opacity: 1;
-    -webkit-animation: slideInFromRight 1.2s forwards;
-    animation: slideInFromRight 1.2s forwards;
-    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
-    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
-    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+    -webkit-animation: slideInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+@-webkit-keyframes slideOutScaleRight {
+    to {
+        -webkit-transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutScaleRight {
+    to {
+        transform: translateX(100%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes slideInFromLeft {
+    from {
+        -webkit-transform: translateX(-100%);
+    }
+    to {
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideOutScaleLeft {
+    to {
+        -webkit-transform: translateX(-100%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutScaleLeft {
+    to {
+        transform: translateX(-100%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes slideInFromRight {
+    from {
+        -webkit-transform: translateX(100%);
+    }
+    to {
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }

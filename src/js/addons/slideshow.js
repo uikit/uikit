@@ -4,13 +4,14 @@
 
     var Slideshow = function(element, options) {
 
-        var $this      = this,
-            $element   = $(element),
-            $container = $element.find(" > ul "),
-            $firstItem = $container.find(" > li:first-child ");
-            this.slides    = $element.find(" > ul > li ");
+        var $this            = this,
+            $element         = $(element),
+            $container       = $element.find(" > ul "),
+            $firstItem       = $container.find(" > li:first-child ");
+            this.slides      = $element.find(" > ul > li ");
             this.slidesCount = this.slides.length;
-            this.active    = 0;
+            this.active      = 0,
+            this.animating   = false;
 
         if($element.data("slideshow")) return;
 
@@ -46,29 +47,41 @@
 
     $.extend(Slideshow.prototype, {
 
-        navigate: function( direction ) {
+        navigate: function(direction) {
 
-            var activeSlide = $(this.slides[this.active]);
+            if (this.animating) return;
+
+            this.animating = true;
+
+            var activeSlide = $(this.slides[this.active]),
+                $this = this;
 
             if ( direction === 'next' ) {
+                $(this.slides[this.active]).addClass('navOutNext');
                 this.active = this.active < this.slidesCount - 1 ? this.active + 1 : 0;
+                $(this.slides[this.active]).addClass('navInNext');
             }
 
             else if ( direction === 'previous' ) {
+                $(this.slides[this.active]).addClass('navOutPrev');
                 this.active = this.active > 0 ? this.active - 1 : this.slidesCount - 1;
+                $(this.slides[this.active]).addClass('navInPrev');
             }
 
             var nextSlide = $(this.slides[this.active]);
 
-            activeSlide.removeClass("uk-active");
-            nextSlide.addClass("uk-active");
+            nextSlide.on('transitionend animationend webkitAnimationEnd', function() {
+                activeSlide.removeClass("uk-active navOutNext");
+                nextSlide.addClass("uk-active").removeClass("navInNext");
+                $this.animating = false;
+            });
 
         }
 
     });
 
     Slideshow.defaults = {
-        animation : "fxSideSwing",
+        animation : "fxPressAway",
         duration : 200,
         next : ".uk-slidenav-next",
         previous : ".uk-slidenav-previous",
