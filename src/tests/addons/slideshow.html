@@ -7,6 +7,7 @@
         <title>Slideshow - UIkit tests</title>
         <script src="../../../vendor/jquery.js"></script>
         <script src="_test.js"></script>
+        <script src="../../js/addons/slideshow.js"></script>
     </head>
 
     <body>
@@ -15,50 +16,38 @@
 
             <h1>Slideshows</h1>
 
-            <h2>Slideshow img</h2>
+            <h2>Slideshow bg-image</h2>
 
-            <div class="uk-slideshow uk-slidenav-position">
-                <ul style="height: 400px;">
-                    <li class="uk-active"><img src="http://placekitten.com/g/930/400" style="visibility:visible;"></li>
-                    <li><img src="http://placekitten.com/g/930/400" style="visibility:visible;"></li>
-                    <li><img src="http://placekitten.com/g/930/400" style="visibility:visible;"></li>
+            <div class="uk-slideshow uk-slidenav-position" data-uk-slideshow>
+                <ul>
+                    <li>
+                        <img src="http://placekitten.com/g/700/400">
+                    </li>
+                    <li>
+                        <img src="http://placekitten.com/g/700/400">
+                    </li>
+                    <li>
+                        <img src="http://placekitten.com/g/700/400">
+                    </li>
                 </ul>
                 <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
                 <a href="#" class="uk-slidenav uk-slidenav-next"></a>
             </div>
 
-            <h2>Slideshow bg-image</h2>
-
-            <div class="uk-slideshow uk-slidenav-position">
-            <ul style="height: 400px;">
-                <li class="uk-active" style="background-image: url('http://placekitten.com/g/700/400');">
-                    <img src="http://placekitten.com/g/700/400" height="400" width="700">
-                </li>
-                <li style="background-image: url('http://placekitten.com/g/700/400');">
-                    <img src="http://placekitten.com/g/700/400" height="400" width="700">
-                </li>
-                <li style="background-image: url('http://placekitten.com/g/700/400');">
-                    <img src="http://placekitten.com/g/700/400" height="400" width="700">
-                </li>
-            </ul>
-            <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
-            <a href="#" class="uk-slidenav uk-slidenav-next"></a>
-        </div>
-
             <h2>Slideshow bg-img full width</h2>
 
         </div>
 
-        <div class="uk-slideshow uk-slidenav-position">
-            <ul style="height: 500px;">
-                <li class="uk-active" style="background-image: url('http://placekitten.com/g/700/500');">
-                    <img src="http://placekitten.com/g/700/500" height="500" width="700">
+        <div class="uk-slideshow uk-slidenav-position" data-uk-slideshow>
+            <ul>
+                <li>
+                    <img src="http://placekitten.com/g/700/500">
                 </li>
-                <li style="background-image: url('http://placekitten.com/g/700/500');">
-                    <img src="http://placekitten.com/g/700/500" height="500" width="700">
+                <li>
+                    <img src="http://placekitten.com/g/700/500">
                 </li>
-                <li style="background-image: url('http://placekitten.com/g/700/500');">
-                    <img src="http://placekitten.com/g/700/500" height="500" width="700">
+                <li>
+                    <img src="http://placekitten.com/g/700/500">
                 </li>
             </ul>
             <a href="#" class="uk-slidenav uk-slidenav-previous"></a>

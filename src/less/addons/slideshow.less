@@ -38,6 +38,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    overflow: hidden;
 }
 
 
@@ -66,3 +67,45 @@
 
 /* 4 */
 .uk-slideshow > ul > li > img { visibility: hidden; }
+
+/* Active */
+.uk-slideshow > ul > li:uk.active { z-index: 10; }
+
+
+/*****************************************/
+/* Side Swing */
+/*****************************************/
+
+.fxSideSwing .navOutNext {
+    -webkit-animation: slideOutScaleRight 1.2s forwards;
+    animation: slideOutScaleRight 1.2s forwards;
+    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
+    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+}
+
+.fxSideSwing .navInNext {
+    opacity: 1;
+    -webkit-animation: slideInFromLeft 1.2s forwards;
+    animation: slideInFromLeft 1.2s forwards;
+    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
+    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+}
+
+.fxSideSwing .navOutPrev {
+    -webkit-animation: slideOutScaleLeft 1.2s forwards;
+    animation: slideOutScaleLeft 1.2s forwards;
+    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
+    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+}
+
+.fxSideSwing .navInPrev {
+    opacity: 1;
+    -webkit-animation: slideInFromRight 1.2s forwards;
+    animation: slideInFromRight 1.2s forwards;
+    -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1); /* older webkit */
+    -webkit-animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+    animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
+}
