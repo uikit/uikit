@@ -5,10 +5,9 @@
     var Slideshow = function(element, options) {
 
         var $this            = this,
-            $element         = $(element),
-            $container       = $element.find(" > ul "),
-            $firstItem       = $container.find(" > li:first-child ");
-            this.slides      = $element.find(" > ul > li ");
+            $element         = $(element);
+            this.container   = $element.find(".uk-slideshow-slides");
+            this.slides      = this.container.children();
             this.slidesCount = this.slides.length;
             this.active      = 0,
             this.animating   = false;
@@ -20,9 +19,9 @@
         // Set animation effect
         $element.addClass(this.options.animation);
 
-        // set container height
-        $container.css({"height":this.slides.height()});
-        $firstItem.addClass("uk-active");
+        // Set start slide
+        this.slides.eq(this.options.start).addClass('uk-active');
+        this.current = this.options.start;
 
         // set background image from img
         this.slides.each(function() {
@@ -33,58 +32,86 @@
 
         });
 
-        $element.on("click", this.options.next, function(e) {
+        $element.on("click", [this.options.next, this.options.previous].join(","), function(e) {
             e.preventDefault();
-            $this.navigate('next');
+            $this[$(this).is($this.options.next) ? 'next':'previous']();
         });
 
-        $element.on("click", this.options.previous, function(e) {
-            e.preventDefault();
-            $this.navigate('previous');
-        });
+        $element.data("slideshow", this);
 
+        $(window).on("resize load", UI.Utils.debounce(function(){ $this.resize(); }, 100));
+
+        this.resize();
     };
 
     $.extend(Slideshow.prototype, {
 
-        navigate: function(direction) {
+        current: false,
+
+        resize: function() {
+
+            var $this = this, height = 0;
+
+            if (this.options.height === 'auto') {
+
+                this.slides.css("height", "").each(function() {
+                    height = Math.max(height, $(this).height());
+                });
+
+            } else {
+                height = this.options.height;
+            }
+
+            this.container.css("height", height);
+            this.slides.css("height", height);
+
+        },
+
+        show: function(index, direction) {
 
             if (this.animating) return;
 
             this.animating = true;
 
-            var activeSlide = $(this.slides[this.active]),
-                $this = this;
+            var $this   = this,
+                current = this.slides.eq(this.current),
+                next    = this.slides.eq(index),
+                dir     = direction ? direction : this.current < index ? 'next' : 'previous';
 
-            if ( direction === 'next' ) {
-                $(this.slides[this.active]).addClass('navOutNext');
-                this.active = this.active < this.slidesCount - 1 ? this.active + 1 : 0;
-                $(this.slides[this.active]).addClass('navInNext');
-            }
+            next.one('transitionend animationend webkitAnimationEnd', function() {
 
-            else if ( direction === 'previous' ) {
-                $(this.slides[this.active]).addClass('navOutPrev');
-                this.active = this.active > 0 ? this.active - 1 : this.slidesCount - 1;
-                $(this.slides[this.active]).addClass('navInPrev');
-            }
+                if(!$this.animating) return;
 
-            var nextSlide = $(this.slides[this.active]);
+                current.removeClass('uk-active ' + (dir === 'next' ? 'uk-slide-out-next' : 'uk-slide-out-prev'));
+                next.addClass("uk-active").removeClass(dir === 'next' ? 'uk-slide-in-next' : 'uk-slide-in-prev');
 
-            nextSlide.on('transitionend animationend webkitAnimationEnd', function() {
-                activeSlide.removeClass("uk-active navOutNext");
-                nextSlide.addClass("uk-active").removeClass("navInNext");
                 $this.animating = false;
             });
 
+            current.addClass(dir == 'next' ? 'uk-slide-out-next' : 'uk-slide-out-prev');
+            next.addClass(dir == 'next' ? 'uk-slide-in-next' : 'uk-slide-in-prev');
+
+            next.width(); // force redraw
+
+            this.current = index;
+        },
+
+        next: function() {
+            this.show(this.slides[this.current+1] ? (this.current + 1) : 0, 'next');
+        },
+
+        previous: function() {
+            this.show(this.slides[this.current-1] ? (this.current - 1) : (this.slides.length - 1), 'previous');
         }
 
     });
 
     Slideshow.defaults = {
-        animation : "fxPressAway",
-        duration : 200,
+        animation : "uk-animation-archieve",
+        height: 'auto',
         next : ".uk-slidenav-next",
         previous : ".uk-slidenav-previous",
+        start: 0,
         autoplay : false
     };
 
@@ -93,6 +120,7 @@
     // init code
     $(document).on("uk-domready", function(e) {
         $("[data-uk-slideshow]").each(function() {
+
             var slideshow = $(this);
 
             if (!slideshow.data("slideshow")) {

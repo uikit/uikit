@@ -3,6 +3,10 @@
 //
 // Component:       `uk-slideshow`
 //
+// Modifiers:       `uk-slidenav-fullscreen`
+//
+// Sub-objects:     `uk-slidenav-slides`
+//
 // ========================================================================
 
 @import "../../../src/less/variables.less";
@@ -22,12 +26,16 @@
 
 .uk-slideshow { display: block; }
 
+
+/* Sub-object: `uk-slidenav-slides`
+ ========================================================================== */
+
 /*
  * 1. Dimension
  * 2. Remove default list style
  */
 
-.uk-slideshow > ul {
+.uk-slideshow-slides {
     position: relative;
     /* 1 */
     -moz-box-sizing: border-box;
@@ -41,10 +49,6 @@
     overflow: hidden;
 }
 
-
-/* Slides
- ========================================================================== */
-
 /*
  * 1. Stack items
  * 2. Dimension
@@ -52,7 +56,7 @@
  * 4. Hide images for reponsive behaviour
  */
 
-.uk-slideshow > ul > li {
+.uk-slideshow-slides > li {
     /* 1 */
     position: absolute;
     /* 2 */
@@ -68,112 +72,163 @@
 }
 
 /* 4 */
-.uk-slideshow > ul > li > img { visibility: hidden; }
+.uk-slideshow-slides > li > img { visibility: hidden; }
 
 /* Active */
-.uk-slideshow .uk-active { opacity: 1; }
+.uk-slideshow-slides .uk-active { opacity: 1; }
 
-/*****************************************/
-/* Fade */
-/*****************************************/
 
-.fxFade .navInNext,
-.fxFade .navInPrev {
+/* Modifier: `uk-slidenav-fullscreen`
+ ========================================================================== */
+
+.uk-slideshow-fullscreen .uk-slideshow-slides li { height: 100vh; }
+
+
+/* Animation
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+.uk-animation-fade .uk-slide-in-next,
+.uk-animation-fade .uk-slide-in-prev {
     opacity: 1;
     -webkit-transition: opacity .5s ease-in-out;
     transition: opacity .5s ease-in-out;
 }
 
-.fxFade .navOutNext,
-.fxFade .navOutPrev { opacity: 0; }
+.uk-animation-fade .uk-slide-out-next,
+.uk-animation-fade .uk-slide-out-prev { opacity: 0; }
 
 
-/*****************************************/
-/* Press away */
-/*****************************************/
+/*
+ * Archive me
+ */
 
-.fxPressAway .navOutNext {
-    -webkit-animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+.uk-animation-archieve .uk-slide-out-next {
+    -webkit-animation: scaleHalfDown 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: scaleHalfDown 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.fxPressAway .navInNext {
+.uk-animation-archieve .uk-slide-in-next {
+    z-index: 1001;
     opacity: 1;
-    -webkit-animation: slideInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: slideInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    -webkit-animation: slideInFromBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideInFromBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.fxPressAway .navOutPrev {
-    -webkit-animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+.uk-animation-archieve .uk-slide-out-prev {
+    -webkit-animation: slideOutToBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideOutToBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.fxPressAway .navInPrev {
-    opacity: 1;
-    -webkit-animation: slideInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: slideInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+.uk-animation-archieve .uk-slide-in-prev {
+    -webkit-animation: scaleHalfUp 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: scaleHalfUp 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-@-webkit-keyframes slideOutScaleRight {
+.uk-animation-archieve li::before,
+.uk-animation-archieve li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-color: rgba(0,0,0,0.7);
+    -webkit-transition: opacity 0.7s cubic-bezier(0.7, 0, 0.3, 1);
+    transition: opacity 0.7s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.uk-animation-archieve li::after,
+.uk-animation-archieve .uk-slide-out-next::before { opacity: 1; }
+
+.uk-animation-archieve li::before,
+.uk-animation-archieve li.uk-active::after,
+.uk-animation-archieve .uk-slide-in-next::after,
+.uk-animation-archieve .uk-slide-in-prev::after { opacity: 0; }
+
+.uk-animation-archieve .uk-slide-in-next::after {
+    -webkit-transition: none;
+    transition: none;
+}
+
+
+/* Keyframes
+ ========================================================================== */
+
+/*
+ * Slide
+ */
+
+@-webkit-keyframes slideOutToBottom {
     to {
-        -webkit-transform: translateX(100%) scale(0.9);
+        -webkit-transform: translateY(100%);
+    }
+}
+
+@keyframes slideOutToBottom {
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@-webkit-keyframes slideInFromBottom {
+    from {
+        -webkit-transform: translateY(100%);
+    }
+    to {
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Scale
+ */
+
+@-webkit-keyframes scaleHalfDown {
+    to {
+        -webkit-transform: scale(0.6);
         opacity: 0;
     }
 }
 
-@keyframes slideOutScaleRight {
+@keyframes scaleHalfDown {
     to {
-        transform: translateX(100%) scale(0.9);
+        transform: scale(0.6);
         opacity: 0;
     }
 }
 
-@-webkit-keyframes slideInFromLeft {
+@-webkit-keyframes scaleHalfUp {
     from {
-        -webkit-transform: translateX(-100%);
-    }
-    to {
-        -webkit-transform: translateX(0);
-    }
-}
-
-@keyframes slideInFromLeft {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-@-webkit-keyframes slideOutScaleLeft {
-    to {
-        -webkit-transform: translateX(-100%) scale(0.9);
         opacity: 0;
+        -webkit-transform: scale(0.6);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
     }
 }
 
-@keyframes slideOutScaleLeft {
-    to {
-        transform: translateX(-100%) scale(0.9);
+@keyframes scaleHalfUp {
+    from {
         opacity: 0;
-    }
-}
-
-@-webkit-keyframes slideInFromRight {
-    from {
-        -webkit-transform: translateX(100%);
+        transform: scale(0.6);
     }
     to {
-        -webkit-transform: translateX(0);
-    }
-}
-
-@keyframes slideInFromRight {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0);
+        opacity: 1;
+        transform: scale(1);
     }
 }
