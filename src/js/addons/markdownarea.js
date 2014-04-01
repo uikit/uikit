@@ -25,14 +25,14 @@
         this.CodeMirror = this.options.CodeMirror || CodeMirror;
 
         this.marked.setOptions({
-          gfm: true,
-          tables: true,
-          breaks: true,
-          pedantic: false,
-          sanitize: false,
-          smartLists: true,
-          smartypants: false,
-          langPrefix: 'lang-'
+          gfm           : true,
+          tables        : true,
+          breaks        : false,
+          pedantic      : false,
+          sanitize      : false,
+          smartLists    : true,
+          smartypants   : false,
+          langPrefix    : 'lang-'
         });
 
         this.init();
