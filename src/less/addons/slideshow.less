@@ -11,6 +11,7 @@
 
 @import "../../../src/less/variables.less";
 @import "slidenav.less";
+@import "dotnav.less";
 
 
 // Variables
@@ -91,68 +92,40 @@
  * Fade
  */
 
-.uk-animation-fade .uk-slide-in-next,
-.uk-animation-fade .uk-slide-in-prev {
+.uk-slideshow-animation-fade .uk-slide-in-next,
+.uk-slideshow-animation-fade .uk-slide-in-prev {
     opacity: 1;
     -webkit-transition: opacity .5s ease-in-out;
     transition: opacity .5s ease-in-out;
 }
 
-.uk-animation-fade .uk-slide-out-next,
-.uk-animation-fade .uk-slide-out-prev { opacity: 0; }
-
+.uk-slideshow-animation-fade .uk-slide-out-next,
+.uk-slideshow-animation-fade .uk-slide-out-prev { opacity: 0; }
 
 /*
- * Archive me
+ * Soft Scale
  */
 
-.uk-animation-archieve .uk-slide-out-next {
-    -webkit-animation: scaleHalfDown 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: scaleHalfDown 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
+.uk-slideshow-animation-press-away .uk-slide-out-prev {
+    -webkit-animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.uk-animation-archieve .uk-slide-in-next {
-    z-index: 1001;
+.uk-slideshow-animation-press-away .uk-slide-in-prev {
     opacity: 1;
-    -webkit-animation: slideInFromBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: slideInFromBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    -webkit-animation: slideInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.uk-animation-archieve .uk-slide-out-prev {
-    -webkit-animation: slideOutToBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: slideOutToBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
+.uk-slideshow-animation-press-away .uk-slide-out-next {
+    -webkit-animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-.uk-animation-archieve .uk-slide-in-prev {
-    -webkit-animation: scaleHalfUp 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
-    animation: scaleHalfUp 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
-}
-
-.uk-animation-archieve li::before,
-.uk-animation-archieve li::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    background-color: rgba(0,0,0,0.7);
-    -webkit-transition: opacity 0.7s cubic-bezier(0.7, 0, 0.3, 1);
-    transition: opacity 0.7s cubic-bezier(0.7, 0, 0.3, 1);
-}
-
-.uk-animation-archieve li::after,
-.uk-animation-archieve .uk-slide-out-next::before { opacity: 1; }
-
-.uk-animation-archieve li::before,
-.uk-animation-archieve li.uk-active::after,
-.uk-animation-archieve .uk-slide-in-next::after,
-.uk-animation-archieve .uk-slide-in-prev::after { opacity: 0; }
-
-.uk-animation-archieve .uk-slide-in-next::after {
-    -webkit-transition: none;
-    transition: none;
+.uk-slideshow-animation-press-away .uk-slide-in-next {
+    opacity: 1;
+    -webkit-animation: slideInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
+    animation: slideInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
 }
 
 
@@ -160,75 +133,69 @@
  ========================================================================== */
 
 /*
- * Slide
+ * Press away
  */
 
-@-webkit-keyframes slideOutToBottom {
+@-webkit-keyframes slideOutScaleRight {
     to {
-        -webkit-transform: translateY(100%);
-    }
-}
-
-@keyframes slideOutToBottom {
-    to {
-        transform: translateY(100%);
-    }
-}
-
-@-webkit-keyframes slideInFromBottom {
-    from {
-        -webkit-transform: translateY(100%);
-    }
-    to {
-        -webkit-transform: translateY(0);
-    }
-}
-
-@keyframes slideInFromBottom {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
-/*
- * Scale
- */
-
-@-webkit-keyframes scaleHalfDown {
-    to {
-        -webkit-transform: scale(0.6);
+        -webkit-transform: translateX(100%) scale(0.9);
         opacity: 0;
     }
 }
 
-@keyframes scaleHalfDown {
+@keyframes slideOutScaleRight {
     to {
-        transform: scale(0.6);
+        transform: translateX(100%) scale(0.9);
         opacity: 0;
     }
 }
 
-@-webkit-keyframes scaleHalfUp {
+@-webkit-keyframes slideInFromLeft {
     from {
-        opacity: 0;
-        -webkit-transform: scale(0.6);
+        -webkit-transform: translateX(-100%);
     }
     to {
-        opacity: 1;
-        -webkit-transform: scale(1);
+        -webkit-transform: translateX(0);
     }
 }
 
-@keyframes scaleHalfUp {
+@keyframes slideInFromLeft {
     from {
-        opacity: 0;
-        transform: scale(0.6);
+        transform: translateX(-100%);
     }
     to {
-        opacity: 1;
-        transform: scale(1);
+        transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideOutScaleLeft {
+    to {
+        -webkit-transform: translateX(-100%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutScaleLeft {
+    to {
+        transform: translateX(-100%) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes slideInFromRight {
+    from {
+        -webkit-transform: translateX(100%);
+    }
+    to {
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
     }
 }

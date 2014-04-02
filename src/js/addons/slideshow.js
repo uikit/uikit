@@ -20,7 +20,7 @@
         $element.addClass(this.options.animation);
 
         // Set start slide
-        this.slides.eq(this.options.start).addClass('uk-active');
+        this.slides.eq(this.options.start).addClass("uk-active");
         this.current = this.options.start;
 
         // set background image from img
@@ -28,13 +28,13 @@
 
             var $this = $(this);
 
-            $this.css({"background-image":"url("+ $this.find(">img").attr('src') + ")"});
+            $this.css({"background-image":"url("+ $this.find(">img").attr("src") + ")"});
 
         });
 
         $element.on("click", [this.options.next, this.options.previous].join(","), function(e) {
             e.preventDefault();
-            $this[$(this).is($this.options.next) ? 'next':'previous']();
+            $this[$(this).is($this.options.next) ? "next" : "previous"]();
         });
 
         $element.data("slideshow", this);
@@ -52,7 +52,7 @@
 
             var $this = this, height = 0;
 
-            if (this.options.height === 'auto') {
+            if (this.options.height === "auto") {
 
                 this.slides.css("height", "").each(function() {
                     height = Math.max(height, $(this).height());
@@ -76,43 +76,46 @@
             var $this   = this,
                 current = this.slides.eq(this.current),
                 next    = this.slides.eq(index),
-                dir     = direction ? direction : this.current < index ? 'next' : 'previous';
+                dir     = direction ? direction : this.current < index ? "next" : "previous";
 
-            next.one('transitionend animationend webkitAnimationEnd', function() {
+            next.one("transitionend animationend webkitAnimationEnd", function() {
 
                 if(!$this.animating) return;
 
-                current.removeClass('uk-active ' + (dir === 'next' ? 'uk-slide-out-next' : 'uk-slide-out-prev'));
-                next.addClass("uk-active").removeClass(dir === 'next' ? 'uk-slide-in-next' : 'uk-slide-in-prev');
+                current.removeClass("uk-active " + (dir === "next" ? "uk-slide-out-next" : "uk-slide-out-prev"));
+                next.addClass("uk-active").removeClass(dir === "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
 
                 $this.animating = false;
+
             });
 
-            current.addClass(dir == 'next' ? 'uk-slide-out-next' : 'uk-slide-out-prev');
-            next.addClass(dir == 'next' ? 'uk-slide-in-next' : 'uk-slide-in-prev');
+            current.addClass(dir == "next" ? "uk-slide-out-next" : "uk-slide-out-prev");
+            next.addClass(dir == "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
 
             next.width(); // force redraw
 
             this.current = index;
+
         },
 
         next: function() {
-            this.show(this.slides[this.current+1] ? (this.current + 1) : 0, 'next');
+            this.show(this.slides[this.current + 1] ? (this.current + 1) : 0, "next");
         },
 
         previous: function() {
-            this.show(this.slides[this.current-1] ? (this.current - 1) : (this.slides.length - 1), 'previous');
+            this.show(this.slides[this.current - 1] ? (this.current - 1) : (this.slides.length - 1), "previous");
         }
 
     });
 
     Slideshow.defaults = {
-        animation : "uk-animation-archieve",
-        height: 'auto',
-        next : ".uk-slidenav-next",
-        previous : ".uk-slidenav-previous",
+        animation: "uk-slideshow-animation-press-away",
+        duration: 5000,
+        height: "auto",
+        next: ".uk-slidenav-next",
+        previous: ".uk-slidenav-previous",
         start: 0,
-        autoplay : false
+        autoplay : true
     };
 
     UI["slideshow"] = Slideshow;
