@@ -27,8 +27,8 @@
         this.marked.setOptions({
           gfm           : true,
           tables        : true,
-          breaks        : false,
-          pedantic      : false,
+          breaks        : true,
+          pedantic      : true,
           sanitize      : false,
           smartLists    : true,
           smartypants   : false,
@@ -249,6 +249,13 @@
 
                 $this.editor.addKeyMap(map);
             }
+        },
+
+        getMode: function(){
+            var pos  = this.editor.getDoc().getCursor(),
+                state = this.CodeMirror.innerMode(this.editor.getMode(), this.editor.getTokenAt(pos).state).state.htmlState;
+
+            return state.context ? 'html':'markdown';
         }
     });
 
@@ -308,57 +315,56 @@
             "label"  : '<i class="uk-icon-bold"></i>',
             "shortcut": ['Ctrl-B', 'Cmd-B'],
             "action" : function(editor){
-
-                baseReplacer("**$1**", editor);
+                baseReplacer(this.getMode() == 'html' ? "<strong>$1</strong>":"**$1**", editor);
             }
         },
         "italic" : {
             "title"  : "Italic",
             "label"  : '<i class="uk-icon-italic"></i>',
             "action" : function(editor){
-                baseReplacer("*$1*", editor);
+                baseReplacer(this.getMode() == 'html' ? "<em>$1</em>":"*$1*", editor);
             }
         },
         "strike" : {
             "title"  : "Strikethrough",
             "label"  : '<i class="uk-icon-strikethrough"></i>',
             "action" : function(editor){
-                baseReplacer("~~$1~~", editor);
+                baseReplacer(this.getMode() == 'html' ? "<del>$1</del>":"~~$1~~", editor);
             }
         },
         "blockquote" : {
             "title"  : "Blockquote",
             "label"  : '<i class="uk-icon-quote-right"></i>',
             "action" : function(editor){
-                baseReplacer("> $1", editor);
+                baseReplacer(this.getMode() == 'html' ? "<blockquote><p>$1</p></blockquote>":"> $1", editor);
             }
         },
         "link" : {
             "title"  : "Link",
             "label"  : '<i class="uk-icon-link"></i>',
             "action" : function(editor){
-                baseReplacer("[$1](http://)", editor);
+                baseReplacer(this.getMode() == 'html' ? '<a href="http://">$1</a>':"[$1](http://)", editor);
             }
         },
         "picture" : {
             "title"  : "Picture",
             "label"  : '<i class="uk-icon-picture-o"></i>',
             "action" : function(editor){
-                baseReplacer("![$1](http://)", editor);
+                baseReplacer(this.getMode() == 'html' ? '<img src="http://" alt="$1">':"![$1](http://)", editor);
             }
         },
         "listUl" : {
             "title"  : "Unordered List",
             "label"  : '<i class="uk-icon-list-ul"></i>',
             "action" : function(editor){
-                baseReplacer("* $1", editor);
+                if(this.getMode() == 'markdown') baseReplacer("* $1", editor);
             }
         },
         "listOl" : {
             "title"  : "Ordered List",
             "label"  : '<i class="uk-icon-list-ol"></i>',
             "action" : function(editor){
-                baseReplacer("1. $1", editor);
+                if(this.getMode() == 'markdown') baseReplacer("1. $1", editor);
             }
         }
     }
@@ -367,7 +373,7 @@
         "mode"         : "split",
         "height"       : 500,
         "maxsplitsize" : 1000,
-        "codemirror"   : { mode: 'gfm', tabMode: 'indent', tabindex: "2", lineWrapping: true, dragDrop: false },
+        "codemirror"   : { mode: 'gfm', tabMode: 'indent', tabindex: "2", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true },
         "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
         "lblPreview"   : "Preview",
         "lblCodeview"  : "Markdown"
