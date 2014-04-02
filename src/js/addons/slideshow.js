@@ -4,23 +4,27 @@
 
     var Slideshow = function(element, options) {
 
+        this.options = $.extend({}, Slideshow.defaults, options);
+
         var $this            = this,
             $element         = $(element);
+
             this.container   = $element.find(".uk-slideshow-slides");
             this.slides      = this.container.children();
             this.slidesCount = this.slides.length;
             this.active      = 0,
-            this.animating   = false;
+            this.animating   = false,
+            this.nav         = $element.find(this.options.nav),
+            this.interval;
 
         if($element.data("slideshow")) return;
-
-        this.options = $.extend({}, Slideshow.defaults, options);
 
         // Set animation effect
         $element.addClass(this.options.animation);
 
         // Set start slide
         this.slides.eq(this.options.start).addClass("uk-active");
+        this.nav.eq(this.options.start).addClass("uk-active");
         this.current = this.options.start;
 
         // set background image from img
@@ -32,9 +36,20 @@
 
         });
 
-        $element.on("click", [this.options.next, this.options.previous].join(","), function(e) {
+        $element.on("click", [this.options.next, this.options.previous, this.options.nav].join(","), function(e) {
+
             e.preventDefault();
-            $this[$(this).is($this.options.next) ? "next" : "previous"]();
+
+            if ($(this).is($this.options.next)){
+                $this.next();
+            }
+            else if ($(this).is($this.options.previous)){
+                $this.previous();
+            }
+            else {
+                $this.show($(this).data("uk-slideshow-slide"));
+            }
+
         });
 
         $element.data("slideshow", this);
@@ -42,6 +57,20 @@
         $(window).on("resize load", UI.Utils.debounce(function(){ $this.resize(); }, 100));
 
         this.resize();
+
+        // Set autoplay
+        if(this.options.autoplay) {
+
+            this.start();
+
+            this.container.on('mouseover', function(){
+                $this.stop();
+            }).on('mouseout', function() {
+                $this.start();
+            });
+
+        };
+
     };
 
     $.extend(Slideshow.prototype, {
@@ -91,6 +120,8 @@
 
             current.addClass(dir == "next" ? "uk-slide-out-next" : "uk-slide-out-prev");
             next.addClass(dir == "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
+            this.nav.eq(this.current).removeClass("uk-active");
+            this.nav.eq(index).addClass("uk-active");
 
             next.width(); // force redraw
 
@@ -104,18 +135,33 @@
 
         previous: function() {
             this.show(this.slides[this.current - 1] ? (this.current - 1) : (this.slides.length - 1), "previous");
+        },
+
+        start: function() {
+
+            var $this = this;
+
+            this.interval = setInterval(function() {
+                $this.show($this.options.start, $this.next());
+            }, this.options.duration);
+
+        },
+
+        stop: function() {
+            clearInterval(this.interval);
         }
 
     });
 
     Slideshow.defaults = {
         animation: "uk-slideshow-animation-press-away",
-        duration: 5000,
+        duration: 4000,
         height: "auto",
-        next: ".uk-slidenav-next",
-        previous: ".uk-slidenav-previous",
+        next: "[data-uk-slideshow-next]",
+        previous: "[data-uk-slideshow-previous]",
+        nav: "[data-uk-slideshow-slide]",
         start: 0,
-        autoplay : true
+        autoplay : false
     };
 
     UI["slideshow"] = Slideshow;
