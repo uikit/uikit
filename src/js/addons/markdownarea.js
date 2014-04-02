@@ -252,10 +252,9 @@
         },
 
         getMode: function(){
-            var pos  = this.editor.getDoc().getCursor(),
-                state = this.CodeMirror.innerMode(this.editor.getMode(), this.editor.getTokenAt(pos).state).state.htmlState;
+            var pos = this.editor.getDoc().getCursor();
 
-            return state.context ? 'html':'markdown';
+            return this.editor.getTokenAt(pos).state.base.htmlState ? 'html':'markdown';
         }
     });
 
