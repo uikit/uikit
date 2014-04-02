@@ -2,6 +2,8 @@
 
 ### WIP
 
+  - Added link reset classes to utility component
+  - Changed text center medium breakpoints
   - Fixed cursor issue if form file content is too large
   - Fixed modal dialog padding issue, when body and modal have a scrollbar
   - Fixed markdownarea marker replacer
