@@ -10,6 +10,7 @@
   - Allow html markup in titles (search add-on)
   - Allow click for dropdowns in hover mode
   - Added uk-check-display event
+  - Prevent vertical scrollbar for centered tabs
 
 ### 2.5.0 (March 25, 2014)
 

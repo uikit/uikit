@@ -192,16 +192,21 @@
 
 .uk-tab-center:after { clear: both; }
 
+
+/*
+ * 1. Using `right` to prevent vertical scrollbar caused by centering if to many tabs
+ */
+
 .uk-tab-center .uk-tab {
     position: relative;
-    left: 50%;
+    right: 50%;
     border: none;
-    float: left;
+    float: right;
 }
 
 .uk-tab-center .uk-tab > li {
     position: relative;
-    left: -50%;
+    right: -50%;
 }
 
 .uk-tab-center .uk-tab > li > a { text-align: center; }
