@@ -235,7 +235,7 @@
 
         parsedPattern = '^' + parsedPattern + '$';
 
-        return (path.match(new RegExp(parsedPattern)) !== null);
+        return (path.match(new RegExp(parsedPattern, 'i')) !== null);
     }
 
     UI.Utils.xhrupload = xhrupload;
