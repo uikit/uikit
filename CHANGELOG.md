@@ -2,15 +2,26 @@
 
 ### WIP
 
+  - IMPORTANT: Renamed markdownarea to htmleditor
+
+**Documentation and repository**
+
+  - Changed markdownarea docs and tests to htmleditor
+
+### 2.6.0 (April 07, 2014)
+
   - Added link reset classes to utility component
   - Changed text center medium breakpoints
   - Fixed cursor issue if form file content is too large
   - Fixed modal dialog padding issue, when body and modal have a scrollbar
   - Fixed markdownarea marker replacer
-  - Allow html markup in titles (search add-on)
+  - Fixed IE 11 crashing (dom observer)
+  - Allow HTML markup in titles for search add-on
   - Allow click for dropdowns in hover mode
+  - Case insensitive allow param (upload add-on)
   - Added uk-check-display event
   - Prevent vertical scrollbar for centered tabs
+  - Less.js updated to 1.7.0
 
 ### 2.5.0 (March 25, 2014)
 

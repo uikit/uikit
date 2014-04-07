@@ -1,0 +1,134 @@
+//
+// Component: HTML editor
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@htmleditor-navbar-background:                @global-default-background;
+
+@htmleditor-navbar-nav-height:                41px;
+@htmleditor-navbar-nav-line-height:           @htmleditor-navbar-nav-height - 1;
+@htmleditor-navbar-nav-color:                 @global-color;
+
+@htmleditor-navbar-nav-hover-background:      @global-default-hover-background;
+@htmleditor-navbar-nav-hover-color:           @global-color;
+@htmleditor-navbar-nav-onclick-background:    @global-default-active-background;
+@htmleditor-navbar-nav-onclick-color:         @global-color;
+@htmleditor-navbar-nav-active-background:     @global-default-hover-background;
+@htmleditor-navbar-nav-active-color:          @global-color;
+
+@htmleditor-content-border:                   @global-border;
+@htmleditor-content-background:               @global-background;
+
+@htmleditor-fullscreen-z-index:               (@global-z-index - 10);
+
+//
+// New
+//
+
+@htmleditor-navbar-border:                    rgba(0,0,0,0.06);
+@htmleditor-navbar-text-shadow:               @global-text-shadow;
+
+@htmleditor-navbar-nav-hover-border:          rgba(0,0,0,0.1);
+@htmleditor-navbar-nav-hover-border-top:      rgba(0,0,0,0.1);
+@htmleditor-navbar-nav-onclick-border-top:    rgba(0,0,0,0.2);
+
+
+// Hooks
+// ========================================================================
+
+
+.hook-htmleditor() {}
+
+.hook-htmleditor-navbar() {
+    border: 1px solid @htmleditor-navbar-border;
+    border-top-left-radius: @global-border-radius;
+    border-top-right-radius: @global-border-radius;
+}
+
+//
+// 1. Overlap top border
+// 2. Collapse horizontal borders
+//
+
+.hook-htmleditor-navbar-nav() {
+    margin-top: -1px; // 1
+    margin-left: -1px; // 2
+    border: 1px solid transparent;
+    border-bottom-width: 0;
+    text-shadow: 0 1px 0 @htmleditor-navbar-text-shadow;
+}
+
+.hook-htmleditor-navbar-nav-hover() {
+    position: relative; // 1
+    z-index: 1; // 2
+    border-left-color: @htmleditor-navbar-nav-hover-border;
+    border-right-color: @htmleditor-navbar-nav-hover-border;
+    border-top-color: @htmleditor-navbar-nav-hover-border-top;
+}
+
+.hook-htmleditor-navbar-nav-onclick() {
+    border-left-color: @htmleditor-navbar-nav-hover-border;
+    border-right-color: @htmleditor-navbar-nav-hover-border;
+    border-top-color: @htmleditor-navbar-nav-onclick-border-top;
+}
+
+.hook-htmleditor-navbar-nav-active() {
+    border-left-color: @htmleditor-navbar-nav-hover-border;
+    border-right-color: @htmleditor-navbar-nav-hover-border;
+    border-top-color: @htmleditor-navbar-nav-hover-border-top;
+}
+
+.hook-htmleditor-content() {
+    border-bottom-left-radius: @global-border-radius;
+    border-bottom-right-radius: @global-border-radius;
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-htmleditor-misc() {
+
+    /*
+     * Apply same `border-radius` as `uk-htmleditor-navbar`
+     */
+
+    .uk-htmleditor-navbar-nav:first-child > li:first-child > a { border-top-left-radius: @global-border-radius; }
+
+    /*
+     * Sub-modifier `uk-htmleditor-navbar-flip`
+     */
+
+    /* Collapse border */
+    .uk-htmleditor-navbar-flip .uk-htmleditor-navbar-nav > li > a {
+        margin-left: 0;
+        margin-right: -1px;
+    }
+
+    /* Apply same `border-radius` as `uk-htmleditor-navbar` */
+    .uk-htmleditor-navbar-flip .uk-htmleditor-navbar-nav:first-child > li:first-child > a { border-top-left-radius: 0; }
+    .uk-htmleditor-navbar-flip .uk-htmleditor-navbar-nav:last-child > li:last-child > a { border-top-right-radius: @global-border-radius; }
+
+    /*
+     * Sub-modifier `uk-htmleditor-fullscreen`
+     */
+
+    .uk-htmleditor-fullscreen .uk-htmleditor-navbar {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+
+    .uk-htmleditor-fullscreen .uk-htmleditor-content {
+        border: none;
+        border-radius: 0;
+    }
+
+    .uk-htmleditor-fullscreen .uk-htmleditor-navbar-nav > li > a { border-radius: 0 !important; }
+
+}
