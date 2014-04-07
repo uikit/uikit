@@ -1,4 +1,4 @@
-/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -2573,15 +2573,18 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab-center:after {
   clear: both;
 }
+/*
+ * 1. Using `right` to prevent vertical scrollbar caused by centering if to many tabs
+ */
 .uk-tab-center .uk-tab {
   position: relative;
-  left: 50%;
+  right: 50%;
   border: none;
-  float: left;
+  float: right;
 }
 .uk-tab-center .uk-tab > li {
   position: relative;
-  left: -50%;
+  right: -50%;
 }
 .uk-tab-center .uk-tab > li > a {
   text-align: center;
@@ -6277,7 +6280,7 @@ a.uk-thumbnail:focus {
   vertical-align: bottom !important;
 }
 /* Only tablets portrait */
-@media (min-width: 768px) and (max-width: 959px) {
+@media (max-width: 959px) {
   .uk-text-center-medium {
     text-align: center !important;
   }
@@ -6586,6 +6589,9 @@ a.uk-thumbnail:focus {
 }
 /* Link
  ========================================================================== */
+/*
+ * Let links appear in default text color
+ */
 .uk-link-muted,
 .uk-link-muted a {
   color: #444444;
@@ -6593,6 +6599,16 @@ a.uk-thumbnail:focus {
 .uk-link-muted:hover,
 .uk-link-muted a:hover {
   color: #444444;
+}
+/*
+ * Reset link style
+ */
+.uk-link-reset,
+.uk-link-reset a,
+.uk-link-reset:hover,
+.uk-link-reset a:hover {
+  color: inherit;
+  text-decoration: none;
 }
 /* Scrollable
  ========================================================================== */

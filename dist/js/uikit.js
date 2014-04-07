@@ -1,4 +1,4 @@
-/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(core) {
 
@@ -50,7 +50,7 @@
         return UI;
     }
 
-    UI.version = '2.5.0';
+    UI.version = '2.6.0';
 
     UI.fn = function(command, options) {
 
@@ -269,17 +269,21 @@
 
     $(function(){
 
-        $(doc).trigger("uk-domready");
+        $(document).trigger("uk-domready");
 
         // Check for dom modifications
         if(!UI.support.mutationobserver) return;
 
-        var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-            $(doc).trigger("uk-domready");
-        }, 300));
+        try{
 
-        // pass in the target node, as well as the observer options
-        observer.observe(document.body, { childList: true, subtree: true });
+            var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+                $(document).trigger("uk-domready");
+            }, 300));
+
+            // pass in the target node, as well as the observer options
+            observer.observe(document.body, { childList: true, subtree: true });
+
+        } catch(e) {}
 
         // remove css hover rules for touch devices
         if (UI.support.touch) {
@@ -298,7 +302,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange';
+    var win = $(window), event = 'resize orientationchange', stacks = [];
 
     var StackMargin = function(element, options) {
 
@@ -331,6 +335,8 @@
         });
 
         this.element.data("stackMargin", this);
+
+        stacks.push(this);
     };
 
     $.extend(StackMargin.prototype, {
@@ -392,6 +398,12 @@
         });
     });
 
+
+    $(document).on("uk-check-display", function(e) {
+        stacks.forEach(function(item) {
+            if(item.element.is(":visible")) item.process();
+        });
+    });
 
 })(jQuery, jQuery.UIkit);
 
@@ -786,7 +798,7 @@
                 var $target = $(e.target);
 
                 if (!$target.parents(".uk-dropdown").length) {
-                    
+
                     if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
                         e.preventDefault();
                     }
@@ -827,6 +839,20 @@
                     if (active && active[0] == $this.element[0]) active = false;
 
                 }, $this.options.remaintime);
+
+            }).on("click", function(e){
+
+                var $target = $(e.target);
+
+                if ($this.remainIdle) {
+                    clearTimeout($this.remainIdle);
+                }
+
+                if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                    e.preventDefault();
+                }
+
+                $this.show();
             });
         }
 
@@ -961,7 +987,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange';
+    var win = $(window), event = 'resize orientationchange', grids = [];
 
     var GridMatchHeight = function(element, options) {
 
@@ -997,6 +1023,8 @@
         });
 
         this.element.data("gridMatchHeight", this);
+
+        grids.push(this);
     };
 
     $.extend(GridMatchHeight.prototype, {
@@ -1115,6 +1143,12 @@
         });
     });
 
+    $(document).on("uk-check-display", function(e) {
+        grids.forEach(function(item) {
+            if(item.element.is(":visible")) item.match();
+        });
+    });
+
 })(jQuery, jQuery.UIkit);
 
 (function($, UI, $win) {
@@ -1203,17 +1237,17 @@
         },
 
         resize: function() {
-            
+
             var paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
 
             this.scrollbarwidth = window.innerWidth - html.width();
-            
+
             html.css(paddingdir, this.scrollbarwidth);
 
             this.element.css(paddingdir, "");
 
             if (this.dialog.offset().left > this.scrollbarwidth) {
-                this.element.css(paddingdir, this.scrollbarwidth);
+                this.element.css(paddingdir, this.scrollbarwidth - (this.element[0].scrollHeight==window.innerHeight ? 0:this.scrollbarwidth ));
             }
 
             if (this.scrollable) {
@@ -1879,6 +1913,7 @@
             }
 
             this.element.trigger("uk.switcher.show", [active]);
+            $(document).trigger("uk-check-display");
         }
 
     });
@@ -2254,6 +2289,10 @@
             if(!this.totoggle.length) return;
 
             this.totoggle.toggleClass(this.options.cls);
+
+            if(this.options.cls == 'uk-hidden') {
+                $(document).trigger("uk-check-display");
+            }
         }
     });
 

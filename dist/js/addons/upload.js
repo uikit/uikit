@@ -1,4 +1,4 @@
-/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -237,7 +237,7 @@
 
         parsedPattern = '^' + parsedPattern + '$';
 
-        return (path.match(new RegExp(parsedPattern)) !== null);
+        return (path.match(new RegExp(parsedPattern, 'i')) !== null);
     }
 
     UI.Utils.xhrupload = xhrupload;
