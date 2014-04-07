@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Htmleditor - UIkit tests</title>
+        <title>HTML editor - UIkit tests</title>
         <link rel="stylesheet" href="../../../vendor/codemirror/codemirror.css">
         <link rel="stylesheet" href="../../../vendor/codemirror/show-hint.css">
         <script src="../../../vendor/jquery.js"></script>
@@ -18,7 +18,7 @@
 
         <div class="uk-container uk-container-center">
 
-            <h1>Html editor</h1>
+            <h1>HTML editor</h1>
 
             <div class="uk-htmleditor" data-mode="split">
                 <div class="uk-htmleditor-navbar">
@@ -36,8 +36,8 @@
 
                     <div class="uk-htmleditor-navbar-flip">
                         <ul class="uk-htmleditor-navbar-nav">
-                            <li class="uk-markdown-button-markdown"><a>Markdown</a></li>
-                            <li class="uk-markdown-button-preview"><a>Preview</a></li>
+                            <li class="uk-htmleditor-button-code"><a>HTML</a></li>
+                            <li class="uk-htmleditor-button-preview"><a>Preview</a></li>
                             <li><a><i class="uk-icon-expand"></i></a></li>
                         </ul>
                     </div>
@@ -61,10 +61,10 @@
             </div>
 
             <h3>Split mode</h3>
-            <textarea data-uk-htmleditor placeholder="Enter some html..."></textarea>
+            <textarea data-uk-htmleditor placeholder="Enter code..."></textarea>
 
             <h3>Tab mode</h3>
-            <textarea data-uk-htmleditor="{mode:'tab'}" placeholder="Enter some html..."></textarea>
+            <textarea data-uk-htmleditor="{mode:'tab'}" placeholder="Enter code..."></textarea>
 
             <h3>Split mode with markdown rendering</h3>
             <textarea data-uk-htmleditor="{markdown:true}">**test**</textarea>

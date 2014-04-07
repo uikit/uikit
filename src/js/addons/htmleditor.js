@@ -119,15 +119,15 @@
                     previewContainer.scrollTop(previewPostition);
             }, 10));
 
-            this.htmleditor.on("click", ".uk-editor-button-code, .uk-editor-button-preview", function(e){
+            this.htmleditor.on("click", ".uk-htmleditor-button-code, .uk-htmleditor-button-preview", function(e){
 
                 e.preventDefault();
 
                 if($this.htmleditor.attr("data-mode")=="tab") {
 
-                    $this.htmleditor.find(".uk-editor-button-code, .uk-editor-button-preview").removeClass("uk-active").filter(this).addClass("uk-active");
+                    $this.htmleditor.find(".uk-htmleditor-button-code, .uk-htmleditor-button-preview").removeClass("uk-active").filter(this).addClass("uk-active");
 
-                    $this.activetab = $(this).hasClass("uk-editor-button-code") ? "code":"preview";
+                    $this.activetab = $(this).hasClass("uk-htmleditor-button-code") ? "code":"preview";
                     $this.htmleditor.attr("data-active-tab", $this.activetab);
                 }
             });
@@ -249,8 +249,8 @@
                     this.htmleditor.attr("data-active-tab", this.activetab);
                 }
 
-                this.htmleditor.find(".uk-editor-button-code, .uk-editor-button-preview").removeClass("uk-active")
-                                 .filter(this.activetab=="code" ? '.uk-editor-button-code':'.uk-editor-button-preview').addClass("uk-active");
+                this.htmleditor.find(".uk-htmleditor-button-code, .uk-htmleditor-button-preview").removeClass("uk-active")
+                                 .filter(this.activetab=="code" ? '.uk-htmleditor-button-code':'.uk-htmleditor-button-preview').addClass("uk-active");
 
             }
 
@@ -394,7 +394,7 @@
         "codemirror"   : { mode: 'htmlmixed', tabMode: 'indent', tabindex: "2", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true },
         "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
         "lblPreview"   : "Preview",
-        "lblCodeview"  : "Html"
+        "lblCodeview"  : "HTML"
     };
 
     Htmleditor.template = '<div class="uk-htmleditor uk-clearfix" data-mode="split">' +
@@ -402,8 +402,8 @@
                                     '<ul class="uk-htmleditor-navbar-nav uk-htmleditor-toolbar"></ul>' +
                                     '<div class="uk-htmleditor-navbar-flip">' +
                                         '<ul class="uk-htmleditor-navbar-nav">' +
-                                            '<li class="uk-editor-button-code"><a>{:lblCodeview}</a></li>' +
-                                            '<li class="uk-editor-button-preview"><a>{:lblPreview}</a></li>' +
+                                            '<li class="uk-htmleditor-button-code"><a>{:lblCodeview}</a></li>' +
+                                            '<li class="uk-htmleditor-button-preview"><a>{:lblPreview}</a></li>' +
                                             '<li><a data-htmleditor-cmd="fullscreen"><i class="uk-icon-expand"></i></a></li>' +
                                         '</ul>' +
                                     '</div>' +
