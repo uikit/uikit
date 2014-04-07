@@ -1,5 +1,5 @@
 //
-// Component: Markdown area
+// Component: HTML editor
 //
 // ========================================================================
 
@@ -32,9 +32,9 @@
 @htmleditor-navbar-border:                    rgba(0,0,0,0.06);
 @htmleditor-navbar-text-shadow:               @global-text-shadow;
 
-@markdown-navbar-nav-hover-border:              rgba(0,0,0,0.1);
-@markdown-navbar-nav-hover-border-top:          rgba(0,0,0,0.1);
-@markdown-navbar-nav-onclick-border-top:        rgba(0,0,0,0.2);
+@htmleditor-navbar-nav-hover-border:          rgba(0,0,0,0.1);
+@htmleditor-navbar-nav-hover-border-top:      rgba(0,0,0,0.1);
+@htmleditor-navbar-nav-onclick-border-top:    rgba(0,0,0,0.2);
 
 
 // Hooks
@@ -65,21 +65,21 @@
 .hook-htmleditor-navbar-nav-hover() {
     position: relative; // 1
     z-index: 1; // 2
-    border-left-color: @markdown-navbar-nav-hover-border;
-    border-right-color: @markdown-navbar-nav-hover-border;
-    border-top-color: @markdown-navbar-nav-hover-border-top;
+    border-left-color: @htmleditor-navbar-nav-hover-border;
+    border-right-color: @htmleditor-navbar-nav-hover-border;
+    border-top-color: @htmleditor-navbar-nav-hover-border-top;
 }
 
 .hook-htmleditor-navbar-nav-onclick() {
-    border-left-color: @markdown-navbar-nav-hover-border;
-    border-right-color: @markdown-navbar-nav-hover-border;
-    border-top-color: @markdown-navbar-nav-onclick-border-top;
+    border-left-color: @htmleditor-navbar-nav-hover-border;
+    border-right-color: @htmleditor-navbar-nav-hover-border;
+    border-top-color: @htmleditor-navbar-nav-onclick-border-top;
 }
 
 .hook-htmleditor-navbar-nav-active() {
-    border-left-color: @markdown-navbar-nav-hover-border;
-    border-right-color: @markdown-navbar-nav-hover-border;
-    border-top-color: @markdown-navbar-nav-hover-border-top;
+    border-left-color: @htmleditor-navbar-nav-hover-border;
+    border-right-color: @htmleditor-navbar-nav-hover-border;
+    border-top-color: @htmleditor-navbar-nav-hover-border-top;
 }
 
 .hook-htmleditor-content() {
