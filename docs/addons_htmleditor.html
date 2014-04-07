@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Markdown area component - UIkit documentation</title>
+        <title>HTML editor component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -59,7 +59,7 @@
                             <li class="uk-nav-header">JavaScript</li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li class="uk-active"><a href="addons_htmleditor.html">Html editor</a></li>
+                            <li class="uk-active"><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
@@ -73,11 +73,11 @@
 
                         <article class="uk-article">
 
-                            <h1>Html editor</h1>
+                            <h1>HTML editor</h1>
 
-                            <p class="uk-article-lead">Create a rich markdown editor with an immediate preview and support for HTML syntax highlighting.</p>
+                            <p class="uk-article-lead">Create a rich HTML or markdown editor with an immediate preview and syntax highlighting.</p>
 
-                            <p>The Markdown area allows you to write in Markdown and HTML while it generates a real-time preview. It includes a toolbar that helps you to change text appearences and add links, pictures, blockquotes and lists without having to write code. The editor provides syntax highlighting for both Markdown and HTML and you can even toggle to fullscreen mode, so that you can work undisturbed on your content.</p>
+                            <p>The HTML editor allows you to write in HTML or Markdown while it generates a real-time preview. It includes a toolbar that helps you to change text appearences and add links, pictures, blockquotes and lists without having to write code. The editor provides syntax highlighting for both HTML and Markdown and you can even toggle to fullscreen mode, so that you can work undisturbed on your content.</p>
 
                             <h2>Usage</h2>
 
@@ -100,15 +100,40 @@
         &lt;script src="codemirror/mode/gfm/gfm.js"&gt;&lt;/script&gt;
         &lt;script src="marked.js"&gt;&lt;/script&gt;
 
-        &lt;!-- Markdown Area JavaScript and CSS --&gt;
-        &lt;script src="markdownarea.js"&gt;&lt;/script&gt;
-        &lt;link rel="stylesheet" href="markdownarea.css"&gt;
+        &lt;!-- HTML editor JavaScript --&gt;
+        &lt;script src="htmleditor.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
     &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 
                             <p>Afterwards, just add the <code>data-uk-htmleditor</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+<textarea data-uk-htmleditor="{maxsplitsize:600}"><h1>Heading</h1>
+
+<p>Lorem ipsum dolor sit <strong>amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <a href="#">This is a link</a></p>
+
+<ul>
+    <li>Item</li>
+    <li>Item</li>
+    <li>Item</li>
+</ul>
+
+<h2>Heading</h2>
+
+<p>Ut enim ad <em>minim</em> veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></textarea>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;textarea data-uk-htmleditor&gt;...&lt;/textarea&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Markdown</h2>
+
+                            <p>You can also write markdown inside the HTML editor. Just add the <code>markdown:true</code> option to the data attribute.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -124,13 +149,11 @@ Lorem ipsum dolor sit **amet**, consectetur adipisicing elit, sed do eiusmod tem
 
 Ut enim ad *minim* veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 
-<a href="#">HTML syntax highlightning</a>
-
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+<a href="#">This link is written in HTML</a></textarea>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;textarea data-uk-htmleditor&gt;...&lt;/textarea&gt;</code></pre>
+<pre><code>&lt;textarea data-uk-htmleditor="{markdown:true}"&gt;...&lt;/textarea&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -336,7 +359,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                         <ul class="uk-nav-sub">
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">Html editor</a></li>
+                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
