@@ -14,14 +14,11 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <link rel="stylesheet" href="../vendor/codemirror/lib/codemirror.css">
-        <script src="../vendor/codemirror/lib/codemirror.js"></script>
-        <script src="../vendor/codemirror/mode/markdown/markdown.js"></script>
-        <script src="../vendor/codemirror/addon/mode/overlay.js"></script>
-        <script src="../vendor/codemirror/mode/xml/xml.js"></script>
-        <script src="../vendor/codemirror/mode/gfm/gfm.js"></script>
+        <link rel="stylesheet" href="../vendor/codemirror/codemirror.css">
+        <link rel="stylesheet" href="../vendor/codemirror/show-hint.css">
+        <script src="../vendor/codemirror/codemirror.js"></script>
         <script src="../vendor/marked.js"></script>
-        <script src="../dist/js/addons/markdownarea.js"></script>
+        <script src="../dist/js/addons/htmleditor.js"></script>
     </head>
 
     <body class="tm-background">
@@ -62,7 +59,7 @@
                             <li class="uk-nav-header">JavaScript</li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li class="uk-active"><a href="addons_markdownarea.html">Markdown area</a></li>
+                            <li class="uk-active"><a href="addons_htmleditor.html">Html editor</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>
@@ -76,7 +73,7 @@
 
                         <article class="uk-article">
 
-                            <h1>Markdown area</h1>
+                            <h1>Html editor</h1>
 
                             <p class="uk-article-lead">Create a rich markdown editor with an immediate preview and support for HTML syntax highlighting.</p>
 
@@ -111,11 +108,11 @@
     &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 
-                            <p>Afterwards, just add the <code>data-uk-markdownarea</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
+                            <p>Afterwards, just add the <code>data-uk-htmleditor</code> attribute to a <code>&lt;textarea&gt;</code> element.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<textarea data-uk-markdownarea="{maxsplitsize:600}">#Heading
+<textarea data-uk-htmleditor="{maxsplitsize:600, markdown:true}">#Heading
 
 Lorem ipsum dolor sit **amet**, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. [This is a link](#)
 
@@ -133,17 +130,17 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;textarea data-uk-markdownarea&gt;...&lt;/textarea&gt;</code></pre>
+<pre><code>&lt;textarea data-uk-htmleditor&gt;...&lt;/textarea&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
                             <h2>Tab mode</h2>
 
-                            <p>You can also switch between Markdown and Preview mode. Just add the <code>data-uk-markdownarea="{mode:'tab'}</code> attribute.</p>
+                            <p>You can also switch between Markdown and Preview mode. Just add the <code>data-uk-htmleditor="{mode:'tab'}</code> attribute.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<textarea data-uk-markdownarea="{mode:'tab'}">#Heading
+<textarea data-uk-htmleditor="{mode:'tab', markdown:true}">#Heading
 
 Lorem ipsum dolor sit **amet**, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. [This is a link](#)
 
@@ -161,7 +158,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;textarea data-uk-markdownarea="{mode:'tab'}"&gt;...&lt;/textarea&gt;</code></pre>
+<pre><code>&lt;textarea data-uk-htmleditor="{mode:'tab'}"&gt;...&lt;/textarea&gt;</code></pre>
 
 
                             <hr class="uk-article-divider">
@@ -170,7 +167,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
                             <p>This is an example of how to set options via attribute:</p>
 
-                            <pre><code>data-uk-markdownarea=&quot;{mode:'split', maxsplitsize:600}&quot;</code></pre>
+                            <pre><code>data-uk-htmleditor=&quot;{mode:'split', maxsplitsize:600}&quot;</code></pre>
 
                             <table class="uk-table uk-table-striped">
                                 <thead>
@@ -339,7 +336,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                         <ul class="uk-nav-sub">
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_markdownarea.html">Markdown area</a></li>
+                            <li><a href="addons_htmleditor.html">Html editor</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_sortable.html">Sortable</a></li>

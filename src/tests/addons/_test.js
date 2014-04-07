@@ -18,7 +18,6 @@
             "dotnav",
             "form-file",
             "form-password",
-            "markdownarea",
             "htmleditor",
             "notify",
             "placeholder",
