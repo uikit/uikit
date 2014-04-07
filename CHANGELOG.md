@@ -1,5 +1,13 @@
 # Changelog
 
+### WIP
+
+  - IMPORTANT: Renamed markdownarea to htmleditor
+
+**Documentation and repository**
+
+  - Changed markdownarea docs and tests to htmleditor
+
 ### 2.6.0 (April 07, 2014)
 
   - Added link reset classes to utility component
