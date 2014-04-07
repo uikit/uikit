@@ -1,4 +1,4 @@
-/*! UIkit 2.5.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -54,7 +54,7 @@
                                       {{~items}}\
                                       <li data-url="{{!$item.url}}">\
                                           <a href="{{!$item.url}}">\
-                                              {{$item.title}}\
+                                              {{{$item.title}}}\
                                               {{#$item.text}}<div>{{{$item.text}}}</div>{{/$item.text}}\
                                           </a>\
                                       </li>\
