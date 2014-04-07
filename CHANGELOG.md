@@ -1,13 +1,13 @@
 # Changelog
 
-### WIP
+### 2.6.0 (April 07, 2014)
 
   - Added link reset classes to utility component
   - Changed text center medium breakpoints
   - Fixed cursor issue if form file content is too large
   - Fixed modal dialog padding issue, when body and modal have a scrollbar
   - Fixed markdownarea marker replacer
-  - Allow html markup in titles (search add-on)
+  - Allow HTML markup in titles for search add-on
   - Allow click for dropdowns in hover mode
   - Added uk-check-display event
   - Prevent vertical scrollbar for centered tabs
