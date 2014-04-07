@@ -133,7 +133,6 @@
 
     Modal.defaults = {
         keyboard: true,
-        show: false,
         bgclose: true,
         minScrollHeight: 150
     };

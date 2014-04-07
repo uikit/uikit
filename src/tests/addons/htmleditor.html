@@ -4,25 +4,26 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Markdown area - UIkit tests</title>
+        <title>Htmleditor - UIkit tests</title>
         <link rel="stylesheet" href="../../../vendor/codemirror/codemirror.css">
+        <link rel="stylesheet" href="../../../vendor/codemirror/show-hint.css">
         <script src="../../../vendor/jquery.js"></script>
         <script src="_test.js"></script>
         <script src="../../../vendor/codemirror/codemirror.js"></script>
         <script src="../../../vendor/marked.js"></script>
-        <script src="../../js/addons/markdownarea.js"></script>
+        <script src="../../js/addons/htmleditor.js"></script>
     </head>
 
     <body>
 
         <div class="uk-container uk-container-center">
 
-            <h1>Markdown area</h1>
+            <h1>Html editor</h1>
 
-            <div class="uk-markdownarea" data-mode="split">
-                <div class="uk-markdownarea-navbar">
+            <div class="uk-htmleditor" data-mode="split">
+                <div class="uk-htmleditor-navbar">
 
-                    <ul class="uk-markdownarea-navbar-nav">
+                    <ul class="uk-htmleditor-navbar-nav">
                         <li><a><i class="uk-icon-bold"></i></a></li>
                         <li><a><i class="uk-icon-italic"></i></a></li>
                         <li><a><i class="uk-icon-strikethrough"></i></a></li>
@@ -33,8 +34,8 @@
                         <li><a><i class="uk-icon-list-ol"></i></a></li>
                     </ul>
 
-                    <div class="uk-markdownarea-navbar-flip">
-                        <ul class="uk-markdownarea-navbar-nav">
+                    <div class="uk-htmleditor-navbar-flip">
+                        <ul class="uk-htmleditor-navbar-nav">
                             <li class="uk-markdown-button-markdown"><a>Markdown</a></li>
                             <li class="uk-markdown-button-preview"><a>Preview</a></li>
                             <li><a><i class="uk-icon-expand"></i></a></li>
@@ -42,15 +43,15 @@
                     </div>
 
                 </div>
-                <div class="uk-markdownarea-content">
+                <div class="uk-htmleditor-content">
 
-                    <div class="uk-markdownarea-code">
+                    <div class="uk-htmleditor-code">
                         <div>
                             Lorum ipsum
                         </div>
                     </div>
 
-                    <div class="uk-markdownarea-preview">
+                    <div class="uk-htmleditor-preview">
                         <div>
                             Lorum ipsum
                         </div>
@@ -60,10 +61,13 @@
             </div>
 
             <h3>Split mode</h3>
-            <textarea data-uk-markdownarea>**test**</textarea>
+            <textarea data-uk-htmleditor>Enter some html...</textarea>
 
             <h3>Tab mode</h3>
-            <textarea data-uk-markdownarea="{mode:'tab'}">**test**</textarea>
+            <textarea data-uk-htmleditor="{mode:'tab'}">Enter some html...</textarea>
+
+            <h3>Split mode with markdown rendering</h3>
+            <textarea data-uk-htmleditor="{markdown:true}">**test**</textarea>
 
         </div>
 
