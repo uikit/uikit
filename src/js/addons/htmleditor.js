@@ -81,7 +81,7 @@
                     } else {
 
                         try{
-                            var source = Htmleditor.HTMLtoXML($this.editor.getValue());
+                            var source = Htmleditor.HTMLtoXML($this.currentvalue);
                             $this.preview.html(source);
                             $this.element.val($this.editor.getValue()).trigger("htmleditor-update", [$this]);
                         }catch(e) {}
