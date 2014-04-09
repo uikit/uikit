@@ -413,7 +413,7 @@
         "height"       : 500,
         "maxsplitsize" : 1000,
         "markedOptions": { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
-        "codemirror"   : { mode: 'htmlmixed', tabMode: 'indent', tabindex: "2", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true },
+        "codemirror"   : { mode: 'htmlmixed', tabMode: 'indent', tabindex: "4", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true },
         "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
         "lblPreview"   : "Preview",
         "lblCodeview"  : "HTML"
