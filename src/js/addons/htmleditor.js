@@ -37,11 +37,10 @@
 
             if (this.options.markdown) {
                this.options.codemirror.mode = "gfm";
-               this.options.lblCodeview     = "Markdown";
             }
 
             tpl = tpl.replace(/\{\:lblPreview\}/g, this.options.lblPreview);
-            tpl = tpl.replace(/\{\:lblCodeview\}/g, this.options.lblCodeview);
+            tpl = tpl.replace(/\{\:lblCodeview\}/g, this.options.markdown ? "Markdown" : this.options.lblCodeview);
 
             this.htmleditor = $(tpl);
             this.content      = this.htmleditor.find(".uk-htmleditor-content");
@@ -57,35 +56,7 @@
 
             this.editor.on("change", (function(){
                 var render = function(){
-
-                    var value   = $this.editor.getValue();
-
-                    $this.currentvalue  = String(value);
-
-                    $this.element.trigger("htmleditor-before", [$this]);
-
-                    $this.applyPlugins();
-
-                    if($this.options.markdown && $this.marked) {
-
-                        $this.marked.setOptions($this.options.markedOptions);
-
-                        $this.marked($this.currentvalue, function (err, markdown) {
-
-                            if (err) throw err;
-
-                            $this.preview.html(markdown);
-                            $this.element.val($this.editor.getValue()).trigger("htmleditor-update", [$this]);
-                        });
-
-                    } else {
-
-                        try{
-                            var source = Htmleditor.HTMLtoXML($this.currentvalue);
-                            $this.preview.html(source);
-                            $this.element.val($this.editor.getValue()).trigger("htmleditor-update", [$this]);
-                        }catch(e) {}
-                    }
+                    $this.render();
                 };
 
                 render();
@@ -150,6 +121,12 @@
                     }
                 }, 100));
             }
+
+            // switch markdown mode on event
+            this.element.on({
+                "enableMarkdown"  : function(){ $this.enableMarkdown(); },
+                "disableMarkdown" : function(){ $this.disableMarkdown(); }
+            })
         },
 
         applyPlugins: function(){
@@ -178,17 +155,17 @@
                             lines[line] = lines[line].replace(plgs[name].identifier, function(){
 
                                 var replacement =  plgs[name].cb({
-                                    "area" : $this,
+                                    "editor" : $this,
                                     "found": arguments,
                                     "line" : line,
                                     "pos"  : i++,
                                     "uid"  : [name, line, i, (new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000))].join('-'),
                                     "replace": function(strwith){
-                                        var src   = this.area.editor.getLine(this.line),
+                                        var src   = this.editor.editor.getLine(this.line),
                                             start = src.indexOf(this.found[0]);
                                             end   = start + this.found[0].length;
 
-                                        this.area.editor.replaceRange(strwith, {"line": this.line, "ch":start}, {"line": this.line, "ch":end} );
+                                        this.editor.editor.replaceRange(strwith, {"line": this.line, "ch":start}, {"line": this.line, "ch":end} );
                                     }
                                 });
 
@@ -250,7 +227,7 @@
                 }
 
                 this.htmleditor.find(".uk-htmleditor-button-code, .uk-htmleditor-button-preview").removeClass("uk-active")
-                                 .filter(this.activetab=="code" ? '.uk-htmleditor-button-code':'.uk-htmleditor-button-preview').addClass("uk-active");
+                               .filter(this.activetab=="code" ? '.uk-htmleditor-button-code':'.uk-htmleditor-button-preview').addClass("uk-active");
 
             }
 
@@ -279,12 +256,56 @@
 
         getMode: function(){
 
-            if (this.options.codemirror.mode == "gfm") {
+            if (this.editor.options.mode == "gfm") {
                 var pos = this.editor.getDoc().getCursor();
                 return this.editor.getTokenAt(pos).state.base.htmlState ? 'html':'markdown';
             } else {
                 return "html";
             }
+        },
+
+        render: function() {
+
+            var $this = this, value = this.editor.getValue();
+
+            this.currentvalue  = String(value);
+
+            this.element.trigger("htmleditor-before", [this]);
+
+            this.applyPlugins();
+
+            if(this.editor.options.mode == 'gfm' && this.marked) {
+
+                this.marked.setOptions(this.options.markedOptions);
+
+                this.marked($this.currentvalue, function (err, markdown) {
+
+                    if (err) throw err;
+
+                    $this.preview.html(markdown);
+                    $this.element.val($this.editor.getValue()).trigger("htmleditor-update", [$this]);
+                });
+
+            } else {
+
+                try{
+                    var source = Htmleditor.HTMLtoXML($this.currentvalue);
+                    this.preview.html(source);
+                    this.element.val(this.editor.getValue()).trigger("htmleditor-update", [$this]);
+                }catch(e) {}
+            }
+        },
+
+        enableMarkdown: function(){
+            this.editor.setOption("mode", "gfm");
+            this.htmleditor.find('.uk-htmleditor-button-code a').html("Markdown");
+            this.render();
+        },
+
+        disableMarkdown: function(){
+            this.editor.setOption("mode", "htmlmixed");
+            this.htmleditor.find('.uk-htmleditor-button-code a').html(this.options.lblCodeview);
+            this.render();
         }
     });
 
@@ -425,10 +446,10 @@
     $(function() {
 
         $("textarea[data-uk-htmleditor]").each(function() {
-            var area = $(this), obj;
+            var editor = $(this), obj;
 
-            if (!area.data("htmleditor")) {
-                obj = new Htmleditor(area, UI.Utils.options(area.attr("data-uk-htmleditor")));
+            if (!editor.data("htmleditor")) {
+                obj = new Htmleditor(editor, UI.Utils.options(editor.attr("data-uk-htmleditor")));
             }
         });
     });
