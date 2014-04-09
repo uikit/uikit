@@ -66,28 +66,28 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {}
 
 /* DEFAULT THEME */
 
-.cm-s-default .cm-keyword {color: #708;}
-.cm-s-default .cm-atom {color: #219;}
-.cm-s-default .cm-number {color: #164;}
-.cm-s-default .cm-def {color: #00f;}
-.cm-s-default .cm-variable {color: black;}
-.cm-s-default .cm-variable-2 {color: #05a;}
-.cm-s-default .cm-variable-3 {color: #085;}
-.cm-s-default .cm-property {color: black;}
-.cm-s-default .cm-operator {color: black;}
-.cm-s-default .cm-comment {color: #a50;}
-.cm-s-default .cm-string {color: #a11;}
-.cm-s-default .cm-string-2 {color: #f50;}
-.cm-s-default .cm-meta {color: #555;}
-.cm-s-default .cm-qualifier {color: #555;}
-.cm-s-default .cm-builtin {color: #30a;}
-.cm-s-default .cm-bracket {color: #997;}
-.cm-s-default .cm-tag {color: #170;}
-.cm-s-default .cm-attribute {color: #00c;}
-.cm-s-default .cm-header {color: blue;}
-.cm-s-default .cm-quote {color: #090;}
-.cm-s-default .cm-hr {color: #999;}
-.cm-s-default .cm-link {color: #00c;}
+.cm-s-default .cm-keyword {color: #D5B510;}
+.cm-s-default .cm-atom {color: #85AA51;}
+.cm-s-default .cm-number {color: #85AA51;}
+.cm-s-default .cm-def {color: #3992AD;}
+.cm-s-default .cm-variable {color: #444;}
+.cm-s-default .cm-variable-2 {color: #444;}
+.cm-s-default .cm-variable-3 {color: #444;}
+.cm-s-default .cm-property {color: #444;}
+.cm-s-default .cm-operator {color: #444;}
+.cm-s-default .cm-comment {color: #999;}
+.cm-s-default .cm-string {color: #CF6A60;}
+.cm-s-default .cm-string-2 {color: #CF6A60;}
+.cm-s-default .cm-meta {color: #3992AD;}
+.cm-s-default .cm-qualifier {color: #3992AD;}
+.cm-s-default .cm-builtin {color: #3992AD;}
+.cm-s-default .cm-bracket {color: red;}
+.cm-s-default .cm-tag {color: #85AA51;}
+.cm-s-default .cm-attribute {color: #3992AD;}
+.cm-s-default .cm-header {color: #444;}
+.cm-s-default .cm-quote {color: #999;}
+.cm-s-default .cm-hr {color: #444;}
+.cm-s-default .cm-link {color: #3992AD;}
 
 .cm-negative {color: #d44;}
 .cm-positive {color: #292;}
@@ -95,12 +95,12 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {}
 .cm-em {font-style: italic;}
 .cm-link {text-decoration: underline;}
 
-.cm-s-default .cm-error {color: #f00;}
-.cm-invalidchar {color: #f00;}
+.cm-s-default .cm-error {color: #EC5142;}
+.cm-invalidchar {color: #EC5142;}
 
-div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}
-div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
-.CodeMirror-activeline-background {background: #e8f2ff;}
+div.CodeMirror span.CodeMirror-matchingbracket {color: #EC5142;}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #EC5142;}
+.CodeMirror-activeline-background {background: #fff;}
 
 /* STOP */
 
@@ -259,7 +259,7 @@ div.CodeMirror-cursors {
 /* IE7 hack to prevent it from returning funny offsetTops on the spans */
 .CodeMirror span { *vertical-align: text-bottom; }
 
-.CodeMirror-matchingtag { background: yellow; }
+.CodeMirror-matchingtag { background: ffffdd; }
 
 /* Used to force a border model for a node */
 .cm-force-border { padding-right: .1px; }
