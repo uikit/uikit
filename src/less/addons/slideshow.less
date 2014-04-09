@@ -90,10 +90,12 @@
 
 /*
  * 1. Hide caption before animation
+ * 2. Show caption
  */
 
 .uk-slideshow-caption {
-   position: absolute;
+    display: none; /* 1 */
+    position: absolute;
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -101,9 +103,8 @@
     top: 0px;
 }
 
-/* 1 */
-[data-uk-slideshow-caption] { opacity: 0; }
-
+/* 2 */
+.uk-active > .uk-slideshow-caption { display: block; }
 
 /* Animation
  ========================================================================== */

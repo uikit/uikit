@@ -12,20 +12,14 @@
             this.container   = $element.find(".uk-slideshow-slides"),
             this.slides      = this.container.children(),
             this.slidesCount = this.slides.length,
-            this.active      = 0,
+            this.current     = this.options.start,
             this.animating   = false,
-            this.nav         = $element.find(this.options.nav),
-            this.interval;
+            this.triggers    = $element.find('[data-uk-slideshow-slide]');
 
         if($element.data("slideshow")) return;
 
         // Set animation effect
         $element.addClass(this.options.animation);
-
-        // Set start slide
-        this.slides.eq(this.options.start).addClass("uk-active");
-        this.nav.eq(this.options.start).addClass("uk-active");
-        this.current = this.options.start;
 
         // set background image from img
         this.slides.each(function() {
@@ -36,21 +30,25 @@
 
         });
 
-        $element.on("click", [this.options.next, this.options.previous, this.options.nav].join(","), function(e) {
+        $element.on("click", '[data-uk-slideshow-slide]', function(e) {
 
             e.preventDefault();
 
-            if ($(this).is($this.options.next)){
-                $this.next();
-            }
-            else if ($(this).is($this.options.previous)){
-                $this.previous();
-            }
-            else {
-                $this.show($(this).data("uk-slideshow-slide"));
-            }
+            var slide = $(this).data('ukSlideshowSlide');
 
+            switch(slide) {
+                case 'next':
+                case 'previous':
+                    $this[slide=='next' ? 'next':'previous']();
+                    break;
+                default:
+                    $this.show(slide);
+            }
         });
+
+        // Set start slide
+        this.slides.eq(this.current).addClass("uk-active");
+        this.triggers.filter('[data-uk-slideshow-slide="'+this.current+'"]').addClass('uk-active');
 
         $element.data("slideshow", this);
 
@@ -58,27 +56,23 @@
 
         this.resize();
 
-        // Show caption
-        this.showCaption(this.active);
-
         // Set autoplay
         if(this.options.autoplay) {
-
             this.start();
-
-            this.container.on('mouseover', function(){
-                $this.stop();
-            }).on('mouseout', function() {
-                $this.start();
-            });
-
         };
+
+        this.container.on({
+            'mouseenter': function() { $this.hovering = true;  },
+            'mouseleave': function() { $this.hovering = false; }
+        });
 
     };
 
     $.extend(Slideshow.prototype, {
 
-        current: false,
+        current  : false,
+        interval : null,
+        hovering : false,
 
         resize: function() {
 
@@ -110,6 +104,15 @@
                 next    = this.slides.eq(index),
                 dir     = direction ? direction : this.current < index ? "next" : "previous";
 
+            current.addClass(dir == "next" ? "uk-slide-out-next" : "uk-slide-out-prev");
+            next.addClass(dir == "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
+
+            this.triggers.filter('[data-uk-slideshow-slide="'+this.current+'"]').removeClass('uk-active')
+                .end()
+                .filter('[data-uk-slideshow-slide="'+index+'"]').addClass('uk-active');
+
+            next.width(); // force redraw
+
             next.one("transitionend animationend webkitAnimationEnd", function() {
 
                 if(!$this.animating) return;
@@ -117,44 +120,8 @@
                 current.removeClass("uk-active " + (dir === "next" ? "uk-slide-out-next" : "uk-slide-out-prev"));
                 next.addClass("uk-active").removeClass(dir === "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
 
-                // Show caption
-                $this.showCaption(index);
-
                 $this.animating = false;
-
-            });
-
-            // Hide caption
-            this.slides.eq(index).find("[" + $this.options.caption + "]").each(function(){
-                $(this).removeClass(UI.Utils.options($(this).attr($this.options.caption)).cls);
-            });
-
-            current.addClass(dir == "next" ? "uk-slide-out-next" : "uk-slide-out-prev");
-            next.addClass(dir == "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
-            this.nav.eq(this.current).removeClass("uk-active");
-            this.nav.eq(index).addClass("uk-active");
-
-            next.width(); // force redraw
-
-            this.current = index;
-
-        },
-
-        showCaption: function(index){
-
-            var $this = this;
-
-            // Set caption
-            this.slides.eq(index).find("[" + $this.options.caption + "]").each(function(){
-
-                var item       = $(this),
-                    animation  = UI.Utils.options(item.attr($this.options.caption)).cls,
-                    delay      = UI.Utils.options(item.attr($this.options.caption)).delay;
-
-                setTimeout(function(){
-                    item.addClass(animation);
-                }, delay ? delay : 0);
-
+                $this.current = index;
             });
 
         },
@@ -169,16 +136,18 @@
 
         start: function() {
 
+            this.stop();
+
             var $this = this;
 
             this.interval = setInterval(function() {
-                $this.show($this.options.start, $this.next());
+                if(!$this.hovering) $this.show($this.options.start, $this.next());
             }, this.options.duration);
 
         },
 
         stop: function() {
-            clearInterval(this.interval);
+            if(this.interval) clearInterval(this.interval);
         }
 
     });
@@ -187,10 +156,7 @@
         animation : "uk-slideshow-animation-press-away",
         duration  : 4000,
         height    : "auto",
-        next      : "[data-uk-slideshow-next]",
-        previous  : "[data-uk-slideshow-previous]",
-        nav       : "[data-uk-slideshow-slide]",
-        caption   : "data-uk-slideshow-caption",
+        caption   : ".uk-slideshow-caption",
         start     : 0,
         autoplay  : false
     };
