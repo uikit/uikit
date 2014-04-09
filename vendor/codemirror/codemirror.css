@@ -275,28 +275,28 @@ div.CodeMirror-cursors {
 
 /* PAGEKIT THEME */
 
-.cm-s-default .cm-keyword {color: #D5B510;}
-.cm-s-default .cm-atom {color: #85AA51;}
-.cm-s-default .cm-number {color: #85AA51;}
-.cm-s-default .cm-def {color: #3992AD;}
+.cm-s-default .cm-keyword {color: #9B27AC;}
+.cm-s-default .cm-atom {color: #170;}
+.cm-s-default .cm-number {color: #170;}
+.cm-s-default .cm-def {color: #00c;}
 .cm-s-default .cm-variable {color: #444;}
 .cm-s-default .cm-variable-2 {color: #444;}
 .cm-s-default .cm-variable-3 {color: #444;}
 .cm-s-default .cm-property {color: #444;}
 .cm-s-default .cm-operator {color: #444;}
 .cm-s-default .cm-comment {color: #999;}
-.cm-s-default .cm-string {color: #CF6A60;}
-.cm-s-default .cm-string-2 {color: #CF6A60;}
-.cm-s-default .cm-meta {color: #3992AD;}
-.cm-s-default .cm-qualifier {color: #3992AD;}
-.cm-s-default .cm-builtin {color: #3992AD;}
+.cm-s-default .cm-string {color: #a11;}
+.cm-s-default .cm-string-2 {color: #a11;}
+.cm-s-default .cm-meta {color: #00c;}
+.cm-s-default .cm-qualifier {color: #00c;}
+.cm-s-default .cm-builtin {color: #00c;}
 .cm-s-default .cm-bracket {color: red;}
-.cm-s-default .cm-tag {color: #85AA51;}
-.cm-s-default .cm-attribute {color: #3992AD;}
+.cm-s-default .cm-tag {color: #170;}
+.cm-s-default .cm-attribute {color: #00c;}
 .cm-s-default .cm-header {color: #444;}
 .cm-s-default .cm-quote {color: #999;}
 .cm-s-default .cm-hr {color: #444;}
-.cm-s-default .cm-link {color: #3992AD;}
+.cm-s-default .cm-link {color: #00c;}
 
 .cm-negative {color: #d44;}
 .cm-positive {color: #292;}
