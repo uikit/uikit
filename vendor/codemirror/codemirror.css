@@ -275,10 +275,10 @@ div.CodeMirror-cursors {
 
 /* PAGEKIT THEME */
 
-.cm-s-default .cm-keyword {color: #9B27AC;}
-.cm-s-default .cm-atom {color: #170;}
-.cm-s-default .cm-number {color: #170;}
-.cm-s-default .cm-def {color: #00c;}
+.cm-s-default .cm-keyword {color: #708;}
+.cm-s-default .cm-atom {color: #219;}
+.cm-s-default .cm-number {color: #164;}
+.cm-s-default .cm-def {color: #00f;}
 .cm-s-default .cm-variable {color: #444;}
 .cm-s-default .cm-variable-2 {color: #444;}
 .cm-s-default .cm-variable-3 {color: #444;}
@@ -286,11 +286,11 @@ div.CodeMirror-cursors {
 .cm-s-default .cm-operator {color: #444;}
 .cm-s-default .cm-comment {color: #999;}
 .cm-s-default .cm-string {color: #a11;}
-.cm-s-default .cm-string-2 {color: #a11;}
-.cm-s-default .cm-meta {color: #00c;}
-.cm-s-default .cm-qualifier {color: #00c;}
-.cm-s-default .cm-builtin {color: #00c;}
-.cm-s-default .cm-bracket {color: red;}
+.cm-s-default .cm-string-2 {color: #f50;}
+.cm-s-default .cm-meta {color: #555;}
+.cm-s-default .cm-qualifier {color: #555;}
+.cm-s-default .cm-builtin {color: #30a;}
+.cm-s-default .cm-bracket {color: #997;}
 .cm-s-default .cm-tag {color: #170;}
 .cm-s-default .cm-attribute {color: #00c;}
 .cm-s-default .cm-header {color: #444;}
@@ -304,11 +304,9 @@ div.CodeMirror-cursors {
 .cm-em {font-style: italic;}
 .cm-link {text-decoration: underline;}
 
-.cm-s-default .cm-error {color: #EC5142;}
-.cm-invalidchar {color: #EC5142;}
+.cm-s-default .cm-error {color: #f00;}
+.cm-invalidchar {color: #f00;}
 
-div.CodeMirror span.CodeMirror-matchingbracket {color: #EC5142;}
-div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #EC5142;}
-.CodeMirror-activeline-background {background: #fff;}
-
-.CodeMirror-matchingtag { background: #ffffdd; }
+div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
+.CodeMirror-activeline-background {background: #e8f2ff;}
