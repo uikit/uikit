@@ -4,6 +4,7 @@
 
   - IMPORTANT: Renamed markdownarea to htmleditor
   - Fixed sticky z-index in themes
+  - Fixed wrong scaling calculation for images in Chrome
 
 **Documentation and repository**
 
