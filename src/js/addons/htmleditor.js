@@ -59,15 +59,10 @@
                     $this.render();
                 };
 
-                render();
-
                 return UI.Utils.debounce(render, 150);
             })());
 
             this.code.find(".CodeMirror").css("height", this.options.height);
-
-            this._buildtoolbar();
-            this.fit();
 
             $(window).on("resize", UI.Utils.debounce(function(){
                 $this.fit();
@@ -103,6 +98,16 @@
                 }
             });
 
+            // toolbar actions
+            this.htmleditor.on("click", "a[data-htmleditor-cmd]", function(){
+                var cmd = $(this).data("htmleditorCmd");
+
+                if(cmd && Htmleditor.commands[cmd] && (!$this.activetab || $this.activetab=="code" || cmd=="fullscreen")) {
+                    Htmleditor.commands[cmd].action.apply($this, [$this.editor])
+                }
+
+            });
+
             this.preview.parent().css("height", this.code.height());
 
             // autocomplete
@@ -126,13 +131,15 @@
             this.element.on({
                 "enableMarkdown"  : function(){ $this.enableMarkdown(); },
                 "disableMarkdown" : function(){ $this.disableMarkdown(); }
-            })
+            });
+
+            this.redraw();
         },
 
         applyPlugins: function(){
 
             var $this   = this,
-                plugins = Object.keys(Htmleditor.plugins),
+                plugins = this.plugins || [],
                 plgs    = Htmleditor.plugins;
 
             this.markers = {};
@@ -186,6 +193,9 @@
 
             var $this = this, bar = [];
 
+            this.toolbar.empty();
+            this.editor.removeKeyMap("htmleditor");
+
             this.options.toolbar.forEach(function(cmd){
                 if(Htmleditor.commands[cmd]) {
 
@@ -200,15 +210,6 @@
             });
 
             this.toolbar.html(bar.join("\n"));
-
-            this.htmleditor.on("click", "a[data-htmleditor-cmd]", function(){
-                var cmd = $(this).data("htmleditorCmd");
-
-                if(cmd && Htmleditor.commands[cmd] && (!$this.activetab || $this.activetab=="code" || cmd=="fullscreen")) {
-                    Htmleditor.commands[cmd].action.apply($this, [$this.editor])
-                }
-
-            });
         },
 
         fit: function() {
@@ -237,20 +238,36 @@
             this.htmleditor.attr("data-mode", mode);
         },
 
+        redraw: function() {
+            this._buildtoolbar();
+            this.render();
+            this.fit();
+        },
+
         registerShortcut: function(combination, callback){
 
-            var $this = this;
+            var $this = this, map = false, maps = this.editor.state.keyMaps;
+
+
+            for (var i = 0; i < maps.length; ++i) {
+                if (maps[i] && maps[i].name == "htmleditor") {
+                  map = maps[i];
+                  break;
+                }
+            }
+
+            if(!map) {
+                map = {name: "htmleditor"};
+                this.editor.addKeyMap(map);
+            }
 
             combination = $.isArray(combination) ? combination : [combination];
 
             for(var i=0,max=combination.length;i < max;i++) {
-                var map = {};
 
                 map[combination[i]] = function(){
                     callback.apply($this, [$this.editor]);
                 };
-
-                $this.editor.addKeyMap(map);
             }
         },
 
@@ -443,9 +460,10 @@
         "markdown"     : false,
         "autocomplete" : true,
         "height"       : 500,
+        "plugins"      : [],
         "maxsplitsize" : 1000,
         "markedOptions": { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
-        "codemirror"   : { mode: 'htmlmixed', tabMode: 'indent', tabindex: "4", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true },
+        "codemirror"   : { mode: 'htmlmixed', tabMode: 'indent', tabindex: "4", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true },
         "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
         "lblPreview"   : "Preview",
         "lblCodeview"  : "HTML"
