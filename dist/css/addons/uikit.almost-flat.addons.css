@@ -414,11 +414,11 @@ a.uk-datepicker-table-muted {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 /* ========================================================================
-   Component: Markdownarea
+   Component: HTML editor
  ========================================================================== */
-/* Sub-object `uk-markdownarea-navbar`
+/* Sub-object `uk-htmleditor-navbar`
  ========================================================================== */
-.uk-markdownarea-navbar {
+.uk-htmleditor-navbar {
   background: #f5f5f5;
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-top-left-radius: 4px;
@@ -427,30 +427,30 @@ a.uk-datepicker-table-muted {
 /*
  * Micro clearfix
  */
-.uk-markdownarea-navbar:before,
-.uk-markdownarea-navbar:after {
+.uk-htmleditor-navbar:before,
+.uk-htmleditor-navbar:after {
   content: " ";
   display: table;
 }
-.uk-markdownarea-navbar:after {
+.uk-htmleditor-navbar:after {
   clear: both;
 }
-/* Sub-object `uk-markdownarea-navbar-nav`
+/* Sub-object `uk-htmleditor-navbar-nav`
  ========================================================================== */
-.uk-markdownarea-navbar-nav {
+.uk-htmleditor-navbar-nav {
   margin: 0;
   padding: 0;
   list-style: none;
   float: left;
 }
-.uk-markdownarea-navbar-nav > li {
+.uk-htmleditor-navbar-nav > li {
   float: left;
 }
 /*
  * 1. Dimensions
  * 2. Style
  */
-.uk-markdownarea-navbar-nav > li > a {
+.uk-htmleditor-navbar-nav > li > a {
   display: block;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -474,8 +474,8 @@ a.uk-datepicker-table-muted {
  * 1. Apply hover style also to focus state
  * 2. Remove default focus style
  */
-.uk-markdownarea-navbar-nav > li:hover > a,
-.uk-markdownarea-navbar-nav > li > a:focus {
+.uk-htmleditor-navbar-nav > li:hover > a,
+.uk-htmleditor-navbar-nav > li > a:focus {
   background-color: #fafafa;
   color: #444444;
   outline: none;
@@ -487,7 +487,7 @@ a.uk-datepicker-table-muted {
   border-top-color: rgba(0, 0, 0, 0.1);
 }
 /* OnClick */
-.uk-markdownarea-navbar-nav > li > a:active {
+.uk-htmleditor-navbar-nav > li > a:active {
   background-color: #eeeeee;
   color: #444444;
   border-left-color: rgba(0, 0, 0, 0.1);
@@ -495,27 +495,27 @@ a.uk-datepicker-table-muted {
   border-top-color: rgba(0, 0, 0, 0.2);
 }
 /* Active */
-.uk-markdownarea-navbar-nav > li.uk-active > a {
+.uk-htmleditor-navbar-nav > li.uk-active > a {
   background-color: #fafafa;
   color: #444444;
   border-left-color: rgba(0, 0, 0, 0.1);
   border-right-color: rgba(0, 0, 0, 0.1);
   border-top-color: rgba(0, 0, 0, 0.1);
 }
-/* Sub-object: `uk-markdownarea-navbar-flip`
+/* Sub-object: `uk-htmleditor-navbar-flip`
  ========================================================================== */
-.uk-markdownarea-navbar-flip {
+.uk-htmleditor-navbar-flip {
   float: right;
 }
 /* Sub-object for special buttons
  ========================================================================== */
-[data-mode='split'] .uk-markdown-button-markdown,
-[data-mode='split'] .uk-markdown-button-preview {
+[data-mode='split'] .uk-htmleditor-button-code,
+[data-mode='split'] .uk-htmleditor-button-preview {
   display: none;
 }
-/* Sub-object `uk-markdownarea-content`
+/* Sub-object `uk-htmleditor-content`
  ========================================================================== */
-.uk-markdownarea-content {
+.uk-htmleditor-content {
   border-left: 1px solid #dddddd;
   border-right: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
@@ -526,17 +526,17 @@ a.uk-datepicker-table-muted {
 /*
  * Micro clearfix
  */
-.uk-markdownarea-content:before,
-.uk-markdownarea-content:after {
+.uk-htmleditor-content:before,
+.uk-htmleditor-content:after {
   content: " ";
   display: table;
 }
-.uk-markdownarea-content:after {
+.uk-htmleditor-content:after {
   clear: both;
 }
-/* Modifier `uk-markdownarea-fullscreen`
+/* Modifier `uk-htmleditor-fullscreen`
  ========================================================================== */
-.uk-markdownarea-fullscreen {
+.uk-htmleditor-fullscreen {
   position: fixed;
   top: 0;
   left: 0;
@@ -544,87 +544,87 @@ a.uk-datepicker-table-muted {
   bottom: 0;
   z-index: 990;
 }
-.uk-markdownarea-fullscreen .uk-markdownarea-content {
+.uk-htmleditor-fullscreen .uk-htmleditor-content {
   position: absolute;
   top: 41px;
   left: 0;
   right: 0;
   bottom: 0;
 }
-.uk-markdownarea-fullscreen .uk-icon-expand:before {
+.uk-htmleditor-fullscreen .uk-icon-expand:before {
   content: "\f066";
 }
-/* Sub-objects `uk-markdownarea-code` and `uk-markdownarea-preview`
+/* Sub-objects `uk-htmleditor-code` and `uk-htmleditor-preview`
  ========================================================================== */
-.uk-markdownarea-code,
-.uk-markdownarea-preview {
+.uk-htmleditor-code,
+.uk-htmleditor-preview {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.uk-markdownarea-preview {
+.uk-htmleditor-preview {
   padding: 20px;
   overflow-y: scroll;
 }
 /*
  * Tab view
  */
-[data-mode='tab'][data-active-tab='code'] .uk-markdownarea-preview,
-[data-mode='tab'][data-active-tab='preview'] .uk-markdownarea-code {
+[data-mode='tab'][data-active-tab='code'] .uk-htmleditor-preview,
+[data-mode='tab'][data-active-tab='preview'] .uk-htmleditor-code {
   display: none;
 }
 /*
  * Split view
  */
-[data-mode='split'] .uk-markdownarea-code,
-[data-mode='split'] .uk-markdownarea-preview {
+[data-mode='split'] .uk-htmleditor-code,
+[data-mode='split'] .uk-htmleditor-preview {
   float: left;
   width: 50%;
 }
-[data-mode='split'] .uk-markdownarea-code {
+[data-mode='split'] .uk-htmleditor-code {
   border-right: 1px solid #eeeeee;
 }
 /* CodeMirror modifications
  ========================================================================== */
-.uk-markdownarea .CodeMirror {
+.uk-htmleditor .CodeMirror {
   padding: 10px;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 /*
-     * Apply same `border-radius` as `uk-markdownarea-navbar`
+     * Apply same `border-radius` as `uk-htmleditor-navbar`
      */
-.uk-markdownarea-navbar-nav:first-child > li:first-child > a {
+.uk-htmleditor-navbar-nav:first-child > li:first-child > a {
   border-top-left-radius: 4px;
 }
 /*
-     * Sub-modifier `uk-markdownarea-navbar-flip`
+     * Sub-modifier `uk-htmleditor-navbar-flip`
      */
 /* Collapse border */
-.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav > li > a {
+.uk-htmleditor-navbar-flip .uk-htmleditor-navbar-nav > li > a {
   margin-left: 0;
   margin-right: -1px;
 }
-/* Apply same `border-radius` as `uk-markdownarea-navbar` */
-.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:first-child > li:first-child > a {
+/* Apply same `border-radius` as `uk-htmleditor-navbar` */
+.uk-htmleditor-navbar-flip .uk-htmleditor-navbar-nav:first-child > li:first-child > a {
   border-top-left-radius: 0;
 }
-.uk-markdownarea-navbar-flip .uk-markdownarea-navbar-nav:last-child > li:last-child > a {
+.uk-htmleditor-navbar-flip .uk-htmleditor-navbar-nav:last-child > li:last-child > a {
   border-top-right-radius: 4px;
 }
 /*
-     * Sub-modifier `uk-markdownarea-fullscreen`
+     * Sub-modifier `uk-htmleditor-fullscreen`
      */
-.uk-markdownarea-fullscreen .uk-markdownarea-navbar {
+.uk-htmleditor-fullscreen .uk-htmleditor-navbar {
   border-top: none;
   border-left: none;
   border-right: none;
   border-radius: 0;
 }
-.uk-markdownarea-fullscreen .uk-markdownarea-content {
+.uk-htmleditor-fullscreen .uk-htmleditor-content {
   border: none;
   border-radius: 0;
 }
-.uk-markdownarea-fullscreen .uk-markdownarea-navbar-nav > li > a {
+.uk-htmleditor-fullscreen .uk-htmleditor-navbar-nav > li > a {
   border-radius: 0 !important;
 }
 /* ========================================================================
@@ -637,7 +637,7 @@ a.uk-datepicker-table-muted {
   position: fixed;
   top: 10px;
   left: 10px;
-  z-index: 980;
+  z-index: 1040;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 350px;

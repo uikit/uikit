@@ -5092,6 +5092,7 @@ a.uk-thumbnail:focus {
  * 2. Create position context
  * 3. Set max-width for responsive images to prevent `inline-block` consequences
  * 4. Remove the gap between the container and its child element
+ * 5. Fixed wrong scaling calculation for images in Chrome
  */
 .uk-overlay {
   /* 1 */
@@ -5102,12 +5103,8 @@ a.uk-thumbnail:focus {
   max-width: 100%;
   /* 4 */
   vertical-align: middle;
-}
-/*
- * Fixed wrong scaling calculation for images in Chrome
- */
-.uk-overlay > img:first-child {
-  display: block;
+  /* 5 */
+  overflow: hidden;
 }
 /* Sub-object `uk-overlay-area`
  ========================================================================== */
