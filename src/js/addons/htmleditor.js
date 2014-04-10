@@ -311,11 +311,43 @@
     });
 
     var baseReplacer = function(replace, editor){
-        var text     = editor.getSelection(),
-            markdown = replace.replace('$1', text);
 
-        editor.replaceSelection(markdown, 'end');
-    };
+            var text     = editor.getSelection();
+
+            if (!text.length) {
+
+                var cur     = editor.getCursor(),
+                    curLine = editor.getLine(cur.line),
+                    start   = cur.ch,
+                    end     = start;
+
+                while (end < curLine.length && /[\w$]+/.test(curLine.charAt(end))) ++end;
+                while (start && /[\w$]+/.test(curLine.charAt(start - 1))) --start;
+
+                var curWord = start != end && curLine.slice(start, end);
+
+                if (curWord) {
+                    editor.setSelection({"line": cur.line, "ch":start}, {"line": cur.line, "ch":end} );
+                    text = curWord;
+                }
+            }
+
+            var markdown = replace.replace('$1', text);
+
+            editor.replaceSelection(markdown, 'end');
+            editor.focus();
+        },
+
+        lineReplacer = function(replace, editor){
+
+            var pos      = editor.getDoc().getCursor(),
+                text     = editor.getLine(pos.line),
+                markdown = replace.replace('$1', text);
+
+            editor.replaceRange(markdown, {"line": pos.line, "ch":0}, {"line": pos.line, "ch":text.length} );
+            editor.setCursor({"line":pos.line, "ch":markdown.length});
+            editor.focus();
+        };
 
     Htmleditor.commands = {
         "fullscreen": {
@@ -373,7 +405,7 @@
             "title"  : "Blockquote",
             "label"  : '<i class="uk-icon-quote-right"></i>',
             "action" : function(editor){
-                baseReplacer(this.getMode() == 'html' ? "<blockquote><p>$1</p></blockquote>":"> $1", editor);
+                lineReplacer(this.getMode() == 'html' ? "<blockquote><p>$1</p></blockquote>":"> $1", editor);
             }
         },
         "link" : {
@@ -394,14 +426,14 @@
             "title"  : "Unordered List",
             "label"  : '<i class="uk-icon-list-ul"></i>',
             "action" : function(editor){
-                if(this.getMode() == 'markdown') baseReplacer("* $1", editor);
+                if(this.getMode() == 'markdown') lineReplacer("* $1", editor);
             }
         },
         "listOl" : {
             "title"  : "Ordered List",
             "label"  : '<i class="uk-icon-list-ol"></i>',
             "action" : function(editor){
-                if(this.getMode() == 'markdown') baseReplacer("1. $1", editor);
+                if(this.getMode() == 'markdown') lineReplacer("1. $1", editor);
             }
         }
     }
