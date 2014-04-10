@@ -30,12 +30,8 @@
         this.halfDisplayed = this.options.displayedPages / 2;
 
         $element.data("pagination", this).on("click", "a[data-page]", function(e){
-
             e.preventDefault();
-
-            var page = $(this).data("page");
-
-            $this.selectPage(page);
+            $this.selectPage($(this).data("page"));
         });
 
         this._render();
