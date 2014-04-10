@@ -29,7 +29,16 @@
         this.currentPage   = this.options.currentPage - 1;
         this.halfDisplayed = this.options.displayedPages / 2;
 
-        $element.data("pagination", this);
+        $element.data("pagination", this).on("click", "a[data-page]", function(e){
+
+            e.preventDefault();
+
+            var page = $(this).data("page");
+
+            $this.selectPage(page);
+            $this.options.onSelectPage.apply($this, [page]);
+            $this.element.trigger('uk-select-page', [page, $this]);
+        });
 
         this._render();
     };
@@ -97,7 +106,6 @@
 
             // Generate Next link (unless option is set for at front)
             if (o.lblNext) this._append(o.currentPage + 1, {text: o.lblNext});
-
         },
 
         _append: function(pageIndex, opts) {
@@ -107,19 +115,8 @@
             pageIndex = pageIndex < 0 ? 0 : (pageIndex < this.pages ? pageIndex : this.pages - 1);
             options   = $.extend({ text: pageIndex + 1 }, opts);
 
-            if (pageIndex == this.currentPage) {
-                item = '<li class="uk-active"><span>' + (options.text) + '</span></li>';
-            } else {
-
-                link = $('<a href="#page-' + (pageIndex + 1) + '">' + options.text + '</a>').on('click', function(e){
-                    e.preventDefault();
-                    $this.selectPage(pageIndex);
-                    $this.options.onSelectPage.apply($this, [pageIndex]);
-                    $this.element.trigger('uk-select-page', [pageIndex, $this]);
-                });
-
-                item = $('<li></li>').append(link);
-            }
+            item = (pageIndex == this.currentPage) ? '<li class="uk-active"><span>' + (options.text) + '</span></li>'
+                                                   : '<li><a href="#page-'+(pageIndex+1)+'" data-page="'+pageIndex+'">'+options.text+'</a></li>';
 
             this.element.append(item);
         }
