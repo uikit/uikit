@@ -36,8 +36,6 @@
             var page = $(this).data("page");
 
             $this.selectPage(page);
-            $this.options.onSelectPage.apply($this, [page]);
-            $this.element.trigger('uk-select-page', [page, $this]);
         });
 
         this._render();
@@ -59,9 +57,12 @@
             this._render();
         },
 
-        selectPage: function(pageIndex) {
+        selectPage: function(pageIndex, pages) {
             this.currentPage = pageIndex;
-            this._render();
+            this.render(pages);
+
+            this.options.onSelectPage.apply($this, [page]);
+            this.element.trigger('uk-select-page', [page, $this]);
         },
 
         _render: function() {
