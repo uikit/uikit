@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Renamed markdownarea to htmleditor
+  - Fixed sticky z-index in themes
 
 **Documentation and repository**
 
