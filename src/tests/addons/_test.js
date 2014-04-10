@@ -20,6 +20,7 @@
             "form-password",
             "htmleditor",
             "notify",
+            "pagination",
             "placeholder",
             "search",
             "slidenav",
