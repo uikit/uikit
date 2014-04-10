@@ -82,6 +82,7 @@ a {
  */
 a:active,
 a:hover {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   outline: 0;
 }
 /* Text-level semantics
