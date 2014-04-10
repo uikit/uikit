@@ -61,8 +61,8 @@
             this.currentPage = pageIndex;
             this.render(pages);
 
-            this.options.onSelectPage.apply($this, [page]);
-            this.element.trigger('uk-select-page', [page, $this]);
+            this.options.onSelectPage.apply(this, [pageIndex]);
+            this.element.trigger('uk-select-page', [pageIndex, this]);
         },
 
         _render: function() {
