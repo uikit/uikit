@@ -12,30 +12,39 @@
    Component: Form select
  ========================================================================== */
 
+/*
+ * 1. Behave like form elements
+ * 2. Create position context for dropdowns
+ * 3. Clip content
+ */
+
 .uk-form-select {
-    position: relative;
+    /* 1 */
     display: inline-block;
     vertical-align: middle;
+    /* 2 */
+    position: relative;
+    /* 3 */
     overflow: hidden;
 }
 
 /*
  * 1. Required for Firefox
- * 2. Required for the cursor
+ * 1. Required for Webkit to make `height` work
  */
 
 .uk-form-select select {
     position: absolute;
     top: 0;
-    bottom: 0;
     z-index: 1;
     width: 100%;
+    height: 100%;
     opacity: 0;
     cursor: pointer;
     /* 1 */
     left: 0;
     /* 2 */
-    font-size: 500px;
+    -webkit-appearance: none;
 }
 
 

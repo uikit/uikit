@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Renamed markdownarea to htmleditor
+  - Added form-select add-on
   - Fixed sticky z-index in themes
   - Fixed wrong scaling calculation for images in Chrome
   - Fixed printing for animations and scrollspy
