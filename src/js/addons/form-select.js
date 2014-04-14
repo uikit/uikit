@@ -31,6 +31,8 @@
                 return fn;
             };
 
+            $(document).on("uk-domready", fn);
+
             return fn();
         })());
 
