@@ -18,6 +18,7 @@
             "dotnav",
             "form-file",
             "form-password",
+            "form-select",
             "htmleditor",
             "notify",
             "pagination",
