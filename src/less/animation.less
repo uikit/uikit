@@ -34,7 +34,11 @@
 }
 
 /* Hide animated element if scrollspy is used */
-[data-uk-scrollspy*='uk-animation-'] { opacity: 0; }
+@media screen {
+
+    [data-uk-scrollspy*='uk-animation-'] { opacity: 0; }
+
+}
 
 /*
  * Fade

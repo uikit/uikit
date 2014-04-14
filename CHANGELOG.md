@@ -5,6 +5,7 @@
   - IMPORTANT: Renamed markdownarea to htmleditor
   - Fixed sticky z-index in themes
   - Fixed wrong scaling calculation for images in Chrome
+  - Fixed printing for animations and scrollspy
 
 **Documentation and repository**
 
