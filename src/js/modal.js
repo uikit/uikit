@@ -15,11 +15,6 @@
             this.transition = UI.support.transition;
             this.dialog     = this.element.find(".uk-modal-dialog");
 
-            this.scrollable = (function(){
-                var scrollable = $this.dialog.find('.uk-overflow-container:first');
-                return scrollable.length ? scrollable : false;
-            })();
-
             this.element.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
                 $this.hide();
@@ -97,16 +92,20 @@
                 this.element.css(paddingdir, this.scrollbarwidth - (this.element[0].scrollHeight==window.innerHeight ? 0:this.scrollbarwidth ));
             }
 
-            if (this.scrollable) {
+            // has scrollable?
 
-                this.scrollable.css("height", 0);
+            var scrollable = this.dialog.find('.uk-overflow-container:visible:first');
+
+            if (scrollable) {
+
+                scrollable.css("height", 0);
 
                 var offset = Math.abs(parseInt(this.dialog.css("margin-top"), 10)),
                     dh     = this.dialog.outerHeight(),
                     wh     = window.innerHeight,
                     h      = wh - 2*(offset < 20 ? 20:offset) - dh;
 
-                this.scrollable.css("height", h < this.options.minScrollHeight ? "":h);
+                scrollable.css("height", h < this.options.minScrollHeight ? "":h);
             }
         },
 
