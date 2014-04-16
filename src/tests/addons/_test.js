@@ -16,6 +16,7 @@
             "autocomplete",
             "datepicker",
             "dotnav",
+            "form-advanced",
             "form-file",
             "form-password",
             "form-select",
