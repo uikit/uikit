@@ -92,6 +92,12 @@
                 this.element.css(paddingdir, this.scrollbarwidth - (this.element[0].scrollHeight==window.innerHeight ? 0:this.scrollbarwidth ));
             }
 
+            this.updateScrollable();
+
+        },
+
+        updateScrollable: function() {
+
             // has scrollable?
 
             var scrollable = this.dialog.find('.uk-overflow-container:visible:first');

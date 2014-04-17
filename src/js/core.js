@@ -276,7 +276,7 @@
 
             var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                 $(document).trigger("uk-domready");
-            }, 300));
+            }, 150));
 
             // pass in the target node, as well as the observer options
             observer.observe(document.body, { childList: true, subtree: true });
