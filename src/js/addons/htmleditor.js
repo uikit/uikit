@@ -404,6 +404,10 @@
 
                 editor.refresh();
                 editor.htmleditor.preview.parent().css("height", editor.htmleditor.code.height());
+
+                setTimeout(function(){
+                    editor.htmleditor.fit();
+                }, 0);
             }
         },
 
