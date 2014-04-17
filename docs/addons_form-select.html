@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Upload component - UIkit documentation</title>
+        <title>Form select component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,7 +14,7 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/js/addons/upload.js"></script>
+        <script src="../dist/js/addons/form-select.js"></script>
     </head>
 
     <body class="tm-background">
@@ -53,7 +53,7 @@
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
+                            <li class="uk-active"><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
@@ -64,7 +64,7 @@
                             <li><a href="addons_sortable.html">Sortable</a></li>
                             <li><a href="addons_sticky.html">Sticky</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li class="uk-active"><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="addons_upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -72,232 +72,94 @@
 
                         <article class="uk-article">
 
-                            <h1>Upload</h1>
+                            <h1>Form select</h1>
 
-                            <p class="uk-article-lead">Allow users to upload files through a file input form element or a placeholder area.</p>
+                            <p class="uk-article-lead">Replace the default select form with your own HTML content, like a button or text.</p>
 
                             <h2>Usage</h2>
 
-                            <p>This JavaScript component utilizes the latest XMLHttpRequest Level 2 specification and provides the ability of uploading files via ajax including tracking of the upload progress. The component provides two ways of uploading files: <code>select</code> and <code>drop</code>.
-                            While the <code>select</code> request can only be applied to <code>&lt;input type=&quot;file&quot;&gt;</code> elements, you can basically use any element with <code>drop</code>, which enables you to simply drag and drop files from your desktop into the specified element to upload them. Note that this component does not handle your file uploads on the server.</p>
-
-                            <p>The Upload component always needs to be implemented individually according to your requirements. In our example case we used the <a href="addons_placeholder.html">Placeholder</a> and the <a href="addons_form-file.html">Form file</a> component, applying both the <code>drop</code> and <code>select</code> requests. Additionally we used the <a href="progress.html">Progress component</a> to illustrate the uploading progress.</p>
+                            <p>To apply this component, just add the <code>.uk-form-select</code> class and the <code>data-uk-form-select</code> attribute to a container element around a span and a <code>&lt;select&gt;</code> element. Basically, this will overlay the default select element with a custom UIkit form.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div id="upload-drop" class="uk-placeholder uk-text-center">
-                                <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i> Attach binaries by dropping them here or <a class="uk-form-file">selecting one<input id="upload-select" type="file"></a>.
+                            <div class="uk-margin">
+
+                                <div class="uk-form-select" data-uk-form-select>
+                                    <span></span>
+                                    <select>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                </div>
+
                             </div>
-
-                            <div id="progressbar" class="uk-progress uk-hidden">
-                                <div class="uk-progress-bar" style="width: 0%;">0%</div>
-                            </div>
-
-                            <script>
-
-                                $(function(){
-
-                                    var progressbar = $("#progressbar"),
-                                        bar         = progressbar.find('.uk-progress-bar'),
-                                        settings    = {
-
-                                        action: '/', // upload url
-
-                                        allow : '*.(jpg|gif|png)', // allow only images
-
-                                        loadstart: function() {
-                                            bar.css("width", "0%").text("0%");
-                                            progressbar.removeClass("uk-hidden");
-                                        },
-
-                                        progress: function(percent) {
-                                            percent = Math.ceil(percent);
-                                            bar.css("width", percent+"%").text(percent+"%");
-                                        },
-
-                                        allcomplete: function(response) {
-
-                                            bar.css("width", "100%").text("100%");
-
-                                            setTimeout(function(){
-                                                progressbar.addClass("uk-hidden");
-                                            }, 250);
-
-                                            alert("Upload Completed")
-                                        }
-                                    };
-
-                                    var select = new $.UIkit.upload.select($("#upload-select"), settings),
-                                        drop   = new $.UIkit.upload.drop($("#upload-drop"), settings);
-                                });
-
-                            </script>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div id="upload-drop" class="uk-placeholder"&gt;
-    Info text... &lt;a class=&quot;uk-form-file&quot;&gt;Select a file&lt;input id="upload-select" type="file"&gt;&lt;/a&gt;.
-&lt;/div&gt;
-
-&lt;div id="progressbar" class="uk-progress uk-hidden"&gt;
-    &lt;div class="uk-progress-bar" style="width: 0%;"&gt;...&lt;/div&gt;
+<pre><code>&lt;div class="uk-form-select" data-uk-form-select&gt;
+    &lt;span&gt;&lt;/span&gt;
+    &lt;select&gt;
+        &lt;option value=""&gt;...&lt;/option&gt;
+        &lt;option value=""&gt;.../option&gt;
+    &lt;/select&gt;
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h3>JavaScript</h3>
+                            <h3>As a button</h3>
 
-                            <p>
-                                To create <code>select</code> and <code>drop</code> upload listeners you need to instantiate each upload class with the target element and options, which defines callbacks and useful settings.
-                            </p>
+                            <p>Add the <code>.uk-button</code> class to the container element to style it as a button.</p>
 
-<pre><code>&lt;script&gt;
+                            <div class="uk-margin">
 
-    $(function(){
+                                <div class="uk-button uk-form-select" data-uk-form-select>
+                                    <span></span>
+                                    <i class="uk-icon-caret-down"></i>
+                                    <select>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                </div>
 
-        var progressbar = $("#progressbar"),
-            bar         = progressbar.find('.uk-progress-bar'),
-            settings    = {
+                            </div>
 
-            action: '/', // upload url
+                            <h3 class="tm-article-subtitle">Markup</h3>
 
-            allow : '*.(jpg|jpeg|gif|png)', // allow only images
+<pre><code>&lt;div class="uk-button uk-form-select" data-uk-form-select&gt;...&lt;/div&gt;</code></pre>
 
-            loadstart: function() {
-                bar.css("width", "0%").text("0%");
-                progressbar.removeClass("uk-hidden");
-            },
+                            <hr class="uk-article-divider">
 
-            progress: function(percent) {
-                percent = Math.ceil(percent);
-                bar.css("width", percent+"%").text(percent+"%");
-            },
+                            <h3>As an anchor</h3>
 
-            allcomplete: function(response) {
+                            <p>You can use any element, like an <code>&lt;a&gt;</code> as a select form. Just add the <code>{target:'a'}</code> option to the <code>data-uk-form-select</code> attribute and use an <code>&lt;a&gt;</code> instead of a <code>&lt;span&gt;</code> element.</p>
 
-                bar.css("width", "100%").text("100%");
+                            <h3 class="tm-article-subtitle">Example</h3>
 
-                setTimeout(function(){
-                    progressbar.addClass("uk-hidden");
-                }, 250);
+                            <div class="uk-margin">
 
-                alert("Upload Completed")
-            }
-        };
+                                <div class="uk-form-select" data-uk-form-select="{target:'a'}">
+                                    <a></a>
+                                    <select>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                </div>
 
-        var select = new $.UIkit.upload.select($("#upload-select"), settings),
-            drop   = new $.UIkit.upload.drop($("#upload-drop"), settings);
-    });
+                            </div>
 
-&lt;/script&gt;</code></pre>
+                            <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <h2>JavaScript options</h2>
-
-                            <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Option</th>
-                                        <th>Possible value</th>
-                                        <th>Default</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>action</code></td>
-                                        <td>string</td>
-                                        <td>''</td>
-                                        <td>Target url for the upload</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>single</code></td>
-                                        <td>boolean</td>
-                                        <td>true</td>
-                                        <td>Send each file one by one</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>param</code></td>
-                                        <td>string</td>
-                                        <td>files[]</td>
-                                        <td>Post query name</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>params</code></td>
-                                        <td>JSON Object</td>
-                                        <td>{}</td>
-                                        <td>Additional request parameters</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>allow</code></td>
-                                        <td>string</td>
-                                        <td>*.*</td>
-                                        <td>File filter</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>type</code></td>
-                                        <td>(text | json)</td>
-                                        <td>text</td>
-                                        <td>Response type from server</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <h3>Callback events</h3>
-
-                            <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Parameter</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>before</code></td>
-                                        <td>settings, files</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>progress</code></td>
-                                        <td>percent</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>complete</code></td>
-                                        <td>response, xhr</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>allcomplete</code></td>
-                                        <td>response, xhr</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>notallowed</code></td>
-                                        <td>file, settings</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>loadstart</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>load</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>loadend</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>error</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>abort</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>readystatechange</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+<pre><code>
+&lt;div class="uk-form-select" data-uk-form-select="{target:'a'}"&gt;
+    &lt;a&gt;&lt;/a&gt;
+    &lt;select&gt;...&lt;/select&gt;
+&lt;/div&gt;</code></pre>
 
                         </article>
 
@@ -412,14 +274,14 @@
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
