@@ -48,9 +48,12 @@
                             <li class="uk-nav-header">Navigations</li>
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
+                            <li class="uk-active"><a href="addons_pagination.html">Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
+                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
+                            <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
@@ -62,7 +65,6 @@
                             <li><a href="addons_sticky.html">Sticky</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
                             <li><a href="addons_upload.html">Upload</a></li>
-                            <li class="uk-active"><a href="addons_pagination.html">Pagination</a></li>
                         </ul>
 
                     </div>
@@ -74,13 +76,12 @@
 
                             <p class="uk-article-lead">Create JavaScript based paginations utilizing the <a href="pagination.html">Pagination component</a>.</p>
 
+                            <p>The Pagination add-on will automatically calculate the pages depending on the given options. This is useful e.g. for Ajax powered list views, where you need to trigger an event to
+                            load new items dynamically.</p>
+
                             <h2>Usage</h2>
 
-                            <p>
-                                To apply the pagination add-on, just add the data-uk-pagination attribute to an <code>&lt;ul class="uk-pagination"&gt;</code> element.
-                                The add-on will automatically calculate the pages depending on the given options. This is useful e.g. for ajax powered list views, where you need to trigger an event to
-                                load new items dynamically.
-                            </p>
+                            <p>To apply this add-on, just add the <code>data-uk-pagination</code> attribute to a <code>&lt;ul&gt;</code> element with the <code>.uk-pagination</code> class.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -149,8 +150,7 @@
                                 The pagination add-on triggers an <code>uk-select-page</code> event every time you click on a page.
                             </p>
 
-<pre><code>
-$('[data-uk-pagination]').on('uk-select-page', function(e, pageIndex){
+<pre><code>$('[data-uk-pagination]').on('uk-select-page', function(e, pageIndex){
     alert('You have selected page: ' + (pageIndex+1));
 });
 </code></pre>
@@ -262,20 +262,23 @@ $('[data-uk-pagination]').on('uk-select-page', function(e, pageIndex){
                         </ul>
                     </li>
                     <li class="uk-nav-header">Add-ons</li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
+                            <li><a href="addons_pagination.html">Pagination</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
+                            <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
