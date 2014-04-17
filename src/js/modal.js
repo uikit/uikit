@@ -80,20 +80,23 @@
 
         resize: function() {
 
-            if(!this.scrollbarwidth) {
+            var paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
 
-                var paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
+            this.scrollbarwidth = window.innerWidth - html.width();
 
-                this.scrollbarwidth = window.innerWidth - html.width();
+            html.css(paddingdir, this.scrollbarwidth);
 
-                html.css(paddingdir, this.scrollbarwidth);
+            this.element.css(paddingdir, "");
 
-                this.element.css(paddingdir, "");
-
-                if (this.dialog.offset().left > this.scrollbarwidth) {
-                    this.element.css(paddingdir, this.scrollbarwidth - (this.element[0].scrollHeight==window.innerHeight ? 0:this.scrollbarwidth ));
-                }
+            if (this.dialog.offset().left > this.scrollbarwidth) {
+                this.element.css(paddingdir, this.scrollbarwidth - (this.element[0].scrollHeight==window.innerHeight ? 0:this.scrollbarwidth ));
             }
+
+            this.updateScrollable();
+
+        },
+
+        updateScrollable: function() {
 
             // has scrollable?
 
@@ -117,8 +120,6 @@
             this.element.hide().removeClass("uk-open");
 
             html.removeClass("uk-modal-page").css("padding-" + (UI.langdirection == 'left' ? "right":"left"), "");
-
-            this.scrollbarwidth = null;
 
             if(active===this) active = false;
 
