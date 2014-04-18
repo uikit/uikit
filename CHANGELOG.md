@@ -9,9 +9,12 @@
   - Fixed sticky z-index in themes
   - Fixed wrong scaling calculation for images in Chrome
   - Fixed printing for animations and scrollspy
+  - Fixed text-decoration for navbar brand and toggle
 
 **Documentation and repository**
 
+  - Added docs and tests for new add-ons
+  - Added missing animations to docs
   - Changed markdownarea docs and tests to htmleditor
 
 ### 2.6.0 (April 07, 2014)
