@@ -10,6 +10,7 @@
   - Fixed wrong scaling calculation for images in Chrome
   - Fixed printing for animations and scrollspy
   - Fixed text-decoration for navbar brand and toggle
+  - Fixed overlay if its content has margin bottom
 
 **Documentation and repository**
 
