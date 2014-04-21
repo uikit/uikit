@@ -54,11 +54,14 @@
     left: 0;
     z-index: @offcanvas-z-index;
     /* 3 */
-    background: @offcanvas-background;
+    background: rgba(0, 0, 0, 0);
+    -webkit-transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;
     .hook-offcanvas;
 }
 
-.uk-offcanvas.uk-active { display: block; }
+.uk-offcanvas.uk-active { display: block; background: @offcanvas-background; }
+.uk-offcanvas-page .uk-offcanvas { display: block; }
 
 
 /* Sub-object `uk-offcanvas-page`
