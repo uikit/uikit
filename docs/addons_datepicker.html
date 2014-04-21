@@ -14,7 +14,7 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/js/addons/datepicker.js"></script>
+        <script src="../src/js/addons/datepicker.js"></script>
     </head>
 
     <body class="tm-background">
@@ -84,6 +84,8 @@
 
                             <form class="uk-form">
                                 <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                <!-- <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY',maxDate:2,minDate:-2}">
+                                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY',maxDate:'25.04.2014',minDate:'15.04.2014'}"> -->
                             </form>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -110,6 +112,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td><code>minDate</code></td>
+                                        <td>Integer (-1,1...6) or String ('20-05-1992')</td>
+                                        <td> - </td>
+                                        <td>Date from today (number) or String of the minDate ( in format type )</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>maxDate</code></td>
+                                        <td>Integer (-1,1...6) or String ('20-05-1992')</td>
+                                        <td> - </td>
+                                        <td>Date from today (number) or String of the minDate ( in format type )</td>
+                                    </tr>
                                     <tr>
                                         <td><code>weekstart</code></td>
                                         <td>integer (0..6)</td>

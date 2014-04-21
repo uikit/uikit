@@ -1999,6 +1999,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-brand {
   font-size: 18px;
   color: #444444;
+  text-decoration: none;
 }
 /*
  * 1. Apply hover style also to focus state
@@ -2016,6 +2017,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-toggle {
   font-size: 18px;
   color: #444444;
+  text-decoration: none;
 }
 /*
  * 1. Apply hover style also to focus state
@@ -4800,6 +4802,12 @@ a.uk-thumbnail:focus {
   /* 5 */
   overflow: hidden;
 }
+/*
+ * Remove margin from content
+ */
+.uk-overlay > :first-child {
+  margin-bottom: 0;
+}
 /* Sub-object `uk-overlay-area`
  ========================================================================== */
 /*
@@ -5037,8 +5045,10 @@ a.uk-thumbnail:focus {
   animation-fill-mode: both;
 }
 /* Hide animated element if scrollspy is used */
-[data-uk-scrollspy*='uk-animation-'] {
-  opacity: 0;
+@media screen {
+  [data-uk-scrollspy*='uk-animation-'] {
+    opacity: 0;
+  }
 }
 /*
  * Fade

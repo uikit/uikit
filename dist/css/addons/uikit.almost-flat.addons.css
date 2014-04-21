@@ -173,22 +173,98 @@
   right: 20px;
 }
 /* ========================================================================
+   Component: Form advanced
+   Note: Only works in Webkit at the moment
+ ========================================================================== */
+/*
+ * 1. Style
+ * 2. Makes box more robust so it clips the child element
+ * 3. Vertical alignment
+ * 4. Remove default style
+ */
+.uk-form input[type="radio"],
+.uk-form input[type="checkbox"] {
+  /* 1 */
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  border: 1px solid #aaaaaa;
+  /* 2 */
+  overflow: hidden;
+  /* 3 */
+  margin-top: -4px;
+  vertical-align: middle;
+  /* 4 */
+  -webkit-appearance: none;
+  outline: 0;
+}
+/* Radio */
+.uk-form input[type="radio"] {
+  border-radius: 50%;
+}
+/*
+ * Checked
+ */
+.uk-form input[type=checkbox]:checked:before,
+.uk-form input[type=radio]:checked:before {
+  display: block;
+}
+/* Radio */
+.uk-form input[type=radio]:checked:before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin: 2px auto 0;
+  border-radius: 50%;
+  background: #00a8e6;
+}
+/* Checkbox */
+.uk-form input[type=checkbox]:checked:before {
+  content: "\f00c";
+  font-family: FontAwesome;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  line-height: 12px;
+  color: #00a8e6;
+}
+/*
+ * Disabled
+ */
+.uk-form input[type=radio]:disabled,
+.uk-form input[type=checkbox]:disabled {
+  border-color: #dddddd;
+}
+.uk-form input[type=radio]:disabled:checked:before {
+  background-color: #aaaaaa;
+}
+.uk-form input[type=checkbox]:disabled:checked:before {
+  color: #aaaaaa;
+}
+/* ========================================================================
    Component: Form file
  ========================================================================== */
+/*
+ * 1. Behave like form elements
+ * 2. Create position context for dropdowns
+ * 3. Clip content
+ */
 .uk-form-file {
-  position: relative;
+  /* 1 */
   display: inline-block;
   vertical-align: middle;
+  /* 2 */
+  position: relative;
+  /* 3 */
   overflow: hidden;
 }
 /*
  * 1. Required for Firefox
- * 2. Required for the cursor
+ * 2. Expand height and required for the cursor
  */
 .uk-form-file input[type="file"] {
   position: absolute;
   top: 0;
-  bottom: 0;
   z-index: 1;
   width: 100%;
   opacity: 0;
@@ -222,6 +298,40 @@
 }
 .uk-form-password > input {
   padding-right: 50px !important;
+}
+/* ========================================================================
+   Component: Form select
+ ========================================================================== */
+/*
+ * 1. Behave like form elements
+ * 2. Create position context for dropdowns
+ * 3. Clip content
+ */
+.uk-form-select {
+  /* 1 */
+  display: inline-block;
+  vertical-align: middle;
+  /* 2 */
+  position: relative;
+  /* 3 */
+  overflow: hidden;
+}
+/*
+ * 1. Required for Firefox
+ * 1. Required for Webkit to make `height` work
+ */
+.uk-form-select select {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  /* 1 */
+  left: 0;
+  /* 2 */
+  -webkit-appearance: none;
 }
 /* ========================================================================
    Component: Placeholder
@@ -412,6 +522,22 @@ a.uk-datepicker-table-muted {
   color: #ffffff;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+/*
+ * Disabled
+ */
+.uk-datepicker-table .uk-datepicker-date-disabled {
+  color: #aaaaaa;
+  cursor: default;
+}
+.uk-datepicker-table .uk-datepicker-date-disabled:hover,
+.uk-datepicker-table .uk-datepicker-date-disabled:active,
+.uk-datepicker-table .uk-datepicker-date-disabled:focus {
+  background: none;
+  color: #aaaaaa;
+  border: none;
+  text-shadow: none;
+  box-shadow: none;
 }
 /* ========================================================================
    Component: HTML editor

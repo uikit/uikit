@@ -22,6 +22,7 @@
 @datepicker-nav-hover-color:                    #444;
 @datepicker-previous-icon:                      "\f053";
 @datepicker-next-icon:                          "\f054";
+@datepicker-table-color-disabled:               #aaa;
 
 @datepicker-table-width:                        26px;
 @datepicker-table-height:                       24px;
@@ -163,6 +164,23 @@ a.uk-datepicker-table-muted { color: @datepicker-table-muted-color; }
     background: @datepicker-table-active-background;
     color: @datepicker-table-active-color;
     .hook-datepicker-table-item-active;
+}
+
+/*
+ * Disabled
+ */
+.uk-datepicker-table .uk-datepicker-date-disabled{
+    color: @datepicker-table-color-disabled;
+    cursor: default;
+    &:hover,
+    &:active,
+    &:focus{
+        background: none;
+        color: @datepicker-table-color-disabled;
+        border: none;
+        text-shadow: none;
+        box-shadow: none;
+    }
 }
 
 

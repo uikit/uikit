@@ -61,15 +61,10 @@
                     $this.render();
                 };
 
-                render();
-
                 return UI.Utils.debounce(render, 150);
             })());
 
             this.code.find(".CodeMirror").css("height", this.options.height);
-
-            this._buildtoolbar();
-            this.fit();
 
             $(window).on("resize", UI.Utils.debounce(function(){
                 $this.fit();
@@ -105,6 +100,16 @@
                 }
             });
 
+            // toolbar actions
+            this.htmleditor.on("click", "a[data-htmleditor-cmd]", function(){
+                var cmd = $(this).data("htmleditorCmd");
+
+                if(cmd && Htmleditor.commands[cmd] && (!$this.activetab || $this.activetab=="code" || cmd=="fullscreen")) {
+                    Htmleditor.commands[cmd].action.apply($this, [$this.editor])
+                }
+
+            });
+
             this.preview.parent().css("height", this.code.height());
 
             // autocomplete
@@ -128,13 +133,15 @@
             this.element.on({
                 "enableMarkdown"  : function(){ $this.enableMarkdown(); },
                 "disableMarkdown" : function(){ $this.disableMarkdown(); }
-            })
+            });
+
+            this.redraw();
         },
 
         applyPlugins: function(){
 
             var $this   = this,
-                plugins = Object.keys(Htmleditor.plugins),
+                plugins = this.options.plugins || [],
                 plgs    = Htmleditor.plugins;
 
             this.markers = {};
@@ -188,6 +195,9 @@
 
             var $this = this, bar = [];
 
+            this.toolbar.empty();
+            this.editor.removeKeyMap("htmleditor");
+
             this.options.toolbar.forEach(function(cmd){
                 if(Htmleditor.commands[cmd]) {
 
@@ -202,15 +212,6 @@
             });
 
             this.toolbar.html(bar.join("\n"));
-
-            this.htmleditor.on("click", "a[data-htmleditor-cmd]", function(){
-                var cmd = $(this).data("htmleditorCmd");
-
-                if(cmd && Htmleditor.commands[cmd] && (!$this.activetab || $this.activetab=="code" || cmd=="fullscreen")) {
-                    Htmleditor.commands[cmd].action.apply($this, [$this.editor])
-                }
-
-            });
         },
 
         fit: function() {
@@ -239,20 +240,36 @@
             this.htmleditor.attr("data-mode", mode);
         },
 
+        redraw: function() {
+            this._buildtoolbar();
+            this.render();
+            this.fit();
+        },
+
         registerShortcut: function(combination, callback){
 
-            var $this = this;
+            var $this = this, map = false, maps = this.editor.state.keyMaps;
+
+
+            for (var i = 0; i < maps.length; ++i) {
+                if (maps[i] && maps[i].name == "htmleditor") {
+                  map = maps[i];
+                  break;
+                }
+            }
+
+            if(!map) {
+                map = {name: "htmleditor"};
+                this.editor.addKeyMap(map);
+            }
 
             combination = $.isArray(combination) ? combination : [combination];
 
             for(var i=0,max=combination.length;i < max;i++) {
-                var map = {};
 
                 map[combination[i]] = function(){
                     callback.apply($this, [$this.editor]);
                 };
-
-                $this.editor.addKeyMap(map);
             }
         },
 
@@ -268,12 +285,20 @@
 
         render: function() {
 
-            var $this = this, value = this.editor.getValue();
+            var $this = this;
 
-            this.currentvalue  = String(value);
+            this.currentvalue  = this.editor.getValue();
+
+            // empty code
+            if (!this.currentvalue) {
+
+                this.element.val('');
+                this.preview.html('');
+
+                return;
+            }
 
             this.element.trigger("htmleditor-before", [this]);
-
             this.applyPlugins();
 
             if(this.editor.options.mode == 'gfm' && this.marked) {
@@ -351,6 +376,9 @@
             editor.focus();
         };
 
+    Htmleditor.baseReplacer = baseReplacer;
+    Htmleditor.lineReplacer = lineReplacer;
+
     Htmleditor.commands = {
         "fullscreen": {
             "title"  : 'Fullscreen',
@@ -376,8 +404,9 @@
                     window.scrollTo(info.scrollLeft, info.scrollTop);
                 }
 
-                editor.refresh();
-                editor.htmleditor.preview.parent().css("height", editor.htmleditor.code.height());
+                setTimeout(function(){
+                    editor.htmleditor.fit();
+                }, 10);
             }
         },
 
@@ -428,14 +457,14 @@
             "title"  : "Unordered List",
             "label"  : '<i class="uk-icon-list-ul"></i>',
             "action" : function(editor){
-                if(this.getMode() == 'markdown') lineReplacer("* $1", editor);
+                lineReplacer(this.getMode() == 'html' ? "<li>$1</li>":"* $1", editor);
             }
         },
         "listOl" : {
             "title"  : "Ordered List",
             "label"  : '<i class="uk-icon-list-ol"></i>',
             "action" : function(editor){
-                if(this.getMode() == 'markdown') lineReplacer("1. $1", editor);
+                lineReplacer(this.getMode() == 'html' ? "<li>$1</li>":"* $1", editor);
             }
         }
     }
@@ -445,9 +474,10 @@
         "markdown"     : false,
         "autocomplete" : true,
         "height"       : 500,
+        "plugins"      : [],
         "maxsplitsize" : 1000,
         "markedOptions": { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
-        "codemirror"   : { mode: 'htmlmixed', tabMode: 'indent', tabindex: "4", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true },
+        "codemirror"   : { mode: 'htmlmixed', tabMode: 'indent', tabindex: "4", lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true },
         "toolbar"      : [ "bold", "italic", "strike", "link", "picture", "blockquote", "listUl", "listOl" ],
         "lblPreview"   : "Preview",
         "lblCodeview"  : "HTML"
