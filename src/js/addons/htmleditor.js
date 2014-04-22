@@ -169,7 +169,7 @@
                                     "uid"  : [name, line, i, (new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000))].join('-'),
                                     "replace": function(strwith){
                                         var src   = this.editor.editor.getLine(this.line),
-                                            start = src.indexOf(this.found[0]);
+                                            start = src.indexOf(this.found[0]),
                                             end   = start + this.found[0].length;
 
                                         this.editor.editor.replaceRange(strwith, {"line": this.line, "ch":start}, {"line": this.line, "ch":end} );
