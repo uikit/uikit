@@ -50,8 +50,6 @@
         this.slides.eq(this.current).addClass("uk-active");
         this.triggers.filter('[data-uk-slideshow-slide="'+this.current+'"]').addClass('uk-active');
 
-        $element.data("slideshow", this);
-
         $(window).on("resize load", UI.Utils.debounce(function(){ $this.resize(); }, 100));
 
         this.resize();
@@ -59,12 +57,20 @@
         // Set autoplay
         if(this.options.autoplay) {
             this.start();
-        };
+        }
 
         this.container.on({
             'mouseenter': function() { $this.hovering = true;  },
             'mouseleave': function() { $this.hovering = false; }
         });
+
+        $element.on("swipeRight swipeLeft", function(e) {
+
+            $this[e.type=='swipeLeft' ? 'next':'previous']();
+
+        });
+
+        $element.data("slideshow", this);
 
     };
 
