@@ -11,6 +11,7 @@
   - Fixed printing for animations and scrollspy
   - Fixed text-decoration for navbar brand and toggle
   - Fixed overlay if its content has margin bottom
+  - Fixed more results in search add-on
 
 **Documentation and repository**
 
