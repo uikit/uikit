@@ -24,9 +24,12 @@
         // set background image from img
         this.slides.each(function() {
 
-            var $this = $(this);
+            var $this  = $(this),
+                imgsrc = $this.find(">img");
 
-            $this.css({"background-image":"url("+ $this.find(">img").attr("src") + ")"});
+            if(imgsrc.length){
+                $this.css({"background-image":"url("+ imgsrc.attr("src") + ")"});
+            }
 
         });
 
