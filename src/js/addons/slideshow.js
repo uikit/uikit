@@ -25,11 +25,12 @@
         // set background image from img
         this.slides.each(function() {
 
-            var $this  = $(this),
-                imgsrc = $this.find(">img");
+            var slide = $(this), media = slide.children('img,video,iframe').eq(0);
 
-            if(imgsrc.length){
-                $this.css({"background-image":"url("+ imgsrc.attr("src") + ")"});
+            slide.data('media', media);
+
+            if(media[0] && media[0].nodeName=='IMG'){
+                slide.css({"background-image":"url("+ media.attr("src") + ")"});
             }
 
         });
@@ -48,6 +49,7 @@
                 default:
                     $this.show(slide);
             }
+
         });
 
         // Set start slide
@@ -61,6 +63,10 @@
         // Set autoplay
         if(this.options.autoplay) {
             this.start();
+        }
+
+        if(this.options.videoautoplay) {
+            this.play(this.slides.eq(this.current).children('video,iframe').eq(0));
         }
 
         this.container.on({
@@ -93,7 +99,7 @@
             if (this.options.height === "auto") {
 
                 this.slides.css("height", "").each(function() {
-                    height = Math.max(height, $(this).find(">img").height());
+                    height = Math.max(height, $(this).data('media').height());
                 });
 
             } else {
@@ -111,10 +117,12 @@
 
             this.animating = true;
 
-            var $this   = this,
-                current = this.slides.eq(this.current),
-                next    = this.slides.eq(index),
-                dir     = direction ? direction : this.current < index ? "next" : "previous";
+            var $this        = this,
+                current      = this.slides.eq(this.current),
+                next         = this.slides.eq(index),
+                dir          = direction ? direction : this.current < index ? "next" : "previous",
+                currentmedia = current.data('media'),
+                nextmedia    = next.data('media');
 
             current.addClass(dir == "next" ? "uk-slide-out-next" : "uk-slide-out-prev");
             next.addClass(dir == "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
@@ -129,11 +137,18 @@
 
                 if(!$this.animating) return;
 
+                $this.pause(currentmedia);
+
+                if($this.options.videoautoplay) {
+                    $this.play(nextmedia);
+                }
+
                 current.removeClass("uk-active " + (dir === "next" ? "uk-slide-out-next" : "uk-slide-out-prev"));
                 next.addClass("uk-active").removeClass(dir === "next" ? "uk-slide-in-next" : "uk-slide-in-prev");
 
                 $this.animating = false;
                 $this.current = index;
+
             });
 
         },
@@ -160,17 +175,45 @@
 
         stop: function() {
             if(this.interval) clearInterval(this.interval);
+        },
+
+        play: function(media) {
+
+            switch(media[0].nodeName) {
+                case 'VIDEO':
+                    media[0].play();
+                    break;
+                case 'IFRAME':
+                    media.attr("src", media.attr("src") + '?autoplay=1' )
+                    break;
+            }
+
+        },
+
+        pause: function(media) {
+
+            switch(media[0].nodeName) {
+                case 'VIDEO':
+                    media[0].pause();
+                    media[0].currentTime = 0;
+                    break;
+                case 'IFRAME':
+                    media.attr("src", (this.options.videoautoplay) ? media.attr("src").replace('?autoplay=1', '') : media.attr("src"));
+                    break;
+            }
+
         }
 
     });
 
     Slideshow.defaults = {
-        animation : "uk-slideshow-animation-press-away",
-        duration  : 4000,
-        height    : "auto",
-        caption   : ".uk-slideshow-caption",
-        start     : 0,
-        autoplay  : false
+        animation     : "uk-slideshow-animation-press-away",
+        duration      : 4000,
+        height        : "auto",
+        caption       : ".uk-slideshow-caption",
+        start         : 0,
+        autoplay      : false,
+        videoautoplay : false
     };
 
     UI["slideshow"] = Slideshow;

@@ -78,16 +78,26 @@
 .uk-slideshow-slides > li > img { visibility: hidden; }
 
 /* Active */
-.uk-slideshow-slides .uk-active { opacity: 1; }
+.uk-slideshow-slides .uk-active {
+    z-index: 1;
+    opacity: 1;
+}
 
-/* Video */
+/* Video html5 */
 .uk-slideshow-slides > li > video {
     position: absolute;
-    top: 50%;
+    bottom: 0;
     left: 50%;
     min-width: 100%;
     min-height: 100%;
-    -webkit-transform: translate(-50%, -50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+/* Video in iframe */
+.uk-slideshow-slides > li > iframe {
+    min-width: 100%;
+    min-height: 100%;
 }
 
 
