@@ -9,17 +9,18 @@
         var $this            = this,
             $element         = $(element);
 
-            this.container   = $element.find(".uk-slideshow-slides"),
+            this.element     = $(element);
+            this.container   = this.element.find(".uk-slideshow-slides"),
             this.slides      = this.container.children(),
             this.slidesCount = this.slides.length,
             this.current     = this.options.start,
             this.animating   = false,
-            this.triggers    = $element.find('[data-uk-slideshow-slide]');
+            this.triggers    = this.element.find('[data-uk-slideshow-slide]');
 
-        if($element.data("slideshow")) return;
+        if(this.element.data("slideshow")) return;
 
         // Set animation effect
-        $element.addClass(this.options.animation);
+        this.element.addClass(this.options.animation);
 
         // set background image from img
         this.slides.each(function() {
@@ -33,7 +34,7 @@
 
         });
 
-        $element.on("click", '[data-uk-slideshow-slide]', function(e) {
+        this.element.on("click", '[data-uk-slideshow-slide]', function(e) {
 
             e.preventDefault();
 
@@ -67,13 +68,13 @@
             'mouseleave': function() { $this.hovering = false; }
         });
 
-        $element.on("swipeRight swipeLeft", function(e) {
+        this.element.on("swipeRight swipeLeft", function(e) {
 
             $this[e.type=='swipeLeft' ? 'next':'previous']();
 
         });
 
-        $element.data("slideshow", this);
+        this.element.data("slideshow", this);
 
     };
 
@@ -84,6 +85,8 @@
         hovering : false,
 
         resize: function() {
+
+            if (this.element.hasClass('uk-slideshow-fullscreen')) return;
 
             var $this = this, height = 0;
 

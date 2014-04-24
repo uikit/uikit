@@ -20,6 +20,8 @@
 @slideshow-image-vertical-position:        50%;
 @slideshow-image-horizontal-position:      50%;
 
+@slideshow-fullscreen-height:              100vh;
+
 
 /* ========================================================================
    Addon: Slideshow
@@ -81,17 +83,20 @@
 /* Video */
 .uk-slideshow-slides > li > video {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     min-width: 100%;
     min-height: 100%;
+    -webkit-transform: translate(-50%, -50%);
 }
 
 
 /* Modifier: `uk-slidenav-fullscreen`
  ========================================================================== */
 
-.uk-slideshow-fullscreen .uk-slideshow-slides li { height: 100vh; }
+.uk-slideshow-fullscreen,
+.uk-slideshow-fullscreen .uk-slideshow-slides,
+.uk-slideshow-fullscreen .uk-slideshow-slides > li { height: @slideshow-fullscreen-height; }
 
 
 /* Sub-object: `uk-slidenav-fullscreen`
@@ -114,6 +119,7 @@
 
 /* 2 */
 .uk-active > .uk-slideshow-caption { display: block; }
+
 
 /* Animation
  ========================================================================== */
