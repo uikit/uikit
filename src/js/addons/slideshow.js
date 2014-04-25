@@ -52,6 +52,8 @@
 
             var slide = $(this).data('ukSlideshowSlide');
 
+            if($this.current == slide) return;
+
             switch(slide) {
                 case 'next':
                 case 'previous':
