@@ -71,6 +71,41 @@
 
             </div>
 
+            <h2>Slideshow bg-video</h2>
+
+            <div class="uk-slideshow" data-uk-slideshow="{videoautoplay:true}">
+
+                <div class="uk-slidenav-position">
+
+                    <ul class="uk-slideshow-slides">
+                        <li>
+                            <video muted>
+                                <source src="video.ogv" type="video/ogg" />
+                                <source src="video.webm" type="video/webm" />
+                                <source src="video.mp4" type="video/mp4" />
+                            </video>
+                        </li>
+                        <li>
+                            <iframe src="http://player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        </li>
+                        <li>
+                            <iframe width="560" height="315" src="http://www.youtube.com/embed/YE7VzlLtp-4" frameborder="0" allowfullscreen></iframe>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-slide="previous"></a>
+                    <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-slide="next"></a>
+
+                </div>
+
+                <ul class="uk-subnav uk-subnav-line uk-text-center">
+                    <li data-uk-slideshow-slide="0"><a href="#">HTML5</a></li>
+                    <li data-uk-slideshow-slide="1"><a href="#">Vimeo</a></li>
+                    <li data-uk-slideshow-slide="2"><a href="#">Youtube</a></li>
+                </ul>
+
+            </div>
+
             <h2>Slideshow bg-img full width</h2>
 
         </div>
@@ -97,20 +132,24 @@
             </div>
 
             <ul class="uk-grid uk-grid-gutter-remove uk-grid-width-1-2 uk-grid-width-medium-1-4">
-                <li data-uk-slideshow-slide="0"><img src="http://placehold.it/500x200/&text=1"></li>
-                <li data-uk-slideshow-slide="1"><img src="http://placehold.it/500x200/c4c4c4/&text=2"></li>
-                <li data-uk-slideshow-slide="2"><img src="http://placehold.it/500x200/bbb/&text=3"></li>
-                <li data-uk-slideshow-slide="3"><img src="http://placehold.it/500x200/b4b4b4/&text=4"></li>
+                <li data-uk-slideshow-slide="0"><img src="http://placehold.it/700x350/&text=1"></li>
+                <li data-uk-slideshow-slide="1"><img src="http://placehold.it/700x350/c4c4c4/&text=2"></li>
+                <li data-uk-slideshow-slide="2"><img src="http://placehold.it/700x350/bbb/&text=3"></li>
+                <li data-uk-slideshow-slide="3"><img src="http://placehold.it/700x350/b4b4b4/&text=4"></li>
             </ul>
 
         </div>
 
         <h2>Slideshow full width and height</h2>
 
-        <div class="uk-slideshow uk-slideshow-fullscreen uk-slidenav-position" data-uk-slideshow>
+        <div class="uk-slideshow uk-slideshow-fullscreen uk-slidenav-position" data-uk-slideshow="{videoautoplay:true}">
             <ul class="uk-slideshow-slides">
                 <li>
-                    <img src="http://placehold.it/1900x1200&text=1">
+                    <video muted>
+                        <source src="video.ogv" type="video/ogg" />
+                        <source src="video.webm" type="video/webm" />
+                        <source src="video.mp4" type="video/mp4" />
+                    </video>
                 </li>
                 <li>
                     <img src="http://placehold.it/1900x1200&text=2">

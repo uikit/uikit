@@ -29,8 +29,19 @@
 
             slide.data('media', media);
 
-            if(media[0] && media[0].nodeName=='IMG'){
-                slide.css({"background-image":"url("+ media.attr("src") + ")"});
+            if(media[0]){
+
+                switch(media[0].nodeName) {
+                    case 'IMG':
+                        slide.css({"background-image":"url("+ media.attr("src") + ")"});
+                        break;
+                    case 'IFRAME':
+
+                        var api = 'enablejsapi=1&api=1', src = media[0].src;
+
+                        media.attr('src', [src, (media[0].src.indexOf('?') > -1 ? '&':'?'), api].join(''));
+                        break;
+                }
             }
 
         });
@@ -184,7 +195,7 @@
                     media[0].play();
                     break;
                 case 'IFRAME':
-                    media.attr("src", media.attr("src") + '?autoplay=1' )
+                    media[0].contentWindow.postMessage('{ "event": "command", "func": "playVideo", "method":"play"}', '*');
                     break;
             }
 
@@ -195,10 +206,9 @@
             switch(media[0].nodeName) {
                 case 'VIDEO':
                     media[0].pause();
-                    media[0].currentTime = 0;
                     break;
                 case 'IFRAME':
-                    media.attr("src", (this.options.videoautoplay) ? media.attr("src").replace('?autoplay=1', '') : media.attr("src"));
+                    media[0].contentWindow.postMessage('{ "event": "command", "func": "pauseVideo", "method":"pause"}', '*');
                     break;
             }
 
