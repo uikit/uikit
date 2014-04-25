@@ -51,10 +51,9 @@
 
             this.editor.htmleditor = this;
 
-            this.editor.on('change', UI.Utils.debounce(function() {
-                $this.render();
-                $this.editor.save();
-            }, 150));
+            this.editor.on('change', UI.Utils.debounce(function() { $this.render(); }, 150));
+
+            this.editor.on('change', function() { $this.editor.save(); });
 
             this.code.find('.CodeMirror').css('height', this.options.height);
 
@@ -62,12 +61,12 @@
 
             var previewContainer = $this.preview.parent(),
                 codeContent      = this.code.find('.CodeMirror-sizer'),
-                codeScroll       = this.code.find('.CodeMirror-scroll').on('scroll',UI.Utils.debounce(function() {
+                codeScroll       = this.code.find('.CodeMirror-scroll').on('scroll', UI.Utils.debounce(function() {
 
                     if ($this.htmleditor.attr('data-mode') == 'tab') return;
 
                     // calc position
-                    var codeHeight       = codeContent.height()   - codeScroll.height(),
+                    var codeHeight       = codeContent.height() - codeScroll.height(),
                         previewHeight    = previewContainer[0].scrollHeight - previewContainer.height(),
                         ratio            = previewHeight / codeHeight,
                         previewPostition = codeScroll.scrollTop() * ratio;
@@ -118,6 +117,8 @@
                 }, 100));
             }
 
+            this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
+
             this.addPlugin('base');
             this.addPlugin('markdown');
             this.initPlugins();
@@ -147,6 +148,8 @@
 
             Htmleditor.plugins[name](this);
             this.plugins.push(name);
+
+            this.debouncedRedraw();
         },
 
         replaceInPreview: function(regexp, callback) {
