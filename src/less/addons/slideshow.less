@@ -88,16 +88,30 @@
     position: absolute;
     bottom: 0;
     left: 50%;
-    min-width: 100%;
-    min-height: 100%;
+    width: 100%;
+    height: auto;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
 }
 
 /* Video in iframe */
 .uk-slideshow-slides > li > iframe {
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}
+
+.uk-slideshow-fullscreen .uk-slideshow-slides > li > video {
+    width: auto;
+    height: auto;
     min-width: 100%;
     min-height: 100%;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 

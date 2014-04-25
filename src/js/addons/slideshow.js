@@ -23,13 +23,19 @@
         this.element.addClass(this.options.animation);
 
         // set background image from img
+
+        var canvas;
+
         this.slides.each(function() {
 
             var slide = $(this), media = slide.children('img,video,iframe').eq(0);
 
             slide.data('media', media);
+            slide.data('sizer', media);
 
             if(media[0]){
+
+                var placeholder;
 
                 switch(media[0].nodeName) {
                     case 'IMG':
@@ -40,8 +46,23 @@
                         var api = 'enablejsapi=1&api=1', src = media[0].src;
 
                         media.attr('src', [src, (media[0].src.indexOf('?') > -1 ? '&':'?'), api].join(''));
+
+                        placeholder = true;
                         break;
+                    case 'VIDEO':
+                        placeholder = true;
                 }
+
+                if(placeholder) {
+                    canvas = $('<canvas></canvas>').attr({'width':media[0].width, 'height':media[0].height});
+
+                    var img = $('<img style="width:100%;height:auto;">').attr('src', canvas[0].toDataURL());
+
+                    slide.prepend(img);
+                    slide.data('sizer', img);
+                }
+
+
             }
 
         });
@@ -112,7 +133,7 @@
             if (this.options.height === "auto") {
 
                 this.slides.css("height", "").each(function() {
-                    height = Math.max(height, $(this).data('media').height());
+                    height = Math.max(height, $(this).data('sizer').height());
                 });
 
             } else {
