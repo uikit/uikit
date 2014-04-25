@@ -119,8 +119,10 @@
 
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
-            this.addPlugin('base');
-            this.addPlugin('markdown');
+            $(Htmleditor.plugins).on('add', function() {
+                $this.initPlugins();
+            });
+
             this.initPlugins();
             this.redraw();
         },
@@ -134,7 +136,7 @@
         },
 
         initPlugins: function() {
-            var plugins = this.options.plugins;
+            var plugins = this.options.plugins.length ? this.options.plugins : Object.keys(Htmleditor.plugins);
 
             for (var i = 0; i < plugins.length; i++) {
                 this.addPlugin(plugins[i]);
@@ -142,9 +144,8 @@
         },
 
         addPlugin: function(name) {
-            if (!Htmleditor.plugins[name] || -1 != $.inArray(name, this.plugins)) {
-                return;
-            }
+
+            if (!Htmleditor.plugins[name] || -1 != $.inArray(name, this.plugins)) return;
 
             Htmleditor.plugins[name](this);
             this.plugins.push(name);
@@ -346,7 +347,7 @@
         markdown     : false,
         autocomplete : true,
         height       : 500,
-        plugins      : ['base'],
+        plugins      : [],
         maxsplitsize : 1000,
         markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
         codemirror   : { mode: 'htmlmixed', tabMode: 'indent', tabsize: 4, lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4 },
@@ -376,6 +377,8 @@
     Htmleditor.plugins   = {};
     Htmleditor.addPlugin = function(name, plugin) {
         Htmleditor.plugins[name] = plugin;
+
+        $(Htmleditor.plugins).trigger('add', [name]);
     };
 
     UI['htmleditor'] = Htmleditor;
