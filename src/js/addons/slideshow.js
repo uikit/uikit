@@ -148,9 +148,11 @@
 
                 if(!$this.animating) return;
 
-                $this.pause(currentmedia);
+                if(currentmedia.is('video,iframe')) {
+                    $this.pause(currentmedia);
+                }
 
-                if($this.options.videoautoplay) {
+                if($this.options.videoautoplay && nextmedia.is('video,iframe')) {
                     $this.play(nextmedia);
                 }
 
