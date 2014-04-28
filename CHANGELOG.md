@@ -7,7 +7,7 @@
   - Added form-advanced add-on
   - Added pagination JavaScript add-on
   - Fixed sticky z-index in themes
-  - Fixed wrong scaling calculation for images in Chrome
+  - Fixed wrong scaling calculation for overlay images in Chrome
   - Fixed printing for animations and scrollspy
   - Fixed text-decoration for navbar brand and toggle
   - Fixed overlay if its content has margin bottom
