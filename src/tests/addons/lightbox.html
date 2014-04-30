@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lightbox - UIkit tests</title>
+        <script src="../../../vendor/jquery.js"></script>
+        <script src="_test.js"></script>
+        <script src="../../js/addons/lightbox.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Lightbox</h1>
+
+        </div>
+
+
+
+        <script>
+
+         var lb = new $.UIkit.lightbox([
+             'http://31.media.tumblr.com/d83b99e22981d5e58e2bd74ed2494087/tumblr_n4ef3ynCZP1st5lhmo1_1280.jpg',
+             'http://24.media.tumblr.com/4674f3b8059faeeb8128e74bfafd1011/tumblr_n4ef1niTku1st5lhmo1_1280.jpg',
+             'https://www.youtube.com/watch?v=Nng2MUoEKi0',
+             'http://vimeo.com/92310805'
+         ]);
+
+
+         lb.show();
+        </script>
+
+    </body>
+</html>
