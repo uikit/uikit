@@ -6,7 +6,9 @@
   - Added form-select add-on
   - Added form-advanced add-on
   - Added pagination JavaScript add-on
-  - Optimized multipliers for 16px font-size
+  - Added font-weight variable to text large
+  - Optimized multipliers for 16px font-size in default themes
+  - Changed data-uk-grid-match row parameter to true by default
   - Fixed sticky z-index in themes
   - Fixed wrong scaling calculation for overlay images in Chrome
   - Fixed printing for animations and scrollspy
