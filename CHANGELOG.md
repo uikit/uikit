@@ -6,6 +6,7 @@
   - Added form-select add-on
   - Added form-advanced add-on
   - Added pagination JavaScript add-on
+  - Added Promise polyfill
   - Added font-weight variable to text large
   - Optimized multipliers for 16px font-size in default themes
   - Changed data-uk-grid-match row parameter to true by default
