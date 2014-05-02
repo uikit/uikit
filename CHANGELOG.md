@@ -6,6 +6,7 @@
   - Added form-select add-on
   - Added form-advanced add-on
   - Added pagination JavaScript add-on
+  - Added Promise polyfill
   - Fixed sticky z-index in themes
   - Fixed wrong scaling calculation for overlay images in Chrome
   - Fixed printing for animations and scrollspy
