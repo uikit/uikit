@@ -24,6 +24,9 @@
 
         var ele = $(this);
 
+        if (ele.hasClass('uk-datepicker-date-disabled'))
+            return false;
+
         if(ele.is('[data-date]')) {
             active.element.val(moment(ele.data("date")).format(active.options.format)).trigger("change");
             dropdown.hide();
@@ -66,6 +69,20 @@
         offsettop: 5,
         template: function(data, opts) {
 
+            if (opts.maxDate){
+                if (isNaN(opts.maxDate))
+                    var maxDate=moment(opts.maxDate, opts.format)
+                else
+                    var maxDate=moment().add('days',opts.maxDate)
+            }
+
+            if (opts.minDate){
+                if (isNaN(opts.minDate))
+                    var minDate=moment(opts.minDate, opts.format)
+                else
+                    var minDate=moment().add('days',opts.minDate-1)
+            }
+
             var content = '';
 
 
@@ -95,6 +112,9 @@
 
                             if(!day.inmonth) cls.push("uk-datepicker-table-muted");
                             if(day.selected) cls.push("uk-active");
+
+                            if (maxDate && day.day > maxDate) cls.push('uk-datepicker-date-disabled')
+                            if (minDate && minDate > day.day) cls.push('uk-datepicker-date-disabled')
 
                             content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
                         }
