@@ -32,6 +32,7 @@
             "animation",
             "article",
             "badge",
+            "base",
             "breadcrumb",
             "button",
             "close",

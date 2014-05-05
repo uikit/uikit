@@ -378,7 +378,7 @@
 
                             <h2>Match column heights</h2>
 
-                            <p>To match the height of grid columns, just add the <code>data-uk-grid-match</code> attribute to your grid.<p>
+                            <p>To match the height of grid columns, just add the <code>data-uk-grid-match</code> attribute to your grid. If your grid wraps into multiple rows, only grid columns within the same row are matched. To match grid columns accross all rows just use <code>data-uk-grid-match="{row: false}"</code>.<p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -421,29 +421,6 @@
         &lt;div class="uk-panel"&gt;...&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h3>Match only within rows</h3>
-
-                            <p>If your grid wraps into multiple rows, you can also match only grid columns within the same row. Just add the <code>row: true</code> option to the <code>data-uk-grid-match="{target:'.uk-panel'}"</code> attribute.</p>
-
-                            <h4 class="tm-article-subtitle">Example</h4>
-
-                            <ul class="uk-grid uk-text-center" data-uk-grid-match="{target:'.uk-panel', row: true}" data-uk-grid-margin>
-                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div></li>
-                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Lorem ipsum dolor.</div></li>
-                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Lorem ipsum dolor.</div></li>
-                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Lorem ipsum dolor.</div></li>
-                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Lorem ipsum dolor.</div></li>
-                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Lorem ipsum dolor.</div></li>
-                            </ul>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;ul class="uk-grid" data-uk-grid-match="{target:'.uk-panel', row: true}"&gt;
-    &lt;li class="uk-width-medium-1-3"&gt;... &lt;/li&gt;
-&lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 

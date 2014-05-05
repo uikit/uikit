@@ -106,10 +106,11 @@
         var ele = $(this);
 
         if (!ele.data("buttonCheckbox")) {
-            var obj = new ButtonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox")));
 
-            if ($(e.target).is(obj.options.target)) {
-                $(e.target).trigger("click");
+            var obj = new ButtonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))), target=$(e.target);
+
+            if (target.is(obj.options.target)) {
+                ele.trigger("change", [target.toggleClass("uk-active").blur()]);
             }
         }
     });

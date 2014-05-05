@@ -62,7 +62,7 @@
             if ($.UIkit.support.transition && !force) {
 
                 doc.one($.UIkit.support.transition.end, function() {
-                    doc.removeClass("uk-offcanvas-page").attr("style", "");
+                    doc.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
                     panel.removeClass("uk-active");
                     window.scrollTo(scrollpos.x, scrollpos.y);
                 }).css((rtl ? "margin-right" : "margin-left"), "");
@@ -72,7 +72,7 @@
                 }, 50);
 
             } else {
-                doc.removeClass("uk-offcanvas-page").attr("style", "");
+                doc.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
                 panel.removeClass("uk-active");
                 bar.removeClass("uk-offcanvas-bar-show");
                 window.scrollTo(scrollpos.x, scrollpos.y);

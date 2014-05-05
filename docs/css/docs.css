@@ -8,24 +8,39 @@
  ========================================================================== */
 
 @font-face {
-    font-family: 'ProximaNovaLight';
+    font-family: 'Proxima Nova';
     src: url('../fonts/proximanova-light-webfont.eot');
     src: url('../fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
         url('../fonts/proximanova-light-webfont.woff') format('woff'),
         url('../fonts/proximanova-light-webfont.ttf') format('truetype'),
         url('../fonts/proximanova-light-webfont.svg#ProximaNovaLight') format('svg');
-    font-weight: normal;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/proximanova-reg-webfont.eot');
+    src: url('../fonts/proximanova-reg-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/proximanova-reg-webfont.woff') format('woff'),
+        url('../fonts/proximanova-reg-webfont.ttf') format('truetype'),
+        url('../fonts/proximanova-reg-webfont.svg#ProximaNovaReg') format('svg');
+    font-weight: 400;
     font-style: normal;
 }
 
 body, h1, h2, h3, h4, h5, h6,
-.uk-navbar-nav > li > a { font-family: "ProximaNovaLight", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.uk-navbar-nav > li > a { font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 
 /* Base
  ========================================================================== */
 
-html { overflow-y: scroll; }
+html {
+    overflow-y: scroll;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 
 /* Layout

@@ -120,7 +120,7 @@
 
     GridMatchHeight.defaults = {
         "target" : false,
-        "row"    : false
+        "row"    : true
     };
 
     var GridMargin = function(element, options) {
