@@ -276,27 +276,30 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><code>.uk-text-nowrap</code></td>
-                                        <td>Prevent text from wrapping onto multiple lines.</td>
-                                    </tr>
-                                    <tr>
                                         <td><code>.uk-text-truncate</code></td>
-                                        <td>Prevent text from wrapping onto multiple lines, and truncate with an ellipsis.</td>
+                                        <td>Prevents text from wrapping into multiple lines, truncating it instead.</td>
                                     </tr>
                                     <tr>
                                         <td><code>.uk-text-break</code></td>
-                                        <td>Break strings if their length exceeds the width of their container.</td>
+                                        <td>Breaks strings if their length exceeds the width of their container.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.uk-text-nowrap</code></td>
+                                        <td>Prevents text from wrapping into multiple lines.</td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <div class="uk-grid uk-margin" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-2">
-                                    <div class="uk-panel uk-panel-box"><p class="uk-margin-remove uk-text-truncate">Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac.</p> <code>.uk-text-truncate</code></div>
-                                </div>
-                                <div class="uk-width-medium-1-2">
+                                <div class="uk-width-medium-1-3">
                                     <div class="uk-panel uk-panel-box uk-text-break">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elit <code>.uk-text-break</code></div>
-                                </div>                               
+                                </div>
+                                <div class="uk-width-medium-1-3">
+                                    <div class="uk-panel uk-panel-box uk-text-truncate">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. Lorem ipsum dolor sit amet, consetetur sadipscing elit <code>.uk-text-truncate</code></div>
+                                </div>
+                                <div class="uk-width-medium-1-3">
+                                    <div class="uk-panel uk-panel-box"><p class="uk-margin-remove uk-text-nowrap">Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac.</p> <code>.uk-text-nowrap</code></div>
+                                </div>
                             </div>
 
                         </article>
