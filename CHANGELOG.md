@@ -16,6 +16,7 @@
   - Fixed text-decoration for navbar brand and toggle
   - Fixed overlay if its content has margin bottom
   - Fixed more results in search add-on
+  - Fixed size of active item in pagination for almost-flat theme
   - Removed unneeded brackets from LESS operations
 
 **Documentation and repository**
