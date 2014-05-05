@@ -15,7 +15,7 @@
             this.connect = $(this.options.connect);
         }
 
-        if (window.location.hash) {
+        if (location.hash && location.hash.match(/^#[a-z0-9_-]+$/)) {
             var active = this.element.children().filter(window.location.hash);
 
             if (active.length) {
