@@ -18,22 +18,28 @@
 
             <form class="uk-form">
 
-                <div class="uk-form-row">
+                <div class="uk-form-row uk-panel">
                     <label class="uk-form-label" for="form-date">Date</label>
                     <div class="uk-form-controls">
                         <input type="text" id="form-date" data-uk-datepicker="{format:'DD.MM.YYYY'}">
                     </div>
                 </div>
-                <div class="uk-form-row">
+                <div class="uk-form-row uk-panel uk-panel-divider">
                     <label class="uk-form-label" for="form-date">Date</label>
                     <div class="uk-form-controls">
-                        <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY',maxDate:2,minDate:-2}">
+                        <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY', minDate:0, maxDate:7}">
+                        <p>
+                            <strong>Allowed:</strong> Current date + 7 days
+                        </p>
                     </div>
                 </div>
-                <div class="uk-form-row">
+                <div class="uk-form-row uk-panel uk-panel-divider">
                     <label class="uk-form-label" for="form-date">Date</label>
                     <div class="uk-form-controls">
-                        <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY',maxDate:'25.04.2015', minDate:'15.04.2014'}">
+                        <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY', minDate:0, maxDate:'31.12.2014'}">
+                        <p>
+                            <strong>Allowed:</strong> Current date + until 31.12.2014
+                        </p>
                     </div>
                 </div>
 

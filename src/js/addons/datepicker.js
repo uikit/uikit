@@ -66,15 +66,17 @@
         },
         format: "DD.MM.YYYY",
         offsettop: 5,
+        maxDate: false,
+        minDate: false,
         template: function(data, opts) {
 
             var content = '', maxDate, minDate;
 
-            if (opts.maxDate){
+            if (opts.maxDate!==false){
                 maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add('days',opts.maxDate);
             }
 
-            if (opts.minDate){
+            if (opts.minDate!==false){
                 minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add('days',opts.minDate-1);
             }
 
