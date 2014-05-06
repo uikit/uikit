@@ -341,6 +341,14 @@
 
         save: function() {
             this.editor.save();
+        },
+
+        on: function(eventname, callback) {
+            $(this).on(eventname, callback);
+        },
+
+        trigger: function(eventname, params) {
+            $(this).trigger(eventname, params);
         }
     });
 
