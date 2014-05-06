@@ -7,6 +7,7 @@
   - Added form-advanced add-on
   - Added pagination JavaScript add-on
   - Added Promise polyfill
+  - Added minDate, maxDate options to datepicker add-on
   - Added font-weight variable to text large
   - Optimized multipliers for 16px font-size in default themes
   - Changed data-uk-grid-match row parameter to true by default
@@ -17,6 +18,9 @@
   - Fixed overlay if its content has margin bottom
   - Fixed more results in search add-on
   - Fixed size of active item in pagination for almost-flat theme
+  - Fixed location.hash usage for tabs
+  - Fixed button checkbox initial event triggering
+  - Fixed offcanvas removing existing style properties on close
   - Removed unneeded brackets from LESS operations
 
 **Documentation and repository**
