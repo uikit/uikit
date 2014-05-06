@@ -139,18 +139,20 @@
             var plugins = this.options.plugins.length ? this.options.plugins : Object.keys(Htmleditor.plugins);
 
             for (var i = 0; i < plugins.length; i++) {
-                this.addPlugin(plugins[i]);
+                this.addPlugin(plugins[i], false);
             }
+
+            this.debouncedRedraw();
         },
 
-        addPlugin: function(name) {
+        addPlugin: function(name, redraw) {
 
             if (!Htmleditor.plugins[name] || -1 != $.inArray(name, this.plugins)) return;
 
             Htmleditor.plugins[name](this);
             this.plugins.push(name);
 
-            this.debouncedRedraw();
+            if (redraw!==false) this.debouncedRedraw();
         },
 
         replaceInPreview: function(regexp, callback) {
@@ -383,17 +385,6 @@
 
     UI['htmleditor'] = Htmleditor;
 
-    // init code
-    $(function() {
-        $('textarea[data-uk-htmleditor]').each(function() {
-            var editor = $(this), obj;
-
-            if (!editor.data('htmleditor')) {
-                obj = new Htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
-            }
-        });
-    });
-
     Htmleditor.addPlugin('base', function(editor) {
 
         editor.addButtons({
@@ -553,6 +544,17 @@
             });
         }
 
+    });
+
+    // init code
+    $(function() {
+        $('textarea[data-uk-htmleditor]').each(function() {
+            var editor = $(this), obj;
+
+            if (!editor.data('htmleditor')) {
+                obj = new Htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
+            }
+        });
     });
 
     return Htmleditor;
