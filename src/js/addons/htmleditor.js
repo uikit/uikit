@@ -421,8 +421,8 @@
                 title  : 'Link',
                 label  : '<i class="uk-icon-link"></i>'
             },
-            picture : {
-                title  : 'Picture',
+            image : {
+                title  : 'Image',
                 label  : '<i class="uk-icon-picture-o"></i>'
             },
             listUl : {
@@ -441,9 +441,31 @@
         addAction('strike', '<del>$1</del>');
         addAction('blockquote', '<blockquote><p>$1</p></blockquote>', 'replaceLine');
         addAction('link', '<a href="http://">$1</a>');
-        addAction('picture', '<img src="http://" alt="$1">');
-        addAction('listUl', '<li>$1</li>', 'replaceLine');
-        addAction('listOl', '<li>$1</li>', 'replaceLine');
+        addAction('image', '<img src="http://" alt="$1">');
+
+        var listfn = function() {
+            if (editor.getCursorMode() == 'html') {
+
+                var cm      = editor.editor,
+                    pos     = cm.getDoc().getCursor(true),
+                    posend  = cm.getDoc().getCursor(false);
+
+                for (var i=pos.line; i<(posend.line+1);i++) {
+                    cm.replaceRange('<li>'+cm.getLine(i)+'<li>', { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                }
+
+                cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                cm.focus();
+            }
+        }
+
+        editor.element.on('action.listUl', function() {
+            listfn();
+        });
+
+        editor.element.on('action.listOl', function() {
+            listfn();
+        });
 
         editor.htmleditor.on('click', 'a[data-htmleditor-button="fullscreen"]', function() {
             editor.htmleditor.toggleClass('uk-htmleditor-fullscreen');
@@ -500,9 +522,51 @@
         addAction('strike', '~~$1~~');
         addAction('blockquote', '> $1', 'replaceLine');
         addAction('link', '[$1](http://)');
-        addAction('picture', '![$1](http://)');
-        addAction('listUl', '* $1', 'replaceLine');
-        addAction('listOl', '* $1', 'replaceLine');
+        addAction('image', '![$1](http://)');
+
+        editor.element.on('action.listUl', function() {
+
+            if (editor.getCursorMode() == 'markdown') {
+
+                var cm      = editor.editor,
+                    pos     = cm.getDoc().getCursor(true),
+                    posend  = cm.getDoc().getCursor(false);
+
+                for (var i=pos.line; i<(posend.line+1);i++) {
+                    cm.replaceRange('* '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                }
+
+                cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                cm.focus();
+            }
+        });
+
+        editor.element.on('action.listOl', function() {
+
+            if (editor.getCursorMode() == 'markdown') {
+
+                var cm      = editor.editor,
+                    pos     = cm.getDoc().getCursor(true),
+                    posend  = cm.getDoc().getCursor(false),
+                    prefix  = 1;
+
+                if (pos.line > 0) {
+                    var prevline = cm.getLine(pos.line-1), matches;
+
+                    if(matches = prevline.match(/^(\d+)\./)) {
+                        prefix = Number(matches[1])+1;
+                    }
+                }
+
+                for (var i=pos.line; i<(posend.line+1);i++) {
+                    cm.replaceRange(prefix+'. '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                    prefix++;
+                }
+
+                cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                cm.focus();
+            }
+        });
 
         editor.element.on('renderLate', function() {
             if (editor.editor.options.mode == 'gfm') {
