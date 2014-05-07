@@ -22,6 +22,7 @@
   - Fixed button checkbox initial event triggering
   - Fixed offcanvas removing existing style properties on close
   - Removed unneeded brackets from LESS operations
+  - Prevent search-field uk-active issue
 
 **Documentation and repository**
 
