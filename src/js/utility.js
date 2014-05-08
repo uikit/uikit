@@ -4,42 +4,40 @@
 
     var win = $(window), event = 'resize orientationchange', stacks = [];
 
-    var StackMargin = function(element, options) {
+    UI.component('stackMargin', {
 
-        var $this = this, $element = $(element);
+        defaults: {
+            'cls': 'uk-margin-small-top'
+        },
 
-        if($element.data("stackMargin")) return;
+        init: function() {
 
-        this.element = $element;
-        this.columns = this.element.children();
-        this.options = $.extend({}, StackMargin.defaults, options);
+            var $this = this;
 
-        if (!this.columns.length) return;
+            this.columns = this.element.children();
 
-        win.on(event, (function() {
-            var fn = function() {
+            if (!this.columns.length) return;
+
+            win.on(event, (function() {
+                var fn = function() {
+                    $this.process();
+                };
+
+                $(function() {
+                    fn();
+                    win.on("load", fn);
+                });
+
+                return UI.Utils.debounce(fn, 150);
+            })());
+
+            $(document).on("uk-domready", function(e) {
+                $this.columns  = $this.element.children();
                 $this.process();
-            };
-
-            $(function() {
-                fn();
-                win.on("load", fn);
             });
 
-            return UI.Utils.debounce(fn, 150);
-        })());
-
-        $(document).on("uk-domready", function(e) {
-            $this.columns  = $this.element.children();
-            $this.process();
-        });
-
-        this.element.data("stackMargin", this);
-
-        stacks.push(this);
-    };
-
-    $.extend(StackMargin.prototype, {
+            stacks.push(this);
+        },
 
         process: function() {
 
@@ -77,15 +75,7 @@
             this.columns.removeClass(this.options.cls);
             return this;
         }
-
     });
-
-    StackMargin.defaults = {
-        'cls': 'uk-margin-small-top'
-    };
-
-
-    UI["stackMargin"] = StackMargin;
 
     // init code
     $(document).on("uk-domready", function(e) {
@@ -93,7 +83,7 @@
             var ele = $(this), obj;
 
             if (!ele.data("stackMargin")) {
-                obj = new StackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+                obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
             }
         });
     });

@@ -2,38 +2,39 @@
 
     "use strict";
 
-    var Switcher = function(element, options) {
+    UI.component('switcher', {
 
-        var $this = this, $element = $(element);
+        defaults: {
+            connect : false,
+            toggle  : ">*",
+            active  : 0
+        },
 
-        if($element.data("switcher")) return;
+        init: function() {
 
-        this.options = $.extend({}, Switcher.defaults, options);
+            var $this = this;
 
-        this.element = $element.on("click", this.options.toggle, function(e) {
-            e.preventDefault();
-            $this.show(this);
-        });
+            this.on("click", this.options.toggle, function(e) {
+                e.preventDefault();
+                $this.show(this);
+            });
 
-        if (this.options.connect) {
+            if (this.options.connect) {
 
-            this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
+                this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
 
-            var toggles = this.element.find(this.options.toggle),
-                active   = toggles.filter(".uk-active");
+                var toggles = this.element.find(this.options.toggle),
+                    active   = toggles.filter(".uk-active");
 
-            if (active.length) {
-                this.show(active);
-            } else {
-                active = toggles.eq(this.options.active);
-                this.show(active.length ? active : toggles.eq(0));
+                if (active.length) {
+                    this.show(active);
+                } else {
+                    active = toggles.eq(this.options.active);
+                    this.show(active.length ? active : toggles.eq(0));
+                }
             }
-        }
 
-        this.element.data("switcher", this);
-    };
-
-    $.extend(Switcher.prototype, {
+        },
 
         show: function(tab) {
 
@@ -56,16 +57,8 @@
             this.element.trigger("uk.switcher.show", [active]);
             $(document).trigger("uk-check-display");
         }
-
     });
 
-    Switcher.defaults = {
-        connect : false,
-        toggle : ">*",
-        active  : 0
-    };
-
-    UI["switcher"] = Switcher;
 
     // init code
     $(document).on("uk-domready", function(e) {
@@ -73,7 +66,7 @@
             var switcher = $(this);
 
             if (!switcher.data("switcher")) {
-                var obj = new Switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+                var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
             }
         });
     });

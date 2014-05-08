@@ -2,36 +2,36 @@
 
     "use strict";
 
-    var Nav = function(element, options) {
+    UI.component('nav', {
 
-        var $this = this, $element = $(element);
+        defaults: {
+            "toggle": ">li.uk-parent > a[href='#']",
+            "lists": ">li.uk-parent > ul",
+            "multiple": false
+        },
 
-        if($element.data("nav")) return;
+        init: function() {
 
-        this.options = $.extend({}, Nav.defaults, options);
-        this.element = $element.on("click", this.options.toggle, function(e) {
-            e.preventDefault();
+            var $this = this;
 
-            var ele = $(this);
+            this.element.on("click", this.options.toggle, function(e) {
+                e.preventDefault();
+                var ele = $(this);
+                $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
+            });
 
-            $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
-        });
+            this.element.find(this.options.lists).each(function() {
+                var $ele   = $(this),
+                    parent = $ele.parent(),
+                    active = parent.hasClass("uk-active");
 
-        this.element.find(this.options.lists).each(function() {
-            var $ele   = $(this),
-                parent = $ele.parent(),
-                active = parent.hasClass("uk-active");
+                $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
+                parent.data("list-container", $ele.parent());
 
-            $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
-            parent.data("list-container", $ele.parent());
+                if (active) $this.open(parent, true);
+            });
 
-            if (active) $this.open(parent, true);
-        });
-
-        this.element.data("nav", this);
-    };
-
-    $.extend(Nav.prototype, {
+        },
 
         open: function(li, noanimation) {
 
@@ -60,16 +60,8 @@
                 }
             }
         }
-
     });
 
-    Nav.defaults = {
-        "toggle": ">li.uk-parent > a[href='#']",
-        "lists": ">li.uk-parent > ul",
-        "multiple": false
-    };
-
-    UI["nav"] = Nav;
 
     // helper
 
@@ -99,7 +91,7 @@
             var nav = $(this);
 
             if (!nav.data("nav")) {
-                var obj = new Nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
+                var obj = UI.nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
             }
         });
     });

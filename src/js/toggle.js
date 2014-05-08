@@ -1,23 +1,25 @@
 
 (function(global, $, UI){
 
-    var Toggle = function(element, options) {
 
-        var $this = this, $element = $(element);
+    UI.component('toggle', {
 
-        if($element.data("toggle")) return;
+        defaults: {
+            target: false,
+            cls: 'uk-hidden'
+        },
 
-        this.options  = $.extend({}, Toggle.defaults, options);
-        this.totoggle = this.options.target ? $(this.options.target):[];
-        this.element  = $element.on("click", function(e) {
-            e.preventDefault();
-            $this.toggle();
-        });
+        init: function() {
 
-        this.element.data("toggle", this);
-    };
+            var $this = this;
 
-    $.extend(Toggle.prototype, {
+            this.totoggle = this.options.target ? $(this.options.target):[];
+
+            this.on("click", function(e) {
+                e.preventDefault();
+                $this.toggle();
+            });
+        },
 
         toggle: function() {
 
@@ -31,20 +33,13 @@
         }
     });
 
-    Toggle.defaults = {
-        target: false,
-        cls: 'uk-hidden'
-    };
-
-    UI["toggle"] = Toggle;
-
     $(document).on("uk-domready", function(e) {
 
         $("[data-uk-toggle]").each(function() {
             var ele = $(this);
 
             if (!ele.data("toggle")) {
-               var obj = new Toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+               var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
             }
         });
     });

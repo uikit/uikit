@@ -9,6 +9,7 @@
     document.writeln('<script src="../../vendor/jquery.less.js"></script>');
     document.writeln('<script src="../../vendor/jquery.rtl.js"></script>');
     document.writeln('<script src="../../src/js/core.js"></script>');
+    document.writeln('<script src="../../src/js/component.js"></script>');
     document.writeln('<script src="../../src/js/utility.js"></script>');
     document.writeln('<script src="../../src/js/alert.js"></script>');
     document.writeln('<script src="../../src/js/button.js"></script>');

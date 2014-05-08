@@ -2,97 +2,99 @@
 
     "use strict";
 
-    var active   = false,
-        Dropdown = function(element, options) {
+    var active = false;
 
-        var $this = this, $element = $(element);
+    UI.component('dropdown', {
 
-        if($element.data("dropdown")) return;
+        defaults: {
+           "mode": "hover",
+           "remaintime": 800,
+           "justify": false,
+           "boundary": $(window)
+        },
 
-        this.options  = $.extend({}, Dropdown.defaults, options);
-        this.element  = $element;
-        this.dropdown = this.element.find(".uk-dropdown");
+        remainIdle: false,
 
-        this.centered  = this.dropdown.hasClass("uk-dropdown-center");
-        this.justified = this.options.justify ? $(this.options.justify) : false;
+        init: function() {
 
-        this.boundary  = $(this.options.boundary);
+            var $this = this;
 
-        if(!this.boundary.length) {
-            this.boundary = $(window);
-        }
+            this.dropdown = this.element.find(".uk-dropdown");
 
-        if (this.options.mode == "click" || UI.support.touch) {
+            this.centered  = this.dropdown.hasClass("uk-dropdown-center");
+            this.justified = this.options.justify ? $(this.options.justify) : false;
 
-            this.element.on("click", function(e) {
+            this.boundary  = $(this.options.boundary);
 
-                var $target = $(e.target);
+            if(!this.boundary.length) {
+                this.boundary = $(window);
+            }
 
-                if (!$target.parents(".uk-dropdown").length) {
+            if (this.options.mode == "click" || UI.support.touch) {
+
+                this.element.on("click", function(e) {
+
+                    var $target = $(e.target);
+
+                    if (!$target.parents(".uk-dropdown").length) {
+
+                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                            e.preventDefault();
+                        }
+
+                        $target.blur();
+                    }
+
+                    if (!$this.element.hasClass("uk-open")) {
+
+                        $this.show();
+
+                    } else {
+
+                        if ($target.is("a") || !$this.element.find(".uk-dropdown").find(e.target).length) {
+                            $this.element.removeClass("uk-open");
+                            active = false;
+                        }
+                    }
+                });
+
+            } else {
+
+                this.element.on("mouseenter", function(e) {
+
+                    if ($this.remainIdle) {
+                        clearTimeout($this.remainIdle);
+                    }
+
+                    $this.show();
+
+                }).on("mouseleave", function() {
+
+                    $this.remainIdle = setTimeout(function() {
+
+                        $this.element.removeClass("uk-open");
+                        $this.remainIdle = false;
+
+                        if (active && active[0] == $this.element[0]) active = false;
+
+                    }, $this.options.remaintime);
+
+                }).on("click", function(e){
+
+                    var $target = $(e.target);
+
+                    if ($this.remainIdle) {
+                        clearTimeout($this.remainIdle);
+                    }
 
                     if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
                         e.preventDefault();
                     }
 
-                    $target.blur();
-                }
-
-                if (!$this.element.hasClass("uk-open")) {
-
                     $this.show();
-
-                } else {
-
-                    if ($target.is("a") || !$this.element.find(".uk-dropdown").find(e.target).length) {
-                        $this.element.removeClass("uk-open");
-                        active = false;
-                    }
-                }
-            });
-
-        } else {
-
-            this.element.on("mouseenter", function(e) {
-
-                if ($this.remainIdle) {
-                    clearTimeout($this.remainIdle);
-                }
-
-                $this.show();
-
-            }).on("mouseleave", function() {
-
-                $this.remainIdle = setTimeout(function() {
-
-                    $this.element.removeClass("uk-open");
-                    $this.remainIdle = false;
-
-                    if (active && active[0] == $this.element[0]) active = false;
-
-                }, $this.options.remaintime);
-
-            }).on("click", function(e){
-
-                var $target = $(e.target);
-
-                if ($this.remainIdle) {
-                    clearTimeout($this.remainIdle);
-                }
-
-                if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
-                    e.preventDefault();
-                }
-
-                $this.show();
-            });
-        }
-
-        this.element.data("dropdown", this);
-    };
-
-    $.extend(Dropdown.prototype, {
-
-        remainIdle: false,
+                });
+            }
+        },
 
         show: function(){
 
@@ -182,17 +184,7 @@
 
     });
 
-    Dropdown.defaults = {
-        "mode": "hover",
-        "remaintime": 800,
-        "justify": false,
-        "boundary": $(window)
-    };
-
-    UI["dropdown"] = Dropdown;
-
-
-    var triggerevent = UI.support.touch ? "click":"mouseenter";
+    var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
     // init code
     $(document).on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
@@ -200,7 +192,7 @@
 
         if (!ele.data("dropdown")) {
 
-            var dropdown = new Dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
+            var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
             if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
                 dropdown.show();

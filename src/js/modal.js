@@ -2,15 +2,22 @@
 
     "use strict";
 
-    var active = false,
-        html   = $("html"),
+    var active = false, html = $("html");
 
-        Modal  = function(element, options) {
+    UI.component('modal', {
+
+        defaults: {
+            keyboard: true,
+            bgclose: true,
+            minScrollHeight: 150
+        },
+
+        scrollable: false,
+        transition: false,
+
+        init: function() {
 
             var $this = this;
-
-            this.element = $(element);
-            this.options = $.extend({}, Modal.defaults, options);
 
             this.transition = UI.support.transition;
             this.dialog     = this.element.find(".uk-modal-dialog");
@@ -28,12 +35,8 @@
                 }
 
             });
-        };
 
-    $.extend(Modal.prototype, {
-
-        scrollable: false,
-        transition: false,
+        },
 
         toggle: function() {
             return this[this.isActive() ? "hide" : "show"]();
@@ -132,50 +135,31 @@
 
     });
 
-    Modal.dialog = {
-        tpl : '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>'
-    };
+    UI.component('modalTrigger', {
 
-    Modal.defaults = {
-        keyboard: true,
-        bgclose: true,
-        minScrollHeight: 150
-    };
+        init: function() {
 
+            var $this = this;
 
-    var ModalTrigger = function(element, options) {
+            this.options = $.extend({
+                "target": $this.element.is("a") ? $this.element.attr("href") : false
+            }, this.options);
 
-        var $this    = this,
-            $element = $(element);
+            this.modal = UI.modal(this.options.target, this.options);
 
-        if($element.data("modal")) return;
+            this.element.on("click", function(e) {
+                e.preventDefault();
+                $this.show();
+            });
 
-        this.options = $.extend({
-            "target": $element.is("a") ? $element.attr("href") : false
-        }, options);
+            //methods
+            this.proxy(this.modal, ["show", "hide", "isActive"]);
+        }
+    });
 
-        this.element = $element;
+    UI.modal.dialog = function(content, options) {
 
-        this.modal = new Modal(this.options.target, options);
-
-        $element.on("click", function(e) {
-            e.preventDefault();
-            $this.show();
-        });
-
-        //methods
-
-        $.each(["show", "hide", "isActive"], function(index, method) {
-            $this[method] = function() { return $this.modal[method](); };
-        });
-
-        this.element.data("modal", this);
-    };
-
-
-    ModalTrigger.dialog = function(content, options) {
-
-        var modal = new Modal($(Modal.dialog.tpl).appendTo("body"), options);
+        var modal = UI.modal($(UI.modal.dialog.template).appendTo("body"), options);
 
         modal.element.on("uk.modal.hide", function(){
             if (modal.persist) {
@@ -190,19 +174,21 @@
         return modal;
     };
 
-    ModalTrigger.alert = function(content, options) {
+    UI.modal.dialog.template = '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>';
 
-        ModalTrigger.dialog(([
+    UI.modal.dialog.alert = function(content, options) {
+
+        UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
             '<div class="uk-modal-buttons"><button class="uk-button uk-button-primary uk-modal-close">Ok</button></div>'
         ]).join(""), $.extend({bgclose:false, keyboard:false}, options)).show();
     };
 
-    ModalTrigger.confirm = function(content, onconfirm, options) {
+    UI.modal.dialog.confirm = function(content, onconfirm, options) {
 
         onconfirm = $.isFunction(onconfirm) ? onconfirm : function(){};
 
-        var modal = ModalTrigger.dialog(([
+        var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
             '<div class="uk-modal-buttons"><button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
         ]).join(""), $.extend({bgclose:false, keyboard:false}, options));
@@ -215,10 +201,6 @@
         modal.show();
     };
 
-    ModalTrigger.Modal = Modal;
-
-    UI["modal"] = ModalTrigger;
-
     // init code
     $(document).on("click.modal.uikit", "[data-uk-modal]", function(e) {
 
@@ -228,8 +210,8 @@
             e.preventDefault();
         }
 
-        if (!ele.data("modal")) {
-            var modal = new ModalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
+        if (!ele.data("modalTrigger")) {
+            var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
             modal.show();
         }
 

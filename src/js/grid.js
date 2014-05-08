@@ -4,45 +4,43 @@
 
     var win = $(window), event = 'resize orientationchange', grids = [];
 
-    var GridMatchHeight = function(element, options) {
+    UI.component('gridMatchHeight', {
 
-        var $this = this, $element = $(element);
+        defaults: {
+            "target" : false,
+            "row"    : true
+        },
 
-        if($element.data("gridMatchHeight")) return;
+        init: function() {
 
-        this.options  = $.extend({}, GridMatchHeight.defaults, options);
+            var $this = this;
 
-        this.element  = $element;
-        this.columns  = this.element.children();
-        this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
+            this.columns  = this.element.children();
+            this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
 
-        if (!this.columns.length) return;
+            if (!this.columns.length) return;
 
-        win.on(event, (function() {
-            var fn = function() {
+            win.on(event, (function() {
+                var fn = function() {
+                    $this.match();
+                };
+
+                $(function() {
+                    fn();
+                    win.on("load", fn);
+                });
+
+                return UI.Utils.debounce(fn, 150);
+            })());
+
+            $(document).on("uk-domready", function(e) {
+                $this.columns  = $this.element.children();
+                $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
                 $this.match();
-            };
-
-            $(function() {
-                fn();
-                win.on("load", fn);
             });
 
-            return UI.Utils.debounce(fn, 150);
-        })());
-
-        $(document).on("uk-domready", function(e) {
-            $this.columns  = $this.element.children();
-            $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
-            $this.match();
-        });
-
-        this.element.data("gridMatchHeight", this);
-
-        grids.push(this);
-    };
-
-    $.extend(GridMatchHeight.prototype, {
+            grids.push(this);
+        },
 
         match: function() {
 
@@ -115,33 +113,22 @@
                 element.css('min-height', height + 'px');
             });
         }
-
     });
 
-    GridMatchHeight.defaults = {
-        "target" : false,
-        "row"    : true
-    };
+    UI.component('gridMargin', {
 
-    var GridMargin = function(element, options) {
+        defaults: {
+            "cls": "uk-grid-margin"
+        },
 
-        var $element = $(element);
+        init: function() {
 
-        if($element.data("gridMargin")) return;
+            var $this = this;
 
-        this.options  = $.extend({}, GridMargin.defaults, options);
+            var stackMargin = UI.stackMargin(this.element, this.options);
+        }
+    });
 
-        var stackMargin = new UI.stackMargin($element, this.options);
-
-        $element.data("gridMargin", stackMargin);
-    };
-
-    GridMargin.defaults = {
-        cls: 'uk-grid-margin'
-    };
-
-    UI["gridMatchHeight"]  = GridMatchHeight;
-    UI["gridMargin"] = GridMargin;
 
     // init code
     $(document).on("uk-domready", function(e) {
@@ -149,11 +136,11 @@
             var grid = $(this), obj;
 
             if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {
-                obj = new GridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+                obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
             }
 
             if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
-                obj = new GridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
+                obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
             }
         });
     });

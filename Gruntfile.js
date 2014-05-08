@@ -113,6 +113,7 @@ module.exports = function(grunt) {
                 },
                 src: [
                     "src/js/core.js",
+                    "src/js/component.js",
                     "src/js/utility.js",
                     "src/js/touch.js",
                     "src/js/alert.js",

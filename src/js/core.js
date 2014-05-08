@@ -59,7 +59,7 @@
 
         return this.each(function() {
             var $this = $(this), data = $this.data(component);
-            if (!data) $this.data(component, (data = new UI[component](this, method ? undefined : options)));
+            if (!data) $this.data(component, (data = UI[component](this, method ? undefined : options)));
             if (method) data[method].apply(data, Array.prototype.slice.call(args, 1));
         });
     };

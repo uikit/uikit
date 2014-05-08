@@ -5,33 +5,38 @@
     var $tooltip,   // tooltip container
         tooltipdelay;
 
+    UI.component('tooltip', {
 
-    var Tooltip = function(element, options) {
-
-        var $this = this, $element = $(element);
-
-        if($element.data("tooltip")) return;
-
-        this.options = $.extend({}, Tooltip.defaults, options);
-
-        this.element = $element.on({
-            "focus"     : function(e) { $this.show(); },
-            "blur"      : function(e) { $this.hide(); },
-            "mouseenter": function(e) { $this.show(); },
-            "mouseleave": function(e) { $this.hide(); }
-        });
-
-        this.tip = typeof(this.options.src) === "function" ? this.options.src.call(this.element) : this.options.src;
-
-        // disable title attribute
-        this.element.attr("data-cached-title", this.element.attr("title")).attr("title", "");
-
-        this.element.data("tooltip", this);
-    };
-
-    $.extend(Tooltip.prototype, {
+        defaults: {
+            "offset": 5,
+            "pos": "top",
+            "animation": false,
+            "delay": 0, // in miliseconds
+            "src": function() { return this.attr("title"); }
+        },
 
         tip: "",
+
+        init: function() {
+
+            var $this = this;
+
+            if (!$tooltip) {
+                $tooltip = $('<div class="uk-tooltip"></div>').appendTo("body");
+            }
+
+            this.element.on({
+                "focus"     : function(e) { $this.show(); },
+                "blur"      : function(e) { $this.hide(); },
+                "mouseenter": function(e) { $this.show(); },
+                "mouseleave": function(e) { $this.hide(); }
+            });
+
+            this.tip = typeof(this.options.src) === "function" ? this.options.src.call(this.element) : this.options.src;
+
+            // disable title attribute
+            this.element.attr("data-cached-title", this.element.attr("title")).attr("title", "");
+        },
 
         show: function() {
 
@@ -161,29 +166,15 @@
 
             return axis;
         }
-
     });
 
-    Tooltip.defaults = {
-        "offset": 5,
-        "pos": "top",
-        "animation": false,
-        "delay": 0, // in miliseconds
-        "src": function() { return this.attr("title"); }
-    };
-
-    UI["tooltip"] = Tooltip;
-
-    $(function() {
-        $tooltip = $('<div class="uk-tooltip"></div>').appendTo("body");
-    });
 
     // init code
     $(document).on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
         var ele = $(this);
 
         if (!ele.data("tooltip")) {
-            var obj = new Tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
+            var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
             ele.trigger("mouseenter");
         }
     });

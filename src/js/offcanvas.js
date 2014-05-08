@@ -84,32 +84,24 @@
 
     }, scrollpos;
 
+    UI.component('offcanvasTrigger', {
 
-    var OffcanvasTrigger = function(element, options) {
+        init: function() {
 
-        var $this    = this,
-            $element = $(element);
+            var $this = this;
 
-        if($element.data("offcanvas")) return;
+            this.options = $.extend({
+                "target": $this.element.is("a") ? $this.element.attr("href") : false
+            }, this.options);
 
-        this.options = $.extend({
-            "target": $element.is("a") ? $element.attr("href") : false
-        }, options);
+            this.on("click", function(e) {
+                e.preventDefault();
+                Offcanvas.show($this.options.target);
+            });
+        }
+    });
 
-        this.element = $element;
-
-        $element.on("click", function(e) {
-            e.preventDefault();
-            Offcanvas.show($this.options.target);
-        });
-
-        this.element.data("offcanvas", this);
-    };
-
-    OffcanvasTrigger.offcanvas = Offcanvas;
-
-    UI["offcanvas"] = OffcanvasTrigger;
-
+    UI.offcanvas = Offcanvas;
 
     // init code
     $doc.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
@@ -118,8 +110,8 @@
 
         var ele = $(this);
 
-        if (!ele.data("offcanvas")) {
-            var obj = new OffcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
+        if (!ele.data("offcanvasTrigger")) {
+            var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
             ele.trigger("click");
         }
     });

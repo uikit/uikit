@@ -2,99 +2,80 @@
 
     "use strict";
 
-    var ButtonRadio = function(element, options) {
+    UI.component('buttonRadio', {
 
-        var $this = this, $element = $(element);
+        defaults: {
+            "target": ".uk-button"
+        },
 
-        if($element.data("buttonRadio")) return;
+        init: function() {
 
-        this.options = $.extend({}, ButtonRadio.defaults, options);
-        this.element = $element.on("click", this.options.target, function(e) {
-            e.preventDefault();
-            $element.find($this.options.target).not(this).removeClass("uk-active").blur();
-            $element.trigger("change", [$(this).addClass("uk-active")]);
-        });
+            var $this = this;
 
-        this.element.data("buttonRadio", this);
-    };
+            this.on("click", this.options.target, function(e) {
+                e.preventDefault();
+                $this.element.find($this.options.target).not(this).removeClass("uk-active").blur();
+                $this.trigger("change", [$(this).addClass("uk-active")]);
+            });
 
-    $.extend(ButtonRadio.prototype, {
-
-        getSelected: function() {
-            this.element.find(".uk-active");
-        }
-
-    });
-
-    ButtonRadio.defaults = {
-        "target": ".uk-button"
-    };
-
-    var ButtonCheckbox = function(element, options) {
-
-        var $element = $(element);
-
-        if($element.data("buttonCheckbox")) return;
-
-        this.options = $.extend({}, ButtonCheckbox.defaults, options);
-        this.element = $element.on("click", this.options.target, function(e) {
-            e.preventDefault();
-            $element.trigger("change", [$(this).toggleClass("uk-active").blur()]);
-        });
-
-        this.element.data("buttonCheckbox", this);
-    };
-
-    $.extend(ButtonCheckbox.prototype, {
+        },
 
         getSelected: function() {
             this.element.find(".uk-active");
         }
-
     });
 
-    ButtonCheckbox.defaults = {
-        "target": ".uk-button"
-    };
+    UI.component('buttonCheckbox', {
 
-    var Button = function(element, options) {
+        defaults: {
+            "target": ".uk-button"
+        },
 
-        var $this = this, $element = $(element);
+        init: function() {
 
-        if($element.data("button")) return;
+            var $this = this;
 
-        this.options = $.extend({}, Button.defaults, options);
-        this.element = $element.on("click", function(e) {
-            e.preventDefault();
-            $this.toggle();
-            $element.trigger("change", [$element.blur().hasClass("uk-active")]);
-        });
+            this.on("click", this.options.target, function(e) {
+                e.preventDefault();
+                $this.trigger("change", [$(this).toggleClass("uk-active").blur()]);
+            });
 
-        this.element.data("button", this);
-    };
+        },
 
-    $.extend(Button.prototype, {
+        getSelected: function() {
+            this.element.find(".uk-active");
+        }
+    });
 
-        options: {},
+
+    UI.component('button', {
+
+        defaults: {},
+
+        init: function() {
+
+            var $this = this;
+
+            this.on("click", function(e) {
+                e.preventDefault();
+                $this.toggle();
+                $this.trigger("change", [$element.blur().hasClass("uk-active")]);
+            });
+
+        },
 
         toggle: function() {
             this.element.toggleClass("uk-active");
         }
-
     });
 
-    Button.defaults = {};
-
-    UI["button"]         = Button;
-    UI["buttonCheckbox"] = ButtonCheckbox;
-    UI["buttonRadio"]    = ButtonRadio;
 
     // init code
     $(document).on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
         var ele = $(this);
 
         if (!ele.data("buttonRadio")) {
-            var obj = new ButtonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
+            var obj = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
 
             if ($(e.target).is(obj.options.target)) {
                 $(e.target).trigger("click");
@@ -107,7 +88,7 @@
 
         if (!ele.data("buttonCheckbox")) {
 
-            var obj = new ButtonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))), target=$(e.target);
+            var obj = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))), target=$(e.target);
 
             if (target.is(obj.options.target)) {
                 ele.trigger("change", [target.toggleClass("uk-active").blur()]);
@@ -120,7 +101,7 @@
 
         if (!ele.data("button")) {
 
-            var obj = new Button(ele, ele.attr("data-uk-button"));
+            var obj = UI.button(ele, UI.Utils.options(ele.attr("data-uk-button")));
             ele.trigger("click");
         }
     });

@@ -2,24 +2,23 @@
 
     "use strict";
 
-    var Alert = function(element, options) {
+    UI.component('alert', {
 
-        var $this = this;
+        defaults: {
+            "fade": true,
+            "duration": 200,
+            "trigger": ".uk-alert-close"
+        },
 
-        this.options = $.extend({}, Alert.defaults, options);
-        this.element = $(element);
+        init: function() {
 
-        if(this.element.data("alert")) return;
+            var $this = this;
 
-        this.element.on("click", this.options.trigger, function(e) {
-            e.preventDefault();
-            $this.close();
-        });
-
-        this.element.data("alert", this);
-    };
-
-    $.extend(Alert.prototype, {
+            this.on("click", this.options.trigger, function(e) {
+                e.preventDefault();
+                $this.close();
+            });
+        },
 
         close: function() {
 
@@ -45,21 +44,14 @@
 
     });
 
-    Alert.defaults = {
-        "fade": true,
-        "duration": 200,
-        "trigger": ".uk-alert-close"
-    };
-
-    UI["alert"] = Alert;
-
     // init code
     $(document).on("click.alert.uikit", "[data-uk-alert]", function(e) {
 
         var ele = $(this);
+
         if (!ele.data("alert")) {
 
-            var alert = new Alert(ele, UI.Utils.options(ele.data("uk-alert")));
+            var alert = UI.alert(ele, UI.Utils.options(ele.data("uk-alert")));
 
             if ($(e.target).is(ele.data("alert").options.trigger)) {
                 e.preventDefault();
