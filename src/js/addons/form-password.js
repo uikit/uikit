@@ -12,37 +12,34 @@
 
 })(function(global, $, UI){
 
-    var FormPassword = function(element, options) {
+    UI.component('formPassword', {
 
-        var $this = this, $element = $(element);
+        defaults: {
+            "lblShow": "Show",
+            "lblHide": "Hide"
+        },
 
-        if($element.data("formPassword")) return;
+        init: function() {
 
-        this.options = $.extend({}, FormPassword.defaults, options);
+            var $this = this;
 
-        this.element = $element.on("click", function(e) {
+            this.on("click", function(e) {
 
-            e.preventDefault();
+                e.preventDefault();
 
-            if($this.input.length) {
-                var type = $this.input.attr("type");
-                $this.input.attr("type", type=="text" ? "password":"text");
-                $this.element.text($this.options[type=="text" ? "lblShow":"lblHide"]);
-            }
-        });
+                if($this.input.length) {
+                    var type = $this.input.attr("type");
+                    $this.input.attr("type", type=="text" ? "password":"text");
+                    $this.element.text($this.options[type=="text" ? "lblShow":"lblHide"]);
+                }
+            });
 
-        $this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
-        $this.element.text(this.options[$this.input.is("[type='password']") ? "lblShow":"lblHide"]);
+            this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
+            this.element.text(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
 
-        this.element.data("formPassword", this);
-    };
-
-    FormPassword.defaults = {
-        "lblShow": "Show",
-        "lblHide": "Hide"
-    };
-
-    UI["formPassword"] = FormPassword;
+            this.element.data("formPassword", this);
+        }
+    });
 
     // init code
     $(document).on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
@@ -52,11 +49,10 @@
 
             e.preventDefault();
 
-            var obj = new FormPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
+            var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
             ele.trigger("click");
         }
     });
 
-    return FormPassword;
-
+    return UI.formPassword;
 });

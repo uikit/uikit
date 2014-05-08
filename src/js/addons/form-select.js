@@ -12,40 +12,35 @@
 
 })(function(global, $, UI){
 
-    var FormSelect = function(element, options) {
+    UI.component('formSelect', {
+        defaults: {
+            'target': '>span:first'
+        },
 
-        var $this = this, $element = $(element);
+        init: function() {
+            var $this = this;
 
-        if($element.data("formSelect")) return;
+            this.target  = this.element.find(this.options.target);
+            this.select  = this.element.find('select');
 
-        this.element = $element;
-        this.options = $.extend({}, FormSelect.defaults, options);
-        this.target  = this.element.find(this.options.target);
-        this.select  = this.element.find('select');
+            // init + on change event
+            this.select.on("change", (function(){
 
-        // init + on change event
-        this.select.on("change", (function(){
+                var select = $this.select[0], fn = function(){
 
-            var select = $this.select[0], fn = function(){
+                    try {
+                        $this.target.text(select.options[select.selectedIndex].text);
+                    } catch(e) {}
 
-                try {
-                    $this.target.text(select.options[select.selectedIndex].text);
-                } catch(e) {}
+                    return fn;
+                };
 
-                return fn;
-            };
+                return fn();
+            })());
 
-            return fn();
-        })());
-
-        this.element.data("formSelect", this);
-    };
-
-    FormSelect.defaults = {
-        'target': '>span:first'
-    };
-
-    UI["formSelect"] = FormSelect;
+            this.element.data("formSelect", this);
+        }
+    });
 
     // init code
     $(document).on("uk-domready", function(e) {
@@ -55,10 +50,10 @@
 
             if (!ele.data("formSelect")) {
                 e.preventDefault();
-                var obj = new FormSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
+                var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
             }
         });
     });
 
-    return FormSelect;
+    return UI.formSelect;
 });
