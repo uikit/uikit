@@ -25,7 +25,7 @@
                 $tooltip = $('<div class="uk-tooltip"></div>').appendTo("body");
             }
 
-            this.element.on({
+            this.on({
                 "focus"     : function(e) { $this.show(); },
                 "blur"      : function(e) { $this.hide(); },
                 "mouseenter": function(e) { $this.show(); },

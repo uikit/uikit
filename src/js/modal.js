@@ -20,9 +20,9 @@
             var $this = this;
 
             this.transition = UI.support.transition;
-            this.dialog     = this.element.find(".uk-modal-dialog");
+            this.dialog     = this.find(".uk-modal-dialog");
 
-            this.element.on("click", ".uk-modal-close", function(e) {
+            this.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
                 $this.hide();
 
@@ -50,7 +50,6 @@
             if (active) active.hide(true);
 
             this.element.removeClass("uk-open").show();
-
             this.resize();
 
             active = this;
@@ -69,7 +68,7 @@
 
                 var $this = this;
 
-                this.element.one(UI.support.transition.end, function() {
+                this.one(UI.support.transition.end, function() {
                     $this._hide();
                 }).removeClass("uk-open");
 
@@ -126,7 +125,7 @@
 
             if(active===this) active = false;
 
-            this.element.trigger("uk.modal.hide");
+            this.trigger("uk.modal.hide");
         },
 
         isActive: function() {
@@ -147,13 +146,13 @@
 
             this.modal = UI.modal(this.options.target, this.options);
 
-            this.element.on("click", function(e) {
+            this.on("click", function(e) {
                 e.preventDefault();
                 $this.show();
             });
 
             //methods
-            this.proxy(this.modal, ["show", "hide", "isActive"]);
+            this.proxy(this.modal, "show hide isActive");
         }
     });
 
@@ -161,7 +160,7 @@
 
         var modal = UI.modal($(UI.modal.dialog.template).appendTo("body"), options);
 
-        modal.element.on("uk.modal.hide", function(){
+        modal.on("uk.modal.hide", function(){
             if (modal.persist) {
                 modal.persist.appendTo(modal.persist.data("modalPersistParent"));
                 modal.persist = false;
@@ -227,9 +226,7 @@
     });
 
     $win.on("resize orientationchange", UI.Utils.debounce(function(){
-
         if(active) active.resize();
-
     }, 150));
 
 

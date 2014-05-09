@@ -23,7 +23,7 @@
 
                 this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
 
-                var toggles = this.element.find(this.options.toggle),
+                var toggles = this.find(this.options.toggle),
                     active   = toggles.filter(".uk-active");
 
                 if (active.length) {
@@ -38,23 +38,23 @@
 
         show: function(tab) {
 
-            tab = isNaN(tab) ? $(tab) : this.element.find(this.options.toggle).eq(tab);
+            tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
 
             var active = tab;
 
             if (active.hasClass("uk-disabled")) return;
 
-            this.element.find(this.options.toggle).filter(".uk-active").removeClass("uk-active");
+            this.find(this.options.toggle).filter(".uk-active").removeClass("uk-active");
             active.addClass("uk-active");
 
             if (this.options.connect && this.connect.length) {
 
-                var index = this.element.find(this.options.toggle).index(active);
+                var index = this.find(this.options.toggle).index(active);
 
                 this.connect.children().removeClass("uk-active").eq(index).addClass("uk-active");
             }
 
-            this.element.trigger("uk.switcher.show", [active]);
+            this.trigger("uk.switcher.show", [active]);
             $(document).trigger("uk-check-display");
         }
     });

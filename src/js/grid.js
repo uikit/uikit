@@ -16,7 +16,7 @@
             var $this = this;
 
             this.columns  = this.element.children();
-            this.elements = this.options.target ? this.element.find(this.options.target) : this.columns;
+            this.elements = this.options.target ? this.find(this.options.target) : this.columns;
 
             if (!this.columns.length) return;
 
@@ -35,7 +35,7 @@
 
             $(document).on("uk-domready", function(e) {
                 $this.columns  = $this.element.children();
-                $this.elements = $this.options.target ? $this.element.find($this.options.target) : $this.columns;
+                $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
             });
 

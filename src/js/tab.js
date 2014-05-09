@@ -16,7 +16,7 @@
 
             this.on("click", this.options.target, function(e) {
                 e.preventDefault();
-                $this.element.find($this.options.target).not(this).removeClass("uk-active").blur();
+                $this.find($this.options.target).not(this).removeClass("uk-active").blur();
                 $this.trigger("change", [$(this).addClass("uk-active")]);
             });
 
@@ -38,12 +38,12 @@
                 dropdown  = $('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>'),
                 ul        = dropdown.find("ul");
 
-            caption.html(this.element.find("li.uk-active:first").find("a").text());
+            caption.html(this.find("li.uk-active:first").find("a").text());
 
             if (this.element.hasClass("uk-tab-bottom")) dropdown.addClass("uk-dropdown-up");
             if (this.element.hasClass("uk-tab-flip")) dropdown.addClass("uk-dropdown-flip");
 
-            this.element.find("a").each(function(i) {
+            this.find("a").each(function(i) {
 
                 var tab  = $(this).parent(),
                     item = $('<li><a href="javascript:void(0);">' + tab.text() + '</a></li>').on("click", function(e) {

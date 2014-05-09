@@ -88,7 +88,7 @@
         init: function() {
 
             var ids     = [],
-                links   = this.element.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
+                links   = this.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
                 targets = $(ids.join(","));
 
             var $this = this, inviews, fn = function(){

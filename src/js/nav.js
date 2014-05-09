@@ -14,13 +14,13 @@
 
             var $this = this;
 
-            this.element.on("click", this.options.toggle, function(e) {
+            this.on("click", this.options.toggle, function(e) {
                 e.preventDefault();
                 var ele = $(this);
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
-            this.element.find(this.options.lists).each(function() {
+            this.find(this.options.lists).each(function() {
                 var $ele   = $(this),
                     parent = $ele.parent(),
                     active = parent.hasClass("uk-active");
