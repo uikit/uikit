@@ -253,7 +253,7 @@ module.exports = function(grunt) {
 
             var result = [];
 
-            classes.forEach(function(cls) {
+            classes.forEach(function(cls, i) {
                 // wrap class name in double quotes, add comma (except for last element)
                 result.push(['"', cls, '"', (i !== classes.length-1 ? ", " : "")].join(''));
 
