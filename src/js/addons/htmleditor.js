@@ -408,7 +408,7 @@
                         posend  = cm.getDoc().getCursor(false);
 
                     for (var i=pos.line; i<(posend.line+1);i++) {
-                        cm.replaceRange('<li>'+cm.getLine(i)+'<li>', { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                        cm.replaceRange('<li>'+cm.getLine(i)+'</li>', { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
                     }
 
                     cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
