@@ -18,10 +18,16 @@
             }
 
             this.options.plugins.forEach(function(plugin) {
-                fn.plugins[plugin].init($this);
+                if(fn.plugins[plugin].init) fn.plugins[plugin].init($this);
             });
 
             this.init();
+
+            this.options.plugins.forEach(function(plugin) {
+                if(fn.plugins[plugin].postinit) fn.plugins[plugin].postinit($this);
+            });
+
+            this.trigger('after-init', [this]);
         };
 
         fn.plugins = {};
@@ -33,22 +39,30 @@
             init: function(){},
 
             on: function(){
-                $(this.element || this).on.apply(this.element || this, arguments);
+                return $(this.element || this).on.apply(this.element || this, arguments);
+            },
+
+            one: function(){
+                return $(this.element || this).one.apply(this.element || this, arguments);
             },
 
             off: function(evt){
-                $(this.element || this).off(evt);
+                return $(this.element || this).off(evt);
             },
 
             trigger: function(evt, params) {
-                $(this.element || this).trigger(evt, params);
+                return $(this.element || this).trigger(evt, params);
+            },
+
+            find: function(selector) {
+                return this.element ? this.element.find(selector) : $([]);
             },
 
             proxy: function(obj, methods) {
 
                 var $this = this;
 
-                methods.forEach(function(method) {
+                methods.split(' ').forEach(function(method) {
                     if (!$this[method]) $this[method] = function() { return obj[method].apply(obj, arguments); };
                 });
             },
@@ -57,7 +71,7 @@
 
                 var $this = this;
 
-                methods.forEach(function(method) {
+                methods.split(' ').forEach(function(method) {
                     if (!$this[method]) $this[method] = obj[method].bind($this);
                 });
             },

@@ -5,7 +5,7 @@
 
      if (typeof define == "function" && define.amd) { // AMD
          define("uikit-sortable", ["uikit"], function(){
-            return jQuery.fn.uksortable || addon(window.jQuery, jQuery.UIkit, window, document);
+            return jQuery.UIkit.sortable || addon(window.jQuery, jQuery.UIkit, window, document);
          });
      }
 
@@ -17,25 +17,31 @@
 
     var hasTouch     = 'ontouchstart' in window,
         html         = $("html"),
-        touchedlists = [];
+        touchedlists = [],
+        $win         = $(window);
 
     /**
      * Detect CSS pointer-events property
      * events are normally disabled on the dragging element to avoid conflicts
      * https://github.com/ausi/Feature-detection-technique-for-pointer-events/blob/master/modernizr-pointerevents.js
      */
-    var hasPointerEvents = (function()
-    {
-        var el    = document.createElement('div'),
-            docEl = document.documentElement;
+    var hasPointerEvents = (function() {
+
+        var el    = document.createElement('div'), docEl = document.documentElement;
+
         if (!('pointerEvents' in el.style)) {
             return false;
         }
+
         el.style.pointerEvents = 'auto';
         el.style.pointerEvents = 'x';
+
         docEl.appendChild(el);
+
         var supports = window.getComputedStyle && window.getComputedStyle(el, '').pointerEvents === 'auto';
+
         docEl.removeChild(el);
+
         return !!supports;
     })();
 
@@ -44,51 +50,63 @@
         eEnd    = hasTouch ? 'touchend'    : 'mouseup',
         eCancel = hasTouch ? 'touchcancel' : 'mouseup';
 
-    function Plugin(element, options)
-    {
-        var $element = $(element);
 
-        if($element.data("uksortable")) return;
+    UI.component('sortable', {
 
-
-        this.w  = $(window);
-        this.el = $element;
-        this.options = $.extend({}, $.fn.uksortable.defaults, options);
-
-        this.tplempty = '<div class="' + this.options.emptyClass + '"/>';
-
-        this.el.find(">"+this.options.itemNodeName).addClass(this.options.listitemClass).end().find("ul:not(.ignore-list)").addClass(this.options.listClass).find(">li").addClass(this.options.listitemClass);
-
-        if(!this.el.children(this.options.itemNodeName).length) {
-            this.el.append(this.tplempty);
-        }
-
-        this.el.data("uksortable", this);
-        this.el.data("uksortable-id", "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000)));
-
-        this.init();
-    }
-
-    Plugin.prototype = {
+        defaults: {
+            prefix          : 'uk',
+            listNodeName    : 'ul',
+            itemNodeName    : 'li',
+            listBaseClass   : '{prefix}-sortable',
+            listClass       : '{prefix}-sortable-list',
+            listitemClass   : '{prefix}-sortable-list-item',
+            itemClass       : '{prefix}-sortable-item',
+            dragClass       : '{prefix}-sortable-list-dragged',
+            movingClass     : '{prefix}-sortable-moving',
+            handleClass     : '{prefix}-sortable-handle',
+            collapsedClass  : '{prefix}-collapsed',
+            placeClass      : '{prefix}-sortable-placeholder',
+            noDragClass     : '{prefix}-sortable-nodrag',
+            emptyClass      : '{prefix}-sortable-empty',
+            group           : 0,
+            maxDepth        : 10,
+            threshold       : 20
+        },
 
         init: function()
         {
-            var list = this;
+            var $this = this;
 
-            list.reset();
+            Object.keys(this.options).forEach(function(key){
 
-            list.el.data('uksortable-group', this.options.group);
-
-            list.placeEl = $('<div class="' + list.options.placeClass + '"/>');
-
-            $.each(this.el.find(list.options.itemNodeName), function(k, el)
-            {
-                list.setParent($(el));
+                if(String($this.options[key]).indexOf('{prefix}')!=-1) {
+                    $this.options[key] = $this.options[key].replace('{prefix}', $this.options.prefix);
+                }
             });
 
-            list.el.on('click', '[data-sortable-action]', function(e)
-            {
-                if (list.dragEl || (!hasTouch && e.button !== 0)) {
+            this.tplempty = '<div class="' + this.options.emptyClass + '"/>';
+
+            this.find(">"+this.options.itemNodeName).addClass(this.options.listitemClass)
+                .end()
+                .find("ul:not(.ignore-list)").addClass(this.options.listClass)
+                .find(">li").addClass(this.options.listitemClass);
+
+            if (!this.element.children(this.options.itemNodeName).length) {
+                this.element.append(this.tplempty);
+            }
+
+            this.element.data("sortable-id", "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000)));
+            this.reset();
+            this.element.data('sortable-group', this.options.group);
+            this.placeEl = $('<div class="' + this.options.placeClass + '"/>');
+
+            this.find(this.options.itemNodeName).each(function() {
+                $this.setParent($(this));
+            });
+
+            this.on('click', '[data-sortable-action]', function(e) {
+
+                if ($this.dragEl || (!hasTouch && e.button !== 0)) {
                     return;
                 }
 
@@ -96,77 +114,77 @@
 
                 var target = $(e.currentTarget),
                     action = target.data('sortableAction'),
-                    item   = target.closest(list.options.itemNodeName);
+                    item   = target.closest($this.options.itemNodeName);
                 if (action === 'collapse') {
-                    list.collapseItem(item);
+                    $this.collapseItem(item);
                 }
                 if (action === 'expand') {
-                    list.expandItem(item);
+                    $this.expandItem(item);
                 }
                 if (action === 'toggle') {
-                    list.toggleItem(item);
+                    $this.toggleItem(item);
                 }
             });
 
-            var onStartEvent = function(e)
-            {
+            var onStartEvent = function(e) {
+
                 var handle = $(e.target);
-                if (!handle.hasClass(list.options.handleClass)) {
-                    if (handle.closest('.' + list.options.noDragClass).length) {
+
+                if (!handle.hasClass($this.options.handleClass)) {
+                    if (handle.closest('.' + $this.options.noDragClass).length) {
                         return;
                     }
-                    handle = handle.closest('.' + list.options.handleClass);
+                    handle = handle.closest('.' + $this.options.handleClass);
                 }
-                if (!handle.length || list.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches.length !== 1)) {
+                if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches.length !== 1)) {
                     return;
                 }
                 e.preventDefault();
-                list.dragStart(hasTouch ? e.touches[0] : e);
+                $this.dragStart(hasTouch ? e.touches[0] : e);
             };
 
-            var onMoveEvent = function(e)
-            {
-                if (list.dragEl) {
+            var onMoveEvent = function(e) {
+                if ($this.dragEl) {
                     e.preventDefault();
-                    list.dragMove(hasTouch ? e.touches[0] : e);
+                    $this.dragMove(hasTouch ? e.touches[0] : e);
                 }
             };
 
-            var onEndEvent = function(e)
-            {
-                if (list.dragEl) {
+            var onEndEvent = function(e) {
+                if ($this.dragEl) {
                     e.preventDefault();
-                    list.dragStop(hasTouch ? e.touches[0] : e);
+                    $this.dragStop(hasTouch ? e.touches[0] : e);
                 }
             };
 
             if (hasTouch) {
-                list.el[0].addEventListener(eStart, onStartEvent, false);
+                this.element[0].addEventListener(eStart, onStartEvent, false);
                 window.addEventListener(eMove, onMoveEvent, false);
                 window.addEventListener(eEnd, onEndEvent, false);
                 window.addEventListener(eCancel, onEndEvent, false);
             } else {
-                list.el.on(eStart, onStartEvent);
-                list.w.on(eMove, onMoveEvent);
-                list.w.on(eEnd, onEndEvent);
+                this.on(eStart, onStartEvent);
+                $win.on(eMove, onMoveEvent);
+                $win.on(eEnd, onEndEvent);
             }
 
         },
 
-        serialize: function()
-        {
+        serialize: function() {
+
             var data,
                 depth = 0,
                 list  = this;
-                step  = function(level, depth)
-                {
-                    var array = [ ],
-                        items = level.children(list.options.itemNodeName);
-                    items.each(function()
-                    {
+                step  = function(level, depth) {
+
+                    var array = [ ], items = level.children(list.options.itemNodeName);
+
+                    items.each(function() {
+
                         var li   = $(this),
                             item = $.extend({}, li.data()),
                             sub  = li.children(list.options.listNodeName);
+
                         if (sub.length) {
                             item.children = step(sub, depth + 1);
                         }
@@ -174,37 +192,42 @@
                     });
                     return array;
                 };
-            data = step(list.el, depth);
+
+            data = step(list.element, depth);
+
             return data;
         },
 
-        list: function(options)
-        {
+        list: function(options) {
+
             var data = [],
                 list = this,
                 depth = 0,
                 options = $.extend({}, list.options, options),
-                step = function(level, depth, parent)
-                {
+                step = function(level, depth, parent) {
+
                     var items = level.children(options.itemNodeName);
-                    items.each(function(index)
-                    {
+
+                    items.each(function(index) {
                         var li = $(this),
                             item = $.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
                             sub = li.children(options.listNodeName);
 
                         data.push(item);
+
                         if (sub.length) {
                             step(sub, depth + 1, li.data(options.idProperty || 'id'));
                         }
                     });
                 };
-            step(list.el, depth);
+
+            step(list.element, depth);
+
             return data;
         },
 
-        reset: function()
-        {
+        reset: function() {
+
             this.mouse = {
                 offsetX   : 0,
                 offsetY   : 0,
@@ -231,8 +254,8 @@
             this.hasNewRoot = false;
             this.pointEl    = null;
 
-            for(var i=0; i<touchedlists.length; i++) {
-                if(!touchedlists[i].children().length) {
+            for (var i=0; i<touchedlists.length; i++) {
+                if (!touchedlists[i].children().length) {
                     touchedlists[i].append(this.tplempty);
                 }
             }
@@ -244,52 +267,43 @@
             this[li.hasClass(this.options.collapsedClass) ? "expandItem":"collapseItem"](li);
         },
 
-        expandItem: function(li)
-        {
+        expandItem: function(li) {
             li.removeClass(this.options.collapsedClass);
         },
 
-        collapseItem: function(li)
-        {
+        collapseItem: function(li) {
             var lists = li.children(this.options.listNodeName);
             if (lists.length) {
                 li.addClass(this.options.collapsedClass);
             }
         },
 
-        expandAll: function()
-        {
+        expandAll: function() {
             var list = this;
-            list.el.find(list.options.itemNodeName).each(function()
-            {
+            this.find(list.options.itemNodeName).each(function() {
                 list.expandItem($(this));
             });
         },
 
-        collapseAll: function()
-        {
+        collapseAll: function() {
             var list = this;
-            list.el.find(list.options.itemNodeName).each(function()
-            {
+            this.find(list.options.itemNodeName).each(function() {
                 list.collapseItem($(this));
             });
         },
 
-        setParent: function(li)
-        {
+        setParent: function(li) {
             if (li.children(this.options.listNodeName).length) {
                 li.addClass("uk-parent");
             }
         },
 
-        unsetParent: function(li)
-        {
+        unsetParent: function(li) {
             li.removeClass('uk-parent '+this.options.collapsedClass);
             li.children(this.options.listNodeName).remove();
         },
 
-        dragStart: function(e)
-        {
+        dragStart: function(e) {
             var mouse    = this.mouse,
                 target   = $(e.target),
                 dragItem = target.closest(this.options.itemNodeName),
@@ -303,7 +317,7 @@
             mouse.startX = mouse.lastX = offset.left;
             mouse.startY = mouse.lastY = offset.top;
 
-            this.dragRootEl = this.el;
+            this.dragRootEl = this.element;
 
             this.dragEl = $(document.createElement(this.options.listNodeName)).addClass(this.options.listClass + ' ' + this.options.dragClass);
             this.dragEl.css('width', dragItem.width());
@@ -336,8 +350,7 @@
             html.addClass(this.options.movingClass);
         },
 
-        dragStop: function(e)
-        {
+        dragStop: function(e) {
             // fix for zepto.js
             //this.placeEl.replaceWith(this.dragEl.children(this.options.itemNodeName + ':first').detach());
             var el = this.dragEl.children(this.options.itemNodeName).first();
@@ -348,7 +361,7 @@
 
             if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || this.tmpDragOnSiblings[0]!=el[0].previousSibling) {
 
-                this.el.trigger('sortable-change',[el, this.hasNewRoot ? "added":"moved"]);
+                this.element.trigger('sortable-change',[el, this.hasNewRoot ? "added":"moved"]);
 
                 if (this.hasNewRoot) {
                     this.dragRootEl.trigger('sortable-change', [el, "removed"]);
@@ -360,8 +373,7 @@
             html.removeClass(this.options.movingClass);
         },
 
-        dragMove: function(e)
-        {
+        dragMove: function(e) {
             var list, parent, prev, next, depth,
                 opt   = this.options,
                 mouse = this.mouse;
@@ -477,17 +489,15 @@
 
             if (this.pointEl.hasClass(opt.emptyClass)) {
                 isEmpty = true;
-            }
-            else if (this.pointEl.data('uksortable') && !this.pointEl.children().length) {
+            } else if (this.pointEl.data('sortable') && !this.pointEl.children().length) {
                 isEmpty = true;
                 this.pointEl = $(this.tplempty).appendTo(this.pointEl);
-            }
-            else if (!this.pointEl.length || !this.pointEl.hasClass(opt.listitemClass)) {
+            } else if (!this.pointEl.length || !this.pointEl.hasClass(opt.listitemClass)) {
                 return;
             }
 
             // find parent list of item under cursor
-            var pointElRoot = this.el,
+            var pointElRoot = this.element,
                 tmpRoot     = this.pointEl.closest('.'+this.options.listBaseClass),
                 isNewRoot   = pointElRoot[0] !== this.pointEl.closest('.'+this.options.listBaseClass)[0],
                 $newRoot    = tmpRoot;
@@ -497,7 +507,7 @@
              */
             if (!mouse.dirAx || isNewRoot || isEmpty) {
                 // check if groups match if dragging over new root
-                if (isNewRoot && opt.group !== $newRoot.data('uksortable-group')) {
+                if (isNewRoot && opt.group !== $newRoot.data('sortable-group')) {
                     return;
                 } else {
                     touchedlists.push(pointElRoot);
@@ -505,24 +515,28 @@
 
                 // check depth limit
                 depth = this.dragDepth - 1 + this.pointEl.parents(opt.listNodeName).length;
+
                 if (depth > opt.maxDepth) {
                     return;
                 }
+
                 var before = e.pageY < (this.pointEl.offset().top + this.pointEl.height() / 2);
-                    parent = this.placeEl.parent();
+
+                parent = this.placeEl.parent();
+
                 // if empty create new list to replace empty placeholder
                 if (isEmpty) {
                     this.pointEl.replaceWith(this.placeEl);
-                }
-                else if (before) {
+                } else if (before) {
                     this.pointEl.before(this.placeEl);
-                }
-                else {
+                } else {
                     this.pointEl.after(this.placeEl);
                 }
+
                 if (!parent.children().length) {
-                    if(!parent.data("uksortable")) this.unsetParent(parent.parent());
+                    if(!parent.data("sortable")) this.unsetParent(parent.parent());
                 }
+
                 if (!this.dragRootEl.find(opt.itemNodeName).length && !this.dragRootEl.children().length) {
                     this.dragRootEl.append(this.tplempty);
                 }
@@ -530,75 +544,24 @@
                 // parent root list has changed
                 if (isNewRoot) {
                     this.dragRootEl = tmpRoot;
-                    this.hasNewRoot = this.el[0] !== this.dragRootEl[0];
+                    this.hasNewRoot = this.element[0] !== this.dragRootEl[0];
                 }
             }
         }
 
-    };
-
-    $.fn.uksortable = function(params)
-    {
-        var lists  = this,
-            retval = this;
-
-        lists.each(function()
-        {
-            var element = $(this),
-                plugin  = element.data("uksortable");
-
-            if (!plugin) {
-                plugin = new Plugin(element, params);
-            } else {
-                if (typeof params === 'string' && typeof plugin[params] === 'function') {
-                    retval = plugin[params]();
-                }
-            }
-        });
-
-        return retval || lists;
-    };
-
-    $.fn.uksortable.defaults = {
-        prefix          : 'uk',
-        listNodeName    : 'ul',
-        itemNodeName    : 'li',
-        listBaseClass   : '{prefix}-sortable',
-        listClass       : '{prefix}-sortable-list',
-        listitemClass   : '{prefix}-sortable-list-item',
-        itemClass       : '{prefix}-sortable-item',
-        dragClass       : '{prefix}-sortable-list-dragged',
-        movingClass     : '{prefix}-sortable-moving',
-        handleClass     : '{prefix}-sortable-handle',
-        collapsedClass  : '{prefix}-collapsed',
-        placeClass      : '{prefix}-sortable-placeholder',
-        noDragClass     : '{prefix}-sortable-nodrag',
-        emptyClass      : '{prefix}-sortable-empty',
-        group           : 0,
-        maxDepth        : 10,
-        threshold       : 20
-    };
+    });
 
     $(document).on("uk-domready", function(e) {
 
         $("[data-uk-sortable]").each(function(){
 
-          var ele     = $(this),
-              options = $.extend({}, $.fn.uksortable.defaults, UI.Utils.options(ele.attr("data-uk-sortable")));
+          var ele = $(this);
 
-          Object.keys(options).forEach(function(key){
-
-              if(String(options[key]).indexOf('{prefix}')!=-1) {
-                  options[key] = options[key].replace('{prefix}', options.prefix);
-              }
-          });
-
-          if(!ele.data("uksortable")) {
-              ele.uksortable(options);
+          if(!ele.data("sortable")) {
+              var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
           }
         });
     });
 
-    return $.fn.uksortable;
-
+    return UI.sortable;
 });

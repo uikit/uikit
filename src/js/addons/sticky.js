@@ -2,7 +2,7 @@
 
     if (typeof define == "function" && define.amd) { // AMD
         define("uikit-sticky", ["uikit"], function(){
-            return jQuery.fn.uksticky || addon(window, window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.sticky || addon(window, window.jQuery, window.jQuery.UIkit);
         });
     }
 
@@ -12,22 +12,51 @@
 
 })(function(global, $, UI){
 
-  var defaults = {
-        top          : 0,
-        bottom       : 0,
-        clsactive    : 'uk-active',
-        clswrapper   : 'uk-sticky',
-        getWidthFrom : ''
-      },
+    var $window      = $(window),
+        $document    = $(document),
+        sticked      = [],
+        windowHeight = $window.height();
 
-      $window = $(window),
-      $document = $(document),
+    UI.component('sticky', {
 
-      sticked = [],
+        defaults: {
+            top          : 0,
+            bottom       : 0,
+            clsactive    : 'uk-active',
+            clswrapper   : 'uk-sticky',
+            getWidthFrom : ''
+        },
 
-      windowHeight = $window.height(),
+        init: function() {
 
-      scroller = function() {
+            var stickyId = this.element.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
+                wrapper  = $('<div></div>').attr('id', 'sticky-'+stickyId).addClass(this.options.clswrapper);
+
+            this.element.wrapAll(wrapper);
+
+            if (this.element.css("float") == "right") {
+                this.element.css({"float":"none"}).parent().css({"float":"right"});
+            }
+
+            var stickyWrapper = this.element.parent().css('height', this.element.outerHeight());
+
+            sticked.push({
+                top: this.options.top,
+                bottom: this.options.bottom,
+                stickyElement: this.element,
+                currentTop: null,
+                stickyWrapper: stickyWrapper,
+                clsactive: this.options.clsactive,
+                getWidthFrom: this.options.getWidthFrom
+            });
+        },
+
+        update: function() {
+            scroller();
+        }
+    });
+
+    function scroller() {
 
         var scrollTop       = $window.scrollTop(),
             documentHeight  = $document.height(),
@@ -68,78 +97,30 @@
             }
         }
 
-      },
+    }
 
-      resizer = function() {
+    function resizer() {
         windowHeight = $window.height();
-      },
-
-      methods = {
-
-        init: function(options) {
-
-          var o = $.extend({}, defaults, options);
-
-          return this.each(function() {
-
-            var stickyElement = $(this);
-
-            if(stickyElement.data("sticky")) return;
-
-            var stickyId      = stickyElement.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
-                wrapper       = $('<div></div>').attr('id', 'sticky-'+stickyId).addClass(o.clswrapper);
-
-            stickyElement.wrapAll(wrapper);
-
-            if (stickyElement.css("float") == "right") {
-              stickyElement.css({"float":"none"}).parent().css({"float":"right"});
-            }
-
-            stickyElement.data("sticky", true);
-
-            var stickyWrapper = stickyElement.parent();
-            stickyWrapper.css('height', stickyElement.outerHeight());
-            sticked.push({
-              top: o.top,
-              bottom: o.bottom,
-              stickyElement: stickyElement,
-              currentTop: null,
-              stickyWrapper: stickyWrapper,
-              clsactive: o.clsactive,
-              getWidthFrom: o.getWidthFrom
-            });
-          });
-        },
-
-        update: scroller
-      };
+    }
 
     // should be more efficient than using $window.scroll(scroller) and $window.resize(resizer):
     window.addEventListener('scroll', scroller, false);
     window.addEventListener('resize', resizer, false);
 
-    $.fn.uksticky = function(method) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method ) {
-        return methods.init.apply( this, arguments );
-      } else {
-        $.error('Method ' + method + ' does not exist on jQuery.sticky');
-      }
-    };
-
     $(document).on("uk-domready", function(e) {
-      setTimeout(function(){
+        setTimeout(function(){
 
-        scroller();
+            scroller();
 
-        $("[data-uk-sticky]").each(function(){
+            $("[data-uk-sticky]").each(function(){
 
-          var $ele    = $(this);
+                var $ele = $(this);
 
-          if(!$ele.data("sticky")) $ele.uksticky(UI.Utils.options($ele.attr('data-uk-sticky')));
-        });
-      }, 0);
+                if(!$ele.data("sticky")) {
+                    UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
+                }
+            });
+        }, 0);
     });
 
     return $.fn.uksticky;

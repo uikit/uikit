@@ -52,7 +52,7 @@
         init: function() {
             var $this = this;
 
-            this.autocomplete = new UI.autocomplete(this.element, this.options);
+            this.autocomplete = UI.autocomplete(this.element, this.options);
 
             this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
@@ -63,7 +63,7 @@
                 $this.element.removeClass("uk-active");
             });
 
-            this.element.on('autocomplete-select', function(e, data) {
+            this.on('autocomplete-select', function(e, data) {
                 if (data.url) {
                   location.href = data.url;
                 } else if(data.moreresults) {

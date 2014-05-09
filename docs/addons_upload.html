@@ -127,8 +127,8 @@
                                         }
                                     };
 
-                                    var select = new $.UIkit.upload.select($("#upload-select"), settings),
-                                        drop   = new $.UIkit.upload.drop($("#upload-drop"), settings);
+                                    var select = $.UIkit.uploadSelect($("#upload-select"), settings),
+                                        drop   = $.UIkit.uploadDrop($("#upload-drop"), settings);
                                 });
 
                             </script>
@@ -185,8 +185,8 @@
             }
         };
 
-        var select = new $.UIkit.upload.select($("#upload-select"), settings),
-            drop   = new $.UIkit.upload.drop($("#upload-drop"), settings);
+        var select = $.UIkit.uploadSelect($("#upload-select"), settings),
+            drop   = $.UIkit.uploadDrop($("#upload-drop"), settings);
     });
 
 &lt;/script&gt;</code></pre>

@@ -19,7 +19,7 @@
 
             var $this = this;
 
-            this.dropdown = this.element.find(".uk-dropdown");
+            this.dropdown = this.find(".uk-dropdown");
 
             this.centered  = this.dropdown.hasClass("uk-dropdown-center");
             this.justified = this.options.justify ? $(this.options.justify) : false;
@@ -32,7 +32,7 @@
 
             if (this.options.mode == "click" || UI.support.touch) {
 
-                this.element.on("click", function(e) {
+                this.on("click", function(e) {
 
                     var $target = $(e.target);
 
@@ -51,7 +51,7 @@
 
                     } else {
 
-                        if ($target.is("a") || !$this.element.find(".uk-dropdown").find(e.target).length) {
+                        if ($target.is("a") || !$this.find(".uk-dropdown").find(e.target).length) {
                             $this.element.removeClass("uk-open");
                             active = false;
                         }
@@ -60,7 +60,7 @@
 
             } else {
 
-                this.element.on("mouseenter", function(e) {
+                this.on("mouseenter", function(e) {
 
                     if ($this.remainIdle) {
                         clearTimeout($this.remainIdle);
@@ -118,7 +118,7 @@
             setTimeout(function() {
                 $(document).on("click.outer.dropdown", function(e) {
 
-                    if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.element.find(".uk-dropdown").find(e.target).length)) {
+                    if (active && active[0] == $this.element[0] && ($(e.target).is("a") || !$this.find(".uk-dropdown").find(e.target).length)) {
                         active.removeClass("uk-open");
                         $(document).off("click.outer.dropdown");
                     }

@@ -2,7 +2,7 @@
 
     if (typeof define == "function" && define.amd) { // AMD
         define(["uikit"], function(){
-            return jQuery.UIkit || addon(window.jQuery, window.jQuery.UIkit);
+            return jQuery.UIkit.uploadSelect || addon(window.jQuery, window.jQuery.UIkit);
         });
     }
 
@@ -12,70 +12,61 @@
 
 })(function($, UI){
 
-    var UploadSelect = function(element, options) {
+    UI.component('uploadSelect', {
 
-        var $this    = this,
-            $element = $(element),
-            options  = $.extend({}, xhrupload.defaults, UploadSelect.defaults, options);
 
-        if ($element.data("uploadSelect")) return;
+        init: function() {
 
-        this.element = $element.on("change", function() {
-            xhrupload($this.element[0].files, options);
-        });
+            var $this = this;
 
-        $element.data("uploadSelect", this);
-    };
+            this.on("change", function() {
+                xhrupload($this.element[0].files, $this.options);
+            });
+        }
+    });
 
-    UploadSelect.defaults = {};
+    UI.component('uploadDrop', {
 
-    var UploadDrop = function(element, options) {
+        defaults: {
+            'dragoverClass': 'uk-dragover'
+        },
 
-        var $this      = this,
-            $element   = $(element),
-            options    = $.extend({}, xhrupload.defaults, UploadDrop.defaults, options),
-            hasdragCls = false;
+        init: function() {
 
-        if ($element.data("uploadDrop")) return;
+            var $this = this, hasdragCls = false;
 
-        $element.on("drop", function(e){
+            this.on("drop", function(e){
 
-            if (e.dataTransfer && e.dataTransfer.files) {
+                if (e.dataTransfer && e.dataTransfer.files) {
 
+                    e.stopPropagation();
+                    e.preventDefault();
+
+                    $this.element.removeClass($this.options.dragoverClass);
+
+                    xhrupload(e.dataTransfer.files, $this.options);
+                }
+
+            }).on("dragenter", function(e){
+                e.stopPropagation();
+                e.preventDefault();
+            }).on("dragover", function(e){
                 e.stopPropagation();
                 e.preventDefault();
 
-                $element.removeClass(options.dragoverClass);
+                if (!hasdragCls) {
+                    $this.element.addClass($this.options.dragoverClass);
+                    hasdragCls = true;
+                }
+            }).on("dragleave", function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                $this.element.removeClass($this.options.dragoverClass);
+                hasdragCls = false;
+            });
+        }
+    });
 
-                xhrupload(e.dataTransfer.files, options);
-            }
-
-        }).on("dragenter", function(e){
-            e.stopPropagation();
-            e.preventDefault();
-        }).on("dragover", function(e){
-            e.stopPropagation();
-            e.preventDefault();
-
-            if (!hasdragCls) {
-                $element.addClass(options.dragoverClass);
-                hasdragCls = true;
-            }
-        }).on("dragleave", function(e){
-            e.stopPropagation();
-            e.preventDefault();
-            $element.removeClass(options.dragoverClass);
-            hasdragCls = false;
-        });
-
-        $element.data("uploadDrop", this);
-    };
-
-    UploadDrop.defaults = {
-        'dragoverClass': 'uk-dragover'
-    };
-
-    UI["upload"] = { "select" : UploadSelect, "drop" : UploadDrop };
 
     UI.support.ajaxupload = (function() {
 

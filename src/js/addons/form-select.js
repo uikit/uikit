@@ -20,8 +20,8 @@
         init: function() {
             var $this = this;
 
-            this.target  = this.element.find(this.options.target);
-            this.select  = this.element.find('select');
+            this.target  = this.find(this.options.target);
+            this.select  = this.find('select');
 
             // init + on change event
             this.select.on("change", (function(){
@@ -49,7 +49,6 @@
             var ele = $(this);
 
             if (!ele.data("formSelect")) {
-                e.preventDefault();
                 var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
             }
         });

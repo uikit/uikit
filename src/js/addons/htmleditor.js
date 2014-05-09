@@ -12,29 +12,30 @@
 
 })(function(global, $, UI) {
 
-    var Htmleditor = function(element, options) {
 
-        var $element = $(element);
+    UI.component('htmleditor', {
 
-        if ($element.data('htmleditor')) return;
+        defaults: {
+            mode         : 'split',
+            markdown     : false,
+            autocomplete : true,
+            height       : 500,
+            plugins      : ['base', 'markdown'],
+            maxsplitsize : 1000,
+            markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
+            codemirror   : { mode: 'htmlmixed', tabMode: 'indent', tabsize: 4, lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4 },
+            toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
+            lblPreview   : 'Preview',
+            lblCodeview  : 'HTML',
+            lblMarkedview: 'Markdown'
+        },
 
-        this.element = $element;
-        this.options = $.extend(true, {}, Htmleditor.defaults, options);
+        init: function() {
 
-        this.CodeMirror = this.options.CodeMirror || CodeMirror;
-        this.buttons    = {};
-        this.plugins    = [];
+            var $this = this, tpl = UI.components.htmleditor.template;
 
-        this._init();
-
-        this.element.data('htmleditor', this);
-    };
-
-    $.extend(Htmleditor.prototype, {
-
-        _init: function() {
-
-            var $this = this, tpl = Htmleditor.template;
+            this.CodeMirror = this.options.CodeMirror || CodeMirror;
+            this.buttons    = {};
 
             tpl = tpl.replace(/\{:lblPreview\}/g, this.options.lblPreview);
             tpl = tpl.replace(/\{:lblCodeview\}/g, this.options.lblCodeview);
@@ -46,15 +47,10 @@
             this.code       = this.htmleditor.find('.uk-htmleditor-code');
 
             this.element.before(this.htmleditor).appendTo(this.code);
-
             this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
-
             this.editor.htmleditor = this;
-
             this.editor.on('change', UI.Utils.debounce(function() { $this.render(); }, 150));
-
             this.editor.on('change', function() { $this.editor.save(); });
-
             this.code.find('.CodeMirror').css('height', this.options.height);
 
             $(window).on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
@@ -95,7 +91,7 @@
 
                 if ($this.activetab && $this.activetab != 'code') return;
 
-                $this.element.trigger('action.' + $(this).data('htmleditor-button'), [$this.editor]);
+                $this.trigger('action.' + $(this).data('htmleditor-button'), [$this.editor]);
             });
 
             this.preview.parent().css('height', this.code.height());
@@ -119,12 +115,9 @@
 
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
-            $(Htmleditor.plugins).on('add', function() {
-                $this.initPlugins();
+            this.on('after-init', function() {
+                $this.redraw();
             });
-
-            this.initPlugins();
-            this.redraw();
         },
 
         addButton: function(name, button) {
@@ -135,22 +128,12 @@
             $.extend(this.buttons, buttons);
         },
 
-        initPlugins: function() {
-            var plugins = this.options.plugins.length ? this.options.plugins : Object.keys(Htmleditor.plugins);
-
-            for (var i = 0; i < plugins.length; i++) {
-                this.addPlugin(plugins[i], false);
-            }
-
-            this.debouncedRedraw();
-        },
-
         addPlugin: function(name, redraw) {
 
-            if (!Htmleditor.plugins[name] || -1 != $.inArray(name, this.plugins)) return;
+            if (!UI.components.htmleditor.plugins[name] || -1 != $.inArray(name, this.options.plugins)) return;
 
-            Htmleditor.plugins[name](this);
-            this.plugins.push(name);
+            UI.components.htmleditor.plugins[name].postinit(this);
+            this.options.plugins.push(name);
 
             if (redraw!==false) this.debouncedRedraw();
         },
@@ -256,7 +239,7 @@
 
         getCursorMode: function() {
             var param = { mode: 'html'};
-            this.element.trigger('cursorMode', [param]);
+            this.trigger('cursorMode', [param]);
             return param.mode;
         },
 
@@ -273,8 +256,8 @@
                 return;
             }
 
-            this.element.trigger('render', [this]);
-            this.element.trigger('renderLate', [this]);
+            this.trigger('render', [this]);
+            this.trigger('renderLate', [this]);
 
             this.preview.html(this.currentvalue);
         },
@@ -341,281 +324,257 @@
 
         save: function() {
             this.editor.save();
-        },
-
-        on: function(eventname, callback) {
-            $(this).on(eventname, callback);
-        },
-
-        trigger: function(eventname, params) {
-            $(this).trigger(eventname, params);
         }
     });
 
-    Htmleditor.defaults = {
-        mode         : 'split',
-        markdown     : false,
-        autocomplete : true,
-        height       : 500,
-        plugins      : [],
-        maxsplitsize : 1000,
-        markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
-        codemirror   : { mode: 'htmlmixed', tabMode: 'indent', tabsize: 4, lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4 },
-        toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
-        lblPreview   : 'Preview',
-        lblCodeview  : 'HTML',
-        lblMarkedview: 'Markdown'
-    };
 
-    Htmleditor.template = '<div class="uk-htmleditor uk-clearfix" data-mode="split">' +
-        '<div class="uk-htmleditor-navbar">' +
-        '<ul class="uk-htmleditor-navbar-nav uk-htmleditor-toolbar"></ul>' +
-        '<div class="uk-htmleditor-navbar-flip">' +
-        '<ul class="uk-htmleditor-navbar-nav">' +
-        '<li class="uk-htmleditor-button-code"><a>{:lblCodeview}</a></li>' +
-        '<li class="uk-htmleditor-button-preview"><a>{:lblPreview}</a></li>' +
-        '<li><a data-htmleditor-button="fullscreen"><i class="uk-icon-expand"></i></a></li>' +
-        '</ul>' +
-        '</div>' +
-        '</div>' +
-        '<div class="uk-htmleditor-content">' +
-        '<div class="uk-htmleditor-code"></div>' +
-        '<div class="uk-htmleditor-preview"><div></div></div>' +
-        '</div>' +
-        '</div>';
+    UI.components.htmleditor.template = [
+        '<div class="uk-htmleditor uk-clearfix" data-mode="split">',
+            '<div class="uk-htmleditor-navbar">',
+                '<ul class="uk-htmleditor-navbar-nav uk-htmleditor-toolbar"></ul>',
+                '<div class="uk-htmleditor-navbar-flip">',
+                    '<ul class="uk-htmleditor-navbar-nav">',
+                        '<li class="uk-htmleditor-button-code"><a>{:lblCodeview}</a></li>',
+                        '<li class="uk-htmleditor-button-preview"><a>{:lblPreview}</a></li>',
+                        '<li><a data-htmleditor-button="fullscreen"><i class="uk-icon-expand"></i></a></li>',
+                    '</ul>',
+                '</div>',
+            '</div>',
+            '<div class="uk-htmleditor-content">',
+                '<div class="uk-htmleditor-code"></div>',
+                '<div class="uk-htmleditor-preview"><div></div></div>',
+            '</div>',
+        '</div>'
+    ].join('');
 
-    Htmleditor.plugins   = {};
-    Htmleditor.addPlugin = function(name, plugin) {
-        Htmleditor.plugins[name] = plugin;
 
-        $(Htmleditor.plugins).trigger('add', [name]);
-    };
+    UI.plugin('htmleditor', 'base', {
 
-    UI['htmleditor'] = Htmleditor;
+        postinit: function(editor) {
 
-    Htmleditor.addPlugin('base', function(editor) {
+            editor.addButtons({
 
-        editor.addButtons({
-
-            fullscreen: {
-                title  : 'Fullscreen',
-                label  : '<i class="uk-icon-expand"></i>'
-            },
-            bold : {
-                title  : 'Bold',
-                label  : '<i class="uk-icon-bold"></i>'
-            },
-            italic : {
-                title  : 'Italic',
-                label  : '<i class="uk-icon-italic"></i>'
-            },
-            strike : {
-                title  : 'Strikethrough',
-                label  : '<i class="uk-icon-strikethrough"></i>'
-            },
-            blockquote : {
-                title  : 'Blockquote',
-                label  : '<i class="uk-icon-quote-right"></i>'
-            },
-            link : {
-                title  : 'Link',
-                label  : '<i class="uk-icon-link"></i>'
-            },
-            image : {
-                title  : 'Image',
-                label  : '<i class="uk-icon-picture-o"></i>'
-            },
-            listUl : {
-                title  : 'Unordered List',
-                label  : '<i class="uk-icon-list-ul"></i>'
-            },
-            listOl : {
-                title  : 'Ordered List',
-                label  : '<i class="uk-icon-list-ol"></i>'
-            }
-
-        });
-
-        addAction('bold', '<strong>$1</strong>');
-        addAction('italic', '<em>$1</em>');
-        addAction('strike', '<del>$1</del>');
-        addAction('blockquote', '<blockquote><p>$1</p></blockquote>', 'replaceLine');
-        addAction('link', '<a href="http://">$1</a>');
-        addAction('image', '<img src="http://" alt="$1">');
-
-        var listfn = function() {
-            if (editor.getCursorMode() == 'html') {
-
-                var cm      = editor.editor,
-                    pos     = cm.getDoc().getCursor(true),
-                    posend  = cm.getDoc().getCursor(false);
-
-                for (var i=pos.line; i<(posend.line+1);i++) {
-                    cm.replaceRange('<li>'+cm.getLine(i)+'<li>', { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                fullscreen: {
+                    title  : 'Fullscreen',
+                    label  : '<i class="uk-icon-expand"></i>'
+                },
+                bold : {
+                    title  : 'Bold',
+                    label  : '<i class="uk-icon-bold"></i>'
+                },
+                italic : {
+                    title  : 'Italic',
+                    label  : '<i class="uk-icon-italic"></i>'
+                },
+                strike : {
+                    title  : 'Strikethrough',
+                    label  : '<i class="uk-icon-strikethrough"></i>'
+                },
+                blockquote : {
+                    title  : 'Blockquote',
+                    label  : '<i class="uk-icon-quote-right"></i>'
+                },
+                link : {
+                    title  : 'Link',
+                    label  : '<i class="uk-icon-link"></i>'
+                },
+                image : {
+                    title  : 'Image',
+                    label  : '<i class="uk-icon-picture-o"></i>'
+                },
+                listUl : {
+                    title  : 'Unordered List',
+                    label  : '<i class="uk-icon-list-ul"></i>'
+                },
+                listOl : {
+                    title  : 'Ordered List',
+                    label  : '<i class="uk-icon-list-ol"></i>'
                 }
 
-                cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
-                cm.focus();
+            });
+
+            addAction('bold', '<strong>$1</strong>');
+            addAction('italic', '<em>$1</em>');
+            addAction('strike', '<del>$1</del>');
+            addAction('blockquote', '<blockquote><p>$1</p></blockquote>', 'replaceLine');
+            addAction('link', '<a href="http://">$1</a>');
+            addAction('image', '<img src="http://" alt="$1">');
+
+            var listfn = function() {
+                if (editor.getCursorMode() == 'html') {
+
+                    var cm      = editor.editor,
+                        pos     = cm.getDoc().getCursor(true),
+                        posend  = cm.getDoc().getCursor(false);
+
+                    for (var i=pos.line; i<(posend.line+1);i++) {
+                        cm.replaceRange('<li>'+cm.getLine(i)+'<li>', { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                    }
+
+                    cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                    cm.focus();
+                }
+            }
+
+            editor.on('action.listUl', function() {
+                listfn();
+            });
+
+            editor.on('action.listOl', function() {
+                listfn();
+            });
+
+            editor.htmleditor.on('click', 'a[data-htmleditor-button="fullscreen"]', function() {
+                editor.htmleditor.toggleClass('uk-htmleditor-fullscreen');
+
+                var wrap = editor.editor.getWrapperElement();
+
+                if (editor.htmleditor.hasClass('uk-htmleditor-fullscreen')) {
+
+                    editor.editor.state.fullScreenRestore = {scrollTop: window.pageYOffset, scrollLeft: window.pageXOffset, width: wrap.style.width, height: wrap.style.height};
+                    wrap.style.width  = '';
+                    wrap.style.height = editor.content.height()+'px';
+                    document.documentElement.style.overflow = 'hidden';
+
+                } else {
+
+                    document.documentElement.style.overflow = '';
+                    var info = editor.editor.state.fullScreenRestore;
+                    wrap.style.width = info.width; wrap.style.height = info.height;
+                    window.scrollTo(info.scrollLeft, info.scrollTop);
+                }
+
+                setTimeout(function() {
+                    editor.fit();
+                }, 10);
+            });
+
+            editor.addShortcut(['Ctrl-S', 'Cmd-S'], function() { editor.element.trigger('htmleditor-save', [editor]); });
+            editor.addShortcutAction('bold', ['Ctrl-B', 'Cmd-B']);
+
+            function addAction(name, replace, mode) {
+                editor.on('action.'+name, function() {
+                    if (editor.getCursorMode() == 'html') {
+                        editor[mode == 'replaceLine' ? 'replaceLine' : 'replaceSelection'](replace);
+                    }
+                });
             }
         }
+    });
 
-        editor.element.on('action.listUl', function() {
-            listfn();
-        });
+    UI.plugin('htmleditor', 'markdown', {
 
-        editor.element.on('action.listOl', function() {
-            listfn();
-        });
+        postinit: function(editor) {
 
-        editor.htmleditor.on('click', 'a[data-htmleditor-button="fullscreen"]', function() {
-            editor.htmleditor.toggleClass('uk-htmleditor-fullscreen');
+            var parser = editor.options.marked || marked;
 
-            var wrap = editor.editor.getWrapperElement();
+            if (!parser) return;
 
-            if (editor.htmleditor.hasClass('uk-htmleditor-fullscreen')) {
+            parser.setOptions(editor.options.markedOptions);
 
-                editor.editor.state.fullScreenRestore = {scrollTop: window.pageYOffset, scrollLeft: window.pageXOffset, width: wrap.style.width, height: wrap.style.height};
-                wrap.style.width  = '';
-                wrap.style.height = editor.content.height()+'px';
-                document.documentElement.style.overflow = 'hidden';
-
-            } else {
-
-                document.documentElement.style.overflow = '';
-                var info = editor.editor.state.fullScreenRestore;
-                wrap.style.width = info.width; wrap.style.height = info.height;
-                window.scrollTo(info.scrollLeft, info.scrollTop);
+            if (editor.options.markdown) {
+                enableMarkdown()
             }
 
-            setTimeout(function() {
-                editor.fit();
-            }, 10);
-        });
+            addAction('bold', '**$1**');
+            addAction('italic', '*$1*');
+            addAction('strike', '~~$1~~');
+            addAction('blockquote', '> $1', 'replaceLine');
+            addAction('link', '[$1](http://)');
+            addAction('image', '![$1](http://)');
 
-        editor.addShortcut(['Ctrl-S', 'Cmd-S'], function() { editor.element.trigger('htmleditor-save', [editor]); });
-        editor.addShortcutAction('bold', ['Ctrl-B', 'Cmd-B']);
+            editor.on('action.listUl', function() {
 
-        function addAction(name, replace, mode) {
-            editor.element.on('action.'+name, function() {
-                if (editor.getCursorMode() == 'html') {
-                    editor[mode == 'replaceLine' ? 'replaceLine' : 'replaceSelection'](replace);
+                if (editor.getCursorMode() == 'markdown') {
+
+                    var cm      = editor.editor,
+                        pos     = cm.getDoc().getCursor(true),
+                        posend  = cm.getDoc().getCursor(false);
+
+                    for (var i=pos.line; i<(posend.line+1);i++) {
+                        cm.replaceRange('* '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                    }
+
+                    cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                    cm.focus();
                 }
             });
-        }
 
-    });
+            editor.on('action.listOl', function() {
 
-    Htmleditor.addPlugin('markdown', function(editor) {
+                if (editor.getCursorMode() == 'markdown') {
 
-        var parser = editor.options.marked || marked;
+                    var cm      = editor.editor,
+                        pos     = cm.getDoc().getCursor(true),
+                        posend  = cm.getDoc().getCursor(false),
+                        prefix  = 1;
 
-        if (!parser) return;
+                    if (pos.line > 0) {
+                        var prevline = cm.getLine(pos.line-1), matches;
 
-        parser.setOptions(editor.options.markedOptions);
+                        if(matches = prevline.match(/^(\d+)\./)) {
+                            prefix = Number(matches[1])+1;
+                        }
+                    }
 
-        if (editor.options.markdown) {
-            enableMarkdown()
-        }
+                    for (var i=pos.line; i<(posend.line+1);i++) {
+                        cm.replaceRange(prefix+'. '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                        prefix++;
+                    }
 
-        addAction('bold', '**$1**');
-        addAction('italic', '*$1*');
-        addAction('strike', '~~$1~~');
-        addAction('blockquote', '> $1', 'replaceLine');
-        addAction('link', '[$1](http://)');
-        addAction('image', '![$1](http://)');
-
-        editor.element.on('action.listUl', function() {
-
-            if (editor.getCursorMode() == 'markdown') {
-
-                var cm      = editor.editor,
-                    pos     = cm.getDoc().getCursor(true),
-                    posend  = cm.getDoc().getCursor(false);
-
-                for (var i=pos.line; i<(posend.line+1);i++) {
-                    cm.replaceRange('* '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                    cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                    cm.focus();
                 }
+            });
 
-                cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
-                cm.focus();
-            }
-        });
+            editor.on('renderLate', function() {
+                if (editor.editor.options.mode == 'gfm') {
+                    editor.currentvalue = parser(editor.currentvalue);
+                }
+            });
 
-        editor.element.on('action.listOl', function() {
-
-            if (editor.getCursorMode() == 'markdown') {
-
-                var cm      = editor.editor,
-                    pos     = cm.getDoc().getCursor(true),
-                    posend  = cm.getDoc().getCursor(false),
-                    prefix  = 1;
-
-                if (pos.line > 0) {
-                    var prevline = cm.getLine(pos.line-1), matches;
-
-                    if(matches = prevline.match(/^(\d+)\./)) {
-                        prefix = Number(matches[1])+1;
+            editor.on('cursorMode', function(e, param) {
+                if (editor.editor.options.mode == 'gfm') {
+                    var pos = editor.editor.getDoc().getCursor();
+                    if (!editor.editor.getTokenAt(pos).state.base.htmlState) {
+                        param.mode = 'markdown';
                     }
                 }
-
-                for (var i=pos.line; i<(posend.line+1);i++) {
-                    cm.replaceRange(prefix+'. '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
-                    prefix++;
-                }
-
-                cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
-                cm.focus();
-            }
-        });
-
-        editor.element.on('renderLate', function() {
-            if (editor.editor.options.mode == 'gfm') {
-                editor.currentvalue = parser(editor.currentvalue);
-            }
-        });
-
-        editor.element.on('cursorMode', function(e, param) {
-            if (editor.editor.options.mode == 'gfm') {
-                var pos = editor.editor.getDoc().getCursor();
-                if (!editor.editor.getTokenAt(pos).state.base.htmlState) {
-                    param.mode = 'markdown';
-                }
-            }
-        });
-
-        $.extend(editor, {
-
-            enableMarkdown: function() {
-                enableMarkdown()
-                this.render();
-            },
-            disableMarkdown: function() {
-                this.editor.setOption('mode', 'htmlmixed');
-                this.htmleditor.find('.uk-htmleditor-button-code a').html(this.options.lblCodeview);
-                this.render();
-            }
-
-        });
-
-        // switch markdown mode on event
-        editor.element.on({
-            enableMarkdown  : function() { editor.enableMarkdown(); },
-            disableMarkdown : function() { editor.disableMarkdown(); }
-        });
-
-        function enableMarkdown() {
-            editor.editor.setOption('mode', 'gfm');
-            editor.htmleditor.find('.uk-htmleditor-button-code a').html(editor.options.lblMarkedview);
-        }
-
-        function addAction(name, replace, mode) {
-            editor.element.on('action.'+name, function() {
-                if (editor.getCursorMode() == 'markdown') {
-                    editor[mode == 'replaceLine' ? 'replaceLine' : 'replaceSelection'](replace);
-                }
             });
-        }
 
+            $.extend(editor, {
+
+                enableMarkdown: function() {
+                    enableMarkdown()
+                    this.render();
+                },
+                disableMarkdown: function() {
+                    this.editor.setOption('mode', 'htmlmixed');
+                    this.htmleditor.find('.uk-htmleditor-button-code a').html(this.options.lblCodeview);
+                    this.render();
+                }
+
+            });
+
+            // switch markdown mode on event
+            editor.on({
+                enableMarkdown  : function() { editor.enableMarkdown(); },
+                disableMarkdown : function() { editor.disableMarkdown(); }
+            });
+
+            function enableMarkdown() {
+                editor.editor.setOption('mode', 'gfm');
+                editor.htmleditor.find('.uk-htmleditor-button-code a').html(editor.options.lblMarkedview);
+            }
+
+            function addAction(name, replace, mode) {
+                editor.on('action.'+name, function() {
+                    if (editor.getCursorMode() == 'markdown') {
+                        editor[mode == 'replaceLine' ? 'replaceLine' : 'replaceSelection'](replace);
+                    }
+                });
+            }
+        }
     });
 
     // init code
@@ -624,10 +583,10 @@
             var editor = $(this), obj;
 
             if (!editor.data('htmleditor')) {
-                obj = new Htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
+                obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
             }
         });
     });
 
-    return Htmleditor;
+    return UI.htmleditor;
 });

@@ -14,14 +14,14 @@
 
             this.on("click", this.options.target, function(e) {
                 e.preventDefault();
-                $this.element.find($this.options.target).not(this).removeClass("uk-active").blur();
+                $this.find($this.options.target).not(this).removeClass("uk-active").blur();
                 $this.trigger("change", [$(this).addClass("uk-active")]);
             });
 
         },
 
         getSelected: function() {
-            this.element.find(".uk-active");
+            this.find(".uk-active");
         }
     });
 
@@ -43,7 +43,7 @@
         },
 
         getSelected: function() {
-            this.element.find(".uk-active");
+            this.find(".uk-active");
         }
     });
 
