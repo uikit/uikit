@@ -87,7 +87,13 @@
             if(arguments.length) {
                 switch(arguments.length) {
                     case 1:
-                        options = arguments[0];
+
+                        if (typeof arguments[0] === "string" || arguments[0].nodeType || arguments[0] instanceof jQuery) {
+                            element = $(arguments[0]);
+                        } else {
+                            options = arguments[0];
+                        }
+
                         break;
                     case 2:
                         element = $(arguments[0]);
