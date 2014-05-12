@@ -23,7 +23,7 @@
             plugins      : ['base', 'markdown'],
             maxsplitsize : 1000,
             markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
-            codemirror   : { mode: 'htmlmixed', tabMode: 'indent', tabsize: 4, lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4 },
+            codemirror   : { mode: 'htmlmixed', tabMode: 'indent', tabsize: 4, lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, hintOptions: {completionSingle:false} },
             toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
             lblPreview   : 'Preview',
             lblCodeview  : 'HTML',
@@ -115,7 +115,7 @@
 
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
-            this.on('after-init', function() {
+            this.on('init', function() {
                 $this.redraw();
             });
         },
@@ -132,7 +132,7 @@
 
             if (!UI.components.htmleditor.plugins[name] || -1 != $.inArray(name, this.options.plugins)) return;
 
-            UI.components.htmleditor.plugins[name].postinit(this);
+            UI.components.htmleditor.plugins[name].init(this);
             this.options.plugins.push(name);
 
             if (redraw!==false) this.debouncedRedraw();
@@ -350,7 +350,7 @@
 
     UI.plugin('htmleditor', 'base', {
 
-        postinit: function(editor) {
+        init: function(editor) {
 
             editor.addButtons({
 
@@ -464,7 +464,7 @@
 
     UI.plugin('htmleditor', 'markdown', {
 
-        postinit: function(editor) {
+        init: function(editor) {
 
             var parser = editor.options.marked || marked;
 

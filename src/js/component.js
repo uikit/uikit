@@ -17,17 +17,13 @@
                 this.element.data(name, this);
             }
 
+            this.init();
+
             this.options.plugins.forEach(function(plugin) {
                 if(fn.plugins[plugin].init) fn.plugins[plugin].init($this);
             });
 
-            this.init();
-
-            this.options.plugins.forEach(function(plugin) {
-                if(fn.plugins[plugin].postinit) fn.plugins[plugin].postinit($this);
-            });
-
-            this.trigger('after-init', [this]);
+            this.trigger('init', [this]);
         };
 
         fn.plugins = {};
