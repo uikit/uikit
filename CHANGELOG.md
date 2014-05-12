@@ -3,7 +3,7 @@
 ### WIP
 
   - IMPORTANT: Renamed markdownarea to htmleditor
-  - Added $UIkit.component interface for creating UIkit JS components
+  - Added $.UIkit.component interface for creating UIkit JS components
   - Added form-select add-on
   - Added form-advanced add-on
   - Added pagination JavaScript add-on
