@@ -128,16 +128,6 @@
             $.extend(this.buttons, buttons);
         },
 
-        addPlugin: function(name, redraw) {
-
-            if (!UI.components.htmleditor.plugins[name] || -1 != $.inArray(name, this.options.plugins)) return;
-
-            UI.components.htmleditor.plugins[name].init(this);
-            this.options.plugins.push(name);
-
-            if (redraw!==false) this.debouncedRedraw();
-        },
-
         replaceInPreview: function(regexp, callback) {
 
             var editor = this.editor, results = [], value = editor.getValue(), offset = -1;
