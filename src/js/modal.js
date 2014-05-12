@@ -175,7 +175,7 @@
 
     UI.modal.dialog.template = '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>';
 
-    UI.modal.dialog.alert = function(content, options) {
+    UI.modal.alert = function(content, options) {
 
         UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
@@ -183,7 +183,7 @@
         ]).join(""), $.extend({bgclose:false, keyboard:false}, options)).show();
     };
 
-    UI.modal.dialog.confirm = function(content, onconfirm, options) {
+    UI.modal.confirm = function(content, onconfirm, options) {
 
         onconfirm = $.isFunction(onconfirm) ? onconfirm : function(){};
 
