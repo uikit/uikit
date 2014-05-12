@@ -85,7 +85,7 @@
                     case 1:
 
                         if (typeof arguments[0] === "string" || arguments[0].nodeType || arguments[0] instanceof jQuery) {
-                            element = arguments[0];
+                            element = $(arguments[0]);
                         } else {
                             options = arguments[0];
                         }
@@ -93,9 +93,8 @@
                         break;
                     case 2:
 
-                        element = arguments[0];
+                        element = $(arguments[0]);
                         options = arguments[1];
-
                         break;
                 }
             }
