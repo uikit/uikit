@@ -4,17 +4,19 @@
 
 (function(addon) {
 
-     if (typeof define == "function" && define.amd) { // AMD
-         define("uikit-timepicker", ["uikit"], function(){
-            return jQuery.UIkit.timepicker || addon(window, window.jQuery, window.jQuery.UIkit);
-         });
-     }
+    var component;
 
-     if(window && window.jQuery && window.jQuery.UIkit) {
-         addon(window, window.jQuery, window.jQuery.UIkit);
-     }
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
+    }
 
-})(function(global, $, UI){
+    if (typeof define == "function" && define.amd) {
+        define("uikit-timepicker", ["uikit"], function(){
+            return component || addon(jQuery, jQuery.UIkit);
+        });
+    }
+
+})(function($, UI){
 
     UI.component('timepicker', {
 

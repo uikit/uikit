@@ -3,17 +3,19 @@
  */
  (function(addon) {
 
-     if (typeof define == "function" && define.amd) { // AMD
+     var component;
+
+     if (jQuery && jQuery.UIkit) {
+         component = addon(jQuery, jQuery.UIkit);
+     }
+
+     if (typeof define == "function" && define.amd) {
          define("uikit-sortable", ["uikit"], function(){
-            return jQuery.UIkit.sortable || addon(window.jQuery, jQuery.UIkit, window, document);
+             return component || addon(jQuery, jQuery.UIkit);
          });
      }
 
-     if(window && window.jQuery && window.jQuery.UIkit) {
-         addon(window.jQuery, jQuery.UIkit, window, document);
-     }
-
- })(function($, UI, window, document, undefined) {
+ })(function($, UI) {
 
     var hasTouch     = 'ontouchstart' in window,
         html         = $("html"),

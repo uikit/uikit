@@ -1,13 +1,15 @@
 (function(addon) {
 
-    if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit"], function(){
-            return jQuery.UIkit.uploadSelect || addon(window.jQuery, window.jQuery.UIkit);
-        });
+    var component;
+
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
     }
 
-    if (window && window.jQuery && window.jQuery.UIkit) {
-        addon(window.jQuery, window.jQuery.UIkit);
+    if (typeof define == "function" && define.amd) {
+        define("uikit-upload", ["uikit"], function(){
+            return component || addon(jQuery, jQuery.UIkit);
+        });
     }
 
 })(function($, UI){
