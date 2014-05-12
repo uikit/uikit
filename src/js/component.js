@@ -78,7 +78,7 @@
 
         this[name] = function() {
 
-            var element, options, object;
+            var element, options;
 
             if(arguments.length) {
                 switch(arguments.length) {
