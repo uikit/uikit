@@ -84,6 +84,7 @@
 @form-controls-condensed-margin-vertical:       5px;
 
 @form-stacked-margin-bottom:                    5px;
+@form-stacked-font-weight:                      bold;
 
 @form-horizontal-label-width:                   200px;
 @form-horizontal-label-margin-top:              5px;
@@ -376,7 +377,8 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .uk-form-stacked .uk-form-label {
     display: block;
     margin-bottom: @form-stacked-margin-bottom;
-    font-weight: bold;
+    font-weight: @form-stacked-font-weight;
+    .hook-form-stacked-label;
 }
 
 
@@ -391,7 +393,8 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     .uk-form-horizontal .uk-form-label {
         display: block;
         margin-bottom: @form-stacked-margin-bottom;
-        font-weight: bold;
+        font-weight: @form-stacked-font-weight;
+        .hook-form-stacked-label;
     }
 
 }
@@ -403,6 +406,7 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
         width: @form-horizontal-label-width;
         margin-top: @form-horizontal-label-margin-top;
         float: left;
+        .hook-form-horizontal-label;
     }
 
     .uk-form-horizontal .uk-form-controls { margin-left: @form-horizontal-controls-margin-left; }
@@ -455,4 +459,6 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .hook-form-success() {}
 .hook-form-blank() {}
 .hook-form-blank-focus() {}
+.hook-form-stacked-label() {}
+.hook-form-horizontal-label() {}
 .hook-form-misc() {}

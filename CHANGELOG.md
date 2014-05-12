@@ -10,6 +10,7 @@
   - Added Promise polyfill
   - Added minDate, maxDate options to datepicker add-on
   - Added font-weight variable to text large
+  - Added new hooks and variables to form labels
   - Optimized multipliers for 16px font-size in default themes
   - Changed data-uk-grid-match row parameter to true by default
   - Fixed sticky z-index in themes
