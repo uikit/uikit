@@ -91,7 +91,7 @@
             // toolbar actions
             this.htmleditor.on('click', 'a[data-htmleditor-button]', function() {
 
-                if ($this.activetab && $this.activetab != 'code') return;
+                if (!$this.code.is(':visible')) return;
 
                 $this.trigger('action.' + $(this).data('htmleditor-button'), [$this.editor]);
             });
