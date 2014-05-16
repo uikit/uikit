@@ -26,6 +26,7 @@
   - Fixed offcanvas removing existing style properties on close
   - Removed unneeded brackets from LESS operations
   - Prevent search-field uk-active issue
+  - Updated dropdown flip and stack behavior
 
 **Documentation and repository**
 
