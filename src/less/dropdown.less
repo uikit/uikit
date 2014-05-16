@@ -7,6 +7,7 @@
 //                  `uk-dropdown-center`
 //                  `uk-dropdown-justify`
 //                  `uk-dropdown-up`
+//                  `uk-dropdown-grid`
 //                  `uk-dropdown-width-2`
 //                  `uk-dropdown-width-3`
 //                  `uk-dropdown-width-4`
@@ -18,7 +19,7 @@
 // States:          `uk-open`
 //
 // Uses:            Animation
-//                  Grid: `uk-grid`, `uk-width-*`
+//                  Grid: `uk-width-*`
 //                  Panel: `uk-panel`
 //                  Nav: `uk-nav`
 //
@@ -137,11 +138,15 @@
 * Vertical gutter
 */
 
-/* Grid */
-.uk-dropdown > .uk-grid + .uk-grid { margin-top: @dropdown-padding; }
+/*
+ * Grid
+ * Higher specificity to override large gutter
+ */
+
+.uk-grid .uk-dropdown-grid + .uk-dropdown-grid { margin-top: @dropdown-padding; }
 
 /* Panels */
-.uk-dropdown > .uk-grid > [class*='uk-width-'] > .uk-panel + .uk-panel { margin-top: @dropdown-padding; }
+.uk-dropdown-grid > [class*='uk-width-'] > .uk-panel + .uk-panel { margin-top: @dropdown-padding; }
 
 /* Tablet and bigger */
 @media (min-width: @breakpoint-medium) {
@@ -150,12 +155,12 @@
      * Horizontal gutter
      */
 
-    .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid {
+    .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid {
         margin-left: -@dropdown-padding ;
         margin-right: -@dropdown-padding;
     }
 
-    .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-'] {
+    .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-'] {
         padding-left: @dropdown-padding;
         padding-right: @dropdown-padding;
     }
@@ -164,7 +169,7 @@
      * Column divider
      */
 
-    .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) { border-left: @dropdown-divider-border-width solid @dropdown-divider-border; }
+    .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) { border-left: @dropdown-divider-border-width solid @dropdown-divider-border; }
 
     /*
      * Width multiplier for dropdown columns
@@ -184,13 +189,13 @@
      * Stack columns and take full width
      */
 
-    .uk-dropdown > .uk-grid > [class*='uk-width-'] { width: 100%; }
+    .uk-dropdown-grid > [class*='uk-width-'] { width: 100%; }
 
     /*
      * Vertical gutter
      */
 
-    .uk-dropdown > .uk-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @dropdown-padding; }
+    .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @dropdown-padding; }
 
 }
 
@@ -198,9 +203,9 @@
 * Stack grid columns
 */
 
-.uk-dropdown-stack > .uk-grid > [class*='uk-width-'] { width: 100%; }
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-'] { width: 100%; }
 
-.uk-dropdown-stack > .uk-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @dropdown-padding; }
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @dropdown-padding; }
 
 
 

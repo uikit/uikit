@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Renamed markdownarea to htmleditor
+  - IMPORTANT: Added uk-dropdown-grid to decouple grids in dropdowns
   - Added $.UIkit.component interface for creating UIkit JS components
   - Added form-select add-on
   - Added form-advanced add-on
