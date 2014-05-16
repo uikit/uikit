@@ -104,6 +104,7 @@
 
             this.checkDimensions();
             this.element.addClass("uk-open");
+            this.trigger('uk.dropdown.show', [this]);
             active = this.element;
 
             this.registerOuterClick();
@@ -177,6 +178,7 @@
 
             if (offset.left < 0) {
                 dropdown.addClass("uk-dropdown-stack");
+                this.trigger('uk.dropdown.stack', [this]);
             }
 
             dropdown.css("display", "");
