@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Renamed markdownarea to htmleditor
+  - IMPORTANT: Added uk-dropdown-grid to decouple grids in dropdowns
   - Added $.UIkit.component interface for creating UIkit JS components
   - Added form-select add-on
   - Added form-advanced add-on
@@ -25,6 +26,7 @@
   - Fixed offcanvas removing existing style properties on close
   - Removed unneeded brackets from LESS operations
   - Prevent search-field uk-active issue
+  - Updated dropdown flip and stack behavior
 
 **Documentation and repository**
 

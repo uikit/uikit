@@ -366,7 +366,7 @@
 
                             <h2>Grid</h2>
 
-                            <p>You can even place a grid from the <a href="grid.html">Grid component</a> inside a dropdown, which can hold a navigation or any other content. Just wrap the content with a <code>&lt;div&gt;</code> and add the <code>.uk-panel</code> class. Add one of the <code>.uk-dropdown-width-*</code> classes to multiply the dropdown's width by up to 5.</p>
+                            <p>You can even place a grid from the <a href="grid.html">Grid component</a> inside a dropdown, which can hold a navigation or any other content. Just wrap the content with a <code>&lt;div&gt;</code> and add the <code>.uk-grid</code> class. To optimize the grid for use inside the dropdown, add the <code>.uk-dropdown-grid</code> class. Add one of the <code>.uk-dropdown-width-*</code> classes to the grid's child elements to multiply the dropdown's width by up to 5.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -374,7 +374,7 @@
                                 <button class="uk-button">2 Columns <i class="uk-icon-caret-down"></i></button>
                                 <div class="uk-dropdown uk-dropdown-width-2">
 
-                                    <div class="uk-grid">
+                                    <div class="uk-grid uk-dropdown-grid">
                                         <div class="uk-width-1-2">
 
                                             <ul class="uk-nav uk-nav-dropdown uk-panel">
@@ -410,7 +410,7 @@
                                 <button class="uk-button">3 Columns <i class="uk-icon-caret-down"></i></button>
                                 <div class="uk-dropdown uk-dropdown-width-3">
 
-                                    <div class="uk-grid">
+                                    <div class="uk-grid uk-dropdown-grid">
                                         <div class="uk-width-1-3">
 
                                             <ul class="uk-nav uk-nav-dropdown uk-panel">
@@ -456,7 +456,7 @@
 
 <pre><code>&lt;div class="uk-dropdown uk-dropdown-width-2"&gt;
 
-    &lt;div class="uk-grid"&gt;
+    &lt;div class="uk-grid uk-dropdown-grid"&gt;
         &lt;div class="uk-width-1-2"&gt;
             &lt;ul class="uk-nav uk-nav-dropdown uk-panel"&gt;...&lt;/ul&gt;
             &lt;div class="uk-panel"&gt;...&lt;/div&gt;

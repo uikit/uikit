@@ -25,6 +25,7 @@
             this.justified = this.options.justify ? $(this.options.justify) : false;
 
             this.boundary  = $(this.options.boundary);
+            this.flipped   = this.dropdown.hasClass('uk-dropdown-flip');
 
             if(!this.boundary.length) {
                 this.boundary = $(window);
@@ -104,6 +105,7 @@
 
             this.checkDimensions();
             this.element.addClass("uk-open");
+            this.trigger('uk.dropdown.show', [this]);
             active = this.element;
 
             this.registerOuterClick();
@@ -130,7 +132,12 @@
 
             if(!this.dropdown.length) return;
 
-            var dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, "").css("min-width", ""),
+            if (this.justified && this.justified.length) {
+                this.dropdown.css("min-width", "");
+            }
+
+            var $this     = this,
+                dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, ""),
                 offset    = dropdown.show().offset(),
                 width     = dropdown.outerWidth(),
                 boundarywidth  = this.boundary.width(),
@@ -175,8 +182,27 @@
                 offset = dropdown.offset();
             }
 
-            if (offset.left < 0) {
+            if ((offset.left-boundaryoffset) < 0) {
+
                 dropdown.addClass("uk-dropdown-stack");
+
+                if (dropdown.hasClass("uk-dropdown-flip")) {
+
+                    if (!this.flipped) {
+                        dropdown.removeClass("uk-dropdown-flip");
+                        offset = dropdown.offset();
+                        dropdown.addClass("uk-dropdown-flip");
+                    }
+
+                    setTimeout(function(){
+
+                        if ((dropdown.offset().left-boundaryoffset) < 0 || !$this.flipped && (dropdown.outerWidth() + (offset.left-boundaryoffset)) < boundarywidth) {
+                            dropdown.removeClass("uk-dropdown-flip");
+                        }
+                    }, 0);
+                }
+
+                this.trigger('uk.dropdown.stack', [this]);
             }
 
             dropdown.css("display", "");
