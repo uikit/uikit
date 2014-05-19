@@ -143,12 +143,14 @@
                 }
                 e.preventDefault();
                 $this.dragStart(hasTouch ? e.touches[0] : e);
+                $this.trigger('sortable-start', [$this]);
             };
 
             var onMoveEvent = function(e) {
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragMove(hasTouch ? e.touches[0] : e);
+                    $this.trigger('sortable-move', [$this]);
                 }
             };
 
@@ -156,6 +158,7 @@
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragStop(hasTouch ? e.touches[0] : e);
+                    $this.trigger('sortable-stop', [$this]);
                 }
             };
 
