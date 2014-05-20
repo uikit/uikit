@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Renamed markdownarea to htmleditor
+  - IMPORTANT: Renamed sortable to nestable
   - IMPORTANT: Added uk-dropdown-grid to decouple grids in dropdowns
   - Added $.UIkit.component interface for creating UIkit JS components
   - Added form-select add-on
@@ -27,6 +28,7 @@
   - Removed unneeded brackets from LESS operations
   - Prevent search-field uk-active issue
   - Updated dropdown flip and stack behavior
+  - Updated icon component to Font Awesome to 4.1
 
 **Documentation and repository**
 
