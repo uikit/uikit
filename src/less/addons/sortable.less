@@ -1,0 +1,47 @@
+// Name:            Sortable
+// Description:     Defines styles for sortable lists
+//
+// Component:       `uk-sortable`
+//
+// Modifier:        `uk-sortable-dragging`
+//                  `uk-sortable-over`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+
+/* ========================================================================
+   Component: sortable
+ ========================================================================== */
+.uk-sortable [draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.uk-sortable [draggable] * {
+  -moz-user-drag: none;
+  -khtml-user-drag: none;
+  -webkit-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* Sub-modifier `uk-sortable-dragging`
+ ========================================================================== */
+.uk-sortable-dragging {
+    opacity: .25;
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+    transition: -moz-transform 0.2s ease-out;
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+/* Sub-modifier `uk-sortable-over`
+ ========================================================================== */
+.uk-sortable-over { opacity: .25; }

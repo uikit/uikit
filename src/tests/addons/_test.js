@@ -27,6 +27,7 @@
             "placeholder",
             "search",
             "slidenav",
+            "sortable",
             "sticky",
             "timepicker",
             "upload"
