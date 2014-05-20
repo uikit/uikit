@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Sortable component - UIkit documentation</title>
+        <title>nestable component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,7 +14,7 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/js/addons/sortable.js"></script>
+        <script src="../dist/js/addons/nestable.js"></script>
     </head>
 
     <body class="tm-background">
@@ -61,7 +61,7 @@
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
-                            <li class="uk-active"><a href="addons_sortable.html">Sortable</a></li>
+                            <li class="uk-active"><a href="addons_nestable.html">Nestable</a></li>
                             <li><a href="addons_sticky.html">Sticky</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
                             <li><a href="addons_upload.html">Upload</a></li>
@@ -72,15 +72,15 @@
 
                         <article class="uk-article">
 
-                            <h1>Sortable</h1>
+                            <h1>Nestable</h1>
 
                             <p class="uk-article-lead">Create nestable lists that can be sorted by drag and drop.</p>
 
-                            <p>The Sortable allows you to sort items through drag and drop. This is great, if you want to organize different categories or menu items in administration areas, for example.</p>
+                            <p>The Nestable allows you to sort items through drag and drop. This is great, if you want to organize different categories or menu items in administration areas, for example.</p>
 
                             <h2>Usage</h2>
 
-                            <p>A sortable list consists of the list itself and its items, a handle and a toggle.</p>
+                            <p>A nestable list consists of the list itself and its items, a handle and a toggle.</p>
 
                             <table class="uk-table">
                                 <thead>
@@ -91,23 +91,23 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><code>.uk-sortable</code></td>
+                                        <td><code>.uk-nestable</code></td>
                                         <td>Add this class to a <code>&lt;ul&gt;</code> element to define the addon.</td>
                                     </tr>
                                     <tr>
-                                        <td><code>data-uk-sortable</code></td>
+                                        <td><code>data-uk-nestable</code></td>
                                         <td>To enable the necessary JavaScript, just add this data attribute.</td>
                                     </tr>
                                     <tr>
-                                        <td><code>.uk-sortable-item</code></td>
+                                        <td><code>.uk-nestable-item</code></td>
                                         <td>Add this class to a <code>&lt;div&gt;</code> element inside each list item.</td>
                                     </tr>
                                     <tr>
-                                        <td><code>.uk-sortable-handle</code></td>
+                                        <td><code>.uk-nestable-handle</code></td>
                                         <td>This class creates the handle to enable drag and drop sorting.</td>
                                     </tr>
                                     <tr>
-                                        <td><code>data-sortable-action="toggle"</code></td>
+                                        <td><code>data-nestable-action="toggle"</code></td>
                                         <td>This data attribute allows you to hide or show nested list items.</td>
                                     </tr>
                                 </tbody>
@@ -115,25 +115,25 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <ul class="uk-sortable" data-uk-sortable>
+                            <ul class="uk-nestable" data-uk-nestable>
                                 <li>
-                                    <div class="uk-sortable-item">
-                                        <div class="uk-sortable-handle"></div>
-                                        <div data-sortable-action="toggle"></div>
+                                    <div class="uk-nestable-item">
+                                        <div class="uk-nestable-handle"></div>
+                                        <div data-nestable-action="toggle"></div>
                                         Item 1
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="uk-sortable-item">
-                                        <div class="uk-sortable-handle"></div>
-                                        <div data-sortable-action="toggle"></div>
+                                    <div class="uk-nestable-item">
+                                        <div class="uk-nestable-handle"></div>
+                                        <div data-nestable-action="toggle"></div>
                                         Item 2
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="uk-sortable-item">
-                                        <div class="uk-sortable-handle"></div>
-                                        <div data-sortable-action="toggle"></div>
+                                    <div class="uk-nestable-item">
+                                        <div class="uk-nestable-handle"></div>
+                                        <div data-nestable-action="toggle"></div>
                                         Item 3
                                     </div>
                                 </li>
@@ -141,11 +141,11 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable&gt;
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable&gt;
     &lt;li&gt;
-        &lt;div class="uk-sortable-item"&gt;
-            &lt;div class="uk-sortable-handle"&gt;&lt;/div&gt;
-            &lt;div data-sortable-action="toggle"&gt;&lt;/div&gt;
+        &lt;div class="uk-nestable-item"&gt;
+            &lt;div class="uk-nestable-handle"&gt;&lt;/div&gt;
+            &lt;div data-nestable-action="toggle"&gt;&lt;/div&gt;
             ...
         &lt;/div&gt;
     &lt;/li&gt;
@@ -155,29 +155,29 @@
 
                         <h2>Sort multiple lists</h2>
 
-                        <p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-sortable="{group:'GROUP-NAME'}"</code> attribute to each list. By default, lists without any group name are automatically in the same group.</p>
+                        <p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-nestable="{group:'GROUP-NAME'}"</code> attribute to each list. By default, lists without any group name are automatically in the same group.</p>
 
                         <h3 class="tm-article-subtitle">Example</h3>
 
-                        <ul class="uk-sortable" data-uk-sortable="{group:'my-group'}">
+                        <ul class="uk-nestable" data-uk-nestable="{group:'my-group'}">
                             <li>
-                                <div class="uk-sortable-item">
-                                    <div class="uk-sortable-handle"></div>
-                                    <div data-sortable-action="toggle"></div>
+                                <div class="uk-nestable-item">
+                                    <div class="uk-nestable-handle"></div>
+                                    <div data-nestable-action="toggle"></div>
                                     Item 1
                                 </div>
                             </li>
                             <li>
-                                <div class="uk-sortable-item">
-                                    <div class="uk-sortable-handle"></div>
-                                    <div data-sortable-action="toggle"></div>
+                                <div class="uk-nestable-item">
+                                    <div class="uk-nestable-handle"></div>
+                                    <div data-nestable-action="toggle"></div>
                                     Item 2
                                 </div>
                             </li>
                             <li>
-                                <div class="uk-sortable-item">
-                                    <div class="uk-sortable-handle"></div>
-                                    <div data-sortable-action="toggle"></div>
+                                <div class="uk-nestable-item">
+                                    <div class="uk-nestable-handle"></div>
+                                    <div data-nestable-action="toggle"></div>
                                     Item 3
                                 </div>
                             </li>
@@ -185,11 +185,11 @@
 
                         <h3>Second list</h3>
 
-                        <ul class="uk-sortable" data-uk-sortable="{group:'my-group'}">
+                        <ul class="uk-nestable" data-uk-nestable="{group:'my-group'}">
                             <li>
-                                <div class="uk-sortable-item">
-                                    <div class="uk-sortable-handle"></div>
-                                    <div data-sortable-action="toggle"></div>
+                                <div class="uk-nestable-item">
+                                    <div class="uk-nestable-handle"></div>
+                                    <div data-nestable-action="toggle"></div>
                                     Item 4
                                 </div>
                             </li>
@@ -197,34 +197,34 @@
 
                         <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;
-&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;</code></pre>
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable="{group:'my-group'}"&gt;...&lt;/ul&gt;
+&lt;ul class="uk-nestable" data-uk-nestable="{group:'my-group'}"&gt;...&lt;/ul&gt;</code></pre>
 
                         <hr class="uk-article-divider">
 
                         <h2>Disable nesting</h2>
 
-                        <p>To disable nesting of list items, just add the <code>data-uk-sortable="{maxDepth:1}"</code> attribute. You can also use this data attribute to determine to what depth nesting is possible.</p>
+                        <p>To disable nesting of list items, just add the <code>data-uk-nestable="{maxDepth:1}"</code> attribute. You can also use this data attribute to determine to what depth nesting is possible.</p>
 
-                        <ul class="uk-sortable" data-uk-sortable="{maxDepth:1}">
+                        <ul class="uk-nestable" data-uk-nestable="{maxDepth:1}">
                             <li>
-                                <div class="uk-sortable-item">
-                                    <div class="uk-sortable-handle"></div>
-                                    <div data-sortable-action="toggle"></div>
+                                <div class="uk-nestable-item">
+                                    <div class="uk-nestable-handle"></div>
+                                    <div data-nestable-action="toggle"></div>
                                     Item 1
                                 </div>
                             </li>
                             <li>
-                                <div class="uk-sortable-item">
-                                    <div class="uk-sortable-handle"></div>
-                                    <div data-sortable-action="toggle"></div>
+                                <div class="uk-nestable-item">
+                                    <div class="uk-nestable-handle"></div>
+                                    <div data-nestable-action="toggle"></div>
                                     Item 2
                                 </div>
                             </li>
                             <li>
-                                <div class="uk-sortable-item">
-                                    <div class="uk-sortable-handle"></div>
-                                    <div data-sortable-action="toggle"></div>
+                                <div class="uk-nestable-item">
+                                    <div class="uk-nestable-handle"></div>
+                                    <div data-nestable-action="toggle"></div>
                                     Item 3
                                 </div>
                             </li>
@@ -232,7 +232,7 @@
 
                         <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{maxDepth:1}"&gt;...&lt;/ul&gt;</code></pre>
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable="{maxDepth:1}"&gt;...&lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -240,7 +240,7 @@
 
                             <p>This is an example of how to set options via attribute:</p>
 
-                            <pre><code>data-uk-sortable=&quot;{maxDepth:0, group:'widgets'}&quot;</code></pre>
+                            <pre><code>data-uk-nestable=&quot;{maxDepth:0, group:'widgets'}&quot;</code></pre>
 
                             <table class="uk-table uk-table-striped">
                                 <thead>
@@ -397,7 +397,7 @@
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
+                            <li><a href="addons_nestable.html">Nestable</a></li>
                             <li><a href="addons_sticky.html">Sticky</a></li>
                             <li><a href="addons_timepicker.html">Timepicker</a></li>
                             <li><a href="addons_upload.html">Upload</a></li>

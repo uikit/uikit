@@ -21,12 +21,12 @@
             "form-password",
             "form-select",
             "htmleditor",
+            "nestable",
             "notify",
             "pagination",
             "placeholder",
             "search",
             "slidenav",
-            "sortable",
             "sticky",
             "timepicker",
             "upload"

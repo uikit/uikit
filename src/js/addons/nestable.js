@@ -10,7 +10,7 @@
      }
 
      if (typeof define == "function" && define.amd) {
-         define("uikit-sortable", ["uikit"], function(){
+         define("uikit-nestable", ["uikit"], function(){
              return component || addon(jQuery, jQuery.UIkit);
          });
      }
@@ -53,23 +53,23 @@
         eCancel = hasTouch ? 'touchcancel' : 'mouseup';
 
 
-    UI.component('sortable', {
+    UI.component('nestable', {
 
         defaults: {
             prefix          : 'uk',
             listNodeName    : 'ul',
             itemNodeName    : 'li',
-            listBaseClass   : '{prefix}-sortable',
-            listClass       : '{prefix}-sortable-list',
-            listitemClass   : '{prefix}-sortable-list-item',
-            itemClass       : '{prefix}-sortable-item',
-            dragClass       : '{prefix}-sortable-list-dragged',
-            movingClass     : '{prefix}-sortable-moving',
-            handleClass     : '{prefix}-sortable-handle',
+            listBaseClass   : '{prefix}-nestable',
+            listClass       : '{prefix}-nestable-list',
+            listitemClass   : '{prefix}-nestable-list-item',
+            itemClass       : '{prefix}-nestable-item',
+            dragClass       : '{prefix}-nestable-list-dragged',
+            movingClass     : '{prefix}-nestable-moving',
+            handleClass     : '{prefix}-nestable-handle',
             collapsedClass  : '{prefix}-collapsed',
-            placeClass      : '{prefix}-sortable-placeholder',
-            noDragClass     : '{prefix}-sortable-nodrag',
-            emptyClass      : '{prefix}-sortable-empty',
+            placeClass      : '{prefix}-nestable-placeholder',
+            noDragClass     : '{prefix}-nestable-nodrag',
+            emptyClass      : '{prefix}-nestable-empty',
             group           : 0,
             maxDepth        : 10,
             threshold       : 20
@@ -97,16 +97,16 @@
                 this.element.append(this.tplempty);
             }
 
-            this.element.data("sortable-id", "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000)));
+            this.element.data("nestable-id", "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000)));
             this.reset();
-            this.element.data('sortable-group', this.options.group);
+            this.element.data('nestable-group', this.options.group);
             this.placeEl = $('<div class="' + this.options.placeClass + '"/>');
 
             this.find(this.options.itemNodeName).each(function() {
                 $this.setParent($(this));
             });
 
-            this.on('click', '[data-sortable-action]', function(e) {
+            this.on('click', '[data-nestable-action]', function(e) {
 
                 if ($this.dragEl || (!hasTouch && e.button !== 0)) {
                     return;
@@ -115,7 +115,7 @@
                 e.preventDefault();
 
                 var target = $(e.currentTarget),
-                    action = target.data('sortableAction'),
+                    action = target.data('nestableAction'),
                     item   = target.closest($this.options.itemNodeName);
                 if (action === 'collapse') {
                     $this.collapseItem(item);
@@ -143,14 +143,14 @@
                 }
                 e.preventDefault();
                 $this.dragStart(hasTouch ? e.touches[0] : e);
-                $this.trigger('sortable-start', [$this]);
+                $this.trigger('nestable-start', [$this]);
             };
 
             var onMoveEvent = function(e) {
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragMove(hasTouch ? e.touches[0] : e);
-                    $this.trigger('sortable-move', [$this]);
+                    $this.trigger('nestable-move', [$this]);
                 }
             };
 
@@ -158,7 +158,7 @@
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragStop(hasTouch ? e.touches[0] : e);
-                    $this.trigger('sortable-stop', [$this]);
+                    $this.trigger('nestable-stop', [$this]);
                 }
             };
 
@@ -366,10 +366,10 @@
 
             if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || this.tmpDragOnSiblings[0]!=el[0].previousSibling) {
 
-                this.element.trigger('sortable-change',[el, this.hasNewRoot ? "added":"moved"]);
+                this.element.trigger('nestable-change',[el, this.hasNewRoot ? "added":"moved"]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('sortable-change', [el, "removed"]);
+                    this.dragRootEl.trigger('nestable-change', [el, "removed"]);
                 }
             }
 
@@ -485,16 +485,16 @@
                 this.pointEl = this.pointEl.closest(opt.itemNodeName);
             } else {
 
-                var sortableitem = this.pointEl.closest('.'+opt.itemClass);
+                var nestableitem = this.pointEl.closest('.'+opt.itemClass);
 
-                if(sortableitem.length) {
-                    this.pointEl = sortableitem.closest(opt.itemNodeName);
+                if(nestableitem.length) {
+                    this.pointEl = nestableitem.closest(opt.itemNodeName);
                 }
             }
 
             if (this.pointEl.hasClass(opt.emptyClass)) {
                 isEmpty = true;
-            } else if (this.pointEl.data('sortable') && !this.pointEl.children().length) {
+            } else if (this.pointEl.data('nestable') && !this.pointEl.children().length) {
                 isEmpty = true;
                 this.pointEl = $(this.tplempty).appendTo(this.pointEl);
             } else if (!this.pointEl.length || !this.pointEl.hasClass(opt.listitemClass)) {
@@ -512,7 +512,7 @@
              */
             if (!mouse.dirAx || isNewRoot || isEmpty) {
                 // check if groups match if dragging over new root
-                if (isNewRoot && opt.group !== $newRoot.data('sortable-group')) {
+                if (isNewRoot && opt.group !== $newRoot.data('nestable-group')) {
                     return;
                 } else {
                     touchedlists.push(pointElRoot);
@@ -539,7 +539,7 @@
                 }
 
                 if (!parent.children().length) {
-                    if(!parent.data("sortable")) this.unsetParent(parent.parent());
+                    if(!parent.data("nestable")) this.unsetParent(parent.parent());
                 }
 
                 if (!this.dragRootEl.find(opt.itemNodeName).length && !this.dragRootEl.children().length) {
@@ -558,15 +558,15 @@
 
     $(document).on("uk-domready", function(e) {
 
-        $("[data-uk-sortable]").each(function(){
+        $("[data-uk-nestable]").each(function(){
 
           var ele = $(this);
 
-          if(!ele.data("sortable")) {
-              var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
+          if(!ele.data("nestable")) {
+              var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-uk-nestable")));
           }
         });
     });
 
-    return UI.sortable;
+    return UI.nestable;
 });
