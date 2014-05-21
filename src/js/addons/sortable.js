@@ -29,14 +29,19 @@
     DRAGGING_CLASS = "uk-sortable-dragging",
     OVER_CLASS     = "uk-sortable-over";
 
-    function moveElementNextTo(element, elementToMoveNextTo) {
+    function moveElementNextTo(element, elementToMoveNextTo, animation) {
 
-        var list     = $(element).parent(),
+        var list     = $(element).parent().css('min-height', ''),
             next     = isBelow(element, elementToMoveNextTo) ? elementToMoveNextTo : elementToMoveNextTo.nextSibling,
             children = list.children(),
             count    = children.length;
 
-        list.css('min-height', '').css('min-height', list.height());
+        if(!animation) {
+            elementToMoveNextTo.parentNode.insertBefore(element, next);
+            return;
+        }
+
+        list.css('min-height', list.height());
 
         children.stop().each(function(){
 
@@ -68,13 +73,16 @@
                 before = ele.data('offset-before'),
                 offset = ele.data('offset-after');
 
-                ele.css('pointer-events', 'none');
+                ele.css('pointer-events', 'none').width();
 
-                ele.animate({'top':offset.top, 'left':offset.left}, 100, function() {
-                    ele.css({'position':'','top':'', 'left':'', 'pointer-events':''});
-                    count--
-                    if(!count) list.css('min-height', '');
-                });
+                setTimeout(function(){
+                    ele.animate({'top':offset.top, 'left':offset.left}, 100, function() {
+                        ele.css({'position':'','top':'', 'left':'', 'pointer-events':''}).removeClass(OVER_CLASS).attr('data-child-dragenter', '');
+                        count--
+                        if(!count) list.css('min-height', '');
+                    });
+                }, 0);
+
         });
     }
 
@@ -138,6 +146,7 @@
 
         defaults: {
             warp: false,
+            animation: true,
             stop: function() {},
             start: function() {},
             change: function() {}
@@ -217,7 +226,7 @@
                     $(this).addClass(OVER_CLASS);
 
                     if (!warp) {
-                        moveElementNextTo(currentlyDraggingElement, this);
+                        moveElementNextTo(currentlyDraggingElement, this, $this.options.animation);
                     }
                 }
 
@@ -292,7 +301,7 @@
                 currentlyDraggingTarget = this;
 
                 if (!warp) {
-                    moveElementNextTo(currentlyDraggingElement, this);
+                    moveElementNextTo(currentlyDraggingElement, this, $this.options.animation);
                 } else {
                     $(this).addClass(OVER_CLASS);
                 }
