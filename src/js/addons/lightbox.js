@@ -13,29 +13,32 @@
 })(function($, UI){
 
     // tmp variables
-    var active, container, html = $('html');
+    var container, html = $('html');
 
-    var Lightbox = function(sources, options) {
+    UI.component('lightbox', {
 
-        var $this = this;
+        defaults: {
+            "sources": [],
+            "zoom": false,
+            "animation": {"in": "fade", "out":"fade"},
+            "duration": 200,
+            "keyboard": true,
+            "loop": true,
+            "plugins": ['image', 'youtube', 'vimeo', 'video'],
 
-        this.sources  = sources || [];
-        this.options  = $.extend(true, {}, Lightbox.defaults, options);
+            // events
+            "onShow": function() {},
+            "onHide": function() {},
+            "onItemShow": function() {}
+        },
 
-        this._init();
-    };
+        index: 0,
 
-    $.extend(Lightbox.prototype, {
-        index   : 0,
-        visible : false,
-
-        _init: function() {
+        init: function() {
 
             var $this = this;
 
-            this.options.plugins.forEach(function(plugin) {
-                Lightbox.plugins[plugin]($this);
-            });
+            this.sources = this.options.sources || [];
 
             if (!container) {
 
@@ -51,21 +54,15 @@
                 container.dialog  = container.find('.uk-modal-dialog:first');
                 container.content = container.find('.uk-lightbox-content:first');
 
-                container.on("click", ".uk-modal-close", function(e) {
-                    e.preventDefault();
-                    $this.hide();
-
-                }).on("swipeRight swipeLeft", function(e) {
-
+                container.on("swipeRight swipeLeft", function(e) {
                     $this[e.type=='swipeLeft' ? 'next':'previous']();
                 });
 
                 container.modal = new UI.modal.Modal(container);
-
+                this.proxy(container.modal, ['hide', 'isActive']);
             }
 
             this.container = container;
-
             this.trigger('lightbox-init', [this]);
         },
 
@@ -103,10 +100,6 @@
 
             var $this = this;
 
-            if (active && active!==this) {
-                active.hide();
-            }
-
             if (!this.sources.length) {
                 return false;
             }
@@ -124,8 +117,7 @@
             (new Promise(function(resolve){
 
                 // hide previous slide
-
-                if ($this.visible) {
+                if ($this.isActive()) {
                     $this._animateOut(resolve);
                 } else {
                     container.modal.show();
@@ -170,22 +162,8 @@
                 );
             });
 
-            this.visible = true;
-            this.index   = index;
-
-            active = this;
-        },
-
-        hide: function(resolve) {
-            var $this = this;
-
-            container.modal.hide();
-
-            if (active && active===this) {
-                active = false;
-            }
-
-            this.visible = false;
+            this.index = index;
+            this.container.modal.lightbox = this;
         },
 
         next: function() {
@@ -194,188 +172,209 @@
 
         previous: function() {
             this.show(this.sources[(this.index-1)] ? (this.index-1) : this.sources.length-1);
-        },
-
-        // events
-        on: function(event, callback){
-            $(this).on(event, callback);
-        },
-
-        trigger: function(event, params) {
-            $(this).trigger(event, params);
         }
     });
 
-    Lightbox.plugins   = {};
-
-    Lightbox.addPlugin = function(name, plugin) {
-        Lightbox.plugins[name] = plugin;
-    };
-
-    Lightbox.defaults = {
-        "group": [],
-        "zoom": false,
-        "animation": {"in": "fade", "out":"fade"},
-        "duration": 200,
-        "keyboard": true,
-        "loop": true,
-        "plugins": ['image', 'domid', 'youtube', 'vimeo'],
-
-        // events
-        "onShow": function() {},
-        "onHide": function() {},
-        "onItemShow": function() {}
-    };
-
-    UI["lightbox"] = Lightbox;
-
     // plugins
-    Lightbox.addPlugin("image", function(lightbox) {
+    UI.plugin("lightbox", "image", {
 
-        lightbox.on("lightbox-show", function(e, view){
+        init: function(lightbox) {
 
-            if (view.source.match(/\.(jpg|jpeg|png|gif|svg)/)) {
+            var cache = {};
 
-                var img = new Image();
+            lightbox.on("lightbox-show", function(e, view){
 
-                img.onerror = function(){
-                    view.resolve(':-(');
-                };
+                if (view.source.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
 
-                img.onload = function(){
+                    var resolve = function(source, width, height) {
+                        view.resolve({
+                            'content': '<img src="'+source+'">',
+                            'width': width,
+                            'height': height
+                        });
+                    };
+
+                    if (!cache[view.source]) {
+
+                        var img = new Image();
+
+                        img.onerror = function(){
+                            view.resolve(':-(');
+                        };
+
+                        img.onload = function(){
+                            cache[view.source] = {width: img.width, height: img.height};
+                            resolve(view.source, cache[view.source].width, cache[view.source].height);
+                        };
+
+                        img.src = view.source;
+
+                    } else {
+                        resolve(view.source, cache[view.source].width, cache[view.source].height);
+                    }
+                }
+            });
+        }
+    });
+
+
+    UI.plugin("lightbox", "youtube", {
+
+        init: function(lightbox) {
+
+            var youtubeRegExp = /(\/\/.*?youtube\.[a-z]+)\/watch\?v=([^&]+)&?(.*)/,
+                youtubeRegExpShort = /youtu\.be\/(.*)/,
+                cache = {};
+
+
+            lightbox.on("lightbox-show", function(e, view){
+
+                var id, matches, resolve = function(id, width, height) {
                     view.resolve({
-                        'content': '<img src="'+view.source+'">',
-                        'width': img.width,
-                        'height': img.height
+                        'content': '<iframe src="//www.youtube.com/embed/'+id+'" width="'+width+'" height="'+height+'" style="max-width:100%;"></iframe>',
+                        'width': width,
+                        'height': height
                     });
                 };
 
-                img.src = view.source;
-            }
-        });
-    });
-
-    Lightbox.addPlugin("youtube", function(lightbox) {
-
-        var youtubeRegExp = /(\/\/.*?youtube\.[a-z]+)\/watch\?v=([^&]+)&?(.*)/,
-            youtubeRegExpShort = /youtu\.be\/(.*)/,
-            cache = {};
-
-
-        lightbox.on("lightbox-show", function(e, view){
-
-            var id, matches, resolve = function(id, width, height) {
-                view.resolve({
-                    'content': '<iframe src="//www.youtube.com/embed/'+id+'" width="'+width+'" height="'+height+'" style="max-width:100%;"></iframe>',
-                    'width': width,
-                    'height': height
-                });
-            };
-
-            if (matches = view.source.match(youtubeRegExp)) {
-                id = matches[2];
-            }
-
-            if (matches = view.source.match(youtubeRegExpShort)) {
-                id = matches[1];
-            }
-
-            if (id) {
-
-                if(!cache[id]) {
-
-                    var img = new Image();
-
-                    img.onerror = function(){
-                        cache[id] = {width:640, height:320};
-                        resolve(id, cache[id].width, cache[id].height);
-                    };
-
-                    img.onload = function(){
-                        cache[id] = {width:img.width, height:img.height};
-                        resolve(id, img.width, img.height);
-                    };
-
-                    img.src = '//img.youtube.com/vi/'+id+'/0.jpg';
-
-                } else {
-                    resolve(id, cache[id].width, cache[id].height);
+                if (matches = view.source.match(youtubeRegExp)) {
+                    id = matches[2];
                 }
 
-                e.stopImmediatePropagation();
-            }
-        });
-    });
+                if (matches = view.source.match(youtubeRegExpShort)) {
+                    id = matches[1];
+                }
 
-    Lightbox.addPlugin("vimeo", function(lightbox) {
+                if (id) {
 
-        var regex = /(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/, matches, cache = {};
+                    if(!cache[id]) {
 
+                        var img = new Image();
 
-        lightbox.on("lightbox-show", function(e, view){
-
-            var id, resolve = function(id, width, height) {
-                view.resolve({
-                    'content': '<iframe src="//player.vimeo.com/video/'+id+'" width="'+width+'" height="'+height+'" style="max-width:100%;"></iframe>',
-                    'width': width,
-                    'height': height
-                });
-            };
-
-            if (matches = view.source.match(regex)) {
-
-                id = matches[2];
-
-                if(!cache[id]) {
-
-                    $.ajax({
-                        type     : 'GET',
-                        url      : 'http://vimeo.com/api/oembed.json?url=' + encodeURI(view.source),
-                        jsonp    : 'callback',
-                        dataType : 'jsonp',
-                        success  : function(data) {
-                            cache[id] = {width:data.width, height:data.height};
+                        img.onerror = function(){
+                            cache[id] = {width:640, height:320};
                             resolve(id, cache[id].width, cache[id].height);
-                        }
-                    });
+                        };
 
-                } else {
-                    resolve(id, cache[id].width, cache[id].height);
+                        img.onload = function(){
+                            cache[id] = {width:img.width, height:img.height};
+                            resolve(id, img.width, img.height);
+                        };
+
+                        img.src = '//img.youtube.com/vi/'+id+'/0.jpg';
+
+                    } else {
+                        resolve(id, cache[id].width, cache[id].height);
+                    }
+
+                    e.stopImmediatePropagation();
                 }
-
-                e.stopImmediatePropagation();
-            }
-        });
+            });
+        }
     });
 
-    Lightbox.addPlugin("domid", function(lightbox) {
 
-        lightbox.on("lightbox-show", function(e, view){
+    UI.plugin("lightbox", "vimeo", {
 
-            if (view.source[0]=="#") {
+        init: function(lightbox) {
 
-            }
-        });
+            var regex = /(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/, matches, cache = {};
+
+
+            lightbox.on("lightbox-show", function(e, view){
+
+                var id, resolve = function(id, width, height) {
+                    view.resolve({
+                        'content': '<iframe src="//player.vimeo.com/video/'+id+'" width="'+width+'" height="'+height+'" style="max-width:100%;"></iframe>',
+                        'width': width,
+                        'height': height
+                    });
+                };
+
+                if (matches = view.source.match(regex)) {
+
+                    id = matches[2];
+
+                    if(!cache[id]) {
+
+                        $.ajax({
+                            type     : 'GET',
+                            url      : 'http://vimeo.com/api/oembed.json?url=' + encodeURI(view.source),
+                            jsonp    : 'callback',
+                            dataType : 'jsonp',
+                            success  : function(data) {
+                                cache[id] = {width:data.width, height:data.height};
+                                resolve(id, cache[id].width, cache[id].height);
+                            }
+                        });
+
+                    } else {
+                        resolve(id, cache[id].width, cache[id].height);
+                    }
+
+                    e.stopImmediatePropagation();
+                }
+            });
+        }
+    });
+
+    UI.plugin("lightbox", "video", {
+
+        init: function(lightbox) {
+
+            var cache = {};
+
+            lightbox.on("lightbox-show", function(e, view){
+
+                var resolve = function(source, width, height) {
+                    view.resolve({
+                        'content': '<video src="'+source+'" width="'+width+'" height="'+height+'" controls width="'+width+'" height="'+height+'"></video>',
+                        'width': width,
+                        'height': height
+                    });
+                };
+
+                if (view.source.match(/\.(mp4|webm|ogv)$/)) {
+
+                    if(!cache[view.source]) {
+
+                        var vid = $('<video style="position:fixed;visibility:hidden;top:-10000px;"></video>').attr('src', view.source).appendTo('body');
+
+                        var idle = setInterval(function() {
+
+                            if (vid[0].videoWidth) {
+                                clearInterval(idle);
+                                cache[view.source] = {width: vid[0].videoWidth, height: vid[0].videoHeight};
+                                resolve(view.source, cache[view.source].width, cache[view.source].height);
+                                vid.remove();
+                            }
+
+                        }, 20);
+
+                    } else {
+                        resolve(view.source, cache[view.source].width, cache[view.source].height);
+                    }
+                }
+            });
+        }
     });
 
     $(document).on( 'keyup', function(e) {
 
-        if (!active) return;
+        if (container && container.modal.isActive()) {
 
-        e.preventDefault();
+            e.preventDefault();
 
-        switch(e.keyCode) {
-            case 27:
-                active.hide();
-                break;
-            case 37:
-                active.previous();
-                break;
-            case 39:
-                active.next();
-                break;
+            switch(e.keyCode) {
+                case 37:
+                    container.modal.lightbox.previous();
+                    break;
+                case 39:
+                    container.modal.lightbox.next();
+                    break;
+            }
         }
     });
 
-    return Lightbox;
+    return UI.lightbox;
 });

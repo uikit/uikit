@@ -23,12 +23,14 @@
 
         <script>
 
-         var lb = new $.UIkit.lightbox([
-             'http://31.media.tumblr.com/d83b99e22981d5e58e2bd74ed2494087/tumblr_n4ef3ynCZP1st5lhmo1_1280.jpg',
-             'http://24.media.tumblr.com/4674f3b8059faeeb8128e74bfafd1011/tumblr_n4ef1niTku1st5lhmo1_1280.jpg',
-             'https://www.youtube.com/watch?v=Nng2MUoEKi0',
-             'http://vimeo.com/92310805'
-         ]);
+         var lb = $.UIkit.lightbox({
+             sources: [
+                 'http://31.media.tumblr.com/d83b99e22981d5e58e2bd74ed2494087/tumblr_n4ef3ynCZP1st5lhmo1_1280.jpg',
+                 'http://mediaelementjs.com/media/echo-hereweare.mp4',
+                 'https://www.youtube.com/watch?v=Nng2MUoEKi0',
+                 'http://vimeo.com/92310805'
+             ]
+         });
 
 
          lb.show();
