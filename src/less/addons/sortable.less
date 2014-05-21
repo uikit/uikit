@@ -16,6 +16,9 @@
 /* ========================================================================
    Component: sortable
  ========================================================================== */
+.uk-sortable {
+  position: relative;
+}
 .uk-sortable [draggable] {
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -36,10 +39,6 @@
  ========================================================================== */
 .uk-sortable-dragging {
     opacity: .25;
-    -webkit-transition: -webkit-transform 0.2s ease-out;
-    transition: -moz-transform 0.2s ease-out;
-    -webkit-transform: scale(0.9);
-    transform: scale(0.9);
 }
 
 /* Sub-modifier `uk-sortable-over`
