@@ -150,7 +150,7 @@
             this.element.trigger("autocomplete-select", [data, this]);
 
             if (data.value) {
-                this.input.val(data.value);
+                this.input.val(data.value).trigger('change');
             }
 
             this.hide();
