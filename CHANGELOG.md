@@ -26,6 +26,7 @@
   - Fixed button checkbox initial event triggering
   - Fixed offcanvas removing existing style properties on close
   - Removed unneeded brackets from LESS operations
+  - Removed breaking strings on small devices by default from base
   - Prevent search-field uk-active issue
   - Updated dropdown flip and stack behavior
   - Updated icon component to Font Awesome to 4.1
