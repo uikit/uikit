@@ -9,8 +9,27 @@
         <script src="_test.js"></script>
         <script src="../../js/addons/sortable.js"></script>
         <style>
-            .uk-panel { height: 100px; }
+            .uk-grid-width-1-5 .uk-panel { height: 100px; }
         </style>
+        <script>
+
+            $(window).on('load', function(){
+                var animation = $('#animation');
+
+                animation.on('click', (function(){
+
+                    var sortables = $('[data-uk-sortable]'), fn = function() {
+                        sortables.each(function(){
+                            $(this).data('sortable').options.animation = animation.prop('checked') ? 60:false;
+                        });
+                    };
+
+                    fn();
+
+                    return fn;
+                })());
+            });
+        </script>
     </head>
 
     <body>
@@ -18,6 +37,12 @@
         <div class="uk-container uk-container-center">
 
             <h1>Sortable</h1>
+
+            <div class="uk-margin">
+                <input id="animation" type="checkbox" checked> Enable animation
+            </div>
+
+            <h2>Grid</h2>
 
             <ul class="uk-sortable uk-grid uk-grid-width-1-5" data-uk-sortable>
                 <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><a href="http://getuikit.com">Test 1</a></div></li>
@@ -32,6 +57,16 @@
                 <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 10</div></li>
                 <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 11</div></li>
                 <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 12</div></li>
+            </ul>
+
+            <h2>Stacked</h2>
+
+            <ul class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-1" data-uk-sortable>
+                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 1</div></li>
+                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 2</div></li>
+                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 3</div></li>
+                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 4</div></li>
+                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Test 5</div></li>
             </ul>
 
         </div>

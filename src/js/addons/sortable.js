@@ -23,130 +23,19 @@
         supportsDragAndDrop = !supportsTouch && (function() {
         var div = document.createElement('div');
         return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
-    })(),
-
-    CHILD_CLASS    = "uk-sortable-child",
-    DRAGGING_CLASS = "uk-sortable-dragging",
-    OVER_CLASS     = "uk-sortable-over";
-
-    function moveElementNextTo(element, elementToMoveNextTo, animation) {
-
-        var list     = $(element).parent().css('min-height', ''),
-            next     = isBelow(element, elementToMoveNextTo) ? elementToMoveNextTo : elementToMoveNextTo.nextSibling,
-            children = list.children(),
-            count    = children.length;
-
-        if(!animation) {
-            elementToMoveNextTo.parentNode.insertBefore(element, next);
-            return;
-        }
-
-        list.css('min-height', list.height());
-
-        children.stop().each(function(){
-
-            var ele    = $(this),
-                offset = ele.position();
-            ele.data('offset-before', offset);
-
-        });
-
-        elementToMoveNextTo.parentNode.insertBefore(element, next);
-
-        children = list.children().each(function() {
-            var ele    = $(this),
-                before = ele.data('offset-before'),
-                offset = ele.position();
-
-            ele.data('offset-after', offset);
-
-        }).each(function() {
-            var ele    = $(this),
-                before = ele.data('offset-before');
-
-            ele.css({'position':'absolute', 'top':before.top, 'left':before.left});
-        });
-
-        children.each(function(){
-
-            var ele    = $(this),
-                before = ele.data('offset-before'),
-                offset = ele.data('offset-after');
-
-                ele.css('pointer-events', 'none').width();
-
-                setTimeout(function(){
-                    ele.animate({'top':offset.top, 'left':offset.left}, 100, function() {
-                        ele.css({'position':'','top':'', 'left':'', 'pointer-events':''}).removeClass(OVER_CLASS).attr('data-child-dragenter', '');
-                        count--
-                        if(!count) list.css('min-height', '');
-                    });
-                }, 0);
-
-        });
-    }
-
-    function isBelow(el1, el2) {
-        var parent = el1.parentNode;
-        if (el2.parentNode != parent) {
-            return false;
-        }
-
-        var cur = el1.previousSibling;
-        while (cur && cur.nodeType !== 9) {
-            if (cur === el2) {
-                return true;
-            }
-            cur = cur.previousSibling;
-        }
-        return false;
-    }
-
-    function moveUpToChildNode(parent, child) {
-        var cur = child;
-        if (cur == parent) { return null; }
-
-        while (cur) {
-            if (cur.parentNode === parent) {
-                return cur;
-            }
-
-            cur = cur.parentNode;
-            if ( !cur || !cur.ownerDocument || cur.nodeType === 11 ) {
-                break;
-            }
-        }
-        return null;
-    }
-
-    function prevent(e) {
-        if (e.stopPropagation) {
-            e.stopPropagation();
-        }
-        if (e.preventDefault) {
-            e.preventDefault();
-        }
-        e.returnValue = false;
-    }
-
-    function dragenterData(element, val) {
-        if (arguments.length == 1) {
-            return parseInt(element.getAttribute("data-child-dragenter"), 10) || 0;
-        }
-        else if (!val) {
-            element.removeAttribute("data-child-dragenter");
-        }
-        else {
-            element.setAttribute("data-child-dragenter", Math.max(0, val));
-        }
-    }
-
+    })();
 
     UI.component('sortable', {
 
         defaults: {
-            warp: false,
-            animation: true,
+
+            warp          : false,
+            animation     : 60,
+
+            childClass    : 'uk-sortable-child',
+            draggingClass : 'uk-sortable-dragging',
+            overClass     : 'uk-sortable-over',
+
             stop: function() {},
             start: function() {},
             change: function() {}
@@ -154,14 +43,13 @@
 
         init: function() {
 
-            var opts = this.options, element = this.element[0], $this = this;
-
-            var warp                     = !!this.options.warp,
+            var $this                    = this,
+                element                  = this.element[0],
                 currentlyDraggingElement = null,
                 currentlyDraggingTarget  = null,
                 children, moved;
 
-            this.element.children('li').attr("draggable", "true");
+            this.element.children().attr("draggable", "true");
 
             var handleDragStart = delegate(function(e) {
 
@@ -174,7 +62,6 @@
                     prevent(e);
 
                     if (target.is('a') && target.attr('href')) {
-
                         target.one('touchend', function(){
                             if(!moved) location.href = target.attr('href');
                         });
@@ -188,14 +75,14 @@
 
                 currentlyDraggingElement = this;
 
-                $(this).addClass(DRAGGING_CLASS);
-                children = $this.element.children('li').addClass(CHILD_CLASS);
+                $(this).addClass($this.options.draggingClass);
+                children = $this.element.children().addClass($this.options.childClass);
 
                 addFakeDragHandlers();
 
                 $this.options.start(this, currentlyDraggingElement);
+                $this.trigger('sortable-start', [$this, currentlyDraggingElement]);
             });
-
 
             var handleDragOver = delegate(function(e) {
 
@@ -217,16 +104,16 @@
                 }
 
                 // Prevent dragenter on a child from allowing a dragleave on the container
-                var previousCounter = dragenterData(this);
+                var previousCounter = $this.dragenterData(this);
 
-                dragenterData(this, previousCounter + 1);
+                $this.dragenterData(this, previousCounter + 1);
 
                 if (previousCounter === 0) {
 
-                    $(this).addClass(OVER_CLASS);
+                    $(this).addClass($this.options.overClass);
 
-                    if (!warp) {
-                        moveElementNextTo(currentlyDraggingElement, this, $this.options.animation);
+                    if (!$this.options.warp) {
+                        $this.moveElementNextTo(currentlyDraggingElement, this);
                     }
                 }
 
@@ -236,17 +123,18 @@
             var handleDragLeave = delegate(function(e) {
 
                 // Prevent dragenter on a child from allowing a dragleave on the container
-                var previousCounter = dragenterData(this);
-                dragenterData(this, previousCounter - 1);
+                var previousCounter = $this.dragenterData(this);
+                $this.dragenterData(this, previousCounter - 1);
 
                 // This is a fix for child elements firing dragenter before the parent fires dragleave
-                if (!dragenterData(this)) {
-                    $(this).removeClass(OVER_CLASS);
-                    dragenterData(this, false);
+                if (!$this.dragenterData(this)) {
+                    $(this).removeClass($this.options.overClass);
+                    $this.dragenterData(this, false);
                 }
             });
 
             var handleDrop = delegate(function(e) {
+
                 if (e.type === 'drop') {
 
                     if (e.stopPropagation) {
@@ -262,29 +150,32 @@
                     return;
                 }
 
-                if (warp) {
+                if ($this.options.warp) {
                     var thisSibling = currentlyDraggingElement.nextSibling;
                     this.parentNode.insertBefore(currentlyDraggingElement, this);
                     this.parentNode.insertBefore(this, thisSibling);
                 }
 
                 $this.options.change(this, currentlyDraggingElement);
+                $this.trigger('sortable-change', [$this, currentlyDraggingElement]);
             });
 
             var handleDragEnd = function(e) {
 
                 currentlyDraggingElement = null;
-                currentlyDraggingTarget = null;
-                [].forEach.call(element.childNodes, function(el) {
-                    if (el.nodeType === 1) {
-                        $(el).removeClass(OVER_CLASS).removeClass(DRAGGING_CLASS).removeClass(CHILD_CLASS);
-                        dragenterData(el, false);
+                currentlyDraggingTarget  = null;
+
+                $this.element.children().each(function() {
+                    if (this.nodeType === 1) {
+                        $(this).removeClass($this.options.overClass).removeClass($this.options.draggingClass).removeClass($this.options.childClass);
+                        $this.dragenterData(this, false);
                     }
                 });
 
                 removeFakeDragHandlers();
 
                 $this.options.stop(this);
+                $this.trigger('sortable-stop', [$this]);
             };
 
             var handleTouchMove = delegate(function(e) {
@@ -297,13 +188,13 @@
                     return true;
                 }
 
-                children.removeClass(OVER_CLASS);
+                children.removeClass($this.options.overClass);
                 currentlyDraggingTarget = this;
 
-                if (!warp) {
-                    moveElementNextTo(currentlyDraggingElement, this, $this.options.animation);
+                if (!$this.options.warp) {
+                    $this.moveElementNextTo(currentlyDraggingElement, this);
                 } else {
-                    $(this).addClass(OVER_CLASS);
+                    $(this).addClass($this.options.overClass);
                 }
 
                 return prevent(e);
@@ -320,12 +211,13 @@
                         target = document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop);
                     }
 
-                    if ($(target).hasClass(CHILD_CLASS)) {
+                    if ($(target).hasClass($this.options.childClass)) {
                         fn.apply(target, [e]);
                     } else if (target !== element) {
 
                         // If a child is initiating the event or ending it, then use the container as context for the callback.
                         var context = moveUpToChildNode(element, target);
+
                         if (context) {
                             fn.apply(context, [e]);
                         }
@@ -349,7 +241,6 @@
                     document.addEventListener("selectstart", prevent, false);
 
                 }
-
             }
 
             function removeFakeDragHandlers() {
@@ -382,9 +273,121 @@
                     element.addEventListener('mousedown', handleDragStart, false);
                 }
             }
+        },
+
+        dragenterData: function(element, val) {
+
+            element = $(element);
+
+            if (arguments.length == 1) {
+                return parseInt(element.attr('data-child-dragenter'), 10) || 0;
+            } else if (!val) {
+                element.attr('data-child-dragenter', '');
+            } else {
+                element.attr('data-child-dragenter', Math.max(0, val));
+            }
+        },
+
+        moveElementNextTo: function(element, elementToMoveNextTo) {
+
+            var $this    = this,
+                list     = $(element).parent().css('min-height', ''),
+                next     = isBelow(element, elementToMoveNextTo) ? elementToMoveNextTo : elementToMoveNextTo.nextSibling,
+                children = list.children(),
+                count    = children.length;
+
+            if(!$this.options.animation) {
+                elementToMoveNextTo.parentNode.insertBefore(element, next);
+                return;
+            }
+
+            list.css('min-height', list.height());
+
+            children.stop().each(function(){
+                var ele = $(this);
+                ele.data('offset-before', ele.position());
+            });
+
+            elementToMoveNextTo.parentNode.insertBefore(element, next);
+
+            children = list.children().each(function() {
+                var ele    = $(this);
+                ele.data('offset-after', ele.position());
+            }).each(function() {
+                var ele    = $(this),
+                    before = ele.data('offset-before');
+                ele.css({'position':'absolute', 'top':before.top, 'left':before.left});
+            });
+
+            children.each(function(){
+
+                var ele    = $(this),
+                    before = ele.data('offset-before'),
+                    offset = ele.data('offset-after');
+
+                    ele.css('pointer-events', 'none').width();
+
+                    setTimeout(function(){
+                        ele.animate({'top':offset.top, 'left':offset.left}, $this.options.animation, function() {
+                            ele.css({'position':'','top':'', 'left':'', 'pointer-events':''}).removeClass($this.options.overClass).attr('data-child-dragenter', '');
+                            count--
+                            if(!count) list.css('min-height', '');
+                        });
+                    }, 0);
+            });
         }
     });
 
+    // helpers
+
+    function isBelow(el1, el2) {
+
+        var parent = el1.parentNode;
+
+        if (el2.parentNode != parent) {
+            return false;
+        }
+
+        var cur = el1.previousSibling;
+
+        while (cur && cur.nodeType !== 9) {
+            if (cur === el2) {
+                return true;
+            }
+            cur = cur.previousSibling;
+        }
+
+        return false;
+    }
+
+    function moveUpToChildNode(parent, child) {
+        var cur = child;
+        if (cur == parent) { return null; }
+
+        while (cur) {
+            if (cur.parentNode === parent) {
+                return cur;
+            }
+
+            cur = cur.parentNode;
+            if ( !cur || !cur.ownerDocument || cur.nodeType === 11 ) {
+                break;
+            }
+        }
+        return null;
+    }
+
+    function prevent(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        e.returnValue = false;
+    }
+
+    // auto init
     $(document).on("uk-domready", function(e) {
 
         $("[data-uk-sortable]").each(function(){
