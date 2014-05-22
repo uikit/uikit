@@ -23,22 +23,26 @@
         supportsDragAndDrop = !supportsTouch && (function() {
         var div = document.createElement('div');
         return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
-    })();
+    })(),
+
+    draggingPlaceholder;
 
     UI.component('sortable', {
 
         defaults: {
 
-            warp          : false,
-            animation     : 60,
+            warp             : false,
+            animation        : 80,
 
-            childClass    : 'uk-sortable-child',
-            draggingClass : 'uk-sortable-dragging',
-            overClass     : 'uk-sortable-over',
+            childClass       : 'uk-sortable-child',
+            draggingClass    : 'uk-sortable-dragging',
+            overClass        : 'uk-sortable-over',
+            placeholderClass : 'uk-sortable-placeholder',
+            movingClass      : 'uk-sortable-moving',
 
-            stop: function() {},
-            start: function() {},
-            change: function() {}
+            stop   : function() {},
+            start  : function() {},
+            change : function() {}
         },
 
         init: function() {
@@ -59,7 +63,7 @@
 
                 if (supportsTouch) {
 
-                    prevent(e);
+                    e.preventDefault();
 
                     if (target.is('a') && target.attr('href')) {
                         target.one('touchend', function(){
@@ -69,11 +73,29 @@
                 }
 
                 if (e.dataTransfer) {
-                    e.dataTransfer.effectAllowed = 'moving';
+                    e.dataTransfer.effectAllowed = 'move';
                     e.dataTransfer.setData('Text', "*"); // Need to set to something or else drag doesn't start
                 }
 
                 currentlyDraggingElement = this;
+
+                // init drag placeholder
+                if (draggingPlaceholder) draggingPlaceholder.remove();
+
+                var $current = $(currentlyDraggingElement),
+                    offset   = $current.offset();
+
+                draggingPlaceholder = $('<div class="'+$this.options.placeholderClass+'"></div>').css({
+                    top: offset.top,
+                    left: offset.left,
+                    width  : $current.width(),
+                    height : $current.height(),
+                    marginLeft: $current.css('margin-left'),
+                    paddingLeft: $current.css('padding-left')
+                }).data('mouse-offset', {
+                    'left': offset.left - parseInt(e.pageX, 10),
+                    'top' : offset.top  - parseInt(e.pageY, 10)
+                }).append($current.children().clone()).appendTo('body');
 
                 $(this).addClass($this.options.draggingClass);
                 children = $this.element.children().addClass($this.options.childClass);
@@ -176,6 +198,9 @@
 
                 $this.options.stop(this);
                 $this.trigger('sortable-stop', [$this]);
+
+                draggingPlaceholder.remove();
+                draggingPlaceholder = null;
             };
 
             var handleTouchMove = delegate(function(e) {
@@ -266,12 +291,8 @@
                 element.addEventListener('dragover', handleDragOver, false);
                 element.addEventListener('dragend', handleDragEnd, false);
             } else {
-                if (supportsTouch) {
-                    element.addEventListener('touchstart', handleDragStart, false);
-                }
-                else {
-                    element.addEventListener('mousedown', handleDragStart, false);
-                }
+
+                element.addEventListener(supportsTouch ? 'touchstart':'mousedown', handleDragStart, false);
             }
         },
 
@@ -398,6 +419,18 @@
               var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
           }
         });
+    });
+
+    $(document).on('dragover touchmove', function(e) {
+
+        if (draggingPlaceholder) {
+
+            var offset = draggingPlaceholder.data('mouse-offset'),
+                left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
+                top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
+
+            draggingPlaceholder.css({'left': left, 'top': top });
+        }
     });
 
     return UI.sortable;
