@@ -34,11 +34,11 @@
             warp             : false,
             animation        : 80,
 
-            childClass       : 'uk-sortable-child',
-            draggingClass    : 'uk-sortable-dragging',
-            overClass        : 'uk-sortable-over',
+            childClass       : 'uk-sortable-item',
             placeholderClass : 'uk-sortable-placeholder',
-            movingClass      : 'uk-sortable-moving',
+            overClass        : 'uk-sortable-over',
+            draggingClass    : 'uk-sortable-dragged',
+            dragCustomClass  : '',
 
             stop   : function() {},
             start  : function() {},
@@ -85,7 +85,7 @@
                 var $current = $(currentlyDraggingElement),
                     offset   = $current.offset();
 
-                draggingPlaceholder = $('<div class="'+$this.options.placeholderClass+'"></div>').css({
+                draggingPlaceholder = $('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
                     top: offset.top,
                     left: offset.left,
                     width  : $current.width(),
@@ -97,7 +97,7 @@
                     'top' : offset.top  - parseInt(e.pageY, 10)
                 }).append($current.children().clone()).appendTo('body');
 
-                $(this).addClass($this.options.draggingClass);
+                $(this).addClass($this.options.placeholderClass);
                 children = $this.element.children().addClass($this.options.childClass);
 
                 addFakeDragHandlers();
@@ -189,7 +189,7 @@
 
                 $this.element.children().each(function() {
                     if (this.nodeType === 1) {
-                        $(this).removeClass($this.options.overClass).removeClass($this.options.draggingClass).removeClass($this.options.childClass);
+                        $(this).removeClass($this.options.overClass).removeClass($this.options.placeholderClass).removeClass($this.options.childClass);
                         $this.dragenterData(this, false);
                     }
                 });
@@ -303,7 +303,7 @@
             if (arguments.length == 1) {
                 return parseInt(element.attr('data-child-dragenter'), 10) || 0;
             } else if (!val) {
-                element.attr('data-child-dragenter', '');
+                element.removeAttr('data-child-dragenter');
             } else {
                 element.attr('data-child-dragenter', Math.max(0, val));
             }
