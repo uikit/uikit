@@ -68,7 +68,6 @@
     });
 
 
-
     var scrollspynavs = [],
         checkScrollSpyNavs = function() {
             for(var i=0; i < scrollspynavs.length; i++) {
