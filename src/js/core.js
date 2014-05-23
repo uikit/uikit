@@ -267,6 +267,30 @@
 
         $(document).trigger("uk-domready");
 
+        // custom scroll observer
+        setInterval((function(){
+
+            var memory =window.scrollY, $doc = $(document);
+
+            var fn = function(){
+
+                if (memory!=window.scrollY) {
+                    $doc.trigger('uk-scroll', [window.scrollY, memory]);
+                    memory = window.scrollY;
+                }
+            };
+
+            if ($.UIkit.support.touch) {
+                $doc.on('touchmove touchend', fn);
+            }
+
+            if(memory) fn();
+
+            return fn;
+
+        })(), 15);
+
+
         // Check for dom modifications
         if(!UI.support.mutationobserver) return;
 
