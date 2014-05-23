@@ -25,7 +25,7 @@
             element.addClass("uk-active");
 
             $html.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
-            $html.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * ((bar.outerWidth() - (scrollbar * flip)) * dir)).width(); // .width() - force redraw
+            $html.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * ((bar.outerWidth() - (scrollbar * dir)) * dir)).width(); // .width() - force redraw
 
             bar.addClass("uk-offcanvas-bar-show");
 
