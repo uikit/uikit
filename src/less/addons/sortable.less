@@ -17,28 +17,34 @@
    Component: sortable
  ========================================================================== */
 .uk-sortable {
-  position: relative;
+    position: relative;
 }
+
 .uk-sortable [draggable] {
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 .uk-sortable [draggable] * {
-  -moz-user-drag: none;
-  -khtml-user-drag: none;
-  -webkit-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
+    -moz-user-drag: none;
+    -khtml-user-drag: none;
+    -webkit-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+.uk-sortable-placeholder {
+    pointer-events: none;
+    position: absolute;
 }
 
 /* Sub-modifier `uk-sortable-dragging`
  ========================================================================== */
 .uk-sortable-dragging {
-    opacity: .25;
+    opacity: 0;
 }
 
 /* Sub-modifier `uk-sortable-over`
