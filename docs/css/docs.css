@@ -95,6 +95,8 @@ html {
         border-left: 1px solid #E5E5E5;
     }
 
+    .tm-sidebar .uk-panel { padding-right: 20px; }
+
 }
 
 /*
@@ -339,6 +341,19 @@ html {
     border-left: 3px solid #1FA2D6;
     font-size: 16px;
     line-height: 16px;
+}
+
+/*
+ * Showcase Overlay
+ */
+
+.tm-overlay-area:empty:before {
+    content: "\f064";
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    font-size: 60px;
 }
 
 

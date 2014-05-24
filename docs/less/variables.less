@@ -43,8 +43,17 @@
 // Article
 //
 
+@article-margin-top:                            50px;
 @article-title-font-weight:                     300;
 @article-lead-color:                            #222;
+
+.hook-article-misc() {
+
+    .uk-article + .uk-article {
+        padding-top: @article-margin-top - 10px;
+    }
+
+}
 
 //
 // Nav
