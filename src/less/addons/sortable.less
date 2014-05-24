@@ -15,6 +15,10 @@
 
 @sortable-dragged-z-index:                      1050;
 
+@sortable-placeholder-opacity:                  0;
+
+@sortable-over-opacity:                         0.3;
+
 
 /* ========================================================================
    Component: Sortable
@@ -62,7 +66,7 @@
  ========================================================================== */
 
 .uk-sortable-placeholder {
-    opacity: 0;
+    opacity: @sortable-placeholder-opacity;
     .hook-sortable-placeholder;
 }
 
@@ -71,7 +75,10 @@
  * Only if `warp:true`
  ========================================================================== */
 
-.uk-sortable-over { opacity: .25; }
+.uk-sortable-over {
+    opacity: @sortable-over-opacity;
+    .hook-sortable-over;
+}
 
 
 // Hooks
@@ -82,4 +89,5 @@
 .hook-sortable() {}
 .hook-sortable-dragged() {}
 .hook-sortable-placeholder() {}
+.hook-sortable-over() {}
 .hook-sortable-misc() {}
