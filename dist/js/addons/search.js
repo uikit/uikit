@@ -1,94 +1,88 @@
-/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-
 (function(addon) {
 
-    if (typeof define == "function" && define.amd) { // AMD
+    var component;
+
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
+    }
+
+    if (typeof define == "function" && define.amd) {
         define("uikit-search", ["uikit"], function(){
-            return jQuery.UIkit.search || addon(window, window.jQuery, window.jQuery.UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-    if(window && window.jQuery && window.jQuery.UIkit) {
-        addon(window, window.jQuery, window.jQuery.UIkit);
-    }
-
-})(function(global, $, UI){
+})(function($, UI){
 
     "use strict";
 
-    var Search = function(element, options) {
+    UI.component('search', {
+        defaults: {
+            msgResultsHeader   : 'Search Results',
+            msgMoreResults     : 'More Results',
+            msgNoResults       : 'No results found',
+            template           : '<ul class="uk-nav uk-nav-search uk-autocomplete-results">\
+                                      {{#msgResultsHeader}}<li class="uk-nav-header uk-skip">{{msgResultsHeader}}</li>{{/msgResultsHeader}}\
+                                      {{#items && items.length}}\
+                                          {{~items}}\
+                                          <li data-url="{{!$item.url}}">\
+                                              <a href="{{!$item.url}}">\
+                                                  {{{$item.title}}}\
+                                                  {{#$item.text}}<div>{{{$item.text}}}</div>{{/$item.text}}\
+                                              </a>\
+                                          </li>\
+                                          {{/items}}\
+                                          {{#msgMoreResults}}\
+                                              <li class="uk-nav-divider uk-skip"></li>\
+                                              <li class="uk-search-moreresults" data-moreresults="true"><a href="#" onclick="jQuery(this).closest(\'form\').submit();">{{msgMoreResults}}</a></li>\
+                                          {{/msgMoreResults}}\
+                                      {{/end}}\
+                                      {{^items.length}}\
+                                        {{#msgNoResults}}<li class="uk-skip"><a>{{msgNoResults}}</a></li>{{/msgNoResults}}\
+                                      {{/end}}\
+                                  </ul>',
 
-        var $element = $(element), $this = this;
+            renderer: function(data) {
 
-        if ($element.data("search")) return;
+                var $this = this, opts = this.options;
 
-        this.autocomplete = new UI.autocomplete($element, $.extend({}, Search.defaults, options));
-
-        this.autocomplete.dropdown.addClass('uk-dropdown-search');
-
-        this.autocomplete.input.on("keyup", function(){
-            $element[this.value ? "addClass":"removeClass"]("uk-active");
-        }).closest("form").on("reset", function(){
-            this.value="";
-            $element.removeClass("uk-active");
-        });
-
-        $element.on('autocomplete-select', function(e, data) {
-            if (data.url) {
-              location.href = data.url;
-            } else if(data.moreresults) {
-              $this.autocomplete.input.closest('form').submit();
+                this.dropdown.append(this.template({"items":data.results || [], "msgResultsHeader":opts.msgResultsHeader, "msgMoreResults": opts.msgMoreResults, "msgNoResults": opts.msgNoResults}));
+                this.show();
             }
-        });
+        },
 
-        $element.data("search", this);
-    };
+        init: function() {
+            var $this = this;
 
-    Search.defaults = {
-        msgResultsHeader   : 'Search Results',
-        msgMoreResults     : 'More Results',
-        msgNoResults       : 'No results found',
-        template           : '<ul class="uk-nav uk-nav-search uk-autocomplete-results">\
-                                  {{#msgResultsHeader}}<li class="uk-nav-header uk-skip">{{msgResultsHeader}}</li>{{/msgResultsHeader}}\
-                                  {{#items && items.length}}\
-                                      {{~items}}\
-                                      <li data-url="{{!$item.url}}">\
-                                          <a href="{{!$item.url}}">\
-                                              {{{$item.title}}}\
-                                              {{#$item.text}}<div>{{{$item.text}}}</div>{{/$item.text}}\
-                                          </a>\
-                                      </li>\
-                                      {{/items}}\
-                                      {{#msgMoreResults}}\
-                                          <li class="uk-nav-divider uk-skip"></li>\
-                                          <li class="uk-search-moreresults" data-moreresults="true"><a href="javascript:jQuery(this).closest(\'form\').submit();">{{msgMoreResults}}</a></li>\
-                                      {{/msgMoreResults}}\
-                                  {{/end}}\
-                                  {{^items.length}}\
-                                    {{#msgNoResults}}<li class="uk-skip"><a>{{msgNoResults}}</a></li>{{/msgNoResults}}\
-                                  {{/end}}\
-                              </ul>',
+            this.autocomplete = UI.autocomplete(this.element, this.options);
 
-        renderer: function(data) {
+            this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
-            var $this = this, opts = this.options;
+            this.autocomplete.input.on("keyup", function(){
+                $this.element[$this.value ? "addClass":"removeClass"]("uk-active");
+            }).closest("form").on("reset", function(){
+                $this.value="";
+                $this.element.removeClass("uk-active");
+            });
 
-            this.dropdown.append(this.template({"items":data.results || [], "msgResultsHeader":opts.msgResultsHeader, "msgMoreResults": opts.msgMoreResults, "msgNoResults": opts.msgNoResults}));
-            this.show();
+            this.on('autocomplete-select', function(e, data) {
+                if (data.url) {
+                  location.href = data.url;
+                } else if(data.moreresults) {
+                  this.autocomplete.input.closest('form').submit();
+                }
+            });
+
+            this.element.data("search", this);
         }
-    };
-
-    UI["search"] = Search;
+    });
 
     // init code
     $(document).on("focus.search.uikit", "[data-uk-search]", function(e) {
         var ele = $(this);
 
         if (!ele.data("search")) {
-            var obj = new Search(ele, UI.Utils.options(ele.attr("data-uk-search")));
+            var obj = UI.search(ele, UI.Utils.options(ele.attr("data-uk-search")));
         }
     });
-
-    return Search;
-
 });

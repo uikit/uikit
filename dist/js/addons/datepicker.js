@@ -1,120 +1,132 @@
-/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-
 (function(addon) {
 
-    if (typeof define == "function" && define.amd) { // AMD
+    var component;
+
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
+    }
+
+    if (typeof define == "function" && define.amd) {
         define("uikit-datepicker", ["uikit"], function(){
-            return jQuery.UIkit.datepicker || addon(window, window.jQuery, window.jQuery.UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-    if(window && window.jQuery && window.jQuery.UIkit) {
-        addon(window, window.jQuery, window.jQuery.UIkit);
-    }
-
-})(function(global, $, UI){
+})(function($, UI){
 
     // Datepicker
 
-    var active   = false,
-        dropdown = $('<div class="uk-dropdown uk-datepicker"></div>'),
-        moment;
+    var active = false, dropdown, moment;
 
-    dropdown.on("click", ".uk-datepicker-next, .uk-datepicker-previous, [data-date]", function(e){
-        e.stopPropagation();
-        e.preventDefault();
+    UI.component('datepicker', {
 
-        var ele = $(this);
+        defaults: {
+            weekstart: 1,
+            i18n: {
+                months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
+                weekdays      : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+            },
+            format: "DD.MM.YYYY",
+            offsettop: 5,
+            maxDate: false,
+            minDate: false,
+            template: function(data, opts) {
 
-        if(ele.is('[data-date]')) {
-            active.element.val(moment(ele.data("date")).format(active.options.format)).trigger("change");
-            dropdown.hide();
-            active = false;
-        } else {
-           active.add("months", 1 * (ele.hasClass("uk-datepicker-next") ? 1:-1));
-        }
-    });
+                var content = '', maxDate, minDate;
 
-    var DatePicker = function(element, options) {
-
-        var $this = this, $element = $(element);
-
-        if($element.data("datepicker")) return;
-
-        this.element  = $element;
-        this.options  = $.extend({}, DatePicker.defaults, options);
-        this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
-
-        this.element.on("click", function(){
-            if(active!==$this) $this.pick(this.value);
-        }).on("change", function(){
-
-            if($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
-               $this.element.val(moment().format($this.options.format));
-            }
-
-        });
-
-        this.element.data("datepicker", this);
-    };
-
-    DatePicker.defaults = {
-        weekstart: 1,
-        i18n: {
-            months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
-            weekdays      : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-        },
-        format: "DD.MM.YYYY",
-        offsettop: 5,
-        template: function(data, opts) {
-
-            var content = '';
-
-
-            content += '<div class="uk-datepicker-nav">';
-            content += '<a href="" class="uk-datepicker-previous"></a>';
-            content += '<a href="" class="uk-datepicker-next"></a>';
-            content += '<div class="uk-datepicker-heading">'+ opts.i18n.months[data.month] +' '+ data.year+'</div>';
-            content += '</div>';
-
-            content += '<table class="uk-datepicker-table">';
-            content += '<thead>';
-            for(var i = 0; i < data.weekdays.length; i++) {
-                if (data.weekdays[i]) {
-                    content += '<th>'+data.weekdays[i]+'</th>';
+                if (opts.maxDate!==false){
+                    maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add('days',opts.maxDate);
                 }
-            }
-            content += '</thead>';
 
-            content += '<tbody>';
-            for(var i = 0; i < data.days.length; i++) {
-                if (data.days[i] && data.days[i].length){
-                    content += '<tr>';
-                    for(var d = 0; d < data.days[i].length; d++) {
-                        if (data.days[i][d]) {
-                            var day = data.days[i][d],
-                                cls = [];
+                if (opts.minDate!==false){
+                    minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add('days',opts.minDate-1);
+                }
 
-                            if(!day.inmonth) cls.push("uk-datepicker-table-muted");
-                            if(day.selected) cls.push("uk-active");
+                content += '<div class="uk-datepicker-nav">';
+                content += '<a href="" class="uk-datepicker-previous"></a>';
+                content += '<a href="" class="uk-datepicker-next"></a>';
+                content += '<div class="uk-datepicker-heading">'+ opts.i18n.months[data.month] +' '+ data.year+'</div>';
+                content += '</div>';
 
-                            content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
-                        }
+                content += '<table class="uk-datepicker-table">';
+                content += '<thead>';
+                for(var i = 0; i < data.weekdays.length; i++) {
+                    if (data.weekdays[i]) {
+                        content += '<th>'+data.weekdays[i]+'</th>';
                     }
-                    content += '</tr>';
                 }
+                content += '</thead>';
+
+                content += '<tbody>';
+                for(var i = 0; i < data.days.length; i++) {
+                    if (data.days[i] && data.days[i].length){
+                        content += '<tr>';
+                        for(var d = 0; d < data.days[i].length; d++) {
+                            if (data.days[i][d]) {
+                                var day = data.days[i][d],
+                                    cls = [];
+
+                                if(!day.inmonth) cls.push("uk-datepicker-table-muted");
+                                if(day.selected) cls.push("uk-active");
+
+                                if (maxDate && day.day > maxDate) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
+                                if (minDate && minDate > day.day) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
+
+                                content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
+                            }
+                        }
+                        content += '</tr>';
+                    }
+                }
+                content += '</tbody>';
+
+                content += '</table>';
+
+                return content;
             }
-            content += '</tbody>';
+        },
 
-            content += '</table>';
+        init: function() {
 
+            var $this = this;
 
+            this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
-            return content;
-        }
-    };
+            this.on("click", function(){
+                if(active!==$this) $this.pick(this.value);
+            }).on("change", function(){
 
-    $.extend(DatePicker.prototype, {
+                if($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
+                   $this.element.val(moment().format($this.options.format));
+                }
+
+            });
+
+            // init dropdown
+            if (!dropdown) {
+
+                dropdown = $('<div class="uk-dropdown uk-datepicker"></div>');
+
+                dropdown.on("click", ".uk-datepicker-next, .uk-datepicker-previous, [data-date]", function(e){
+                    e.stopPropagation();
+                    e.preventDefault();
+
+                    var ele = $(this);
+
+                    if (ele.hasClass('uk-datepicker-date-disabled')) return false;
+
+                    if(ele.is('[data-date]')) {
+                        active.element.val(moment(ele.data("date")).format(active.options.format)).trigger("change");
+                        dropdown.hide();
+                        active = false;
+                    } else {
+                       active.add("months", 1 * (ele.hasClass("uk-datepicker-next") ? 1:-1));
+                    }
+                });
+
+                dropdown.appendTo("body");
+            }
+        },
 
         pick: function(initdate) {
 
@@ -223,7 +235,6 @@
         }
     });
 
-    UI["datepicker"] = DatePicker;
 
     // init code
     $(document).on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
@@ -231,7 +242,7 @@
         var ele = $(this);
         if (!ele.data("datepicker")) {
             e.preventDefault();
-            var obj = new DatePicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
+            var obj = UI.datepicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
             ele.trigger("focus");
         }
     });
@@ -244,10 +255,6 @@
             dropdown.hide();
             active = false;
         }
-    });
-
-    $(function(){
-        dropdown.appendTo("body");
     });
 
     //! moment.js
@@ -307,7 +314,7 @@
     b);this._milliseconds-=c._milliseconds;this._days-=c._days;this._months-=c._months;this._bubble();return this},get:function(a){a=n(a);return this[a.toLowerCase()+"s"]()},as:function(a){a=n(a);return this["as"+a.charAt(0).toUpperCase()+a.slice(1)+"s"]()},lang:e.fn.lang,toIsoString:function(){var a=Math.abs(this.years()),b=Math.abs(this.months()),c=Math.abs(this.days()),d=Math.abs(this.hours()),e=Math.abs(this.minutes()),g=Math.abs(this.seconds()+this.milliseconds()/1E3);return this.asSeconds()?(0>
     this.asSeconds()?"-":"")+"P"+(a?a+"Y":"")+(b?b+"M":"")+(c?c+"D":"")+(d||e||g?"T":"")+(d?d+"H":"")+(e?e+"M":"")+(g?g+"S":""):"P0D"}});for(k in Y)Y.hasOwnProperty(k)&&(pa(k,Y[k]),Va(k.toLowerCase()));pa("Weeks",6048E5);e.duration.fn.asMonths=function(){return(+this-31536E6*this.years())/2592E6+12*this.years()};e.lang("en",{ordinal:function(a){var b=a%10,b=1===h(a%100/10)?"th":1===b?"st":2===b?"nd":3===b?"rd":"th";return a+b}});return e}).call(this);
 
-    DatePicker.moment = moment;
+    UI.datepicker.moment = moment;
 
-    return DatePicker;
+    return UI.datepicker;
 });
