@@ -326,8 +326,12 @@
             list.css('min-height', list.height());
 
             children.stop().each(function(){
-                var ele = $(this);
-                ele.data('offset-before', ele.position());
+                var ele = $(this),
+                    offset = ele.position();
+
+                    offset.width = ele.width();
+
+                ele.data('offset-before', offset);
             });
 
             elementToMoveNextTo.parentNode.insertBefore(element, next);
@@ -338,7 +342,7 @@
             }).each(function() {
                 var ele    = $(this),
                     before = ele.data('offset-before');
-                ele.css({'position':'absolute', 'top':before.top, 'left':before.left});
+                ele.css({'position':'absolute', 'top':before.top, 'left':before.left, 'min-width':before.width });
             });
 
             children.each(function(){
@@ -351,7 +355,7 @@
 
                     setTimeout(function(){
                         ele.animate({'top':offset.top, 'left':offset.left}, $this.options.animation, function() {
-                            ele.css({'position':'','top':'', 'left':'', 'pointer-events':''}).removeClass($this.options.overClass).attr('data-child-dragenter', '');
+                            ele.css({'position':'','top':'', 'left':'', 'min-width': '', 'pointer-events':''}).removeClass($this.options.overClass).attr('data-child-dragenter', '');
                             count--
                             if(!count) list.css('min-height', '');
                         });

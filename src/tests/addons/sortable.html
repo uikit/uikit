@@ -13,27 +13,6 @@
             .test { height: 100px; }
 
         </style>
-
-        <script>
-
-            $(window).on('load', function(){
-                var animation = $('#animation');
-
-                animation.on('click', (function(){
-
-                    var sortables = $('[data-uk-sortable]'), fn = function() {
-                        sortables.each(function(){
-                            $(this).data('sortable').options.animation = animation.prop('checked') ? 60:false;
-                        });
-                    };
-
-                    fn();
-
-                    return fn;
-                })());
-            });
-
-        </script>
     </head>
 
     <body>
