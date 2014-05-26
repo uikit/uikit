@@ -3,6 +3,8 @@
 //
 // Component:       `uk-sortable`
 //
+// Sub-objects:     `uk-sortable-moving`
+//
 // Modifier:        `uk-sortable-dragged`
 //                  `uk-sortable-placeholder`
 //                  `uk-sortable-over`
@@ -33,7 +35,7 @@
  * Makes text unselectable
  */
 
-.uk-sortable [draggable] {
+.uk-sortable > * {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -45,7 +47,7 @@
  * Currently only works in Webkit
  */
 
-.uk-sortable [draggable] * {
+.uk-sortable > * * {
     -webkit-user-drag: none;
     user-drag: none;
 }
@@ -79,6 +81,13 @@
     opacity: @sortable-over-opacity;
     .hook-sortable-over;
 }
+
+/* Sub-object `uk-nestable-moving`
+ ========================================================================== */
+
+.uk-sortable-moving,
+/* Needed if moving over links or buttons */
+.uk-sortable-moving * { cursor: move; }
 
 
 // Hooks
