@@ -1,47 +1,37 @@
-/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-
 (function(addon) {
 
-    if (typeof define == "function" && define.amd) { // AMD
+    var component;
+
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
+    }
+
+    if (typeof define == "function" && define.amd) {
         define("uikit-autocomplete", ["uikit"], function(){
-            return jQuery.UIkit.autocomplete || addon(window, window.jQuery, window.jQuery.UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-    if(window && window.jQuery && window.jQuery.UIkit) {
-        addon(window, window.jQuery, window.jQuery.UIkit);
-    }
+})(function($, UI){
 
-})(function(global, $, UI){
+    UI.component('autocomplete', {
 
-    var Autocomplete = function(element, options) {
+        defaults: {
+            minLength: 3,
+            param: 'search',
+            method: 'post',
+            delay: 300,
+            loadingClass: 'uk-loading',
+            flipDropdown: false,
+            skipClass: 'uk-skip',
+            hoverClass: 'uk-active',
+            source: null,
+            renderer: null,
 
-        var $this = this, $element = $(element);
+            // template
 
-        if($element.data("autocomplete")) return;
-
-        this.options = $.extend({}, Autocomplete.defaults, options);
-        this.element = $element;
-
-        this.dropdown = $element.find('.uk-dropdown');
-        this.template = $element.find('script[type="text/autocomplete"]').html();
-        this.template = UI.Utils.template(this.template || this.options.template);
-        this.input    = $element.find("input:first").attr("autocomplete", "off");
-
-        this.element.data("autocomplete", this);
-
-        if (!this.dropdown.length) {
-           this.dropdown = $('<div class="uk-dropdown"></div>').appendTo($element);
-        }
-
-        if (this.options.flipDropdown) {
-            this.dropdown.addClass('uk-dropdown-flip');
-        }
-
-        this.init();
-    };
-
-    $.extend(Autocomplete.prototype, {
+            template: '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
+        },
 
         visible  : false,
         value    : null,
@@ -55,8 +45,22 @@
                     if(select) {
                         return (select = false);
                     }
-                    $this.trigger();
+                    $this.handle();
                 }, this.options.delay);
+
+
+            this.dropdown = this.find('.uk-dropdown');
+            this.template = this.find('script[type="text/autocomplete"]').html();
+            this.template = UI.Utils.template(this.template || this.options.template);
+            this.input    = this.find("input:first").attr("autocomplete", "off");
+
+            if (!this.dropdown.length) {
+               this.dropdown = $('<div class="uk-dropdown"></div>').appendTo(this.element);
+            }
+
+            if (this.options.flipDropdown) {
+                this.dropdown.addClass('uk-dropdown-flip');
+            }
 
             this.input.on({
                 "keydown": function(e) {
@@ -102,7 +106,7 @@
             });
         },
 
-        trigger: function() {
+        handle: function() {
 
             var $this = this, old = this.value;
 
@@ -153,7 +157,7 @@
 
             var data = this.selected.data();
 
-            this.element.trigger("autocomplete-select", [data, this]);
+            this.trigger("autocomplete-select", [data, this]);
 
             if (data.value) {
                 this.input.val(data.value);
@@ -267,33 +271,14 @@
         }
     });
 
-    Autocomplete.defaults = {
-        minLength: 3,
-        param: 'search',
-        method: 'post',
-        delay: 300,
-        loadingClass: 'uk-loading',
-        flipDropdown: false,
-        skipClass: 'uk-skip',
-        hoverClass: 'uk-active',
-        source: null,
-        renderer: null,
-
-        // template
-
-        template: '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
-    };
-
-    UI["autocomplete"] = Autocomplete;
-
     // init code
     $(document).on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
 
         var ele = $(this);
         if (!ele.data("autocomplete")) {
-            var obj = new Autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
+            var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
         }
     });
 
-    return Autocomplete;
+    return UI.autocomplete;
 });

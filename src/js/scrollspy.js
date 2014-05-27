@@ -3,6 +3,7 @@
     "use strict";
 
     var $win           = $(window),
+        $doc           = $(document),
         scrollspies    = [],
         checkScrollSpy = function() {
             for(var i=0; i < scrollspies.length; i++) {
@@ -65,7 +66,6 @@
             scrollspies.push(this);
         }
     });
-
 
 
     var scrollspynavs = [],
@@ -145,10 +145,11 @@
     };
 
     // listen to scroll and resize
-    $win.on("scroll", fnCheck).on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
+    $doc.on("uk-scroll", fnCheck);
+    $win.on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
 
     // init code
-    $(document).on("uk-domready", function(e) {
+    $doc.on("uk-domready", function(e) {
         $("[data-uk-scrollspy]").each(function() {
 
             var element = $(this);

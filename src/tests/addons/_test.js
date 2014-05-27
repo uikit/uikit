@@ -21,6 +21,7 @@
             "form-password",
             "form-select",
             "htmleditor",
+            "nestable",
             "notify",
             "pagination",
             "placeholder",

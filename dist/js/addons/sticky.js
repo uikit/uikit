@@ -1,38 +1,67 @@
-/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-
 (function(addon) {
 
-    if (typeof define == "function" && define.amd) { // AMD
+    var component;
+
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
+    }
+
+    if (typeof define == "function" && define.amd) {
         define("uikit-sticky", ["uikit"], function(){
-            return jQuery.fn.uksticky || addon(window, window.jQuery, window.jQuery.UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-    if(window && window.jQuery && window.jQuery.UIkit) {
-        addon(window, window.jQuery, window.jQuery.UIkit);
-    }
+})(function($, UI){
 
-})(function(global, $, UI){
+    var $win         = $(window),
+        $doc         = $(document),
+        sticked      = [],
+        windowHeight = $win.height();
 
-  var defaults = {
-        top          : 0,
-        bottom       : 0,
-        clsactive    : 'uk-active',
-        clswrapper   : 'uk-sticky',
-        getWidthFrom : ''
-      },
+    UI.component('sticky', {
 
-      $window = $(window),
-      $document = $(document),
+        defaults: {
+            top          : 0,
+            bottom       : 0,
+            clsactive    : 'uk-active',
+            clswrapper   : 'uk-sticky',
+            getWidthFrom : ''
+        },
 
-      sticked = [],
+        init: function() {
 
-      windowHeight = $window.height(),
+            var stickyId = this.element.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
+                wrapper  = $('<div></div>').attr('id', 'sticky-'+stickyId).addClass(this.options.clswrapper);
 
-      scroller = function() {
+            this.element.wrapAll(wrapper);
 
-        var scrollTop       = $window.scrollTop(),
-            documentHeight  = $document.height(),
+            if (this.element.css("float") == "right") {
+                this.element.css({"float":"none"}).parent().css({"float":"right"});
+            }
+
+            var stickyWrapper = this.element.parent().css('height', this.element.outerHeight());
+
+            sticked.push({
+                top: this.options.top,
+                bottom: this.options.bottom,
+                stickyElement: this.element,
+                currentTop: null,
+                stickyWrapper: stickyWrapper,
+                clsactive: this.options.clsactive,
+                getWidthFrom: this.options.getWidthFrom
+            });
+        },
+
+        update: function() {
+            scroller();
+        }
+    });
+
+    function scroller() {
+
+        var scrollTop       = $win.scrollTop(),
+            documentHeight  = $doc.height(),
             dwh             = documentHeight - windowHeight,
             extra           = (scrollTop > dwh) ? dwh - scrollTop : 0;
 
@@ -70,78 +99,30 @@
             }
         }
 
-      },
+    }
 
-      resizer = function() {
-        windowHeight = $window.height();
-      },
+    function resizer() {
+        windowHeight = $win.height();
+    }
 
-      methods = {
+    // should be more efficient than using $win.scroll(scroller) and $win.resize(resizer):
+    $doc.on('uk-scroll', scroller);
+    $win.on('resize orientationchange', resizer);
 
-        init: function(options) {
+    $doc.on("uk-domready", function(e) {
+        setTimeout(function(){
 
-          var o = $.extend({}, defaults, options);
+            scroller();
 
-          return this.each(function() {
+            $("[data-uk-sticky]").each(function(){
 
-            var stickyElement = $(this);
+                var $ele = $(this);
 
-            if(stickyElement.data("sticky")) return;
-
-            var stickyId      = stickyElement.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
-                wrapper       = $('<div></div>').attr('id', 'sticky-'+stickyId).addClass(o.clswrapper);
-
-            stickyElement.wrapAll(wrapper);
-
-            if (stickyElement.css("float") == "right") {
-              stickyElement.css({"float":"none"}).parent().css({"float":"right"});
-            }
-
-            stickyElement.data("sticky", true);
-
-            var stickyWrapper = stickyElement.parent();
-            stickyWrapper.css('height', stickyElement.outerHeight());
-            sticked.push({
-              top: o.top,
-              bottom: o.bottom,
-              stickyElement: stickyElement,
-              currentTop: null,
-              stickyWrapper: stickyWrapper,
-              clsactive: o.clsactive,
-              getWidthFrom: o.getWidthFrom
+                if(!$ele.data("sticky")) {
+                    UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
+                }
             });
-          });
-        },
-
-        update: scroller
-      };
-
-    // should be more efficient than using $window.scroll(scroller) and $window.resize(resizer):
-    window.addEventListener('scroll', scroller, false);
-    window.addEventListener('resize', resizer, false);
-
-    $.fn.uksticky = function(method) {
-      if (methods[method]) {
-        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-      } else if (typeof method === 'object' || !method ) {
-        return methods.init.apply( this, arguments );
-      } else {
-        $.error('Method ' + method + ' does not exist on jQuery.sticky');
-      }
-    };
-
-    $(document).on("uk-domready", function(e) {
-      setTimeout(function(){
-
-        scroller();
-
-        $("[data-uk-sticky]").each(function(){
-
-          var $ele    = $(this);
-
-          if(!$ele.data("sticky")) $ele.uksticky(UI.Utils.options($ele.attr('data-uk-sticky')));
-        });
-      }, 0);
+        }, 0);
     });
 
     return $.fn.uksticky;

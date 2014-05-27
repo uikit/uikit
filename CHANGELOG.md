@@ -3,8 +3,10 @@
 ### WIP
 
   - IMPORTANT: Renamed markdownarea to htmleditor
+  - IMPORTANT: Renamed sortable to nestable
   - IMPORTANT: Added uk-dropdown-grid to decouple grids in dropdowns
   - Added $.UIkit.component interface for creating UIkit JS components
+  - Added sortable add-on
   - Added form-select add-on
   - Added form-advanced add-on
   - Added pagination JavaScript add-on
@@ -12,7 +14,9 @@
   - Added minDate, maxDate options to datepicker add-on
   - Added font-weight variable to text large
   - Added new hooks and variables to form labels
+  - Added triggering 'uk.dropdown.show', 'uk.dropdown.stack' events
   - Optimized multipliers for 16px font-size in default themes
+  - Optimized offcanvas animation
   - Changed data-uk-grid-match row parameter to true by default
   - Fixed sticky z-index in themes
   - Fixed wrong scaling calculation for overlay images in Chrome
@@ -25,8 +29,10 @@
   - Fixed button checkbox initial event triggering
   - Fixed offcanvas removing existing style properties on close
   - Removed unneeded brackets from LESS operations
+  - Removed breaking strings on small devices by default from base
   - Prevent search-field uk-active issue
   - Updated dropdown flip and stack behavior
+  - Updated icon component to Font Awesome to 4.1
 
 **Documentation and repository**
 

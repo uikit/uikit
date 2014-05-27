@@ -40,7 +40,7 @@
 
     "use strict";
 
-    var UI = $.UIkit || {}, $html = $("html"), $win = $(window);
+    var UI = $.UIkit || {}, $html = $("html"), $win = $(window), $doc = $(document);
 
     if (UI.fn) {
         return UI;
@@ -106,7 +106,7 @@
         return animationEnd && { end: animationEnd };
     })();
 
-    UI.support.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || global.mozRequestAnimationFrame || global.msRequestAnimationFrame || global.oRequestAnimationFrame || function(callback){ global.setTimeout(callback, 1000/60); };
+    UI.support.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || function(callback){ setTimeout(callback, 1000/60); };
     UI.support.touch                 = (
         ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
@@ -265,7 +265,31 @@
 
     $(function(){
 
-        $(document).trigger("uk-domready");
+        $doc.trigger("uk-domready");
+
+        // custom scroll observer
+        setInterval((function(){
+
+            var memory = {x: window.scrollX, y:window.scrollY};
+
+            var fn = function(){
+
+                if (memory.x != window.scrollX || memory.y != window.scrollY) {
+                    memory = {x: window.scrollX, y:window.scrollY};
+                    $doc.trigger('uk-scroll', [memory]);
+                }
+            };
+
+            if ($.UIkit.support.touch) {
+                $doc.on('touchmove touchend MSPointerMove MSPointerUp', fn);
+            }
+
+            if(memory.x || memory.y) fn();
+
+            return fn;
+
+        })(), 15);
+
 
         // Check for dom modifications
         if(!UI.support.mutationobserver) return;
@@ -273,7 +297,7 @@
         try{
 
             var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                $(document).trigger("uk-domready");
+                $doc.trigger("uk-domready");
             }, 150));
 
             // pass in the target node, as well as the observer options

@@ -1,20 +1,13 @@
 // Name:            Sortable
-// Description:     Defines styles for sortable nested lists
+// Description:     Defines styles for sortable grids
 //
 // Component:       `uk-sortable`
 //
-// Sub-objects:     `uk-sortable-list`
-//                  `uk-sortable-item`
+// Sub-objects:     `uk-sortable-moving`
+//
+// Modifier:        `uk-sortable-dragged`
 //                  `uk-sortable-placeholder`
-//                  `uk-sortable-empty`
-//                  `uk-sortable-handle`
-//                  `uk-sortable-moving`
-//                  `[data-sortable-action='toggle']`
-//
-// Modifier:        `uk-sortable-list-dragged`
-//
-// States:          `uk-parent`
-//                  `uk-collapsed`
+//                  `uk-sortable-over`
 //
 // ========================================================================
 
@@ -22,25 +15,11 @@
 // Variables
 // ========================================================================
 
-@sortable-padding-left:                         40px;
 @sortable-dragged-z-index:                      1050;
 
-@sortable-item-margin-bottom:                   10px;
-@sortable-item-padding:                         5px;
-@sortable-item-background:                      #f5f5f5;
+@sortable-placeholder-opacity:                  0;
 
-@sortable-placeholder-border:                   #ddd;
-
-@sortable-empty-height:                         40px;
-
-@sortable-handle-font-size:                     18px;
-@sortable-handle-color:                         #ddd;
-@sortable-handle-icon:                          "\f0c9";
-
-@sortable-toggle-color:                         #999;
-@sortable-toggle-hover-color:                   #444;
-@sortable-toggle-icon:                          "\f147";
-@sortable-toggle-collapsed-icon:                "\f196";
+@sortable-over-opacity:                         0.3;
 
 
 /* ========================================================================
@@ -48,132 +27,67 @@
  ========================================================================== */
 
 .uk-sortable {
-    padding: 0;
-    list-style: none;
+    position: relative;
     .hook-sortable;
 }
 
+/*
+ * Makes text unselectable
+ */
 
-/* Sub-object `uk-sortable-list`
- ========================================================================== */
+.uk-sortable > * {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-.uk-sortable-list {
-    margin: 0;
-    padding-left: @sortable-padding-left;
-    list-style: none;
+/*
+ * Prevents images and links from being dragged (default browser behavior)
+ * Currently only works in Webkit
+ */
+
+.uk-sortable > * * {
+    -webkit-user-drag: none;
+    user-drag: none;
 }
 
 
-/* Sub-modifier `uk-sortable-list-dragged`
+/* Sub-modifier `uk-sortable-dragged`
  ========================================================================== */
 
-.uk-sortable-list-dragged {
+.uk-sortable-dragged {
     position: absolute;
     z-index: @sortable-dragged-z-index;
-    padding-left: 0;
     pointer-events: none;
-    .hook-sortable-list-dragged;
+    .hook-sortable-dragged;
 }
 
 
-/* Sub-object `uk-sortable-item`
- ========================================================================== */
-
-.uk-sortable-item {
-    margin-bottom: @sortable-item-margin-bottom;
-    padding: @sortable-item-padding;
-    background: @sortable-item-background;
-    .hook-sortable-item;
-}
-
-
-/* Sub-object `uk-sortable-placeholder`
- * The placeholder which marks the drop area
+/* Sub-modifier `uk-sortable-placeholder`
  ========================================================================== */
 
 .uk-sortable-placeholder {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-bottom: @sortable-item-margin-bottom;
-    border: 1px dashed @sortable-placeholder-border;
+    opacity: @sortable-placeholder-opacity;
     .hook-sortable-placeholder;
 }
 
 
-/* Sub-object `uk-sortable-empty`
- * The style of an empty list
+/* Sub-modifier `uk-sortable-over`
+ * Only if `warp:true`
  ========================================================================== */
 
-.uk-sortable-empty {
-    min-height: @sortable-empty-height;
-    .hook-sortable-empty;
+.uk-sortable-over {
+    opacity: @sortable-over-opacity;
+    .hook-sortable-over;
 }
 
-
-/* Sub-object `uk-sortable-handle`
- ========================================================================== */
-
-.uk-sortable-handle {
-    display: inline-block;
-    font-size: @sortable-handle-font-size;
-    color: @sortable-handle-color;
-    .hook-sortable-handle;
-}
-
-/* Hover */
-.uk-sortable-handle:hover { cursor: move; }
-
-/* Icon */
-.uk-sortable-handle:after {
-    content: @sortable-handle-icon;
-    font-family: FontAwesome;
-}
-
-
-/* Sub-object `uk-sortable-moving`
+/* Sub-object `uk-nestable-moving`
  ========================================================================== */
 
 .uk-sortable-moving,
 /* Needed if moving over links or buttons */
 .uk-sortable-moving * { cursor: move; }
-
-
-/* Sub-object `[data-action='toggle']`
- ========================================================================== */
-
-/* Hidden by default */
-[data-sortable-action='toggle'] {
-    display: inline-block;
-    color: @sortable-toggle-color;
-    visibility: hidden;
-    .hook-sortable-toggle;
-}
-
-/* Hover */
-[data-sortable-action='toggle']:hover {
-    color: @sortable-toggle-hover-color;
-    cursor: pointer;
-}
-
-/* Icon */
-[data-sortable-action='toggle']:after {
-    content: @sortable-toggle-icon;
-    font-family: FontAwesome;
-}
-
-/*
- * Show if nested
- */
-
-.uk-parent > .uk-sortable-item [data-sortable-action='toggle'] { visibility: visible; }
-
-/*
- * Collapsed
- */
-
-.uk-collapsed > .uk-sortable-item [data-sortable-action='toggle']:after { content: @sortable-toggle-collapsed-icon; }
-
-.uk-collapsed .uk-sortable-list { display: none; }
 
 
 // Hooks
@@ -182,10 +96,7 @@
 .hook-sortable-misc;
 
 .hook-sortable() {}
-.hook-sortable-list-dragged() {}
-.hook-sortable-item() {}
+.hook-sortable-dragged() {}
 .hook-sortable-placeholder() {}
-.hook-sortable-empty() {}
-.hook-sortable-handle() {}
-.hook-sortable-toggle() {}
+.hook-sortable-over() {}
 .hook-sortable-misc() {}

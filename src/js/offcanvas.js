@@ -2,7 +2,8 @@
 
     "use strict";
 
-    var $win      = $(window),
+    var scrollpos = {x: window.scrollX, y: window.scrollY},
+        $win      = $(window),
         $doc      = $(document),
         Offcanvas = {
 
@@ -12,20 +13,21 @@
 
             if (!element.length) return;
 
-            var doc       = $("html"),
+            var $html     = $('body'),
+                winwidth  = $win.width(),
                 bar       = element.find(".uk-offcanvas-bar:first"),
                 rtl       = ($.UIkit.langdirection == "right"),
-                dir       = (bar.hasClass("uk-offcanvas-bar-flip") ? -1 : 1) * (rtl ? -1 : 1),
-                scrollbar = dir == -1 && $win.width() < window.innerWidth ? (window.innerWidth - $win.width()) : 0;
+                flip      = bar.hasClass("uk-offcanvas-bar-flip") ? -1:1,
+                dir       = flip * (rtl ? -1 : 1);
 
             scrollpos = {x: window.scrollX, y: window.scrollY};
 
             element.addClass("uk-active");
 
-            doc.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
-            doc.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * ((bar.outerWidth() - scrollbar) * dir)).width(); // .width() - force redraw
+            $html.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
+            $html.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
 
-            bar.addClass("uk-offcanvas-bar-show").width();
+            bar.addClass("uk-offcanvas-bar-show");
 
             element.off(".ukoffcanvas").on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
 
@@ -52,7 +54,7 @@
 
         hide: function(force) {
 
-            var doc   = $("html"),
+            var $html = $('body'),
                 panel = $(".uk-offcanvas.uk-active"),
                 rtl   = ($.UIkit.langdirection == "right"),
                 bar   = panel.find(".uk-offcanvas-bar:first");
@@ -61,18 +63,18 @@
 
             if ($.UIkit.support.transition && !force) {
 
-                doc.one($.UIkit.support.transition.end, function() {
-                    doc.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
+                $html.one($.UIkit.support.transition.end, function() {
+                    $html.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
                     panel.removeClass("uk-active");
                     window.scrollTo(scrollpos.x, scrollpos.y);
                 }).css((rtl ? "margin-right" : "margin-left"), "");
 
                 setTimeout(function(){
                     bar.removeClass("uk-offcanvas-bar-show");
-                }, 50);
+                }, 0);
 
             } else {
-                doc.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
+                $html.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
                 panel.removeClass("uk-active");
                 bar.removeClass("uk-offcanvas-bar-show");
                 window.scrollTo(scrollpos.x, scrollpos.y);
@@ -81,8 +83,7 @@
             panel.off(".ukoffcanvas");
             $doc.off(".ukoffcanvas");
         }
-
-    }, scrollpos;
+    };
 
     UI.component('offcanvasTrigger', {
 
