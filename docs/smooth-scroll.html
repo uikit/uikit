@@ -97,7 +97,7 @@
                         </ul>
 
                     </div>
-                    <div class="tm-main uk-width-medium-3-4" style="min-height: 1800px;">
+                    <div class="tm-main uk-width-medium-3-4">
 
                         <article class="uk-article">
 
@@ -107,9 +107,11 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To gradually descrease the speed when you jump from one section of your page to another, for example with a to-top scroller, just add the <code>data-uk-smooth-scroll</code> attribute to an <code>&lt;a&gt;</code> element.</p>
+                            <p>To gradually descrease the speed when you jump from one section of your page to another, for example with a to-top scroller, just add the <code>data-uk-smooth-scroll</code> attribute to an <code>&lt;a&gt;</code> element, that links to the ID of the section you want to target.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>In our example we are using the heading <em>Smooth scroll</em> as target.</p>
 
                             <a href="#top" class="uk-button" data-uk-smooth-scroll>Go Up!</a>
 
@@ -125,7 +127,7 @@
 
                             <h2 id="offset"><a href="#offset" class="uk-link-reset">Offset</a></h2>
 
-                            <p>The offset-option adds pixels to offset from top when calculating position of scroll. The offset can be passed via the data-attribute. The value can be positive to stop scrolling before the target or negative to stop scrolling after the target.</p>
+                            <p>The offset-option adds a specified distance to the target when calculating the scroll position. The offset is passed via the data-attribute. The value can be positive to stop scrolling before the target or negative to stop scrolling after the target.</p>
 
                             <table class="uk-table">
                                 <thead>
