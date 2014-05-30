@@ -105,7 +105,7 @@
 
                             <p class="uk-article-lead">Enhance your site with a nice effect that slows down the scrolling when jumping to another part of your page.</p>
 
-                            <h2>Usage</h2>
+                            <h2 id="usage"><a href="#usage">Usage</a></h2>
 
                             <p>To gradually descrease the speed when you jump from one section of your page to another, for example with a to-top scroller, just add the <code>data-uk-smooth-scroll</code> attribute to an <code>&lt;a&gt;</code> element.</p>
 
@@ -118,6 +118,45 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;a href="#my-id" class="uk-button" data-uk-smooth-scroll>...&lt;/a&gt;</code></pre>
+
+
+                            <hr class="uk-article-divider">
+
+
+                            <h2 id="offset"><a href="#offset">Offset</a></h2>
+
+                            <p>The offset-option adds pixels to offset from top when calculating position of scroll. The offset can be passed via the data-attribute. The value can be positive to stop scrolling before the target or negative to stop scrolling after the target.</p>
+
+                            <table class="uk-table">
+                                <thead>
+                                    <tr>
+                                        <th>Data attribute</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>data-uk-smooth-scroll="{offset: 90}"</code></td>
+                                        <td>Adds an offset, that stops scrolling 90px before the target.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>data-uk-smooth-scroll="{offset: -90}"</code></td>
+                                        <td>Adds an offset, that stops scrolling 90px after the target.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p><a href="#bottom" data-uk-smooth-scroll="{offset: 90}">This link</a> scrolls the site to the headline &quot;Smooth scroll&quot; with an offset of <code>90px</code>.</p>
+
+                            <p><a href="#bottom" data-uk-smooth-scroll="{offset: -90}">This link</a> scrolls the site to the headline &quot;Smooth scroll&quot; with an offset of <code>-90px</code>.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a href="#my-id" class="uk-button" data-uk-smooth-scroll="{offset: 90}">...&lt;/a&gt;
+
+&lt;a href="#my-id" class="uk-button" data-uk-smooth-scroll="{offset: -90}">...&lt;/a&gt;</code></pre>
 
                         </article>
 
