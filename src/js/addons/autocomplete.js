@@ -69,9 +69,12 @@
 
                         switch (e.which) {
                             case 13: // enter
-                                e.preventDefault();
                                 select = true;
-                                $this.select();
+
+                                if ($this.selected) {
+                                    e.preventDefault();
+                                    $this.select();
+                                }
                                 break;
                             case 38: // up
                                 e.preventDefault();
