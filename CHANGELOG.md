@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.7.0 (June 05, 2014)
 
   - IMPORTANT: Renamed markdownarea to htmleditor
   - IMPORTANT: Renamed sortable to nestable
