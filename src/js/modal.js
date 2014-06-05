@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var active = false, html = $("html");
+    var active = false, body;
 
     UI.component('modal', {
 
@@ -16,6 +16,8 @@
         transition: false,
 
         init: function() {
+
+            if (!body) body = $('body');
 
             var $this = this;
 
@@ -53,7 +55,7 @@
             this.resize();
 
             active = this;
-            html.addClass("uk-modal-page").height(); // force browser engine redraw
+            body.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
@@ -84,9 +86,9 @@
 
             var paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
 
-            this.scrollbarwidth = window.innerWidth - html.width();
+            this.scrollbarwidth = window.innerWidth - body.width();
 
-            html.css(paddingdir, this.scrollbarwidth);
+            body.css(paddingdir, this.scrollbarwidth);
 
             this.element.css(paddingdir, "");
 
@@ -121,7 +123,7 @@
 
             this.element.hide().removeClass("uk-open");
 
-            html.removeClass("uk-modal-page").css("padding-" + (UI.langdirection == 'left' ? "right":"left"), "");
+            body.removeClass("uk-modal-page").css("padding-" + (UI.langdirection == 'left' ? "right":"left"), "");
 
             if(active===this) active = false;
 
