@@ -584,7 +584,7 @@
 
     $(document).on("uk-check-display", function(e) {
         editors.forEach(function(item) {
-            if(item.element.is(":visible")) item.fit();
+            if(item.htmleditor.is(":visible")) item.fit();
         });
     });
 
