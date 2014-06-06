@@ -76,104 +76,69 @@
 
                             <h1>Sortable</h1>
 
-                            <p class="uk-article-lead">Create sortable lists that can be sorted by drag and drop.</p>
+                            <p class="uk-article-lead">Create sortable grids that can be sorted using native HTML5 drag and drop API.</p>
 
-                            <p>Click on and drag an element to a new spot within the list, and the other items will adjust to fit. This is great, if you want to list items like gallery or menu items, for example.</p>
+                            <p>Drag and drop an element to a new location within the the sortable grid, while the other items adjust to fit. This is great, if you want to list items like gallery or menu items, for example.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>A sortable list consists of the list itself and its items.</p>
+                            <p>To apply this component, add the <code>.uk-sortable</code> class to a container to define the add-on and use block elements as child elements. To enable the necessary JavaScript, just add the <code>data-uk-sortable</code> attribute.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class/Data attribute</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-sortable</code></td>
-                                        <td>Add this class to a <code>&lt;root&gt;</code> element to define the addon.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>data-uk-sortable</code></td>
-                                        <td>To enable the necessary JavaScript, just add this data attribute.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <p>A sortable list consists of the list itself and its items.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
+                            <p>In this example we used a grid from the <a href="grid.html">Grid component</a> to arrange the sortable items.</p>
+
                             <ul class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-5" data-uk-sortable>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test"><a href="http://www.getuikit.com">Test 1</a></div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 2</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 3</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 4</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 5</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 6</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 7</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 8</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 9</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 10</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 11</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box test">Item 12</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 1</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 2</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 3</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 4</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 5</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 6</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 7</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 8</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 9</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 10</div></li>
                             </ul>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-sortable uk-grid uk-grid-width-1-5" data-uk-sortable&gt;
-    &lt;li&gt;
-        &lt;div class="uk-panel uk-panel-box"&gt;
-            ...
-        &lt;/div&gt;
-    &lt;/li&gt;
-    &lt;li&gt;
-        &lt;div class="uk-panel uk-panel-box"&gt;
-            ...
-        &lt;/div&gt;
-    &lt;/li&gt;
-    ...
+<pre><code>&lt;ul class="uk-sortable" data-uk-sortable&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id ="sort-stacked-lists"><a href="#sort-stacked-lists" class="uk-link-reset">Sort stacked lists</a></h2>
+                            <h3 id ="sort-any-element"><a href="#sort-any-element" class="uk-link-reset">Sort any element</a></h3>
 
-                            <p>The sortable add-on is not limited to <code>ul</code> lists. You can use any block element as a root container.</p>
+                            <p>The sortable add-on is not limited to <code>&lt;ul&gt;</code> elements. You can use any block element as a container.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-sortable" data-uk-sortable>
-                                <div><p class="uk-panel uk-panel-box">Item 1</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 2</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 3</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 4</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 5</p></div>
+                               <div><p class="uk-alert">Item 1</p></div>
+                               <div><p class="uk-alert">Item 2</p></div>
+                               <div><p class="uk-alert">Item 3</p></div>
+                               <div><p class="uk-alert">Item 4</p></div>
+                               <div><p class="uk-alert">Item 5</p></div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 
 <pre><code>&lt;div class="uk-sortable" data-uk-sortable&gt;
-    &lt;div&gt;
-        &lt;div class="uk-panel uk-panel-box"&gt;
-            ...
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div&gt;
-        &lt;div class="uk-panel uk-panel-box"&gt;
-            ...
-        &lt;/div&gt;
-    &lt;/div&gt;
-    ...
+    &lt;div&gt;...&lt;/div&gt;
+    &lt;div&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
                             <h2 id ="sort-warp-lists"><a href="#sort-warp-lists" class="uk-link-reset">Warp mode</a></h2>
 
-                            <p>In the warp mode the ne list order is applied after dropping the dragged element to its new position.</p>
+                            <p>In Warp mode the new list order is applied after dropping the dragged element to its new position.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -188,9 +153,7 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 
-<pre><code>&lt;div class="uk-sortable" data-uk-sortable=&quot;{waro:true}&quot;&gt;
-    ...
-&lt;/div&gt;</code></pre>
+<pre><code>&lt;div class="uk-sortable" data-uk-sortable=&quot;{warp:true}&quot;&gt;...&lt;/div&gt;</code></pre>
 
 
                             <hr class="uk-article-divider">
@@ -198,7 +161,7 @@
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-                            <p>This is an example of how to set options via attribute:</p>
+                            <p>This is an example of how to set options through the data attribute:</p>
 
                             <pre><code>data-uk-sortable=&quot;{animation:0, dragCustomClass:'dragging'}&quot;</code></pre>
 
