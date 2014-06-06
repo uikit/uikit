@@ -49,6 +49,8 @@
             var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
             ele.trigger("click");
         }
+
+        return false;
     });
 
 })(jQuery, jQuery.UIkit);
