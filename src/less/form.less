@@ -426,6 +426,10 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     max-width: 100%;
 }
 
+/*
+ * 1. Make form element clickable through icon
+ */
+
 .uk-form-icon > [class*='uk-icon-'] {
     position: absolute;
     top: 50%;
@@ -434,6 +438,8 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     font-size: @form-icon-font-size;
     color: @form-icon-color;
     text-align: center;
+    /* 1 */
+    pointer-events: none;
 }
 
 .uk-form-icon:not(.uk-form-icon-flip) > input { padding-left: @form-icon-width !important; }
