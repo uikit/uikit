@@ -16,6 +16,7 @@
   - Added new hooks and variables to form labels
   - Added triggering 'uk.dropdown.show', 'uk.dropdown.stack' events
   - Added hidden and visibility classes for breakpoint mini
+  - Added touch support for overlay component
   - Optimized multipliers for 16px font-size in default themes
   - Optimized offcanvas animation
   - Changed data-uk-grid-match row parameter to true by default

@@ -8,6 +8,8 @@
 //                  `uk-overlay-caption`
 //                  `uk-overlay-toggle`
 //
+// States:          `uk-hover`
+//
 // ========================================================================
 
 
@@ -90,11 +92,14 @@
 
 /*
  * Hover
- * 1. Use optional `uk-overlay-toggle` to trigger the overlay earlier
+ * 1. `uk-hover` to support touch devices
+ * 2. Use optional `uk-overlay-toggle` to trigger the overlay earlier
  */
 
 .uk-overlay:hover .uk-overlay-area,
-.uk-overlay-toggle:hover .uk-overlay-area { opacity: 1; } // 1
+.uk-overlay.uk-hover .uk-overlay-area, // 1
+.uk-overlay-toggle:hover .uk-overlay-area, // 2
+.uk-overlay-toggle.uk-hover .uk-overlay-area { opacity: 1; }
 
 /*
  * Icon
@@ -206,11 +211,14 @@
 
 /*
  * Hover
- * 1. Use optional `uk-overlay-toggle` to trigger the overlay earlier
+ * 1. `uk-hover` to support touch devices
+ * 2. Use optional `uk-overlay-toggle` to trigger the overlay earlier
  */
 
 .uk-overlay:hover .uk-overlay-caption,
-.uk-overlay-toggle:hover .uk-overlay-caption { opacity: 1; } // 1
+.uk-overlay.uk-hover .uk-overlay-caption, // 1
+.uk-overlay-toggle:hover .uk-overlay-caption, // 2
+.uk-overlay-toggle.uk-hover .uk-overlay-caption { opacity: 1; } 
 
 
 // Hooks
