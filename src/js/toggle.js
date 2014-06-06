@@ -16,7 +16,7 @@
             this.totoggle = this.options.target ? $(this.options.target):[];
 
             this.on("click", function(e) {
-                e.preventDefault();
+                if ($this.element.is('a[href="#"]')) e.preventDefault();
                 $this.toggle();
             });
         },
