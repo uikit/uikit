@@ -5,6 +5,7 @@
     var scrollpos = {x: window.scrollX, y: window.scrollY},
         $win      = $(window),
         $doc      = $(document),
+        $html     = $('html'),
         Offcanvas = {
 
         show: function(element) {
@@ -13,7 +14,7 @@
 
             if (!element.length) return;
 
-            var $html     = $('body'),
+            var $body     = $('body'),
                 winwidth  = $win.width(),
                 bar       = element.find(".uk-offcanvas-bar:first"),
                 rtl       = ($.UIkit.langdirection == "right"),
@@ -24,8 +25,10 @@
 
             element.addClass("uk-active");
 
-            $html.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
-            $html.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
+            $body.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
+            $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
+
+            $html.css('margin-top', scrollpos.y * -1);
 
             bar.addClass("uk-offcanvas-bar-show");
 
@@ -54,7 +57,7 @@
 
         hide: function(force) {
 
-            var $html = $('body'),
+            var $body = $('body'),
                 panel = $(".uk-offcanvas.uk-active"),
                 rtl   = ($.UIkit.langdirection == "right"),
                 bar   = panel.find(".uk-offcanvas-bar:first");
@@ -63,9 +66,10 @@
 
             if ($.UIkit.support.transition && !force) {
 
-                $html.one($.UIkit.support.transition.end, function() {
-                    $html.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
+                $body.one($.UIkit.support.transition.end, function() {
+                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
                     panel.removeClass("uk-active");
+                    $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
                 }).css((rtl ? "margin-right" : "margin-left"), "");
 
@@ -74,9 +78,10 @@
                 }, 0);
 
             } else {
-                $html.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
+                $body.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
                 panel.removeClass("uk-active");
                 bar.removeClass("uk-offcanvas-bar-show");
+                $html.css('margin-top', '');
                 window.scrollTo(scrollpos.x, scrollpos.y);
             }
 
