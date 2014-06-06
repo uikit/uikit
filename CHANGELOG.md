@@ -1,6 +1,6 @@
 # Changelog
 
-### 2.7.0 (June 05, 2014)
+### 2.7.0 (June 06, 2014)
 
   - IMPORTANT: Renamed markdownarea to htmleditor
   - IMPORTANT: Renamed sortable to nestable
@@ -26,7 +26,6 @@
   - Fixed printing for animations and scrollspy
   - Fixed text-decoration for navbar brand and toggle
   - Fixed overlay if its content has margin bottom
-  - Fixed overlay support for touch devices
   - Fixed more results in search add-on
   - Fixed size of active item in pagination for almost-flat theme
   - Fixed location.hash usage for tabs
