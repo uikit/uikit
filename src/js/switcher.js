@@ -15,7 +15,7 @@
             var $this = this;
 
             this.on("click", this.options.toggle, function(e) {
-                e.preventDefault();
+                if ($(this).is('a[href="#"]')) e.preventDefault();
                 $this.show(this);
             });
 

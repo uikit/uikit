@@ -21,6 +21,7 @@
   - Optimized multipliers for 16px font-size in default themes
   - Optimized offcanvas animation
   - Changed data-uk-grid-match row parameter to true by default
+  - Fixed offcanvas scroll to top issue
   - Fixed sticky z-index in themes
   - Fixed wrong scaling calculation for overlay images in Chrome
   - Fixed printing for animations and scrollspy
