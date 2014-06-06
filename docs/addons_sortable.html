@@ -78,7 +78,7 @@
 
                             <p class="uk-article-lead">Create sortable lists that can be sorted by drag and drop.</p>
 
-                            <p>The Sortable allows you to sort items through drag and drop. This is great, if you want to list items like gallery or menu items, for example.</p>
+                            <p>Click on and drag an element to a new spot within the list, and the other items will adjust to fit. This is great, if you want to list items like gallery or menu items, for example.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
@@ -140,6 +140,7 @@
 
                             <h2 id ="sort-stacked-lists"><a href="#sort-stacked-lists" class="uk-link-reset">Sort stacked lists</a></h2>
 
+                            <p>The sortable add-on is not limited to <code>ul</code> lists. You can use any block element as a root container.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -154,21 +155,46 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable&gt;
-    &lt;li&gt;
+<pre><code>&lt;div class="uk-sortable" data-uk-sortable&gt;
+    &lt;div&gt;
         &lt;div class="uk-panel uk-panel-box"&gt;
             ...
         &lt;/div&gt;
-    &lt;/li&gt;
-    &lt;li&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
         &lt;div class="uk-panel uk-panel-box"&gt;
             ...
         &lt;/div&gt;
-    &lt;/li&gt;
+    &lt;/div&gt;
     ...
-&lt;/ul&gt;</code></pre>
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
+
+                            <h2 id ="sort-warp-lists"><a href="#sort-warp-lists" class="uk-link-reset">Warp mode</a></h2>
+
+                            <p>In the warp mode the ne list order is applied after dropping the dragged element to its new position.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-sortable" data-uk-sortable="{warp:true}">
+                                <div><p class="uk-panel uk-panel-box">Item 1</p></div>
+                                <div><p class="uk-panel uk-panel-box">Item 2</p></div>
+                                <div><p class="uk-panel uk-panel-box">Item 3</p></div>
+                                <div><p class="uk-panel uk-panel-box">Item 4</p></div>
+                                <div><p class="uk-panel uk-panel-box">Item 5</p></div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+
+<pre><code>&lt;div class="uk-sortable" data-uk-sortable=&quot;{waro:true}&quot;&gt;
+    ...
+&lt;/div&gt;</code></pre>
+
+
+                            <hr class="uk-article-divider">
+
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
