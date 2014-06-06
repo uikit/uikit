@@ -59,6 +59,8 @@
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
+            $(document).trigger("uk-check-display");
+
             return this;
         },
 

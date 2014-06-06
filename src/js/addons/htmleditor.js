@@ -14,6 +14,7 @@
 
 })(function($, UI) {
 
+    var editors = [];
 
     UI.component('htmleditor', {
 
@@ -119,6 +120,8 @@
             this.on('init', function() {
                 $this.redraw();
             });
+
+            editors.push(this);
         },
 
         addButton: function(name, button) {
@@ -576,6 +579,12 @@
             if (!editor.data('htmleditor')) {
                 obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
             }
+        });
+    });
+
+    $(document).on("uk-check-display", function(e) {
+        editors.forEach(function(item) {
+            if(item.element.is(":visible")) item.fit();
         });
     });
 
