@@ -13,7 +13,9 @@
             var $this = this;
 
             this.on("click", this.options.target, function(e) {
-                e.preventDefault();
+
+                if ($(this).is('a[href="#"]')) e.preventDefault();
+
                 $this.find($this.options.target).not(this).removeClass("uk-active").blur();
                 $this.trigger("change", [$(this).addClass("uk-active")]);
             });
@@ -36,7 +38,9 @@
             var $this = this;
 
             this.on("click", this.options.target, function(e) {
-                e.preventDefault();
+
+                if ($(this).is('a[href="#"]')) e.preventDefault();
+
                 $this.trigger("change", [$(this).toggleClass("uk-active").blur()]);
             });
 
@@ -57,7 +61,9 @@
             var $this = this;
 
             this.on("click", function(e) {
-                e.preventDefault();
+
+                if ($this.element.is('a[href="#"]')) e.preventDefault();
+
                 $this.toggle();
                 $this.trigger("change", [$element.blur().hasClass("uk-active")]);
             });
