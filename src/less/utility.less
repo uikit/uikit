@@ -432,6 +432,7 @@
 
     .uk-visible-small { display: none !important; }
     .uk-visible-medium { display: none !important; }
+    .uk-visible-mini { display: none !important; }
     .uk-hidden-large { display: none !important; }
 
 }
@@ -441,17 +442,27 @@
 
     .uk-visible-small { display: none !important; }
     .uk-visible-large { display: none !important ; }
+    .uk-visible-mini { display: none !important; }
     .uk-hidden-medium { display: none !important; }
 
 }
 
-/* Phone landscape and smaller */
-@media (max-width: @breakpoint-small-max) {
+/* Phone landscape */
+@media (min-width: @breakpoint-mini-max) and (max-width: @breakpoint-small-max) {
 
     .uk-visible-medium { display: none !important; }
     .uk-visible-large { display: none !important; }
+    .uk-visible-mini { display: none !important; }
     .uk-hidden-small { display: none !important; }
 
+}
+
+/* Phones portrait and smaller */
+@media (max-width: @breakpoint-mini-max) {
+    .uk-visible-medium { display: none !important; }
+    .uk-visible-large { display: none !important; }
+    .uk-visible-small { display: none !important; }
+    .uk-hidden-mini { display: none !important; }
 }
 
 /* Remove from the flow and screen readers on any device */
