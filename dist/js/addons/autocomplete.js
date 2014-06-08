@@ -1,3 +1,5 @@
+/*! UIkit 2.7.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+
 (function(addon) {
 
     var component;
@@ -69,9 +71,12 @@
 
                         switch (e.which) {
                             case 13: // enter
-                                e.preventDefault();
                                 select = true;
-                                $this.select();
+
+                                if ($this.selected) {
+                                    e.preventDefault();
+                                    $this.select();
+                                }
                                 break;
                             case 38: // up
                                 e.preventDefault();
