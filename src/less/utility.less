@@ -429,7 +429,6 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-visible-mini { display: none !important; }
     .uk-visible-small { display: none !important; }
     .uk-visible-medium { display: none !important; }
     .uk-hidden-large { display: none !important; }
@@ -439,30 +438,18 @@
 /* Tablets portrait */
 @media (min-width: @breakpoint-medium) and (max-width: @breakpoint-medium-max) {
 
-    .uk-visible-mini { display: none !important; }
     .uk-visible-small { display: none !important; }
     .uk-visible-large { display: none !important ; }
     .uk-hidden-medium { display: none !important; }
 
 }
 
-/* Phone landscape */
-@media (min-width: @breakpoint-small) and (max-width: @breakpoint-small-max) {
+/* Phone landscape and smaller*/
+@media (max-width: @breakpoint-small-max) {
 
-    .uk-visible-mini { display: none !important; }
     .uk-visible-medium { display: none !important; }
     .uk-visible-large { display: none !important; }
     .uk-hidden-small { display: none !important; }
-
-}
-
-/* Phones portrait and smaller */
-@media (max-width: @breakpoint-mini-max) {
-
-    .uk-visible-small { display: none !important; }
-    .uk-visible-medium { display: none !important; }
-    .uk-visible-large { display: none !important; }
-    .uk-hidden-mini { display: none !important; }
 
 }
 
