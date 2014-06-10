@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.7.1 (June 06, 2014)
+
+  - Reverted hidden and visibility classes for breakpoint mini
+
 ### 2.7.0 (June 06, 2014)
 
   - IMPORTANT: Renamed markdownarea to htmleditor
