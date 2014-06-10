@@ -40,6 +40,7 @@
 
 **Documentation and repository**
 
+  - Added showcase
   - Added docs and tests for new add-ons
   - Added missing animations to docs
   - Changed markdownarea docs and tests to htmleditor
