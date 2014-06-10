@@ -1973,19 +1973,25 @@
             $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
-            var $this    = this,
-                pos      = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
-                width    = $tooltip[0].offsetWidth,
-                height   = $tooltip[0].offsetHeight,
-                offset   = typeof(this.options.offset) === "function" ? this.options.offset.call(this.element) : this.options.offset,
-                position = typeof(this.options.pos) === "function" ? this.options.pos.call(this.element) : this.options.pos,
-                tcss     = {
+            var $this      = this,
+                bodyoffset = $('body').offset(),
+                pos        = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
+                width      = $tooltip[0].offsetWidth,
+                height     = $tooltip[0].offsetHeight,
+                offset     = typeof(this.options.offset) === "function" ? this.options.offset.call(this.element) : this.options.offset,
+                position   = typeof(this.options.pos) === "function" ? this.options.pos.call(this.element) : this.options.pos,
+                tmppos     = position.split("-"),
+                tcss       = {
                     "display": "none",
                     "visibility": "visible",
                     "top": (pos.top + pos.height + height),
                     "left": pos.left
-                },
-                tmppos = position.split("-");
+                };
+
+            // prevent strange position
+            // when tooltip is in offcanvas etc.
+            pos.left -= bodyoffset.left;
+            pos.top  -= bodyoffset.top;
 
             if ((tmppos[0] == "left" || tmppos[0] == "right") && $.UIkit.langdirection == 'right') {
                 tmppos[0] = tmppos[0] == "left" ? "right" : "left";
