@@ -1,4 +1,4 @@
-/*! UIkit 2.7.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.7.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -6982,9 +6982,6 @@ a.uk-thumbnail:focus {
  */
 /* Desktop and bigger */
 @media (min-width: 960px) {
-  .uk-visible-mini {
-    display: none !important;
-  }
   .uk-visible-small {
     display: none !important;
   }
@@ -6997,9 +6994,6 @@ a.uk-thumbnail:focus {
 }
 /* Tablets portrait */
 @media (min-width: 768px) and (max-width: 959px) {
-  .uk-visible-mini {
-    display: none !important;
-  }
   .uk-visible-small {
     display: none !important;
   }
@@ -7010,11 +7004,8 @@ a.uk-thumbnail:focus {
     display: none !important;
   }
 }
-/* Phone landscape */
-@media (min-width: 480px) and (max-width: 767px) {
-  .uk-visible-mini {
-    display: none !important;
-  }
+/* Phone landscape and smaller*/
+@media (max-width: 767px) {
   .uk-visible-medium {
     display: none !important;
   }
@@ -7022,21 +7013,6 @@ a.uk-thumbnail:focus {
     display: none !important;
   }
   .uk-hidden-small {
-    display: none !important;
-  }
-}
-/* Phones portrait and smaller */
-@media (max-width: 479px) {
-  .uk-visible-small {
-    display: none !important;
-  }
-  .uk-visible-medium {
-    display: none !important;
-  }
-  .uk-visible-large {
-    display: none !important;
-  }
-  .uk-hidden-mini {
     display: none !important;
   }
 }
