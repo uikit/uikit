@@ -1,3 +1,5 @@
+/*! UIkit 2.7.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+
 (function(addon) {
 
     var component;

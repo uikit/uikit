@@ -76,15 +76,13 @@
 
                             <h1>Sortable</h1>
 
-                            <p class="uk-article-lead">Create sortable grids that can be sorted using native HTML5 drag and drop API.</p>
+                            <p class="uk-article-lead">Create sortable grids and lists using the HTML5 drag and drop API.</p>
 
-                            <p>Drag and drop an element to a new location within the the sortable grid, while the other items adjust to fit. This is great, if you want to list items like gallery or menu items, for example.</p>
+                            <p>Drag and drop an element to a new location within the the sortable grid, while the other items adjust to fit. This is great, if you want to sort items like gallery or menu items, for example.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply this component, add the <code>.uk-sortable</code> class to a container to define the add-on and use block elements as child elements. To enable the necessary JavaScript, just add the <code>data-uk-sortable</code> attribute.</p>
-
-                            <p>A sortable list consists of the list itself and its items.</p>
+                            <p>To apply this component, add the <code>.uk-sortable</code> class to a container and create child elements to define the add-on. To enable the necessary JavaScript, just add the <code>data-uk-sortable</code> attribute.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -120,10 +118,9 @@
 
                             <div class="uk-sortable" data-uk-sortable>
                                <div><p class="uk-alert">Item 1</p></div>
-                               <div><p class="uk-alert">Item 2</p></div>
-                               <div><p class="uk-alert">Item 3</p></div>
-                               <div><p class="uk-alert">Item 4</p></div>
-                               <div><p class="uk-alert">Item 5</p></div>
+                               <div><p class="uk-alert uk-alert-success">Item 2</p></div>
+                               <div><p class="uk-alert uk-alert-warning">Item 3</p></div>
+                               <div><p class="uk-alert uk-alert-danger">Item 4</p></div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -142,13 +139,18 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-sortable" data-uk-sortable="{warp:true}">
-                                <div><p class="uk-panel uk-panel-box">Item 1</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 2</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 3</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 4</p></div>
-                                <div><p class="uk-panel uk-panel-box">Item 5</p></div>
-                            </div>
+                            <ul class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-5"  data-uk-sortable="{warp:true}">
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 1</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 2</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 3</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 4</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 5</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 6</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 7</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 8</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 9</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 10</div></li>
+                            </ul>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -191,7 +193,7 @@
                                         <td><code>warp</code></td>
                                         <td>boolean</td>
                                         <td>false</td>
-                                        <td>Wrap mode - alternative sort mode</td>
+                                        <td>Warp mode - alternative sort mode</td>
                                     </tr>
                                 </tbody>
                             </table>

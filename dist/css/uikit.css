@@ -1,4 +1,4 @@
-/*! UIkit 2.6.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.7.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -356,19 +356,6 @@ body {
   font-weight: normal;
   line-height: 20px;
   color: #444444;
-}
-/* Phone landscape and smaller */
-@media (max-width: 767px) {
-  /*
-     * Break strings if their length exceeds the width of their container
-     */
-  body {
-    word-wrap: break-word;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
-  }
 }
 /* Text-level semantics
  ========================================================================== */
@@ -1999,6 +1986,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-brand {
   font-size: 18px;
   color: #444444;
+  text-decoration: none;
 }
 /*
  * 1. Apply hover style also to focus state
@@ -2016,6 +2004,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-toggle {
   font-size: 18px;
   color: #444444;
+  text-decoration: none;
 }
 /*
  * 1. Apply hover style also to focus state
@@ -3067,6 +3056,9 @@ select.uk-form-width-mini {
   display: inline-block;
   max-width: 100%;
 }
+/*
+ * 1. Make form element clickable through icon
+ */
 .uk-form-icon > [class*='uk-icon-'] {
   position: absolute;
   top: 50%;
@@ -3075,6 +3067,8 @@ select.uk-form-width-mini {
   font-size: 14px;
   color: #999999;
   text-align: center;
+  /* 1 */
+  pointer-events: none;
 }
 .uk-form-icon:not(.uk-form-icon-flip) > input {
   padding-left: 30px !important;
@@ -3563,6 +3557,8 @@ select.uk-form-width-mini {
 .uk-icon-video-camera:before {
   content: "\f03d";
 }
+.uk-icon-photo:before,
+.uk-icon-image:before,
 .uk-icon-picture-o:before {
   content: "\f03e";
 }
@@ -3926,6 +3922,8 @@ select.uk-form-width-mini {
 .uk-icon-square:before {
   content: "\f0c8";
 }
+.uk-icon-navicon:before,
+.uk-icon-reorder:before,
 .uk-icon-bars:before {
   content: "\f0c9";
 }
@@ -3985,11 +3983,11 @@ select.uk-form-width-mini {
   content: "\f0dc";
 }
 .uk-icon-sort-down:before,
-.uk-icon-sort-asc:before {
+.uk-icon-sort-desc:before {
   content: "\f0dd";
 }
 .uk-icon-sort-up:before,
-.uk-icon-sort-desc:before {
+.uk-icon-sort-asc:before {
   content: "\f0de";
 }
 .uk-icon-envelope:before {
@@ -4179,10 +4177,8 @@ select.uk-form-width-mini {
 .uk-icon-code:before {
   content: "\f121";
 }
+.uk-icon-mail-reply-all:before,
 .uk-icon-reply-all:before {
-  content: "\f122";
-}
-.uk-icon-mail-reply-all:before {
   content: "\f122";
 }
 .uk-icon-star-half-empty:before,
@@ -4530,6 +4526,238 @@ select.uk-form-width-mini {
 .uk-icon-plus-square-o:before {
   content: "\f196";
 }
+.uk-icon-space-shuttle:before {
+  content: "\f197";
+}
+.uk-icon-slack:before {
+  content: "\f198";
+}
+.uk-icon-envelope-square:before {
+  content: "\f199";
+}
+.uk-icon-wordpress:before {
+  content: "\f19a";
+}
+.uk-icon-openid:before {
+  content: "\f19b";
+}
+.uk-icon-institution:before,
+.uk-icon-bank:before,
+.uk-icon-university:before {
+  content: "\f19c";
+}
+.uk-icon-mortar-board:before,
+.uk-icon-graduation-cap:before {
+  content: "\f19d";
+}
+.uk-icon-yahoo:before {
+  content: "\f19e";
+}
+.uk-icon-google:before {
+  content: "\f1a0";
+}
+.uk-icon-reddit:before {
+  content: "\f1a1";
+}
+.uk-icon-reddit-square:before {
+  content: "\f1a2";
+}
+.uk-icon-stumbleupon-circle:before {
+  content: "\f1a3";
+}
+.uk-icon-stumbleupon:before {
+  content: "\f1a4";
+}
+.uk-icon-delicious:before {
+  content: "\f1a5";
+}
+.uk-icon-digg:before {
+  content: "\f1a6";
+}
+.uk-icon-pied-piper-square:before,
+.uk-icon-pied-piper:before {
+  content: "\f1a7";
+}
+.uk-icon-pied-piper-alt:before {
+  content: "\f1a8";
+}
+.uk-icon-drupal:before {
+  content: "\f1a9";
+}
+.uk-icon-joomla:before {
+  content: "\f1aa";
+}
+.uk-icon-language:before {
+  content: "\f1ab";
+}
+.uk-icon-fax:before {
+  content: "\f1ac";
+}
+.uk-icon-building:before {
+  content: "\f1ad";
+}
+.uk-icon-child:before {
+  content: "\f1ae";
+}
+.uk-icon-paw:before {
+  content: "\f1b0";
+}
+.uk-icon-spoon:before {
+  content: "\f1b1";
+}
+.uk-icon-cube:before {
+  content: "\f1b2";
+}
+.uk-icon-cubes:before {
+  content: "\f1b3";
+}
+.uk-icon-behance:before {
+  content: "\f1b4";
+}
+.uk-icon-behance-square:before {
+  content: "\f1b5";
+}
+.uk-icon-steam:before {
+  content: "\f1b6";
+}
+.uk-icon-steam-square:before {
+  content: "\f1b7";
+}
+.uk-icon-recycle:before {
+  content: "\f1b8";
+}
+.uk-icon-automobile:before,
+.uk-icon-car:before {
+  content: "\f1b9";
+}
+.uk-icon-cab:before,
+.uk-icon-taxi:before {
+  content: "\f1ba";
+}
+.uk-icon-tree:before {
+  content: "\f1bb";
+}
+.uk-icon-spotify:before {
+  content: "\f1bc";
+}
+.uk-icon-deviantart:before {
+  content: "\f1bd";
+}
+.uk-icon-soundcloud:before {
+  content: "\f1be";
+}
+.uk-icon-database:before {
+  content: "\f1c0";
+}
+.uk-icon-file-pdf-o:before {
+  content: "\f1c1";
+}
+.uk-icon-file-word-o:before {
+  content: "\f1c2";
+}
+.uk-icon-file-excel-o:before {
+  content: "\f1c3";
+}
+.uk-icon-file-powerpoint-o:before {
+  content: "\f1c4";
+}
+.uk-icon-file-photo-o:before,
+.uk-icon-file-picture-o:before,
+.uk-icon-file-image-o:before {
+  content: "\f1c5";
+}
+.uk-icon-file-zip-o:before,
+.uk-icon-file-archive-o:before {
+  content: "\f1c6";
+}
+.uk-icon-file-sound-o:before,
+.uk-icon-file-audio-o:before {
+  content: "\f1c7";
+}
+.uk-icon-file-movie-o:before,
+.uk-icon-file-video-o:before {
+  content: "\f1c8";
+}
+.uk-icon-file-code-o:before {
+  content: "\f1c9";
+}
+.uk-icon-vine:before {
+  content: "\f1ca";
+}
+.uk-icon-codepen:before {
+  content: "\f1cb";
+}
+.uk-icon-jsfiddle:before {
+  content: "\f1cc";
+}
+.uk-icon-life-bouy:before,
+.uk-icon-life-saver:before,
+.uk-icon-support:before,
+.uk-icon-life-ring:before {
+  content: "\f1cd";
+}
+.uk-icon-circle-o-notch:before {
+  content: "\f1ce";
+}
+.uk-icon-ra:before,
+.uk-icon-rebel:before {
+  content: "\f1d0";
+}
+.uk-icon-ge:before,
+.uk-icon-empire:before {
+  content: "\f1d1";
+}
+.uk-icon-git-square:before {
+  content: "\f1d2";
+}
+.uk-icon-git:before {
+  content: "\f1d3";
+}
+.uk-icon-hacker-news:before {
+  content: "\f1d4";
+}
+.uk-icon-tencent-weibo:before {
+  content: "\f1d5";
+}
+.uk-icon-qq:before {
+  content: "\f1d6";
+}
+.uk-icon-wechat:before,
+.uk-icon-weixin:before {
+  content: "\f1d7";
+}
+.uk-icon-send:before,
+.uk-icon-paper-plane:before {
+  content: "\f1d8";
+}
+.uk-icon-send-o:before,
+.uk-icon-paper-plane-o:before {
+  content: "\f1d9";
+}
+.uk-icon-history:before {
+  content: "\f1da";
+}
+.uk-icon-circle-thin:before {
+  content: "\f1db";
+}
+.uk-icon-header:before {
+  content: "\f1dc";
+}
+.uk-icon-paragraph:before {
+  content: "\f1dd";
+}
+.uk-icon-sliders:before {
+  content: "\f1de";
+}
+.uk-icon-share-alt:before {
+  content: "\f1e0";
+}
+.uk-icon-share-alt-square:before {
+  content: "\f1e1";
+}
+.uk-icon-bomb:before {
+  content: "\f1e2";
+}
 /* ========================================================================
    Component: Close
  ========================================================================== */
@@ -4800,6 +5028,12 @@ a.uk-thumbnail:focus {
   /* 5 */
   overflow: hidden;
 }
+/*
+ * Remove margin from content
+ */
+.uk-overlay > :first-child {
+  margin-bottom: 0;
+}
 /* Sub-object `uk-overlay-area`
  ========================================================================== */
 /*
@@ -4824,10 +5058,13 @@ a.uk-thumbnail:focus {
 }
 /*
  * Hover
- * 1. Use optional `uk-overlay-toggle` to trigger the overlay earlier
+ * 1. `uk-hover` to support touch devices
+ * 2. Use optional `uk-overlay-toggle` to trigger the overlay earlier
  */
 .uk-overlay:hover .uk-overlay-area,
-.uk-overlay-toggle:hover .uk-overlay-area {
+.uk-overlay.uk-hover .uk-overlay-area,
+.uk-overlay-toggle:hover .uk-overlay-area,
+.uk-overlay-toggle.uk-hover .uk-overlay-area {
   opacity: 1;
 }
 /*
@@ -4925,10 +5162,13 @@ a.uk-thumbnail:focus {
 }
 /*
  * Hover
- * 1. Use optional `uk-overlay-toggle` to trigger the overlay earlier
+ * 1. `uk-hover` to support touch devices
+ * 2. Use optional `uk-overlay-toggle` to trigger the overlay earlier
  */
 .uk-overlay:hover .uk-overlay-caption,
-.uk-overlay-toggle:hover .uk-overlay-caption {
+.uk-overlay.uk-hover .uk-overlay-caption,
+.uk-overlay-toggle:hover .uk-overlay-caption,
+.uk-overlay-toggle.uk-hover .uk-overlay-caption {
   opacity: 1;
 }
 /* ========================================================================
@@ -5037,8 +5277,10 @@ a.uk-thumbnail:focus {
   animation-fill-mode: both;
 }
 /* Hide animated element if scrollspy is used */
-[data-uk-scrollspy*='uk-animation-'] {
-  opacity: 0;
+@media screen {
+  [data-uk-scrollspy*='uk-animation-'] {
+    opacity: 0;
+  }
 }
 /*
  * Fade
@@ -5461,12 +5703,15 @@ a.uk-thumbnail:focus {
 /*
 * Vertical gutter
 */
-/* Grid */
-.uk-dropdown > .uk-grid + .uk-grid {
+/*
+ * Grid
+ * Higher specificity to override large gutter
+ */
+.uk-grid .uk-dropdown-grid + .uk-dropdown-grid {
   margin-top: 15px;
 }
 /* Panels */
-.uk-dropdown > .uk-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
+.uk-dropdown-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
   margin-top: 15px;
 }
 /* Tablet and bigger */
@@ -5474,18 +5719,18 @@ a.uk-thumbnail:focus {
   /*
      * Horizontal gutter
      */
-  .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid {
+  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid {
     margin-left: -15px;
     margin-right: -15px;
   }
-  .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-'] {
+  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-'] {
     padding-left: 15px;
     padding-right: 15px;
   }
   /*
      * Column divider
      */
-  .uk-dropdown:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
+  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
     border-left: 1px solid #dddddd;
   }
   /*
@@ -5509,23 +5754,23 @@ a.uk-thumbnail:focus {
   /*
      * Stack columns and take full width
      */
-  .uk-dropdown > .uk-grid > [class*='uk-width-'] {
+  .uk-dropdown-grid > [class*='uk-width-'] {
     width: 100%;
   }
   /*
      * Vertical gutter
      */
-  .uk-dropdown > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
+  .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
     margin-top: 15px;
   }
 }
 /*
 * Stack grid columns
 */
-.uk-dropdown-stack > .uk-grid > [class*='uk-width-'] {
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-'] {
   width: 100%;
 }
-.uk-dropdown-stack > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
   margin-top: 15px;
 }
 /* Modifier `uk-dropdown-small`
@@ -5740,8 +5985,8 @@ a.uk-thumbnail:focus {
   /* 1 */
   position: fixed;
   /* 2 */
-  -webkit-transition: margin-left 0.3s ease-in-out 50ms;
-  transition: margin-left 0.3s ease-in-out 50ms;
+  -webkit-transition: margin-left 0.3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out;
 }
 /* Sub-object `uk-offcanvas-bar`
  ========================================================================== */
@@ -5942,6 +6187,7 @@ a.uk-thumbnail:focus {
 .uk-text-large {
   font-size: 18px;
   line-height: 24px;
+  font-weight: normal;
 }
 /* Weight modifiers
  ========================================================================== */
@@ -6374,10 +6620,13 @@ a.uk-thumbnail:focus {
 }
 /*
  * Visibility
- * Avoids setting display to `block`
+ * Avoids setting display to `block` so it works also with `inline-block` and `table`
  */
 /* Desktop and bigger */
 @media (min-width: 960px) {
+  .uk-visible-mini {
+    display: none !important;
+  }
   .uk-visible-small {
     display: none !important;
   }
@@ -6388,8 +6637,11 @@ a.uk-thumbnail:focus {
     display: none !important;
   }
 }
-/* Only tablets portrait */
+/* Tablets portrait */
 @media (min-width: 768px) and (max-width: 959px) {
+  .uk-visible-mini {
+    display: none !important;
+  }
   .uk-visible-small {
     display: none !important;
   }
@@ -6400,8 +6652,11 @@ a.uk-thumbnail:focus {
     display: none !important;
   }
 }
-/* Phone landscape and smaller */
-@media (max-width: 767px) {
+/* Phone landscape */
+@media (min-width: 480px) and (max-width: 767px) {
+  .uk-visible-mini {
+    display: none !important;
+  }
   .uk-visible-medium {
     display: none !important;
   }
@@ -6409,6 +6664,21 @@ a.uk-thumbnail:focus {
     display: none !important;
   }
   .uk-hidden-small {
+    display: none !important;
+  }
+}
+/* Phones portrait and smaller */
+@media (max-width: 479px) {
+  .uk-visible-small {
+    display: none !important;
+  }
+  .uk-visible-medium {
+    display: none !important;
+  }
+  .uk-visible-large {
+    display: none !important;
+  }
+  .uk-hidden-mini {
     display: none !important;
   }
 }
