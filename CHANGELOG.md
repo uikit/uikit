@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+ - Added complete callback after smoothscroll animation
+
 ### 2.7.1 (June 06, 2014)
 
   - Reverted hidden and visibility classes for breakpoint mini

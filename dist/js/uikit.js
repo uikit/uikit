@@ -2454,7 +2454,8 @@
         defaults: {
             duration: 1000,
             transition: 'easeOutExpo',
-            offset: 0
+            offset: 0,
+            complete: function(){}
         },
 
         init: function() {
@@ -2474,8 +2475,8 @@
                     target = docheight - winheight;
                 }
 
-                // animate to target and set the hash to the window.location after the animation
-                $("html,body").stop().animate({scrollTop: target}, $this.options.duration, $this.options.transition);
+                // animate to target, fire callback when done
+                $("html,body").stop().animate({scrollTop: target}, $this.options.duration, $this.options.transition).promise().done($this.options.complete);
 
                 // cancel default click action
                 return false;
