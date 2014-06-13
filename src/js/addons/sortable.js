@@ -27,6 +27,9 @@
 
     draggingPlaceholder;
 
+    // disable native dragndrop support for now
+    supportsDragAndDrop = false;
+
     UI.component('sortable', {
 
         defaults: {
@@ -38,11 +41,14 @@
             placeholderClass : 'uk-sortable-placeholder',
             overClass        : 'uk-sortable-over',
             draggingClass    : 'uk-sortable-dragged',
+            dragMovingClass  : 'uk-sortable-moving',
             dragCustomClass  : '',
 
-            stop   : function() {},
-            start  : function() {},
-            change : function() {}
+            handleClass      : false,
+
+            stop             : function() {},
+            start            : function() {},
+            change           : function() {}
         },
 
         init: function() {
@@ -53,11 +59,29 @@
                 currentlyDraggingTarget  = null,
                 children, moved;
 
-            this.element.children().attr("draggable", "true");
+            if (supportsDragAndDrop) {
+                this.element.children().attr("draggable", "true");
+            }
 
             var handleDragStart = delegate(function(e) {
 
-                var target = $(e.target);
+                var target   = $(e.target),
+                    children = $this.element.children();
+
+
+                if (!supportsTouch && e.button==2) {
+                    return;
+                }
+
+                if ($this.options.handleClass) {
+
+                    var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, element);
+
+                    if (!handle.length) {
+                        e.preventDefault();
+                        return;
+                    }
+                }
 
                 moved = false;
 
@@ -91,7 +115,6 @@
                     left    : offset.left,
                     width   : $current.width(),
                     height  : $current.height(),
-                    margin  : $current.css('margin-left'),
                     padding : $current.css('padding')
                 }).data('mouse-offset', {
                     'left': offset.left - parseInt(e.pageX, 10),
@@ -99,7 +122,9 @@
                 }).append($current.html()).appendTo('body');
 
                 $(this).addClass($this.options.placeholderClass);
-                children = $this.element.children().addClass($this.options.childClass);
+                children.addClass($this.options.childClass);
+
+                $('html').addClass($this.options.dragMovingClass);
 
                 addFakeDragHandlers();
 
@@ -194,6 +219,8 @@
                         $this.dragenterData(this, false);
                     }
                 });
+
+                $('html').removeClass($this.options.dragMovingClass);
 
                 removeFakeDragHandlers();
 
@@ -426,7 +453,7 @@
         });
     });
 
-    $(document).on('dragover touchmove', function(e) {
+    $(document).on('mousemove touchmove', function(e) {
 
         if (draggingPlaceholder) {
 
