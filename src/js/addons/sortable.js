@@ -25,7 +25,7 @@
         return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
     })(),
 
-    draggingPlaceholder;
+    draggingPlaceholder, moving, clickedlink;
 
     // disable native dragndrop support for now
     supportsDragAndDrop = false;
@@ -57,17 +57,28 @@
                 element                  = this.element[0],
                 currentlyDraggingElement = null,
                 currentlyDraggingTarget  = null,
-                children, moved;
+                children;
 
             if (supportsDragAndDrop) {
                 this.element.children().attr("draggable", "true");
+
+            } else {
+
+                // prevent leaving page after link clicking
+                this.element.on('mousedown touchstart', 'a[href]', function(e) {
+                    clickedlink = $(this);
+                }).on('click', 'a[href]', function(e) {
+                    clickedlink = $(this);
+                    e.stopImmediatePropagation();
+                    return false;
+                });
             }
 
             var handleDragStart = delegate(function(e) {
 
-                var target   = $(e.target),
-                    children = $this.element.children();
+                moving = false;
 
+                var target = $(e.target), children = $this.element.children();
 
                 if (!supportsTouch && e.button==2) {
                     return;
@@ -83,19 +94,6 @@
                     }
                 }
 
-                moved = false;
-
-                if (supportsTouch) {
-
-                    e.preventDefault();
-
-                    if (target.is('a') && target.attr('href')) {
-                        target.one('touchend', function(){
-                            if(!moved) location.href = target.attr('href');
-                        });
-                    }
-                }
-
                 if (e.dataTransfer) {
                     e.dataTransfer.effectAllowed = 'move';
                     e.dataTransfer.dropEffect = 'move';
@@ -107,10 +105,10 @@
                 // init drag placeholder
                 if (draggingPlaceholder) draggingPlaceholder.remove();
 
-                var $current = $(currentlyDraggingElement),
-                    offset   = $current.offset();
+                var $current = $(currentlyDraggingElement), offset = $current.offset();
 
                 draggingPlaceholder = $('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
+                    display : 'none',
                     top     : offset.top,
                     left    : offset.left,
                     width   : $current.width(),
@@ -121,15 +119,17 @@
                     'top' : offset.top  - parseInt(e.pageY, 10)
                 }).append($current.html()).appendTo('body');
 
-                $(this).addClass($this.options.placeholderClass);
-                children.addClass($this.options.childClass);
-
-                $('html').addClass($this.options.dragMovingClass);
+                draggingPlaceholder.$current  = $current;
+                draggingPlaceholder.$sortable = $this;
 
                 addFakeDragHandlers();
 
                 $this.options.start(this, currentlyDraggingElement);
                 $this.trigger('sortable-start', [$this, currentlyDraggingElement]);
+
+                if (!supportsDragAndDrop) {
+                    e.preventDefault();
+                }
             });
 
             var handleDragOver = delegate(function(e) {
@@ -232,8 +232,6 @@
             };
 
             var handleTouchMove = delegate(function(e) {
-
-                moved = true;
 
                 if (!currentlyDraggingElement ||
                     currentlyDraggingElement === this ||
@@ -347,6 +345,7 @@
 
             if($this.options.warp || !$this.options.animation) {
                 elementToMoveNextTo.parentNode.insertBefore(element, next);
+                $(document).trigger("uk-check-display");
                 return;
             }
 
@@ -384,10 +383,15 @@
                         ele.animate({'top':offset.top, 'left':offset.left}, $this.options.animation, function() {
                             ele.css({'position':'','top':'', 'left':'', 'min-width': '', 'pointer-events':''}).removeClass($this.options.overClass).attr('data-child-dragenter', '');
                             count--
-                            if(!count) list.css('min-height', '');
+                            if (!count) {
+                                list.css('min-height', '');
+                                $(document).trigger("uk-check-display");
+                            }
                         });
                     }, 0);
             });
+
+
         }
     });
 
@@ -457,12 +461,31 @@
 
         if (draggingPlaceholder) {
 
+            if (!moving) {
+                moving = true;
+                draggingPlaceholder.show();
+
+                draggingPlaceholder.$current.addClass(draggingPlaceholder.$sortable.options.placeholderClass);
+                draggingPlaceholder.$sortable.element.children().addClass(draggingPlaceholder.$sortable.options.childClass);
+
+                $('html').addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
+            }
+
             var offset = draggingPlaceholder.data('mouse-offset'),
                 left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
                 top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
 
             draggingPlaceholder.css({'left': left, 'top': top });
         }
+    });
+
+    $(document).on('mouseup touchend', function() {
+
+        if(!moving) {
+            location.href = clickedlink.attr('href');
+        }
+
+        clickedlink = false;
     });
 
     return UI.sortable;
