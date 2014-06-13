@@ -47,6 +47,8 @@
     }
 
     UI.version = '2.7.1';
+    UI.$doc    = $doc;
+    UI.$win    = $win;
 
     UI.fn = function(command, options) {
 

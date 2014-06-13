@@ -87,12 +87,12 @@
                     offset   = $current.offset();
 
                 draggingPlaceholder = $('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
-                    top: offset.top,
-                    left: offset.left,
-                    width  : $current.width(),
-                    height : $current.height(),
-                    marginLeft: $current.css('margin-left'),
-                    paddingLeft: $current.css('padding-left')
+                    top     : offset.top,
+                    left    : offset.left,
+                    width   : $current.width(),
+                    height  : $current.height(),
+                    margin  : $current.css('margin-left'),
+                    padding : $current.css('padding')
                 }).data('mouse-offset', {
                     'left': offset.left - parseInt(e.pageX, 10),
                     'top' : offset.top  - parseInt(e.pageY, 10)
