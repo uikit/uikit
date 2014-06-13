@@ -59,7 +59,7 @@
             this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
             this.autocomplete.input.on("keyup", function(){
-                $this.element[$this.value ? "addClass":"removeClass"]("uk-active");
+                $this.element[$this.autocomplete.input.val() ? "addClass":"removeClass"]("uk-active");
             }).closest("form").on("reset", function(){
                 $this.value="";
                 $this.element.removeClass("uk-active");
