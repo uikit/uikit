@@ -16,10 +16,9 @@
 
 })(function($, UI){
 
-    var $win         = $(window),
-        $doc         = $(document),
-        sticked      = [],
-        windowHeight = $win.height();
+    var $win         = UI.$win,
+        $doc         = UI.$doc,
+        sticked      = [];
 
     UI.component('sticky', {
 
@@ -36,22 +35,21 @@
             var stickyId = this.element.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
                 wrapper  = $('<div></div>').attr('id', 'sticky-'+stickyId).addClass(this.options.clswrapper);
 
-            this.element.wrapAll(wrapper);
+            wrapper = this.element.wrap(wrapper).parent().css('height', this.element.outerHeight());
 
-            if (this.element.css("float") == "right") {
-                this.element.css({"float":"none"}).parent().css({"float":"right"});
+            if (this.element.css("float") != "none") {
+                wrapper.css({"float":this.element.css("float")});
+                this.element.css({"float":"none"});
             }
-
-            var stickyWrapper = this.element.parent().css('height', this.element.outerHeight());
 
             sticked.push({
                 top: this.options.top,
                 bottom: this.options.bottom,
-                stickyElement: this.element,
+                element: this.element,
                 currentTop: null,
-                stickyWrapper: stickyWrapper,
+                wrapper: wrapper,
                 clsactive: this.options.clsactive,
-                getWidthFrom: this.options.getWidthFrom
+                getWidthFrom: this.options.getWidthFrom || wrapper
             });
         },
 
@@ -62,54 +60,54 @@
 
     function scroller() {
 
+        if (!sticked.length) return;
+
         var scrollTop       = $win.scrollTop(),
             documentHeight  = $doc.height(),
-            dwh             = documentHeight - windowHeight,
+            dwh             = documentHeight - $win.height(),
             extra           = (scrollTop > dwh) ? dwh - scrollTop : 0;
 
         for (var i = 0; i < sticked.length; i++) {
 
-            if(!sticked[i].stickyElement.is(":visible")) {
+            if (!sticked[i].element.is(":visible")) {
                 continue;
             }
 
-            var s = sticked[i], elementTop = s.stickyWrapper.offset().top, etse = elementTop - s.top - extra;
+            var sticky     = sticked[i],
+                elementTop = sticky.wrapper.offset().top,
+                etse       = elementTop - sticky.top - extra;
 
             if (scrollTop <= etse) {
 
-                if (s.currentTop !== null) {
-                    s.stickyElement.css({"position":"", "top":"", "width":""}).parent().removeClass(s.clsactive);
-                    s.currentTop = null;
+                if (sticky.currentTop !== null) {
+                    sticky.element.css({"position":"", "top":"", "width":""});
+                    sticky.wrapper.removeClass(sticky.clsactive);
+                    sticky.currentTop = null;
                 }
 
             } else {
 
-                var newTop = documentHeight - s.stickyElement.outerHeight() - s.top - s.bottom - scrollTop - extra;
+                var newTop = documentHeight - sticky.element.outerHeight() - sticky.top - sticky.bottom - scrollTop - extra;
 
-                newTop = newTop<0 ? newTop + s.top : s.top;
+                newTop = newTop < 0 ? newTop + sticky.top : sticky.top;
 
-                if (s.currentTop != newTop) {
-                    s.stickyElement.css({"position": "fixed", "top": newTop, "width": s.stickyElement.width()});
+                if (sticky.currentTop != newTop) {
+                    sticky.element.css({"position": "fixed", "top": newTop, "width": sticky.element.width()});
 
-                    if (typeof s.getWidthFrom !== 'undefined') {
-                        s.stickyElement.css('width', $(s.getWidthFrom).width());
+                    if (typeof sticky.getWidthFrom !== 'undefined') {
+                        sticky.element.css('width', $(sticky.getWidthFrom).width());
                     }
 
-                    s.stickyElement.parent().addClass(s.clsactive);
-                    s.currentTop = newTop;
+                    sticky.wrapper.addClass(sticky.clsactive);
+                    sticky.currentTop = newTop;
                 }
             }
         }
 
     }
 
-    function resizer() {
-        windowHeight = $win.height();
-    }
-
-    // should be more efficient than using $win.scroll(scroller) and $win.resize(resizer):
+    // should be more efficient than using $win.scroll(scroller):
     $doc.on('uk-scroll', scroller);
-    $win.on('resize orientationchange', resizer);
 
     $doc.on("uk-domready", function(e) {
         setTimeout(function(){
