@@ -193,6 +193,7 @@
   /* 4 */
   -webkit-appearance: none;
   outline: 0;
+  background: transparent;
 }
 /* Radio */
 .uk-form input[type="radio"] {
