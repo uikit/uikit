@@ -13,7 +13,9 @@
 @form-advanced-border:                     #aaa;
 @form-advanced-border-width:               1px;
 @form-advanced-margin-top:                 -4px;
-@form-advanced-color:                      #00a8e6;
+@form-advanced-color:                      transparent;
+
+@form-advanced-checked-color:              #00a8e6;
 
 @form-advanced-radio-size:                 8px;
 
@@ -34,6 +36,7 @@
  * 2. Makes box more robust so it clips the child element
  * 3. Vertical alignment
  * 4. Remove default style
+ * 5. Fix black background on iOS
  */
 
 
@@ -52,6 +55,8 @@
     /* 4 */
     -webkit-appearance: none;
     outline: 0;
+    /* 5 */
+    background: @form-advanced-color;
     .hook-form-advanced;
 }
 
@@ -75,7 +80,7 @@
     height: @form-advanced-radio-size;
     margin: ((@form-advanced-size - (2 * @form-advanced-border-width) - @form-advanced-radio-size) / 2) auto 0;
     border-radius: 50%;
-    background: @form-advanced-color;
+    background: @form-advanced-checked-color;
     .hook-form-advanced-radio;
 }
 
@@ -87,7 +92,7 @@
     -webkit-font-smoothing: antialiased;
     text-align: center;
     line-height: @form-advanced-size - (2 * @form-advanced-border-width);
-    color: @form-advanced-color;
+    color: @form-advanced-checked-color;
     .hook-form-advanced-checkbox;
 }
 

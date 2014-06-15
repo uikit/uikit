@@ -3,6 +3,7 @@
 ### WIP
 
  - Added complete callback after smoothscroll animation
+ - Fix black background on iOS for form-advanced
 
 ### 2.7.1 (June 06, 2014)
 
