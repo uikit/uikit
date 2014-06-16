@@ -336,7 +336,61 @@ module.exports = function(grunt) {
 
         grunt.file.write('dist/uikit_completions.py', pystring);
         grunt.log.writeln('Written: dist/uikit_completions.py');
+
+        // create snippets
+        grunt.task.run(['snippets']);
+
     });
+
+    grunt.registerTask("snippet", "Create a sublime snippet for a LESS component", function(lessfile) {
+    });
+
+    grunt.registerTask("snippets", "Create sublime snippets for all LESS components", function() {
+        var template = "<snippet>\n\
+    <content>{content}</content>\n\
+    <tabTrigger>{trigger}</tabTrigger>\n\
+    <scope>text.html</scope>\n\
+    <description>{description}</description>\n\
+</snippet>";
+
+        var extractSnippets = function(lessfile) {
+            var less = grunt.file.read(lessfile);
+
+            var regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\s*\/\/.+\n)+)/g,
+                match = null;
+
+            while (match = regex.exec(less)) {
+                var name = match[1], // i.e. uk-grid
+                    name = name.replace(/^\s+|\s+$/g, ''), // trim
+                    content = match[2],
+                    content = content.replace(/(\n?)(\s*)\/\/ ?/g,'$1$2'), // remove comment slashes from lines
+                    description = ["UIkit", name, "component"].join(" ");
+
+                grunt.log.writeln("Generating sublime snippet: " + name);
+
+                // place tab indices
+                var i = 1; // tab index, start with 1
+                content = content.replace(/class="(.+)"/g, 'class="${{index}:$1}"') // inside class attributes
+                                .replace(/(<[^>]+>)(<\/div>)/g, '$1${index}$2') // inside empty elements
+                                .replace(/\{index\}/g, function() { return i++; });
+
+                var snippet = template.replace("{content}", content)
+                                    .replace("{trigger}", name)
+                                    .replace("{description}", description);
+
+                grunt.file.write('dist/snippets/'+name+'.sublime-snippet', snippet);
+
+                // move to next match in loop
+                regex.lastIndex = match.index+1;
+            }
+        }
+
+        var files = grunt.file.expand("src/less/**/*.less");
+        files.forEach(function(filename) {
+            extractSnippets(filename);
+        });
+    });
+
 
     // Load grunt tasks from NPM packages
     grunt.loadNpmTasks("grunt-contrib-less");
