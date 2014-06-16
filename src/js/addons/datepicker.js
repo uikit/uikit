@@ -35,7 +35,7 @@
                 var content = '', maxDate, minDate;
 
                 if (opts.maxDate!==false){
-                    maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add('days',opts.maxDate);
+                    maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add('days', opts.maxDate);
                 }
 
                 if (opts.minDate!==false){
@@ -45,7 +45,44 @@
                 content += '<div class="uk-datepicker-nav">';
                 content += '<a href="" class="uk-datepicker-previous"></a>';
                 content += '<a href="" class="uk-datepicker-next"></a>';
-                content += '<div class="uk-datepicker-heading">'+ opts.i18n.months[data.month] +' '+ data.year+'</div>';
+
+                if (UI.formSelect) {
+
+                    var i, currentyear = (new Date()).getFullYear(), options = [], months, years, minYear, maxYear;
+
+                    for (i=0;i<opts.i18n.months.length;i++) {
+                        if(i==data.month) {
+                            options.push('<option value="'+i+'" selected>'+opts.i18n.months[i]+'</option>');
+                        } else {
+                            options.push('<option value="'+i+'">'+opts.i18n.months[i]+'</option>');
+                        }
+                    }
+
+                    months = '<span class="uk-form-select">'+ opts.i18n.months[data.month] + '<select class="update-picker-month">'+options.join('')+'</select></span>';
+
+                    // --
+
+                    options = [];
+
+                    minYear = minDate ? minDate.year() : currentyear - 50;
+                    maxYear = maxDate ? maxDate.year() : currentyear + 20;
+
+                    for (i=minYear;i<=maxYear;i++) {
+                        if (i == data.year) {
+                            options.push('<option value="'+i+'" selected>'+i+'</option>');
+                        } else {
+                            options.push('<option value="'+i+'">'+i+'</option>');
+                        }
+                    }
+
+                    years  = '<span class="uk-form-select">'+ data.year + '<select class="update-picker-year">'+options.join('')+'</select></span>';
+
+                    content += '<div class="uk-datepicker-heading">'+ months + ' ' + years +'</div>';
+
+                } else {
+                    content += '<div class="uk-datepicker-heading">'+ opts.i18n.months[data.month] +' '+ data.year+'</div>';
+                }
+
                 content += '</div>';
 
                 content += '<table class="uk-datepicker-table">';
@@ -122,6 +159,12 @@
                     } else {
                        active.add("months", 1 * (ele.hasClass("uk-datepicker-next") ? 1:-1));
                     }
+                });
+
+                dropdown.on('change', '.update-picker-month, .update-picker-year', function(){
+
+                    var select = $(this);
+                    active[select.is('.update-picker-year') ? 'setYear':'setMonth'](Number(select.val()));
                 });
 
                 dropdown.appendTo("body");
