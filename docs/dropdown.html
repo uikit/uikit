@@ -109,24 +109,26 @@
 
                             <p>Any content, like a button, can toggle a dropdown. Just wrap the toggle with a <code>&lt;div&gt;</code> element and add the <code>data-uk-dropdown</code> attribute. Add the <code>.uk-dropdown</code> class to a child <code>&lt;div&gt;</code> element to create the dropdown itself. A dropdown can be enabled by either hovering or clicking the the toggle.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Data attribute</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>data-uk-dropdown</code></td>
-                                        <td>Opens the dropdown on hover and adds a little delay, so the dropdown won't disappear immediately, once you stop hovering the toggle.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>data-uk-dropdown="{mode:'click'}"</code></td>
-                                        <td>Opens the dropdown by clicking the toggle. The dropdown closes again on the next click.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Data attribute</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>data-uk-dropdown</code></td>
+                                            <td>Opens the dropdown on hover and adds a little delay, so the dropdown won't disappear immediately, once you stop hovering the toggle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-uk-dropdown="{mode:'click'}"</code></td>
+                                            <td>Opens the dropdown by clicking the toggle. The dropdown closes again on the next click.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> To apply a dropdown, it is important that a parent element has a relative position to align the dropdown properly. Many components create the position context by default, like the <a href="button.html">Button</a>, <a href="navbar.html">Navbar</a>, <a href="subnav.html">Subnav</a> and the <a href="tab.html">Tab</a> component.</p>
 
@@ -210,28 +212,30 @@
 
                             <p>Add one of the following classes to align the dropdown menu.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-dropdown-flip</code></td>
-                                        <td>Aligns the dropdown menu to the right.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-dropdown-up</code></td>
-                                        <td>Aligns the dropdown menu above the toggle.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-dropdown-center</code></td>
-                                        <td>Centers the dropdown menu.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-dropdown-flip</code></td>
+                                            <td>Aligns the dropdown menu to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-dropdown-up</code></td>
+                                            <td>Aligns the dropdown menu above the toggle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-dropdown-center</code></td>
+                                            <td>Centers the dropdown menu.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 

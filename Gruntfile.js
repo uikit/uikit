@@ -190,6 +190,12 @@ module.exports = function(grunt) {
         },
 
         watch: {
+            grunt: {
+                options: {
+                    reload: true
+                },
+                files: ['Gruntfile.js']
+            },
             src: {
                 files: ["src/**/*.less", "themes/**/*.less","src/js/*.js"],
                 tasks: ["build"]

@@ -85,28 +85,30 @@
 
                             <p>The Search component consists of the search field itself and a close button.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-search</code></td>
-                                        <td>Add this class to a <code>&lt;form&gt;</code> element to define the Search component.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-search-field</code></td>
-                                        <td>Add this class to an <code>&lt;input&gt;</code> element to create the search field.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-search-close</code></td>
-                                        <td>Add this class to a <code>&lt;button&gt;</code> element to create a close button, resetting the search input.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-search</code></td>
+                                            <td>Add this class to a <code>&lt;form&gt;</code> element to define the Search component.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-search-field</code></td>
+                                            <td>Add this class to an <code>&lt;input&gt;</code> element to create the search field.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-search-close</code></td>
+                                            <td>Add this class to a <code>&lt;button&gt;</code> element to create a close button, resetting the search input.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p>To enable the necessary JavaScript for the search, just add the <code>data-uk-search</code> attribute.</p>
 
@@ -220,42 +222,45 @@
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-                            <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Option</th>
-                                        <th>Possible value</th>
-                                        <th>Default</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>source</code></td>
-                                        <td>string</td>
-                                        <td>''</td>
-                                        <td>Data source url</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>minLength</code></td>
-                                        <td>integer</td>
-                                        <td>3</td>
-                                        <td>Min. input length before triggering autocomplete</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>param</code></td>
-                                        <td>string</td>
-                                        <td>search</td>
-                                        <td>Query name when sending ajax request</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>delay</code></td>
-                                        <td>integer</td>
-                                        <td>300</td>
-                                        <td>Delay time after stop typing</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>source</code></td>
+                                            <td>string</td>
+                                            <td>''</td>
+                                            <td>Data source url</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>minLength</code></td>
+                                            <td>integer</td>
+                                            <td>3</td>
+                                            <td>Min. input length before triggering autocomplete</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>param</code></td>
+                                            <td>string</td>
+                                            <td>search</td>
+                                            <td>Query name when sending ajax request</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>delay</code></td>
+                                            <td>integer</td>
+                                            <td>300</td>
+                                            <td>Delay time after stop typing</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </article>
 

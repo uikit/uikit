@@ -481,7 +481,7 @@
 
     $(document).on('mouseup touchend', function() {
 
-        if(!moving) {
+        if(!moving && clickedlink) {
             location.href = clickedlink.attr('href');
         }
 

@@ -131,28 +131,30 @@
 
                             <p>Floating is fundamental for creating all kinds of layouts. But floats need to be cleared or in the worst case, you might end up with a scrambled site. The following classes will help you to setup basic layouts.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-float-left</code></td>
-                                        <td>Float the element to the left.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-float-right</code></td>
-                                        <td>Float the element to the right.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-clearfix</code></td>
-                                        <td>Add this class to a parent container to clear floats.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-float-left</code></td>
+                                            <td>Float the element to the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-float-right</code></td>
+                                            <td>Float the element to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-clearfix</code></td>
+                                            <td>Add this class to a parent container to clear floats.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -165,24 +167,26 @@
 
                             <p>Instead of using the <code>.uk-clearfix</code> class, you can create a new block formatting context to clear floats. Depending on your setup, you can evaluate which method is more suited.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-nbfc</code></td>
-                                        <td>Sets overflow to hidden to create a new block formatting context.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-nbfc-alt</code></td>
-                                        <td>Sets display to table-cell to create a new block formatting context.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-nbfc</code></td>
+                                            <td>Sets overflow to hidden to create a new block formatting context.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-nbfc-alt</code></td>
+                                            <td>Sets display to table-cell to create a new block formatting context.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <hr class="uk-article-divider">
 
@@ -190,36 +194,38 @@
 
                             <p>Align images or other elements with spacing between the text and the element.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-align-left</code></td>
-                                        <td>Floats the element to the left and creates right and bottom margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-align-right</code></td>
-                                        <td>Floats the element to the right and creates left and bottom margin.</td>
-                                    <tr>
-                                        <td><code>.uk-align-medium-left</code></td>
-                                        <td>Only affects device widths of <em>768px</em> and higher.</td>
-                                    </tr>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-align-medium-right</code></td>
-                                        <td>Only affects device widths of <em>768px</em> and higher.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-align-center</code></td>
-                                        <td>Centers the element and creates bottom margin.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-align-left</code></td>
+                                            <td>Floats the element to the left and creates right and bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-align-right</code></td>
+                                            <td>Floats the element to the right and creates left and bottom margin.</td>
+                                        <tr>
+                                            <td><code>.uk-align-medium-left</code></td>
+                                            <td>Only affects device widths of <em>768px</em> and higher.</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-align-medium-right</code></td>
+                                            <td>Only affects device widths of <em>768px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-align-center</code></td>
+                                            <td>Centers the element and creates bottom margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h4 class="tm-article-subtitle">Example</h4>
 
@@ -238,32 +244,34 @@
 
                             <p>To align objects vertically, you need to create a parent container to which the object itself will be aligned.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-vertical-align</code></td>
-                                        <td>Add this class to the parent container. This container needs a specific height.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-vertical-align-middle</code></td>
-                                        <td>Add this class to the child element to center your content.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-vertical-align-bottom</code></td>
-                                        <td>Add this class to the child element to align your content to the bottom.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-height-1-1</code></td>
-                                        <td>This helper class applies a height of 100%.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-vertical-align</code></td>
+                                            <td>Add this class to the parent container. This container needs a specific height.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-vertical-align-middle</code></td>
+                                            <td>Add this class to the child element to center your content.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-vertical-align-bottom</code></td>
+                                            <td>Add this class to the child element to align your content to the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-height-1-1</code></td>
+                                            <td>This helper class applies a height of 100%.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -344,23 +352,26 @@
 
                             <p>Images in UIkit adapt to the width of their parent container by default. If you want to apply the responsive behavior to media elements, like a video object, just add one of the following classes.</p>
 
-                            <table class="uk-table uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-3-4">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-responsive-width</code></td>
-                                        <td>Adjusts the object's width according to its parent's width, keeping the original aspect ratio.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-responsive-height</code></td>
-                                        <td>Adjusts the object's height according to its parent's height, keeping the original aspect ratio.</td>
-                                    </tr>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-responsive-width</code></td>
+                                            <td>Adjusts the object's width according to its parent's width, keeping the original aspect ratio.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-responsive-height</code></td>
+                                            <td>Adjusts the object's height according to its parent's height, keeping the original aspect ratio.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Example width</h3>
 
@@ -382,36 +393,38 @@
 
                             <p>Add one of the following classes to add spacing to block elements.</p>
 
-                            <table class="uk-table uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-3-4">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-margin</code></td>
-                                        <td>Adds the same top and bottom margins as a paragraph usually has.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-top</code></td>
-                                        <td>Adds top margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-bottom</code></td>
-                                        <td>Adds bottom margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-left</code></td>
-                                        <td>Adds left margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-right</code></td>
-                                        <td>Adds right margin.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin</code></td>
+                                            <td>Adds the same top and bottom margins as a paragraph usually has.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-top</code></td>
+                                            <td>Adds top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-bottom</code></td>
+                                            <td>Adds bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-left</code></td>
+                                            <td>Adds left margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-right</code></td>
+                                            <td>Adds right margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <hr class="uk-article-divider">
 
@@ -419,36 +432,38 @@
 
                             <p>Add one of the following classes to add larger spacing to block elements.</p>
 
-                            <table class="uk-table uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-3-4">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-margin-large</code></td>
-                                        <td>Adds large top and bottom margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-large-top</code></td>
-                                        <td>Adds large top margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-large-bottom</code></td>
-                                        <td>Adds large bottom margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-large-left</code></td>
-                                        <td>Adds large left margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-large-right</code></td>
-                                        <td>Adds large right margin.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin-large</code></td>
+                                            <td>Adds large top and bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-top</code></td>
+                                            <td>Adds large top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-bottom</code></td>
+                                            <td>Adds large bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-left</code></td>
+                                            <td>Adds large left margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-right</code></td>
+                                            <td>Adds large right margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <hr class="uk-article-divider">
 
@@ -456,36 +471,38 @@
 
                             <p>Add one of the following classes to add smaller spacing to block elements.</p>
 
-                            <table class="uk-table uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-3-4">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-margin-small</code></td>
-                                        <td>Adds small top and bottom margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-small-top</code></td>
-                                        <td>Adds small top margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-small-bottom</code></td>
-                                        <td>Adds small bottom margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-small-left</code></td>
-                                        <td>Adds small left margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-small-right</code></td>
-                                        <td>Adds small right margin.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin-small</code></td>
+                                            <td>Adds small top and bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-top</code></td>
+                                            <td>Adds small top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-bottom</code></td>
+                                            <td>Adds small bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-left</code></td>
+                                            <td>Adds small left margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-right</code></td>
+                                            <td>Adds small right margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <hr class="uk-article-divider">
 
@@ -493,28 +510,30 @@
 
                             <p>Add one of the following classes to remove spacing from block elements.</p>
 
-                            <table class="uk-table uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-3-4">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-margin-remove</code></td>
-                                        <td>Removes all margins.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-top-remove</code></td>
-                                        <td>Removes top margin.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-margin-bottom-remove</code></td>
-                                        <td>Removes bottom margin.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin-remove</code></td>
+                                            <td>Removes all margins.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-top-remove</code></td>
+                                            <td>Removes top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-bottom-remove</code></td>
+                                            <td>Removes bottom margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <hr class="uk-article-divider">
 
@@ -760,59 +779,63 @@
 
                             <p>Add one of these classes to change the display properties of an element.</p>
 
-                            <table class="uk-table uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-3-4">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-display-block</code></td>
-                                        <td>Forces the element to behave like a block element.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-display-inline</code></td>
-                                        <td>Forces the element to behave like an inline element.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-display-inline-block</code></td>
-                                        <td>Forces the element to behave like an inline-block element.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-display-block</code></td>
+                                            <td>Forces the element to behave like a block element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-display-inline</code></td>
+                                            <td>Forces the element to behave like an inline element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-display-inline-block</code></td>
+                                            <td>Forces the element to behave like an inline-block element.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <hr class="uk-article-divider">
 
                             <h2 id="visibility-utilities"><a href="#visibility-utilities" class="uk-link-reset">Visibility utilities</a></h2>
 
-                            <table class="uk-table uk-table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-3-4">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-hidden</code></td>
-                                        <td>Hides the element on any device.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-invisible</code></td>
-                                        <td>Hides the element without removing it from the flow.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-visible-hover</code></td>
-                                        <td>Displays hidden content on hover using <code>display: block</code>. Add this class to the parent element.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-visible-hover-inline</code></td>
-                                        <td>Displays hidden content on hover using <code>display: inline-block</code>. Add this class to the parent element.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-hidden</code></td>
+                                            <td>Hides the element on any device.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-invisible</code></td>
+                                            <td>Hides the element without removing it from the flow.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-hover</code></td>
+                                            <td>Displays hidden content on hover using <code>display: block</code>. Add this class to the parent element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-hover-inline</code></td>
+                                            <td>Displays hidden content on hover using <code>display: inline-block</code>. Add this class to the parent element.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h4 class="tm-article-subtitle">Example</h4>
 
@@ -830,54 +853,56 @@
 
                             <p>You can show or hide content on specific viewport widths. Breakpoints are set through variables and can easily be modified. Since the line between different device sizes keeps blurring, class names are kept general and do not refer to particular devices.</p>
 
-                            <table class="uk-table uk-table-line">
-                                <thead>
-                                    <tr>
-                                        <th class="uk-width-1-4">Class</th>
-                                        <th class="uk-width-1-4">Small<br><small>(Phones)</small><br><small style="font-weight: normal;">up to 767</small></th>
-                                        <th class="uk-width-1-4">Medium<br><small>(Tablets)</small><br><small style="font-weight: normal;">768 to 959</small></th>
-                                        <th class="uk-width-1-4">Large<br><small>(Desktops)</small><br><small style="font-weight: normal;">960 and larger</small></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-visible-small</code></td>
-                                        <td class="uk-text-success">Visible</td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-visible-medium</code></td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                        <td class="uk-text-success">Visible</td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-visible-large</code></td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                        <td class="uk-text-success">Visible</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-hidden-small</code></td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                        <td class="uk-text-success">Visible</td>
-                                        <td class="uk-text-success">Visible</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-hidden-medium</code></td>
-                                        <td class="uk-text-success">Visible</td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                        <td class="uk-text-success">Visible</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-hidden-large</code></td>
-                                        <td class="uk-text-success">Visible</td>
-                                        <td class="uk-text-success">Visible</td>
-                                        <td class="uk-text-muted">Hidden</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-line uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-1-4">Small<br><small>(Phones)</small><br><small style="font-weight: normal;">up to 767</small></th>
+                                            <th class="uk-width-1-4">Medium<br><small>(Tablets)</small><br><small style="font-weight: normal;">768 to 959</small></th>
+                                            <th class="uk-width-1-4">Large<br><small>(Desktops)</small><br><small style="font-weight: normal;">960 and larger</small></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-visible-small</code></td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-medium</code></td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-large</code></td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-small</code></td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-success">Visible</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-medium</code></td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-large</code></td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </article>
 

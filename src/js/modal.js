@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var active = false, body;
+    var active = false, $html = $('html'), body;
 
     UI.component('modal', {
 
@@ -55,7 +55,7 @@
             this.resize();
 
             active = this;
-            body.addClass("uk-modal-page").height(); // force browser engine redraw
+            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
@@ -86,11 +86,13 @@
 
         resize: function() {
 
-            var paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
+            var paddingdir = "padding-" + (UI.langdirection == 'left' ? "left":"right"),
+                margindir  = "margin-" + (UI.langdirection == 'left' ? "left":"right"),
+                bodywidth  = body.width();
 
-            this.scrollbarwidth = window.innerWidth - body.width();
+            this.scrollbarwidth = window.innerWidth - bodywidth;
 
-            body.css(paddingdir, this.scrollbarwidth);
+            $html.css(margindir, this.scrollbarwidth * -1);
 
             this.element.css(paddingdir, "");
 
@@ -125,7 +127,7 @@
 
             this.element.hide().removeClass("uk-open");
 
-            body.removeClass("uk-modal-page").css("padding-" + (UI.langdirection == 'left' ? "right":"left"), "");
+            $html.removeClass("uk-modal-page").css("margin-" + (UI.langdirection == 'left' ? "left":"right"), "");
 
             if(active===this) active = false;
 
