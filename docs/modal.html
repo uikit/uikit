@@ -108,28 +108,30 @@
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
                             <p>The modal component consists of an overlay, a dialog and a close button.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-modal</code></td>
-                                        <td>Add this class to a <code>&lt;div&gt;</code> element to create the dialog container and an overlay that blanks out the page. It is important to add an id to indicate the element for toggling.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-modal-dialog</code></td>
-                                        <td>Add this class to a child <code>&lt;div&gt;</code> element to create the dialog box.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-modal-close</code></td>
-                                        <td>Add this class to an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> element to create a close button within the dialog box. We recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a> to give the button a proper styling, though you can also use text or an image.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-modal</code></td>
+                                            <td>Add this class to a <code>&lt;div&gt;</code> element to create the dialog container and an overlay that blanks out the page. It is important to add an id to indicate the element for toggling.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-modal-dialog</code></td>
+                                            <td>Add this class to a child <code>&lt;div&gt;</code> element to create the dialog box.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-modal-close</code></td>
+                                            <td>Add this class to an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> element to create a close button within the dialog box. We recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a> to give the button a proper styling, though you can also use text or an image.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p>You can use any element to toggle a modal dialog. An <code>&lt;a&gt;</code> element needs to be linked to the modal's id. To enable the necessary JavaScript, add the <code>data-uk-modal</code> attribute. If you are using another element, like a button, just add the <code>data-uk-modal="{target:'#ID'}"</code> attribute to target the modal's id.</p>
 

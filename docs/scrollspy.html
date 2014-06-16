@@ -109,28 +109,30 @@
 
                             <p>The scrollspy component listens to page scrolling and triggers events based on the scroll position. For example, if you scroll down a page and an element appears the first time in the viewport you can trigger a smooth animation to fade in the element.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Data attribute</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>data-uk-scrollspy="{cls:'MY-CLASS'}"</code></td>
-                                        <td>Applies the class only the first time the element appears in the viewport.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>data-uk-scrollspy="{cls:'MY-CLASS', repeat: true}"</code></td>
-                                        <td>Applies the class everytime the element appears in the viewport.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>data-uk-scrollspy="{cls:'MY-CLASS', delay:600}"</code></td>
-                                        <td>Adds a delay in milliseconds to the animation.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Data attribute</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>data-uk-scrollspy="{cls:'MY-CLASS'}"</code></td>
+                                            <td>Applies the class only the first time the element appears in the viewport.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-uk-scrollspy="{cls:'MY-CLASS', repeat: true}"</code></td>
+                                            <td>Applies the class everytime the element appears in the viewport.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-uk-scrollspy="{cls:'MY-CLASS', delay:600}"</code></td>
+                                            <td>Adds a delay in milliseconds to the animation.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p>Typically, classes from the <a href="animation.html">Animation component</a> are used together with the scrollspy.</p>
 
@@ -261,32 +263,34 @@
 
                             <p>To automatically update the active menu item in a menu depending on the scroll position of your site, just add the data attribute <code>data-uk-scrollspy-nav</code> to any navigation. Each menu item must link to the ID of its corresponding part of the site.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Data attribute</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>data-uk-scrollspy-nav</code></td>
-                                        <td>Triggers the JavaScript necessary for the functionality of the scrollspy nav.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>data-uk-scrollspy-nav="{closest:'MY-SELECTOR'}"</code></td>
-                                        <td>Looks for the closest element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>data-uk-scrollspy-nav="{smoothscroll:true}"</code></td>
-                                        <td>Applies the <a href="smooth-scroll.html">Smooth scroll component</a> when skipping between different sections of the site.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>data-uk-scrollspy-nav="{cls:'MY-CLASS'}"</code></td>
-                                        <td>By default ScrollspyNav toggles the <code>uk-active</code> class. Use the <code>cls</code> option to use your own class name.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Data attribute</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>data-uk-scrollspy-nav</code></td>
+                                            <td>Triggers the JavaScript necessary for the functionality of the scrollspy nav.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-uk-scrollspy-nav="{closest:'MY-SELECTOR'}"</code></td>
+                                            <td>Looks for the closest element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-uk-scrollspy-nav="{smoothscroll:true}"</code></td>
+                                            <td>Applies the <a href="smooth-scroll.html">Smooth scroll component</a> when skipping between different sections of the site.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-uk-scrollspy-nav="{cls:'MY-CLASS'}"</code></td>
+                                            <td>By default ScrollspyNav toggles the <code>uk-active</code> class. Use the <code>cls</code> option to use your own class name.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p>For an example of the scrollspy nav, just check out our <a href="../src/tests/scrollspy.html">Scrollspy test page</a>.
 

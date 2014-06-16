@@ -195,111 +195,115 @@
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-                            <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Option</th>
-                                        <th>Possible value</th>
-                                        <th>Default</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>action</code></td>
-                                        <td>string</td>
-                                        <td>''</td>
-                                        <td>Target url for the upload</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>single</code></td>
-                                        <td>boolean</td>
-                                        <td>true</td>
-                                        <td>Send each file one by one</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>param</code></td>
-                                        <td>string</td>
-                                        <td>files[]</td>
-                                        <td>Post query name</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>params</code></td>
-                                        <td>JSON Object</td>
-                                        <td>{}</td>
-                                        <td>Additional request parameters</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>allow</code></td>
-                                        <td>string</td>
-                                        <td>*.*</td>
-                                        <td>File filter</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>type</code></td>
-                                        <td>(text | json)</td>
-                                        <td>text</td>
-                                        <td>Response type from server</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>action</code></td>
+                                            <td>string</td>
+                                            <td>''</td>
+                                            <td>Target url for the upload</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>single</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Send each file one by one</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>param</code></td>
+                                            <td>string</td>
+                                            <td>files[]</td>
+                                            <td>Post query name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>params</code></td>
+                                            <td>JSON Object</td>
+                                            <td>{}</td>
+                                            <td>Additional request parameters</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>allow</code></td>
+                                            <td>string</td>
+                                            <td>*.*</td>
+                                            <td>File filter</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>type</code></td>
+                                            <td>(text | json)</td>
+                                            <td>text</td>
+                                            <td>Response type from server</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3>Callback events</h3>
 
-                            <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Parameter</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>before</code></td>
-                                        <td>settings, files</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>progress</code></td>
-                                        <td>percent</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>complete</code></td>
-                                        <td>response, xhr</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>allcomplete</code></td>
-                                        <td>response, xhr</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>notallowed</code></td>
-                                        <td>file, settings</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>loadstart</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>load</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>loadend</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>error</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>abort</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>readystatechange</code></td>
-                                        <td>event</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>before</code></td>
+                                            <td>settings, files</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>progress</code></td>
+                                            <td>percent</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>complete</code></td>
+                                            <td>response, xhr</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>allcomplete</code></td>
+                                            <td>response, xhr</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>notallowed</code></td>
+                                            <td>file, settings</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>loadstart</code></td>
+                                            <td>event</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>load</code></td>
+                                            <td>event</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>loadend</code></td>
+                                            <td>event</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>error</code></td>
+                                            <td>event</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>abort</code></td>
+                                            <td>event</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>readystatechange</code></td>
+                                            <td>event</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </article>
 
