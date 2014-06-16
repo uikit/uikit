@@ -113,44 +113,46 @@
 
                             <p>To create the grid container, add the <code>.uk-grid</code> class to a parent element. Add one of the <code>.uk-width-*</code> classes to child elements to determine, how the units shall be sized. The grid supports 1, 2, 3, 4, 5, 6 and 10 unit divisions. This table gives you an overview of the <code>uk-width-*</code> classes that can be applied to units.</code></p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-width-1-1</code></td>
-                                        <td>Fills 100% of the available width.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-1-2</code></td>
-                                        <td>Divides the grid into halves.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-1-3</code> to <code>.uk-width-2-3</code></td>
-                                        <td>Divides the grid into thirds.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-1-4</code> to <code>.uk-width-3-4</code></td>
-                                        <td>Divides the grid into fourths.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-1-5</code> to <code>.uk-width-4-5</code></td>
-                                        <td>Divides the grid into fifths.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-1-6</code> to <code>.uk-width-5-6</code></td>
-                                        <td>Divides the grid into sixths.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-1-10</code> to <code>.uk-width-9-10</code></td>
-                                        <td>Divides the grid into tenths.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-width-1-1</code></td>
+                                            <td>Fills 100% of the available width.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-2</code></td>
+                                            <td>Divides the grid into halves.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-3</code> to <code>.uk-width-2-3</code></td>
+                                            <td>Divides the grid into thirds.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-4</code> to <code>.uk-width-3-4</code></td>
+                                            <td>Divides the grid into fourths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-5</code> to <code>.uk-width-4-5</code></td>
+                                            <td>Divides the grid into fifths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-6</code> to <code>.uk-width-5-6</code></td>
+                                            <td>Divides the grid into sixths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-10</code> to <code>.uk-width-9-10</code></td>
+                                            <td>Divides the grid into tenths.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p>We built an intentional redundancy into each set of unit classes, so that for instance the <code>.uk-width-5-10</code> class will work just as well as <code>.uk-width-1-2</code>.</p>
 
@@ -195,32 +197,34 @@
 
                             <p>UIkit provides a number of very useful responsive widths classes. Basicall they work just like the usual width classes, except they are prefixed, so that they only come to effect at certain breakpoints. These classes can be combined with the visibility classes from the <a href="utility.html">Utility component</a>. This is great to adjust your layout and content for different device sizes.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-width-*</code></td>
-                                        <td>Affects all device widths, grid columns stay side by side.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-small-*</code></td>
-                                        <td>Affects device widths of <em>480px</em> and higher. Grid columns will stack on smaller sizes.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-medium-*</code></td>
-                                        <td>Affects device widths of <em>768px</em> and higher. Grid columns will stack on smaller sizes.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-width-large-*</code></td>
-                                        <td>Affects device widths of <em>960px</em> and higher. Grid columns will stack on smaller sizes.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-width-*</code></td>
+                                            <td>Affects all device widths, grid columns stay side by side.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-small-*</code></td>
+                                            <td>Affects device widths of <em>480px</em> and higher. Grid columns will stack on smaller sizes.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-medium-*</code></td>
+                                            <td>Affects device widths of <em>768px</em> and higher. Grid columns will stack on smaller sizes.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-large-*</code></td>
+                                            <td>Affects device widths of <em>960px</em> and higher. Grid columns will stack on smaller sizes.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> To create a margin between stacking grid columns, just add the <code>data-uk-grid-margin</code> attribute.</p>
 
@@ -473,40 +477,42 @@
 
                             <p>To create a grid whose child elements' widths are evenly split, you don't have to apply the same class to each list item within the grid. Just add one of the <code>.uk-grid-width-*</code> classes to the grid itself.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-grid-width-1-2</code></td>
-                                        <td>Divides the grid into halves.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-1-3</code></td>
-                                        <td>Divides the grid into thirds.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-1-4</code></td>
-                                        <td>Divides the grid into fourths.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-1-5</code></td>
-                                        <td>Divides the grid into fifths.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-1-6</code></td>
-                                        <td>Divides the grid into sixths.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-1-10</code></td>
-                                        <td>Divides the grid into tenths.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-2</code></td>
+                                            <td>Divides the grid into halves.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-3</code></td>
+                                            <td>Divides the grid into thirds.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-4</code></td>
+                                            <td>Divides the grid into fourths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-5</code></td>
+                                            <td>Divides the grid into fifths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-6</code></td>
+                                            <td>Divides the grid into sixths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-10</code></td>
+                                            <td>Divides the grid into tenths.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -531,36 +537,38 @@
 
                             <p>UIkit also provides responsive grid width classes. You can apply these to maintain evenly sized grid columns, regardless of the device width.</p>
 
-                            <table class="uk-table">
-                                <thead>
-                                    <tr>
-                                        <th>Class</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>.uk-grid-width-*</code></td>
-                                        <td>Affects all device widths.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-small-*</code></td>
-                                        <td>Affects device widths of <em>480px</em> and higher.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-medium-*</code></td>
-                                        <td>Affects device widths of <em>768px</em> and higher.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-large-*</code></td>
-                                        <td>Affects device widths of <em>960px</em> and higher.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>.uk-grid-width-xlarge-*</code></td>
-                                        <td>Affects device widths of <em>1220px</em> and higher.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-grid-width-*</code></td>
+                                            <td>Affects all device widths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-small-*</code></td>
+                                            <td>Affects device widths of <em>480px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-medium-*</code></td>
+                                            <td>Affects device widths of <em>768px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-large-*</code></td>
+                                            <td>Affects device widths of <em>960px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-xlarge-*</code></td>
+                                            <td>Affects device widths of <em>1220px</em> and higher.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
