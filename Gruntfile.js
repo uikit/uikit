@@ -353,7 +353,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("snippets", "Create sublime snippets for all LESS components", function() {
         var template = "<snippet>\n\
-    <content>{content}</content>\n\
+    <content><![CDATA[{content}]]></content>\n\
     <tabTrigger>{trigger}</tabTrigger>\n\
     <scope>text.html</scope>\n\
     <description>{description}</description>\n\
