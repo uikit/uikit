@@ -2,8 +2,16 @@
 
 ### WIP
 
+ - Added month + year picker for datepicker add-on
+ - Added sortable add-on supports now also a handle class parameter
  - Added complete callback after smoothscroll animation
  - Fix black background on iOS for form-advanced
+ - Fixed modal padding gap
+ - Fixed document scrolling when modal is opened (Webkit)
+ - Fixed js error causing by the sortable add-on
+ - Fixed switcher component: document scrolls to top when clicking on a[href='#']
+ - Fixed search add-on missing uk-active class
+ - Updated timepicker add-on
 
 ### 2.7.1 (June 06, 2014)
 
