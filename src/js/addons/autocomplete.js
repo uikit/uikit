@@ -107,6 +107,8 @@
             this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function(){
                 $this.pick($(this));
             });
+
+            this.triggercomplete = trigger;
         },
 
         handle: function() {
@@ -268,6 +270,8 @@
 
                 this.dropdown.append(this.template({"items":data}));
                 this.show();
+
+                this.trigger('autocomplete-show');
             }
 
             return this;
