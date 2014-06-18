@@ -15,6 +15,7 @@
 //                  `uk-dropdown-stack`
 //                  `uk-dropdown-small`
 //                  `uk-dropdown-navbar`
+//                  `uk-dropdown-scrollable`
 //
 // States:          `uk-open`
 //
@@ -47,6 +48,8 @@
 @dropdown-navbar-background:                    #f5f5f5;
 @dropdown-navbar-color:                         #444;
 @dropdown-navbar-animation:                     uk-slide-top-fixed;
+
+@dropdown-scrollable-height:                    200px;
 
 
 /* ========================================================================
@@ -243,6 +246,19 @@
 .uk-open > .uk-dropdown-navbar {
     -webkit-animation: @dropdown-navbar-animation 0.2s ease-in-out;
     animation: @dropdown-navbar-animation 0.2s ease-in-out;
+}
+
+
+/* Modifier `uk-dropdown-scrollable`
+ ========================================================================== */
+
+/*
+ * Usefull for long lists
+ */
+
+.uk-dropdown-scrollable {
+    overflow-y: auto;
+    height: @dropdown-scrollable-height;
 }
 
 
