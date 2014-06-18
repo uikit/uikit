@@ -10,10 +10,12 @@
            "mode": "hover",
            "remaintime": 800,
            "justify": false,
-           "boundary": $(window)
+           "boundary": $(window),
+           "delay": 0
         },
 
         remainIdle: false,
+        hoverDelay: false,
 
         init: function() {
 
@@ -67,9 +69,21 @@
                         clearTimeout($this.remainIdle);
                     }
 
-                    $this.show();
+                    if ($this.hoverDelay) {
+                        clearTimeout($this.hoverDelay);
+                    }
+
+                    $this.hoverDelay = setTimeout(function() {
+
+                        $this.show();
+
+                    }, $this.options.delay );
 
                 }).on("mouseleave", function() {
+
+                    if ( $this.hoverDelay ) {
+                        clearTimeout($this.hoverDelay);
+                    }
 
                     $this.remainIdle = setTimeout(function() {
 
@@ -223,7 +237,11 @@
             var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
             if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
-                dropdown.show();
+                dropdown.hoverDelay = setTimeout(function() {
+
+                    dropdown.show();
+
+                }, dropdown.options.delay );
             }
 
             if(dropdown.element.find('.uk-dropdown').length) {
