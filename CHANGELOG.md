@@ -1,6 +1,6 @@
 # Changelog
 
-### 2.8.0 (June 20, 2014)
+### 2.8.0 (June 19, 2014)
 
  - IMPORTANT: Timepicker add-on is now based on autocomplete
  - Added delay parameter for dropdowns in hover mode

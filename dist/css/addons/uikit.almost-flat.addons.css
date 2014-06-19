@@ -1,4 +1,4 @@
-/*! UIkit 2.7.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Dotnav
@@ -181,6 +181,7 @@
  * 2. Makes box more robust so it clips the child element
  * 3. Vertical alignment
  * 4. Remove default style
+ * 5. Fix black background on iOS
  */
 .uk-form input[type="radio"],
 .uk-form input[type="checkbox"] {
@@ -197,6 +198,8 @@
   /* 4 */
   -webkit-appearance: none;
   outline: 0;
+  /* 5 */
+  background: transparent;
 }
 /* Radio */
 .uk-form input[type="radio"] {
