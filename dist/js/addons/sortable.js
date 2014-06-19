@@ -1,4 +1,4 @@
-/*! UIkit 2.7.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
@@ -27,7 +27,10 @@
         return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
     })(),
 
-    draggingPlaceholder;
+    draggingPlaceholder, moving, clickedlink;
+
+    // disable native dragndrop support for now
+    supportsDragAndDrop = false;
 
     UI.component('sortable', {
 
@@ -40,11 +43,14 @@
             placeholderClass : 'uk-sortable-placeholder',
             overClass        : 'uk-sortable-over',
             draggingClass    : 'uk-sortable-dragged',
+            dragMovingClass  : 'uk-sortable-moving',
             dragCustomClass  : '',
 
-            stop   : function() {},
-            start  : function() {},
-            change : function() {}
+            handleClass      : false,
+
+            stop             : function() {},
+            start            : function() {},
+            change           : function() {}
         },
 
         init: function() {
@@ -53,24 +59,40 @@
                 element                  = this.element[0],
                 currentlyDraggingElement = null,
                 currentlyDraggingTarget  = null,
-                children, moved;
+                children;
 
-            this.element.children().attr("draggable", "true");
+            if (supportsDragAndDrop) {
+                this.element.children().attr("draggable", "true");
+
+            } else {
+
+                // prevent leaving page after link clicking
+                this.element.on('mousedown touchstart', 'a[href]', function(e) {
+                    clickedlink = $(this);
+                }).on('click', 'a[href]', function(e) {
+                    clickedlink = $(this);
+                    e.stopImmediatePropagation();
+                    return false;
+                });
+            }
 
             var handleDragStart = delegate(function(e) {
 
-                var target = $(e.target);
+                moving = false;
 
-                moved = false;
+                var target = $(e.target), children = $this.element.children();
 
-                if (supportsTouch) {
+                if (!supportsTouch && e.button==2) {
+                    return;
+                }
 
-                    e.preventDefault();
+                if ($this.options.handleClass) {
 
-                    if (target.is('a') && target.attr('href')) {
-                        target.one('touchend', function(){
-                            if(!moved) location.href = target.attr('href');
-                        });
+                    var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, element);
+
+                    if (!handle.length) {
+                        e.preventDefault();
+                        return;
                     }
                 }
 
@@ -85,28 +107,31 @@
                 // init drag placeholder
                 if (draggingPlaceholder) draggingPlaceholder.remove();
 
-                var $current = $(currentlyDraggingElement),
-                    offset   = $current.offset();
+                var $current = $(currentlyDraggingElement), offset = $current.offset();
 
                 draggingPlaceholder = $('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
-                    top: offset.top,
-                    left: offset.left,
-                    width  : $current.width(),
-                    height : $current.height(),
-                    marginLeft: $current.css('margin-left'),
-                    paddingLeft: $current.css('padding-left')
+                    display : 'none',
+                    top     : offset.top,
+                    left    : offset.left,
+                    width   : $current.width(),
+                    height  : $current.height(),
+                    padding : $current.css('padding')
                 }).data('mouse-offset', {
                     'left': offset.left - parseInt(e.pageX, 10),
                     'top' : offset.top  - parseInt(e.pageY, 10)
                 }).append($current.html()).appendTo('body');
 
-                $(this).addClass($this.options.placeholderClass);
-                children = $this.element.children().addClass($this.options.childClass);
+                draggingPlaceholder.$current  = $current;
+                draggingPlaceholder.$sortable = $this;
 
                 addFakeDragHandlers();
 
                 $this.options.start(this, currentlyDraggingElement);
                 $this.trigger('sortable-start', [$this, currentlyDraggingElement]);
+
+                if (!supportsDragAndDrop) {
+                    e.preventDefault();
+                }
             });
 
             var handleDragOver = delegate(function(e) {
@@ -197,6 +222,8 @@
                     }
                 });
 
+                $('html').removeClass($this.options.dragMovingClass);
+
                 removeFakeDragHandlers();
 
                 $this.options.stop(this);
@@ -207,8 +234,6 @@
             };
 
             var handleTouchMove = delegate(function(e) {
-
-                moved = true;
 
                 if (!currentlyDraggingElement ||
                     currentlyDraggingElement === this ||
@@ -322,6 +347,7 @@
 
             if($this.options.warp || !$this.options.animation) {
                 elementToMoveNextTo.parentNode.insertBefore(element, next);
+                $(document).trigger("uk-check-display");
                 return;
             }
 
@@ -359,10 +385,15 @@
                         ele.animate({'top':offset.top, 'left':offset.left}, $this.options.animation, function() {
                             ele.css({'position':'','top':'', 'left':'', 'min-width': '', 'pointer-events':''}).removeClass($this.options.overClass).attr('data-child-dragenter', '');
                             count--
-                            if(!count) list.css('min-height', '');
+                            if (!count) {
+                                list.css('min-height', '');
+                                $(document).trigger("uk-check-display");
+                            }
                         });
                     }, 0);
             });
+
+
         }
     });
 
@@ -428,9 +459,19 @@
         });
     });
 
-    $(document).on('dragover touchmove', function(e) {
+    $(document).on('mousemove touchmove', function(e) {
 
         if (draggingPlaceholder) {
+
+            if (!moving) {
+                moving = true;
+                draggingPlaceholder.show();
+
+                draggingPlaceholder.$current.addClass(draggingPlaceholder.$sortable.options.placeholderClass);
+                draggingPlaceholder.$sortable.element.children().addClass(draggingPlaceholder.$sortable.options.childClass);
+
+                $('html').addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
+            }
 
             var offset = draggingPlaceholder.data('mouse-offset'),
                 left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
@@ -438,6 +479,15 @@
 
             draggingPlaceholder.css({'left': left, 'top': top });
         }
+    });
+
+    $(document).on('mouseup touchend', function() {
+
+        if(!moving && clickedlink) {
+            location.href = clickedlink.attr('href');
+        }
+
+        clickedlink = false;
     });
 
     return UI.sortable;

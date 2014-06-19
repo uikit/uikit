@@ -1,4 +1,4 @@
-/*! UIkit 2.7.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(core) {
 
@@ -48,7 +48,9 @@
         return UI;
     }
 
-    UI.version = '2.7.1';
+    UI.version = '2.8.0';
+    UI.$doc    = $doc;
+    UI.$win    = $win;
 
     UI.fn = function(command, options) {
 
@@ -1047,15 +1049,16 @@
 
     "use strict";
 
-    var active = false;
+    var active = false, hoverIdle;
 
     UI.component('dropdown', {
 
         defaults: {
-           "mode": "hover",
-           "remaintime": 800,
-           "justify": false,
-           "boundary": $(window)
+           'mode'       : 'hover',
+           'remaintime' : 800,
+           'justify'    : false,
+           'boundary'   : $(window),
+           'delay'      : 0
         },
 
         remainIdle: false,
@@ -1112,9 +1115,17 @@
                         clearTimeout($this.remainIdle);
                     }
 
-                    $this.show();
+                    if (hoverIdle) {
+                        clearTimeout(hoverIdle);
+                    }
+
+                    hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
 
                 }).on("mouseleave", function() {
+
+                    if (hoverIdle) {
+                        clearTimeout(hoverIdle);
+                    }
 
                     $this.remainIdle = setTimeout(function() {
 
@@ -1148,6 +1159,10 @@
                 active.removeClass("uk-open");
             }
 
+            if (hoverIdle) {
+                clearTimeout(hoverIdle);
+            }
+
             this.checkDimensions();
             this.element.addClass("uk-open");
             this.trigger('uk.dropdown.show', [this]);
@@ -1164,6 +1179,10 @@
 
             setTimeout(function() {
                 $(document).on("click.outer.dropdown", function(e) {
+
+                    if (hoverIdle) {
+                        clearTimeout(hoverIdle);
+                    }
 
                     var $target = $(e.target);
 
@@ -1268,7 +1287,7 @@
             var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
             if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
-                dropdown.show();
+                dropdown.element.trigger(triggerevent);
             }
 
             if(dropdown.element.find('.uk-dropdown').length) {
@@ -1438,7 +1457,7 @@
 
     "use strict";
 
-    var active = false, body;
+    var active = false, $html = $('html'), body;
 
     UI.component('modal', {
 
@@ -1491,7 +1510,7 @@
             this.resize();
 
             active = this;
-            body.addClass("uk-modal-page").height(); // force browser engine redraw
+            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
@@ -1522,11 +1541,13 @@
 
         resize: function() {
 
-            var paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
+            var paddingdir = "padding-" + (UI.langdirection == 'left' ? "left":"right"),
+                margindir  = "margin-" + (UI.langdirection == 'left' ? "left":"right"),
+                bodywidth  = body.width();
 
-            this.scrollbarwidth = window.innerWidth - body.width();
+            this.scrollbarwidth = window.innerWidth - bodywidth;
 
-            body.css(paddingdir, this.scrollbarwidth);
+            $html.css(margindir, this.scrollbarwidth * -1);
 
             this.element.css(paddingdir, "");
 
@@ -1561,7 +1582,7 @@
 
             this.element.hide().removeClass("uk-open");
 
-            body.removeClass("uk-modal-page").css("padding-" + (UI.langdirection == 'left' ? "right":"left"), "");
+            $html.removeClass("uk-modal-page").css("margin-" + (UI.langdirection == 'left' ? "left":"right"), "");
 
             if(active===this) active = false;
 
@@ -2131,7 +2152,7 @@
             var $this = this;
 
             this.on("click", this.options.toggle, function(e) {
-                if ($(this).is('a[href="#"]')) e.preventDefault();
+                e.preventDefault();
                 $this.show(this);
             });
 

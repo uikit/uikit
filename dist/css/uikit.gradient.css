@@ -1,4 +1,4 @@
-/*! UIkit 2.7.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -6131,6 +6131,15 @@ a.uk-thumbnail:focus {
 .uk-open > .uk-dropdown-navbar {
   -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
   animation: uk-slide-top-fixed 0.2s ease-in-out;
+}
+/* Modifier `uk-dropdown-scrollable`
+ ========================================================================== */
+/*
+ * Usefull for long lists
+ */
+.uk-dropdown-scrollable {
+  overflow-y: auto;
+  height: 200px;
 }
 .uk-dropdown-navbar.uk-dropdown-flip {
   left: auto;

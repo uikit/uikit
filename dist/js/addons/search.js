@@ -1,4 +1,4 @@
-/*! UIkit 2.7.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -61,7 +61,7 @@
             this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
             this.autocomplete.input.on("keyup", function(){
-                $this.element[$this.value ? "addClass":"removeClass"]("uk-active");
+                $this.element[$this.autocomplete.input.val() ? "addClass":"removeClass"]("uk-active");
             }).closest("form").on("reset", function(){
                 $this.value="";
                 $this.element.removeClass("uk-active");
