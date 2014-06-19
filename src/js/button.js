@@ -47,7 +47,7 @@
         },
 
         getSelected: function() {
-            retur this.find(".uk-active");
+            return this.find(".uk-active");
         }
     });
 
