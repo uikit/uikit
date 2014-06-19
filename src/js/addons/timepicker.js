@@ -47,14 +47,16 @@
     UI.component('timepicker', {
 
         defaults: {
-            format: '24h'
+            format : '24h',
+            delay  : 0
         },
 
         init: function() {
 
             var $this  = this;
 
-            this.options.template = '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>';
+            this.options.minLength = 0;
+            this.options.template  = '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>';
 
             this.options.source = function(release) {
                 release(times[$this.options.format] || times['12h']);
