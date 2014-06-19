@@ -1,13 +1,13 @@
 # Changelog
 
-### WIP
+### 2.8.0 (June 20, 2014)
 
+ - IMPORTANT: Timepicker add-on is now based on autocomplete
  - Added delay parameter for dropdowns in hover mode
  - Added scrollable dropdown class
  - Added month and year picker for datepicker add-on
  - Added support for a handle class parameter in sortable add-on
  - Added complete callback after smoothscroll animation
- - Updated timepicker add-on
  - Fix black background on iOS for form-advanced
  - Fixed modal padding gap
  - Fixed document scrolling when modal is opened (Webkit)
@@ -15,6 +15,10 @@
  - Fixed switcher component: document scrolls to top when clicking on a[href='#']
  - Fixed search add-on missing uk-active class
  - Fixed left position bug in safari for sticky add-on
+
+**Documentation and repository**
+
+  - Updated dropdown, timepicker and sortable doc
 
 ### 2.7.1 (June 06, 2014)
 

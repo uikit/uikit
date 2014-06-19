@@ -46,7 +46,7 @@
         return UI;
     }
 
-    UI.version = '2.7.1';
+    UI.version = '2.8.0';
     UI.$doc    = $doc;
     UI.$win    = $win;
 
