@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.8.0 (June 20, 2014)
 
  - Added delay parameter for dropdowns in hover mode
  - Added scrollable dropdown class
@@ -15,6 +15,10 @@
  - Fixed switcher component: document scrolls to top when clicking on a[href='#']
  - Fixed search add-on missing uk-active class
  - Fixed left position bug in safari for sticky add-on
+
+**Documentation and repository**
+
+  - Updated dropdown, timepicker and sortable doc
 
 ### 2.7.1 (June 06, 2014)
 
