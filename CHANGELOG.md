@@ -14,6 +14,7 @@
  - Fixed js error causing by the sortable add-on
  - Fixed switcher component: document scrolls to top when clicking on a[href='#']
  - Fixed search add-on missing uk-active class
+ - Fixed left position bug in safari for sticky add-on
 
 ### 2.7.1 (June 06, 2014)
 
