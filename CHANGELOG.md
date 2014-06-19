@@ -2,6 +2,7 @@
 
 ### WIP
 
+ - Added delay parameter for dropdowns in hover mode
  - Added scrollable dropdown class
  - Added month and year picker for datepicker add-on
  - Added support for a handle class parameter in sortable add-on
@@ -13,7 +14,7 @@
  - Fixed js error causing by the sortable add-on
  - Fixed switcher component: document scrolls to top when clicking on a[href='#']
  - Fixed search add-on missing uk-active class
- 
+
 ### 2.7.1 (June 06, 2014)
 
   - Reverted hidden and visibility classes for breakpoint mini

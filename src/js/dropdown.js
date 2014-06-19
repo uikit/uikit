@@ -2,15 +2,16 @@
 
     "use strict";
 
-    var active = false;
+    var active = false, hoverIdle;
 
     UI.component('dropdown', {
 
         defaults: {
-           "mode": "hover",
-           "remaintime": 800,
-           "justify": false,
-           "boundary": $(window)
+           'mode'       : 'hover',
+           'remaintime' : 800,
+           'justify'    : false,
+           'boundary'   : $(window),
+           'delay'      : 0
         },
 
         remainIdle: false,
@@ -67,9 +68,17 @@
                         clearTimeout($this.remainIdle);
                     }
 
-                    $this.show();
+                    if (hoverIdle) {
+                        clearTimeout(hoverIdle);
+                    }
+
+                    hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
 
                 }).on("mouseleave", function() {
+
+                    if (hoverIdle) {
+                        clearTimeout(hoverIdle);
+                    }
 
                     $this.remainIdle = setTimeout(function() {
 
@@ -103,6 +112,10 @@
                 active.removeClass("uk-open");
             }
 
+            if (hoverIdle) {
+                clearTimeout(hoverIdle);
+            }
+
             this.checkDimensions();
             this.element.addClass("uk-open");
             this.trigger('uk.dropdown.show', [this]);
@@ -119,6 +132,10 @@
 
             setTimeout(function() {
                 $(document).on("click.outer.dropdown", function(e) {
+
+                    if (hoverIdle) {
+                        clearTimeout(hoverIdle);
+                    }
 
                     var $target = $(e.target);
 
@@ -223,7 +240,7 @@
             var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
 
             if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
-                dropdown.show();
+                dropdown.element.trigger(triggerevent);
             }
 
             if(dropdown.element.find('.uk-dropdown').length) {
