@@ -71,19 +71,7 @@
 
                 var selected = $this.autocomplete.dropdown.find('[data-value="'+$this.element.val()+'"]');
 
-                if (selected.length) {
-                    selected.addClass($this.autocomplete.options.hoverClass);
-                    $this.autocomplete.selected = selected;
-
-                    // scroll to selected time
-                    setTimeout(function(){
-                        var top = selected.position().top  +  $this.autocomplete.dropdown.scrollTop();
-
-                        if (top > $this.autocomplete.dropdown.height()) {
-                            $this.autocomplete.dropdown.scrollTop(top - selected.height());
-                        }
-                    }, 10);
-                }
+                $this.autocomplete.pick(selected, true);
             });
 
             this.element.on('focus', function(){

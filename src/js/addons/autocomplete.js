@@ -78,11 +78,11 @@
                                 break;
                             case 38: // up
                                 e.preventDefault();
-                                $this.pick('prev');
+                                $this.pick('prev', true);
                                 break;
                             case 40: // down
                                 e.preventDefault();
-                                $this.pick('next');
+                                $this.pick('next', true);
                                 break;
                             case 27:
                             case 9: // esc, tab
@@ -126,9 +126,10 @@
             return this;
         },
 
-        pick: function(item) {
+        pick: function(item, scrollinview) {
 
-            var items    = this.dropdown.find('.uk-autocomplete-results').children(':not(.'+this.options.skipClass+')'),
+            var $this    = this,
+                items    = this.dropdown.find('.uk-autocomplete-results').children(':not(.'+this.options.skipClass+')'),
                 selected = false;
 
             if (typeof item !== "string" && !item.hasClass(this.options.skipClass)) {
@@ -153,6 +154,22 @@
                 this.selected = selected;
                 items.removeClass(this.options.hoverClass);
                 this.selected.addClass(this.options.hoverClass);
+
+                // jump to selected if not in view
+                if (scrollinview) {
+
+                    setTimeout(function(){
+
+                        var top       = selected.position().top,
+                            scrollTop = $this.dropdown.scrollTop(),
+                            dpheight  = $this.dropdown.height();
+
+                        if (top > dpheight ||  top < 0) {
+                            $this.dropdown.scrollTop(scrollTop + top);
+                        }
+
+                    }, 10);
+                }
             }
         },
 
