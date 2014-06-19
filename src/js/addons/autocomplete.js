@@ -158,17 +158,13 @@
                 // jump to selected if not in view
                 if (scrollinview) {
 
-                    setTimeout(function(){
+                    var top       = selected.position().top,
+                        scrollTop = $this.dropdown.scrollTop(),
+                        dpheight  = $this.dropdown.height();
 
-                        var top       = selected.position().top,
-                            scrollTop = $this.dropdown.scrollTop(),
-                            dpheight  = $this.dropdown.height();
-
-                        if (top > dpheight ||  top < 0) {
-                            $this.dropdown.scrollTop(scrollTop + top);
-                        }
-
-                    }, 10);
+                    if (top > dpheight ||  top < 0) {
+                        $this.dropdown.scrollTop(scrollTop + top);
+                    }
                 }
             }
         },

@@ -71,7 +71,9 @@
 
                 var selected = $this.autocomplete.dropdown.find('[data-value="'+$this.element.val()+'"]');
 
-                $this.autocomplete.pick(selected, true);
+                setTimeout(function(){
+                    $this.autocomplete.pick(selected, true);
+                }, 10);
             });
 
             this.element.on('focus', function(){
