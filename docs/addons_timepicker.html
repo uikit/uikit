@@ -14,6 +14,7 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
+        <script src="../dist/js/addons/autocomplete.js"></script>
         <script src="../dist/js/addons/timepicker.js"></script>
     </head>
 
@@ -76,11 +77,11 @@
 
                             <h1>Timepicker</h1>
 
-                            <p class="uk-article-lead">Create a timepicker which can easily be used with keyboards.</p>
+                            <p class="uk-article-lead">Create a timepicker which can easily be used by selecting a time value from a pre filled dropdown.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply the timepicker, just add the <code>data-uk-timepicker</code> attribute to an <code>&lt;input&gt;</code> element. The timepicker will automatically display the actual time and you can change it in hourly and quarter-hourly intervals by pressing the up or down button on the keyboard.</p>
+                            <p>To apply the timepicker, just add the <code>data-uk-timepicker</code> attribute to an <code>&lt;input&gt;</code> element. The timepicker will automatically display a pre filled dropdown on focus, which can be navigated by pressing the up or down button on the keyboard or by scrolling with the mouse.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -98,25 +99,25 @@
 
                             <h2 id="display-meridian-time"><a href="#display-meridian-time" class="uk-link-reset">Display meridian time</a></h2>
 
-                            <p>To display meridian time, just add the <em>showMeridian</em> option: <code>data-uk-timepicker="{showMeridian:true}"</code>.</p>
+                            <p>To display meridian time, just define the <em>format</em> option and set it to <code>12h</code></p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <form class="uk-form">
-                                <input type="text" id="form-time-meridian" data-uk-timepicker="{showMeridian:true}">
+                                <input type="text" id="form-time-meridian" data-uk-timepicker="{format:'12h'}">
                             </form>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;form class="uk-form"&gt;
-    &lt;input type="text" data-uk-timepicker="{showMeridian:true}"&gt;
+    &lt;input type="text" data-uk-timepicker="{format:'12h'}"&gt;
 &lt;/form&gt;</code></pre>
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
                             <p>This is an example of how to set options via attribute:</p>
 
-                            <pre><code>data-uk-timepicker=&quot;{minuteStep:5, showSeconds:true}&quot;</code></pre>
+                            <pre><code>data-uk-timepicker=&quot;{format:'12h'}&quot;</code></pre>
 
                             <div class="uk-overflow-container">
                                 <table class="uk-table uk-table-striped uk-text-nowrap">
@@ -130,34 +131,10 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>defaultTime</code></td>
-                                            <td>string</td>
-                                            <td>'current'</td>
-                                            <td>Default value on focus and empty input</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>minuteStep</code></td>
-                                            <td>integer</td>
-                                            <td>15</td>
-                                            <td>Minutes interval</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>secondStep</code></td>
-                                            <td>integer</td>
-                                            <td>15</td>
-                                            <td>Seconds interval</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>showSeconds</code></td>
-                                            <td>boolean</td>
-                                            <td>false</td>
-                                            <td>Show seconds</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>showMeridian</code></td>
-                                            <td>boolean</td>
-                                            <td>false</td>
-                                            <td>Show Meridian</td>
+                                            <td><code>format</code></td>
+                                            <td>'24h' or '12h'</td>
+                                            <td>'24h'</td>
+                                            <td>Defines the prefered time notation</td>
                                         </tr>
                                     </tbody>
                                 </table>

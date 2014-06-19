@@ -47,8 +47,6 @@
     UI.component('timepicker', {
 
         defaults: {
-            minLength: 0,
-            delay: 150,
             format: '24h'
         },
 
