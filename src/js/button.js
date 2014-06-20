@@ -23,7 +23,7 @@
         },
 
         getSelected: function() {
-            this.find(".uk-active");
+            return this.find(".uk-active");
         }
     });
 
@@ -47,7 +47,7 @@
         },
 
         getSelected: function() {
-            this.find(".uk-active");
+            return this.find(".uk-active");
         }
     });
 
