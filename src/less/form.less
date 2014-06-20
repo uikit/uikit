@@ -420,9 +420,18 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 /* Sub-object: `uk-form-icon`
  ========================================================================== */
 
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ */
+
 .uk-form-icon {
-    position: relative;
+    /* 1 */
     display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
     max-width: 100%;
 }
 

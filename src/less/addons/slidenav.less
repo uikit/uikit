@@ -104,21 +104,21 @@
 
 /*
  * 1. Container width fits its content
- * 2. Corrects max-width behavior (3.) if padding and border are used
- * 3. Responsive behavior
- * 4. Create position context for dropdowns
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ * 4. Corrects `max-width` behavior if padding and border are used
  */
 
 .uk-slidenav-position {
     /* 1 */
     display: inline-block;
     /* 2 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    position: relative;
     /* 3 */
     max-width: 100%;
     /* 4 */
-    position: relative;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /*

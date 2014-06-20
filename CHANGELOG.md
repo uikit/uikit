@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+ - Fixed autocomplete from overflowing its container
+
 ### 2.8.0 (June 19, 2014)
 
  - IMPORTANT: Timepicker add-on is now based on autocomplete

@@ -38,19 +38,21 @@
  ========================================================================== */
 
 /*
- * 1. Corrects max-width behavior (2.) if padding and border are used
+ * 1. Container width fits its content
  * 2. Responsive behavior
- * 3. Required for `figure` element
- * 4. Style
+ * 3. Corrects `max-width` behavior sed
+ * 4. Required for `figure` element
+ * 5. Style
  */
 
 .uk-thumbnail {
-    display: inline-block;
     /* 1 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    display: inline-block;
     /* 2 */
     max-width: 100%;
+    /* 3 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     /* 3 */
     margin: 0;
     /* 4 */
