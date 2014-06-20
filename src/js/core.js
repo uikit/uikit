@@ -272,12 +272,12 @@
         // custom scroll observer
         setInterval((function(){
 
-            var memory = {x: window.scrollX, y:window.scrollY};
+            var memory = {x: window.pageXOffset, y:window.pageYOffset};
 
             var fn = function(){
 
-                if (memory.x != window.scrollX || memory.y != window.scrollY) {
-                    memory = {x: window.scrollX, y:window.scrollY};
+                if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
+                    memory = {x: window.pageXOffset, y:window.pageYOffset};
                     $doc.trigger('uk-scroll', [memory]);
                 }
             };
