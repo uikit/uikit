@@ -309,7 +309,7 @@
 
         // remove css hover rules for touch devices
         if (UI.support.touch) {
-            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+            // UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
         }
     });
 
