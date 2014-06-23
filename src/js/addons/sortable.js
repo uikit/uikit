@@ -25,7 +25,7 @@
         return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
     })(),
 
-    draggingPlaceholder, moving, clickedlink;
+    draggingPlaceholder, moving, dragging, clickedlink;
 
     // disable native dragndrop support for now
     supportsDragAndDrop = false;
@@ -77,6 +77,7 @@
             var handleDragStart = delegate(function(e) {
 
                 moving = false;
+                dragging = false;
 
                 var target = $(e.target), children = $this.element.children();
 
@@ -183,6 +184,7 @@
 
             var handleDrop = delegate(function(e) {
 
+
                 if (e.type === 'drop') {
 
                     if (e.stopPropagation) {
@@ -194,7 +196,7 @@
                     }
                 }
 
-                if (this === currentlyDraggingElement) {
+                if (!dragging) {
                     return;
                 }
 
@@ -336,6 +338,8 @@
         },
 
         moveElementNextTo: function(element, elementToMoveNextTo) {
+
+            dragging = true;
 
             var $this    = this,
                 list     = $(element).parent().css('min-height', ''),
