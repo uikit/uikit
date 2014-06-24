@@ -3,6 +3,7 @@
 ### WIP
 
  - Fixed autocomplete from overflowing its container
+ - Added treshold parameter to sortable add-on
 
 ### 2.8.0 (June 19, 2014)
 
