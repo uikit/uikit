@@ -2,9 +2,10 @@
 
 ### WIP
 
- - Fixed autocomplete from overflowing its container
  - Added treshold parameter to sortable add-on
  - Added reload toggle elements on dom update
+ - Added hover color for badges
+ - Fixed autocomplete from overflowing its container
 
 ### 2.8.0 (June 19, 2014)
 
