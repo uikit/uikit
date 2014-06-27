@@ -20,6 +20,7 @@
 @badge-line-height:                             14px;
 @badge-color:                                   #fff;
 @badge-text-transform:                          none;
+@badge-hover-color:                             #fff;
 
 @badge-notification-font-size:                  12px;
 @badge-notification-line-height:                18px;
@@ -46,6 +47,12 @@
     text-transform: @badge-text-transform;
     .hook-badge;
 }
+
+/*
+ * Keep color when badge is a link
+ */
+
+.uk-badge:hover { color: @badge-hover-color; }
 
 
 /* Modifier: `uk-badge-notification`;
