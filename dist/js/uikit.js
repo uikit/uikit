@@ -274,12 +274,12 @@
         // custom scroll observer
         setInterval((function(){
 
-            var memory = {x: window.scrollX, y:window.scrollY};
+            var memory = {x: window.pageXOffset, y:window.pageYOffset};
 
             var fn = function(){
 
-                if (memory.x != window.scrollX || memory.y != window.scrollY) {
-                    memory = {x: window.scrollX, y:window.scrollY};
+                if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
+                    memory = {x: window.pageXOffset, y:window.pageYOffset};
                     $doc.trigger('uk-scroll', [memory]);
                 }
             };
@@ -311,7 +311,7 @@
 
         // remove css hover rules for touch devices
         if (UI.support.touch) {
-            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+            // UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
         }
     });
 
@@ -954,7 +954,7 @@
         },
 
         getSelected: function() {
-            this.find(".uk-active");
+            return this.find(".uk-active");
         }
     });
 
@@ -978,7 +978,7 @@
         },
 
         getSelected: function() {
-            this.find(".uk-active");
+            return this.find(".uk-active");
         }
     });
 
@@ -1743,7 +1743,7 @@
                 flip      = bar.hasClass("uk-offcanvas-bar-flip") ? -1:1,
                 dir       = flip * (rtl ? -1 : 1);
 
-            scrollpos = {x: window.scrollX, y: window.scrollY};
+            scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
 
             element.addClass("uk-active");
 
@@ -2527,6 +2527,7 @@
 
 (function(global, $, UI){
 
+    var togglers = [];
 
     UI.component('toggle', {
 
@@ -2539,12 +2540,14 @@
 
             var $this = this;
 
-            this.totoggle = this.options.target ? $(this.options.target):[];
+            this.getTogglers();
 
             this.on("click", function(e) {
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
                 $this.toggle();
             });
+
+            togglers.push(this);
         },
 
         toggle: function() {
@@ -2556,6 +2559,10 @@
             if(this.options.cls == 'uk-hidden') {
                 $(document).trigger("uk-check-display");
             }
+        },
+
+        getTogglers: function() {
+            this.totoggle = this.options.target ? $(this.options.target):[];
         }
     });
 
@@ -2568,6 +2575,14 @@
                var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
             }
         });
+
+        setTimeout(function(){
+
+            togglers.forEach(function(toggler){
+                toggler.getTogglers();
+            });
+
+        }, 0);
     });
 
 })(this, jQuery, jQuery.UIkit);
