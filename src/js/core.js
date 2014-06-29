@@ -180,6 +180,14 @@
         }
     };
 
+    /*
+    * portions of $.parseData v0.1.1
+    * Copyright 2013, tokkonopapa
+    * https://github.com/tokkonopapa/jQuery-parseData/
+    *
+    * This content is released under the MIT License
+    */
+
     // Pre-compiled regular expression
     var _jsonize_brace = /^[{\[]/,         // check `{`、`[` at the beginning
         _jsonize_token = /[^,:{}\[\]]+/g,  // retrieve token based on the delimiter
@@ -212,10 +220,9 @@
     			// 2. escape double quotes in the middle
     			// 3. wrap token with double quotes
           else {
-            return '"'
-              + a.replace(_jsonize_quote, '$1')
-                 .replace(_jsonize_escap, '\\$1')
-              + '"';
+            return (
+                '"' + a.replace(_jsonize_quote, '$1').replace(_jsonize_escap, '\\$1') + '"'
+            );
           }
         });
       }
