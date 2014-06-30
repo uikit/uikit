@@ -6,6 +6,7 @@
  - Added reload toggle elements on dom update
  - Added hover color for badges
  - Fixed autocomplete from overflowing its container
+ - Fixed sticky z-index and box sizing
 
 ### 2.8.0 (June 19, 2014)
 

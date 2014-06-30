@@ -18,7 +18,16 @@
    Component: Sticky
  ========================================================================== */
 
-.uk-sticky { z-index: @sticky-z-index; }
+/*
+ * 1. More robust if padding and border are used
+ */
+
+.uk-sticky [data-uk-sticky] {
+	z-index: @sticky-z-index;
+	/* 1 */
+	-moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 
 // Hooks
