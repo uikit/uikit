@@ -33,7 +33,11 @@
             var stickyId = this.element.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
                 wrapper  = $('<div></div>').attr('id', 'sticky-'+stickyId).addClass(this.options.clswrapper);
 
-            wrapper = this.element.wrap(wrapper).parent().css('height', this.element.outerHeight());
+            wrapper = this.element.wrap(wrapper).parent();
+
+            if (this.element.css('position') != 'absolute') {
+                wrapper.css('height', this.element.outerHeight());
+            }
 
             if (this.element.css("float") != "none") {
                 wrapper.css({"float":this.element.css("float")});
@@ -85,9 +89,14 @@
 
             } else {
 
-                var newTop = documentHeight - sticky.element.outerHeight() - sticky.top - sticky.bottom - scrollTop - extra;
+                var newTop;
 
-                newTop = newTop < 0 ? newTop + sticky.top : sticky.top;
+                if (sticky.top < 0) {
+                    newTop = 0;
+                } else {
+                    newTop = documentHeight - sticky.element.outerHeight() - sticky.top - sticky.bottom - scrollTop - extra;
+                    newTop = newTop < 0 ? newTop + sticky.top : sticky.top;
+                }
 
                 if (sticky.currentTop != newTop) {
                     sticky.element.css({
