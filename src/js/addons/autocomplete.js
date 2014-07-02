@@ -252,7 +252,7 @@
                             type: this.options.method,
                             dataType: 'json',
                             complete: function(xhr) {
-                                release(xhr.responseJSON || []);
+                                release(xhr.responseJSON || $.parseJSON(xhr.responseText) || []);
                             }
                         });
 
