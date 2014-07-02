@@ -51,7 +51,12 @@
                 currentTop: null,
                 wrapper: wrapper,
                 clsactive: this.options.clsactive,
-                getWidthFrom: this.options.getWidthFrom || wrapper
+                getWidthFrom: this.options.getWidthFrom || wrapper,
+                reset: function() {
+                    this.element.css({"position":"", "top":"", "width":"", "left":""});
+                    this.wrapper.removeClass(this.clsactive);
+                    this.currentTop = null;
+                }
             });
         },
 
@@ -82,9 +87,7 @@
             if (scrollTop <= etse) {
 
                 if (sticky.currentTop !== null) {
-                    sticky.element.css({"position":"", "top":"", "width":"", "left":""});
-                    sticky.wrapper.removeClass(sticky.clsactive);
-                    sticky.currentTop = null;
+                    sticky.reset();
                 }
 
             } else {
@@ -116,6 +119,16 @@
 
     // should be more efficient than using $win.scroll(scroller):
     $doc.on('uk-scroll', scroller);
+    $win.on('resize orientationchange', UI.Utils.debounce(function() {
+
+        if (!sticked.length) return;
+
+        for (var i = 0; i < sticked.length; i++) {
+            sticked[i].reset();
+        }
+
+        scroller();
+    }, 100));
 
     $doc.on("uk-domready", function(e) {
         setTimeout(function(){
