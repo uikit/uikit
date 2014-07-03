@@ -23,6 +23,7 @@
         defaults: {
             top          : 0,
             bottom       : 0,
+            clsinit      : 'uk-sticky-init',
             clsactive    : 'uk-active',
             clswrapper   : 'uk-sticky',
             getWidthFrom : ''
@@ -44,20 +45,24 @@
                 this.element.css({"float":"none"});
             }
 
-            sticked.push({
-                top: this.options.top,
-                bottom: this.options.bottom,
-                element: this.element,
-                currentTop: null,
-                wrapper: wrapper,
-                clsactive: this.options.clsactive,
-                getWidthFrom: this.options.getWidthFrom || wrapper,
-                reset: function() {
+            this.sticky = {
+                top          : this.options.top,
+                bottom       : this.options.bottom,
+                element      : this.element,
+                currentTop   : null,
+                wrapper      : wrapper,
+                init         : false,
+                clsactive    : this.options.clsactive,
+                clsinit      : this.options.clsinit,
+                getWidthFrom : this.options.getWidthFrom || wrapper,
+                reset        : function() {
                     this.element.css({"position":"", "top":"", "width":"", "left":""});
-                    this.wrapper.removeClass(this.clsactive);
+                    this.wrapper.removeClass([this.clsactive, this.clsinit].join(' '));
                     this.currentTop = null;
                 }
-            });
+            };
+
+            sticked.push(this.sticky);
         },
 
         update: function() {
@@ -72,7 +77,8 @@
         var scrollTop       = $win.scrollTop(),
             documentHeight  = $doc.height(),
             dwh             = documentHeight - $win.height(),
-            extra           = (scrollTop > dwh) ? dwh - scrollTop : 0;
+            extra           = (scrollTop > dwh) ? dwh - scrollTop : 0,
+            cls, newTop;
 
         for (var i = 0; i < sticked.length; i++) {
 
@@ -84,15 +90,13 @@
                 elementTop = sticky.wrapper.offset().top,
                 etse       = elementTop - sticky.top - extra;
 
-            if (scrollTop <= etse) {
+            if (scrollTop < etse) {
 
                 if (sticky.currentTop !== null) {
                     sticky.reset();
                 }
 
             } else {
-
-                var newTop;
 
                 if (sticky.top < 0) {
                     newTop = 0;
@@ -102,6 +106,7 @@
                 }
 
                 if (sticky.currentTop != newTop) {
+
                     sticky.element.css({
                         "position" : "fixed",
                         "top"      : newTop,
@@ -109,10 +114,16 @@
                         "left"     : sticky.wrapper.offset().left
                     });
 
+                    if (!sticky.init) {
+                        sticky.wrapper.addClass(sticky.clsinit);
+                    }
+
                     sticky.wrapper.addClass(sticky.clsactive);
                     sticky.currentTop = newTop;
                 }
             }
+
+            sticky.init = true;
         }
 
     }
@@ -133,7 +144,6 @@
     $doc.on("uk-domready", function(e) {
         setTimeout(function(){
 
-            scroller();
 
             $("[data-uk-sticky]").each(function(){
 
@@ -143,6 +153,8 @@
                     UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
                 }
             });
+
+            scroller();
         }, 0);
     });
 
