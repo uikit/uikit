@@ -5,7 +5,7 @@
  - Added treshold parameter to sortable add-on
  - Added reload toggle elements on dom update
  - Added hover color for badges
- - Added animation support for sticky add-on
+ - Added animation and negative offset support for sticky add-on
  - Fixed autocomplete from overflowing its container
  - Fixed sticky z-index and box sizing
 
