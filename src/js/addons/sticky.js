@@ -23,6 +23,7 @@
         defaults: {
             top          : 0,
             bottom       : 0,
+            animation    : '',
             clsinit      : 'uk-sticky-init',
             clsactive    : 'uk-active',
             clswrapper   : 'uk-sticky',
@@ -46,19 +47,36 @@
             }
 
             this.sticky = {
-                top          : this.options.top,
-                bottom       : this.options.bottom,
+                options      : this.options,
                 element      : this.element,
                 currentTop   : null,
                 wrapper      : wrapper,
                 init         : false,
-                clsactive    : this.options.clsactive,
-                clsinit      : this.options.clsinit,
                 getWidthFrom : this.options.getWidthFrom || wrapper,
                 reset        : function() {
-                    this.element.css({"position":"", "top":"", "width":"", "left":""});
-                    this.wrapper.removeClass([this.clsactive, this.clsinit].join(' '));
-                    this.currentTop = null;
+
+                    var finalize = function() {
+                        this.element.css({"position":"", "top":"", "width":"", "left":""});
+                        this.wrapper.removeClass([this.options.clsactive, this.options.clsinit].join(' '));
+                        this.element.removeClass([this.options.animation, 'uk-animation-reverse'].join(' '));
+
+                        this.currentTop = null;
+                        this.animate    = false;
+                    }.bind(this);
+
+
+                    if (this.options.animation && UI.support.animation) {
+
+                        this.animate = true;
+
+                        this.element.removeClass(this.options.animation).one(UI.support.animation.end, function(){
+                            finalize();
+                        }).width(); // force redraw
+
+                        this.element.addClass(this.options.animation+' '+'uk-animation-reverse');
+                    } else {
+                        finalize();
+                    }
                 }
             };
 
@@ -82,13 +100,13 @@
 
         for (var i = 0; i < sticked.length; i++) {
 
-            if (!sticked[i].element.is(":visible")) {
+            if (!sticked[i].element.is(":visible") || sticked[i].animate) {
                 continue;
             }
 
             var sticky     = sticked[i],
                 elementTop = sticky.wrapper.offset().top,
-                etse       = elementTop - sticky.top - extra;
+                etse       = elementTop - sticky.options.top - extra;
 
             if (scrollTop < etse) {
 
@@ -98,11 +116,11 @@
 
             } else {
 
-                if (sticky.top < 0) {
+                if (sticky.options.top < 0) {
                     newTop = 0;
                 } else {
-                    newTop = documentHeight - sticky.element.outerHeight() - sticky.top - sticky.bottom - scrollTop - extra;
-                    newTop = newTop < 0 ? newTop + sticky.top : sticky.top;
+                    newTop = documentHeight - sticky.element.outerHeight() - sticky.options.top - sticky.options.bottom - scrollTop - extra;
+                    newTop = newTop < 0 ? newTop + sticky.options.top : sticky.options.top;
                 }
 
                 if (sticky.currentTop != newTop) {
@@ -115,10 +133,15 @@
                     });
 
                     if (!sticky.init) {
-                        sticky.wrapper.addClass(sticky.clsinit);
+                        sticky.wrapper.addClass(sticky.options.clsinit);
                     }
 
-                    sticky.wrapper.addClass(sticky.clsactive);
+                    sticky.wrapper.addClass(sticky.options.clsactive);
+
+                    if (sticky.options.animation && sticky.init) {
+                        sticky.element.addClass(sticky.options.animation);
+                    }
+
                     sticky.currentTop = newTop;
                 }
             }
