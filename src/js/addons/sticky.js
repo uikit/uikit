@@ -27,7 +27,8 @@
             clsinit      : 'uk-sticky-init',
             clsactive    : 'uk-active',
             clswrapper   : 'uk-sticky',
-            getWidthFrom : ''
+            getWidthFrom : '',
+            breakpoint   : false
         },
 
         init: function() {
@@ -53,7 +54,7 @@
                 wrapper      : wrapper,
                 init         : false,
                 getWidthFrom : this.options.getWidthFrom || wrapper,
-                reset        : function() {
+                reset        : function(force) {
 
                     var finalize = function() {
                         this.element.css({"position":"", "top":"", "width":"", "left":""});
@@ -65,7 +66,7 @@
                     }.bind(this);
 
 
-                    if (this.options.animation && UI.support.animation) {
+                    if (!force && this.options.animation && UI.support.animation) {
 
                         this.animate = true;
 
@@ -77,6 +78,33 @@
                     } else {
                         finalize();
                     }
+                },
+                check: function() {
+
+                    if (this.options.breakpoint) {
+
+                        switch(typeof(this.options.breakpoint)) {
+                            case 'number':
+                                if (window.innerWidth < this.options.breakpoint) {
+                                    return false;
+                                }
+                                break;
+                            case 'string':
+                                if (window.matchMedia && !window.matchMedia(this.options.breakpoint).matches) {
+                                    return false;
+                                }
+                                break;
+                        }
+                    }
+
+                    var scrollTop      = $win.scrollTop(),
+                        documentHeight = $doc.height(),
+                        dwh            = documentHeight - $win.height(),
+                        extra          = (scrollTop > dwh) ? dwh - scrollTop : 0,
+                        elementTop     = this.wrapper.offset().top,
+                        etse           = elementTop - this.options.top - extra;
+
+                    return (scrollTop  > etse);
                 }
             };
 
@@ -104,11 +132,9 @@
                 continue;
             }
 
-            var sticky     = sticked[i],
-                elementTop = sticky.wrapper.offset().top,
-                etse       = elementTop - sticky.options.top - extra;
+            var sticky = sticked[i];
 
-            if (scrollTop < etse) {
+            if (!sticky.check()) {
 
                 if (sticky.currentTop !== null) {
                     sticky.reset();
@@ -158,7 +184,7 @@
         if (!sticked.length) return;
 
         for (var i = 0; i < sticked.length; i++) {
-            sticked[i].reset();
+            sticked[i].reset(true);
         }
 
         scroller();
