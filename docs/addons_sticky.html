@@ -108,7 +108,7 @@
 
                             <h2 id="add-a-delay"><a href="#add-a-delay" class="uk-link-reset">Add a delay</a></h2>
 
-                            <p>To add a delay to the element, so it becomes sticky only after scrolling a specified distance, you need to apply a negative offset to the data attribute, e.g. <code>data-uk-sticky="{top:-200}"</code>. You can also add an animation from the <a href="animation.html">Animation component</a> in order to have the sticky element reappear smoothly.</p>
+                            <p>To add a delay to the element, so it becomes sticky only after scrolling a specified distance, you need to add a negative offset to the data attribute, e.g. <code>data-uk-sticky="{top:-200}"</code>. You can also add an animation from the <a href="animation.html">Animation component</a> in order to have the sticky element reappear smoothly.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -117,6 +117,21 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
                             <pre><code>&lt;div data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top'}"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Responsive behavior</h2>
+
+                            <p>You also have the possibility of disabling the sticky behavior for different devices by adding a breakpoint option to the data attribute, e.g. <code>data-uk-sticky="{media: 640}"</code>. Additionaly you can use any valid media query.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is basically a shortcode to define a min-width --&gt;
+&lt;div data-uk-sticky="{media: 640}"&gt;...&lt;/div&gt;
+
+&lt;!-- This is a media string using the min-width and orientation properties --&gt;
+&lt;div data-uk-sticky="{media: '(min-width: 640px) and (orientation: landscape)'}&gt;...&lt;/div&gt;
+</code></pre>
 
                         </article>
 
