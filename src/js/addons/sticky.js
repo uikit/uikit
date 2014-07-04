@@ -28,7 +28,7 @@
             clsactive    : 'uk-active',
             clswrapper   : 'uk-sticky',
             getWidthFrom : '',
-            breakpoint   : false
+            media   : false
         },
 
         init: function() {
@@ -81,16 +81,16 @@
                 },
                 check: function() {
 
-                    if (this.options.breakpoint) {
+                    if (this.options.media) {
 
-                        switch(typeof(this.options.breakpoint)) {
+                        switch(typeof(this.options.media)) {
                             case 'number':
-                                if (window.innerWidth < this.options.breakpoint) {
+                                if (window.innerWidth < this.options.media) {
                                     return false;
                                 }
                                 break;
                             case 'string':
-                                if (window.matchMedia && !window.matchMedia(this.options.breakpoint).matches) {
+                                if (window.matchMedia && !window.matchMedia(this.options.media).matches) {
                                     return false;
                                 }
                                 break;
