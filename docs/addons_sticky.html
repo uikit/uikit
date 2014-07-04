@@ -72,7 +72,7 @@
                     </div>
                     <div class="tm-main uk-width-medium-3-4">
 
-                        <article class="uk-article" style="height: 1800px;">
+                        <article class="uk-article" style="height: 2000px;">
 
                             <h1>Sticky</h1>
 
@@ -103,6 +103,20 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
                             <pre><code>&lt;div data-uk-sticky="{top:100}"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="add-a-delay"><a href="#add-a-delay" class="uk-link-reset">Add a delay</a></h2>
+
+                            <p>To add a delay to the element, so it becomes sticky only after scrolling a specified distance, you need to apply a negative offset. Make sure to also add an animation from the <a href="animation.html">Animation component</a> in order to have the sticky element reappear smoothly.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top'}">Stick at the top but only after 200px scrolling</div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <pre><code>&lt;div data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top'}"&gt;Stick at the top but only after 200px scrolling&lt;/div&gt;</code></pre>
 
                         </article>
 
