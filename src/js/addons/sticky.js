@@ -104,7 +104,7 @@
                         elementTop     = this.wrapper.offset().top,
                         etse           = elementTop - this.options.top - extra;
 
-                    return (scrollTop  > etse);
+                    return (scrollTop  >= etse);
                 }
             };
 
@@ -125,6 +125,9 @@
             dwh             = documentHeight - $win.height(),
             extra           = (scrollTop > dwh) ? dwh - scrollTop : 0,
             cls, newTop;
+
+        if(scrollTop < 0) return;
+
 
         for (var i = 0; i < sticked.length; i++) {
 
