@@ -30,7 +30,8 @@
             "sortable",
             "sticky",
             "timepicker",
-            "upload"
+            "upload",
+            "flex"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",
