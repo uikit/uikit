@@ -7,7 +7,7 @@
 //                  `uk-float-*`
 //                  `uk-align-*`
 //                  `uk-vertical-align-*`
-//                  `uk-height-1-1`
+//                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-margin-*`
 //                  `uk-border-*`
@@ -34,6 +34,8 @@
 
 @utility-align-horizontal:                      15px;
 @utility-align-vertical:                        15px;
+
+@utility-height-fullscreen-min-height:          600px;
 
 @utility-margin:                                15px;
 @utility-margin-small:                          5px;
@@ -225,11 +227,33 @@
 .uk-vertical-align-middle { vertical-align: middle; }
 .uk-vertical-align-bottom { vertical-align: bottom; }
 
+
+/* Height
+ ========================================================================== */
+
 /*
- *  This helper class is very useful to extend the `html` and `body` element to the full height of the page.
+ * More robust if padding and border are used
+ */
+
+[class*='uk-height'] {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+ * Useful to extend the `html` and `body` element to the full height of the page.
  */
 
 .uk-height-1-1 { height: 100%; }
+
+/*
+ * Useful to create fullscreen image teasers
+ */
+
+.uk-height-viewport {
+    height: 100vh;
+    min-height: @utility-height-fullscreen-min-height;
+}
 
 
 /* Responsive objects

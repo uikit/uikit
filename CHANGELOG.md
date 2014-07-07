@@ -3,6 +3,7 @@
 ### WIP
 
  - Added flex add-on
+ - Added height viewport to utility component
  - Added treshold parameter to sortable add-on
  - Added reload toggle elements on dom update
  - Added hover color for badges
