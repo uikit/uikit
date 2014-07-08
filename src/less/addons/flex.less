@@ -11,7 +11,10 @@
    Component: Flex
  ========================================================================== */
 
-.uk-flex { display: flex; }
+.uk-flex {
+    display: -ms-flexbox;
+    display: flex;
+}
 
 
 /* Alignment
@@ -22,14 +25,32 @@
  * Default value is `stretch`
  */
 
-.uk-flex-top { align-items: flex-start; }
-.uk-flex-middle { align-items: center; }
-.uk-flex-bottom { align-items: flex-end; }
+.uk-flex-top {
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.uk-flex-middle {
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.uk-flex-bottom {
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
 
 /*
  * Horizontal alignment
  * Default value is `flex-start`
  */
 
-.uk-flex-center { justify-content: center; }
-.uk-flex-right { justify-content: flex-end; }
+.uk-flex-center {
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.uk-flex-right {
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
