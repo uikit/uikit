@@ -8,6 +8,7 @@
  - Added reload toggle elements on dom update
  - Added hover color for badges
  - Added animation and negative offset support for sticky add-on
+ - Added datepicker animation
  - Fixed autocomplete from overflowing its container
  - Fixed sticky z-index and box sizing
 
