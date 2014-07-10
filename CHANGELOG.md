@@ -9,6 +9,8 @@
  - Added hover color for badges
  - Added animation and negative offset support for sticky add-on
  - Added datepicker animation
+ - Added additional class parameter for the tooltip add-on
+ - Hide tootlip if source elemnt is hidden or removed via JavaScript
  - Fixed autocomplete from overflowing its container
  - Fixed sticky z-index and box sizing
 
