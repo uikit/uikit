@@ -12,6 +12,7 @@
             "pos": "top",
             "animation": false,
             "delay": 0, // in miliseconds
+            "outerClass": "",
             "src": function() { return this.attr("title"); }
         },
 
@@ -22,7 +23,7 @@
             var $this = this;
 
             if (!$tooltip) {
-                $tooltip = $('<div class="uk-tooltip"></div>').appendTo("body");
+                $tooltip = $('<div class="uk-tooltip"></div>').addClass(this.options.outerClass).appendTo("body");
             }
 
             this.on({
@@ -129,7 +130,7 @@
 
             tooltipdelay = setTimeout(function(){
 
-                $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position);
+                $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position).addClass($this.options.outerClass);
 
                 if ($this.options.animation) {
                     $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);

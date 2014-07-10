@@ -36,6 +36,7 @@
         visible  : false,
         value    : null,
         selected : null,
+        ajaxRequest : null
 
         init: function() {
 
@@ -245,14 +246,18 @@
                         var params ={};
 
                         params[this.options.param] = this.value;
+                        
+                        if(this.ajaxRequest != null)
+                            this.ajaxRequest.abort();
 
-                        $.ajax({
+                        this.ajaxRequest = $.ajax({
                             url: this.options.source,
                             data: params,
                             type: this.options.method,
                             dataType: 'json',
                             complete: function(xhr) {
-                                release(xhr.responseJSON || []);
+                                release(xhr.responseJSON || $.parseJSON(xhr.responseText) || []);
+                                this.ajaxRequest = null;
                             }
                         });
 
