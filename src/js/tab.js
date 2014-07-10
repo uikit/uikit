@@ -49,7 +49,7 @@
             this.responsivetab.lst.on('click', 'a', function(e) {
 
                 if ($this.options.connect) {
-                    e.preventDefault()
+                    e.preventDefault();
                     $this.element.data("switcher").show($(this).data('index'));
                 }
             });
