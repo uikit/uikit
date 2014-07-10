@@ -3,7 +3,7 @@
     "use strict";
 
     var $tooltip,   // tooltip container
-        tooltipdelay;
+        tooltipdelay, checkdelay;
 
     UI.component('tooltip', {
 
@@ -41,6 +41,7 @@
         show: function() {
 
             if (tooltipdelay)     clearTimeout(tooltipdelay);
+            if (checkdelay)       clearTimeout(checkdelay);
             if (!this.tip.length) return;
 
             $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
@@ -137,6 +138,12 @@
                 }
 
                 tooltipdelay = false;
+
+                // close tooltip if element was removed or hidden
+                checkdelay = setInterval(function(){
+                    if(!$this.element.is(':visible')) $this.hide();
+                }, 150);
+
             }, parseInt(this.options.delay, 10) || 0);
         },
 
@@ -144,6 +151,7 @@
             if(this.element.is("input") && this.element[0]===document.activeElement) return;
 
             if(tooltipdelay) clearTimeout(tooltipdelay);
+            if (checkdelay)  clearTimeout(checkdelay);
 
             $tooltip.stop();
 
