@@ -12,6 +12,7 @@
             "pos": "top",
             "animation": false,
             "delay": 0, // in miliseconds
+            "cls": "",
             "src": function() { return this.attr("title"); }
         },
 
@@ -129,7 +130,7 @@
 
             tooltipdelay = setTimeout(function(){
 
-                $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position);
+                $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
 
                 if ($this.options.animation) {
                     $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
