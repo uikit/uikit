@@ -63,6 +63,13 @@
 @button-success-active-background:              #72ae41;
 @button-success-active-color:                   #fff;
 
+@button-warning-background:                     #faa732;
+@button-warning-color:                          #fff;
+@button-warning-hover-background:               #fbb24b;
+@button-warning-hover-color:                    #fff;
+@button-warning-active-background:              #f99c19;
+@button-warning-active-color:                   #fff;
+
 @button-danger-background:                      #da314b;
 @button-danger-color:                           #fff;
 @button-danger-hover-background:                #e4354f;
@@ -195,6 +202,32 @@
     background-color: @button-success-active-background;
     color: @button-success-active-color;
     .hook-button-success-active;
+}
+
+/*
+ * Modifier: `uk-button-warning`
+ */
+
+.uk-button-warning {
+    background-color: @button-warning-background;
+    color: @button-warning-color;
+    .hook-button-warning;
+}
+
+/* Hover */
+.uk-button-warning:hover,
+.uk-button-warning:focus {
+    background-color: @button-warning-hover-background;
+    color: @button-warning-hover-color;
+    .hook-button-warning-hover;
+}
+
+/* Active */
+.uk-button-warning:active,
+.uk-button-warning.uk-active {
+    background-color: @button-warning-active-background;
+    color: @button-warning-active-color;
+    .hook-button-warning-active;
 }
 
 /*
@@ -354,6 +387,9 @@
 .hook-button-success() {}
 .hook-button-success-hover() {}
 .hook-button-success-active() {}
+.hook-button-warning() {}
+.hook-button-warning-hover() {}
+.hook-button-warning-active() {}
 .hook-button-danger() {}
 .hook-button-danger-hover() {}
 .hook-button-danger-active() {}

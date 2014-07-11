@@ -3184,6 +3184,25 @@ select.uk-form-width-mini {
   color: #ffffff;
 }
 /*
+ * Modifier: `uk-button-warning`
+ */
+.uk-button-warning {
+  background-color: #faa732;
+  color: #ffffff;
+}
+/* Hover */
+.uk-button-warning:hover,
+.uk-button-warning:focus {
+  background-color: #fbb24b;
+  color: #ffffff;
+}
+/* Active */
+.uk-button-warning:active,
+.uk-button-warning.uk-active {
+  background-color: #f99c19;
+  color: #ffffff;
+}
+/*
  * Modifier: `uk-button-danger`
  */
 .uk-button-danger {

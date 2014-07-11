@@ -3356,6 +3356,25 @@ select.uk-form-width-mini {
   color: #ffffff;
 }
 /*
+ * Modifier: `uk-button-warning`
+ */
+.uk-button-warning {
+  background-color: #faa732;
+  color: #ffffff;
+}
+/* Hover */
+.uk-button-warning:hover,
+.uk-button-warning:focus {
+  background-color: #fbb24b;
+  color: #ffffff;
+}
+/* Active */
+.uk-button-warning:active,
+.uk-button-warning.uk-active {
+  background-color: #f99c19;
+  color: #ffffff;
+}
+/*
  * Modifier: `uk-button-danger`
  */
 .uk-button-danger {
@@ -3482,6 +3501,7 @@ select.uk-form-width-mini {
      ========================================================================== */
 .uk-button-primary,
 .uk-button-success,
+.uk-button-warning,
 .uk-button-danger {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
@@ -3490,6 +3510,8 @@ select.uk-form-width-mini {
 .uk-button-primary:focus,
 .uk-button-success:hover,
 .uk-button-success:focus,
+.uk-button-warning:hover,
+.uk-button-warning:focus,
 .uk-button-danger:hover,
 .uk-button-danger:focus {
   border-color: rgba(0, 0, 0, 0.21);
