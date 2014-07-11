@@ -422,17 +422,17 @@ dfn[title] {
 /* Embedded content
  ========================================================================== */
 /*
- * 1. Corrects max-width behavior (2.) if padding and border are used
- * 2. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * 2. Corrects `max-width` behavior if padding and border are used
  * 3. Remove the gap between images and the bottom of their containers
  */
 img {
   /* 1 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  /* 2 */
   max-width: 100%;
   height: auto;
+  /* 2 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   /* 3 */
   vertical-align: middle;
 }
@@ -3219,9 +3219,17 @@ select.uk-form-width-mini {
 }
 /* Sub-object: `uk-form-icon`
  ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ */
 .uk-form-icon {
-  position: relative;
+  /* 1 */
   display: inline-block;
+  /* 2 */
+  position: relative;
+  /* 3 */
   max-width: 100%;
 }
 /*
@@ -5085,6 +5093,12 @@ select.uk-form-width-mini {
   border-radius: 2px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
+/*
+ * Keep color when badge is a link
+ */
+.uk-badge:hover {
+  color: #ffffff;
+}
 /* Modifier: `uk-badge-notification`;
  ========================================================================== */
 .uk-badge-notification {
@@ -5194,18 +5208,20 @@ select.uk-form-width-mini {
    Component: Thumbnail
  ========================================================================== */
 /*
- * 1. Corrects max-width behavior (2.) if padding and border are used
+ * 1. Container width fits its content
  * 2. Responsive behavior
- * 3. Required for `figure` element
- * 4. Style
+ * 3. Corrects `max-width` behavior sed
+ * 4. Required for `figure` element
+ * 5. Style
  */
 .uk-thumbnail {
-  display: inline-block;
   /* 1 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  display: inline-block;
   /* 2 */
   max-width: 100%;
+  /* 3 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   /* 3 */
   margin: 0;
   /* 4 */
@@ -6723,7 +6739,7 @@ a.uk-thumbnail:focus {
  * Note: Images are already responsive by default, see Base component
  ========================================================================== */
 /*
- * 1. Corrects max-width/max-height behavior if padding and border are used
+ * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
  */
 .uk-responsive-width,
 .uk-responsive-height {
