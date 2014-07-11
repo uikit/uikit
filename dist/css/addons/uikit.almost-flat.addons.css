@@ -427,10 +427,19 @@
    Component: Datepicker
  ========================================================================== */
 /*
- * Reset dropdown width
+ * 1. Reset dropdown width
+ * 2. Set animation
+ * 3. Needed for scale animation
  */
 .uk-datepicker {
+  /* 1 */
   width: auto;
+  /* 2 */
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
+  /* 3 */
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
 }
 /* Sub-object: `uk-datepicker-nav`
 ========================================================================== */
@@ -1204,8 +1213,25 @@ input.uk-search-field {
 /* ========================================================================
    Component: Sticky
  ========================================================================== */
-.uk-sticky {
+/*
+ * 1. More robust if padding and border are used
+ */
+.uk-active [data-uk-sticky] {
   z-index: 980;
+  /* 1 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * Faster animations
+ */
+.uk-sticky [class*='uk-animation-'] {
+  -webkit-animation-duration: 0.15s;
+  animation-duration: 0.15s;
+}
+.uk-sticky .uk-animation-reverse {
+  -webkit-animation-duration: 0.04s;
+  animation-duration: 0.04s;
 }
 /* ========================================================================
    Component: Upload
@@ -1215,4 +1241,41 @@ input.uk-search-field {
  */
 .uk-dragover {
   box-shadow: 0 0 20px rgba(100, 100, 100, 0.3);
+}
+/* ========================================================================
+   Component: Flex
+ ========================================================================== */
+.uk-flex {
+  display: -ms-flexbox;
+  display: flex;
+}
+/* Alignment
+ ========================================================================== */
+/*
+ * Vertical alignment
+ * Default value is `stretch`
+ */
+.uk-flex-top {
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.uk-flex-middle {
+  -ms-flex-align: center;
+  align-items: center;
+}
+.uk-flex-bottom {
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+/*
+ * Horizontal alignment
+ * Default value is `flex-start`
+ */
+.uk-flex-center {
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.uk-flex-right {
+  -ms-flex-pack: end;
+  justify-content: flex-end;
 }

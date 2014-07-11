@@ -2546,26 +2546,26 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /*
  * Hidden by default
  */
-.uk-tab-responsive {
-  display: none;
-}
+/* .uk-tab-responsive { display: none; } */
 .uk-tab-responsive > a:before {
   content: "\f0c9\00a0";
   font-family: FontAwesome;
 }
 /* Phone landscape and smaller */
-@media (max-width: 767px) {
-  [data-uk-tab] > li {
-    display: none;
-  }
-  [data-uk-tab] > li.uk-tab-responsive {
-    display: block;
-  }
-  [data-uk-tab] > li.uk-tab-responsive > a {
-    margin-left: 0;
-    margin-right: 0;
-  }
+/*
+@media (max-width: @breakpoint-small-max) {
+
+    [data-uk-tab] > li { display: none; }
+
+    [data-uk-tab] > li.uk-tab-responsive { display: block; }
+
+    [data-uk-tab] > li.uk-tab-responsive > a {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
 }
+*/
 /* Modifier: 'tab-center'
  ========================================================================== */
 .uk-tab-center {
@@ -5146,7 +5146,7 @@ select.uk-form-width-mini {
 /*
  * Keep color when badge is a link
  */
-.uk-badge:hover {
+a.uk-badge:hover {
   color: #ffffff;
 }
 /* Modifier: `uk-badge-notification`;
@@ -6797,11 +6797,27 @@ a.uk-thumbnail:focus {
 .uk-vertical-align-bottom {
   vertical-align: bottom;
 }
+/* Height
+ ========================================================================== */
 /*
- *  This helper class is very useful to extend the `html` and `body` element to the full height of the page.
+ * More robust if padding and border are used
+ */
+[class*='uk-height'] {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * Useful to extend the `html` and `body` element to the full height of the page.
  */
 .uk-height-1-1 {
   height: 100%;
+}
+/*
+ * Useful to create fullscreen image teasers
+ */
+.uk-height-viewport {
+  height: 100vh;
+  min-height: 600px;
 }
 /* Responsive objects
  * Note: Images are already responsive by default, see Base component
