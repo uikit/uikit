@@ -6,8 +6,9 @@
     UI.component('tab', {
 
         defaults: {
-            connect: false,
-            active: 0
+            'target'  : '>li:not(.uk-tab-responsive, .uk-disabled)',
+            'connect' : false,
+            'active'  : 0
         },
 
         init: function() {
