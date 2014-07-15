@@ -238,24 +238,102 @@
 
 &lt;div data-uk-scrollspy="{cls:'uk-animation-fade', delay:900}"&gt;...&lt;/div&gt;</code></pre>
 
+
                             <hr class="uk-article-divider">
 
-                            <h2 id="javascript-events"><a href="#javascript-events" class="uk-link-reset">JavaScript events</a></h2>
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-                            <p>The scrollspy component triggers an <code>uk.scrollspy.inview</code> event every time an element is in the viewport and <code>uk.scrollspy.outview</code> when an element leaves the viewport.</p>
+                            <p>This is an example of how to set options via attribute:</p>
+
+                            <pre><code>data-uk-scrollspy=&quot;{cls:'uk-animation-fade'}&quot;</code></pre>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>cls</code></td>
+                                            <td>string</td>
+                                            <td>'uk-scrollspy-inview'</td>
+                                            <td>Class to add when element is in view</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>initcls</code></td>
+                                            <td>string</td>
+                                            <td>'uk-scrollspy-init-inview'</td>
+                                            <td>Class to add when element is in view for first time</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>topoffset</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Top offset before triggering in view</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>leftoffset</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Left osset before triggering in view</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>repeat</code></td>
+                                            <td>boolean</td>
+                                            <td>false</td>
+                                            <td>Applies the in view class everytime the element appears in the viewport.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>delay</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Delay time in ms</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <h3>Events</h3>
+
+                            <p>You can bind callbacks to following events for custom functionality:</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>uk.scrollspy.init</code></td>
+                                            <td>Triggered when the element is initially in the viewport</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>uk.scrollspy.inview</code></td>
+                                            <td>Triggered when the element is in the viewport</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>uk.scrollspy.outview</code></td>
+                                            <td>Triggered when the element leaves the viewport</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>$('[data-uk-scrollspy]').on({
-
-    'uk.scrollspy.inview': function(){
-        console.log("Element is visible.");
-    },
-
-    'uk.scrollspy.outview': function(){
-        console.log("Element is not visible.");
-    }
-});</code></pre>
+<pre><code>$('[data-uk-scrollspy]').on('uk.scrollspy.inview', function(){
+    // custom code...
+});
+</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -303,6 +381,59 @@
 
 &lt;div id="MY-ID"&gt;...&lt;/div&gt;
 &lt;div id="MY-ID2"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="javascript-scrollspy-nav-options"><a href="#javascript-scrollspy-nav-options" class="uk-link-reset">JavaScript options</a></h3>
+
+                            <p>This is an example of how to set options via attribute:</p>
+
+                            <pre><code>data-uk-scrollspy-nav=&quot;{smoothscroll:true}&quot;</code></pre>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>cls</code></td>
+                                            <td>string</td>
+                                            <td>'uk-active'</td>
+                                            <td>Class to add to active element</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>closest</code></td>
+                                            <td>CSS selector</td>
+                                            <td>false</td>
+                                            <td>Element selector to aply the active class to</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>topoffset</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Sroll top-offsset</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>leftoffset</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Sroll left-offsset</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>smoothscroll</code></td>
+                                            <td>boolean</td>
+                                            <td>false</td>
+                                            <td>Scroll animation</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </article>
 

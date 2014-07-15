@@ -942,6 +942,93 @@
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                            <p>This is an example of how to set options via attribute:</p>
+
+                            <pre><code>data-uk-dropdown=&quot;{mode:'hover'}&quot;</code></pre>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>mode</code></td>
+                                            <td>hover, click</td>
+                                            <td>hover</td>
+                                            <td>Dropdown trigger behaviour</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>remaintime</code></td>
+                                            <td>integer</td>
+                                            <td>800</td>
+                                            <td>Remain time before auto closing dropdown in hover mode</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>justify</code></td>
+                                            <td>CSS selector</td>
+                                            <td>false</td>
+                                            <td>Stretch dropdown width to a specified element</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>boundary</code></td>
+                                            <td>window</td>
+                                            <td>CSS selector</td>
+                                            <td>Referenced element to keep dropdowns visibilty</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>delay</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Delay time in hover mode before a dropdown is shown in ms</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <h3>Events</h3>
+
+                            <p>You can bind callbacks to following events for custom functionality:</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>uk.dropdown.show</code></td>
+                                            <td>Triggered on dropdown show</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>uk.dropdown.stack</code></td>
+                                            <td>Triggered when a dropdown stacks to fit into screen</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>$('[data-uk-dropdown]').on('uk.dropdown.show', function(){
+    // custom code...
+});
+</code></pre>
+
                         </article>
 
                     </div>
