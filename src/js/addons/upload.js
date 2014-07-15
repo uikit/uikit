@@ -124,12 +124,17 @@
         if (settings.single){
 
             var count    = files.length,
-                uploaded = 0;
+                uploaded = 0,
+                allow = true;
+                
+                settings.beforeall(files);
 
                 settings.complete = function(response, xhr){
                     uploaded = uploaded+1;
                     complete(response, xhr);
-                    if (uploaded<count){
+                    if (settings.filelimit && uploaded >= settings.filelimit)
+                        allow = false;
+                    if (allow && uploaded<count){
                         upload([files[uploaded]], settings);
                     } else {
                         settings.allcomplete(response, xhr);
@@ -204,6 +209,7 @@
         'params': {},
         'allow' : '*.*',
         'type'  : 'text',
+        'filelimit': false,
 
         // events
         'before'          : function(o){},
@@ -216,7 +222,8 @@
         'complete'        : function(){},
         'allcomplete'     : function(){},
         'readystatechange': function(){},
-        'notallowed'      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); }
+        'notallowed'      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); },
+        'beforeall'       : function () { }
     };
 
     function matchName(pattern, path) {
