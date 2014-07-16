@@ -28,7 +28,8 @@
             clsactive    : 'uk-active',
             clswrapper   : 'uk-sticky',
             getWidthFrom : '',
-            media   : false
+            media        : false,
+            target       : false
         },
 
         init: function() {
@@ -154,16 +155,32 @@
 
                 if (sticky.currentTop != newTop) {
 
+                    if (!sticky.init) {
+                        sticky.wrapper.addClass(sticky.options.clsinit);
+
+                        if (location.hash && sticky.options.target) {
+
+                            var $target = $(location.hash);
+
+                            if ($target.length) {
+
+                                var offset    = $target.offset(),
+                                    maxoffset = offset.top + $target.outerHeight();
+
+                                if (scrollTop >= offset.top && scrollTop <= maxoffset) {
+                                    scrollTop = offset.top - sticky.element.outerHeight() - sticky.options.target;
+                                    window.scrollTo(0, scrollTop);
+                                }
+                            }
+                        }
+                    }
+
                     sticky.element.css({
                         "position" : "fixed",
                         "top"      : newTop,
                         "width"    : (typeof sticky.getWidthFrom !== 'undefined') ? $(sticky.getWidthFrom).width() : sticky.element.width(),
                         "left"     : sticky.wrapper.offset().left
                     });
-
-                    if (!sticky.init) {
-                        sticky.wrapper.addClass(sticky.options.clsinit);
-                    }
 
                     sticky.wrapper.addClass(sticky.options.clsactive);
 
@@ -193,9 +210,10 @@
         scroller();
     }, 100));
 
-    $doc.on("uk-domready", function(e) {
-        setTimeout(function(){
+    // init code
+    UI.ready(function(e) {
 
+        setTimeout(function(){
 
             $("[data-uk-sticky]").each(function(){
 

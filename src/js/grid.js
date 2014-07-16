@@ -131,7 +131,8 @@
 
 
     // init code
-    $(document).on("uk-domready", function(e) {
+    UI.ready(function(e) {
+
         $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
             var grid = $(this), obj;
 
@@ -145,7 +146,7 @@
         });
     });
 
-    $(document).on("uk-check-display", function(e) {
+    UI.$doc.on("uk-check-display", function(e) {
         grids.forEach(function(item) {
             if(item.element.is(":visible")) item.match();
         });

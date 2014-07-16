@@ -1,4 +1,4 @@
-(function($, UI, $win) {
+(function($, UI) {
 
     "use strict";
 
@@ -35,9 +35,7 @@
                 if (target[0] == $this.element[0] && $this.options.bgclose) {
                     $this.hide();
                 }
-
             });
-
         },
 
         toggle: function() {
@@ -59,7 +57,7 @@
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
-            $(document).trigger("uk-check-display");
+            UI.$doc.trigger("uk-check-display");
 
             return this;
         },
@@ -207,7 +205,7 @@
     };
 
     // init code
-    $(document).on("click.modal.uikit", "[data-uk-modal]", function(e) {
+    UI.$doc.on("click.modal.uikit", "[data-uk-modal]", function(e) {
 
         var ele = $(this);
 
@@ -223,7 +221,7 @@
     });
 
     // close modal on esc button
-    $(document).on('keydown.modal.uikit', function (e) {
+    UI.$doc.on('keydown.modal.uikit', function (e) {
 
         if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
             e.preventDefault();
@@ -231,7 +229,7 @@
         }
     });
 
-    $win.on("resize orientationchange", UI.Utils.debounce(function(){
+    UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
         if(active) active.resize();
     }, 150));
 
@@ -263,4 +261,4 @@
         return modal;
     }
 
-})(jQuery, jQuery.UIkit, jQuery(window));
+})(jQuery, jQuery.UIkit);

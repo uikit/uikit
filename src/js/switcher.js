@@ -61,7 +61,8 @@
 
 
     // init code
-    $(document).on("uk-domready", function(e) {
+    UI.ready(function(e) {
+
         $("[data-uk-switcher]").each(function() {
             var switcher = $(this);
 

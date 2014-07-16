@@ -267,8 +267,6 @@
 
     $(function(){
 
-        $doc.trigger("uk-domready");
-
         // custom scroll observer
         setInterval((function(){
 
@@ -299,7 +297,7 @@
         try{
 
             var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                $doc.trigger("uk-domready");
+                $doc.trigger("uk-domready", [mutations]);
             }, 150));
 
             // pass in the target node, as well as the observer options
@@ -312,6 +310,12 @@
             // UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
         }
     });
+
+    // DOM mutation save ready helper function
+    UI.ready = function(fn) {
+        $(fn);
+        UI.$doc.on('uk-domready', fn);
+    };
 
     // add touch identifier class
     $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");

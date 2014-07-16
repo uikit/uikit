@@ -129,7 +129,7 @@
     });
 
     // init code
-    $(document).on("uk-domready", function(e) {
+    UI.ready(function(e) {
 
         $("[data-uk-pagination]").each(function(){
             var ele = $(this);

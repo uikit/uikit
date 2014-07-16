@@ -459,7 +459,7 @@
     }
 
     // auto init
-    $(document).on("uk-domready", function(e) {
+    UI.ready(function(e) {
 
         $("[data-uk-sortable]").each(function(){
 
@@ -471,7 +471,7 @@
         });
     });
 
-    $(document).on('mousemove touchmove', function(e) {
+    UI.$doc.on('mousemove touchmove', function(e) {
 
         if (delayIdle) {
             if (Math.abs(e.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(e.pageY - delayIdle.pos.y) > delayIdle.threshold) {
@@ -499,7 +499,7 @@
         }
     });
 
-    $(document).on('mouseup touchend', function() {
+    UI.$doc.on('mouseup touchend', function() {
 
         if(!moving && clickedlink) {
             location.href = clickedlink.attr('href');

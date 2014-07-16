@@ -108,7 +108,8 @@
         }
     });
 
-    $(document).on("uk-domready", function(e) {
+    // init code
+    UI.ready(function(e) {
 
         $("[data-uk-tab]").each(function() {
             var tab = $(this);

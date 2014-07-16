@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange', stacks = [];
+    var win = UI.$win, event = 'resize orientationchange', stacks = [];
 
     UI.component('stackMargin', {
 
@@ -78,7 +78,8 @@
     });
 
     // init code
-    $(document).on("uk-domready", function(e) {
+    UI.ready(function(e) {
+
         $("[data-uk-margin]").each(function() {
             var ele = $(this), obj;
 
@@ -89,7 +90,7 @@
     });
 
 
-    $(document).on("uk-check-display", function(e) {
+    UI.$doc.on("uk-check-display", function(e) {
         stacks.forEach(function(item) {
             if(item.element.is(":visible")) item.process();
         });

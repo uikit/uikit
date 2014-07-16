@@ -40,7 +40,8 @@
         }
     });
 
-    $(document).on("uk-domready", function(e) {
+    // init code
+    UI.ready(function(e) {
 
         $("[data-uk-toggle]").each(function() {
             var ele = $(this);
