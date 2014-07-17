@@ -163,23 +163,34 @@
                     });
 
                     if (!sticky.init) {
+
                         sticky.wrapper.addClass(sticky.options.clsinit);
 
-                        if (location.hash && sticky.options.target!==false) {
+                        if (location.hash && scrollTop > 0 && sticky.options.target) {
 
                             var $target = $(location.hash);
 
                             if ($target.length) {
 
-                                var offset       = $target.offset(),
-                                    maxoffset    = offset.top + $target.outerHeight(),
-                                    stickyOffset = sticky.element.offset(),
-                                    stickyHeight = sticky.element.outerHeight();
+                                setTimeout((function($target, sticky){
 
-                                if (scrollTop >= offset.top && stickyOffset.top < maxoffset) {
-                                    scrollTop = offset.top - stickyHeight - sticky.options.target;
-                                    window.scrollTo(0, scrollTop);
-                                }
+                                    return function() {
+
+                                        sticky.element.width(); // force redraw
+
+                                        var offset       = $target.offset(),
+                                            maxoffset    = offset.top + $target.outerHeight(),
+                                            stickyOffset = sticky.element.offset(),
+                                            stickyHeight = sticky.element.outerHeight(),
+                                            stickyMaxOffset = stickyOffset.top + stickyHeight;
+
+                                        if (stickyOffset.top < maxoffset && offset.top < stickyMaxOffset) {
+                                            scrollTop = offset.top - stickyHeight - sticky.options.target;
+                                            window.scrollTo(0, scrollTop);
+                                        }
+                                    };
+
+                                })($target, sticky), 0);
                             }
                         }
                     }
