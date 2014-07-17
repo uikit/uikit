@@ -155,6 +155,13 @@
 
                 if (sticky.currentTop != newTop) {
 
+                    sticky.element.css({
+                        "position" : "fixed",
+                        "top"      : newTop,
+                        "width"    : (typeof sticky.getWidthFrom !== 'undefined') ? $(sticky.getWidthFrom).width() : sticky.element.width(),
+                        "left"     : sticky.wrapper.offset().left
+                    });
+
                     if (!sticky.init) {
                         sticky.wrapper.addClass(sticky.options.clsinit);
 
@@ -164,23 +171,19 @@
 
                             if ($target.length) {
 
-                                var offset    = $target.offset(),
-                                    maxoffset = offset.top + $target.outerHeight();
+                                var offset       = $target.offset(),
+                                    maxoffset    = offset.top + $target.outerHeight(),
+                                    stickyOffset = sticky.element.offset(),
+                                    stickyHeight = sticky.element.outerHeight(),
+                                    stickyMaxOffset = stickyOffset.top + stickyHeight;
 
-                                if (scrollTop >= offset.top && scrollTop <= maxoffset) {
-                                    scrollTop = offset.top - sticky.element.outerHeight() - sticky.options.target;
+                                if (scrollTop >= offset.top && maxoffset < stickyMaxOffset ) {
+                                    scrollTop = offset.top - stickyHeight - sticky.options.target;
                                     window.scrollTo(0, scrollTop);
                                 }
                             }
                         }
                     }
-
-                    sticky.element.css({
-                        "position" : "fixed",
-                        "top"      : newTop,
-                        "width"    : (typeof sticky.getWidthFrom !== 'undefined') ? $(sticky.getWidthFrom).width() : sticky.element.width(),
-                        "left"     : sticky.wrapper.offset().left
-                    });
 
                     sticky.wrapper.addClass(sticky.options.clsactive);
 
