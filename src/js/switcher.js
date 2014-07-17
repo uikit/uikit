@@ -61,9 +61,9 @@
 
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-switcher]").each(function() {
+        $("[data-uk-switcher]", context).each(function() {
             var switcher = $(this);
 
             if (!switcher.data("switcher")) {

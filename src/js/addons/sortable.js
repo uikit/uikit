@@ -459,9 +459,9 @@
     }
 
     // auto init
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-sortable]").each(function(){
+        $("[data-uk-sortable]", context).each(function(){
 
           var ele = $(this);
 

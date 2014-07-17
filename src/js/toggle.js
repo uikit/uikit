@@ -41,9 +41,9 @@
     });
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-toggle]").each(function() {
+        $("[data-uk-toggle]", context).each(function() {
             var ele = $(this);
 
             if (!ele.data("toggle")) {

@@ -219,7 +219,6 @@
             this.preview.parent().css('height', this.code.height());
 
             this.htmleditor.attr('data-mode', mode);
-            UI.$win.trigger('resize');
         },
 
         redraw: function() {
@@ -441,6 +440,7 @@
 
                 setTimeout(function() {
                     editor.fit();
+                    UI.$win.trigger('resize');
                 }, 50);
             });
 

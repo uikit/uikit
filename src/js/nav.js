@@ -86,9 +86,9 @@
     }
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-nav]").each(function() {
+        $("[data-uk-nav]", context).each(function() {
             var nav = $(this);
 
             if (!nav.data("nav")) {

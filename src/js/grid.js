@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange', grids = [];
+    var grids = [];
 
     UI.component('gridMatchHeight', {
 
@@ -20,20 +20,21 @@
 
             if (!this.columns.length) return;
 
-            win.on(event, (function() {
+            UI.$win.on('resize orientationchange', (function() {
+
                 var fn = function() {
                     $this.match();
                 };
 
                 $(function() {
                     fn();
-                    win.on("load", fn);
+                    UI.$win.on("load", fn);
                 });
 
-                return UI.Utils.debounce(fn, 150);
+                return UI.Utils.debounce(fn, 50);
             })());
 
-            $(document).on("uk-domready", function(e) {
+            UI.$doc.on("uk.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
@@ -131,9 +132,9 @@
 
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
+        $("[data-uk-grid-match],[data-uk-grid-margin]", context).each(function() {
             var grid = $(this), obj;
 
             if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {

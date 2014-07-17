@@ -109,9 +109,9 @@
     });
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-tab]").each(function() {
+        $("[data-uk-tab]", context).each(function() {
             var tab = $(this);
 
             if (!tab.data("tab")) {

@@ -116,7 +116,7 @@
         (global.navigator['pointerEnabled'] && global.navigator['maxTouchPoints'] > 0) || //IE >=11
         false
     );
-    UI.support.mutationobserver      = (global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver || null);
+    UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
 
     UI.Utils = {};
 
@@ -265,6 +265,45 @@
 
     $.UIkit.langdirection = $html.attr("dir") == "rtl" ? "right" : "left";
 
+
+    // DOM mutation save ready helper function
+
+    UI.domObservers = [];
+
+    UI.domObserve = function(selector, fn) {
+
+        if(!UI.support.mutationobserver) return;
+
+        $(selector).each(function() {
+
+            var element = this;
+
+            try {
+
+                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+                    fn.apply(element, []);
+                    $(element).trigger('uk.dom.changed');
+                }, 50));
+
+                // pass in the target node, as well as the observer options
+                observer.observe(element, { childList: true, subtree: true });
+
+            } catch(e) {}
+        });
+    };
+
+    UI.ready = function(fn) {
+        $(function() { fn(document); });
+        UI.domObservers.push(fn);
+    };
+
+    $doc.on('uk.domready', function(){
+        UI.domObservers.forEach(function(fn){
+            fn(document);
+        });
+        $doc.trigger('uk.dom.changed');
+    });
+
     $(function(){
 
         // custom scroll observer
@@ -290,32 +329,21 @@
 
         })(), 15);
 
-
         // Check for dom modifications
-        if(!UI.support.mutationobserver) return;
+        UI.domObserve('[data-uk-observe]', function() {
 
-        try{
+            var ele = this;
 
-            var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                $doc.trigger("uk-domready", [mutations]);
-            }, 150));
-
-            // pass in the target node, as well as the observer options
-            observer.observe(document.body, { childList: true, subtree: true });
-
-        } catch(e) {}
+            UI.domObservers.forEach(function(fn){
+                fn(ele);
+            });
+        });
 
         // remove css hover rules for touch devices
         if (UI.support.touch) {
             // UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
         }
     });
-
-    // DOM mutation save ready helper function
-    UI.ready = function(fn) {
-        $(fn);
-        UI.$doc.on('uk-domready', fn);
-    };
 
     // add touch identifier class
     $html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");

@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var win = UI.$win, event = 'resize orientationchange', stacks = [];
+    var stacks = [];
 
     UI.component('stackMargin', {
 
@@ -18,20 +18,21 @@
 
             if (!this.columns.length) return;
 
-            win.on(event, (function() {
+            UI.$win.on('resize orientationchange', (function() {
+
                 var fn = function() {
                     $this.process();
                 };
 
                 $(function() {
                     fn();
-                    win.on("load", fn);
+                    UI.$win.on("load", fn);
                 });
 
-                return UI.Utils.debounce(fn, 150);
+                return UI.Utils.debounce(fn, 50);
             })());
 
-            $(document).on("uk-domready", function(e) {
+            UI.$doc.on("uk.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.process();
             });
@@ -78,9 +79,9 @@
     });
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-margin]").each(function() {
+        $("[data-uk-margin]", context).each(function() {
             var ele = $(this), obj;
 
             if (!ele.data("stackMargin")) {

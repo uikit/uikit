@@ -45,9 +45,9 @@
     });
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-form-select]").each(function(){
+        $("[data-uk-form-select]", context).each(function(){
             var ele = $(this);
 
             if (!ele.data("formSelect")) {

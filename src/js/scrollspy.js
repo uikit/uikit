@@ -149,9 +149,9 @@
     $win.on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
 
     // init code
-    UI.ready(function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-scrollspy]").each(function() {
+        $("[data-uk-scrollspy]", context).each(function() {
 
             var element = $(this);
 
@@ -160,7 +160,7 @@
             }
         });
 
-        $("[data-uk-scrollspy-nav]").each(function() {
+        $("[data-uk-scrollspy-nav]", context).each(function() {
 
             var element = $(this);
 
