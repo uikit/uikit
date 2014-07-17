@@ -10,9 +10,9 @@
  - Added animation and negative offset support for sticky add-on
  - Added datepicker animation
  - Added additional class parameter for the tooltip add-on
+ - Refactored sticky add-on and fixed z-index and box sizing
  - Hide tootlip if source elemnt is hidden or removed via JavaScript
  - Fixed autocomplete from overflowing its container
- - Fixed sticky z-index and box sizing
 
 ### 2.8.0 (June 19, 2014)
 
