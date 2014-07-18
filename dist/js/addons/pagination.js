@@ -131,9 +131,9 @@
     });
 
     // init code
-    $(document).on("uk-domready", function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-pagination]").each(function(){
+        $("[data-uk-pagination]", context).each(function(){
             var ele = $(this);
 
             if (!ele.data("pagination")) {
