@@ -2049,7 +2049,7 @@
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
             var $this      = this,
-                bodyoffset = $('body').offset(),
+                htmloffset = $('html').offset(),
                 pos        = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
                 width      = $tooltip[0].offsetWidth,
                 height     = $tooltip[0].offsetHeight,
@@ -2065,8 +2065,8 @@
 
             // prevent strange position
             // when tooltip is in offcanvas etc.
-            pos.left -= bodyoffset.left;
-            pos.top  -= bodyoffset.top;
+            pos.left -= htmloffset.left;
+            pos.top  -= htmloffset.top;
 
             if ((tmppos[0] == "left" || tmppos[0] == "right") && $.UIkit.langdirection == 'right') {
                 tmppos[0] = tmppos[0] == "left" ? "right" : "left";
