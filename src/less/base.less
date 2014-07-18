@@ -193,13 +193,10 @@ img {
 
 /*
  * Preserve original image dimensions
- * 1. Fix Google maps automatically via URL detection
  */
 
 .uk-img-preserve,
-.uk-img-preserve img,
-img[src*="maps.gstatic.com"], // 1
-img[src*="googleapis.com"] { max-width: none; }
+.uk-img-preserve img { max-width: none; }
 
 
 /* Spacing for block elements

@@ -13,6 +13,7 @@
  - Refactored sticky add-on and fixed z-index and box sizing
  - Hide tootlip if source elemnt is hidden or removed via JavaScript
  - Fixed autocomplete from overflowing its container
+ - Removed Google maps automatic URL detection
 
 ### 2.8.0 (June 19, 2014)
 
