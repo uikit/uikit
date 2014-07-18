@@ -558,15 +558,16 @@
 
     });
 
-    $(document).on("uk-domready", function(e) {
+    // init code
+    UI.ready(function(context) {
 
-        $("[data-uk-nestable]").each(function(){
+        $("[data-uk-nestable]", context).each(function(){
 
-          var ele = $(this);
+            var ele = $(this);
 
-          if(!ele.data("nestable")) {
-              var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-uk-nestable")));
-          }
+            if(!ele.data("nestable")) {
+                 var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-uk-nestable")));
+            }
         });
     });
 

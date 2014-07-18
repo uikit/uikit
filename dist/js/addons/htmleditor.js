@@ -442,7 +442,8 @@
 
                 setTimeout(function() {
                     editor.fit();
-                }, 10);
+                    UI.$win.trigger('resize');
+                }, 50);
             });
 
             editor.addShortcut(['Ctrl-S', 'Cmd-S'], function() { editor.element.trigger('htmleditor-save', [editor]); });

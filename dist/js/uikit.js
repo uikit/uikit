@@ -118,7 +118,7 @@
         (global.navigator['pointerEnabled'] && global.navigator['maxTouchPoints'] > 0) || //IE >=11
         false
     );
-    UI.support.mutationobserver      = (global.MutationObserver || global.WebKitMutationObserver || global.MozMutationObserver || null);
+    UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
 
     UI.Utils = {};
 
@@ -267,19 +267,56 @@
 
     $.UIkit.langdirection = $html.attr("dir") == "rtl" ? "right" : "left";
 
-    $(function(){
 
-        $doc.trigger("uk-domready");
+    // DOM mutation save ready helper function
+
+    UI.domObservers = [];
+
+    UI.domObserve = function(selector, fn) {
+
+        if(!UI.support.mutationobserver) return;
+
+        $(selector).each(function() {
+
+            var element = this;
+
+            try {
+
+                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+                    fn.apply(element, []);
+                    $(element).trigger('uk.dom.changed');
+                }, 50));
+
+                // pass in the target node, as well as the observer options
+                observer.observe(element, { childList: true, subtree: true });
+
+            } catch(e) {}
+        });
+    };
+
+    UI.ready = function(fn) {
+        $(function() { fn(document); });
+        UI.domObservers.push(fn);
+    };
+
+    $doc.on('uk.domready', function(){
+        UI.domObservers.forEach(function(fn){
+            fn(document);
+        });
+        $doc.trigger('uk.dom.changed');
+    });
+
+    $(function(){
 
         // custom scroll observer
         setInterval((function(){
 
-            var memory = {x: window.scrollX, y:window.scrollY};
+            var memory = {x: window.pageXOffset, y:window.pageYOffset};
 
             var fn = function(){
 
-                if (memory.x != window.scrollX || memory.y != window.scrollY) {
-                    memory = {x: window.scrollX, y:window.scrollY};
+                if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
+                    memory = {x: window.pageXOffset, y:window.pageYOffset};
                     $doc.trigger('uk-scroll', [memory]);
                 }
             };
@@ -294,24 +331,36 @@
 
         })(), 15);
 
-
         // Check for dom modifications
-        if(!UI.support.mutationobserver) return;
+        UI.domObserve('[data-uk-observe]', function() {
 
-        try{
+            var ele = this;
 
-            var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                $doc.trigger("uk-domready");
-            }, 150));
+            UI.domObservers.forEach(function(fn){
+                fn(ele);
+            });
+        });
 
-            // pass in the target node, as well as the observer options
-            observer.observe(document.body, { childList: true, subtree: true });
 
-        } catch(e) {}
-
-        // remove css hover rules for touch devices
         if (UI.support.touch) {
-            UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+
+            // remove css hover rules for touch devices
+            // UI.Utils.removeCssRules(/\.uk-(?!navbar).*:hover/);
+
+            // viewport unit fix for uk-height-viewport - should be fixed in iOS 8
+            if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
+
+                UI.$win.on('load orientationchange resize', UI.Utils.debounce((function(){
+
+                    var fn = function() {
+                        $('.uk-height-viewport').css('height', window.innerHeight);
+                        return fn;
+                    };
+
+                    return fn();
+
+                })(), 100));
+            }
         }
     });
 
@@ -610,7 +659,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange', stacks = [];
+    var stacks = [];
 
     UI.component('stackMargin', {
 
@@ -626,20 +675,21 @@
 
             if (!this.columns.length) return;
 
-            win.on(event, (function() {
+            UI.$win.on('resize orientationchange', (function() {
+
                 var fn = function() {
                     $this.process();
                 };
 
                 $(function() {
                     fn();
-                    win.on("load", fn);
+                    UI.$win.on("load", fn);
                 });
 
-                return UI.Utils.debounce(fn, 150);
+                return UI.Utils.debounce(fn, 50);
             })());
 
-            $(document).on("uk-domready", function(e) {
+            UI.$doc.on("uk.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.process();
             });
@@ -686,8 +736,9 @@
     });
 
     // init code
-    $(document).on("uk-domready", function(e) {
-        $("[data-uk-margin]").each(function() {
+    UI.ready(function(context) {
+
+        $("[data-uk-margin]", context).each(function() {
             var ele = $(this), obj;
 
             if (!ele.data("stackMargin")) {
@@ -697,7 +748,7 @@
     });
 
 
-    $(document).on("uk-check-display", function(e) {
+    UI.$doc.on("uk-check-display", function(e) {
         stacks.forEach(function(item) {
             if(item.element.is(":visible")) item.process();
         });
@@ -954,7 +1005,7 @@
         },
 
         getSelected: function() {
-            this.find(".uk-active");
+            return this.find(".uk-active");
         }
     });
 
@@ -978,7 +1029,7 @@
         },
 
         getSelected: function() {
-            this.find(".uk-active");
+            return this.find(".uk-active");
         }
     });
 
@@ -1302,7 +1353,7 @@
 
     "use strict";
 
-    var win = $(window), event = 'resize orientationchange', grids = [];
+    var grids = [];
 
     UI.component('gridMatchHeight', {
 
@@ -1320,20 +1371,21 @@
 
             if (!this.columns.length) return;
 
-            win.on(event, (function() {
+            UI.$win.on('resize orientationchange', (function() {
+
                 var fn = function() {
                     $this.match();
                 };
 
                 $(function() {
                     fn();
-                    win.on("load", fn);
+                    UI.$win.on("load", fn);
                 });
 
-                return UI.Utils.debounce(fn, 150);
+                return UI.Utils.debounce(fn, 50);
             })());
 
-            $(document).on("uk-domready", function(e) {
+            UI.$doc.on("uk.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
@@ -1431,8 +1483,9 @@
 
 
     // init code
-    $(document).on("uk-domready", function(e) {
-        $("[data-uk-grid-match],[data-uk-grid-margin]").each(function() {
+    UI.ready(function(context) {
+
+        $("[data-uk-grid-match],[data-uk-grid-margin]", context).each(function() {
             var grid = $(this), obj;
 
             if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {
@@ -1445,7 +1498,7 @@
         });
     });
 
-    $(document).on("uk-check-display", function(e) {
+    UI.$doc.on("uk-check-display", function(e) {
         grids.forEach(function(item) {
             if(item.element.is(":visible")) item.match();
         });
@@ -1453,7 +1506,7 @@
 
 })(jQuery, jQuery.UIkit);
 
-(function($, UI, $win) {
+(function($, UI) {
 
     "use strict";
 
@@ -1490,9 +1543,7 @@
                 if (target[0] == $this.element[0] && $this.options.bgclose) {
                     $this.hide();
                 }
-
             });
-
         },
 
         toggle: function() {
@@ -1514,7 +1565,7 @@
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
-            $(document).trigger("uk-check-display");
+            UI.$doc.trigger("uk-check-display");
 
             return this;
         },
@@ -1662,7 +1713,7 @@
     };
 
     // init code
-    $(document).on("click.modal.uikit", "[data-uk-modal]", function(e) {
+    UI.$doc.on("click.modal.uikit", "[data-uk-modal]", function(e) {
 
         var ele = $(this);
 
@@ -1678,7 +1729,7 @@
     });
 
     // close modal on esc button
-    $(document).on('keydown.modal.uikit', function (e) {
+    UI.$doc.on('keydown.modal.uikit', function (e) {
 
         if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
             e.preventDefault();
@@ -1686,7 +1737,7 @@
         }
     });
 
-    $win.on("resize orientationchange", UI.Utils.debounce(function(){
+    UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
         if(active) active.resize();
     }, 150));
 
@@ -1718,7 +1769,7 @@
         return modal;
     }
 
-})(jQuery, jQuery.UIkit, jQuery(window));
+})(jQuery, jQuery.UIkit);
 
 (function($, UI) {
 
@@ -1743,7 +1794,7 @@
                 flip      = bar.hasClass("uk-offcanvas-bar-flip") ? -1:1,
                 dir       = flip * (rtl ? -1 : 1);
 
-            scrollpos = {x: window.scrollX, y: window.scrollY};
+            scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
 
             element.addClass("uk-active");
 
@@ -1934,8 +1985,9 @@
     }
 
     // init code
-    $(document).on("uk-domready", function(e) {
-        $("[data-uk-nav]").each(function() {
+    UI.ready(function(context) {
+
+        $("[data-uk-nav]", context).each(function() {
             var nav = $(this);
 
             if (!nav.data("nav")) {
@@ -1951,7 +2003,7 @@
     "use strict";
 
     var $tooltip,   // tooltip container
-        tooltipdelay;
+        tooltipdelay, checkdelay;
 
     UI.component('tooltip', {
 
@@ -1960,6 +2012,7 @@
             "pos": "top",
             "animation": false,
             "delay": 0, // in miliseconds
+            "cls": "",
             "src": function() { return this.attr("title"); }
         },
 
@@ -1989,6 +2042,7 @@
         show: function() {
 
             if (tooltipdelay)     clearTimeout(tooltipdelay);
+            if (checkdelay)       clearTimeout(checkdelay);
             if (!this.tip.length) return;
 
             $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
@@ -2076,7 +2130,7 @@
 
             tooltipdelay = setTimeout(function(){
 
-                $tooltip.css(tcss).attr("class", "uk-tooltip uk-tooltip-" + position);
+                $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
 
                 if ($this.options.animation) {
                     $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
@@ -2085,6 +2139,12 @@
                 }
 
                 tooltipdelay = false;
+
+                // close tooltip if element was removed or hidden
+                checkdelay = setInterval(function(){
+                    if(!$this.element.is(':visible')) $this.hide();
+                }, 150);
+
             }, parseInt(this.options.delay, 10) || 0);
         },
 
@@ -2092,6 +2152,7 @@
             if(this.element.is("input") && this.element[0]===document.activeElement) return;
 
             if(tooltipdelay) clearTimeout(tooltipdelay);
+            if (checkdelay)  clearTimeout(checkdelay);
 
             $tooltip.stop();
 
@@ -2198,8 +2259,9 @@
 
 
     // init code
-    $(document).on("uk-domready", function(e) {
-        $("[data-uk-switcher]").each(function() {
+    UI.ready(function(context) {
+
+        $("[data-uk-switcher]", context).each(function() {
             var switcher = $(this);
 
             if (!switcher.data("switcher")) {
@@ -2218,8 +2280,9 @@
     UI.component('tab', {
 
         defaults: {
-            connect: false,
-            active: 0
+            'target'  : '>li:not(.uk-tab-responsive, .uk-disabled)',
+            'connect' : false,
+            'active'  : 0
         },
 
         init: function() {
@@ -2245,44 +2308,84 @@
                 }
             }
 
-            var mobiletab = $('<li class="uk-tab-responsive uk-active"><a href="javascript:void(0);"></a></li>'),
-                caption   = mobiletab.find("a:first"),
-                dropdown  = $('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>'),
-                ul        = dropdown.find("ul");
 
-            caption.html(this.find("li.uk-active:first").find("a").text());
+            // init responsive tab
 
-            if (this.element.hasClass("uk-tab-bottom")) dropdown.addClass("uk-dropdown-up");
-            if (this.element.hasClass("uk-tab-flip")) dropdown.addClass("uk-dropdown-flip");
+            this.responsivetab = $('<li class="uk-tab-responsive uk-active"><a></a></li>').append('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>');
 
-            this.find("a").each(function(i) {
+            this.responsivetab.dropdown = this.responsivetab.find('.uk-dropdown');
+            this.responsivetab.lst      = this.responsivetab.dropdown.find('ul');
 
-                var tab  = $(this).parent(),
-                    item = $('<li><a href="javascript:void(0);">' + tab.text() + '</a></li>').on("click", function(e) {
-                        $this.element.data("switcher").show(i);
-                    });
 
-                if (!$(this).parents(".uk-disabled:first").length) ul.append(item);
+            if (this.element.hasClass("uk-tab-bottom")) this.responsivetab.dropdown.addClass("uk-dropdown-up");
+            if (this.element.hasClass("uk-tab-flip"))   this.responsivetab.dropdown.addClass("uk-dropdown-flip");
+
+            // handle click
+            this.responsivetab.lst.on('click', 'a', function(e) {
+
+                if ($this.options.connect) {
+                    e.preventDefault();
+                    $this.element.data("switcher").show($(this).data('index'));
+                }
             });
 
-            this.element.uk("switcher", {"toggle": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active});
+            // init UIkit components
+            UI.switcher(this.element, {"toggle": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active});
+            UI.dropdown(this.responsivetab, {"mode": "click"});
 
-            mobiletab.append(dropdown).uk("dropdown", {"mode": "click"});
+            this.element.append(this.responsivetab);
 
-            this.element.append(mobiletab).data({
-                "dropdown": mobiletab.data("dropdown"),
-                "mobilecaption": caption
-            }).on("uk.switcher.show", function(e, tab) {
-                mobiletab.addClass("uk-active");
-                caption.html(tab.find("a").text());
-            });
 
+            this.check();
+
+            UI.$win.on('resize orientationchange', UI.Utils.debounce(function(){
+
+                $this.check();
+
+            }, 100));
+
+        },
+
+        check: function() {
+
+            var children = this.element.children(':not(.uk-tab-responsive)');
+
+            if (children.length < 2) return;
+
+            var top = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)), added = 0;
+
+            children.removeClass('uk-hidden');
+
+            this.responsivetab.lst.empty();
+            this.responsivetab.removeClass('uk-hidden');
+
+            for (var i = children.length - 1; i > 0; i--) {
+
+                var item = children.eq(i);
+
+                if (item.offset().top > top || (added && this.responsivetab.offset().top > top)) {
+
+                    var link = item.find('a');
+
+                    if (item.css('float') != 'none' && !item.attr('uk-dropdown')) {
+
+                        item.addClass('uk-hidden');
+                        if(!item.hasClass('uk-disabled')) {
+                            this.responsivetab.lst.append('<li><a href="'+link.attr('href')+'" data-index="'+i+'">'+link.html()+'</a></li>');
+                            added++;
+                        }
+                    }
+                }
+            }
+
+            this.responsivetab[this.responsivetab.lst.children().length ? 'removeClass':'addClass']('uk-hidden');
         }
     });
 
-    $(document).on("uk-domready", function(e) {
+    // init code
+    UI.ready(function(context) {
 
-        $("[data-uk-tab]").each(function() {
+        $("[data-uk-tab]", context).each(function() {
             var tab = $(this);
 
             if (!tab.data("tab")) {
@@ -2297,8 +2400,8 @@
 
     "use strict";
 
-    var $win           = $(window),
-        $doc           = $(document),
+    var $win           = UI.$win,
+        $doc           = UI.$doc,
         scrollspies    = [],
         checkScrollSpy = function() {
             for(var i=0; i < scrollspies.length; i++) {
@@ -2444,8 +2547,9 @@
     $win.on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
 
     // init code
-    $doc.on("uk-domready", function(e) {
-        $("[data-uk-scrollspy]").each(function() {
+    UI.ready(function(context) {
+
+        $("[data-uk-scrollspy]", context).each(function() {
 
             var element = $(this);
 
@@ -2454,7 +2558,7 @@
             }
         });
 
-        $("[data-uk-scrollspy-nav]").each(function() {
+        $("[data-uk-scrollspy-nav]", context).each(function() {
 
             var element = $(this);
 
@@ -2527,6 +2631,7 @@
 
 (function(global, $, UI){
 
+    var togglers = [];
 
     UI.component('toggle', {
 
@@ -2539,12 +2644,14 @@
 
             var $this = this;
 
-            this.totoggle = this.options.target ? $(this.options.target):[];
+            this.getTogglers();
 
             this.on("click", function(e) {
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
                 $this.toggle();
             });
+
+            togglers.push(this);
         },
 
         toggle: function() {
@@ -2556,18 +2663,31 @@
             if(this.options.cls == 'uk-hidden') {
                 $(document).trigger("uk-check-display");
             }
+        },
+
+        getTogglers: function() {
+            this.totoggle = this.options.target ? $(this.options.target):[];
         }
     });
 
-    $(document).on("uk-domready", function(e) {
+    // init code
+    UI.ready(function(context) {
 
-        $("[data-uk-toggle]").each(function() {
+        $("[data-uk-toggle]", context).each(function() {
             var ele = $(this);
 
             if (!ele.data("toggle")) {
                var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
             }
         });
+
+        setTimeout(function(){
+
+            togglers.forEach(function(toggler){
+                toggler.getTogglers();
+            });
+
+        }, 0);
     });
 
 })(this, jQuery, jQuery.UIkit);
