@@ -191,7 +191,7 @@
                     settings.complete(response, xhr);
                 }
             };
-
+			settings.beforesend(xhr);
             xhr.send(formData);
         }
     }
@@ -207,6 +207,7 @@
 
         // events
         'before'          : function(o){},
+		'beforesend'      : function(xhr){},
         'loadstart'       : function(){},
         'load'            : function(){},
         'loadend'         : function(){},
