@@ -45,6 +45,7 @@
                     e.preventDefault();
 
                     $this.element.removeClass($this.options.dragoverClass);
+                    $this.element.trigger('uk.dropped', [e.dataTransfer.files]);
 
                     xhrupload(e.dataTransfer.files, $this.options);
                 }
