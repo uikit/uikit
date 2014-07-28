@@ -125,15 +125,20 @@
 
             var count    = files.length,
                 uploaded = 0,
-                allow = true;
-                
+                allow    = true;
+
                 settings.beforeall(files);
 
                 settings.complete = function(response, xhr){
-                    uploaded = uploaded+1;
+
+                    uploaded = uploaded + 1;
+
                     complete(response, xhr);
-                    if (settings.filelimit && uploaded >= settings.filelimit)
+
+                    if (settings.filelimit && uploaded >= settings.filelimit){
                         allow = false;
+                    }
+
                     if (allow && uploaded<count){
                         upload([files[uploaded]], settings);
                     } else {
