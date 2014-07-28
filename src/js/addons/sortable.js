@@ -90,7 +90,7 @@
                     var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, element);
 
                     if (!handle.length) {
-                        e.preventDefault();
+                        //e.preventDefault();
                         return;
                     }
                 }
