@@ -53,6 +53,8 @@
                     Offcanvas.hide();
                 }
             });
+
+            $doc.trigger('uk.offcanvas.show', [element, bar]);
         },
 
         hide: function(force) {
@@ -60,17 +62,22 @@
             var $body = $('body'),
                 panel = $(".uk-offcanvas.uk-active"),
                 rtl   = ($.UIkit.langdirection == "right"),
-                bar   = panel.find(".uk-offcanvas-bar:first");
+                bar   = panel.find(".uk-offcanvas-bar:first"),
+                finalize = function() {
+                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
+                    panel.removeClass("uk-active");
+                    bar.removeClass("uk-offcanvas-bar-show");
+                    $html.css('margin-top', '');
+                    window.scrollTo(scrollpos.x, scrollpos.y);
+                    $doc.trigger('uk.offcanvas.hide', [panel, bar]);
+                };
 
             if (!panel.length) return;
 
             if ($.UIkit.support.transition && !force) {
 
                 $body.one($.UIkit.support.transition.end, function() {
-                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
-                    panel.removeClass("uk-active");
-                    $html.css('margin-top', '');
-                    window.scrollTo(scrollpos.x, scrollpos.y);
+                    finalize();
                 }).css((rtl ? "margin-right" : "margin-left"), "");
 
                 setTimeout(function(){
@@ -78,11 +85,7 @@
                 }, 0);
 
             } else {
-                $body.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
-                panel.removeClass("uk-active");
-                bar.removeClass("uk-offcanvas-bar-show");
-                $html.css('margin-top', '');
-                window.scrollTo(scrollpos.x, scrollpos.y);
+                finalize();
             }
 
             panel.off(".ukoffcanvas");
