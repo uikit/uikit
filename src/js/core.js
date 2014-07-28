@@ -180,19 +180,57 @@
         }
     };
 
+    /*
+    * portions of $.parseData v0.1.1
+    * Copyright 2013, tokkonopapa
+    * https://github.com/tokkonopapa/jQuery-parseData/
+    *
+    * This content is released under the MIT License
+    */
+
+    // Pre-compiled regular expression
+    var _jsonize_brace = /^[{\[]/,         // check `{`、`[` at the beginning
+        _jsonize_token = /[^,:{}\[\]]+/g,  // retrieve token based on the delimiter
+        _jsonize_quote = /^['"](.*)['"]$/, // remove quotes at the top end
+        _jsonize_escap = /(["])/g;         // characters to be escaped
+
+    	// Convert JSON like literals to valid JSON
+    	// Numeric or String literal will be converted to strings.
+    	// The `undefined` will be converted to `{}`.
+      function _jsonize(str) {
+    		// Wrap with `{}` if not JavaScript object literal
+        str = $.trim(str);
+        if (_jsonize_brace.test(str) === false) {
+          str = '{' + str + '}';
+        }
+
+    		// Retrieve token and convert to JSON
+        return str.replace(_jsonize_token, function (a) {
+          a = $.trim(a);
+
+    			// Keep some special strings as they are
+          if ('' === a ||
+            'true' === a || 'false' === a || 'null' === a ||
+            (!isNaN(parseFloat(a)) && isFinite(a))) {
+            return a;
+          }
+
+    			// For string literal,
+    			// 1. remove quotes at the top end
+    			// 2. escape double quotes in the middle
+    			// 3. wrap token with double quotes
+          else {
+            return (
+                '"' + a.replace(_jsonize_quote, '$1').replace(_jsonize_escap, '\\$1') + '"'
+            );
+          }
+        });
+      }
+
     UI.Utils.options = function(string) {
 
         if ($.isPlainObject(string)) return string;
-
-        var start = (string ? string.indexOf("{") : -1), options = {};
-
-        if (start != -1) {
-            try {
-                options = (new Function("", "var json = " + string.substr(start) + "; return JSON.parse(JSON.stringify(json));"))();
-            } catch (e) {}
-        }
-
-        return options;
+        return $.parseJSON(_jsonize(string));
     };
 
     UI.Utils.template = function(str, data) {
