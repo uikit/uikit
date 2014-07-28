@@ -250,10 +250,9 @@
                             url: this.options.source,
                             data: params,
                             type: this.options.method,
-                            dataType: 'json',
-                            complete: function(xhr) {
-                                release(xhr.responseJSON || []);
-                            }
+                            dataType: 'json'
+                        }).done(function(json) {
+                            release(json || []);
                         });
 
                         break;
