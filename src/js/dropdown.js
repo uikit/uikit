@@ -119,6 +119,7 @@
             this.checkDimensions();
             this.element.addClass("uk-open");
             this.trigger('uk.dropdown.show', [this]);
+            UI.$doc.trigger("uk-check-display");
             active = this.element;
 
             this.registerOuterClick();
@@ -128,10 +129,10 @@
 
             var $this = this;
 
-            $(document).off("click.outer.dropdown");
+            UI.$doc.off("click.outer.dropdown");
 
             setTimeout(function() {
-                $(document).on("click.outer.dropdown", function(e) {
+                UI.$doc.on("click.outer.dropdown", function(e) {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
@@ -141,7 +142,7 @@
 
                     if (active && active[0] == $this.element[0] && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
                         active.removeClass("uk-open");
-                        $(document).off("click.outer.dropdown");
+                        UI.$doc.off("click.outer.dropdown");
                     }
                 });
             }, 10);
@@ -232,7 +233,7 @@
     var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
     // init code
-    $(document).on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+    UI.$doc.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
         var ele = $(this);
 
         if (!ele.data("dropdown")) {
