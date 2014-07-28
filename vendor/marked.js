@@ -20,7 +20,7 @@ var block = {
   lheading: /^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,
   blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
   list: /^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
-  html: /^ *(?:comment|closed|closing) *(?:\n{2,}|\s*$)/,
+  html: /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
   table: noop,
   paragraph: /^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,
@@ -754,18 +754,18 @@ function Renderer(options) {
   this.options = options || {};
 }
 
-Renderer.prototype.code = function(code, lang, escaped, token) {
+Renderer.prototype.code = function(code, lang, escaped) {
   if (this.options.highlight) {
     var out = this.options.highlight(code, lang);
     if (out != null && out !== code) {
-      token.escaped = true;
+      escaped = true;
       code = out;
     }
   }
 
   if (!lang) {
     return '<pre><code>'
-      + (token.escaped ? code : escape(code, true))
+      + (escaped ? code : escape(code, true))
       + '\n</code></pre>';
   }
 
@@ -773,7 +773,7 @@ Renderer.prototype.code = function(code, lang, escaped, token) {
     + this.options.langPrefix
     + escape(lang, true)
     + '">'
-    + (token.escaped ? code : escape(code, true))
+    + (escaped ? code : escape(code, true))
     + '\n</code></pre>\n';
 };
 
@@ -978,8 +978,7 @@ Parser.prototype.tok = function() {
     case 'code': {
       return this.renderer.code(this.token.text,
         this.token.lang,
-        this.token.escaped,
-        this.token);
+        this.token.escaped);
     }
     case 'table': {
       var header = ''
@@ -1155,8 +1154,13 @@ function marked(src, opt, callback) {
 
     pending = tokens.length;
 
-    var done = function() {
-      var out, err;
+    var done = function(err) {
+      if (err) {
+        opt.highlight = highlight;
+        return callback(err);
+      }
+
+      var out;
 
       try {
         out = Parser.parse(tokens, opt);
@@ -1185,6 +1189,7 @@ function marked(src, opt, callback) {
           return --pending || done();
         }
         return highlight(token.text, token.lang, function(err, code) {
+          if (err) return done(err);
           if (code == null || code === token.text) {
             return --pending || done();
           }
