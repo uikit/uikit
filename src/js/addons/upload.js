@@ -128,7 +128,7 @@
                 uploaded = 0,
                 allow    = true;
 
-                settings.beforeall(files);
+                settings.beforeAll(files);
 
                 settings.complete = function(response, xhr){
 
@@ -202,7 +202,7 @@
                     settings.complete(response, xhr);
                 }
             };
-			settings.beforesend(xhr);
+            settings.beforeSend(xhr);
             xhr.send(formData);
         }
     }
@@ -219,7 +219,8 @@
 
         // events
         'before'          : function(o){},
-		'beforesend'      : function(xhr){},
+        'beforeSend'      : function(xhr){},
+        'beforeAll'       : function(){},
         'loadstart'       : function(){},
         'load'            : function(){},
         'loadend'         : function(){},
@@ -229,8 +230,7 @@
         'complete'        : function(){},
         'allcomplete'     : function(){},
         'readystatechange': function(){},
-        'notallowed'      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); },
-        'beforeall'       : function () { }
+        'notallowed'      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); }
     };
 
     function matchName(pattern, path) {
