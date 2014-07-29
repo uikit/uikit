@@ -221,6 +221,7 @@
             this.preview.parent().css('height', this.code.height());
 
             this.htmleditor.attr('data-mode', mode);
+            UI.$win.trigger('resize');
         },
 
         redraw: function() {
@@ -442,7 +443,7 @@
 
                 setTimeout(function() {
                     editor.fit();
-                }, 10);
+                }, 50);
             });
 
             editor.addShortcut(['Ctrl-S', 'Cmd-S'], function() { editor.element.trigger('htmleditor-save', [editor]); });

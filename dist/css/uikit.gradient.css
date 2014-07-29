@@ -424,17 +424,17 @@ dfn[title] {
 /* Embedded content
  ========================================================================== */
 /*
- * 1. Corrects max-width behavior (2.) if padding and border are used
- * 2. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * 2. Corrects `max-width` behavior if padding and border are used
  * 3. Remove the gap between images and the bottom of their containers
  */
 img {
   /* 1 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  /* 2 */
   max-width: 100%;
   height: auto;
+  /* 2 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   /* 3 */
   vertical-align: middle;
 }
@@ -2546,26 +2546,26 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /*
  * Hidden by default
  */
-.uk-tab-responsive {
-  display: none;
-}
+/* .uk-tab-responsive { display: none; } */
 .uk-tab-responsive > a:before {
   content: "\f0c9\00a0";
   font-family: FontAwesome;
 }
 /* Phone landscape and smaller */
-@media (max-width: 767px) {
-  [data-uk-tab] > li {
-    display: none;
-  }
-  [data-uk-tab] > li.uk-tab-responsive {
-    display: block;
-  }
-  [data-uk-tab] > li.uk-tab-responsive > a {
-    margin-left: 0;
-    margin-right: 0;
-  }
+/*
+@media (max-width: @breakpoint-small-max) {
+
+    [data-uk-tab] > li { display: none; }
+
+    [data-uk-tab] > li.uk-tab-responsive { display: block; }
+
+    [data-uk-tab] > li.uk-tab-responsive > a {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
 }
+*/
 /* Modifier: 'tab-center'
  ========================================================================== */
 .uk-tab-center {
@@ -3239,9 +3239,17 @@ select.uk-form-width-mini {
 }
 /* Sub-object: `uk-form-icon`
  ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ */
 .uk-form-icon {
-  position: relative;
+  /* 1 */
   display: inline-block;
+  /* 2 */
+  position: relative;
+  /* 3 */
   max-width: 100%;
 }
 /*
@@ -3389,6 +3397,35 @@ select.uk-form-width-mini {
 .uk-button-success:active,
 .uk-button-success.uk-active {
   background-color: #76b430;
+  color: #ffffff;
+  background-image: none;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-color: rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+/*
+ * Modifier: `uk-button-warning`
+ */
+.uk-button-warning {
+  background-color: #f9a124;
+  color: #ffffff;
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  border-color: rgba(0, 0, 0, 0.2);
+  border-bottom-color: rgba(0, 0, 0, 0.4);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+/* Hover */
+.uk-button-warning:hover,
+.uk-button-warning:focus {
+  background-color: #ffac37;
+  color: #ffffff;
+  background-image: none;
+}
+/* Active */
+.uk-button-warning:active,
+.uk-button-warning.uk-active {
+  background-color: #ff9704;
   color: #ffffff;
   background-image: none;
   border-color: rgba(0, 0, 0, 0.2);
@@ -5135,6 +5172,12 @@ select.uk-form-width-mini {
   border-radius: 2px;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
 }
+/*
+ * Keep color when badge is a link
+ */
+a.uk-badge:hover {
+  color: #ffffff;
+}
 /* Modifier: `uk-badge-notification`;
  ========================================================================== */
 .uk-badge-notification {
@@ -5250,18 +5293,20 @@ select.uk-form-width-mini {
    Component: Thumbnail
  ========================================================================== */
 /*
- * 1. Corrects max-width behavior (2.) if padding and border are used
+ * 1. Container width fits its content
  * 2. Responsive behavior
- * 3. Required for `figure` element
- * 4. Style
+ * 3. Corrects `max-width` behavior sed
+ * 4. Required for `figure` element
+ * 5. Style
  */
 .uk-thumbnail {
-  display: inline-block;
   /* 1 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  display: inline-block;
   /* 2 */
   max-width: 100%;
+  /* 3 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   /* 3 */
   margin: 0;
   /* 4 */
@@ -6781,17 +6826,33 @@ a.uk-thumbnail:focus {
 .uk-vertical-align-bottom {
   vertical-align: bottom;
 }
+/* Height
+ ========================================================================== */
 /*
- *  This helper class is very useful to extend the `html` and `body` element to the full height of the page.
+ * More robust if padding and border are used
+ */
+[class*='uk-height'] {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * Useful to extend the `html` and `body` element to the full height of the page.
  */
 .uk-height-1-1 {
   height: 100%;
+}
+/*
+ * Useful to create fullscreen image teasers
+ */
+.uk-height-viewport {
+  height: 100vh;
+  min-height: 600px;
 }
 /* Responsive objects
  * Note: Images are already responsive by default, see Base component
  ========================================================================== */
 /*
- * 1. Corrects max-width/max-height behavior if padding and border are used
+ * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
  */
 .uk-responsive-width,
 .uk-responsive-height {
