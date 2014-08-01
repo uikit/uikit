@@ -94,7 +94,7 @@
         },
 
         revert: function() {
-            this.elements.css('min-height', '');
+            this.elements.css('height', '');
             return this;
         },
 
@@ -111,7 +111,7 @@
                 var element = $(this),
                     height  = max - (element.outerHeight() - element.height());
 
-                element.css('min-height', height + 'px');
+                element.css('height', height + 'px');
             });
         }
     });
