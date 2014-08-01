@@ -45,8 +45,6 @@
 
         match: function() {
 
-            this.revert();
-
             var firstvisible = this.columns.filter(":visible:first");
 
             if (!firstvisible.length) return;
@@ -94,7 +92,7 @@
         },
 
         revert: function() {
-            this.elements.css('min-height', '');
+            this.elements.css('height', '');
             return this;
         },
 
@@ -105,13 +103,19 @@
             var max = 0;
 
             elements.each(function() {
-                max = Math.max(max, $(this).outerHeight());
+
+                $(this).wrapInner( $('<div/>') );
+
+                max = Math.max(max, $(this).children().outerHeight());
+
+                $(this).children().contents().unwrap();
+
             }).each(function(i) {
 
                 var element = $(this),
                     height  = max - (element.outerHeight() - element.height());
 
-                element.css('min-height', height + 'px');
+                element.css('height', height + 'px');
             });
         }
     });
