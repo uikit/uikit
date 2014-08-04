@@ -275,6 +275,21 @@
             }
 
             return data;
+        },
+
+        hide: function() {
+
+            if (active && active === this) {
+                dropdown.hide();
+                active = false;
+            }
+        }
+    });
+
+    UI.$win.on("resize orientationchange", function() {
+
+        if (active) {
+            active.hide();
         }
     });
 
@@ -295,8 +310,7 @@
         var target = $(e.target);
 
         if (active && target[0] != dropdown[0] && !target.data("datepicker") && !target.parents(".uk-datepicker:first").length) {
-            dropdown.hide();
-            active = false;
+            active.hide();
         }
     });
 
