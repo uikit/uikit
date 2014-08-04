@@ -10,6 +10,7 @@
  - Added animation and negative offset support for sticky add-on
  - Added datepicker animation
  - Added additional class parameter for the tooltip add-on
+ - Added iframe option + load custom css in iframe (htmeditor add-on)
  - Refactored sticky add-on and fixed z-index and box sizing
  - Hide tootlip if source elemnt is hidden or removed via JavaScript
  - Fixed autocomplete from overflowing its container

@@ -19,6 +19,7 @@
     UI.component('htmleditor', {
 
         defaults: {
+            iframe       : false,
             mode         : 'split',
             markdown     : false,
             autocomplete : true,
@@ -55,9 +56,30 @@
             this.editor.on('change', function() { $this.editor.save(); });
             this.code.find('.CodeMirror').css('height', this.options.height);
 
+            // iframe mode?
+            if (this.options.iframe) {
+
+                this.iframe = $('<iframe class="uk-htmleditor-iframe" frameborder="0" scrolling="auto" height="100" width="100%"></iframe>');
+                this.preview.append(this.iframe);
+
+                // must open and close document object to start using it!
+                this.iframe[0].contentWindow.document.open();
+                this.iframe[0].contentWindow.document.close();
+
+                this.preview.container = $(this.iframe[0].contentWindow.document).find('body');
+
+                // append custom stylesheet
+                if (typeof(this.options.iframe) === 'string') {
+                   this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
+                }
+
+            } else {
+                this.preview.container = this.preview;
+            }
+
             UI.$win.on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
 
-            var previewContainer = $this.preview.parent(),
+            var previewContainer = this.iframe ? this.preview.container:$this.preview.parent(),
                 codeContent      = this.code.find('.CodeMirror-sizer'),
                 codeScroll       = this.code.find('.CodeMirror-scroll').on('scroll', UI.Utils.debounce(function() {
 
@@ -65,7 +87,7 @@
 
                     // calc position
                     var codeHeight       = codeContent.height() - codeScroll.height(),
-                        previewHeight    = previewContainer[0].scrollHeight - previewContainer.height(),
+                        previewHeight    = previewContainer[0].scrollHeight - ($this.iframe ? $this.iframe.height() : previewContainer.height()),
                         ratio            = previewHeight / codeHeight,
                         previewPostition = codeScroll.scrollTop() * ratio;
 
@@ -245,7 +267,7 @@
             if (!this.currentvalue) {
 
                 this.element.val('');
-                this.preview.html('');
+                this.preview.container.html('');
 
                 return;
             }
@@ -253,7 +275,7 @@
             this.trigger('render', [this]);
             this.trigger('renderLate', [this]);
 
-            this.preview.html(this.currentvalue);
+            this.preview.container.html(this.currentvalue);
         },
 
         addShortcut: function(name, callback) {
