@@ -3,8 +3,8 @@
     "use strict";
 
     var scrollpos = {x: window.scrollX, y: window.scrollY},
-        $win      = $(window),
-        $doc      = $(document),
+        $win      = UI.$win,
+        $doc      = UI.$doc,
         $html     = $('html'),
         Offcanvas = {
 

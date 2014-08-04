@@ -20,7 +20,7 @@
     var hasTouch     = 'ontouchstart' in window,
         html         = $("html"),
         touchedlists = [],
-        $win         = $(window);
+        $win         = UI.$win;
 
     /**
      * Detect CSS pointer-events property

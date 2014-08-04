@@ -359,7 +359,7 @@
 
             if($this.options.warp || !$this.options.animation) {
                 elementToMoveNextTo.parentNode.insertBefore(element, next);
-                $(document).trigger("uk-check-display");
+                UI.$doc.trigger("uk-check-display");
                 return;
             }
 
@@ -399,7 +399,7 @@
                             count--
                             if (!count) {
                                 list.css('min-height', '');
-                                $(document).trigger("uk-check-display");
+                                UI.$doc.trigger("uk-check-display");
                             }
                         });
                     }, 0);

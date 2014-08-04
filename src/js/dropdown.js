@@ -10,7 +10,7 @@
            'mode'       : 'hover',
            'remaintime' : 800,
            'justify'    : false,
-           'boundary'   : $(window),
+           'boundary'   : UI.$win,
            'delay'      : 0
         },
 
@@ -29,7 +29,7 @@
             this.flipped   = this.dropdown.hasClass('uk-dropdown-flip');
 
             if(!this.boundary.length) {
-                this.boundary = $(window);
+                this.boundary = UI.$win;
             }
 
             if (this.options.mode == "click" || UI.support.touch) {

@@ -55,7 +55,7 @@
             this.editor.on('change', function() { $this.editor.save(); });
             this.code.find('.CodeMirror').css('height', this.options.height);
 
-            $(window).on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
+            UI.$win.on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
 
             var previewContainer = $this.preview.parent(),
                 codeContent      = this.code.find('.CodeMirror-sizer'),
@@ -583,7 +583,7 @@
         });
     });
 
-    $(document).on("uk-check-display", function(e) {
+    UI.$doc.on("uk-check-display", function(e) {
         editors.forEach(function(item) {
             if(item.htmleditor.is(":visible")) item.fit();
         });

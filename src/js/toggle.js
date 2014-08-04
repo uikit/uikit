@@ -31,7 +31,7 @@
             this.totoggle.toggleClass(this.options.cls);
 
             if(this.options.cls == 'uk-hidden') {
-                $(document).trigger("uk-check-display");
+                UI.$doc.trigger("uk-check-display");
             }
         },
 

@@ -44,7 +44,7 @@
     });
 
     // init code
-    $(document).on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
+    UI.$doc.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
 
         var ele = $(this);
         if (!ele.data("formPassword")) {

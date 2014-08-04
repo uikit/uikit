@@ -149,7 +149,7 @@
     });
 
     // init code
-    $(document).on("focus.timepicker.uikit", "[data-uk-timepicker]", function(e) {
+    UI.$doc.on("focus.timepicker.uikit", "[data-uk-timepicker]", function(e) {
         var ele = $(this);
 
         if (!ele.data("timepicker")) {

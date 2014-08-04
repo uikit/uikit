@@ -77,7 +77,7 @@
 
 
     // init code
-    $(document).on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
+    UI.$doc.on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
         var ele = $(this);
 
         if (!ele.data("buttonRadio")) {
@@ -89,7 +89,7 @@
         }
     });
 
-    $(document).on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
+    UI.$doc.on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
         var ele = $(this);
 
         if (!ele.data("buttonCheckbox")) {
@@ -102,7 +102,7 @@
         }
     });
 
-    $(document).on("click.button.uikit", "[data-uk-button]", function(e) {
+    UI.$doc.on("click.button.uikit", "[data-uk-button]", function(e) {
         var ele = $(this);
 
         if (!ele.data("button")) {

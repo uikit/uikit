@@ -45,7 +45,7 @@
     });
 
     // init code
-    $(document).on("click.alert.uikit", "[data-uk-alert]", function(e) {
+    UI.$doc.on("click.alert.uikit", "[data-uk-alert]", function(e) {
 
         var ele = $(this);
 

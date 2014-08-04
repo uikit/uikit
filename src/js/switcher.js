@@ -55,7 +55,7 @@
             }
 
             this.trigger("uk.switcher.show", [active]);
-            $(document).trigger("uk-check-display");
+            UI.$doc.trigger("uk-check-display");
         }
     });
 
