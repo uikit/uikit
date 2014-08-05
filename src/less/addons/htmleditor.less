@@ -11,6 +11,7 @@
 //                  `uk-htmleditor-content`
 //                  `uk-htmleditor-code`
 //                  `uk-htmleditor-preview`
+//                  `uk-htmleditor-iframe`
 //
 // Modifier:        `uk-htmleditor-fullscreen`
 //                  `[data-mode='tab']`
@@ -213,6 +214,7 @@
 .uk-htmleditor-preview {
     padding: @htmleditor-content-padding;
     overflow-y: scroll;
+    position: relative;
 }
 
 /*
@@ -233,6 +235,18 @@
 }
 
 [data-mode='split'] .uk-htmleditor-code { border-right: 1px solid @htmleditor-content-split-border; }
+
+
+/* Sub-object `uk-htmleditor-iframe`
+ ========================================================================== */
+
+.uk-htmleditor-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 
 /* CodeMirror modifications
