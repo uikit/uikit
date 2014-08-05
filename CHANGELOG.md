@@ -11,9 +11,18 @@
  - Added datepicker animation
  - Added additional class parameter for the tooltip add-on
  - Added iframe option + load custom css in iframe (htmeditor add-on)
+ - Added more settings options for upload add-on
+ - Added trigger uk.dropped event when files were dropped (upload on drop add-on)
+ - Added trigger uk.offcanvas.hide when offcanvas hides
+ - Updated active datepicker closes on window resize
  - Refactored sticky add-on and fixed z-index and box sizing
  - Hide tootlip if source elemnt is hidden or removed via JavaScript
+ - Fixed using data-uk-margin in dropdowns
+ - Fixed target option in tab js component
+ - Fixed autocomplete return type on ajax request
  - Fixed autocomplete from overflowing its container
+ - Fixed tooltip position calculation when body or html element is fixed
+ - Fixed sortable add-on prevents default behaviour of child elements on click
  - Removed Google maps automatic URL detection
 
 ### 2.8.0 (June 19, 2014)
