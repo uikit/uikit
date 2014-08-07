@@ -64,7 +64,7 @@
                 rtl   = ($.UIkit.langdirection == "right"),
                 bar   = panel.find(".uk-offcanvas-bar:first"),
                 finalize = function() {
-                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": ""});
+                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
                     panel.removeClass("uk-active");
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');

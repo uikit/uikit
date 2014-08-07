@@ -23,6 +23,7 @@
  - Fixed autocomplete from overflowing its container
  - Fixed tooltip position calculation when body or html element is fixed
  - Fixed sortable add-on prevents default behaviour of child elements on click
+ - Fixed off-canvas in IE 9
  - Removed Google maps automatic URL detection
 
 ### 2.8.0 (June 19, 2014)
