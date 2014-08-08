@@ -21,6 +21,8 @@
 // ========================================================================
 
 @icon-font-path:                                "../fonts";
+@icon-font-filename:                            "fontawesome-webfont";
+@icon-font-name:                                "FontAwesome";
 
 @icon-small-font-size:                          150%;
 @icon-medium-font-size:                         200%;
@@ -49,11 +51,11 @@
  ========================================================================== */
 
 @font-face {
-    font-family: 'FontAwesome';
-    src: url("@{icon-font-path}/fontawesome-webfont.eot");
-    src: url("@{icon-font-path}/fontawesome-webfont.eot?#iefix") format("embedded-opentype"),
-         url("@{icon-font-path}/fontawesome-webfont.woff") format("woff"),
-         url("@{icon-font-path}/fontawesome-webfont.ttf") format("truetype");
+    font-family: @icon-font-name;
+    src: url("@{icon-font-path}/@{icon-font-filename}.eot");
+    src: url("@{icon-font-path}/@{icon-font-filename}.eot?#iefix") format("embedded-opentype"),
+         url("@{icon-font-path}/@{icon-font-filename}.woff") format("woff"),
+         url("@{icon-font-path}/@{icon-font-filename}.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
@@ -66,7 +68,7 @@
  */
 
 [class*='uk-icon-'] {
-    font-family: FontAwesome;
+    font-family: @icon-font-name;
     /* 1 */
     display: inline-block;
     /* 2 */
