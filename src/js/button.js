@@ -65,7 +65,7 @@
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
                 $this.toggle();
-                $this.trigger("change", [$element.blur().hasClass("uk-active")]);
+                $this.trigger("change", [$this.element.blur().hasClass("uk-active")]);
             });
 
         },
