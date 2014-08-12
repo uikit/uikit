@@ -15,6 +15,7 @@
 //                  `uk-link-*`
 //                  `uk-scrollable-*`
 //                  `uk-overflow-container`
+//                  `uk-position-*`
 //                  `uk-display-*`
 //                  `uk-visible-*`
 //                  `uk-hidden-*`
@@ -35,7 +36,7 @@
 @utility-align-horizontal:                      15px;
 @utility-align-vertical:                        15px;
 
-@utility-height-fullscreen-min-height:          600px;
+@utility-height-viewport-min-height:            600px;
 
 @utility-margin:                                15px;
 @utility-margin-small:                          5px;
@@ -247,12 +248,12 @@
 .uk-height-1-1 { height: 100%; }
 
 /*
- * Useful to create fullscreen image teasers
+ * Useful to create image teasers
  */
 
 .uk-height-viewport {
     height: 100vh;
-    min-height: @utility-height-fullscreen-min-height;
+    min-height: @utility-height-viewport-min-height;
 }
 
 
@@ -432,6 +433,21 @@
 }
 
 .uk-overflow-container > :last-child { margin-bottom: 0; }
+
+
+/* Position
+ ========================================================================== */
+
+.uk-position-absolute { position: absolute !important; }
+.uk-position-relative { position: relative !important; }
+
+.uk-position-cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 
 
 /* Display
