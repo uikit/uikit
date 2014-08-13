@@ -19,9 +19,10 @@
                 $(document).on('click', '[data-docs-animation]', function() {
 
                     var element   = $(this),
-                        animation = element.data("docsAnimation");
+                        animation = element.data("docsAnimation"),
+                        duration  = element.hasClass('uk-animation-10') ? 10000 : 500;
 
-                    if(element.data("anim-idle")) {
+                    if (element.data("anim-idle")) {
                         clearTimeout(element.data("anim-idle"));
                     }
 
@@ -33,7 +34,8 @@
                         element.data("anim-idle", setTimeout(function(){
                                 element.removeClass(animation);
                                 element.data("anim-idle", false);
-                        }, 500));
+                        }, duration));
+
                     }, 50);
                 });
             });
