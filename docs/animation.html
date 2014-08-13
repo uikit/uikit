@@ -174,6 +174,10 @@
                                             <td><code>.uk-animation-shake</code></td>
                                             <td>The element shakes.</td>
                                         </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-scale</code></td>
+                                            <td>The element scales down without fading in.</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -211,6 +215,11 @@
                                     <div class="uk-panel uk-panel-box uk-animation-slide-right" data-docs-animation="uk-animation-slide-right">Slide right</div>
                                 </div>
                             </div>
+                            <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale" data-docs-animation="uk-animation-scale">Scale</div>
+                                </div>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -220,7 +229,7 @@
 
                             <h2 id="reverse-modifier"><a href="#reverse-modifier" class="uk-link-reset">Reverse modifier</a></h2>
 
-                            <p>All provided animations are fade-in animations. Add the <code>.uk-animation-reverse</code> class to reverse any animation and fade the element out.</p>
+                            <p>By default, all aimations are incoming. To reverse any animation, add the <code>.uk-animation-reverse</code> class.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -255,10 +264,118 @@
                                     <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-right">Slide right</div>
                                 </div>
                             </div>
+                            <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-scale">Scale</div>
+                                </div>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;div class="uk-animation-fade uk-animation-reverse"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="duration-modifier"><a href="#duration-modifier" class="uk-link-reset">Duration modifier</a></h2>
+
+                            <p>To stretch the animation duration to 10 seconds, add the <code>.uk-animation-10</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-text-center">
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-10" data-docs-animation="uk-animation-scale">Scale</div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-animation-scale uk-animation-10"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="origin-modifier"><a href="#origin-modifier" class="uk-link-reset">Origin modifier</a></h2>
+
+                            <p>By default, scaling animations originate from the center. To modify this behavior, add one of these classes.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-animation-top-left</code></td>
+                                            <td>The animation spreads from the top left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-top-center</code></td>
+                                            <td>The animation spreads from the top center.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-top-right</code></td>
+                                            <td>The animation spreads from the top right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-middle-left</code></td>
+                                            <td>The animation spreads from the middle left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-middle-right</code></td>
+                                            <td>The animation spreads from the middle right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-bottom-left</code></td>
+                                            <td>The animation spreads from the bottom left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-bottom-center</code></td>
+                                            <td>The animation spreads from the bottom center.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-animation-bottom-right</code></td>
+                                            <td>The animation spreads from the bottom right.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>Click on any of the boxes to see the animation.</p>
+
+                            <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-left" data-docs-animation="uk-animation-scale">Top Left</div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-center" data-docs-animation="uk-animation-scale">Top Center</div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-right" data-docs-animation="uk-animation-scale">Top Right</div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-left" data-docs-animation="uk-animation-scale">Middle Left</div>
+                                </div>
+                            </div>
+
+                            <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-right" data-docs-animation="uk-animation-scale">Middle Right</div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-left" data-docs-animation="uk-animation-scale">Bottom Left</div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-center" data-docs-animation="uk-animation-scale">Bottom Center</div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-right" data-docs-animation="uk-animation-scale">Bottom Right</div>
+                                </div>
+                            </div>
 
                         </article>
 
