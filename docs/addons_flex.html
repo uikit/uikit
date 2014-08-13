@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Form select component - UIkit documentation</title>
+        <title>Flex component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,7 +14,6 @@
         <script src="../dist/js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../dist/js/addons/form-select.js"></script>
     </head>
 
     <body class="tm-background">
@@ -47,7 +46,7 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
-                            <li><a href="addons_flex.html">Flex</a></li>
+                            <li class="uk-active"><a href="addons_flex.html">Flex</a></li>
                             <li class="uk-nav-header">Navigations</li>
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
@@ -56,7 +55,7 @@
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
-                            <li class="uk-active"><a href="addons_form-select.html">Form select</a></li>
+                            <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
@@ -76,94 +75,80 @@
 
                         <article class="uk-article">
 
-                            <h1>Form select</h1>
+                            <h1>Flex</h1>
 
-                            <p class="uk-article-lead">Replace the default select form with your own HTML content, like a button or text.</p>
+                            <p class="uk-article-lead">Utilize the power of Flexbox to create a wide range of layouts.</p>
+
+                            <p>This add-on uses Flexbox, a concept that is still quite new but extremely powerful for creating layouts. Note that its functionality will be enhanced fundamentally in the future, while right now it is mainly used to easily align objects.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply this component, just add the <code>.uk-form-select</code> class and the <code>data-uk-form-select</code> attribute to a container element around a span and a <code>&lt;select&gt;</code> element. Basically, this will overlay the default select element with a custom UIkit form.</p>
+                            <p>To apply this add-on, just add the <code>.uk-flex</code> class to a <code>&lt;div&gt;</code> element. This will create the flex container. By default, all flex items will be aligned to the left and equally matched in height and width.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-margin">
-
-                                <div class="uk-form-select" data-uk-form-select>
-                                    <span></span>
-                                    <select>
-                                        <option value="1">Option 01</option>
-                                        <option value="2">Option 02</option>
-                                        <option value="3">Option 03</option>
-                                        <option value="4">Option 04</option>
-                                    </select>
-                                </div>
-
+                            <div class="uk-flex">
+                                <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left">Box</div>
+                                <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left">Box</div>
+                                <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left" style="height: 100px;">Box</div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div class="uk-form-select" data-uk-form-select&gt;
-    &lt;span&gt;&lt;/span&gt;
-    &lt;select&gt;
-        &lt;option value=""&gt;...&lt;/option&gt;
-        &lt;option value=""&gt;...&lt;/option&gt;
-    &lt;/select&gt;
+<pre><code>&lt;div class="uk-flex"&gt;
+    &lt;div&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h3>As a button</h3>
+                            <h2 id="modifiers"><a href="#usage" class="uk-link-reset">Modifiers</a></h2>
 
-                            <p>Add the <code>.uk-button</code> class to the container element to style it as a button.</p>
+                            <p>You can add a number of different classes to modify this behavior.</p>
 
-                            <div class="uk-margin">
-
-                                <div class="uk-button uk-form-select" data-uk-form-select>
-                                    <span></span>
-                                    <i class="uk-icon-caret-down"></i>
-                                    <select>
-                                        <option value="1">Option 01</option>
-                                        <option value="2">Option 02</option>
-                                        <option value="3">Option 03</option>
-                                        <option value="4">Option 04</option>
-                                    </select>
-                                </div>
-
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-flex-center</code></td>
+                                            <td>Add this class to center flex items horizontally.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-right</code></td>
+                                            <td>Add this class to align flex items to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-top</code></td>
+                                            <td>Add this class to align flex items to the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-middle</code></td>
+                                            <td>Add this class to vertically center flex items.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-bottom</code></td>
+                                            <td>Add this class to align flex items to the bottom.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div class="uk-button uk-form-select" data-uk-form-select&gt;...&lt;/div&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h3>As an anchor</h3>
-
-                            <p>You can use any element, like an <code>&lt;a&gt;</code> as a select form. Just add the <code>{target:'a'}</code> option to the <code>data-uk-form-select</code> attribute and use an <code>&lt;a&gt;</code> instead of a <code>&lt;span&gt;</code> element.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-margin">
-
-                                <div class="uk-form-select" data-uk-form-select="{target:'a'}">
-                                    <a></a>
-                                    <select>
-                                        <option value="1">Option 01</option>
-                                        <option value="2">Option 02</option>
-                                        <option value="3">Option 03</option>
-                                        <option value="4">Option 04</option>
-                                    </select>
-                                </div>
-
-                            </div>
+                           <div class="uk-flex uk-flex-middle uk-flex-center">
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left" style="height: 50px;">Box</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left" style="height: 70px;">Box</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left" style="height: 100px;">Box</div>
+                           </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>
-&lt;div class="uk-form-select" data-uk-form-select="{target:'a'}"&gt;
-    &lt;a&gt;&lt;/a&gt;
-    &lt;select&gt;...&lt;/select&gt;
-&lt;/div&gt;</code></pre>
+<pre><code>&lt;div class="uk-flex uk-flex-middle uk-flex-center"&gt;...&lt;/div&gt;</code></pre>
 
                         </article>
 
@@ -272,6 +257,11 @@
                         </ul>
                     </li>
                     <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="addons_flex.html">Flex</a></li>
+                        </ul>
+                    </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
