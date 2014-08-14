@@ -3,7 +3,7 @@
 ### WIP
 
  - IMPORTANT: Renamed keyframe animation uk-spin to uk-rotate
- - IMPORTANT: Removed uk-sticky class, use [data-uk-sticky] instead 
+ - IMPORTANT: Removed uk-sticky class, use [data-uk-sticky] instead
  - Added flex add-on
  - Added new keyframes and classes to animation component
  - Added height viewport to utility component
@@ -24,7 +24,7 @@
  - Updated active datepicker closes on window resize
  - Refactored sticky add-on and fixed z-index and box sizing
  - Refactored responsive tab behavior
- - Hide tootlip if source elemnt is hidden or removed via JavaScript
+ - Hide tootlip if source element is hidden or removed via JavaScript
  - Fixed using data-uk-margin in dropdowns
  - Fixed target option in tab js component
  - Fixed autocomplete return type on ajax request
