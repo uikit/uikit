@@ -4,6 +4,7 @@
 // Adapted from http://github.com/h5bp/html5-boilerplate
 //
 // Modifications:   Removed link `href` and `title` related rules
+//                  Added `.uk-hide-print` to hide element when printing
 //
 // ========================================================================
 
@@ -13,6 +14,10 @@
  ========================================================================== */
 
 @media print {
+
+    .uk-hide-print {
+        display: none !important;
+    }
 
     * {
         background: transparent !important;
