@@ -23,6 +23,28 @@
 
                 this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
 
+                // delegate switch commands within container content
+                if (this.connect.length) {
+
+                    this.connect.on("click", '[data-uk-switcher-item]', function(e) {
+
+                        e.preventDefault();
+
+                        var item = $(this).data('ukSwitcherItem');
+
+                        if ($this.index == item) return;
+
+                        switch(item) {
+                            case 'next':
+                            case 'previous':
+                                $this.show($this.index + (item=='next' ? 1:-1));
+                                break;
+                            default:
+                                $this.show(item);
+                        }
+                    });
+                }
+
                 var toggles = this.find(this.options.toggle),
                     active   = toggles.filter(".uk-active");
 
@@ -40,7 +62,7 @@
 
             tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
 
-            var active = tab;
+            var $this = this, active = tab;
 
             if (active.hasClass("uk-disabled")) return;
 
@@ -49,10 +71,14 @@
 
             if (this.options.connect && this.connect.length) {
 
-                var index = this.find(this.options.toggle).index(active);
+                this.index = this.find(this.options.toggle).index(active);
+
+                if (this.index == -1 ) {
+                    this.index = 0;
+                }
 
                 this.connect.each(function() {
-                    $(this).children().removeClass("uk-active").eq(index).addClass("uk-active");
+                    $(this).children().removeClass("uk-active").eq($this.index).addClass("uk-active");
                 });
             }
 

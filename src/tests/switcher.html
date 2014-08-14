@@ -28,7 +28,7 @@
                     </ul>
 
                     <ul id="tab-content" class="uk-switcher uk-margin">
-                        <li>Hello!</li>
+                        <li>Hello! <a href="#" data-uk-switcher-item="2">Switch to tab 3</a></li>
                         <li>Hello again!</li>
                         <li>Bazinga!</li>
                         <li>You will never see me!</li>
@@ -105,6 +105,40 @@
 
                         </div>
                     </div>
+
+                </div>
+            </div>
+
+            <h2>Switch accross multiple connected containers</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-1">
+
+                    <ul class="uk-tab" data-uk-tab="{connect:'#multiple-content-1, #multiple-content-2'}">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                    </ul>
+
+
+                    <p class="uk-text-bold">Container 1</p>
+
+                    <ul id="multiple-content-1" class="uk-switcher uk-margin">
+                        <li>Container 1: Hello! <a href="#" data-uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Container 1: Hello again!</li>
+                        <li>Container 1: Bazinga! <a href="#" data-uk-switcher-item="previous">Switch to the previous tab</a></li>
+                        <li>Container 1: You will never see me!</li>
+                    </ul>
+
+                    <p class="uk-text-bold">Container 2</p>
+
+                    <ul id="multiple-content-2" class="uk-switcher uk-margin">
+                        <li>Container 2: Hello!</li>
+                        <li>Container 2: Hello again! <a href="#" data-uk-switcher-item="next">Switch to the next tab</a></li>
+                        <li>Container 2: Bazinga!</li>
+                        <li>Container 2: You will never see me!</li>
+                    </ul>
 
                 </div>
             </div>
