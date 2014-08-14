@@ -402,6 +402,127 @@
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
+
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-multiple"><a href="#switcher-multiple" class="uk-link-reset">Connect multiple containers</a></h2>
+
+                            <p>It is also possible to connect multiple content containers. Just extend the <code>connect</code> parameter.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-4">
+
+                                    <ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#switch-multiple-1, #switch-multiple-2'}">
+                                        <li class="uk-active"><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-3-4">
+                                    <div class="uk-grid uk-grid-width-medium-1-2" data-uk-margin>
+
+                                        <div>
+                                            <h4>Container 1</h4>
+                                            <ul id="switch-multiple-1" class="uk-switcher">
+                                                <li class="uk-active">Hello from container 1!</li>
+                                                <li>Hello again from container 1!</li>
+                                                <li>Bazinga from container 1!</li>
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <h4>Container 2</h4>
+                                            <ul id="switch-multiple-2" class="uk-switcher">
+                                                <li class="uk-active">Hello from container 2!</li>
+                                                <li>Hello again from container 2!</li>
+                                                <li>Bazinga from container 2!</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-4"&gt;
+
+        &lt;!-- This is the nav containing the toggling elements --&gt;
+        &lt;ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#my-id-one, #my-id-two'}"&gt;
+            &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="uk-width-medium-3-4"&gt;
+
+        &lt;!-- These are the containers of the content items --&gt;
+        &lt;ul id="my-id-one" class="uk-switcher"&gt;
+            &lt;li&gt;...&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;ul id="my-id-two" class="uk-switcher"&gt;
+            &lt;li&gt;...&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-content-switch"><a href="#switcher-content-switch" class="uk-link-reset">Switch content from within content</a></h2>
+
+                            <p>In some cases you want to switch to antother content section from within the active content. This is possible by combining the <code>data-uk-switcher-item</code> attribute with links.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-4">
+
+                                    <ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#switch-from-content'}">
+                                        <li class="uk-active"><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-3-4">
+
+                                    <ul id="switch-from-content" class="uk-switcher">
+                                        <li class="uk-active">Hello! <a href="#" data-uk-switcher-item="next">Switch to the next content section</a></li>
+                                        <li>Hello again! <a href="#" data-uk-switcher-item="2">Switch to third content section 3</a></li>
+                                        <li>Bazinga! <a href="#" data-uk-switcher-item="previous">Switch to the previous content section</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-4"&gt;
+
+        &lt;!-- This is the nav containing the toggling elements --&gt;
+        &lt;ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#my-id'}"&gt;
+            &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="uk-width-medium-3-4"&gt;
+
+        &lt;!-- This is the container of the content items --&gt;
+        &lt;ul id="my-id" class="uk-switcher"&gt;
+            &lt;li&gt;... &lt;a href="#" data-uk-switcher-item="next"&gt;Next&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;... &lt;a href="#" data-uk-switcher-item="previous"&gt;Previous&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;... &lt;a href="#" data-uk-switcher-item="2"&gt;Index 2&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+
                             <hr class="uk-article-divider">
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
