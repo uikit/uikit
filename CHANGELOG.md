@@ -25,7 +25,7 @@
  - Updated active datepicker closes on window resize
  - Refactored sticky add-on and fixed z-index and box sizing
  - Refactored responsive tab behavior
- - Hide tootlip if source element is hidden or removed via JavaScript
+ - Hide tooltip if source element is hidden or removed via JavaScript
  - Fixed using data-uk-margin in dropdowns
  - Fixed target option in tab js component
  - Fixed autocomplete return type on ajax request
