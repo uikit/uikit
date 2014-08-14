@@ -377,7 +377,7 @@ module.exports = function(grunt) {
                 // place tab indices
                 var i = 1; // tab index, start with 1
                 content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
-                                .replace(/(<[^>]+>)(<\/div>)/g, '$1${index}$2') // inside empty elements
+                                .replace(/(<[^>]+>)(<\/.+>)/g, '$1${index}$2') // inside empty elements
                                 .replace(/\{index\}/g, function() { return i++; });
 
                 var snippet = template.replace("{content}", content)
