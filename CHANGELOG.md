@@ -3,6 +3,7 @@
 ### WIP
 
  - IMPORTANT: Renamed keyframe animation uk-spin to uk-rotate
+ - IMPORTANT: Removed uk-sticky class, use [data-uk-sticky] instead 
  - Added flex add-on
  - Added new keyframes and classes to animation component
  - Added height viewport to utility component
