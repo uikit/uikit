@@ -13,13 +13,14 @@
  - Added animation and negative offset support for sticky add-on
  - Added datepicker animation
  - Added additional class parameter for the tooltip add-on
- - Added iframe option + load custom css in iframe (htmeditor add-on)
+ - Added iframe option + load custom css in iframe to htmleditor add-on
  - Added more settings options for upload add-on
- - Added trigger uk.dropped event when files were dropped (upload on drop add-on)
+ - Added trigger uk.dropped event when files were dropped to upload add-on
  - Added trigger uk.offcanvas.hide when offcanvas hides
- - Added allow multiple connect container (switcher)
+ - Added allow multiple connect container to switcher component
  - Updated active datepicker closes on window resize
  - Refactored sticky add-on and fixed z-index and box sizing
+ - Refactored responsive tab behavior
  - Hide tootlip if source elemnt is hidden or removed via JavaScript
  - Fixed using data-uk-margin in dropdowns
  - Fixed target option in tab js component
