@@ -34,15 +34,14 @@
         init: function() {
 
             var stickyId = this.element.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
-                wrapper  = $('<div class="uk-sticky-placeholder" style="height:0;padding:0;margin:0;"></div>').data({
-                    style: {
+                wrapper  = $('<div class="uk-sticky-placeholder"></div>').css({
                         'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
                         'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
                         'margin' : this.element.css("margin")
-                    }
                 });
 
-            this.element.before(wrapper);
+            wrapper = this.element.wrap(wrapper).parent();
+            this.element.css('margin', 0);
 
             this.sticky = {
                 options      : this.options,
@@ -54,8 +53,7 @@
                 reset        : function(force) {
 
                     var finalize = function() {
-                        this.element.css({"position":"", "top":"", "width":"", "left":""});
-                        this.wrapper.attr('style', 'height:0;padding:0;margin:0;');
+                        this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
                         this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
 
                         this.currentTop = null;
@@ -192,7 +190,7 @@
                     }
 
                     sticky.element.addClass(sticky.options.clsactive);
-                    sticky.wrapper.css(sticky.wrapper.data('style'));
+                    sticky.element.css('margin', '');
 
                     if (sticky.options.animation && sticky.init) {
                         sticky.element.addClass(sticky.options.animation);
