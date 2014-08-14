@@ -34,6 +34,7 @@
  - Fixed animation reverse timing function
  - Removed Google maps automatic URL detection
  - Removed search close button and loading spinner
+ - Removed Promise polyfill
 
 ### 2.8.0 (June 19, 2014)
 

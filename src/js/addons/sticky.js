@@ -34,18 +34,15 @@
         init: function() {
 
             var stickyId = this.element.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
-                wrapper  = $('<div></div>');
+                wrapper  = $('<div class="uk-sticky-placeholder" style="height:0;padding:0;margin:0;"></div>').data({
+                    style: {
+                        'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
+                        'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
+                        'margin' : this.element.css("margin")
+                    }
+                });
 
-            wrapper = this.element.wrap(wrapper).parent();
-
-            if (this.element.css('position') != 'absolute') {
-                wrapper.css('height', this.element.outerHeight());
-            }
-
-            if (this.element.css("float") != "none") {
-                wrapper.css({"float":this.element.css("float")});
-                this.element.css({"float":"none"});
-            }
+            this.element.before(wrapper);
 
             this.sticky = {
                 options      : this.options,
@@ -58,7 +55,7 @@
 
                     var finalize = function() {
                         this.element.css({"position":"", "top":"", "width":"", "left":""});
-                        this.wrapper.removeClass([this.options.clsinit].join(' '));
+                        this.wrapper.attr('style', 'height:0;padding:0;margin:0;');
                         this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
 
                         this.currentTop = null;
@@ -163,7 +160,7 @@
 
                     if (!sticky.init) {
 
-                        sticky.wrapper.addClass(sticky.options.clsinit);
+                        sticky.element.addClass(sticky.options.clsinit);
 
                         if (location.hash && scrollTop > 0 && sticky.options.target) {
 
@@ -195,6 +192,7 @@
                     }
 
                     sticky.element.addClass(sticky.options.clsactive);
+                    sticky.wrapper.css(sticky.wrapper.data('style'));
 
                     if (sticky.options.animation && sticky.init) {
                         sticky.element.addClass(sticky.options.animation);
