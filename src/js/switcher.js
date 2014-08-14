@@ -51,7 +51,9 @@
 
                 var index = this.find(this.options.toggle).index(active);
 
-                this.connect.children().removeClass("uk-active").eq(index).addClass("uk-active");
+                this.connect.each(function() {
+                    $(this).children().removeClass("uk-active").eq(index).addClass("uk-active");
+                });
             }
 
             this.trigger("uk.switcher.show", [active]);
