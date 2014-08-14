@@ -31,7 +31,8 @@
             "sticky",
             "timepicker",
             "upload",
-            "flex"
+            "flex",
+            "cover"
         ],
         themes = {
             "Default":"../../../themes/default/default/uikit.less",
