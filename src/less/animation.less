@@ -56,6 +56,7 @@
 
 /*
  * Fade
+ * Higher specificity (!important) needed because of reverse modifier
  */
 
 .uk-animation-fade {
@@ -63,8 +64,8 @@
     animation-name: uk-fade;
     -webkit-animation-duration: 0.8s;
     animation-duration: 0.8s;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
+    -webkit-animation-timing-function: linear !important;
+    animation-timing-function: linear !important;
 }
 
 /*
@@ -130,6 +131,8 @@
 .uk-animation-reverse {
     -webkit-animation-direction: reverse;
     animation-direction: reverse;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
 }
 
 
