@@ -362,7 +362,7 @@ module.exports = function(grunt) {
         var extractSnippets = function(lessfile) {
             var less = grunt.file.read(lessfile);
 
-            var regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\s*\/\/.+\n)+)/g,
+            var regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
                 match = null;
 
             while (match = regex.exec(less)) {
@@ -376,7 +376,7 @@ module.exports = function(grunt) {
 
                 // place tab indices
                 var i = 1; // tab index, start with 1
-                content = content.replace(/class="(.+)"/g, 'class="${{index}:$1}"') // inside class attributes
+                content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
                                 .replace(/(<[^>]+>)(<\/div>)/g, '$1${index}$2') // inside empty elements
                                 .replace(/\{index\}/g, function() { return i++; });
 
