@@ -40,8 +40,7 @@
                         'margin' : this.element.css("margin")
                 });
 
-            wrapper = this.element.wrap(wrapper).parent();
-            this.element.css('margin', 0);
+            wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
 
             this.sticky = {
                 options      : this.options,
