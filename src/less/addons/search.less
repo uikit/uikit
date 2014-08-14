@@ -4,7 +4,6 @@
 // Component:       `uk-search`
 //
 // Sub-objects:     `uk-search-field`
-//                  `uk-search-close`
 //
 // Modifier:        (Nav) `uk-nav-search`
 //                  (Dropdown) `uk-dropdown-search`
@@ -37,11 +36,6 @@
 @search-icon:                                   "\f002";
 @search-icon-size:                              14px;
 @search-icon-color:                             rgba(0,0,0,0.2);
-
-@search-close-icon:                             "\f00d";
-@search-close-size:                             14px;
-@search-close-color:                            rgba(0,0,0,0.2);
-@search-close-icon-loading:                     "\f110";
 
 // Dropdown modifier
 @dropdown-search-width:                         300px;
@@ -118,7 +112,7 @@
 .uk-search-field {
     width: @search-width;
     height: @search-height;
-    padding: 0 @search-padding;
+    padding: 0 0 0 @search-padding;
     border: @search-border-width solid @search-border;
     background: @search-background;
     color: @search-color;
@@ -153,54 +147,6 @@ input.uk-search-field { -webkit-appearance: none; }
 /* Focus + active */
 .uk-search-field:focus,
 .uk-search.uk-active .uk-search-field { width: @search-focus-width; }
-
-
-/* Sub-object `uk-search-close`
- ========================================================================== */
-
-/*
- * 1. Required for `button` elements
- * 2. Needed for Safari
- */
-
-.uk-search-close {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: @search-padding;
-    line-height: @search-height;
-    text-align: center;
-    font-size: @search-close-size;
-    color: @search-close-color;
-    /* 1. */
-    padding: 0;
-    border: 0;
-    -webkit-appearance: none;
-    /* 2. */
-    background: transparent;
-    .hook-search-close;
-}
-
-.uk-loading > .uk-search-close,
-.uk-active > .uk-search-close { display: block; }
-
-/*
- * Icon
- */
-
-.uk-search-close:after {
-    display: block;
-    content: @search-close-icon;
-    font-family: FontAwesome;
-}
-
-/* Loading icon */
-.uk-loading > .uk-search-close:after {
-    content: @search-close-icon-loading;
-    -webkit-animation: uk-rotate 2s infinite linear;
-    animation: uk-rotate 2s infinite linear;
-}
 
 
 /* Dropdown modifier: `uk-dropdown-search`
@@ -312,7 +258,6 @@ input.uk-search-field { -webkit-appearance: none; }
 .hook-search-icon() {}
 .hook-search-field() {}
 .hook-search-field-focus() {}
-.hook-search-close() {}
 
 .hook-dropdown-search() {}
 .hook-nav-search() {}

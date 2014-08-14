@@ -29,6 +29,7 @@
  - Fixed off-canvas in IE 9
  - Fixed animation reverse timing function
  - Removed Google maps automatic URL detection
+ - Removed search close button and loading spinner
 
 ### 2.8.0 (June 19, 2014)
 
