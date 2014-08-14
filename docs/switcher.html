@@ -109,6 +109,20 @@
 
                             <p>The switcher component consists of a number of toggles and their related content items. Add the <code>data-uk-switcher="{connect:'#ID'}"</code> attribute to the element which contains the toggles, targetting the same id as is used on the element containing the content items. Add the <code>.uk-switcher</code> class to the same element. Typically the switcher is combined with other components, some of which will be shown here.</p>
 
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#subnav-pill-content'}">
+                                <li class="uk-active"><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                            <ul id="subnav-pill-content" class="uk-switcher">
+                                <li class="uk-active">Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                            </ul>
+
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;!-- This is the container of the toggling elements --&gt;
@@ -119,6 +133,47 @@
 &lt;!-- This is the container of the content items --&gt;
 &lt;ul id="my-id" class="uk-switcher"&gt;
     &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="switcher-content-switch"><a href="#switcher-content-switch" class="uk-link-reset">Switch items from within content</a></h3>
+
+                            <p>In some cases you want to switch to another content section from within the active content. This is possible by combining the <code>data-uk-switcher-item</code> attribute with anchors.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-4">
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switch-from-content'}">
+                                        <li class="uk-active"><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-3-4">
+
+                                    <ul id="switch-from-content" class="uk-switcher">
+                                        <li class="uk-active">Hello! <a href="#" data-uk-switcher-item="next">Switch to the next content section</a></li>
+                                        <li>Hello again! <a href="#" data-uk-switcher-item="2">Switch to third content section 3</a></li>
+                                        <li>Bazinga! <a href="#" data-uk-switcher-item="previous">Switch to the previous content section</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the nav containing the toggling elements --&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher"&gt;
+    &lt;li&gt; ... &lt;a href="" data-uk-switcher-item=""&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
@@ -167,7 +222,7 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;!-- This is the nav containing the toggling elements --&gt;
-&lt;ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#my-id-one, #my-id-two'}"&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id-one, #my-id-two'}"&gt;
     &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -178,47 +233,6 @@
 
 &lt;ul id="my-id-two" class="uk-switcher"&gt;
     &lt;li&gt;...&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h2 id="switcher-content-switch"><a href="#switcher-content-switch" class="uk-link-reset">Switch items from within content</a></h2>
-
-                            <p>In some cases you want to switch to another content section from within the active content. This is possible by combining the <code>data-uk-switcher-item</code> attribute with anchors.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-grid" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-4">
-
-                                    <ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#switch-from-content'}">
-                                        <li class="uk-active"><a href="">Item</a></li>
-                                        <li><a href="">Item</a></li>
-                                        <li><a href="">Item</a></li>
-                                    </ul>
-
-                                </div>
-                                <div class="uk-width-medium-3-4">
-
-                                    <ul id="switch-from-content" class="uk-switcher">
-                                        <li class="uk-active">Hello! <a href="#" data-uk-switcher-item="next">Switch to the next content section</a></li>
-                                        <li>Hello again! <a href="#" data-uk-switcher-item="2">Switch to third content section 3</a></li>
-                                        <li>Bazinga! <a href="#" data-uk-switcher-item="previous">Switch to the previous content section</a></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;!-- This is the nav containing the toggling elements --&gt;
-&lt;ul data-uk-switcher="{connect:'#my-id'}"&gt;
-    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!-- This is the container of the content items --&gt;
-&lt;ul id="my-id" class="uk-switcher"&gt;
-    &lt;li&gt;...&lt;a href="" data-uk-switcher-item=""&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
@@ -244,7 +258,7 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;!-- This is the subnav containing the toggling elements --&gt;
-&lt;ul data-uk-switcher="{connect:'#my-id'}"&gt;
+&lt;ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#my-id'}"&gt;
     &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -680,6 +694,7 @@
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_flex.html">Flex</a></li>
+                            <li><a href="addons_cover.html">Cover</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
