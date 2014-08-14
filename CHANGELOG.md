@@ -17,6 +17,7 @@
  - Added more settings options for upload add-on
  - Added trigger uk.dropped event when files were dropped (upload on drop add-on)
  - Added trigger uk.offcanvas.hide when offcanvas hides
+ - Added allow multiple connect container (switcher)
  - Updated active datepicker closes on window resize
  - Refactored sticky add-on and fixed z-index and box sizing
  - Hide tootlip if source elemnt is hidden or removed via JavaScript
