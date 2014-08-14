@@ -47,6 +47,8 @@
                     <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="addons_flex.html">Flex</a></li>
                             <li class="uk-nav-header">Navigations</li>
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
@@ -83,7 +85,7 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>The Search component consists of the search field itself and a close button.</p>
+                            <p>The Search component consists of a search form and the search field itself.</p>
 
                             <div class="uk-overflow-container">
                                 <table class="uk-table uk-text-nowrap">
@@ -102,10 +104,6 @@
                                             <td><code>.uk-search-field</code></td>
                                             <td>Add this class to an <code>&lt;input&gt;</code> element to create the search field.</td>
                                         </tr>
-                                        <tr>
-                                            <td><code>.uk-search-close</code></td>
-                                            <td>Add this class to a <code>&lt;button&gt;</code> element to create a close button, resetting the search input.</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -116,14 +114,12 @@
 
                             <form class="uk-search" data-uk-search>
                                 <input class="uk-search-field" type="search" placeholder="search...">
-                                <button class="uk-search-close" type="reset"></button>
                             </form>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;form class="uk-search" data-uk-search&gt;
     &lt;input class="uk-search-field" type="search" placeholder=""&gt;
-    &lt;button class="uk-search-close" type="reset"&gt;&lt;/button&gt;
 &lt;/form&gt;</code></pre>
 
                             <hr class="uk-article-divider">
@@ -138,7 +134,6 @@
 
                             <form class="uk-search" data-uk-search="{source:'../src/tests/addons/_searchautocomplete.json'}">
                                 <input class="uk-search-field" type="search" placeholder="search...">
-                                <button class="uk-search-close" type="reset"></button>
                             </form>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -146,7 +141,6 @@
 <pre><code>&lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
 
     &lt;input class="uk-search-field" type="search" placeholder=""&gt;
-    &lt;button class="uk-search-close" type="reset"&gt;&lt;/button&gt;
 
     &lt;!-- This is the dropdown, which is injected through JavaScript --&gt;
     &lt;div class="uk-dropdown uk-dropdown-search"&gt;
@@ -169,7 +163,6 @@
                                     <div class="uk-navbar-content">
                                         <form class="uk-search" data-uk-search="{flipDropdown:true, source:'../src/tests/addons/_searchautocomplete.json'}">
                                             <input class="uk-search-field" type="search" placeholder="search...">
-                                            <button class="uk-search-close" type="reset"></button>
                                         </form>
                                     </div>
                                 </div>
@@ -201,7 +194,6 @@
                                 <div class="uk-offcanvas-bar">
                                     <form class="uk-search">
                                         <input class="uk-search-field" type="search" placeholder="search...">
-                                        <button class="uk-search-close" type="reset"></button>
                                     </form>
                                 </div>
                             </div>
@@ -373,6 +365,11 @@
                         </ul>
                     </li>
                     <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="addons_flex.html">Flex</a></li>
+                        </ul>
+                    </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_dotnav.html">Dotnav</a></li>
