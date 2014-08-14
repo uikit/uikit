@@ -92,7 +92,7 @@ require("path/to/uikit.js", function(UI){
     // UI is the global UIkit object a.k.a. $.UIkit
 
 });</code></pre>
-
+                            <h2 id="amd-support"><a href="#amd-support" class="uk-link-reset">AMD support</a></h2>
 
                             <h3 class="tm-article-subtitle">Autoload UIkit and its add-ons</h3>
 
@@ -119,6 +119,16 @@ require("uikit!notify,sortable", function(UI){
 });</code></pre>
 
 
+
+                            <h2 id="dom-observe"><a href="#dom-observe" class="uk-link-reset">Observe the DOM to auto-init new added components, e.g via AJAX.</a></h2>
+
+                            <p>If you inject dynamic html markup into the DOM via JavaScript, just add the <code>data-uk-observe</code> attribute to one of the parent elements to auto-initialize UIKit JavaScript components.</p>
+
+                            <h3 class="tm-article-subtitle">Usage</h3>
+
+<pre><code>&lt;div data-uk-observe&gt;
+    &lt;!-- inject your dynamic html here --&gt;
+&lt;/div&gt;</code></pre>
 
                         </article>
 
