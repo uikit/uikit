@@ -37,6 +37,10 @@
                 $this.process();
             });
 
+            this.on("uk-check-display", function(e) {
+                if(this.element.is(":visible")) this.process();
+            }.bind(this));
+
             stacks.push(this);
         },
 
@@ -87,13 +91,6 @@
             if (!ele.data("stackMargin")) {
                 obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
             }
-        });
-    });
-
-
-    UI.$doc.on("uk-check-display", function(e) {
-        stacks.forEach(function(item) {
-            if(item.element.is(":visible")) item.process();
         });
     });
 

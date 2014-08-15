@@ -30,8 +30,8 @@
 
             this.totoggle.toggleClass(this.options.cls);
 
-            if(this.options.cls == 'uk-hidden') {
-                UI.$doc.trigger("uk-check-display");
+            if (this.options.cls == 'uk-hidden') {
+                UI.Utils.checkDisplay(this.totoggle);
             }
         },
 

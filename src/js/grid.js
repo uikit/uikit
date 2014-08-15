@@ -40,6 +40,10 @@
                 $this.match();
             });
 
+            this.on("uk-check-display", function(e) {
+                if(this.element.is(":visible")) this.match();
+            }.bind(this));
+
             grids.push(this);
         },
 
@@ -144,12 +148,6 @@
             if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
                 obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
             }
-        });
-    });
-
-    UI.$doc.on("uk-check-display", function(e) {
-        grids.forEach(function(item) {
-            if(item.element.is(":visible")) item.match();
         });
     });
 

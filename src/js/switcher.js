@@ -79,11 +79,11 @@
 
                 this.connect.each(function() {
                     $(this).children().removeClass("uk-active").eq($this.index).addClass("uk-active");
+                    UI.Utils.checkDisplay(this);
                 });
             }
 
             this.trigger("uk.switcher.show", [active]);
-            UI.$doc.trigger("uk-check-display");
         }
     });
 

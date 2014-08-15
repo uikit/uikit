@@ -119,7 +119,8 @@
             this.checkDimensions();
             this.element.addClass("uk-open");
             this.trigger('uk.dropdown.show', [this]);
-            UI.$doc.trigger("uk-check-display");
+
+            UI.Utils.checkDisplay(this.dropdown);
             active = this.element;
 
             this.registerOuterClick();
