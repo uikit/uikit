@@ -143,10 +143,7 @@
                 $this.redraw();
             });
 
-
-            this.element.attr('data-uk-check-display', 1);
-
-            this.on('uk-check-display', function(e) {
+            this.element.attr('data-uk-check-display', 1).on('uk-check-display', function(e) {
                 if(this.htmleditor.is(":visible")) this.fit();
             }.bind(this));
 
