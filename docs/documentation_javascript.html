@@ -118,7 +118,7 @@ require("uikit!notify,sortable", function(UI){
 
 });</code></pre>
 
-
+                            <hr class="uk-article-divider">
 
                             <h2 id="dom-observe"><a href="#dom-observe" class="uk-link-reset">Observe the DOM to auto-init new added components, e.g via AJAX.</a></h2>
 
@@ -129,6 +129,10 @@ require("uikit!notify,sortable", function(UI){
 <pre><code>&lt;div data-uk-observe&gt;
     &lt;!-- inject your dynamic html here --&gt;
 &lt;/div&gt;</code></pre>
+
+                            <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
+
+<pre><code>$.UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
 
                         </article>
 
