@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -21,13 +21,14 @@
     UI.component('htmleditor', {
 
         defaults: {
+            iframe       : false,
             mode         : 'split',
             markdown     : false,
             autocomplete : true,
             height       : 500,
             maxsplitsize : 1000,
             markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
-            codemirror   : { mode: 'htmlmixed', tabMode: 'indent', tabsize: 4, lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, hintOptions: {completionSingle:false} },
+            codemirror   : { mode: 'htmlmixed', lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, indentWithTabs: false, tabSize: 4, hintOptions: {completionSingle:false} },
             toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
             lblPreview   : 'Preview',
             lblCodeview  : 'HTML',
@@ -57,9 +58,30 @@
             this.editor.on('change', function() { $this.editor.save(); });
             this.code.find('.CodeMirror').css('height', this.options.height);
 
-            $(window).on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
+            // iframe mode?
+            if (this.options.iframe) {
 
-            var previewContainer = $this.preview.parent(),
+                this.iframe = $('<iframe class="uk-htmleditor-iframe" frameborder="0" scrolling="auto" height="100" width="100%"></iframe>');
+                this.preview.append(this.iframe);
+
+                // must open and close document object to start using it!
+                this.iframe[0].contentWindow.document.open();
+                this.iframe[0].contentWindow.document.close();
+
+                this.preview.container = $(this.iframe[0].contentWindow.document).find('body');
+
+                // append custom stylesheet
+                if (typeof(this.options.iframe) === 'string') {
+                   this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
+                }
+
+            } else {
+                this.preview.container = this.preview;
+            }
+
+            UI.$win.on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
+
+            var previewContainer = this.iframe ? this.preview.container:$this.preview.parent(),
                 codeContent      = this.code.find('.CodeMirror-sizer'),
                 codeScroll       = this.code.find('.CodeMirror-scroll').on('scroll', UI.Utils.debounce(function() {
 
@@ -67,7 +89,7 @@
 
                     // calc position
                     var codeHeight       = codeContent.height() - codeScroll.height(),
-                        previewHeight    = previewContainer[0].scrollHeight - previewContainer.height(),
+                        previewHeight    = previewContainer[0].scrollHeight - ($this.iframe ? $this.iframe.height() : previewContainer.height()),
                         ratio            = previewHeight / codeHeight,
                         previewPostition = codeScroll.scrollTop() * ratio;
 
@@ -122,6 +144,10 @@
             this.on('init', function() {
                 $this.redraw();
             });
+
+            this.element.attr('data-uk-check-display', 1).on('uk-check-display', function(e) {
+                if(this.htmleditor.is(":visible")) this.fit();
+            }.bind(this));
 
             editors.push(this);
         },
@@ -247,7 +273,7 @@
             if (!this.currentvalue) {
 
                 this.element.val('');
-                this.preview.html('');
+                this.preview.container.html('');
 
                 return;
             }
@@ -255,7 +281,7 @@
             this.trigger('render', [this]);
             this.trigger('renderLate', [this]);
 
-            this.preview.html(this.currentvalue);
+            this.preview.container.html(this.currentvalue);
         },
 
         addShortcut: function(name, callback) {
@@ -442,7 +468,8 @@
 
                 setTimeout(function() {
                     editor.fit();
-                }, 10);
+                    UI.$win.trigger('resize');
+                }, 50);
             });
 
             editor.addShortcut(['Ctrl-S', 'Cmd-S'], function() { editor.element.trigger('htmleditor-save', [editor]); });
@@ -581,12 +608,6 @@
             if (!editor.data('htmleditor')) {
                 obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
             }
-        });
-    });
-
-    $(document).on("uk-check-display", function(e) {
-        editors.forEach(function(item) {
-            if(item.htmleditor.is(":visible")) item.fit();
         });
     });
 

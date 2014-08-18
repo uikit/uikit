@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -47,6 +47,7 @@
                     e.preventDefault();
 
                     $this.element.removeClass($this.options.dragoverClass);
+                    $this.element.trigger('uk.dropped', [e.dataTransfer.files]);
 
                     xhrupload(e.dataTransfer.files, $this.options);
                 }
@@ -126,12 +127,22 @@
         if (settings.single){
 
             var count    = files.length,
-                uploaded = 0;
+                uploaded = 0,
+                allow    = true;
+
+                settings.beforeAll(files);
 
                 settings.complete = function(response, xhr){
-                    uploaded = uploaded+1;
+
+                    uploaded = uploaded + 1;
+
                     complete(response, xhr);
-                    if (uploaded<count){
+
+                    if (settings.filelimit && uploaded >= settings.filelimit){
+                        allow = false;
+                    }
+
+                    if (allow && uploaded<count){
                         upload([files[uploaded]], settings);
                     } else {
                         settings.allcomplete(response, xhr);
@@ -193,7 +204,7 @@
                     settings.complete(response, xhr);
                 }
             };
-
+            settings.beforeSend(xhr);
             xhr.send(formData);
         }
     }
@@ -206,9 +217,12 @@
         'params': {},
         'allow' : '*.*',
         'type'  : 'text',
+        'filelimit': false,
 
         // events
         'before'          : function(o){},
+        'beforeSend'      : function(xhr){},
+        'beforeAll'       : function(){},
         'loadstart'       : function(){},
         'load'            : function(){},
         'loadend'         : function(){},

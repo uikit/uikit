@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Normalize
@@ -422,28 +422,25 @@ dfn[title] {
 /* Embedded content
  ========================================================================== */
 /*
- * 1. Corrects max-width behavior (2.) if padding and border are used
- * 2. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * 2. Corrects `max-width` behavior if padding and border are used
  * 3. Remove the gap between images and the bottom of their containers
  */
 img {
   /* 1 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  /* 2 */
   max-width: 100%;
   height: auto;
+  /* 2 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   /* 3 */
   vertical-align: middle;
 }
 /*
  * Preserve original image dimensions
- * 1. Fix Google maps automatically via URL detection
  */
 .uk-img-preserve,
-.uk-img-preserve img,
-img[src*="maps.gstatic.com"],
-img[src*="googleapis.com"] {
+.uk-img-preserve img {
   max-width: none;
 }
 /* Spacing for block elements
@@ -2383,28 +2380,16 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /* Modifier: 'tab-responsive'
  ========================================================================== */
-/*
- * Hidden by default
- */
-.uk-tab-responsive {
-  display: none;
+.uk-tab > li.uk-tab-responsive > a {
+  margin-left: 0;
+  margin-right: 0;
 }
+/*
+ * Icon
+ */
 .uk-tab-responsive > a:before {
   content: "\f0c9\00a0";
   font-family: FontAwesome;
-}
-/* Phone landscape and smaller */
-@media (max-width: 767px) {
-  [data-uk-tab] > li {
-    display: none;
-  }
-  [data-uk-tab] > li.uk-tab-responsive {
-    display: block;
-  }
-  [data-uk-tab] > li.uk-tab-responsive > a {
-    margin-left: 0;
-    margin-right: 0;
-  }
 }
 /* Modifier: 'tab-center'
  ========================================================================== */
@@ -3051,9 +3036,17 @@ select.uk-form-width-mini {
 }
 /* Sub-object: `uk-form-icon`
  ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ */
 .uk-form-icon {
-  position: relative;
+  /* 1 */
   display: inline-block;
+  /* 2 */
+  position: relative;
+  /* 3 */
   max-width: 100%;
 }
 /*
@@ -3339,8 +3332,8 @@ select.uk-form-width-mini {
  ========================================================================== */
 .uk-icon-spin {
   display: inline-block;
-  -webkit-animation: uk-spin 2s infinite linear;
-  animation: uk-spin 2s infinite linear;
+  -webkit-animation: uk-rotate 2s infinite linear;
+  animation: uk-rotate 2s infinite linear;
 }
 /* Modifier: `uk-icon-button`
  ========================================================================== */
@@ -4844,6 +4837,12 @@ select.uk-form-width-mini {
   vertical-align: middle;
   text-transform: none;
 }
+/*
+ * Keep color when badge is a link
+ */
+a.uk-badge:hover {
+  color: #ffffff;
+}
 /* Modifier: `uk-badge-notification`;
  ========================================================================== */
 .uk-badge-notification {
@@ -4947,18 +4946,20 @@ select.uk-form-width-mini {
    Component: Thumbnail
  ========================================================================== */
 /*
- * 1. Corrects max-width behavior (2.) if padding and border are used
+ * 1. Container width fits its content
  * 2. Responsive behavior
- * 3. Required for `figure` element
- * 4. Style
+ * 3. Corrects `max-width` behavior sed
+ * 4. Required for `figure` element
+ * 5. Style
  */
 .uk-thumbnail {
-  display: inline-block;
   /* 1 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  display: inline-block;
   /* 2 */
   max-width: 100%;
+  /* 3 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   /* 3 */
   margin: 0;
   /* 4 */
@@ -5284,44 +5285,52 @@ a.uk-thumbnail:focus {
 }
 /*
  * Fade
+ * Higher specificity (!important) needed because of reverse modifier
  */
 .uk-animation-fade {
   -webkit-animation-name: uk-fade;
   animation-name: uk-fade;
   -webkit-animation-duration: 0.8s;
   animation-duration: 0.8s;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear !important;
+  animation-timing-function: linear !important;
+}
+/*
+ * Fade with scale
+ */
+.uk-animation-scale-up {
+  -webkit-animation-name: uk-fade-scale-02;
+  animation-name: uk-fade-scale-02;
+}
+.uk-animation-scale-down {
+  -webkit-animation-name: uk-fade-scale-18;
+  animation-name: uk-fade-scale-18;
+}
+/*
+ * Fade with slide
+ */
+.uk-animation-slide-top {
+  -webkit-animation-name: uk-fade-top;
+  animation-name: uk-fade-top;
+}
+.uk-animation-slide-bottom {
+  -webkit-animation-name: uk-fade-bottom;
+  animation-name: uk-fade-bottom;
+}
+.uk-animation-slide-left {
+  -webkit-animation-name: uk-fade-left;
+  animation-name: uk-fade-left;
+}
+.uk-animation-slide-right {
+  -webkit-animation-name: uk-fade-right;
+  animation-name: uk-fade-right;
 }
 /*
  * Scale
  */
-.uk-animation-scale-up {
-  -webkit-animation-name: uk-scale-up;
-  animation-name: uk-scale-up;
-}
-.uk-animation-scale-down {
-  -webkit-animation-name: uk-scale-down;
-  animation-name: uk-scale-down;
-}
-/*
- * Slide
- */
-.uk-animation-slide-top {
-  -webkit-animation-name: uk-slide-top;
-  animation-name: uk-slide-top;
-}
-.uk-animation-slide-bottom {
-  -webkit-animation-name: uk-slide-bottom;
-  animation-name: uk-slide-bottom;
-}
-.uk-animation-slide-left {
-  -webkit-animation-name: uk-slide-left;
-  animation-name: uk-slide-left;
-}
-.uk-animation-slide-right {
-  -webkit-animation-name: uk-slide-right;
-  animation-name: uk-slide-right;
+.uk-animation-scale {
+  -webkit-animation-name: uk-scale-12;
+  animation-name: uk-scale-12;
 }
 /*
  * Shake
@@ -5330,17 +5339,57 @@ a.uk-thumbnail:focus {
   -webkit-animation-name: uk-shake;
   animation-name: uk-shake;
 }
-/* Modifiers
+/* Direction modifiers
  ========================================================================== */
 .uk-animation-reverse {
   -webkit-animation-direction: reverse;
   animation-direction: reverse;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
 }
-/* Keyframes
+/* Duration modifiers
+========================================================================== */
+.uk-animation-10 {
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
+}
+/* Origin modifiers
+========================================================================== */
+.uk-animation-top-left {
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+.uk-animation-top-center {
+  -webkit-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+}
+.uk-animation-top-right {
+  -webkit-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+}
+.uk-animation-middle-left {
+  -webkit-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+}
+.uk-animation-middle-right {
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+}
+.uk-animation-bottom-left {
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+}
+.uk-animation-bottom-center {
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
+.uk-animation-bottom-right {
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+/* Keyframes: Fade
+ * Used by dropdown, datepicker and slideshow component
  ========================================================================== */
-/*
- * Fade
- */
 @-webkit-keyframes uk-fade {
   0% {
     opacity: 0;
@@ -5357,56 +5406,12 @@ a.uk-thumbnail:focus {
     opacity: 1;
   }
 }
+/* Keyframes: Fade with slide
+ ========================================================================== */
 /*
- * Scale up
+ * Top
  */
-@-webkit-keyframes uk-scale-up {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.2);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes uk-scale-up {
-  0% {
-    opacity: 0;
-    transform: scale(0.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/*
- * Scale down
- */
-@-webkit-keyframes uk-scale-down {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(1.8);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes uk-scale-down {
-  0% {
-    opacity: 0;
-    transform: scale(1.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/*
- * Slide top
- */
-@-webkit-keyframes uk-slide-top {
+@-webkit-keyframes uk-fade-top {
   0% {
     opacity: 0;
     -webkit-transform: translateY(-100%);
@@ -5416,7 +5421,7 @@ a.uk-thumbnail:focus {
     -webkit-transform: translateY(0);
   }
 }
-@keyframes uk-slide-top {
+@keyframes uk-fade-top {
   0% {
     opacity: 0;
     transform: translateY(-100%);
@@ -5427,9 +5432,9 @@ a.uk-thumbnail:focus {
   }
 }
 /*
- * Slide bottom
+ * Bottom
  */
-@-webkit-keyframes uk-slide-bottom {
+@-webkit-keyframes uk-fade-bottom {
   0% {
     opacity: 0;
     -webkit-transform: translateY(100%);
@@ -5439,7 +5444,7 @@ a.uk-thumbnail:focus {
     -webkit-transform: translateY(0);
   }
 }
-@keyframes uk-slide-bottom {
+@keyframes uk-fade-bottom {
   0% {
     opacity: 0;
     transform: translateY(100%);
@@ -5450,9 +5455,9 @@ a.uk-thumbnail:focus {
   }
 }
 /*
- * Slide left
+ * Left
  */
-@-webkit-keyframes uk-slide-left {
+@-webkit-keyframes uk-fade-left {
   0% {
     opacity: 0;
     -webkit-transform: translateX(-100%);
@@ -5462,7 +5467,7 @@ a.uk-thumbnail:focus {
     -webkit-transform: translateX(0);
   }
 }
-@keyframes uk-slide-left {
+@keyframes uk-fade-left {
   0% {
     opacity: 0;
     transform: translateX(-100%);
@@ -5473,9 +5478,9 @@ a.uk-thumbnail:focus {
   }
 }
 /*
- * Slide right
+ * Right
  */
-@-webkit-keyframes uk-slide-right {
+@-webkit-keyframes uk-fade-right {
   0% {
     opacity: 0;
     -webkit-transform: translateX(100%);
@@ -5485,7 +5490,7 @@ a.uk-thumbnail:focus {
     -webkit-transform: translateX(0);
   }
 }
-@keyframes uk-slide-right {
+@keyframes uk-fade-right {
   0% {
     opacity: 0;
     transform: translateX(100%);
@@ -5495,9 +5500,196 @@ a.uk-thumbnail:focus {
     transform: translateX(0);
   }
 }
+/* Keyframes: Fade with scale
+ ========================================================================== */
 /*
- * Shake
+ * Scale by 0.2
  */
+@-webkit-keyframes uk-fade-scale-02 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-fade-scale-02 {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*
+ * Scale by 1.5
+ * Used by slideshow component
+ */
+@-webkit-keyframes uk-fade-scale-15 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-fade-scale-15 {
+  0% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*
+ * Scale by 1.8
+ */
+@-webkit-keyframes uk-fade-scale-18 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1.8);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-fade-scale-18 {
+  0% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Keyframes: Slide
+ * Used by slideshow component
+ ========================================================================== */
+/*
+ * Left
+ */
+@-webkit-keyframes uk-slide-left {
+  0% {
+    -webkit-transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/*
+ * Right
+ */
+@-webkit-keyframes uk-slide-right {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/*
+ * Left third
+ */
+@-webkit-keyframes uk-slide-left-33 {
+  0% {
+    -webkit-transform: translateX(33%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-left-33 {
+  0% {
+    transform: translateX(33%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/*
+ * Right third
+ */
+@-webkit-keyframes uk-slide-right-33 {
+  0% {
+    -webkit-transform: translateX(-33%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-right-33 {
+  0% {
+    transform: translateX(-33%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/* Keyframes: Scale
+ ========================================================================== */
+@-webkit-keyframes uk-scale-12 {
+  0% {
+    -webkit-transform: scale(1.2);
+  }
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-scale-12 {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Keyframes: Rotate
+ * Used by icon and search component
+ ========================================================================== */
+@-webkit-keyframes uk-rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@keyframes uk-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+/* Keyframes: Shake
+ ========================================================================== */
 @-webkit-keyframes uk-shake {
   0%,
   100% {
@@ -5564,8 +5756,11 @@ a.uk-thumbnail:focus {
     transform: translateX(-1px);
   }
 }
+/* Keyframes: Fade with slide fixed
+ * Used by dropdown and search component
+ ========================================================================== */
 /*
- * Slide top fixed
+ * Top fixed
  */
 @-webkit-keyframes uk-slide-top-fixed {
   0% {
@@ -5588,7 +5783,7 @@ a.uk-thumbnail:focus {
   }
 }
 /*
- * Slide bottom fixed
+ * Bottom fixed
  */
 @-webkit-keyframes uk-slide-bottom-fixed {
   0% {
@@ -5608,25 +5803,6 @@ a.uk-thumbnail:focus {
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-/*
- * Spin
- */
-@-webkit-keyframes uk-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-  }
-}
-@keyframes uk-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(359deg);
   }
 }
 /* ========================================================================
@@ -5808,7 +5984,7 @@ a.uk-thumbnail:focus {
  */
 .uk-dropdown-scrollable {
   overflow-y: auto;
-  height: 200px;
+  max-height: 200px;
 }
 /* ========================================================================
    Component: Modal
@@ -5820,7 +5996,6 @@ a.uk-thumbnail:focus {
  * 3. Allow scrolling for the modal dialog
  * 4. Mask the background page
  * 5. Fade-in transition
- * 6. Fix transition in Webkit
  */
 .uk-modal {
   /* 1 */
@@ -5841,8 +6016,6 @@ a.uk-thumbnail:focus {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
-  /* 6 */
-  -webkit-transform: translateZ(0);
 }
 /*
  * Open state
@@ -6424,17 +6597,33 @@ a.uk-thumbnail:focus {
 .uk-vertical-align-bottom {
   vertical-align: bottom;
 }
+/* Height
+ ========================================================================== */
 /*
- *  This helper class is very useful to extend the `html` and `body` element to the full height of the page.
+ * More robust if padding and border are used
+ */
+[class*='uk-height'] {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * Useful to extend the `html` and `body` element to the full height of the page.
  */
 .uk-height-1-1 {
   height: 100%;
+}
+/*
+ * Useful to create image teasers
+ */
+.uk-height-viewport {
+  height: 100vh;
+  min-height: 600px;
 }
 /* Responsive objects
  * Note: Images are already responsive by default, see Base component
  ========================================================================== */
 /*
- * 1. Corrects max-width/max-height behavior if padding and border are used
+ * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
  */
 .uk-responsive-width,
 .uk-responsive-height {
@@ -6612,6 +6801,21 @@ a.uk-thumbnail:focus {
 }
 .uk-overflow-container > :last-child {
   margin-bottom: 0;
+}
+/* Position
+ ========================================================================== */
+.uk-position-absolute {
+  position: absolute !important;
+}
+.uk-position-relative {
+  position: relative !important;
+}
+.uk-position-cover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 /* Display
  ========================================================================== */

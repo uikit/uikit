@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /*
  * Based on simplePagination - Copyright (c) 2012 Flavius Matis - http://flaviusmatis.github.com/simplePagination.js/ (MIT)
@@ -131,9 +131,9 @@
     });
 
     // init code
-    $(document).on("uk-domready", function(e) {
+    UI.ready(function(context) {
 
-        $("[data-uk-pagination]").each(function(){
+        $("[data-uk-pagination]", context).each(function(){
             var ele = $(this);
 
             if (!ele.data("pagination")) {

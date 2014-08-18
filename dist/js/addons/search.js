@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -80,7 +80,7 @@
     });
 
     // init code
-    $(document).on("focus.search.uikit", "[data-uk-search]", function(e) {
+    UI.$doc.on("focus.search.uikit", "[data-uk-search]", function(e) {
         var ele = $(this);
 
         if (!ele.data("search")) {

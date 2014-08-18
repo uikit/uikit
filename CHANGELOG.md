@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.9.0 (August 18, 2014)
 
  - IMPORTANT: Renamed keyframe animation uk-spin to uk-rotate
  - IMPORTANT: Removed uk-sticky class, use [data-uk-sticky] instead
