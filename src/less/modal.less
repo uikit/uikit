@@ -53,7 +53,6 @@
  * 3. Allow scrolling for the modal dialog
  * 4. Mask the background page
  * 5. Fade-in transition
- * 6. Fix transition in Webkit
  */
 
 .uk-modal {
@@ -75,8 +74,7 @@
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
-    /* 6 */
-    -webkit-transform: translateZ(0);
+
     .hook-modal;
 }
 
@@ -206,7 +204,7 @@
 
 /* Tablet and bigger */
 @media (min-width: @breakpoint-medium) {
-    
+
     .uk-modal-dialog-large { width: @modal-dialog-large-width; }
 
 }
