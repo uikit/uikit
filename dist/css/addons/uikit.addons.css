@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Dotnav
@@ -135,20 +135,20 @@
  ========================================================================== */
 /*
  * 1. Container width fits its content
- * 2. Corrects max-width behavior (3.) if padding and border are used
- * 3. Responsive behavior
- * 4. Create position context for dropdowns
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ * 4. Corrects `max-width` behavior if padding and border are used
  */
 .uk-slidenav-position {
   /* 1 */
   display: inline-block;
   /* 2 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  position: relative;
   /* 3 */
   max-width: 100%;
   /* 4 */
-  position: relative;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 /*
  * Center vertically
@@ -276,9 +276,17 @@
 /* ========================================================================
    Component: Form password
  ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ */
 .uk-form-password {
-  position: relative;
+  /* 1 */
   display: inline-block;
+  /* 2 */
+  position: relative;
+  /* 3 */
   max-width: 100%;
 }
 .uk-form-password-toggle {
@@ -364,15 +372,20 @@
    Component: Autocomplete
  ========================================================================== */
 /*
- * 1. Behave like form elements
- * 2. Create position context for dropdowns
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ * 4. Remove the gap between the container and its child element
  */
 .uk-autocomplete {
   /* 1 */
   display: inline-block;
-  vertical-align: middle;
   /* 2 */
   position: relative;
+  /* 3 */
+  max-width: 100%;
+  /* 4 */
+  vertical-align: middle;
 }
 /* Nav modifier `uk-nav-autocomplete`
  ========================================================================== */
@@ -408,10 +421,19 @@
    Component: Datepicker
  ========================================================================== */
 /*
- * Reset dropdown width
+ * 1. Reset dropdown width
+ * 2. Set animation
+ * 3. Needed for scale animation
  */
 .uk-datepicker {
+  /* 1 */
   width: auto;
+  /* 2 */
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
+  /* 3 */
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
 }
 /* Sub-object: `uk-datepicker-nav`
 ========================================================================== */
@@ -644,6 +666,7 @@ a.uk-datepicker-table-muted {
 .uk-htmleditor-preview {
   padding: 20px;
   overflow-y: scroll;
+  position: relative;
 }
 /*
  * Tab view
@@ -662,6 +685,15 @@ a.uk-datepicker-table-muted {
 }
 [data-mode='split'] .uk-htmleditor-code {
   border-right: 1px solid #eeeeee;
+}
+/* Sub-object `uk-htmleditor-iframe`
+ ========================================================================== */
+.uk-htmleditor-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 /* CodeMirror modifications
  ========================================================================== */
@@ -898,7 +930,7 @@ a.uk-datepicker-table-muted {
 .uk-search-field {
   width: 120px;
   height: 30px;
-  padding: 0 30px;
+  padding: 0 0 0 30px;
   border: 1px solid rgba(0, 0, 0, 0);
   background: rgba(0, 0, 0, 0);
   color: #444444;
@@ -936,47 +968,6 @@ input.uk-search-field {
 .uk-search-field:focus,
 .uk-search.uk-active .uk-search-field {
   width: 180px;
-}
-/* Sub-object `uk-search-close`
- ========================================================================== */
-/*
- * 1. Required for `button` elements
- * 2. Needed for Safari
- */
-.uk-search-close {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  line-height: 30px;
-  text-align: center;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.2);
-  /* 1. */
-  padding: 0;
-  border: 0;
-  -webkit-appearance: none;
-  /* 2. */
-  background: transparent;
-}
-.uk-loading > .uk-search-close,
-.uk-active > .uk-search-close {
-  display: block;
-}
-/*
- * Icon
- */
-.uk-search-close:after {
-  display: block;
-  content: "\f00d";
-  font-family: FontAwesome;
-}
-/* Loading icon */
-.uk-loading > .uk-search-close:after {
-  content: "\f110";
-  -webkit-animation: uk-spin 2s infinite linear;
-  animation: uk-spin 2s infinite linear;
 }
 /* Dropdown modifier: `uk-dropdown-search`
  ========================================================================== */
@@ -1110,8 +1101,25 @@ input.uk-search-field {
 /* ========================================================================
    Component: Sticky
  ========================================================================== */
-.uk-sticky {
+/*
+ * 1. More robust if padding and border are used
+ */
+[data-uk-sticky].uk-active {
   z-index: 980;
+  /* 1 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * Faster animations
+ */
+[data-uk-sticky][class*='uk-animation-'] {
+  -webkit-animation-duration: 0.15s;
+  animation-duration: 0.15s;
+}
+[data-uk-sticky].uk-animation-reverse {
+  -webkit-animation-duration: 0.04s;
+  animation-duration: 0.04s;
 }
 /* ========================================================================
    Component: Upload
@@ -1121,4 +1129,94 @@ input.uk-search-field {
  */
 .uk-dragover {
   box-shadow: 0 0 20px rgba(100, 100, 100, 0.3);
+}
+/* ========================================================================
+   Component: Flex
+ ========================================================================== */
+.uk-flex {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+/* Alignment
+ ========================================================================== */
+/*
+ * Vertical alignment
+ * Default value is `stretch`
+ */
+.uk-flex-top {
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+.uk-flex-middle {
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.uk-flex-bottom {
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+/*
+ * Horizontal alignment
+ * Default value is `flex-start`
+ */
+.uk-flex-center {
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.uk-flex-right {
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+/* ========================================================================
+   Component: Cover
+ ========================================================================== */
+/*
+ * Background image always covers and centers its element
+ */
+.uk-cover-background {
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/*
+ * Emulates image cover, works with video and image elements
+ * 1. Parent container which clips resized object
+ * 2. Resizes the object to always covers its container
+ * 3. Reset the responsive image CSS
+ * 4. Center object
+ */
+/* 1 */
+.uk-cover {
+  overflow: hidden;
+}
+.uk-cover-object {
+  /* 2 */
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  /* 3 */
+  max-width: none;
+  /* 4 */
+  position: relative;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+/*
+ * To center iframes use `data-uk-cover` JavaScript
+ */
+[data-uk-cover] {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

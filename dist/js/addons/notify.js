@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -120,6 +120,8 @@
                         containers[$this.options.pos].hide();
                     }
 
+                    $this.options.onClose.apply($this, []);
+
                     delete messages[$this.uuid];
                 };
 
@@ -166,7 +168,8 @@
         status: "",
         timeout: 5000,
         group: null,
-        pos: 'top-center'
+        pos: 'top-center',
+        onClose: function() {}
     };
 
     UI.notify          = notify;

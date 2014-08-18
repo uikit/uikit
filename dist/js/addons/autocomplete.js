@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -252,10 +252,9 @@
                             url: this.options.source,
                             data: params,
                             type: this.options.method,
-                            dataType: 'json',
-                            complete: function(xhr) {
-                                release(xhr.responseJSON || []);
-                            }
+                            dataType: 'json'
+                        }).done(function(json) {
+                            release(json || []);
                         });
 
                         break;
@@ -294,7 +293,7 @@
     });
 
     // init code
-    $(document).on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
+    UI.$doc.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
 
         var ele = $(this);
         if (!ele.data("autocomplete")) {

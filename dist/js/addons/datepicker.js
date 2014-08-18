@@ -1,4 +1,4 @@
-/*! UIkit 2.8.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -277,12 +277,27 @@
             }
 
             return data;
+        },
+
+        hide: function() {
+
+            if (active && active === this) {
+                dropdown.hide();
+                active = false;
+            }
+        }
+    });
+
+    UI.$win.on("resize orientationchange", function() {
+
+        if (active) {
+            active.hide();
         }
     });
 
 
     // init code
-    $(document).on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
+    UI.$doc.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
 
         var ele = $(this);
         if (!ele.data("datepicker")) {
@@ -292,13 +307,12 @@
         }
     });
 
-    $(document).on("click.datepicker.uikit", function(e) {
+    UI.$doc.on("click.datepicker.uikit", function(e) {
 
         var target = $(e.target);
 
         if (active && target[0] != dropdown[0] && !target.data("datepicker") && !target.parents(".uk-datepicker:first").length) {
-            dropdown.hide();
-            active = false;
+            active.hide();
         }
     });
 
