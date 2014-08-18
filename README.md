@@ -2,8 +2,10 @@
 
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
-* Homepage: [http://www.getuikit.com](http://www.getuikit.com)
-* Twitter: [@getuikit](http://twitter.com/getuikit)
+* [Homepage](http://getuikit.com) - Learn more about UIkit
+* [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
+* [Issues](http://github.com/uikit/uikit/issues) - Report bugs
+* [Google+](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
 
 ## Getting started
 
