@@ -75,7 +75,6 @@
             if (children.length < 2) return;
 
             var top          = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)),
-                added        = 0,
                 doresponsive = false,
                 item, link;
 
@@ -83,9 +82,7 @@
 
             children.each(function(){
 
-                item = $(this);
-
-                if (item.offset().top > top || (added && this.responsivetab.offset().top > top)) {
+                if ($(this).offset().top > top) {
                     doresponsive = true;
                 }
             });
