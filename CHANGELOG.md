@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+ - Added input types for iOS style reset to form component
+
 ### 2.9.0 (August 18, 2014)
 
  - IMPORTANT: Renamed keyframe animation uk-spin to uk-rotate
