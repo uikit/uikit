@@ -21,8 +21,7 @@
                 var ele       = ($(this.hash).length ? $(this.hash) : $("body")),
                     target    = ele.offset().top - $this.options.offset,
                     docheight = UI.$doc.height(),
-                    winheight = UI.$win.height(),
-                    eleheight = ele.outerHeight();
+                    winheight = UI.$win.height();
 
                 if ((target + winheight) > docheight) {
                     target = docheight - winheight;
@@ -43,7 +42,7 @@
     }
 
     // init code
-    UI.$doc.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
+    UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
         var ele = $(this);
 
         if (!ele.data("smoothScroll")) {

@@ -291,7 +291,7 @@
     });
 
     // init code
-    UI.$doc.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
+    UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
 
         var ele = $(this);
         if (!ele.data("autocomplete")) {

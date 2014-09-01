@@ -205,7 +205,7 @@
     };
 
     // init code
-    UI.$doc.on("click.modal.uikit", "[data-uk-modal]", function(e) {
+    UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
 
         var ele = $(this);
 

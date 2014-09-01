@@ -49,6 +49,7 @@
     UI.version = '2.9.0';
     UI.$doc    = $doc;
     UI.$win    = $win;
+	UI.$html   = $html;
 
     UI.fn = function(command, options) {
 
@@ -374,7 +375,7 @@
 
         var hoverset = false, selector = '.uk-overlay, .uk-overlay-toggle, .uk-has-hover', exclude;
 
-        $doc.on('touchstart MSPointerDown', selector, function() {
+		$html.on('touchstart MSPointerDown', selector, function() {
 
             if(hoverset) $('.uk-hover').removeClass('uk-hover');
 
