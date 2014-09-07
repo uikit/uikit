@@ -214,10 +214,10 @@ module.exports = function(grunt) {
 
                fs.readdirSync('themes/'+f).forEach(function(t){
 
-                   var themepath = 'themes/'+f+'/'+t;
+                   var themepath = 'themes/'+f+'/'+t, exclude = ['blank','.git','.idea'];
 
                    // Is it a directory?
-                   if (fs.lstatSync(themepath).isDirectory() && t!=="blank" && t!=='.git') {
+                   if (fs.lstatSync(themepath).isDirectory() && exclude.indexOf(t) === -1) {
 
                         var theme = {
                             "name"  : t.split("-").join(" ").replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function ($1) { return $1.toUpperCase(); }),
