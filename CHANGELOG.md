@@ -2,6 +2,8 @@
 
 ### WIP
 
+ - Moved normalization into base, form, button and form component
+ - Removed normalize component
  - Added input types for iOS style reset to form component
 
 ### 2.9.0 (August 18, 2014)

@@ -113,6 +113,150 @@
  ========================================================================== */
 
 /*
+ * 1. Define consistent box sizing.
+ *    Default is `content-box` with following exceptions set to `border-box`
+ *    `button`, `select`, `input[type="checkbox"]` and `input[type="radio"]`
+ *    `input[type="search"]` in Chrome, Safari and Opera
+ *    `input[type="color"]` in Firefox
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Correct `font` properties and `color` not being inherited.
+ */
+
+.uk-form input,
+.uk-form select,
+.uk-form textarea {
+    /* 1 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+    color: inherit;
+}
+
+/*
+ * Address inconsistent `text-transform` inheritance which is only inherit in Firefox
+ */
+
+.uk-form select { text-transform: none; }
+
+/*
+ * 1. Correct `font` properties not being inherited.
+ * 2. Don't inherit the `font-weight` and use `bold` instead.
+ * NOTE: Both declarations don't work in Chrome, Safari and Opera.
+ */
+
+.uk-form optgroup {
+    /* 1 */
+    font: inherit;
+    /* 2 */
+    font-weight: bold;
+}
+
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-form input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * Removes excess padding in IE 8/9/10.
+ */
+
+.uk-form input[type="checkbox"],
+.uk-form input[type="radio"] { padding: 0; }
+
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+
+.uk-form input[type="checkbox"]:not(:disabled),
+.uk-form input[type="radio"]:not(:disabled) { cursor: pointer; }
+
+/*
+ * Remove default style in iOS.
+ */
+
+.uk-form textarea,
+.uk-form input:not([type]),
+.uk-form input[type="text"],
+.uk-form input[type="password"],
+.uk-form input[type="email"],
+.uk-form input[type="url"],
+.uk-form input[type="search"],
+.uk-form input[type="tel"],
+.uk-form input[type="number"],
+.uk-form input[type="datetime"] { -webkit-appearance: none; }
+
+/*
+ * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ */
+
+.uk-form input[type="search"]::-webkit-search-cancel-button,
+.uk-form input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+/*
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+
+.uk-form input[type="number"]::-webkit-inner-spin-button,
+.uk-form input[type="number"]::-webkit-outer-spin-button { height: auto; }
+
+/*
+ * Define consistent border, margin, and padding.
+ */
+
+.uk-form fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * 1. Remove default vertical scrollbar in IE 8/9/10/11.
+ * 2. Improve readability and alignment in all browsers.
+ */
+
+.uk-form textarea {
+    /* 1 */
+    overflow: auto;
+    /* 2 */
+    vertical-align: top;
+}
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.uk-form ::-moz-placeholder { opacity: 1; }
+
+/*
+ * Removes `box-shadow` for invalid controls in Firefox.
+ */
+
+.uk-form :invalid { box-shadow: none; }
+
+/*
+ * Vertical alignment
+ */
+
+.uk-form input:not([type="radio"]):not([type="checkbox"]),
+.uk-form select { vertical-align: middle; }
+
+
+/* Style
+ ========================================================================== */
+
+/*
  * Remove margin from the last-child
  */
 
@@ -178,56 +322,43 @@
 
 /*
  * Placeholder
- * Higher specificity (!important) needed to override color in IE
  */
 
-.uk-form :-ms-input-placeholder { color: @form-placeholder-color !important; }
+.uk-form :-ms-input-placeholder { color: @form-placeholder-color; }
 .uk-form ::-moz-placeholder { color: @form-placeholder-color; }
 .uk-form ::-webkit-input-placeholder { color: @form-placeholder-color; }
 
-.uk-form :disabled:-ms-input-placeholder { color: @form-disabled-color !important; }
+.uk-form :disabled:-ms-input-placeholder { color: @form-disabled-color; }
 .uk-form :disabled::-moz-placeholder { color: @form-disabled-color; }
 .uk-form :disabled::-webkit-input-placeholder { color: @form-disabled-color; }
 
 /*
- * Reset style on iOS.
- */
-
-.uk-form textarea,
-.uk-form input:not([type]),
-.uk-form input[type="text"],
-.uk-form input[type="password"],
-.uk-form input[type="email"],
-.uk-form input[type="url"],
-.uk-form input[type="search"],
-.uk-form input[type="tel"],
-.uk-form input[type="number"],
-.uk-form input[type="datetime"] { -webkit-appearance: none; }
-
-/*
- * Removes box-shadow for invalid controls in Firefox.
- */
-
-.uk-form :invalid { box-shadow: none; }
-
-/*
- * Legend style
- * 1. `margin-bottom` is not working in Safari and Opera.
+ * Legend
+ * 1. Behave like block element
+ * 2. Correct `color` not being inherited in IE 8/9/10/11.
+ * 3. Remove padding
+ 
+ * 4. `margin-bottom` is not working in Safari and Opera.
  *    Using `padding` and :after instead to create the border
- * 2. Style
+ * 5. Style
  */
 
 .uk-form legend {
-    width: 100%;
     /* 1 */
-    padding-bottom: @form-gutter;
+    width: 100%;
     /* 2 */
+    border: 0;
+    /* 3 */
+    padding: 0;
+    /* 4 */
+    padding-bottom: @form-gutter;
+    /* 5 */
     font-size: @form-legend-font-size;
     line-height: @form-legend-line-height;
     .hook-form-legend;
 }
 
-/* 1 */
+/* 4 */
 .uk-form legend:after {
     content: "";
     display: block;

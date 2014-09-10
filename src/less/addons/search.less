@@ -126,16 +126,10 @@
     -webkit-transition: all linear 0.2s;
     transition: all linear 0.2s;
     /* 1 */
+    -webkit-appearance: none;
     border-radius: 0;
     .hook-search-field;
 }
-
-/*
- * Needed to reset iOS `input[type="search"]` appearance
- * Higher specificity to override appearance set by normalize.less
- */
-
-input.uk-search-field { -webkit-appearance: none; }
 
 /* Placeholder */
 .uk-search-field:-ms-input-placeholder { color: @search-placeholder-color; }
