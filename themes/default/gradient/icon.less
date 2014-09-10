@@ -9,7 +9,7 @@
 
 @icon-button-height:                            @icon-button-width;
 @icon-button-background:                        @global-default-background;
-@icon-button-font-size:                         round(@icon-button-width * 0.5);
+@icon-button-font-size:                         round((@icon-button-width * 0.5));
 @icon-button-color:                             @global-color;
 
 @icon-button-hover-background:                  @global-default-hover-background;
@@ -46,7 +46,7 @@
 .hook-icon-button-hover() { background-image: none; }
 
 // Active
-.hook-icon-button-active() { 
+.hook-icon-button-active() {
     border-color: @icon-button-border;
     border-top-color: @icon-button-border-bottom;
     background-image: none;
