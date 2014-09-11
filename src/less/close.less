@@ -27,30 +27,51 @@
  ========================================================================== */
 
 /*
- * 1. Required for `button` elements and makes
- *    close button more robust against different box-sizing use
- * 2. Style
- * 3. Required for `button` elements
- * 4. Needed for Safari
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-close::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * 1. Correct inability to style clickable `input` types in iOS.
+ * 2. Remove margins in Chrome, Safari and Opera.
+ * 3. Remove borders for `button`.
+ * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
+ * 7. Remove default `button` padding and background color
+ * 8. Style
  */
 
 .uk-close {
     /* 1 */
+    -webkit-appearance: none;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border: none;
+    /* 4 */
+    overflow: visible;
+    /* 5 */
+    font: inherit;
+    color: inherit;
+    /* 6 */
+    text-transform: none;
+    /* 7. */
+    padding: 0;
+    background: transparent;
+    /* 8 */
+    display: inline-block;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
-    /* 2 */
-    display: inline-block;
     width: @close-size;
     line-height: @close-size;
     text-align: center;
-    color: inherit;
+    vertical-align: middle;
     opacity: 0.3;
-    /* 3. */
-    padding: 0;
-    border: 0;
-    -webkit-appearance: none;
-    /* 4. */
-    background: transparent;
     .hook-close;
 }
 
