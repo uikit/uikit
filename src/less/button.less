@@ -102,6 +102,15 @@
  ========================================================================== */
 
 /*
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
  * 1. Correct inability to style clickable `input` types in iOS.
  * 2. Remove margins in Chrome, Safari and Opera.
  * 3. Remove borders for `button`.
@@ -149,15 +158,6 @@
 }
 
 .uk-button:not(:disabled) { cursor: pointer; }
-
-/*
- * Removes inner padding and border in Firefox 4+.
- */
-
-.uk-button::-moz-focus-inner {
-    border: 0;
-    padding: 0;
-}
 
 /*
  * Hover
