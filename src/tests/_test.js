@@ -77,7 +77,7 @@
     $(function(){
 
 
-        var incustomizer = (iniframe && !window.parent.themes);
+        var incustomizer = (iniframe && !window.parent.themes), controls = $('<div class="uk-form"></div>');
 
         themes = $.extend(themes, window.parent.themes ? window.parent.themes:{});
         theme  = themes[theme] ? theme : 'Default';
@@ -98,7 +98,9 @@
                 if(testselect.val()) location.href = testfolder+testselect.val();
         });
 
-        $(".uk-container").prepend(testselect);
+        controls.prepend(testselect);
+
+        $(".uk-container").prepend(controls);
 
         if(incustomizer) {
             $("body").css("visibility", "visible");
