@@ -905,7 +905,7 @@
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
                 $this.toggle();
-                $this.trigger("change", [$element.blur().hasClass("uk-active")]);
+                $this.trigger("change", [$this.element.blur().hasClass("uk-active")]);
             });
 
         },
@@ -953,6 +953,7 @@
     });
 
 })(jQuery, jQuery.UIkit);
+
 
 (function($, UI) {
 
@@ -2245,7 +2246,6 @@
             if (children.length < 2) return;
 
             var top          = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)),
-                added        = 0,
                 doresponsive = false,
                 item, link;
 
@@ -2253,9 +2253,7 @@
 
             children.each(function(){
 
-                item = $(this);
-
-                if (item.offset().top > top || (added && this.responsivetab.offset().top > top)) {
+                if ($(this).offset().top > top) {
                     doresponsive = true;
                 }
             });
