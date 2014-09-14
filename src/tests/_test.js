@@ -77,14 +77,14 @@
     $(function(){
 
 
-        var incustomizer = (iniframe && !window.parent.themes), controls = $('<div class="uk-form"></div>');
+        var incustomizer = (iniframe && !window.parent.themes), controls = $('<div class="uk-form uk-margin-top uk-margin-bottom"></div>');
 
         themes = $.extend(themes, window.parent.themes ? window.parent.themes:{});
         theme  = themes[theme] ? theme : 'Default';
 
         var testfolder = $("script[src$='_test.js']").attr("src").replace("_test.js", ""),
 
-            testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "20px 5px"),
+            testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "0 5px"),
             optgroup   = $('<optgroup label="Components"></optgroup>').appendTo(testselect);
 
 
@@ -148,9 +148,9 @@
                 var rtlcheckbox = $('<input type="checkbox">').on('change', function(e) {
                         localStorage['uikit.direction'] = ($(e.target).is(':checked') ? 'rtl' : 'ltr');
                         location.reload();
-                    }).css("margin", "20px 5px").prop('checked', direction == 'rtl'),
+                    }).css("margin", "0 5px").prop('checked', direction == 'rtl'),
 
-                    rtlcheckbox_label = $("<label>RTL mode</label>").css("margin", "20px 10px 20px 3px").prepend(rtlcheckbox);
+                    rtlcheckbox_label = $("<label>RTL mode</label>").prepend(rtlcheckbox);
 
                 if($.UIkit) $.UIkit.langdirection = rtlcheckbox.is(":checked") ? "right":"left";
 
