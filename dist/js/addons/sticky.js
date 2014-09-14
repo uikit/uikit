@@ -35,8 +35,7 @@
 
         init: function() {
 
-            var stickyId = this.element.attr('id') || ("s"+Math.ceil(Math.random()*10000)),
-                wrapper  = $('<div class="uk-sticky-placeholder"></div>').css({
+            var wrapper  = $('<div class="uk-sticky-placeholder"></div>').css({
                         'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
                         'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
                         'margin' : this.element.css("margin")
