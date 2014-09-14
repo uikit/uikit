@@ -21,5 +21,8 @@
     "server.js",
     "composer.json",
     "index.html"
-  ]
+  ],
+  "devDependencies": {
+    "fontawesome": "~4.2.0"
+  }
 }

@@ -35,6 +35,12 @@ cd uikit
 npm install
 ```
 
+Install the Bower dependencies.
+
+```
+bower install
+```
+
 Run `grunt` to lint, build and minify the release.
 
 ```

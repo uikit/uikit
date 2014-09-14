@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 
         copy: {
             fonts: {
-                files: [{ expand: true, cwd: "src/fonts", src: ["*"], dest: "dist/fonts/" }]
+                files: [{ expand: true, cwd: "bower_components/fontawesome/fonts", src: ["*"], dest: "dist/fonts/" }]
             }
         },
 
