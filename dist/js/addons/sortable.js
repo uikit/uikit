@@ -67,12 +67,18 @@
             } else {
 
                 // prevent leaving page after link clicking
+                // prevent leaving page after link clicking
                 this.element.on('mousedown touchstart', 'a[href]', function(e) {
-                    clickedlink = $(this);
+                    // don't break browser shortcuts for click+open in new tab
+                    if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                        clickedlink = $(this);
+                    }
                 }).on('click', 'a[href]', function(e) {
-                    clickedlink = $(this);
-                    e.stopImmediatePropagation();
-                    return false;
+                    if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                        clickedlink = $(this);
+                        e.stopImmediatePropagation();
+                        return false;
+                    }
                 });
             }
 
