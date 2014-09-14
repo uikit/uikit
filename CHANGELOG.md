@@ -5,6 +5,7 @@
  - Moved normalization into base, form, button and form component
  - Removed normalize component
  - Added input types for iOS style reset to form component
+ - Updated icon component to Font Awesome to 4.2.0
 
 ### 2.9.0 (August 18, 2014)
 
