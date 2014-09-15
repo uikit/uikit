@@ -6,6 +6,7 @@
  - Removed normalize component
  - Added input types for iOS style reset to form component
  - Updated icon component to Font Awesome to 4.2.0
+ - Fixed upload select works only once if filename is the same
 
 ### 2.9.0 (August 18, 2014)
 
