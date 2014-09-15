@@ -47,7 +47,6 @@
             "modal",
             "nav",
             "navbar",
-            "normalize",
             "offcanvas",
             "overlay",
             "pagination",

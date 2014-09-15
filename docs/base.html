@@ -47,7 +47,6 @@
                         <ul class="tm-nav uk-nav" data-uk-nav>
 
                             <li class="uk-nav-header">Defaults</li>
-                            <li><a href="normalize.html">Normalize</a></li>
                             <li class="uk-active"><a href="base.html">Base</a></li>
                             <li><a href="print.html">Print</a></li>
 
@@ -106,6 +105,8 @@
                             <p class="uk-article-lead">Provides the default style for all HTML elements.</p>
 
                             <p>This component defines the base look of your page. It offers great typography by setting the default colors, margins, font-sizes and more for each HTML element. This page is a short guide on how to use basic HTML elements and how UIkit styles them.</p>
+
+                            <p><span class="uk-badge">Note</span> Basically UIkit utilizes the famous <a href="http://necolas.github.com/normalize.css">Normalize.css</a>, but splitted it into each component. Only the necessary parts are adopted into the Base component to keep the unprefixed CSS as small as possible. Most of the normalization related CSS is moved into the <a href="form.html">Form</a>, <a href="button.html">Button</a> and <a href="table.html">Table</a> components. This makes UIkit and its components very robust against conflicts with other CSS frameworks and you don't have to worry about browser inconsistencies in your projects.</p>
 
                             <hr class="uk-article-divider">
 
@@ -227,7 +228,9 @@
 
                             <h2 id="code-blocks"><a href="#code-blocks" class="uk-link-reset">Code blocks</a></h2>
 
-                            <p>For multiple lines of code, use the <code>&lt;pre&gt;</code> element which defines preformatted text. It creates a new text block that preserves spaces, tabs and line breaks. Nest a <code>&lt;code&gt;</code> element inside to define the code block.<br><span class="uk-badge uk-badge-danger">IMPORTANT</span> Be sure to escape any angle brackets in the code for proper rendering.</p>
+                            <p>For multiple lines of code, use the <code>&lt;pre&gt;</code> element which defines preformatted text. It creates a new text block that preserves spaces, tabs and line breaks. Nest a <code>&lt;code&gt;</code> element inside to define the code block.</p>
+
+                            <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> Be sure to escape any angle brackets in the code for proper rendering.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -349,72 +352,6 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="tables"><a href="#tables" class="uk-link-reset">Tables</a></h2>
-
-                            <p>Create a table using the <code>&lt;table&gt;</code> element. Use <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code> and <code>&lt;th&gt;</code> elements to create table rows, table cells and table headings. The <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> and <code>&lt;tfoot&gt;</code> elements define the table parts. You can also create captions by adding the <code>&lt;caption&gt;</code> element.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-overflow-container">
-                                <table>
-                                    <caption>Table caption</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;table&gt;
-    &lt;caption&gt;...&lt;/caption&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th&gt;...&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tfoot&gt;
-        &lt;tr&gt;
-            &lt;td&gt;...&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tfoot&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;td&gt;...&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
                             <h2 id="responsive-images"><a href="#responsive-images" class="uk-link-reset">Responsive images</a></h2>
 
                             <p>All images in UIkit are responsive by default. If the layout is narrowed, images adjust their size and keep their proportions.</p>
@@ -475,7 +412,6 @@
                     <li class="uk-nav-header">Components</li>
                     <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="normalize.html">Normalize</a></li>
                             <li><a href="base.html">Base</a></li>
                             <li><a href="print.html">Print</a></li>
                         </ul>

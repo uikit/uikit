@@ -8,6 +8,11 @@
  - Removed normalize component
  - Fixed upload select works only once if filename is the same
 
+**Documentation and repository**
+
+  - Removed normalize from docs and tests
+  - Updated base test
+
 ### 2.9.0 (August 18, 2014)
 
  - IMPORTANT: Renamed keyframe animation uk-spin to uk-rotate
