@@ -1,4 +1,4 @@
-/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.10.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /* ========================================================================
    Component: Dotnav
@@ -925,30 +925,65 @@ a.uk-datepicker-table-muted {
 /* Sub-object `uk-search-field`
  ========================================================================== */
 /*
- * 1. Needed to reset iOS `input[type="search"]` appearance
+ * Removes inner padding and border in Firefox 4+.
+ */
+.uk-search-field::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/*
+ * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ */
+.uk-search-field::-webkit-search-cancel-button,
+.uk-search-field::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/*
+ * Removes cancel button in IE10
+ */
+.uk-search-field::-ms-clear {
+  display: none;
+}
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+.uk-search-field::-moz-placeholder {
+  opacity: 1;
+}
+/*
+ * 1. Define consistent box sizing.
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Correct `font` properties and `color` not being inherited.
+ * 5. Remove default style in iOS.
+ * 6. Style
  */
 .uk-search-field {
+  /* 1 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+  border-radius: 0;
+  /* 4 */
+  font: inherit;
+  color: #444444;
+  /* 5 */
+  -webkit-appearance: none;
+  /* 6 */
   width: 120px;
   height: 30px;
   padding: 0 0 0 30px;
   border: 1px solid rgba(0, 0, 0, 0);
   background: rgba(0, 0, 0, 0);
-  color: #444444;
   -webkit-transition: all linear 0.2s;
   transition: all linear 0.2s;
-  /* 1 */
-  border-radius: 0;
-}
-/*
- * Needed to reset iOS `input[type="search"]` appearance
- * Higher specificity to override appearance set by normalize.less
- */
-input.uk-search-field {
-  -webkit-appearance: none;
+  vertical-align: middle;
 }
 /* Placeholder */
 .uk-search-field:-ms-input-placeholder {
-  color: #999999;
+  color: #999999 !important;
 }
 .uk-search-field::-moz-placeholder {
   color: #999999;
@@ -956,15 +991,11 @@ input.uk-search-field {
 .uk-search-field::-webkit-input-placeholder {
   color: #999999;
 }
-/* Removes cancel button in IE10 */
-.uk-search-field::-ms-clear {
-  display: none;
-}
 /* Focus */
 .uk-search-field:focus {
   outline: 0;
 }
-/* Focus + active */
+/* Focus + Active */
 .uk-search-field:focus,
 .uk-search.uk-active .uk-search-field {
   width: 180px;
@@ -1043,7 +1074,7 @@ input.uk-search-field {
   color: #cccccc;
 }
 .uk-offcanvas .uk-search-field:-ms-input-placeholder {
-  color: #777777;
+  color: #777777 !important;
 }
 .uk-offcanvas .uk-search-field::-moz-placeholder {
   color: #777777;

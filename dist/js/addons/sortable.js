@@ -1,4 +1,4 @@
-/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.10.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
@@ -67,12 +67,18 @@
             } else {
 
                 // prevent leaving page after link clicking
+                // prevent leaving page after link clicking
                 this.element.on('mousedown touchstart', 'a[href]', function(e) {
-                    clickedlink = $(this);
+                    // don't break browser shortcuts for click+open in new tab
+                    if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                        clickedlink = $(this);
+                    }
                 }).on('click', 'a[href]', function(e) {
-                    clickedlink = $(this);
-                    e.stopImmediatePropagation();
-                    return false;
+                    if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                        clickedlink = $(this);
+                        e.stopImmediatePropagation();
+                        return false;
+                    }
                 });
             }
 
