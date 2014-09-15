@@ -6,6 +6,7 @@
  - Updated icon component to Font Awesome to 4.2.0
  - Moved normalization into base, form, button and form component
  - Removed normalize component
+ - Fixed upload select works only once if filename is the same
 
 ### 2.9.0 (August 18, 2014)
 
