@@ -99,7 +99,7 @@
 
         controls.prepend(testselect);
 
-        $(".uk-container").prepend(controls);
+        $(".uk-container:first").prepend(controls);
 
         if(incustomizer) {
             $("body").css("visibility", "visible");

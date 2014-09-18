@@ -7,29 +7,6 @@
         <title>Modal component - UIkit tests</title>
         <script src="../../vendor/jquery.js"></script>
         <script src="_test.js"></script>
-        <style>
-
-            .uk-container2 {
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-                max-width: 980px;
-                padding: 0 25px;
-            }
-
-            @media (min-width: 1220px) {
-                .uk-container2 {
-                    max-width: 1200px;
-                    padding: 0 35px;
-                }
-            }
-
-            .uk-container2-center {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-
-        </style>
     </head>
 
     <body>
@@ -46,13 +23,13 @@
 
         </div>
 
-        <div style="background: #444; height: 50px; color: #fff;" class="uk-clearfix uk-margin">
+        <div style="background: #444; height: 50px; color: #fff;" class="uk-clearfix uk-margin uk-modal-fix">
             <div class="uk-float-left">Text</div>
             <div class="uk-float-right">Text</div>
-            <div class="uk-container2 uk-container2-center">Text</div>
+            <div class="uk-container uk-container-center">Text</div>
         </div>
 
-        <div class="uk-container2 uk-container2-center">
+        <div class="uk-container uk-container-center">
 
             <h2>Trigger new modal inside current modal</h2>
 

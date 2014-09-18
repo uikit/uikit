@@ -24,6 +24,9 @@
             this.transition = UI.support.transition;
             this.dialog     = this.find(".uk-modal-dialog");
 
+            this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
+            this.margindir  = "margin-" + (UI.langdirection == 'left' ? "right":"left");
+
             this.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
                 $this.hide();
@@ -84,19 +87,13 @@
 
         resize: function() {
 
-            var paddingdir = "padding-" + (UI.langdirection == 'left' ? "left":"right"),
-                margindir  = "margin-" + (UI.langdirection == 'left' ? "left":"right"),
-                bodywidth  = body.width();
+            var bodywidth  = body.width();
 
             this.scrollbarwidth = window.innerWidth - bodywidth;
 
-            $html.css(margindir, this.scrollbarwidth * -1);
+            body.css(this.paddingdir, this.scrollbarwidth);
 
-            this.element.css(paddingdir, "");
-
-            if (this.dialog.offset().left > this.scrollbarwidth) {
-                this.element.css(paddingdir, this.scrollbarwidth - (this.element[0].scrollHeight==window.innerHeight ? 0:this.scrollbarwidth ));
-            }
+            $('.uk-modal-fix').css(this.paddingdir, this.scrollbarwidth).css(this.margindir, this.scrollbarwidth * -1);
 
             this.updateScrollable();
 
@@ -125,7 +122,11 @@
 
             this.element.hide().removeClass("uk-open");
 
-            $html.removeClass("uk-modal-page").css("margin-" + (UI.langdirection == 'left' ? "left":"right"), "");
+            $html.removeClass("uk-modal-page");
+
+            body.css(this.paddingdir, "");
+
+            $('.uk-modal-fix').css(this.paddingdir, '').css(this.margindir, '');
 
             if(active===this) active = false;
 
