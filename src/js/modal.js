@@ -22,10 +22,8 @@
             var $this = this;
 
             this.transition = UI.support.transition;
-            this.dialog     = this.find(".uk-modal-dialog");
-
             this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
-            this.margindir  = "margin-" + (UI.langdirection == 'left' ? "right":"left");
+            this.dialog     = this.find(".uk-modal-dialog");
 
             this.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
@@ -93,7 +91,7 @@
 
             body.css(this.paddingdir, this.scrollbarwidth);
 
-            $('.uk-modal-fix').css(this.paddingdir, this.scrollbarwidth).css(this.margindir, this.scrollbarwidth * -1);
+            this.element.css('overflow-y', this.scrollbarwidth ? 'scroll' : 'auto');
 
             this.updateScrollable();
 
@@ -125,8 +123,6 @@
             $html.removeClass("uk-modal-page");
 
             body.css(this.paddingdir, "");
-
-            $('.uk-modal-fix').css(this.paddingdir, '').css(this.margindir, '');
 
             if(active===this) active = false;
 
