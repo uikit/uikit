@@ -2,6 +2,7 @@
 // Description:     Defines styles for tables
 //
 // Component:       `uk-table`
+//                  `uk-table-responsive`
 //
 // Modifiers:       `uk-table-middle`
 //                  `uk-table-striped`
@@ -83,6 +84,35 @@
 .uk-table caption {
     text-align: left;
     color: @table-caption-color;
+}
+
+/*
+ * Responsive table
+ */
+.uk-table-responsive {
+	overflow-x: auto;
+
+	@media screen and (max-width: @breakpoint-medium) {
+		width: 100%;
+		margin-bottom: @table-margin-vertical;
+		overflow-y: hidden;
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+
+		> .uk-table {
+
+			// Ensure the content doesn't wrap
+			> thead,
+			> tbody,
+			> tfoot {
+				> tr {
+					> th,
+					> td {
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+	}
 }
 
 
