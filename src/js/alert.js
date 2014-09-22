@@ -22,7 +22,7 @@
 
         close: function() {
 
-            var element = this.trigger("close");
+            var element = this.trigger("uk.alert.close");
 
             if (this.options.fade) {
                 element.css("overflow", "hidden").css("max-height", element.height()).animate({
@@ -38,7 +38,7 @@
             }
 
             function removeElement() {
-                element.trigger("closed").remove();
+                element.trigger("uk.alert.closed").remove();
             }
         }
 

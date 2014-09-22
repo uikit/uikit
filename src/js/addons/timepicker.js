@@ -67,7 +67,7 @@
             this.autocomplete = UI.autocomplete(this.element.parent(), this.options);
             this.autocomplete.dropdown.addClass('uk-dropdown-small uk-dropdown-scrollable');
 
-            this.autocomplete.on('autocomplete-show', function() {
+            this.autocomplete.on('uk.autocomplete.show', function() {
 
                 var selected = $this.autocomplete.dropdown.find('[data-value="'+$this.autocomplete.input.val()+'"]');
 
