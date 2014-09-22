@@ -4,6 +4,7 @@
 
   - Fixed sortable on mobile
   - Unified triggered event names
+  - Adjust document scroll position if dragged nestable or sortable items are out of view
 
 
 ### 2.10.0 (September 15, 2014)
