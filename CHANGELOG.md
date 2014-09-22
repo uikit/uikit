@@ -1,5 +1,11 @@
 # Changelog
 
+### W.I.P.
+
+  - Fixed sortable on mobile
+  - Unified triggered event names
+
+
 ### 2.10.0 (September 15, 2014)
 
  - Added input types for iOS style reset to form component
