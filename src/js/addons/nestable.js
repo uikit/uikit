@@ -20,7 +20,8 @@
     var hasTouch     = 'ontouchstart' in window,
         html         = $("html"),
         touchedlists = [],
-        $win         = UI.$win;
+        $win         = UI.$win,
+        draggingElement;
 
     /**
      * Detect CSS pointer-events property
@@ -160,6 +161,8 @@
                     $this.dragStop(hasTouch ? e.touches[0] : e);
                     $this.trigger('uk.nestable.stop', [$this]);
                 }
+
+                draggingElement = false;
             };
 
             if (hasTouch) {
@@ -326,6 +329,8 @@
 
             this.dragEl = $(document.createElement(this.options.listNodeName)).addClass(this.options.listClass + ' ' + this.options.dragClass);
             this.dragEl.css('width', dragItem.width());
+
+            draggingElement = this.dragEl;
 
             this.tmpDragOnSiblings = [dragItem[0].previousSibling, dragItem[0].nextSibling];
 
@@ -554,6 +559,22 @@
             }
         }
 
+    });
+
+    // adjust document scrolling
+    $('html').on('mousemove touchmove', function(e) {
+
+        if (draggingElement) {
+
+
+            var top = draggingElement.offset().top;
+
+            if (top < UI.$win.scrollTop()) {
+                UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingElement.height()/2));
+            } else if ( (top + draggingElement.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
+                UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingElement.height()/2));
+            }
+        }
     });
 
     // init code

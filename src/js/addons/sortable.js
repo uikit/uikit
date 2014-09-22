@@ -505,6 +505,12 @@
                 top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
 
             draggingPlaceholder.css({'left': left, 'top': top });
+
+            if (top < UI.$win.scrollTop()) {
+                UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/2));
+            } else if ( (top + draggingPlaceholder.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
+                UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/2));
+            }
         }
     });
 
