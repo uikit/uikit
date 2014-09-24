@@ -36,6 +36,8 @@
     "gulp-util": "latest",
     "gulp-watch": "^0.6.9",
     "gulp-zip": "latest",
+    "gulp-tap": "latest",
+    "mkdirp": "latest",
     "run-sequence": "^0.3.6"
   },
   "keywords": []

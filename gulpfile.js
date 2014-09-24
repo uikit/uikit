@@ -2,17 +2,20 @@ var pkg         = require('./package.json'),
     fs          = require('fs'),
     path        = require('path'),
     glob        = require('glob'),
+    mkdirp      = require('mkdirp')
     gulp        = require('gulp'),
     gutil       = require('gulp-util'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
     rimraf      = require('gulp-rimraf'),
+    ignore      = require('gulp-ignore'),
     replace     = require('gulp-replace'),
     header      = require('gulp-header'),
     less        = require('gulp-less'),
     minifycss   = require('gulp-minify-css'),
     uglify      = require('gulp-uglify'),
     watch       = require('gulp-watch'),
+    tap         = require('gulp-tap'),
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync');
 
@@ -352,9 +355,144 @@ gulp.task('indexthemes', function() {
         }
 
         data.push(theme);
-   });
+    });
 
-   console.log(data.length+' themes found: ' + data.map(function(theme){ return theme.name;}).join(", "));
+    console.log(data.length+' themes found: ' + data.map(function(theme){ return theme.name;}).join(", "));
 
-   fs.writeFileSync("themes.json", JSON.stringify(data, " ", 4));
+    fs.writeFileSync("themes.json", JSON.stringify(data, " ", 4));
+});
+
+/*
+ * sublime plugin tasks
+ * ---------------------------------------------------------*/
+
+// generates a python list (returns string representation)
+var pythonList = function(classes) {
+
+    var result = [];
+
+    classes.forEach(function(cls, i) {
+        // wrap class name in double quotes, add comma (except for last element)
+        result.push(['"', cls, '"', (i !== classes.length-1 ? ", " : "")].join(''));
+
+        // break lines every n elements
+        if ((i !== 0) && (i%20 === 0)) {
+            result.push("\n    ");
+        }
+    });
+
+    return "[" + result.join("") + "]";
+};
+
+// classes: uk-*
+gulp.task('sublime-css', function(done) {
+
+    mkdirp.sync("dist/sublime");
+
+    gulp.src(['dist/**/*.min.css', '!dist/core/**/*', 'dist/uikit.css'])
+        .pipe(concat('sublime_tmp_css.py'))
+        .pipe(tap(function(file) {
+            var css         = file.contents.toString(),
+                classesList = css.match(/\.(uk-[a-z\d\-]+)/g),
+                classesSet  = {},
+                pystring    = '# copy & paste into sublime plugin code:\n';
+
+            // use object as set (no duplicates)
+            classesList.forEach(function(c) {
+                c = c.substr(1); // remove leading dot
+                classesSet[c] = true;
+            });
+
+            // convert set back to list
+            classesList = Object.keys(classesSet);
+
+            pystring += 'uikit_classes = ' + pythonList(classesList) + '\n';
+
+            // FIXME: same file as data-uk-* result. how to merge stream results?
+            fs.writeFileSync("dist/sublime/tmp_css.py", pystring);
+
+            done();
+        }));
+});
+
+// data attributes: data-uk-*
+gulp.task('sublime-js', function(done) {
+
+    mkdirp.sync("dist/sublime");
+
+    gulp.src(['dist/**/*.min.js', '!dist/core/**/*', 'dist/uikit.js'])
+        .pipe(concat('sublime_tmp_js.py'))
+        .pipe(tap(function(file) {
+            var js       = file.contents.toString(),
+                dataList = js.match(/data-uk-[a-z\d\-]+/g),
+                dataSet  = {};
+
+            dataList.forEach(function(s) { dataSet[s] = true; });
+
+            dataList  = Object.keys(dataSet);
+            pystring = 'uikit_data = ' + pythonList(dataList) + '\n';
+
+            // FIXME: same file as uk-* result. how to merge stream results?
+            fs.writeFileSync("dist/sublime/tmp_js.py", pystring);
+
+            done();
+        }));
+
+});
+
+    gulp.task('sublime-snippets',  function(done) {
+        var template = "<snippet>\n\
+    <content><![CDATA[{content}]]></content>\n\
+    <tabTrigger>{trigger}</tabTrigger>\n\
+    <scope>text.html</scope>\n\
+    <description>{description}</description>\n\
+</snippet>";
+
+        mkdirp.sync("dist/sublime/snippets");
+
+        gulp.src("dist/**/*.less")
+            .pipe(tap(function(file) {
+
+                var less = file.contents.toString(),
+                    regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
+                    match = null;
+
+                while (match = regex.exec(less)) {
+                    var name = match[1], // i.e. uk-grid
+                        name = name.replace(/^\s+|\s+$/g, ''), // trim
+                        content = match[2],
+                        content = content.replace(/(\n?)(\s*)\/\/ ?/g,'$1$2'), // remove comment slashes from lines
+                        description = ["UIkit", name, "component"].join(" ");
+
+                    // place tab indices
+                    var i = 1; // tab index, start with 1
+                    content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
+                                    .replace(/(<[^>]+>)(<\/[^>]+>)/g, '$1${index}$2') // inside empty elements
+                                    .replace(/\{index\}/g, function() { return i++; });
+
+                    var snippet = template.replace("{content}", content)
+                                    .replace("{trigger}", "uikit")
+                                    .replace("{description}", description);
+
+                    fs.writeFileSync('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
+
+                    // move to next match in loop
+                    regex.lastIndex = match.index+1;
+                }
+
+            }));
+
+        done();
+
+    });
+
+gulp.task('sublime', ['sublime-css', 'sublime-js', 'sublime-snippets'], function(done) {
+    var outfile = 'sublime_completions.py';
+
+    gulp.src("dist/sublime/tmp_*.py")
+        .pipe(concat(outfile))
+        .pipe(gulp.dest('dist/sublime/'))
+        .on('end', function(){
+            gulp.src("dist/sublime/tmp_*.py", {read: false}).pipe(rimraf()).on('end', done);
+        });
 });
