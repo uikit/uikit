@@ -1,11 +1,10 @@
 /dist
 /custom
+/uikit-tools
 /node_modules
 /docs/fonts/ProximaNova-Light-webfont.*
 /docs/fonts/ProximaNova-Reg-webfont.*
 /showcase
-/themes/themes.json
-/themes/custom
 *~
 *.diff
 *.patch

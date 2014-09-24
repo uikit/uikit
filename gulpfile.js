@@ -16,15 +16,26 @@ var pkg         = require('./package.json'),
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync');
 
+
 var themes = (function(){
 
-        var list = [];
+        var list  = [],
+            theme = gutil.env.t || gutil.env.theme || false;
 
-        ["themes", "custom"].forEach(function(f){
+        var themefolders = ["themes"];
+
+        if (gutil.env.all || theme) {
+            themefolders.push("custom");
+        }
+
+        themefolders.forEach(function(f){
 
             if(!fs.existsSync(f)) return;
 
             fs.readdirSync(f).forEach(function(t){
+
+                if(theme && t!=theme) return;
+
                 var path = f+'/'+t, uikit = path + '/uikit.less', customizer = path + '/uikit-customizer.less';
                 if (!(fs.lstatSync(path).isDirectory() && fs.existsSync(uikit))) return;
                 list.push({"name": t, "path": f+'/'+t, "uikit": uikit});
@@ -81,7 +92,14 @@ gulp.task('browser-reload', function () {
 });
 
 gulp.task('watch', ['browser-sync'], function(done) {
-    gulp.watch('src/**/*', function(files) {
+
+    watchfolders = ['src/**/*'];
+
+    themes.forEach(function(theme){
+        watchfolders.push(theme.path+'/*');
+    });
+
+    gulp.watch(watchfolders, function(files) {
         runSequence('dist-themes-core', 'browser-reload');
     });
 });
