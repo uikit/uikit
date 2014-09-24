@@ -41,8 +41,15 @@
 @button-success-hover-color:                    @global-contrast-color;
 @button-success-active-background:              saturate(darken(@global-success-background, 5%), 10%);
 @button-success-active-color:                   @global-contrast-color;
-@button-danger-background:                      @global-danger-background;
 
+@button-warning-background:                     @global-warning-background;
+@button-warning-color:                          @global-contrast-color;
+@button-warning-hover-background:               saturate(lighten(@global-warning-background, 5%), 10%);
+@button-warning-hover-color:                    @global-contrast-color;
+@button-warning-active-background:              saturate(darken(@global-warning-background, 5%), 10%);
+@button-warning-active-color:                   @global-contrast-color;
+
+@button-danger-background:                      @global-danger-background;
 @button-danger-color:                           @global-contrast-color;
 @button-danger-hover-background:                saturate(lighten(@global-danger-background, 5%), 10%);
 @button-danger-hover-color:                     @global-contrast-color;
@@ -148,6 +155,26 @@
 
 .hook-button-success-hover() { background-image: none; }
 .hook-button-success-active() {
+    background-image: none;
+    border-color: @button-contrast-border;
+    border-top-color: @button-contrast-border-bottom;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+//
+// Modifier: `uk-button-warning`
+//
+
+.hook-button-warning() {
+    background-image: -webkit-linear-gradient(top, @button-warning-gradient-top, @button-warning-gradient-bottom);
+    background-image: linear-gradient(to bottom, @button-warning-gradient-top, @button-warning-gradient-bottom);
+    border-color: @button-contrast-border;
+    border-bottom-color: @button-contrast-border-bottom;
+    text-shadow: 0 -1px 0 @button-contrast-text-shadow;
+}
+
+.hook-button-warning-hover() { background-image: none; }
+.hook-button-warning-active() {
     background-image: none;
     border-color: @button-contrast-border;
     border-top-color: @button-contrast-border-bottom;

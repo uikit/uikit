@@ -54,11 +54,6 @@
                                 </div>
 
                             </li>
-
-                            <li>
-                                <a href="">Item</a>
-                            </li>
-
                         </ul>
 
                         <a href="#" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas="{target:'#offcanvas-1'}"></a>
@@ -157,6 +152,32 @@
                         <button class="uk-button uk-button-success">Success</button>
                         <div data-uk-dropdown="{mode:'click'}">
                             <button class="uk-button uk-button-success"><i class="uk-icon-caret-down"></i></button>
+                            <div class="uk-dropdown">
+                                <ul class="uk-nav uk-nav-dropdown">
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                    <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a>
+                                                <ul>
+                                                    <li><a href="#">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uk-button-group">
+                        <button class="uk-button uk-button-warning">Warning</button>
+                        <div data-uk-dropdown="{mode:'click'}">
+                            <button class="uk-button uk-button-warning"><i class="uk-icon-caret-down"></i></button>
                             <div class="uk-dropdown">
                                 <ul class="uk-nav uk-nav-dropdown">
                                     <li class="uk-nav-header">Header</li>
