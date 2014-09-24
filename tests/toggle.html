@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Toggle - UIkit tests</title>
+
+        <script src="_test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Toggle</h1>
+
+            <p><button class="uk-button" data-uk-toggle="{target:'#toggle1'}">Toggle</button> <a href="#" data-uk-toggle="{target:'#toggle1'}">Link</a></p>
+
+            <div id="toggle1" class="uk-panel uk-panel-box">What's up?</div>
+
+            <h2>Two items</h2>
+
+            <p><button class="uk-button" data-uk-toggle="{target:'.toggle2'}">Toggle</button></p>
+
+            <div class="uk-panel uk-panel-box toggle2">Hello!</div>
+
+            <div class="uk-panel uk-panel-box toggle2 uk-hidden">Bazinga!</div>
+
+            <h2>Two items with different toggles</h2>
+
+            <div class="uk-panel uk-panel-box toggle3">
+                <button class="uk-button" data-uk-toggle="{target:'.toggle3'}">Next</button>
+                <p>Hello!</p>
+            </div>
+
+            <div class="uk-panel uk-panel-box uk-panel-box-primary toggle3 uk-hidden">
+                <button class="uk-button uk-button-primary" data-uk-toggle="{target:'.toggle3'}">Previous</button>
+                <p>Bazinga!</p>
+            </div>
+
+            <h2>Toggle all above</h2>
+
+            <button class="uk-button" data-uk-toggle="{target:'#toggle1, .toggle2, .toggle3'}">Go</button>
+
+            <h2>Custom class</h2>
+
+            <p><button class="uk-button" data-uk-toggle="{target:'#toggle4', cls:'uk-panel-box-primary'}">Toggle</button></p>
+
+            <div id="toggle4" class="uk-panel uk-panel-box">What's up?</div>
+
+        </div>
+
+    </body>
+</html>

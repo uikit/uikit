@@ -1,0 +1,88 @@
+//
+// Component: Subnav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@subnav-color:                                  @global-color;
+@subnav-hover-color:                            fade(@global-color, 70%);
+@subnav-disabled-color:                         @global-muted-color;
+
+@subnav-line-border:                            darken(@global-border, 10%);
+
+@subnav-pill-hover-color:                      	fade(@global-color, 80%);
+@subnav-pill-hover-background: 					#FCFCFC;
+@subnav-pill-active-background:                 @global-primary-background;
+@subnav-pill-active-color:                      @global-contrast-color;
+
+//
+// New
+//
+
+@subnav-pill-hover-border: 						rgba(0,0,0,0.1);
+@subnav-pill-active-border: 					rgba(0,0,0,0.07);
+@subnav-pill-background:                        #FCFCFC;
+@subnav-pill-border:                            @global-border;
+
+
+// Component
+// ========================================================================
+
+//
+// Items
+//
+
+.hook-subnav-item() {}
+
+// Link
+.hook-subnav-link() {}
+
+.hook-subnav-link-hover() {}
+
+// Active
+.hook-subnav-active() {}
+
+// Disabled
+.hook-subnav-disabled() {}
+
+
+// Modifier: `uk-subnav-line'
+// ========================================================================
+
+.hook-subnav-line-divider() {}
+
+
+// Modifier: `uk-subnav-pill'
+// ========================================================================
+
+.hook-subnav-pill() {
+	padding: 3px 8px;
+	border: 1px solid @subnav-pill-border;
+    border-radius: 1px;
+    background: @subnav-pill-background;
+}
+
+// Hover
+.hook-subnav-pill-hover() {
+    border-color: @subnav-pill-hover-border;
+    -webkit-transition: none;
+    transition: none;
+}
+
+// Active
+.hook-subnav-pill-active() { border-color: @subnav-pill-active-border; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-subnav-misc() {
+
+	.uk-subnav { font-weight: 400; }
+
+	.uk-subnav > li > a:hover { text-decoration: none; }
+
+}

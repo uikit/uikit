@@ -1,0 +1,27 @@
+//
+// Component: Tooltip
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tooltip-z-index:                               (@global-z-index + 30);
+
+@tooltip-color: 								fade(@global-contrast-color, 60%);
+@tooltip-font-size:                             round((@global-font-size * 0.85)); // 12px
+@tooltip-line-height:                           round((@tooltip-font-size * 1.5)); // 18px
+
+@tooltip-background: 							#3F3C3C;
+
+// Component
+// ========================================================================
+
+.hook-tooltip() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-tooltip-misc() {}

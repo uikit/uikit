@@ -1,0 +1,67 @@
+//
+// Component: Article
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@article-margin-top:                            @global-large-margin;
+
+@article-title-font-size:                       round((@global-font-size * 2.5)); // 40px
+@article-title-line-height:                     round((@article-title-font-size * 1.05)); // 42px
+@article-title-font-weight:                    	700;
+
+@article-title-text-transform:                  @global-text-transform;
+
+@article-meta-font-size:                        round((@global-font-size * 1.14)); // 16px
+@article-meta-line-height:                      round((@article-meta-font-size * 1.5)); // 18px
+@article-meta-color:                            #777777;
+
+@article-lead-color:                            fade(@global-dark-color, 80%);
+@article-lead-font-size:                        round((@global-font-size * 1.28)); // 18px
+@article-lead-line-height:                      round((@article-lead-font-size * 1.33)); // 24px
+
+@article-divider-margin:                        @global-large-margin;
+@article-divider-border:                        @global-border;
+
+//
+// New
+//
+
+@article-meta-font-family: 						'Times New Roman';
+@article-meta-font-style: 						italic;
+
+
+// Sub-object `uk-article-title`
+// ========================================================================
+
+.hook-article-title() {}
+
+
+// Sub-object `uk-article-meta`
+// ========================================================================
+
+.hook-article-meta() {
+	font-family: @article-meta-font-family;
+	font-style: @article-meta-font-style;
+}
+
+
+// Sub-object `uk-article-lead`
+// ========================================================================
+
+.hook-article-lead() {}
+
+
+// Sub-object `uk-article-divider`
+// ========================================================================
+
+.hook-article-divider() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-article-misc() {}

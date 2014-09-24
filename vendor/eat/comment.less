@@ -1,0 +1,83 @@
+//
+// Component: Comment
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@comment-header-margin-bottom:                  @global-margin;
+
+@comment-avatar-margin-right:                   @global-margin;
+
+@comment-title-font-size:                       round((@global-font-size * 1.14)); // 16px
+@comment-title-line-height:                     round((@comment-title-font-size * 1.37)); // 22px
+
+@comment-meta-color:                            @global-muted-color;
+@comment-meta-font-size:                        round((@global-font-size * 0.78)); // 11px
+@comment-meta-line-height:                      round((@comment-meta-font-size * 1.45)); // 16px
+
+@comment-list-margin-top:                       @global-margin;
+
+//
+// New
+//
+
+@comment-avatar-border-width:                   3px;
+@comment-avatar-border:                         #fff;
+@comment-avatar-border-radius:                  100px;
+
+@comment-primary-padding: 						@global-margin;
+@comment-primary-background: 					@global-light-background;
+@comment-primary-box-shadow: 					rgba(0,0,0,0.03);
+@comment-primary-border: 						@global-border;
+
+
+// Sub-object `uk-comment-header`
+// ========================================================================
+
+.hook-comment-header() {}
+
+
+// Sub-object `uk-comment-avatar`
+// ========================================================================
+
+.hook-comment-avatar() {
+	border: @comment-avatar-border-width solid @comment-avatar-border;
+    border-radius: @comment-avatar-border-radius;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+
+// Sub-object `uk-comment-title`
+// ========================================================================
+
+.hook-comment-title() { font-weight: 700; }
+
+
+// Sub-object `uk-comment-meta`
+// ========================================================================
+
+.hook-comment-meta() {}
+
+// Sub-object `uk-comment-body`
+// ========================================================================
+
+.hook-comment-body() {}
+
+/* Modifier `uk-comment-primary`
+ ========================================================================== */
+
+.hook-comment-primary {
+	padding: @comment-primary-padding;
+	background: @comment-primary-background;
+	box-shadow: inset 0 0 14px @comment-primary-box-shadow;
+	border: 1px solid @comment-primary-border;
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-comment-misc() {}

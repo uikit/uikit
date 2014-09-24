@@ -1,0 +1,76 @@
+//
+// Component: Grid
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@grid-gutter-horizontal:                        @global-grid-gutter;
+@grid-gutter-vertical:                          @global-grid-gutter;
+
+@grid-gutter-large-horizontal:                  @global-grid-large-gutter;
+@grid-gutter-large-vertical:                    @global-grid-large-gutter;
+
+@grid-divider-border:                           @global-border;
+@grid-divider-border-width:                     2px;
+
+//
+// New
+//
+
+@grid-divider-border-style:                     dotted;
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-grid-misc() {
+
+    /*
+     * Horizontal divider
+     *
+     */
+
+    .uk-grid-divider > [class*='uk-width-1-']:not(.uk-width-1-1):nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-2-']:nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-3-']:nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-4-']:nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-5-']:nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-6-']:nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-7-']:nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
+    .uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) {
+                border-left-style: @grid-divider-border-style;
+                -webkit-border-image: url('@{global-image-path}/border_dotted_vertical.svg') 0 0 0 2 repeat;
+                border-image: url('@{global-image-path}/border_dotted_vertical.svg') 0 0 0 2 repeat;
+    }
+
+
+    /* Tablet and bigger */
+    @media (min-width: @breakpoint-medium) {
+
+        .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
+
+                border-left-style: @grid-divider-border-style;
+                -webkit-border-image: url('@{global-image-path}/border_dotted_vertical.svg') 0 0 0 2 repeat;
+                border-image: url('@{global-image-path}/border_dotted_vertical.svg') 0 0 0 2 repeat;
+            }
+
+    }
+
+    /* Desktop and bigger */
+    @media (min-width: @breakpoint-large) {
+
+        .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
+                border-left-style: @grid-divider-border-style;
+                -webkit-border-image: url('@{global-image-path}/border_dotted_vertical.svg') 0 0 0 2 repeat;
+                border-image: url('@{global-image-path}/border_dotted_vertical.svg') 0 0 0 2 repeat;
+
+        }
+
+    }
+
+
+}

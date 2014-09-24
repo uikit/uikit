@@ -1,0 +1,166 @@
+@import 'https://fonts.googleapis.com/css?family=Libre+Baskerville';
+@import 'https://fonts.googleapis.com/css?family=Lato:900,700,400,300';
+
+/* theme: Eat */
+
+//
+// Article
+//
+
+@article-title-font-weight: 400;
+
+//
+// Typography
+//
+
+@global-dark-color: #2a2a2a;
+@global-primary-color: #87A8BB;
+@global-link-color: #8cacbe;
+@global-link-hover-color: #648da3;
+@global-warning-color: #c9af87;
+@global-danger-color: #aa5069;
+
+//
+// Backgrounds
+//
+
+@global-primary-gradient-top: #8cacbe;
+@global-primary-gradient-bottom: #7b9cb0;
+@global-success-gradient-top: #82c6a0;
+@global-success-gradient-bottom: #5daf82;
+@global-warning-gradient-top: #d6bf9b;
+@global-warning-gradient-bottom: #c9af87;
+@global-danger-gradient-top: #ba5d77;
+@global-danger-gradient-bottom: #9f4860;
+
+//
+// Base
+//
+
+@base-heading-font-family: 'Baskerville';
+@base-heading-font-weight: 400;
+@base-h4-font-size: round((@global-font-size * 1.312)); // 21px
+
+//
+// Panel
+//
+
+@panel-title-font-size: round((@global-font-size * 1.312)); // 21px
+@panel-box-primary-background: #b1c8d3;
+@panel-title-font-weight: normal;
+
+//
+// Navbar
+//
+
+@navbar-border: @navbar-background;
+@navbar-background: #2A2A2A;
+@navbar-nav-hover-background: #363636;
+@navbar-nav-color: #B1B1B1;
+@navbar-nav-hover-color: #fff;
+@navbar-nav-active-color: @global-contrast-color;
+@navbar-toggle-color: fade(@global-contrast-color, 50%);
+@navbar-toggle-hover-color: @global-contrast-color;
+
+//
+// Nav
+//
+
+@nav-navbar-color: #B1B1B1;
+@nav-navbar-hover-background: rgba(255,255,255, 0.05);
+@nav-navbar-hover-color: #f5f5f5;
+@nav-navbar-header-color: rgba(255,255,255, 0.8);
+@nav-search-color: #77797a;
+@nav-search-hover-color: #f5f5f5;
+@nav-search-active-color: #f5f5f5;
+@nav-search-active-background: rgba(255,255,255, 0.05);
+@nav-search-header-color: rgba(255,255,255, 0.8);
+@nav-dropdown-nested-hover-color: @global-contrast-color;
+
+//
+// Dropdown
+//
+
+@dropdown-navbar-background: #363636;
+@dropdown-navbar-color: #77797a;
+@dropdown-navbar-nav-sub-border: rgba(255,255,255,0);
+@dropdown-search-background: #2A2A2A;
+@dropdown-search-color: @global-color;
+
+
+// Theme Variables
+// ==========================================================================
+
+@theme_fullscreen-border-top: rgba(0,0,0, 0.8);
+@theme_global-fullscreen-image: 'dove';
+@theme_teaser-line-length: 203px;
+@theme_teaser-small-line-length: 250px;
+@theme_teaser-subtitle-border: rgba(255,255,255,0.6);
+@theme_title-line-bottom-border: rgba(255,255,255,0.1);
+
+//
+// Bottom
+//
+
+@theme_bottom-background: #2A2A2A;
+@theme_bottom-border: darken(@theme_bottom-background, 50%);
+@theme_panel-header-opacity: 0.5;
+
+.tm-bottom {
+
+    a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) h1,
+    .uk-panel:not([class*='uk-panel-box']) h2,
+    .uk-panel:not([class*='uk-panel-box']) h3,
+    .uk-panel:not([class*='uk-panel-box']) h4,
+    .uk-panel:not([class*='uk-panel-box']) h5,
+    .uk-panel:not([class*='uk-panel-box']) h6,
+    .uk-panel:not([class*='uk-panel-box']) .uk-panel-title,
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]):hover { color: #fff; }
+
+    a:not([class]):hover,
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]):hover { color: #909397; }
+
+    .uk-panel:not([class*='uk-panel-box']),
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]) { color: #B1B1B1; }
+
+    .uk-icon-button { color: @global-contrast-color; }
+    .uk-icon-button:hover,
+    .uk-icon-button:focus { color: fade(@global-contrast-color, 50%); }
+    .uk-icon-button:active { color: fade(@global-contrast-color, 30%);}
+
+}
+
+.tm-bottom,
+.uk-dropdown-navbar {
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+
+        background: fade(@form-background, 5%);
+        border-color: fade(@form-border, 0%);
+
+        &:focus {
+            background: fade(@form-background, 10%);
+            border-color: fade(@form-border, 0%);
+        }
+
+
+    }
+}

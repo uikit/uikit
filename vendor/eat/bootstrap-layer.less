@@ -1,0 +1,814 @@
+/* ========================================================================
+   Name:            Bootstrap layer
+   Description:     Compatibility layer to match UIkit and Bootstrap style
+ ========================================================================== */
+
+@bs-input-height:           20px;
+@bs-control-input-height:   @bs-input-height;
+@bs-button-height:          22px;
+
+
+/* Button overrides
+ ========================================================================== */
+
+.btn {
+    /* Reset */
+    border: none; /* Todo */
+    border-radius: 0;
+    border-color: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    /* Overrides */
+    line-height: @bs-button-height;
+    background: @button-background;
+    color: @button-color;
+    .hook-button;
+}
+
+.btn:hover,
+.btn:focus {
+    /* Reset */
+    background-position: 0 0;
+    -webkit-transition: none;
+    transition: none;
+    /* Overrides */
+    background-color: @button-hover-background;
+    color: @button-hover-color;
+    .hook-button-hover;
+}
+
+.btn.active,
+.btn:active {
+    /* Reset */
+    box-shadow: none;
+    /* Overrides */
+    background-color: @button-active-background;
+    color: @button-active-color;
+    .hook-button-active;
+}
+
+/* Primary */
+.btn-primary,
+.btn-info,
+.btn-inverse {
+    background-color: @button-primary-background;
+    color: @button-primary-color;
+    .hook-button-primary;
+}
+
+.btn-primary:hover,
+.btn-info:hover,
+.btn-inverse:hover {
+    background-color: @button-primary-hover-background;
+    color: @button-primary-hover-color;
+    .hook-button-primary-hover;
+}
+
+.btn-primary:active, .btn-primary.active,
+.btn-info:active, .btn-info.active,
+.btn-inverse:active, .btn-inverse.active {
+    background-color: @button-primary-active-background;
+    color: @button-primary-active-color;
+    .hook-button-primary-active;
+}
+
+/* Danger */
+.btn-danger,
+.btn-warning {
+    background-color: @button-danger-background;
+    color: @button-danger-color;
+    .hook-button-danger;
+}
+
+.btn-danger:hover,
+.btn-warning:hover {
+    background-color: @button-danger-hover-background;
+    color: @button-danger-hover-color;
+    .hook-button-danger-hover;
+}
+
+.btn-danger:active, .btn-danger.active,
+.btn-warning:active, .btn-warning.active {
+    background-color: @button-danger-active-background;
+    color: @button-danger-active-color;
+    .hook-button-danger-active;
+}
+
+/* Success */
+.btn-success {
+    background-color: @button-success-background;
+    color: @button-success-color;
+    .hook-button-success;
+}
+
+.btn-success:hover {
+    background-color: @button-success-hover-background;
+    color: @button-success-hover-color;
+    .hook-button-success-hover;
+}
+
+.btn-success:active, .btn-success.active {
+    background-color: @button-success-active-background;
+    color: @button-success-active-color;
+    .hook-button-success-active;
+}
+
+/* Disabled */
+.btn.disabled,
+.btn[disabled] {
+    background-color: @button-disabled-background;
+    color: @button-disabled-color;
+    .hook-button;
+    .hook-button-disable;
+}
+
+/* Link */
+.btn-link,
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active,
+.btn-link.uk-active,
+.btn-link:disabled {
+    display: inline;
+    border: none;
+    background: none;
+    .hook-button-link;
+}
+
+/* Color */
+.btn-link { color: @button-link-color; }
+.btn-link:hover,
+.btn-link:focus,
+.btn-link:active,
+.btn-link.uk-active { color: @button-link-hover-color; }
+.btn-link:disabled { color: @button-link-disabled-color; }
+
+// Button Sizes
+// Large
+.btn-large { .hook-button-large; }
+
+/* Dropdown caret */
+.btn .caret {
+    /* Reset */
+    margin-bottom: 0;
+    /* Overrides */
+    margin-top: (@bs-button-height - 4px) / 2; /* 4px = caret height */
+    border-top-color: @button-color;
+}
+
+// Icons
+.btn [class^="icon-"],
+.btn [class*=" icon-"] {
+    margin-top: (@bs-button-height - 14px) / 2; /* 14px = icon height */
+    vertical-align: top;
+}
+
+
+/* Button group overrides
+ ========================================================================== */
+
+.btn-group > .btn + .dropdown-toggle { box-shadow: none; }
+
+.btn-group.open {
+
+    .btn.dropdown-toggle { .hook-button-active; }
+    .btn-primary.dropdown-toggle { .hook-button-primary-active; }
+    .btn-danger.dropdown-toggle { .hook-button-danger-active;}
+    .btn-success.dropdown-toggle { .hook-button-success-active; }
+
+}
+
+
+/* Form overrides
+ ========================================================================== */
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    /* Reset */
+    border-radius: 0;
+    box-shadow: none;
+    /* Overrides */
+    height: @bs-input-height;
+    line-height: @bs-input-height;
+    color: @form-color;
+    .hook-form;
+
+    &:focus {
+        /* Reset */
+        box-shadow: none;
+        /* Overrides */
+        border-color: @form-focus-border;
+        outline: 0;
+        background: @form-focus-background;
+        .hook-form-focus;
+    }
+}
+
+select { border-color: @form-border; }
+
+select, input[type="file"] {
+    height: auto;
+    line-height: auto;
+}
+
+.input-append input { border-radius: @baseBorderRadius 0 0 @baseBorderRadius; }
+
+.input-append .add-on,
+.input-prepend .add-on {
+    /* Reset */
+    text-shadow: none;
+    /* Overrides */
+    height: @bs-input-height;
+    line-height: @bs-input-height;
+    border-color: @form-border;
+    background-color: darken(@form-background, 5%);
+}
+
+.row-fluid input[class*="span"] { min-height: @bs-input-height; }
+
+.input-append .add-on:first-child, 
+.input-append .btn:first-child,
+.input-prepend .add-on:first-child, 
+.input-prepend .btn:first-child,
+.input-prepend.input-append .add-on:first-child, 
+.input-prepend.input-append .btn:first-child { border-radius: @baseBorderRadius 0 0 @baseBorderRadius; }
+
+.input-append .add-on:last-child, 
+.input-append .btn:last-child,
+.input-prepend .add-on:last-child, 
+.input-prepend .btn:last-child,
+.input-prepend.input-append .add-on:last-child, 
+.input-prepend.input-append .btn:last-child { border-radius: 0 @baseBorderRadius @baseBorderRadius 0; }
+
+.input-block-level { min-height: auto; }
+
+input.search-query { border-radius: @baseBorderRadius; }
+
+.form-search .input-append .search-query { border-radius: @baseBorderRadius 0 0 @baseBorderRadius; }
+.form-search .input-append .btn { border-radius: 0 @baseBorderRadius @baseBorderRadius 0; }
+.form-search .input-prepend .search-query { border-radius: 0 @baseBorderRadius @baseBorderRadius 0; }
+.form-search .input-prepend .btn { border-radius: @baseBorderRadius 0 0 @baseBorderRadius; }
+    
+.control-group.warning input,
+.control-group.warning select,
+.control-group.warning textarea,
+.control-group.error input,
+.control-group.error select,
+.control-group.error textarea {
+    box-shadow: none;
+    border-color: @form-danger-border !important;
+    background: @form-danger-background !important;
+    color: @form-danger-color !important;
+    .hook-form-danger;
+
+    &:focus { box-shadow: none; }
+}
+
+.control-group input {
+    height: @bs-control-input-height;
+    min-height: @bs-control-input-height !important;
+    line-height: @bs-control-input-height;
+}
+
+.control-group.warning,
+.control-group.error {
+    label,
+    .help-block,
+    .help-inline { color: @form-danger-color;   }
+}
+
+.control-group.success input,
+.control-group.success select,
+.control-group.success textarea {
+    box-shadow: none;
+    border-color: @form-success-border !important;
+    background: @form-success-background !important;
+    color: @form-success-color !important;
+    .hook-form-success;
+
+    &:focus { box-shadow: none; }
+}
+
+.control-group.success {
+    label,
+    .help-block,
+    .help-inline { color: @form-success-color; }
+}
+
+.form-actions { border: none; }
+
+
+/* Dropdown overrides
+ ========================================================================== */
+
+.dropdown-menu {
+    /* Reset */
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    /* Overrides */
+    .hook-dropdown;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+    background: @nav-dropdown-hover-background;
+    .hook-nav-dropdown-hover;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+    background: @nav-dropdown-hover-background;
+    .hook-nav-dropdown-hover;
+}
+
+
+/* Well overrides
+ ========================================================================== */
+
+.well {
+    /* Reset */
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    /* Overrides */
+    padding: @panel-box-padding;
+    background: @panel-box-background;
+    .hook-panel-box;
+}
+
+
+/* Hero-unit overrides
+ ========================================================================== */
+
+.hero-unit {
+    /* Reset */
+    border-radius: 0;
+    /* Overrides */
+    background: @panel-box-background;
+    .hook-panel-box;
+}
+
+
+/* Tooltip overrides
+ ========================================================================== */
+
+.tooltip.in { opacity: 1; }
+
+
+/* Alert overrides
+ ========================================================================== */
+
+.alert {
+    /* Reset */
+    border-radius: 0;
+    border: none;
+    text-shadow: none;
+    /* Overrides */
+    background: @alert-warning-background;
+    color: @alert-warning-color;
+    .hook-alert;
+    .hook-alert-warning;
+}
+
+.alert-success {
+    background: @alert-success-background;
+    color: @alert-success-color;
+    .hook-alert-success;
+}
+
+.alert-danger,
+.alert-error {
+    background: @alert-danger-background;
+    color: @alert-danger-color;
+    .hook-alert-danger;
+}
+
+.alert-info {
+    background: @alert-background;
+    color: @alert-color;
+    .hook-alert;
+}
+
+
+/* Badge overrides
+ ========================================================================== */
+
+.label,
+.badge {
+    /* Reset */
+    text-shadow: none;
+    /* Overrides */
+    background: @badge-background;
+    font-size: @badge-font-size;
+    line-height: @badge-line-height;
+    color: @badge-color;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    .hook-badge;
+}
+
+.label,
+.badge {
+    &-important         {
+        background-color: @badge-danger-background;
+        .hook-badge-danger;
+    }
+    &-warning           {
+        background-color: @badge-warning-background;
+        .hook-badge-warning;
+    }
+    &-success           {
+        background-color: @badge-success-background;
+        .hook-badge-success;
+    }
+}
+
+
+/* Progress overrides
+ ========================================================================== */
+
+.progress {
+    /* Reset */
+    border-radius: 0;
+    box-shadow: none;
+    /* Overrides */
+    background: @progress-background;
+    .hook-progress;
+}
+
+.progress .bar {
+    /* Reset */
+    text-shadow: none;
+    box-shadow: none;
+    background-image: none;
+    /* Overrides */
+    background-color: @progress-bar-background;
+    color: @progress-bar-color;
+    .hook-progress-bar;
+}
+
+.progress-danger .bar, .progress .bar-danger,
+.progress-danger.progress-striped .bar, .progress-striped .bar-danger {
+    background-color: @progress-bar-danger-background;
+    .hook-progress-bar-danger;
+}
+
+.progress-success .bar, .progress .bar-success,
+.progress-success.progress-striped .bar, .progress-striped .bar-success {
+    background-color: @progress-bar-success-background;
+    .hook-progress-bar-success;
+}
+
+.progress-info .bar, .progress .bar-info,
+.progress-info.progress-striped .bar, .progress-striped .bar-info {
+    background-color: @progress-bar-background;
+    .hook-progress-bar;
+}
+
+.progress-warning .bar, .progress .bar-warning,
+.progress-warning.progress-striped .bar, .progress-striped .bar-warning {
+    background-color: @progress-bar-warning-background;
+    .hook-progress-bar-warning;
+}
+
+.progress .bar + .bar { box-shadow: none; }
+
+.progress-striped .bar { 
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); 
+}
+
+/* Navbar overrides
+ ========================================================================== */
+
+.navbar-inverse .brand,
+.navbar-inverse .nav > li > a { text-shadow: none; }
+
+
+/* Navs overrides
+ ========================================================================== */
+
+.nav > li > a:hover,
+.nav > li > a:focus { background-color: @nav-side-hover-background; }
+
+.nav-header {
+    text-shadow: none;
+    color: @nav-side-header-color;
+}
+
+/*
+ * List
+ */
+
+.nav-list > li > a,
+.nav-list .nav-header { text-shadow: none; }
+
+.nav-list > li > a:hover,
+.nav-list > li > a:focus {
+    background: @nav-side-hover-background;
+    color: @nav-side-hover-color;
+    .hook-nav-side-hover;
+}
+
+.nav-list > .active > a,
+.nav-list > .active > a:hover,
+.nav-list > .active > a:focus {
+    text-shadow: none;
+    color: @nav-side-active-color;
+    background-color: @nav-side-active-background;
+}
+
+.nav-list .divider {
+    border-color: @nav-dropdown-divider-border;
+    background: transparent;
+}
+
+/*
+ * Pills
+ */
+
+.nav-pills > li > a {
+    border-radius: 0;
+    .hook-subnav-pill;
+}
+
+.nav-pills > li > a:hover { .hook-subnav-pill-hover; };
+
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,
+.nav-pills > .active > a:focus {
+    /* Overrides */
+    background: @subnav-pill-active-background;
+    color: @subnav-pill-active-color;
+    .hook-subnav-pill-active;
+}
+
+/*
+ * Tabs Stacked
+ */
+
+.nav-tabs.nav-stacked > li > a {
+    border-color: @tab-border;
+    border-radius: 0;
+}
+
+.nav-tabs.nav-stacked > li:first-child > a { border-top-radius: @baseBorderRadius; }
+.nav-tabs.nav-stacked > li:last-child > a { border-bottom-radius: @baseBorderRadius; }
+.nav-tabs.nav-stacked > li > a:hover,
+.nav-tabs.nav-stacked > li > a:focus {
+    border-color: @tab-border;
+    z-index: 2;
+}
+
+/*
+ * Dropdowns
+ */
+
+.nav-tabs .dropdown-menu { border-radius: 0 0 @baseBorderRadius @baseBorderRadius; }
+.nav-pills .dropdown-menu { border-radius: @baseBorderRadius; }
+
+/*
+ * Tabs
+ */
+
+.nav-tabs { border-bottom: 1px solid @tab-border; }
+
+.nav-tabs > li > a {
+    border-radius: @baseBorderRadius @baseBorderRadius 0 0;
+    &:hover {
+        border-color: @tab-hover-border;
+        border-bottom-color: @tab-border;
+        background: @tab-hover-background;
+        color: @tab-hover-color;
+        .hook-tab-hover;
+    }
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+    color: @tab-active-color;
+    background-color: @tab-active-background;
+    border: 1px solid @tab-border;
+    border-bottom-color: transparent;
+    .hook-tab-active;
+}
+
+.tabs-below > .nav-tabs { border-top: 1px solid @tab-border; }
+.tabs-below > .nav-tabs > li > a {
+    border-radius: 0 0 @baseBorderRadius @baseBorderRadius;
+    &:hover {
+        border-color: @tab-hover-border;
+        border-top-color: @tab-border;
+    }
+}
+
+.tabs-below > .nav-tabs > .active > a,
+.tabs-below > .nav-tabs > .active > a:hover,
+.tabs-below > .nav-tabs > .active > a:focus { border-color: transparent @tab-border @tab-border @tab-border; }
+
+.tabs-left > .nav-tabs { border-right: 1px solid @tab-border; }
+.tabs-left > .nav-tabs > li > a {
+    border-radius: @baseBorderRadius 0 0 @baseBorderRadius;
+    &:hover {
+        border-color: @tab-hover-border;
+        border-right-color: @tab-border;
+    }
+}
+
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus { border-color: @tab-border transparent @tab-border @tab-border; }
+
+.tabs-right > .nav-tabs { border-left: 1px solid @tab-border; }
+.tabs-right > .nav-tabs > li > a { 
+    border-radius: 0 @baseBorderRadius @baseBorderRadius 0; 
+    &:hover {
+        border-color: @tab-hover-border;
+        border-left-color: @tab-border;
+    }
+}
+
+.tabs-right > .nav-tabs .active > a,
+.tabs-right > .nav-tabs .active > a:hover,
+.tabs-right > .nav-tabs .active > a:focus { border-color: @tab-border @tab-border @tab-border transparent; }
+
+
+/* Breadcrumb overrides
+ ========================================================================== */
+
+.breadcrumb {
+    background-color: @panel-box-background;
+    > li > .divider { color: inherit; }
+    > .active { color: @global-muted-color; }
+}
+
+.breadcrumb li { text-shadow: none; }
+
+
+/* Accordion overrides
+ ========================================================================== */
+
+.accordion-group { border-color: @tab-border; }
+
+.accordion-inner { border-top-color: @tab-border; }
+
+
+/* Pager overrides
+ ========================================================================== */
+
+.pager li > a,
+.pager li > span {
+    border: none;
+    background-color: @pagination-background;
+    border-radius: @baseBorderRadius;
+    color: @pagination-color;
+}
+
+.pager li > a:hover,
+.pager li > a:focus { 
+    background-color: @pagination-hover-background;
+    color: @pagination-hover-color;
+}
+
+.pager .disabled > a,
+.pager .disabled > a:hover,
+.pager .disabled > a:focus,
+.pager .disabled > span {
+    color: @pagination-disabled-color;
+    background-color: @pagination-disabled-background;
+}
+
+
+/* Pagination overrides
+ ========================================================================== */
+
+.pagination ul { box-shadow: none; }
+
+.pagination ul > li > a:hover,
+.pagination ul > li > a:focus,
+.pagination ul > .active > a,
+.pagination ul > .active > span { background-color: transparent; }
+
+
+/* Scaffolding overrides
+ ========================================================================== */
+
+.img-polaroid {
+    background-color: @panel-box-background;
+    border-color: @global-border;
+    box-shadow: none;
+}
+
+
+/* Thumbnail overrides
+ ========================================================================== */
+
+.thumbnail {
+    border-color: @thumbnail-border;
+    box-shadow: none;
+}
+
+a.thumbnail:hover,
+a.thumbnail:focus {
+    border-color: @thumbnail-hover-border;
+    box-shadow: none;
+}
+
+.thumbnail .caption { color: @thumbnail-caption-color; }
+
+
+/* Modal overrides
+ ========================================================================== */
+
+.modal-backdrop { background: @modal-background; }
+
+div.modal {
+    /* Reset */
+    border: none;
+    box-shadow: none;
+    /* Overrides */
+    border-radius: @baseBorderRadius;
+    background: @modal-dialog-background;
+    .hook-modal-dialog;
+}
+
+.modal-header { border-color: @global-border; }
+
+.modal-footer {
+    background: @panel-box-background;
+    border-color: @global-border;
+    border-radius: 0 0 @baseBorderRadius @baseBorderRadius;
+    box-shadow: none;
+}
+
+
+/* Table overrides
+ ========================================================================== */
+
+.table tbody tr {
+    &.success td {
+        color: @alert-success-color;
+    }
+    &.error td {
+        color: @alert-danger-color;
+    }
+    &.warning > td {
+        color: @alert-warning-color;
+    }
+    &.info td {
+        color: @alert-color;
+    }
+}
+
+
+/* Code
+ ========================================================================== */
+
+code { .hook-base-code; }
+
+pre { .hook-base-pre; }
+
+
+/* Close
+ ========================================================================== */
+
+.close {
+    color: inherit;
+    &:hover,
+    &:focus {
+        color: inherit;
+    }
+}
+
+
+/* Joomla Bootstrap Extended
+ ========================================================================== */
+
+a.disabled,
+a.disabled:hover {
+    background-color: @button-disabled-background;
+    color: @button-disabled-color;
+    .hook-button;
+    .hook-button-disable;
+}

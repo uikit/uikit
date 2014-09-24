@@ -1,0 +1,41 @@
+//
+// Component: List
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@list-line-border:                    @global-border;
+@list-striped-background:             @global-light-background;
+
+//
+// New
+//
+
+@list-link-color:                     @nav-side-color;
+@list-link-hover-color:               @nav-side-hover-color;
+
+
+// Modifier: `list-line`
+// ========================================================================
+
+.hook-list-line() {}
+
+
+// Modifier: `list-striped`
+// ========================================================================
+
+.hook-list-striped() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-list-misc() {
+
+    .uk-list > li > a { color: @list-link-color; }
+    .uk-list > li > a:hover { color: @list-link-hover-color; }
+
+}

@@ -17,10 +17,10 @@ Report bugs on [UIkit Issues](https://github.com/uikit/uikit/issues?state=open).
 
 ## Developers
 
-First of all, install [Node](http://nodejs.org/). We use [Grunt](http://gruntjs.com) to build UIkit. If you haven't used Grunt before, you need to install the `grunt-cli` package as a global install.
+First of all, install [Node](http://nodejs.org/). We use [Gulp](http://gulpjs.com) to build UIkit. If you haven't used Gulp before, you need to install the `gulp` package as a global install.
 
 ```
-npm install -g grunt-cli
+npm install --global gulp
 ```
 
 If you haven't done so already, clone the UIkit git repo.
@@ -35,18 +35,18 @@ cd uikit
 npm install
 ```
 
-Run `grunt` to lint, build and minify the release.
+Run `gulp` to lint, build and minify the release.
 
 ```
-grunt
+gulp
 ```
 
 The built version of UIkit will be put in the `/dist` subdirectory.
 
-Enter the following, so Grunt will watch your working directory and compile LESS files automatically everytime you hit save.
+Enter the following, so Gulp will watch your working directory and compile LESS files automatically everytime you hit save. After running <code>gulp watch</code> you can also visit http://localhost:3000/tests/ to see the impact of your changes in realtime.
 
 ```
-grunt watch
+gulp watch
 ```
 
 ## Versioning
@@ -63,4 +63,4 @@ We built UIkit using popular open source projects.
 
 ## Copyright and license
 
-Copyright 2013 [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
+Copyright 2014 [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).

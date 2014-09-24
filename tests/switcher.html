@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Switcher component - UIkit tests</title>
+
+        <script src="_test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Switcher</h1>
+
+            <h2>Fully Featured</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-1">
+
+                    <ul class="uk-tab" data-uk-tab="{connect:'#content-1, #content-2'}">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                    </ul>
+
+                    <ul id="content-1" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" data-uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again! <a href="#" data-uk-switcher-item="next">Next tab</a></li>
+                        <li>Bazinga! <a href="#" data-uk-switcher-item="previous">Previous tab</a></li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                    <ul id="content-2" class="uk-switcher uk-margin">
+                        <li>Hello! The second item.</li>
+                        <li>Hello again! The second item.</li>
+                        <li>Bazinga! The second item.</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Tab</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <ul class="uk-tab" data-uk-tab="{connect:'#tab-content'}">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                    </ul>
+
+                    <ul id="tab-content" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" data-uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" data-uk-switcher-item="0">Switch to tab 1</a></li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <ul id="tab-bottom-content" class="uk-switcher uk-margin">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                    <ul class="uk-tab uk-tab-bottom" data-uk-tab="{connect:'#tab-bottom-content'}">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-2">
+
+                            <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tab-left-content'}">
+                                <li class="uk-active"><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li class="uk-disabled"><a href="#">Disabled</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-medium-1-2">
+
+                            <ul id="tab-left-content" class="uk-switcher">
+                                <li>Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                                <li>You will never see me!</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-2 uk-push-1-2">
+
+                            <ul class="uk-tab uk-tab-right" data-uk-tab="{connect:'#tab-right-content'}">
+                                <li class="uk-active"><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li class="uk-disabled"><a href="#">Disabled</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-medium-1-2 uk-pull-1-2">
+
+                            <ul id="tab-right-content" class="uk-switcher">
+                                <li>Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                                <li>You will never see me!</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h2>Button</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <div data-uk-switcher="{connect:'#button-content'}">
+                        <a class="uk-button" href="#">Link</a>
+                        <button class="uk-button">Button</button>
+                        <button class="uk-button">Button</button>
+                        <button class="uk-button" disabled>Disabled</button>
+                    </div>
+
+                    <ul id="button-content" class="uk-switcher uk-margin">
+                        <li class="uk-active">Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <div class="uk-button-group" data-uk-switcher="{connect:'#button-group-content'}">
+                        <a class="uk-button" href="#">Link</a>
+                        <button class="uk-button">Button</button>
+                        <button class="uk-button">Button</button>
+                        <button class="uk-button" disabled>Disabled</button>
+                    </div>
+
+                    <ul id="button-group-content" class="uk-switcher uk-margin">
+                        <li class="uk-active">Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Subnav</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <ul class="uk-subnav" data-uk-switcher="{connect:'#subnav-content'}">
+                        <li class="uk-active"><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                    <ul id="subnav-content" class="uk-switcher">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#subnav-pill-content'}">
+                        <li class="uk-active"><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                    <ul id="subnav-pill-content" class="uk-switcher">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Nav</h2>
+
+            <div class="uk-grid uk-margin" data-uk-grid-margin>
+                <div class="uk-width-medium-1-4">
+
+                    <ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#nav-content', toggle:' > *:not(.uk-nav-header)'}">
+                        <li class="uk-active"><a href="">Item</a></li>
+                        <li><a href="">Item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="">Item</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-3-4">
+
+                    <ul id="nav-content" class="uk-switcher">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,72 @@
+//
+// Component: Pagination
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@pagination-line-height:                        @global-line-height;
+@pagination-background:                        	@global-light-background;
+@pagination-color:                              @global-color;
+@pagination-hover-color:                        fade(@global-color, 80%);
+@pagination-onclick-color:                      @global-color;
+@pagination-onclick-background:                 @global-default-active-background;
+
+@pagination-active-background:                  @global-primary-background;
+@pagination-active-color:                       @global-contrast-color;
+
+@pagination-disabled-background:                @global-light-background;
+@pagination-disabled-color:                     @global-muted-color;
+
+//
+// New
+//
+
+@pagination-border:                             #DEDEDE;
+
+// Component
+// ========================================================================
+
+.hook-pagination-item() {
+	padding: 5px 7px;
+	border: 1px solid @pagination-border;
+}
+
+
+// Items
+// ========================================================================
+
+.hook-pagination-link() {}
+
+.hook-pagination-link-hover() {}
+
+.hook-pagination-link-active() { position: relative; }
+
+//
+// Active
+//
+
+.hook-pagination-active() { border-color: darken(@pagination-active-background, 10%); }
+
+//
+// Disabled
+//
+
+.hook-pagination-disabled() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-pagination-misc() {
+
+	.uk-pagination > li:nth-child(n+2) { margin-left: -1px; }
+
+    .uk-pagination > li > a.previous { margin-right: 10px; }
+    .uk-pagination > li > a.next { margin-left: 10px; }
+
+    .uk-pagination .uk-active { position: relative; }
+
+}

@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Dropdown component - UIkit tests</title>
+
+        <script src="_test.js"></script>
+        <style type="text/css">
+
+            body.uk-container { padding-bottom: 250px; }
+
+            .test .uk-dropdown {
+                display: block;
+                position: relative;
+                z-index: 0;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                width: 100%;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Dropdown</h1>
+
+            <div class="uk-grid test" data-uk-grid-margin>
+
+                <div class="uk-width-medium-1-4">
+
+                    <div class="uk-dropdown">
+
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="uk-width-medium-3-4">
+
+                    <div class="uk-dropdown">
+
+                        <div class="uk-grid uk-dropdown-grid">
+                            <div class="uk-width-1-3">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                            <div class="uk-width-1-3">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                            <div class="uk-width-1-3">
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                        </div>
+
+                        <div class="uk-grid uk-dropdown-grid">
+                            <div class="uk-width-1-1">
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="uk-margin" id="justify1" data-uk-margin>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">Hover <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">Flip <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">Center <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small uk-dropdown-center">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown="{justify:'#justify1'}">
+                    <button class="uk-button">Justify <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">Up <i class="uk-icon-caret-up"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small uk-dropdown-up">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">Scrollable <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small uk-dropdown-scrollable">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">2 Columns <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-width-2">
+
+                        <div class="uk-grid uk-dropdown-grid" data-uk-grid-margin>
+                            <div class="uk-width-medium-1-2">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                            </div>
+                            <div class="uk-width-medium-1-2">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">3 Columns <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-width-3">
+
+                        <div class="uk-grid uk-dropdown-grid">
+                            <div class="uk-width-1-3">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                            <div class="uk-width-1-3">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                            <div class="uk-width-1-3">
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button">Stack <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-width-2 uk-dropdown-stack">
+
+                        <div class="uk-grid uk-dropdown-grid">
+                            <div class="uk-width-1-2">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                </ul>
+
+                            </div>
+                            <div class="uk-width-1-2">
+
+                                <ul class="uk-nav uk-nav-dropdown uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                    <button class="uk-button">Click <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-dropdown" data-uk-dropdown>
+                    <button class="uk-button" disabled>Disabled <i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-button-group">
+                    <button class="uk-button">Button</button>
+                    <div data-uk-dropdown>
+                        <a href="#" class="uk-button"><i class="uk-icon-caret-down"></i></a>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="uk-margin" data-uk-margin>
+
+                <div class="uk-button-group">
+                    <div class="uk-button-dropdown" data-uk-dropdown>
+                        <button class="uk-button">Link <i class="uk-icon-caret-down"></i></button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="uk-button-dropdown" data-uk-dropdown>
+                        <button class="uk-button">Link <i class="uk-icon-caret-down"></i></button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="uk-button-dropdown" data-uk-dropdown>
+                        <button class="uk-button">Button <i class="uk-icon-caret-down"></i></button>
+                        <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-button-group">
+                    <div class="uk-button-dropdown" data-uk-dropdown>
+                        <button class="uk-button">Link <i class="uk-icon-caret-down"></i></button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#" class="uk-button">Link</a>
+                    <button class="uk-button">Button</button>
+                </div>
+
+                <div class="uk-button-group">
+                    <a href="#" class="uk-button">Link</a>
+                    <div class="uk-button-dropdown" data-uk-dropdown>
+                        <button class="uk-button">Link <i class="uk-icon-caret-down"></i></button>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="uk-button">Button</button>
+                </div>
+
+                <div class="uk-button-group">
+                    <a href="#" class="uk-button">Link</a>
+                    <button class="uk-button">Button</button>
+                    <div class="uk-button-dropdown" data-uk-dropdown>
+                        <button class="uk-button">Link <i class="uk-icon-caret-down"></i></button>
+                        <div class="uk-dropdown uk-dropdown-small uk-dropdown-flip">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h2>Dropdown navbar</h2>
+
+            <div class="uk-grid test" data-uk-grid-margin>
+
+                <div class="uk-width-medium-1-4">
+
+                    <div class="uk-dropdown uk-dropdown-navbar">
+
+                        <ul class="uk-nav uk-nav-navbar">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="uk-width-medium-3-4">
+
+                    <div class="uk-dropdown uk-dropdown-navbar">
+
+                        <div class="uk-grid uk-dropdown-grid">
+                            <div class="uk-width-1-3">
+
+                                <ul class="uk-nav uk-nav-navbar uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                            <div class="uk-width-1-3">
+
+                                <ul class="uk-nav uk-nav-navbar uk-panel">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                            <div class="uk-width-1-3">
+
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                            </div>
+                        </div>
+
+                        <div class="uk-grid uk-dropdown-grid">
+                            <div class="uk-width-1-1">
+                                <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="uk-margin">
+
+                <nav class="uk-navbar" id="justify2">
+
+                    <ul class="uk-navbar-nav">
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Hover</a>
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Flip</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-flip">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Center</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-center">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown="{justify:'#justify2'}">
+                            <a href="">Justify</a>
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Up</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-up">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">2 Columns</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2">
+
+                                <div class="uk-grid uk-dropdown-grid">
+                                    <div class="uk-width-1-2">
+
+                                        <ul class="uk-nav uk-nav-navbar uk-panel">
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Separated item</a></li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="uk-width-1-2">
+
+                                        <ul class="uk-nav uk-nav-navbar uk-panel">
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Separated item</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">3 Columns</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-3">
+
+                                <div class="uk-grid uk-dropdown-grid">
+                                    <div class="uk-width-1-3">
+
+                                        <ul class="uk-nav uk-nav-navbar uk-panel">
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Separated item</a></li>
+                                        </ul>
+
+                                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                                    </div>
+                                    <div class="uk-width-1-3">
+
+                                        <ul class="uk-nav uk-nav-navbar uk-panel">
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Separated item</a></li>
+                                        </ul>
+
+                                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                                    </div>
+                                    <div class="uk-width-1-3">
+
+                                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <ul class="uk-navbar-nav">
+
+                        <li class="uk-parent" data-uk-dropdown><a href="">Stack</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2 uk-dropdown-stack">
+
+                                <div class="uk-grid uk-dropdown-grid">
+                                    <div class="uk-width-1-2">
+
+                                        <ul class="uk-nav uk-nav-navbar uk-panel">
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="uk-width-1-2">
+
+                                        <ul class="uk-nav uk-nav-navbar uk-panel">
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown="{mode:'click'}">
+                            <a href="">Click</a>
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <div class="uk-navbar-flip">
+
+                        <ul class="uk-navbar-nav">
+                            <li class="uk-parent" data-uk-dropdown>
+                                <a href="">Flip</a>
+
+                                <div class="uk-dropdown uk-dropdown-navbar">
+                                    <ul class="uk-nav uk-nav-navbar">
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#">Separated item</a></li>
+                                    </ul>
+                                </div>
+
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </nav>
+
+            </div>
+
+            <h2>Subnav</h2>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3">
+
+                    <ul class="uk-subnav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li data-uk-dropdown="{mode:'click'}">
+                            <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                            <div class="uk-dropdown uk-dropdown-small">
+                                <ul class="uk-nav uk-nav-dropdown">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-3">
+
+                    <ul class="uk-subnav uk-subnav-line">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li data-uk-dropdown="{mode:'click'}">
+                            <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                            <div class="uk-dropdown uk-dropdown-small">
+                                <ul class="uk-nav uk-nav-dropdown">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-3">
+
+                    <ul class="uk-subnav uk-subnav-pill">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li data-uk-dropdown="{mode:'click'}">
+                            <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                            <div class="uk-dropdown uk-dropdown-small">
+                                <ul class="uk-nav uk-nav-dropdown">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Tab</h2>
+
+            <div class="uk-margin">
+
+                <ul class="uk-tab uk-width-medium-1-2">
+                    <li class="uk-active"><a href="#">Tab One</a></li>
+                    <li><a href="#">Tab Two</a></li>
+                    <li><a href="#">Tab Three</a></li>
+                    <li data-uk-dropdown="{mode:'click'}">
+                        <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                        <div class="uk-dropdown uk-dropdown-small">
+                            <ul class="uk-nav uk-nav-dropdown">
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Another item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#">Separated item</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sortable - UIkit tests</title>
+
+        <script src="_test.js"></script>
+        <script src="../src/sortable/sortable.js"></script>
+        <style>
+
+            .test { height: 100px; }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Sortable</h1>
+
+            <h2>Grid</h2>
+
+            <ul class="uk-sortable uk-grid uk-grid-width-1-5" data-uk-sortable="{handleClass:'uk-panel'}" data-uk-grid-margin>
+                <li><div class="uk-panel uk-panel-box test"><a href="http://www.getuikit.com">Test 1</a></div></li>
+                <li><a class="uk-panel uk-panel-box test" href="http://www.getuikit.com">Test 2</a></li>
+                <li><div class="uk-panel uk-panel-box test">Test 3</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 4</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 5</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 6</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 7</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 8</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 9</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 10</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 11</div></li>
+                <li><div class="uk-panel uk-panel-box test">Test 12</div></li>
+            </ul>
+
+            <h2>Stacked</h2>
+
+            <div class="uk-sortable uk-margin" data-uk-sortable>
+                <p class="uk-panel uk-panel-box">Test 1</p>
+                <p class="uk-panel uk-panel-box">Test 2</p>
+                <p class="uk-panel uk-panel-box">Test 3</p>
+                <p class="uk-panel uk-panel-box">Test 4</p>
+                <p class="uk-panel uk-panel-box">Test 5</p>
+            </div>
+
+        </div>
+    </body>
+</html>

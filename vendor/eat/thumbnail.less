@@ -1,0 +1,41 @@
+//
+// Component: Thumbnail
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@thumbnail-padding:                             0;
+@thumbnail-border:                              @global-border;
+@thumbnail-background:                          @global-background;
+@thumbnail-hover-border:                        darken(@global-border, 5%);
+@thumbnail-hover-background:                    @global-background;
+
+@thumbnail-caption-color:                       @global-color;
+@thumbnail-caption-padding:                     10px;
+
+//
+// New
+//
+
+
+// Component
+// ========================================================================
+
+.hook-thumbnail() { background-clip: border-box; }
+
+.hook-thumbnail-hover() {}
+
+
+// Caption
+// ========================================================================
+
+.hook-thumbnail-caption() { padding-bottom: @thumbnail-caption-padding; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-thumbnail-misc() {}

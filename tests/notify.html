@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notify - UIkit tests</title>
+
+        <script src="_test.js"></script>
+        <script src="../src/notify/notify.js"></script>
+
+        <script>
+        $(function(){
+            $("button").on("click", function(){
+                $.UIkit.notify($(this).data());
+            });
+        })
+        </script>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Notify</h1>
+
+            <h2>Positions</h2>
+
+            <p>
+                <button class="uk-button" data-message="Message..." data-pos="top-left">Top Left</button>
+                <button class="uk-button" data-message="Message..." data-pos="top-center">Top Center</button>
+                <button class="uk-button" data-message="Message..." data-pos="top-right">Top Right</button>
+                <button class="uk-button" data-message="Message..." data-pos="bottom-left">Bottom Left</button>
+                <button class="uk-button" data-message="Message..." data-pos="bottom-center">Bottom Center</button>
+                <button class="uk-button" data-message="Message..." data-pos="bottom-right">Bottom Right</button>
+            </p>
+
+            <h2>Styles</h2>
+
+            <p>
+                <button class="uk-button" data-message="Primary message..." data-status="primary">Primary</button>
+                <button class="uk-button" data-message="Success message..." data-status="success">Success</button>
+                <button class="uk-button" data-message="Warning message..." data-status="warning">Warning</button>
+                <button class="uk-button" data-message="Danger message..." data-status="danger">Danger</button>
+            </p>
+
+            <h2>Specials</h2>
+
+            <p>
+                <button class="uk-button" data-message="<i class='uk-icon-check'></i> Message with an icon...">With icon</button>
+                <button class="uk-button" data-message="Sticky message..." data-timeout="0">Sticky</button>
+            </p>
+
+            <h2>Styles</h2>
+
+            <p class="uk-notify-message">Message...</p>
+            <p class="uk-notify-message uk-notify-message-primary"><a class="uk-close"></a>Primary message...</p>
+            <p class="uk-notify-message uk-notify-message-success"><a class="uk-close"></a>Success message...</p>
+            <p class="uk-notify-message uk-notify-message-warning"><a class="uk-close"></a>Warning message...</p>
+            <p class="uk-notify-message uk-notify-message-danger"><a class="uk-close"></a>Danger message...</p>
+
+        </div>
+
+    </body>
+</html>

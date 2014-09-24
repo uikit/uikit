@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Timepicker - UIkit tests</title>
+
+        <script src="_test.js"></script>
+        <script src="../src/autocomplete/autocomplete.js"></script>
+        <script src="../src/timepicker/timepicker.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Timepicker</h1>
+
+            <form class="uk-form">
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="form-time">12 Hour Notation</label>
+                    <div class="uk-form-controls">
+                        <input type="text" id="form-time" data-uk-timepicker="{format:'12h'}">
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="form-time-meridian">24 Hour Notation (default)</label>
+                    <div class="uk-form-controls">
+                        <input type="text" id="form-time-meridian" data-uk-timepicker>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+</html>

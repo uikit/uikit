@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Flex - UIkit tests</title>
+
+        <script src="_test.js"></script>
+        <style type="text/css">
+
+            .uk-flex > * {
+                padding: 10px;
+                text-align: center;
+            }
+
+            .uk-flex > :nth-child(8n-7) { background: rgba(0,0,0,0.1); }
+            .uk-flex > :nth-child(8n-6) { background: rgba(0,0,0,0.15); }
+            .uk-flex > :nth-child(8n-5) { background: rgba(0,0,0,0.2); }
+            .uk-flex > :nth-child(8n-4) { background: rgba(0,0,0,0.25); }
+            .uk-flex > :nth-child(8n-3) { background: rgba(0,0,0,0.3); }
+            .uk-flex > :nth-child(8n-2) { background: rgba(0,0,0,0.35); }
+            .uk-flex > :nth-child(8n-1) { background: rgba(0,0,0,0.40); }
+            .uk-flex > :nth-child(8n) { background: rgba(0,0,0,0.45); }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Flex</h1>
+
+            <h2>Alignment and Justify</h2>
+
+            <h3>Stretch / Left (Default)</h3>
+
+            <div class="uk-flex">
+                <div class="uk-width-1-4">1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4<br>1-4</div>
+            </div>
+
+            <h3>Middle / Center</h3>
+
+            <div class="uk-flex uk-flex-middle uk-flex-center">
+                <div class="uk-width-1-4">1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4<br>1-4</div>
+            </div>
+
+            <h3>Bottom / Right</h3>
+
+            <div class="uk-flex uk-flex-bottom uk-flex-right">
+                <div class="uk-width-1-4">1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4<br>1-4</div>
+            </div>
+
+            <h3>Top / Left</h3>
+
+            <div class="uk-flex uk-flex-top">
+                <div class="uk-width-1-4">1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4<br>1-4</div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

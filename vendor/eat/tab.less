@@ -1,0 +1,54 @@
+//
+// Component: Tab
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tab-border:                                    @global-border;
+@tab-padding-horizontal:                        20px;
+@tab-padding-vertical:                          10px;
+@tab-hover-border:                              @global-border;
+@tab-color:                                     @global-color;
+@tab-hover-background:                          @global-light-background;
+@tab-hover-color:                               fade(@global-color, 80%);
+@tab-active-border:                             @global-border;
+@tab-active-background:                         @global-background;
+@tab-active-color:                              @global-dark-color;
+@tab-disabled-color:                            @global-muted-color;
+
+
+// Component
+// ========================================================================
+
+//
+// Items
+//
+
+.hook-tab() { font-weight: 400; }
+
+// Hover
+.hook-tab-hover() {}
+
+// Active
+.hook-tab-active() { font-weight: 600;}
+
+// Disabled
+.hook-tab-disabled() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-tab-misc() {
+
+	.uk-tab > li:nth-child(n+2) > a { margin-left: -1px; }
+    .uk-tab-flip > li:nth-child(n+2) > a { margin-right: -1px; }
+    .uk-tab-left > li:nth-child(n+2) > a { margin: -1px 0 0 0; }
+    .uk-tab-right > li:nth-child(n+2) > a { margin-top: -1px; }
+    .uk-tab-right > li:not(.uk-active) > a:hover,
+    .uk-tab-right > li:not(.uk-active) > a:focus { padding-left: 18px; }
+
+}

@@ -1,0 +1,83 @@
+//
+// Component: Progress
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@progress-margin-vertical:                      @global-margin;
+
+@progress-background:                           @global-light-background;
+
+@progress-bar-background:                       @global-primary-background;
+@progress-bar-font-size:                        round((@global-font-size * 0.85)); // 12px
+@progress-bar-color:                            @global-contrast-color;
+
+@progress-bar-success-background:               @global-success-background;
+@progress-bar-warning-background:               @global-warning-background;
+@progress-bar-danger-background:                @global-danger-background;
+
+//
+// New
+//
+
+@progress-border-radius: 						@global-border-radius;
+@progress-bar-box-shadow: 						rgba(0,0,0,0.06);
+
+@progress-bar-primary-gradient-top: 			@global-primary-gradient-top;
+@progress-bar-primary-gradient-bottom: 			@global-primary-gradient-bottom;
+
+@progress-bar-success-gradient-top: 			@global-success-gradient-top;
+@progress-bar-success-gradient-bottom: 			@global-success-gradient-bottom;
+
+@progress-bar-warning-gradient-top: 			@global-warning-gradient-top;
+@progress-bar-warning-gradient-bottom: 			@global-warning-gradient-bottom;
+
+@progress-bar-danger-gradient-top: 				@global-danger-gradient-top;
+@progress-bar-danger-gradient-bottom: 			@global-danger-gradient-bottom;
+
+
+// Component
+// ========================================================================
+
+.hook-progress() {
+	border-radius: @progress-border-radius;
+	box-shadow: inset 0 1px 1px @progress-bar-box-shadow;
+}
+
+
+// Sub-object: `progress-bar`
+// ========================================================================
+
+.hook-progress-bar() {
+    border: 1px solid rgba(0,0,0,0.07);
+    background-image: -webkit-linear-gradient(top, @progress-bar-primary-gradient-top, @progress-bar-primary-gradient-bottom);
+    background-image: linear-gradient(to bottom, @progress-bar-primary-gradient-top, @progress-bar-primary-gradient-bottom);
+}
+
+
+// Color modifiers
+// ========================================================================
+
+.hook-progress-bar-success() {
+    background-image: -webkit-linear-gradient(top, @progress-bar-success-gradient-top, @progress-bar-success-gradient-bottom);
+    background-image: linear-gradient(to bottom, @progress-bar-success-gradient-top, @progress-bar-success-gradient-bottom);
+}
+
+.hook-progress-bar-warning() {
+    background-image: -webkit-linear-gradient(top, @progress-bar-warning-gradient-top, @progress-bar-warning-gradient-bottom);
+    background-image: linear-gradient(to bottom, @progress-bar-warning-gradient-top, @progress-bar-warning-gradient-bottom);
+}
+
+.hook-progress-bar-danger() {
+    background-image: -webkit-linear-gradient(top, @progress-bar-danger-gradient-top, @progress-bar-danger-gradient-bottom);
+    background-image: linear-gradient(to bottom, @progress-bar-danger-gradient-top, @progress-bar-danger-gradient-bottom);
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-progress-misc() {}

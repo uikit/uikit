@@ -1,0 +1,43 @@
+//
+// Component: Icon
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@icon-button-width:                             26px;
+@icon-button-height:                            @icon-button-width;
+@icon-button-border-radius:                     0;
+@icon-button-background:                        rgba(0,0,0,0);
+@icon-button-font-size:                         18px;
+@icon-button-color:                             @global-dark-color;
+@icon-button-hover-background:                  rgba(0,0,0,0);
+
+@icon-button-hover-color:                       lighten(@global-dark-color, 30%);
+
+@icon-button-active-background:                 rgba(0,0,0,0);
+@icon-button-active-color:                      lighten(@global-dark-color, 50%);
+
+
+// Modifier: `uk-icon-button`
+// ========================================================================
+
+.hook-icon-button() {}
+
+// Hover
+.hook-icon-button-hover() {
+	background-position: 0 0;
+	-webkit-transition: color 0.1s ease-in-out;
+   	transition: color 0.1s ease-in-out;
+}
+
+// Active
+.hook-icon-button-active() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-icon-misc() {}

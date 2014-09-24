@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Thumbnail component - UIkit tests</title>
+
+        <script src="_test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Thumbnail</h1>
+
+            <h2>Image, anchor, figure</h2>
+
+            <div class="uk-margin" data-uk-margin>
+                <img class="uk-thumbnail" src="holder.js/200x100/auto" alt="">
+                <a class="uk-thumbnail" href="#"><img src="holder.js/200x100/auto" alt=""></a>
+                <figure class="uk-thumbnail"><img src="holder.js/200x100/auto" alt=""></figure>
+            </div>
+
+            <div class="uk-margin" data-uk-margin>
+                <div class="uk-thumbnail">
+                    <img src="holder.js/200x100/auto" alt="">
+                    <div class="uk-thumbnail-caption">Caption <code>&lt;div&gt;</code></div>
+                </div>
+                <a class="uk-thumbnail" href="#">
+                    <img src="holder.js/200x100/auto" alt="">
+                    <div class="uk-thumbnail-caption">Caption <code>&lt;a&gt;</code></div>
+                </a>
+                <figure class="uk-thumbnail">
+                    <img src="holder.js/200x100/auto" alt="">
+                    <figcaption class="uk-thumbnail-caption">Caption <code>&lt;figure&gt;</code></figcaption>
+                </figure>
+            </div>
+
+            <h2>Auto sizes</h2>
+
+            <div class="uk-margin" data-uk-margin>
+                <img class="uk-thumbnail uk-thumbnail-large" src="holder.js/600x400/auto" alt="">
+                <a class="uk-thumbnail uk-thumbnail-large" href="#"><img src="holder.js/600x400/auto" alt=""></a>
+            </div>
+            <div class="uk-margin" data-uk-margin>
+                <img class="uk-thumbnail uk-thumbnail-medium" src="holder.js/600x400/auto" alt="">
+                <a class="uk-thumbnail uk-thumbnail-medium" href="#"><img src="holder.js/600x400/auto" alt=""></a>
+            </div>
+            <div class="uk-margin" data-uk-margin>
+                <img class="uk-thumbnail uk-thumbnail-small" src="holder.js/600x400/auto" alt="">
+                <a class="uk-thumbnail uk-thumbnail-small" href="#"><img src="holder.js/600x400/auto" alt=""></a>
+            </div>
+            <div class="uk-margin" data-uk-margin>
+                <img class="uk-thumbnail uk-thumbnail-mini" src="holder.js/600x400/auto" alt="">
+                <a class="uk-thumbnail uk-thumbnail-mini" href="#"><img src="holder.js/600x400/auto" alt=""></a>
+            </div>
+
+            <h2>List of thumbnails as floating grid boxes</h2>
+
+            <ul class="uk-grid" data-uk-grid-margin>
+                <li class="uk-width-medium-1-2"><img class="uk-thumbnail" src="holder.js/600x400/auto" alt=""></li>
+                <li class="uk-width-medium-3-10"><img class="uk-thumbnail" src="holder.js/600x316/auto" alt=""></li>
+                <li class="uk-width-medium-1-5"><img class="uk-thumbnail" src="holder.js/600x500/auto" alt=""></li>
+                <li class="uk-width-medium-3-10"><img class="uk-thumbnail" src="holder.js/600x316/auto" alt=""></li>
+                <li class="uk-width-medium-1-5"><a class="uk-thumbnail" href="#"><img src="holder.js/600x500/auto" alt=""></a></li>
+                <li class="uk-width-medium-1-3"><a class="uk-thumbnail uk-thumbnail-expand" href="#"><img src="holder.js/100x50/auto" alt=""></a></li>
+                <li class="uk-width-medium-1-3"><a class="uk-thumbnail" href="#"><img src="holder.js/600x300/auto" alt=""></a></li>
+                <li class="uk-width-medium-1-3"><a class="uk-thumbnail" href="#"><img src="holder.js/600x300/auto" alt=""></a></li>
+            </ul>
+
+        </div>
+
+    </body>
+</html>

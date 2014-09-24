@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Grid component - UIkit tests</title>
+
+        <script src="_test.js"></script>
+        <style type="text/css">
+
+            .uk-width { width: 200px; }
+
+            [class*='uk-grid'] p { text-align: center; }
+
+            .uk-panel {
+                padding: 10px;
+                text-align: center;
+            }
+
+            :nth-child(8n-7) > .uk-panel { background: rgba(0,0,0,0.1); }
+            :nth-child(8n-6) > .uk-panel { background: rgba(0,0,0,0.15); }
+            :nth-child(8n-5) > .uk-panel { background: rgba(0,0,0,0.2); }
+            :nth-child(8n-4) > .uk-panel { background: rgba(0,0,0,0.25); }
+            :nth-child(8n-3) > .uk-panel { background: rgba(0,0,0,0.3); }
+            :nth-child(8n-2) > .uk-panel { background: rgba(0,0,0,0.35); }
+            :nth-child(8n-1) > .uk-panel { background: rgba(0,0,0,0.40); }
+            :nth-child(8n) > .uk-panel { background: rgba(0,0,0,0.45); }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h2>Grid</h2>
+
+            <div class="uk-clearfix">
+                <div class="uk-float-left">Float Test</div>
+            </div>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+            </div>
+
+            <h2>Grid Nested</h2>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                <div class="uk-width-1-2">
+                    <div class="uk-grid">
+                        <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                        <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                <div class="uk-width-medium-1-2">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                        <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                <div class="uk-width-large-1-2">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                        <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Grid Combined</h2>
+
+            <p>Using <code>uk-visible-*</code> and <code>uk-hidden-*</code> classes.</p>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-large-1-3 uk-width-medium-1-2"><div class="uk-panel">M-1-2 L-1-3</div></div>
+                <div class="uk-width-large-1-3 uk-hidden-medium"><div class="uk-panel">hidden-medium</div></div>
+                <div class="uk-width-large-1-3 uk-width-medium-1-2"><div class="uk-panel">M-1-2 L-1-3</div></div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3 uk-width-1-2"><div class="uk-panel">1-2 M-1-3</div></div>
+                <div class="uk-width-medium-1-3 uk-hidden-small"><div class="uk-panel">hidden-small</div></div>
+                <div class="uk-width-medium-1-3 uk-width-1-2"><div class="uk-panel">1-2 M-1-3</div></div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1 uk-visible-small"><div class="uk-panel">1-1 visible-small</div></div>
+                <div class="uk-width-medium-1-1 uk-visible-medium"><div class="uk-panel">M-1-1 visible-medium</div></div>
+                <div class="uk-width-large-1-1 uk-visible-large"><div class="uk-panel">L-1-1 visible-large</div></div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-1-1 uk-hidden-large"><div class="uk-panel">1-1 hidden-large</div></div>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+            </div>
+
+            <h2>Push/Pull</h2>
+
+            <p>Works only with <code>uk-width-medium-*</code></p>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3 uk-push-2-3"><div class="uk-panel">First</div></div>
+                <div class="uk-width-medium-2-3 uk-pull-1-3"><div class="uk-panel">Last</div></div>
+            </div>
+
+            <h2>More Complexity</h2>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-4"><div class="uk-panel">Here is some multiline text for testing purpose.</div></div>
+                <div class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></div>
+                <div class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-3"><div class="uk-panel">M-1-3</div></div>
+                        <div class="uk-width-medium-1-3"><div class="uk-panel">M-1-3</div></div>
+                        <div class="uk-width-medium-1-3"><div class="uk-panel">M-1-3</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">M-1-3</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">M-1-3</div></div>
+                <div class="uk-width-medium-1-3">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></div>
+                        <div class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></div>
+                        <div class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></div>
+                        <div class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            </div>
+
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2 uk-push-1-4">
+
+                    <div class="uk-grid">
+                        <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                        <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                    </div>
+
+                    <p>Some paragraph</p>
+                    <p>Another paragraph</p>
+
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                        <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                    </div>
+
+                </div>
+                <div class="uk-width-1-2 uk-width-medium-1-4 uk-pull-1-2">
+
+                    <div class="uk-panel">Panel</div>
+                    <div class="uk-panel">Panel</div>
+                    <div class="uk-panel">Panel</div>
+                    <div class="uk-panel">Panel</div>
+
+                </div>
+                <div class="uk-width-1-2 uk-width-medium-1-4">
+
+                    <div class="uk-panel">Panel</div>
+                    <div class="uk-panel">Panel</div>
+                    <div class="uk-panel">Panel</div>
+                    <div class="uk-panel">Panel</div>
+
+                </div>
+            </div>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-2">
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                        <div class="uk-width-1-4"><div class="uk-panel">1-4</div></div>
+                    </div>
+                </div>
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            </div>
+
+            <h2>Multi-row</h2>
+
+            <p>This grid contains multiple boxes which floats into multiple rows.</p>
+
+            <ul class="uk-grid" data-uk-grid-margin>
+                <li class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></li>
+                <li class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></li>
+                <li class="uk-width-medium-1-4"><div class="uk-panel">M-1-4</div></li>
+                <li class="uk-width-medium-1-5"><div class="uk-panel">M-1-5</div></li>
+                <li class="uk-width-medium-1-5"><div class="uk-panel">M-1-5</div></li>
+                <li class="uk-width-medium-3-5"><div class="uk-panel">M-3-5</div></li>
+            </ul>
+
+            <p>Custom pixel widths</p>
+
+            <ul class="uk-grid" data-uk-grid-margin>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+                <li class="uk-width"><div class="uk-panel">Custom</div></li>
+            </ul>
+
+            <h2>Small gutter</h2>
+
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            </div>
+
+            <div class="uk-grid uk-grid-small" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+            </div>
+
+            <div class="uk-grid uk-grid-small" data-uk-grid-margin>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+            </div>
+
+            <h2>Divider</h2>
+
+            <div class="uk-grid uk-grid-divider">
+                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                <div class="uk-width-1-2">
+                    <div class="uk-grid uk-grid-divider">
+                        <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                        <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="uk-grid-divider">
+
+            <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                <div class="uk-width-medium-1-2">
+                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                        <div class="uk-width-medium-1-2"><div class="uk-panel">M-1-2</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="uk-grid-divider">
+
+            <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                <div class="uk-width-large-1-2">
+                    <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                        <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                        <div class="uk-width-large-1-2"><div class="uk-panel">L-1-2</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="uk-grid-divider">
+
+            <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                <div class="uk-width-large-1-3 uk-width-medium-1-2"><div class="uk-panel">M-1-2 L-1-3</div></div>
+                <div class="uk-width-large-1-3 uk-hidden-medium"><div class="uk-panel">hidden-medium</div></div>
+                <div class="uk-width-large-1-3 uk-width-medium-1-2"><div class="uk-panel">M-1-2 L-1-3</div></div>
+            </div>
+
+            <hr class="uk-grid-divider">
+
+            <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3 uk-width-1-2"><div class="uk-panel">1-2 M-1-3</div></div>
+                <div class="uk-width-medium-1-3 uk-hidden-small"><div class="uk-panel">hidden-small</div></div>
+                <div class="uk-width-medium-1-3 uk-width-1-2"><div class="uk-panel">1-2 M-1-3</div></div>
+            </div>
+
+            <hr class="uk-grid-divider">
+
+            <div class="uk-grid uk-grid-divider" data-uk-grid-margin>
+                <div class="uk-width-1-1 uk-visible-small"><div class="uk-panel">100 visible-small</div></div>
+                <div class="uk-width-medium-1-1 uk-visible-medium"><div class="uk-panel">M-1-1 visible-medium</div></div>
+                <div class="uk-width-large-1-1 uk-visible-large"><div class="uk-panel">L-1-1 visible-large</div></div>
+            </div>
+
+            <h2>Even widths</h2>
+
+            <ul class="uk-grid uk-grid-width-1-2 uk-grid-width-small-1-3 uk-grid-width-medium-1-4 uk-grid-width-large-1-5 uk-grid-width-xlarge-1-6" data-uk-grid-margin>
+                <li><div class="uk-panel">1-2<br>S-1-3<br>M-1-4<br>L-1-5<br>XL-1-6<div></li>
+                <li><div class="uk-panel">1-2<br>S-1-3<br>M-1-4<br>L-1-5<br>XL-1-6<div></li>
+                <li><div class="uk-panel">1-2<br>S-1-3<br>M-1-4<br>L-1-5<br>XL-1-6<div></li>
+                <li><div class="uk-panel">1-2<br>S-1-3<br>M-1-4<br>L-1-5<br>XL-1-6<div></li>
+                <li><div class="uk-panel">1-2<br>S-1-3<br>M-1-4<br>L-1-5<br>XL-1-6<div></li>
+                <li><div class="uk-panel">1-2<br>S-1-3<br>M-1-4<br>L-1-5<br>XL-1-6<div></li>
+            </ul>
+
+            <h2>Auto-match column heights</h2>
+
+            <div class="uk-grid uk-grid-divider" data-uk-grid-match>
+                <div class="uk-width-medium-1-3">Lorem ipsum dolor sit amet.</div>
+                <div class="uk-width-medium-1-3">Lorem ipsum dolor sit amet.</div>
+                <div class="uk-width-medium-1-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+            </div>
+
+            <h3>With target selector</h3>
+
+            <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div></div>
+            </div>
+
+            <h3>Match only within rows</h3>
+
+            <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel', row:true}" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+            </div>
+
+            <ul class="uk-grid uk-grid-width-1-2 uk-grid-width-small-1-3 uk-grid-width-medium-1-4 uk-grid-width-large-1-5 uk-grid-width-xlarge-1-6" data-uk-grid-match="{target:'> li > .uk-panel', row:true}" data-uk-grid-margin>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet.<div></li>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur.<div></li>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit.<div></li>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet.<div></li>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.<div></li>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit.<div></li>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet.<div></li>
+                <li><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur.<div></li>
+            </ul>
+
+        </div>
+
+    </body>
+</html>

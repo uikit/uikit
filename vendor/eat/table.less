@@ -1,0 +1,62 @@
+//
+// Component: Table
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@table-margin-vertical:                         @global-margin;
+@table-padding-vertical:                        10px;
+@table-padding-horizontal:                      10px;
+
+@table-striped-background:                      @global-light-background;
+
+@table-caption-color:                           @global-muted-color;
+@table-caption-font-size:                       round((@global-font-size * 0.85)); // 12px
+
+@table-hover-background: 						@global-light-background;
+
+//
+// New
+//
+
+@table-border:                                 	@global-border;
+@table-heaing-color: 							@global-dark-color;
+@table-heaing-text-transform: 					@global-text-transform;
+
+
+// Component
+// ========================================================================
+
+.hook-table() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-table-misc() {
+
+	.uk-table thead th {
+		border: 1px solid @table-border;
+		color: @table-heaing-color;
+		text-transform: @table-heaing-text-transform;
+		text-align: center;
+	}
+
+	.uk-table thead th:first-child,
+	.uk-table td:first-child  {
+		border-left: none;
+		text-align: left;
+	}
+	.uk-table thead th:last-child { border-right: none; }
+
+	.uk-table td {
+		position: relative;
+		border-left: 1px solid @table-border;
+		vertical-align: middle;
+		text-align: center;
+	}
+
+}

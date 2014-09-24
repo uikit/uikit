@@ -1,0 +1,102 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:900,700,400,300';
+
+/* theme: Eat */
+
+
+//
+// Typography
+//
+
+@global-primary-color: #C5526C;
+@global-link-color: #ec5c6e;
+@global-link-hover-color: #d6485a;
+@global-success-color: #86bb5d;
+@global-warning-color: #ebc934;
+@global-danger-color: #e24b45;
+
+//
+// Backgrounds
+//
+
+@global-primary-gradient-top: #ec5c6e;
+@global-primary-gradient-bottom: #db4a58;
+@global-success-gradient-top: #b7e198;
+@global-success-gradient-bottom: #93c66c;
+@global-warning-gradient-top: #ffcb5c;
+@global-warning-gradient-bottom: #f0c261;
+@global-danger-gradient-top: #f3615b;
+@global-danger-gradient-bottom: #e24b45;
+
+//
+// Panel
+//
+
+@panel-box-primary-background: #eb6273;
+
+
+// Theme Variables
+// ==========================================================================
+
+@theme_global-fullscreen-image: 'salmon';
+@theme_title-line-bottom-border: rgba(255,255,255,0.1);
+
+
+//
+// Bottom
+//
+
+@theme_bottom-background: #2A2A2A;
+@theme_bottom-border: darken(@theme_bottom-background, 50%);
+@theme_panel-header-opacity: 0.5;
+
+.tm-bottom {
+
+    a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) h1,
+    .uk-panel:not([class*='uk-panel-box']) h2,
+    .uk-panel:not([class*='uk-panel-box']) h3,
+    .uk-panel:not([class*='uk-panel-box']) h4,
+    .uk-panel:not([class*='uk-panel-box']) h5,
+    .uk-panel:not([class*='uk-panel-box']) h6,
+    .uk-panel:not([class*='uk-panel-box']) .uk-panel-title,
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]):hover { color: #fff; }
+
+    a:not([class]):hover,
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]):hover { color: #909397; }
+
+    .uk-panel:not([class*='uk-panel-box']),
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]) { color: #B1B1B1; }
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+
+        background: fade(@form-background, 5%);
+        border-color: fade(@form-border, 0%);
+
+        &:focus {
+            background: fade(@form-background, 10%);
+            border-color: fade(@form-border, 0%);
+        }
+
+
+    }
+
+
+
+}

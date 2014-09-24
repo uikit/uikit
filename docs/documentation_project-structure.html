@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="css/docs.css">
         <link rel="stylesheet" href="../vendor/highlight/highlight.css">
         <script src="../vendor/jquery.js"></script>
-        <script src="../dist/js/uikit.min.js"></script>
+        <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
     </head>
@@ -129,26 +129,26 @@
 
                             <h2 id="automate-preprocessing"><a href="#automate-preprocessing" class="uk-link-reset">Automate preprocessing</a></h2>
 
-                            <p>To automate the process of compiling LESS files into CSS, we use <a href="http://gruntjs.com/">Grunt</a>, a <a href="http://nodejs.org/">Node.js</a> based task runner, that watches the source directory you are working on. Whenever you save changes in the source files, Grunt automatically compiles all files into one single CSS file.</p>
+                            <p>To automate the process of compiling LESS files into CSS, we use <a href="http://gulpjs.com/">Gulp</a>, a <a href="http://nodejs.org/">Node.js</a> based task runner, that watches the source directory you are working on. Whenever you save changes in the source files, Gulp automatically compiles all files into one single CSS file.</p>
 
-                            <p>Firstly, you need to install Node and setup the <code>grunt.cli</code> as a global install. Finally, switch to the UIkit directory and install the Node dependencies.</p>
+                            <p>Firstly, you need to install Node and setup the <code>gulp</code> as a global install. Finally, switch to the UIkit directory and install the Node dependencies.</p>
 
-<pre><code>npm install -g grunt-cli
+<pre><code>npm install -g gulp
 
 cd uikit
 npm install</code></pre>
 
-                            <p>Now you can run Grunt to build and modify the release. The built version of UIkit will be put in the <code>/dist</code> directory.</p>
+                            <p>Now you can run Gulp to build and modify the release. The built version of UIkit will be put in the <code>/dist</code> directory.</p>
 
-<pre><code>grunt</code></pre>
+<pre><code>gulp</code></pre>
 
-                            <p>You can also set Grunt to watch your working directory, so it will preprocess your files automatically everytime you hit save.</p>
+                            <p>You can also set Gulp to watch your working directory, so it will preprocess your files automatically everytime you hit save.</p>
 
-<pre><code>grunt watch</code></pre>
+<pre><code>gulp watch</code></pre>
 
                             <p>Load new themes and styles into the customizer.</p>
 
-<pre><code>grunt indexthemes</code></pre>
+<pre><code>gulp indexthemes</code></pre>
 
                             <hr class="uk-article-divider">
 

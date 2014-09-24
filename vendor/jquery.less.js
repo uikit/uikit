@@ -124,6 +124,7 @@
                             return $.ajax({url: url, cache: false}).done(function(data) {
                                 imports[url] = rewrite(data.replace(/\/\*(?:[^*]|\*+[^\/*])*\*+\/|^((?!:).)?\/\/.*/g, ''), url);
                             }).fail(function(xhr, status, error) {
+                                console.log(url);
                                 imports[url] = "/* Can't resolve import '" + url + "' (" + status + ", " + error + ") */";
                             });
                         }

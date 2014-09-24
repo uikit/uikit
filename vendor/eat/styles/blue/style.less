@@ -1,0 +1,181 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:900,700,400,300';
+
+/* theme: Eat */
+
+
+//
+// Typography
+//
+
+@global-primary-color: #3A4C62;
+@global-link-color: #4a6d99;
+@global-link-hover-color: #274d7c;
+@global-warning-color: #cdac78;
+@global-danger-color: #e44b39;
+
+//
+// Backgrounds
+//
+
+@global-primary-gradient-top: #556A85;
+@global-primary-gradient-bottom: #556A85;
+@global-success-gradient-top: #65b862;
+@global-success-gradient-bottom: #54a052;
+@global-warning-gradient-top: #e1c493;
+@global-warning-gradient-bottom: #d6b480;
+@global-danger-gradient-top: #eb5346;
+@global-danger-gradient-bottom: #df4530;
+
+//
+// Panel
+//
+
+@panel-box-primary-background: #35485e;
+
+
+//
+// Base
+//
+
+@base-mark-color: darken(@global-link-color, 15%);
+@base-mark-background: fade(@global-primary-background, 20%);
+
+//
+// Navbar
+//
+
+@navbar-border: @navbar-background;
+@navbar-background: #364555;
+@navbar-nav-hover-background: @navbar-background;
+@navbar-nav-color: fade(@global-contrast-color, 40%);
+@navbar-nav-hover-color: @global-contrast-color;
+@navbar-nav-active-color: @global-contrast-color;
+@navbar-toggle-color: fade(@global-contrast-color, 50%);
+@navbar-toggle-hover-color: @global-contrast-color;
+
+//
+// Nav
+//
+
+@nav-navbar-color: fade(@global-contrast-color, 40%);
+@nav-navbar-hover-background: rgba(255,255,255, 0.08);
+@nav-navbar-hover-color: @global-contrast-color;
+@nav-navbar-header-color: fade(@global-contrast-color, 80%);
+@nav-search-color: fade(@global-contrast-color, 40%);
+@nav-search-active-color: @global-contrast-color;
+@nav-search-active-background: rgba(255,255,255, 0.08);
+@nav-search-header-color: fade(@global-contrast-color, 80%);
+@nav-navbar-nested-hover-color: @global-contrast-color;
+@nav-dropdown-nested-hover-color: @global-contrast-color;
+
+//
+// Dropdown
+//
+
+@dropdown-navbar-background: #364555;
+@dropdown-navbar-color: #818A94;
+@dropdown-navbar-nav-sub-border: rgba(255,255,255,0);
+@dropdown-search-background: #364555;
+@dropdown-search-color: #818A94;
+
+//
+// Search
+//
+
+@search-icon-color: fade(@global-contrast-color, 40%);
+@search-placeholder-color: fade(@global-contrast-color, 40%);
+@search-close-color: fade(@global-contrast-color, 40%);
+@nav-search-divider-border: fade(@global-contrast-color, 40%);
+
+
+// Theme Variables
+// ==========================================================================
+
+@theme_global-body-style: 'blue';
+@theme_fullscreen-border-top: #364555;
+@theme_global-fullscreen-image: 'blue';
+@theme_footer-color: @global-contrast-color;
+@theme_footer-link-color: @global-contrast-color;
+@theme_footer-link-hover-color: fade(@global-contrast-color, 50%);
+@theme_title-line-bottom-border: rgba(255,255,255,0.1);
+
+
+.tm-headerbar {
+
+    .uk-link-muted,
+    .uk-link-muted a { color: #fff; }
+
+    .uk-link-muted:hover,
+    .uk-link-muted a:hover { color: rgba(255,255,255,0.5); }
+
+    p { color: #fff;}
+}
+
+//
+// Bottom
+//
+
+@theme_bottom-background: #364555;
+@theme_bottom-border: darken(@theme_bottom-background, 50%);
+@theme_panel-header-opacity: 0.5;
+
+.tm-bottom {
+
+    a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) h1,
+    .uk-panel:not([class*='uk-panel-box']) h2,
+    .uk-panel:not([class*='uk-panel-box']) h3,
+    .uk-panel:not([class*='uk-panel-box']) h4,
+    .uk-panel:not([class*='uk-panel-box']) h5,
+    .uk-panel:not([class*='uk-panel-box']) h6,
+    .uk-panel:not([class*='uk-panel-box']) .uk-panel-title,
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]):hover { color: #fff; }
+
+    a:not([class]):hover,
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]):hover { color: #909397; }
+
+    .uk-panel:not([class*='uk-panel-box']),
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]) { color: #fff; }
+
+    .uk-icon-button { color: @global-contrast-color; }
+    .uk-icon-button:hover,
+    .uk-icon-button:focus { color: fade(@global-contrast-color, 50%); }
+    .uk-icon-button:active { color: fade(@global-contrast-color, 30%);}
+
+}
+
+.tm-bottom,
+.uk-dropdown-navbar {
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+
+        background: fade(@form-background, 10%);
+        border-color: fade(@form-border, 0%);
+
+        &:focus {
+            background: fade(@form-background, 20%);
+            border-color: fade(@form-border, 0%);
+        }
+
+    }
+
+}
+
+.tm-toolbar .uk-subnav > li > a { color: @global-contrast-color; }

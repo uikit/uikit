@@ -1,0 +1,103 @@
+//
+// Component: Alert
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@alert-margin-vertical:                         @global-margin;
+@alert-background:                              @global-light-background;
+@alert-color:                                   @global-link-hover-color;
+@alert-success-background:                      @global-light-background;
+@alert-success-color:                           @global-success-color;
+@alert-warning-background:                      @global-light-background;
+@alert-warning-color:                           @global-warning-color;
+@alert-danger-background:                       @global-light-background;
+@alert-danger-color:                            @global-danger-color;
+
+//
+// New
+//
+
+@alert-font-weight: 							400;
+@alert-border:                                  @global-border;
+@alert-border-radius:                           @global-border-radius;
+@alert-text-transform: 							@global-text-transform;
+
+// Component
+// ========================================================================
+
+.hook-alert() {
+	position: relative;
+    border: 1px solid @alert-border;
+    border-radius: 0 @alert-border-radius @alert-border-radius 0;
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.03);
+    text-transform: @alert-text-transform;
+	font-weight: @alert-font-weight;
+
+	h2 + p { text-transform: none; }
+
+    &:before {
+	    content: "";
+		display: block;
+		position: absolute;
+		top: -1px;
+		left: -3px;
+		width: 3px;
+		height: 100%;
+	    border: 1px solid rgba(0, 0, 0, 0.06);
+        background: @global-primary-background;
+		background-image: -webkit-linear-gradient(top, @global-primary-gradient-top, @global-primary-gradient-bottom);
+	    background-image: linear-gradient(to bottom, @global-primary-gradient-top, @global-primary-gradient-bottom);
+    }
+}
+
+
+// Modifier: `uk-alert-success`
+// ========================================================================
+
+.hook-alert-success() {
+
+    &:before {
+        background: @global-success-background;
+		background-image: -webkit-linear-gradient(top, @global-success-gradient-top, @global-success-gradient-bottom);
+	    background-image: linear-gradient(to bottom, @global-success-gradient-top, @global-success-gradient-bottom);
+	}
+}
+
+
+// Modifier: `uk-alert-warning`
+// ========================================================================
+
+.hook-alert-warning() {
+
+    &:before {
+        background: @global-warning-background;
+		background-image: -webkit-linear-gradient(top, @global-warning-gradient-top, @global-warning-gradient-bottom);
+	    background-image: linear-gradient(to bottom, @global-warning-gradient-top, @global-warning-gradient-bottom);
+	}
+}
+
+
+// Modifier: `uk-alert-danger`
+// ========================================================================
+
+.hook-alert-danger() {
+
+    &:before {
+        background: @global-danger-background;
+		background-image: -webkit-linear-gradient(top, @global-danger-gradient-top, @global-danger-gradient-bottom);
+	    background-image: linear-gradient(to bottom, @global-danger-gradient-top, @global-danger-gradient-bottom);
+	}
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-alert-misc() {
+
+
+}

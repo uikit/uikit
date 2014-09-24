@@ -1,0 +1,125 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:900,700,400,300';
+@import 'url":"https://fonts.googleapis.com/css?family=Roboto+Slab:700,400,300';
+
+/* theme: Eat */
+
+//
+// Article
+//
+
+@article-title-font-weight: normal;
+
+//
+// Typography
+//
+
+@global-primary-color: #86BC5A;
+@global-link-color: #88be60;
+@global-link-hover-color: #6d9f48;
+@global-success-color: #99be63;
+@global-warning-color: #eace31;
+@global-danger-color: #d95a37;
+
+//
+// Backgrounds
+//
+
+@global-primary-gradient-top: #88be60;
+@global-primary-gradient-bottom: #7cac56;
+@global-success-gradient-top: #add377;
+@global-success-gradient-bottom: #99be63;
+@global-warning-gradient-top: #eedb6e;
+@global-warning-gradient-bottom: #e6cd41;
+@global-danger-gradient-top: #ed6a47;
+@global-danger-gradient-bottom: #d95a37;
+
+//
+// Base
+//
+
+@base-heading-font-family: 'Roboto Slab';
+@base-heading-font-weight: normal;
+
+//
+// Panel
+//
+
+@panel-title-font-weight: normal;
+@panel-box-primary-background: #86bd5b;
+
+
+// Theme Variables
+// ==========================================================================
+
+@theme_global-fullscreen-image: 'green';
+@theme_teaser-line-length: 180px;
+@theme_teaser-small-line-length: 228px;
+@theme_title-line-bottom-border: rgba(255,255,255,0.1);
+
+//
+// Bottom
+//
+
+@theme_bottom-background: #2A2A2A;
+@theme_bottom-border: darken(@theme_bottom-background, 50%);
+@theme_panel-header-opacity: 0.5;
+
+.tm-bottom {
+
+    a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]),
+    .uk-panel:not([class*='uk-panel-box']) h1,
+    .uk-panel:not([class*='uk-panel-box']) h2,
+    .uk-panel:not([class*='uk-panel-box']) h3,
+    .uk-panel:not([class*='uk-panel-box']) h4,
+    .uk-panel:not([class*='uk-panel-box']) h5,
+    .uk-panel:not([class*='uk-panel-box']) h6,
+    .uk-panel:not([class*='uk-panel-box']) .uk-panel-title,
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]):hover { color: #fff; }
+
+    a:not([class]):hover,
+    .uk-panel:not([class*='uk-panel-box']) a:not([class]):hover { color: #909397; }
+
+    .uk-panel:not([class*='uk-panel-box']),
+    .uk-panel:not([class*='uk-panel-box']) li a:not([class]) { color: #cccccc; }
+
+    .uk-icon-button { color: @global-contrast-color; }
+    .uk-icon-button:hover,
+    .uk-icon-button:focus { color: fade(@global-contrast-color, 50%); }
+    .uk-icon-button:active { color: fade(@global-contrast-color, 30%);}
+
+}
+
+.tm-bottom,
+.uk-dropdown-navbar {
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+
+        background: fade(@form-background, 5%);
+        border-color: fade(@form-border, 0%);
+
+        &:focus {
+            background: fade(@form-background, 10%);
+            border-color: fade(@form-border, 0%);
+        }
+
+
+    }
+}
+

@@ -1,0 +1,79 @@
+//
+// Component: Off-canvas
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@offcanvas-background:                          rgba(0,0,0,0.5);
+@offcanvas-z-index:                             @global-z-index;
+
+@offcanvas-bar-background:                      #2A2A2A;
+@offcanvas-panel-link-color:                    fade(@global-contrast-color, 50%);
+@offcanvas-panel-title-color:                   @offcanvas-panel-link-color;
+
+@offcanvas-search-background:                   darken(@offcanvas-bar-background, 5%);
+@offcanvas-search-color:                        @offcanvas-panel-link-color;
+@offcanvas-search-placeholder-color:            @offcanvas-panel-color;
+@offcanvas-search-icon-color:                   @offcanvas-panel-color;
+
+
+// Component
+// ========================================================================
+
+.hook-offcanvas() {}
+
+
+// Sub-object `uk-offcanvas-bar`
+// ========================================================================
+
+.hook-offcanvas-bar() {
+
+    .uk-search:before { left: 5px; }
+
+}
+
+
+// Panel in offcanvas
+// ========================================================================
+
+.hook-offcanvas-panel() {}
+
+
+// Search in offcanvas
+// ========================================================================
+
+.hook-offcanvas-search-field() {
+    padding: 0 10px 0 35px !important;
+    border-radius: 50px;
+    box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.1),
+                0 1px 0px 0px rgba(255, 255, 255, 0.07);
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-offcanvas-misc() {
+
+    .uk-offcanvas-bar:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 1px;
+        box-shadow: 0 0 5px 2px rgba(0,0,0,0.3);
+    }
+
+    .uk-offcanvas-bar-flip:after {
+        right: auto;
+        left: 0;
+        width: 1px;
+        box-shadow: 0 0 5px 2px rgba(0,0,0,0.3);
+    }
+
+}

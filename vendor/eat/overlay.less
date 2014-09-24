@@ -1,0 +1,74 @@
+//
+// Component: Overlay
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@overlay-area-background:                       rgba(0,0,0,0.7);
+@overlay-area-icon-color:                       @global-contrast-color;
+
+@overlay-caption-padding:                       @global-margin;
+@overlay-caption-color:                         @global-contrast-color;
+
+
+// Sub-object `uk-overlay-area`
+// ========================================================================
+
+.hook-overlay-area() {
+	box-shadow: inset 0 0 16px rgba(0,0,0,0.2);
+	margin: -1px;
+}
+
+.hook-overlay-area-icon() {
+	top: 55%;
+	-webkit-transition: all .45s ease-out;
+	transition: all .45s ease-out;
+	opacity: 0;
+}
+
+
+/* Sub-object `uk-overlay-area-content`
+ ========================================================================== */
+
+.hook-overlay-area-content() {
+
+	display: block;
+	position: absolute;
+	top: 45%;
+	-webkit-transition: all .45s ease-out;
+	transition: all .45s ease-out;
+	opacity: 0;
+
+	h1, h2, h3, h4, h5, h6 { color: @global-contrast-color; }
+}
+
+
+// Sub-object `uk-overlay-caption`
+// ========================================================================
+
+.hook-overlay-caption() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-overlay-misc() {
+
+	.uk-overlay-toggle:hover {
+
+		.uk-overlay-area-content {
+			top: 40%;
+			opacity: 0.9;
+		}
+
+		.uk-overlay-area:before {
+			top: 50%;
+			opacity: 0.9;
+		}
+
+	}
+
+}

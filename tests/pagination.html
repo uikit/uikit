@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pagination component - UIkit tests</title>
+
+        <script src="_test.js"></script>
+
+        <script src="../src/pagination/pagination.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Pagination</h1>
+
+            <ul class="uk-pagination" data-uk-margin>
+                <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                <li><a href="#"><i class="uk-icon-angle-double-left"></i></a></li>
+                <li><a href="#">1</a></li>
+                <li><span>...</span></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li class="uk-active"><span>7</span></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li><span>...</span></li>
+                <li><a href="#">19</a></li>
+                <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                <li class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>
+            </ul>
+
+            <ul class="uk-pagination uk-pagination-left" data-uk-margin>
+                <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                <li><a href="#"><i class="uk-icon-angle-double-left"></i></a></li>
+                <li><a href="#">1</a></li>
+                <li><span>...</span></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li class="uk-active"><span>7</span></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li><span>...</span></li>
+                <li><a href="#">19</a></li>
+                <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                <li class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>
+            </ul>
+
+            <ul class="uk-pagination uk-pagination-right" data-uk-margin>
+                <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+                <li><a href="#"><i class="uk-icon-angle-double-left"></i></a></li>
+                <li><a href="#">1</a></li>
+                <li><span>...</span></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li class="uk-active"><span>7</span></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li><span>...</span></li>
+                <li><a href="#">19</a></li>
+                <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+                <li class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>
+            </ul>
+
+            <ul class="uk-pagination">
+                <li><a href="#"><i class="uk-icon-angle-double-left"></i> Previous</a></li>
+                <li><a href="#">Next <i class="uk-icon-angle-double-right"></i></a></li>
+            </ul>
+
+            <h2>Previous/Next</h2>
+
+            <ul class="uk-pagination">
+                <li class="uk-pagination-previous"><a href="#"><i class="uk-icon-angle-double-left"></i> Previous</a></li>
+                <li class="uk-pagination-next"><a href="#">Next <i class="uk-icon-angle-double-right"></i></a></li>
+            </ul>
+
+            <ul class="uk-pagination">
+                <li class="uk-pagination-previous uk-disabled"><span><i class="uk-icon-angle-double-left"></i> Previous</span></li>
+                <li class="uk-pagination-next uk-disabled"><span>Next <i class="uk-icon-angle-double-right"></i></span></li>
+            </ul>
+
+            <h2>Javascript</h2>
+
+            <div class="uk-container uk-container-center">
+
+                <h1>Pagination</h1>
+
+                <ul class="uk-pagination" data-uk-pagination="{pages:100}"></ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

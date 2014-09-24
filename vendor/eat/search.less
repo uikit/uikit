@@ -1,0 +1,162 @@
+//
+// Component: Search
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@search-width:                                  150px;
+@search-focus-width:                            @search-width;
+@search-height:                                 @global-height;
+@search-color:                                  @search-placeholder-color;
+@search-placeholder-color:                      @global-muted-color;
+
+@search-icon-size:                              18px;
+@search-icon-color:                             @global-muted-color;
+@search-placeholder-color: 						@global-muted-color;
+@search-close-color: 							@global-muted-color;
+@search-close-icon-loading:                     "\f021";
+
+@dropdown-search-background:                    @global-background;
+@dropdown-search-color:                         @global-color;
+@dropdown-search-navbar-margin-top:             12px;
+@dropdown-search-navbar-margin-right:           -15px;
+
+@nav-search-color:                              @global-dark-color;
+@nav-search-active-background:                  #FAFAFA;
+@nav-search-active-color:                       @global-dark-color;
+@nav-search-header-color:                       fade(@global-dark-color, 80%);
+@nav-search-divider-border:                     fade(@global-border, 50%);
+@nav-search-nested-color:                       fade(@global-dark-color, 50%);
+@nav-search-nested-hover-color:                 @global-link-color;
+
+@offcanvas-search-background:                   rgba(24,24,24,0.62);
+
+//
+// New
+//
+
+@nav-search-padding-vertical:                   15px;
+@nav-search-hover-color:                        #f5f5f5;
+@search-field-text-transform: 					@global-text-transform;
+@search-field-font-weight:                      300;
+@search-field-font-size:                        14px;
+@search-placeholder-focus-color: 				fade(@search-placeholder-color, 50%);
+
+@dropdown-search-nav-sub-background:            rgba(255,255,255,0.05);
+@dropdown-search-nav-sub-border:                rgba(255,255,255,0.08);
+
+
+// Component
+// ========================================================================
+
+.hook-search() {}
+
+.hook-search-icon() {}
+
+
+// Sub-object `uk-search-field`
+// ========================================================================
+
+.hook-search-field() {
+	text-transform: @search-field-text-transform;
+	font-weight: @search-field-font-weight;
+    font-size: @search-field-font-size;
+}
+
+.hook-search-field-focus() {
+
+	&.uk-search-field:-ms-input-placeholder { color: @search-placeholder-focus-color; }
+	&.uk-search-field::-moz-placeholder { color: @search-placeholder-focus-color; }
+	&.uk-search-field::-webkit-input-placeholder { color: @search-placeholder-focus-color; }
+
+}
+
+
+// Sub-object `uk-search-close`
+// ========================================================================
+
+.hook-search-close() {}
+
+
+// Modifier: `uk-dropdown-search`
+// ========================================================================
+
+.hook-dropdown-search() {
+
+    box-shadow: 1px 0 0 rgba(47,49,53,0.05),
+                -1px 0 0 rgba(47,49,53,0.05),
+                0 1px 0 rgba(47,49,53,0.05);
+
+    ul.uk-nav-sub {
+
+        border-top-color: @dropdown-navbar-nav-sub-border;
+        border-bottom: 1px solid @dropdown-navbar-nav-sub-border;
+    }
+
+}
+
+
+// Modifier `uk-nav-search`
+// ========================================================================
+
+//
+// Items
+//
+
+.hook-nav-search() {
+
+    padding: @nav-search-padding-vertical @nav-padding-horizontal;
+
+    &:hover { color: @nav-search-hover-color; }
+
+}
+
+// Active
+.hook-nav-search-active() {}
+
+//
+// Sub-object: `uk-nav-header`
+//
+
+.hook-nav-search-header() {}
+
+//
+// Sub-object: `uk-nav-divider`
+//
+
+.hook-nav-search-divider() {}
+
+
+// Search in offcanvas
+// ========================================================================
+
+.hook-offcanvas-search-field() {
+    padding: 0 10px 0 35px !important;
+    border-radius: 50px;
+    box-shadow: inset 0 1px 0px 0px rgba(0, 0, 0, 0.1),
+                0 1px 0px 0px rgba(255, 255, 255, 0.07);
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-search-misc() {
+
+
+    /* Hover */
+    .uk-nav-search > li > a:hover {
+        -webkit-transition: all .2s linear;
+        transition: all .2s linear;
+    }
+
+    // Search in offcanvas
+    // ========================================================================
+
+    .uk-offcanvas-bar .uk-search:before { left: 5px; }
+
+    #offcanvas .uk-panel > .uk-search { margin: 0; }
+}

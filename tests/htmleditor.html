@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>HTML editor - UIkit tests</title>
+        <link rel="stylesheet" href="../vendor/codemirror/codemirror.css">
+        <link rel="stylesheet" href="../vendor/codemirror/show-hint.css">
+
+        <script src="_test.js"></script>
+        <script src="../vendor/codemirror/codemirror.js"></script>
+        <script src="../vendor/marked.js"></script>
+        <script src="../src/htmleditor/htmleditor.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>HTML editor</h1>
+
+            <div class="uk-htmleditor" data-mode="split">
+                <div class="uk-htmleditor-navbar">
+
+                    <ul class="uk-htmleditor-navbar-nav">
+                        <li><a><i class="uk-icon-bold"></i></a></li>
+                        <li><a><i class="uk-icon-italic"></i></a></li>
+                        <li><a><i class="uk-icon-strikethrough"></i></a></li>
+                        <li><a><i class="uk-icon-link"></i></a></li>
+                        <li><a><i class="uk-icon-picture-o"></i></a></li>
+                        <li><a><i class="uk-icon-quote-right"></i></a></li>
+                        <li><a><i class="uk-icon-list-ul"></i></a></li>
+                        <li><a><i class="uk-icon-list-ol"></i></a></li>
+                    </ul>
+
+                    <div class="uk-htmleditor-navbar-flip">
+                        <ul class="uk-htmleditor-navbar-nav">
+                            <li class="uk-htmleditor-button-code"><a>HTML</a></li>
+                            <li class="uk-htmleditor-button-preview"><a>Preview</a></li>
+                            <li><a><i class="uk-icon-expand"></i></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="uk-htmleditor-content">
+
+                    <div class="uk-htmleditor-code">
+                        <div>
+                            Lorum ipsum
+                        </div>
+                    </div>
+
+                    <div class="uk-htmleditor-preview">
+                        <div>
+                            Lorum ipsum
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h3>Split mode</h3>
+            <textarea data-uk-htmleditor placeholder="Enter code..."></textarea>
+
+            <h3>Tab mode</h3>
+            <textarea data-uk-htmleditor="{mode:'tab'}" placeholder="Enter code..."></textarea>
+
+            <h3>Split mode with markdown rendering</h3>
+            <textarea data-uk-htmleditor="{markdown:true}">**test**</textarea>
+
+        </div>
+
+    </body>
+</html>

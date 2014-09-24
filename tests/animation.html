@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Animation component - UIkit tests</title>
+
+        <script src="_test.js"></script>
+        <style type="text/css">
+
+            [class*='uk-animation-'] {
+                -webkit-animation-delay: 2s;
+                animation-delay: 2s;
+            }
+
+            .test-bg {
+                width: 300px;
+                height: 200px;
+                background-image: url(http://placekitten.com/400/300);
+            }
+
+            .test-overflow { overflow: hidden; }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Animation</h1>
+
+            <h2>Fade, scale and shake</h2>
+
+            <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-fade">
+                        <h3 class="uk-panel-title">Fade</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-scale-up">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-scale-down">
+                        <h3 class="uk-panel-title">Scale down</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-shake">
+                        <h3 class="uk-panel-title">Shake</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Slide</h2>
+
+            <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-slide-left">
+                        <h3 class="uk-panel-title">Left</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-slide-top">
+                        <h3 class="uk-panel-title">Top</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-slide-bottom">
+                        <h3 class="uk-panel-title">Bottom</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-slide-right">
+                        <h3 class="uk-panel-title">Right</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Reverse</h2>
+
+            <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-fade uk-animation-reverse">
+                        <h3 class="uk-panel-title">Fade</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-scale-up uk-animation-reverse">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-slide-bottom uk-animation-reverse">
+                        <h3 class="uk-panel-title">Slide bottom</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-animation-slide-right uk-animation-reverse">
+                        <h3 class="uk-panel-title">Slide right</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Kenburns</h2>
+
+            <div class="test-overflow">
+                <div class="uk-animation-scale uk-animation-reverse uk-animation-10 uk-animation-middle-right uk-cover-background test-bg"></div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

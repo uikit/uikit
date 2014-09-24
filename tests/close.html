@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Close component - UIkit tests</title>
+
+        <script src="_test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Close</h1>
+
+            <ul class="uk-list uk-list-space">
+                <li>Close as a element: <a href="#" class="uk-close"></a></li>
+                <li>Close as button element: <button class="uk-close"></button></li>
+                <li>Close alt as a element: <a href="#" class="uk-close uk-close-alt"></a></li>
+                <li>Close alt as button element: <button class="uk-close uk-close-alt"></button></li>
+            </ul>
+
+            <h2>Alert</h2>
+
+            <div class="uk-alert" data-uk-alert>
+                <a href="#" class="uk-alert-close uk-close"></a>
+                <p>This is a alert using an a element as close button.</p>
+            </div>
+
+            <h2>Modal</h2>
+
+            <p>
+                <button class="uk-button" data-uk-modal="{target:'#modal'}">Button</button>
+            </p>
+
+            <div id="modal" class="uk-modal">
+                <div class="uk-modal-dialog uk-modal-dialog-frameless">
+                    <button type="button" class="uk-modal-close uk-close uk-close-alt"></button>
+                    <img src="holder.js/600x400/auto" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>
