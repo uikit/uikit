@@ -98,19 +98,11 @@
                                             <td>Contains the very UIkit documentation you are looking at right now.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/src/less</code></td>
-                                            <td>Contains all LESS component files.</td>
+                                            <td><code>/src</code></td>
+                                            <td>Contains all LESS and JavaScript component files.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>/src/js</code></td>
-                                            <td>Contains all JavaScript component files.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>/src/fonts</code></td>
-                                            <td>Contains fonts used in UIkit.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>/src/tests</code></td>
+                                            <td><code>/tests</code></td>
                                             <td>Contains test files of all components.</td>
                                         </tr>
                                         <tr>
@@ -138,13 +130,13 @@
 cd uikit
 npm install</code></pre>
 
-                            <p>Now you can run Gulp to build and modify the release. The built version of UIkit will be put in the <code>/dist</code> directory.</p>
+                            <p>Now you can run Gulp to build and modify the release. The built version of UIkit will be put in the <code>/dist</code> directory. Pass a theme name parameter to only build the specified theme.</p>
 
-<pre><code>gulp</code></pre>
+<pre><code>gulp [-t themename]</code></pre>
 
-                            <p>You can also set Gulp to watch your working directory, so it will preprocess your files automatically everytime you hit save.</p>
+                            <p>You can also set Gulp to watch your working directory, so it will preprocess your files automatically everytime you hit save. Pass the theme parameter to watch only a specified theme to speed up the build process.</p>
 
-<pre><code>gulp watch</code></pre>
+<pre><code>gulp watch [-t themename]</code></pre>
 
                             <p>Load new themes and styles into the customizer.</p>
 
