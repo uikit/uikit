@@ -334,7 +334,7 @@ gulp.task('build-docs', function(done) {
 
         gulp.src(corejs).pipe(concat('uikit.min.js')).pipe(uglify()).pipe(gulp.dest('./docs/js')).on('end', function(){
             done();
-        })
+        });
     });
 });
 

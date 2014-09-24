@@ -38,16 +38,19 @@ npm install
 Run `gulp` to lint, build and minify the release.
 
 ```
-gulp
+gulp [-t themename]
 ```
 
-The built version of UIkit will be put in the `/dist` subdirectory.
+The built version of UIkit will be put in the `/dist` subdirectory. Pass a theme name parameter to only build the specified theme.
 
-Enter the following, so Gulp will watch your working directory and compile LESS files automatically everytime you hit save. After running <code>gulp watch</code> you can also visit http://localhost:3000/tests/ to see the impact of your changes in realtime.
+### Browsersync
 
 ```
-gulp watch
+gulp watch [-t themename]
 ```
+
+After running `gulp watch` a new browser instance will open, pointing to the uikit folder - http://localhost:3000/. The browser window will reload anytime you modify a source file. To speed up the build and reload process you can pass a theme name parameter to only watch the specified theme.
+
 
 ## Versioning
 
