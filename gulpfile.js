@@ -390,13 +390,12 @@ var pythonList = function(classes) {
     var result = [];
 
     classes.forEach(function(cls, i) {
+
         // wrap class name in double quotes, add comma (except for last element)
         result.push(['"', cls, '"', (i !== classes.length-1 ? ", " : "")].join(''));
 
         // break lines every n elements
-        if ((i !== 0) && (i%20 === 0)) {
-            result.push("\n    ");
-        }
+        if ((i !== 0) && (i%20 === 0)) result.push("\n    ");
     });
 
     return "[" + result.join("") + "]";
@@ -410,6 +409,7 @@ gulp.task('sublime-css', function(done) {
     gulp.src(['dist/**/*.min.css', '!dist/core/**/*', 'dist/uikit.css'])
         .pipe(concat('sublime_tmp_css.py'))
         .pipe(tap(function(file) {
+
             var css         = file.contents.toString(),
                 classesList = css.match(/\.(uk-[a-z\d\-]+)/g),
                 classesSet  = {},
@@ -428,7 +428,7 @@ gulp.task('sublime-css', function(done) {
 
             // FIXME: same file as data-uk-* result. how to merge stream results?
             fs.writeFileSync("dist/sublime/tmp_css.py", pystring);
-
+            
             done();
         }));
 });
@@ -441,6 +441,7 @@ gulp.task('sublime-js', function(done) {
     gulp.src(['dist/**/*.min.js', '!dist/core/**/*', 'dist/uikit.js'])
         .pipe(concat('sublime_tmp_js.py'))
         .pipe(tap(function(file) {
+
             var js       = file.contents.toString(),
                 dataList = js.match(/data-uk-[a-z\d\-]+/g),
                 dataSet  = {};
@@ -458,53 +459,52 @@ gulp.task('sublime-js', function(done) {
 
 });
 
-    gulp.task('sublime-snippets',  function(done) {
-        var template = "<snippet>\n\
-    <content><![CDATA[{content}]]></content>\n\
-    <tabTrigger>{trigger}</tabTrigger>\n\
-    <scope>text.html</scope>\n\
-    <description>{description}</description>\n\
-</snippet>";
+gulp.task('sublime-snippets',  function(done) {
 
-        mkdirp.sync("dist/sublime/snippets");
+    var template = ["<snippet>",
+                        "<content><![CDATA[{content}]]></content>",
+                        "<tabTrigger>{trigger}</tabTrigger>",
+                        "<scope>text.html</scope>",
+                        "<description>{description}</description>",
+                    "</snippet>"].join("\n");
 
-        gulp.src("dist/**/*.less")
-            .pipe(tap(function(file) {
+    mkdirp.sync("dist/sublime/snippets");
 
-                var less = file.contents.toString(),
-                    regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
-                    match = null;
+    gulp.src("dist/**/*.less")
+        .pipe(tap(function(file) {
 
-                while (match = regex.exec(less)) {
-                    var name = match[1], // i.e. uk-grid
-                        name = name.replace(/^\s+|\s+$/g, ''), // trim
-                        content = match[2],
-                        content = content.replace(/(\n?)(\s*)\/\/ ?/g,'$1$2'), // remove comment slashes from lines
-                        description = ["UIkit", name, "component"].join(" ");
+            var less = file.contents.toString(),
+                regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
+                match = null, name, content, description, snippet, i;
 
-                    // place tab indices
-                    var i = 1; // tab index, start with 1
-                    content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
-                                    .replace(/(<[^>]+>)(<\/[^>]+>)/g, '$1${index}$2') // inside empty elements
-                                    .replace(/\{index\}/g, function() { return i++; });
+            while (match = regex.exec(less)) {
 
-                    var snippet = template.replace("{content}", content)
-                                    .replace("{trigger}", "uikit")
-                                    .replace("{description}", description);
+                name        = match[1].trim(); // i.e. uk-grid + trim
+                content     = match[2].replace(/(\n?)(\s*)\/\/ ?/g,'$1$2'); // remove comment slashes from lines
+                description = ["UIkit", name, "component"].join(" ");
 
-                    fs.writeFileSync('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
+                // place tab indices
+                i = 1; // tab index, start with 1
+                content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
+                                 .replace(/(<[^>]+>)(<\/[^>]+>)/g, '$1${index}$2') // inside empty elements
+                                 .replace(/\{index\}/g, function() { return i++; });
 
-                    // move to next match in loop
-                    regex.lastIndex = match.index+1;
-                }
+                snippet = template.replace("{content}", content)
+                                  .replace("{trigger}", "uikit")
+                                  .replace("{description}", description);
 
-            }));
+                fs.writeFileSync('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
 
-        done();
+                // move to next match in loop
+                regex.lastIndex = match.index + 1;
+            }
+        }));
 
-    });
+    done();
+});
 
 gulp.task('sublime', ['sublime-css', 'sublime-js', 'sublime-snippets'], function(done) {
+
     var outfile = 'sublime_completions.py';
 
     gulp.src("dist/sublime/tmp_*.py")
