@@ -9,7 +9,11 @@ UIkit is a lightweight and modular front-end framework for developing fast and p
 
 ## Getting started
 
-Download the [latest release](https://github.com/uikit/uikit/releases/latest) or clone the repo, `git clone git://github.com/uikit/uikit.git`.
+You have following options to get UIkit:
+
+- Download the [latest release](https://github.com/uikit/uikit/releases/latest)
+- Clone the repo, `git clone git://github.com/uikit/uikit.git`.
+- Install with [Bower](https://github.com/uikit/uikit/releases/latest): ```bower install uikit/bower-uikit```
 
 ## Developers
 
