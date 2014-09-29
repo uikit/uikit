@@ -9,17 +9,22 @@
 
         // Misc
         '../dist/autocomplete/autocomplete{style}.css',
-        '../dist/nestable/nestable{style}.css',
-        '../dist/sortable/sortable{style}.css',
+        '../dist/cover/cover{style}.css',
         '../dist/datepicker/datepicker{style}.css',
-        '../dist/notify/notify{style}.css',
         '../dist/dotnav/dotnav{style}.css',
         '../dist/flex/flex{style}.css',
         '../dist/form-advanced/form-advanced{style}.css',
-        '../dist/form-select/form-select{style}.css',
         '../dist/form-file/form-file{style}.css',
         '../dist/form-password/form-password{style}.css',
+        '../dist/form-select/form-select{style}.css',
         '../dist/htmleditor/htmleditor{style}.css',
+        '../dist/nestable/nestable{style}.css',
+        '../dist/notify/notify{style}.css',
+        '../dist/placeholder/placeholder{style}.css',
+        '../dist/search/search{style}.css',
+        '../dist/slidenav/slidenav{style}.css',
+        '../dist/sortable/sortable{style}.css',
+        '../dist/sticky/sticky{style}.css',
         '../dist/upload/upload{style}.css'
     ];
 
