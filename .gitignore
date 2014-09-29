@@ -1,10 +1,10 @@
-/dist
 /custom
-/tools
-/node_modules
+/dist
 /docs/fonts/ProximaNova-Light-webfont.*
 /docs/fonts/ProximaNova-Reg-webfont.*
+/node_modules
 /showcase
+/tools
 *~
 *.diff
 *.patch
