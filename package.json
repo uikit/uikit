@@ -19,7 +19,9 @@
       "url": "https://github.com/uikit/uikit/blob/master/LICENSE.md"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+    "node-promise": "^0.5.10"
+  },
   "devDependencies": {
     "browser-sync": "^1.3.7",
     "del": "^0.1.2",
@@ -38,6 +40,7 @@
     "gulp-zip": "latest",
     "gulp-tap": "latest",
     "mkdirp": "latest",
+    "promise": "latest",
     "run-sequence": "^0.3.6"
   },
   "keywords": []

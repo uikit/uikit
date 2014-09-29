@@ -2,7 +2,7 @@ var pkg         = require('./package.json'),
     fs          = require('fs'),
     path        = require('path'),
     glob        = require('glob'),
-    mkdirp      = require('mkdirp')
+    mkdirp      = require('mkdirp'),
     gulp        = require('gulp'),
     gutil       = require('gulp-util'),
     concat      = require('gulp-concat'),
@@ -16,7 +16,8 @@ var pkg         = require('./package.json'),
     watch       = require('gulp-watch'),
     tap         = require('gulp-tap'),
     runSequence = require('run-sequence'),
-    browserSync = require('browser-sync');
+    browserSync = require('browser-sync'),
+    Promise     = require('promise');
 
 
 var themes = (function(){
@@ -124,7 +125,6 @@ gulp.task('dist-core-minify', function(done) {
 
         // minify js
         gulp.src(['!./dist/core/*/*.js', './dist/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist')).on('end', function(){
-
             done();
         });
     });
@@ -171,30 +171,33 @@ gulp.task('sass', ['sass-convert'], function(done) {
 
         var re     = /\/\/ @mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g,
             mixins = [],
-            count  = files.length;
+            promises = [];
 
         files.forEach(function(file) {
 
-            fs.readFile(file, {encoding: 'utf-8'},function read(err, content) {
+            promises.push(new Promise(function(resolve, reject){
 
-                if (err) throw err;
 
-                var matches;
+                fs.readFile(file, {encoding: 'utf-8'},function read(err, content) {
 
-                while(matches = re.exec(content)) {
-                    mixins.push(matches[0].replace(/\/\/\s*/, ''));
-                }
+                    if (err) throw err;
 
-                count--;
+                    var matches;
 
-                if (!count) {
+                    while(matches = re.exec(content)) {
+                        mixins.push(matches[0].replace(/\/\/\s*/, ''));
+                    }
 
-                    fs.writeFile('./dist/uikit-mixins.scss', mixins.join('\n'), function (err) {
-                      if (err) throw err;
+                    resolve();
+                });
 
-                      done();
-                    });
-                }
+            }));
+        });
+
+        Promise.all(promises).then(function(){
+            fs.writeFile('./dist/uikit-mixins.scss', mixins.join('\n'), function (err) {
+              if (err) throw err;
+              done();
             });
         });
     });
@@ -206,32 +209,32 @@ gulp.task('sass', ['sass-convert'], function(done) {
 
 gulp.task('dist-variables', ['dist-core-move'], function(done) {
 
-    var regexp  = /(@[\w\-]+\s*:(.*);?)/g,
-        counter, variables = [];
+    var regexp  = /(@[\w\-]+\s*:(.*);?)/g, variables = [], promises = [];
 
     glob('./src/**/*.less', function (err, files) {
 
-        counter = files.length;
-
         files.forEach(function(file, index){
 
-            fs.readFile(file, "utf-8", function(err, data) {
+            promises.push(new Promise(function(resolve, reject) {
 
-                var matches;
+                fs.readFile(file, "utf-8", function(err, data) {
 
-                while(matches = regexp.exec(data)) {
-                    variables.push(matches[0]);
-                }
+                    var matches;
 
-                counter = counter - 1;
+                    while(matches = regexp.exec(data)) {
+                        variables.push(matches[0]);
+                    }
 
-                if (!counter) {
+                    resolve();
+                });
+            }));
+        });
 
-                    fs.writeFile('./dist/uikit-variables.less', variables.join('\n'), function (err) {
-                      if (err) throw err;
-                      done();
-                    });
-                }
+        Promise.all(promises).then(function(){
+
+            fs.writeFile('./dist/uikit-variables.less', variables.join('\n'), function (err) {
+              if (err) throw err;
+              done();
             });
         });
     });
@@ -239,12 +242,9 @@ gulp.task('dist-variables', ['dist-core-move'], function(done) {
 
 gulp.task('dist-themes', ['dist-variables'], function(done) {
 
-    // compile themes
-    var counter, lessfiles = [];
+    var promises = [];
 
     glob('dist/*/*.less', function(globerr, files){
-
-        counter = 1;
 
         files.forEach(function(file) {
 
@@ -258,70 +258,71 @@ gulp.task('dist-themes', ['dist-variables'], function(done) {
                 if (theme.path.match(/custom/)) return;
 
                 var tplpath = [cpath, compname+'.'+theme.name+'.less'].join('/'),
-                    csspath = [cpath, compname+'.'+theme.name+'.css'].join('/');
+                    csspath = [cpath, compname+'.'+theme.name+'.css'].join('/'),
 
-                content = [
-                    '@import "../uikit-variables.less";',
-                    '@import "'+component+'";'
-                ];
+                    promise = new Promise(function(resolve, reject){
 
-                if (fs.existsSync(theme.path+'/variables.less')) {
-                    content.push('@import "../../'+theme.path+'/variables.less";');
-                }
+                        content = [
+                            '@import "../uikit-variables.less";',
+                            '@import "'+component+'";'
+                        ];
 
-                if (fs.existsSync(theme.path+'/'+component)) {
-                    content.push('@import "../../'+theme.path+'/'+component+'";');
-                }
+                        if (fs.existsSync(theme.path+'/variables.less')) {
+                            content.push('@import "../../'+theme.path+'/variables.less";');
+                        }
 
-                fs.writeFileSync(tplpath, content.join('\n'));
+                        if (fs.existsSync(theme.path+'/'+component)) {
+                            content.push('@import "../../'+theme.path+'/'+component+'";');
+                        }
 
-                lessfiles.push(tplpath);
-            });
+                        fs.writeFile(tplpath, content.join('\n'), function(){
 
-        });
+                            var csspath = tplpath.replace('.less', '.css');
 
-        counter = lessfiles.length;
+                            gulp.src(tplpath).pipe(less()).pipe(gulp.dest(path.dirname(tplpath))).on('end', function(){
 
-        lessfiles.forEach(function(tplpath){
+                                fs.unlink(tplpath, function(){
 
-            var csspath = tplpath.replace('.less', '.css');
+                                    if (csspath.match(/\.default\.css/)) {
+                                        fs.rename(csspath, csspath.replace('.default.css', '.css'), resolve);
+                                    } else {
+                                        resolve();
+                                    }
+                                });
+                            });
+                        });
+                    });
 
-            gulp.src(tplpath).pipe(less()).pipe(gulp.dest(path.dirname(tplpath))).on('end', function(){
-
-                fs.unlinkSync(tplpath);
-
-                if (csspath.match(/\.default\.css/)) {
-                    fs.renameSync(csspath, csspath.replace('.default.css', '.css'));
-                }
-
-                counter = counter - 1;
-
-                if (!counter) done();
+                promises.push(promise);
             });
         });
+
+        Promise.all(promises).then(function(){ done(); });
     });
 });
 
 gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
-    var counter = themes.length;
+    var promises = [];
 
     themes.forEach(function(theme) {
 
-        gulp.src(theme.uikit).pipe(less()).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist')).on('end', function(){
+        promises.push(new Promise(function(resolve, reject){
 
-            if (theme.name == 'default') {
-                fs.renameSync('./dist/uikit.default.css', './dist/uikit.css');
-            }
+            gulp.src(theme.uikit).pipe(less()).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist')).on('end', function(){
 
-            counter = counter - 1;
+                if (theme.name == 'default') {
+                    fs.renameSync('./dist/uikit.default.css', './dist/uikit.css');
+                }
 
-            if (!counter) {
+                resolve();
+            });
+        }));
+    });
 
-                gulp.src(corejs).pipe(concat('uikit.js')).pipe(gulp.dest('./dist')).on('end', function(){
-                    done();
-                });
-            }
+    Promise.all(promises).then(function(){
+        gulp.src(corejs).pipe(concat('uikit.js')).pipe(gulp.dest('./dist')).on('end', function(){
+            done();
         });
     });
 });
@@ -435,11 +436,9 @@ gulp.task('sublime-css', function(done) {
 // data attributes: data-uk-*
 gulp.task('sublime-js', function(done) {
 
-    mkdirp.sync("dist/sublime");
+    mkdirp("dist/sublime", function(){
 
-    gulp.src(['dist/**/*.min.js', '!dist/core/**/*', 'dist/uikit.js'])
-        .pipe(concat('sublime_tmp_js.py'))
-        .pipe(tap(function(file) {
+        gulp.src(['dist/**/*.min.js', '!dist/core/**/*', 'dist/uikit.js']).pipe(concat('sublime_tmp_js.py')).pipe(tap(function(file) {
 
             var js       = file.contents.toString(),
                 dataList = js.match(/data-uk-[a-z\d\-]+/g),
@@ -447,15 +446,14 @@ gulp.task('sublime-js', function(done) {
 
             dataList.forEach(function(s) { dataSet[s] = true; });
 
-            dataList  = Object.keys(dataSet);
-            pystring = 'uikit_data = ' + pythonList(dataList) + '\n';
+            pystring = 'uikit_data = ' + pythonList(Object.keys(dataSet)) + '\n';
 
             // FIXME: same file as uk-* result. how to merge stream results?
-            fs.writeFileSync("dist/sublime/tmp_js.py", pystring);
-
-            done();
+            fs.writeFile("dist/sublime/tmp_js.py", pystring, function(){
+                done();
+            });
         }));
-
+    });
 });
 
 gulp.task('sublime-snippets',  function(done) {
@@ -467,10 +465,9 @@ gulp.task('sublime-snippets',  function(done) {
                         "<description>{description}</description>",
                     "</snippet>"].join("\n");
 
-    mkdirp.sync("dist/sublime/snippets");
+    mkdirp("dist/sublime/snippets", function(){
 
-    gulp.src("dist/**/*.less")
-        .pipe(tap(function(file) {
+        gulp.src("dist/**/*.less").pipe(tap(function(file) {
 
             var less = file.contents.toString(),
                 regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
@@ -492,12 +489,14 @@ gulp.task('sublime-snippets',  function(done) {
                                   .replace("{trigger}", "uikit")
                                   .replace("{description}", description);
 
-                fs.writeFileSync('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
+                fs.writeFile('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
 
                 // move to next match in loop
                 regex.lastIndex = match.index + 1;
             }
         }));
+
+    });
 
     done();
 });
