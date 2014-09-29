@@ -2,12 +2,15 @@
 
     "use strict";
 
+    var Animations;
+
     UI.component('switcher', {
 
         defaults: {
             connect : false,
             toggle  : ">*",
-            active  : 0
+            active  : 0,
+            animation: false
         },
 
         init: function() {
@@ -62,7 +65,7 @@
 
             tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
 
-            var $this = this, active = tab;
+            var $this = this, active = tab, animation = Animations[this.options.animation] || Animations['none'];
 
             if (active.hasClass("uk-disabled")) return;
 
@@ -78,14 +81,51 @@
                 }
 
                 this.connect.each(function() {
-                    $(this).children().removeClass("uk-active").eq($this.index).addClass("uk-active");
-                    UI.Utils.checkDisplay(this);
+
+                    var container = $(this),
+                        children  = container.children(),
+                        current   = children.filter('.uk-active'),
+                        next      = children.eq($this.index);
+
+                        animation.apply($this, [current, next]).then(function(){
+
+                            current.removeClass("uk-active");
+                            next.addClass("uk-active");
+                            UI.Utils.checkDisplay(next);
+                        });
                 });
             }
 
             this.trigger("uk.switcher.show", [active]);
         }
     });
+
+
+    Animations = {
+
+        'none': function() {
+
+            var d = $.Deferred();
+            d.resolve();
+            return d.promise();
+        },
+
+        'fade': function(current, next, dir) {
+
+            var d = $.Deferred();
+
+            if (current) {
+                current.removeClass('uk-active');
+            }
+
+            next.fadeIn(300, function(){
+                next.css({opacity:'', display:''});
+                d.resolve();
+            });
+
+            return d.promise();
+        }
+    };
 
 
     // init code

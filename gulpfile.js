@@ -8,7 +8,6 @@ var pkg         = require('./package.json'),
     concat      = require('gulp-concat'),
     rename      = require('gulp-rename'),
     rimraf      = require('gulp-rimraf'),
-    ignore      = require('gulp-ignore'),
     replace     = require('gulp-replace'),
     header      = require('gulp-header'),
     less        = require('gulp-less'),
@@ -428,7 +427,7 @@ gulp.task('sublime-css', function(done) {
 
             // FIXME: same file as data-uk-* result. how to merge stream results?
             fs.writeFileSync("dist/sublime/tmp_css.py", pystring);
-            
+
             done();
         }));
 });
