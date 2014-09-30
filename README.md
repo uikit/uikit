@@ -4,16 +4,16 @@ UIkit is a lightweight and modular front-end framework for developing fast and p
 
 * [Homepage](http://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
-* [Issues](http://github.com/uikit/uikit/issues) - Report bugs
 * [Google+](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
+* [Issues](http://github.com/uikit/uikit/issues) - Report bugs
 
 ## Getting started
 
-Download the [latest release](https://github.com/uikit/uikit/zipball/master) or clone the repo, `git clone git://github.com/uikit/uikit.git`.
+You have following options to get UIkit:
 
-## Bug tracker
-
-Report bugs on [UIkit Issues](https://github.com/uikit/uikit/issues?state=open).
+- Download the [latest release](https://github.com/uikit/uikit/releases/latest)
+- Clone the repo, `git clone git://github.com/uikit/uikit.git`.
+- Install with [Bower](http://bower.io): ```bower install uikit```
 
 ## Developers
 
@@ -51,6 +51,11 @@ gulp watch [-t themename]
 
 After running `gulp watch` a new browser instance will open, pointing to the uikit folder - `http://localhost:3000/`. The browser window will reload anytime you modify a source file. To speed up the build and reload process you can pass a theme name parameter to only watch the specified theme.
 
+## Contributing
+
+UIkit follows the [GitFlow branching model](http://nvie.com/posts/a-successful-git-branching-model). The ```master``` branch always reflects a production-ready state while the latest development is taking place in the ```develop``` branch.
+
+Each time you want to work on a fix or a new feature, create a new branch based on the ```develop``` branch: ```git checkout -b BRANCH_NAME develop```. Only pull requests to the ```develop``` branch will be merged.
 
 ## Versioning
 
