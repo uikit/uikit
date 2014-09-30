@@ -7,7 +7,7 @@
         // uikit core
         '../dist/uikit{style}.css',
 
-        // Misc
+        // components
         '../dist/autocomplete/autocomplete{style}.css',
         '../dist/cover/cover{style}.css',
         '../dist/datepicker/datepicker{style}.css',
