@@ -6,6 +6,7 @@ var pkg         = require('./package.json'),
     gulp        = require('gulp'),
     gutil       = require('gulp-util'),
     concat      = require('gulp-concat'),
+    ignore      = require('gulp-ignore'),
     rename      = require('gulp-rename'),
     rimraf      = require('gulp-rimraf'),
     replace     = require('gulp-replace'),
@@ -28,7 +29,7 @@ var themes = (function(){
 
         var themefolders = ["themes"];
 
-        if (gutil.env.all || theme) {
+        if (gutil.env.all || gutil.env.a || theme) {
             themefolders.push("custom");
         }
 
@@ -175,7 +176,10 @@ gulp.task('dist-bower-file', function(done) {
 gulp.task('build', ['dist-clean'], function (done) {
 
     runSequence('dist', function(){
-        gulp.src('dist/**/*').pipe(zip('uikit-'+pkg.version+'.zip')).pipe(gulp.dest('dist')).on('end', done);
+        gulp.src(['./dist/**/*', '!./dist/core/*/*.js'])
+            .pipe(ignore.exclude('*.less'))
+            .pipe(ignore.exclude('*.scss'))
+            .pipe(zip('uikit-'+pkg.version+'.zip')).pipe(gulp.dest('dist')).on('end', done);
     });
 });
 
