@@ -114,11 +114,16 @@ gulp.task('watch', ['browser-sync'], function(done) {
 /*
  * dist core tasks
  * ---------------------------------------------------------*/
-gulp.task('dist-clean', function() {
-    return gulp.src('dist', {read: false}).pipe(rimraf());
+gulp.task('dist-clean', function(done) {
+
+    if (gutil.env.c || gutil.env.clean) {
+        return gulp.src('dist', {read: false}).pipe(rimraf());
+    } else {
+        done();
+    }
 });
 
-gulp.task('dist-core-move', function() {
+gulp.task('dist-core-move', ['dist-clean'], function() {
     return gulp.src(['./src/**']).pipe(gulp.dest('./dist'));
 });
 
