@@ -130,10 +130,10 @@ gulp.task('dist-core-move', ['dist-clean'], function() {
 gulp.task('dist-core-minify', function(done) {
 
     // minify css
-    gulp.src('./dist/**/*.css').pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist')).on('end', function(){
+    gulp.src(['!./dist/**/*.min.css', './dist/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist')).on('end', function(){
 
         // minify js
-        gulp.src(['!./dist/core/*/*.js', './dist/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist')).on('end', function(){
+        gulp.src(['!./dist/**/*.min.js', '!./dist/core/*/*.js', './dist/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist')).on('end', function(){
             done();
         });
     });
