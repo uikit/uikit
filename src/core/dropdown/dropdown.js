@@ -28,7 +28,7 @@
             this.boundary  = $(this.options.boundary);
             this.flipped   = this.dropdown.hasClass('uk-dropdown-flip');
 
-            if(!this.boundary.length) {
+            if (!this.boundary.length) {
                 this.boundary = UI.$win;
             }
 
@@ -54,8 +54,7 @@
                     } else {
 
                         if ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length) {
-                            $this.element.removeClass("uk-open");
-                            active = false;
+                            $this.hide();
                         }
                     }
                 });
@@ -81,12 +80,7 @@
                     }
 
                     $this.remainIdle = setTimeout(function() {
-
-                        $this.element.removeClass("uk-open");
-                        $this.remainIdle = false;
-
-                        if (active && active[0] == $this.element[0]) active = false;
-
+                        $this.hide();
                     }, $this.options.remaintime);
 
                 }).on("click", function(e){
@@ -126,6 +120,13 @@
             this.registerOuterClick();
         },
 
+        hide: function() {
+            this.element.removeClass("uk-open");
+            this.remainIdle = false;
+
+            if (active && active[0] == this.element[0]) active = false;
+        },
+
         registerOuterClick: function(){
 
             var $this = this;
@@ -133,6 +134,7 @@
             UI.$doc.off("click.outer.dropdown");
 
             setTimeout(function() {
+
                 UI.$doc.on("click.outer.dropdown", function(e) {
 
                     if (hoverIdle) {
@@ -142,7 +144,7 @@
                     var $target = $(e.target);
 
                     if (active && active[0] == $this.element[0] && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
-                        active.removeClass("uk-open");
+                        $this.hide();
                         UI.$doc.off("click.outer.dropdown");
                     }
                 });
@@ -151,7 +153,7 @@
 
         checkDimensions: function() {
 
-            if(!this.dropdown.length) return;
+            if (!this.dropdown.length) return;
 
             if (this.justified && this.justified.length) {
                 this.dropdown.css("min-width", "");
@@ -235,6 +237,7 @@
 
     // init code
     UI.$doc.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+
         var ele = $(this);
 
         if (!ele.data("dropdown")) {
