@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Project structure - UIkit documentation</title>
+        <title>Working with LESS &amp; Sass sources - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,7 +24,7 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
-                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
                     <li><a href="components.html">Components</a></li>
                     <li><a href="addons.html">Add-ons</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
@@ -51,12 +51,12 @@
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
                             <li class="uk-nav-header">Developers</li>
-                            <li class="uk-active"><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_less-sass.html">LESS / Sass sources</a></li>
+                            <li class="uk-active"><a href="documentation_less-sass.html">LESS / Sass sources</a></li>
 
                         </ul>
 
@@ -65,95 +65,54 @@
 
                         <article class="uk-article">
 
-                            <h1>Project structure</h1>
+                            <h1>Working LESS &amp; Sass sources</h1>
 
-                            <p class="uk-article-lead">Dig into the core of UIkit and learn what it's all about.</p>
+                            <p class="uk-article-lead">Import LESS / Sass files in your project to create custom builds.</p>
 
-                            <h2 id="github"><a href="#github" class="uk-link-reset">GitHub</a></h2>
+                            <p>
+                                The great thing about UIkit is that you can easily integrate its source files in your project to keep the your custom project workflow for building assets ect.
+                            </p>
 
-                            <p>UIkit is hosted on <a href="https://github.com/uikit/uikit">GitHub</a> and licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>. You're welcome to use it for all your personal and commercial projects. To access all source files, just clone the repository on <a href="https://github.com/uikit/uikit">GitHub</a> or download the latest version.</p>
+                            <h3>Get the UIkit distribution</h3>
 
-                            <p><a class="uk-button uk-button-large uk-button-primary" href="https://github.com/uikit/uikit/archive/master.zip">Download source</a></p>
+                            <ol>
+                                <li>Via <a href="http://bower.io/">Bower</a> <code>bower install uikit</code></li>
+                                <li>Or get the Package from <a href="https://github.com/uikit/bower-uikit/">Github</a></li>
+                            </ol>
 
-                            <hr class="uk-article-divider">
+                            <p>
+                                You'll find both, LESS files and Sass files side by side for each component:
+                            </p>
 
-                            <h2 id="file-structure"><a href="#file-structure" class="uk-link-reset">File structure</a></h2>
+<pre><code>/uikit
+    autocomplete/
+        autocomplete.less
+        autocomplete.scss
 
-                            <p>UIkit is built on <a href="http://lesscss.org">LESS</a>, a CSS preprocessor, which adds variables, mixins and much more to CSS. It compiles code written in LESS into CSS. The main file structure of UIkit is as follows.</p>
+    uikit.less
+    uikit.scss
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Folder</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>/dist</code></td>
-                                            <td>Contains all compiled and minified CSS and JavaScript files, as well as fonts.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>/docs</code></td>
-                                            <td>Contains the very UIkit documentation you are looking at right now.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>/src</code></td>
-                                            <td>Contains all LESS and JavaScript component files.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>/tests</code></td>
-                                            <td>Contains test files of all components.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>/themes</code></td>
-                                            <td>Contains all additonal theme files organized in sub folders.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>/vendor</code></td>
-                                            <td>Contains external libraries, like jQuery and others that are used by UIkit.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+    ...
 
-                            <hr class="uk-article-divider">
+</code></pre>
 
-                            <h2 id="automate-preprocessing"><a href="#automate-preprocessing" class="uk-link-reset">Automate preprocessing</a></h2>
+                            <h2>Embedding LESS in your project<h2>
 
-                            <p>To automate the process of compiling LESS files into CSS, we use <a href="http://gulpjs.com/">Gulp</a>, a <a href="http://nodejs.org/">Node.js</a> based task runner, that watches the source directory you are working on. Whenever you save changes in the source files, Gulp automatically compiles all files into one single CSS file.</p>
+<pre><code>@import "uikit/uikit.less";
+@import "uikit/autocomplete/autocomplete.less";
 
-                            <p>Firstly, you need to install Node and setup the <code>gulp</code> as a global install. Finally, switch to the UIkit directory and install the Node dependencies.</p>
+// your custom code goes here
+</code></pre>
 
-<pre><code>npm install -g gulp
+                            <h2>Embedding Sass in your project<h2>
 
-cd uikit
-npm install</code></pre>
+<pre><code>@import "uikit/uikit-mixins.scss"; // important to include this first!
 
-                            <p>Now you can run Gulp to build and modify the release. The built version of UIkit will be put in the <code>/dist</code> directory. Pass a theme name parameter to only build the specified theme.</p>
+// your custom code goes here
 
-<pre><code>gulp [-t themename]</code></pre>
-
-                            <p>You can also set Gulp to watch your working directory, so it will preprocess your files automatically everytime you hit save. Pass the theme parameter to watch only a specified theme to speed up the build process.</p>
-
-<pre><code>gulp watch [-t themename]</code></pre>
-
-                            <p>Load new themes and styles into the customizer.</p>
-
-<pre><code>gulp indexthemes</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h2 id="tests"><a href="#tests" class="uk-link-reset">Tests</a></h2>
-
-                            <p>UIkit provides test files for every component. Each of these pages contains test cases of its component and gives you an overview of all the possibilities that are supported out of the box.</p>
-
-
-                            <p>UIkit uses <a href="http://www.browsersync.io/">BrowserSync</a> to accelerate your workflow. Run <code>gulp watch [-t themename]</code> and you will be able to see changes on-the-fly, not only in your browser but across multiple devices, when working on your own theme or modifying existing ones. You can switch between all components and themes within the tests and even switch to RTL mode.</p>
-
-                            <p><a class="uk-button uk-button-large uk-button-primary" href="../tests/overview.html">Go to tests</a></p>
-
+@import "uikit/uikit.scss";
+@import "uikit/autocomplete/autocomplete.scss";
+</code></pre>
                         </article>
 
                     </div>

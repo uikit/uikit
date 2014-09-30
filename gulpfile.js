@@ -176,7 +176,7 @@ gulp.task('dist-bower-file', function(done) {
 gulp.task('build', ['dist-clean'], function (done) {
 
     runSequence('dist', function(){
-        gulp.src(['./dist/**/*', '!./dist/core/*/*.js'])
+        gulp.src(['./dist/**/*', '!./dist/core/*/*.js', '!./dist/bower.json'])
             .pipe(ignore.exclude('*.less'))
             .pipe(ignore.exclude('*.scss'))
             .pipe(zip('uikit-'+pkg.version+'.zip')).pipe(gulp.dest('dist')).on('end', done);
