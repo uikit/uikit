@@ -15,6 +15,7 @@ var pkg         = require('./package.json'),
     uglify      = require('gulp-uglify'),
     watch       = require('gulp-watch'),
     tap         = require('gulp-tap'),
+    zip         = require('gulp-zip'),
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync'),
     Promise     = require('promise');
@@ -162,6 +163,14 @@ gulp.task('dist-bower-file', function(done) {
 
     fs.writeFile('./dist/bower.json', JSON.stringify(meta, " ", 4), function(){
         done();
+    });
+});
+
+// generate dist zip file
+gulp.task('build', ['dist-clean'], function (done) {
+
+    runSequence('dist', function(){
+        gulp.src('dist/**/*').pipe(zip('uikit-'+pkg.version+'.zip')).pipe(gulp.dest('dist')).on('end', done);
     });
 });
 

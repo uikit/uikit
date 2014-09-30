@@ -34,11 +34,11 @@
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.4.0",
     "gulp-rimraf": "latest",
+    "gulp-tap": "latest",
     "gulp-uglify": "^0.3.1",
     "gulp-util": "latest",
     "gulp-watch": "^0.6.9",
-    "gulp-zip": "latest",
-    "gulp-tap": "latest",
+    "gulp-zip": "^2.0.2",
     "mkdirp": "latest",
     "promise": "latest",
     "run-sequence": "^0.3.6"
