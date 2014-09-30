@@ -102,8 +102,11 @@ gulp.task('watch', ['browser-sync'], function(done) {
         watchfolders.push(theme.path+'/*');
     });
 
-    gulp.watch(watchfolders, function(files) {
-        runSequence('dist-themes-core', 'browser-reload');
+    runSequence('dist-themes-core', function(){
+
+        gulp.watch(watchfolders, function(files) {
+            runSequence('dist-themes-core', 'browser-reload');
+        });
     });
 });
 
@@ -114,7 +117,7 @@ gulp.task('dist-clean', function() {
     return gulp.src('dist', {read: false}).pipe(rimraf());
 });
 
-gulp.task('dist-core-move', ['dist-clean'], function() {
+gulp.task('dist-core-move', function() {
     return gulp.src(['./src/**']).pipe(gulp.dest('./dist'));
 });
 

@@ -64,58 +64,65 @@
     }
 
     var tests = [
-        "alert",
-        "animation",
-        "article",
-        "autocomplete",
-        "badge",
-        "base",
-        "breadcrumb",
-        "button",
-        "close",
-        "comment",
-        "cover",
-        "datepicker",
-        "description-list",
-        "dotnav",
-        "dropdown",
-        "flex",
-        "form-advanced",
-        "form-file",
-        "form-password",
-        "form-select",
-        "form",
-        "grid",
-        "htmleditor",
-        "icon",
-        "list",
-        "modal",
-        "nav",
-        "navbar",
-        "nestable",
-        "notify",
-        "offcanvas",
-        "overlay",
-        "pagination",
-        "panel",
-        "placeholder",
-        "progress",
-        "scrollspy",
-        "search",
-        "slidenav",
-        "smooth-scroll",
-        "sortable",
-        "sticky",
-        "subnav",
-        "switcher",
-        "tab",
-        "table",
-        "text",
-        "thumbnail",
-        "timepicker",
-        "toggle",
-        "tooltip",
-        "utility"
+
+        "::Core",
+
+            "alert",
+            "animation",
+            "article",
+            "badge",
+            "base",
+            "breadcrumb",
+            "button",
+            "close",
+            "comment",
+            "description-list",
+            "dropdown",
+            "form",
+            "grid",
+            "icon",
+            "list",
+            "modal",
+            "nav",
+            "navbar",
+            "offcanvas",
+            "overlay",
+            "pagination",
+            "panel",
+            "progress",
+            "scrollspy",
+            "smooth-scroll",
+            "subnav",
+            "switcher",
+            "tab",
+            "table",
+            "text",
+            "thumbnail",
+            "toggle",
+            "tooltip",
+            "utility",
+
+        "::Components",
+
+            "autocomplete",
+            "cover",
+            "datepicker",
+            "dotnav",
+            "flex",
+            "form-advanced",
+            "form-file",
+            "form-password",
+            "form-select",
+            "htmleditor",
+            "nestable",
+            "notify",
+            "placeholder",
+            "search",
+            "slidenav",
+            "sortable",
+            "sticky",
+            "timepicker",
+            "upload"
     ];
 
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -128,11 +135,16 @@
 
         var testfolder = $("script[src$='_test.js']").attr("src").replace("_test.js", ""),
             testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "0 5px"),
-            optgroup   = $('<optgroup label="Components"></optgroup>').appendTo(testselect);
+            optgroup;
 
-        $.each(tests.sort(), function(){
+        $.each(tests, function(){
 
             var value = this, name  = value.charAt(0).toUpperCase() + value.slice(1);
+
+            if (value.indexOf('::')===0) {
+                optgroup   = $('<optgroup label="'+value.replace('::', '')+'"></optgroup>').appendTo(testselect);
+                return;
+            }
 
             optgroup.append('<option value="'+value+'.html">'+name+'</option>');
         });
