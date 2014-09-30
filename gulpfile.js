@@ -347,9 +347,13 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
     themes.forEach(function(theme) {
 
+        var modifyVars = {
+            'global-image-path': ('"../'+theme.path+'/images"')
+        };
+
         promises.push(new Promise(function(resolve, reject){
 
-            gulp.src(theme.uikit).pipe(less()).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist')).on('end', function(){
+            gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars})).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist')).on('end', function(){
 
                 if (theme.name == 'default') {
                     fs.renameSync('./dist/uikit.default.css', './dist/uikit.css');
