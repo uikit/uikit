@@ -114,21 +114,26 @@ gulp.task('watch', ['browser-sync'], function(done) {
 /*
  * dist core tasks
  * ---------------------------------------------------------*/
-gulp.task('dist-clean', function() {
-    return gulp.src('dist', {read: false}).pipe(rimraf());
+gulp.task('dist-clean', function(done) {
+
+    if (gutil.env.c || gutil.env.clean) {
+        return gulp.src('dist', {read: false}).pipe(rimraf());
+    } else {
+        done();
+    }
 });
 
-gulp.task('dist-core-move', function() {
+gulp.task('dist-core-move', ['dist-clean'], function() {
     return gulp.src(['./src/**']).pipe(gulp.dest('./dist'));
 });
 
 gulp.task('dist-core-minify', function(done) {
 
     // minify css
-    gulp.src('./dist/**/*.css').pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist')).on('end', function(){
+    gulp.src(['!./dist/**/*.min.css', './dist/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist')).on('end', function(){
 
         // minify js
-        gulp.src(['!./dist/core/*/*.js', './dist/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist')).on('end', function(){
+        gulp.src(['!./dist/**/*.min.js', '!./dist/core/*/*.js', './dist/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist')).on('end', function(){
             done();
         });
     });
@@ -347,9 +352,13 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
     themes.forEach(function(theme) {
 
+        var modifyVars = {
+            'global-image-path': ('"../'+theme.path+'/images"')
+        };
+
         promises.push(new Promise(function(resolve, reject){
 
-            gulp.src(theme.uikit).pipe(less()).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist')).on('end', function(){
+            gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars})).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist')).on('end', function(){
 
                 if (theme.name == 'default') {
                     fs.renameSync('./dist/uikit.default.css', './dist/uikit.css');
