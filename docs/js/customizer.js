@@ -75,7 +75,7 @@ jQuery(function($) {
 
     $error.on({
         "show": function(e, error) {
-            $error.html($.mustache("<h1 class=\"uk-h3\">LESS {{type}} Error</h1><p>{{message}}</p>", error)).show();
+            $error.html($.mustache("<h1 class=\"uk-h3\">Less {{type}} Error</h1><p>{{message}}</p>", error)).show();
             $iframe.css("opacity", "0");
         },
         "hide": function() {
@@ -94,7 +94,7 @@ jQuery(function($) {
     });
 
     $("a[download='style.less']").on("click", function(e) {
-        downloadLESS($(this), $style);
+        downloadLess($(this), $style);
     });
 
     if (!$download) {
@@ -114,7 +114,7 @@ jQuery(function($) {
                 r.onload = function(e) {
 
                     if (!f.name.match(/\.less$/i)) {
-                        alert("Please select a LESS file!");
+                        alert("Please select a Less file!");
                         return;
                     }
 
@@ -213,7 +213,7 @@ jQuery(function($) {
         });
     }
 
-    function downloadLESS(a, style) {
+    function downloadLess(a, style) {
 
         var source = [], first, cache = {};
 
@@ -244,7 +244,7 @@ jQuery(function($) {
         if ($download) {
             a.attr("href", $url.createObjectURL(new Blob([source.join("\n")], {type: "application/force-download"})));
         } else {
-            $("h2", $modal).text("LESS Variables");
+            $("h2", $modal).text("Less Variables");
             $("textarea", $modal).val(source.join("\n"));
         }
     }
