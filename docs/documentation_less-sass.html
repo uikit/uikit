@@ -56,7 +56,7 @@
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li class="uk-active"><a href="documentation_less-sass.html">LESS / Sass sources</a></li>
+                            <li class="uk-active"><a href="documentation_less-sass.html">LESS / Sass files</a></li>
 
                         </ul>
 
@@ -65,12 +65,13 @@
 
                         <article class="uk-article">
 
-                            <h1>Working LESS &amp; Sass sources</h1>
+                            <h1>Working with LESS &amp; Sass files</h1>
 
-                            <p class="uk-article-lead">Import LESS / Sass files in your project to create custom builds.</p>
+                            <p class="uk-article-lead">Import LESS / Sass files into your project to create custom builds.</p>
 
                             <p>
                                 The great thing about UIkit is that you can easily integrate its source files in your project to keep the your custom project workflow for building assets ect.
+                                staying with your prefered Css preprocessor.
                             </p>
 
                             <h3>Get the UIkit distribution</h3>
@@ -96,7 +97,13 @@
 
 </code></pre>
 
-                            <h2>Embedding LESS in your project<h2>
+                            <h2>Embedding LESS in your project</h2>
+
+                            <p>
+                                Using LESS is pretty straightforward. Just include UIkit and additional components at the top of your main LESS file and start customizing by utilizing UIkits hooks and override its variables.
+                            </p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
 
 <pre><code>@import "uikit/uikit.less";
 @import "uikit/autocomplete/autocomplete.less";
@@ -104,9 +111,15 @@
 // your custom code goes here, e.g. mixins, variables
 </code></pre>
 
-                            <h2>Embedding Sass in your project<h2>
+                            <h2>Embedding Sass in your project</h2>
 
-<pre><code>@import "uikit/uikit-mixins.scss"; // important to include this first!
+                            <p>
+                                Due to the way Sass is parsing code, it is needed that you include <code>uikit-mixins.scss</code> first then add your customizations (hooks, variables) and finally UIkit and additional components.
+                            </p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>@import "uikit/uikit-mixins.scss"; // UIkit hooks. It is important to include this first!
 
 // your custom code goes here, e.g. mixins, variables
 
@@ -156,7 +169,7 @@
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_less-sass.html">LESS / Sass sources</a></li>
+                            <li><a href="documentation_less-sass.html">LESS / Sass files</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-header">Components</li>
