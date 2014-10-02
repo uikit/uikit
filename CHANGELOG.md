@@ -3,9 +3,16 @@
 ### W.I.P.
 
   - Fixed sortable on mobile
+  - Replaced Grunt with Gulp
+  - Convert Less to Sass files on build
+  - Refactored source and themes directory structure
+  - Removed dist folder
   - Unified triggered event names
   - Adjust document scroll position if dragged nestable or sortable items are out of view
 
+**Documentation and repository**
+
+  - Added Less/ Sass files documentation
 
 ### 2.10.0 (September 15, 2014)
 
