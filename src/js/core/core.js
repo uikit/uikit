@@ -15,7 +15,7 @@
 
                 for (i = 0; i < resources.length; i += 1) {
                     var resource = resources[i].replace(/\./g, '/');
-                    load.push(base+'/'+resource+'/'+resource);
+                    load.push(base+'/components/'+resource);
                 }
 
                 req(load, function() {
