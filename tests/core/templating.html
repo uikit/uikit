@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Templating - UIkit tests</title>
+
+        <script src="../_test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <div class="uk-grid">
+                <div class="uk-width-1-2">
+
+                    <strong>Data</strong>
+                    <textarea id="data" class="uk-width-1-1" style="min-height:200px;">{"bool":1, "list":["hello","world"], "set":{"test":123}}</textarea>
+
+                    <strong>Template</strong>
+                    <textarea id="template" class="uk-width-1-1" style="min-height:200px;">{{#bool}} bool is true {{/bool}}
+{{^bool}} bool is false {{/bool}}
+
+{{~list}}
+   {{$i+1}} {{$item}}
+{{/list}}
+
+{{:set}}
+   {{$key}} {{$val}}
+{{/set}}</textarea>
+
+                    <button>Compile</button>
+                </div>
+                <div class="uk-width-1-2">
+                    <strong>Result</strong>
+                    <pre><code id="result"></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            (function(){
+
+
+                var template = $("#template"),
+                    data     = $("#data"),
+                    result   = $("#result");
+
+                $("button").on("click", function(){
+
+                    var res = $.UIkit.Utils.template(template.val(), JSON.parse(data.val()));
+
+                    result.html(escape(res));
+                });
+
+                function escape(html) {
+                    return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                }
+
+            })();
+        </script>
+
+    </body>
+</html>

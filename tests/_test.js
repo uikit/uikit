@@ -2,30 +2,32 @@
 
     window.CustomizerForceUpdate = iniframe;
 
+    var base = '../'+ document.querySelector('script[src*="_test.js"]').attributes.src.value.replace('_test.js', '');
+
     var styles = [
 
         // uikit core
-        '../dist/css/uikit{style}.css',
+        'dist/css/uikit{style}.css',
 
         // components
-        '../dist/css/components/autocomplete{style}.css',
-        '../dist/css/components/cover{style}.css',
-        '../dist/css/components/datepicker{style}.css',
-        '../dist/css/components/dotnav{style}.css',
-        '../dist/css/components/flex{style}.css',
-        '../dist/css/components/form-advanced{style}.css',
-        '../dist/css/components/form-file{style}.css',
-        '../dist/css/components/form-password{style}.css',
-        '../dist/css/components/form-select{style}.css',
-        '../dist/css/components/htmleditor{style}.css',
-        '../dist/css/components/nestable{style}.css',
-        '../dist/css/components/notify{style}.css',
-        '../dist/css/components/placeholder{style}.css',
-        '../dist/css/components/search{style}.css',
-        '../dist/css/components/slidenav{style}.css',
-        '../dist/css/components/sortable{style}.css',
-        '../dist/css/components/sticky{style}.css',
-        '../dist/css/components/upload{style}.css'
+        'dist/css/components/autocomplete{style}.css',
+        'dist/css/components/cover{style}.css',
+        'dist/css/components/datepicker{style}.css',
+        'dist/css/components/dotnav{style}.css',
+        'dist/css/components/flex{style}.css',
+        'dist/css/components/form-advanced{style}.css',
+        'dist/css/components/form-file{style}.css',
+        'dist/css/components/form-password{style}.css',
+        'dist/css/components/form-select{style}.css',
+        'dist/css/components/htmleditor{style}.css',
+        'dist/css/components/nestable{style}.css',
+        'dist/css/components/notify{style}.css',
+        'dist/css/components/placeholder{style}.css',
+        'dist/css/components/search{style}.css',
+        'dist/css/components/slidenav{style}.css',
+        'dist/css/components/sortable{style}.css',
+        'dist/css/components/sticky{style}.css',
+        'dist/css/components/upload{style}.css'
     ];
 
 
@@ -33,96 +35,96 @@
     ([
 
         // vendor
-        '../vendor/jquery.js',
-        '../vendor/holder.js',
+        'vendor/jquery.js',
+        'vendor/holder.js',
 
         // uikit
-        '../src/js/core/core.js',
-        '../src/js/core/touch.js',
-        '../src/js/core/utility.js',
-        '../src/js/core/smooth-scroll.js',
-        '../src/js/core/scrollspy.js',
-        '../src/js/core/toggle.js',
-        '../src/js/core/alert.js',
-        '../src/js/core/button.js',
-        '../src/js/core/dropdown.js',
-        '../src/js/core/grid.js',
-        '../src/js/core/modal.js',
-        '../src/js/core/nav.js',
-        '../src/js/core/offcanvas.js',
-        '../src/js/core/switcher.js',
-        '../src/js/core/tab.js',
-        '../src/js/core/tooltip.js'
+        'src/js/core/core.js',
+        'src/js/core/touch.js',
+        'src/js/core/utility.js',
+        'src/js/core/smooth-scroll.js',
+        'src/js/core/scrollspy.js',
+        'src/js/core/toggle.js',
+        'src/js/core/alert.js',
+        'src/js/core/button.js',
+        'src/js/core/dropdown.js',
+        'src/js/core/grid.js',
+        'src/js/core/modal.js',
+        'src/js/core/nav.js',
+        'src/js/core/offcanvas.js',
+        'src/js/core/switcher.js',
+        'src/js/core/tab.js',
+        'src/js/core/tooltip.js'
 
     ]).forEach(function(script) {
-        document.writeln('<script src="'+script+'"></script>');
+        document.writeln('<script src="'+base+script+'"></script>');
     });
 
 
     if (iniframe) {
-        document.writeln('<style data-compiled-css>@import url("../dist/uikit.css"); </style>');
+        document.writeln('<style data-compiled-css>@import url("../dist/css/uikit.css"); </style>');
     }
 
     var tests = [
 
         "::Core",
 
-            "alert",
-            "animation",
-            "article",
-            "badge",
-            "base",
-            "breadcrumb",
-            "button",
-            "close",
-            "comment",
-            "description-list",
-            "dropdown",
-            "form",
-            "grid",
-            "icon",
-            "list",
-            "modal",
-            "nav",
-            "navbar",
-            "offcanvas",
-            "overlay",
-            "pagination",
-            "panel",
-            "progress",
-            "scrollspy",
-            "smooth-scroll",
-            "subnav",
-            "switcher",
-            "tab",
-            "table",
-            "text",
-            "thumbnail",
-            "toggle",
-            "tooltip",
-            "utility",
+            "core/alert",
+            "core/animation",
+            "core/article",
+            "core/badge",
+            "core/base",
+            "core/breadcrumb",
+            "core/button",
+            "core/close",
+            "core/comment",
+            "core/description-list",
+            "core/dropdown",
+            "core/form",
+            "core/grid",
+            "core/icon",
+            "core/list",
+            "core/modal",
+            "core/nav",
+            "core/navbar",
+            "core/offcanvas",
+            "core/overlay",
+            "core/pagination",
+            "core/panel",
+            "core/progress",
+            "core/scrollspy",
+            "core/smooth-scroll",
+            "core/subnav",
+            "core/switcher",
+            "core/tab",
+            "core/table",
+            "core/text",
+            "core/thumbnail",
+            "core/toggle",
+            "core/tooltip",
+            "core/utility",
 
         "::Components",
 
-            "autocomplete",
-            "cover",
-            "datepicker",
-            "dotnav",
-            "flex",
-            "form-advanced",
-            "form-file",
-            "form-password",
-            "form-select",
-            "htmleditor",
-            "nestable",
-            "notify",
-            "placeholder",
-            "search",
-            "slidenav",
-            "sortable",
-            "sticky",
-            "timepicker",
-            "upload"
+            "components/autocomplete",
+            "components/cover",
+            "components/datepicker",
+            "components/dotnav",
+            "components/flex",
+            "components/form-advanced",
+            "components/form-file",
+            "components/form-password",
+            "components/form-select",
+            "components/htmleditor",
+            "components/nestable",
+            "components/notify",
+            "components/placeholder",
+            "components/search",
+            "components/slidenav",
+            "components/sortable",
+            "components/sticky",
+            "components/timepicker",
+            "components/upload"
     ];
 
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -133,13 +135,15 @@
 
         // test select
 
-        var testfolder = $("script[src$='_test.js']").attr("src").replace("_test.js", ""),
+        var testfolder = base + 'tests/',
             testselect = $('<select><option value="">- Select Test -</option><option value="overview.html">Overview</option></select>').css("margin", "0 5px"),
             optgroup;
 
         $.each(tests, function(){
 
-            var value = this, name  = value.charAt(0).toUpperCase() + value.slice(1);
+            var value = this, name = value.split("/").slice(-1)[0];
+
+            name  = name.charAt(0).toUpperCase() + name.slice(1);
 
             if (value.indexOf('::')===0) {
                 optgroup   = $('<optgroup label="'+value.replace('::', '')+'"></optgroup>').appendTo(testselect);
@@ -149,7 +153,7 @@
             optgroup.append('<option value="'+value+'.html">'+name+'</option>');
         });
 
-        testselect.val(testselect.find("option[value='"+location.href.split("/").slice(-1)[0]+"']").attr("value")).on("change", function(){
+        testselect.val(testselect.find("option[value$='"+location.href.split("/").slice(-1)[0]+"']").attr("value")).on("change", function(){
             if(testselect.val()) location.href = testfolder+testselect.val();
         });
 
@@ -193,7 +197,7 @@
                 testselect.after(themeselect);
 
                 styles.forEach(function(style) {
-                    $body.append('<link rel="stylesheet" href="'+(style.replace('{style}', theme=='default' ? '':'.'+theme))+'">');
+                    $body.append('<link rel="stylesheet" href="'+base+(style.replace('{style}', theme=='default' ? '':'.'+theme))+'">');
                 });
 
 

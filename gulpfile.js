@@ -73,7 +73,7 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 
     runSequence('sass', 'dist-core-minify', 'dist-core-header', 'browser-reload', 'dist-bower-file', function(){
 
-        if (gutil.env.min) {
+        if (gutil.env.m || gutil.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
             .pipe(rimraf()).on('end', function(){
                 done();
@@ -119,6 +119,22 @@ gulp.task('watch', ['browser-sync'], function(done) {
         });
     });
 });
+
+
+gulp.task('help', function(done) {
+
+    for(var p in {
+        '-c, --clean': '',
+        '-m, --min': '',
+        '-a, --all': '',
+        '-t, --theme': ''
+    }) {
+        console.log(p);
+    }
+
+    done();
+});
+
 
 /*
  * dist core tasks

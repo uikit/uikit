@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Autocomplete - UIkit tests</title>
+
+        <script src="../_test.js"></script>
+        <script src="../../src/js/components/autocomplete.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Autocomplete</h1>
+
+            <p>Type: Hamburg, New York, Moscow or Amsterdam</p>
+
+            <h2>Sources</h2>
+
+            <h3>Array</h3>
+
+            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:[{value:'Hamburg'},{value:'New York'},{value:'Moscow'},{value:'Amsterdam'}]}">
+                <input type="text">
+            </div>
+
+            <h3>Ajax</h3>
+
+            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                <input type="text">
+            </div>
+
+            <h2>Custom Templates</h2>
+
+            <h3>Custom</h3>
+
+            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'_autocomplete.json'}">
+                <input type="text">
+                <script type="text/autocomplete">
+                    <ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">
+                        {{~items}}
+                        <li data-value="{{ $item.value }}">
+                            <a>
+                                {{ $item.title }}
+                                <div>{{{ $item.text }}}</div>
+                            </a>
+                        </li>
+                        {{/items}}
+                    </ul>
+                </script>
+            </div>
+
+        </div>
+
+    </body>
+</html>
