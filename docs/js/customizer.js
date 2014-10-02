@@ -167,7 +167,7 @@ jQuery(function($) {
 
         style.variables = style.variables || {};
 
-        style.variables['@icon-font-path'] = '"../fonts"';
+        style.variables['@icon-font-path'] = '"../../fonts"';
 
         $.less.getCSS(style.less, {id: style.name, variables: style.variables, compress: true}).done(function(css) {
 

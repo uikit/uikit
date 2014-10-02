@@ -5,27 +5,27 @@
     var styles = [
 
         // uikit core
-        '../dist/uikit{style}.css',
+        '../dist/css/uikit{style}.css',
 
         // components
-        '../dist/autocomplete/autocomplete{style}.css',
-        '../dist/cover/cover{style}.css',
-        '../dist/datepicker/datepicker{style}.css',
-        '../dist/dotnav/dotnav{style}.css',
-        '../dist/flex/flex{style}.css',
-        '../dist/form-advanced/form-advanced{style}.css',
-        '../dist/form-file/form-file{style}.css',
-        '../dist/form-password/form-password{style}.css',
-        '../dist/form-select/form-select{style}.css',
-        '../dist/htmleditor/htmleditor{style}.css',
-        '../dist/nestable/nestable{style}.css',
-        '../dist/notify/notify{style}.css',
-        '../dist/placeholder/placeholder{style}.css',
-        '../dist/search/search{style}.css',
-        '../dist/slidenav/slidenav{style}.css',
-        '../dist/sortable/sortable{style}.css',
-        '../dist/sticky/sticky{style}.css',
-        '../dist/upload/upload{style}.css'
+        '../dist/css/components/autocomplete{style}.css',
+        '../dist/css/components/cover{style}.css',
+        '../dist/css/components/datepicker{style}.css',
+        '../dist/css/components/dotnav{style}.css',
+        '../dist/css/components/flex{style}.css',
+        '../dist/css/components/form-advanced{style}.css',
+        '../dist/css/components/form-file{style}.css',
+        '../dist/css/components/form-password{style}.css',
+        '../dist/css/components/form-select{style}.css',
+        '../dist/css/components/htmleditor{style}.css',
+        '../dist/css/components/nestable{style}.css',
+        '../dist/css/components/notify{style}.css',
+        '../dist/css/components/placeholder{style}.css',
+        '../dist/css/components/search{style}.css',
+        '../dist/css/components/slidenav{style}.css',
+        '../dist/css/components/sortable{style}.css',
+        '../dist/css/components/sticky{style}.css',
+        '../dist/css/components/upload{style}.css'
     ];
 
 
@@ -37,22 +37,22 @@
         '../vendor/holder.js',
 
         // uikit
-        '../src/core/core.js',
-        '../src/core/touch.js',
-        '../src/core/utility/utility.js',
-        '../src/core/smooth-scroll/smooth-scroll.js',
-        '../src/core/scrollspy/scrollspy.js',
-        '../src/core/toggle/toggle.js',
-        '../src/core/alert/alert.js',
-        '../src/core/button/button.js',
-        '../src/core/dropdown/dropdown.js',
-        '../src/core/grid/grid.js',
-        '../src/core/modal/modal.js',
-        '../src/core/nav/nav.js',
-        '../src/core/offcanvas/offcanvas.js',
-        '../src/core/switcher/switcher.js',
-        '../src/core/tab/tab.js',
-        '../src/core/tooltip/tooltip.js'
+        '../src/js/core/core.js',
+        '../src/js/core/touch.js',
+        '../src/js/core/utility.js',
+        '../src/js/core/smooth-scroll.js',
+        '../src/js/core/scrollspy.js',
+        '../src/js/core/toggle.js',
+        '../src/js/core/alert.js',
+        '../src/js/core/button.js',
+        '../src/js/core/dropdown.js',
+        '../src/js/core/grid.js',
+        '../src/js/core/modal.js',
+        '../src/js/core/nav.js',
+        '../src/js/core/offcanvas.js',
+        '../src/js/core/switcher.js',
+        '../src/js/core/tab.js',
+        '../src/js/core/tooltip.js'
 
     ]).forEach(function(script) {
         document.writeln('<script src="'+script+'"></script>');

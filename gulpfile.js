@@ -51,24 +51,23 @@ var themes = (function(){
     })(),
 
     corejs = [
-        './src/core/core.js',
-        './src/core/touch.js',
-        './src/core/utility/utility.js',
-        './src/core/smooth-scroll/smooth-scroll.js',
-        './src/core/scrollspy/scrollspy.js',
-        './src/core/toggle/toggle.js',
-        './src/core/alert/alert.js',
-        './src/core/button/button.js',
-        './src/core/dropdown/dropdown.js',
-        './src/core/grid/grid.js',
-        './src/core/modal/modal.js',
-        './src/core/nav/nav.js',
-        './src/core/offcanvas/offcanvas.js',
-        './src/core/switcher/switcher.js',
-        './src/core/tab/tab.js',
-        './src/core/tooltip/tooltip.js'
+        './src/js/core/core.js',
+        './src/js/core/touch.js',
+        './src/js/core/utility.js',
+        './src/js/core/smooth-scroll.js',
+        './src/js/core/scrollspy.js',
+        './src/js/core/toggle.js',
+        './src/js/core/alert.js',
+        './src/js/core/button.js',
+        './src/js/core/dropdown.js',
+        './src/js/core/grid.js',
+        './src/js/core/modal.js',
+        './src/js/core/nav.js',
+        './src/js/core/offcanvas.js',
+        './src/js/core/switcher.js',
+        './src/js/core/tab.js',
+        './src/js/core/tooltip.js'
     ];
-
 
 gulp.task('dist', ['dist-themes-core'], function(done) {
 
@@ -173,10 +172,10 @@ gulp.task('dist-core-move', ['dist-clean'], function() {
 gulp.task('dist-core-minify', function(done) {
 
     // minify css
-    gulp.src(['!./dist/**/*.min.css', './dist/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist')).on('end', function(){
+    gulp.src(['!./dist/css/**/*.min.css', './dist/css/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist/css')).on('end', function(){
 
         // minify js
-        gulp.src(['!./dist/**/*.min.js', '!./dist/core/*/*.js', './dist/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist')).on('end', function(){
+        gulp.src(['!./dist/js/**/*.min.js', './dist/js/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist/js')).on('end', function(){
             done();
         });
     });
@@ -192,8 +191,8 @@ gulp.task('dist-bower-file', function(done) {
         "version": pkg.version,
         "homepage": "http://getuikit.com",
         "main": [
-            "uikit.min.css",
-            "uikit.min.js"
+            "css/uikit.min.css",
+            "js/uikit.min.js"
         ],
         "dependencies": {
             "jquery": ">= 1.9.0"
@@ -218,9 +217,7 @@ gulp.task('dist-bower-file', function(done) {
 gulp.task('build', ['dist-clean'], function (done) {
 
     runSequence('dist', function(){
-        gulp.src(['./dist/**/*', '!./dist/core/*/*.js', '!./dist/bower.json'])
-            .pipe(ignore.exclude('*.less'))
-            .pipe(ignore.exclude('*.scss'))
+        gulp.src(['./dist/**/*.css', './dist/**/*.js', './dist/*/[Ff]ont*', '!./dist/bower.json'])
             .pipe(zip('uikit-'+pkg.version+'.zip')).pipe(gulp.dest('dist')).on('end', done);
     });
 });
@@ -232,14 +229,14 @@ gulp.task('build', ['dist-clean'], function (done) {
 
 gulp.task('sass-copy', function() {
 
-    return gulp.src('./dist/**/*.less').pipe(rename(function (path) {
+    return gulp.src('./dist/less/**/*.less').pipe(rename(function (path) {
         path.extname = ".scss";
-    })).pipe(gulp.dest('./dist'));
+    })).pipe(gulp.dest('./dist/scss'));
 });
 
 gulp.task('sass-convert', ['sass-copy'], function() {
 
-    return gulp.src('./dist/**/*.scss')
+    return gulp.src('./dist/scss/**/*.scss')
            .pipe(replace(/\/less\//g, '/scss/'))                              // change less/ dir to scss/ on imports
            .pipe(replace(/\.less/g, '.scss'))                                 // change .less extensions to .scss on imports
            .pipe(replace(/@/g, '$'))                                          // convert variables
@@ -251,12 +248,12 @@ gulp.task('sass-convert', ['sass-copy'], function() {
            .pipe(replace(/(\$[\w\-]*)\s*:(.*);\n/g, '$1: $2 !default;\n'))    // make variables optional
            .pipe(replace(/\$\{/g, '#{$'))                                      // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
            .pipe(replace(/~("[^"]+")/g, 'unquote($1)'))                       // string literals: for real
-           .pipe(gulp.dest('./dist'));
+           .pipe(gulp.dest('./dist/scss'));
 });
 
 gulp.task('sass', ['sass-convert'], function(done) {
 
-    glob('./dist/**/*.scss', function (err, files) {
+    glob('./dist/scss/**/*.scss', function (err, files) {
 
         if (err) return;
 
@@ -286,7 +283,7 @@ gulp.task('sass', ['sass-convert'], function(done) {
         });
 
         Promise.all(promises).then(function(){
-            fs.writeFile('./dist/uikit-mixins.scss', mixins.join('\n'), function (err) {
+            fs.writeFile('./dist/scss/uikit-mixins.scss', mixins.join('\n'), function (err) {
               if (err) throw err;
               done();
             });
@@ -302,7 +299,7 @@ gulp.task('dist-variables', ['dist-core-move'], function(done) {
 
     var regexp  = /(@[\w\-]+\s*:(.*);?)/g, variables = [], promises = [];
 
-    glob('./src/**/*.less', function (err, files) {
+    glob('./src/less/**/*.less', function (err, files) {
 
         files.forEach(function(file, index){
 
@@ -323,7 +320,7 @@ gulp.task('dist-variables', ['dist-core-move'], function(done) {
 
         Promise.all(promises).then(function(){
 
-            fs.writeFile('./dist/uikit-variables.less', variables.join('\n'), function (err) {
+            fs.writeFile('./dist/less/uikit-variables.less', variables.join('\n'), function (err) {
               if (err) throw err;
               done();
             });
@@ -335,7 +332,7 @@ gulp.task('dist-themes', ['dist-variables'], function(done) {
 
     var promises = [];
 
-    glob('dist/*/*.less', function(globerr, files){
+    glob('dist/less/components/*.less', function(globerr, files){
 
         files.forEach(function(file) {
 
@@ -349,7 +346,7 @@ gulp.task('dist-themes', ['dist-variables'], function(done) {
                 if (theme.path.match(/custom/)) return;
 
                 var tplpath = [cpath, compname+'.'+theme.name+'.less'].join('/'),
-                    csspath = [cpath, compname+'.'+theme.name+'.css'].join('/'),
+                    csspath = ['./dist/css/components', compname+'.'+theme.name+'.css'].join('/'),
 
                     promise = new Promise(function(resolve, reject){
 
@@ -359,18 +356,16 @@ gulp.task('dist-themes', ['dist-variables'], function(done) {
                         ];
 
                         if (fs.existsSync(theme.path+'/variables.less')) {
-                            content.push('@import "../../'+theme.path+'/variables.less";');
+                            content.push('@import "../../../'+theme.path+'/variables.less";');
                         }
 
                         if (fs.existsSync(theme.path+'/'+component)) {
-                            content.push('@import "../../'+theme.path+'/'+component+'";');
+                            content.push('@import "../../../'+theme.path+'/'+component+'";');
                         }
 
                         fs.writeFile(tplpath, content.join('\n'), function(){
 
-                            var csspath = tplpath.replace('.less', '.css');
-
-                            gulp.src(tplpath).pipe(less()).pipe(gulp.dest(path.dirname(tplpath))).on('end', function(){
+                            gulp.src(tplpath).pipe(less()).pipe(gulp.dest(path.dirname(csspath))).on('end', function(){
 
                                 fs.unlink(tplpath, function(){
 
@@ -404,10 +399,10 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
         promises.push(new Promise(function(resolve, reject){
 
-            gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars})).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist')).on('end', function(){
+            gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars})).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist/css')).on('end', function(){
 
                 if (theme.name == 'default') {
-                    fs.renameSync('./dist/uikit.default.css', './dist/uikit.css');
+                    fs.renameSync('./dist/css/uikit.default.css', './dist/css/uikit.css');
                 }
 
                 resolve();
@@ -416,7 +411,7 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
     });
 
     Promise.all(promises).then(function(){
-        gulp.src(corejs).pipe(concat('uikit.js')).pipe(gulp.dest('./dist')).on('end', function(){
+        gulp.src(corejs).pipe(concat('uikit.js')).pipe(gulp.dest('./dist/js')).on('end', function(){
             done();
         });
     });
