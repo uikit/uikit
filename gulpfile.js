@@ -73,48 +73,15 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 
     runSequence('sass', 'dist-core-minify', 'dist-core-header', 'browser-reload', 'dist-bower-file', function(){
 
-        var type, promise;
-
-        if (gutil.env.less) type = 'less';
-        if (gutil.env.scss) type = 'scss';
-        if (gutil.env.css)  type = 'css';
-
-        promise = new Promise(function(resolve){
-
-            if(!type) {
-                resolve();
-                return;
-            }
-
-            var files;
-
-            if (type=='less') {
-                files = ['./dist/**/*.css', './dist/**/*.scss'];
-            } else if(type=='scss') {
-                files = ['./dist/**/*.css', './dist/**/*.less'];
-            } else if(type=='css') {
-                files = ['./dist/**/*.less', './dist/**/*.scss'];
-            }
-
-            gulp.src(files).pipe(rimraf());
-
-            // hacky...
-            setTimeout(function(){
-                resolve();
-            }, 250);
-        });
-
-        promise.then(function(){
-
-            if (gutil.env.min) {
-                gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
-                .pipe(rimraf()).on('end', function(){
-                    done();
-                });
-            } else {
+        if (gutil.env.min) {
+            gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
+            .pipe(rimraf()).on('end', function(){
                 done();
-            }
-        });
+            });
+        } else {
+            done();
+        }
+
     });
 });
 
