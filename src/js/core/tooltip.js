@@ -192,7 +192,7 @@
 
 
     // init code
-    UI.$doc.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
+    UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
         var ele = $(this);
 
         if (!ele.data("tooltip")) {

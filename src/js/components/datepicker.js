@@ -295,7 +295,7 @@
 
 
     // init code
-    UI.$doc.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
+    UI.$html.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
 
         var ele = $(this);
         if (!ele.data("datepicker")) {
@@ -305,7 +305,7 @@
         }
     });
 
-    UI.$doc.on("click.datepicker.uikit", function(e) {
+    UI.$html.on("click.datepicker.uikit", function(e) {
 
         var target = $(e.target);
 

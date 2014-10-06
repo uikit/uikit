@@ -514,7 +514,7 @@
         }
     });
 
-    UI.$doc.on('mouseup touchend', function() {
+    UI.$html.on('mouseup touchend', function() {
 
         if(!moving && clickedlink) {
             location.href = clickedlink.attr('href');

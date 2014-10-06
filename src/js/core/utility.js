@@ -32,7 +32,7 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$doc.on("uk.dom.changed", function(e) {
+            UI.$html.on("uk.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.process();
             });

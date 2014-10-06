@@ -34,7 +34,7 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$doc.on("uk.dom.changed", function(e) {
+            UI.$html.on("uk.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();

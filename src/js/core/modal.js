@@ -202,7 +202,7 @@
     };
 
     // init code
-    UI.$doc.on("click.modal.uikit", "[data-uk-modal]", function(e) {
+    UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
 
         var ele = $(this);
 
@@ -218,7 +218,7 @@
     });
 
     // close modal on esc button
-    UI.$doc.on('keydown.modal.uikit', function (e) {
+    UI.$html.on('keydown.modal.uikit', function (e) {
 
         if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
             e.preventDefault();
