@@ -2969,7 +2969,7 @@ input:not([type]).uk-form-large {
 .uk-form-danger {
   border-color: #dc8d99 !important;
   background: #fff7f8 !important;
-  color: #c91032 !important;
+  color: #d85030 !important;
 }
 /*
  * Success state
@@ -2977,7 +2977,7 @@ input:not([type]).uk-form-large {
 .uk-form-success {
   border-color: #8ec73b !important;
   background: #fafff2 !important;
-  color: #539022 !important;
+  color: #659f13 !important;
 }
 /* Style modifiers
  * Using !important to keep the selector simple

@@ -923,14 +923,15 @@
                 inviews = [];
 
                 for(var i=0 ; i < targets.length ; i++) {
-                    if(UI.Utils.isInView(targets.eq(i), $this.options)) {
+                    if (UI.Utils.isInView(targets.eq(i), $this.options)) {
                         inviews.push(targets.eq(i));
                     }
                 }
 
-                if(inviews.length) {
+                if (inviews.length) {
 
-                    var scrollTop = $win.scrollTop(),
+                    var navitems,
+                        scrollTop = $win.scrollTop(),
                         target = (function(){
                             for(var i=0; i< inviews.length;i++){
                                 if(inviews[i].offset().top >= scrollTop){
@@ -939,13 +940,15 @@
                             }
                         })();
 
-                    if(!target) return;
+                    if (!target) return;
 
-                    if($this.options.closest) {
-                        links.closest($this.options.closest).removeClass($this.options.cls).end().filter("a[href='#"+target.attr("id")+"']").closest($this.options.closest).addClass($this.options.cls);
+                    if ($this.options.closest) {
+                        navitems = links.closest($this.options.closest).removeClass($this.options.cls).end().filter("a[href='#"+target.attr("id")+"']").closest($this.options.closest).addClass($this.options.cls);
                     } else {
-                        links.removeClass($this.options.cls).filter("a[href='#"+target.attr("id")+"']").addClass($this.options.cls);
+                        navitems = links.removeClass($this.options.cls).filter("a[href='#"+target.attr("id")+"']").addClass($this.options.cls);
                     }
+
+                    $this.element.trigger("uk.scrollspynav.inview", [target, navitems]);
                 }
             };
 

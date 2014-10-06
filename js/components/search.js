@@ -70,7 +70,7 @@
                 if (data.url) {
                   location.href = data.url;
                 } else if(data.moreresults) {
-                  this.autocomplete.input.closest('form').submit();
+                  $this.autocomplete.input.closest('form').submit();
                 }
             });
 
