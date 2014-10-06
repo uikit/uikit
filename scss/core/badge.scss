@@ -1,0 +1,111 @@
+// Name:            Badge
+// Description:     Defines styles for badges
+//
+// Component:       `uk-badge`
+//
+// Modifiers:       `uk-badge-notification`
+//                  `uk-badge-success`
+//                  `uk-badge-danger`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$badge-background:                               #00a8e6 !default;
+$badge-padding-horizontal:                       5px !default;
+$badge-font-size:                                10px !default;
+$badge-font-weight:                              bold !default;
+$badge-line-height:                              14px !default;
+$badge-color:                                    #fff !default;
+$badge-text-transform:                           none !default;
+$badge-hover-color:                              #fff !default;
+
+$badge-notification-font-size:                   12px !default;
+$badge-notification-line-height:                 18px !default;
+
+$badge-success-background:                       #8cc14c !default;
+$badge-warning-background:                       #faa732 !default;
+$badge-danger-background:                        #da314b !default;
+
+
+/* ========================================================================
+   Component: Badge
+ ========================================================================== */
+
+.uk-badge {
+    display: inline-block;
+    padding: 0 $badge-padding-horizontal;
+    background: $badge-background;
+    font-size: $badge-font-size;
+    font-weight: $badge-font-weight;
+    line-height: $badge-line-height;
+    color: $badge-color;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: $badge-text-transform;
+    @include hook-badge();
+}
+
+/*
+ * Keep color when badge is a link
+ */
+
+a.uk-badge:hover { color: $badge-hover-color; }
+
+
+/* Modifier: `uk-badge-notification`;
+ ========================================================================== */
+
+.uk-badge-notification {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: $badge-notification-line-height;
+    border-radius: 500px;
+    font-size: $badge-notification-font-size;
+    line-height: $badge-notification-line-height;
+}
+
+
+/* Color modifier
+ ========================================================================== */
+
+/*
+ * Modifier: `uk-badge-success`
+ */
+
+.uk-badge-success {
+    background-color: $badge-success-background;
+    @include hook-badge-success();
+}
+
+/*
+ * Modifier: `uk-badge-warning`
+ */
+
+.uk-badge-warning {
+    background-color: $badge-warning-background;
+    @include hook-badge-warning();
+}
+
+/*
+ * Modifier: `uk-badge-danger`
+ */
+
+.uk-badge-danger {
+    background-color: $badge-danger-background;
+    @include hook-badge-danger();
+}
+
+
+// Hooks
+// ========================================================================
+
+@include hook-badge-misc();
+
+// @mixin hook-badge(){}
+// @mixin hook-badge-success(){}
+// @mixin hook-badge-warning(){}
+// @mixin hook-badge-danger(){}
+// @mixin hook-badge-misc(){}

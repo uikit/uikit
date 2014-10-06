@@ -1,0 +1,141 @@
+// Name:            Alert
+// Description:     Defines styles for alert messages
+//
+// Component:       `uk-alert`
+//
+// Sub-objects:     `uk-alert-close`
+//
+// Modifiers:       `uk-alert-success`
+//                  `uk-alert-warning`
+//                  `uk-alert-danger`
+//                  `uk-alert-large`
+//
+// Uses:            Close: `uk-close`
+//
+// Markup:
+//
+// <!-- uk-alert -->
+// <div class="uk-alert" data-uk-alert>
+//     <a href="#" class="uk-alert-close uk-close"></a>
+//     <p></p>
+// </div>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$alert-margin-vertical:                          15px !default;
+$alert-padding:                                  10px !default;
+$alert-background:                               #ebf7fd !default;
+$alert-color:                                    #2d7091 !default;
+
+$alert-success-background:                       #f2fae3 !default;
+$alert-success-color:                            #659f13 !default;
+
+$alert-warning-background:                       #fffceb !default;
+$alert-warning-color:                            #e28327 !default;
+
+$alert-danger-background:                        #fff1f0 !default;
+$alert-danger-color:                             #d85030 !default;
+
+$alert-large-padding:                            20px !default;
+
+
+/* ========================================================================
+   Component: Alert
+ ========================================================================== */
+
+.uk-alert {
+    margin-bottom: $alert-margin-vertical;
+    padding: $alert-padding;
+    background: $alert-background;
+    color: $alert-color;
+    @include hook-alert();
+}
+
+/*
+ * Add margin if adjacent element
+ */
+
+* + .uk-alert { margin-top: $alert-margin-vertical; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-alert > :last-child { margin-bottom: 0; }
+
+/*
+ * Keep color for headings if the default heading color is changed
+ */
+
+.uk-alert h1,
+.uk-alert h2,
+.uk-alert h3,
+.uk-alert h4,
+.uk-alert h5,
+.uk-alert h6 { color: inherit; }
+
+
+/* Close in alert
+ ========================================================================== */
+
+.uk-alert > .uk-close:first-child { float: right; }
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.uk-alert > .uk-close:first-child + * { margin-top: 0; }
+
+
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+
+.uk-alert-success {
+    background: $alert-success-background;
+    color: $alert-success-color;
+    @include hook-alert-success();
+}
+
+
+/* Modifier: `uk-alert-warning`
+ ========================================================================== */
+
+.uk-alert-warning {
+    background: $alert-warning-background;
+    color: $alert-warning-color;
+    @include hook-alert-warning();
+}
+
+
+/* Modifier: `uk-alert-danger`
+ ========================================================================== */
+
+.uk-alert-danger {
+    background: $alert-danger-background;
+    color: $alert-danger-color;
+    @include hook-alert-danger();
+}
+
+
+/* Modifier: `uk-alert-large`
+ ========================================================================== */
+
+.uk-alert-large { padding: $alert-large-padding; }
+
+.uk-alert-large > .uk-close:first-child { margin: -10px -10px 0 0; }
+
+
+// Hooks
+// ========================================================================
+
+@include hook-alert-misc();
+
+// @mixin hook-alert(){}
+// @mixin hook-alert-success(){}
+// @mixin hook-alert-warning(){}
+// @mixin hook-alert-danger(){}
+// @mixin hook-alert-misc(){}

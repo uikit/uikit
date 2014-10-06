@@ -1,0 +1,102 @@
+// Name:            Autocomplete
+// Description:     Provides suggestions while you type into an input field
+//
+// Component:       `uk-autocomplete`
+//
+// Modifier:	    (Nav) `uk-nav-autocomplete`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+// Nav modifier
+@nav-autocomplete-color:                              #444;
+@nav-autocomplete-active-background:                  #00a8e6;
+@nav-autocomplete-active-color:                       #fff;
+@nav-autocomplete-header-color:                       #999;
+@nav-autocomplete-divider-border:                     #ddd;
+@nav-autocomplete-divider-border-width:               1px;
+
+
+/* ========================================================================
+   Component: Autocomplete
+ ========================================================================== */
+
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ * 4. Remove the gap between the container and its child element
+ */
+
+.uk-autocomplete {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    vertical-align: middle;
+}
+
+
+/* Nav modifier `uk-nav-autocomplete`
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-nav-autocomplete > li > a {
+    color: @nav-autocomplete-color;
+    .hook-nav-autocomplete;
+}
+
+/*
+ * Active
+ * 1. Remove default focus style
+ */
+
+.uk-nav-autocomplete > li.uk-active > a {
+    background: @nav-autocomplete-active-background;
+    color: @nav-autocomplete-active-color;
+    /* 1 */
+    outline: none;
+    .hook-nav-autocomplete-active;
+}
+
+/*
+ * Sub-object: `uk-nav-header`
+ */
+
+.uk-nav-autocomplete .uk-nav-header {
+    color: @nav-autocomplete-header-color;
+    .hook-nav-autocomplete-header;
+}
+
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+
+.uk-nav-autocomplete .uk-nav-divider {
+    border-top: @nav-autocomplete-divider-border-width solid @nav-autocomplete-divider-border;
+    .hook-nav-autocomplete-divider;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-autocomplete-misc;
+
+.hook-nav-autocomplete() {}
+.hook-nav-autocomplete-active() {}
+.hook-nav-autocomplete-header() {}
+.hook-nav-autocomplete-divider() {}
+
+.hook-autocomplete-misc() {}

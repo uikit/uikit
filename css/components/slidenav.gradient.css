@@ -1,0 +1,92 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Slidenav
+ ========================================================================== */
+/*
+ * 1. Required for `a` elements
+ * 2. Dimension
+ * 3. Style
+ */
+.uk-slidenav {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 60px;
+  height: 60px;
+  /* 3 */
+  line-height: 60px;
+  color: rgba(50, 50, 50, 0.4);
+  font-size: 60px;
+  text-align: center;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ * 3. Required for `a` elements
+ * 4. Style
+ */
+.uk-slidenav:hover,
+.uk-slidenav:focus {
+  /* 2 */
+  outline: none;
+  /* 3 */
+  text-decoration: none;
+  /* 4 */
+  color: rgba(50, 50, 50, 0.7);
+  cursor: pointer;
+}
+/* Active */
+.uk-slidenav:active {
+  color: rgba(50, 50, 50, 0.9);
+}
+/*
+ * Icons
+ */
+.uk-slidenav-previous:before {
+  content: "\f104";
+  font-family: FontAwesome;
+}
+.uk-slidenav-next:before {
+  content: "\f105";
+  font-family: FontAwesome;
+}
+/* Sub-object: `uk-slidenav-position`
+ ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ * 4. Corrects `max-width` behavior if padding and border are used
+ */
+.uk-slidenav-position {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  position: relative;
+  /* 3 */
+  max-width: 100%;
+  /* 4 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * Center vertically
+ */
+.uk-slidenav-position .uk-slidenav {
+  display: none;
+  position: absolute;
+  top: 50%;
+  margin-top: -30px;
+}
+.uk-slidenav-position:hover .uk-slidenav {
+  display: block;
+}
+.uk-slidenav-position .uk-slidenav-previous {
+  left: 20px;
+}
+.uk-slidenav-position .uk-slidenav-next {
+  right: 20px;
+}

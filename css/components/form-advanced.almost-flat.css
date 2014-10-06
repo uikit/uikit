@@ -1,0 +1,73 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Form advanced
+   Note: Only works in Webkit at the moment
+ ========================================================================== */
+/*
+ * 1. Style
+ * 2. Makes box more robust so it clips the child element
+ * 3. Vertical alignment
+ * 4. Remove default style
+ * 5. Fix black background on iOS
+ */
+.uk-form input[type="radio"],
+.uk-form input[type="checkbox"] {
+  /* 1 */
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  border: 1px solid #aaaaaa;
+  /* 2 */
+  overflow: hidden;
+  /* 3 */
+  margin-top: -4px;
+  vertical-align: middle;
+  /* 4 */
+  -webkit-appearance: none;
+  outline: 0;
+  /* 5 */
+  background: transparent;
+}
+/* Radio */
+.uk-form input[type="radio"] {
+  border-radius: 50%;
+}
+/*
+ * Checked
+ */
+.uk-form input[type=checkbox]:checked:before,
+.uk-form input[type=radio]:checked:before {
+  display: block;
+}
+/* Radio */
+.uk-form input[type=radio]:checked:before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin: 2px auto 0;
+  border-radius: 50%;
+  background: #00a8e6;
+}
+/* Checkbox */
+.uk-form input[type=checkbox]:checked:before {
+  content: "\f00c";
+  font-family: FontAwesome;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  line-height: 12px;
+  color: #00a8e6;
+}
+/*
+ * Disabled
+ */
+.uk-form input[type=radio]:disabled,
+.uk-form input[type=checkbox]:disabled {
+  border-color: #dddddd;
+}
+.uk-form input[type=radio]:disabled:checked:before {
+  background-color: #aaaaaa;
+}
+.uk-form input[type=checkbox]:disabled:checked:before {
+  color: #aaaaaa;
+}

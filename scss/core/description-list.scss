@@ -1,0 +1,70 @@
+// Name:            Description list
+// Description:     Defines styles for description lists
+//
+// Component:       `uk-description-list`
+//
+// Modifiers:       `uk-description-list-horizontal`
+//                  `uk-description-list-line`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$description-list-horizontal-width:              160px !default;
+$description-list-horizontal-margin-left:        180px !default;
+
+$description-list-line-margin-top:               5px !default;
+$description-list-line-border-width:             1px !default;
+$description-list-line-border:                   #ddd !default;
+$description-list-line-color:                    #999 !default;
+
+
+/* ========================================================================
+   Component: Description list
+ ========================================================================== */
+
+
+/* Modifier: `uk-description-list-horizontal`
+ ========================================================================== */
+
+/* Tablet and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-description-list-horizontal { overflow: hidden; }
+
+    .uk-description-list-horizontal > dt {
+        width: $description-list-horizontal-width;
+        float: left;
+        clear: both;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .uk-description-list-horizontal > dd { margin-left: $description-list-horizontal-margin-left; }
+
+}
+
+
+/* Modifier: `uk-description-list-line`
+ ========================================================================== */
+
+.uk-description-list-line > dt { font-weight: normal; }
+
+.uk-description-list-line > dt:nth-child(n+2) {
+    margin-top: $description-list-line-margin-top;
+    padding-top: $description-list-line-margin-top;
+    border-top: $description-list-line-border-width solid $description-list-line-border;
+}
+
+.uk-description-list-line > dd { color: $description-list-line-color; }
+
+
+// Hooks
+// ========================================================================
+
+@include hook-description-list-misc();
+
+// @mixin hook-description-list-misc(){}

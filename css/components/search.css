@@ -1,0 +1,190 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
+/*
+ * 1. Create position context for dropdowns
+ * 2. Needed for `form` element
+ */
+.uk-search {
+  display: inline-block;
+  /* 1 */
+  position: relative;
+  /* 2 */
+  margin: 0;
+}
+/*
+ * Icon
+ */
+.uk-search:before {
+  content: "\f002";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-family: FontAwesome;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.2);
+}
+/* Sub-object `uk-search-field`
+ ========================================================================== */
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+.uk-search-field::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/*
+ * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ */
+.uk-search-field::-webkit-search-cancel-button,
+.uk-search-field::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/*
+ * Removes cancel button in IE10
+ */
+.uk-search-field::-ms-clear {
+  display: none;
+}
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+.uk-search-field::-moz-placeholder {
+  opacity: 1;
+}
+/*
+ * 1. Define consistent box sizing.
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Correct `font` properties and `color` not being inherited.
+ * 5. Remove default style in iOS.
+ * 6. Style
+ */
+.uk-search-field {
+  /* 1 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+  border-radius: 0;
+  /* 4 */
+  font: inherit;
+  color: #444444;
+  /* 5 */
+  -webkit-appearance: none;
+  /* 6 */
+  width: 120px;
+  height: 30px;
+  padding: 0 0 0 30px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+  vertical-align: middle;
+}
+/* Placeholder */
+.uk-search-field:-ms-input-placeholder {
+  color: #999999 !important;
+}
+.uk-search-field::-moz-placeholder {
+  color: #999999;
+}
+.uk-search-field::-webkit-input-placeholder {
+  color: #999999;
+}
+/* Focus */
+.uk-search-field:focus {
+  outline: 0;
+}
+/* Focus + Active */
+.uk-search-field:focus,
+.uk-search.uk-active .uk-search-field {
+  width: 180px;
+}
+/* Dropdown modifier: `uk-dropdown-search`
+ ========================================================================== */
+.uk-dropdown-search {
+  width: 300px;
+  margin-top: 0;
+  background: #f5f5f5;
+  color: #444444;
+}
+.uk-open > .uk-dropdown-search {
+  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
+  animation: uk-slide-top-fixed 0.2s ease-in-out;
+}
+/*
+ * Dependency `uk-navbar-flip`
+ */
+.uk-navbar-flip .uk-dropdown-search {
+  margin-top: 5px;
+  margin-right: -15px;
+}
+/* Nav modifier `uk-nav-search`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-search > li > a {
+  color: #444444;
+}
+/*
+ * Active
+ * 1. Remove default focus style
+ */
+.uk-nav-search > li.uk-active > a {
+  background: #00a8e6;
+  color: #ffffff;
+  /* 1 */
+  outline: none;
+}
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-search .uk-nav-header {
+  color: #999999;
+}
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-search .uk-nav-divider {
+  border-top: 1px solid #dddddd;
+}
+/*
+ * Nested items
+ */
+.uk-nav-search ul a {
+  color: #0077dd;
+}
+.uk-nav-search ul a:hover {
+  color: #005599;
+}
+/* Search in offcanvas
+ ========================================================================== */
+.uk-offcanvas .uk-search {
+  display: block;
+  margin: 20px 15px;
+}
+.uk-offcanvas .uk-search:before {
+  color: #777777;
+}
+.uk-offcanvas .uk-search-field {
+  width: 100%;
+  border-color: rgba(0, 0, 0, 0);
+  background: #1a1a1a;
+  color: #cccccc;
+}
+.uk-offcanvas .uk-search-field:-ms-input-placeholder {
+  color: #777777 !important;
+}
+.uk-offcanvas .uk-search-field::-moz-placeholder {
+  color: #777777;
+}
+.uk-offcanvas .uk-search-field::-webkit-input-placeholder {
+  color: #777777;
+}

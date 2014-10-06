@@ -1,0 +1,133 @@
+// Name:            Close
+// Description:     Defines styles for a close button
+//
+// Component:       `uk-close`
+//
+// Modifiers:       `uk-close-alt`
+//
+// Uses:            Icon: FontAwesome
+//
+// Used by:         Alert
+//                  Modal
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@close-size:                                    20px;
+
+@close-alt-padding:                             2px;
+@close-alt-background:                          #eee;
+
+
+/* ========================================================================
+   Component: Close
+ ========================================================================== */
+
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-close::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * 1. Correct inability to style clickable `input` types in iOS.
+ * 2. Remove margins in Chrome, Safari and Opera.
+ * 3. Remove borders for `button`.
+ * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
+ * 7. Remove default `button` padding and background color
+ * 8. Style
+ */
+
+.uk-close {
+    /* 1 */
+    -webkit-appearance: none;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border: none;
+    /* 4 */
+    overflow: visible;
+    /* 5 */
+    font: inherit;
+    color: inherit;
+    /* 6 */
+    text-transform: none;
+    /* 7. */
+    padding: 0;
+    background: transparent;
+    /* 8 */
+    display: inline-block;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: @close-size;
+    line-height: @close-size;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.3;
+    .hook-close;
+}
+
+/* Icon */
+.uk-close:after {
+    display: block;
+    content: "\f00d";
+    font-family: FontAwesome;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ * 3. Required for `a` elements
+ */
+
+.uk-close:hover,
+.uk-close:focus { // 1
+    opacity: 0.5;
+    /* 2 */
+    outline: none;
+    /* 3 */
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* Modifier
+ ========================================================================== */
+
+.uk-close-alt {
+    padding: @close-alt-padding;
+    border-radius: 50%;
+    background: @close-alt-background;
+    opacity: 1;
+    .hook-close-alt;
+}
+
+/* Hover */
+.uk-close-alt:hover,
+.uk-close-alt:focus { opacity: 1; }
+
+/* Icon */
+.uk-close-alt:after { opacity: 0.5; }
+
+.uk-close-alt:hover:after,
+.uk-close-alt:focus:after { opacity: 0.8; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-close-misc;
+
+.hook-close() {}
+.hook-close-alt() {}
+.hook-close-misc() {}

@@ -1,0 +1,526 @@
+// Name:            Utility
+// Description:     Collection of useful utility classes to style your content
+//
+// Component:       `uk-container-*`
+//                  `uk-clearfix`
+//                  `uk-nbfc-*`
+//                  `uk-float-*`
+//                  `uk-align-*`
+//                  `uk-vertical-align-*`
+//                  `uk-height-*`
+//                  `uk-responsive-*`
+//                  `uk-margin-*`
+//                  `uk-border-*`
+//                  `uk-heading-*`
+//                  `uk-link-*`
+//                  `uk-scrollable-*`
+//                  `uk-overflow-container`
+//                  `uk-position-*`
+//                  `uk-display-*`
+//                  `uk-visible-*`
+//                  `uk-hidden-*`
+//                  `uk-invisible`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@utility-container-max-width:                   980px;
+@utility-container-padding-horizontal:          25px;
+
+@utility-container-large-max-width:             1200px;
+@utility-container-large-padding-horizontal:    35px;
+
+@utility-align-horizontal:                      15px;
+@utility-align-vertical:                        15px;
+
+@utility-height-viewport-min-height:            600px;
+
+@utility-margin:                                15px;
+@utility-margin-small:                          5px;
+@utility-margin-large:                          50px;
+
+@utility-border-rounded:                        5px;
+
+@utility-heading-large-font-size:               52px;
+@utility-heading-large-line-height:             64px;
+
+@utility-link-muted-color:                      #444;
+@utility-link-muted-hover-color:                #444;
+
+@utility-scrollable-text-height:                300px;
+
+@utility-scrollable-box-height:                 170px;
+@utility-scrollable-box-padding:                10px;
+@utility-scrollable-box-border:                 #ddd;
+@utility-scrollable-box-border-width:           1px;
+
+
+/* ========================================================================
+   Component: Utility
+ ========================================================================== */
+
+/* Container
+ ========================================================================== */
+
+.uk-container {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    max-width: @utility-container-max-width;
+    padding: 0 @utility-container-padding-horizontal;
+    .hook-container;
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-container {
+        max-width: @utility-container-large-max-width;
+        padding: 0 @utility-container-large-padding-horizontal;
+    }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-container:before,
+.uk-container:after {
+    content: " ";
+    display: table;
+}
+
+.uk-container:after { clear: both; }
+
+/*
+ * Center container
+ */
+
+.uk-container-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Clearing
+ ========================================================================== */
+
+/*
+ * Micro clearfix
+ */
+
+.uk-clearfix:before,
+.uk-clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.uk-clearfix:after { clear: both; }
+
+/*
+ *  Create a new block formatting context
+ */
+
+.uk-nbfc { overflow: hidden; }
+
+.uk-nbfc-alt {
+    display: table-cell;
+    width: 10000px;
+}
+
+
+/* Alignment of block elements
+ ========================================================================== */
+
+/*
+ * Float blocks
+ * 1. Prevent content overflow on small devices
+ */
+
+.uk-float-left { float: left; }
+.uk-float-right { float: right; }
+
+/* 1 */
+[class*='uk-float-'] { max-width: 100%; }
+
+
+/* Alignment of images and objects
+ ========================================================================== */
+
+/*
+ * Alignment
+ */
+
+[class*='uk-align-'] {
+    display: block;
+    margin-bottom: @utility-align-vertical;
+}
+
+.uk-align-left {
+    margin-right: @utility-align-horizontal;
+    float: left;
+}
+
+.uk-align-right {
+    margin-left: @utility-align-horizontal;
+    float: right;
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-align-medium-left {
+        margin-right: @utility-align-horizontal;
+        margin-bottom: @utility-align-vertical;
+        float: left;
+    }
+
+    .uk-align-medium-right {
+        margin-left: @utility-align-horizontal;
+        margin-bottom: @utility-align-vertical;
+        float: right;
+    }
+
+}
+
+.uk-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Vertical alignment
+ ========================================================================== */
+
+/*
+ * Remove whitespace between child elements when using `inline-block`
+ */
+
+.uk-vertical-align { font-size: 0.001px; }
+
+/*
+ *  The `uk-vertical-align` container needs a specific height
+ */
+
+.uk-vertical-align:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+/*
+ * Sub-object which can have any height
+ * 1. Reset whitespace hack
+ */
+
+.uk-vertical-align-middle,
+.uk-vertical-align-bottom {
+    display: inline-block;
+    max-width: 100%;
+    /* 1 */
+    font-size: 1rem;
+}
+
+.uk-vertical-align-middle { vertical-align: middle; }
+.uk-vertical-align-bottom { vertical-align: bottom; }
+
+
+/* Height
+ ========================================================================== */
+
+/*
+ * More robust if padding and border are used
+ */
+
+[class*='uk-height'] {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+ * Useful to extend the `html` and `body` element to the full height of the page.
+ */
+
+.uk-height-1-1 { height: 100%; }
+
+/*
+ * Useful to create image teasers
+ */
+
+.uk-height-viewport {
+    height: 100vh;
+    min-height: @utility-height-viewport-min-height;
+}
+
+
+/* Responsive objects
+ * Note: Images are already responsive by default, see Base component
+ ========================================================================== */
+
+/*
+ * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
+ */
+
+.uk-responsive-width,
+.uk-responsive-height {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*
+ * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ */
+
+.uk-responsive-width {
+    max-width: 100%;
+    height: auto;
+}
+
+/*
+ * Responsiveness: Sets a maximum height relative to the parent and auto scales the width
+ * Only works if the parent element has a fixed height.
+ */
+
+.uk-responsive-height {
+    max-height: 100%;
+    width: auto;
+}
+
+
+/* Margin
+ ========================================================================== */
+
+/*
+ * Create a block with the same margin of a paragraph
+ * Add margin if adjacent element
+ */
+
+.uk-margin { margin-bottom: @utility-margin; }
+* + .uk-margin { margin-top: @utility-margin; }
+
+.uk-margin-top { margin-top: @utility-margin !important; }
+.uk-margin-bottom { margin-bottom: @utility-margin !important; }
+.uk-margin-left { margin-left: @utility-margin !important; }
+.uk-margin-right { margin-right: @utility-margin !important; }
+
+/*
+ * Larger margins
+ */
+
+.uk-margin-large { margin-bottom: @utility-margin-large; }
+* + .uk-margin-large { margin-top: @utility-margin-large; }
+
+.uk-margin-large-top { margin-top: @utility-margin-large !important; }
+.uk-margin-large-bottom { margin-bottom: @utility-margin-large !important; }
+.uk-margin-large-left { margin-left: @utility-margin-large !important; }
+.uk-margin-large-right { margin-right: @utility-margin-large !important; }
+
+/*
+ * Smaller margins
+ */
+
+.uk-margin-small { margin-bottom: @utility-margin-small; }
+* + .uk-margin-small { margin-top: @utility-margin-small; }
+
+.uk-margin-small-top { margin-top: @utility-margin-small !important; }
+.uk-margin-small-bottom { margin-bottom: @utility-margin-small !important; }
+.uk-margin-small-left { margin-left: @utility-margin-small !important; }
+.uk-margin-small-right { margin-right: @utility-margin-small !important; }
+
+/*
+ * Remove margins
+ */
+
+.uk-margin-remove { margin: 0 !important; }
+.uk-margin-top-remove { margin-top: 0 !important; }
+.uk-margin-bottom-remove { margin-bottom: 0 !important; }
+
+
+/* Border
+ ========================================================================== */
+
+.uk-border-circle { border-radius: 50%; }
+.uk-border-rounded { border-radius: @utility-border-rounded; }
+
+
+/* Headings
+ ========================================================================== */
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-heading-large {
+        font-size: @utility-heading-large-font-size;
+        line-height: @utility-heading-large-line-height;
+    }
+
+}
+
+
+/* Link
+ ========================================================================== */
+
+/*
+ * Let links appear in default text color
+ */
+
+.uk-link-muted,
+.uk-link-muted a { color: @utility-link-muted-color; }
+
+.uk-link-muted:hover,
+.uk-link-muted a:hover { color: @utility-link-muted-hover-color; }
+
+/*
+ * Reset link style
+ */
+
+.uk-link-reset,
+.uk-link-reset a,
+.uk-link-reset:hover,
+.uk-link-reset a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Scrollable
+ ========================================================================== */
+
+/*
+ * Enable scrolling for preformatted text
+ */
+
+.uk-scrollable-text {
+    height: @utility-scrollable-text-height;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    resize: both;
+}
+
+/*
+ * Box with scrolling enabled
+ */
+
+.uk-scrollable-box {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: @utility-scrollable-box-height;
+    padding: @utility-scrollable-box-padding;
+    border: @utility-scrollable-box-border-width solid @utility-scrollable-box-border;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    resize: both;
+    .hook-scrollable-box;
+}
+
+.uk-scrollable-box > :last-child { margin-bottom: 0; }
+
+
+/* Overflow
+ ========================================================================== */
+
+/*
+ * Enable scrollbars if content is clipped
+ */
+
+.uk-overflow-container {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.uk-overflow-container > :last-child { margin-bottom: 0; }
+
+
+/* Position
+ ========================================================================== */
+
+.uk-position-absolute { position: absolute !important; }
+.uk-position-relative { position: relative !important; }
+
+.uk-position-cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+/* Display
+ ========================================================================== */
+
+/*
+ * Display
+ */
+
+.uk-display-block { display: block !important; }
+.uk-display-inline { display: inline !important; }
+.uk-display-inline-block { display: inline-block !important; }
+
+/*
+ * Visibility
+ * Avoids setting display to `block` so it works also with `inline-block` and `table`
+ */
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-visible-small { display: none !important; }
+    .uk-visible-medium { display: none !important; }
+    .uk-hidden-large { display: none !important; }
+
+}
+
+/* Tablets portrait */
+@media (min-width: @breakpoint-medium) and (max-width: @breakpoint-medium-max) {
+
+    .uk-visible-small { display: none !important; }
+    .uk-visible-large { display: none !important ; }
+    .uk-hidden-medium { display: none !important; }
+
+}
+
+/* Phone landscape and smaller*/
+@media (max-width: @breakpoint-small-max) {
+
+    .uk-visible-medium { display: none !important; }
+    .uk-visible-large { display: none !important; }
+    .uk-hidden-small { display: none !important; }
+
+}
+
+/* Remove from the flow and screen readers on any device */
+.uk-hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* It's hidden, but still affects layout */
+.uk-invisible { visibility: hidden !important; }
+
+/* Show on hover */
+.uk-visible-hover:hover .uk-hidden,
+.uk-visible-hover:hover .uk-invisible {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.uk-visible-hover-inline:hover .uk-hidden,
+.uk-visible-hover-inline:hover .uk-invisible {
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-utility-misc;
+
+.hook-container() {}
+.hook-scrollable-box() {}
+.hook-utility-misc() {}

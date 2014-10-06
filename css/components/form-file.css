@@ -1,0 +1,34 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Form file
+ ========================================================================== */
+/*
+ * 1. Behave like form elements
+ * 2. Create position context for dropdowns
+ * 3. Clip content
+ */
+.uk-form-file {
+  /* 1 */
+  display: inline-block;
+  vertical-align: middle;
+  /* 2 */
+  position: relative;
+  /* 3 */
+  overflow: hidden;
+}
+/*
+ * 1. Required for Firefox
+ * 2. Expand height and required for the cursor
+ */
+.uk-form-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  /* 1 */
+  left: 0;
+  /* 2 */
+  font-size: 500px;
+}

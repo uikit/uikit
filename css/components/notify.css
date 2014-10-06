@@ -1,0 +1,93 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Notify
+ ========================================================================== */
+/*
+ * Message container for positioning
+ */
+.uk-notify {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1040;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 350px;
+}
+/* Position modifiers
+========================================================================== */
+.uk-notify-top-right,
+.uk-notify-bottom-right {
+  left: auto;
+  right: 10px;
+}
+.uk-notify-top-center,
+.uk-notify-bottom-center {
+  left: 50%;
+  margin-left: -175px;
+}
+.uk-notify-bottom-left,
+.uk-notify-bottom-right,
+.uk-notify-bottom-center {
+  top: auto;
+  bottom: 10px;
+}
+/* Responsiveness
+========================================================================== */
+/* Phones portrait and smaller */
+@media (max-width: 479px) {
+  /*
+     * Fit in small screen
+     */
+  .uk-notify {
+    left: 10px;
+    right: 10px;
+    width: auto;
+    margin: 0;
+  }
+}
+/* Sub-object: `uk-notify-message`
+========================================================================== */
+.uk-notify-message {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 15px;
+  background: #444444;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 22px;
+  cursor: pointer;
+}
+/* Close in notify
+ ========================================================================== */
+.uk-notify-message > .uk-close {
+  visibility: hidden;
+  float: right;
+}
+.uk-notify-message:hover > .uk-close {
+  visibility: visible;
+}
+/* Modifier: `uk-alert-info`
+ ========================================================================== */
+.uk-notify-message-primary {
+  background: #ebf7fd;
+  color: #2d7091;
+}
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+.uk-notify-message-success {
+  background: #f2fae3;
+  color: #659f13;
+}
+/* Modifier: `uk-notify-message-warning`
+ ========================================================================== */
+.uk-notify-message-warning {
+  background: #fffceb;
+  color: #e28327;
+}
+/* Modifier: `uk-notify-message-danger`
+ ========================================================================== */
+.uk-notify-message-danger {
+  background: #fff1f0;
+  color: #d85030;
+}

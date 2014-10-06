@@ -1,0 +1,48 @@
+// LESS related
+@import "variables.scss";
+
+// Defaults
+@import "core/base/base.scss";
+
+// Layout
+@import "core/grid/grid.scss";
+@import "core/panel/panel.scss";
+@import "core/article/article.scss";
+@import "core/comment/comment.scss";
+
+// Navs
+@import "core/nav/nav.scss";
+@import "core/navbar/navbar.scss";
+@import "core/subnav/subnav.scss";
+@import "core/breadcrumb/breadcrumb.scss";
+@import "core/pagination/pagination.scss";
+@import "core/tab/tab.scss";
+
+// Elements
+@import "core/list/list.scss";
+@import "core/description-list/description-list.scss";
+@import "core/table/table.scss";
+@import "core/form/form.scss";
+
+// Common
+@import "core/button/button.scss";
+@import "core/icon/icon.scss";
+@import "core/close/close.scss";
+@import "core/badge/badge.scss";
+@import "core/alert/alert.scss";
+@import "core/thumbnail/thumbnail.scss";
+@import "core/overlay/overlay.scss";
+@import "core/progress/progress.scss";
+@import "core/animation/animation.scss";
+
+// JavaScript
+@import "core/dropdown/dropdown.scss";
+@import "core/modal/modal.scss";
+@import "core/offcanvas/offcanvas.scss";
+@import "core/switcher/switcher.scss";
+@import "core/tooltip/tooltip.scss";
+
+// Need to be loaded last
+@import "core/text/text.scss";
+@import "core/utility/utility.scss";
+@import "core/print/print.scss";

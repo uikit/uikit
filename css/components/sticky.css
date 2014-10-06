@@ -1,0 +1,24 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Sticky
+ ========================================================================== */
+/*
+ * 1. More robust if padding and border are used
+ */
+[data-uk-sticky].uk-active {
+  z-index: 980;
+  /* 1 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * Faster animations
+ */
+[data-uk-sticky][class*='uk-animation-'] {
+  -webkit-animation-duration: 0.15s;
+  animation-duration: 0.15s;
+}
+[data-uk-sticky].uk-animation-reverse {
+  -webkit-animation-duration: 0.04s;
+  animation-duration: 0.04s;
+}

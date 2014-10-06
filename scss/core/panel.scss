@@ -1,0 +1,244 @@
+// Name:            Panel
+// Description:     Defines styles for reusable content areas
+//
+// Component:       `uk-panel`
+//
+// Sub-objects:     `uk-panel-title`
+//                  `uk-panel-badge`
+//                  `uk-panel-teaser`
+//
+// Modifiers:       `uk-panel-box`
+//                  `uk-panel-box-primary`
+//                  `uk-panel-box-secondary`
+//                  `uk-panel-header`
+//                  `uk-panel-space`
+//                  `uk-panel-divider`
+//
+// Uses:            Nav: `uk-nav-side`
+//
+// Used by:         Dropdown
+//                  Off-canvas
+//                  Grid
+//
+// Markup:
+//
+// <!-- uk-panel -->
+// <div class="uk-panel">
+//     <div class="uk-panel-badge uk-badge"></div>
+//     <h3 class="uk-panel-title"></h3>
+//     <p></p>
+// </div>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$panel-title-margin-bottom:                      15px !default;
+$panel-title-font-size:                          18px !default;
+$panel-title-line-height:                        24px !default;
+$panel-title-font-weight:                        normal !default;
+$panel-title-color:                              #444 !default;
+$panel-title-text-transform:                     none !default;
+
+$panel-box-padding:                              15px !default;
+$panel-box-background:                           #f5f5f5 !default;
+$panel-box-color:                                #444 !default;
+$panel-box-title-color:                          #444 !default;
+$panel-box-badge-top:                            10px !default;
+$panel-box-badge-right:                          $panel-box-badge-top !default;
+$panel-box-teaser-margin:                        -$panel-box-padding !default;
+$panel-box-teaser-margin-bottom:                 $panel-title-margin-bottom !default;
+
+$panel-box-primary-background:                   #ebf7fd !default;
+$panel-box-primary-color:                        #2d7091 !default;
+$panel-box-primary-title-color:                  #2d7091 !default;
+
+$panel-box-secondary-background:                 #eee !default;
+$panel-box-secondary-color:                      #444 !default;
+$panel-box-secondary-title-color:                #444 !default;
+
+$panel-header-title-padding:                     10px !default;
+$panel-header-title-border:                      #ddd !default;
+$panel-header-title-border-width:                1px !default;
+$panel-header-title-color:                       #444 !default;
+
+$panel-space-padding:                            30px !default;
+
+$panel-divider-gutter:                           25px !default;
+$panel-divider-gutter-large:                     35px !default;
+$panel-divider-border:                           #ddd !default;
+$panel-divider-border-width:                     1px !default;
+
+
+/* ========================================================================
+   Component: Panel
+ ========================================================================== */
+
+/*
+ * 1. Needed for `a` elements
+ * 2. Create position context for badges
+ */
+
+.uk-panel {
+    /* 1 */
+    display: block;
+    /* 2 */
+    position: relative;
+}
+
+/*
+ * Micro clearfix to make panels more robust
+ */
+
+.uk-panel:before,
+.uk-panel:after {
+    content: " ";
+    display: table;
+}
+
+.uk-panel:after { clear: both; }
+
+/*
+ * Remove margin from the last-child if not `uk-widget-title`
+ */
+
+.uk-panel > :not(.uk-panel-title):last-child { margin-bottom: 0; }
+
+
+/* Sub-object: `uk-panel-title`
+ ========================================================================== */
+
+.uk-panel-title {
+    margin-top: 0;
+    margin-bottom: $panel-title-margin-bottom;
+    font-size: $panel-title-font-size;
+    line-height: $panel-title-line-height;
+    font-weight: $panel-title-font-weight;
+    text-transform: $panel-title-text-transform;
+    color: $panel-title-color;
+    @include hook-panel-title();
+}
+
+
+/* Sub-object: `uk-panel-badge`
+ ========================================================================== */
+
+.uk-panel-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    @include hook-panel-badge();
+}
+
+
+/* Modifier: `uk-panel-box`
+ ========================================================================== */
+
+.uk-panel-box {
+    padding: $panel-box-padding;
+    background: $panel-box-background;
+    color: $panel-box-color;
+    @include hook-panel-box();
+}
+
+.uk-panel-box .uk-panel-title { color: $panel-box-title-color; }
+
+.uk-panel-box .uk-panel-badge {
+    top: $panel-box-badge-top;
+    right: $panel-box-badge-right;
+}
+
+.uk-panel-box .uk-panel-teaser { margin: $panel-box-teaser-margin $panel-box-teaser-margin $panel-box-teaser-margin-bottom $panel-box-teaser-margin; }
+
+/*
+ * Nav in panel
+ */
+
+.uk-panel-box > .uk-nav-side { margin: 0 -$panel-box-padding; }
+
+/*
+ * Sub-modifier: `uk-panel-box-primary`
+ */
+
+.uk-panel-box-primary {
+    background-color: $panel-box-primary-background;
+    color: $panel-box-primary-color;
+    @include hook-panel-box-primary();
+}
+
+.uk-panel-box-primary .uk-panel-title { color: $panel-box-primary-title-color; }
+
+/*
+ * Sub-modifier: `uk-panel-box-secondary`
+ */
+
+.uk-panel-box-secondary {
+    background-color: $panel-box-secondary-background;
+    color: $panel-box-secondary-color;
+    @include hook-panel-box-secondary();
+}
+
+.uk-panel-box-secondary .uk-panel-title { color: $panel-box-secondary-title-color; }
+
+
+/* Modifier: `uk-panel-header`
+ ========================================================================== */
+
+.uk-panel-header .uk-panel-title {
+    padding-bottom: $panel-header-title-padding;
+    border-bottom: $panel-header-title-border-width solid $panel-header-title-border;
+    color: $panel-header-title-color;
+    @include hook-panel-header();
+}
+
+
+/* Modifier: `uk-panel-space`
+ ========================================================================== */
+
+.uk-panel-space { padding: $panel-space-padding; }
+
+.uk-panel-space .uk-panel-badge {
+    top: $panel-space-padding;
+    right: $panel-space-padding;
+}
+
+
+/* Modifier: `uk-panel-divider`
+ ========================================================================== */
+
+.uk-panel + .uk-panel-divider { margin-top: ($panel-divider-gutter * 2) !important; }
+
+.uk-panel + .uk-panel-divider:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -($panel-divider-gutter);
+    left: 0;
+    right: 0;
+    border-top: $panel-divider-border-width solid $panel-divider-border;
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-panel + .uk-panel-divider { margin-top: ($panel-divider-gutter-large * 2) !important; }
+    .uk-panel + .uk-panel-divider:before { top: -($panel-divider-gutter-large); }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+@include hook-panel-misc();
+
+// @mixin hook-panel-title(){}
+// @mixin hook-panel-badge(){}
+// @mixin hook-panel-box(){}
+// @mixin hook-panel-box-primary(){}
+// @mixin hook-panel-box-secondary(){}
+// @mixin hook-panel-header(){}
+// @mixin hook-panel-misc(){}

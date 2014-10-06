@@ -1,0 +1,48 @@
+// LESS related
+@import "variables.scss";
+
+// Defaults
+@import "core/base.scss";
+
+// Layout
+@import "core/grid.scss";
+@import "core/panel.scss";
+@import "core/article.scss";
+@import "core/comment.scss";
+
+// Navs
+@import "core/nav.scss";
+@import "core/navbar.scss";
+@import "core/subnav.scss";
+@import "core/breadcrumb.scss";
+@import "core/pagination.scss";
+@import "core/tab.scss";
+
+// Elements
+@import "core/list.scss";
+@import "core/description-list.scss";
+@import "core/table.scss";
+@import "core/form.scss";
+
+// Common
+@import "core/button.scss";
+@import "core/icon.scss";
+@import "core/close.scss";
+@import "core/badge.scss";
+@import "core/alert.scss";
+@import "core/thumbnail.scss";
+@import "core/overlay.scss";
+@import "core/progress.scss";
+@import "core/animation.scss";
+
+// JavaScript
+@import "core/dropdown.scss";
+@import "core/modal.scss";
+@import "core/offcanvas.scss";
+@import "core/switcher.scss";
+@import "core/tooltip.scss";
+
+// Need to be loaded last
+@import "core/text.scss";
+@import "core/utility.scss";
+@import "core/print.scss";

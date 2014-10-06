@@ -1,0 +1,48 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Cover
+ ========================================================================== */
+/*
+ * Background image always covers and centers its element
+ */
+.uk-cover-background {
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/*
+ * Emulates image cover, works with video and image elements
+ * 1. Parent container which clips resized object
+ * 2. Resizes the object to always covers its container
+ * 3. Reset the responsive image CSS
+ * 4. Center object
+ */
+/* 1 */
+.uk-cover {
+  overflow: hidden;
+}
+.uk-cover-object {
+  /* 2 */
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  /* 3 */
+  max-width: none;
+  /* 4 */
+  position: relative;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+/*
+ * To center iframes use `data-uk-cover` JavaScript
+ */
+[data-uk-cover] {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

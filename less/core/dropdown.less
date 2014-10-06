@@ -1,0 +1,272 @@
+// Name:            Dropdown
+// Description:     Defines styles for a toggleable dropdown
+//
+// Component:       `uk-dropdown`
+//
+// Modifiers:       `uk-dropdown-flip`
+//                  `uk-dropdown-center`
+//                  `uk-dropdown-justify`
+//                  `uk-dropdown-up`
+//                  `uk-dropdown-grid`
+//                  `uk-dropdown-width-2`
+//                  `uk-dropdown-width-3`
+//                  `uk-dropdown-width-4`
+//                  `uk-dropdown-width-5`
+//                  `uk-dropdown-stack`
+//                  `uk-dropdown-small`
+//                  `uk-dropdown-navbar`
+//                  `uk-dropdown-scrollable`
+//
+// States:          `uk-open`
+//
+// Uses:            Animation
+//                  Grid: `uk-width-*`
+//                  Panel: `uk-panel`
+//                  Nav: `uk-nav`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dropdown-z-index:                              1020;
+@dropdown-width:                                200px;
+@dropdown-margin-top:                           5px;
+@dropdown-padding:                              15px;
+@dropdown-background:                           #f5f5f5;
+@dropdown-color:                                #444;
+@dropdown-font-size:                            1rem;
+@dropdown-animation:                            uk-fade;
+
+@dropdown-divider-border-width:                 1px;
+@dropdown-divider-border:                       #ddd;
+
+@dropdown-small-padding:                        5px;
+
+@dropdown-navbar-margin:                        0;
+@dropdown-navbar-background:                    #f5f5f5;
+@dropdown-navbar-color:                         #444;
+@dropdown-navbar-animation:                     uk-slide-top-fixed;
+
+@dropdown-scrollable-height:                    200px;
+
+
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-dropdown-justify`
+ * 4. Set style
+ * 5. Reset button group whitespace hack
+ */
+
+.uk-dropdown {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: @dropdown-z-index;
+    /* 3 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* 4 */
+    width: @dropdown-width;
+    margin-top: @dropdown-margin-top;
+    padding: @dropdown-padding;
+    background: @dropdown-background;
+    color: @dropdown-color;
+    /* 5 */
+    font-size: @dropdown-font-size;
+    vertical-align: top;
+    .hook-dropdown;
+}
+
+/*
+ * 1. Show dropdown
+ * 2. Set animation
+ * 3. Needed for scale animation
+ */
+
+.uk-open > .uk-dropdown {
+    /* 1 */
+    display: block;
+    /* 2 */
+    -webkit-animation: @dropdown-animation 0.2s ease-in-out;
+    animation: @dropdown-animation 0.2s ease-in-out;
+    /* 3 */
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+/* Alignment modifiers
+ ========================================================================== */
+
+/*
+ * Modifier `uk-dropdown-flip`
+ */
+
+.uk-dropdown-flip {
+    left: auto;
+    right: 0;
+}
+
+/*
+ * Modifier `uk-dropdown-up`
+ */
+
+.uk-dropdown-up {
+    top: auto;
+    bottom: 100%;
+    margin-top: auto;
+    margin-bottom: @dropdown-margin-top;
+}
+
+
+/* Nav in dropdown
+ ========================================================================== */
+
+.uk-dropdown .uk-nav { margin: 0 -@dropdown-padding; }
+
+
+/* Grid and panel in dropdown
+ ========================================================================== */
+
+/*
+* Vertical gutter
+*/
+
+/*
+ * Grid
+ * Higher specificity to override large gutter
+ */
+
+.uk-grid .uk-dropdown-grid + .uk-dropdown-grid { margin-top: @dropdown-padding; }
+
+/* Panels */
+.uk-dropdown-grid > [class*='uk-width-'] > .uk-panel + .uk-panel { margin-top: @dropdown-padding; }
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    /*
+     * Horizontal gutter
+     */
+
+    .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid {
+        margin-left: -@dropdown-padding ;
+        margin-right: -@dropdown-padding;
+    }
+
+    .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-'] {
+        padding-left: @dropdown-padding;
+        padding-right: @dropdown-padding;
+    }
+
+    /*
+     * Column divider
+     */
+
+    .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) { border-left: @dropdown-divider-border-width solid @dropdown-divider-border; }
+
+    /*
+     * Width multiplier for dropdown columns
+     */
+
+    .uk-dropdown-width-2:not(.uk-dropdown-stack) { width: (@dropdown-width * 2); }
+    .uk-dropdown-width-3:not(.uk-dropdown-stack) { width: (@dropdown-width * 3); }
+    .uk-dropdown-width-4:not(.uk-dropdown-stack) { width: (@dropdown-width * 4); }
+    .uk-dropdown-width-5:not(.uk-dropdown-stack) { width: (@dropdown-width * 5); }
+
+}
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    /*
+     * Stack columns and take full width
+     */
+
+    .uk-dropdown-grid > [class*='uk-width-'] { width: 100%; }
+
+    /*
+     * Vertical gutter
+     */
+
+    .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @dropdown-padding; }
+
+}
+
+/*
+* Stack grid columns
+*/
+
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-'] { width: 100%; }
+
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @dropdown-padding; }
+
+
+
+/* Modifier `uk-dropdown-small`
+ ========================================================================== */
+
+/*
+ * Set min-width and text expands dropdown if needed
+ */
+
+.uk-dropdown-small {
+    min-width: 150px;
+    width: auto;
+    padding: @dropdown-small-padding;
+    white-space: nowrap;
+}
+
+/*
+ * Nav in dropdown
+ */
+
+.uk-dropdown-small .uk-nav { margin: 0 -@dropdown-small-padding; }
+
+
+/* Modifier: `uk-dropdown-navbar`
+ ========================================================================== */
+
+.uk-dropdown-navbar {
+    margin-top: @dropdown-navbar-margin;
+    background: @dropdown-navbar-background;
+    color: @dropdown-navbar-color;
+    .hook-dropdown-navbar;
+}
+
+.uk-open > .uk-dropdown-navbar {
+    -webkit-animation: @dropdown-navbar-animation 0.2s ease-in-out;
+    animation: @dropdown-navbar-animation 0.2s ease-in-out;
+}
+
+
+/* Modifier `uk-dropdown-scrollable`
+ ========================================================================== */
+
+/*
+ * Usefull for long lists
+ */
+
+.uk-dropdown-scrollable {
+    overflow-y: auto;
+    max-height: @dropdown-scrollable-height;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-dropdown-misc;
+
+.hook-dropdown() {}
+.hook-dropdown-navbar() {}
+.hook-dropdown-misc() {}

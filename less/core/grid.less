@@ -1,0 +1,593 @@
+// Name:            Grid
+// Description:     Provides a responsive, fluid and nestable grid
+//
+// Component:       `uk-grid`
+//                  `uk-width-*`
+//                  `uk-push-*`
+//                  `uk-pull-*`
+//
+// Modifiers:       `uk-grid-divider`
+//                  `uk-grid-margin`
+//                  `uk-grid-width-*`
+//                  `uk-grid-preserve`
+//
+// Uses:            Panel: `uk-panel`
+//
+// Used by:         Dropdown
+//
+// Markup:
+//
+// <!-- uk-grid -->
+// <div class="uk-grid">
+//     <div class="uk-width-1-2"></div>
+//     <div class="uk-width-1-2"></div>
+// </div>
+//
+// <!-- uk-grid-divider -->
+// <div class="uk-grid uk-grid-divider">
+//     <div class="uk-width-1-2"></div>
+//     <div class="uk-width-1-2"></div>
+// </div>
+// <hr class="uk-grid-divider">
+// <div class="uk-grid uk-grid-divider">
+//     <div class="uk-width-1-2"></div>
+//     <div class="uk-width-1-2"></div>
+// </div>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@grid-gutter-horizontal:                        25px;
+@grid-gutter-vertical:                          25px;
+
+@grid-gutter-large-horizontal:                  35px;
+@grid-gutter-large-vertical:                    35px;
+
+@grid-gutter-small-horizontal:                  10px;
+@grid-gutter-small-vertical:                    10px;
+
+@grid-divider-border:                           #ddd;
+@grid-divider-border-width:                     1px;
+
+
+/* ========================================================================
+   Component: Grid
+ ========================================================================== */
+
+/*
+ * Micro clearfix
+ */
+
+.uk-grid:before,
+.uk-grid:after {
+    content: " ";
+    display: table;
+}
+
+.uk-grid:after { clear: both; }
+
+/*
+ * 1. Needed for the gutter
+ * 2. Makes grid more robust so that it can be used with other block elements like lists
+ */
+
+.uk-grid {
+    /* 1 */
+    margin: 0 0 0 -@grid-gutter-horizontal;
+    /* 2 */
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Grid cell
+ * 1. Makes grid more robust so that it can be used with other block elements
+ * 2. Create horizontal gutter
+ * 3. `float` is set by default so columns always behave the same and create a new block format context
+ */
+
+.uk-grid > * {
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    padding-left: @grid-gutter-horizontal;
+    /* 3 */
+    float: left;
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-grid > * > :last-child { margin-bottom: 0; }
+
+
+/* Grid gutter
+ ========================================================================== */
+
+/*
+ * Vertical gutter
+ */
+
+.uk-grid + .uk-grid { margin-top: @grid-gutter-vertical; }
+
+/*
+ * This class is set by JavaScript and applies a vertical gutter if the columns stack or float into the next row
+ * Higher specificity to override margin
+ */
+
+.uk-grid > .uk-grid-margin { margin-top: @grid-gutter-vertical; }
+
+/*
+ * Vertical gutter for panels
+ */
+
+.uk-grid > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
+
+/*
+ * Larger gutter for large screens
+ */
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    /* Horizontal gutter */
+    .uk-grid:not(.uk-grid-preserve) { margin-left: -@grid-gutter-large-horizontal; }
+    .uk-grid:not(.uk-grid-preserve) > * { padding-left: @grid-gutter-large-horizontal; }
+
+    /* Vertical gutter */
+    .uk-grid:not(.uk-grid-preserve) + .uk-grid { margin-top: @grid-gutter-large-vertical; }
+    .uk-grid:not(.uk-grid-preserve) > .uk-grid-margin { margin-top: @grid-gutter-large-vertical; }
+
+    /* Vertical gutter for panels */
+    .uk-grid:not(.uk-grid-preserve) > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
+
+}
+
+/*
+ * Small gutter
+ * Higher specificity to override large gutter
+ */
+
+.uk-grid.uk-grid-small { margin-left: -@grid-gutter-small-horizontal; }
+.uk-grid.uk-grid-small > * { padding-left: @grid-gutter-small-horizontal; }
+
+.uk-grid.uk-grid-small + .uk-grid-small { margin-top: @grid-gutter-small-vertical; }
+.uk-grid.uk-grid-small > .uk-grid-margin { margin-top: @grid-gutter-small-vertical; }
+
+.uk-grid.uk-grid-small > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-small-vertical; }
+
+
+/* Modifier: `uk-grid-divider`
+ ========================================================================== */
+
+/*
+ * Horizontal divider
+ * Does not work with `uk-push-*`, `uk-pull-*` and not if the columns float into the next row
+ */
+
+.uk-grid-divider:not(:empty) {
+    margin-left: -@grid-gutter-horizontal;
+    margin-right: -@grid-gutter-horizontal;
+}
+
+.uk-grid-divider > * {
+    padding-left: @grid-gutter-horizontal;
+    padding-right: @grid-gutter-horizontal;
+}
+
+.uk-grid-divider > [class*='uk-width-1-']:not(.uk-width-1-1):nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-2-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-3-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-4-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-5-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-6-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-7-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    /*
+     * Large gutter
+     */
+
+    .uk-grid-divider:not(.uk-grid-preserve):not(:empty) {
+        margin-left: -@grid-gutter-large-horizontal;
+        margin-right: -@grid-gutter-large-horizontal;
+    }
+
+    .uk-grid-divider:not(.uk-grid-preserve) > * {
+        padding-left: @grid-gutter-large-horizontal;
+        padding-right: @grid-gutter-large-horizontal;
+    }
+
+    .uk-grid-divider:not(.uk-grid-preserve):empty {
+        margin-top: @grid-gutter-large-vertical;
+        margin-bottom: @grid-gutter-large-vertical;
+    }
+
+}
+
+/*
+ * Vertical divider
+ */
+
+.uk-grid-divider:empty {
+    margin-top: @grid-gutter-vertical;
+    margin-bottom: @grid-gutter-vertical;
+    border-top: @grid-divider-border-width solid @grid-divider-border;
+}
+
+
+/* Even grid cell widths
+ ========================================================================== */
+
+[class*='uk-grid-width'] > * {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.uk-grid-width-1-2 > * { width: 50%; }
+.uk-grid-width-1-3 > * { width: 33.333%; }
+.uk-grid-width-1-4 > * { width: 25%; }
+.uk-grid-width-1-5 > * { width: 20%; }
+.uk-grid-width-1-6 > * { width: 16.666%; }
+.uk-grid-width-1-10 > * { width: 10%; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-grid-width-small-1-2 > * { width: 50%; }
+    .uk-grid-width-small-1-3 > * { width: 33.333%; }
+    .uk-grid-width-small-1-4 > * { width: 25%; }
+    .uk-grid-width-small-1-5 > * { width: 20%; }
+    .uk-grid-width-small-1-6 > * { width: 16.666%; }
+    .uk-grid-width-small-1-10 > * { width: 10%; }
+
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-grid-width-medium-1-2 > * { width: 50%; }
+    .uk-grid-width-medium-1-3 > * { width: 33.333%; }
+    .uk-grid-width-medium-1-4 > * { width: 25%; }
+    .uk-grid-width-medium-1-5 > * { width: 20%; }
+    .uk-grid-width-medium-1-6 > * { width: 16.666%; }
+    .uk-grid-width-medium-1-10 > * { width: 10%; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-grid-width-large-1-2 > * { width: 50%; }
+    .uk-grid-width-large-1-3 > * { width: 33.333%; }
+    .uk-grid-width-large-1-4 > * { width: 25%; }
+    .uk-grid-width-large-1-5 > * { width: 20%; }
+    .uk-grid-width-large-1-6 > * { width: 16.666%; }
+    .uk-grid-width-large-1-10 > * { width: 10%; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-grid-width-xlarge-1-2 > * { width: 50%; }
+    .uk-grid-width-xlarge-1-3 > * { width: 33.333%; }
+    .uk-grid-width-xlarge-1-4 > * { width: 25%; }
+    .uk-grid-width-xlarge-1-5 > * { width: 20%; }
+    .uk-grid-width-xlarge-1-6 > * { width: 16.666%; }
+    .uk-grid-width-xlarge-1-10 > * { width: 10%; }
+
+}
+
+
+/* Sub-objects: `uk-width-*`
+ ========================================================================== */
+
+[class*='uk-width'] {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/*
+ * Widths
+ */
+
+/* Whole */
+.uk-width-1-1 { width: 100%; }
+
+/* Halves */
+.uk-width-1-2,
+.uk-width-2-4,
+.uk-width-3-6,
+.uk-width-5-10 { width: 50%; }
+
+/* Thirds */
+.uk-width-1-3,
+.uk-width-2-6 { width: 33.333%; }
+.uk-width-2-3,
+.uk-width-4-6 { width: 66.666%; }
+
+/* Quarters */
+.uk-width-1-4 { width: 25%; }
+.uk-width-3-4 { width: 75%; }
+
+/* Fifths */
+.uk-width-1-5,
+.uk-width-2-10 { width: 20%; }
+.uk-width-2-5,
+.uk-width-4-10 { width: 40%; }
+.uk-width-3-5,
+.uk-width-6-10 { width: 60%; }
+.uk-width-4-5,
+.uk-width-8-10 { width: 80%; }
+
+/* Sixths */
+.uk-width-1-6 { width: 16.666%; }
+.uk-width-5-6 { width: 83.333%; }
+
+/* Tenths */
+.uk-width-1-10 { width: 10%; }
+.uk-width-3-10 { width: 30%; }
+.uk-width-7-10 { width: 70%; }
+.uk-width-9-10 { width: 90%; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    /* Whole */
+    .uk-width-small-1-1 { width: 100%; }
+
+    /* Halves */
+    .uk-width-small-1-2,
+    .uk-width-small-2-4,
+    .uk-width-small-3-6,
+    .uk-width-small-5-10 { width: 50%; }
+
+    /* Thirds */
+    .uk-width-small-1-3,
+    .uk-width-small-2-6 { width: 33.333%; }
+    .uk-width-small-2-3,
+    .uk-width-small-4-6 { width: 66.666%; }
+
+    /* Quarters */
+    .uk-width-small-1-4 { width: 25%; }
+    .uk-width-small-3-4 { width: 75%; }
+
+    /* Fifths */
+    .uk-width-small-1-5,
+    .uk-width-small-2-10 { width: 20%; }
+    .uk-width-small-2-5,
+    .uk-width-small-4-10 { width: 40%; }
+    .uk-width-small-3-5,
+    .uk-width-small-6-10 { width: 60%; }
+    .uk-width-small-4-5,
+    .uk-width-small-8-10 { width: 80%; }
+
+    /* Sixths */
+    .uk-width-small-1-6 { width: 16.666%; }
+    .uk-width-small-5-6 { width: 83.333%; }
+
+    /* Tenths */
+    .uk-width-small-1-10 { width: 10%; }
+    .uk-width-small-3-10 { width: 30%; }
+    .uk-width-small-7-10 { width: 70%; }
+    .uk-width-small-9-10 { width: 90%; }
+
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    /* Whole */
+    .uk-width-medium-1-1 { width: 100%; }
+
+    /* Halves */
+    .uk-width-medium-1-2,
+    .uk-width-medium-2-4,
+    .uk-width-medium-3-6,
+    .uk-width-medium-5-10 { width: 50%; }
+
+    /* Thirds */
+    .uk-width-medium-1-3,
+    .uk-width-medium-2-6 { width: 33.333%; }
+    .uk-width-medium-2-3,
+    .uk-width-medium-4-6 { width: 66.666%; }
+
+    /* Quarters */
+    .uk-width-medium-1-4 { width: 25%; }
+    .uk-width-medium-3-4 { width: 75%; }
+
+    /* Fifths */
+    .uk-width-medium-1-5,
+    .uk-width-medium-2-10 { width: 20%; }
+    .uk-width-medium-2-5,
+    .uk-width-medium-4-10 { width: 40%; }
+    .uk-width-medium-3-5,
+    .uk-width-medium-6-10 { width: 60%; }
+    .uk-width-medium-4-5,
+    .uk-width-medium-8-10 { width: 80%; }
+
+    /* Sixths */
+    .uk-width-medium-1-6 { width: 16.666%; }
+    .uk-width-medium-5-6 { width: 83.333%; }
+
+    /* Tenths */
+    .uk-width-medium-1-10 { width: 10%; }
+    .uk-width-medium-3-10 { width: 30%; }
+    .uk-width-medium-7-10 { width: 70%; }
+    .uk-width-medium-9-10 { width: 90%; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    /* Whole */
+    .uk-width-large-1-1 { width: 100%; }
+
+    /* Halves */
+    .uk-width-large-1-2,
+    .uk-width-large-2-4,
+    .uk-width-large-3-6,
+    .uk-width-large-5-10 { width: 50%; }
+
+    /* Thirds */
+    .uk-width-large-1-3,
+    .uk-width-large-2-6 { width: 33.333%; }
+    .uk-width-large-2-3,
+    .uk-width-large-4-6 { width: 66.666%; }
+
+    /* Quarters */
+    .uk-width-large-1-4 { width: 25%; }
+    .uk-width-large-3-4 { width: 75%; }
+
+    /* Fifths */
+    .uk-width-large-1-5,
+    .uk-width-large-2-10 { width: 20%; }
+    .uk-width-large-2-5,
+    .uk-width-large-4-10 { width: 40%; }
+    .uk-width-large-3-5,
+    .uk-width-large-6-10 { width: 60%; }
+    .uk-width-large-4-5,
+    .uk-width-large-8-10 { width: 80%; }
+
+    /* Sixths */
+    .uk-width-large-1-6 { width: 16.666%; }
+    .uk-width-large-5-6 { width: 83.333%; }
+
+    /* Tenths */
+    .uk-width-large-1-10 { width: 10%; }
+    .uk-width-large-3-10 { width: 30%; }
+    .uk-width-large-7-10 { width: 70%; }
+    .uk-width-large-9-10 { width: 90%; }
+
+}
+
+
+/* Sub-object: `uk-push-*` and `uk-pull-*`
+ ========================================================================== */
+
+/*
+ * Source ordering
+ * Works only with `uk-width-medium-*`
+ */
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    [class*='uk-push-'],
+    [class*='uk-pull-'] { position: relative; }
+
+    /*
+     * Push
+     */
+
+    /* Halves */
+    .uk-push-1-2,
+    .uk-push-2-4,
+    .uk-push-3-6,
+    .uk-push-5-10 { left: 50%; }
+
+    /* Thirds */
+    .uk-push-1-3,
+    .uk-push-2-6 { left: 33.333%; }
+    .uk-push-2-3,
+    .uk-push-4-6 { left: 66.666%; }
+
+    /* Quarters */
+    .uk-push-1-4 { left: 25%; }
+    .uk-push-3-4 { left: 75%; }
+
+    /* Fifths */
+    .uk-push-1-5,
+    .uk-push-2-10 { left: 20%; }
+    .uk-push-2-5,
+    .uk-push-4-10 { left: 40%; }
+    .uk-push-3-5,
+    .uk-push-6-10 { left: 60%; }
+    .uk-push-4-5,
+    .uk-push-8-10 { left: 80%; }
+
+    /* Sixths */
+    .uk-push-1-6 { left: 16.666%; }
+    .uk-push-5-6 { left: 83.333%; }
+
+    /* Tenths */
+    .uk-push-1-10 { left: 10%; }
+    .uk-push-3-10 { left: 30%; }
+    .uk-push-7-10 { left: 70%; }
+    .uk-push-9-10 { left: 90%; }
+
+    /*
+     * Pull
+     */
+
+     /* Halves */
+     .uk-pull-1-2,
+     .uk-pull-2-4,
+     .uk-pull-3-6,
+     .uk-pull-5-10 { left: -50%; }
+
+     /* Thirds */
+     .uk-pull-1-3,
+     .uk-pull-2-6 { left: -33.333%; }
+     .uk-pull-2-3,
+     .uk-pull-4-6 { left: -66.666%; }
+
+     /* Quarters */
+     .uk-pull-1-4 { left: -25%; }
+     .uk-pull-3-4 { left: -75%; }
+
+     /* Fifths */
+     .uk-pull-1-5,
+     .uk-pull-2-10 { left: -20%; }
+     .uk-pull-2-5,
+     .uk-pull-4-10 { left: -40%; }
+     .uk-pull-3-5,
+     .uk-pull-6-10 { left: -60%; }
+     .uk-pull-4-5,
+     .uk-pull-8-10 { left: -80%; }
+
+     /* Sixths */
+     .uk-pull-1-6 { left: -16.666%; }
+     .uk-pull-5-6 { left: -83.333%; }
+
+     /* Tenths */
+     .uk-pull-1-10 { left: -10%; }
+     .uk-pull-3-10 { left: -30%; }
+     .uk-pull-7-10 { left: -70%; }
+     .uk-pull-9-10 { left: -90%; }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-grid-misc;
+
+.hook-grid-misc() {}

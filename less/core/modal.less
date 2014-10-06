@@ -1,0 +1,226 @@
+// Name:            Modal
+// Description:     Defines styles for modal dialogs
+//
+// Component:       `uk-modal`
+//
+// Sub-objects:     `uk-modal-dialog`
+//                  `uk-modal-close`
+//
+// Modifiers:       `uk-modal-dialog-frameless`
+//                  `uk-modal-dialog-large`
+//
+// States:          `uk-open`
+//
+// Uses:            Close: `uk-close`
+//
+// Markup:
+//
+// <!-- uk-modal -->
+// <a href="#modal" data-uk-modal=""></a>
+// <div id="modal" class="uk-modal">
+//     <div class="uk-modal-dialog">
+//         <a href="" class="uk-modal-close uk-close"></a>
+//         <p></p>
+//     </div>
+// </div>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@modal-z-index:                                 1010;
+@modal-background:                              rgba(0,0,0,0.6);
+
+@modal-dialog-margin-vertical:                  50px;
+@modal-dialog-padding:                          20px;
+@modal-dialog-width:                            600px;
+@modal-dialog-background:                       #fff;
+
+@modal-dialog-large-width:                      930px;
+@modal-dialog-large-width-large:                1130px;
+
+
+/* ========================================================================
+   Component: Modal
+ ========================================================================== */
+
+/*
+ * This is the modal overlay and modal dialog container
+ * 1. Hide by default
+ * 2. Set fixed position
+ * 3. Allow scrolling for the modal dialog
+ * 4. Mask the background page
+ * 5. Fade-in transition
+ */
+
+.uk-modal {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @modal-z-index;
+    /* 3 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 4 */
+    background: @modal-background;
+    /* 5 */
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+    .hook-modal;
+}
+
+/*
+ * Open state
+ */
+
+.uk-modal.uk-open { opacity: 1; }
+
+/*
+ * Prevents duplicated scrollbar caused by 4.
+ */
+
+.uk-modal-page,
+.uk-modal-page body { overflow: hidden; }
+
+
+/* Sub-object: `uk-modal-dialog`
+ ========================================================================== */
+
+/*
+ * 1. Create position context for `uk-modal-dialog-frameless`
+ * 2. Set box sizing
+ * 3. Set style
+ * 4. Slide-in transition
+ */
+
+.uk-modal-dialog {
+    /* 1 */
+    position: relative;
+    /* 2 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: @modal-dialog-margin-vertical auto;
+    padding: @modal-dialog-padding;
+    width: @modal-dialog-width;
+    max-width: 100%;
+    max-width: ~"calc(100% - 20px)";
+    /* 3 */
+    background: @modal-dialog-background;
+    /* 4 */
+    opacity: 0;
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+    -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
+    transition: opacity 0.3s linear, transform 0.3s ease-out;
+    .hook-modal-dialog;
+}
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    /*
+     * Fit in small screen
+     */
+
+    .uk-modal-dialog {
+        width: auto;
+        margin: 10px;
+    }
+
+}
+
+/*
+ * Open state
+ */
+
+.uk-open .uk-modal-dialog {
+    /* 4 */
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-modal-dialog > :last-child { margin-bottom: 0; }
+
+
+/* Close in modal
+ ========================================================================== */
+
+.uk-modal-dialog > .uk-close:first-child {
+    margin: -10px -10px 0 0;
+    float: right;
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+ .uk-modal-dialog > .uk-close:first-child + * { margin-top: 0; }
+
+
+/* Modifier: `uk-modal-dialog-frameless`
+ ========================================================================== */
+
+.uk-modal-dialog-frameless { padding: 0; }
+
+/*
+ * Close in modal
+ */
+
+.uk-modal-dialog-frameless > .uk-close:first-child {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    margin: 0;
+    float: none;
+}
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    .uk-modal-dialog-frameless > .uk-close:first-child {
+        top: -7px;
+        right: -7px;
+    }
+
+}
+
+
+/* Modifier: `uk-modal-dialog-large`
+ ========================================================================== */
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-modal-dialog-large { width: @modal-dialog-large-width; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-modal-dialog-large { width: @modal-dialog-large-width-large; }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-modal-misc;
+
+.hook-modal() {}
+.hook-modal-dialog() {}
+.hook-modal-misc() {}

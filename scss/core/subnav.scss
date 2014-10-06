@@ -1,0 +1,183 @@
+// Name:            Subnav
+// Description:     Defines styles for the sub navigation
+//
+// Component:       `uk-subnav`
+//
+// Modifiers:       `uk-subnav-line`
+//                  `uk-subnav-pill`
+//
+// States:          `uk-active`
+//
+// Markup:
+//
+// <!-- uk-subnav -->
+// <ul class="uk-subnav">
+//     <li><a href=""></a></li>
+// </ul>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$subnav-font-size:                               1rem !default;
+$subnav-margin:                                  10px !default;
+$subnav-color:                                   #07D !default;
+$subnav-hover-color:                             #059 !default;
+$subnav-disabled-color:                          #999 !default;
+
+$subnav-line-border-height:                      10px !default;
+$subnav-line-border:                             #ddd !default;
+$subnav-line-border-width:                       1px !default;
+
+$subnav-pill-padding-vertical:                   3px !default;
+$subnav-pill-padding-horizontal:                 9px !default;
+$subnav-pill-hover-background:                   #eee !default;
+$subnav-pill-hover-color:                        #444 !default;
+$subnav-pill-active-background:                  #00a8e6 !default;
+$subnav-pill-active-color:                       #fff !default;
+
+
+/* ========================================================================
+   Component: Subnav
+ ========================================================================== */
+
+/*
+ * 1. Remove default list style
+ * 2. Remove whitespace between child elements when using `inline-block`
+ */
+
+.uk-subnav {
+    /* 1 */
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    font-size: 0.001px;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Create position context for dropdowns
+ * 2. Reset whitespace hack
+ */
+
+.uk-subnav > li {
+    /* 1 */
+    position: relative;
+    /* 2 */
+    font-size: $subnav-font-size;
+    vertical-align: top;
+}
+
+.uk-subnav > li,
+.uk-subnav > li > a,
+.uk-subnav > li > span { display: inline-block; }
+
+.uk-subnav > li:nth-child(n+2) { margin-left: $subnav-margin; }
+
+/*
+ * Items
+ */
+
+.uk-subnav > li > a,
+.uk-subnav > li > span {
+    @include hook-subnav-item();
+}
+
+.uk-subnav > li > a {
+    color: $subnav-color;
+    @include hook-subnav-link();
+}
+
+.uk-subnav > li > a:hover {
+    color: $subnav-hover-color;
+    @include hook-subnav-link-hover();
+}
+
+/*
+ * Active
+ */
+
+.uk-subnav > li.uk-active > a {
+    @include hook-subnav-active();
+}
+
+/*
+ * Disabled
+ */
+
+.uk-subnav > li > span {
+    color: $subnav-disabled-color;
+    @include hook-subnav-disabled();
+}
+
+
+/* Modifier: 'subnav-line'
+ ========================================================================== */
+
+.uk-subnav-line > li:nth-child(n+2):before {
+    content: "";
+    display: inline-block;
+    height: $subnav-line-border-height;
+    margin-right: $subnav-margin;
+    border-left: $subnav-line-border-width solid $subnav-line-border;
+    @include hook-subnav-line-divider();
+}
+
+
+/* Modifier: 'subnav-pill'
+ ========================================================================== */
+
+.uk-subnav-pill > li > a,
+.uk-subnav-pill > li > span {
+    padding: $subnav-pill-padding-vertical $subnav-pill-padding-horizontal;
+    text-decoration: none;
+    @include hook-subnav-pill();
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-subnav-pill > li > a:hover,
+.uk-subnav-pill > li > a:focus { // 1
+    background: $subnav-pill-hover-background;
+    color: $subnav-pill-hover-color;
+    /* 2 */
+    outline: none;
+    @include hook-subnav-pill-hover();
+}
+
+/*
+ * Active
+ * `li` needed for higher specificity to override hover
+ */
+
+.uk-subnav-pill > li.uk-active > a {
+    background: $subnav-pill-active-background;
+    color: $subnav-pill-active-color;
+    @include hook-subnav-pill-active();
+}
+
+
+// Hooks
+// ========================================================================
+
+@include hook-subnav-misc();
+
+// @mixin hook-subnav-item(){}
+// @mixin hook-subnav-link(){}
+// @mixin hook-subnav-link-hover(){}
+// @mixin hook-subnav-active(){}
+// @mixin hook-subnav-disabled(){}
+// @mixin hook-subnav-line-divider(){}
+// @mixin hook-subnav-pill(){}
+// @mixin hook-subnav-pill-hover(){}
+// @mixin hook-subnav-pill-active(){}
+// @mixin hook-subnav-misc(){}

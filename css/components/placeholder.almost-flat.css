@@ -1,0 +1,29 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Placeholder
+ ========================================================================== */
+.uk-placeholder {
+  margin-bottom: 15px;
+  padding: 20px;
+  border: 1px dashed #dddddd;
+  background: #fafafa;
+  color: #444444;
+}
+/*
+ * Add margin if adjacent element
+ */
+* + .uk-placeholder {
+  margin-top: 15px;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-placeholder > :last-child {
+  margin-bottom: 0;
+}
+/* Modifier: `uk-placeholder-large`
+ ========================================================================== */
+.uk-placeholder-large {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}

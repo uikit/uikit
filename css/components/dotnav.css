@@ -1,0 +1,78 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Dotnav
+ ========================================================================== */
+/*
+ * 1. Remove default list style
+ * 2. Remove whitespace between child elements when using `inline-block`
+ */
+.uk-dotnav {
+  /* 1 */
+  padding: 0;
+  list-style: none;
+  /* 2 */
+  font-size: 0.001px;
+}
+/* Items
+ ========================================================================== */
+/*
+ * 1. Reset whitespace hack
+ * 2. Remove the gap at the bottom of it container
+ */
+.uk-dotnav > li {
+  display: inline-block;
+  /* 1 */
+  font-size: 1rem;
+  /* 2 */
+  vertical-align: top;
+}
+.uk-dotnav > li:nth-child(n+2) {
+  margin-left: 15px;
+}
+/*
+ * Items
+ * 1. Remove the gap at the bottom of it container
+ * 2. Hide text if present
+ */
+.uk-dotnav > li > a {
+  display: inline-block;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(50, 50, 50, 0.1);
+  /* 1 */
+  vertical-align: top;
+  /* 2 */
+  overflow: hidden;
+  text-indent: -999%;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-dotnav > li > a:hover,
+.uk-dotnav > li > a:focus {
+  background: rgba(50, 50, 50, 0.4);
+  /* 2 */
+  outline: none;
+}
+/* OnClick */
+.uk-dotnav > li > a:active {
+  background: rgba(50, 50, 50, 0.6);
+}
+/* Active */
+.uk-dotnav > li.uk-active > a {
+  background: rgba(50, 50, 50, 0.4);
+}
+/* Modifier: 'dotnav-vertical'
+ ========================================================================== */
+.uk-dotnav-vertical > li {
+  display: block;
+}
+.uk-dotnav-vertical > li:nth-child(n+2) {
+  margin-left: 0;
+  margin-top: 15px;
+}

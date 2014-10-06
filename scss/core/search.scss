@@ -1,0 +1,310 @@
+// Name:            Search
+// Description:     Defines a search component
+//
+// Component:       `uk-search`
+//
+// Sub-objects:     `uk-search-field`
+//
+// Modifier:        (Nav) `uk-nav-search`
+//                  (Dropdown) `uk-dropdown-search`
+//
+// States:          `uk-active`
+//                  `uk-loading`
+//
+// Uses:            Animation
+//                  Icon: FontAwesome
+//                  Navbar: `uk-navbar-flip`
+//
+// Used by:         Off-canvas
+//
+// Markup:
+//
+// <!-- uk-search addon -->
+// <form class="uk-search" data-uk-search>
+//     <input class="uk-search-field" type="search" placeholder="">
+// </form>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$search-width:                                   120px !default;
+$search-focus-width:                             180px !default;
+$search-height:                                  30px !default;
+$search-padding:                                 30px !default;
+$search-border:                                  rgba(0,0,0,0) !default;
+$search-border-width:                            1px !default;
+$search-background:                              rgba(0,0,0,0) !default;
+$search-color:                                   #444 !default;
+$search-placeholder-color:                       #999 !default;
+
+$search-icon:                                    "\f002" !default;
+$search-icon-size:                               14px !default;
+$search-icon-color:                              rgba(0,0,0,0.2) !default;
+
+// Dropdown modifier
+$dropdown-search-width:                          300px !default;
+$dropdown-search-margin-top:                     0 !default;
+$dropdown-search-background:                     #f5f5f5 !default;
+$dropdown-search-color:                          #444 !default;
+$dropdown-search-animation:                      uk-slide-top-fixed !default;
+$dropdown-search-navbar-margin-top:              5px !default;
+$dropdown-search-navbar-margin-right:            -15px !default;
+
+// Nav modifier
+$nav-search-color:                               #444 !default;
+$nav-search-active-background:                   #00a8e6 !default;
+$nav-search-active-color:                        #fff !default;
+$nav-search-header-color:                        #999 !default;
+$nav-search-divider-border:                      #ddd !default;
+$nav-search-divider-border-width:                1px !default;
+$nav-search-nested-color:                        #07D !default;
+$nav-search-nested-hover-color:                  #059 !default;
+
+// Search in offcanvas
+$offcanvas-search-margin:                        20px 15px !default;
+$offcanvas-search-background:                    #1a1a1a !default;
+$offcanvas-search-border:                        rgba(0,0,0,0) !default;
+$offcanvas-search-color:                         #ccc !default;
+$offcanvas-search-placeholder-color:             #777 !default;
+$offcanvas-search-icon-color:                    #777 !default;
+
+
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
+
+/*
+ * 1. Create position context for dropdowns
+ * 2. Needed for `form` element
+ */
+
+.uk-search {
+    display: inline-block;
+    /* 1 */
+    position: relative;
+    /* 2 */
+    margin: 0;
+    @include hook-search();
+}
+
+/*
+ * Icon
+ */
+
+.uk-search:before {
+    content: $search-icon;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $search-padding;
+    line-height: $search-height;
+    text-align: center;
+    font-family: FontAwesome;
+    font-size: $search-icon-size;
+    color: $search-icon-color;
+    @include hook-search-icon();
+}
+
+
+/* Sub-object `uk-search-field`
+ ========================================================================== */
+
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-search-field::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ */
+
+.uk-search-field::-webkit-search-cancel-button,
+.uk-search-field::-webkit-search-decoration { -webkit-appearance: none; }
+
+/*
+ * Removes cancel button in IE10
+ */
+
+.uk-search-field::-ms-clear { display: none; }
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.uk-search-field::-moz-placeholder { opacity: 1; }
+
+/*
+ * 1. Define consistent box sizing.
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Correct `font` properties and `color` not being inherited.
+ * 5. Remove default style in iOS.
+ * 6. Style
+ */
+
+.uk-search-field {
+    /* 1 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+    color: $search-color;
+    /* 5 */
+    -webkit-appearance: none;
+    /* 6 */
+    width: $search-width;
+    height: $search-height;
+    padding: 0 0 0 $search-padding;
+    border: $search-border-width solid $search-border;
+    background: $search-background;
+    -webkit-transition: all linear 0.2s;
+    transition: all linear 0.2s;
+    vertical-align: middle;
+    @include hook-search-field();
+}
+
+/* Placeholder */
+.uk-search-field:-ms-input-placeholder { color: $search-placeholder-color !important; }
+.uk-search-field::-moz-placeholder { color: $search-placeholder-color; }
+.uk-search-field::-webkit-input-placeholder { color: $search-placeholder-color; }
+
+/* Focus */
+.uk-search-field:focus {
+    outline: 0;
+    @include hook-search-field-focus();
+}
+
+/* Focus + Active */
+.uk-search-field:focus,
+.uk-search.uk-active .uk-search-field { width: $search-focus-width; }
+
+
+/* Dropdown modifier: `uk-dropdown-search`
+ ========================================================================== */
+
+.uk-dropdown-search {
+    width: $dropdown-search-width;
+    margin-top: $dropdown-search-margin-top;
+    background: $dropdown-search-background;
+    color: $dropdown-search-color;
+    @include hook-dropdown-search();
+}
+
+.uk-open > .uk-dropdown-search {
+    -webkit-animation: $dropdown-search-animation 0.2s ease-in-out;
+    animation: $dropdown-search-animation 0.2s ease-in-out;
+}
+
+/*
+ * Dependency `uk-navbar-flip`
+ */
+
+.uk-navbar-flip .uk-dropdown-search {
+    margin-top: $dropdown-search-navbar-margin-top;
+    margin-right: $dropdown-search-navbar-margin-right;
+}
+
+
+/* Nav modifier `uk-nav-search`
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-nav-search > li > a {
+    color: $nav-search-color;
+    @include hook-nav-search();
+}
+
+/*
+ * Active
+ * 1. Remove default focus style
+ */
+
+.uk-nav-search > li.uk-active > a {
+    background: $nav-search-active-background;
+    color: $nav-search-active-color;
+    /* 1 */
+    outline: none;
+    @include hook-nav-search-active();
+}
+
+/*
+ * Sub-object: `uk-nav-header`
+ */
+
+.uk-nav-search .uk-nav-header {
+    color: $nav-search-header-color;
+    @include hook-nav-search-header();
+}
+
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+
+.uk-nav-search .uk-nav-divider {
+    border-top: $nav-search-divider-border-width solid $nav-search-divider-border;
+    @include hook-nav-search-divider();
+}
+
+/*
+ * Nested items
+ */
+
+.uk-nav-search ul a { color: $nav-search-nested-color; }
+.uk-nav-search ul a:hover { color: $nav-search-nested-hover-color; }
+
+
+/* Search in offcanvas
+ ========================================================================== */
+
+.uk-offcanvas .uk-search {
+    display: block;
+    margin: $offcanvas-search-margin;
+}
+
+.uk-offcanvas .uk-search:before { color: $offcanvas-search-icon-color; }
+
+.uk-offcanvas .uk-search-field {
+    width: 100%;
+    border-color: $offcanvas-search-border;
+    background: $offcanvas-search-background;
+    color: $offcanvas-search-color;
+    @include hook-offcanvas-search-field();
+}
+
+.uk-offcanvas .uk-search-field:-ms-input-placeholder { color: $offcanvas-search-placeholder-color !important; }
+.uk-offcanvas .uk-search-field::-moz-placeholder { color: $offcanvas-search-placeholder-color; }
+.uk-offcanvas .uk-search-field::-webkit-input-placeholder { color: $offcanvas-search-placeholder-color; }
+
+
+// Hooks
+// ========================================================================
+
+@include hook-search-misc();
+
+// @mixin hook-search(){}
+// @mixin hook-search-icon(){}
+// @mixin hook-search-field(){}
+// @mixin hook-search-field-focus(){}
+
+// @mixin hook-dropdown-search(){}
+// @mixin hook-nav-search(){}
+// @mixin hook-nav-search-active(){}
+// @mixin hook-nav-search-header(){}
+// @mixin hook-nav-search-divider(){}
+// @mixin hook-offcanvas-search-field(){}
+
+// @mixin hook-search-misc(){}

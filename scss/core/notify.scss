@@ -1,0 +1,191 @@
+// Name:            Notify
+// Description:     Defines styles for toggleable notifications
+//
+// Component:       `uk-notify`
+//
+// Sub-objects:     `uk-notify-message`
+//
+// Modifiers:       `uk-notify-top-center`
+//                  `uk-notify-top-right`
+//                  `uk-notify-bottom-left`
+//                  `uk-notify-bottom-center`
+//                  `uk-notify-bottom-right`
+//                  `uk-notify-message-primary`
+//                  `uk-notify-message-success`
+//                  `uk-notify-message-warning`
+//                  `uk-notify-message-danger`
+//
+// Uses:            Close: `uk-close`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$notify-position:                                10px !default;
+$notify-z-index:                                 1040 !default;
+$notify-width:                                   350px !default;
+
+$notify-message-margin-bottom:                   10px !default;
+$notify-message-padding:                         15px !default;
+$notify-message-background:                      #444 !default;
+$notify-message-color:                           #fff !default;
+$notify-message-font-size:                       16px !default;
+$notify-message-line-height:                     22px !default;
+
+$notify-message-primary-background:              #ebf7fd !default;
+$notify-message-primary-color:                   #2d7091 !default;
+
+$notify-message-success-background:              #f2fae3 !default;
+$notify-message-success-color:                   #659f13 !default;
+
+$notify-message-warning-background:              #fffceb !default;
+$notify-message-warning-color:                   #e28327 !default;
+
+$notify-message-danger-background:               #fff1f0 !default;
+$notify-message-danger-color:                    #d85030 !default;
+
+
+/* ========================================================================
+   Component: Notify
+ ========================================================================== */
+
+/*
+ * Message container for positioning
+ */
+
+.uk-notify {
+    position: fixed;
+    top: $notify-position;
+    left: $notify-position;
+    z-index: $notify-z-index;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: $notify-width;
+    @include hook-notify();
+}
+
+
+/* Position modifiers
+========================================================================== */
+
+.uk-notify-top-right,
+.uk-notify-bottom-right  {
+    left: auto;
+    right: $notify-position;
+}
+
+.uk-notify-top-center,
+.uk-notify-bottom-center {
+    left: 50%;
+    margin-left: ($notify-width / -2);
+}
+
+.uk-notify-bottom-left,
+.uk-notify-bottom-right,
+.uk-notify-bottom-center {
+    top: auto;
+    bottom: $notify-position;
+}
+
+
+/* Responsiveness
+========================================================================== */
+
+/* Phones portrait and smaller */
+@media (max-width: $breakpoint-mini-max) {
+
+    /*
+     * Fit in small screen
+     */
+
+    .uk-notify {
+        left: 10px;
+        right: 10px;
+        width: auto;
+        margin: 0;
+    }
+
+}
+
+
+/* Sub-object: `uk-notify-message`
+========================================================================== */
+
+.uk-notify-message {
+    position: relative;
+    margin-bottom: $notify-message-margin-bottom;
+    padding: $notify-message-padding;
+    background: $notify-message-background;
+    color: $notify-message-color;
+    font-size: $notify-message-font-size;
+    line-height: $notify-message-line-height;
+    cursor: pointer;
+    @include hook-notify-message();
+}
+
+
+/* Close in notify
+ ========================================================================== */
+
+.uk-notify-message > .uk-close {
+    visibility: hidden;
+    float: right;
+}
+
+.uk-notify-message:hover > .uk-close { visibility: visible; }
+
+
+/* Modifier: `uk-alert-info`
+ ========================================================================== */
+
+.uk-notify-message-primary {
+    background: $notify-message-primary-background;
+    color: $notify-message-primary-color;
+    @include hook-notify-message-primary();
+}
+
+
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+
+.uk-notify-message-success {
+    background: $notify-message-success-background;
+    color: $notify-message-success-color;
+    @include hook-notify-message-success();
+}
+
+
+/* Modifier: `uk-notify-message-warning`
+ ========================================================================== */
+
+.uk-notify-message-warning {
+    background: $notify-message-warning-background;
+    color: $notify-message-warning-color;
+    @include hook-notify-message-warning();
+}
+
+
+/* Modifier: `uk-notify-message-danger`
+ ========================================================================== */
+
+.uk-notify-message-danger {
+    background: $notify-message-danger-background;
+    color: $notify-message-danger-color;
+    @include hook-notify-message-danger();
+}
+
+
+// Hooks
+// ========================================================================
+
+@include hook-notify-misc();
+
+// @mixin hook-notify(){}
+// @mixin hook-notify-message(){}
+// @mixin hook-notify-message-primary(){}
+// @mixin hook-notify-message-success(){}
+// @mixin hook-notify-message-warning(){}
+// @mixin hook-notify-message-danger(){}
+// @mixin hook-notify-misc(){}

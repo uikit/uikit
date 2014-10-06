@@ -1,0 +1,521 @@
+// Name:            Base
+// Description:     Sets default values for HTML elements
+//
+// Component:       `uk-h1`, `uk-h2`, `uk-h3`, `uk-h4`, `uk-h5`, `uk-h6`
+//                  `uk-link`
+//                  `uk-img-preserve`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@base-body-background:                          #fff;
+@base-body-font-family:                         "Helvetica Neue", Helvetica, Arial, sans-serif;
+@base-body-font-weight:                         normal;
+@base-body-font-size:                           14px;
+@base-body-line-height:                         20px;
+@base-body-color:                               #444;
+
+@base-link-color:                               #07D;
+@base-link-text-decoration:                     none;
+@base-link-hover-color:                         #059;
+@base-link-hover-text-decoration:               underline;
+
+@base-code-color:                               #D05;
+@base-code-font-size:                           12px;
+@base-code-font-family:                         Consolas, monospace, serif;
+@base-em-color:                                 #D05;
+@base-ins-background:                           #ffa;
+@base-ins-color:                                #444;
+@base-mark-background:                          #ffa;
+@base-mark-color:                               #444;
+@base-quote-font-style:                         italic;
+
+@base-margin-vertical:                          15px;
+
+@base-heading-font-family:                      "Helvetica Neue", Helvetica, Arial, sans-serif;
+@base-heading-font-weight:                      normal;
+@base-heading-color:                            #444;
+@base-heading-text-transform:                   none;
+@base-heading-margin-top:                       25px;
+@base-h1-font-size:                             36px;
+@base-h1-line-height:                           42px;
+@base-h2-font-size:                             24px;
+@base-h2-line-height:                           30px;
+@base-h3-font-size:                             18px;
+@base-h3-line-height:                           24px;
+@base-h4-font-size:                             16px;
+@base-h4-line-height:                           22px;
+@base-h5-font-size:                             14px;
+@base-h5-line-height:                           20px;
+@base-h6-font-size:                             12px;
+@base-h6-line-height:                           18px;
+
+@base-list-padding-left:                        30px;
+
+@base-hr-margin-vertical:                       @base-margin-vertical;
+@base-hr-border:                                #ddd;
+@base-hr-border-width:                          1px;
+
+@base-blockquote-padding-left:                  15px;
+@base-blockquote-border:                        #ddd;
+@base-blockquote-border-width:                  5px;
+@base-blockquote-font-size:                     16px;
+@base-blockquote-line-height:                   22px;
+@base-blockquote-font-style:                    italic;
+
+@base-pre-padding:                              10px;
+@base-pre-background:                           #f5f5f5;
+@base-pre-color:                                #444;
+@base-pre-font-size:                            12px;
+@base-pre-line-height:                          18px;
+@base-pre-font-family:                          @base-code-font-family;
+
+@base-selection-background:                     #39f;
+@base-selection-color:                          #fff;
+
+
+/* ========================================================================
+   Component: Base
+ ========================================================================== */
+
+/*
+ * 1. Normalizes default `font-family` and sets `font-size` here to support `rem` units
+ * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
+ * 3. Style
+ */
+
+html {
+    /* 1 */
+    font: @base-body-font-weight @base-body-font-size e("/") @base-body-line-height @base-body-font-family;
+    /* 2 */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    /* 3 */
+    background: @base-body-background;
+    color: @base-body-color;
+    .hook-base-body;
+}
+
+/*
+ * Removes default margin.
+ */
+
+body { margin: 0; }
+
+
+/* Links
+ ========================================================================== */
+
+/*
+ * Remove the gray background color from active links in IE 10.
+ */
+
+a { background: transparent; }
+
+/*
+ * Improves readability when focused and also mouse hovered in all browsers.
+ */
+
+a:active,
+a:hover { outline: 0; }
+
+/*
+ * Style
+ */
+
+a,
+.uk-link {
+    color: @base-link-color;
+    text-decoration: @base-link-text-decoration;
+    cursor: pointer;
+}
+
+a:hover,
+.uk-link:hover {
+    color: @base-link-hover-color;
+    text-decoration: @base-link-hover-text-decoration;
+}
+
+
+/* Text-level semantics
+ ========================================================================== */
+
+/*
+ * Addresses styling not present in Chrome, Safari, Opera and IE 8/9/10.
+ */
+
+abbr[title] { border-bottom: 1px dotted; }
+
+/*
+ * Addresses style set to `bolder` in Firefox
+ */
+
+b,
+strong { font-weight: bold; }
+
+/*
+ * 1. Address odd `em`-unit font size rendering in all browsers.
+ * 2. Consolas has a better baseline in running text compared to `Courier`
+ */
+
+:not(pre) > code,
+:not(pre) > kbd,
+:not(pre) > samp {
+    /* 1 */
+    font-size: @base-code-font-size;
+    /* 2 */
+    font-family: @base-code-font-family;
+    /* 3 */
+    color: @base-code-color;
+    white-space: nowrap;
+    .hook-base-code;
+}
+
+/*
+ * Emphasize
+ */
+
+em { color: @base-em-color; }
+
+/*
+ * Insert
+ */
+
+ins {
+    background: @base-ins-background;
+    color: @base-ins-color;
+    text-decoration: none;
+}
+
+/*
+ * Mark
+ * Note: Addresses styling not present in IE 8/9.
+ */
+
+mark {
+    background: @base-mark-background;
+    color: @base-mark-color;
+}
+
+/*
+ * Quote
+ */
+
+q { font-style: @base-quote-font-style; }
+
+/*
+ * Addresses inconsistent and variable font size in all browsers.
+ */
+
+small { font-size: 80%; }
+
+/*
+ * Prevents `sub` and `sup` affecting `line-height` in all browsers.
+ */
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+
+/* Images
+ ========================================================================== */
+
+/*
+ * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * 2. Corrects `max-width` behavior if padding and border are used
+ * 3. Remove border when inside `a` element in IE 8/9/10.
+ * 4. Remove the gap between images and the bottom of their containers
+ */
+
+img {
+    /* 1 */
+    max-width: 100%;
+    height: auto;
+    /* 2 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* 3 */
+    border: 0;
+    /* 4 */
+    vertical-align: middle;
+}
+
+/*
+ * Preserve original image dimensions
+ */
+
+.uk-img-preserve,
+.uk-img-preserve img { max-width: none; }
+
+/*
+ * Correct overflow not hidden in IE 9/10/11.
+ */
+
+svg:not(:root) { overflow: hidden; }
+
+
+/* Block elements
+ ========================================================================== */
+
+/*
+ * Reset margin
+ */
+
+blockquote,
+figure { margin: 0; }
+
+/*
+ * Margins
+ */
+
+p,
+ul,
+ol,
+dl,
+blockquote,
+pre,
+address,
+fieldset,
+figure { margin: 0 0 @base-margin-vertical 0; }
+
+* + p,
+* + ul,
+* + ol,
+* + dl,
+* + blockquote,
+* + pre,
+* + address,
+* + fieldset,
+* + figure { margin-top: @base-margin-vertical; }
+
+
+/* Headings
+ ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 @base-margin-vertical 0;
+    font-family:  @base-heading-font-family;
+    font-weight: @base-heading-font-weight;
+    color: @base-heading-color;
+    text-transform: @base-heading-text-transform;
+}
+
+/*
+ * Margins
+ */
+
+* + h1,
+* + h2,
+* + h3,
+* + h4,
+* + h5,
+* + h6 { margin-top: @base-heading-margin-top; }
+
+/*
+ * Sizes
+ */
+
+h1, .uk-h1 {
+    font-size: @base-h1-font-size;
+    line-height: @base-h1-line-height;
+}
+
+h2, .uk-h2 {
+    font-size: @base-h2-font-size;
+    line-height: @base-h2-line-height;
+}
+
+h3, .uk-h3 {
+    font-size: @base-h3-font-size;
+    line-height: @base-h3-line-height;
+}
+
+h4, .uk-h4 {
+    font-size: @base-h4-font-size;
+    line-height: @base-h4-line-height;
+}
+
+h5, .uk-h5 {
+    font-size: @base-h5-font-size;
+    line-height: @base-h5-line-height;
+}
+
+h6, .uk-h6 {
+    font-size: @base-h6-font-size;
+    line-height: @base-h6-line-height;
+}
+
+
+/* Lists
+ ========================================================================== */
+
+ul,
+ol { padding-left: @base-list-padding-left; }
+
+/*
+ * Reset margin for nested lists
+ */
+
+ul > li > ul,
+ul > li > ol,
+ol > li > ol,
+ol > li > ul { margin: 0; }
+
+
+/* Description lists
+ ========================================================================== */
+
+dt { font-weight: bold; }
+dd { margin-left: 0; }
+
+
+/* Horizontal rules
+ ========================================================================== */
+
+/*
+ * 1. Address differences between Firefox and other browsers.
+ * 2. Style
+ */
+
+hr {
+    /* 1 */
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+    /* 2 */
+    margin: @base-hr-margin-vertical 0;
+    border: 0;
+    border-top: @base-hr-border-width solid @base-hr-border;
+}
+
+
+/* Address
+ ========================================================================== */
+
+address { font-style: normal; }
+
+
+/* Blockquotes
+ ========================================================================== */
+
+blockquote {
+    padding-left: @base-blockquote-padding-left;
+    border-left: @base-blockquote-border-width solid @base-blockquote-border;
+    font-size: @base-blockquote-font-size;
+    line-height: @base-blockquote-line-height;
+    font-style: @base-blockquote-font-style;
+}
+
+
+/* Preformatted text
+ ========================================================================== */
+
+/*
+ * 1. Contain overflow in all browsers.
+ */
+
+pre {
+    padding: @base-pre-padding;
+    background: @base-pre-background;
+    font: @base-pre-font-size e("/") @base-pre-line-height @base-pre-font-family;
+    color: @base-pre-color;
+    -moz-tab-size: 4;
+    tab-size: 4;
+    /* 1 */
+    overflow: auto;
+    .hook-base-pre;
+}
+
+
+/* Selection pseudo-element 
+ ========================================================================== */
+
+::-moz-selection {
+    background: @base-selection-background;
+    color: @base-selection-color;
+    text-shadow: none;
+}
+
+::selection {
+    background: @base-selection-background;
+    color: @base-selection-color;
+    text-shadow: none;
+}
+
+
+/* HTML5 elements
+ ========================================================================== */
+
+/*
+ * Corrects `block` display not defined in IE 8/9.
+ */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section,
+summary { display: block; }
+
+/*
+ * Addresses inconsistent vertical alignment of `progress` in Chrome, Firefox and Opera.
+ */
+
+progress { vertical-align: baseline; }
+
+/*
+ * Prevent displaying `audio` without controls in Chrome, Safari and Opera
+ */
+
+audio:not([controls]) { display: none; }
+
+/*
+ * Address `[hidden]` styling not present in IE 8/9.
+ * Hide the `template` element in IE and Safari
+ */
+
+[hidden],
+template { display: none; }
+
+
+/* Iframe
+ ========================================================================== */
+
+iframe { border: 0; }
+
+
+/* Fix viewport for IE10 snap mode
+ ========================================================================== */
+
+@media screen and (max-width: 400px) {
+    @-ms-viewport{
+        width: device-width;
+    }
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-base-misc;
+
+.hook-base-body() {}
+.hook-base-code() {}
+.hook-base-pre() {}
+.hook-base-misc() {}

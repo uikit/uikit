@@ -1,0 +1,52 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Autocomplete
+ ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ * 4. Remove the gap between the container and its child element
+ */
+.uk-autocomplete {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  position: relative;
+  /* 3 */
+  max-width: 100%;
+  /* 4 */
+  vertical-align: middle;
+}
+/* Nav modifier `uk-nav-autocomplete`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-autocomplete > li > a {
+  color: #444444;
+}
+/*
+ * Active
+ * 1. Remove default focus style
+ */
+.uk-nav-autocomplete > li.uk-active > a {
+  background: #009dd8;
+  color: #ffffff;
+  /* 1 */
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-autocomplete .uk-nav-header {
+  color: #999999;
+}
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-autocomplete .uk-nav-divider {
+  border-top: 1px solid #dddddd;
+}

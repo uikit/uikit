@@ -1,0 +1,10 @@
+/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Upload
+ ========================================================================== */
+/*
+ * Create a box-shadow when dragging a file over the upload area
+ */
+.uk-dragover {
+  box-shadow: 0 0 20px rgba(100, 100, 100, 0.3);
+}
