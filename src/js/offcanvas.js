@@ -5,7 +5,7 @@
     var scrollpos = {x: window.scrollX, y: window.scrollY},
         $win      = UI.$win,
         $doc      = UI.$doc,
-        $html     = $('html'),
+        $html     = UI.$html,
         Offcanvas = {
 
         show: function(element) {
@@ -15,7 +15,6 @@
             if (!element.length) return;
 
             var $body     = $('body'),
-                winwidth  = $win.width(),
                 bar       = element.find(".uk-offcanvas-bar:first"),
                 rtl       = ($.UIkit.langdirection == "right"),
                 flip      = bar.hasClass("uk-offcanvas-bar-flip") ? -1:1,
@@ -48,7 +47,7 @@
                 Offcanvas.hide();
             });
 
-            $doc.on('keydown.ukoffcanvas', function(e) {
+            $html.on('keydown.ukoffcanvas', function(e) {
                 if (e.keyCode === 27) { // ESC
                     Offcanvas.hide();
                 }
@@ -89,7 +88,7 @@
             }
 
             panel.off(".ukoffcanvas");
-            $doc.off(".ukoffcanvas");
+            $html.off(".ukoffcanvas");
         }
     };
 
@@ -113,7 +112,7 @@
     UI.offcanvas = Offcanvas;
 
     // init code
-    $doc.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+    $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
 
         e.preventDefault();
 

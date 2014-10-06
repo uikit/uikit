@@ -130,10 +130,10 @@
 
             var $this = this;
 
-            UI.$doc.off("click.outer.dropdown");
+            UI.$html.off("click.outer.dropdown");
 
             setTimeout(function() {
-                UI.$doc.on("click.outer.dropdown", function(e) {
+                UI.$html.on("click.outer.dropdown", function(e) {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
@@ -143,7 +143,7 @@
 
                     if (active && active[0] == $this.element[0] && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
                         active.removeClass("uk-open");
-                        UI.$doc.off("click.outer.dropdown");
+                        UI.$html.off("click.outer.dropdown");
                     }
                 });
             }, 10);
@@ -234,7 +234,7 @@
     var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
     // init code
-    UI.$doc.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+    UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
         var ele = $(this);
 
         if (!ele.data("dropdown")) {
