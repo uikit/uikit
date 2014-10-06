@@ -27,7 +27,7 @@
         times['24h'].push({value: (h+':00')});
         times['24h'].push({value: (h+':30')});
 
-        if (i<13) {
+        if (i > 0 && i<13) {
             times['12h'].push({value: (h+':00 AM')});
             times['12h'].push({value: (h+':30 AM')});
         }

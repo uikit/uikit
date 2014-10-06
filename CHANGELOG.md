@@ -10,6 +10,7 @@
   - Unified triggered event names
   - Fixed jumping issue on modal show
   - Fixed triggering more results in search component
+  - Fixed short time selection in timepicker component
   - Added uk.scrollspynav.inview event trigger
   - Fixed UIkit functionality when uses with Polymer
   - Adjust document scroll position if dragged nestable or sortable items are out of view
