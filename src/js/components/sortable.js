@@ -212,14 +212,17 @@
                     }
                 }
 
-                if (!dragging) {
+                if (!dragging && !$this.options.warp) {
                     return;
                 }
 
                 if ($this.options.warp) {
+
                     var thisSibling = currentlyDraggingElement.nextSibling;
                     this.parentNode.insertBefore(currentlyDraggingElement, this);
                     this.parentNode.insertBefore(this, thisSibling);
+
+                    UI.Utils.checkDisplay($this.element.parent());
                 }
 
                 $this.options.change(this, currentlyDraggingElement);
