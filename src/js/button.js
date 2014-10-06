@@ -17,7 +17,7 @@
                 if ($(this).is('a[href="#"]')) e.preventDefault();
 
                 $this.find($this.options.target).not(this).removeClass("uk-active").blur();
-                $this.trigger("change", [$(this).addClass("uk-active")]);
+                $this.trigger("uk.button.change", [$(this).addClass("uk-active")]);
             });
 
         },
@@ -41,7 +41,7 @@
 
                 if ($(this).is('a[href="#"]')) e.preventDefault();
 
-                $this.trigger("change", [$(this).toggleClass("uk-active").blur()]);
+                $this.trigger("uk.button.change", [$(this).toggleClass("uk-active").blur()]);
             });
 
         },
@@ -65,7 +65,7 @@
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
                 $this.toggle();
-                $this.trigger("change", [$this.element.blur().hasClass("uk-active")]);
+                $this.trigger("uk.button.change", [$this.element.blur().hasClass("uk-active")]);
             });
 
         },
@@ -97,7 +97,7 @@
             var obj = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))), target=$(e.target);
 
             if (target.is(obj.options.target)) {
-                ele.trigger("change", [target.toggleClass("uk-active").blur()]);
+                ele.trigger("uk.button.change", [target.toggleClass("uk-active").blur()]);
             }
         }
     });

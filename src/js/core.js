@@ -46,7 +46,7 @@
         return UI;
     }
 
-    UI.version = '2.9.0';
+    UI.version = '2.10.0';
     UI.$doc    = $doc;
     UI.$win    = $win;
     UI.$html   = $html;
@@ -182,7 +182,7 @@
     };
 
     UI.Utils.checkDisplay = function(context) {
-        $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document).trigger('uk-check-display');
+        $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document).trigger('uk.check.display');
     };
 
     UI.Utils.options = function(string) {

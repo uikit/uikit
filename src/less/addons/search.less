@@ -113,37 +113,71 @@
  ========================================================================== */
 
 /*
- * 1. Needed to reset iOS `input[type="search"]` appearance
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-search-field::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ */
+
+.uk-search-field::-webkit-search-cancel-button,
+.uk-search-field::-webkit-search-decoration { -webkit-appearance: none; }
+
+/*
+ * Removes cancel button in IE10
+ */
+
+.uk-search-field::-ms-clear { display: none; }
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.uk-search-field::-moz-placeholder { opacity: 1; }
+
+/*
+ * 1. Define consistent box sizing.
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Correct `font` properties and `color` not being inherited.
+ * 5. Remove default style in iOS.
+ * 6. Style
  */
 
 .uk-search-field {
+    /* 1 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+    color: @search-color;
+    /* 5 */
+    -webkit-appearance: none;
+    /* 6 */
     width: @search-width;
     height: @search-height;
     padding: 0 0 0 @search-padding;
     border: @search-border-width solid @search-border;
     background: @search-background;
-    color: @search-color;
     -webkit-transition: all linear 0.2s;
     transition: all linear 0.2s;
-    /* 1 */
-    border-radius: 0;
+    vertical-align: middle;
     .hook-search-field;
 }
 
-/*
- * Needed to reset iOS `input[type="search"]` appearance
- * Higher specificity to override appearance set by normalize.less
- */
-
-input.uk-search-field { -webkit-appearance: none; }
-
 /* Placeholder */
-.uk-search-field:-ms-input-placeholder { color: @search-placeholder-color; }
+.uk-search-field:-ms-input-placeholder { color: @search-placeholder-color !important; }
 .uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
 .uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
-
-/* Removes cancel button in IE10 */
-.uk-search-field::-ms-clear { display: none; }
 
 /* Focus */
 .uk-search-field:focus {
@@ -151,7 +185,7 @@ input.uk-search-field { -webkit-appearance: none; }
     .hook-search-field-focus;
 }
 
-/* Focus + active */
+/* Focus + Active */
 .uk-search-field:focus,
 .uk-search.uk-active .uk-search-field { width: @search-focus-width; }
 
@@ -251,7 +285,7 @@ input.uk-search-field { -webkit-appearance: none; }
     .hook-offcanvas-search-field;
 }
 
-.uk-offcanvas .uk-search-field:-ms-input-placeholder { color: @offcanvas-search-placeholder-color; }
+.uk-offcanvas .uk-search-field:-ms-input-placeholder { color: @offcanvas-search-placeholder-color !important; }
 .uk-offcanvas .uk-search-field::-moz-placeholder { color: @offcanvas-search-placeholder-color; }
 .uk-offcanvas .uk-search-field::-webkit-input-placeholder { color: @offcanvas-search-placeholder-color; }
 

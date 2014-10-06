@@ -72,6 +72,7 @@
 
         var testfolder = $("script[src$='_test.js']").attr("src").replace("_test.js", ""),
             testselect = $('<select><option value="">- Select Test -</option></select>').css("margin", "20px 5px")
+            controls = $('<div class="uk-form"></div>');
 
 
         $.each(tests.sort(), function(){
@@ -95,8 +96,10 @@
 
         if($.UIkit) $.UIkit.langdirection = rtlcheckbox.is(":checked") ? "right":"left";
 
-        $(".uk-container").prepend(rtlcheckbox_label);
 
+        $(".uk-container").prepend(controls);
+
+        controls.prepend(rtlcheckbox_label);
 
         //themes
 
@@ -111,7 +114,7 @@
             location.reload();
         });
 
-        $(".uk-container").prepend(themeselect).prepend(testselect);
+        controls.prepend(themeselect).prepend(testselect);
 
         var lessparser = new less.Parser({paths: [], env: "development"}),
             lesscode   = [],

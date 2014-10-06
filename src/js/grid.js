@@ -40,7 +40,7 @@
                 $this.match();
             });
 
-            this.on("uk-check-display", function(e) {
+            this.on("uk.check.display", function(e) {
                 if(this.element.is(":visible")) this.match();
             }.bind(this));
 

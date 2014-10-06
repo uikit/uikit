@@ -1,4 +1,4 @@
-/*! UIkit 2.9.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.10.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 
 (function(addon) {
 
@@ -25,6 +25,9 @@
 
             this.on("change", function() {
                 xhrupload($this.element[0].files, $this.options);
+                var twin = $this.element.clone(true).data('uploadSelect', $this);
+                $this.element.replaceWith(twin);
+                $this.element = twin;
             });
         }
     });

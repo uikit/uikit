@@ -138,7 +138,7 @@
                         addFakeDragHandlers();
 
                         $this.options.start(this, currentlyDraggingElement);
-                        $this.trigger('sortable-start', [$this, currentlyDraggingElement]);
+                        $this.trigger('uk.sortable.start', [$this, currentlyDraggingElement]);
 
                         delayIdle = false;
                     }
@@ -223,7 +223,7 @@
                 }
 
                 $this.options.change(this, currentlyDraggingElement);
-                $this.trigger('sortable-change', [$this, currentlyDraggingElement]);
+                $this.trigger('uk.sortable.change', [$this, currentlyDraggingElement]);
             });
 
             var handleDragEnd = function(e) {
@@ -243,7 +243,7 @@
                 removeFakeDragHandlers();
 
                 $this.options.stop(this);
-                $this.trigger('sortable-stop', [$this]);
+                $this.trigger('uk.sortable.stop', [$this]);
 
                 draggingPlaceholder.remove();
                 draggingPlaceholder = null;
@@ -257,7 +257,7 @@
                     return true;
                 }
 
-                children.removeClass($this.options.overClass);
+                $this.element.children().removeClass($this.options.overClass);
                 currentlyDraggingTarget = this;
 
                 if (!$this.options.warp) {
@@ -363,9 +363,9 @@
                 children = list.children(),
                 count    = children.length;
 
-            if($this.options.warp || !$this.options.animation) {
+            if ($this.options.warp || !$this.options.animation) {
                 elementToMoveNextTo.parentNode.insertBefore(element, next);
-                UI.Utils.checkDisplay($this.element);
+                UI.Utils.checkDisplay($this.element.parent());
                 return;
             }
 
@@ -381,6 +381,8 @@
             });
 
             elementToMoveNextTo.parentNode.insertBefore(element, next);
+
+            UI.Utils.checkDisplay($this.element.parent());
 
             children = list.children().each(function() {
                 var ele    = $(this);
@@ -405,13 +407,11 @@
                             count--
                             if (!count) {
                                 list.css('min-height', '');
-                                UI.Utils.checkDisplay(ele);
+                                UI.Utils.checkDisplay($this.element.parent());
                             }
                         });
                     }, 0);
             });
-
-
         }
     });
 
@@ -477,10 +477,13 @@
         });
     });
 
-    UI.$doc.on('mousemove touchmove', function(e) {
+    $('html').on('mousemove touchmove', function(e) {
 
         if (delayIdle) {
-            if (Math.abs(e.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(e.pageY - delayIdle.pos.y) > delayIdle.threshold) {
+
+            var src = e.originalEvent.targetTouches ? e.originalEvent.targetTouches[0] : e;
+
+            if (Math.abs(src.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(src.pageY - delayIdle.pos.y) > delayIdle.threshold) {
                 delayIdle.apply();
             }
         }
@@ -502,6 +505,12 @@
                 top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
 
             draggingPlaceholder.css({'left': left, 'top': top });
+
+            if (top < UI.$win.scrollTop()) {
+                UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/2));
+            } else if ( (top + draggingPlaceholder.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
+                UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/2));
+            }
         }
     });
 

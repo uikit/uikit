@@ -37,7 +37,8 @@
                 $this.process();
             });
 
-            this.on("uk-check-display", function(e) {
+            this.on("uk.check.display", function(e) {
+                $this.columns = $this.element.children();
                 if(this.element.is(":visible")) this.process();
             }.bind(this));
 

@@ -102,36 +102,62 @@
  ========================================================================== */
 
 /*
- * 1. Required for `a` elements
- * 2. Required for `button` and `input` elements
- * 3. `line-height` is used to create a height
- * 4. `min-height` is necessary for `input` elements in Firefox and Opera because `line-height` is not working.
- * 5. Reset button group whitespace hack
- * 6. Style
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * 1. Correct inability to style clickable `input` types in iOS.
+ * 2. Remove margins in Chrome, Safari and Opera.
+ * 3. Remove borders for `button`.
+ * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
+ * 7. Style
+ * 8. `line-height` is used to create a height
+ * 9. `min-height` is necessary for `input` elements in Firefox and Opera because `line-height` is not working.
+ * 10. Reset button group whitespace hack
+ * 11. Required for `a`.
  */
 
 .uk-button {
     /* 1 */
+    -webkit-appearance: none;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border: none;
+    /* 4 */
+    overflow: visible;
+    /* 5 */
+    font: inherit;
+    color: @button-color;
+    /* 6 */
+    text-transform: none;
+    /* 7 */
     display: inline-block;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    vertical-align: middle;
-    text-decoration: none;
-    text-align: center;
-    /* 2 */
-    border: none;
-    /* 3 */
-    line-height: @button-line-height;
-    /* 4 */
-    min-height: @button-height;
-    /* 5 */
-    font-size: @button-font-size;
-    /* 6 */
     padding: 0 @button-padding-horizontal;
     background: @button-background;
-    color: @button-color;
+    vertical-align: middle;
+    /* 8 */
+    line-height: @button-line-height;
+    /* 9 */
+    min-height: @button-height;
+    /* 10 */
+    font-size: @button-font-size;
+    /* 11 */
+    text-decoration: none;
+    text-align: center;
     .hook-button;
 }
+
+.uk-button:not(:disabled) { cursor: pointer; }
 
 /*
  * Hover

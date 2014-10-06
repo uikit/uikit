@@ -1,8 +1,24 @@
 # Changelog
 
-### WIP
+### W.I.P.
+
+  - Fixed sortable on mobile
+  - Unified triggered event names
+  - Adjust document scroll position if dragged nestable or sortable items are out of view
+
+
+### 2.10.0 (September 15, 2014)
 
  - Added input types for iOS style reset to form component
+ - Updated icon component to Font Awesome to 4.2.0
+ - Moved normalization into base, form, button and form component
+ - Removed normalize component
+ - Fixed upload select works only once if filename is the same
+
+**Documentation and repository**
+
+  - Removed normalize from docs and tests
+  - Updated base test
 
 ### 2.9.0 (August 18, 2014)
 

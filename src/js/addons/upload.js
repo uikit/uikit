@@ -23,6 +23,9 @@
 
             this.on("change", function() {
                 xhrupload($this.element[0].files, $this.options);
+                var twin = $this.element.clone(true).data('uploadSelect', $this);
+                $this.element.replaceWith(twin);
+                $this.element = twin;
             });
         }
     });

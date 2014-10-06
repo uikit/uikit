@@ -47,7 +47,6 @@
                         <ul class="tm-nav uk-nav" data-uk-nav>
 
                             <li class="uk-nav-header">Defaults</li>
-                            <li><a href="normalize.html">Normalize</a></li>
                             <li><a href="base.html">Base</a></li>
                             <li><a href="print.html">Print</a></li>
 
@@ -379,6 +378,81 @@
 
 <pre><code>&lt;table class="uk-table uk-table-hover uk-table-striped uk-table-condensed"&gt;...&lt;/table&gt;</code></pre>
 
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overflow-container"><a href="#overflow-container" class="uk-link-reset">Responsive Table</a></h2>
+
+                            <p>If your table happens to be wider that its container element or would eventually get too big on a specific viewport width, just wrap it inside a <code>&lt;div&gt;</code> element and add the <code>.uk-overflow-container</code> class. This creates a container that provides a horizontal scrollbar whenever the elements inside it are wider than the container itself.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-overflow-container"&gt;
+    &lt;table&gt;...&lt;/table&gt;
+&lt;/div&gt;</code></pre>
+
                         </article>
 
                     </div>
@@ -427,7 +501,6 @@
                     <li class="uk-nav-header">Components</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="normalize.html">Normalize</a></li>
                             <li><a href="base.html">Base</a></li>
                             <li><a href="print.html">Print</a></li>
                         </ul>

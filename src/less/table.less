@@ -34,11 +34,18 @@
  ========================================================================== */
 
 /*
- * Block element behavior
+ * 1. Remove most spacing between table cells.
+ * 2. Block element behavior
+ * 3. Style
  */
 
 .uk-table {
+	/* 1 */
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* 2 */
     width: 100%;
+    /* 3 */
     margin-bottom: @table-margin-vertical;
 }
 
