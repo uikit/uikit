@@ -82,18 +82,17 @@
                             </ol>
 
                             <p>
-                                You'll find both, Less files and Sass files side by side for each component:
+                                You'll find both, Less files and Sass files side by side seperated in their own folders:
                             </p>
 
 <pre><code>/uikit
-    autocomplete/
-        autocomplete.less
-        autocomplete.scss
-
-    uikit.less
-    uikit.scss
-
-    ...
+    less/
+        uikit.less
+        ...
+    scss/
+        uikit-mixins.scss
+        uikit.scss
+        ...
 
 </code></pre>
 
@@ -105,8 +104,8 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>@import "uikit/uikit.less";
-@import "uikit/autocomplete/autocomplete.less";
+<pre><code>@import "uikit/less/uikit.less";
+@import "uikit/less/components/autocomplete.less";
 
 // your custom code goes here, e.g. mixins, variables
 </code></pre>
@@ -119,12 +118,12 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>@import "uikit/uikit-mixins.scss"; // UIkit hooks. It is important to include this first!
+<pre><code>@import "uikit/scss/uikit-mixins.scss"; // UIkit hooks. It is important to include this first!
 
 // your custom code goes here, e.g. mixins, variables
 
-@import "uikit/uikit.scss";
-@import "uikit/autocomplete/autocomplete.scss";
+@import "uikit/scss/uikit.scss";
+@import "uikit/scss/components/autocomplete.scss";
 </code></pre>
                         </article>
 
