@@ -119,6 +119,7 @@
             "components/htmleditor",
             "components/nestable",
             "components/notify",
+            "components/pagination-js",
             "components/placeholder",
             "components/search",
             "components/slidenav",
