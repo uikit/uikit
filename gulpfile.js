@@ -242,7 +242,8 @@ gulp.task('sass', ['sass-convert'], function(done) {
 
         var re     = /\/\/ @mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g,
             mixins = [],
-            promises = [];
+            promises = [],
+            cache = {};
 
         files.forEach(function(file) {
 
@@ -253,10 +254,16 @@ gulp.task('sass', ['sass-convert'], function(done) {
 
                     if (err) throw err;
 
-                    var matches;
+                    var matches, tmp;
 
                     while(matches = re.exec(content)) {
-                        mixins.push(matches[0].replace(/\/\/\s*/, ''));
+
+                        tmp = matches[0].replace(/\/\/\s*/, '');
+
+                        if (!cache[tmp]) {
+                            mixins.push(String(tmp));
+                            cache[tmp] = true;
+                        }
                     }
 
                     resolve();
@@ -280,7 +287,7 @@ gulp.task('sass', ['sass-convert'], function(done) {
 
 gulp.task('dist-variables', ['dist-core-move'], function(done) {
 
-    var regexp  = /(@[\w\-]+\s*:(.*);?)/g, variables = [], promises = [];
+    var regexp  = /(@[\w\-]+\s*:(.*);?)/g, variables = [], promises = [], cache = {};
 
     glob('./src/less/**/*.less', function (err, files) {
 
@@ -290,10 +297,15 @@ gulp.task('dist-variables', ['dist-core-move'], function(done) {
 
                 fs.readFile(file, "utf-8", function(err, data) {
 
-                    var matches;
+                    var matches, tmp;
 
                     while(matches = regexp.exec(data)) {
-                        variables.push(matches[0]);
+                        tmp = matches[0].split(':')[0].trim();
+
+                        if (!cache[tmp]) {
+                            variables.push(matches[0]);
+                            cache[tmp] = true;
+                        }
                     }
 
                     resolve();

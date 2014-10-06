@@ -2,7 +2,8 @@
 
     window.CustomizerForceUpdate = iniframe;
 
-    var base = '../'+ document.querySelector('script[src*="_test.js"]').attributes.src.value.replace('_test.js', '');
+    var scriptest =  document.querySelector('script[src*="_test.js"]'),
+        base      = '../'+ scriptest.attributes.src.value.replace('_test.js', '');
 
     var styles = [
 
@@ -129,7 +130,7 @@
 
     document.addEventListener("DOMContentLoaded", function(event) {
 
-        var $body = $("body").css("visibility", "hidden");
+        var $body = $("body").css("visibility", "hidden"), $scriptest = $(scriptest);
 
         var controls = $('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>');
 
@@ -153,7 +154,7 @@
             optgroup.append('<option value="'+value+'.html">'+name+'</option>');
         });
 
-        testselect.val(testselect.find("option[value$='"+location.href.split("/").slice(-1)[0]+"']").attr("value")).on("change", function(){
+        testselect.val(testselect.find("option[value$='"+((location.href.match(/overview/) ? '':'/') + location.href.split("/").slice(-1)[0])+"']").attr("value")).on("change", function(){
             if(testselect.val()) location.href = testfolder+testselect.val();
         });
 
@@ -197,7 +198,7 @@
                 testselect.after(themeselect);
 
                 styles.forEach(function(style) {
-                    $body.append('<link rel="stylesheet" href="'+base+(style.replace('{style}', theme=='default' ? '':'.'+theme))+'">');
+                    $scriptest.after('<link rel="stylesheet" href="'+base+(style.replace('{style}', theme=='default' ? '':'.'+theme))+'">');
                 });
 
 
