@@ -1,24 +1,26 @@
 # Changelog
 
 ### W.I.P.
-
+  
+  - Added uk.scrollspynav.inview event trigger
   - Fixed sortable on mobile
   - Fixed sortable in warp mode
-  - Replaced Grunt with Gulp
-  - Convert Less to Sass files on build
-  - Refactored source and themes directory structure
-  - Removed dist folder
-  - Unified triggered event names
   - Fixed jumping issue on modal show
   - Fixed triggering more results in search component
   - Fixed short time selection in timepicker component
-  - Added uk.scrollspynav.inview event trigger
   - Fixed UIkit functionality when uses with Polymer
+  - Adjusted form danger and success colors
+  - Unified triggered event names
   - Adjust document scroll position if dragged nestable or sortable items are out of view
 
 **Documentation and repository**
 
-  - Added Less/ Sass files documentation
+  - Refactored source and themes directory structure
+  - Removed dist folder
+  - Replaced Grunt with Gulp
+  - Added Sass files creation to build process
+  - Added Less/Sass files docs
+  - Fixed markup in thumbnail doc 
 
 ### 2.10.0 (September 15, 2014)
 
