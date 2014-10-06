@@ -3,6 +3,7 @@
 ### W.I.P.
 
   - Fixed sortable on mobile
+  - Fixed sortable in warp mode
   - Replaced Grunt with Gulp
   - Convert Less to Sass files on build
   - Refactored source and themes directory structure
