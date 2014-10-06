@@ -14,6 +14,8 @@
 
 })(function($, UI){
 
+    var active;
+
     UI.component('autocomplete', {
 
         defaults: {
@@ -94,10 +96,7 @@
                     }
 
                 },
-                "keyup": trigger,
-                "blur": function(e) {
-                    setTimeout(function() { $this.hide(); }, 200);
-                }
+                "keyup": trigger
             });
 
             this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
@@ -188,6 +187,8 @@
             if (this.visible) return;
             this.visible = true;
             this.element.addClass("uk-open");
+
+            active = this;
             return this;
         },
 
@@ -195,6 +196,11 @@
             if (!this.visible) return;
             this.visible = false;
             this.element.removeClass("uk-open");
+
+            if (active === this) {
+                active = false;
+            }
+
             return this;
         },
 
@@ -297,6 +303,11 @@
         if (!ele.data("autocomplete")) {
             var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
         }
+    });
+
+    // register outer click for autocompletes
+    UI.$html.on("click.autocomplete.uikit", function(e){
+        if (active && e.target!=active.input[0]) active.hide();
     });
 
     return UI.autocomplete;
