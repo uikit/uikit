@@ -161,7 +161,7 @@
 
         if (!iniframe) {
 
-            $.get("../themes.json", {nocache:Math.random()}).always(function(data, type){
+            $.get(base+"themes.json", {nocache:Math.random()}).always(function(data, type){
 
                 var theme      = localStorage["uikit.theme"] || 'default',
                     themes = {
