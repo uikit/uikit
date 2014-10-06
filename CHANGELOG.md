@@ -13,7 +13,7 @@
   - Unified triggered event names
   - Adjust document scroll position if dragged nestable or sortable items are out of view
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Refactored source and themes directory structure
   - Removed dist folder
@@ -30,7 +30,7 @@
  - Removed normalize component
  - Fixed upload select works only once if filename is the same
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Removed normalize from docs and tests
   - Updated base test
@@ -89,7 +89,7 @@
  - Fixed search add-on missing uk-active class
  - Fixed left position bug in safari for sticky add-on
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Updated dropdown, timepicker and sortable doc
 
@@ -135,7 +135,7 @@
   - Updated dropdown flip and stack behavior
   - Updated icon component to Font Awesome to 4.1
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Added showcase
   - Added docs and tests for new add-ons
@@ -177,7 +177,7 @@
   - Fixed markdownarea add-on browser reload issue
   - Fixed fixed breakpoint for grid divider with large gutter
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Refactored add-on structure
   - Added docs and tests for new add-ons
@@ -217,7 +217,7 @@
   - Fixed gap in navbar gradient and almost flat theme
   - Whitespace hack now uses font-size
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Refactored add-on structure
   - Added layout examples
@@ -249,7 +249,7 @@
   - Fixed links in overlay-area-content
   - Fixed tooltip boundary check
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Better comments for compiled CSS
   - Updated panel docs and tests
@@ -272,7 +272,7 @@
   - Removed hgroup in normalize because it was deprecated in HTML5
   - Fixed data-uk-grid-match
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Added form-file docs and tests
   - Updated LESS to 1.6.1
@@ -294,7 +294,7 @@
   - Fixed nested comments indention on small screens
   - Fixed style for inputs without type attribute
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Added new notify add-on
   - Fixed tooltip component
@@ -316,7 +316,7 @@
   - Updated icon component to Font Awesome to 4.0.3
   - Changed comments to compile nicer CSS output
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Refactored repository structure
   - Refactored variables
@@ -329,7 +329,7 @@
   - Fixed off canvas scrolling on windows phones
   - Fixed search more results in search js
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Updated LESS to 1.5.1
 
@@ -365,7 +365,7 @@
   - Fixed open modals in a chain
   - Fixed off-canvas scroll position bug
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Added scrollspy and animation docs and tests
   - Added bower definition file
@@ -378,7 +378,7 @@
   - Removed Navbar.js
   - Removed auto dropdown flip if navbar is flipped
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Updated dropdown and navbar documentation
 
@@ -390,7 +390,7 @@
   - Fixed multiple off-canvas trigger
   - Fixed `select` height for multiple and size attributes
 
-**Documentation and repository**
+**Docs and Repo**
 
   - Added import LESS functionality to customizer
   - Remove absolute paths from CSS build in customizer
