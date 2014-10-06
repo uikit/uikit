@@ -3,6 +3,7 @@
 @mixin hook-nav-autocomplete-header(){}
 @mixin hook-nav-autocomplete-divider(){}
 @mixin hook-autocomplete-misc(){}
+@mixin hook-cover-misc(){}
 @mixin hook-datepicker-nav(){}
 @mixin hook-datepicker-nav-item(){}
 @mixin hook-datepicker-table-item(){}
@@ -10,7 +11,6 @@
 @mixin hook-datepicker-table-item-onclick(){}
 @mixin hook-datepicker-table-item-active(){}
 @mixin hook-datepicker-misc(){}
-@mixin hook-cover-misc(){}
 @mixin hook-dotnav-item(){}
 @mixin hook-dotnav-item-hover(){}
 @mixin hook-dotnav-item-onclick(){}
@@ -148,9 +148,6 @@
 @mixin hook-list-line(){}
 @mixin hook-list-striped(){}
 @mixin hook-list-misc(){}
-@mixin hook-modal(){}
-@mixin hook-modal-dialog(){}
-@mixin hook-modal-misc(){}
 @mixin hook-nav-header(){}
 @mixin hook-nav-divider(){}
 @mixin hook-nav-sub(){}
@@ -174,6 +171,9 @@
 @mixin hook-nav-offcanvas-header(){}
 @mixin hook-nav-offcanvas-divider(){}
 @mixin hook-nav-misc(){}
+@mixin hook-modal(){}
+@mixin hook-modal-dialog(){}
+@mixin hook-modal-misc(){}
 @mixin hook-navbar(){}
 @mixin hook-navbar-nav(){}
 @mixin hook-navbar-nav-hover(){}
@@ -190,13 +190,6 @@
 @mixin hook-overlay-area-content(){}
 @mixin hook-overlay-caption(){}
 @mixin hook-overlay-misc(){}
-@mixin hook-panel-title(){}
-@mixin hook-panel-badge(){}
-@mixin hook-panel-box(){}
-@mixin hook-panel-box-primary(){}
-@mixin hook-panel-box-secondary(){}
-@mixin hook-panel-header(){}
-@mixin hook-panel-misc(){}
 @mixin hook-pagination-item(){}
 @mixin hook-pagination-link(){}
 @mixin hook-pagination-link-hover(){}
@@ -204,6 +197,13 @@
 @mixin hook-pagination-active(){}
 @mixin hook-pagination-disabled(){}
 @mixin hook-pagination-misc(){}
+@mixin hook-panel-title(){}
+@mixin hook-panel-badge(){}
+@mixin hook-panel-box(){}
+@mixin hook-panel-box-primary(){}
+@mixin hook-panel-box-secondary(){}
+@mixin hook-panel-header(){}
+@mixin hook-panel-misc(){}
 @mixin hook-progress(){}
 @mixin hook-progress-bar(){}
 @mixin hook-progress-mini(){}
