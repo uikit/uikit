@@ -19,6 +19,7 @@
   - Refactored source and themes directory structure
   - Removed dist folder
   - Replaced Grunt with Gulp
+  - Introduced Browsersync for testing components and themes
   - Added Sass files creation to build process
   - Added Less/Sass files docs
   - Fixed markup in thumbnail doc
