@@ -1,6 +1,6 @@
 # Changelog
 
-### W.I.P.
+### 2.11.0 (October 07, 2014)
 
   - Added uk.scrollspynav.inview event trigger
   - Fixed sortable on mobile
