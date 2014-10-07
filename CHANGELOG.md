@@ -22,6 +22,7 @@
   - Introduced Browsersync for testing components and themes
   - Added Sass files creation to build process
   - Added Less/Sass files docs
+  - Added documentation for data-uk-check-display
   - Fixed markup in thumbnail doc
 
 ### 2.10.0 (September 15, 2014)

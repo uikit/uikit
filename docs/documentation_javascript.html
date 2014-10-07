@@ -93,7 +93,6 @@ require("path/to/uikit.js", function(UI){
     // UI is the global UIkit object a.k.a. $.UIkit
 
 });</code></pre>
-                            <h2 id="amd-support"><a href="#amd-support" class="uk-link-reset">AMD support</a></h2>
 
                             <h3 class="tm-article-subtitle">Autoload UIkit and its add-ons</h3>
 
@@ -133,7 +132,30 @@ require("uikit!notify,sortable", function(UI){
 
                             <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
 
-<pre><code>$.UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
+                            <pre><code>$.UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="data-check-display"><a href="#data-check-display" class="uk-link-reset">Check Display event on visibility change.</a></h2>
+
+                            <p>
+                                Some components like <a href="switcher.html">Switcher</a>, <a href="modal.html">Modal</a> or <a href="dropdown.html">Dropdown</a> trigger a <code>uk.check.display</code> event on selected elements when their content gets visible.
+                                By default all grid elements gets selected to fix margins and heights, and additionally all elements having the <code>data-uk-check-display</code> attribute set.
+                                This enables you to listen and react on this event if your elements need to adjust or fix the height and other dimensions when they become visible.
+                            </p>
+
+                            <h3 class="tm-article-subtitle">Usage</h3>
+
+<pre><code>&lt;!-- Element within a modal, switcher or dropdown --&gt;
+&lt;div id="myelement" data-uk-check-display&gt;
+    ...
+&lt;/div&gt;
+
+&lt;script&gt;
+$("#myelement").on('uk.check.display', function(){
+   // custom code to adjust height etc on show
+});
+&lt;/script&gt;</code></pre>
 
                         </article>
 
