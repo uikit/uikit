@@ -486,44 +486,43 @@ var pythonList = function(classes) {
     return "[" + result.join("") + "]";
 };
 
-// classes: uk-*
+// classes: uk-* from CSS files
 gulp.task('sublime-css', function(done) {
 
-    mkdirp.sync("dist/sublime");
+    mkdirp("dist/sublime", function () {
 
-    gulp.src(['dist/**/*.min.css', '!dist/core/**/*', 'dist/uikit.css'])
-        .pipe(concat('sublime_tmp_css.py'))
-        .pipe(tap(function(file) {
+        gulp.src(['dist/**/*.min.css', 'dist/uikit.min.css'])
+            .pipe(concat('sublime_tmp_css.py'))
+            .pipe(tap(function(file) {
 
-            var css         = file.contents.toString(),
-                classesList = css.match(/\.(uk-[a-z\d\-]+)/g),
-                classesSet  = {},
-                pystring    = '# copy & paste into sublime plugin code:\n';
+                var css         = file.contents.toString(),
+                    classesList = css.match(/\.(uk-[a-z\d\-]+)/g),
+                    classesSet  = {},
+                    pystring    = '# copy & paste into sublime plugin code:\n';
 
-            // use object as set (no duplicates)
-            classesList.forEach(function(c) {
-                c = c.substr(1); // remove leading dot
-                classesSet[c] = true;
-            });
+                // use object as set (no duplicates)
+                classesList.forEach(function(c) {
+                    c = c.substr(1); // remove leading dot
+                    classesSet[c] = true;
+                });
 
-            // convert set back to list
-            classesList = Object.keys(classesSet);
+                // convert set back to list
+                classesList = Object.keys(classesSet);
 
-            pystring += 'uikit_classes = ' + pythonList(classesList) + '\n';
+                pystring += 'uikit_classes = ' + pythonList(classesList) + '\n';
 
-            // FIXME: same file as data-uk-* result. how to merge stream results?
-            fs.writeFileSync("dist/sublime/tmp_css.py", pystring);
+                fs.writeFile("dist/sublime/tmp_css.py", pystring, done);
 
-            done();
-        }));
+            }));
+    });
 });
 
-// data attributes: data-uk-*
+// data attributes: data-uk-* from JS files
 gulp.task('sublime-js', function(done) {
 
     mkdirp("dist/sublime", function(){
 
-        gulp.src(['dist/**/*.min.js', '!dist/core/**/*', 'dist/uikit.js']).pipe(concat('sublime_tmp_js.py')).pipe(tap(function(file) {
+        gulp.src(['dist/**/*.min.js', 'dist/uikit.min.js']).pipe(concat('sublime_tmp_js.py')).pipe(tap(function(file) {
 
             var js       = file.contents.toString(),
                 dataList = js.match(/data-uk-[a-z\d\-]+/g),
@@ -533,10 +532,8 @@ gulp.task('sublime-js', function(done) {
 
             pystring = 'uikit_data = ' + pythonList(Object.keys(dataSet)) + '\n';
 
-            // FIXME: same file as uk-* result. how to merge stream results?
-            fs.writeFile("dist/sublime/tmp_js.py", pystring, function(){
-                done();
-            });
+            fs.writeFile("dist/sublime/tmp_js.py", pystring, done);
+
         }));
     });
 });
@@ -550,40 +547,40 @@ gulp.task('sublime-snippets',  function(done) {
                         "<description>{description}</description>",
                     "</snippet>"].join("\n");
 
-    mkdirp("dist/sublime/snippets", function(){
+    mkdirp.sync("dist/sublime/snippets");
 
-        gulp.src("dist/**/*.less").pipe(tap(function(file) {
+    gulp.src("dist/**/*.less").pipe(tap(function(file) {
 
-            var less = file.contents.toString(),
-                regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
-                match = null, name, content, description, snippet, i;
+        var less = file.contents.toString(),
+            regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
+            match = null, name, content, description, snippet, i;
 
-            while (match = regex.exec(less)) {
+        while (match = regex.exec(less)) {
 
-                name        = match[1].trim(); // i.e. uk-grid + trim
-                content     = match[2].replace(/(\n?)(\s*)\/\/ ?/g,'$1$2'); // remove comment slashes from lines
-                description = ["UIkit", name, "component"].join(" ");
+            name        = match[1].trim(); // i.e. uk-grid + trim
+            content     = match[2].replace(/(\n?)(\s*)\/\/ ?/g,'$1$2'); // remove comment slashes from lines
+            description = ["UIkit", name, "component"].join(" ");
 
-                // place tab indices
-                i = 1; // tab index, start with 1
-                content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
-                                 .replace(/(<[^>]+>)(<\/[^>]+>)/g, '$1${index}$2') // inside empty elements
-                                 .replace(/\{index\}/g, function() { return i++; });
+            // place tab indices
+            i = 1; // tab index, start with 1
+            content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
+                             .replace(/(<[^>]+>)(<\/[^>]+>)/g, '$1${index}$2') // inside empty elements
+                             .replace(/\{index\}/g, function() { return i++; });
 
-                snippet = template.replace("{content}", content)
-                                  .replace("{trigger}", "uikit")
-                                  .replace("{description}", description);
+            snippet = template.replace("{content}", content)
+                              .replace("{trigger}", "uikit")
+                              .replace("{description}", description);
 
-                fs.writeFile('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
+            fs.writeFile('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
 
-                // move to next match in loop
-                regex.lastIndex = match.index + 1;
-            }
-        }));
+            // move to next match in loop
+            regex.lastIndex = match.index + 1;
+        }
 
-    });
+    }));
 
     done();
+
 });
 
 gulp.task('sublime', ['sublime-css', 'sublime-js', 'sublime-snippets'], function(done) {
