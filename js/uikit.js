@@ -2353,8 +2353,12 @@
             this.check();
 
             UI.$win.on('resize orientationchange', UI.Utils.debounce(function(){
-                $this.check();
+                if ($this.element.is(":visible"))  $this.check();
             }, 100));
+
+            this.on('uk.check.display', function(){
+                if ($this.element.is(":visible"))  $this.check();
+            });
         },
 
         check: function() {
