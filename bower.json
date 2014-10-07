@@ -16,6 +16,5 @@
         "vendor",
         "composer.json",
         "index.html"
-    ],
-    "private": true
+    ]
 }
