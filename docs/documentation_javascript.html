@@ -142,16 +142,14 @@ require("uikit!notify,sortable", function(UI){
 
                             <p>
                                 Some components like <a href="switcher.html">Switcher</a>, <a href="modal.html">Modal</a> or <a href="dropdown.html">Dropdown</a> trigger a <code>uk.check.display</code> event on selected elements when their content gets visible.
-                                By default all grid elements gets selected to fix margins and heights, and additionally all elements having the <code>data-uk-check-display</code> attribute set.
-                                This enables you to listen and react on this event if your elements need to adjust or fix the height and other dimensions when they become visible.
+                                By default all grid elements are selected to fix margins and heights. Additionally, all elements have the <code>data-uk-check-display</code> attribute.
+                                This enables you to listen and react on this event, if your elements need to adjust or fix the height and other dimensions when they become visible.
                             </p>
 
                             <h3 class="tm-article-subtitle">Usage</h3>
 
 <pre><code>&lt;!-- Element within a modal, switcher or dropdown --&gt;
-&lt;div id="myelement" data-uk-check-display&gt;
-    ...
-&lt;/div&gt;
+&lt;div id="myelement" data-uk-check-display&gt;...&lt;/div&gt;
 
 &lt;script&gt;
 $("#myelement").on('uk.check.display', function(){
