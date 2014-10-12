@@ -102,6 +102,8 @@
 
         show: function(){
 
+            UI.$html.off("click.outer.dropdown");
+
             if (active && active[0] != this.element[0]) {
                 active.removeClass("uk-open");
             }
@@ -131,7 +133,7 @@
 
             var $this = this;
 
-            UI.$doc.off("click.outer.dropdown");
+            UI.$html.off("click.outer.dropdown");
 
             setTimeout(function() {
 
