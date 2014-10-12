@@ -138,7 +138,7 @@
                 minute = 0;
             }
 
-            this.autocomplete.input.val(this.formatTime(hour, minute, meridian));
+            this.autocomplete.input.val(this.formatTime(hour, minute, meridian)).trigger('change');
         },
 
         formatTime: function(hour, minute, meridian) {
