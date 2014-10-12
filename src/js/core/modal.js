@@ -250,7 +250,7 @@
                 content = $('<div></div>').html(content);
         }else {
                 // unsupported data type!
-                content = $('<div></div>').html('$.UIkitt.modal Error: Unsupported data type: ' + typeof content);
+                content = $('<div></div>').html('$.UIkit.modal Error: Unsupported data type: ' + typeof content);
         }
 
         content.appendTo(modal.element.find('.uk-modal-dialog'));
