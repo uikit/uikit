@@ -1,5 +1,13 @@
 # Changelog
 
+### 2.11.1 (October 13, 2014)
+
+  - Fixed dropdown z-index
+
+**Docs and Repo**
+
+  - Removed duplicated component less files
+
 ### 2.11.0 (October 07, 2014)
 
   - Added uk.scrollspynav.inview event trigger
