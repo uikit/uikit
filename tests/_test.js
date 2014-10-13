@@ -198,8 +198,15 @@
 
                 testselect.after(themeselect);
 
+                var $style = $scriptest, style;
+
                 styles.forEach(function(style) {
-                    $scriptest.after('<link rel="stylesheet" href="'+base+(style.replace('{style}', theme=='default' ? '':'.'+theme))+'">');
+
+                    style = $('<link rel="stylesheet" href="'+base+(style.replace('{style}', theme=='default' ? '':'.'+theme))+'">');
+
+                    $style.after(style);
+
+                    $style = style;
                 });
 
 
