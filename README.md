@@ -6,6 +6,7 @@ UIkit is a lightweight and modular front-end framework for developing fast and p
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
 * [Google+](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
 * [Issues](http://github.com/uikit/uikit/issues) - Report bugs
+* [Developer Chat](https://www.hipchat.com/gaWuqCDrW) - Every work day between 8:00 and 18:00 UTC
 
 ## Getting started
 
