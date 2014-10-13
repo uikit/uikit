@@ -1,5 +1,12 @@
 # Changelog
 
+### W.I.P
+
+  - Removed duplicated component Less files in src/less/core
+  - Fixed click mode (dropdown component)
+  - Trigger change event on timepicker selection
+
+
 ### 2.11.0 (October 07, 2014)
 
   - Added uk.scrollspynav.inview event trigger
