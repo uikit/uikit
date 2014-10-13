@@ -3,10 +3,12 @@
 ### 2.11.1 (October 13, 2014)
 
   - Fixed dropdown z-index
+  - Fixed click mode (dropdown component)
+  - Trigger change event on timepicker selection
 
 **Docs and Repo**
 
-  - Removed duplicated component less files
+  - Removed duplicated component Less files in src/less/core
 
 ### 2.11.0 (October 07, 2014)
 
