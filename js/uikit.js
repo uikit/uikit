@@ -1,4 +1,4 @@
-/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -47,7 +47,7 @@
         return UI;
     }
 
-    UI.version = '2.11.0';
+    UI.version = '2.11.1';
     UI.$doc    = $doc;
     UI.$win    = $win;
     UI.$html   = $html;
@@ -1347,6 +1347,8 @@
 
         show: function(){
 
+            UI.$html.off("click.outer.dropdown");
+
             if (active && active[0] != this.element[0]) {
                 active.removeClass("uk-open");
             }
@@ -1376,7 +1378,7 @@
 
             var $this = this;
 
-            UI.$doc.off("click.outer.dropdown");
+            UI.$html.off("click.outer.dropdown");
 
             setTimeout(function() {
 
@@ -1907,7 +1909,7 @@
                 content = $('<div></div>').html(content);
         }else {
                 // unsupported data type!
-                content = $('<div></div>').html('$.UIkitt.modal Error: Unsupported data type: ' + typeof content);
+                content = $('<div></div>').html('$.UIkit.modal Error: Unsupported data type: ' + typeof content);
         }
 
         content.appendTo(modal.element.find('.uk-modal-dialog'));
@@ -1916,6 +1918,7 @@
     }
 
 })(jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";

@@ -1,9 +1,9 @@
+@mixin hook-cover-misc(){}
 @mixin hook-nav-autocomplete(){}
 @mixin hook-nav-autocomplete-active(){}
 @mixin hook-nav-autocomplete-header(){}
 @mixin hook-nav-autocomplete-divider(){}
 @mixin hook-autocomplete-misc(){}
-@mixin hook-cover-misc(){}
 @mixin hook-datepicker-nav(){}
 @mixin hook-datepicker-nav-item(){}
 @mixin hook-datepicker-table-item(){}
@@ -185,6 +185,11 @@
 @mixin hook-offcanvas-bar(){}
 @mixin hook-offcanvas-panel(){}
 @mixin hook-offcanvas-misc(){}
+@mixin hook-overlay-area(){}
+@mixin hook-overlay-area-icon(){}
+@mixin hook-overlay-area-content(){}
+@mixin hook-overlay-caption(){}
+@mixin hook-overlay-misc(){}
 @mixin hook-pagination-item(){}
 @mixin hook-pagination-link(){}
 @mixin hook-pagination-link-hover(){}
@@ -192,11 +197,6 @@
 @mixin hook-pagination-active(){}
 @mixin hook-pagination-disabled(){}
 @mixin hook-pagination-misc(){}
-@mixin hook-overlay-area(){}
-@mixin hook-overlay-area-icon(){}
-@mixin hook-overlay-area-content(){}
-@mixin hook-overlay-caption(){}
-@mixin hook-overlay-misc(){}
 @mixin hook-panel-title(){}
 @mixin hook-panel-badge(){}
 @mixin hook-panel-box(){}

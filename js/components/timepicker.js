@@ -1,4 +1,4 @@
-/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -139,7 +139,7 @@
                 minute = 0;
             }
 
-            this.autocomplete.input.val(this.formatTime(hour, minute, meridian));
+            this.autocomplete.input.val(this.formatTime(hour, minute, meridian)).trigger('change');
         },
 
         formatTime: function(hour, minute, meridian) {

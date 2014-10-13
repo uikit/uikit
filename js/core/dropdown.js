@@ -1,4 +1,4 @@
-/*! UIkit 2.11.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function($, UI) {
 
     "use strict";
@@ -103,6 +103,8 @@
 
         show: function(){
 
+            UI.$html.off("click.outer.dropdown");
+
             if (active && active[0] != this.element[0]) {
                 active.removeClass("uk-open");
             }
@@ -132,7 +134,7 @@
 
             var $this = this;
 
-            UI.$doc.off("click.outer.dropdown");
+            UI.$html.off("click.outer.dropdown");
 
             setTimeout(function() {
 
