@@ -201,7 +201,7 @@ jQuery(function($) {
             }
 
             css = css.replace(/http(.+?)\/fonts\/?/g, function(){
-                return "core/icon/fonts/";
+                return "../fonts/";
             });
 
             if ($download) {

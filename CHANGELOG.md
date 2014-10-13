@@ -9,6 +9,7 @@
 **Docs and Repo**
 
   - Removed duplicated component Less files in src/less/core
+  - Fixed icon font path in customizer generated Css
 
 ### 2.11.0 (October 07, 2014)
 
