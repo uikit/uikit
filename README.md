@@ -15,6 +15,8 @@ You have following options to get UIkit:
 - Clone the repo, `git clone git://github.com/uikit/uikit.git`.
 - Install with [Bower](http://bower.io): ```bower install uikit```
 
+You find the compiled UIkit distribution in its own [repo](https://github.com/uikit/bower-uikit).
+
 ## Developers
 
 First of all, install [Node](http://nodejs.org/). We use [Gulp](http://gulpjs.com) to build UIkit. If you haven't used Gulp before, you need to install the `gulp` package as a global install.
