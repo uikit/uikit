@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed slidenav position class
+
 ### 2.11.1 (October 13, 2014)
 
   - Fixed dropdown z-index
