@@ -377,7 +377,7 @@
                 methods.split(' ').forEach(function(method) {
                     if (!$this[method]) $this[method] = obj[method].bind($this);
                 });
-            },
+            }
 
         }, def);
 
