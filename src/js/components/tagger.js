@@ -1,3 +1,4 @@
+/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -79,31 +80,34 @@
             this.input = this.find("input:last").attr("autocomplete", "off");
             this.insertPoint = this.input.parent();
 
-            this.input.on("keyup", function(e) {
-                if (e && e.which)
-                {
-                    var str = $this.input.val();
-                    if(skipListRegex.test(str)) {
-                        e.preventDefault();
-                        str = str.replace(skipListRegex, '');
-                        $this.input.val(str);
+            this.input.on({
+              "keyup": function(e) {
+                  if (e && e.which)
+                  {
+                      var str = $this.input.val();
+                      if(skipListRegex.test(str)) {
+                          e.preventDefault();
+                          str = str.replace(skipListRegex, '');
+                          $this.input.val(str);
 
-                        if(!alertShown)
-                        {
-                            $this.element.before($this.alertTemplate({
-                                "skipListChars":  $this.options.skipListChars.toString(),
-                                "msgBeforeChars": $this.options.msgBeforeChars,
-                                "msgAfterChars":  $this.options.msgAfterChars
-                            }));
-                            alertShown = true;
-                        }
-                    }
-                    else if(e.which === 8 && $this.input.val() === '')
-                    {
-                        e.preventDefault();
-                        $this.element.find('.uk-tag:last').remove();
-                    }
-                } 
+                          if(!alertShown)
+                          {
+                              $this.element.before($this.alertTemplate({
+                                  "skipListChars":  $this.options.skipListChars.toString(),
+                                  "msgBeforeChars": $this.options.msgBeforeChars,
+                                  "msgAfterChars":  $this.options.msgAfterChars
+                              }));
+                              alertShown = true;
+                          }
+                      }
+                  }
+              },
+              "keydown": function(e) {
+                  if (e && e.which && e.which === 8 && $this.input.val() === '') {
+                      e.preventDefault();
+                      $this.element.find('.uk-tag:last').remove();
+                  }
+              } 
             });
 
             this.autocomplete.input.on("keyup", function(){
