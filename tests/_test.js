@@ -28,6 +28,7 @@
         'dist/css/components/slidenav{style}.css',
         'dist/css/components/sortable{style}.css',
         'dist/css/components/sticky{style}.css',
+        'dist/css/components/tagger{style}.css',
         'dist/css/components/upload{style}.css'
     ];
 
@@ -125,6 +126,7 @@
             "components/slidenav",
             "components/sortable",
             "components/sticky",
+            "components/tagger",
             "components/timepicker",
             "components/upload"
     ];
