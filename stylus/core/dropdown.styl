@@ -1,0 +1,188 @@
+lesscss-percentage(n)
+  (n * 100)%
+dropdown-z-index = 970
+dropdown-width = 200px
+dropdown-margin-top = 5px
+dropdown-padding = 15px
+dropdown-background = rgb(245, 245, 245, 1)
+dropdown-color = rgb(68, 68, 68, 1)
+dropdown-font-size = 1rem
+dropdown-animation = uk-fade
+dropdown-divider-border-width = 1px
+dropdown-divider-border = rgb(221, 221, 221, 1)
+dropdown-small-padding = 5px
+dropdown-navbar-margin = 0
+dropdown-navbar-background = rgb(245, 245, 245, 1)
+dropdown-navbar-color = rgb(68, 68, 68, 1)
+dropdown-navbar-animation = uk-slide-top-fixed
+dropdown-scrollable-height = 200px
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-dropdown-justify`
+ * 4. Set style
+ * 5. Reset button group whitespace hack
+ */
+.uk-dropdown
+  /* 1 */
+  display none
+  /* 2 */
+  position absolute
+  top 100%
+  left 0
+  z-index dropdown-z-index
+  /* 3 */
+  -moz-box-sizing border-box
+  box-sizing border-box
+  /* 4 */
+  width dropdown-width
+  margin-top dropdown-margin-top
+  padding dropdown-padding
+  background dropdown-background
+  color dropdown-color
+  /* 5 */
+  font-size dropdown-font-size
+  vertical-align top
+  @extend .hook-dropdown
+/*
+ * 1. Show dropdown
+ * 2. Set animation
+ * 3. Needed for scale animation
+ */
+.uk-open > .uk-dropdown
+  /* 1 */
+  display block
+  /* 2 */
+  -webkit-animation dropdown-animation 0.2s ease-in-out
+  animation dropdown-animation 0.2s ease-in-out
+  /* 3 */
+  -webkit-transform-origin 0 0
+  transform-origin 0 0
+/* Alignment modifiers
+ ========================================================================== */
+/*
+ * Modifier `uk-dropdown-flip`
+ */
+.uk-dropdown-flip
+  left auto
+  right 0
+/*
+ * Modifier `uk-dropdown-up`
+ */
+.uk-dropdown-up
+  top auto
+  bottom 100%
+  margin-top auto
+  margin-bottom dropdown-margin-top
+/* Nav in dropdown
+ ========================================================================== */
+.uk-dropdown .uk-nav
+  margin 0 - dropdown-padding dropdown-padding
+/* Grid and panel in dropdown
+ ========================================================================== */
+/*
+* Vertical gutter
+*/
+/*
+ * Grid
+ * Higher specificity to override large gutter
+ */
+.uk-grid .uk-dropdown-grid + .uk-dropdown-grid
+  margin-top dropdown-padding
+/* Panels */
+.uk-dropdown-grid > [class*='uk-width-'] > .uk-panel + .uk-panel
+  margin-top dropdown-padding
+/* Tablet and bigger */
+varc68f3e9eaf5237f4029dd8f9 = "(min-width: " + breakpoint-medium + ")"
+@media varc68f3e9eaf5237f4029dd8f9
+  /*
+     * Horizontal gutter
+     */
+  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid
+    margin-left - dropdown-padding dropdown-padding
+    margin-right - dropdown-padding dropdown-padding
+  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-']
+    padding-left dropdown-padding
+    padding-right dropdown-padding
+  /*
+     * Column divider
+     */
+  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n + 2)
+    border-left dropdown-divider-border-width solid dropdown-divider-border
+  /*
+     * Width multiplier for dropdown columns
+     */
+  .uk-dropdown-width-2:not(.uk-dropdown-stack)
+    width (dropdown-width * 2)
+  .uk-dropdown-width-3:not(.uk-dropdown-stack)
+    width (dropdown-width * 3)
+  .uk-dropdown-width-4:not(.uk-dropdown-stack)
+    width (dropdown-width * 4)
+  .uk-dropdown-width-5:not(.uk-dropdown-stack)
+    width (dropdown-width * 5)
+/* Phone landscape and smaller */
+var52f58bf6d1f94eb1d3a91b7e = "(max-width: " + breakpoint-small-max + ")"
+@media var52f58bf6d1f94eb1d3a91b7e
+  /*
+     * Stack columns and take full width
+     */
+  .uk-dropdown-grid > [class*='uk-width-']
+    width 100%
+  /*
+     * Vertical gutter
+     */
+  .uk-dropdown-grid > [class*='uk-width-']:nth-child(n + 2)
+    margin-top dropdown-padding
+/*
+* Stack grid columns
+*/
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-']
+  width 100%
+.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n + 2)
+  margin-top dropdown-padding
+/* Modifier `uk-dropdown-small`
+ ========================================================================== */
+/*
+ * Set min-width and text expands dropdown if needed
+ */
+.uk-dropdown-small
+  min-width 150px
+  width auto
+  padding dropdown-small-padding
+  white-space nowrap
+/*
+ * Nav in dropdown
+ */
+.uk-dropdown-small .uk-nav
+  margin 0 - dropdown-small-padding dropdown-small-padding
+/* Modifier: `uk-dropdown-navbar`
+ ========================================================================== */
+.uk-dropdown-navbar
+  margin-top dropdown-navbar-margin
+  background dropdown-navbar-background
+  color dropdown-navbar-color
+  @extend .hook-dropdown-navbar
+.uk-open > .uk-dropdown-navbar
+  -webkit-animation dropdown-navbar-animation 0.2s ease-in-out
+  animation dropdown-navbar-animation 0.2s ease-in-out
+/* Modifier `uk-dropdown-scrollable`
+ ========================================================================== */
+/*
+ * Usefull for long lists
+ */
+.uk-dropdown-scrollable
+  overflow-y auto
+  max-height dropdown-scrollable-height
+@extend .hook-dropdown-misc
+hook-dropdown()
+.hook-dropdown
+  hook-dropdown()
+hook-dropdown-navbar()
+.hook-dropdown-navbar
+  hook-dropdown-navbar()
+hook-dropdown-misc()
+.hook-dropdown-misc
+  hook-dropdown-misc()

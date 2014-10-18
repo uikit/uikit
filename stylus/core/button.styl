@@ -1,0 +1,304 @@
+lesscss-percentage(n)
+  (n * 100)%
+button-height = 30px
+button-mini-height = 20px
+button-small-height = 25px
+button-large-height = 40px
+button-line-height = 30px
+button-mini-line-height = 20px
+button-small-line-height = 25px
+button-large-line-height = 40px
+button-mini-font-size = 11px
+button-small-font-size = 12px
+button-large-font-size = 16px
+button-padding-horizontal = 12px
+button-mini-padding-horizontal = 6px
+button-small-padding-horizontal = 10px
+button-large-padding-horizontal = 15px
+button-font-size = 1rem
+button-background = rgb(238, 238, 238, 1)
+button-color = rgb(68, 68, 68, 1)
+button-hover-background = rgb(245, 245, 245, 1)
+button-hover-color = rgb(68, 68, 68, 1)
+button-active-background = rgb(221, 221, 221, 1)
+button-active-color = rgb(68, 68, 68, 1)
+button-primary-background = rgb(0, 168, 230, 1)
+button-primary-color = rgb(255, 255, 255, 1)
+button-primary-hover-background = rgb(53, 179, 238, 1)
+button-primary-hover-color = rgb(255, 255, 255, 1)
+button-primary-active-background = rgb(0, 145, 202, 1)
+button-primary-active-color = rgb(255, 255, 255, 1)
+button-success-background = rgb(140, 193, 76, 1)
+button-success-color = rgb(255, 255, 255, 1)
+button-success-hover-background = rgb(142, 199, 59, 1)
+button-success-hover-color = rgb(255, 255, 255, 1)
+button-success-active-background = rgb(114, 174, 65, 1)
+button-success-active-color = rgb(255, 255, 255, 1)
+button-danger-background = rgb(218, 49, 75, 1)
+button-danger-color = rgb(255, 255, 255, 1)
+button-danger-hover-background = rgb(228, 53, 79, 1)
+button-danger-hover-color = rgb(255, 255, 255, 1)
+button-danger-active-background = rgb(201, 16, 50, 1)
+button-danger-active-color = rgb(255, 255, 255, 1)
+button-disabled-background = rgb(245, 245, 245, 1)
+button-disabled-color = rgb(153, 153, 153, 1)
+button-link-color = rgb(0, 119, 221, 1)
+button-link-hover-color = rgb(0, 85, 153, 1)
+button-link-hover-text-decoration = underline
+button-link-disabled-color = rgb(153, 153, 153, 1)
+/* ========================================================================
+   Component: Button
+ ========================================================================== */
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+.uk-button::-moz-focus-inner
+  border 0
+  padding 0
+/*
+ * 1. Correct inability to style clickable `input` types in iOS.
+ * 2. Remove margins in Chrome, Safari and Opera.
+ * 3. Remove borders for `button`.
+ * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
+ * 7. Style
+ * 8. `line-height` is used to create a height
+ * 9. `min-height` is necessary for `input` elements in Firefox and Opera because `line-height` is not working.
+ * 10. Reset button group whitespace hack
+ * 11. Required for `a`.
+ */
+.uk-button
+  /* 1 */
+  -webkit-appearance none
+  /* 2 */
+  margin 0
+  /* 3 */
+  border none
+  /* 4 */
+  overflow visible
+  /* 5 */
+  font inherit
+  color button-color
+  /* 6 */
+  text-transform none
+  /* 7 */
+  display inline-block
+  -moz-box-sizing border-box
+  box-sizing border-box
+  padding 0 button-padding-horizontal
+  background button-background
+  vertical-align middle
+  /* 8 */
+  line-height button-line-height
+  /* 9 */
+  min-height button-height
+  /* 10 */
+  font-size button-font-size
+  /* 11 */
+  text-decoration none
+  text-align center
+  @extend .hook-button
+.uk-button:not(:disabled)
+  cursor pointer
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ * 3. Required for `a` elements
+ */
+.uk-button:hover, .uk-button:focus
+  background-color button-hover-background
+  color button-hover-color
+  /* 2 */
+  outline none
+  /* 3 */
+  text-decoration none
+  @extend .hook-button-hover
+/* Active */
+.uk-button:active, .uk-button.uk-active
+  background-color button-active-background
+  color button-active-color
+  @extend .hook-button-active
+/* Color modifiers
+ ========================================================================== */
+/*
+ * Modifier: `uk-button-primary`
+ */
+.uk-button-primary
+  background-color button-primary-background
+  color button-primary-color
+  @extend .hook-button-primary
+/* Hover */
+.uk-button-primary:hover, .uk-button-primary:focus
+  background-color button-primary-hover-background
+  color button-primary-hover-color
+  @extend .hook-button-primary-hover
+/* Active */
+.uk-button-primary:active, .uk-button-primary.uk-active
+  background-color button-primary-active-background
+  color button-primary-active-color
+  @extend .hook-button-primary-active
+/*
+ * Modifier: `uk-button-success`
+ */
+.uk-button-success
+  background-color button-success-background
+  color button-success-color
+  @extend .hook-button-success
+/* Hover */
+.uk-button-success:hover, .uk-button-success:focus
+  background-color button-success-hover-background
+  color button-success-hover-color
+  @extend .hook-button-success-hover
+/* Active */
+.uk-button-success:active, .uk-button-success.uk-active
+  background-color button-success-active-background
+  color button-success-active-color
+  @extend .hook-button-success-active
+/*
+ * Modifier: `uk-button-danger`
+ */
+.uk-button-danger
+  background-color button-danger-background
+  color button-danger-color
+  @extend .hook-button-danger
+/* Hover */
+.uk-button-danger:hover, .uk-button-danger:focus
+  background-color button-danger-hover-background
+  color button-danger-hover-color
+  @extend .hook-button-danger-hover
+/* Active */
+.uk-button-danger:active, .uk-button-danger.uk-active
+  background-color button-danger-active-background
+  color button-danger-active-color
+  @extend .hook-button-danger-active
+/* Disabled state
+ * Overrides also the color modifiers
+ ========================================================================== */
+/* Equal for all button types */
+.uk-button:disabled
+  background-color button-disabled-background
+  color button-disabled-color
+  @extend .hook-button-disable
+/* Modifier: `uk-button-link`
+ ========================================================================== */
+/* Reset */
+.uk-button-link, .uk-button-link:hover, .uk-button-link:focus, .uk-button-link:active, .uk-button-link.uk-active, .uk-button-link:disabled
+  border-color transparent
+  background none
+  @extend .hook-button-link
+/* Color */
+.uk-button-link
+  color button-link-color
+.uk-button-link:hover, .uk-button-link:focus, .uk-button-link:active, .uk-button-link.uk-active
+  color button-link-hover-color
+  text-decoration button-link-hover-text-decoration
+.uk-button-link:disabled
+  color button-link-disabled-color
+/* Focus */
+.uk-button-link:focus
+  outline 1px dotted
+/* Size modifiers
+ ========================================================================== */
+.uk-button-mini
+  min-height button-mini-height
+  padding 0 button-mini-padding-horizontal
+  line-height button-mini-line-height
+  font-size button-mini-font-size
+.uk-button-small
+  min-height button-small-height
+  padding 0 button-small-padding-horizontal
+  line-height button-small-line-height
+  font-size button-small-font-size
+.uk-button-large
+  min-height button-large-height
+  padding 0 button-large-padding-horizontal
+  line-height button-large-line-height
+  font-size button-large-font-size
+  @extend .hook-button-large
+/* Sub-object `uk-button-group`
+ ========================================================================== */
+/*
+ * 1. Behave like buttons
+ * 2. Create position context for dropdowns
+ * 3. Remove whitespace between child elements when using `inline-block`
+ * 4. Prevent buttons from wrapping
+ * 5. Remove whitespace between child elements when using `inline-block`
+ */
+.uk-button-group
+  /* 1 */
+  display inline-block
+  vertical-align middle
+  /* 2 */
+  position relative
+  /* 3 */
+  font-size 0.001px
+  /* 4 */
+  white-space nowrap
+.uk-button-group > *
+  display inline-block
+/* 5 */
+.uk-button-group .uk-button
+  vertical-align top
+/* Sub-object: `uk-button-dropdown`
+ ========================================================================== */
+/*
+ * 1. Behave like buttons
+ * 2. Create position context for dropdowns
+ */
+.uk-button-dropdown
+  /* 1 */
+  display inline-block
+  vertical-align middle
+  /* 2 */
+  position relative
+@extend .hook-button-misc
+hook-button()
+.hook-button
+  hook-button()
+hook-button-hover()
+.hook-button-hover
+  hook-button-hover()
+hook-button-active()
+.hook-button-active
+  hook-button-active()
+hook-button-primary()
+.hook-button-primary
+  hook-button-primary()
+hook-button-primary-hover()
+.hook-button-primary-hover
+  hook-button-primary-hover()
+hook-button-primary-active()
+.hook-button-primary-active
+  hook-button-primary-active()
+hook-button-success()
+.hook-button-success
+  hook-button-success()
+hook-button-success-hover()
+.hook-button-success-hover
+  hook-button-success-hover()
+hook-button-success-active()
+.hook-button-success-active
+  hook-button-success-active()
+hook-button-danger()
+.hook-button-danger
+  hook-button-danger()
+hook-button-danger-hover()
+.hook-button-danger-hover
+  hook-button-danger-hover()
+hook-button-danger-active()
+.hook-button-danger-active
+  hook-button-danger-active()
+hook-button-disable()
+.hook-button-disable
+  hook-button-disable()
+hook-button-link()
+.hook-button-link
+  hook-button-link()
+hook-button-large()
+.hook-button-large
+  hook-button-large()
+hook-button-misc()
+.hook-button-misc
+  hook-button-misc()

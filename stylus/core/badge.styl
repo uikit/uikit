@@ -1,0 +1,80 @@
+lesscss-percentage(n)
+  (n * 100)%
+badge-background = rgb(0, 168, 230, 1)
+badge-padding-horizontal = 5px
+badge-font-size = 10px
+badge-font-weight = bold
+badge-line-height = 14px
+badge-color = rgb(255, 255, 255, 1)
+badge-text-transform = none
+badge-hover-color = rgb(255, 255, 255, 1)
+badge-notification-font-size = 12px
+badge-notification-line-height = 18px
+badge-success-background = rgb(140, 193, 76, 1)
+badge-warning-background = rgb(250, 167, 50, 1)
+badge-danger-background = rgb(218, 49, 75, 1)
+/* ========================================================================
+   Component: Badge
+ ========================================================================== */
+.uk-badge
+  display inline-block
+  padding 0 badge-padding-horizontal
+  background badge-background
+  font-size badge-font-size
+  font-weight badge-font-weight
+  line-height badge-line-height
+  color badge-color
+  text-align center
+  vertical-align middle
+  text-transform badge-text-transform
+  @extend .hook-badge
+/*
+ * Keep color when badge is a link
+ */
+a.uk-badge:hover
+  color badge-hover-color
+/* Modifier: `uk-badge-notification`;
+ ========================================================================== */
+.uk-badge-notification
+  -moz-box-sizing border-box
+  box-sizing border-box
+  min-width badge-notification-line-height
+  border-radius 500px
+  font-size badge-notification-font-size
+  line-height badge-notification-line-height
+/* Color modifier
+ ========================================================================== */
+/*
+ * Modifier: `uk-badge-success`
+ */
+.uk-badge-success
+  background-color badge-success-background
+  @extend .hook-badge-success
+/*
+ * Modifier: `uk-badge-warning`
+ */
+.uk-badge-warning
+  background-color badge-warning-background
+  @extend .hook-badge-warning
+/*
+ * Modifier: `uk-badge-danger`
+ */
+.uk-badge-danger
+  background-color badge-danger-background
+  @extend .hook-badge-danger
+@extend .hook-badge-misc
+hook-badge()
+.hook-badge
+  hook-badge()
+hook-badge-success()
+.hook-badge-success
+  hook-badge-success()
+hook-badge-warning()
+.hook-badge-warning
+  hook-badge-warning()
+hook-badge-danger()
+.hook-badge-danger
+  hook-badge-danger()
+hook-badge-misc()
+.hook-badge-misc
+  hook-badge-misc()

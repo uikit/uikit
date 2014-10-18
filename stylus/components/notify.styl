@@ -1,0 +1,123 @@
+lesscss-percentage(n)
+  (n * 100)%
+notify-position = 10px
+notify-z-index = 1040
+notify-width = 350px
+notify-message-margin-bottom = 10px
+notify-message-padding = 15px
+notify-message-background = rgb(68, 68, 68, 1)
+notify-message-color = rgb(255, 255, 255, 1)
+notify-message-font-size = 16px
+notify-message-line-height = 22px
+notify-message-primary-background = rgb(235, 247, 253, 1)
+notify-message-primary-color = rgb(45, 112, 145, 1)
+notify-message-success-background = rgb(242, 250, 227, 1)
+notify-message-success-color = rgb(101, 159, 19, 1)
+notify-message-warning-background = rgb(255, 252, 235, 1)
+notify-message-warning-color = rgb(226, 131, 39, 1)
+notify-message-danger-background = rgb(255, 241, 240, 1)
+notify-message-danger-color = rgb(216, 80, 48, 1)
+/* ========================================================================
+   Component: Notify
+ ========================================================================== */
+/*
+ * Message container for positioning
+ */
+.uk-notify
+  position fixed
+  top notify-position
+  left notify-position
+  z-index notify-z-index
+  -moz-box-sizing border-box
+  box-sizing border-box
+  width notify-width
+  @extend .hook-notify
+/* Position modifiers
+========================================================================== */
+.uk-notify-top-right, .uk-notify-bottom-right
+  left auto
+  right notify-position
+.uk-notify-top-center, .uk-notify-bottom-center
+  left 50%
+  margin-left (notify-width / -2)
+.uk-notify-bottom-left, .uk-notify-bottom-right, .uk-notify-bottom-center
+  top auto
+  bottom notify-position
+/* Responsiveness
+========================================================================== */
+/* Phones portrait and smaller */
+varad5390aa461603b9f35706d1 = "(max-width: " + breakpoint-mini-max + ")"
+@media varad5390aa461603b9f35706d1
+  /*
+     * Fit in small screen
+     */
+  .uk-notify
+    left 10px
+    right 10px
+    width auto
+    margin 0
+/* Sub-object: `uk-notify-message`
+========================================================================== */
+.uk-notify-message
+  position relative
+  margin-bottom notify-message-margin-bottom
+  padding notify-message-padding
+  background notify-message-background
+  color notify-message-color
+  font-size notify-message-font-size
+  line-height notify-message-line-height
+  cursor pointer
+  @extend .hook-notify-message
+/* Close in notify
+ ========================================================================== */
+.uk-notify-message > .uk-close
+  visibility hidden
+  float right
+.uk-notify-message:hover > .uk-close
+  visibility visible
+/* Modifier: `uk-alert-info`
+ ========================================================================== */
+.uk-notify-message-primary
+  background notify-message-primary-background
+  color notify-message-primary-color
+  @extend .hook-notify-message-primary
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+.uk-notify-message-success
+  background notify-message-success-background
+  color notify-message-success-color
+  @extend .hook-notify-message-success
+/* Modifier: `uk-notify-message-warning`
+ ========================================================================== */
+.uk-notify-message-warning
+  background notify-message-warning-background
+  color notify-message-warning-color
+  @extend .hook-notify-message-warning
+/* Modifier: `uk-notify-message-danger`
+ ========================================================================== */
+.uk-notify-message-danger
+  background notify-message-danger-background
+  color notify-message-danger-color
+  @extend .hook-notify-message-danger
+@extend .hook-notify-misc
+hook-notify()
+.hook-notify
+  hook-notify()
+hook-notify-message()
+.hook-notify-message
+  hook-notify-message()
+hook-notify-message-primary()
+.hook-notify-message-primary
+  hook-notify-message-primary()
+hook-notify-message-success()
+.hook-notify-message-success
+  hook-notify-message-success()
+hook-notify-message-warning()
+.hook-notify-message-warning
+  hook-notify-message-warning()
+hook-notify-message-danger()
+.hook-notify-message-danger
+  hook-notify-message-danger()
+hook-notify-misc()
+.hook-notify-misc
+  hook-notify-misc()

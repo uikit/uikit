@@ -1,0 +1,44 @@
+lesscss-percentage(n)
+  (n * 100)%
+placeholder-margin-vertical = 15px
+placeholder-padding = 20px
+placeholder-border = rgb(221, 221, 221, 1)
+placeholder-background = rgb(250, 250, 250, 1)
+placeholder-color = rgb(68, 68, 68, 1)
+placeholder-large-padding-vertical = 80px
+/* ========================================================================
+   Component: Placeholder
+ ========================================================================== */
+.uk-placeholder
+  margin-bottom placeholder-margin-vertical
+  padding placeholder-padding
+  border 1px dashed placeholder-border
+  background placeholder-background
+  color placeholder-color
+  @extend .hook-placeholder
+/*
+ * Add margin if adjacent element
+ */
+* + .uk-placeholder
+  margin-top placeholder-margin-vertical
+/*
+ * Remove margin from the last-child
+ */
+.uk-placeholder > :last-child
+  margin-bottom 0
+/* Modifier: `uk-placeholder-large`
+ ========================================================================== */
+.uk-placeholder-large
+  padding-top placeholder-large-padding-vertical
+  padding-bottom placeholder-large-padding-vertical
+  @extend .hook-placeholder-large
+@extend .hook-placeholder-misc
+hook-placeholder()
+.hook-placeholder
+  hook-placeholder()
+hook-placeholder-large()
+.hook-placeholder-large
+  hook-placeholder-large()
+hook-placeholder-misc()
+.hook-placeholder-misc
+  hook-placeholder-misc()

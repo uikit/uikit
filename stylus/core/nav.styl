@@ -1,0 +1,362 @@
+lesscss-percentage(n)
+  (n * 100)%
+nav-padding-vertical = 5px
+nav-padding-horizontal = 15px
+nav-header-padding-vertical = nav-padding-vertical
+nav-header-padding-horizontal = nav-padding-horizontal
+nav-header-font-size = 12px
+nav-header-font-weight = bold
+nav-header-text-transform = uppercase
+nav-header-margin-top = 15px
+nav-divider-margin-vertical = 9px
+nav-divider-margin-horizontal = nav-padding-horizontal
+nav-subtitle-font-size = 12px
+nav-subtitle-line-height = 18px
+nav-nested-padding-left = 15px
+nav-nested-padding-vertical = 2px
+nav-nested-padding-horizontal = 0
+nav-sub-padding-vertical = 5px
+nav-sub-padding-left = nav-padding-horizontal
+nav-parent-icon = "\f104"
+nav-parent-open-icon = "\f107"
+nav-parent-icon-width = 20px
+nav-parent-icon-margin-right = -10px
+nav-side-color = rgb(68, 68, 68, 1)
+nav-side-hover-background = rgba(0, 0, 0, 0.05)
+nav-side-hover-color = rgb(68, 68, 68, 1)
+nav-side-active-background = rgb(0, 168, 230, 1)
+nav-side-active-color = rgb(255, 255, 255, 1)
+nav-side-header-color = rgb(68, 68, 68, 1)
+nav-side-divider-border = rgb(221, 221, 221, 1)
+nav-side-divider-border-width = 1px
+nav-side-nested-color = rgb(0, 119, 221, 1)
+nav-side-nested-hover-color = rgb(0, 85, 153, 1)
+nav-dropdown-color = rgb(68, 68, 68, 1)
+nav-dropdown-hover-background = rgb(0, 168, 230, 1)
+nav-dropdown-hover-color = rgb(255, 255, 255, 1)
+nav-dropdown-header-color = rgb(153, 153, 153, 1)
+nav-dropdown-divider-border = rgb(221, 221, 221, 1)
+nav-dropdown-divider-border-width = 1px
+nav-dropdown-nested-color = rgb(0, 119, 221, 1)
+nav-dropdown-nested-hover-color = rgb(0, 85, 153, 1)
+nav-navbar-color = rgb(68, 68, 68, 1)
+nav-navbar-hover-background = rgb(0, 168, 230, 1)
+nav-navbar-hover-color = rgb(255, 255, 255, 1)
+nav-navbar-header-color = rgb(153, 153, 153, 1)
+nav-navbar-divider-border = rgb(221, 221, 221, 1)
+nav-navbar-divider-border-width = 1px
+nav-navbar-nested-color = rgb(0, 119, 221, 1)
+nav-navbar-nested-hover-color = rgb(0, 85, 153, 1)
+nav-offcanvas-padding-vertical = 10px
+nav-offcanvas-padding-horizontal = 15px
+nav-offcanvas-color = rgb(204, 204, 204, 1)
+nav-offcanvas-hover-background = rgb(64, 64, 64, 1)
+nav-offcanvas-hover-color = rgb(255, 255, 255, 1)
+nav-offcanvas-active-background = rgb(26, 26, 26, 1)
+nav-offcanvas-active-color = rgb(255, 255, 255, 1)
+nav-offcanvas-header-color = rgb(119, 119, 119, 1)
+nav-offcanvas-divider-border = rgb(26, 26, 26, 1)
+nav-offcanvas-divider-border-width = 1px
+nav-offcanvas-nested-color = rgb(204, 204, 204, 1)
+nav-offcanvas-nested-hover-color = rgb(255, 255, 255, 1)
+/* ========================================================================
+   Component: Nav
+ ========================================================================== */
+.uk-nav, .uk-nav ul
+  margin 0
+  padding 0
+  list-style none
+/*
+ * Items
+ */
+.uk-nav li > a
+  display block
+  text-decoration none
+.uk-nav > li > a
+  padding nav-padding-vertical nav-padding-horizontal
+/*
+ * Nested items
+ */
+.uk-nav ul
+  padding-left nav-nested-padding-left
+.uk-nav ul a
+  padding nav-nested-padding-vertical nav-nested-padding-horizontal
+/*
+ * Item subtitle
+ */
+.uk-nav li > a > div
+  font-size nav-subtitle-font-size
+  line-height nav-subtitle-line-height
+/* Sub-object: `uk-nav-header`
+ ========================================================================== */
+.uk-nav-header
+  padding nav-header-padding-vertical nav-header-padding-horizontal
+  text-transform nav-header-text-transform
+  font-weight nav-header-font-weight
+  font-size nav-header-font-size
+  @extend .hook-nav-header
+.uk-nav-header:not(:first-child)
+  margin-top nav-header-margin-top
+/* Sub-object: `uk-nav-divider`
+ ========================================================================== */
+.uk-nav-divider
+  margin nav-divider-margin-vertical nav-divider-margin-horizontal
+  @extend .hook-nav-divider
+/* Sub-object: `uk-nav-sub`
+ ========================================================================== */
+/*
+ * `ul` needed for higher specificity to override padding
+ */
+ul.uk-nav-sub
+  padding nav-sub-padding-vertical 0 nav-sub-padding-vertical nav-sub-padding-left
+  @extend .hook-nav-sub
+/* Modifier: `uk-nav-parent-icon`
+ ========================================================================== */
+.uk-nav-parent-icon > .uk-parent > a:after
+  content nav-parent-icon
+  width nav-parent-icon-width
+  margin-right nav-parent-icon-margin-right
+  float right
+  font-family FontAwesome
+  text-align center
+  @extend .hook-nav-parent-icon
+.uk-nav-parent-icon > .uk-parent.uk-open > a:after
+  content nav-parent-open-icon
+/* Modifier `uk-nav-side`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-side > li > a
+  color nav-side-color
+  @extend .hook-nav-side
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-nav-side > li > a:hover, .uk-nav-side > li > a:focus
+  background nav-side-hover-background
+  color nav-side-hover-color
+  /* 2 */
+  outline none
+  @extend .hook-nav-side-hover
+/* Active */
+.uk-nav-side > li.uk-active > a
+  background nav-side-active-background
+  color nav-side-active-color
+  @extend .hook-nav-side-active
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-side .uk-nav-header
+  color nav-side-header-color
+  @extend .hook-nav-side-header
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-side .uk-nav-divider
+  border-top nav-side-divider-border-width solid nav-side-divider-border
+  @extend .hook-nav-side-divider
+/*
+ * Nested items
+ */
+.uk-nav-side ul a
+  color nav-side-nested-color
+.uk-nav-side ul a:hover
+  color nav-side-nested-hover-color
+/* Modifier `uk-nav-dropdown`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-dropdown > li > a
+  color nav-dropdown-color
+  @extend .hook-nav-dropdown
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-nav-dropdown > li > a:hover, .uk-nav-dropdown > li > a:focus
+  background nav-dropdown-hover-background
+  color nav-dropdown-hover-color
+  /* 2 */
+  outline none
+  @extend .hook-nav-dropdown-hover
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-dropdown .uk-nav-header
+  color nav-dropdown-header-color
+  @extend .hook-nav-dropdown-header
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-dropdown .uk-nav-divider
+  border-top nav-dropdown-divider-border-width solid nav-dropdown-divider-border
+  @extend .hook-nav-dropdown-divider
+/*
+ * Nested items
+ */
+.uk-nav-dropdown ul a
+  color nav-dropdown-nested-color
+.uk-nav-dropdown ul a:hover
+  color nav-dropdown-nested-hover-color
+/* Modifier `uk-nav-navbar`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-navbar > li > a
+  color nav-navbar-color
+  @extend .hook-nav-navbar
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-nav-navbar > li > a:hover, .uk-nav-navbar > li > a:focus
+  background nav-navbar-hover-background
+  color nav-navbar-hover-color
+  /* 2 */
+  outline none
+  @extend .hook-nav-navbar-hover
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-navbar .uk-nav-header
+  color nav-navbar-header-color
+  @extend .hook-nav-navbar-header
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-navbar .uk-nav-divider
+  border-top nav-navbar-divider-border-width solid nav-navbar-divider-border
+  @extend .hook-nav-navbar-divider
+/*
+ * Nested items
+ */
+.uk-nav-navbar ul a
+  color nav-navbar-nested-color
+.uk-nav-navbar ul a:hover
+  color nav-navbar-nested-hover-color
+/* Modifier `uk-nav-offcanvas`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-offcanvas > li > a
+  color nav-offcanvas-color
+  padding nav-offcanvas-padding-vertical nav-offcanvas-padding-horizontal
+  @extend .hook-nav-offcanvas
+/*
+ * Hover
+ * No hover on touch devices because it behaves buggy in fixed offcanvas
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-nav-offcanvas > .uk-open > a, html:not(.uk-touch) .uk-nav-offcanvas > li > a:hover, html:not(.uk-touch) .uk-nav-offcanvas > li > a:focus
+  background nav-offcanvas-hover-background
+  color nav-offcanvas-hover-color
+  /* 2 */
+  outline none
+  @extend .hook-nav-offcanvas-hover
+/*
+ * Active
+ * `html .uk-nav` needed for higher specificity to override hover
+ */
+html .uk-nav.uk-nav-offcanvas > li.uk-active > a
+  background nav-offcanvas-active-background
+  color nav-offcanvas-active-color
+  @extend .hook-nav-offcanvas-active
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-offcanvas .uk-nav-header
+  color nav-offcanvas-header-color
+  @extend .hook-nav-offcanvas-header
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-offcanvas .uk-nav-divider
+  border-top nav-offcanvas-divider-border-width solid nav-offcanvas-divider-border
+  @extend .hook-nav-offcanvas-divider
+/*
+ * Nested items
+ * No hover on touch devices because it behaves buggy in fixed offcanvas
+ */
+.uk-nav-offcanvas ul a
+  color nav-offcanvas-nested-color
+html:not(.uk-touch) .uk-nav-offcanvas ul a:hover
+  color nav-offcanvas-nested-hover-color
+@extend .hook-nav-misc
+hook-nav-header()
+.hook-nav-header
+  hook-nav-header()
+hook-nav-divider()
+.hook-nav-divider
+  hook-nav-divider()
+hook-nav-sub()
+.hook-nav-sub
+  hook-nav-sub()
+hook-nav-parent-icon()
+.hook-nav-parent-icon
+  hook-nav-parent-icon()
+hook-nav-side()
+.hook-nav-side
+  hook-nav-side()
+hook-nav-side-hover()
+.hook-nav-side-hover
+  hook-nav-side-hover()
+hook-nav-side-active()
+.hook-nav-side-active
+  hook-nav-side-active()
+hook-nav-side-header()
+.hook-nav-side-header
+  hook-nav-side-header()
+hook-nav-side-divider()
+.hook-nav-side-divider
+  hook-nav-side-divider()
+hook-nav-dropdown()
+.hook-nav-dropdown
+  hook-nav-dropdown()
+hook-nav-dropdown-hover()
+.hook-nav-dropdown-hover
+  hook-nav-dropdown-hover()
+hook-nav-dropdown-header()
+.hook-nav-dropdown-header
+  hook-nav-dropdown-header()
+hook-nav-dropdown-divider()
+.hook-nav-dropdown-divider
+  hook-nav-dropdown-divider()
+hook-nav-navbar()
+.hook-nav-navbar
+  hook-nav-navbar()
+hook-nav-navbar-hover()
+.hook-nav-navbar-hover
+  hook-nav-navbar-hover()
+hook-nav-navbar-header()
+.hook-nav-navbar-header
+  hook-nav-navbar-header()
+hook-nav-navbar-divider()
+.hook-nav-navbar-divider
+  hook-nav-navbar-divider()
+hook-nav-offcanvas()
+.hook-nav-offcanvas
+  hook-nav-offcanvas()
+hook-nav-offcanvas-hover()
+.hook-nav-offcanvas-hover
+  hook-nav-offcanvas-hover()
+hook-nav-offcanvas-active()
+.hook-nav-offcanvas-active
+  hook-nav-offcanvas-active()
+hook-nav-offcanvas-header()
+.hook-nav-offcanvas-header
+  hook-nav-offcanvas-header()
+hook-nav-offcanvas-divider()
+.hook-nav-offcanvas-divider
+  hook-nav-offcanvas-divider()
+hook-nav-misc()
+.hook-nav-misc
+  hook-nav-misc()

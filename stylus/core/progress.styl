@@ -1,0 +1,123 @@
+lesscss-percentage(n)
+  (n * 100)%
+progress-height = 20px
+progress-mini-height = 6px
+progress-small-height = 12px
+progress-margin-vertical = 15px
+progress-background = rgb(238, 238, 238, 1)
+progress-bar-background = rgb(0, 168, 230, 1)
+progress-bar-font-size = 12px
+progress-bar-color = rgb(255, 255, 255, 1)
+progress-bar-success-background = rgb(140, 193, 76, 1)
+progress-bar-warning-background = rgb(250, 167, 50, 1)
+progress-bar-danger-background = rgb(218, 49, 75, 1)
+/* ========================================================================
+   Component: Progress
+ ========================================================================== */
+/*
+ * 1. Clearing
+ * 2. Vertical alignment if text is used
+ */
+.uk-progress
+  -moz-box-sizing border-box
+  box-sizing border-box
+  height progress-height
+  margin-bottom progress-margin-vertical
+  background progress-background
+  /* 1 */
+  overflow hidden
+  /* 2 */
+  line-height progress-height
+  @extend .hook-progress
+/*
+ * Add margin if adjacent element
+ */
+* + .uk-progress
+  margin-top progress-margin-vertical
+/* Sub-object: `uk-progress-bar`
+ ========================================================================== */
+/*
+ * 1. Transition
+ * 2. Needed for text
+ */
+.uk-progress-bar
+  width 0
+  height 100%
+  background progress-bar-background
+  float left
+  /* 1 */
+  -webkit-transition width 0.6s ease
+  transition width 0.6s ease
+  /* 2 */
+  font-size progress-bar-font-size
+  color progress-bar-color
+  text-align center
+  @extend .hook-progress-bar
+/* Size modifiers
+ ========================================================================== */
+/* Mini */
+.uk-progress-mini
+  height progress-mini-height
+  @extend .hook-progress-mini
+/* Small */
+.uk-progress-small
+  height progress-small-height
+  @extend .hook-progress-small
+/* Color modifiers
+ ========================================================================== */
+.uk-progress-success .uk-progress-bar
+  background-color progress-bar-success-background
+  @extend .hook-progress-bar-success
+.uk-progress-warning .uk-progress-bar
+  background-color progress-bar-warning-background
+  @extend .hook-progress-bar-warning
+.uk-progress-danger .uk-progress-bar
+  background-color progress-bar-danger-background
+  @extend .hook-progress-bar-danger
+/* Modifier: `uk-progress-striped`
+ ========================================================================== */
+.uk-progress-striped .uk-progress-bar
+  background-image -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+  background-image linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)
+  background-size 30px 30px
+/*
+ * Animation
+ */
+.uk-progress-striped.uk-active .uk-progress-bar
+  -webkit-animation uk-progress-bar-stripes 2s linear infinite
+  animation uk-progress-bar-stripes 2s linear infinite
+@-webkit-keyframes uk-progress-bar-stripes
+  0%
+    background-position 0 0
+  100%
+    background-position 30px 0
+@keyframes uk-progress-bar-stripes
+  0%
+    background-position 0 0
+  100%
+    background-position 30px 0
+@extend .hook-progress-misc
+hook-progress()
+.hook-progress
+  hook-progress()
+hook-progress-bar()
+.hook-progress-bar
+  hook-progress-bar()
+hook-progress-mini()
+.hook-progress-mini
+  hook-progress-mini()
+hook-progress-small()
+.hook-progress-small
+  hook-progress-small()
+hook-progress-bar-success()
+.hook-progress-bar-success
+  hook-progress-bar-success()
+hook-progress-bar-warning()
+.hook-progress-bar-warning
+  hook-progress-bar-warning()
+hook-progress-bar-danger()
+.hook-progress-bar-danger
+  hook-progress-bar-danger()
+hook-progress-misc()
+.hook-progress-misc
+  hook-progress-misc()

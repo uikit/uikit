@@ -1,0 +1,50 @@
+lesscss-percentage(n)
+  (n * 100)%
+breadcrumb-font-size = 1rem
+breadcrumb-divider = "/"
+breadcrumb-divider-margin = 8px
+breadcrumb-disabled-color = rgb(153, 153, 153, 1)
+/* ========================================================================
+   Component: Breadcrumb
+ ========================================================================== */
+/*
+ * 1. Remove default list style
+ * 2. Remove whitespace between child elements when using `inline-block`
+ */
+.uk-breadcrumb
+  /* 1 */
+  padding 0
+  list-style none
+  /* 2 */
+  font-size 0.001px
+  @extend .hook-breadcrumb
+/* Items
+ ========================================================================== */
+/*
+ * Reset whitespace hack
+ */
+.uk-breadcrumb > li
+  font-size breadcrumb-font-size
+  vertical-align top
+.uk-breadcrumb > li, .uk-breadcrumb > li > a, .uk-breadcrumb > li > span
+  display inline-block
+.uk-breadcrumb > li:nth-child(n + 2):before
+  content breadcrumb-divider
+  display inline-block
+  margin 0 breadcrumb-divider-margin
+  @extend .hook-breadcrumb-divider
+/*
+ * Disabled
+ */
+.uk-breadcrumb > li:not(.uk-active) > span
+  color breadcrumb-disabled-color
+@extend .hook-breadcrumb-misc
+hook-breadcrumb()
+.hook-breadcrumb
+  hook-breadcrumb()
+hook-breadcrumb-divider()
+.hook-breadcrumb-divider
+  hook-breadcrumb-divider()
+hook-breadcrumb-misc()
+.hook-breadcrumb-misc
+  hook-breadcrumb-misc()

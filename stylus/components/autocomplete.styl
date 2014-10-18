@@ -1,0 +1,72 @@
+lesscss-percentage(n)
+  (n * 100)%
+nav-autocomplete-color = rgb(68, 68, 68, 1)
+nav-autocomplete-active-background = rgb(0, 168, 230, 1)
+nav-autocomplete-active-color = rgb(255, 255, 255, 1)
+nav-autocomplete-header-color = rgb(153, 153, 153, 1)
+nav-autocomplete-divider-border = rgb(221, 221, 221, 1)
+nav-autocomplete-divider-border-width = 1px
+/* ========================================================================
+   Component: Autocomplete
+ ========================================================================== */
+/*
+ * 1. Container width fits its content
+ * 2. Create position context
+ * 3. Prevent `inline-block` consequences
+ * 4. Remove the gap between the container and its child element
+ */
+.uk-autocomplete
+  /* 1 */
+  display inline-block
+  /* 2 */
+  position relative
+  /* 3 */
+  max-width 100%
+  /* 4 */
+  vertical-align middle
+/* Nav modifier `uk-nav-autocomplete`
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-autocomplete > li > a
+  color nav-autocomplete-color
+  @extend .hook-nav-autocomplete
+/*
+ * Active
+ * 1. Remove default focus style
+ */
+.uk-nav-autocomplete > li.uk-active > a
+  background nav-autocomplete-active-background
+  color nav-autocomplete-active-color
+  /* 1 */
+  outline none
+  @extend .hook-nav-autocomplete-active
+/*
+ * Sub-object: `uk-nav-header`
+ */
+.uk-nav-autocomplete .uk-nav-header
+  color nav-autocomplete-header-color
+  @extend .hook-nav-autocomplete-header
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+.uk-nav-autocomplete .uk-nav-divider
+  border-top nav-autocomplete-divider-border-width solid nav-autocomplete-divider-border
+  @extend .hook-nav-autocomplete-divider
+@extend .hook-autocomplete-misc
+hook-nav-autocomplete()
+.hook-nav-autocomplete
+  hook-nav-autocomplete()
+hook-nav-autocomplete-active()
+.hook-nav-autocomplete-active
+  hook-nav-autocomplete-active()
+hook-nav-autocomplete-header()
+.hook-nav-autocomplete-header
+  hook-nav-autocomplete-header()
+hook-nav-autocomplete-divider()
+.hook-nav-autocomplete-divider
+  hook-nav-autocomplete-divider()
+hook-autocomplete-misc()
+.hook-autocomplete-misc
+  hook-autocomplete-misc()

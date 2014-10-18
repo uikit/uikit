@@ -1,0 +1,112 @@
+lesscss-percentage(n)
+  (n * 100)%
+offcanvas-z-index = 1000
+offcanvas-background = rgba(0, 0, 0, 0.1)
+offcanvas-bar-width = 270px
+offcanvas-bar-background = rgb(51, 51, 51, 1)
+offcanvas-panel-margin = 20px 15px
+offcanvas-panel-color = rgb(119, 119, 119, 1)
+offcanvas-panel-link-color = rgb(204, 204, 204, 1)
+offcanvas-panel-link-hover-color = rgb(255, 255, 255, 1)
+offcanvas-panel-title-color = offcanvas-panel-link-color
+/* ========================================================================
+   Component: Off-canvas
+ ========================================================================== */
+/*
+ * This is the offcanvas overlay and bar container
+ * 1. Hide by default
+ * 2. Set fixed position
+ * 3. Mask the background page
+ */
+.uk-offcanvas
+  /* 1 */
+  display none
+  /* 2 */
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  z-index offcanvas-z-index
+  /* 3 */
+  background offcanvas-background
+  @extend .hook-offcanvas
+.uk-offcanvas.uk-active
+  display block
+/* Sub-object `uk-offcanvas-page`
+ ========================================================================== */
+/*
+ * Prepares the whole HTML page to slide-out
+ * 1. Fix the main page and disallow scrolling
+ * 2. Side-out transition
+ */
+.uk-offcanvas-page
+  /* 1 */
+  position fixed
+  /* 2 */
+  -webkit-transition margin-left 0.3s ease-in-out
+  transition margin-left 0.3s ease-in-out
+/* Sub-object `uk-offcanvas-bar`
+ ========================================================================== */
+/*
+ * This is the offcanvas bar
+ * 1. Set fixed position
+ * 2. Size and style
+ * 3. Allow scrolling
+ * 4. Side-out transition
+ */
+.uk-offcanvas-bar
+  /* 1 */
+  position fixed
+  top 0
+  bottom 0
+  left 0
+  -webkit-transform translateX(-100%)
+  transform translateX(-100%)
+  z-index (offcanvas-z-index + 1)
+  /* 2 */
+  width offcanvas-bar-width
+  max-width 100%
+  background offcanvas-bar-background
+  /* 3 */
+  overflow-y auto
+  -webkit-overflow-scrolling touch
+  /* 4 */
+  -webkit-transition -webkit-transform 0.3s ease-in-out
+  transition transform 0.3s ease-in-out
+  @extend .hook-offcanvas-bar
+.uk-offcanvas.uk-active .uk-offcanvas-bar.uk-offcanvas-bar-show
+  -webkit-transform translateX(0%)
+  transform translateX(0%)
+/* Modifier `uk-offcanvas-bar-flip`
+ ========================================================================== */
+.uk-offcanvas-bar-flip
+  left auto
+  right 0
+  -webkit-transform translateX(100%)
+  transform translateX(100%)
+/* Panel in offcanvas
+ ========================================================================== */
+.uk-offcanvas .uk-panel
+  margin offcanvas-panel-margin
+  color offcanvas-panel-color
+  @extend .hook-offcanvas-panel
+.uk-offcanvas .uk-panel-title
+  color offcanvas-panel-title-color
+.uk-offcanvas .uk-panel a:not([class])
+  color offcanvas-panel-link-color
+.uk-offcanvas .uk-panel a:not([class]):hover
+  color offcanvas-panel-link-hover-color
+@extend .hook-offcanvas-misc
+hook-offcanvas()
+.hook-offcanvas
+  hook-offcanvas()
+hook-offcanvas-bar()
+.hook-offcanvas-bar
+  hook-offcanvas-bar()
+hook-offcanvas-panel()
+.hook-offcanvas-panel
+  hook-offcanvas-panel()
+hook-offcanvas-misc()
+.hook-offcanvas-misc
+  hook-offcanvas-misc()

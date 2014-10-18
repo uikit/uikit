@@ -1,0 +1,27 @@
+lesscss-percentage(n)
+  (n * 100)%
+sticky-z-index = 980
+/* ========================================================================
+   Component: Sticky
+ ========================================================================== */
+/*
+ * 1. More robust if padding and border are used
+ */
+[data-uk-sticky].uk-active
+  z-index sticky-z-index
+  /* 1 */
+  -moz-box-sizing border-box
+  box-sizing border-box
+/*
+ * Faster animations
+ */
+[data-uk-sticky][class*='uk-animation-']
+  -webkit-animation-duration 0.15s
+  animation-duration 0.15s
+[data-uk-sticky].uk-animation-reverse
+  -webkit-animation-duration 0.04s
+  animation-duration 0.04s
+@extend .hook-sticky-misc
+hook-sticky-misc()
+.hook-sticky-misc
+  hook-sticky-misc()
