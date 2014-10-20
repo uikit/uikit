@@ -3,6 +3,7 @@
 ### WIP
 
   - Fixed slidenav position class
+  - Fixed nestable not triggering change event
 
 ### 2.11.1 (October 13, 2014)
 

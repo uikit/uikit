@@ -369,7 +369,7 @@
 
             this.dragEl.remove();
 
-            if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || this.tmpDragOnSiblings[0]!=el[0].previousSibling) {
+            if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
                 this.element.trigger('uk.nestable.change',[el, this.hasNewRoot ? "added":"moved"]);
 
