@@ -3,6 +3,7 @@
 ### WIP
 
   - Fixed slidenav position class
+  - Fixed datepicker z-index
 
 ### 2.11.1 (October 13, 2014)
 
