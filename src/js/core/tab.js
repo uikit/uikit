@@ -6,10 +6,11 @@
     UI.component('tab', {
 
         defaults: {
-            'target'  : '>li:not(.uk-tab-responsive, .uk-disabled)',
-            'connect' : false,
-            'active'  : 0,
-            'animation': false
+            'target'    : '>li:not(.uk-tab-responsive, .uk-disabled)',
+            'connect'   : false,
+            'active'    : 0,
+            'animation' : false,
+            'duration'  : 200
         },
 
         init: function() {
@@ -54,7 +55,13 @@
 
             // init UIkit components
             if (this.options.connect) {
-                UI.switcher(this.element, {"toggle": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active, "animation": this.options.animation});
+                UI.switcher(this.element, {
+                    "toggle"    : ">li:not(.uk-tab-responsive)",
+                    "connect"   : this.options.connect,
+                    "active"    : this.options.active,
+                    "animation" : this.options.animation,
+                    "duration"  : this.options.duration
+                });
             }
 
             UI.dropdown(this.responsivetab, {"mode": "click"});
