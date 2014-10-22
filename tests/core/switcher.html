@@ -20,7 +20,7 @@
             <div class="uk-margin uk-grid" data-uk-grid-margin>
                 <div class="uk-width-medium-1-1">
 
-                    <ul class="uk-tab" data-uk-tab="{connect:'#content-1, #content-2'}">
+                    <ul class="uk-tab" data-uk-tab="{connect:'#content-1, #content-2', animation:'fade'}">
                         <li class="uk-active"><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
@@ -231,6 +231,63 @@
                         <li>Hello!</li>
                         <li>Hello again!</li>
                         <li>Bazinga!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+
+            <h2>Animation</h2>
+
+            <div class="uk-grid uk-margin" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <h4>Fade</h4>
+
+                    <ul class="uk-tab" data-uk-tab="{connect:'#tab-content-a-fade', animation: 'fade'}">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-fade" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" data-uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" data-uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <h4>Scale</h4>
+
+                    <ul class="uk-tab" data-uk-tab="{connect:'#tab-content-a-scale', animation: 'scale'}">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-scale" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" data-uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" data-uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <h4>Slide</h4>
+
+                    <ul class="uk-tab" data-uk-tab="{connect:'#tab-content-a-slide', animation: 'slide'}">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-slide" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" data-uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" data-uk-switcher-item="0">Switch to tab 1</a></li>
                     </ul>
 
                 </div>

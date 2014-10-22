@@ -10,7 +10,8 @@
             connect : false,
             toggle  : ">*",
             active  : 0,
-            animation: false
+            animation: false,
+            duration: 200
         },
 
         init: function() {
@@ -100,32 +101,28 @@
         }
     });
 
-
     Animations = {
 
         'none': function() {
-
             var d = $.Deferred();
             d.resolve();
             return d.promise();
         },
 
-        'fade': function(current, next, dir) {
+        'fade': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-fade', current, next]);
+        },
 
-            var d = $.Deferred();
+        'slide': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-bottom', current, next]);
+        },
 
-            if (current) {
-                current.removeClass('uk-active');
-            }
-
-            next.fadeIn(300, function(){
-                next.css({opacity:'', display:''});
-                d.resolve();
-            });
-
-            return d.promise();
+        'scale': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-scale-up', current, next]);
         }
     };
+
+    UI.switcher.animations = Animations;
 
 
     // init code
@@ -139,5 +136,50 @@
             }
         });
     });
+
+
+    // helpers
+
+    function coreAnimation(cls, current, next) {
+
+        var d = $.Deferred();
+
+        if(next[0]===current[0]) {
+            d.resolve();
+            return d.promise();
+        }
+
+        var release = function() {
+
+            if (current) current.hide().removeClass('uk-active '+cls+' uk-animation-reverse');
+
+            next.addClass(cls).one(UI.support.animation.end, function() {
+
+                next.removeClass(''+cls+'').css({opacity:'', display:''});
+
+                d.resolve();
+
+                if (current) current.css({opacity:'', display:''});
+
+            }.bind(this)).show();
+        };
+
+        next.css('animation-duration', this.options.duration+'ms');
+
+        if (current && current.length) {
+
+            current.css('animation-duration', this.options.duration+'ms');
+
+            current.css('display', 'none').addClass(cls+' uk-animation-reverse').one(UI.support.animation.end, function() {
+                release();
+            }.bind(this)).css('display', '');
+
+        } else {
+            next.addClass('uk-active');
+            release();
+        }
+
+        return d.promise();
+    }
 
 })(jQuery, jQuery.UIkit);

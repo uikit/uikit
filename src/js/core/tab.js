@@ -8,7 +8,8 @@
         defaults: {
             'target'  : '>li:not(.uk-tab-responsive, .uk-disabled)',
             'connect' : false,
-            'active'  : 0
+            'active'  : 0,
+            'animation': false
         },
 
         init: function() {
@@ -53,7 +54,7 @@
 
             // init UIkit components
             if (this.options.connect) {
-                UI.switcher(this.element, {"toggle": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active});
+                UI.switcher(this.element, {"toggle": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active, "animation": this.options.animation});
             }
 
             UI.dropdown(this.responsivetab, {"mode": "click"});
