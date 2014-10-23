@@ -14,6 +14,8 @@
             duration: 200
         },
 
+        animating: false,
+
         init: function() {
 
             var $this = this;
@@ -53,20 +55,28 @@
                     active   = toggles.filter(".uk-active");
 
                 if (active.length) {
-                    this.show(active);
+                    this.show(active, false);
                 } else {
                     active = toggles.eq(this.options.active);
-                    this.show(active.length ? active : toggles.eq(0));
+                    this.show(active.length ? active : toggles.eq(0), false);
                 }
             }
 
         },
 
-        show: function(tab) {
+        show: function(tab, animate) {
+
+            if (this.animating) {
+                return;
+            }
 
             tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
 
             var $this = this, active = tab, animation = Animations[this.options.animation] || Animations['none'];
+
+            if (animate===false) {
+                animation = Animations['none'];
+            }
 
             if (active.hasClass("uk-disabled")) return;
 
@@ -88,11 +98,15 @@
                         current   = children.filter('.uk-active'),
                         next      = children.eq($this.index);
 
+                        $this.animating = true;
+
                         animation.apply($this, [current, next]).then(function(){
 
                             current.removeClass("uk-active");
                             next.addClass("uk-active");
                             UI.Utils.checkDisplay(next);
+
+                            $this.animating = false;
                         });
                 });
             }
