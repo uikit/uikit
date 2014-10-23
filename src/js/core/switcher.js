@@ -52,7 +52,7 @@
                 }
 
                 var toggles = this.find(this.options.toggle),
-                    active   = toggles.filter(".uk-active");
+                    active  = toggles.filter(".uk-active");
 
                 if (active.length) {
                     this.show(active, false);
