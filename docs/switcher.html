@@ -140,7 +140,7 @@
 
                             <p>In some cases you want to switch to another content section from within the active content. This is possible by combining the <code>data-uk-switcher-item</code> attribute with anchors.</p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+                            <h4 class="tm-article-subtitle">Example</h4>
 
                             <div class="uk-grid" data-uk-grid-margin>
                                 <div class="uk-width-medium-1-4">
@@ -163,7 +163,7 @@
                                 </div>
                             </div>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+                            <h4 class="tm-article-subtitle">Markup</h4>
 
 <pre><code>&lt;!-- This is the nav containing the toggling elements --&gt;
 &lt;ul data-uk-switcher="{connect:'#my-id'}"&gt;
@@ -181,7 +181,7 @@
 
                             <p>It is also possible to connect multiple content containers. Just extend the <code>connect</code> parameter with the ID of the additional container.</p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+                            <h4 class="tm-article-subtitle">Example</h4>
 
                             <div class="uk-grid" data-uk-grid-margin>
                                 <div class="uk-width-medium-1-4">
@@ -218,7 +218,7 @@
                                 </div>
                             </div>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+                            <h4 class="tm-article-subtitle">Markup</h4>
 
 <pre><code>&lt;!-- This is the nav containing the toggling elements --&gt;
 &lt;ul data-uk-switcher="{connect:'#my-id-one, #my-id-two'}"&gt;
@@ -231,6 +231,210 @@
 &lt;/ul&gt;
 
 &lt;ul id="my-id-two" class="uk-switcher"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-animations"><a href="#switcher-animations" class="uk-link-reset">Animations</a></h2>
+
+                            <p>The Switcher component allows you to add a range of different animations to items when toggling between them. All you need to do is add the <code>animation</code> parameter to the data-attribute and define the animation that you want to apply. Check the table below for an overview of the animations provided.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>fade</code></td>
+                                            <td>The element fades in.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>scale</code></td>
+                                            <td>The items scale up.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-top</code></td>
+                                            <td>The items slide in from the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-bottom</code></td>
+                                            <td>The items slide in from the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-left</code></td>
+                                            <td>The items slide in from the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-right</code></td>
+                                            <td>The items slide in from the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-horizontal</code></td>
+                                            <td>The items slide horizontally, the direction depending on the adjacency of the item.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-vertical</code></td>
+                                            <td>The items slide vertically, the direction depending on the adjacency of the item.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-grid-width-medium-1-4 uk-margin" data-uk-grid-margin>
+                                <div>
+
+                                    <h4>Fade</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-fade', animation: 'fade'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-fade" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h4>Scale</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-scale', animation: 'scale'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-scale" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h4>Slide top</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-top', animation: 'slide-top'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-top" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h4>Slide bottom</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-bottom', animation: 'slide-bottom'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-bottom" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h4>Slide left</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-left', animation: 'slide-left'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-left" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h4>Slide right</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-right', animation: 'slide-right'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-right" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h4>Slide horizontal</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-horizontal', animation: 'slide-horizontal'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-horizontal" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h4>Slide vertical</h4>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-vertical', animation: 'slide-vertical'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-vertical" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the container of the toggling elements --&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id', animation: 'fade'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher"&gt;
     &lt;li&gt;...&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
