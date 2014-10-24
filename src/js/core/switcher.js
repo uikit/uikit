@@ -127,8 +127,42 @@
             return coreAnimation.apply(this, ['uk-animation-fade', current, next]);
         },
 
-        'slide': function(current, next) {
+        'slide-bottom': function(current, next) {
             return coreAnimation.apply(this, ['uk-animation-slide-bottom', current, next]);
+        },
+
+        'slide-top': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-top', current, next]);
+        },
+
+        'slide-vertical': function(current, next, dir) {
+
+            var anim = ['uk-animation-slide-top', 'uk-animation-slide-bottom'];
+
+            if (current && current.index() > next.index()) {
+                anim.reverse();
+            }
+
+            return coreAnimation.apply(this, [anim, current, next]);
+        },
+
+        'slide-left': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-left', current, next]);
+        },
+
+        'slide-right': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-right', current, next]);
+        },
+
+        'slide-horizontal': function(current, next, dir) {
+
+            var anim = ['uk-animation-slide-left', 'uk-animation-slide-right'];
+
+            if (current && current.index() > next.index()) {
+                anim.reverse();
+            }
+
+            return coreAnimation.apply(this, [anim, current, next]);
         },
 
         'scale': function(current, next) {
@@ -156,20 +190,25 @@
 
     function coreAnimation(cls, current, next) {
 
-        var d = $.Deferred();
+        var d = $.Deferred(), clsIn = cls, clsOut = cls, release;
 
         if(next[0]===current[0]) {
             d.resolve();
             return d.promise();
         }
 
-        var release = function() {
+        if (typeof(cls) == 'object') {
+            clsIn  = cls[0];
+            clsOut = cls[1] || cls[0];
+        }
 
-            if (current) current.hide().removeClass('uk-active '+cls+' uk-animation-reverse');
+        release = function() {
 
-            next.addClass(cls).one(UI.support.animation.end, function() {
+            if (current) current.hide().removeClass('uk-active '+clsOut+' uk-animation-reverse');
 
-                next.removeClass(''+cls+'').css({opacity:'', display:''});
+            next.addClass(clsIn).one(UI.support.animation.end, function() {
+
+                next.removeClass(''+clsIn+'').css({opacity:'', display:''});
 
                 d.resolve();
 
@@ -184,7 +223,7 @@
 
             current.css('animation-duration', this.options.duration+'ms');
 
-            current.css('display', 'none').addClass(cls+' uk-animation-reverse').one(UI.support.animation.end, function() {
+            current.css('display', 'none').addClass(clsOut+' uk-animation-reverse').one(UI.support.animation.end, function() {
                 release();
             }.bind(this)).css('display', '');
 
