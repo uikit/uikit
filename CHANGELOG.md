@@ -9,6 +9,10 @@
   - Fixed nestable not triggering change event
   - Better timing-function for reverse animations
 
+**Docs and Repo**
+
+  - Updated switcher doc and test
+
 ### 2.11.1 (October 13, 2014)
 
   - Fixed dropdown z-index
