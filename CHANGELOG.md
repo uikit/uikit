@@ -8,6 +8,7 @@
   - Fixed datepicker z-index
   - Fixed nestable not triggering change event
   - Better timing-function for reverse animations
+  - Trigger uk.check.display on context element if no related children found
 
 **Docs and Repo**
 
