@@ -182,7 +182,16 @@
     };
 
     UI.Utils.checkDisplay = function(context) {
-        $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document).trigger('uk.check.display');
+
+        var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document);
+
+        if (context && !elements.length) {
+            elements = $(context);
+        }
+
+        elements.trigger('uk.check.display');
+
+        return elements;
     };
 
     UI.Utils.options = function(string) {
