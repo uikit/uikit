@@ -12,6 +12,8 @@
   - Trigger uk.check.display on context element if no related children found
   - Updated moment.js in datepicker component
   - Added less error handler for gulp task
+  - Fixed anchor links in offcanvas menu
+  - Added smooth scroll helper function
 
 **Docs and Repo**
 
