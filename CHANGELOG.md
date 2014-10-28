@@ -15,6 +15,7 @@
 **Docs and Repo**
 
   - Updated switcher doc and test
+  - Updated flex test
 
 ### 2.11.1 (October 13, 2014)
 

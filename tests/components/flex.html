@@ -9,19 +9,42 @@
         <script src="../_test.js"></script>
         <style type="text/css">
 
-            .uk-flex > * {
+            .uk-flex:not(.uk-grid) > * {
                 padding: 10px;
                 text-align: center;
             }
 
-            .uk-flex > :nth-child(8n-7) { background: rgba(0,0,0,0.1); }
-            .uk-flex > :nth-child(8n-6) { background: rgba(0,0,0,0.15); }
-            .uk-flex > :nth-child(8n-5) { background: rgba(0,0,0,0.2); }
-            .uk-flex > :nth-child(8n-4) { background: rgba(0,0,0,0.25); }
-            .uk-flex > :nth-child(8n-3) { background: rgba(0,0,0,0.3); }
-            .uk-flex > :nth-child(8n-2) { background: rgba(0,0,0,0.35); }
-            .uk-flex > :nth-child(8n-1) { background: rgba(0,0,0,0.40); }
-            .uk-flex > :nth-child(8n) { background: rgba(0,0,0,0.45); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n-7) { background: rgba(0,0,0,0.1); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n-6) { background: rgba(0,0,0,0.15); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n-5) { background: rgba(0,0,0,0.2); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n-4) { background: rgba(0,0,0,0.25); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n-3) { background: rgba(0,0,0,0.3); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n-2) { background: rgba(0,0,0,0.35); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n-1) { background: rgba(0,0,0,0.40); }
+            .uk-flex:not(.uk-grid) > :nth-child(8n) { background: rgba(0,0,0,0.45); }
+
+            .test {
+                height: 300px;
+                background: #f0f0f0;
+            }
+
+            /*
+             * Grid 
+             */
+
+            .uk-panel {
+                padding: 10px;
+                text-align: center;
+            }
+
+            .uk-grid > :nth-child(8n-7) > .uk-panel { background: rgba(0,0,0,0.1); }
+            .uk-grid > :nth-child(8n-6) > .uk-panel { background: rgba(0,0,0,0.15); }
+            .uk-grid > :nth-child(8n-5) > .uk-panel { background: rgba(0,0,0,0.2); }
+            .uk-grid > :nth-child(8n-4) > .uk-panel { background: rgba(0,0,0,0.25); }
+            .uk-grid > :nth-child(8n-3) > .uk-panel { background: rgba(0,0,0,0.3); }
+            .uk-grid > :nth-child(8n-2) > .uk-panel { background: rgba(0,0,0,0.35); }
+            .uk-grid > :nth-child(8n-1) > .uk-panel { background: rgba(0,0,0,0.40); }
+            .uk-grid > :nth-child(8n) > .uk-panel { background: rgba(0,0,0,0.45); }
 
         </style>
     </head>
@@ -58,12 +81,125 @@
                 <div class="uk-width-1-4">1-4<br>1-4<br>1-4</div>
             </div>
 
-            <h3>Top / Left</h3>
+            <h3>Top / Space-between</h3>
 
-            <div class="uk-flex uk-flex-top">
+            <div class="uk-flex uk-flex-top uk-flex-space-between">
                 <div class="uk-width-1-4">1-4</div>
                 <div class="uk-width-1-4">1-4<br>1-4</div>
                 <div class="uk-width-1-4">1-4<br>1-4<br>1-4</div>
+            </div>
+
+            <h3>Stretch / Space-around</h3>
+
+            <div class="uk-flex uk-flex-space-around">
+                <div class="uk-width-1-4">1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4</div>
+                <div class="uk-width-1-4">1-4<br>1-4<br>1-4</div>
+            </div>
+
+            <h2>Wrap and Alignment</h2>
+
+            <h3>Stretch</h3>
+
+            <div class="uk-flex uk-flex-wrap test">
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+            </div>
+
+            <h3>Top</h3>
+
+            <div class="uk-flex uk-flex-wrap uk-flex-wrap-top test">
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+            </div>
+
+            <h3>Middle</h3>
+
+            <div class="uk-flex uk-flex-wrap uk-flex-wrap-middle test">
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+            </div>
+
+            <h3>Bottom</h3>
+
+            <div class="uk-flex uk-flex-wrap uk-flex-wrap-bottom test">
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+            </div>
+
+            <h3>Space-between</h3>
+
+            <div class="uk-flex uk-flex-wrap uk-flex-wrap-space-between test">
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+            </div>
+
+            <h3>Space-around</h3>
+
+            <div class="uk-flex uk-flex-wrap uk-flex-wrap-space-around test">
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+                <div class="uk-width-1-3">1-3</div>
+                <div class="uk-width-1-2">1-2<br>1-2</div>
+                <div class="uk-width-1-3">1-3<br>1-3<br>1-3</div>
+            </div>
+
+            <h2>Inline Flex</h2>
+
+            <div class="uk-text-center">
+                <div class="uk-flex uk-flex-inline">
+                    <div>1-4</div>
+                    <div>1-4<br>1-4</div>
+                    <div>1-4<br>1-4<br>1-4</div>
+                </div>
+            </div>
+
+            <h2>Order</h2>
+
+            <div class="uk-flex">
+                <div class="uk-width-1-3">1</div>
+                <div class="uk-width-1-3">2</div>
+                <div class="uk-width-1-3 uk-flex-order-first">3</div>
+            </div>
+
+            <div class="uk-flex">
+                <div class="uk-width-1-3 uk-flex-order-last">1</div>
+                <div class="uk-width-1-3">2</div>
+                <div class="uk-width-1-3">3</div>
+            </div>
+
+            <div class="uk-flex">
+                <div class="uk-width-1-3 uk-flex-order-last">1</div>
+                <div class="uk-width-1-3">2</div>
+                <div class="uk-width-1-3 uk-flex-order-first">3</div>
+            </div>
+
+            <h2>Used with Grid</h2>
+
+            <div class="uk-grid uk-flex" data-uk-grid-margin>
+                <div class="uk-width-medium-1-3"><div class="uk-panel"><img src="holder.js/400x250/sky/auto" alt=""></div></div>
+                <div class="uk-width-medium-2-3 uk-flex uk-flex-middle"><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div></div>
             </div>
 
         </div>
