@@ -3133,7 +3133,7 @@
 
     }).call(this);
 
-    UI.datepicker.moment = moment;
+    UI.Utils.moment = moment;
 
     return UI.datepicker;
 });
