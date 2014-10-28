@@ -394,8 +394,10 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
         promises.push(new Promise(function(resolve, reject){
 
-            gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars})).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist/css')).on('end', function(){
-
+            gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars}).on('error', function(error) {
+                gutil.log(gutil.colors.red('Error in ') + '\'' + gutil.colors.cyan(theme.uikit) + '\'\n', error.toString());
+                resolve();
+            })).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist/css')).on('end', function(){
                 if (theme.name == 'default') {
                     fs.renameSync('./dist/css/uikit.default.css', './dist/css/uikit.css');
                 }

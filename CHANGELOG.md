@@ -9,6 +9,8 @@
   - Fixed datepicker z-index
   - Fixed nestable not triggering change event
   - Better timing-function for reverse animations
+  - Trigger uk.check.display on context element if no related children found
+  - Updated moment.js in datepicker component
 
 **Docs and Repo**
 
