@@ -6,8 +6,8 @@
     UI.component('toggle', {
 
         defaults: {
-            target: false,
-            cls: 'uk-hidden'
+            target : false,
+            cls    : 'uk-hidden'
         },
 
         init: function() {
@@ -30,7 +30,7 @@
 
             this.totoggle.toggleClass(this.options.cls);
 
-            if (this.options.cls == 'uk-hidden') {
+            if (this.options.cls.indexOf('uk-hidden') > -1) {
                 UI.Utils.checkDisplay(this.totoggle);
             }
         },
