@@ -213,6 +213,8 @@
 
         var d = $.Deferred();
 
+        element = $(element);
+
         element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function() {
             element.removeClass(cls);
             d.resolve();

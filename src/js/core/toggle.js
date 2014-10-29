@@ -31,7 +31,7 @@
 
             if (this.options.animation) {
 
-                var animations = this.options.animation.split(',');
+                var $this = this, animations = this.options.animation.split(',');
 
                 if (animations.length == 1) {
                     animations[1] = animations[0];
@@ -44,16 +44,20 @@
 
                     this.totoggle.toggleClass(this.options.cls);
 
-                    UI.Utils.animate(this.totoggle, animations[0]).then(function(){
-                        UI.Utils.checkDisplay(this.totoggle);
-                    }.bind(this));
+                    this.totoggle.each(function(){
+                        UI.Utils.animate(this, animations[0]).then(function(){
+                            UI.Utils.checkDisplay(this);
+                        });
+                    });
 
                 } else {
 
-                    UI.Utils.animate(this.totoggle, animations[1]+' uk-animation-reverse').then(function(){
-                        this.totoggle.toggleClass(this.options.cls);
-                        UI.Utils.checkDisplay(this.totoggle);
-                    }.bind(this));
+                    this.totoggle.each(function(){
+                        UI.Utils.animate(this, animations[1]+' uk-animation-reverse').then(function(){
+                            $(this).toggleClass($this.options.cls);
+                            UI.Utils.checkDisplay(this);
+                        }.bind(this));
+                    });
                 }
 
             } else {
