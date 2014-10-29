@@ -8,7 +8,8 @@
         defaults: {
             target    : false,
             cls       : 'uk-hidden',
-            animation : false
+            animation : false,
+            duration  : 200
         },
 
         init: function() {
@@ -40,12 +41,15 @@
                 animations[0] = animations[0].trim();
                 animations[1] = animations[1].trim();
 
+                this.totoggle.css('animation-duration', this.options.duration+'ms');
+
                 if (this.totoggle.hasClass(this.options.cls)) {
 
                     this.totoggle.toggleClass(this.options.cls);
 
                     this.totoggle.each(function(){
                         UI.Utils.animate(this, animations[0]).then(function(){
+                            $(this).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         });
                     });
@@ -54,7 +58,7 @@
 
                     this.totoggle.each(function(){
                         UI.Utils.animate(this, animations[1]+' uk-animation-reverse').then(function(){
-                            $(this).toggleClass($this.options.cls);
+                            $(this).toggleClass($this.options.cls).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         }.bind(this));
                     });

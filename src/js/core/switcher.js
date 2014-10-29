@@ -7,11 +7,11 @@
     UI.component('switcher', {
 
         defaults: {
-            connect : false,
-            toggle  : ">*",
-            active  : 0,
-            animation: false,
-            duration: 200
+            connect   : false,
+            toggle    : ">*",
+            active    : 0,
+            animation : false,
+            duration  : 200
         },
 
         animating: false,
@@ -72,10 +72,28 @@
 
             tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
 
-            var $this = this, active = tab, animation = Animations[this.options.animation] || Animations['none'];
+            var $this     = this,
+                active    = tab,
+                animation = Animations[this.options.animation] || function(current, next) {
+
+                    if (!$this.options.animation) {
+                        return Animations.none.apply($this);
+                    }
+
+                    var anim = $this.options.animation.split(',');
+
+                    if (anim.length == 1) {
+                        anim[1] = anim[0];
+                    }
+
+                    anim[0] = anim[0].trim();
+                    anim[1] = anim[1].trim();
+
+                    return coreAnimation.apply($this, [anim, current, next]);
+                };
 
             if (animate===false) {
-                animation = Animations['none'];
+                animation = Animations.none;
             }
 
             if (active.hasClass("uk-disabled")) return;
