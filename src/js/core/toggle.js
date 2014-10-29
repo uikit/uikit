@@ -6,8 +6,9 @@
     UI.component('toggle', {
 
         defaults: {
-            target : false,
-            cls    : 'uk-hidden'
+            target    : false,
+            cls       : 'uk-hidden',
+            animation : false
         },
 
         init: function() {
@@ -28,9 +29,35 @@
 
             if(!this.totoggle.length) return;
 
-            this.totoggle.toggleClass(this.options.cls);
+            if (this.options.animation) {
 
-            if (this.options.cls.indexOf('uk-hidden') > -1) {
+                var animations = this.options.animation.split(',');
+
+                if (animations.length == 1) {
+                    animations[1] = animations[0];
+                }
+
+                animations[0] = animations[0].trim();
+                animations[1] = animations[1].trim();
+
+                if (this.totoggle.hasClass(this.options.cls)) {
+
+                    this.totoggle.toggleClass(this.options.cls);
+
+                    UI.Utils.animate(this.totoggle, animations[0]).then(function(){
+                        UI.Utils.checkDisplay(this.totoggle);
+                    }.bind(this));
+
+                } else {
+
+                    UI.Utils.animate(this.totoggle, animations[1]+' uk-animation-reverse').then(function(){
+                        this.totoggle.toggleClass(this.options.cls);
+                        UI.Utils.checkDisplay(this.totoggle);
+                    }.bind(this));
+                }
+
+            } else {
+                this.totoggle.toggleClass(this.options.cls);
                 UI.Utils.checkDisplay(this.totoggle);
             }
         },
@@ -59,5 +86,7 @@
 
         }, 0);
     });
+
+
 
 })(this, jQuery, jQuery.UIkit);

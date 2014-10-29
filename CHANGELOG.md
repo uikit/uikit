@@ -5,6 +5,7 @@
   - IMPORTANT: Renamed uk-animation-10 to uk-animation-15
   - Added new classes to flex component
   - Added switcher animations
+  - Added toggle animation option
   - Fixed slidenav position class
   - Fixed datepicker z-index
   - Fixed nestable not triggering change event
