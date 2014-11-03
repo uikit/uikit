@@ -1,0 +1,108 @@
+// Name:            Tagger
+// Description:     Defines a tags composer
+//
+// Component:       `uk-tagger`
+//
+// Sub-objects:     `uk-tag`
+//
+// Uses:            `uk-alert`
+//
+// Markup:
+//
+// <!-- uk-tagger -->
+// <div class="uk-tagger" data-uk-tagger="{source:'PATH/TO/RESULTS'}">
+//     <div class="uk-tag" data-uk-tag>
+//         <input type="hidden" name="tags[]">
+//         <p>...</p>
+//         <a href="#" class="uk-close"></a>
+//     </div>
+//     <span><input type="text"/></span>
+// </div>
+// ========================================================================
+
+// Variables
+// ========================================================================
+
+@tagger-padding:                                0px;
+@tagger-background:                             #ffffff;
+@tagger-color:                                  #444;
+@tagger-border:                                 1px solid #dddddd;
+
+@tag-margin:                                    2px;
+@tag-padding:                                   2px 4px;
+@tag-background:                                #ebf7fd;
+@tag-color:                                     #2d7091;
+
+@tag-alt-background:                            #f2fae3;
+@tag-alt-color:                                 #659f13;
+
+@tag-content-margin:                            0px;
+            
+/* ========================================================================
+   Component: Tag
+ ========================================================================== */
+
+.uk-tagger {
+    display: block;
+    position: relative;
+    padding: @tagger-padding;
+    border: @tagger-border;
+    background: @tagger-background;
+    color: @tagger-color;
+    .hook-tagger;
+}
+
+.uk-tagger span {
+    display:block;
+    overflow:hidden;
+    min-width: 20%;  
+}
+
+.uk-tagger span input {
+    width: 100%;
+    border: none !important;
+}
+
+.uk-tagger span input:focus {
+    background-color:@tagger-background !important;
+}
+
+/* ========================================================================
+    Sub-object: `uk-tag`
+ ========================================================================== */
+
+.uk-tag {
+    float: left;
+    margin: @tag-margin;
+    padding: @tag-padding;
+    background: @tag-background;
+    color: @tag-color;
+    .hook-tag;
+}
+
+.uk-tag p {
+    float: left;
+    margin: @tag-content-margin;
+}
+
+/* ========================================================================
+    Modifier: `uk-tag-alt`
+ ========================================================================== */
+
+.uk-tag-alt {
+    background: @tag-alt-background;
+    color: @tag-alt-color;
+    .hook-tag-alt;
+}
+
+/* ========================================================================
+    Hooks
+ ========================================================================== */
+
+.hook-tagger-misc;
+
+.hook-tagger() {}
+.hook-tag() {}
+.hook-tag-alt() {}
+
+.hook-tagger-misc() {}

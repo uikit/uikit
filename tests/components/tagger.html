@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tagger - UIkit tests</title>
+
+        <script src="../_test.js"></script>
+        <script src="../../src/js/components/autocomplete.js"></script>
+        <script src="../../src/js/components/tagger.js"></script>
+        <style type="text/css">
+
+            body.uk-container { padding-bottom: 150px; }
+
+            .test-show {
+                display: block;
+                position: relative;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                width: 100%;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Tagger</h1>
+
+            <p>Type: pop, dance, techno or electronic</p>
+
+            <form class="uk-tagger" data-uk-tagger="{source:'_taggerautocomplete.json'}">
+                <span><input type="text"/></span>
+            </form>
+
+        </div>
+
+    </body>
+</html>
