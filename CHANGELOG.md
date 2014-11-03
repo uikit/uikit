@@ -20,6 +20,7 @@
 
   - Updated switcher doc and test
   - Updated flex test
+  - Updated sortable test
 
 ### 2.11.1 (October 13, 2014)
 

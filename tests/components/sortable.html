@@ -12,6 +12,13 @@
 
             .test { height: 100px; }
 
+            .test-item > * {
+                display: block;
+                padding: 5px 15px;
+                background: #f0f0f0;
+                color: #444;
+            }
+
         </style>
     </head>
 
@@ -41,11 +48,39 @@
             <h2>Stacked</h2>
 
             <div class="uk-sortable uk-margin" data-uk-sortable>
-                <p class="uk-panel uk-panel-box">Test 1</p>
-                <p class="uk-panel uk-panel-box">Test 2</p>
-                <p class="uk-panel uk-panel-box">Test 3</p>
-                <p class="uk-panel uk-panel-box">Test 4</p>
-                <p class="uk-panel uk-panel-box">Test 5</p>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 1</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 2</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 3</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 4</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 5</div>
+                </div>
+            </div>
+
+            <h2>Nav</h2>
+
+            <div class="uk-width-medium-1-4">
+
+                <ul class="uk-nav uk-nav-side" data-uk-sortable="{dragCustomClass:'test-item'}">
+                    <li class="uk-active"><a href="#">Active</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                </ul>
+
             </div>
 
         </div>
