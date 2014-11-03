@@ -21,8 +21,8 @@ var pkg         = require('./package.json'),
     browserSync = require('browser-sync'),
     Promise     = require('promise');
 
-
-var themes = (function(){
+var watchmode = gutil.env._.length && gutil.env._[0] == 'watch',
+    themes    = (function(){
 
         var list  = [],
             theme = gutil.env.t || gutil.env.theme || false;
@@ -39,7 +39,11 @@ var themes = (function(){
 
             fs.readdirSync(f).forEach(function(t){
 
-                if(theme && t!=theme) return;
+                if (theme && t!=theme) {
+                    if (!(watchmode && f=='themes')) {
+                        return;
+                    }
+                }
 
                 var path = f+'/'+t, uikit = path + '/uikit.less', customizer = path + '/uikit-customizer.less';
                 if (!(fs.lstatSync(path).isDirectory() && fs.existsSync(uikit))) return;
@@ -100,11 +104,12 @@ gulp.task('browser-sync', function() {
     });
 });
 
-gulp.task('browser-reload', function () {
+gulp.task('browser-reload', function (done) {
     browserSync.reload();
+    done();
 });
 
-gulp.task('watch', ['browser-sync'], function(done) {
+gulp.task('watch', ['browser-sync', 'indexthemes'], function(done) {
 
     watchfolders = ['src/**/*'];
 
@@ -154,6 +159,10 @@ gulp.task('dist-core-move', ['dist-clean'], function() {
 
 gulp.task('dist-core-minify', function(done) {
 
+    if (watchmode) {
+        return done();
+    }
+
     // minify css
     gulp.src(['!./dist/css/**/*.min.css', './dist/css/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist/css')).on('end', function(){
 
@@ -164,7 +173,12 @@ gulp.task('dist-core-minify', function(done) {
     });
 });
 
-gulp.task('dist-core-header', function() {
+gulp.task('dist-core-header', function(done) {
+
+    if (watchmode) {
+        return done();
+    }
+
     return gulp.src(['./dist/**/*.css', './dist/**/*.js']).pipe(header("/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2014 YOOtheme | MIT License */\n", { 'pkg' : pkg } )).pipe(gulp.dest('./dist/'));
 });
 
@@ -395,9 +409,12 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
         promises.push(new Promise(function(resolve, reject){
 
             gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars}).on('error', function(error) {
+
                 gutil.log(gutil.colors.red('Error in ') + '\'' + gutil.colors.cyan(theme.uikit) + '\'\n', error.toString());
                 resolve();
+
             })).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist/css')).on('end', function(){
+
                 if (theme.name == 'default') {
                     fs.renameSync('./dist/css/uikit.default.css', './dist/css/uikit.css');
                 }
