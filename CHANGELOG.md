@@ -6,15 +6,17 @@
   - Added new classes to flex component
   - Added switcher animations
   - Added toggle animation option
-  - Fixed slidenav position class
-  - Fixed datepicker z-index
-  - Fixed nestable not triggering change event
+  - Added smooth scroll helper function
+  - Added missing sortable theme files
+  - Added missing form-advanced theme files
+  - Added less error handler for gulp task
   - Better timing-function for reverse animations
   - Trigger uk.check.display on context element if no related children found
   - Updated moment.js in datepicker component
-  - Added less error handler for gulp task
+  - Fixed slidenav position class
+  - Fixed datepicker z-index
+  - Fixed nestable not triggering change event
   - Fixed anchor links in offcanvas menu
-  - Added smooth scroll helper function
 
 **Docs and Repo**
 
