@@ -21,15 +21,13 @@ var pkg         = require('./package.json'),
     browserSync = require('browser-sync'),
     Promise     = require('promise');
 
-var watchmode = gutil.env._.length && gutil.env._[0] == 'watch',
-    themes    = (function(){
+var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
+    watchCache = {},
+    getThemes  = function(theme, all){
 
-        var list  = [],
-            theme = gutil.env.t || gutil.env.theme || false;
+        var list = [], themefolders = ["themes"];
 
-        var themefolders = ["themes"];
-
-        if (gutil.env.all || gutil.env.a || theme) {
+        if (theme || all) {
             themefolders.push("custom");
         }
 
@@ -39,11 +37,7 @@ var watchmode = gutil.env._.length && gutil.env._[0] == 'watch',
 
             fs.readdirSync(f).forEach(function(t){
 
-                if (theme && t!=theme) {
-                    if (!(watchmode && f=='themes')) {
-                        return;
-                    }
-                }
+                if (theme && t!=theme) return;
 
                 var path = f+'/'+t, uikit = path + '/uikit.less', customizer = path + '/uikit-customizer.less';
                 if (!(fs.lstatSync(path).isDirectory() && fs.existsSync(uikit))) return;
@@ -52,6 +46,14 @@ var watchmode = gutil.env._.length && gutil.env._[0] == 'watch',
         });
 
         return list;
+    },
+
+    themes    = (function(){
+
+        var theme = gutil.env.t || gutil.env.theme || false,
+            all   = gutil.env.all || gutil.env.a || theme;
+
+        return getThemes( theme, all);
     })(),
 
     corejs = [
@@ -99,29 +101,59 @@ gulp.task('browser-sync', function() {
     browserSync({
         server: {
             baseDir: "./",
-            startPath: "/tests"
+            startPath: "/tests",
+            middleware: function (req, res, next) {
+
+                var m, theme;
+
+                if (m = req.url.match(/dist\/css\/components\/(.*)\.css/)) {
+                    theme = m[1].split('.')[1] || 'default';
+                } else if (m = req.url.match(/dist\/css\/(.*)\.css/)) {
+                    theme = m[1].split('.')[1] || 'default';
+                }
+
+                if (theme) {
+
+                    if (!watchCache[theme]) {
+
+                        watchCache[theme] = new Promise(function(resolve){
+
+                            var tmp = themes;
+
+                            themes = getThemes(theme);
+
+                            runSequence('dist-themes-core', function(){
+                                themes = tmp;
+                                resolve();
+                            });
+                        });
+                    }
+
+                    watchCache[theme].then(function(){
+                        next();
+                    });
+
+                } else {
+                    next();
+                }
+
+            }
         }
     });
 });
 
 gulp.task('browser-reload', function (done) {
+    watchCache = {};
     browserSync.reload();
     done();
 });
 
 gulp.task('watch', ['browser-sync', 'indexthemes'], function(done) {
 
-    watchfolders = ['src/**/*'];
+    watchfolders = ['src/**/*', 'themes/**/*', 'custom/**/*.less'];
 
-    themes.forEach(function(theme){
-        watchfolders.push(theme.path+'/*');
-    });
-
-    runSequence('dist-themes-core', function(){
-
-        gulp.watch(watchfolders, function(files) {
-            runSequence('dist-themes-core', 'browser-reload');
-        });
+    gulp.watch(watchfolders, function(files) {
+        runSequence('browser-reload');
     });
 });
 
@@ -449,7 +481,7 @@ gulp.task('indexthemes', function() {
 
     var data = [];
 
-    themes.forEach(function(theme) {
+    getThemes(false, true).forEach(function(theme) {
 
         var themepath = theme.path,
             theme     = {

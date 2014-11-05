@@ -185,13 +185,16 @@
                 theme  = themes[theme] ? theme : 'default';
 
                 // themes
-                var themeselect = $('<select></select>');
+                var themeselect = $('<select><option value="">Select a theme...</option></select>');
 
                 $.each(themes, function(key){
                     themeselect.append('<option value="'+key+'">'+themes[key].name+'</option>');
                 });
 
                 themeselect.val(theme).on("change", function(){
+
+                    if(!themeselect.val()) return;
+
                     localStorage["uikit.theme"] = themeselect.val();
                     location.reload();
                 });
