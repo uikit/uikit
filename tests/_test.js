@@ -12,6 +12,7 @@
 
         // components
         'dist/css/components/autocomplete{style}.css',
+        'dist/css/components/caption{style}.css',
         'dist/css/components/cover{style}.css',
         'dist/css/components/datepicker{style}.css',
         'dist/css/components/dotnav{style}.css',
@@ -26,9 +27,11 @@
         'dist/css/components/placeholder{style}.css',
         'dist/css/components/search{style}.css',
         'dist/css/components/slidenav{style}.css',
+        'dist/css/components/slideshow{style}.css',
         'dist/css/components/sortable{style}.css',
         'dist/css/components/sticky{style}.css',
         'dist/css/components/upload{style}.css'
+        
     ];
 
 
@@ -108,6 +111,7 @@
         "::Components",
 
             "components/autocomplete",
+            "components/caption",
             "components/cover",
             "components/datepicker",
             "components/dotnav",
@@ -123,10 +127,12 @@
             "components/placeholder",
             "components/search",
             "components/slidenav",
+            "components/slideshow",
             "components/sortable",
             "components/sticky",
             "components/timepicker",
             "components/upload"
+            
     ];
 
     document.addEventListener("DOMContentLoaded", function(event) {

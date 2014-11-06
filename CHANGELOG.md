@@ -3,6 +3,8 @@
 ### WIP
 
   - IMPORTANT: Renamed uk-animation-10 to uk-animation-15
+  - Added slideshow component
+  - Added caption component
   - Added new classes to flex component
   - Added switcher animations
   - Added toggle animation option
