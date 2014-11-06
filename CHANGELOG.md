@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.12.0 (November 06, 2014)
 
   - IMPORTANT: Renamed uk-animation-10 to uk-animation-15
   - Added slideshow component
