@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -47,7 +47,7 @@
         return UI;
     }
 
-    UI.version = '2.11.1';
+    UI.version = '2.12.0';
     UI.$doc    = $doc;
     UI.$win    = $win;
     UI.$html   = $html;
@@ -183,7 +183,16 @@
     };
 
     UI.Utils.checkDisplay = function(context) {
-        $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document).trigger('uk.check.display');
+
+        var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document);
+
+        if (context && !elements.length) {
+            elements = $(context);
+        }
+
+        elements.trigger('uk.check.display');
+
+        return elements;
     };
 
     UI.Utils.options = function(string) {
@@ -199,6 +208,22 @@
         }
 
         return options;
+    };
+
+    UI.Utils.animate = function(element, cls) {
+
+        var d = $.Deferred();
+
+        element = $(element);
+
+        element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function() {
+            element.removeClass(cls);
+            d.resolve();
+        }).width();
+
+        element.css('display', '');
+
+        return d.promise();
     };
 
     UI.Utils.template = function(str, data) {
@@ -378,7 +403,7 @@
                 methods.split(' ').forEach(function(method) {
                     if (!$this[method]) $this[method] = obj[method].bind($this);
                 });
-            },
+            }
 
         }, def);
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function($, UI) {
 
     "use strict";
@@ -32,27 +32,7 @@
 
             bar.addClass("uk-offcanvas-bar-show");
 
-            element.off(".ukoffcanvas").on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
-
-                var target = $(e.target);
-
-                if (!e.type.match(/swipe/)) {
-
-                    if (!target.hasClass("uk-offcanvas-close")) {
-                        if (target.hasClass("uk-offcanvas-bar")) return;
-                        if (target.parents(".uk-offcanvas-bar:first").length) return;
-                    }
-                }
-
-                e.stopImmediatePropagation();
-                Offcanvas.hide();
-            });
-
-            $html.on('keydown.ukoffcanvas', function(e) {
-                if (e.keyCode === 27) { // ESC
-                    Offcanvas.hide();
-                }
-            });
+            this._initElement(element);
 
             $doc.trigger('uk.offcanvas.show', [element, bar]);
         },
@@ -87,9 +67,56 @@
             } else {
                 finalize();
             }
+        },
 
-            panel.off(".ukoffcanvas");
-            $html.off(".ukoffcanvas");
+        _initElement: function(element) {
+
+            if (element.data("ukOffcanvasInit")) return;
+
+            element.on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
+
+                var target = $(e.target);
+
+                if (!e.type.match(/swipe/)) {
+
+                    if (!target.hasClass("uk-offcanvas-close")) {
+                        if (target.hasClass("uk-offcanvas-bar")) return;
+                        if (target.parents(".uk-offcanvas-bar:first").length) return;
+                    }
+                }
+
+                e.stopImmediatePropagation();
+                Offcanvas.hide();
+            });
+
+            element.on("click", "a[href^='#']", function(e){
+
+                var element = $(this),
+                    href = element.attr("href");
+
+                if (href == "#") {
+                    return;
+                }
+
+                $doc.one('uk.offcanvas.hide', function() {
+
+                    var target = $(href);
+
+                    if (!target.length) {
+                        target = $('[name="'+href.replace('#','')+'"]');
+                    }
+
+                    if (UI.Utils.scrollToElement && target.length) {
+                        UI.Utils.scrollToElement(target);
+                    } else {
+                        window.location.href = href;
+                    }
+                });
+
+                Offcanvas.hide();
+            });
+
+            element.data("ukOffcanvasInit", true);
         }
     };
 
@@ -122,6 +149,12 @@
         if (!ele.data("offcanvasTrigger")) {
             var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
             ele.trigger("click");
+        }
+    });
+
+    $html.on('keydown.ukoffcanvas', function(e) {
+        if (e.keyCode === 27) { // ESC
+            Offcanvas.hide();
         }
     });
 

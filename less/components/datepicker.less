@@ -16,6 +16,7 @@
 // Variables
 // ========================================================================
 
+@datepicker-z-index:                            1050;
 @datepicker-animation:                          uk-fade;
 
 @datepicker-nav-height:                         20px;
@@ -45,18 +46,21 @@
  ========================================================================== */
 
 /*
- * 1. Reset dropdown width
- * 2. Set animation
- * 3. Needed for scale animation
+ * 1. Highest z-index
+ * 2. Reset dropdown width
+ * 3. Set animation
+ * 4. Needed for scale animation
  */
 
 .uk-datepicker {
     /* 1 */
-    width: auto;
+    z-index: @datepicker-z-index;
     /* 2 */
+    width: auto;
+    /* 3 */
     -webkit-animation: @datepicker-animation 0.2s ease-in-out;
     animation: @datepicker-animation 0.2s ease-in-out;
-    /* 3 */
+    /* 4 */
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
 }

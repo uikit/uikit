@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5648,14 +5648,14 @@ a.uk-thumbnail:focus {
 .uk-animation-reverse {
   -webkit-animation-direction: reverse;
   animation-direction: reverse;
-  -webkit-animation-timing-function: ease-out;
-  animation-timing-function: ease-out;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
 }
 /* Duration modifiers
 ========================================================================== */
-.uk-animation-10 {
-  -webkit-animation-duration: 10s;
-  animation-duration: 10s;
+.uk-animation-15 {
+  -webkit-animation-duration: 15s;
+  animation-duration: 15s;
 }
 /* Origin modifiers
 ========================================================================== */
@@ -6751,7 +6751,7 @@ a.uk-thumbnail:focus {
 .uk-text-bottom {
   vertical-align: bottom !important;
 }
-/* Only tablets portrait */
+/* Only tablets portrait and smaller */
 @media (max-width: 959px) {
   .uk-text-center-medium {
     text-align: center !important;

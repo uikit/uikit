@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function($, UI) {
 
     "use strict";
@@ -7,9 +7,11 @@
     UI.component('tab', {
 
         defaults: {
-            'target'  : '>li:not(.uk-tab-responsive, .uk-disabled)',
-            'connect' : false,
-            'active'  : 0
+            'target'    : '>li:not(.uk-tab-responsive, .uk-disabled)',
+            'connect'   : false,
+            'active'    : 0,
+            'animation' : false,
+            'duration'  : 200
         },
 
         init: function() {
@@ -54,7 +56,13 @@
 
             // init UIkit components
             if (this.options.connect) {
-                UI.switcher(this.element, {"toggle": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active});
+                UI.switcher(this.element, {
+                    "toggle"    : ">li:not(.uk-tab-responsive)",
+                    "connect"   : this.options.connect,
+                    "active"    : this.options.active,
+                    "animation" : this.options.animation,
+                    "duration"  : this.options.duration
+                });
             }
 
             UI.dropdown(this.responsivetab, {"mode": "click"});

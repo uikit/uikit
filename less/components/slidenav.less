@@ -116,23 +116,10 @@
  ========================================================================== */
 
 /*
- * 1. Container width fits its content
- * 2. Create position context
- * 3. Prevent `inline-block` consequences
- * 4. Corrects `max-width` behavior if padding and border are used
+ * Create position context
  */
 
-.uk-slidenav-position {
-    /* 1 */
-    display: inline-block;
-    /* 2 */
-    position: relative;
-    /* 3 */
-    max-width: 100%;
-    /* 4 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+.uk-slidenav-position { position: relative; }
 
 /*
  * Center vertically
@@ -142,6 +129,7 @@
     display: none;
     position: absolute;
     top: 50%;
+    z-index: 1;
     margin-top: -(@slidenav-height / 2);
 }
 

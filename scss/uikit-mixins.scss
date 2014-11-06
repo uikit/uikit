@@ -1,9 +1,9 @@
-@mixin hook-cover-misc(){}
 @mixin hook-nav-autocomplete(){}
 @mixin hook-nav-autocomplete-active(){}
 @mixin hook-nav-autocomplete-header(){}
 @mixin hook-nav-autocomplete-divider(){}
 @mixin hook-autocomplete-misc(){}
+@mixin hook-cover-misc(){}
 @mixin hook-datepicker-nav(){}
 @mixin hook-datepicker-nav-item(){}
 @mixin hook-datepicker-table-item(){}
@@ -16,6 +16,7 @@
 @mixin hook-dotnav-item-onclick(){}
 @mixin hook-dotnav-item-active(){}
 @mixin hook-dotnav-misc(){}
+@mixin hook-flex-misc(){}
 @mixin hook-form-advanced(){}
 @mixin hook-form-advanced-checked(){}
 @mixin hook-form-advanced-radio(){}

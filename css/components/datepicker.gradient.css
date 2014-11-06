@@ -1,19 +1,22 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Datepicker
  ========================================================================== */
 /*
- * 1. Reset dropdown width
- * 2. Set animation
- * 3. Needed for scale animation
+ * 1. Highest z-index
+ * 2. Reset dropdown width
+ * 3. Set animation
+ * 4. Needed for scale animation
  */
 .uk-datepicker {
   /* 1 */
-  width: auto;
+  z-index: 1050;
   /* 2 */
+  width: auto;
+  /* 3 */
   -webkit-animation: uk-fade 0.2s ease-in-out;
   animation: uk-fade 0.2s ease-in-out;
-  /* 3 */
+  /* 4 */
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
 }

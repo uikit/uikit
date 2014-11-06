@@ -13,7 +13,7 @@
 //                  `uk-animation-scale`
 //                  `uk-animation-shake`
 //                  `uk-animation-reverse`
-//                  `uk-animation-10`
+//                  `uk-animation-15`
 //                  `uk-animation-top-left`
 //                  `uk-animation-top-center`
 //                  `uk-animation-top-right`
@@ -131,17 +131,17 @@
 .uk-animation-reverse {
     -webkit-animation-direction: reverse;
     animation-direction: reverse;
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
 }
 
 
 /* Duration modifiers
 ========================================================================== */
 
-.uk-animation-10 {
-    -webkit-animation-duration: 10s;
-    animation-duration: 10s;
+.uk-animation-15 {
+    -webkit-animation-duration: 15s;
+    animation-duration: 15s;
 }
 
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Sortable
  ========================================================================== */
@@ -40,7 +40,7 @@
 .uk-sortable-over {
   opacity: 0.3;
 }
-/* Sub-object `uk-nestable-moving`
+/* Sub-object `uk-sortable-moving`
  ========================================================================== */
 .uk-sortable-moving,
 .uk-sortable-moving * {

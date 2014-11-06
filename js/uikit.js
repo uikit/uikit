@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -47,7 +47,7 @@
         return UI;
     }
 
-    UI.version = '2.11.1';
+    UI.version = '2.12.0';
     UI.$doc    = $doc;
     UI.$win    = $win;
     UI.$html   = $html;
@@ -183,7 +183,16 @@
     };
 
     UI.Utils.checkDisplay = function(context) {
-        $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document).trigger('uk.check.display');
+
+        var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document);
+
+        if (context && !elements.length) {
+            elements = $(context);
+        }
+
+        elements.trigger('uk.check.display');
+
+        return elements;
     };
 
     UI.Utils.options = function(string) {
@@ -199,6 +208,22 @@
         }
 
         return options;
+    };
+
+    UI.Utils.animate = function(element, cls) {
+
+        var d = $.Deferred();
+
+        element = $(element);
+
+        element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function() {
+            element.removeClass(cls);
+            d.resolve();
+        }).width();
+
+        element.css('display', '');
+
+        return d.promise();
     };
 
     UI.Utils.template = function(str, data) {
@@ -378,7 +403,7 @@
                 methods.split(' ').forEach(function(method) {
                     if (!$this[method]) $this[method] = obj[method].bind($this);
                 });
-            },
+            }
 
         }, def);
 
@@ -775,38 +800,40 @@
 
     UI.component('smoothScroll', {
 
-        defaults: {
-            duration: 1000,
-            transition: 'easeOutExpo',
-            offset: 0,
-            complete: function(){}
-        },
-
         init: function() {
 
             var $this = this;
 
             this.on("click", function(e) {
-
-                // get / set parameters
-                var ele       = ($(this.hash).length ? $(this.hash) : $("body")),
-                    target    = ele.offset().top - $this.options.offset,
-                    docheight = UI.$doc.height(),
-                    winheight = UI.$win.height();
-
-                if ((target + winheight) > docheight) {
-                    target = docheight - winheight;
-                }
-
-                // animate to target, fire callback when done
-                $("html,body").stop().animate({scrollTop: target}, $this.options.duration, $this.options.transition).promise().done($this.options.complete);
-
-                // cancel default click action
-                return false;
+                e.preventDefault();
+                scrollToElement($(this.hash).length ? $(this.hash) : $("body"), $this.options);
             });
-
         }
     });
+
+    function scrollToElement(ele, options) {
+
+        options = $.extend({
+            duration: 1000,
+            transition: 'easeOutExpo',
+            offset: 0,
+            complete: function(){}
+        }, options);
+
+        // get / set parameters
+        var target    = ele.offset().top - options.offset,
+            docheight = UI.$doc.height(),
+            winheight = UI.$win.height();
+
+        if ((target + winheight) > docheight) {
+            target = docheight - winheight;
+        }
+
+        // animate to target, fire callback when done
+        $("html,body").stop().animate({scrollTop: target}, options.duration, options.transition).promise().done(options.complete);
+    }
+
+    UI.Utils.scrollToElement = scrollToElement;
 
     if (!$.easing['easeOutExpo']) {
         $.easing['easeOutExpo'] = function(x, t, b, c, d) { return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b; };
@@ -1009,8 +1036,10 @@
     UI.component('toggle', {
 
         defaults: {
-            target: false,
-            cls: 'uk-hidden'
+            target    : false,
+            cls       : 'uk-hidden',
+            animation : false,
+            duration  : 200
         },
 
         init: function() {
@@ -1031,9 +1060,42 @@
 
             if(!this.totoggle.length) return;
 
-            this.totoggle.toggleClass(this.options.cls);
+            if (this.options.animation) {
 
-            if (this.options.cls == 'uk-hidden') {
+                var $this = this, animations = this.options.animation.split(',');
+
+                if (animations.length == 1) {
+                    animations[1] = animations[0];
+                }
+
+                animations[0] = animations[0].trim();
+                animations[1] = animations[1].trim();
+
+                this.totoggle.css('animation-duration', this.options.duration+'ms');
+
+                if (this.totoggle.hasClass(this.options.cls)) {
+
+                    this.totoggle.toggleClass(this.options.cls);
+
+                    this.totoggle.each(function(){
+                        UI.Utils.animate(this, animations[0]).then(function(){
+                            $(this).css('animation-duration', '');
+                            UI.Utils.checkDisplay(this);
+                        });
+                    });
+
+                } else {
+
+                    this.totoggle.each(function(){
+                        UI.Utils.animate(this, animations[1]+' uk-animation-reverse').then(function(){
+                            $(this).toggleClass($this.options.cls).css('animation-duration', '');
+                            UI.Utils.checkDisplay(this);
+                        }.bind(this));
+                    });
+                }
+
+            } else {
+                this.totoggle.toggleClass(this.options.cls);
                 UI.Utils.checkDisplay(this.totoggle);
             }
         },
@@ -1063,7 +1125,10 @@
         }, 0);
     });
 
+
+
 })(this, jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";
@@ -2052,27 +2117,7 @@
 
             bar.addClass("uk-offcanvas-bar-show");
 
-            element.off(".ukoffcanvas").on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
-
-                var target = $(e.target);
-
-                if (!e.type.match(/swipe/)) {
-
-                    if (!target.hasClass("uk-offcanvas-close")) {
-                        if (target.hasClass("uk-offcanvas-bar")) return;
-                        if (target.parents(".uk-offcanvas-bar:first").length) return;
-                    }
-                }
-
-                e.stopImmediatePropagation();
-                Offcanvas.hide();
-            });
-
-            $html.on('keydown.ukoffcanvas', function(e) {
-                if (e.keyCode === 27) { // ESC
-                    Offcanvas.hide();
-                }
-            });
+            this._initElement(element);
 
             $doc.trigger('uk.offcanvas.show', [element, bar]);
         },
@@ -2107,9 +2152,56 @@
             } else {
                 finalize();
             }
+        },
 
-            panel.off(".ukoffcanvas");
-            $html.off(".ukoffcanvas");
+        _initElement: function(element) {
+
+            if (element.data("ukOffcanvasInit")) return;
+
+            element.on("click.ukoffcanvas swipeRight.ukoffcanvas swipeLeft.ukoffcanvas", function(e) {
+
+                var target = $(e.target);
+
+                if (!e.type.match(/swipe/)) {
+
+                    if (!target.hasClass("uk-offcanvas-close")) {
+                        if (target.hasClass("uk-offcanvas-bar")) return;
+                        if (target.parents(".uk-offcanvas-bar:first").length) return;
+                    }
+                }
+
+                e.stopImmediatePropagation();
+                Offcanvas.hide();
+            });
+
+            element.on("click", "a[href^='#']", function(e){
+
+                var element = $(this),
+                    href = element.attr("href");
+
+                if (href == "#") {
+                    return;
+                }
+
+                $doc.one('uk.offcanvas.hide', function() {
+
+                    var target = $(href);
+
+                    if (!target.length) {
+                        target = $('[name="'+href.replace('#','')+'"]');
+                    }
+
+                    if (UI.Utils.scrollToElement && target.length) {
+                        UI.Utils.scrollToElement(target);
+                    } else {
+                        window.location.href = href;
+                    }
+                });
+
+                Offcanvas.hide();
+            });
+
+            element.data("ukOffcanvasInit", true);
         }
     };
 
@@ -2145,6 +2237,12 @@
         }
     });
 
+    $html.on('keydown.ukoffcanvas', function(e) {
+        if (e.keyCode === 27) { // ESC
+            Offcanvas.hide();
+        }
+    });
+
 })(jQuery, jQuery.UIkit);
 (function($, UI) {
 
@@ -2155,11 +2253,14 @@
     UI.component('switcher', {
 
         defaults: {
-            connect : false,
-            toggle  : ">*",
-            active  : 0,
-            animation: false
+            connect   : false,
+            toggle    : ">*",
+            active    : 0,
+            animation : false,
+            duration  : 200
         },
+
+        animating: false,
 
         init: function() {
 
@@ -2197,23 +2298,49 @@
                 }
 
                 var toggles = this.find(this.options.toggle),
-                    active   = toggles.filter(".uk-active");
+                    active  = toggles.filter(".uk-active");
 
                 if (active.length) {
-                    this.show(active);
+                    this.show(active, false);
                 } else {
                     active = toggles.eq(this.options.active);
-                    this.show(active.length ? active : toggles.eq(0));
+                    this.show(active.length ? active : toggles.eq(0), false);
                 }
             }
 
         },
 
-        show: function(tab) {
+        show: function(tab, animate) {
+
+            if (this.animating) {
+                return;
+            }
 
             tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
 
-            var $this = this, active = tab, animation = Animations[this.options.animation] || Animations['none'];
+            var $this     = this,
+                active    = tab,
+                animation = Animations[this.options.animation] || function(current, next) {
+
+                    if (!$this.options.animation) {
+                        return Animations.none.apply($this);
+                    }
+
+                    var anim = $this.options.animation.split(',');
+
+                    if (anim.length == 1) {
+                        anim[1] = anim[0];
+                    }
+
+                    anim[0] = anim[0].trim();
+                    anim[1] = anim[1].trim();
+
+                    return coreAnimation.apply($this, [anim, current, next]);
+                };
+
+            if (animate===false) {
+                animation = Animations.none;
+            }
 
             if (active.hasClass("uk-disabled")) return;
 
@@ -2235,11 +2362,15 @@
                         current   = children.filter('.uk-active'),
                         next      = children.eq($this.index);
 
+                        $this.animating = true;
+
                         animation.apply($this, [current, next]).then(function(){
 
                             current.removeClass("uk-active");
                             next.addClass("uk-active");
                             UI.Utils.checkDisplay(next);
+
+                            $this.animating = false;
                         });
                 });
             }
@@ -2248,32 +2379,62 @@
         }
     });
 
-
     Animations = {
 
         'none': function() {
-
             var d = $.Deferred();
             d.resolve();
             return d.promise();
         },
 
-        'fade': function(current, next, dir) {
+        'fade': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-fade', current, next]);
+        },
 
-            var d = $.Deferred();
+        'slide-bottom': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-bottom', current, next]);
+        },
 
-            if (current) {
-                current.removeClass('uk-active');
+        'slide-top': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-top', current, next]);
+        },
+
+        'slide-vertical': function(current, next, dir) {
+
+            var anim = ['uk-animation-slide-top', 'uk-animation-slide-bottom'];
+
+            if (current && current.index() > next.index()) {
+                anim.reverse();
             }
 
-            next.fadeIn(300, function(){
-                next.css({opacity:'', display:''});
-                d.resolve();
-            });
+            return coreAnimation.apply(this, [anim, current, next]);
+        },
 
-            return d.promise();
+        'slide-left': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-left', current, next]);
+        },
+
+        'slide-right': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-slide-right', current, next]);
+        },
+
+        'slide-horizontal': function(current, next, dir) {
+
+            var anim = ['uk-animation-slide-left', 'uk-animation-slide-right'];
+
+            if (current && current.index() > next.index()) {
+                anim.reverse();
+            }
+
+            return coreAnimation.apply(this, [anim, current, next]);
+        },
+
+        'scale': function(current, next) {
+            return coreAnimation.apply(this, ['uk-animation-scale-up', current, next]);
         }
     };
+
+    UI.switcher.animations = Animations;
 
 
     // init code
@@ -2288,6 +2449,56 @@
         });
     });
 
+
+    // helpers
+
+    function coreAnimation(cls, current, next) {
+
+        var d = $.Deferred(), clsIn = cls, clsOut = cls, release;
+
+        if(next[0]===current[0]) {
+            d.resolve();
+            return d.promise();
+        }
+
+        if (typeof(cls) == 'object') {
+            clsIn  = cls[0];
+            clsOut = cls[1] || cls[0];
+        }
+
+        release = function() {
+
+            if (current) current.hide().removeClass('uk-active '+clsOut+' uk-animation-reverse');
+
+            next.addClass(clsIn).one(UI.support.animation.end, function() {
+
+                next.removeClass(''+clsIn+'').css({opacity:'', display:''});
+
+                d.resolve();
+
+                if (current) current.css({opacity:'', display:''});
+
+            }.bind(this)).show();
+        };
+
+        next.css('animation-duration', this.options.duration+'ms');
+
+        if (current && current.length) {
+
+            current.css('animation-duration', this.options.duration+'ms');
+
+            current.css('display', 'none').addClass(clsOut+' uk-animation-reverse').one(UI.support.animation.end, function() {
+                release();
+            }.bind(this)).css('display', '');
+
+        } else {
+            next.addClass('uk-active');
+            release();
+        }
+
+        return d.promise();
+    }
+
 })(jQuery, jQuery.UIkit);
 
 (function($, UI) {
@@ -2298,9 +2509,11 @@
     UI.component('tab', {
 
         defaults: {
-            'target'  : '>li:not(.uk-tab-responsive, .uk-disabled)',
-            'connect' : false,
-            'active'  : 0
+            'target'    : '>li:not(.uk-tab-responsive, .uk-disabled)',
+            'connect'   : false,
+            'active'    : 0,
+            'animation' : false,
+            'duration'  : 200
         },
 
         init: function() {
@@ -2345,7 +2558,13 @@
 
             // init UIkit components
             if (this.options.connect) {
-                UI.switcher(this.element, {"toggle": ">li:not(.uk-tab-responsive)", "connect": this.options.connect, "active": this.options.active});
+                UI.switcher(this.element, {
+                    "toggle"    : ">li:not(.uk-tab-responsive)",
+                    "connect"   : this.options.connect,
+                    "active"    : this.options.active,
+                    "animation" : this.options.animation,
+                    "duration"  : this.options.duration
+                });
             }
 
             UI.dropdown(this.responsivetab, {"mode": "click"});
@@ -2419,6 +2638,7 @@
     });
 
 })(jQuery, jQuery.UIkit);
+
 (function($, UI, $win) {
 
     "use strict";

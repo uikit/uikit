@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slidenav
  ========================================================================== */
@@ -56,21 +56,10 @@
 /* Sub-object: `uk-slidenav-position`
  ========================================================================== */
 /*
- * 1. Container width fits its content
- * 2. Create position context
- * 3. Prevent `inline-block` consequences
- * 4. Corrects `max-width` behavior if padding and border are used
+ * Create position context
  */
 .uk-slidenav-position {
-  /* 1 */
-  display: inline-block;
-  /* 2 */
   position: relative;
-  /* 3 */
-  max-width: 100%;
-  /* 4 */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 /*
  * Center vertically
@@ -79,6 +68,7 @@
   display: none;
   position: absolute;
   top: 50%;
+  z-index: 1;
   margin-top: -30px;
 }
 .uk-slidenav-position:hover .uk-slidenav {
