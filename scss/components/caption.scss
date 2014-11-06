@@ -46,6 +46,7 @@ $caption-panel-color:                            #fff !default;
     /* 3 */
     padding: $caption-padding;
     color: $caption-color;
+    @include hook-caption();
 }
 
 /*
@@ -123,4 +124,15 @@ $caption-panel-color:                            #fff !default;
 .uk-caption-panel {
     color: $caption-panel-color;
     background: $caption-panel-background;
+    @include hook-caption-panel();
 }
+
+
+// Hooks
+// ========================================================================
+
+@include hook-caption-misc();
+
+// @mixin hook-caption(){}
+// @mixin hook-caption-panel(){}
+// @mixin hook-caption-misc(){}

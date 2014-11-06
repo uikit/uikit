@@ -46,6 +46,7 @@
     /* 3 */
     padding: @caption-padding;
     color: @caption-color;
+    .hook-caption;
 }
 
 /*
@@ -123,4 +124,15 @@
 .uk-caption-panel {
     color: @caption-panel-color;
     background: @caption-panel-background;
+    .hook-caption-panel;
 }
+
+
+// Hooks
+// ========================================================================
+
+.hook-caption-misc;
+
+.hook-caption() {}
+.hook-caption-panel() {}
+.hook-caption-misc() {}
