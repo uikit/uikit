@@ -14,6 +14,9 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
+        <script src="../src/js/components/cover.js"></script>
+        <script src="../src/js/components/slideshow.js"></script>
+        <script src="../src/js/components/slideshow-fx.js"></script>
     </head>
 
     <body class="tm-background">
@@ -83,21 +86,337 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To create a slideshow, just add the <code>.uk-slideshow</code> class to a <code>&lt;ul&gt;</code> element and place your images inside the list items.</p>
+                            <p>First of all, you need to include the <code>slideshow.js</code> and <code>cover.js</code> files in your document head to apply the Slideshow component. To create a slideshow, just add the <code>.uk-slideshow</code> class to a <code>&lt;ul&gt;</code> element and place your images inside the list items. In order to load the necessary JavaScript, your also need to add the <code>data-uk-slideshow</code> attribute.</p>
+
+                            <p>To activate autoplay, just add the <code>{autoplay:true}</code> option to the data attribute.
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <ul class="uk-slideshow" data-uk-slideshow="{autoplay:true}">
-                                <li><img src="http://unsplash.it/600/200" width="600" height="200" alt=""></li>
-                                <li><img src="http://unsplash.it/600/300" width="600" height="300" alt=""></li>
-                                <li><img src="http://unsplash.it/600/400" width="600" height="400" alt=""></li>
+                                <li><img src="images/placeholder_800x300_01.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                <li><img src="images/placeholder_800x300_02.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                <li><img src="images/placeholder_800x300_03.svg" width="800" height="300" alt="Slideshow Item"></li>
                             </ul>
+
+                            <p><span class="uk-badge">Note</span> If you don't want the image to cover the entire slideshow, wrap it inside a <code>&lt;div&gt;</code> element.</p>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-slideshow">
-    &lt;li>&lt;img src="" width="" height="" alt="">&lt;/li>
-&lt;/ul></code></pre>
+<pre><code>&lt;ul class="uk-slideshow" data-uk-slideshow="{autoplay:true}"&gt;
+    &lt;li&gt;&lt;img src="" width="" height="" alt=""&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="controls"><a href="#controls" class="uk-link-reset">Controls</a></h2>
+
+                            <p>You can apply a slidenav from the <a href="addons_slidenav.html">Slidenav component</a> and/or a dotnav from the <a href="addons_dotnav.html">Dotnav component</a> as slideshow controls. To do so, you need to wrap the slideshow with a <code>&lt;div&gt;</code> element and add the <code>.uk-slideshow-position</code> class. The data attribute needs to be added to the container instead of the slideshow itself.</p>
+
+                            <p><span class="uk-badge uk-badge-danger">Important</span> You need to add the <code>data-uk-slideshow-item=""</code> attribute to the nav items in order to load the necessary JavaScript for them to work correctly.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-2">
+                                    <div class="uk-slidenav-position" data-uk-slideshow>
+                                        <ul class="uk-slideshow">
+                                            <li><img src="images/placeholder_800x300_01.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                            <li><img src="images/placeholder_800x300_02.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                            <li><img src="images/placeholder_800x300_03.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                        </ul>
+                                        <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                        <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-2">
+                                    <div class="uk-slidenav-position" data-uk-slideshow>
+                                        <ul class="uk-slideshow">
+                                            <li><img src="images/placeholder_800x300_01.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                            <li><img src="images/placeholder_800x300_02.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                            <li><img src="images/placeholder_800x300_03.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                        </ul>
+                                        <ul class="uk-dotnav uk-text-center">
+                                            <li data-uk-slideshow-item="0"><a href="#">Item 1</a></li>
+                                            <li data-uk-slideshow-item="1"><a href="#">Item 2</a></li>
+                                            <li data-uk-slideshow-item="2"><a href="#">Item 3</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is a slideshow with a slidenav --&gt;
+&lt;div class="uk-slidenav-position" data-uk-slideshow&gt;
+    &lt;ul class="uk-slideshow"&gt;
+        &lt;li&gt;&lt;img src="" width="" height="" alt=""&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="" width="" height="" alt=""&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"&gt;&lt;/a&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- This is a slideshow with a dotnav --&gt;
+&lt;div class="uk-slidenav-position" data-uk-slideshow&gt;
+    &lt;ul class="uk-slideshow"&gt;
+        &lt;li&gt;&lt;img src="" width="" height="" alt=""&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="" width="" height="" alt=""&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul class="uk-dotnav"&gt;
+        &lt;li data-uk-slideshow-item="0"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;li data-uk-slideshow-item="1"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="content"><a href="#content" class="uk-link-reset">Content</a></h2>
+
+                            <p>Slideshow items are not restricted to just images. You can basically insert any content, like text or a video.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-slidenav-position" data-uk-slideshow>
+                                <ul class="uk-slideshow">
+                                    <li>
+                                        <div class="uk-panel uk-panel-box uk-panel-space uk-text-center">
+                                            <h1>Headline 1</h1>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                                            <button class="uk-button">Read more</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="uk-panel uk-panel-box uk-panel-space uk-text-center">
+                                            <h1>Headline 2</h1>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                                            <button class="uk-button">Read more</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="uk-panel uk-panel-box uk-panel-space uk-text-center">
+                                            <h1>Headline 3</h1>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                                            <button class="uk-button">Read more</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="video"><a href="#video" class="uk-link-reset">Video</a></h2>
+
+                            <p>UIkit allows you to present both video objects and Iframes within a slideshow.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-slidenav-position" data-uk-slideshow>
+                                <ul class="uk-slideshow">
+                                    <li>
+                                        <video width="600" height="400" autoplay loop muted controls>
+                                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
+                                        </video>
+                                    </li>
+                                    <li>
+                                        <iframe src="http://player.vimeo.com/video/1084537?autoplay=1&amp;loop=1&amp;badge=0&amp;byline=0&amp;portrait=0&amp;title=0" width="620" height="360" frameborder="0" allowfullscreen></iframe>
+                                    </li>
+                                </ul>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is a slideshow with a video object --&gt;
+&lt;ul class="uk-slideshow"&gt;
+    &lt;li&gt;
+        &lt;video width="" height="" autoplay loop muted controls&gt;
+            &lt;source src="" type="video/mp4"&gt;
+        &lt;/video&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is a slideshow with an Iframe --&gt;
+&lt;ul class="uk-slideshow"&gt;
+    &lt;li&gt;
+        &lt;iframe src="" width="" height="" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="captions"><a href="#captions" class="uk-link-reset">Captions</a></h2>
+
+                            <p>You can also enhance slideshows with different captions. Just add the <code>.uk-caption</code> and – if necessary – position classes from the <a href="addons_caption.html">Caption component</a> to a <code>&lt;div&gt;</code> element inside the list item.</p>
+
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-slidenav-position" data-uk-slideshow>
+                                <ul class="uk-slideshow">
+                                    <li>
+                                        <img src="images/placeholder_800x300_03.svg" alt="Slideshow Item">
+                                        <div class="uk-caption uk-caption-panel uk-animation-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                                            <div>
+                                                <h3>Caption</h3>
+                                                <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr,<br>sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                                                <button class="uk-button uk-button-primary">Button</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="images/placeholder_800x300_01.svg" alt="Slideshow Item">
+                                        <div class="uk-caption uk-caption-top uk-caption-panel uk-animation-slide-top">
+                                            <h3>Caption Top</h3>
+                                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                                            <button class="uk-button uk-button-primary">Button</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="images/placeholder_800x300_02.svg" alt="Slideshow Item">
+                                        <div class="uk-caption uk-caption-bottom uk-caption-panel uk-animation-slide-bottom">
+                                            <h3>Caption Bottom</h3>
+                                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                                            <button class="uk-button uk-button-primary">Button</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="images/placeholder_800x300_03.svg" alt="Slideshow Item">
+                                        <div class="uk-caption uk-caption-left uk-caption-panel uk-animation-slide-left uk-width-1-4">
+                                            <h3>Caption Left</h3>
+                                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                                            <button class="uk-button uk-button-primary">Button</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="images/placeholder_800x300_01.svg" alt="Slideshow Item">
+                                        <div class="uk-caption uk-caption-right uk-caption-panel uk-animation-slide-right uk-width-1-4">
+                                            <h3>Caption Right</h3>
+                                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
+                                            <button class="uk-button uk-button-primary">Button</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="animations"><a href="#animations" class="uk-link-reset">Animations</a></h2>
+
+                            <p>The Slideshow component allows you to add different animations to items when switching between them. The <code>slideshow-fx.js</code> file needs to be included in the document head. Now all you need to do is add the <code>animation</code> parameter to the data-attribute and define the animation that you want to apply. Check the table below for an overview of the animations provided.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>fade</code></td>
+                                            <td>The item fades in.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>scroll</code></td>
+                                            <td>The items scroll in.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>scale</code></td>
+                                            <td>The items scale up on out.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>swipe</code></td>
+                                            <td>The items swipe in and out.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slice-down</code></td>
+                                            <td>The items slide down in slices.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slice-up</code></td>
+                                            <td>The items slide up in slices.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slice-up-down</code></td>
+                                            <td>The sliced items slide in alterning directions.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>fold</code></td>
+                                            <td>The items are folded in.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>boxes</code></td>
+                                            <td>The items are divided in squares that randomly fade in.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>boxes</code></td>
+                                            <td>The items are divided in squares that scale in diagonally from the top left corner.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>boxes-reverse</code></td>
+                                            <td>The items are divided in squares that scale in diagonally from the bottom right corner.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>random-fx</code></td>
+                                            <td>Different animations are applied randomly.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-slidenav-position" data-uk-slideshow="{animation: 'random-fx'}">
+                                <ul class="uk-slideshow">
+                                    <li><img src="images/placeholder_800x300_01.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                    <li><img src="images/placeholder_800x300_02.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                    <li><img src="images/placeholder_800x300_03.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                </ul>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-slideshow" data-uk-slideshow="{animation: 'random-fx'}"&gt;...&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="ken-burns-effect"><a href="#ken-burns-effect" class="uk-link-reset">Ken Burns effect</a></h3>
+
+                            <p>The Ken Burns effect can also be applied to slideshow items. Just add the <code>{kenburns:true}</code> option to the data attribute.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-slidenav-position" data-uk-slideshow="{kenburns:true, autoplay:true}">
+                                <ul class="uk-slideshow">
+                                    <li><img src="images/placeholder_800x300_01.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                    <li><img src="images/placeholder_800x300_02.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                    <li><img src="images/placeholder_800x300_03.svg" width="800" height="300" alt="Slideshow Item"></li>
+                                </ul>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;ul class="uk-slideshow" data-uk-slideshow="{kenburns:true}"&gt;...&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="fullscreen"><a href="#fullscreen" class="uk-link-reset">Fullscreen slideshow</a></h2>
+
+                            <p>To create a fullscreen slideshow that stretches to fill the entire viewport, just add the <code>.uk-slideshow-fullscreen</code> class.</p>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;ul class="uk-slideshow uk-slideshow-fullscreen" data-uk-slideshow&gt;...&lt;/ul&gt;</code></pre>
 
                         </article>
 
