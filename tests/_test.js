@@ -11,12 +11,12 @@
         'dist/css/uikit{style}.css',
 
         // components
+        'dist/css/components/flex{style}.css',
         'dist/css/components/autocomplete{style}.css',
         'dist/css/components/caption{style}.css',
         'dist/css/components/cover{style}.css',
         'dist/css/components/datepicker{style}.css',
         'dist/css/components/dotnav{style}.css',
-        'dist/css/components/flex{style}.css',
         'dist/css/components/form-advanced{style}.css',
         'dist/css/components/form-file{style}.css',
         'dist/css/components/form-password{style}.css',
