@@ -295,39 +295,6 @@
 
     $.UIkit.langdirection = $html.attr("dir") == "rtl" ? "right" : "left";
 
-
-    // DOM mutation save ready helper function
-
-    UI.domObservers = [];
-
-    UI.domObserve = function(selector, fn) {
-
-        if(!UI.support.mutationobserver) return;
-
-        $(selector).each(function() {
-
-            var element = this;
-
-            try {
-
-                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                    fn.apply(element, []);
-                    $(element).trigger('uk.dom.changed');
-                }, 50));
-
-                // pass in the target node, as well as the observer options
-                observer.observe(element, { childList: true, subtree: true });
-
-            } catch(e) {}
-        });
-    };
-
-    UI.ready = function(fn) {
-        $(function() { fn(document); });
-        UI.domObservers.push(fn);
-    };
-
-
     UI.components = {};
 
     UI.component = function(name, def) {
@@ -355,7 +322,7 @@
 
             });
 
-            this.trigger('init', [this]);
+            this.trigger('uk.component.init', [name, this]);
         };
 
         fn.plugins = {};
@@ -445,7 +412,6 @@
         this.components[component].plugins[name] = def;
     };
 
-
     $doc.on('uk.domready', function(){
         UI.domObservers.forEach(function(fn){
             fn(document);
@@ -453,7 +419,40 @@
         $doc.trigger('uk.dom.changed');
     });
 
+    // DOM mutation save ready helper function
+
+    UI.domObservers = [];
+
+    UI.ready = function(fn) {
+        UI.domObservers.push(fn);
+    };
+
+    UI.domObserve = function(selector, fn) {
+
+        if(!UI.support.mutationobserver) return;
+
+        $(selector).each(function() {
+
+            var element = this;
+
+            try {
+
+                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+                    fn.apply(element, []);
+                    $(element).trigger('uk.dom.changed');
+                }, 50));
+
+                // pass in the target node, as well as the observer options
+                observer.observe(element, { childList: true, subtree: true });
+
+            } catch(e) {}
+        });
+    };
+
+
     $(function(){
+
+        UI.$doc.trigger('uk.domready.before');
 
         // custom scroll observer
         setInterval((function(){
@@ -488,6 +487,10 @@
             });
         });
 
+        // run component init functions on dom
+        UI.domObservers.forEach(function(fn){
+            fn($html);
+        });
 
         if (UI.support.touch) {
 
@@ -509,6 +512,8 @@
                 })(), 100));
             }
         }
+
+        UI.$doc.trigger('uk.domready.after');
     });
 
     // add touch identifier class
