@@ -296,39 +296,6 @@
 
     $.UIkit.langdirection = $html.attr("dir") == "rtl" ? "right" : "left";
 
-
-    // DOM mutation save ready helper function
-
-    UI.domObservers = [];
-
-    UI.domObserve = function(selector, fn) {
-
-        if(!UI.support.mutationobserver) return;
-
-        $(selector).each(function() {
-
-            var element = this;
-
-            try {
-
-                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                    fn.apply(element, []);
-                    $(element).trigger('uk.dom.changed');
-                }, 50));
-
-                // pass in the target node, as well as the observer options
-                observer.observe(element, { childList: true, subtree: true });
-
-            } catch(e) {}
-        });
-    };
-
-    UI.ready = function(fn) {
-        $(function() { fn(document); });
-        UI.domObservers.push(fn);
-    };
-
-
     UI.components = {};
 
     UI.component = function(name, def) {
@@ -356,7 +323,7 @@
 
             });
 
-            this.trigger('init', [this]);
+            this.trigger('uk.component.init', [name, this]);
         };
 
         fn.plugins = {};
@@ -447,14 +414,102 @@
     };
 
 
-    $doc.on('uk.domready', function(){
+    // DOM mutation save ready helper function
+
+    UI.domObservers = [];
+    UI.domready     = false;
+
+    UI.ready = function(fn) {
+
+        UI.domObservers.push(fn);
+
+        if (UI.domready) {
+            fn(document);
+        }
+    };
+
+    UI.on = function(){
+
+        if (arguments.length == 2 && arguments[0].indexOf('uk.domready')===0 && UI.domready) {
+            arguments[1].apply($doc);
+        }
+
+        return $doc.on.apply($doc, arguments);
+    };
+
+    UI.one = function(){
+
+        if (arguments.length == 2 && arguments[0].indexOf('uk.domready')===0 && UI.domready) {
+            arguments[1].apply($doc);
+            return $doc;
+        }
+
+        return $doc.one.apply($doc, arguments);
+    };
+
+    UI.trigger = function(evt, params) {
+        return $doc.trigger(evt, params);
+    };
+
+    UI.domObserve = function(selector, fn) {
+
+        if(!UI.support.mutationobserver) return;
+
+        fn = fn || function() {};
+
+        $(selector).each(function() {
+
+            var element  = this,
+                $element = $(element);
+
+            if ($element.data('observer')) {
+                return;
+            }
+
+            try {
+
+                var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
+                    fn.apply(element, []);
+                    $element.trigger('uk.dom.changed');
+                }, 50));
+
+                // pass in the target node, as well as the observer options
+                observer.observe(element, { childList: true, subtree: true });
+
+                $element.data('observer', observer);
+
+            } catch(e) {}
+        });
+    };
+
+    UI.ready(function(context){
+        UI.domObserve($('[data-uk-observe]', context || document));
+    });
+
+    UI.on('uk.domready', function(){
+
         UI.domObservers.forEach(function(fn){
             fn(document);
         });
-        $doc.trigger('uk.dom.changed');
+
+        if (UI.domready) UI.Utils.checkDisplay(document);
     });
 
+    UI.on('uk.dom.changed', function(e) {
+
+        var ele = e.target;
+
+        UI.domObservers.forEach(function(fn){
+            fn(ele);
+        });
+
+        UI.Utils.checkDisplay(ele);
+    });
+
+
     $(function(){
+
+        UI.trigger('uk.domready.before');
 
         // custom scroll observer
         setInterval((function(){
@@ -479,16 +534,8 @@
 
         })(), 15);
 
-        // Check for dom modifications
-        UI.domObserve('[data-uk-observe]', function() {
-
-            var ele = this;
-
-            UI.domObservers.forEach(function(fn){
-                fn(ele);
-            });
-        });
-
+        // run component init functions on dom
+        UI.trigger('uk.domready');
 
         if (UI.support.touch) {
 
@@ -510,6 +557,11 @@
                 })(), 100));
             }
         }
+
+        UI.trigger('uk.domready.after');
+
+        // mark that domready is left behind
+        UI.domready = true;
     });
 
     // add touch identifier class
