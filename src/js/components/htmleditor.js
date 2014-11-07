@@ -139,7 +139,7 @@
 
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
-            this.on('init', function() {
+            this.on('uk.component.init', function() {
                 $this.redraw();
             });
 
