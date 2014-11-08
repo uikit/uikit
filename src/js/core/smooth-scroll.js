@@ -27,7 +27,7 @@
         // get / set parameters
         var target    = ele.offset().top - options.offset,
             docheight = UI.$doc.height(),
-            winheight = UI.$win.height();
+            winheight = window.innerHeight;
 
         if ((target + winheight) > docheight) {
             target = docheight - winheight;
