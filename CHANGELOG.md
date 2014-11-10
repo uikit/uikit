@@ -11,12 +11,15 @@
   - Added smooth scroll helper function
   - Added missing sortable theme files
   - Added missing form-advanced theme files
-  - Added less error handler for gulp task
+  - Added Less error handler for gulp task
+  - Added "use strict" to all JavaScript files
   - Better timing-function for reverse animations
   - Trigger uk.check.display on context element if no related children found
   - Updated moment.js in datepicker component
+  - Updated and cleanup core.js
   - Updated ```gulp watch``` behaviour
   - Fixed slidenav position class
+  - Fixed and replaced $(window).height() with window.innerHeight
   - Fixed datepicker z-index
   - Fixed nestable not triggering change event
   - Fixed anchor links in offcanvas menu

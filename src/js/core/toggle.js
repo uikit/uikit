@@ -1,5 +1,6 @@
-
 (function(global, $, UI){
+
+    "use strict";
 
     var togglers = [];
 
