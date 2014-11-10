@@ -23,6 +23,7 @@
   - Fixed datepicker z-index
   - Fixed nestable not triggering change event
   - Fixed anchor links in offcanvas menu
+  - Fixed hidden text in dotnav if text is right aligned
 
 **Docs and Repo**
 
