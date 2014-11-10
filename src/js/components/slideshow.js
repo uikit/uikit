@@ -216,6 +216,8 @@
                     $this.animating = false;
                     $this.current   = index;
 
+                    UI.Utils.checkDisplay(next);
+
                     $this.trigger('uk.slideshow.show', [next]);
                 };
 
