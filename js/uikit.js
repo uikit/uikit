@@ -875,7 +875,7 @@
         // get / set parameters
         var target    = ele.offset().top - options.offset,
             docheight = UI.$doc.height(),
-            winheight = UI.$win.height();
+            winheight = window.innerHeight;
 
         if ((target + winheight) > docheight) {
             target = docheight - winheight;
@@ -1080,8 +1080,9 @@
     });
 
 })(jQuery, jQuery.UIkit);
-
 (function(global, $, UI){
+
+    "use strict";
 
     var togglers = [];
 
@@ -2162,7 +2163,7 @@
 
             element.addClass("uk-active");
 
-            $body.css({"width": window.innerWidth, "height": $win.height()}).addClass("uk-offcanvas-page");
+            $body.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
             $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
 
             $html.css('margin-top', scrollpos.y * -1);

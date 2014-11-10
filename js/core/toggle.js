@@ -1,6 +1,7 @@
 /*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-
 (function(global, $, UI){
+
+    "use strict";
 
     var togglers = [];
 

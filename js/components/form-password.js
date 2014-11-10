@@ -15,6 +15,8 @@
 
 })(function($, UI){
 
+    "use strict";
+
     UI.component('formPassword', {
 
         defaults: {

@@ -15,6 +15,8 @@
 
 })(function($, UI){
 
+    "use strict";
+
     var $win         = UI.$win,
         $doc         = UI.$doc,
         sticked      = [];
@@ -93,7 +95,7 @@
 
                     var scrollTop      = $win.scrollTop(),
                         documentHeight = $doc.height(),
-                        dwh            = documentHeight - $win.height(),
+                        dwh            = documentHeight - window.innerHeight,
                         extra          = (scrollTop > dwh) ? dwh - scrollTop : 0,
                         elementTop     = this.wrapper.offset().top,
                         etse           = elementTop - this.options.top - extra;

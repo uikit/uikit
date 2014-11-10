@@ -18,6 +18,8 @@
 
  })(function($, UI) {
 
+    "use strict";
+
     var hasTouch     = 'ontouchstart' in window,
         html         = $("html"),
         touchedlists = [],

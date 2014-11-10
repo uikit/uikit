@@ -15,6 +15,8 @@
 
 })(function($, UI){
 
+    "use strict";
+
     // Datepicker
 
     var active = false, dropdown, moment;
