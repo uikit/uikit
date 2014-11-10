@@ -215,6 +215,8 @@
 
                     $this.animating = false;
                     $this.current   = index;
+
+                    $this.trigger('uk.slideshow.show', [next]);
                 };
 
             this.applyKenBurns(next);
