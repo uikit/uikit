@@ -86,14 +86,14 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply the Caption component to an image, add the <code>.uk-caption-toggle</code> class to a <code>&lt;figure&gt;</code> element and the <code>.uk-caption</code> class to the <code>&lt;figcaption&gt;</code> element.</p>
+                            <p>To apply the Caption component to an image, wrap  add the <code>.uk-caption-toggle</code> class to a container element and the <code>.uk-caption</code> class to another element.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-width-medium-2-3">
                                 <figure class="uk-caption-toggle">
-                                    <img src="images/placeholder_600x400_2.svg" alt="Image">
-                                    <figcaption class="uk-caption uk-animation-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                                    <img src="images/placeholder_600x400.svg" alt="Image">
+                                    <figcaption class="uk-caption uk-animation-fade">
                                         <div>
                                             <h3>Caption</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
@@ -103,7 +103,7 @@
                                 </figure>
                             </div>
 
-                            <p><span class="uk-badge">Note</span> You can also add a transition from the <a href="animation.html">Animation component</a> to captions. In this example we applied the <a href="addons_flex.html">Flex component</a> to center the caption.</p>
+                            <p><span class="uk-badge">Note</span> You can also add a transition from the <a href="animation.html">Animation component</a> to captions.</p>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -122,12 +122,11 @@
 
                             <div class="uk-width-medium-2-3">
                                 <figure class="uk-caption-toggle">
-                                    <img src="images/placeholder_600x400_2.svg" alt="Image">
-                                    <figcaption class="uk-caption uk-caption-panel uk-animation-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                                    <img src="images/placeholder_600x400.svg" alt="Image">
+                                    <figcaption class="uk-caption uk-caption-panel uk-animation-fade">
                                         <div>
                                             <h3>Caption</h3>
-                                            <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
-                                            <button class="uk-button uk-button-primary">Button</button>
+                                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
                                         </div>
                                     </figcaption>
                                 </figure>
@@ -230,6 +229,35 @@
 
                             <hr class="uk-article-divider">
 
+                            <h3 id="caption-flex"><a href="#caption-flex" class="uk-link-reset">Caption and flex</a></h3>
+
+                            <p>You can apply the <a href="addons_flex.html">Flex component</a> to vertically and horizontally center captions.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-width-medium-2-3">
+                                <figure class="uk-caption-toggle">
+                                    <img src="images/placeholder_600x400.svg" alt="Image">
+                                    <figcaption class="uk-caption uk-caption-panel uk-animation-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                                        <div>
+                                            <h3>Centered Caption</h3>
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;figure class="uk-caption-toggle"&gt;
+    &lt;img src="" alt=""&gt;
+    &lt;figcaption class="uk-caption uk-flex uk-flex-center uk-flex-middle uk-text-center"&gt;
+        &lt;div&gt;...&lt;/div&gt;
+    &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
                             <h2 id="slideshow"><a href="#slideshow" class="uk-link-reset">Slideshow and caption</a></h2>
 
                             <p>Captions can be applied to slideshow items from the <a href="addons_slideshow.html">Slideshow component</a></p>
@@ -239,7 +267,7 @@
                             <div class="uk-slidenav-position" data-uk-slideshow>
                                 <ul class="uk-slideshow">
                                     <li>
-                                        <img src="images/placeholder_800x300_2.svg" alt="Slideshow Item">
+                                        <img src="http://unsplash.it/600/220" alt="">
                                         <div class="uk-caption uk-caption-panel uk-animation-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
                                             <div>
                                                 <h3>Caption</h3>
@@ -249,7 +277,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <img src="images/placeholder_800x300_3.svg" alt="Slideshow Item">
+                                        <img src="http://unsplash.it/600/230" alt="">
                                         <div class="uk-caption uk-caption-top uk-caption-panel uk-animation-slide-top">
                                             <h3>Caption Top</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
@@ -257,7 +285,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <img src="images/placeholder_800x300_1.svg" alt="Slideshow Item">
+                                        <img src="http://unsplash.it/600/240" alt="">
                                         <div class="uk-caption uk-caption-bottom uk-caption-panel uk-animation-slide-bottom">
                                             <h3>Caption Bottom</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
@@ -265,7 +293,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <img src="images/placeholder_800x300_2.svg" alt="Slideshow Item">
+                                        <img src="http://unsplash.it/600/250" alt="">
                                         <div class="uk-caption uk-caption-left uk-caption-panel uk-animation-slide-left uk-width-1-4">
                                             <h3>Caption Left</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
@@ -273,7 +301,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <img src="images/placeholder_800x300_3.svg" alt="Slideshow Item">
+                                        <img src="http://unsplash.it/600/260" alt="">
                                         <div class="uk-caption uk-caption-right uk-caption-panel uk-animation-slide-right uk-width-1-4">
                                             <h3>Caption Right</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
