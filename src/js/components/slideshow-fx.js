@@ -14,6 +14,8 @@
 
 })(function($, UI) {
 
+    "use strict";
+
     var Animations = UI.slideshow.animations;
 
     $.extend(UI.slideshow.animations, {

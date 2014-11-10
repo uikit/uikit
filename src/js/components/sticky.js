@@ -14,6 +14,8 @@
 
 })(function($, UI){
 
+    "use strict";
+
     var $win         = UI.$win,
         $doc         = UI.$doc,
         sticked      = [];

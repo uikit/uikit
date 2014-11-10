@@ -14,6 +14,8 @@
 
 })(function($, UI){
 
+    "use strict";
+
     var active;
 
     UI.component('autocomplete', {

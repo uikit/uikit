@@ -12,6 +12,7 @@
   - Added missing sortable theme files
   - Added missing form-advanced theme files
   - Added Less error handler for gulp task
+  - Added "use strict" to all JavaScript files
   - Better timing-function for reverse animations
   - Trigger uk.check.display on context element if no related children found
   - Updated moment.js in datepicker component
