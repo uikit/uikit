@@ -126,11 +126,15 @@
 /* Sub-object `uk-nestable-handle`
  ========================================================================== */
 
+/*
+ * 1. Deactivate browser touch actions in IE11
+ */
+
 .uk-nestable-handle {
     display: inline-block;
     font-size: @nestable-handle-font-size;
     color: @nestable-handle-color;
-    // Deactivate browser touch actions in IE11
+    /* 1 */
     -ms-touch-action: none;
     .hook-nestable-handle;
 }
