@@ -40,7 +40,7 @@
 
                     if (!$target.parents(".uk-dropdown").length) {
 
-                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
                             e.preventDefault();
                         }
 

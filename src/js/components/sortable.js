@@ -70,7 +70,9 @@
                     // don't break browser shortcuts for click+open in new tab
                     if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
                         clickedlink = $(this);
+                        e.preventDefault();
                     }
+
                 }).on('click', 'a[href]', function(e) {
                     if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
                         clickedlink = $(this);

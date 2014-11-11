@@ -33,6 +33,7 @@
  * 3. Set width because child elements are positioned absolute. Height is set via JS
  * 4. Reset list style
  * 5. Clip child elements
+ * 6. Deactivate browser history navigation in IE11
  */
 
 .uk-slideshow {
@@ -48,6 +49,8 @@
     list-style: none;
     /* 5 */
     overflow: hidden;
+    /* 6 */
+    -ms-touch-action: cross-slide-y;
 }
 
 /*

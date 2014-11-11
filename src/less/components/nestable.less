@@ -130,6 +130,8 @@
     display: inline-block;
     font-size: @nestable-handle-font-size;
     color: @nestable-handle-color;
+    // Deactivate browser touch actions in IE11
+    -ms-touch-action: none;
     .hook-nestable-handle;
 }
 

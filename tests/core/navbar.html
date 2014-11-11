@@ -265,6 +265,54 @@
 
             </div>
 
+            <div class="uk-margin">
+
+                <!--
+                    - Does not collapse on small screens
+                    - Has a parent-item, that has an outgoing link
+                -->
+
+                <nav class="uk-navbar">
+
+                    <ul class="uk-navbar-nav">
+                        <li><a href="">Item</a></li>
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Parent</a>
+
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+
+                        </li>
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="http://www.getuikit.com">Parent with link</a>
+
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
             <div id="offcanvas-1" class="uk-offcanvas">
 
                 <div class="uk-offcanvas-bar">
