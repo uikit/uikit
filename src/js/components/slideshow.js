@@ -216,6 +216,24 @@
                     $this.animating = false;
                     $this.current   = index;
 
+
+                    // fix firefox / IE animations
+                    var animated = next.find('[class*="uk-animation-"]');
+
+                    if (animated.length) {
+
+                        animated.each(function(){
+
+                            var ele  = $(this),
+                                cls  = ele.attr('class'),
+                                anim = cls.match(/uk\-animation\-(.+)/);
+
+                            ele.removeClass(anim[0]).width();
+
+                            ele.addClass(anim[0]);
+                        });
+                    }
+
                     UI.Utils.checkDisplay(next);
 
                     $this.trigger('uk.slideshow.show', [next]);
