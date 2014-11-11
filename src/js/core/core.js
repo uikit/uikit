@@ -181,7 +181,7 @@
         }
     };
 
-    UI.Utils.checkDisplay = function(context, animation) {
+    UI.Utils.checkDisplay = function(context, initanimation) {
 
         var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
 
@@ -192,9 +192,13 @@
         elements.trigger('uk.check.display');
 
         // fix firefox / IE animations
-        if (animation) {
+        if (initanimation) {
 
-            elements.find('[class*="uk-animation-"]').each(function(){
+            if (typeof(initanimation)!='string') {
+                initanimation = '[class*="uk-animation-"]';
+            }
+
+            elements.find(initanimation).each(function(){
 
                 var ele  = $(this),
                     cls  = ele.attr('class'),
