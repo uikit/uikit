@@ -1,6 +1,6 @@
 # Changelog
 
-### 2.12.0 (November 06, 2014)
+### 2.12.0 (November 11, 2014)
 
   - IMPORTANT: Renamed uk-animation-10 to uk-animation-15
   - DEPRECATED: uk-overlay-caption class
