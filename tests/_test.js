@@ -31,7 +31,6 @@
         'dist/css/components/sortable{style}.css',
         'dist/css/components/sticky{style}.css',
         'dist/css/components/upload{style}.css'
-        
     ];
 
 
@@ -132,14 +131,14 @@
             "components/sticky",
             "components/timepicker",
             "components/upload"
-            
+
     ];
 
     document.addEventListener("DOMContentLoaded", function(event) {
 
-        var $body = $("body").css("visibility", "hidden"), $scriptest = $(scriptest);
-
-        var controls = $('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>');
+        var $body      = $("body").css("visibility", "hidden"),
+            $scriptest = $(scriptest),
+            controls   = $('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>');
 
         // test select
 
@@ -151,10 +150,10 @@
 
             var value = this, name = value.split("/").slice(-1)[0];
 
-            name  = name.charAt(0).toUpperCase() + name.slice(1);
+            name = name.charAt(0).toUpperCase() + name.slice(1);
 
             if (value.indexOf('::')===0) {
-                optgroup   = $('<optgroup label="'+value.replace('::', '')+'"></optgroup>').appendTo(testselect);
+                optgroup = $('<optgroup label="'+value.replace('::', '')+'"></optgroup>').appendTo(testselect);
                 return;
             }
 
@@ -162,7 +161,7 @@
         });
 
         testselect.val(testselect.find("option[value$='"+((location.href.match(/overview/) ? '':'/') + location.href.split("/").slice(-1)[0])+"']").attr("value")).on("change", function(){
-            if(testselect.val()) location.href = testfolder+testselect.val();
+            if (testselect.val()) location.href = testfolder+testselect.val();
         });
 
         controls.prepend(testselect);
@@ -171,7 +170,7 @@
 
             $.get(base+"themes.json", {nocache:Math.random()}).always(function(data, type){
 
-                var theme      = localStorage["uikit.theme"] || 'default',
+                var theme  = localStorage["uikit.theme"] || 'default',
                     themes = {
                         "default"      : {"name": "Default", "url":"themes/default"},
                         "almost-flat"  : {"name": "Almost Flat", "url":"themes/default"},
@@ -187,8 +186,8 @@
                     });
                 }
 
-                theme  = localStorage["uikit.theme"] || 'default';
-                theme  = themes[theme] ? theme : 'default';
+                theme = localStorage["uikit.theme"] || 'default';
+                theme = themes[theme] ? theme : 'default';
 
                 // themes
                 var themeselect = $('<select><option value="">Select a theme...</option></select>');
@@ -199,7 +198,7 @@
 
                 themeselect.val(theme).on("change", function(){
 
-                    if(!themeselect.val()) return;
+                    if (!themeselect.val()) return;
 
                     localStorage["uikit.theme"] = themeselect.val();
                     location.reload();
@@ -212,12 +211,9 @@
                 styles.forEach(function(style) {
 
                     style = $('<link rel="stylesheet" href="'+base+(style.replace('{style}', theme=='default' ? '':'.'+theme))+'">');
-
                     $style.after(style);
-
                     $style = style;
                 });
-
 
                 setTimeout(function() { $body.css("visibility", ""); $(window).trigger("resize"); }, 500);
             });
