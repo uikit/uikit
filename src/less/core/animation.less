@@ -23,6 +23,8 @@
 //                  `uk-animation-bottom-center`
 //                  `uk-animation-bottom-right`
 //
+// Sub-objects:     `uk-animation-hover`
+//
 // Uses:            Scrollspy
 //
 // Used by:         Dropdown
@@ -186,6 +188,23 @@
 .uk-animation-bottom-right {
      -webkit-transform-origin: 100% 100%;
      transform-origin: 100% 100%;
+}
+
+
+/* Sub-object: `uk-animation-hover`
+========================================================================== */
+
+/*
+ * Enable animation only on hover
+ * Needed for Firefox because animations are not triggered when switching between display `hidden` and `block`
+ */
+
+.uk-animation-hover:not(:hover),
+.uk-animation-hover:not(:hover) [class*='uk-animation-'],
+.uk-animation-hover:not(.uk-hover),
+.uk-animation-hover:not(.uk-hover) [class*='uk-animation-'] {
+    -webkit-animation-name: none;
+    animation-name: none;
 }
 
 
