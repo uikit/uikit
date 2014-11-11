@@ -1,8 +1,9 @@
 # Changelog
 
-### 2.12.0 (November 06, 2014)
+### 2.12.0 (November 11, 2014)
 
   - IMPORTANT: Renamed uk-animation-10 to uk-animation-15
+  - DEPRECATED: uk-overlay-caption class
   - Added slideshow component
   - Added caption component
   - Added new classes to flex component
@@ -13,6 +14,7 @@
   - Added missing form-advanced theme files
   - Added Less error handler for gulp task
   - Added "use strict" to all JavaScript files
+  - Added uk-animation-hover class
   - Better timing-function for reverse animations
   - Trigger uk.check.display on context element if no related children found
   - Updated moment.js in datepicker component
@@ -23,9 +25,13 @@
   - Fixed datepicker z-index
   - Fixed nestable not triggering change event
   - Fixed anchor links in offcanvas menu
+  - Fixed hidden text in dotnav if text is right aligned
+  - Fixed Saas port (false math calculation in grid component)
+  - Fixed IE11 touch support
 
 **Docs and Repo**
 
+  - Added docs and tests for new add-ons
   - Updated switcher doc and test
   - Updated flex test
   - Updated sortable test

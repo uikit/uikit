@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Touch - UIkit tests</title>
+
+        <script src="../_test.js"></script>
+
+        <script>
+            $(window).bind('swipeRight', 'body', function(e) {
+                $('#output').prepend('<li>swipe right</li>');
+            });
+            $(window).bind('swipeLeft', 'body', function(e) {
+                $('#output').prepend('<li>swipe left</li>');
+            });
+            $(window).bind('tap', 'body', function(e) {
+                $('#output').prepend('<li>tap</li>');
+            });
+        </script>
+
+        <style>
+
+            .prevent-ie11-navigation {
+                touch-action: pan-y pinch-zoom double-tap-zoom;
+            }
+
+            .uk-notouch .touch-detected {
+                visibility: hidden;
+                display: none;
+            }
+
+            .uk-touch .notouch-detected {
+                visibility: hidden;
+                display: none;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Touch</h1>
+
+            <div class="uk-panel uk-panel-box uk-overflow-container prevent-ie11-navigation" style="min-height: 200px;">
+                <ul id="output" class="uk-list">
+                    <li class="touch-detected uk-text-success">UIkit detected touch support on your device! :)</li>
+                    <li class="notouch-detected uk-text-danger">UIkit did not detect touch support on your device! :(</li>
+                </ul>
+            </div>
+
+            <p class="uk-text-muted">In IE11, swipe-gestures are only detected on the grey panel.</p>
+        </div>
+
+    </body>
+</html>

@@ -122,7 +122,7 @@
 
                             current.removeClass("uk-active");
                             next.addClass("uk-active");
-                            UI.Utils.checkDisplay(next);
+                            UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;
                         });

@@ -11,6 +11,8 @@
 //                  `uk-caption-right`
 //                  `uk-caption-panel`
 //
+// Uses:            `uk-flex
+//
 // ========================================================================
 
 
@@ -51,12 +53,15 @@
 
 /*
  * Show caption
+ * 1. `uk-hover` to support touch devices
  */
 
 .uk-caption-toggle:hover .uk-caption,
+.uk-caption-toggle.uk-hover .uk-caption, // 1
 .uk-active > .uk-caption { display: block; }
 
 .uk-caption-toggle:hover .uk-caption.uk-flex,
+.uk-caption-toggle.uk-hover .uk-caption.uk-flex, // 1
 .uk-active > .uk-caption.uk-flex {
     display: -ms-flexbox;
     display: -webkit-flex;

@@ -40,7 +40,7 @@
 
                     if (!$target.parents(".uk-dropdown").length) {
 
-                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
                             e.preventDefault();
                         }
 
@@ -116,7 +116,7 @@
             this.element.addClass("uk-open");
             this.trigger('uk.dropdown.show', [this]);
 
-            UI.Utils.checkDisplay(this.dropdown);
+            UI.Utils.checkDisplay(this.dropdown, true);
             active = this.element;
 
             this.registerOuterClick();

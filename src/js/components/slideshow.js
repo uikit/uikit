@@ -216,12 +216,12 @@
                     $this.animating = false;
                     $this.current   = index;
 
-                    UI.Utils.checkDisplay(next);
+                    UI.Utils.checkDisplay(next, '[class*="uk-animation-"]:not(.uk-cover-background.uk-position-cover)');
 
                     $this.trigger('uk.slideshow.show', [next]);
                 };
 
-            this.applyKenBurns(next);
+            $this.applyKenBurns(next);
 
             // animation fallback
             if (!UI.support.animation) {
@@ -235,7 +235,7 @@
 
         applyKenBurns: function(slide) {
 
-            if ( !(this.options.kenburns && slide.data('cover')) ) {
+            if (!this.hasKenBurns(slide)) {
                 return;
             }
 
@@ -254,6 +254,10 @@
             slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', 'uk-animation-15', animations[index]].join(' '));
 
             this.kbindex = animations[index + 1] ? (index+1):0;
+        },
+
+        hasKenBurns: function(slide) {
+            return (this.options.kenburns && slide.data('cover'));
         },
 
         next: function() {
