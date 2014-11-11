@@ -40,14 +40,18 @@ $sortable-over-opacity:                          0.3 !default;
 }
 
 /*
- * Makes text unselectable
+ * 1. Makes text unselectable
+ * 2. Deactivate browser touch actions in IE11
  */
 
 .uk-sortable > * {
+    /* 1 */
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    /* 2 */
+    touch-action: none;
 }
 
 /*

@@ -48,7 +48,8 @@
  * This is the offcanvas overlay and bar container
  * 1. Hide by default
  * 2. Set fixed position
- * 3. Mask the background page
+ * 3. Deactivate browser touch actions in IE11
+ * 4. Mask the background page
  */
 
 .uk-offcanvas {
@@ -62,6 +63,8 @@
     left: 0;
     z-index: @offcanvas-z-index;
     /* 3 */
+    touch-action: none;
+    /* 4 */
     background: @offcanvas-background;
     .hook-offcanvas;
 }
@@ -96,6 +99,7 @@
  * 2. Size and style
  * 3. Allow scrolling
  * 4. Side-out transition
+ * 5. Deavtivate scroll chaining in IE11
  */
 
 .uk-offcanvas-bar {
@@ -117,6 +121,8 @@
     /* 4 */
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out;
+    /* 5 */
+    -ms-scroll-chaining: none;
     .hook-offcanvas-bar;
 }
 

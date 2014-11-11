@@ -22,12 +22,15 @@
 }
 /*
  * Show caption
+ * 1. `uk-hover` to support touch devices
  */
 .uk-caption-toggle:hover .uk-caption,
+.uk-caption-toggle.uk-hover .uk-caption,
 .uk-active > .uk-caption {
   display: block;
 }
 .uk-caption-toggle:hover .uk-caption.uk-flex,
+.uk-caption-toggle.uk-hover .uk-caption.uk-flex,
 .uk-active > .uk-caption.uk-flex {
   display: -ms-flexbox;
   display: -webkit-flex;

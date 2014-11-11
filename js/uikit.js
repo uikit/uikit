@@ -182,15 +182,34 @@
         }
     };
 
-    UI.Utils.checkDisplay = function(context) {
+    UI.Utils.checkDisplay = function(context, initanimation) {
 
-        var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document);
+        var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
 
         if (context && !elements.length) {
             elements = $(context);
         }
 
         elements.trigger('uk.check.display');
+
+        // fix firefox / IE animations
+        if (initanimation) {
+
+            if (typeof(initanimation)!='string') {
+                initanimation = '[class*="uk-animation-"]';
+            }
+
+            elements.find(initanimation).each(function(){
+
+                var ele  = $(this),
+                    cls  = ele.attr('class'),
+                    anim = cls.match(/uk\-animation\-(.+)/);
+
+                ele.removeClass(anim[0]).width();
+
+                ele.addClass(anim[0]);
+            });
+        }
 
         return elements;
     };
@@ -570,15 +589,15 @@
     // add uk-hover class on tap to support overlays on touch devices
     if (UI.support.touch) {
 
-        var hoverset = false, selector = '.uk-overlay, .uk-overlay-toggle, .uk-has-hover', exclude;
+        var hoverset = false, selector = '.uk-overlay, .uk-overlay-toggle, .uk-caption-toggle, .uk-animation-hover, .uk-has-hover', exclude;
 
-        $html.on('touchstart MSPointerDown', selector, function() {
+        $html.on('touchstart MSPointerDown pointerdown', selector, function() {
 
-            if(hoverset) $('.uk-hover').removeClass('uk-hover');
+            if (hoverset) $('.uk-hover').removeClass('uk-hover');
 
             hoverset = $(this).addClass('uk-hover');
 
-        }).on('touchend MSPointerUp', function(e) {
+        }).on('touchend MSPointerUp pointerup', function(e) {
 
             exclude = $(e.target).parents(selector);
 
@@ -594,6 +613,7 @@
 //  Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
+
   var touch = {},
     touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
     longTapDelay = 750,
@@ -638,7 +658,8 @@
     }
 
     $(document)
-      .bind('MSGestureEnd', function(e){
+      .on('MSGestureEnd gestureend', function(e){
+
         var swipeDirectionFromVelocity = e.originalEvent.velocityX > 1 ? 'Right' : e.originalEvent.velocityX < -1 ? 'Left' : e.originalEvent.velocityY > 1 ? 'Down' : e.originalEvent.velocityY < -1 ? 'Up' : null;
 
         if (swipeDirectionFromVelocity) {
@@ -646,11 +667,13 @@
           touch.el.trigger('swipe'+ swipeDirectionFromVelocity);
         }
       })
-      .on('touchstart MSPointerDown', function(e){
+      // MSPointerDown: for IE10
+      // pointerdown: for IE11
+      .on('touchstart MSPointerDown pointerdown', function(e){
 
         if(e.type == 'MSPointerDown' && !isPrimaryTouch(e.originalEvent)) return;
 
-        firstTouch = e.type == 'MSPointerDown' ? e : e.originalEvent.touches[0];
+        firstTouch = (e.type == 'MSPointerDown' || e.type == 'pointerdown') ? e : e.originalEvent.touches[0];
 
         now      = Date.now();
         delta    = now - (touch.last || now);
@@ -667,13 +690,18 @@
         longTapTimeout = setTimeout(longTap, longTapDelay);
 
         // adds the current touch contact for IE gesture recognition
-        if (gesture && e.type == 'MSPointerDown') gesture.addPointer(e.originalEvent.pointerId);
+        if (gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' ) ) {
+          gesture.addPointer(e.originalEvent.pointerId);
+        }
+
       })
-      .on('touchmove MSPointerMove', function(e){
+      // MSPointerMove: for IE10
+      // pointermove: for IE11
+      .on('touchmove MSPointerMove pointermove', function(e){
 
-        if(e.type == 'MSPointerMove' && !isPrimaryTouch(e.originalEvent)) return;
+        if (e.type == 'MSPointerMove' && !isPrimaryTouch(e.originalEvent)) return;
 
-        firstTouch = e.type == 'MSPointerMove' ? e : e.originalEvent.touches[0];
+        firstTouch = (e.type == 'MSPointerMove' || e.type == 'pointermove') ? e : e.originalEvent.touches[0];
 
         cancelLongTap();
         touch.x2 = firstTouch.pageX;
@@ -682,9 +710,11 @@
         deltaX += Math.abs(touch.x1 - touch.x2);
         deltaY += Math.abs(touch.y1 - touch.y2);
       })
-      .on('touchend MSPointerUp', function(e){
+      // MSPointerUp: for IE10
+      // pointerup: for IE11
+      .on('touchend MSPointerUp pointerup', function(e){
 
-        if(e.type == 'MSPointerUp' && !isPrimaryTouch(e.originalEvent)) return;
+        if (e.type == 'MSPointerUp' && !isPrimaryTouch(e.originalEvent)) return;
 
         cancelLongTap();
 
@@ -1403,7 +1433,7 @@
 
                     if (!$target.parents(".uk-dropdown").length) {
 
-                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
+                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
                             e.preventDefault();
                         }
 
@@ -1479,7 +1509,7 @@
             this.element.addClass("uk-open");
             this.trigger('uk.dropdown.show', [this]);
 
-            UI.Utils.checkDisplay(this.dropdown);
+            UI.Utils.checkDisplay(this.dropdown, true);
             active = this.element;
 
             this.registerOuterClick();
@@ -1835,7 +1865,7 @@
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
-            UI.Utils.checkDisplay(this.dialog);
+            UI.Utils.checkDisplay(this.dialog, true);
 
             return this;
         },
@@ -2421,7 +2451,7 @@
 
                             current.removeClass("uk-active");
                             next.addClass("uk-active");
-                            UI.Utils.checkDisplay(next);
+                            UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;
                         });

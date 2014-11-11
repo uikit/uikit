@@ -47,6 +47,7 @@
   /* 2 */
   overflow: hidden;
   text-indent: -999%;
+  text-align: left;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }

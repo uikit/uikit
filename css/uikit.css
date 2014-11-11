@@ -5187,7 +5187,7 @@ a.uk-thumbnail:focus {
 .uk-overlay-area-content a:not([class]):hover {
   color: inherit;
 }
-/* Sub-object `uk-overlay-caption`
+/* DEPRECATED Sub-object `uk-overlay-caption`
  ========================================================================== */
 /*
  * 1. Set position
@@ -5435,6 +5435,19 @@ a.uk-thumbnail:focus {
 .uk-animation-bottom-right {
   -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
+}
+/* Sub-object: `uk-animation-hover`
+========================================================================== */
+/*
+ * Enable animation only on hover
+ * Needed for Firefox because animations are not triggered when switching between display `hidden` and `block`
+ */
+.uk-animation-hover:not(:hover),
+.uk-animation-hover:not(:hover) [class*='uk-animation-'],
+.uk-touch .uk-animation-hover:not(.uk-hover),
+.uk-touch .uk-animation-hover:not(.uk-hover) [class*='uk-animation-'] {
+  -webkit-animation-name: none;
+  animation-name: none;
 }
 /* Keyframes: Fade
  * Used by dropdown, datepicker and slideshow component
@@ -6187,7 +6200,8 @@ a.uk-thumbnail:focus {
  * This is the offcanvas overlay and bar container
  * 1. Hide by default
  * 2. Set fixed position
- * 3. Mask the background page
+ * 3. Deactivate browser touch actions in IE11
+ * 4. Mask the background page
  */
 .uk-offcanvas {
   /* 1 */
@@ -6200,6 +6214,8 @@ a.uk-thumbnail:focus {
   left: 0;
   z-index: 1000;
   /* 3 */
+  touch-action: none;
+  /* 4 */
   background: rgba(0, 0, 0, 0.1);
 }
 .uk-offcanvas.uk-active {
@@ -6227,6 +6243,7 @@ a.uk-thumbnail:focus {
  * 2. Size and style
  * 3. Allow scrolling
  * 4. Side-out transition
+ * 5. Deavtivate scroll chaining in IE11
  */
 .uk-offcanvas-bar {
   /* 1 */
@@ -6247,6 +6264,8 @@ a.uk-thumbnail:focus {
   /* 4 */
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
+  /* 5 */
+  -ms-scroll-chaining: none;
 }
 .uk-offcanvas.uk-active .uk-offcanvas-bar.uk-offcanvas-bar-show {
   -webkit-transform: translateX(0%);
