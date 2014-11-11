@@ -58,7 +58,7 @@
 
             this.element.addClass("uk-open").trigger("uk.modal.show");
 
-            UI.Utils.checkDisplay(this.dialog);
+            UI.Utils.checkDisplay(this.dialog, true);
 
             return this;
         },

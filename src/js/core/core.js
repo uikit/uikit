@@ -181,15 +181,34 @@
         }
     };
 
-    UI.Utils.checkDisplay = function(context) {
+    UI.Utils.checkDisplay = function(context, initanimation) {
 
-        var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document);
+        var elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
 
         if (context && !elements.length) {
             elements = $(context);
         }
 
         elements.trigger('uk.check.display');
+
+        // fix firefox / IE animations
+        if (initanimation) {
+
+            if (typeof(initanimation)!='string') {
+                initanimation = '[class*="uk-animation-"]';
+            }
+
+            elements.find(initanimation).each(function(){
+
+                var ele  = $(this),
+                    cls  = ele.attr('class'),
+                    anim = cls.match(/uk\-animation\-(.+)/);
+
+                ele.removeClass(anim[0]).width();
+
+                ele.addClass(anim[0]);
+            });
+        }
 
         return elements;
     };
@@ -569,15 +588,15 @@
     // add uk-hover class on tap to support overlays on touch devices
     if (UI.support.touch) {
 
-        var hoverset = false, selector = '.uk-overlay, .uk-overlay-toggle, .uk-has-hover', exclude;
+        var hoverset = false, selector = '.uk-overlay, .uk-overlay-toggle, .uk-caption-toggle, .uk-animation-hover, .uk-has-hover', exclude;
 
-        $html.on('touchstart MSPointerDown', selector, function() {
+        $html.on('touchstart MSPointerDown pointerdown', selector, function() {
 
-            if(hoverset) $('.uk-hover').removeClass('uk-hover');
+            if (hoverset) $('.uk-hover').removeClass('uk-hover');
 
             hoverset = $(this).addClass('uk-hover');
 
-        }).on('touchend MSPointerUp', function(e) {
+        }).on('touchend MSPointerUp pointerup', function(e) {
 
             exclude = $(e.target).parents(selector);
 
