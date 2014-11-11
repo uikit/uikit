@@ -198,6 +198,7 @@
                 currentmedia = current.data('media'),
                 animation    = Animations[this.options.animation] ? this.options.animation : 'fade',
                 nextmedia    = next.data('media'),
+                animated     = next.find('[class*="uk-animation-"]'),
                 finalize     = function() {
 
                     if(!$this.animating) return;
@@ -218,8 +219,6 @@
 
 
                     // fix firefox / IE animations
-                    var animated = next.find('[class*="uk-animation-"]');
-
                     if (animated.length) {
 
                         animated.each(function(){
