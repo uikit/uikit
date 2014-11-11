@@ -25,6 +25,7 @@
   - Fixed nestable not triggering change event
   - Fixed anchor links in offcanvas menu
   - Fixed hidden text in dotnav if text is right aligned
+  - Fixed Saas port (false math calculation in grid component)
   - Fixed IE11 touch support
 
 **Docs and Repo**
