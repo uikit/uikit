@@ -110,9 +110,23 @@
 
                             <h2 id="navigations"><a href="#navigations" class="uk-link-reset">Navigations</a></h2>
 
-                            <p>You can apply different navigations to your slideshow. To do so, you need to wrap the slideshow with a <code>&lt;div&gt;</code> element and add the <code>data-uk-slideshow</code> attribute to the container instead of the slideshow itself. By adding the <code>data-uk-slideshow-item=""</code> attribute to child elements, you create the togglers.</p>
+                            <p>You can use all kinds of elements to navigate through your slideshow. Just add the <code>data-uk-slideshow-item</code> attribute to create the togglers. To target the slides, you need to set the data attribute of every nav item to the number of the respective slideshow item.</p>
 
-                            <p>Setting the attribute to <code>next</code> and <code>previous</code> will switch to the adjacent slides. Alternatively, each nav item can be set to the number of the slideshow item that it should target.</p>
+                            <p><span class="uk-badge">Note</span> You also need to wrap the slideshow with a <code>&lt;div&gt;</code> element and add the <code>data-uk-slideshow</code> attribute to the container instead of the slideshow itself.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- In this slideshow the navigation targets specific elements --&gt;
+&lt;div data-uk-slideshow&gt;
+    &lt;ul class="uk-slideshow"&gt;
+        &lt;li&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;li data-uk-slideshow-item="0"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-slideshow-item="1"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/div&gt;</code></pre>
+
+                            <p>Setting the attribute to <code>next</code> and <code>previous</code> will switch to the adjacent slides.</p>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -124,23 +138,13 @@
     &lt;/ul&gt;
     &lt;a href="" data-uk-slideshow-item="previous"&gt;&lt;/a&gt;
     &lt;a href="" data-uk-slideshow-item="next"&gt;&lt;/a&gt;
-&lt;/div&gt;
-
-&lt;!-- In this slideshow the navigation targets specific elements --&gt;
-&lt;div data-uk-slideshow&gt;
-    &lt;ul class="uk-slideshow"&gt;
-        &lt;li&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;li data-uk-slideshow-item="0"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-    &lt;li data-uk-slideshow-item="1"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
                             <h3 id="slide-dot-nav"><a href="#slide-dot-nav" class="uk-link-reset">Slidenav and Dotnav</a></h3>
 
-                            <p>A slidenav from the <a href="addons_slidenav.html">Slidenav component</a> and/or a dotnav from the <a href="addons_dotnav.html">Dotnav component</a> can be used to style the slideshow navigations.</p>
+                            <p>The flexibility of the Slideshow component enables you to use any of the other UIkit components to navigate through items. For example a <a href="addons_slidenav.html">Slidenav</a> and/or a <a href="addons_dotnav.html">Dotnav</a> can be used to style the slideshow navigations as you can see below.</p>
 
                             <h4 class="tm-article-subtitle">Example</h4>
 
@@ -309,7 +313,7 @@
 
                             <h2 id="captions"><a href="#captions" class="uk-link-reset">Captions</a></h2>
 
-                            <p>You can also enhance slideshows with different captions. Just include the <code>caption.js</code> file in your document head and add the <code>.uk-caption</code> and – if necessary – position classes from the <a href="addons_caption.html">Caption component</a> to a <code>&lt;div&gt;</code> element inside the list item.</p>
+                            <p>You can also enhance slideshows with different captions. Just include the <code>caption.js</code> file in your document head and add the <code>.uk-caption</code> to a <code>&lt;div&gt;</code> element inside the list item. For more options, check out the <a href="addons_caption.html">Caption component</a>.</p>
 
 
                             <h3 class="tm-article-subtitle">Example</h3>
@@ -363,11 +367,60 @@
                                 <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next" style="color: rgba(255,255,255,0.4)"></a>
                             </div>
 
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-slideshow" data-uk-slideshow&gt;
+    &lt;li&gt;
+        &lt;div class="uk-caption"&gt;...&lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="video"><a href="#video" class="uk-link-reset">Video</a></h2>
+
+                            <p>UIkit allows you to present both video elements and Iframes within a slideshow.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-slidenav-position" data-uk-slideshow>
+                                <ul class="uk-slideshow">
+                                    <li>
+                                        <video width="600" height="400" autoplay loop muted controls>
+                                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
+                                        </video>
+                                    </li>
+                                    <li>
+                                        <iframe src="http://player.vimeo.com/video/1084537?autoplay=1&amp;loop=1&amp;badge=0&amp;byline=0&amp;portrait=0&amp;title=0" width="620" height="360" frameborder="0" allowfullscreen></iframe>
+                                    </li>
+                                </ul>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is a slideshow with a video element --&gt;
+&lt;ul class="uk-slideshow"&gt;
+    &lt;li&gt;
+        &lt;video width="" height="" autoplay loop muted controls&gt;
+            &lt;source src="" type="video/mp4"&gt;
+        &lt;/video&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is a slideshow with an Iframe --&gt;
+&lt;ul class="uk-slideshow"&gt;
+    &lt;li&gt;
+        &lt;iframe src="" width="" height="" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
                             <hr class="uk-article-divider">
 
                             <h2 id="content"><a href="#content" class="uk-link-reset">Content</a></h2>
 
-                            <p>Slideshow items are not restricted to just images. You can basically insert any content, like text.</p>
+                            <p>You can basically insert any content, like text or an entire grid as slideshow items.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -419,47 +472,6 @@
                                 <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
                                 <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
                             </div>
-
-                            <hr class="uk-article-divider">
-
-                            <h2 id="video"><a href="#video" class="uk-link-reset">Video</a></h2>
-
-                            <p>UIkit allows you to present both video elements and Iframes within a slideshow.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-slidenav-position" data-uk-slideshow>
-                                <ul class="uk-slideshow">
-                                    <li>
-                                        <video width="600" height="400" autoplay loop muted controls>
-                                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
-                                        </video>
-                                    </li>
-                                    <li>
-                                        <iframe src="http://player.vimeo.com/video/1084537?autoplay=1&amp;loop=1&amp;badge=0&amp;byline=0&amp;portrait=0&amp;title=0" width="620" height="360" frameborder="0" allowfullscreen></iframe>
-                                    </li>
-                                </ul>
-                                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
-                                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideshow-item="next"></a>
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;!-- This is a slideshow with a video element --&gt;
-&lt;ul class="uk-slideshow"&gt;
-    &lt;li&gt;
-        &lt;video width="" height="" autoplay loop muted controls&gt;
-            &lt;source src="" type="video/mp4"&gt;
-        &lt;/video&gt;
-    &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!-- This is a slideshow with an Iframe --&gt;
-&lt;ul class="uk-slideshow"&gt;
-    &lt;li&gt;
-        &lt;iframe src="" width="" height="" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-    &lt;/li&gt;
-&lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
