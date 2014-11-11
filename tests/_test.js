@@ -105,7 +105,7 @@
             "core/thumbnail",
             "core/toggle",
             "core/tooltip",
-            "core/touch-gestures",
+            "core/touch",
             "core/utility",
 
         "::Components",
