@@ -86,12 +86,14 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply the Caption component to an image, wrap the image in a container element and add the <code>.uk-caption-toggle</code> class. Add the <code>.uk-caption</code> class to another element inside the container to create the caption itself. To see a slideshow with captions go to the <a href="addons_slideshow.html#captions">Slideshow component</a>.</p>
+                            <p>To apply the Caption component to an image, wrap the image in a container element and add the <code>.uk-caption-toggle</code> class. Add the <code>.uk-caption</code> class to another element inside the container to create the caption itself.</p>
+
+                            <p>You can also add an animation from the <a href="animation.html">Animation component</a> to the caption. To trigger the animation you also need to add <code>.uk-animation-hover</code> to element with the caption toggle.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-width-medium-2-3">
-                                <figure class="uk-caption-toggle">
+                                <figure class="uk-caption-toggle uk-animation-hover">
                                     <img src="images/placeholder_600x400.svg" alt="Image">
                                     <figcaption class="uk-caption uk-animation-fade">
                                         <div>
@@ -102,14 +104,14 @@
                                 </figure>
                             </div>
 
-                            <p><span class="uk-badge">Note</span> You can also add a transition from the <a href="animation.html">Animation component</a> to captions.</p>
-
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;figure class="uk-caption-toggle"&gt;
+<pre><code>&lt;figure class="uk-caption-toggle uk-animation-hover"&gt;
    &lt;img src="" alt=""&gt;
    &lt;figcaption class="uk-caption uk-animation-fade"&gt;...&lt;/figcaption&gt;
 &lt;/figure&gt;</code></pre>
+
+                            <p><span class="uk-badge">Note</span> To see a slideshow with captions go to the <a href="addons_slideshow.html#captions">Slideshow component</a>.</p>
 
                             <hr class="uk-article-divider">
 
@@ -120,7 +122,7 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-width-medium-2-3">
-                                <figure class="uk-caption-toggle">
+                                <figure class="uk-caption-toggle uk-animation-hover">
                                     <img src="images/placeholder_600x400.svg" alt="Image">
                                     <figcaption class="uk-caption uk-caption-panel uk-animation-fade">
                                         <div>
@@ -178,7 +180,7 @@
                             <ul class="uk-grid" data-uk-grid-margin>
 
                                 <li class="uk-width-medium-1-2">
-                                    <figure class="uk-caption-toggle">
+                                    <figure class="uk-caption-toggle uk-animation-hover">
                                         <img src="images/placeholder_600x400.svg" alt="Image">
                                         <figcaption class="uk-caption uk-caption-top uk-caption-panel uk-animation-slide-top">
                                             <h3>Caption Top</h3>
@@ -188,7 +190,7 @@
                                 </li>
 
                                 <li class="uk-width-medium-1-2">
-                                    <figure class="uk-caption-toggle">
+                                    <figure class="uk-caption-toggle uk-animation-hover">
                                         <img src="images/placeholder_600x400.svg" alt="Image">
                                         <figcaption class="uk-caption uk-caption-bottom uk-caption-panel uk-animation-slide-bottom">
                                             <h3>Caption Bottom</h3>
@@ -198,7 +200,7 @@
                                 </li>
 
                                 <li class="uk-width-medium-1-2">
-                                    <figure class="uk-caption-toggle">
+                                    <figure class="uk-caption-toggle uk-animation-hover">
                                         <img src="images/placeholder_600x400.svg" alt="Image">
                                         <figcaption class="uk-caption uk-caption-left uk-caption-panel uk-animation-slide-left uk-width-1-2">
                                             <h3>Caption Left</h3>
@@ -208,7 +210,7 @@
                                 </li>
 
                                 <li class="uk-width-medium-1-2">
-                                    <figure class="uk-caption-toggle">
+                                    <figure class="uk-caption-toggle uk-animation-hover">
                                         <img src="images/placeholder_600x400.svg" alt="Image">
                                         <figcaption class="uk-caption uk-caption-right uk-caption-panel uk-animation-slide-right uk-width-1-2">
                                             <h3>Caption Right</h3>
@@ -235,7 +237,7 @@
                             <h4 class="tm-article-subtitle">Example</h4>
 
                             <div class="uk-width-medium-2-3">
-                                <figure class="uk-caption-toggle">
+                                <figure class="uk-caption-toggle uk-animation-hover">
                                     <img src="images/placeholder_600x400.svg" alt="Image">
                                     <figcaption class="uk-caption uk-caption-panel uk-animation-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
                                         <div>
