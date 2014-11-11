@@ -14,6 +14,7 @@
   - Added missing form-advanced theme files
   - Added Less error handler for gulp task
   - Added "use strict" to all JavaScript files
+  - Added uk-animation-hover class
   - Better timing-function for reverse animations
   - Trigger uk.check.display on context element if no related children found
   - Updated moment.js in datepicker component
@@ -30,6 +31,7 @@
 
 **Docs and Repo**
 
+  - Added docs and tests for new add-ons
   - Updated switcher doc and test
   - Updated flex test
   - Updated sortable test
