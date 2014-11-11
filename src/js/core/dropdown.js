@@ -116,7 +116,7 @@
             this.element.addClass("uk-open");
             this.trigger('uk.dropdown.show', [this]);
 
-            UI.Utils.checkDisplay(this.dropdown);
+            UI.Utils.checkDisplay(this.dropdown, true);
             active = this.element;
 
             this.registerOuterClick();

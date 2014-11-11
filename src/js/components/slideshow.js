@@ -198,7 +198,6 @@
                 currentmedia = current.data('media'),
                 animation    = Animations[this.options.animation] ? this.options.animation : 'fade',
                 nextmedia    = next.data('media'),
-                animated     = next.find('[class*="uk-animation-"]'),
                 finalize     = function() {
 
                     if(!$this.animating) return;
@@ -217,23 +216,7 @@
                     $this.animating = false;
                     $this.current   = index;
 
-
-                    // fix firefox / IE animations
-                    if (animated.length) {
-
-                        animated.each(function(){
-
-                            var ele  = $(this),
-                                cls  = ele.attr('class'),
-                                anim = cls.match(/uk\-animation\-(.+)/);
-
-                            ele.removeClass(anim[0]).width();
-
-                            ele.addClass(anim[0]);
-                        });
-                    }
-
-                    UI.Utils.checkDisplay(next);
+                    UI.Utils.checkDisplay(next, true);
 
                     $this.trigger('uk.slideshow.show', [next]);
                 };
