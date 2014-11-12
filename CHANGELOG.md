@@ -1,5 +1,8 @@
 # Changelog
 
+### WIP
+  - Updated active paremeter for the switcher component to allow false as value
+
 ### 2.12.0 (November 11, 2014)
 
   - IMPORTANT: Renamed uk-animation-10 to uk-animation-15

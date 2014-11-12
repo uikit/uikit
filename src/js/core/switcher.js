@@ -57,6 +57,9 @@
                 if (active.length) {
                     this.show(active, false);
                 } else {
+
+                    if (this.options.active===false) return;
+
                     active = toggles.eq(this.options.active);
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
