@@ -31,18 +31,22 @@
 
 @slidenav-width:                                60px;
 @slidenav-height:                               @slidenav-width;
-@slidenav-color:                                rgba(50,50,50,0.4);
+@slidenav-color:                                rgba(255,255,255,0.5);
 @slidenav-font-size:                            60px;
 @slidenav-line-height:                          @slidenav-height;
 @slidenav-previous-icon:                        "\f104";
 @slidenav-next-icon:                            "\f105";
 
-@slidenav-hover-color:                          rgba(50,50,50,0.7);
+@slidenav-hover-color:                          rgba(255,255,255,0.7);
 
-@slidenav-active-color:                         rgba(50,50,50,0.9);
+@slidenav-active-color:                         rgba(255,255,255,0.9);
 
 @slidenav-position-previous:                    20px;
 @slidenav-position-next:                        @slidenav-position-previous;
+
+@slidenav-inverted-color:                       rgba(50,50,50,0.4);
+@slidenav-inverted-hover-color:                 rgba(50,50,50,0.7);
+@slidenav-inverted-active-color:                rgba(50,50,50,0.9);
 
 
 /* ========================================================================
@@ -139,6 +143,32 @@
 .uk-slidenav-position .uk-slidenav-next { right: @slidenav-position-next; }
 
 
+/* Modifier: `uk-slidenav-inverted`
+ ========================================================================== */
+
+.uk-slidenav-inverted {
+    color: @slidenav-inverted-color;
+    .hook-slidenav-inverted;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+
+.uk-slidenav-inverted:hover,
+.uk-slidenav-inverted:focus { // 1
+    color: @slidenav-inverted-hover-color;
+    .hook-slidenav-inverted-hover;
+}
+
+/* Active */
+.uk-slidenav-inverted:active {
+    color: @slidenav-inverted-active-color;
+    .hook-slidenav-inverted-active;
+}
+
+
 // Hooks
 // ========================================================================
 
@@ -149,4 +179,7 @@
 .hook-slidenav-next() {}
 .hook-slidenav-hover() {}
 .hook-slidenav-active() {}
+.hook-slidenav-inverted() {}
+.hook-slidenav-inverted-hover() {}
+.hook-slidenav-inverted-active() {}
 .hook-slidenav-misc() {}
