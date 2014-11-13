@@ -138,7 +138,7 @@
 
                             <h3 id="switcher-content-switch"><a href="#switcher-content-switch" class="uk-link-reset">Switch items from within content</a></h3>
 
-                            <p>In some cases you want to switch to another content section from within the active content. This is possible by combining the <code>data-uk-switcher-item</code> attribute with anchors.</p>
+                            <p>In some cases you want to switch to another content section from within the active content. This is possible by combining the <code>data-uk-switcher-item</code> attribute with anchors. To target the items, you need to set the data attribute of every toggle to the number of the respective content item.</p>
 
                             <h4 class="tm-article-subtitle">Example</h4>
 
@@ -172,8 +172,16 @@
 
 &lt;!-- This is the container of the content items --&gt;
 &lt;ul id="my-id" class="uk-switcher"&gt;
-    &lt;li&gt; ... &lt;a href="" data-uk-switcher-item=""&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt; ... &lt;a href="" data-uk-switcher-item="0"&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt; ... &lt;a href="" data-uk-switcher-item="1"&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
+
+                            <p>Setting the attribute to <code>next</code> and <code>previous</code> will switch to the adjacent items.</p>
+
+<h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;li&gt; ... &lt;a href="" data-uk-switcher-item="next"&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; ... &lt;a href="" data-uk-switcher-item="previous"&gt;...&lt;/a&gt;&lt;/li&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
