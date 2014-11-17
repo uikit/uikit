@@ -72,20 +72,21 @@
 
                             var src = media[0].src;
 
-                            media.attr('src', '').on('load', function(){
+                            media
+                                .attr('src', '').on('load', function(){
 
-                                if (index !== $this.current || (index == $this.current && $this.options.videoautoplay)) {
-                                    $this.pausemedia(media);
-                                }
+                                    if (index !== $this.current || (index == $this.current && !$this.options.videoautoplay)) {
+                                        $this.pausemedia(media);
+                                    }
 
-                                if ($this.options.videomute) {
-                                    this.contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
-                                }
+                                    if ($this.options.videomute) {
+                                        $this.mutemedia(media);
+                                    }
 
-                            })
-                            .attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''))
-                            .addClass('uk-position-absolute')
-                            .css('pointer-events', 'none');
+                                })
+                                .attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''))
+                                .addClass('uk-position-absolute')
+                                .css('pointer-events', 'none');
 
                             placeholder = true;
 
@@ -98,6 +99,8 @@
                         case 'VIDEO':
                             media.addClass('uk-cover-object uk-position-absolute');
                             placeholder = true;
+
+                            if ($this.options.videomute) $this.mutemedia(media);
                     }
 
                     if (placeholder) {
@@ -307,6 +310,18 @@
                     break;
                 case 'IFRAME':
                     media[0].contentWindow.postMessage('{ "event": "command", "func": "pauseVideo", "method":"pause"}', '*');
+                    break;
+            }
+        },
+
+        mutemedia: function(media) {
+
+            switch(media[0].nodeName) {
+                case 'VIDEO':
+                    media[0].muted = true;
+                    break;
+                case 'IFRAME':
+                    media[0].contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
                     break;
             }
         }
