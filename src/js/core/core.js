@@ -306,17 +306,16 @@
             i = i + 1;
         }
 
-        fn  = [
+        fn  = new Function('$data', [
             'var __ret = [];',
             'try {',
             'with($data){', (!openblocks ? output.join('') : '__ret = ["Not all blocks are closed correctly."]'), '};',
             '}catch(e){__ret = [e.message];}',
             'return __ret.join("").replace(/\\n\\n/g, "\\n");',
             "function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"
-        ].join("\n");
+        ].join("\n"));
 
-        var func = new Function('$data', fn);
-        return data ? func(data) : func;
+        return data ? fn(data) : fn;
     };
 
     UI.Utils.events       = {};
