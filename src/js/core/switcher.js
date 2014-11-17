@@ -73,7 +73,15 @@
                 return;
             }
 
-            tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
+            if (isNaN(tab)) {
+                tab = $(tab);
+            } else {
+
+                var togglers = this.find(this.options.toggle);
+
+                tab = tab < 0 ? togglers.length-1 : tab;
+                tab = togglers.eq(togglers[tab] ? tab : 0);
+            }
 
             var $this     = this,
                 active    = tab,
