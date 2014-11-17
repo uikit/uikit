@@ -113,13 +113,26 @@
     UI.support.touch                 = (
         ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
-        (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || //IE 10
-        (global.navigator['pointerEnabled'] && global.navigator['maxTouchPoints'] > 0) || //IE >=11
+        (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
+        (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
         false
     );
     UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
 
     UI.Utils = {};
+
+    UI.Utils.str2json = function(str) {
+
+        var token = /[^,:{}\[\]]+/g, quote = /^['"](.*)['"]$/, escap = /(["])/g;
+
+        return String(str).trim().replace(token, function (a) {
+            a = a.trim();
+            if ('' === a || 'true' === a || 'false' === a || 'null' === a || (!isNaN(parseFloat(a)) && isFinite(a))) {
+                return a;
+            }
+            return '"' + a.replace(quote, '$1').replace(escap, '\\$1')+ '"';
+        });
+    };
 
     UI.Utils.debounce = function(func, wait, immediate) {
         var timeout;
@@ -221,7 +234,7 @@
 
         if (start != -1) {
             try {
-                options = (new Function("", "var json = " + string.substr(start) + "; return JSON.parse(JSON.stringify(json));"))();
+                options = JSON.parse(UI.Utils.str2json(string.substr(start)));
             } catch (e) {}
         }
 
