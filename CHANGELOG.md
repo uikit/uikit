@@ -2,6 +2,7 @@
 
 ### WIP
   - Added slidenav-inverted modifier
+  - Added direction info to the uk-scroll event
   - Updated active paremeter for the switcher component to allow false as value
 
 ### 2.12.0 (November 11, 2014)

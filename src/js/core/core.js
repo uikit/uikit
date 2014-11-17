@@ -342,6 +342,8 @@
             });
 
             this.trigger('uk.component.init', [name, this]);
+
+            return this;
         };
 
         fn.plugins = {};
@@ -398,7 +400,8 @@
 
             var element, options;
 
-            if(arguments.length) {
+            if (arguments.length) {
+
                 switch(arguments.length) {
                     case 1:
 
@@ -532,21 +535,30 @@
         // custom scroll observer
         setInterval((function(){
 
-            var memory = {x: window.pageXOffset, y:window.pageYOffset};
+            var memory = {x: window.pageXOffset, y:window.pageYOffset}, dir;
 
             var fn = function(){
 
                 if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
-                    memory = {x: window.pageXOffset, y:window.pageYOffset};
+
+                    dir = {x: 0 , y: 0};
+
+                    if (window.pageXOffset != memory.x) dir.x = window.pageXOffset > memory.x ? 1:-1;
+                    if (window.pageYOffset != memory.y) dir.y = window.pageYOffset > memory.y ? 1:-1;
+
+                    memory = {
+                        "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
+                    };
+
                     $doc.trigger('uk-scroll', [memory]);
                 }
             };
 
             if ($.UIkit.support.touch) {
-                $doc.on('touchmove touchend MSPointerMove MSPointerUp', fn);
+                $html.on('touchmove touchend MSPointerMove MSPointerUp pointermove pointerup', fn);
             }
 
-            if(memory.x || memory.y) fn();
+            if (memory.x || memory.y) fn();
 
             return fn;
 

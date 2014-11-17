@@ -125,7 +125,7 @@
                 }
             };
 
-            if(this.options.smoothscroll && UI["smoothScroll"]) {
+            if (this.options.smoothscroll && UI.smoothScroll) {
                 links.each(function(){
                     UI.smoothScroll(this, $this.options.smoothscroll);
                 });
