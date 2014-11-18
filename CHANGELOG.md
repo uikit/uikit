@@ -6,6 +6,7 @@
   - Added $.UIkit.Utils.str2json helper function
   - Updated active paremeter for the switcher component to allow false as value
   - Fixed automute in slideshow component
+  - Fixed hidden text in dotnav
 
 ### 2.12.0 (November 11, 2014)
 
