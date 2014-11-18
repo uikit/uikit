@@ -103,6 +103,11 @@
                     }
                 }
 
+                // prevent dragging if taget is a form field
+                if (target.is(':input')) {
+                    return;
+                }
+
                 if (e.dataTransfer) {
                     e.dataTransfer.effectAllowed = 'move';
                     e.dataTransfer.dropEffect = 'move';
