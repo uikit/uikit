@@ -17,6 +17,30 @@
 
         remainIdle: false,
 
+        boot: function() {
+
+            var triggerevent = UI.support.touch ? "click" : "mouseenter";
+
+            // init code
+            UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+
+                var ele = $(this);
+
+                if (!ele.data("dropdown")) {
+
+                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
+
+                    if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
+                        dropdown.element.trigger(triggerevent);
+                    }
+
+                    if(dropdown.element.find('.uk-dropdown').length) {
+                        e.preventDefault();
+                    }
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -234,27 +258,6 @@
             dropdown.css("display", "");
         }
 
-    });
-
-    var triggerevent = UI.support.touch ? "click" : "mouseenter";
-
-    // init code
-    UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
-
-        var ele = $(this);
-
-        if (!ele.data("dropdown")) {
-
-            var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
-
-            if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
-                dropdown.element.trigger(triggerevent);
-            }
-
-            if(dropdown.element.find('.uk-dropdown').length) {
-                e.preventDefault();
-            }
-        }
     });
 
 })(jQuery, jQuery.UIkit);

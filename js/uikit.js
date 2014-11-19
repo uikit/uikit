@@ -21,6 +21,7 @@
 
                 req(load, function() {
                     onload(uikit);
+                    uikit.component.bootComponents();
                 });
             };
 
@@ -48,6 +49,7 @@
     }
 
     UI.version = '2.12.0';
+    UI.prefix  = 'uk-';
     UI.$doc    = $doc;
     UI.$win    = $win;
     UI.$html   = $html;
@@ -114,13 +116,27 @@
     UI.support.touch                 = (
         ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
-        (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || //IE 10
-        (global.navigator['pointerEnabled'] && global.navigator['maxTouchPoints'] > 0) || //IE >=11
+        (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
+        (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
         false
     );
     UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
 
     UI.Utils = {};
+
+    UI.Utils.str2json = function(str) {
+        return str
+        // wrap keys without quote with valid double quote
+        .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
+        // replacing single quote wrapped ones to double quote
+        .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';});
+
+        /* old method:
+            try {
+                return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
+            } catch(e) { return false; }
+        */
+    };
 
     UI.Utils.debounce = function(func, wait, immediate) {
         var timeout;
@@ -222,7 +238,7 @@
 
         if (start != -1) {
             try {
-                options = (new Function("", "var json = " + string.substr(start) + "; return JSON.parse(JSON.stringify(json));"))();
+                options = JSON.parse(UI.Utils.str2json(string.substr(start)));
             } catch (e) {}
         }
 
@@ -294,17 +310,16 @@
             i = i + 1;
         }
 
-        fn  = [
+        fn  = new Function('$data', [
             'var __ret = [];',
             'try {',
             'with($data){', (!openblocks ? output.join('') : '__ret = ["Not all blocks are closed correctly."]'), '};',
             '}catch(e){__ret = [e.message];}',
             'return __ret.join("").replace(/\\n\\n/g, "\\n");',
             "function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"
-        ].join("\n");
+        ].join("\n"));
 
-        var func = new Function('$data', fn);
-        return data ? func(data) : func;
+        return data ? fn(data) : fn;
     };
 
     UI.Utils.events       = {};
@@ -343,6 +358,8 @@
             });
 
             this.trigger('uk.component.init', [name, this]);
+
+            return this;
         };
 
         fn.plugins = {};
@@ -351,6 +368,7 @@
 
             defaults : {plugins: []},
 
+            boot: function(){},
             init: function(){},
 
             on: function(){
@@ -399,7 +417,8 @@
 
             var element, options;
 
-            if(arguments.length) {
+            if (arguments.length) {
+
                 switch(arguments.length) {
                     case 1:
 
@@ -430,6 +449,21 @@
 
     UI.plugin = function(component, name, def) {
         this.components[component].plugins[name] = def;
+    };
+
+    UI.component.boot = function(name) {
+
+        if (UI.components[name].prototype && UI.components[name].prototype.boot && !UI.components[name].booted) {
+            UI.components[name].prototype.boot.apply(UI, []);
+            UI.components[name].booted = true;
+        }
+    };
+
+    UI.component.bootComponents = function() {
+
+        for (var component in UI.components) {
+            UI.component.boot(component);
+        }
     };
 
 
@@ -525,6 +559,10 @@
         UI.Utils.checkDisplay(ele);
     });
 
+    UI.on('uk.domready.before', function(e) {
+        UI.component.bootComponents();
+    });
+
 
     $(function(){
 
@@ -533,21 +571,30 @@
         // custom scroll observer
         setInterval((function(){
 
-            var memory = {x: window.pageXOffset, y:window.pageYOffset};
+            var memory = {x: window.pageXOffset, y:window.pageYOffset}, dir;
 
             var fn = function(){
 
                 if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
-                    memory = {x: window.pageXOffset, y:window.pageYOffset};
+
+                    dir = {x: 0 , y: 0};
+
+                    if (window.pageXOffset != memory.x) dir.x = window.pageXOffset > memory.x ? 1:-1;
+                    if (window.pageYOffset != memory.y) dir.y = window.pageYOffset > memory.y ? 1:-1;
+
+                    memory = {
+                        "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
+                    };
+
                     $doc.trigger('uk-scroll', [memory]);
                 }
             };
 
             if ($.UIkit.support.touch) {
-                $doc.on('touchmove touchend MSPointerMove MSPointerUp', fn);
+                $html.on('touchmove touchend MSPointerMove MSPointerUp pointermove pointerup', fn);
             }
 
-            if(memory.x || memory.y) fn();
+            if (memory.x || memory.y) fn();
 
             return fn;
 
@@ -614,10 +661,12 @@
 
 ;(function($){
 
-  var touch = {},
-    touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
-    longTapDelay = 750,
-    gesture;
+  if ($.fn.swipeLeft) {
+    return;
+  }
+
+
+  var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture;
 
   function swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
@@ -778,6 +827,7 @@
     $.fn[eventName] = function(callback){ return $(this).on(eventName, callback); };
   });
 })(jQuery);
+
 (function($, UI) {
 
     "use strict";
@@ -788,6 +838,21 @@
 
         defaults: {
             'cls': 'uk-margin-small-top'
+        },
+
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-margin]", context).each(function() {
+                    var ele = $(this), obj;
+
+                    if (!ele.data("stackMargin")) {
+                        obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -863,24 +928,28 @@
         }
     });
 
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-margin]", context).each(function() {
-            var ele = $(this), obj;
-
-            if (!ele.data("stackMargin")) {
-                obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
-            }
-        });
-    });
-
 })(jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";
 
     UI.component('smoothScroll', {
+
+        boot: function() {
+
+            // init code
+            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("smoothScroll")) {
+                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
+                    ele.trigger("click");
+                }
+
+                return false;
+            });
+        },
 
         init: function() {
 
@@ -921,19 +990,8 @@
         $.easing['easeOutExpo'] = function(x, t, b, c, d) { return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b; };
     }
 
-    // init code
-    UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("smoothScroll")) {
-            var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
-            ele.trigger("click");
-        }
-
-        return false;
-    });
-
 })(jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";
@@ -956,6 +1014,26 @@
             "leftoffset" : 0,
             "repeat"     : false,
             "delay"      : 0
+        },
+
+        boot: function() {
+
+            // listen to scroll and resize
+            $doc.on("uk-scroll", checkScrollSpy);
+            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-scrollspy]", context).each(function() {
+
+                    var element = $(this);
+
+                    if (!element.data("scrollspy")) {
+                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -1021,6 +1099,26 @@
             "smoothscroll" : false
         },
 
+        boot: function() {
+
+            // listen to scroll and resize
+            $doc.on("uk-scroll", checkScrollSpyNavs);
+            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-scrollspy-nav]", context).each(function() {
+
+                    var element = $(this);
+
+                    if (!element.data("scrollspynav")) {
+                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var ids     = [],
@@ -1061,7 +1159,7 @@
                 }
             };
 
-            if(this.options.smoothscroll && UI["smoothScroll"]) {
+            if (this.options.smoothscroll && UI.smoothScroll) {
                 links.each(function(){
                     UI.smoothScroll(this, $this.options.smoothscroll);
                 });
@@ -1077,39 +1175,8 @@
         }
     });
 
-
-    var fnCheck = function(){
-        checkScrollSpy();
-        checkScrollSpyNavs();
-    };
-
-    // listen to scroll and resize
-    $doc.on("uk-scroll", fnCheck);
-    $win.on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-scrollspy]", context).each(function() {
-
-            var element = $(this);
-
-            if (!element.data("scrollspy")) {
-                var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
-            }
-        });
-
-        $("[data-uk-scrollspy-nav]", context).each(function() {
-
-            var element = $(this);
-
-            if (!element.data("scrollspynav")) {
-                var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
-            }
-        });
-    });
-
 })(jQuery, jQuery.UIkit);
+
 (function(global, $, UI){
 
     "use strict";
@@ -1123,6 +1190,29 @@
             cls       : 'uk-hidden',
             animation : false,
             duration  : 200
+        },
+
+        boot: function(){
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-toggle]", context).each(function() {
+                    var ele = $(this);
+
+                    if (!ele.data("toggle")) {
+                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+                    }
+                });
+
+                setTimeout(function(){
+
+                    togglers.forEach(function(toggler){
+                        toggler.getTogglers();
+                    });
+
+                }, 0);
+            });
         },
 
         init: function() {
@@ -1188,28 +1278,6 @@
         }
     });
 
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-toggle]", context).each(function() {
-            var ele = $(this);
-
-            if (!ele.data("toggle")) {
-               var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
-            }
-        });
-
-        setTimeout(function(){
-
-            togglers.forEach(function(toggler){
-                toggler.getTogglers();
-            });
-
-        }, 0);
-    });
-
-
-
 })(this, jQuery, jQuery.UIkit);
 
 (function($, UI) {
@@ -1222,6 +1290,25 @@
             "fade": true,
             "duration": 200,
             "trigger": ".uk-alert-close"
+        },
+
+        boot: function() {
+
+            // init code
+            UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
+
+                var ele = $(this);
+
+                if (!ele.data("alert")) {
+
+                    var alert = UI.alert(ele, UI.Utils.options(ele.data("uk-alert")));
+
+                    if ($(e.target).is(ele.data("alert").options.trigger)) {
+                        e.preventDefault();
+                        alert.close();
+                    }
+                }
+            });
         },
 
         init: function() {
@@ -1258,23 +1345,8 @@
 
     });
 
-    // init code
-    UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
-
-        var ele = $(this);
-
-        if (!ele.data("alert")) {
-
-            var alert = UI.alert(ele, UI.Utils.options(ele.data("uk-alert")));
-
-            if ($(e.target).is(ele.data("alert").options.trigger)) {
-                e.preventDefault();
-                alert.close();
-            }
-        }
-    });
-
 })(jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";
@@ -1283,6 +1355,22 @@
 
         defaults: {
             "target": ".uk-button"
+        },
+
+        boot: function() {
+
+            // init code
+            UI.$html.on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("buttonRadio")) {
+                    var obj = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
+
+                    if ($(e.target).is(obj.options.target)) {
+                        $(e.target).trigger("click");
+                    }
+                }
+            });
         },
 
         init: function() {
@@ -1310,6 +1398,22 @@
             "target": ".uk-button"
         },
 
+        boot: function() {
+
+            UI.$html.on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("buttonCheckbox")) {
+
+                    var obj = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))), target=$(e.target);
+
+                    if (target.is(obj.options.target)) {
+                        ele.trigger("uk.button.change", [target.toggleClass("uk-active").blur()]);
+                    }
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -1333,6 +1437,19 @@
 
         defaults: {},
 
+        boot: function() {
+
+            UI.$html.on("click.button.uikit", "[data-uk-button]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("button")) {
+
+                    var obj = UI.button(ele, UI.Utils.options(ele.attr("data-uk-button")));
+                    ele.trigger("click");
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -1349,43 +1466,6 @@
 
         toggle: function() {
             this.element.toggleClass("uk-active");
-        }
-    });
-
-
-    // init code
-    UI.$html.on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("buttonRadio")) {
-            var obj = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
-
-            if ($(e.target).is(obj.options.target)) {
-                $(e.target).trigger("click");
-            }
-        }
-    });
-
-    UI.$html.on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("buttonCheckbox")) {
-
-            var obj = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))), target=$(e.target);
-
-            if (target.is(obj.options.target)) {
-                ele.trigger("uk.button.change", [target.toggleClass("uk-active").blur()]);
-            }
-        }
-    });
-
-    UI.$html.on("click.button.uikit", "[data-uk-button]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("button")) {
-
-            var obj = UI.button(ele, UI.Utils.options(ele.attr("data-uk-button")));
-            ele.trigger("click");
         }
     });
 
@@ -1408,6 +1488,30 @@
         },
 
         remainIdle: false,
+
+        boot: function() {
+
+            var triggerevent = UI.support.touch ? "click" : "mouseenter";
+
+            // init code
+            UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+
+                var ele = $(this);
+
+                if (!ele.data("dropdown")) {
+
+                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
+
+                    if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
+                        dropdown.element.trigger(triggerevent);
+                    }
+
+                    if(dropdown.element.find('.uk-dropdown').length) {
+                        e.preventDefault();
+                    }
+                }
+            });
+        },
 
         init: function() {
 
@@ -1628,27 +1732,6 @@
 
     });
 
-    var triggerevent = UI.support.touch ? "click" : "mouseenter";
-
-    // init code
-    UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
-
-        var ele = $(this);
-
-        if (!ele.data("dropdown")) {
-
-            var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
-
-            if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
-                dropdown.element.trigger(triggerevent);
-            }
-
-            if(dropdown.element.find('.uk-dropdown').length) {
-                e.preventDefault();
-            }
-        }
-    });
-
 })(jQuery, jQuery.UIkit);
 
 (function($, UI) {
@@ -1662,6 +1745,21 @@
         defaults: {
             "target" : false,
             "row"    : true
+        },
+
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-grid-margin]", context).each(function() {
+                    var grid = $(this), obj;
+
+                    if (!grid.data("gridMatchHeight")) {
+                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -1779,6 +1877,21 @@
             "cls": "uk-grid-margin"
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-grid-margin]", context).each(function() {
+                    var grid = $(this), obj;
+
+                    if (!grid.data("gridMargin")) {
+                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -1787,24 +1900,8 @@
         }
     });
 
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-grid-match],[data-uk-grid-margin]", context).each(function() {
-            var grid = $(this), obj;
-
-            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {
-                obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
-            }
-
-            if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
-                obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
-            }
-        });
-    });
-
 })(jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";
@@ -1944,6 +2041,38 @@
 
     UI.component('modalTrigger', {
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
+
+                var ele = $(this);
+
+                if (ele.is("a")) {
+                    e.preventDefault();
+                }
+
+                if (!ele.data("modalTrigger")) {
+                    var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
+                    modal.show();
+                }
+
+            });
+
+            // close modal on esc button
+            UI.$html.on('keydown.modal.uikit', function (e) {
+
+                if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
+                    e.preventDefault();
+                    active.hide();
+                }
+            });
+
+            UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
+                if (active) active.resize();
+            }, 150));
+        },
+
         init: function() {
 
             var $this = this;
@@ -2008,35 +2137,6 @@
         modal.show();
     };
 
-    // init code
-    UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
-
-        var ele = $(this);
-
-        if(ele.is("a")) {
-            e.preventDefault();
-        }
-
-        if (!ele.data("modalTrigger")) {
-            var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
-            modal.show();
-        }
-
-    });
-
-    // close modal on esc button
-    UI.$html.on('keydown.modal.uikit', function (e) {
-
-        if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
-            e.preventDefault();
-            active.hide();
-        }
-    });
-
-    UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
-        if(active) active.resize();
-    }, 150));
-
 
     // helper functions
     function setContent(content, modal){
@@ -2077,6 +2177,21 @@
             "toggle": ">li.uk-parent > a[href='#']",
             "lists": ">li.uk-parent > ul",
             "multiple": false
+        },
+
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-nav]", context).each(function() {
+                    var nav = $(this);
+
+                    if (!nav.data("nav")) {
+                        var obj = UI.nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -2154,19 +2269,8 @@
         return height;
     }
 
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-nav]", context).each(function() {
-            var nav = $(this);
-
-            if (!nav.data("nav")) {
-                var obj = UI.nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
-            }
-        });
-    });
-
 })(jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";
@@ -2290,6 +2394,28 @@
 
     UI.component('offcanvasTrigger', {
 
+        boot: function() {
+
+            // init code
+            $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+
+                e.preventDefault();
+
+                var ele = $(this);
+
+                if (!ele.data("offcanvasTrigger")) {
+                    var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
+                    ele.trigger("click");
+                }
+            });
+
+            $html.on('keydown.ukoffcanvas', function(e) {
+                if (e.keyCode === 27) { // ESC
+                    Offcanvas.hide();
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -2307,26 +2433,8 @@
 
     UI.offcanvas = Offcanvas;
 
-    // init code
-    $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
-
-        e.preventDefault();
-
-        var ele = $(this);
-
-        if (!ele.data("offcanvasTrigger")) {
-            var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
-            ele.trigger("click");
-        }
-    });
-
-    $html.on('keydown.ukoffcanvas', function(e) {
-        if (e.keyCode === 27) { // ESC
-            Offcanvas.hide();
-        }
-    });
-
 })(jQuery, jQuery.UIkit);
+
 (function($, UI) {
 
     "use strict";
@@ -2344,6 +2452,21 @@
         },
 
         animating: false,
+
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-switcher]", context).each(function() {
+                    var switcher = $(this);
+
+                    if (!switcher.data("switcher")) {
+                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+                    }
+                });
+            });
+        },
 
         init: function() {
 
@@ -2386,6 +2509,9 @@
                 if (active.length) {
                     this.show(active, false);
                 } else {
+
+                    if (this.options.active===false) return;
+
                     active = toggles.eq(this.options.active);
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
@@ -2399,7 +2525,15 @@
                 return;
             }
 
-            tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
+            if (isNaN(tab)) {
+                tab = $(tab);
+            } else {
+
+                var togglers = this.find(this.options.toggle);
+
+                tab = tab < 0 ? togglers.length-1 : tab;
+                tab = togglers.eq(togglers[tab] ? tab : 0);
+            }
 
             var $this     = this,
                 active    = tab,
@@ -2520,19 +2654,6 @@
     UI.switcher.animations = Animations;
 
 
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-switcher]", context).each(function() {
-            var switcher = $(this);
-
-            if (!switcher.data("switcher")) {
-                var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
-            }
-        });
-    });
-
-
     // helpers
 
     function coreAnimation(cls, current, next) {
@@ -2597,6 +2718,22 @@
             'active'    : 0,
             'animation' : false,
             'duration'  : 200
+        },
+
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-tab]", context).each(function() {
+
+                    var tab = $(this);
+
+                    if (!tab.data("tab")) {
+                        var obj = UI.tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -2707,19 +2844,6 @@
         }
     });
 
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-tab]", context).each(function() {
-
-            var tab = $(this);
-
-            if (!tab.data("tab")) {
-                var obj = UI.tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
-            }
-        });
-    });
-
 })(jQuery, jQuery.UIkit);
 
 (function($, UI, $win) {
@@ -2741,6 +2865,19 @@
         },
 
         tip: "",
+
+        boot: function() {
+
+            // init code
+            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("tooltip")) {
+                    var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
+                    ele.trigger("mouseenter");
+                }
+            });
+        },
 
         init: function() {
 
@@ -2911,17 +3048,6 @@
             }
 
             return axis;
-        }
-    });
-
-
-    // init code
-    UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("tooltip")) {
-            var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
-            ele.trigger("mouseenter");
         }
     });
 

@@ -23,6 +23,22 @@
             automute : true
         },
 
+        boot: function() {
+
+            // auto init
+            UI.ready(function(context) {
+
+                $("[data-uk-cover]", context).each(function(){
+
+                    var ele = $(this);
+
+                    if(!ele.data("cover")) {
+                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             this.parent    = this.element.parent();
@@ -74,16 +90,4 @@
         }
     });
 
-    // auto init
-    UI.ready(function(context) {
-
-        $("[data-uk-cover]", context).each(function(){
-
-            var ele = $(this);
-
-            if(!ele.data("cover")) {
-                var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
-            }
-        });
-    });
 });

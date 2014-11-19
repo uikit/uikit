@@ -11,6 +11,21 @@
             'cls': 'uk-margin-small-top'
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-margin]", context).each(function() {
+                    var ele = $(this), obj;
+
+                    if (!ele.data("stackMargin")) {
+                        obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -82,18 +97,6 @@
             this.columns.removeClass(this.options.cls);
             return this;
         }
-    });
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-margin]", context).each(function() {
-            var ele = $(this), obj;
-
-            if (!ele.data("stackMargin")) {
-                obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
-            }
-        });
     });
 
 })(jQuery, jQuery.UIkit);

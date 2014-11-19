@@ -11,6 +11,25 @@
             "trigger": ".uk-alert-close"
         },
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
+
+                var ele = $(this);
+
+                if (!ele.data("alert")) {
+
+                    var alert = UI.alert(ele, UI.Utils.options(ele.data("uk-alert")));
+
+                    if ($(e.target).is(ele.data("alert").options.trigger)) {
+                        e.preventDefault();
+                        alert.close();
+                    }
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -43,22 +62,6 @@
             }
         }
 
-    });
-
-    // init code
-    UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
-
-        var ele = $(this);
-
-        if (!ele.data("alert")) {
-
-            var alert = UI.alert(ele, UI.Utils.options(ele.data("uk-alert")));
-
-            if ($(e.target).is(ele.data("alert").options.trigger)) {
-                e.preventDefault();
-                alert.close();
-            }
-        }
     });
 
 })(jQuery, jQuery.UIkit);

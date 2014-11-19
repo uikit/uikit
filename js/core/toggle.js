@@ -14,6 +14,29 @@
             duration  : 200
         },
 
+        boot: function(){
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-toggle]", context).each(function() {
+                    var ele = $(this);
+
+                    if (!ele.data("toggle")) {
+                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+                    }
+                });
+
+                setTimeout(function(){
+
+                    togglers.forEach(function(toggler){
+                        toggler.getTogglers();
+                    });
+
+                }, 0);
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -76,27 +99,5 @@
             this.totoggle = this.options.target ? $(this.options.target):[];
         }
     });
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-toggle]", context).each(function() {
-            var ele = $(this);
-
-            if (!ele.data("toggle")) {
-               var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
-            }
-        });
-
-        setTimeout(function(){
-
-            togglers.forEach(function(toggler){
-                toggler.getTogglers();
-            });
-
-        }, 0);
-    });
-
-
 
 })(this, jQuery, jQuery.UIkit);

@@ -17,7 +17,7 @@
   height: 60px;
   /* 3 */
   line-height: 60px;
-  color: rgba(50, 50, 50, 0.4);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 60px;
   text-align: center;
 }
@@ -35,12 +35,12 @@
   /* 3 */
   text-decoration: none;
   /* 4 */
-  color: rgba(50, 50, 50, 0.7);
+  color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
 }
 /* Active */
 .uk-slidenav:active {
-  color: rgba(50, 50, 50, 0.9);
+  color: rgba(255, 255, 255, 0.9);
 }
 /*
  * Icons
@@ -79,4 +79,21 @@
 }
 .uk-slidenav-position .uk-slidenav-next {
   right: 20px;
+}
+/* Modifier: `uk-slidenav-inverted`
+ ========================================================================== */
+.uk-slidenav-inverted {
+  color: rgba(50, 50, 50, 0.4);
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+.uk-slidenav-inverted:hover,
+.uk-slidenav-inverted:focus {
+  color: rgba(50, 50, 50, 0.7);
+}
+/* Active */
+.uk-slidenav-inverted:active {
+  color: rgba(50, 50, 50, 0.9);
 }

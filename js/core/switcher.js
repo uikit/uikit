@@ -17,6 +17,21 @@
 
         animating: false,
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-switcher]", context).each(function() {
+                    var switcher = $(this);
+
+                    if (!switcher.data("switcher")) {
+                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -58,6 +73,9 @@
                 if (active.length) {
                     this.show(active, false);
                 } else {
+
+                    if (this.options.active===false) return;
+
                     active = toggles.eq(this.options.active);
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
@@ -71,7 +89,15 @@
                 return;
             }
 
-            tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
+            if (isNaN(tab)) {
+                tab = $(tab);
+            } else {
+
+                var togglers = this.find(this.options.toggle);
+
+                tab = tab < 0 ? togglers.length-1 : tab;
+                tab = togglers.eq(togglers[tab] ? tab : 0);
+            }
 
             var $this     = this,
                 active    = tab,
@@ -190,19 +216,6 @@
     };
 
     UI.switcher.animations = Animations;
-
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-switcher]", context).each(function() {
-            var switcher = $(this);
-
-            if (!switcher.data("switcher")) {
-                var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
-            }
-        });
-    });
 
 
     // helpers

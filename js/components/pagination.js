@@ -34,6 +34,21 @@
             onSelectPage   : function() {}
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-pagination]", context).each(function(){
+                    var ele = $(this);
+
+                    if (!ele.data("pagination")) {
+                        var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -127,18 +142,6 @@
 
             this.element.append(item);
         }
-    });
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-pagination]", context).each(function(){
-            var ele = $(this);
-
-            if (!ele.data("pagination")) {
-                var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
-            }
-        });
     });
 
     return UI.pagination;

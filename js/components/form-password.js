@@ -24,6 +24,21 @@
             "lblHide": "Hide"
         },
 
+        boot: function() {
+            // init code
+            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
+
+                var ele = $(this);
+                if (!ele.data("formPassword")) {
+
+                    e.preventDefault();
+
+                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
+                    ele.trigger("click");
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -43,19 +58,6 @@
             this.element.text(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
 
             this.element.data("formPassword", this);
-        }
-    });
-
-    // init code
-    UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
-
-        var ele = $(this);
-        if (!ele.data("formPassword")) {
-
-            e.preventDefault();
-
-            var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
-            ele.trigger("click");
         }
     });
 

@@ -21,6 +21,7 @@
 
                 req(load, function() {
                     onload(uikit);
+                    uikit.component.bootComponents();
                 });
             };
 
@@ -48,6 +49,7 @@
     }
 
     UI.version = '2.12.0';
+    UI.prefix  = 'uk-';
     UI.$doc    = $doc;
     UI.$win    = $win;
     UI.$html   = $html;
@@ -114,13 +116,27 @@
     UI.support.touch                 = (
         ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
-        (global.navigator['msPointerEnabled'] && global.navigator['msMaxTouchPoints'] > 0) || //IE 10
-        (global.navigator['pointerEnabled'] && global.navigator['maxTouchPoints'] > 0) || //IE >=11
+        (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
+        (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
         false
     );
     UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
 
     UI.Utils = {};
+
+    UI.Utils.str2json = function(str) {
+        return str
+        // wrap keys without quote with valid double quote
+        .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
+        // replacing single quote wrapped ones to double quote
+        .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';});
+
+        /* old method:
+            try {
+                return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
+            } catch(e) { return false; }
+        */
+    };
 
     UI.Utils.debounce = function(func, wait, immediate) {
         var timeout;
@@ -222,7 +238,7 @@
 
         if (start != -1) {
             try {
-                options = (new Function("", "var json = " + string.substr(start) + "; return JSON.parse(JSON.stringify(json));"))();
+                options = JSON.parse(UI.Utils.str2json(string.substr(start)));
             } catch (e) {}
         }
 
@@ -294,17 +310,16 @@
             i = i + 1;
         }
 
-        fn  = [
+        fn  = new Function('$data', [
             'var __ret = [];',
             'try {',
             'with($data){', (!openblocks ? output.join('') : '__ret = ["Not all blocks are closed correctly."]'), '};',
             '}catch(e){__ret = [e.message];}',
             'return __ret.join("").replace(/\\n\\n/g, "\\n");',
             "function escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"
-        ].join("\n");
+        ].join("\n"));
 
-        var func = new Function('$data', fn);
-        return data ? func(data) : func;
+        return data ? fn(data) : fn;
     };
 
     UI.Utils.events       = {};
@@ -343,6 +358,8 @@
             });
 
             this.trigger('uk.component.init', [name, this]);
+
+            return this;
         };
 
         fn.plugins = {};
@@ -351,6 +368,7 @@
 
             defaults : {plugins: []},
 
+            boot: function(){},
             init: function(){},
 
             on: function(){
@@ -399,7 +417,8 @@
 
             var element, options;
 
-            if(arguments.length) {
+            if (arguments.length) {
+
                 switch(arguments.length) {
                     case 1:
 
@@ -430,6 +449,21 @@
 
     UI.plugin = function(component, name, def) {
         this.components[component].plugins[name] = def;
+    };
+
+    UI.component.boot = function(name) {
+
+        if (UI.components[name].prototype && UI.components[name].prototype.boot && !UI.components[name].booted) {
+            UI.components[name].prototype.boot.apply(UI, []);
+            UI.components[name].booted = true;
+        }
+    };
+
+    UI.component.bootComponents = function() {
+
+        for (var component in UI.components) {
+            UI.component.boot(component);
+        }
     };
 
 
@@ -525,6 +559,10 @@
         UI.Utils.checkDisplay(ele);
     });
 
+    UI.on('uk.domready.before', function(e) {
+        UI.component.bootComponents();
+    });
+
 
     $(function(){
 
@@ -533,21 +571,30 @@
         // custom scroll observer
         setInterval((function(){
 
-            var memory = {x: window.pageXOffset, y:window.pageYOffset};
+            var memory = {x: window.pageXOffset, y:window.pageYOffset}, dir;
 
             var fn = function(){
 
                 if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
-                    memory = {x: window.pageXOffset, y:window.pageYOffset};
+
+                    dir = {x: 0 , y: 0};
+
+                    if (window.pageXOffset != memory.x) dir.x = window.pageXOffset > memory.x ? 1:-1;
+                    if (window.pageYOffset != memory.y) dir.y = window.pageYOffset > memory.y ? 1:-1;
+
+                    memory = {
+                        "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
+                    };
+
                     $doc.trigger('uk-scroll', [memory]);
                 }
             };
 
             if ($.UIkit.support.touch) {
-                $doc.on('touchmove touchend MSPointerMove MSPointerUp', fn);
+                $html.on('touchmove touchend MSPointerMove MSPointerUp pointermove pointerup', fn);
             }
 
-            if(memory.x || memory.y) fn();
+            if (memory.x || memory.y) fn();
 
             return fn;
 

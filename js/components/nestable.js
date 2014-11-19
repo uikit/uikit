@@ -79,8 +79,40 @@
             threshold       : 20
         },
 
-        init: function()
-        {
+        boot: function() {
+
+            // adjust document scrolling
+            UI.$html.on('mousemove touchmove', function(e) {
+
+                if (draggingElement) {
+
+
+                    var top = draggingElement.offset().top;
+
+                    if (top < UI.$win.scrollTop()) {
+                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingElement.height()/2));
+                    } else if ( (top + draggingElement.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
+                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingElement.height()/2));
+                    }
+                }
+            });
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-nestable]", context).each(function(){
+
+                    var ele = $(this);
+
+                    if(!ele.data("nestable")) {
+                        var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-uk-nestable")));
+                    }
+                });
+            });
+        },
+
+        init: function() {
+
             var $this = this;
 
             Object.keys(this.options).forEach(function(key){
@@ -562,35 +594,6 @@
             }
         }
 
-    });
-
-    // adjust document scrolling
-    $('html').on('mousemove touchmove', function(e) {
-
-        if (draggingElement) {
-
-
-            var top = draggingElement.offset().top;
-
-            if (top < UI.$win.scrollTop()) {
-                UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingElement.height()/2));
-            } else if ( (top + draggingElement.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
-                UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingElement.height()/2));
-            }
-        }
-    });
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-nestable]", context).each(function(){
-
-            var ele = $(this);
-
-            if(!ele.data("nestable")) {
-                 var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-uk-nestable")));
-            }
-        });
     });
 
     return UI.nestable;

@@ -42,6 +42,23 @@
         value    : null,
         selected : null,
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
+
+                var ele = $(this);
+                if (!ele.data("autocomplete")) {
+                    var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
+                }
+            });
+
+            // register outer click for autocompletes
+            UI.$html.on("click.autocomplete.uikit", function(e){
+                if (active && e.target!=active.input[0]) active.hide();
+            });
+        },
+
         init: function() {
 
             var $this   = this,
@@ -297,20 +314,6 @@
 
             return this;
         }
-    });
-
-    // init code
-    UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
-
-        var ele = $(this);
-        if (!ele.data("autocomplete")) {
-            var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
-        }
-    });
-
-    // register outer click for autocompletes
-    UI.$html.on("click.autocomplete.uikit", function(e){
-        if (active && e.target!=active.input[0]) active.hide();
     });
 
     return UI.autocomplete;

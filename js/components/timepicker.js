@@ -52,6 +52,22 @@
             delay  : 0
         },
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("focus.timepicker.uikit", "[data-uk-timepicker]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("timepicker")) {
+                    var obj = UI.timepicker(ele, UI.Utils.options(ele.attr("data-uk-timepicker")));
+
+                    setTimeout(function(){
+                        obj.autocomplete.input.focus();
+                    }, 20);
+                }
+            });
+        },
+
         init: function() {
 
             var $this  = this;
@@ -149,16 +165,4 @@
         }
     });
 
-    // init code
-    UI.$html.on("focus.timepicker.uikit", "[data-uk-timepicker]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("timepicker")) {
-            var obj = UI.timepicker(ele, UI.Utils.options(ele.attr("data-uk-timepicker")));
-
-            setTimeout(function(){
-                obj.autocomplete.input.focus();
-            }, 20);
-        }
-    });
 });

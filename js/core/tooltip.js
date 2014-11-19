@@ -19,6 +19,19 @@
 
         tip: "",
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("tooltip")) {
+                    var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
+                    ele.trigger("mouseenter");
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -188,17 +201,6 @@
             }
 
             return axis;
-        }
-    });
-
-
-    // init code
-    UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("tooltip")) {
-            var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
-            ele.trigger("mouseenter");
         }
     });
 

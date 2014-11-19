@@ -5,6 +5,21 @@
 
     UI.component('smoothScroll', {
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("smoothScroll")) {
+                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
+                    ele.trigger("click");
+                }
+
+                return false;
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -43,17 +58,5 @@
     if (!$.easing['easeOutExpo']) {
         $.easing['easeOutExpo'] = function(x, t, b, c, d) { return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b; };
     }
-
-    // init code
-    UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("smoothScroll")) {
-            var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
-            ele.trigger("click");
-        }
-
-        return false;
-    });
 
 })(jQuery, jQuery.UIkit);

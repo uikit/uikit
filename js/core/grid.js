@@ -12,6 +12,21 @@
             "row"    : true
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-grid-margin]", context).each(function() {
+                    var grid = $(this), obj;
+
+                    if (!grid.data("gridMatchHeight")) {
+                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -127,29 +142,27 @@
             "cls": "uk-grid-margin"
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-grid-margin]", context).each(function() {
+                    var grid = $(this), obj;
+
+                    if (!grid.data("gridMargin")) {
+                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
 
             var stackMargin = UI.stackMargin(this.element, this.options);
         }
-    });
-
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-grid-match],[data-uk-grid-margin]", context).each(function() {
-            var grid = $(this), obj;
-
-            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {
-                obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
-            }
-
-            if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
-                obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
-            }
-        });
     });
 
 })(jQuery, jQuery.UIkit);

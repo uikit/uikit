@@ -36,6 +36,21 @@
             lblMarkedview: 'Markdown'
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $('textarea[data-uk-htmleditor]', context).each(function() {
+                    var editor = $(this), obj;
+
+                    if (!editor.data('htmleditor')) {
+                        obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this, tpl = UI.components.htmleditor.template;
@@ -599,18 +614,6 @@
                 });
             }
         }
-    });
-
-    // init code
-    UI.ready(function(context) {
-
-        $('textarea[data-uk-htmleditor]', context).each(function() {
-            var editor = $(this), obj;
-
-            if (!editor.data('htmleditor')) {
-                obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
-            }
-        });
     });
 
     return UI.htmleditor;

@@ -126,6 +126,36 @@
             }
         },
 
+        boot: function() {
+
+            UI.$win.on("resize orientationchange", function() {
+                    
+                if (active) {
+                    active.hide();
+                }
+            });
+
+            // init code
+            UI.$html.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
+
+                var ele = $(this);
+                if (!ele.data("datepicker")) {
+                    e.preventDefault();
+                    var obj = UI.datepicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
+                    ele.trigger("focus");
+                }
+            });
+
+            UI.$html.on("click.datepicker.uikit", function(e) {
+
+                var target = $(e.target);
+
+                if (active && target[0] != dropdown[0] && !target.data("datepicker") && !target.parents(".uk-datepicker:first").length) {
+                    active.hide();
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -286,34 +316,6 @@
                 dropdown.hide();
                 active = false;
             }
-        }
-    });
-
-    UI.$win.on("resize orientationchange", function() {
-
-        if (active) {
-            active.hide();
-        }
-    });
-
-
-    // init code
-    UI.$html.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
-
-        var ele = $(this);
-        if (!ele.data("datepicker")) {
-            e.preventDefault();
-            var obj = UI.datepicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
-            ele.trigger("focus");
-        }
-    });
-
-    UI.$html.on("click.datepicker.uikit", function(e) {
-
-        var target = $(e.target);
-
-        if (active && target[0] != dropdown[0] && !target.data("datepicker") && !target.parents(".uk-datepicker:first").length) {
-            active.hide();
         }
     });
 

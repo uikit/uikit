@@ -18,8 +18,23 @@
     "use strict";
 
     UI.component('formSelect', {
+
         defaults: {
             'target': '>span:first'
+        },
+
+        boot: function() {
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-form-select]", context).each(function(){
+                    var ele = $(this);
+
+                    if (!ele.data("formSelect")) {
+                        var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -45,18 +60,6 @@
 
             this.element.data("formSelect", this);
         }
-    });
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-form-select]", context).each(function(){
-            var ele = $(this);
-
-            if (!ele.data("formSelect")) {
-                var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
-            }
-        });
     });
 
     return UI.formSelect;

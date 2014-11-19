@@ -86,9 +86,9 @@ $dotnav-vertical-margin-top:                     $dotnav-margin-left !default;
     /* 1 */
     vertical-align: top;
     /* 2 */
+    text-indent: 100%;
     overflow: hidden;
-    text-indent: -999%;
-    text-align: left;
+    white-space: nowrap;
     @include hook-dotnav-item();
 }
 
