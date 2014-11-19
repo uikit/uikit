@@ -22,6 +22,26 @@
             "delay"      : 0
         },
 
+        boot: function() {
+
+            // listen to scroll and resize
+            $doc.on("uk-scroll", checkScrollSpy);
+            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-scrollspy]", context).each(function() {
+
+                    var element = $(this);
+
+                    if (!element.data("scrollspy")) {
+                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this, idle, inviewstate, initinview,
@@ -85,6 +105,26 @@
             "smoothscroll" : false
         },
 
+        boot: function() {
+
+            // listen to scroll and resize
+            $doc.on("uk-scroll", checkScrollSpyNavs);
+            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-scrollspy-nav]", context).each(function() {
+
+                    var element = $(this);
+
+                    if (!element.data("scrollspynav")) {
+                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var ids     = [],
@@ -139,38 +179,6 @@
             scrollspynavs.push(this);
 
         }
-    });
-
-
-    var fnCheck = function(){
-        checkScrollSpy();
-        checkScrollSpyNavs();
-    };
-
-    // listen to scroll and resize
-    $doc.on("uk-scroll", fnCheck);
-    $win.on("resize orientationchange", UI.Utils.debounce(fnCheck, 50));
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-scrollspy]", context).each(function() {
-
-            var element = $(this);
-
-            if (!element.data("scrollspy")) {
-                var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
-            }
-        });
-
-        $("[data-uk-scrollspy-nav]", context).each(function() {
-
-            var element = $(this);
-
-            if (!element.data("scrollspynav")) {
-                var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
-            }
-        });
     });
 
 })(jQuery, jQuery.UIkit);

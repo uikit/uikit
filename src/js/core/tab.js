@@ -13,6 +13,22 @@
             'duration'  : 200
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-tab]", context).each(function() {
+
+                    var tab = $(this);
+
+                    if (!tab.data("tab")) {
+                        var obj = UI.tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -119,19 +135,6 @@
 
             this.responsivetab[this.responsivetab.lst.children().length ? 'removeClass':'addClass']('uk-hidden');
         }
-    });
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-tab]", context).each(function() {
-
-            var tab = $(this);
-
-            if (!tab.data("tab")) {
-                var obj = UI.tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
-            }
-        });
     });
 
 })(jQuery, jQuery.UIkit);

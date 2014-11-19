@@ -33,6 +33,40 @@
             target       : false
         },
 
+        boot: function() {
+
+            // should be more efficient than using $win.scroll(scroller):
+            UI.$doc.on('uk-scroll', scroller);
+            UI.$win.on('resize orientationchange', UI.Utils.debounce(function() {
+
+                if (!sticked.length) return;
+
+                for (var i = 0; i < sticked.length; i++) {
+                    sticked[i].reset(true);
+                }
+
+                scroller();
+            }, 100));
+
+            // init code
+            UI.ready(function(context) {
+
+                setTimeout(function(){
+
+                    $("[data-uk-sticky]", context).each(function(){
+
+                        var $ele = $(this);
+
+                        if(!$ele.data("sticky")) {
+                            UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
+                        }
+                    });
+
+                    scroller();
+                }, 0);
+            });
+        },
+
         init: function() {
 
             var wrapper  = $('<div class="uk-sticky-placeholder"></div>').css({
@@ -205,36 +239,6 @@
 
     }
 
-    // should be more efficient than using $win.scroll(scroller):
-    $doc.on('uk-scroll', scroller);
-    $win.on('resize orientationchange', UI.Utils.debounce(function() {
 
-        if (!sticked.length) return;
-
-        for (var i = 0; i < sticked.length; i++) {
-            sticked[i].reset(true);
-        }
-
-        scroller();
-    }, 100));
-
-    // init code
-    UI.ready(function(context) {
-
-        setTimeout(function(){
-
-            $("[data-uk-sticky]", context).each(function(){
-
-                var $ele = $(this);
-
-                if(!$ele.data("sticky")) {
-                    UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
-                }
-            });
-
-            scroller();
-        }, 0);
-    });
-
-    return $.fn.uksticky;
+    return UI.sticky;
 });

@@ -121,6 +121,28 @@
 
     UI.component('offcanvasTrigger', {
 
+        boot: function() {
+
+            // init code
+            $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+
+                e.preventDefault();
+
+                var ele = $(this);
+
+                if (!ele.data("offcanvasTrigger")) {
+                    var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
+                    ele.trigger("click");
+                }
+            });
+
+            $html.on('keydown.ukoffcanvas', function(e) {
+                if (e.keyCode === 27) { // ESC
+                    Offcanvas.hide();
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -137,24 +159,5 @@
     });
 
     UI.offcanvas = Offcanvas;
-
-    // init code
-    $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
-
-        e.preventDefault();
-
-        var ele = $(this);
-
-        if (!ele.data("offcanvasTrigger")) {
-            var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
-            ele.trigger("click");
-        }
-    });
-
-    $html.on('keydown.ukoffcanvas', function(e) {
-        if (e.keyCode === 27) { // ESC
-            Offcanvas.hide();
-        }
-    });
 
 })(jQuery, jQuery.UIkit);

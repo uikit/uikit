@@ -51,6 +51,68 @@
             change           : function() {}
         },
 
+        boot: function() {
+
+            // auto init
+            UI.ready(function(context) {
+
+                $("[data-uk-sortable]", context).each(function(){
+
+                    var ele = $(this);
+
+                    if(!ele.data("sortable")) {
+                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
+                    }
+                });
+            });
+
+            UI.$html.on('mousemove touchmove', function(e) {
+
+                if (delayIdle) {
+
+                    var src = e.originalEvent.targetTouches ? e.originalEvent.targetTouches[0] : e;
+
+                    if (Math.abs(src.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(src.pageY - delayIdle.pos.y) > delayIdle.threshold) {
+                        delayIdle.apply();
+                    }
+                }
+
+                if (draggingPlaceholder) {
+
+                    if (!moving) {
+                        moving = true;
+                        draggingPlaceholder.show();
+
+                        draggingPlaceholder.$current.addClass(draggingPlaceholder.$sortable.options.placeholderClass);
+                        draggingPlaceholder.$sortable.element.children().addClass(draggingPlaceholder.$sortable.options.childClass);
+
+                        $('html').addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
+                    }
+
+                    var offset = draggingPlaceholder.data('mouse-offset'),
+                    left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
+                    top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
+
+                    draggingPlaceholder.css({'left': left, 'top': top });
+
+                    if (top < UI.$win.scrollTop()) {
+                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/2));
+                    } else if ( (top + draggingPlaceholder.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
+                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/2));
+                    }
+                }
+            });
+
+            UI.$html.on('mouseup touchend', function() {
+
+                if(!moving && clickedlink) {
+                    location.href = clickedlink.attr('href');
+                }
+
+                delayIdle = clickedlink = false;
+            });
+        },
+
         init: function() {
 
             var $this                    = this,
@@ -473,65 +535,6 @@
         }
         e.returnValue = false;
     }
-
-    // auto init
-    UI.ready(function(context) {
-
-        $("[data-uk-sortable]", context).each(function(){
-
-          var ele = $(this);
-
-          if(!ele.data("sortable")) {
-              var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
-          }
-        });
-    });
-
-    $('html').on('mousemove touchmove', function(e) {
-
-        if (delayIdle) {
-
-            var src = e.originalEvent.targetTouches ? e.originalEvent.targetTouches[0] : e;
-
-            if (Math.abs(src.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(src.pageY - delayIdle.pos.y) > delayIdle.threshold) {
-                delayIdle.apply();
-            }
-        }
-
-        if (draggingPlaceholder) {
-
-            if (!moving) {
-                moving = true;
-                draggingPlaceholder.show();
-
-                draggingPlaceholder.$current.addClass(draggingPlaceholder.$sortable.options.placeholderClass);
-                draggingPlaceholder.$sortable.element.children().addClass(draggingPlaceholder.$sortable.options.childClass);
-
-                $('html').addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
-            }
-
-            var offset = draggingPlaceholder.data('mouse-offset'),
-                left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
-                top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
-
-            draggingPlaceholder.css({'left': left, 'top': top });
-
-            if (top < UI.$win.scrollTop()) {
-                UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/2));
-            } else if ( (top + draggingPlaceholder.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
-                UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/2));
-            }
-        }
-    });
-
-    UI.$html.on('mouseup touchend', function() {
-
-        if(!moving && clickedlink) {
-            location.href = clickedlink.attr('href');
-        }
-
-        delayIdle = clickedlink = false;
-    });
 
     return UI.sortable;
 });
