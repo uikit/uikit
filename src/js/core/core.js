@@ -122,16 +122,17 @@
     UI.Utils = {};
 
     UI.Utils.str2json = function(str) {
+        return str
+        // wrap keys without quote with valid double quote
+        .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
+        // replacing single quote wrapped ones to double quote
+        .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';});
 
-        var token = /[^,:{}\[\]]+/g, quote = /^['"](.*)['"]$/, escap = /(["])/g;
-
-        return String(str).trim().replace(token, function (a) {
-            a = a.trim();
-            if ('' === a || 'true' === a || 'false' === a || 'null' === a || (!isNaN(parseFloat(a)) && isFinite(a))) {
-                return a;
-            }
-            return '"' + a.replace(quote, '$1').replace(escap, '\\$1')+ '"';
-        });
+        /* old method:
+            try {
+                return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
+            } catch(e) { return false; }
+        */
     };
 
     UI.Utils.debounce = function(func, wait, immediate) {
