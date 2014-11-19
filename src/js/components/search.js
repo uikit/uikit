@@ -51,6 +51,18 @@
             }
         },
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("focus.search.uikit", "[data-uk-search]", function(e) {
+                var ele = $(this);
+
+                if (!ele.data("search")) {
+                    var obj = UI.search(ele, UI.Utils.options(ele.attr("data-uk-search")));
+                }
+            });
+        },
+
         init: function() {
             var $this = this;
 
@@ -74,15 +86,6 @@
             });
 
             this.element.data("search", this);
-        }
-    });
-
-    // init code
-    UI.$html.on("focus.search.uikit", "[data-uk-search]", function(e) {
-        var ele = $(this);
-
-        if (!ele.data("search")) {
-            var obj = UI.search(ele, UI.Utils.options(ele.attr("data-uk-search")));
         }
     });
 });

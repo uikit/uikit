@@ -20,6 +20,7 @@
 
                 req(load, function() {
                     onload(uikit);
+                    uikit.component.bootComponents();
                 });
             };
 
@@ -47,6 +48,7 @@
     }
 
     UI.version = '2.12.0';
+    UI.prefix  = 'uk-';
     UI.$doc    = $doc;
     UI.$win    = $win;
     UI.$html   = $html;
@@ -329,11 +331,7 @@
 
     UI.components = {};
 
-    UI.component = function(name, def, override) {
-
-        if (this.components[name] && !override) {
-            return;
-        }
+    UI.component = function(name, def) {
 
         var fn = function(element, options) {
 
@@ -369,6 +367,7 @@
 
             defaults : {plugins: []},
 
+            boot: function(){},
             init: function(){},
 
             on: function(){
@@ -449,6 +448,21 @@
 
     UI.plugin = function(component, name, def) {
         this.components[component].plugins[name] = def;
+    };
+
+    UI.component.boot = function(name) {
+
+        if (UI.components[name].prototype && UI.components[name].prototype.boot && !UI.components[name].booted) {
+            UI.components[name].prototype.boot.apply(UI, []);
+            UI.components[name].booted = true;
+        }
+    };
+
+    UI.component.bootComponents = function() {
+
+        for (var component in UI.components) {
+            UI.component.boot(component);
+        }
     };
 
 
@@ -542,6 +556,10 @@
         });
 
         UI.Utils.checkDisplay(ele);
+    });
+
+    UI.on('uk.domready.before', function(e) {
+        UI.component.bootComponents();
     });
 
 

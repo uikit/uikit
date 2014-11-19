@@ -37,6 +37,22 @@
         interval : null,
         hovering : false,
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $('[data-uk-slideshow]', context).each(function() {
+
+                    var slideshow = $(this);
+
+                    if (!slideshow.data("slideshow")) {
+                        var obj = UI.slideshow(slideshow, UI.Utils.options(slideshow.attr("data-uk-slideshow")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this, canvas;
@@ -430,18 +446,5 @@
     };
 
     UI.slideshow.animations = Animations;
-
-    // init code
-    UI.ready(function(context) {
-
-        $('[data-uk-slideshow]', context).each(function() {
-
-            var slideshow = $(this);
-
-            if (!slideshow.data("slideshow")) {
-                var obj = UI.slideshow(slideshow, UI.Utils.options(slideshow.attr("data-uk-slideshow")));
-            }
-        });
-    });
 
 });

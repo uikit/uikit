@@ -18,7 +18,6 @@
 
     UI.component('uploadSelect', {
 
-
         init: function() {
 
             var $this = this;

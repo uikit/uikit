@@ -137,6 +137,38 @@
 
     UI.component('modalTrigger', {
 
+        boot: function() {
+
+            // init code
+            UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
+
+                var ele = $(this);
+
+                if (ele.is("a")) {
+                    e.preventDefault();
+                }
+
+                if (!ele.data("modalTrigger")) {
+                    var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
+                    modal.show();
+                }
+
+            });
+
+            // close modal on esc button
+            UI.$html.on('keydown.modal.uikit', function (e) {
+
+                if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
+                    e.preventDefault();
+                    active.hide();
+                }
+            });
+
+            UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
+                if (active) active.resize();
+            }, 150));
+        },
+
         init: function() {
 
             var $this = this;
@@ -200,35 +232,6 @@
 
         modal.show();
     };
-
-    // init code
-    UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
-
-        var ele = $(this);
-
-        if(ele.is("a")) {
-            e.preventDefault();
-        }
-
-        if (!ele.data("modalTrigger")) {
-            var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
-            modal.show();
-        }
-
-    });
-
-    // close modal on esc button
-    UI.$html.on('keydown.modal.uikit', function (e) {
-
-        if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
-            e.preventDefault();
-            active.hide();
-        }
-    });
-
-    UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
-        if(active) active.resize();
-    }, 150));
 
 
     // helper functions

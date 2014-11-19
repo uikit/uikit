@@ -16,6 +16,21 @@
 
         animating: false,
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                $("[data-uk-switcher]", context).each(function() {
+                    var switcher = $(this);
+
+                    if (!switcher.data("switcher")) {
+                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -200,19 +215,6 @@
     };
 
     UI.switcher.animations = Animations;
-
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-switcher]", context).each(function() {
-            var switcher = $(this);
-
-            if (!switcher.data("switcher")) {
-                var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
-            }
-        });
-    });
 
 
     // helpers
