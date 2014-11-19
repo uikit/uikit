@@ -328,7 +328,11 @@
 
     UI.components = {};
 
-    UI.component = function(name, def) {
+    UI.component = function(name, def, override) {
+
+        if (this.components[name] && !override) {
+            return;
+        }
 
         var fn = function(element, options) {
 
