@@ -558,14 +558,12 @@
         UI.Utils.checkDisplay(ele);
     });
 
-    UI.on('uk.domready.before', function(e) {
-        UI.component.bootComponents();
-    });
-
 
     $(function(){
 
         UI.trigger('uk.domready.before');
+
+        UI.component.bootComponents();
 
         // custom scroll observer
         setInterval((function(){
