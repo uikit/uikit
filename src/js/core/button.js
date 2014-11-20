@@ -5,20 +5,23 @@
     UI.component('buttonRadio', {
 
         defaults: {
-            "target": ".uk-button"
+            "target": ".@-button"
         },
 
         boot: function() {
 
             // init code
-            UI.$html.on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
-                var ele = $(this);
+            UI.$html.on("click.buttonradio.uikit", "[data-@-button-radio]", function(e) {
+
+                var ele = UI.$(this);
 
                 if (!ele.data("buttonRadio")) {
-                    var obj = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
 
-                    if ($(e.target).is(obj.options.target)) {
-                        $(e.target).trigger("click");
+                    var obj    = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-@-button-radio"))),
+                        target = UI.$(e.target);
+
+                    if (target.is(obj.options.target)) {
+                        target.trigger("click");
                     }
                 }
             });
@@ -30,36 +33,39 @@
 
             this.on("click", this.options.target, function(e) {
 
-                if ($(this).is('a[href="#"]')) e.preventDefault();
+                var ele = UI.$(this);
 
-                $this.find($this.options.target).not(this).removeClass("uk-active").blur();
-                $this.trigger("uk.button.change", [$(this).addClass("uk-active")]);
+                if (ele.is('a[href="#"]')) e.preventDefault();
+
+                $this.find($this.options.target).not(ele).removeClass(UI.prefix("@-active")).blur();
+                $this.trigger("@.button.change", [ele.addClass("@-active")]);
             });
 
         },
 
         getSelected: function() {
-            return this.find(".uk-active");
+            return this.find(".@-active");
         }
     });
 
     UI.component('buttonCheckbox', {
 
         defaults: {
-            "target": ".uk-button"
+            "target": ".@-button"
         },
 
         boot: function() {
 
-            UI.$html.on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
-                var ele = $(this);
+            UI.$html.on("click.buttoncheckbox.uikit", "[data-@-button-checkbox]", function(e) {
+                var ele = UI.$(this);
 
                 if (!ele.data("buttonCheckbox")) {
 
-                    var obj = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox"))), target=$(e.target);
+                    var obj    = UI.buttonCheckbox(ele, UI.Utils.options(ele.attr("data-@-button-checkbox"))),
+                        target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
-                        ele.trigger("uk.button.change", [target.toggleClass("uk-active").blur()]);
+                        ele.trigger("@.button.change", [target.toggleClass("@-active").blur()]);
                     }
                 }
             });
@@ -73,13 +79,13 @@
 
                 if ($(this).is('a[href="#"]')) e.preventDefault();
 
-                $this.trigger("uk.button.change", [$(this).toggleClass("uk-active").blur()]);
+                $this.trigger("@.button.change", [UI.$(this).toggleClass("@-active").blur()]);
             });
 
         },
 
         getSelected: function() {
-            return this.find(".uk-active");
+            return this.find(".@-active");
         }
     });
 
@@ -90,12 +96,12 @@
 
         boot: function() {
 
-            UI.$html.on("click.button.uikit", "[data-uk-button]", function(e) {
-                var ele = $(this);
+            UI.$html.on("click.button.uikit", "[data-@-button]", function(e) {
+                var ele = UI.$(this);
 
                 if (!ele.data("button")) {
 
-                    var obj = UI.button(ele, UI.Utils.options(ele.attr("data-uk-button")));
+                    var obj = UI.button(ele, UI.Utils.options(ele.attr("data-@-button")));
                     ele.trigger("click");
                 }
             });
@@ -110,14 +116,14 @@
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
                 $this.toggle();
-                $this.trigger("uk.button.change", [$this.element.blur().hasClass("uk-active")]);
+                $this.trigger("@.button.change", [$this.element.blur().hasClass("@-active")]);
             });
 
         },
 
         toggle: function() {
-            this.element.toggleClass("uk-active");
+            this.element.toggleClass("@-active");
         }
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

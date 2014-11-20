@@ -16,11 +16,11 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-grid-margin]", context).each(function() {
-                    var grid = $(this), obj;
+                UI.$("[data-@-grid-match]", context).each(function() {
+                    var grid = UI.$(this), obj;
 
                     if (!grid.data("gridMatchHeight")) {
-                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-@-grid-match")));
                     }
                 });
             });
@@ -49,13 +49,13 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("uk.dom.changed", function(e) {
+            UI.$html.on("@.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
             });
 
-            this.on("uk.check.display", function(e) {
+            this.on("@.check.display", function(e) {
                 if(this.element.is(":visible")) this.match();
             }.bind(this));
 
@@ -138,7 +138,7 @@
     UI.component('gridMargin', {
 
         defaults: {
-            "cls": "uk-grid-margin"
+            "cls": "@-grid-margin"
         },
 
         boot: function() {
@@ -146,11 +146,11 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-grid-margin]", context).each(function() {
-                    var grid = $(this), obj;
+                UI.$("[data-@-grid-margin]", context).each(function() {
+                    var grid = UI.$(this), obj;
 
                     if (!grid.data("gridMargin")) {
-                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
+                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-@-grid-margin")));
                     }
                 });
             });
@@ -164,4 +164,4 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

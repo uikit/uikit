@@ -2,13 +2,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-datepicker", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -128,7 +128,7 @@
         boot: function() {
 
             UI.$win.on("resize orientationchange", function() {
-                    
+
                 if (active) {
                     active.hide();
                 }
@@ -213,7 +213,7 @@
 
             this.update();
 
-            if ($.UIkit.langdirection == 'right') {
+            if (UI.langdirection == 'right') {
                 css.right = window.innerWidth - (css.left + this.element.outerWidth());
                 css.left  = "";
             }

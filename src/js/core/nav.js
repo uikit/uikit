@@ -5,8 +5,8 @@
     UI.component('nav', {
 
         defaults: {
-            "toggle": ">li.uk-parent > a[href='#']",
-            "lists": ">li.uk-parent > ul",
+            "toggle": ">li.@-parent > a[href='#']",
+            "lists": ">li.@-parent > ul",
             "multiple": false
         },
 
@@ -15,11 +15,11 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-nav]", context).each(function() {
-                    var nav = $(this);
+                UI.$("[data-@-nav]", context).each(function() {
+                    var nav = UI.$(this);
 
                     if (!nav.data("nav")) {
-                        var obj = UI.nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
+                        var obj = UI.nav(nav, UI.Utils.options(nav.attr("data-@-nav")));
                     }
                 });
             });
@@ -31,14 +31,14 @@
 
             this.on("click", this.options.toggle, function(e) {
                 e.preventDefault();
-                var ele = $(this);
+                var ele = UI.$(this);
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
             this.find(this.options.lists).each(function() {
-                var $ele   = $(this),
+                var $ele   = UI.$(this),
                     parent = $ele.parent(),
-                    active = parent.hasClass("uk-active");
+                    active = parent.hasClass("@-active");
 
                 $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
                 parent.data("list-container", $ele.parent());
@@ -50,27 +50,31 @@
 
         open: function(li, noanimation) {
 
-            var element = this.element, $li = $(li);
+            var element = this.element, $li = UI.$(li);
 
             if (!this.options.multiple) {
 
-                element.children(".uk-open").not(li).each(function() {
-                    if ($(this).data("list-container")) {
-                        $(this).data("list-container").stop().animate({height: 0}, function() {
-                            $(this).parent().removeClass("uk-open");
+                element.children(".@-open").not(li).each(function() {
+
+                    var ele = UI.$(this);
+
+                    if (ele.data("list-container")) {
+                        ele.data("list-container").stop().animate({height: 0}, function() {
+                            UI.$(this).parent().removeClass("@-open");
                         });
                     }
                 });
             }
 
-            $li.toggleClass("uk-open");
+            $li.toggleClass("@-open");
 
             if ($li.data("list-container")) {
+
                 if (noanimation) {
-                    $li.data('list-container').stop().height($li.hasClass("uk-open") ? "auto" : 0);
+                    $li.data('list-container').stop().height($li.hasClass("@-open") ? "auto" : 0);
                 } else {
                     $li.data('list-container').stop().animate({
-                        height: ($li.hasClass("uk-open") ? getHeight($li.data('list-container').find('ul:first')) : 0)
+                        height: ($li.hasClass("@-open") ? getHeight($li.data('list-container').find('ul:first')) : 0)
                     });
                 }
             }
@@ -81,7 +85,7 @@
     // helper
 
     function getHeight(ele) {
-        var $ele = $(ele), height = "auto";
+        var $ele = UI.$(ele), height = "auto";
 
         if ($ele.is(":visible")) {
             height = $ele.outerHeight();
@@ -100,4 +104,4 @@
         return height;
     }
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

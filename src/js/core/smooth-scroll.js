@@ -7,11 +7,11 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
-                var ele = $(this);
+            UI.$html.on("click.smooth-scroll.uikit", "[data-@-smooth-scroll]", function(e) {
+                var ele = UI.$(this);
 
                 if (!ele.data("smoothScroll")) {
-                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
+                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-@-smooth-scroll")));
                     ele.trigger("click");
                 }
 
@@ -25,7 +25,7 @@
 
             this.on("click", function(e) {
                 e.preventDefault();
-                scrollToElement($(this.hash).length ? $(this.hash) : $("body"), $this.options);
+                scrollToElement(UI.$(this.hash).length ? UI.$(this.hash) : UI.$("body"), $this.options);
             });
         }
     });
@@ -49,13 +49,13 @@
         }
 
         // animate to target, fire callback when done
-        $("html,body").stop().animate({scrollTop: target}, options.duration, options.transition).promise().done(options.complete);
+        UI.$("html,body").stop().animate({scrollTop: target}, options.duration, options.transition).promise().done(options.complete);
     }
 
     UI.Utils.scrollToElement = scrollToElement;
 
-    if (!$.easing['easeOutExpo']) {
-        $.easing['easeOutExpo'] = function(x, t, b, c, d) { return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b; };
+    if (!$.easing.easeOutExpo) {
+        $.easing.easeOutExpo = function(x, t, b, c, d) { return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b; };
     }
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

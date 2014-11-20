@@ -8,7 +8,7 @@
 
         defaults: {
             target    : false,
-            cls       : 'uk-hidden',
+            cls       : '@-hidden',
             animation : false,
             duration  : 200
         },
@@ -18,11 +18,11 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-toggle]", context).each(function() {
-                    var ele = $(this);
+                UI.$("[data-@-toggle]", context).each(function() {
+                    var ele = UI.$(this);
 
                     if (!ele.data("toggle")) {
-                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-@-toggle")));
                     }
                 });
 
@@ -56,7 +56,7 @@
 
             if (this.options.animation) {
 
-                var $this = this, animations = this.options.animation.split(',');
+                var $this = this, animations = UI.prefix(this.options.animation).split(',');
 
                 if (animations.length == 1) {
                     animations[1] = animations[0];
@@ -81,8 +81,8 @@
                 } else {
 
                     this.totoggle.each(function(){
-                        UI.Utils.animate(this, animations[1]+' uk-animation-reverse').then(function(){
-                            $(this).toggleClass($this.options.cls).css('animation-duration', '');
+                        UI.Utils.animate(this, animations[1]+' @-animation-reverse').then(function(){
+                            UI.$(this).toggleClass($this.options.cls).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         }.bind(this));
                     });
@@ -95,8 +95,8 @@
         },
 
         getTogglers: function() {
-            this.totoggle = this.options.target ? $(this.options.target):[];
+            this.totoggle = this.options.target ? UI.$(this.options.target):[];
         }
     });
 
-})(this, jQuery, jQuery.UIkit);
+})(this, jQuery, UIkit);

@@ -14,8 +14,8 @@
     UI.component('scrollspy', {
 
         defaults: {
-            "cls"        : "uk-scrollspy-inview",
-            "initcls"    : "uk-scrollspy-init-inview",
+            "cls"        : "@-scrollspy-inview",
+            "initcls"    : "@-scrollspy-init-inview",
             "topoffset"  : 0,
             "leftoffset" : 0,
             "repeat"     : false,
@@ -25,18 +25,18 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("uk-scroll", checkScrollSpy);
+            $doc.on("@-scroll", checkScrollSpy);
             $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-scrollspy]", context).each(function() {
+                UI.$("[data-@-scrollspy]", context).each(function() {
 
-                    var element = $(this);
+                    var element = UI.$(this);
 
                     if (!element.data("scrollspy")) {
-                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
+                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-@-scrollspy")));
                     }
                 });
             });
@@ -44,12 +44,13 @@
 
         init: function() {
 
+
             var $this = this, idle, inviewstate, initinview,
                 fn = function(){
 
                     var inview = UI.Utils.isInView($this.element, $this.options);
 
-                    if(inview && !inviewstate) {
+                    if (inview && !inviewstate) {
 
                         if(idle) clearTimeout(idle);
 
@@ -58,25 +59,25 @@
                             $this.offset = $this.element.offset();
                             initinview = true;
 
-                            $this.trigger("uk.scrollspy.init");
+                            $this.trigger("@.scrollspy.init");
                         }
 
                         idle = setTimeout(function(){
 
                             if(inview) {
-                                $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
+                                $this.element.addClass("@-scrollspy-inview").addClass($this.options.cls).width();
                             }
                         }, $this.options.delay);
 
                         inviewstate = true;
-                        $this.trigger("uk.scrollspy.inview");
+                        $this.trigger("@.scrollspy.inview");
                     }
 
                     if (!inview && inviewstate && $this.options.repeat) {
-                        $this.element.removeClass("uk-scrollspy-inview").removeClass($this.options.cls);
+                        $this.element.removeClass("@-scrollspy-inview").removeClass($this.options.cls);
                         inviewstate = false;
 
-                        $this.trigger("uk.scrollspy.outview");
+                        $this.trigger("@.scrollspy.outview");
                     }
                 };
 
@@ -98,7 +99,7 @@
     UI.component('scrollspynav', {
 
         defaults: {
-            "cls"          : 'uk-active',
+            "cls"          : '@-active',
             "closest"      : false,
             "topoffset"    : 0,
             "leftoffset"   : 0,
@@ -108,18 +109,18 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("uk-scroll", checkScrollSpyNavs);
+            $doc.on("@-scroll", checkScrollSpyNavs);
             $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
 
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-scrollspy-nav]", context).each(function() {
+                UI.$("[data-@-scrollspy-nav]", context).each(function() {
 
-                    var element = $(this);
+                    var element = UI.$(this);
 
                     if (!element.data("scrollspynav")) {
-                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
+                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-@-scrollspy-nav")));
                     }
                 });
             });
@@ -129,13 +130,16 @@
 
             var ids     = [],
                 links   = this.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
-                targets = $(ids.join(","));
+                targets = $(ids.join(",")),
+
+                clsActive  = UI.prefix(this.options.cls),
+                clsClosest = UI.prefix(this.options.closest || this.options.closest);
 
             var $this = this, inviews, fn = function(){
 
                 inviews = [];
 
-                for(var i=0 ; i < targets.length ; i++) {
+                for (var i=0 ; i < targets.length ; i++) {
                     if (UI.Utils.isInView(targets.eq(i), $this.options)) {
                         inviews.push(targets.eq(i));
                     }
@@ -156,12 +160,13 @@
                     if (!target) return;
 
                     if ($this.options.closest) {
-                        navitems = links.closest($this.options.closest).removeClass($this.options.cls).end().filter("a[href='#"+target.attr("id")+"']").closest($this.options.closest).addClass($this.options.cls);
+                        links.closest(clsClosest).removeClass(clsActive);
+                        navitems = links.filter("a[href='#"+target.attr("id")+"']").closest(clsClosest).addClass(clsActive);
                     } else {
-                        navitems = links.removeClass($this.options.cls).filter("a[href='#"+target.attr("id")+"']").addClass($this.options.cls);
+                        navitems = links.removeClass(clsActive).filter("a[href='#"+target.attr("id")+"']").addClass(clsActive);
                     }
 
-                    $this.element.trigger("uk.scrollspynav.inview", [target, navitems]);
+                    $this.element.trigger("@.scrollspynav.inview", [target, navitems]);
                 }
             };
 
@@ -181,4 +186,4 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

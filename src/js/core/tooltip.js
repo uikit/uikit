@@ -1,4 +1,4 @@
-(function($, UI, $win) {
+(function($, UI) {
 
     "use strict";
 
@@ -21,11 +21,11 @@
         boot: function() {
 
             // init code
-            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
-                var ele = $(this);
+            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-@-tooltip]", function(e) {
+                var ele = UI.$(this);
 
                 if (!ele.data("tooltip")) {
-                    var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
+                    var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-@-tooltip")));
                     ele.trigger("mouseenter");
                 }
             });
@@ -36,7 +36,7 @@
             var $this = this;
 
             if (!$tooltip) {
-                $tooltip = $('<div class="uk-tooltip"></div>').appendTo("body");
+                $tooltip = UI.$('<div class="@-tooltip"></div>').appendTo("body");
             }
 
             this.on({
@@ -59,7 +59,7 @@
             if (!this.tip.length) return;
 
             $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
-            $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
+            $tooltip.html(UI.prefix('<div class="@-tooltip-inner">') + this.tip + '</div>');
 
             var $this      = this,
                 pos        = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
@@ -79,8 +79,8 @@
             // prevent strange position
             // when tooltip is in offcanvas etc.
             if ($('html').css('position')=='fixed' || $('body').css('position')=='fixed'){
-                var bodyoffset = $('body').offset(),
-                    htmloffset = $('html').offset(),
+                var bodyoffset = UI.$('body').offset(),
+                    htmloffset = UI.$('html').offset(),
                     docoffset  = {'top': (htmloffset.top + bodyoffset.top), 'left': (htmloffset.left + bodyoffset.left)};
 
                 pos.left -= docoffset.left;
@@ -88,7 +88,7 @@
             }
 
 
-            if ((tmppos[0] == "left" || tmppos[0] == "right") && $.UIkit.langdirection == 'right') {
+            if ((tmppos[0] == "left" || tmppos[0] == "right") && UI.langdirection == 'right') {
                 tmppos[0] = tmppos[0] == "left" ? "right" : "left";
             }
 
@@ -150,7 +150,7 @@
 
             tooltipdelay = setTimeout(function(){
 
-                $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
+                $tooltip.css(tcss).attr("class", UI.prefix(["@-tooltip", "@-tooltip-"+position, $this.options.cls].join(' ')));
 
                 if ($this.options.animation) {
                     $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
@@ -191,11 +191,11 @@
 
             var axis = "";
 
-            if(left < 0 || ((left-$win.scrollLeft())+width) > window.innerWidth) {
+            if(left < 0 || ((left - UI.$win.scrollLeft())+width) > window.innerWidth) {
                axis += "x";
             }
 
-            if(top < 0 || ((top-$win.scrollTop())+height) > window.innerHeight) {
+            if(top < 0 || ((top - UI.$win.scrollTop())+height) > window.innerHeight) {
                axis += "y";
             }
 
@@ -203,4 +203,4 @@
         }
     });
 
-})(jQuery, jQuery.UIkit, jQuery(window));
+})(jQuery, UIkit);
