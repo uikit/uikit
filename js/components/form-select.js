@@ -3,13 +3,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-form-select", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -27,11 +27,12 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-form-select]", context).each(function(){
-                    var ele = $(this);
+                UI.$("[data-@-form-select]", context).each(function(){
+
+                    var ele = UI.$(this);
 
                     if (!ele.data("formSelect")) {
-                        var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
+                        var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-@-form-select")));
                     }
                 });
             });

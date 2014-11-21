@@ -3,13 +3,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-slideshow-fx", ["uikit"], function() {
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -60,7 +60,7 @@
                     clipfrom = ('rect('+ghostHeight+'px, '+(width*(i+1))+'px, '+ghostHeight+'px, '+(sliceWidth*i)+'px)');
                 }
 
-                bar = $('<div class="uk-cover-background"></div>').css({
+                bar = UI.$('<div class="@-cover-background"></div>').css({
                     'position'           : 'absolute',
                     'top'                : 0,
                     'left'               : 0,
@@ -134,7 +134,7 @@
 
                 var width = (i == this.options.slices-1) ? (ghostWidth - (sliceWidth*i)) : sliceWidth;
 
-                bar = $('<div class="uk-cover-background"></div>').css({
+                bar = $('<div class="@-cover-background"></div>').css({
                     'position'           : 'absolute',
                     'top'                : 0,
                     'left'               : 0,
@@ -180,7 +180,7 @@
                 boxRows   = Math.round(next.height()/boxWidth),
                 boxHeight = Math.round(next.height()/boxRows)+1,
                 bgimage   = next.data('cover').css('background-image'),
-                ghost     = $('<li></li>').css({
+                ghost     = UI.$('<li></li>').css({
                     width   : this.container.width(),
                     height  : this.container.height(),
                     opacity : 1,
@@ -203,7 +203,7 @@
                         (boxWidth  * cols)       +'px'  // left
                     ];
 
-                    box = $('<div class="uk-cover-background"></div>').css({
+                    box = UI.$('<div class="@-cover-background"></div>').css({
                         'position'          : 'absolute',
                         'top'               : 0,
                         'left'              : 0,
@@ -225,7 +225,7 @@
             var boxes = shuffle(ghost.children());
 
             boxes.each(function(i) {
-                $(this).css({
+                UI.$(this).css({
                     'transition': 'all '+$this.options.duration+'ms ease-in-out '+(50+i*25)+'ms',
                     '-webkit-transition': 'all '+$this.options.duration+'ms ease-in-out '+(50+i*25)+'ms'
                 });
@@ -277,7 +277,7 @@
                         (boxWidth  * cols)       +'px'  // left
                     ];
 
-                    box = $('<div class="uk-cover-background"></div>').css({
+                    box = UI.$('<div class="@-cover-background"></div>').css({
                         'position'          : 'absolute',
                         'top'               : 0,
                         'left'              : 0,

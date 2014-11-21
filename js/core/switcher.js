@@ -22,11 +22,11 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-switcher]", context).each(function() {
-                    var switcher = $(this);
+                UI.$("[data-@-switcher]", context).each(function() {
+                    var switcher = UI.$(this);
 
                     if (!switcher.data("switcher")) {
-                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-@-switcher")));
                     }
                 });
             });
@@ -43,16 +43,18 @@
 
             if (this.options.connect) {
 
-                this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
+                this.connect = UI.$(this.options.connect);
+
+                this.connect.find(".@-active").removeClass(".@-active");
 
                 // delegate switch commands within container content
                 if (this.connect.length) {
 
-                    this.connect.on("click", '[data-uk-switcher-item]', function(e) {
+                    this.connect.on("click", '[data-@-switcher-item]', function(e) {
 
                         e.preventDefault();
 
-                        var item = $(this).data('ukSwitcherItem');
+                        var item = UI.$(this).data(UI.prefix('@SwitcherItem'));
 
                         if ($this.index == item) return;
 
@@ -68,7 +70,7 @@
                 }
 
                 var toggles = this.find(this.options.toggle),
-                    active  = toggles.filter(".uk-active");
+                    active  = toggles.filter(".@-active");
 
                 if (active.length) {
                     this.show(active, false);
@@ -76,7 +78,7 @@
 
                     if (this.options.active===false) return;
 
-                    active = toggles.eq(this.options.active);
+                    active = toggles.eq(UI.prefix(this.options.active));
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
             }
@@ -90,7 +92,7 @@
             }
 
             if (isNaN(tab)) {
-                tab = $(tab);
+                tab = UI.$(tab);
             } else {
 
                 var togglers = this.find(this.options.toggle);
@@ -100,7 +102,7 @@
             }
 
             var $this     = this,
-                active    = tab,
+                active    = UI.$(tab),
                 animation = Animations[this.options.animation] || function(current, next) {
 
                     if (!$this.options.animation) {
@@ -123,10 +125,10 @@
                 animation = Animations.none;
             }
 
-            if (active.hasClass("uk-disabled")) return;
+            if (active.hasClass("@-disabled")) return;
 
-            this.find(this.options.toggle).filter(".uk-active").removeClass("uk-active");
-            active.addClass("uk-active");
+            this.find(this.options.toggle).filter(".@-active").removeClass("@-active");
+            active.addClass("@-active");
 
             if (this.options.connect && this.connect.length) {
 
@@ -138,17 +140,17 @@
 
                 this.connect.each(function() {
 
-                    var container = $(this),
-                        children  = container.children(),
-                        current   = children.filter('.uk-active'),
-                        next      = children.eq($this.index);
+                    var container = UI.$(this),
+                        children  = UI.$(container.children()),
+                        current   = UI.$(children.filter('.@-active')),
+                        next      = UI.$(children.eq($this.index));
 
                         $this.animating = true;
 
                         animation.apply($this, [current, next]).then(function(){
 
-                            current.removeClass("uk-active");
-                            next.addClass("uk-active");
+                            current.removeClass("@-active");
+                            next.addClass("@-active");
                             UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;
@@ -156,7 +158,7 @@
                 });
             }
 
-            this.trigger("uk.switcher.show", [active]);
+            this.trigger("@.switcher.show", [active]);
         }
     });
 
@@ -169,20 +171,20 @@
         },
 
         'fade': function(current, next) {
-            return coreAnimation.apply(this, ['uk-animation-fade', current, next]);
+            return coreAnimation.apply(this, ['@-animation-fade', current, next]);
         },
 
         'slide-bottom': function(current, next) {
-            return coreAnimation.apply(this, ['uk-animation-slide-bottom', current, next]);
+            return coreAnimation.apply(this, ['@-animation-slide-bottom', current, next]);
         },
 
         'slide-top': function(current, next) {
-            return coreAnimation.apply(this, ['uk-animation-slide-top', current, next]);
+            return coreAnimation.apply(this, ['@-animation-slide-top', current, next]);
         },
 
         'slide-vertical': function(current, next, dir) {
 
-            var anim = ['uk-animation-slide-top', 'uk-animation-slide-bottom'];
+            var anim = ['@-animation-slide-top', '@-animation-slide-bottom'];
 
             if (current && current.index() > next.index()) {
                 anim.reverse();
@@ -192,16 +194,16 @@
         },
 
         'slide-left': function(current, next) {
-            return coreAnimation.apply(this, ['uk-animation-slide-left', current, next]);
+            return coreAnimation.apply(this, ['@-animation-slide-left', current, next]);
         },
 
         'slide-right': function(current, next) {
-            return coreAnimation.apply(this, ['uk-animation-slide-right', current, next]);
+            return coreAnimation.apply(this, ['@-animation-slide-right', current, next]);
         },
 
         'slide-horizontal': function(current, next, dir) {
 
-            var anim = ['uk-animation-slide-left', 'uk-animation-slide-right'];
+            var anim = ['@-animation-slide-left', '@-animation-slide-right'];
 
             if (current && current.index() > next.index()) {
                 anim.reverse();
@@ -211,7 +213,7 @@
         },
 
         'scale': function(current, next) {
-            return coreAnimation.apply(this, ['uk-animation-scale-up', current, next]);
+            return coreAnimation.apply(this, ['@-animation-scale-up', current, next]);
         }
     };
 
@@ -222,9 +224,9 @@
 
     function coreAnimation(cls, current, next) {
 
-        var d = $.Deferred(), clsIn = cls, clsOut = cls, release;
+        var d = $.Deferred(), clsIn = UI.prefix(cls), clsOut = cls, release;
 
-        if(next[0]===current[0]) {
+        if (next[0]===current[0]) {
             d.resolve();
             return d.promise();
         }
@@ -236,7 +238,7 @@
 
         release = function() {
 
-            if (current) current.hide().removeClass('uk-active '+clsOut+' uk-animation-reverse');
+            if (current) current.hide().removeClass(UI.prefix('@-active '+clsOut+' @-animation-reverse'));
 
             next.addClass(clsIn).one(UI.support.animation.end, function() {
 
@@ -255,16 +257,16 @@
 
             current.css('animation-duration', this.options.duration+'ms');
 
-            current.css('display', 'none').addClass(clsOut+' uk-animation-reverse').one(UI.support.animation.end, function() {
+            current.css('display', 'none').addClass(UI.prefix(clsOut+' @-animation-reverse')).one(UI.support.animation.end, function() {
                 release();
             }.bind(this)).css('display', '');
 
         } else {
-            next.addClass('uk-active');
+            next.addClass('@-active');
             release();
         }
 
         return d.promise();
     }
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

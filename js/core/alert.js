@@ -8,21 +8,21 @@
         defaults: {
             "fade": true,
             "duration": 200,
-            "trigger": ".uk-alert-close"
+            "trigger": ".@-alert-close"
         },
 
         boot: function() {
 
             // init code
-            UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
+            UI.$html.on("click.alert.uikit", "[data-@-alert]", function(e) {
 
-                var ele = $(this);
+                var ele = UI.$(this);
 
                 if (!ele.data("alert")) {
 
-                    var alert = UI.alert(ele, UI.Utils.options(ele.data("uk-alert")));
+                    var alert = UI.alert(ele, UI.Utils.options(ele.attr("data-@-alert")));
 
-                    if ($(e.target).is(ele.data("alert").options.trigger)) {
+                    if (UI.$(e.target).is(alert.options.trigger)) {
                         e.preventDefault();
                         alert.close();
                     }
@@ -42,26 +42,25 @@
 
         close: function() {
 
-            var element = this.trigger("uk.alert.close");
+            var element       = this.trigger("@.alert.close"),
+                removeElement = function () {
+                    this.trigger("@.alert.closed").remove();
+                }.bind(this);
 
             if (this.options.fade) {
                 element.css("overflow", "hidden").css("max-height", element.height()).animate({
-                    "height": 0,
-                    "opacity": 0,
-                    "padding-top": 0,
-                    "padding-bottom": 0,
-                    "margin-top": 0,
-                    "margin-bottom": 0
+                    "height"         : 0,
+                    "opacity"        : 0,
+                    "padding-top"    : 0,
+                    "padding-bottom" : 0,
+                    "margin-top"     : 0,
+                    "margin-bottom"  : 0
                 }, this.options.duration, removeElement);
             } else {
                 removeElement();
-            }
-
-            function removeElement() {
-                element.trigger("uk.alert.closed").remove();
             }
         }
 
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

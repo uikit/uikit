@@ -3,7 +3,7 @@
 
     "use strict";
 
-    var active = false, $html = $('html'), body;
+    var active = false, $html = UI.$html, body;
 
     UI.component('modal', {
 
@@ -24,12 +24,11 @@
 
             this.transition = UI.support.transition;
             this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
-            this.dialog     = this.find(".uk-modal-dialog");
+            this.dialog     = this.find(".@-modal-dialog");
 
-            this.on("click", ".uk-modal-close", function(e) {
+            this.on("click", ".@-modal-close", function(e) {
                 e.preventDefault();
                 $this.hide();
-
             }).on("click", function(e) {
 
                 var target = $(e.target);
@@ -51,13 +50,13 @@
             if (this.isActive()) return;
             if (active) active.hide(true);
 
-            this.element.removeClass("uk-open").show();
+            this.element.removeClass("@-open").show();
             this.resize();
 
             active = this;
-            $html.addClass("uk-modal-page").height(); // force browser engine redraw
+            $html.addClass("@-modal-page").height(); // force browser engine redraw
 
-            this.element.addClass("uk-open").trigger("uk.modal.show");
+            this.element.addClass("@-open").trigger("@.modal.show");
 
             UI.Utils.checkDisplay(this.dialog, true);
 
@@ -74,7 +73,7 @@
 
                 this.one(UI.support.transition.end, function() {
                     $this._hide();
-                }).removeClass("uk-open");
+                }).removeClass("@-open");
 
             } else {
 
@@ -101,8 +100,7 @@
         updateScrollable: function() {
 
             // has scrollable?
-
-            var scrollable = this.dialog.find('.uk-overflow-container:visible:first');
+            var scrollable = this.dialog.find('.@-overflow-container:visible:first');
 
             if (scrollable) {
 
@@ -119,15 +117,15 @@
 
         _hide: function() {
 
-            this.element.hide().removeClass("uk-open");
+            this.element.hide().removeClass("@-open");
 
-            $html.removeClass("uk-modal-page");
+            $html.removeClass("@-modal-page");
 
             body.css(this.paddingdir, "");
 
             if(active===this) active = false;
 
-            this.trigger("uk.modal.hide");
+            this.trigger("@.modal.hide");
         },
 
         isActive: function() {
@@ -141,16 +139,16 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.modal.uikit", "[data-uk-modal]", function(e) {
+            UI.$html.on("click.modal.uikit", "[data-@-modal]", function(e) {
 
-                var ele = $(this);
+                var ele = UI.$(this);
 
                 if (ele.is("a")) {
                     e.preventDefault();
                 }
 
                 if (!ele.data("modalTrigger")) {
-                    var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-uk-modal")));
+                    var modal = UI.modalTrigger(ele, UI.Utils.options(ele.attr("data-@-modal")));
                     modal.show();
                 }
 
@@ -192,9 +190,9 @@
 
     UI.modal.dialog = function(content, options) {
 
-        var modal = UI.modal($(UI.modal.dialog.template).appendTo("body"), options);
+        var modal = UI.modal(UI.$(UI.modal.dialog.template).appendTo("body"), options);
 
-        modal.on("uk.modal.hide", function(){
+        modal.on("@.modal.hide", function(){
             if (modal.persist) {
                 modal.persist.appendTo(modal.persist.data("modalPersistParent"));
                 modal.persist = false;
@@ -207,13 +205,13 @@
         return modal;
     };
 
-    UI.modal.dialog.template = '<div class="uk-modal"><div class="uk-modal-dialog"></div></div>';
+    UI.modal.dialog.template = '<div class="@-modal"><div class="@-modal-dialog"></div></div>';
 
     UI.modal.alert = function(content, options) {
 
         UI.modal.dialog(([
-            '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-buttons"><button class="uk-button uk-button-primary uk-modal-close">Ok</button></div>'
+            '<div class="@-margin @-modal-content">'+String(content)+'</div>',
+            '<div class="@-modal-buttons"><button class="@-button @-button-primary @-modal-close">Ok</button></div>'
         ]).join(""), $.extend({bgclose:false, keyboard:false}, options)).show();
     };
 
@@ -222,8 +220,8 @@
         onconfirm = $.isFunction(onconfirm) ? onconfirm : function(){};
 
         var modal = UI.modal.dialog(([
-            '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-buttons"><button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
+            '<div class="@-margin @-modal-content">'+String(content)+'</div>',
+            '<div class="@-modal-buttons"><button class="@-button @-button-primary js-modal-confirm">Ok</button> <button class="@-button @-modal-close">Cancel</button></div>'
         ]).join(""), $.extend({bgclose:false, keyboard:false}, options));
 
         modal.element.find(".js-modal-confirm").on("click", function(){
@@ -243,7 +241,7 @@
         if (typeof content === 'object') {
 
             // convert DOM object to a jQuery object
-            content = content instanceof jQuery ? content : $(content);
+            content = content instanceof jQuery ? content : UI.$(content);
 
             if(content.parent().length) {
                 modal.persist = content;
@@ -254,12 +252,12 @@
                 content = $('<div></div>').html(content);
         }else {
                 // unsupported data type!
-                content = $('<div></div>').html('$.UIkit.modal Error: Unsupported data type: ' + typeof content);
+                content = $('<div></div>').html('UIkit.modal Error: Unsupported data type: ' + typeof content);
         }
 
-        content.appendTo(modal.element.find('.uk-modal-dialog'));
+        content.appendTo(modal.element.find('.@-modal-dialog'));
 
         return modal;
     }
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

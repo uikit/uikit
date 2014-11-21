@@ -3,13 +3,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-htmleditor", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -41,11 +41,12 @@
             // init code
             UI.ready(function(context) {
 
-                $('textarea[data-uk-htmleditor]', context).each(function() {
-                    var editor = $(this), obj;
+                UI.$('textarea[data-@-htmleditor]', context).each(function() {
+
+                    var editor = UI.$(this), obj;
 
                     if (!editor.data('htmleditor')) {
-                        obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
+                        obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-@-htmleditor')));
                     }
                 });
             });
@@ -61,11 +62,11 @@
             tpl = tpl.replace(/\{:lblPreview\}/g, this.options.lblPreview);
             tpl = tpl.replace(/\{:lblCodeview\}/g, this.options.lblCodeview);
 
-            this.htmleditor = $(tpl);
-            this.content    = this.htmleditor.find('.uk-htmleditor-content');
-            this.toolbar    = this.htmleditor.find('.uk-htmleditor-toolbar');
-            this.preview    = this.htmleditor.find('.uk-htmleditor-preview').children().eq(0);
-            this.code       = this.htmleditor.find('.uk-htmleditor-code');
+            this.htmleditor = UI.$(tpl);
+            this.content    = this.htmleditor.find('.@-htmleditor-content');
+            this.toolbar    = this.htmleditor.find('.@-htmleditor-toolbar');
+            this.preview    = this.htmleditor.find('.@-htmleditor-preview').children().eq(0);
+            this.code       = this.htmleditor.find('.@-htmleditor-code');
 
             this.element.before(this.htmleditor).appendTo(this.code);
             this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
@@ -77,7 +78,7 @@
             // iframe mode?
             if (this.options.iframe) {
 
-                this.iframe = $('<iframe class="uk-htmleditor-iframe" frameborder="0" scrolling="auto" height="100" width="100%"></iframe>');
+                this.iframe = UI.$('<iframe class="@-htmleditor-iframe" frameborder="0" scrolling="auto" height="100" width="100%"></iframe>');
                 this.preview.append(this.iframe);
 
                 // must open and close document object to start using it!
@@ -114,15 +115,15 @@
 
                 }, 10));
 
-            this.htmleditor.on('click', '.uk-htmleditor-button-code, .uk-htmleditor-button-preview', function(e) {
+            this.htmleditor.on('click', '.@-htmleditor-button-code, .@-htmleditor-button-preview', function(e) {
 
                 e.preventDefault();
 
                 if ($this.htmleditor.attr('data-mode') == 'tab') {
 
-                    $this.htmleditor.find('.uk-htmleditor-button-code, .uk-htmleditor-button-preview').removeClass('uk-active').filter(this).addClass('uk-active');
+                    $this.htmleditor.find('.@-htmleditor-button-code, .@-htmleditor-button-preview').removeClass('@-active').filter(this).addClass('@-active');
 
-                    $this.activetab = $(this).hasClass('uk-htmleditor-button-code') ? 'code' : 'preview';
+                    $this.activetab = UI.$(this).hasClass('@-htmleditor-button-code') ? 'code' : 'preview';
                     $this.htmleditor.attr('data-active-tab', $this.activetab);
                     $this.editor.refresh();
                 }
@@ -133,7 +134,7 @@
 
                 if (!$this.code.is(':visible')) return;
 
-                $this.trigger('action.' + $(this).data('htmleditor-button'), [$this.editor]);
+                $this.trigger('action.' + UI.$(this).data('htmleditor-button'), [$this.editor]);
             });
 
             this.preview.parent().css('height', this.code.height());
@@ -157,12 +158,12 @@
 
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
-            this.on('uk.component.init', function() {
+            this.on('@.component.init', function() {
                 $this.redraw();
             });
 
-            this.element.attr('data-uk-check-display', 1).on('uk.check.display', function(e) {
-                if(this.htmleditor.is(":visible")) this.fit();
+            this.element.attr('data-@-check-display', 1).on('@.check.display', function(e) {
+                if (this.htmleditor.is(":visible")) this.fit();
             }.bind(this));
 
             editors.push(this);
@@ -197,15 +198,15 @@
                             return cursor.ch >= match.from.ch && cursor.ch < match.to.ch;
                         }
 
-                        return  (cursor.line === match.from.line && cursor.ch   >= match.from.ch)
-                            || (cursor.line >   match.from.line && cursor.line <  match.to.line)
-                            || (cursor.line === match.to.line   && cursor.ch   <  match.to.ch);
+                        return  (cursor.line === match.from.line && cursor.ch   >= match.from.ch) ||
+                                (cursor.line >   match.from.line && cursor.line <  match.to.line) ||
+                                (cursor.line === match.to.line   && cursor.ch   <  match.to.ch);
                     }
                 };
 
                 var result = callback(match);
 
-                if (result == false) {
+                if (!result) {
                     return arguments[0];
                 }
 
@@ -234,10 +235,10 @@
 
                 var title = $this.buttons[button].title ? $this.buttons[button].title : button;
 
-                bar.push('<li><a data-htmleditor-button="'+button+'" title="'+title+'" data-uk-tooltip>'+$this.buttons[button].label+'</a></li>');
+                bar.push('<li><a data-htmleditor-button="'+button+'" title="'+title+'" data-@-tooltip>'+$this.buttons[button].label+'</a></li>');
             });
 
-            this.toolbar.html(bar.join('\n'));
+            this.toolbar.html(UI.prefix(bar.join('\n')));
         },
 
         fit: function() {
@@ -254,9 +255,9 @@
                     this.htmleditor.attr('data-active-tab', this.activetab);
                 }
 
-                this.htmleditor.find('.uk-htmleditor-button-code, .uk-htmleditor-button-preview').removeClass('uk-active')
-                    .filter(this.activetab == 'code' ? '.uk-htmleditor-button-code' : '.uk-htmleditor-button-preview')
-                    .addClass('uk-active');
+                this.htmleditor.find('.@-htmleditor-button-code, .@-htmleditor-button-preview').removeClass('@-active')
+                    .filter(this.activetab == 'code' ? '.@-htmleditor-button-code' : '.@-htmleditor-button-preview')
+                    .addClass('@-active');
             }
 
             this.editor.refresh();
@@ -367,20 +368,20 @@
 
 
     UI.components.htmleditor.template = [
-        '<div class="uk-htmleditor uk-clearfix" data-mode="split">',
-            '<div class="uk-htmleditor-navbar">',
-                '<ul class="uk-htmleditor-navbar-nav uk-htmleditor-toolbar"></ul>',
-                '<div class="uk-htmleditor-navbar-flip">',
-                    '<ul class="uk-htmleditor-navbar-nav">',
-                        '<li class="uk-htmleditor-button-code"><a>{:lblCodeview}</a></li>',
-                        '<li class="uk-htmleditor-button-preview"><a>{:lblPreview}</a></li>',
-                        '<li><a data-htmleditor-button="fullscreen"><i class="uk-icon-expand"></i></a></li>',
+        '<div class="@-htmleditor @-clearfix" data-mode="split">',
+            '<div class="@-htmleditor-navbar">',
+                '<ul class="@-htmleditor-navbar-nav @-htmleditor-toolbar"></ul>',
+                '<div class="@-htmleditor-navbar-flip">',
+                    '<ul class="@-htmleditor-navbar-nav">',
+                        '<li class="@-htmleditor-button-code"><a>{:lblCodeview}</a></li>',
+                        '<li class="@-htmleditor-button-preview"><a>{:lblPreview}</a></li>',
+                        '<li><a data-htmleditor-button="fullscreen"><i class="@-icon-expand"></i></a></li>',
                     '</ul>',
                 '</div>',
             '</div>',
-            '<div class="uk-htmleditor-content">',
-                '<div class="uk-htmleditor-code"></div>',
-                '<div class="uk-htmleditor-preview"><div></div></div>',
+            '<div class="@-htmleditor-content">',
+                '<div class="@-htmleditor-code"></div>',
+                '<div class="@-htmleditor-preview"><div></div></div>',
             '</div>',
         '</div>'
     ].join('');
@@ -394,39 +395,39 @@
 
                 fullscreen: {
                     title  : 'Fullscreen',
-                    label  : '<i class="uk-icon-expand"></i>'
+                    label  : '<i class="@-icon-expand"></i>'
                 },
                 bold : {
                     title  : 'Bold',
-                    label  : '<i class="uk-icon-bold"></i>'
+                    label  : '<i class="@-icon-bold"></i>'
                 },
                 italic : {
                     title  : 'Italic',
-                    label  : '<i class="uk-icon-italic"></i>'
+                    label  : '<i class="@-icon-italic"></i>'
                 },
                 strike : {
                     title  : 'Strikethrough',
-                    label  : '<i class="uk-icon-strikethrough"></i>'
+                    label  : '<i class="@-icon-strikethrough"></i>'
                 },
                 blockquote : {
                     title  : 'Blockquote',
-                    label  : '<i class="uk-icon-quote-right"></i>'
+                    label  : '<i class="@-icon-quote-right"></i>'
                 },
                 link : {
                     title  : 'Link',
-                    label  : '<i class="uk-icon-link"></i>'
+                    label  : '<i class="@-icon-link"></i>'
                 },
                 image : {
                     title  : 'Image',
-                    label  : '<i class="uk-icon-picture-o"></i>'
+                    label  : '<i class="@-icon-picture-o"></i>'
                 },
                 listUl : {
                     title  : 'Unordered List',
-                    label  : '<i class="uk-icon-list-ul"></i>'
+                    label  : '<i class="@-icon-list-ul"></i>'
                 },
                 listOl : {
                     title  : 'Ordered List',
-                    label  : '<i class="uk-icon-list-ol"></i>'
+                    label  : '<i class="@-icon-list-ol"></i>'
                 }
 
             });
@@ -463,11 +464,11 @@
             });
 
             editor.htmleditor.on('click', 'a[data-htmleditor-button="fullscreen"]', function() {
-                editor.htmleditor.toggleClass('uk-htmleditor-fullscreen');
+                editor.htmleditor.toggleClass('@-htmleditor-fullscreen');
 
                 var wrap = editor.editor.getWrapperElement();
 
-                if (editor.htmleditor.hasClass('uk-htmleditor-fullscreen')) {
+                if (editor.htmleditor.hasClass('@-htmleditor-fullscreen')) {
 
                     editor.editor.state.fullScreenRestore = {scrollTop: window.pageYOffset, scrollLeft: window.pageXOffset, width: wrap.style.width, height: wrap.style.height};
                     wrap.style.width  = '';
@@ -589,7 +590,7 @@
                 },
                 disableMarkdown: function() {
                     this.editor.setOption('mode', 'htmlmixed');
-                    this.htmleditor.find('.uk-htmleditor-button-code a').html(this.options.lblCodeview);
+                    this.htmleditor.find('.@-htmleditor-button-code a').html(this.options.lblCodeview);
                     this.render();
                 }
 
@@ -603,7 +604,7 @@
 
             function enableMarkdown() {
                 editor.editor.setOption('mode', 'gfm');
-                editor.htmleditor.find('.uk-htmleditor-button-code a').html(editor.options.lblMarkedview);
+                editor.htmleditor.find('.@-htmleditor-button-code a').html(editor.options.lblMarkedview);
             }
 
             function addAction(name, replace, mode) {

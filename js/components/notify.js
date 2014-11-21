@@ -3,13 +3,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-notify", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -33,10 +33,13 @@
             return (new Message(options)).show();
         },
         closeAll  = function(group, instantly){
-            if(group) {
-                for(var id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
+
+            var id;
+
+            if (group) {
+                for(id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
             } else {
-                for(var id in messages) { messages[id].close(instantly); }
+                for(id in messages) { messages[id].close(instantly); }
             }
         };
 
@@ -46,19 +49,21 @@
 
         this.options = $.extend({}, Message.defaults, options);
 
-        this.uuid    = "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
-        this.element = $([
+        this.uuid    = UI.Utils.uid("notifymsg");
+        this.element = UI.$([
 
-            '<div class="uk-notify-message">',
-                '<a class="uk-close"></a>',
-                '<div>'+this.options.message+'</div>',
+            '<div class="@-notify-message">',
+                '<a class="@-close"></a>',
+                '<div></div>',
             '</div>'
 
         ].join('')).data("notifyMessage", this);
 
+        this.content(this.options.message);
+
         // status
         if (this.options.status) {
-            this.element.addClass('uk-notify-message-'+this.options.status);
+            this.element.addClass('@-notify-message-'+this.options.status);
             this.currentstatus = this.options.status;
         }
 
@@ -67,8 +72,8 @@
         messages[this.uuid] = this;
 
         if(!containers[this.options.pos]) {
-            containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
-                $(this).data("notifyMessage").close();
+            containers[this.options.pos] = UI.$('<div class="@-notify @-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", UI.prefix(".@-notify-message"), function(){
+                UI.$(this).data("notifyMessage").close();
             });
         }
     };
@@ -126,9 +131,9 @@
                     delete messages[$this.uuid];
                 };
 
-            if(this.timeout) clearTimeout(this.timeout);
+            if (this.timeout) clearTimeout(this.timeout);
 
-            if(instantly) {
+            if (instantly) {
                 finalize();
             } else {
                 this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
@@ -152,11 +157,11 @@
 
         status: function(status) {
 
-            if(!status) {
+            if (!status) {
                 return this.currentstatus;
             }
 
-            this.element.removeClass('uk-notify-message-'+this.currentstatus).addClass('uk-notify-message-'+status);
+            this.element.removeClass('@-notify-message-'+this.currentstatus).addClass('@-notify-message-'+status);
 
             this.currentstatus = status;
 

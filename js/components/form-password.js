@@ -3,13 +3,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-form-password", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -26,14 +26,15 @@
 
         boot: function() {
             // init code
-            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
+            UI.$html.on("click.formpassword.uikit", "[data-@-form-password]", function(e) {
 
-                var ele = $(this);
+                var ele = UI.$(this);
+
                 if (!ele.data("formPassword")) {
 
                     e.preventDefault();
 
-                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
+                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-@-form-password")));
                     ele.trigger("click");
                 }
             });

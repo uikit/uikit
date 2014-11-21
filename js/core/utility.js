@@ -8,7 +8,7 @@
     UI.component('stackMargin', {
 
         defaults: {
-            'cls': 'uk-margin-small-top'
+            'cls': '@-margin-small-top'
         },
 
         boot: function() {
@@ -16,11 +16,12 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-margin]", context).each(function() {
-                    var ele = $(this), obj;
+                UI.$("[data-@-margin]", context).each(function() {
+
+                    var ele = UI.$(this), obj;
 
                     if (!ele.data("stackMargin")) {
-                        obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+                        obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-@-margin")));
                     }
                 });
             });
@@ -48,12 +49,12 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("uk.dom.changed", function(e) {
+            UI.$html.on("@.dom.changed", function(e) {
                 $this.columns  = $this.element.children();
                 $this.process();
             });
 
-            this.on("uk.check.display", function(e) {
+            this.on("@.check.display", function(e) {
                 $this.columns = $this.element.children();
                 if(this.element.is(":visible")) this.process();
             }.bind(this));
@@ -75,7 +76,7 @@
 
             this.columns.each(function() {
 
-                var column = $(this);
+                var column = UI.$(this);
 
                 if (column.is(":visible")) {
 
@@ -99,4 +100,4 @@
         }
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

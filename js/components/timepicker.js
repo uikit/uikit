@@ -3,13 +3,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-search", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -55,15 +55,16 @@
         boot: function() {
 
             // init code
-            UI.$html.on("focus.timepicker.uikit", "[data-uk-timepicker]", function(e) {
-                var ele = $(this);
+            UI.$html.on("focus.timepicker.uikit", "[data-@-timepicker]", function(e) {
+
+                var ele = UI.$(this);
 
                 if (!ele.data("timepicker")) {
-                    var obj = UI.timepicker(ele, UI.Utils.options(ele.attr("data-uk-timepicker")));
+                    var obj = UI.timepicker(ele, UI.Utils.options(ele.attr("data-@-timepicker")));
 
                     setTimeout(function(){
                         obj.autocomplete.input.focus();
-                    }, 20);
+                    }, 40);
                 }
             });
         },
@@ -73,18 +74,18 @@
             var $this  = this;
 
             this.options.minLength = 0;
-            this.options.template  = '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>';
+            this.options.template  = UI.prefix('<ul class="@-nav @-nav-autocomplete @-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>');
 
             this.options.source = function(release) {
                 release(times[$this.options.format] || times['12h']);
             };
 
-            this.element.wrap('<div class="uk-autocomplete"></div>');
+            this.element.wrap(UI.prefix('<div class="@-autocomplete"></div>'));
 
             this.autocomplete = UI.autocomplete(this.element.parent(), this.options);
-            this.autocomplete.dropdown.addClass('uk-dropdown-small uk-dropdown-scrollable');
+            this.autocomplete.dropdown.addClass(UI.prefix('@-dropdown-small @-dropdown-scrollable'));
 
-            this.autocomplete.on('uk.autocomplete.show', function() {
+            this.autocomplete.on(UI.prefix('@.autocomplete.show'), function() {
 
                 var selected = $this.autocomplete.dropdown.find('[data-value="'+$this.autocomplete.input.val()+'"]');
 

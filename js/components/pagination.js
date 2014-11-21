@@ -6,13 +6,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-pagination", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -39,11 +39,11 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-pagination]", context).each(function(){
-                    var ele = $(this);
+                UI.$("[data-@-pagination]", context).each(function(){
+                    var ele = UI.$(this);
 
                     if (!ele.data("pagination")) {
-                        var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
+                        var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-@-pagination")));
                     }
                 });
             });
@@ -83,7 +83,7 @@
             this.render(pages);
 
             this.options.onSelectPage.apply(this, [pageIndex]);
-            this.trigger('uk.pagination.select', [pageIndex, this]);
+            this.trigger('@.pagination.select', [pageIndex, this]);
         },
 
         _render: function() {
@@ -137,10 +137,10 @@
             pageIndex = pageIndex < 0 ? 0 : (pageIndex < this.pages ? pageIndex : this.pages - 1);
             options   = $.extend({ text: pageIndex + 1 }, opts);
 
-            item = (pageIndex == this.currentPage) ? '<li class="uk-active"><span>' + (options.text) + '</span></li>'
+            item = (pageIndex == this.currentPage) ? '<li class="@-active"><span>' + (options.text) + '</span></li>'
                                                    : '<li><a href="#page-'+(pageIndex+1)+'" data-page="'+pageIndex+'">'+options.text+'</a></li>';
 
-            this.element.append(item);
+            this.element.append(UI.prefix(item));
         }
     });
 

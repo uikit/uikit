@@ -22,19 +22,19 @@
             var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
             // init code
-            UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+            UI.$html.on(triggerevent+".dropdown.uikit", "[data-@-dropdown]", function(e) {
 
-                var ele = $(this);
+                var ele = UI.$(this);
 
                 if (!ele.data("dropdown")) {
 
-                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.data("uk-dropdown")));
+                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.attr("data-@-dropdown")));
 
                     if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
                         dropdown.element.trigger(triggerevent);
                     }
 
-                    if(dropdown.element.find('.uk-dropdown').length) {
+                    if(dropdown.element.find('.@-dropdown').length) {
                         e.preventDefault();
                     }
                 }
@@ -45,13 +45,13 @@
 
             var $this = this;
 
-            this.dropdown = this.find(".uk-dropdown");
+            this.dropdown  = this.find('.@-dropdown');
 
-            this.centered  = this.dropdown.hasClass("uk-dropdown-center");
-            this.justified = this.options.justify ? $(this.options.justify) : false;
+            this.centered  = this.dropdown.hasClass('@-dropdown-center');
+            this.justified = this.options.justify ? UI.$(this.options.justify) : false;
 
-            this.boundary  = $(this.options.boundary);
-            this.flipped   = this.dropdown.hasClass('uk-dropdown-flip');
+            this.boundary  = UI.$(this.options.boundary);
+            this.flipped   = this.dropdown.hasClass('@-dropdown-flip');
 
             if (!this.boundary.length) {
                 this.boundary = UI.$win;
@@ -61,9 +61,9 @@
 
                 this.on("click", function(e) {
 
-                    var $target = $(e.target);
+                    var $target = UI.$(e.target);
 
-                    if (!$target.parents(".uk-dropdown").length) {
+                    if (!$target.parents(".@-dropdown").length) {
 
                         if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
                             e.preventDefault();
@@ -72,13 +72,13 @@
                         $target.blur();
                     }
 
-                    if (!$this.element.hasClass("uk-open")) {
+                    if (!$this.element.hasClass('@-open')) {
 
                         $this.show();
 
                     } else {
 
-                        if ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length) {
+                        if ($target.is("a:not(.js-@-prevent)") || $target.is(".@-dropdown-close") || !$this.dropdown.find(e.target).length) {
                             $this.hide();
                         }
                     }
@@ -130,7 +130,7 @@
             UI.$html.off("click.outer.dropdown");
 
             if (active && active[0] != this.element[0]) {
-                active.removeClass("uk-open");
+                active.removeClass('@-open');
             }
 
             if (hoverIdle) {
@@ -138,8 +138,8 @@
             }
 
             this.checkDimensions();
-            this.element.addClass("uk-open");
-            this.trigger('uk.dropdown.show', [this]);
+            this.element.addClass('@-open');
+            this.trigger('@.dropdown.show', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
             active = this.element;
@@ -148,7 +148,7 @@
         },
 
         hide: function() {
-            this.element.removeClass("uk-open");
+            this.element.removeClass('@-open');
             this.remainIdle = false;
 
             if (active && active[0] == this.element[0]) active = false;
@@ -168,9 +168,9 @@
                         clearTimeout(hoverIdle);
                     }
 
-                    var $target = $(e.target);
+                    var $target = UI.$(e.target);
 
-                    if (active && active[0] == $this.element[0] && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
+                    if (active && active[0] == $this.element[0] && ($target.is("a:not(.js-@-prevent)") || $target.is(".@-dropdown-close") || !$this.dropdown.find(e.target).length)) {
                         $this.hide();
                         UI.$html.off("click.outer.dropdown");
                     }
@@ -187,7 +187,7 @@
             }
 
             var $this     = this,
-                dropdown  = this.dropdown.css("margin-" + $.UIkit.langdirection, ""),
+                dropdown  = this.dropdown.css("margin-" + UI.langdirection, ""),
                 offset    = dropdown.show().offset(),
                 width     = dropdown.outerWidth(),
                 boundarywidth  = this.boundary.width(),
@@ -195,12 +195,12 @@
 
             // centered dropdown
             if (this.centered) {
-                dropdown.css("margin-" + $.UIkit.langdirection, (parseFloat(width) / 2 - dropdown.parent().width() / 2) * -1);
+                dropdown.css("margin-" + UI.langdirection, (parseFloat(width) / 2 - dropdown.parent().width() / 2) * -1);
                 offset = dropdown.offset();
 
                 // reset dropdown
                 if ((width + offset.left) > boundarywidth || offset.left < 0) {
-                    dropdown.css("margin-" + $.UIkit.langdirection, "");
+                    dropdown.css("margin-" + UI.langdirection, "");
                     offset = dropdown.offset();
                 }
             }
@@ -212,7 +212,7 @@
 
                 dropdown.css("min-width", jwidth);
 
-                if ($.UIkit.langdirection == 'right') {
+                if (UI.langdirection == 'right') {
 
                     var right1   = boundarywidth - (this.justified.offset().left + jwidth),
                         right2   = boundarywidth - (dropdown.offset().left + dropdown.outerWidth());
@@ -228,31 +228,31 @@
             }
 
             if ((width + (offset.left-boundaryoffset)) > boundarywidth) {
-                dropdown.addClass("uk-dropdown-flip");
+                dropdown.addClass('@-dropdown-flip');
                 offset = dropdown.offset();
             }
 
             if ((offset.left-boundaryoffset) < 0) {
 
-                dropdown.addClass("uk-dropdown-stack");
+                dropdown.addClass("@-dropdown-stack");
 
-                if (dropdown.hasClass("uk-dropdown-flip")) {
+                if (dropdown.hasClass('@-dropdown-flip')) {
 
                     if (!this.flipped) {
-                        dropdown.removeClass("uk-dropdown-flip");
+                        dropdown.removeClass('@-dropdown-flip');
                         offset = dropdown.offset();
-                        dropdown.addClass("uk-dropdown-flip");
+                        dropdown.addClass('@-dropdown-flip');
                     }
 
                     setTimeout(function(){
 
                         if ((dropdown.offset().left-boundaryoffset) < 0 || !$this.flipped && (dropdown.outerWidth() + (offset.left-boundaryoffset)) < boundarywidth) {
-                            dropdown.removeClass("uk-dropdown-flip");
+                            dropdown.removeClass('@-dropdown-flip');
                         }
                     }, 0);
                 }
 
-                this.trigger('uk.dropdown.stack', [this]);
+                this.trigger('@.dropdown.stack', [this]);
             }
 
             dropdown.css("display", "");
@@ -260,4 +260,4 @@
 
     });
 
-})(jQuery, jQuery.UIkit);
+})(jQuery, UIkit);

@@ -67,8 +67,6 @@
 @mixin hook-offcanvas-search-field(){}
 @mixin hook-search-misc(){}
 @mixin hook-slidenav(){}
-@mixin hook-slidenav-previous(){}
-@mixin hook-slidenav-next(){}
 @mixin hook-slidenav-hover(){}
 @mixin hook-slidenav-active(){}
 @mixin hook-slidenav-inverted(){}
@@ -106,6 +104,9 @@
 @mixin hook-breadcrumb(){}
 @mixin hook-breadcrumb-divider(){}
 @mixin hook-breadcrumb-misc(){}
+@mixin hook-close(){}
+@mixin hook-close-alt(){}
+@mixin hook-close-misc(){}
 @mixin hook-button(){}
 @mixin hook-button-hover(){}
 @mixin hook-button-active(){}
@@ -122,9 +123,6 @@
 @mixin hook-button-link(){}
 @mixin hook-button-large(){}
 @mixin hook-button-misc(){}
-@mixin hook-close(){}
-@mixin hook-close-alt(){}
-@mixin hook-close-misc(){}
 @mixin hook-comment(){}
 @mixin hook-comment-header(){}
 @mixin hook-comment-avatar(){}
@@ -137,6 +135,11 @@
 @mixin hook-dropdown(){}
 @mixin hook-dropdown-navbar(){}
 @mixin hook-dropdown-misc(){}
+@mixin hook-grid-misc(){}
+@mixin hook-icon-button(){}
+@mixin hook-icon-button-hover(){}
+@mixin hook-icon-button-active(){}
+@mixin hook-icon-misc(){}
 @mixin hook-form(){}
 @mixin hook-form-focus(){}
 @mixin hook-form-disabled(){}
@@ -148,11 +151,6 @@
 @mixin hook-form-stacked-label(){}
 @mixin hook-form-horizontal-label(){}
 @mixin hook-form-misc(){}
-@mixin hook-grid-misc(){}
-@mixin hook-icon-button(){}
-@mixin hook-icon-button-hover(){}
-@mixin hook-icon-button-active(){}
-@mixin hook-icon-misc(){}
 @mixin hook-list-line(){}
 @mixin hook-list-striped(){}
 @mixin hook-list-misc(){}

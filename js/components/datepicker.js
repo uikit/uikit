@@ -3,13 +3,13 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-datepicker", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -24,6 +24,7 @@
     UI.component('datepicker', {
 
         defaults: {
+            mobile: false,
             weekstart: 1,
             i18n: {
                 months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
@@ -35,7 +36,7 @@
             minDate: false,
             template: function(data, opts) {
 
-                var content = '', maxDate, minDate;
+                var content = '', maxDate, minDate, i;
 
                 if (opts.maxDate!==false){
                     maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add(opts.maxDate, 'days');
@@ -45,13 +46,13 @@
                     minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add(opts.minDate-1, 'days');
                 }
 
-                content += '<div class="uk-datepicker-nav">';
-                content += '<a href="" class="uk-datepicker-previous"></a>';
-                content += '<a href="" class="uk-datepicker-next"></a>';
+                content += '<div class="@-datepicker-nav">';
+                content += '<a href="" class="@-datepicker-previous"></a>';
+                content += '<a href="" class="@-datepicker-next"></a>';
 
                 if (UI.formSelect) {
 
-                    var i, currentyear = (new Date()).getFullYear(), options = [], months, years, minYear, maxYear;
+                    var currentyear = (new Date()).getFullYear(), options = [], months, years, minYear, maxYear;
 
                     for (i=0;i<opts.i18n.months.length;i++) {
                         if(i==data.month) {
@@ -61,7 +62,7 @@
                         }
                     }
 
-                    months = '<span class="uk-form-select">'+ opts.i18n.months[data.month] + '<select class="update-picker-month">'+options.join('')+'</select></span>';
+                    months = '<span class="@-form-select">'+ opts.i18n.months[data.month] + '<select class="update-picker-month">'+options.join('')+'</select></span>';
 
                     // --
 
@@ -78,19 +79,19 @@
                         }
                     }
 
-                    years  = '<span class="uk-form-select">'+ data.year + '<select class="update-picker-year">'+options.join('')+'</select></span>';
+                    years  = '<span class="@-form-select">'+ data.year + '<select class="update-picker-year">'+options.join('')+'</select></span>';
 
-                    content += '<div class="uk-datepicker-heading">'+ months + ' ' + years +'</div>';
+                    content += '<div class="@-datepicker-heading">'+ months + ' ' + years +'</div>';
 
                 } else {
-                    content += '<div class="uk-datepicker-heading">'+ opts.i18n.months[data.month] +' '+ data.year+'</div>';
+                    content += '<div class="@-datepicker-heading">'+ opts.i18n.months[data.month] +' '+ data.year+'</div>';
                 }
 
                 content += '</div>';
 
-                content += '<table class="uk-datepicker-table">';
+                content += '<table class="@-datepicker-table">';
                 content += '<thead>';
-                for(var i = 0; i < data.weekdays.length; i++) {
+                for(i = 0; i < data.weekdays.length; i++) {
                     if (data.weekdays[i]) {
                         content += '<th>'+data.weekdays[i]+'</th>';
                     }
@@ -98,7 +99,7 @@
                 content += '</thead>';
 
                 content += '<tbody>';
-                for(var i = 0; i < data.days.length; i++) {
+                for(i = 0; i < data.days.length; i++) {
                     if (data.days[i] && data.days[i].length){
                         content += '<tr>';
                         for(var d = 0; d < data.days[i].length; d++) {
@@ -106,11 +107,11 @@
                                 var day = data.days[i][d],
                                     cls = [];
 
-                                if(!day.inmonth) cls.push("uk-datepicker-table-muted");
-                                if(day.selected) cls.push("uk-active");
+                                if(!day.inmonth) cls.push("@-datepicker-table-muted");
+                                if(day.selected) cls.push("@-active");
 
-                                if (maxDate && day.day > maxDate) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
-                                if (minDate && minDate > day.day) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
+                                if (maxDate && day.day > maxDate) cls.push('@-datepicker-date-disabled @-datepicker-table-muted');
+                                if (minDate && minDate > day.day) cls.push('@-datepicker-date-disabled @-datepicker-table-muted');
 
                                 content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
                             }
@@ -122,35 +123,36 @@
 
                 content += '</table>';
 
-                return content;
+                return UI.prefix(content);
             }
         },
 
         boot: function() {
 
             UI.$win.on("resize orientationchange", function() {
-                    
+
                 if (active) {
                     active.hide();
                 }
             });
 
             // init code
-            UI.$html.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
+            UI.$html.on("focus.datepicker.uikit", "[data-@-datepicker]", function(e) {
 
-                var ele = $(this);
+                var ele = UI.$(this);
+
                 if (!ele.data("datepicker")) {
                     e.preventDefault();
-                    var obj = UI.datepicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
+                    var obj = UI.datepicker(ele, UI.Utils.options(ele.attr("data-@-datepicker")));
                     ele.trigger("focus");
                 }
             });
 
             UI.$html.on("click.datepicker.uikit", function(e) {
 
-                var target = $(e.target);
+                var target = UI.$(e.target);
 
-                if (active && target[0] != dropdown[0] && !target.data("datepicker") && !target.parents(".uk-datepicker:first").length) {
+                if (active && target[0] != dropdown[0] && !target.data("datepicker") && !target.parents(".@-datepicker:first").length) {
                     active.hide();
                 }
             });
@@ -158,39 +160,44 @@
 
         init: function() {
 
+            // use native datepicker on touch devices
+            if (UI.support.touch && tis.element.attr('type')=='date' && !this.options.mobile) {
+                return;
+            }
+
             var $this = this;
 
             this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
             this.on("click", function(){
-                if(active!==$this) $this.pick(this.value);
+                if (active!==$this) $this.pick(this.value);
             }).on("change", function(){
 
-                if($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
+                if ($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
                    $this.element.val(moment().format($this.options.format));
                 }
-
             });
 
             // init dropdown
             if (!dropdown) {
 
-                dropdown = $('<div class="uk-dropdown uk-datepicker"></div>');
+                dropdown = UI.$('<div class="@-dropdown @-datepicker"></div>');
 
-                dropdown.on("click", ".uk-datepicker-next, .uk-datepicker-previous, [data-date]", function(e){
+                dropdown.on("click", ".@-datepicker-next, .@-datepicker-previous, [data-date]", function(e){
+
                     e.stopPropagation();
                     e.preventDefault();
 
-                    var ele = $(this);
+                    var ele = UI.$(this);
 
-                    if (ele.hasClass('uk-datepicker-date-disabled')) return false;
+                    if (ele.hasClass('@-datepicker-date-disabled')) return false;
 
-                    if(ele.is('[data-date]')) {
+                    if (ele.is('[data-date]')) {
                         active.element.val(moment(ele.data("date")).format(active.options.format)).trigger("change");
                         dropdown.hide();
                         active = false;
                     } else {
-                       active.add(1 * (ele.hasClass("uk-datepicker-next") ? 1:-1), "months");
+                       active.add(1 * (ele.hasClass("@-datepicker-next") ? 1:-1), "months");
                     }
                 });
 
@@ -214,12 +221,13 @@
 
             this.update();
 
-            if ($.UIkit.langdirection == 'right') {
+            if (UI.langdirection == 'right') {
                 css.right = window.innerWidth - (css.left + this.element.outerWidth());
                 css.left  = "";
             }
 
             dropdown.css(css).show();
+            this.trigger('@.datepicker.show');
 
             active = this;
         },
@@ -245,6 +253,8 @@
                 tpl  = this.options.template(data, this.options);
 
             dropdown.html(tpl);
+
+            this.trigger('@.datepicker.update');
         },
 
         getRows: function(year, month) {
@@ -315,6 +325,8 @@
             if (active && active === this) {
                 dropdown.hide();
                 active = false;
+
+                this.trigger('@.datepicker.hide');
             }
         }
     });
