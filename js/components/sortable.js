@@ -116,18 +116,18 @@
 
         init: function() {
 
+            var $this                    = this,
+                element                  = this.element[0],
+                currentlyDraggingElement = null,
+                currentlyDraggingTarget  = null,
+                children;
+
             Object.keys(this.options).forEach(function(key){
 
                 if (String($this.options[key]).indexOf('Class')!=-1) {
                     $this.options[key] = UI.prefix($this.options[key]);
                 }
             });
-
-            var $this                    = this,
-                element                  = this.element[0],
-                currentlyDraggingElement = null,
-                currentlyDraggingTarget  = null,
-                children;
 
             if (supportsDragAndDrop) {
                 this.element.children().attr("draggable", "true");
