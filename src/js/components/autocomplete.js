@@ -196,7 +196,7 @@
 
             var data = this.selected.data();
 
-            this.trigger("@.autocomplete.select", [data, this]);
+            this.trigger("select.uk.autocomplete", [data, this]);
 
             if (data.value) {
                 this.input.val(data.value).trigger('change');
@@ -311,7 +311,7 @@
                 this.dropdown.append(this.template({"items":data}));
                 this.show();
 
-                this.trigger('@.autocomplete.show');
+                this.trigger('show.uk.autocomplete');
             }
 
             return this;

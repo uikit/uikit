@@ -214,7 +214,7 @@
                         addFakeDragHandlers();
 
                         $this.options.start(this, currentlyDraggingElement);
-                        $this.trigger('@.sortable.start', [$this, currentlyDraggingElement]);
+                        $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement]);
 
                         delayIdle = false;
                     }
@@ -302,7 +302,7 @@
                 }
 
                 $this.options.change(this, currentlyDraggingElement);
-                $this.trigger('@.sortable.change', [$this, currentlyDraggingElement]);
+                $this.trigger('change.uk.sortable', [$this, currentlyDraggingElement]);
             });
 
             var handleDragEnd = function(e) {
@@ -322,7 +322,7 @@
                 removeFakeDragHandlers();
 
                 $this.options.stop(this);
-                $this.trigger('@.sortable.stop', [$this]);
+                $this.trigger('stop.uk.sortable', [$this]);
 
                 draggingPlaceholder.remove();
                 draggingPlaceholder = null;

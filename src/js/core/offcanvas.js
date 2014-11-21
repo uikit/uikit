@@ -33,7 +33,7 @@
 
             this._initElement(element);
 
-            $doc.trigger('@.offcanvas.show', [element, bar]);
+            $doc.trigger('show.uk.offcanvas', [element, bar]);
         },
 
         hide: function(force) {
@@ -48,7 +48,7 @@
                     bar.removeClass("@-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
-                    UI.$doc.trigger('@.offcanvas.hide', [panel, bar]);
+                    UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
                 };
 
             if (!panel.length) return;
@@ -70,9 +70,9 @@
 
         _initElement: function(element) {
 
-            if (element.data(UI.prefix("@OffcanvasInit"))) return;
+            if (element.data("OffcanvasInit")) return;
 
-            element.on("click.@offcanvas swipeRight.@offcanvas swipeLeft.@offcanvas", function(e) {
+            element.on("click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas", function(e) {
 
                 var target = UI.$(e.target);
 
@@ -97,12 +97,12 @@
                     return;
                 }
 
-                UI.$doc.one('@.offcanvas.hide', function() {
+                UI.$doc.one('hide.uk.offcanvas', function() {
 
                     var target = $(href);
 
                     if (!target.length) {
-                        target = $('[name="'+href.replace('#','')+'"]');
+                        target = UI.$('[name="'+href.replace('#','')+'"]');
                     }
 
                     if (UI.Utils.scrollToElement && target.length) {
@@ -115,7 +115,7 @@
                 Offcanvas.hide();
             });
 
-            element.data(UI.prefix("@OffcanvasInit"), true);
+            element.data("OffcanvasInit", true);
         }
     };
 
@@ -136,7 +136,8 @@
                 }
             });
 
-            $html.on('keydown.@offcanvas', function(e) {
+            $html.on('keydown.uk.offcanvas', function(e) {
+
                 if (e.keyCode === 27) { // ESC
                     Offcanvas.hide();
                 }

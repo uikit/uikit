@@ -82,7 +82,7 @@
             this.render(pages);
 
             this.options.onSelectPage.apply(this, [pageIndex]);
-            this.trigger('@.pagination.select', [pageIndex, this]);
+            this.trigger('select.uk.pagination', [pageIndex, this]);
         },
 
         _render: function() {

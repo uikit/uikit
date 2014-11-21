@@ -53,7 +53,7 @@
 
                         e.preventDefault();
 
-                        var item = UI.$(this).data(UI.prefix('@SwitcherItem'));
+                        var item = UI.$(this).data(UI._prefix+'SwitcherItem');
 
                         if ($this.index == item) return;
 
@@ -157,7 +157,7 @@
                 });
             }
 
-            this.trigger("@.switcher.show", [active]);
+            this.trigger("show.uk.switcher", [active]);
         }
     });
 

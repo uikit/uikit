@@ -44,7 +44,7 @@
 
                 UI.$('[data-@-slideshow]', context).each(function() {
 
-                    var slideshow = $(this);
+                    var slideshow = UI.$(this);
 
                     if (!slideshow.data("slideshow")) {
                         var obj = UI.slideshow(slideshow, UI.Utils.options(slideshow.attr("data-@-slideshow")));
@@ -139,7 +139,7 @@
 
                 e.preventDefault();
 
-                var slide = UI.$(this).data(UI.prefix('@SlideshowItem'));
+                var slide = UI.$(this).data(UI._prefix+'SlideshowItem');
 
                 if ($this.current == slide) return;
 
@@ -239,7 +239,7 @@
 
                     UI.Utils.checkDisplay(next, UI.prefix('[class*="@-animation-"]:not(.@-cover-background.@-position-cover)'));
 
-                    $this.trigger('@.slideshow.show', [next]);
+                    $this.trigger('show.uk.slideshow', [next]);
                 };
 
             $this.applyKenBurns(next);

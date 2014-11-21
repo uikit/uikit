@@ -48,12 +48,12 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("@.dom.changed", function(e) {
+            UI.$html.on("changed.uk.dom", function(e) {
                 $this.columns  = $this.element.children();
                 $this.process();
             });
 
-            this.on("@.check.display", function(e) {
+            this.on("display.uk.check", function(e) {
                 $this.columns = $this.element.children();
                 if(this.element.is(":visible")) this.process();
             }.bind(this));

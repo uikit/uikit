@@ -180,14 +180,14 @@
                 }
                 e.preventDefault();
                 $this.dragStart(hasTouch ? e.touches[0] : e);
-                $this.trigger('@.nestable.start', [$this]);
+                $this.trigger('start.uk.nestable', [$this]);
             };
 
             var onMoveEvent = function(e) {
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragMove(hasTouch ? e.touches[0] : e);
-                    $this.trigger('@.nestable.move', [$this]);
+                    $this.trigger('move.uk.nestable', [$this]);
                 }
             };
 
@@ -195,7 +195,7 @@
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragStop(hasTouch ? e.touches[0] : e);
-                    $this.trigger('@.nestable.stop', [$this]);
+                    $this.trigger('stop.uk.nestable', [$this]);
                 }
 
                 draggingElement = false;
@@ -407,10 +407,10 @@
 
             if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
-                this.element.trigger('@.nestable.change',[el, this.hasNewRoot ? "added":"moved"]);
+                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved"]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger(UI.prefix('@.nestable.change'), [el, "removed"]);
+                    this.dragRootEl.trigger(UI.prefix('change.uk.nestable'), [el, "removed"]);
                 }
             }
 

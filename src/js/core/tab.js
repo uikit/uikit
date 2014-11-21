@@ -36,7 +36,7 @@
             this.on("click", this.options.target, function(e) {
                 e.preventDefault();
                 $this.find($this.options.target).not(this).removeClass(UI.prefix("@-active")).blur();
-                $this.trigger("@.tab.change", [UI.$(this).addClass("@-active")]);
+                $this.trigger("change.uk.tab", [UI.$(this).addClass("@-active")]);
             });
 
             if (this.options.connect) {
@@ -63,7 +63,7 @@
                 $this.element.children(':not(.@-tab-responsive)').eq(link.data('index')).trigger('click');
             });
 
-            this.on('@.switcher.show @.tab.change', function(e, tab) {
+            this.on('show.uk.switcher change.uk.tab', function(e, tab) {
                 $this.responsivetab.caption.html(tab.text());
             });
 
@@ -83,7 +83,7 @@
             UI.dropdown(this.responsivetab, {"mode": "click"});
 
             // init
-            $this.trigger("@.tab.change", [this.element.find(this.options.target).filter('.@-active')]);
+            $this.trigger("change.uk.tab", [this.element.find(this.options.target).filter('.@-active')]);
 
             this.check();
 
@@ -91,7 +91,7 @@
                 if ($this.element.is(":visible"))  $this.check();
             }, 100));
 
-            this.on('@.check.display', function(){
+            this.on('display.uk.check', function(){
                 if ($this.element.is(":visible"))  $this.check();
             });
         },

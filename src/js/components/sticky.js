@@ -36,7 +36,7 @@
         boot: function() {
 
             // should be more efficient than using $win.scroll(scroller):
-            UI.$doc.on('@-scroll', scroller);
+            UI.$doc.on('scrolling.uk.document', scroller);
             UI.$win.on('resize orientationchange', UI.Utils.debounce(function() {
 
                 if (!sticked.length) return;

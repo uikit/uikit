@@ -49,13 +49,13 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("@.dom.changed", function(e) {
+            UI.$html.on("changed.uk.dom", function(e) {
                 $this.columns  = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
             });
 
-            this.on("@.check.display", function(e) {
+            this.on("display.uk.check", function(e) {
                 if(this.element.is(":visible")) this.match();
             }.bind(this));
 

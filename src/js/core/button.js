@@ -38,7 +38,7 @@
                 if (ele.is('a[href="#"]')) e.preventDefault();
 
                 $this.find($this.options.target).not(ele).removeClass(UI.prefix("@-active")).blur();
-                $this.trigger("@.button.change", [ele.addClass("@-active")]);
+                $this.trigger("change.uk.button", [ele.addClass("@-active")]);
             });
 
         },
@@ -65,7 +65,7 @@
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
-                        ele.trigger("@.button.change", [target.toggleClass("@-active").blur()]);
+                        ele.trigger("change.uk.button", [target.toggleClass("@-active").blur()]);
                     }
                 }
             });
@@ -79,7 +79,7 @@
 
                 if ($(this).is('a[href="#"]')) e.preventDefault();
 
-                $this.trigger("@.button.change", [UI.$(this).toggleClass("@-active").blur()]);
+                $this.trigger("change.uk.button", [UI.$(this).toggleClass("@-active").blur()]);
             });
 
         },
@@ -116,7 +116,7 @@
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
                 $this.toggle();
-                $this.trigger("@.button.change", [$this.element.blur().hasClass("@-active")]);
+                $this.trigger("change.uk.button", [$this.element.blur().hasClass("@-active")]);
             });
 
         },
