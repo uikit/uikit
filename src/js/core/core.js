@@ -20,7 +20,6 @@
 
                 req(load, function() {
                     onload(uikit);
-                    uikit.component.bootComponents();
                 });
             };
 
@@ -505,6 +504,10 @@
             return (new UI.components[name](element, options));
         };
 
+        if (UI.domready) {
+            UI.component.boot(name);
+        }
+
         return fn;
     };
 
@@ -543,10 +546,20 @@
     };
 
     UI.on = function(a1,a2,a3){
+
+        if (a1 && a1.indexOf('ready.uk.dom') > 0 && UI.domready) {
+            a2.apply($doc);
+        }
+
         return UI.$doc.on(a1,a2,a3);
     };
 
     UI.one = function(a1,a2,a3){
+
+        if (a1 && a1.indexOf('ready.uk.dom') > 0 && UI.domready) {
+            a2.apply($doc);
+        }
+
         return UI.$doc.one(a1,a2,a3);
     };
 
