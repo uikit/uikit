@@ -547,8 +547,8 @@
 
     UI.on = function(a1,a2,a3){
 
-        if (a1 && a1.indexOf('ready.uk.dom') > 0 && UI.domready) {
-            a2.apply($doc);
+        if (a1 && a1.indexOf('ready.uk.dom') > -1 && UI.domready) {
+            a2.apply(UI.$doc);
         }
 
         return UI.$doc.on(a1,a2,a3);
@@ -556,8 +556,9 @@
 
     UI.one = function(a1,a2,a3){
 
-        if (a1 && a1.indexOf('ready.uk.dom') > 0 && UI.domready) {
-            a2.apply($doc);
+        if (a1 && a1.indexOf('ready.uk.dom') > -1 && UI.domready) {
+            a2.apply(UI.$doc);
+            return UI.$doc;
         }
 
         return UI.$doc.one(a1,a2,a3);
