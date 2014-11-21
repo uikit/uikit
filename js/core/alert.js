@@ -42,9 +42,9 @@
 
         close: function() {
 
-            var element       = this.trigger("@.alert.close"),
+            var element       = this.trigger("close.uk.alert"),
                 removeElement = function () {
-                    this.trigger("@.alert.closed").remove();
+                    this.trigger("closed.uk.alert").remove();
                 }.bind(this);
 
             if (this.options.fade) {

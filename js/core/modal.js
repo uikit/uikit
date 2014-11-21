@@ -56,7 +56,7 @@
             active = this;
             $html.addClass("@-modal-page").height(); // force browser engine redraw
 
-            this.element.addClass("@-open").trigger("@.modal.show");
+            this.element.addClass("@-open").trigger("show.uk.modal");
 
             UI.Utils.checkDisplay(this.dialog, true);
 
@@ -125,7 +125,7 @@
 
             if(active===this) active = false;
 
-            this.trigger("@.modal.hide");
+            this.trigger("hide.uk.modal");
         },
 
         isActive: function() {
@@ -192,7 +192,7 @@
 
         var modal = UI.modal(UI.$(UI.modal.dialog.template).appendTo("body"), options);
 
-        modal.on("@.modal.hide", function(){
+        modal.on("hide.uk.modal", function(){
             if (modal.persist) {
                 modal.persist.appendTo(modal.persist.data("modalPersistParent"));
                 modal.persist = false;

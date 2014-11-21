@@ -26,7 +26,7 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("@-scroll", checkScrollSpy);
+            $doc.on("scrolling.uk.document", checkScrollSpy);
             $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
@@ -60,7 +60,7 @@
                             $this.offset = $this.element.offset();
                             initinview = true;
 
-                            $this.trigger("@.scrollspy.init");
+                            $this.trigger("init.uk.scrollspy");
                         }
 
                         idle = setTimeout(function(){
@@ -71,14 +71,14 @@
                         }, $this.options.delay);
 
                         inviewstate = true;
-                        $this.trigger("@.scrollspy.inview");
+                        $this.trigger("inview.uk.scrollspy");
                     }
 
                     if (!inview && inviewstate && $this.options.repeat) {
                         $this.element.removeClass("@-scrollspy-inview").removeClass($this.options.cls);
                         inviewstate = false;
 
-                        $this.trigger("@.scrollspy.outview");
+                        $this.trigger("outview.uk.scrollspy");
                     }
                 };
 
@@ -110,7 +110,7 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("@-scroll", checkScrollSpyNavs);
+            $doc.on("scrolling.uk.document", checkScrollSpyNavs);
             $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
 
             // init code
@@ -167,7 +167,7 @@
                         navitems = links.removeClass(clsActive).filter("a[href='#"+target.attr("id")+"']").addClass(clsActive);
                     }
 
-                    $this.element.trigger("@.scrollspynav.inview", [target, navitems]);
+                    $this.element.trigger("inview.uk.scrollspynav", [target, navitems]);
                 }
             };
 

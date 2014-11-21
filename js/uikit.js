@@ -48,16 +48,13 @@
     UI._prefix = 'uk';
 
     UI.noConflict = function(prefix) {
-
         // resore UIkit version
         if (_UI) {
             window.UIkit = _UI;
             $.UIkit      = _UI;
             $.fn.uk      = _UI.fn;
         }
-
         if (prefix) {} UI._prefix = prefix;
-
         return UI;
     };
 
@@ -83,7 +80,7 @@
             'attr', 'parent', 'parents', 'children',
             'addClass', 'removeClass', 'toggleClass', 'hasClass',
             'is',
-            'on', 'one', 'trigger', 'off'
+            'on', 'one'
         ].forEach(function(m){
 
             var method =prototype[m], result, collections = ['find','filter','parent', 'parents', 'children', 'closest'];
@@ -264,7 +261,7 @@
             elements = $(context);
         }
 
-        elements.trigger('@.check.display');
+        elements.trigger('display.uk.check');
 
         // fix firefox / IE animations
         if (initanimation) {
@@ -422,7 +419,7 @@
 
             });
 
-            this.trigger('@.component.init', [name, this]);
+            this.trigger('init.uk.component', [name, this]);
 
             return this;
         };
@@ -577,7 +574,7 @@
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
-                    $element.trigger('@.dom.changed');
+                    $element.trigger('changed.uk.dom');
                 }, 50));
 
                 // pass in the target node, as well as the observer options
@@ -592,13 +589,13 @@
 
     $(function(){
 
-        UI.$body = UI.$('body'); 
+        UI.$body = UI.$('body');
 
         UI.ready(function(context){
             UI.domObserve('[data-@-observe]', context || document);
         });
 
-        UI.on('@.domready', function(){
+        UI.on('ready.uk.dom', function(){
 
             UI.domObservers.forEach(function(fn){
                 fn(document);
@@ -608,7 +605,7 @@
         });
 
 
-        UI.on('@.dom.changed', function(e) {
+        UI.on('changed.uk.dom', function(e) {
 
             var ele = e.target;
 
@@ -619,7 +616,7 @@
             UI.Utils.checkDisplay(ele);
         });
 
-        UI.trigger('@.domready.before');
+        UI.trigger('beforeready.uk.dom');
 
         UI.component.bootComponents();
 
@@ -641,7 +638,7 @@
                         "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
                     };
 
-                    UI.$doc.trigger('@-scroll', [memory]);
+                    UI.$doc.trigger('scrolling.uk.document', [memory]);
                 }
             };
 
@@ -656,7 +653,7 @@
         })(), 15);
 
         // run component init functions on dom
-        UI.trigger('@.domready');
+        UI.trigger('ready.uk.dom');
 
         if (UI.support.touch) {
 
@@ -679,7 +676,7 @@
             }
         }
 
-        UI.trigger('@.domready.after');
+        UI.trigger('afterready.uk.dom');
 
         // mark that domready is left behind
         UI.domready = true;
@@ -933,12 +930,12 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("@.dom.changed", function(e) {
+            UI.$html.on("changed.uk.dom", function(e) {
                 $this.columns  = $this.element.children();
                 $this.process();
             });
 
-            this.on("@.check.display", function(e) {
+            this.on("display.uk.check", function(e) {
                 $this.columns = $this.element.children();
                 if(this.element.is(":visible")) this.process();
             }.bind(this));
@@ -1075,7 +1072,7 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("@-scroll", checkScrollSpy);
+            $doc.on("scrolling.uk.document", checkScrollSpy);
             $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
@@ -1109,7 +1106,7 @@
                             $this.offset = $this.element.offset();
                             initinview = true;
 
-                            $this.trigger("@.scrollspy.init");
+                            $this.trigger("init.uk.scrollspy");
                         }
 
                         idle = setTimeout(function(){
@@ -1120,14 +1117,14 @@
                         }, $this.options.delay);
 
                         inviewstate = true;
-                        $this.trigger("@.scrollspy.inview");
+                        $this.trigger("inview.uk.scrollspy");
                     }
 
                     if (!inview && inviewstate && $this.options.repeat) {
                         $this.element.removeClass("@-scrollspy-inview").removeClass($this.options.cls);
                         inviewstate = false;
 
-                        $this.trigger("@.scrollspy.outview");
+                        $this.trigger("outview.uk.scrollspy");
                     }
                 };
 
@@ -1159,7 +1156,7 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("@-scroll", checkScrollSpyNavs);
+            $doc.on("scrolling.uk.document", checkScrollSpyNavs);
             $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
 
             // init code
@@ -1216,7 +1213,7 @@
                         navitems = links.removeClass(clsActive).filter("a[href='#"+target.attr("id")+"']").addClass(clsActive);
                     }
 
-                    $this.element.trigger("@.scrollspynav.inview", [target, navitems]);
+                    $this.element.trigger("inview.uk.scrollspynav", [target, navitems]);
                 }
             };
 
@@ -1384,9 +1381,9 @@
 
         close: function() {
 
-            var element       = this.trigger("@.alert.close"),
+            var element       = this.trigger("close.uk.alert"),
                 removeElement = function () {
-                    this.trigger("@.alert.closed").remove();
+                    this.trigger("closed.uk.alert").remove();
                 }.bind(this);
 
             if (this.options.fade) {
@@ -1447,7 +1444,7 @@
                 if (ele.is('a[href="#"]')) e.preventDefault();
 
                 $this.find($this.options.target).not(ele).removeClass(UI.prefix("@-active")).blur();
-                $this.trigger("@.button.change", [ele.addClass("@-active")]);
+                $this.trigger("change.uk.button", [ele.addClass("@-active")]);
             });
 
         },
@@ -1474,7 +1471,7 @@
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
-                        ele.trigger("@.button.change", [target.toggleClass("@-active").blur()]);
+                        ele.trigger("change.uk.button", [target.toggleClass("@-active").blur()]);
                     }
                 }
             });
@@ -1488,7 +1485,7 @@
 
                 if ($(this).is('a[href="#"]')) e.preventDefault();
 
-                $this.trigger("@.button.change", [UI.$(this).toggleClass("@-active").blur()]);
+                $this.trigger("change.uk.button", [UI.$(this).toggleClass("@-active").blur()]);
             });
 
         },
@@ -1525,7 +1522,7 @@
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
 
                 $this.toggle();
-                $this.trigger("@.button.change", [$this.element.blur().hasClass("@-active")]);
+                $this.trigger("change.uk.button", [$this.element.blur().hasClass("@-active")]);
             });
 
         },
@@ -1677,7 +1674,7 @@
 
             this.checkDimensions();
             this.element.addClass('@-open');
-            this.trigger('@.dropdown.show', [this]);
+            this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
             active = this.element;
@@ -1790,7 +1787,7 @@
                     }, 0);
                 }
 
-                this.trigger('@.dropdown.stack', [this]);
+                this.trigger('stack.uk.dropdown', [this]);
             }
 
             dropdown.css("display", "");
@@ -1851,13 +1848,13 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("@.dom.changed", function(e) {
+            UI.$html.on("changed.uk.dom", function(e) {
                 $this.columns  = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
             });
 
-            this.on("@.check.display", function(e) {
+            this.on("display.uk.check", function(e) {
                 if(this.element.is(":visible")) this.match();
             }.bind(this));
 
@@ -2025,7 +2022,7 @@
             active = this;
             $html.addClass("@-modal-page").height(); // force browser engine redraw
 
-            this.element.addClass("@-open").trigger("@.modal.show");
+            this.element.addClass("@-open").trigger("show.uk.modal");
 
             UI.Utils.checkDisplay(this.dialog, true);
 
@@ -2094,7 +2091,7 @@
 
             if(active===this) active = false;
 
-            this.trigger("@.modal.hide");
+            this.trigger("hide.uk.modal");
         },
 
         isActive: function() {
@@ -2161,7 +2158,7 @@
 
         var modal = UI.modal(UI.$(UI.modal.dialog.template).appendTo("body"), options);
 
-        modal.on("@.modal.hide", function(){
+        modal.on("hide.uk.modal", function(){
             if (modal.persist) {
                 modal.persist.appendTo(modal.persist.data("modalPersistParent"));
                 modal.persist = false;
@@ -2374,7 +2371,7 @@
 
             this._initElement(element);
 
-            $doc.trigger('@.offcanvas.show', [element, bar]);
+            $doc.trigger('show.uk.offcanvas', [element, bar]);
         },
 
         hide: function(force) {
@@ -2389,7 +2386,7 @@
                     bar.removeClass("@-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
-                    UI.$doc.trigger('@.offcanvas.hide', [panel, bar]);
+                    UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
                 };
 
             if (!panel.length) return;
@@ -2411,9 +2408,9 @@
 
         _initElement: function(element) {
 
-            if (element.data(UI.prefix("@OffcanvasInit"))) return;
+            if (element.data("OffcanvasInit")) return;
 
-            element.on("click.@offcanvas swipeRight.@offcanvas swipeLeft.@offcanvas", function(e) {
+            element.on("click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas", function(e) {
 
                 var target = UI.$(e.target);
 
@@ -2438,12 +2435,12 @@
                     return;
                 }
 
-                UI.$doc.one('@.offcanvas.hide', function() {
+                UI.$doc.one('hide.uk.offcanvas', function() {
 
                     var target = $(href);
 
                     if (!target.length) {
-                        target = $('[name="'+href.replace('#','')+'"]');
+                        target = UI.$('[name="'+href.replace('#','')+'"]');
                     }
 
                     if (UI.Utils.scrollToElement && target.length) {
@@ -2456,7 +2453,7 @@
                 Offcanvas.hide();
             });
 
-            element.data(UI.prefix("@OffcanvasInit"), true);
+            element.data("OffcanvasInit", true);
         }
     };
 
@@ -2477,7 +2474,8 @@
                 }
             });
 
-            $html.on('keydown.@offcanvas', function(e) {
+            $html.on('keydown.uk.offcanvas', function(e) {
+
                 if (e.keyCode === 27) { // ESC
                     Offcanvas.hide();
                 }
@@ -2558,7 +2556,7 @@
 
                         e.preventDefault();
 
-                        var item = UI.$(this).data(UI.prefix('@SwitcherItem'));
+                        var item = UI.$(this).data(UI._prefix+'SwitcherItem');
 
                         if ($this.index == item) return;
 
@@ -2662,7 +2660,7 @@
                 });
             }
 
-            this.trigger("@.switcher.show", [active]);
+            this.trigger("show.uk.switcher", [active]);
         }
     });
 
@@ -2813,7 +2811,7 @@
             this.on("click", this.options.target, function(e) {
                 e.preventDefault();
                 $this.find($this.options.target).not(this).removeClass(UI.prefix("@-active")).blur();
-                $this.trigger("@.tab.change", [UI.$(this).addClass("@-active")]);
+                $this.trigger("change.uk.tab", [UI.$(this).addClass("@-active")]);
             });
 
             if (this.options.connect) {
@@ -2840,7 +2838,7 @@
                 $this.element.children(':not(.@-tab-responsive)').eq(link.data('index')).trigger('click');
             });
 
-            this.on('@.switcher.show @.tab.change', function(e, tab) {
+            this.on('show.uk.switcher change.uk.tab', function(e, tab) {
                 $this.responsivetab.caption.html(tab.text());
             });
 
@@ -2860,7 +2858,7 @@
             UI.dropdown(this.responsivetab, {"mode": "click"});
 
             // init
-            $this.trigger("@.tab.change", [this.element.find(this.options.target).filter('.@-active')]);
+            $this.trigger("change.uk.tab", [this.element.find(this.options.target).filter('.@-active')]);
 
             this.check();
 
@@ -2868,7 +2866,7 @@
                 if ($this.element.is(":visible"))  $this.check();
             }, 100));
 
-            this.on('@.check.display', function(){
+            this.on('display.uk.check', function(){
                 if ($this.element.is(":visible"))  $this.check();
             });
         },

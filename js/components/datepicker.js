@@ -227,7 +227,7 @@
             }
 
             dropdown.css(css).show();
-            this.trigger('@.datepicker.show');
+            this.trigger('show.uk.datepicker');
 
             active = this;
         },
@@ -254,7 +254,7 @@
 
             dropdown.html(tpl);
 
-            this.trigger('@.datepicker.update');
+            this.trigger('update.uk.datepicker');
         },
 
         getRows: function(year, month) {
@@ -326,7 +326,7 @@
                 dropdown.hide();
                 active = false;
 
-                this.trigger('@.datepicker.hide');
+                this.trigger('hide.uk.datepicker');
             }
         }
     });

@@ -48,16 +48,13 @@
     UI._prefix = 'uk';
 
     UI.noConflict = function(prefix) {
-
         // resore UIkit version
         if (_UI) {
             window.UIkit = _UI;
             $.UIkit      = _UI;
             $.fn.uk      = _UI.fn;
         }
-
         if (prefix) {} UI._prefix = prefix;
-
         return UI;
     };
 
@@ -83,7 +80,7 @@
             'attr', 'parent', 'parents', 'children',
             'addClass', 'removeClass', 'toggleClass', 'hasClass',
             'is',
-            'on', 'one', 'trigger', 'off'
+            'on', 'one'
         ].forEach(function(m){
 
             var method =prototype[m], result, collections = ['find','filter','parent', 'parents', 'children', 'closest'];
@@ -264,7 +261,7 @@
             elements = $(context);
         }
 
-        elements.trigger('@.check.display');
+        elements.trigger('display.uk.check');
 
         // fix firefox / IE animations
         if (initanimation) {
@@ -422,7 +419,7 @@
 
             });
 
-            this.trigger('@.component.init', [name, this]);
+            this.trigger('init.uk.component', [name, this]);
 
             return this;
         };
@@ -577,7 +574,7 @@
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
-                    $element.trigger('@.dom.changed');
+                    $element.trigger('changed.uk.dom');
                 }, 50));
 
                 // pass in the target node, as well as the observer options
@@ -592,13 +589,13 @@
 
     $(function(){
 
-        UI.$body = UI.$('body'); 
+        UI.$body = UI.$('body');
 
         UI.ready(function(context){
             UI.domObserve('[data-@-observe]', context || document);
         });
 
-        UI.on('@.domready', function(){
+        UI.on('ready.uk.dom', function(){
 
             UI.domObservers.forEach(function(fn){
                 fn(document);
@@ -608,7 +605,7 @@
         });
 
 
-        UI.on('@.dom.changed', function(e) {
+        UI.on('changed.uk.dom', function(e) {
 
             var ele = e.target;
 
@@ -619,7 +616,7 @@
             UI.Utils.checkDisplay(ele);
         });
 
-        UI.trigger('@.domready.before');
+        UI.trigger('beforeready.uk.dom');
 
         UI.component.bootComponents();
 
@@ -641,7 +638,7 @@
                         "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
                     };
 
-                    UI.$doc.trigger('@-scroll', [memory]);
+                    UI.$doc.trigger('scrolling.uk.document', [memory]);
                 }
             };
 
@@ -656,7 +653,7 @@
         })(), 15);
 
         // run component init functions on dom
-        UI.trigger('@.domready');
+        UI.trigger('ready.uk.dom');
 
         if (UI.support.touch) {
 
@@ -679,7 +676,7 @@
             }
         }
 
-        UI.trigger('@.domready.after');
+        UI.trigger('afterready.uk.dom');
 
         // mark that domready is left behind
         UI.domready = true;

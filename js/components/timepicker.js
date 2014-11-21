@@ -85,7 +85,7 @@
             this.autocomplete = UI.autocomplete(this.element.parent(), this.options);
             this.autocomplete.dropdown.addClass(UI.prefix('@-dropdown-small @-dropdown-scrollable'));
 
-            this.autocomplete.on(UI.prefix('@.autocomplete.show'), function() {
+            this.autocomplete.on(UI.prefix('show.uk.autocomplete'), function() {
 
                 var selected = $this.autocomplete.dropdown.find('[data-value="'+$this.autocomplete.input.val()+'"]');
 

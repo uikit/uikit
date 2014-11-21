@@ -158,11 +158,11 @@
 
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
-            this.on('@.component.init', function() {
+            this.on('init.uk.component', function() {
                 $this.redraw();
             });
 
-            this.element.attr('data-@-check-display', 1).on('@.check.display', function(e) {
+            this.element.attr('data-@-check-display', 1).on('display.uk.check', function(e) {
                 if (this.htmleditor.is(":visible")) this.fit();
             }.bind(this));
 

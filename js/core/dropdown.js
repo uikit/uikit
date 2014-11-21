@@ -139,7 +139,7 @@
 
             this.checkDimensions();
             this.element.addClass('@-open');
-            this.trigger('@.dropdown.show', [this]);
+            this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
             active = this.element;
@@ -252,7 +252,7 @@
                     }, 0);
                 }
 
-                this.trigger('@.dropdown.stack', [this]);
+                this.trigger('stack.uk.dropdown', [this]);
             }
 
             dropdown.css("display", "");
