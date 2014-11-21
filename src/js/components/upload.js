@@ -34,7 +34,7 @@
     UI.component('uploadDrop', {
 
         defaults: {
-            'dragoverClass': 'uk-dragover'
+            'dragoverClass': '@-dragover'
         },
 
         init: function() {

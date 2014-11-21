@@ -56,12 +56,12 @@
             // auto init
             UI.ready(function(context) {
 
-                $("[data-uk-sortable]", context).each(function(){
+                UI.$("[data-uk-sortable]", context).each(function(){
 
-                    var ele = $(this);
+                    var ele = UI.$(this);
 
                     if(!ele.data("sortable")) {
-                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
+                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-@-sortable")));
                     }
                 });
             });
@@ -86,7 +86,7 @@
                         draggingPlaceholder.$current.addClass(draggingPlaceholder.$sortable.options.placeholderClass);
                         draggingPlaceholder.$sortable.element.children().addClass(draggingPlaceholder.$sortable.options.childClass);
 
-                        $('html').addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
+                        UI.$html.addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
                     }
 
                     var offset = draggingPlaceholder.data('mouse-offset'),
@@ -114,6 +114,13 @@
         },
 
         init: function() {
+
+            Object.keys(this.options).forEach(function(key){
+
+                if (String($this.options[key]).indexOf('Class')!=-1) {
+                    $this.options[key] = UI.prefix($this.options[key]);
+                }
+            });
 
             var $this                    = this,
                 element                  = this.element[0],
@@ -207,7 +214,7 @@
                         addFakeDragHandlers();
 
                         $this.options.start(this, currentlyDraggingElement);
-                        $this.trigger('uk.sortable.start', [$this, currentlyDraggingElement]);
+                        $this.trigger('@.sortable.start', [$this, currentlyDraggingElement]);
 
                         delayIdle = false;
                     }
@@ -295,7 +302,7 @@
                 }
 
                 $this.options.change(this, currentlyDraggingElement);
-                $this.trigger('uk.sortable.change', [$this, currentlyDraggingElement]);
+                $this.trigger('@.sortable.change', [$this, currentlyDraggingElement]);
             });
 
             var handleDragEnd = function(e) {
@@ -315,7 +322,7 @@
                 removeFakeDragHandlers();
 
                 $this.options.stop(this);
-                $this.trigger('uk.sortable.stop', [$this]);
+                $this.trigger('@.sortable.stop', [$this]);
 
                 draggingPlaceholder.remove();
                 draggingPlaceholder = null;

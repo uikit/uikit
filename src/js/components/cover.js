@@ -27,12 +27,12 @@
             // auto init
             UI.ready(function(context) {
 
-                $("[data-uk-cover]", context).each(function(){
+                UI.$("[data-@-cover]", context).each(function(){
 
-                    var ele = $(this);
+                    var ele = UI.$(this);
 
                     if(!ele.data("cover")) {
-                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
+                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-@-cover")));
                     }
                 });
             });

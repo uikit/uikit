@@ -59,7 +59,7 @@
     UI.component('nestable', {
 
         defaults: {
-            prefix          : 'uk',
+            prefix          : '@',
             listNodeName    : 'ul',
             itemNodeName    : 'li',
             listBaseClass   : '{prefix}-nestable',
@@ -99,12 +99,12 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-nestable]", context).each(function(){
+                UI.$("[data-@-nestable]", context).each(function(){
 
-                    var ele = $(this);
+                    var ele = UI.$(this);
 
                     if(!ele.data("nestable")) {
-                        var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-uk-nestable")));
+                        var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-@-nestable")));
                     }
                 });
             });
@@ -113,6 +113,8 @@
         init: function() {
 
             var $this = this;
+
+            $this.options.prefix = UI.prefix($this.options.prefix);
 
             Object.keys(this.options).forEach(function(key){
 
@@ -178,14 +180,14 @@
                 }
                 e.preventDefault();
                 $this.dragStart(hasTouch ? e.touches[0] : e);
-                $this.trigger('uk.nestable.start', [$this]);
+                $this.trigger('@.nestable.start', [$this]);
             };
 
             var onMoveEvent = function(e) {
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragMove(hasTouch ? e.touches[0] : e);
-                    $this.trigger('uk.nestable.move', [$this]);
+                    $this.trigger('@.nestable.move', [$this]);
                 }
             };
 
@@ -193,7 +195,7 @@
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragStop(hasTouch ? e.touches[0] : e);
-                    $this.trigger('uk.nestable.stop', [$this]);
+                    $this.trigger('@.nestable.stop', [$this]);
                 }
 
                 draggingElement = false;
@@ -361,7 +363,7 @@
 
             this.dragRootEl = this.element;
 
-            this.dragEl = $(document.createElement(this.options.listNodeName)).addClass(this.options.listClass + ' ' + this.options.dragClass);
+            this.dragEl = UI.$(document.createElement(this.options.listNodeName)).addClass(this.options.listClass + ' ' + this.options.dragClass);
             this.dragEl.css('width', dragItem.width());
 
             draggingElement = this.dragEl;
@@ -405,10 +407,10 @@
 
             if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
-                this.element.trigger('uk.nestable.change',[el, this.hasNewRoot ? "added":"moved"]);
+                this.element.trigger('@.nestable.change',[el, this.hasNewRoot ? "added":"moved"]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('uk.nestable.change', [el, "removed"]);
+                    this.dragRootEl.trigger(UI.prefix('@.nestable.change'), [el, "removed"]);
                 }
             }
 
