@@ -319,6 +319,10 @@
         return d.promise();
     };
 
+    UI.Utils.uid = function(prefix) {
+        return (prefix || 'id') + (new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
+    };
+
     UI.Utils.template = function(str, data) {
 
         var tokens = str.replace(/\n/g, '\\n').replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g),

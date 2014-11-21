@@ -32,10 +32,13 @@
             return (new Message(options)).show();
         },
         closeAll  = function(group, instantly){
+
+            var id;
+
             if (group) {
-                for(var id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
+                for(id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
             } else {
-                for(var id in messages) { messages[id].close(instantly); }
+                for(id in messages) { messages[id].close(instantly); }
             }
         };
 
@@ -45,7 +48,7 @@
 
         this.options = $.extend({}, Message.defaults, options);
 
-        this.uuid    = "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
+        this.uuid    = UI.Utils.uid("notifymsg");
         this.element = UI.$([
 
             '<div class="@-notify-message">',
@@ -68,7 +71,7 @@
         messages[this.uuid] = this;
 
         if(!containers[this.options.pos]) {
-            containers[this.options.pos] = UI.$('<div class="@-notify @-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".@-notify-message", function(){
+            containers[this.options.pos] = UI.$('<div class="@-notify @-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", UI.prefix(".@-notify-message"), function(){
                 UI.$(this).data("notifyMessage").close();
             });
         }
@@ -127,9 +130,9 @@
                     delete messages[$this.uuid];
                 };
 
-            if(this.timeout) clearTimeout(this.timeout);
+            if (this.timeout) clearTimeout(this.timeout);
 
-            if(instantly) {
+            if (instantly) {
                 finalize();
             } else {
                 this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
@@ -153,7 +156,7 @@
 
         status: function(status) {
 
-            if(!status) {
+            if (!status) {
                 return this.currentstatus;
             }
 
