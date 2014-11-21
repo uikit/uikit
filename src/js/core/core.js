@@ -48,8 +48,14 @@
 
     UI.noConflict = function(prefix) {
 
-        if (_UI) window.UIkit = _UI;
-        if (prefix) UI._prefix = prefix;
+        // resore UIkit version
+        if (_UI) {
+            window.UIkit = _UI;
+            $.UIkit      = _UI;
+            $.fn.uk      = _UI.fn;
+        }
+
+        if (prefix) {} UI._prefix = prefix;
 
         return UI;
     };
@@ -378,6 +384,7 @@
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
     window.UIkit = UI;
+    $.UIkit      = UI;
     $.fn.uk      = UI.fn;
 
     UI.langdirection = UI.$html.attr("dir") == "rtl" ? "right" : "left";
