@@ -218,7 +218,7 @@
 
             var data,
                 depth = 0,
-                list  = this;
+                list  = this,
                 step  = function(level, depth) {
 
                     var array = [ ], items = level.children(list.options.itemNodeName);
