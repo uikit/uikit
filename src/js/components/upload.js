@@ -196,7 +196,7 @@
 
                     var response = xhr.responseText;
 
-                    if (settings.type=="json") {
+                    if ((settings.type).toUpperCase()=="JSON") {
                         try {
                             response = $.parseJSON(response);
                         } catch(e) {
