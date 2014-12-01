@@ -75,6 +75,18 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
         './src/js/core/tooltip.js'
     ];
 
+
+gulp.task('default', ['dist', 'build-docs', 'indexthemes'], function(done) {
+
+    if(gutil.env.p || gutil.env.prefix) {
+        runSequence('prefix', function(){
+            done();
+        });
+    } else {
+        done();
+    }
+});
+
 gulp.task('dist', ['dist-themes-core'], function(done) {
 
     runSequence('sass', 'dist-core-minify', 'dist-core-header', 'browser-reload', 'dist-bower-file', function(){
@@ -90,9 +102,6 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 
     });
 });
-
-gulp.task('default', ['dist', 'build-docs', 'indexthemes']);
-
 
 /*
  * development related tasks
@@ -164,7 +173,8 @@ gulp.task('help', function(done) {
         '-c, --clean': '',
         '-m, --min': '',
         '-a, --all': '',
-        '-t, --theme': ''
+        '-t, --theme': '',
+        '-p, --prefix': ''
     }) {
         console.log(p);
     }
@@ -514,6 +524,21 @@ gulp.task('indexthemes', function() {
     console.log(data.length+' themes found: ' + data.map(function(theme){ return theme.name;}).join(", "));
 
     fs.writeFileSync("themes.json", JSON.stringify(data, " ", 4));
+});
+
+gulp.task('prefix', function(done) {
+    var prefix = gutil.env.p || gutil.env.prefix || false;
+
+    if(!prefix) {
+        return done();
+    }
+
+    gutil.log("Replacing prefix 'uk' with '"+prefix+"'");
+
+    gulp.src(['./dist/**/*.css', './dist/**/*.less', './dist/**/*.scss'])
+        .pipe(replace(/(uk-([a-z\d\-]+))/g, prefix+'-$2'))
+        .pipe(gulp.dest('./dist'))
+        .on('end', done);
 });
 
 /*
