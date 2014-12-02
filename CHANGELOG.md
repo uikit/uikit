@@ -1,10 +1,12 @@
 # Changelog
 
 ### WIP
+  - Added flex order classes for different breakpoints
   - Added slidenav-inverted modifier
   - Added prevent registering a component multiple times with the same name
   - Added direction info to the uk-scroll event
   - Added $.UIkit.Utils.str2json helper function
+  - Updated grid to use flex
   - Updated active paremeter for the switcher component to allow false as value
   - Disable pointer events none on iframes in slideshows on touch devices
   - Fixed automute in slideshow component

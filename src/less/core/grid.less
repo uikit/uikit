@@ -57,17 +57,7 @@
    Component: Grid
  ========================================================================== */
 
-/*
- * Micro clearfix
- */
 
-.uk-grid:before,
-.uk-grid:after {
-    content: " ";
-    display: table;
-}
-
-.uk-grid:after { clear: both; }
 
 /*
  * 1. Needed for the gutter
@@ -75,6 +65,12 @@
  */
 
 .uk-grid {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     /* 1 */
     margin: 0 0 0 (-@grid-gutter-horizontal);
     /* 2 */
@@ -83,18 +79,39 @@
 }
 
 /*
+ * DEPRECATED
+ * Micro clearfix
+ * 1. Prevent 1px gap when it becomes a flex item
+ */
+
+.uk-grid:before,
+.uk-grid:after {
+    content: " ";
+    display: table;
+    /* 1 */
+    width: 0;
+}
+
+.uk-grid:after { clear: both; }
+
+/*
  * Grid cell
- * 1. Makes grid more robust so that it can be used with other block elements
- * 2. Create horizontal gutter
- * 3. `float` is set by default so columns always behave the same and create a new block format context
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Makes grid more robust so that it can be used with other block elements
+ * 3. Create horizontal gutter
+ * 4. DEPRECATED Using `float` to support IE9
  */
 
 .uk-grid > * {
     /* 1 */
-    margin: 0;
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
     /* 2 */
-    padding-left: @grid-gutter-horizontal;
+    margin: 0;
     /* 3 */
+    padding-left: @grid-gutter-horizontal;
+    /* 4 */
     float: left;
 }
 

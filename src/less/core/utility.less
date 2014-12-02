@@ -110,12 +110,15 @@
 
 /*
  * Micro clearfix
+ * 1. Prevent 1px gap if used with `flex`
  */
 
 .uk-clearfix:before,
 .uk-clearfix:after {
     content: " ";
     display: table;
+    /* 1 */
+    width: 0;
 }
 
 .uk-clearfix:after { clear: both; }
