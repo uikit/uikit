@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - Added uk-grid-match class to grid component
   - Added flex order classes for different breakpoints
   - Added slidenav-inverted modifier
   - Added prevent registering a component multiple times with the same name
