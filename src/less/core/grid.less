@@ -8,6 +8,7 @@
 //
 // Modifiers:       `uk-grid-divider`
 //                  `uk-grid-margin`
+//                  `uk-grid-match`
 //                  `uk-grid-width-*`
 //                  `uk-grid-preserve`
 //
@@ -252,6 +253,29 @@
     margin-top: @grid-gutter-vertical;
     margin-bottom: @grid-gutter-vertical;
     border-top: @grid-divider-border-width solid @grid-divider-border;
+}
+
+/* Match panels in grids
+ ========================================================================== */
+
+.uk-grid-match > * {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+/*
+ * 1. Behave like a block element
+ */
+
+.uk-grid-match > * > * {
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 1 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 
