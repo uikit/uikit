@@ -8,10 +8,10 @@
   - Added slidenav-inverted modifier
   - Added prevent registering a component multiple times with the same name
   - Added direction info to the uk-scroll event
-  - Added $.UIkit.Utils.str2json helper function
+  - Added UIkit.Utils.str2json helper function
   - Added prefix gulp task to build custom prefixed uikit
   - Added no conflict mode $.UIkit.noConflict(prefixname)
-  - Added $.UIkit.$body reference on domready
+  - Added UIkit.$body reference on domready
   - Updated grid to use flex
   - Updated active paremeter for the switcher component to allow false as value
   - Disable pointer events none on iframes in slideshows on touch devices
