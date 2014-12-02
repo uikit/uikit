@@ -8,6 +8,7 @@
 //
 // Modifiers:       `uk-grid-divider`
 //                  `uk-grid-margin`
+//                  `uk-grid-match`
 //                  `uk-grid-width-*`
 //                  `uk-grid-preserve`
 //
@@ -57,17 +58,7 @@ $grid-divider-border-width:                      1px !default;
    Component: Grid
  ========================================================================== */
 
-/*
- * Micro clearfix
- */
 
-.uk-grid:before,
-.uk-grid:after {
-    content: " ";
-    display: table;
-}
-
-.uk-grid:after { clear: both; }
 
 /*
  * 1. Needed for the gutter
@@ -75,6 +66,12 @@ $grid-divider-border-width:                      1px !default;
  */
 
 .uk-grid {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     /* 1 */
     margin: 0 0 0 (-$grid-gutter-horizontal);
     /* 2 */
@@ -83,18 +80,39 @@ $grid-divider-border-width:                      1px !default;
 }
 
 /*
+ * DEPRECATED
+ * Micro clearfix
+ * 1. Prevent 1px gap when it becomes a flex item
+ */
+
+.uk-grid:before,
+.uk-grid:after {
+    content: " ";
+    display: table;
+    /* 1 */
+    width: 0;
+}
+
+.uk-grid:after { clear: both; }
+
+/*
  * Grid cell
- * 1. Makes grid more robust so that it can be used with other block elements
- * 2. Create horizontal gutter
- * 3. `float` is set by default so columns always behave the same and create a new block format context
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Makes grid more robust so that it can be used with other block elements
+ * 3. Create horizontal gutter
+ * 4. DEPRECATED Using `float` to support IE9
  */
 
 .uk-grid > * {
     /* 1 */
-    margin: 0;
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
     /* 2 */
-    padding-left: $grid-gutter-horizontal;
+    margin: 0;
     /* 3 */
+    padding-left: $grid-gutter-horizontal;
+    /* 4 */
     float: left;
 }
 
@@ -235,6 +253,29 @@ $grid-divider-border-width:                      1px !default;
     margin-top: $grid-gutter-vertical;
     margin-bottom: $grid-gutter-vertical;
     border-top: $grid-divider-border-width solid $grid-divider-border;
+}
+
+/* Match panels in grids
+ ========================================================================== */
+
+.uk-grid-match > * {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+/*
+ * 1. Behave like a block element
+ */
+
+.uk-grid-match > * > * {
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 1 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 

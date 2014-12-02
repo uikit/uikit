@@ -399,21 +399,16 @@ iframe {
    Component: Grid
  ========================================================================== */
 /*
- * Micro clearfix
- */
-.uk-grid:before,
-.uk-grid:after {
-  content: " ";
-  display: table;
-}
-.uk-grid:after {
-  clear: both;
-}
-/*
  * 1. Needed for the gutter
  * 2. Makes grid more robust so that it can be used with other block elements like lists
  */
 .uk-grid {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
   /* 1 */
   margin: 0 0 0 -25px;
   /* 2 */
@@ -421,17 +416,37 @@ iframe {
   list-style: none;
 }
 /*
+ * DEPRECATED
+ * Micro clearfix
+ * 1. Prevent 1px gap when it becomes a flex item
+ */
+.uk-grid:before,
+.uk-grid:after {
+  content: " ";
+  display: table;
+  /* 1 */
+  width: 0;
+}
+.uk-grid:after {
+  clear: both;
+}
+/*
  * Grid cell
- * 1. Makes grid more robust so that it can be used with other block elements
- * 2. Create horizontal gutter
- * 3. `float` is set by default so columns always behave the same and create a new block format context
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Makes grid more robust so that it can be used with other block elements
+ * 3. Create horizontal gutter
+ * 4. DEPRECATED Using `float` to support IE9
  */
 .uk-grid > * {
   /* 1 */
-  margin: 0;
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
   /* 2 */
-  padding-left: 25px;
+  margin: 0;
   /* 3 */
+  padding-left: 25px;
+  /* 4 */
   float: left;
 }
 /*
@@ -566,6 +581,25 @@ iframe {
   margin-top: 25px;
   margin-bottom: 25px;
   border-top: 1px solid #dddddd;
+}
+/* Match panels in grids
+ ========================================================================== */
+.uk-grid-match > * {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+/*
+ * 1. Behave like a block element
+ */
+.uk-grid-match > * > * {
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+  /* 1 */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
 }
 /* Even grid cell widths
  ========================================================================== */
@@ -5490,7 +5524,8 @@ a.uk-thumbnail:focus {
 .uk-overlay-area-content a:not([class]):hover {
   color: inherit;
 }
-/* DEPRECATED Sub-object `uk-overlay-caption`
+/* DEPRECATED
+ * Sub-object `uk-overlay-caption`
  ========================================================================== */
 /*
  * 1. Set position
@@ -6916,11 +6951,14 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 /*
  * Micro clearfix
+ * 1. Prevent 1px gap if used with `flex`
  */
 .uk-clearfix:before,
 .uk-clearfix:after {
   content: " ";
   display: table;
+  /* 1 */
+  width: 0;
 }
 .uk-clearfix:after {
   clear: both;

@@ -130,6 +130,58 @@
   -webkit-order: 99;
   order: 99;
 }
+/* Phone landscape and bigger */
+@media (min-width: 480px) {
+  .uk-flex-order-first-small {
+    -ms-flex-order: -1;
+    -webkit-order: -1;
+    order: -1;
+  }
+  .uk-flex-order-last-small {
+    -ms-flex-order: 99;
+    -webkit-order: 99;
+    order: 99;
+  }
+}
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-flex-order-first-medium {
+    -ms-flex-order: -1;
+    -webkit-order: -1;
+    order: -1;
+  }
+  .uk-flex-order-last-medium {
+    -ms-flex-order: 99;
+    -webkit-order: 99;
+    order: 99;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-flex-order-first-large {
+    -ms-flex-order: -1;
+    -webkit-order: -1;
+    order: -1;
+  }
+  .uk-flex-order-last-large {
+    -ms-flex-order: 99;
+    -webkit-order: 99;
+    order: 99;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-flex-order-first-xlarge {
+    -ms-flex-order: -1;
+    -webkit-order: -1;
+    order: -1;
+  }
+  .uk-flex-order-last-xlarge {
+    -ms-flex-order: 99;
+    -webkit-order: 99;
+    order: 99;
+  }
+}
 /* Item dimensions
  ========================================================================== */
 /*
