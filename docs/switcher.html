@@ -826,12 +826,32 @@
                                 </table>
                             </div>
 
+                            <h3>Events</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>show.uk.switcher</code></td>
+                                            <td>event, active item</td>
+                                            <td>On switcher item show/change</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>$('[data-uk-switcher]').on('uk.switcher.show', function(event, area){
+<pre><code>$('[data-uk-switcher]').on('show.uk.switcher', function(event, area){
     console.log("Switcher switched to ", area);
 });</code></pre>
-
 
                         </article>
 

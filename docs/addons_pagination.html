@@ -155,11 +155,30 @@
 
                             <h3>Events</h3>
 
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>select.uk.pagination</code></td>
+                                            <td>event, pageIndex, pagination object</td>
+                                            <td>On page click</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <p>
                                 The pagination component triggers an <code>uk-select-page</code> event every time you click on a page.
                             </p>
 
-<pre><code>$('[data-uk-pagination]').on('uk-select-page', function(e, pageIndex){
+<pre><code>$('[data-uk-pagination]').on('select.uk.pagination', function(e, pageIndex){
     alert('You have selected page: ' + (pageIndex+1));
 });
 </code></pre>
