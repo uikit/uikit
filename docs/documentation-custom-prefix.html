@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Working with Less &amp; Sass sources - UIkit documentation</title>
+        <title>Custom Prefix - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,7 +24,7 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
-                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
                     <li><a href="components.html">Components</a></li>
                     <li><a href="addons.html">Add-ons</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
@@ -52,79 +52,43 @@
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
                             <li class="uk-nav-header">Developers</li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li class="uk-active"><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation-custom-prefix.html">Custom prefix</a></li>
+                            <li class="uk-active"><a href="documentation-custom-prefix.html">Custom prefix</a></li>
 
                         </ul>
 
                     </div>
                     <div class="tm-main uk-width-medium-3-4">
 
-                        <article class="uk-article">
+                        <article class="uk-article" style="min-height:50vh;">
 
-                            <h1>Less &amp; Sass files</h1>
+                            <h1 class="uk-article-title">Custom prefix</h1>
 
-                            <p class="uk-article-lead">A separate Bower UIkit repository contains all distribution files including Less and Sass.</p>
-
-                            <p>The great thing about UIkit is that you can easily integrate its source files in your project to keep your custom project workflow for building assets and stay with your preferred CSS preprocessor.</p>
-
-                            <p>UIkit uses the package manager <a href="http://bower.io/">Bower</a> to load assets. Therefore UIkit automatically generates the distributions into a seperate <a href=„https://github.com/uikit/bower-uikit“>Bower UIkit repository</a>. It contains all CSS, Less, SCSS and JavaScript files from UIkit and its components.</p>
-
-                            <h3>Get the latest UIkit distribution</h3>
-
-                            <ol>
-                                <li>Install with <a href="http://bower.io/">Bower</a> <code>bower install uikit</code></li>
-                                <li>Or get the Package from <a href="https://github.com/uikit/bower-uikit/">Github</a></li>
-                            </ol>
+                            <p class="uk-article-lead">Create a custom prefixed UIkit builds to avoid issues when using multiple UIkit versions side by side.</p>
 
                             <p>
-                                You'll find both, Less files and Sass files side by side seperated in their own folders:
+                                We introduced the usage of <code>gulp</code> already <a href="documentation_project-structure.html#automate-preprocessing">here</a>.
+                                So you should be familiar with creating an UIkit build.
                             </p>
-
-<pre><code>/uikit
-    less/
-        uikit.less
-        ...
-    scss/
-        uikit-mixins.scss
-        uikit.scss
-        ...
-
-</code></pre>
-
-                            <h2>Embedding Less in your project</h2>
 
                             <p>
-                                Using Less is pretty straightforward. Just include UIkit and additional components at the top of your main Less file and start customizing by utilizing UIkits hooks and override its variables.
+                                To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes custom prefixed.
                             </p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+                            <pre><code>gulp -p myprefix</code></pre>
 
-<pre><code>@import "uikit/less/uikit.less";
-@import "uikit/less/components/autocomplete.less";
+                            <p>After running gulp you'll find your custom prefixed build in the dist folder. e.g.:</p>
+<pre><code>.myprefix-grid { ... }
+...</code></pre>
 
-// your custom code goes here, e.g. mixins, variables
-</code></pre>
+                            <p>To use UIkits JavaScript and components with your custom build just call the <code>noConflict</code> method with your prefix as a parameter <strong>after</strong> including UIkit:</p>
 
-                            <h2>Embedding Sass in your project</h2>
+                            <pre><code>var myUIkit = UIkit.noConflict('myprefix');</code></pre>
 
-                            <p>
-                                Due to the way Sass is parsing code, it is needed that you include <code>uikit-mixins.scss</code> first then add your customizations (hooks, variables) and finally UIkit and additional components.
-                            </p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-<pre><code>@import "uikit/scss/uikit-mixins.scss";
-
-// your custom code goes here, e.g. mixins, variables
-
-@import "uikit/scss/uikit.scss";
-@import "uikit/scss/components/autocomplete.scss";
-</code></pre>
                         </article>
 
                     </div>
@@ -164,11 +128,11 @@
                             <li><a href="components.html">Components</a></li>
                             <li><a href="addons.html">Add-ons</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-header">Components</li>
