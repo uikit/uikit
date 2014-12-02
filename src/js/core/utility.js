@@ -69,7 +69,7 @@
 
             var skip         = false,
                 firstvisible = this.columns.filter(":visible:first"),
-                offset       = firstvisible.length ? firstvisible.offset().top : false;
+                offset       = firstvisible.length ? firstvisible.offset().top + firstvisible.outerHeight() : false;
 
             if (offset === false) return;
 
@@ -82,7 +82,7 @@
                     if (skip) {
                         column.addClass($this.options.cls);
                     } else {
-                        if (column.offset().top != offset) {
+                        if (column.offset().top >= offset) {
                             column.addClass($this.options.cls);
                             skip = true;
                         }
