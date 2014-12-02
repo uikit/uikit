@@ -52,6 +52,21 @@ The built version of UIkit will be put in the `/dist` subdirectory. Pass a theme
 gulp watch
 ```
 
+### Custom prefix
+
+Run gulp with your own prefix parameter ```-p``` to have all classes custom prefixed.
+
+```
+gulp -p myprefix
+```
+
+To use JavaScript with your custom build just call the ```noConflict``` method with your prefix as a parameter after including UIkit.
+
+```
+var myUIkit = UIkit.noConflict('myprefix');
+```
+
+
 After running `gulp watch` a new browser instance will open, pointing to the uikit folder - `http://localhost:3000/`. The browser window will reload anytime you modify a source file.
 
 ## Contributing
