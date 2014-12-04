@@ -70,14 +70,15 @@
 
                             <p class="uk-article-lead">Create a custom prefixed UIkit builds to avoid issues when using multiple UIkit versions side by side.</p>
 
-                            <p>
-                                We introduced the usage of <code>gulp</code> already <a href="documentation_project-structure.html#automate-preprocessing">here</a>.
-                                So you should be familiar with creating an UIkit build.
-                            </p>
+                            <p>As we keep releasing newer versions of UIkit, some components or classes will be dismissed. However, a good portion of these might already be rooted in your project, so you'll want to keep the older UIkit version in addition to the newer one. This might cause conflicts when classes that occur in both versions are working differently.</p>
 
-                            <p>
-                                To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes custom prefixed.
-                            </p>
+                            <p>That's why you can custom prefix your UIkit version. Basically this will replace the usual <code>uk-</code> with whatever prefix you set.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Prefix via Less</h2>
+
+                            <p>If you are not familiar with the usage of <code>gulp</code>, check out our doc on <a href="documentation_project-structure.html#automate-preprocessing">automating preprocessing</a> to find out how to create a UIkit build. To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes custom prefixed.</p>
 
                             <pre><code>gulp -p myprefix</code></pre>
 
@@ -85,9 +86,13 @@
 <pre><code>.myprefix-grid { ... }
 ...</code></pre>
 
+                            <hr class="uk-article-divider">
+
+                            <h2>Prefix via JavaScript</h2>
+
                             <p>To use UIkits JavaScript and components with your custom build just call the <code>noConflict</code> method with your prefix as a parameter <strong>after</strong> including UIkit:</p>
 
-                            <pre><code>var myUIkit = UIkit.noConflict('myprefix');</code></pre>
+<pre><code>var myUIkit = UIkit.noConflict('myprefix');</code></pre>
 
                         </article>
 
