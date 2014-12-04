@@ -6,7 +6,7 @@
   * Based on R2 - a CSS LTR 2 RTL converter (https://github.com/ded/r2, Dustin Diaz, MIT License)
   */
 
-(function($) {
+(function() {
 
     if(!String.prototype.trim) {
         String.prototype.trim = function () {
@@ -216,7 +216,7 @@
 
         // translate, translateX, translate3D
         if(matches = v.match(/(translate(X|x|3D|3d)?)\(([^,\)]*)([^\)]*)\)/)) {
-            var value     = $.trim(matches[3]),
+            var value     = matches[3].trim(),
                 remainder = matches[4];
             res  = matches[1]+'('+negateValue(value)+(remainder ? remainder : '')+')';
             v = v.replace(matches[0], res);
@@ -262,10 +262,24 @@
             });
     }
 
-    $.rtl = $.rtl || (function() {
-        return {
-            'convert2RTL': convert2RTL
-        };
-    })();
+    // AMD support
+    if (typeof define === 'function' && define.amd) {
+        define(function () { return convert2RTL; });
+        // CommonJS and Node.js module support.
+    } else if (typeof exports !== 'undefined') {
+        // Support Node.js specific `module.exports` (which can be a function)
+        if (typeof module != 'undefined' && module.exports) {
+            exports = module.exports = convert2RTL;
+        }
+        // But always support CommonJS module 1.1.1 spec (`exports` cannot be a function)
+        exports.convert2RTL = convert2RTL;
+    } else {
 
-})(jQuery);
+        jQuery.rtl = jQuery.rtl || (function() {
+            return {
+                'convert2RTL': convert2RTL
+            };
+        })();
+    }
+
+})();
