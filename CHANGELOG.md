@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.13.0 (December 04, 2014)
   - IMPORTANT: Triggered event names changed
   - DEPRECATED: $.UIkit, UIkit is now globally available
   - Added uk-grid-match class to grid component
