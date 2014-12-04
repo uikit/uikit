@@ -1,4 +1,4 @@
-/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.13.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2941,11 +2941,15 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   font-size: 18px;
   line-height: 30px;
 }
-/* 4 */
+/*
+ * 1. Fixes IE9
+ */
 .uk-form legend:after {
   content: "";
   display: block;
   border-bottom: 1px solid #dddddd;
+  /* 1 */
+  width: 100%;
 }
 /* Size modifiers
  * Higher specificity needed to override defaults
