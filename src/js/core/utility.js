@@ -45,7 +45,7 @@
                     UI.$win.on("load", fn);
                 });
 
-                return UI.Utils.debounce(fn, 50);
+                return UI.Utils.debounce(fn, 20);
             })());
 
             UI.$html.on("changed.uk.dom", function(e) {
@@ -69,7 +69,7 @@
 
             var skip         = false,
                 firstvisible = this.columns.filter(":visible:first"),
-                offset       = firstvisible.length ? firstvisible.offset().top + firstvisible.outerHeight() : false;
+                offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
             if (offset === false) return;
 
@@ -82,9 +82,9 @@
                     if (skip) {
                         column.addClass($this.options.cls);
                     } else {
-                        if (column.offset().top >= offset) {
-                            column.addClass($this.options.cls);
-                            skip = true;
+
+                        if (column.position().top >= offset) {
+                            skip = column.addClass($this.options.cls);
                         }
                     }
                 }
