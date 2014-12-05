@@ -223,11 +223,11 @@
 
                     if (!$this.animating) return;
 
-                    if (currentmedia.is('video,iframe')) {
+                    if (currentmedia && currentmedia.is('video,iframe')) {
                         $this.pausemedia(currentmedia);
                     }
 
-                    if (nextmedia.is('video,iframe')) {
+                    if (nextmedia && nextmedia.is('video,iframe')) {
                         $this.playmedia(nextmedia);
                     }
 
@@ -254,7 +254,7 @@
 
             Animations[animation].apply(this, [current, next, dir]).then(finalize);
 
-            $this.triggers.filter(UI.prefix('[data-@-slideshow-item="'+$this.current+'"]')).removeClass(UI.prefix('@-active'));
+            $this.triggers.removeClass(UI.prefix('@-active'));
             $this.triggers.filter(UI.prefix('[data-@-slideshow-item="'+index+'"]')).addClass(UI.prefix('@-active'));
         },
 

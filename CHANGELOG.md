@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - Fixed IE error causing UIkit crash
   - Fixed slideshow triggers active status
   - Fixed native datepicker recognition in datepicker component
 
