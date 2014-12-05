@@ -357,11 +357,16 @@
     .hook-form-legend;
 }
 
-/* 4 */
+/*
+ * 1. Fixes IE9
+ */
+
 .uk-form legend:after {
     content: "";
     display: block;
     border-bottom: @form-legend-border-width solid @form-legend-border;
+    /* 1 */
+    width: 100%;
 }
 
 

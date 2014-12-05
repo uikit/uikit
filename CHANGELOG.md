@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.13.0 (December 04, 2014)
   - IMPORTANT: Triggered event names changed
   - DEPRECATED: $.UIkit, UIkit is now globally available
   - Added uk-grid-match class to grid component
@@ -15,6 +15,8 @@
   - Updated grid to use flex
   - Updated active paremeter for the switcher component to allow false as value
   - Disable pointer events none on iframes in slideshows on touch devices
+  - Fixed initial flex-shrink value in IE10
+  - Fixed form legend in IE9
   - Fixed automute in slideshow component
   - Fixed hidden text in dotnav
   - Fixed nestable serialize method
