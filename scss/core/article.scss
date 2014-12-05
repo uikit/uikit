@@ -56,8 +56,8 @@ $article-divider-border:                         #ddd !default;
 
 .uk-article:before,
 .uk-article:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-article:after { clear: both; }

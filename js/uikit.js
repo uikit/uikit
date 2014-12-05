@@ -1,4 +1,4 @@
-/*! UIkit 2.13.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.13.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -43,7 +43,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.13.0';
+    UI.version = '2.13.1';
     UI._prefix = 'uk';
 
     UI.noConflict = function(prefix) {
@@ -68,7 +68,7 @@
             arguments[0] = UI.prefix(arguments[0]);
         }
 
-        var obj = Object.create($.apply($, arguments)), prototype = (obj.__proto__ || obj.prototype), i;
+        var obj = $.apply($, arguments), i;
 
         if (!obj.length) {
             return obj;
@@ -82,9 +82,9 @@
             'on', 'one'
         ].forEach(function(m){
 
-            var method =prototype[m], result, collections = ['find','filter','parent', 'parents', 'children', 'closest'];
+            var method = obj[m], result, collections = ['find','filter','parent', 'parents', 'children', 'closest'];
 
-            prototype[m] = function() {
+            obj[m] = function() {
 
                 for (i=0;i<arguments.length;i++) {
 
@@ -94,8 +94,6 @@
                 }
 
                 result = method.apply(this, arguments);
-
-                //console.log(m, arguments)
 
                 return (collections.indexOf(m) > -1) ? UI.$(result) : result;
             };
@@ -941,7 +939,7 @@
                     UI.$win.on("load", fn);
                 });
 
-                return UI.Utils.debounce(fn, 50);
+                return UI.Utils.debounce(fn, 20);
             })());
 
             UI.$html.on("changed.uk.dom", function(e) {
@@ -965,7 +963,7 @@
 
             var skip         = false,
                 firstvisible = this.columns.filter(":visible:first"),
-                offset       = firstvisible.length ? firstvisible.offset().top + firstvisible.outerHeight() : false;
+                offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
             if (offset === false) return;
 
@@ -978,9 +976,9 @@
                     if (skip) {
                         column.addClass($this.options.cls);
                     } else {
-                        if (column.offset().top >= offset) {
-                            column.addClass($this.options.cls);
-                            skip = true;
+
+                        if (column.position().top >= offset) {
+                            skip = column.addClass($this.options.cls);
                         }
                     }
                 }

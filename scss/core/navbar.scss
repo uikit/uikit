@@ -84,8 +84,8 @@ $navbar-toggle-icon-alt:                         "\f002" !default;
 
 .uk-navbar:before,
 .uk-navbar:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-navbar:after { clear: both; }

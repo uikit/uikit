@@ -72,8 +72,8 @@ $htmleditor-fullscreen-icon-resize:              "\f066" !default;
 
 .uk-htmleditor-navbar:before,
 .uk-htmleditor-navbar:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-htmleditor-navbar:after { clear: both; }
@@ -171,8 +171,8 @@ $htmleditor-fullscreen-icon-resize:              "\f066" !default;
 
 .uk-htmleditor-content:before,
 .uk-htmleditor-content:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-htmleditor-content:after { clear: both; }

@@ -82,15 +82,14 @@ $grid-divider-border-width:                      1px !default;
 /*
  * DEPRECATED
  * Micro clearfix
- * 1. Prevent 1px gap when it becomes a flex item
+ * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item
  */
 
 .uk-grid:before,
 .uk-grid:after {
-    content: " ";
-    display: table;
+    content: "";
     /* 1 */
-    width: 0;
+    display: block;
 }
 
 .uk-grid:after { clear: both; }

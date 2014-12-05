@@ -41,8 +41,8 @@ $list-space-margin-top:                          10px !default;
 
 .uk-list > li:before,
 .uk-list > li:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-list > li:after { clear: both; }

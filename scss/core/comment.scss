@@ -71,8 +71,8 @@ $comment-list-padding-left:                      100px !default;
 
 .uk-comment-header:before,
 .uk-comment-header:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-comment-header:after { clear: both; }

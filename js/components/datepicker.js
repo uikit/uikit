@@ -1,4 +1,4 @@
-/*! UIkit 2.13.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.13.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -161,7 +161,7 @@
         init: function() {
 
             // use native datepicker on touch devices
-            if (UI.support.touch && tis.element.attr('type')=='date' && !this.options.mobile) {
+            if (UI.support.touch && this.element.attr('type')=='date' && !this.options.mobile) {
                 return;
             }
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.13.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.13.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -418,14 +418,13 @@ iframe {
 /*
  * DEPRECATED
  * Micro clearfix
- * 1. Prevent 1px gap when it becomes a flex item
+ * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item
  */
 .uk-grid:before,
 .uk-grid:after {
-  content: " ";
-  display: table;
+  content: "";
   /* 1 */
-  width: 0;
+  display: block;
 }
 .uk-grid:after {
   clear: both;
@@ -1142,8 +1141,8 @@ iframe {
  */
 .uk-panel:before,
 .uk-panel:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-panel:after {
   clear: both;
@@ -1270,8 +1269,8 @@ iframe {
  */
 .uk-article:before,
 .uk-article:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-article:after {
   clear: both;
@@ -1345,8 +1344,8 @@ iframe {
  */
 .uk-comment-header:before,
 .uk-comment-header:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-comment-header:after {
   clear: both;
@@ -1719,8 +1718,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-navbar:before,
 .uk-navbar:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-navbar:after {
   clear: both;
@@ -2119,8 +2118,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-pagination:before,
 .uk-pagination:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-pagination:after {
   clear: both;
@@ -2246,8 +2245,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-tab:before,
 .uk-tab:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-tab:after {
   clear: both;
@@ -2347,8 +2346,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 .uk-tab-center:before,
 .uk-tab-center:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-tab-center:after {
   clear: both;
@@ -2543,8 +2542,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-list > li:before,
 .uk-list > li:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-list > li:after {
   clear: both;
@@ -3061,8 +3060,8 @@ select.uk-form-width-mini {
  */
 .uk-form-row:before,
 .uk-form-row:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-form-row:after {
   clear: both;
@@ -6938,8 +6937,8 @@ a.uk-thumbnail:focus {
  */
 .uk-container:before,
 .uk-container:after {
-  content: " ";
-  display: table;
+  content: "";
+  display: block;
 }
 .uk-container:after {
   clear: both;
@@ -6955,14 +6954,13 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 /*
  * Micro clearfix
- * 1. Prevent 1px gap if used with `flex`
+ * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item
  */
 .uk-clearfix:before,
 .uk-clearfix:after {
-  content: " ";
-  display: table;
+  content: "";
   /* 1 */
-  width: 0;
+  display: block;
 }
 .uk-clearfix:after {
   clear: both;
@@ -7096,9 +7094,10 @@ a.uk-thumbnail:focus {
 }
 /*
  * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * `important` needed to override `uk-img-preserve img`
  */
 .uk-responsive-width {
-  max-width: 100%;
+  max-width: 100% !important;
   height: auto;
 }
 /*

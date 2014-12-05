@@ -94,8 +94,8 @@ $panel-divider-border-width:                     1px !default;
 
 .uk-panel:before,
 .uk-panel:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-panel:after { clear: both; }
