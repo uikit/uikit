@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - Fixed clearfix method when used with flex
   - Fixed IE error causing UIkit crash
   - Fixed slideshow triggers active status
   - Fixed native datepicker recognition in datepicker component

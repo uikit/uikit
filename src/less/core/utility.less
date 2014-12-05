@@ -89,8 +89,8 @@
 
 .uk-container:before,
 .uk-container:after {
-    content: " ";
-    display: table;
+    content: "";
+    display: block;
 }
 
 .uk-container:after { clear: both; }
@@ -110,15 +110,14 @@
 
 /*
  * Micro clearfix
- * 1. Prevent 1px gap if used with `flex`
+ * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item
  */
 
 .uk-clearfix:before,
 .uk-clearfix:after {
-    content: " ";
-    display: table;
+    content: "";
     /* 1 */
-    width: 0;
+    display: block;
 }
 
 .uk-clearfix:after { clear: both; }
