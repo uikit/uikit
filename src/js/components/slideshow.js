@@ -254,11 +254,8 @@
 
             Animations[animation].apply(this, [current, next, dir]).then(finalize);
 
-            $this.triggers.filter(UI.prefix('[data-@-slideshow-item="'+$this.current+'"]'))
-                          .removeClass(UI.prefix('@-active'))
-                          .end()
-                          .filter(UI.prefix('[data-@-slideshow-item="'+index+'"]'))
-                          .addClass(UI.prefix('@-active'));
+            $this.triggers.filter(UI.prefix('[data-@-slideshow-item="'+$this.current+'"]')).removeClass(UI.prefix('@-active'));
+            $this.triggers.filter(UI.prefix('[data-@-slideshow-item="'+index+'"]')).addClass(UI.prefix('@-active'));
         },
 
         applyKenBurns: function(slide) {

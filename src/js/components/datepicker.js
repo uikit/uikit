@@ -160,7 +160,7 @@
         init: function() {
 
             // use native datepicker on touch devices
-            if (UI.support.touch && tis.element.attr('type')=='date' && !this.options.mobile) {
+            if (UI.support.touch && this.element.attr('type')=='date' && !this.options.mobile) {
                 return;
             }
 

@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+  - Fixed slideshow triggers active status
+  - Fixed native datepicker recognition in datepicker component
+
 ### 2.13.0 (December 04, 2014)
   - IMPORTANT: Triggered event names changed
   - DEPRECATED: $.UIkit, UIkit is now globally available
