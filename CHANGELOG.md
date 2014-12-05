@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.13.1 (December 05, 2014)
   - Fixed clearfix method when used with flex
   - Fixed IE error causing UIkit crash
   - Fixed slideshow triggers active status
