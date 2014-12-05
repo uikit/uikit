@@ -3,8 +3,10 @@
 ### 2.13.1 (December 05, 2014)
   - Fixed clearfix method when used with flex
   - Fixed IE error causing UIkit crash
+  - Fixed data-uk-margin in Firefox
   - Fixed slideshow triggers active status
   - Fixed native datepicker recognition in datepicker component
+  - Fixed uk-responsive-width when uk-img-preserve is used
 
 ### 2.13.0 (December 04, 2014)
   - IMPORTANT: Triggered event names changed

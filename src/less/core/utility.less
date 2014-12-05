@@ -275,10 +275,11 @@
 
 /*
  * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * `important` needed to override `uk-img-preserve img`
  */
 
 .uk-responsive-width {
-    max-width: 100%;
+    max-width: 100% !important;
     height: auto;
 }
 
