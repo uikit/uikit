@@ -1,7 +1,8 @@
 # Changelog
 
 ### WIP
-  - Added panel hover to panel component
+  - Added uk-panel-hover to panel component
+  - Added uk-text-contrast to text component
   - Updated panels to work with anchors
 
   **Docs and Repo**
