@@ -20,6 +20,10 @@
 
 @panel-box-secondary-background:                #fff;
 
+@panel-hover-padding:                           @global-margin;
+@panel-hover-hover-background:                  #fafafa;
+@panel-hover-teaser-margin:                     -(@panel-hover-padding + 1);
+
 @panel-header-title-border:                     @global-border;
 @panel-header-title-color:                      @global-color;
 
@@ -33,6 +37,8 @@
 
 @panel-box-border:                              @global-border;
 @panel-box-primary-border:                      fade(@panel-box-primary-color, 30%);
+
+@panel-hover-border:                            @global-border;
 
 
 // Sub-object: `uk-panel-title`
@@ -55,9 +61,26 @@
     border-radius: @global-border-radius;
 }
 
+.hook-panel-box-hover() {}
+
 .hook-panel-box-primary() { border-color: @panel-box-primary-border; }
 
+.hook-panel-box-primary-hover() {}
+
 .hook-panel-box-secondary() {}
+
+.hook-panel-box-secondary-hover() {}
+
+
+// Modifier: `uk-panel-hover`
+// ========================================================================
+
+.hook-panel-hover() {
+    border: 1px solid transparent;
+    border-radius: @global-border-radius;
+}
+
+.hook-panel-hover-hover() { border-color: @panel-hover-border; }
 
 
 // Modifier: `uk-panel-header`

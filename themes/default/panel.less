@@ -16,6 +16,9 @@
 @panel-box-color:                               @global-color;
 @panel-box-title-color:                         @global-color;
 
+@panel-hover-padding:                           @global-margin;
+@panel-hover-hover-color:                       @global-color;
+
 @panel-header-title-border:                     @global-border;
 @panel-header-title-color:                      @global-color;
 
@@ -41,17 +44,31 @@
 
 .hook-panel-box() {}
 
+.hook-panel-box-hover() {}
+
 //
 // Sub-modifier: `uk-panel-box-primary`
 //
 
 .hook-panel-box-primary() {}
 
+.hook-panel-box-primary-hover() {}
+
 //
 // Sub-modifier: `uk-panel-box-secondary`
 //
 
 .hook-panel-box-secondary() {}
+
+.hook-panel-box-secondary-hover() {}
+
+
+// Modifier: `uk-panel-hover`
+// ========================================================================
+
+.hook-panel-hover() {}
+
+.hook-panel-hover-hover() {}
 
 
 // Modifier: `uk-panel-header`
