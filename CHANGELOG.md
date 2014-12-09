@@ -4,6 +4,7 @@
   - Added uk-panel-hover to panel component
   - Added uk-text-contrast to text component
   - Updated panels to work with anchors
+  - Fixed fullscreen slideshows for iOS < 8
 
   **Docs and Repo**
 
