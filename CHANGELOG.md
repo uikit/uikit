@@ -1,5 +1,14 @@
 # Changelog
 
+### WIP
+  - Added uk-panel-hover to panel component
+  - Added uk-text-contrast to text component
+  - Updated panels to work with anchors
+
+  **Docs and Repo**
+
+  - Updated panel docs and tests
+
 ### 2.13.1 (December 05, 2014)
   - Fixed clearfix method when used with flex
   - Fixed IE error causing UIkit crash
@@ -32,7 +41,7 @@
 
   **Docs and Repo**
 
-    - Added triggered event names
+  - Added triggered event names
 
 ### 2.12.0 (November 11, 2014)
 

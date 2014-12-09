@@ -601,10 +601,10 @@ gulp.task('sublime-js', function(done) {
         gulp.src(['dist/**/*.min.js', 'dist/uikit.min.js']).pipe(concat('sublime_tmp_js.py')).pipe(tap(function(file) {
 
             var js       = file.contents.toString(),
-                dataList = js.match(/data-uk-[a-z\d\-]+/g),
+                dataList = js.match(/data-@-[a-z\d\-]+/g),
                 dataSet  = {};
 
-            dataList.forEach(function(s) { dataSet[s] = true; });
+            dataList.forEach(function(s) { dataSet[s.replace('@', 'uk')] = true; });
 
             pystring = 'uikit_data = ' + pythonList(Object.keys(dataSet)) + '\n';
 
