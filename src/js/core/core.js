@@ -603,7 +603,7 @@
         UI.$body = UI.$('body');
 
         UI.ready(function(context){
-            UI.domObserve('[data-@-observe]', context || document);
+            UI.domObserve('[data-@-observe]');
         });
 
         UI.on('ready.uk.dom', function(){

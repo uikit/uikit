@@ -6,6 +6,8 @@
   - Added uk-text-contrast to text component
   - Added uk-position-bottom to utility component
   - Updated panels to work with anchors
+  - Fixed fullscreen slideshows for iOS < 8
+  - Fixed [data-uk-observe]
 
   **Docs and Repo**
 
