@@ -12,6 +12,7 @@
   **Docs and Repo**
 
   - Updated panel docs and tests
+  - Updated dotnav tests
 
 ### 2.13.1 (December 05, 2014)
   - Fixed clearfix method when used with flex
