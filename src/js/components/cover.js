@@ -41,17 +41,18 @@
         init: function() {
 
             this.parent    = this.element.parent();
-            this.dimension = {w: this.element.width(), h: this.element.height()};
-            this.ratio     = this.dimension.w / this.dimension.h;
 
             UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
                 this.check();
             }.bind(this), 100));
 
+            this.on("display.uk.check", function(e) {
+                if(this.element.is(":visible")) this.check();
+            }.bind(this));
+
             this.check();
 
             this.element.data("cover", this);
-
 
             if (this.element.is('iframe') && this.options.automute) {
 
@@ -66,6 +67,14 @@
         },
 
         check: function() {
+
+            this.element.css({
+                'width'  : '',
+                'height' : ''
+            });
+
+            this.dimension = {w: this.element.width(), h: this.element.height()};
+            this.ratio     = this.dimension.w / this.dimension.h;
 
             var w = this.parent.width(), h = this.parent.height(), width, height;
 
