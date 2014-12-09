@@ -441,8 +441,15 @@
 /* Position
  ========================================================================== */
 
-.uk-position-absolute { position: absolute !important; }
-.uk-position-relative { position: relative !important; }
+.uk-position-top,
+.uk-position-bottom {
+    position: absolute !important;
+    width: 100%;
+}
+
+.uk-position-top { top: 0; }
+
+.uk-position-bottom { bottom: 0; }
 
 .uk-position-cover {
     position: absolute;
@@ -451,6 +458,8 @@
     left: 0;
     right: 0;
 }
+
+.uk-position-relative { position: relative !important; }
 
 
 /* Display

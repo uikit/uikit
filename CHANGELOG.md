@@ -1,8 +1,10 @@
 # Changelog
 
 ### WIP
+  - IMPORTANT: Replaced uk-position-absolute with uk-position-top
   - Added uk-panel-hover to panel component
   - Added uk-text-contrast to text component
+  - Added uk-position-bottom to utility component
   - Updated panels to work with anchors
 
   **Docs and Repo**

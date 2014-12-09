@@ -106,7 +106,7 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-cover" style="height: 300px;">
-                                <video class="uk-cover-object" width="600" height="400" autoplay="" loop="" muted="" controls="">
+                                <video class="uk-cover-object" width="600" height="400" autoplay loop muted controls>
                                     <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
                                     <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
                                 </video>
@@ -129,7 +129,7 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-cover" style="height: 300px;">
-                                <iframe data-uk-cover="" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent&amp;enablejsapi=1&amp;api=1" width="560" height="315" frameborder="0" allowfullscreen="" style="width: 1130px; height: 636px;"></iframe>
+                                <iframe data-uk-cover src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen=""></iframe>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -149,7 +149,7 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-cover-background" style="background-image: url(images/placeholder_600x400.svg);">
-                                <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="Placeholder">
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -162,13 +162,13 @@
 
                             <h3>Video</h3>
 
-                            <p>To add the same behavior to a video, you also need to add the <code>.uk-position-relative</code> class to the cover container and the <code>.uk-position-absolute</code> class to the cover object. The same applies to iframes.</p>
+                            <p>To add the same behavior to a video, you also need to add the <code>.uk-position-relative</code> class to the cover container and the <code>.uk-position-top</code> class to the cover object. The same applies to iframes.</p>
 
                             <h4 class="tm-article-subtitle">Example</h4>
 
                             <div class="uk-cover uk-position-relative">
                                 <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="">
-                                <video class="uk-cover-object uk-position-absolute" width="600" height="400" autoplay="" loop="" muted="" controls="">
+                                <video class="uk-cover-object uk-position-top" width="600" height="400" autoplay loop muted controls>
                                     <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test2" type="video/mp4">
                                     <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test2" type="video/ogg">
                                 </video>
@@ -178,7 +178,7 @@
 
 <pre><code>&lt;div class="uk-cover uk-position-relative"&gt;
     &lt;img class="uk-invisible" src="" width="" height="" alt=""&gt;
-    &lt;video class="uk-cover-object uk-position-absolute" width="" height=""&gt;
+    &lt;video class="uk-cover-object uk-position-top" width="" height=""&gt;
         &lt;source src="" type=""&gt;
     &lt;/video&gt;
 &lt;/div&gt;</code></pre>
