@@ -1,4 +1,4 @@
-/*! UIkit 2.13.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.14.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1137,6 +1137,14 @@ iframe {
   position: relative;
 }
 /*
+ * Allow panels to be anchors
+ */
+.uk-panel,
+a.uk-panel:hover {
+  color: inherit;
+  text-decoration: none;
+}
+/*
  * Micro clearfix to make panels more robust
  */
 .uk-panel:before,
@@ -1181,6 +1189,9 @@ iframe {
   border: 1px solid #dddddd;
   border-radius: 4px;
 }
+a.uk-panel-box:hover {
+  color: #444444;
+}
 .uk-panel-box .uk-panel-title {
   color: #444444;
 }
@@ -1205,6 +1216,9 @@ iframe {
   color: #2d7091;
   border-color: rgba(45, 112, 145, 0.3);
 }
+a.uk-panel-box-primary:hover {
+  color: #2d7091;
+}
 .uk-panel-box-primary .uk-panel-title {
   color: #2d7091;
 }
@@ -1215,8 +1229,30 @@ iframe {
   background-color: #ffffff;
   color: #444444;
 }
+a.uk-panel-box-secondary:hover {
+  color: #444444;
+}
 .uk-panel-box-secondary .uk-panel-title {
   color: #444444;
+}
+/* Modifier: `uk-panel-hover`
+ ========================================================================== */
+.uk-panel-hover {
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.uk-panel-hover:hover {
+  background: #fafafa;
+  color: #444444;
+  border-color: #dddddd;
+}
+.uk-panel-hover .uk-panel-badge {
+  top: 10px;
+  right: 10px;
+}
+.uk-panel-hover .uk-panel-teaser {
+  margin: -16px -16px 15px -16px;
 }
 /* Modifier: `uk-panel-header`
  ========================================================================== */
@@ -6853,6 +6889,9 @@ a.uk-thumbnail:focus {
 .uk-text-danger {
   color: #d85030 !important;
 }
+.uk-text-contrast {
+  color: #ffffff !important;
+}
 /* Alignment modifiers
  ========================================================================== */
 .uk-text-left {
@@ -7268,11 +7307,16 @@ a.uk-thumbnail:focus {
 }
 /* Position
  ========================================================================== */
-.uk-position-absolute {
+.uk-position-top,
+.uk-position-bottom {
   position: absolute !important;
+  width: 100%;
 }
-.uk-position-relative {
-  position: relative !important;
+.uk-position-top {
+  top: 0;
+}
+.uk-position-bottom {
+  bottom: 0;
 }
 .uk-position-cover {
   position: absolute;
@@ -7280,6 +7324,9 @@ a.uk-thumbnail:focus {
   bottom: 0;
   left: 0;
   right: 0;
+}
+.uk-position-relative {
+  position: relative !important;
 }
 /* Display
  ========================================================================== */

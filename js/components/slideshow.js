@@ -1,4 +1,4 @@
-/*! UIkit 2.13.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.14.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -58,12 +58,13 @@
 
             var $this = this, canvas;
 
-            this.container   = UI.$(this.find('.@-slideshow').andSelf().filter(UI.prefix('.@-slideshow'))),
-            this.slides      = this.container.children(),
-            this.slidesCount = this.slides.length,
-            this.current     = this.options.start,
-            this.animating   = false,
-            this.triggers    = this.find('[data-@-slideshow-item]');
+            this.container     = UI.$(this.find('.@-slideshow').andSelf().filter(UI.prefix('.@-slideshow')));
+            this.slides        = this.container.children();
+            this.slidesCount   = this.slides.length;
+            this.current       = this.options.start;
+            this.animating     = false;
+            this.triggers      = this.find('[data-@-slideshow-item]');
+            this.fixFullscreen = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) && this.container.hasClass(UI.prefix('@-slideshow-fullscreen')); // viewport unit fix for height:100vh - should be fixed in iOS 8
 
             this.slides.each(function(index) {
 
@@ -102,7 +103,7 @@
 
                                 })
                                 .attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''))
-                                .addClass(UI.prefix('@-position-absolute'));
+                                .addClass(UI.prefix('@-position-top'));
 
                                 // disable pointer events
                                 if(!UI.support.touch) media.css('pointer-events', 'none');
@@ -116,7 +117,7 @@
 
                             break;
                         case 'VIDEO':
-                            media.addClass(UI.prefix('@-cover-object @-position-absolute'));
+                            media.addClass(UI.prefix('@-cover-object @-position-top'));
                             placeholder = true;
 
                             if ($this.options.videomute) $this.mutemedia(media);
@@ -160,7 +161,14 @@
             this.slides.eq(this.current).addClass(UI.prefix('@-active'));
             this.triggers.filter(UI.prefix('[data-@-slideshow-item="'+this.current+'"]')).addClass(UI.prefix('@-active'));
 
-            UI.$win.on("resize load", UI.Utils.debounce(function() { $this.resize(); }, 100));
+            UI.$win.on("resize load", UI.Utils.debounce(function() {
+                $this.resize();
+
+                if ($this.fixFullscreen) {
+                    $this.container.css('height', window.innerHeight);
+                    $this.slides.css('height', window.innerHeight);
+                }
+            }, 100));
 
             this.resize();
 

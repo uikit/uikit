@@ -1,4 +1,4 @@
-/*! UIkit 2.13.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.14.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -43,7 +43,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.13.1';
+    UI.version = '2.14.0';
     UI._prefix = 'uk';
 
     UI.noConflict = function(prefix) {
@@ -604,7 +604,7 @@
         UI.$body = UI.$('body');
 
         UI.ready(function(context){
-            UI.domObserve('[data-@-observe]', context || document);
+            UI.domObserve('[data-@-observe]');
         });
 
         UI.on('ready.uk.dom', function(){
@@ -2887,7 +2887,7 @@
 
             var children = this.element.children(':not(.@-tab-responsive)').removeClass('@-hidden');
 
-            if (children.length < 2) return;
+            if (!children.length) return;
 
             var top          = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)),
                 doresponsive = false,

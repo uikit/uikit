@@ -1,4 +1,4 @@
-/*! UIkit 2.13.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.14.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function($, UI) {
 
     "use strict";
@@ -101,7 +101,7 @@
 
             var children = this.element.children(':not(.@-tab-responsive)').removeClass('@-hidden');
 
-            if (children.length < 2) return;
+            if (!children.length) return;
 
             var top          = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)),
                 doresponsive = false,
