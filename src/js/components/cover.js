@@ -74,6 +74,15 @@
             });
 
             this.dimension = {w: this.element.width(), h: this.element.height()};
+
+            if (this.element.attr('width') && !isNaN(this.element.attr('width'))) {
+                this.dimension.w = this.element.attr('width');
+            }
+
+            if (this.element.attr('height') && !isNaN(this.element.attr('height'))) {
+                this.dimension.h = this.element.attr('height');
+            }
+
             this.ratio     = this.dimension.w / this.dimension.h;
 
             var w = this.parent.width(), h = this.parent.height(), width, height;
