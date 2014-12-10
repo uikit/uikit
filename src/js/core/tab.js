@@ -100,7 +100,7 @@
 
             var children = this.element.children(':not(.@-tab-responsive)').removeClass('@-hidden');
 
-            if (children.length < 2) return;
+            if (!children.length) return;
 
             var top          = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)),
                 doresponsive = false,

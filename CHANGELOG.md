@@ -8,6 +8,7 @@
   - Updated panels to work with anchors
   - Fixed fullscreen slideshows for iOS < 8
   - Fixed [data-uk-observe]
+  - Fixed tab component with only one tab
 
   **Docs and Repo**
 
