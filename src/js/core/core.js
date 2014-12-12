@@ -3,7 +3,7 @@
     if (typeof define == "function" && define.amd) { // AMD
         define("uikit", function(){
 
-            var uikit = core(window, window.jQuery, window.document);
+            var uikit = window.UIkit || core(window, window.jQuery, window.document);
 
             uikit.load = function(res, req, onload, config) {
 
