@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - IMPORTANT: Renamed uk-slidenav-inverted to uk-slidenav-contrast
   - Added dotnav-contrast to dotnav component
   - Better dimension recognition in cover component
 
