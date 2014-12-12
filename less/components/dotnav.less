@@ -3,7 +3,8 @@
 //
 // Component:       `uk-dotnav`
 //
-// Modifier:        `uk-dotnav-vertical`
+// Modifier:        `uk-dotnav-contrast`
+//                  `uk-dotnav-vertical`
 //
 // States:          `uk-active`
 //
@@ -29,6 +30,11 @@
 @dotnav-hover-background:                       rgba(50,50,50,0.4);
 @dotnav-onclick-background:                     rgba(50,50,50,0.6);
 @dotnav-active-background:                      rgba(50,50,50,0.4);
+
+@dotnav-contrast-background:                    rgba(255,255,255,0.4);
+@dotnav-contrast-hover-background:              rgba(255,255,255,0.7);
+@dotnav-contrast-onclick-background:            rgba(255,255,255,0.9);
+@dotnav-contrast-active-background:             rgba(255,255,255,0.9);
 
 @dotnav-vertical-margin-top:                    @dotnav-margin-left;
 
@@ -119,7 +125,39 @@
 }
 
 
-/* Modifier: 'dotnav-vertical'
+/* Modifier: `uk-dotnav-contrast`
+ ========================================================================== */
+
+.uk-dotnav-contrast > li > a {
+    background: @dotnav-contrast-background;
+    .hook-dotnav-contrast-item;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+
+.uk-dotnav-contrast > li > a:hover,
+.uk-dotnav-contrast > li > a:focus { // 1
+    background: @dotnav-contrast-hover-background;
+    .hook-dotnav-contrast-item-hover;
+}
+
+/* OnClick */
+.uk-dotnav-contrast > li > a:active {
+    background: @dotnav-contrast-onclick-background;
+    .hook-dotnav-contrast-item-onclick;
+}
+
+/* Active */
+.uk-dotnav-contrast > li.uk-active > a {
+    background: @dotnav-contrast-active-background;
+    .hook-dotnav-contrast-item-active;
+}
+
+
+/* Modifier: 'uk-dotnav-vertical'
  ========================================================================== */
 
 .uk-dotnav-vertical > li { display: block; }
@@ -139,4 +177,8 @@
 .hook-dotnav-item-hover() {}
 .hook-dotnav-item-onclick() {}
 .hook-dotnav-item-active() {}
+.hook-dotnav-contrast-item() {}
+.hook-dotnav-contrast-item-hover() {}
+.hook-dotnav-contrast-item-onclick() {}
+.hook-dotnav-contrast-item-active() {}
 .hook-dotnav-misc() {}
