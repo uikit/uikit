@@ -4,6 +4,7 @@
   - IMPORTANT: Renamed uk-slidenav-inverted to uk-slidenav-contrast
   - Added dotnav-contrast to dotnav component
   - Better dimension recognition in cover component
+  - Fixed Slideshow without a parent container + fold effect
 
   **Docs and Repo**
 

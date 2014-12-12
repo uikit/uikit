@@ -133,7 +133,7 @@
 
                 var width = (i == this.options.slices-1) ? (ghostWidth - (sliceWidth*i)) : sliceWidth;
 
-                bar = $('<div class="@-cover-background"></div>').css({
+                bar = UI.$('<div class="@-cover-background"></div>').css({
                     'position'           : 'absolute',
                     'top'                : 0,
                     'left'               : 0,
