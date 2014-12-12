@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+  - Added dotnav-inverted modifier
+  - Better dimension recognition in cover component
+
 ### 2.14.0 (December 10, 2014)
   - IMPORTANT: Replaced uk-position-absolute with uk-position-top
   - Added uk-panel-hover to panel component

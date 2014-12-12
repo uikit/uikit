@@ -3,7 +3,8 @@
 //
 // Component:       `uk-dotnav`
 //
-// Modifier:        `uk-dotnav-vertical`
+// Modifier:        `uk-dotnav-inverted`
+//                  `uk-dotnav-vertical`
 //
 // States:          `uk-active`
 //
@@ -24,11 +25,16 @@
 @dotnav-margin-left:                            15px;
 @dotnav-width:                                  20px;
 @dotnav-height:                                 @dotnav-width;
-@dotnav-background:                             rgba(50,50,50,0.1);
+@dotnav-background:                             rgba(255,255,255,0.4);
 
-@dotnav-hover-background:                       rgba(50,50,50,0.4);
-@dotnav-onclick-background:                     rgba(50,50,50,0.6);
-@dotnav-active-background:                      rgba(50,50,50,0.4);
+@dotnav-hover-background:                       rgba(255,255,255,0.7);
+@dotnav-onclick-background:                     rgba(255,255,255,0.9);
+@dotnav-active-background:                      rgba(255,255,255,0.9);
+
+@dotnav-inverted-background:                    rgba(50,50,50,0.1);
+@dotnav-inverted-hover-background:              rgba(50,50,50,0.4);
+@dotnav-inverted-onclick-background:            rgba(50,50,50,0.6);
+@dotnav-inverted-active-background:             rgba(50,50,50,0.4);
 
 @dotnav-vertical-margin-top:                    @dotnav-margin-left;
 
@@ -119,7 +125,39 @@
 }
 
 
-/* Modifier: 'dotnav-vertical'
+/* Modifier: `uk-dotnav-inverted`
+ ========================================================================== */
+
+.uk-dotnav-inverted > li > a {
+    background: @dotnav-inverted-background;
+    .hook-dotnav-inverted-item;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+
+.uk-dotnav-inverted > li > a:hover,
+.uk-dotnav-inverted > li > a:focus { // 1
+    background: @dotnav-inverted-hover-background;
+    .hook-dotnav-inverted-item-hover;
+}
+
+/* OnClick */
+.uk-dotnav-inverted > li > a:active {
+    background: @dotnav-inverted-onclick-background;
+    .hook-dotnav-inverted-item-onclick;
+}
+
+/* Active */
+.uk-dotnav-inverted > li.uk-active > a {
+    background: @dotnav-inverted-active-background;
+    .hook-dotnav-inverted-item-active;
+}
+
+
+/* Modifier: 'uk-dotnav-vertical'
  ========================================================================== */
 
 .uk-dotnav-vertical > li { display: block; }
@@ -139,4 +177,8 @@
 .hook-dotnav-item-hover() {}
 .hook-dotnav-item-onclick() {}
 .hook-dotnav-item-active() {}
+.hook-dotnav-inverted-item() {}
+.hook-dotnav-inverted-item-hover() {}
+.hook-dotnav-inverted-item-onclick() {}
+.hook-dotnav-inverted-item-active() {}
 .hook-dotnav-misc() {}
