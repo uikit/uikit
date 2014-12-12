@@ -287,17 +287,17 @@ if ( modal.isActive() ) {
 
                         <h3>Events</h3>
 
-                        <p>The modal component triggers an <code>uk.modal.show</code> event every time a modal is opened and <code>uk.modal.hide</code> when a modal is closed.</p>
+                        <p>The modal component triggers an <code>modal.uk.show</code> event every time a modal is opened and <code>modal.uk.hide</code> when a modal is closed.</p>
 
                         <h3 class="tm-article-subtitle">Example</h3>
 
 <pre><code>$('.modalSelector').on({
 
-    'uk.modal.show': function(){
+    'modal.uk.show': function(){
         console.log("Modal is visible.");
     },
 
-    'uk.modal.hide': function(){
+    'modal.uk.hide': function(){
         console.log("Element is not visible.");
     }
 });</code></pre>
