@@ -84,11 +84,11 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To create a navigation with dots, just add the <code>.uk-dotnav</code> to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list. This is perfect to create a typical slideshow navigation.</p>
+                            <p>To create a navigation with dots, just add the <code>.uk-dotnav</code> class to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list. This is perfect to create a typical slideshow navigation.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <ul class="uk-dotnav">
+                            <ul class="uk-dotnav uk-dotnav-inverted">
                                 <li class="uk-active"><a href="#">Item 1</a></li>
                                 <li><a href="#">Item 2</a></li>
                                 <li><a href="#">Item 3</a></li>
@@ -106,11 +106,70 @@
 
                             <hr class="uk-article-divider">
 
+                            <h3>Dotnav inverted</h3>
+
+                            <p>By default dotnav items are <strong>white</strong>. To invert their color, just add the <code>.uk-dotnav-inverted</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid">
+
+                                <div class="uk-width-1-2">
+
+                                    <div class="uk-position-relative">
+
+                                        <img src="images/placeholder_480x260.svg" width="480" height="260" alt="">
+
+                                        <ul class="uk-dotnav uk-position-bottom uk-text-center">
+                                            <li class="uk-active"><a href="#">Item 1</a></li>
+                                            <li><a href="#">Item 2</a></li>
+                                            <li><a href="#">Item 3</a></li>
+                                            <li><a href="#">Item 4</a></li>
+                                            <li><a href="#">Item 5</a></li>
+                                            <li><a href="#">Item 6</a></li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="uk-width-1-2">
+
+                                    <div class="uk-position-relative">
+
+                                        <img src="images/placeholder_480x260.svg" width="480" height="260" alt="">
+
+                                        <ul class="uk-dotnav uk-dotnav-inverted uk-position-bottom uk-text-center">
+                                            <li class="uk-active"><a href="#">Item 1</a></li>
+                                            <li><a href="#">Item 2</a></li>
+                                            <li><a href="#">Item 3</a></li>
+                                            <li><a href="#">Item 4</a></li>
+                                            <li><a href="#">Item 5</a></li>
+                                            <li><a href="#">Item 6</a></li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-dotnav uk-dotnav-inverted"&gt;
+    &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
                             <h3>Vertical dotnav</h3>
 
                             <p>The Dotnav can also be aligned vertically. Just add the <code>.uk-dotnav-vertical</code> class. This is great for page scroll navigation using the <a href="scrollspy.html">Scrollspy</a>.</p>
 
-                            <ul class="uk-dotnav uk-dotnav-vertical">
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-dotnav uk-dotnav-inverted uk-dotnav-vertical">
                                 <li class="uk-active"><a href="#">Item 1</a></li>
                                 <li><a href="#">Item 2</a></li>
                                 <li><a href="#">Item 3</a></li>
