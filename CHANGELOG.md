@@ -5,6 +5,10 @@
   - Added dotnav-contrast to dotnav component
   - Better dimension recognition in cover component
 
+  **Docs and Repo**
+
+  - Updated slidenav and dotnav docs and tests
+
 ### 2.14.0 (December 10, 2014)
   - IMPORTANT: Replaced uk-position-absolute with uk-position-top
   - Added uk-panel-hover to panel component
