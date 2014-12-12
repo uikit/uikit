@@ -1,7 +1,7 @@
 # Changelog
 
 ### WIP
-  - Added dotnav-inverted modifier
+  - Added dotnav-contrast to dotnav component
   - Better dimension recognition in cover component
 
 ### 2.14.0 (December 10, 2014)

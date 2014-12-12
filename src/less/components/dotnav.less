@@ -3,7 +3,7 @@
 //
 // Component:       `uk-dotnav`
 //
-// Modifier:        `uk-dotnav-inverted`
+// Modifier:        `uk-dotnav-contrast`
 //                  `uk-dotnav-vertical`
 //
 // States:          `uk-active`
@@ -25,16 +25,16 @@
 @dotnav-margin-left:                            15px;
 @dotnav-width:                                  20px;
 @dotnav-height:                                 @dotnav-width;
-@dotnav-background:                             rgba(255,255,255,0.4);
+@dotnav-background:                             rgba(50,50,50,0.1);
 
-@dotnav-hover-background:                       rgba(255,255,255,0.7);
-@dotnav-onclick-background:                     rgba(255,255,255,0.9);
-@dotnav-active-background:                      rgba(255,255,255,0.9);
+@dotnav-hover-background:                       rgba(50,50,50,0.4);
+@dotnav-onclick-background:                     rgba(50,50,50,0.6);
+@dotnav-active-background:                      rgba(50,50,50,0.4);
 
-@dotnav-inverted-background:                    rgba(50,50,50,0.1);
-@dotnav-inverted-hover-background:              rgba(50,50,50,0.4);
-@dotnav-inverted-onclick-background:            rgba(50,50,50,0.6);
-@dotnav-inverted-active-background:             rgba(50,50,50,0.4);
+@dotnav-contrast-background:                    rgba(255,255,255,0.4);
+@dotnav-contrast-hover-background:              rgba(255,255,255,0.7);
+@dotnav-contrast-onclick-background:            rgba(255,255,255,0.9);
+@dotnav-contrast-active-background:             rgba(255,255,255,0.9);
 
 @dotnav-vertical-margin-top:                    @dotnav-margin-left;
 
@@ -125,12 +125,12 @@
 }
 
 
-/* Modifier: `uk-dotnav-inverted`
+/* Modifier: `uk-dotnav-contrast`
  ========================================================================== */
 
-.uk-dotnav-inverted > li > a {
-    background: @dotnav-inverted-background;
-    .hook-dotnav-inverted-item;
+.uk-dotnav-contrast > li > a {
+    background: @dotnav-contrast-background;
+    .hook-dotnav-contrast-item;
 }
 
 /*
@@ -138,22 +138,22 @@
  * 1. Apply hover style also to focus state
  */
 
-.uk-dotnav-inverted > li > a:hover,
-.uk-dotnav-inverted > li > a:focus { // 1
-    background: @dotnav-inverted-hover-background;
-    .hook-dotnav-inverted-item-hover;
+.uk-dotnav-contrast > li > a:hover,
+.uk-dotnav-contrast > li > a:focus { // 1
+    background: @dotnav-contrast-hover-background;
+    .hook-dotnav-contrast-item-hover;
 }
 
 /* OnClick */
-.uk-dotnav-inverted > li > a:active {
-    background: @dotnav-inverted-onclick-background;
-    .hook-dotnav-inverted-item-onclick;
+.uk-dotnav-contrast > li > a:active {
+    background: @dotnav-contrast-onclick-background;
+    .hook-dotnav-contrast-item-onclick;
 }
 
 /* Active */
-.uk-dotnav-inverted > li.uk-active > a {
-    background: @dotnav-inverted-active-background;
-    .hook-dotnav-inverted-item-active;
+.uk-dotnav-contrast > li.uk-active > a {
+    background: @dotnav-contrast-active-background;
+    .hook-dotnav-contrast-item-active;
 }
 
 
@@ -177,8 +177,8 @@
 .hook-dotnav-item-hover() {}
 .hook-dotnav-item-onclick() {}
 .hook-dotnav-item-active() {}
-.hook-dotnav-inverted-item() {}
-.hook-dotnav-inverted-item-hover() {}
-.hook-dotnav-inverted-item-onclick() {}
-.hook-dotnav-inverted-item-active() {}
+.hook-dotnav-contrast-item() {}
+.hook-dotnav-contrast-item-hover() {}
+.hook-dotnav-contrast-item-onclick() {}
+.hook-dotnav-contrast-item-active() {}
 .hook-dotnav-misc() {}
