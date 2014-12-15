@@ -68,7 +68,7 @@
 
             this.autocomplete = UI.autocomplete(this.element, this.options);
 
-            this.autocomplete.dropdown.addClass('@-dropdown-search');
+            this.autocomplete.dropdown.addClass(UI.prefix('@-dropdown-search'));
 
             this.autocomplete.input.on("keyup", function(){
                 $this.element[$this.autocomplete.input.val() ? "addClass":"removeClass"]("@-active");
