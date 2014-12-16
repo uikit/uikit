@@ -99,4 +99,44 @@
         }
     });
 
+    // responsive iframes
+    UI.ready((function(){
+
+        var iframes = [], check = function() {
+
+            iframes.forEach(function(iframe){
+
+                if (!iframe.is(':visible')) return;
+
+                var width  = iframe.parent().width(),
+                    iwidth = iframe.data('width'),
+                    ratio  = (width / iwidth),
+                    height = Math.floor(ratio * iframe.data('height'));
+
+                iframe.css({'height': (width < iwidth) ? height : iframe.data('height')});
+            });
+        };
+
+        UI.$win.on('resize', UI.Utils.debounce(check, 15));
+
+        return function(context){
+
+            UI.$('iframe.@-responsive-width', context).each(function(){
+
+                var iframe = $(this);
+
+                if (!iframe.data('responsive') && iframe.attr('width') && iframe.attr('height')) {
+
+                    iframe.data('width'     , iframe.attr('width'));
+                    iframe.data('height'    , iframe.attr('height'));
+                    iframe.data('responsive', true);
+                    iframes.push(iframe);
+                }
+            });
+
+            check();
+        };
+
+    })());
+
 })(jQuery, UIkit);

@@ -4,7 +4,9 @@
   - IMPORTANT: Renamed uk-slidenav-inverted to uk-slidenav-contrast
   - Added dotnav-contrast to dotnav component
   - Better dimension recognition in cover component
+  - Iframes with the class uk-responsive-width behave like responsive images now (via JavaScript)
   - Fixed Slideshow without a parent container + fold effect
+  - Fixed unprefixed autocomplete dropdown flip + search dropdown
 
   **Docs and Repo**
 
