@@ -9,7 +9,8 @@
         defaults: {
             keyboard: true,
             bgclose: true,
-            minScrollHeight: 150
+            minScrollHeight: 150,
+            center: false
         },
 
         scrollable: false,
@@ -92,8 +93,17 @@
 
             this.element.css('overflow-y', this.scrollbarwidth ? 'scroll' : 'auto');
 
-            this.updateScrollable();
+            if (!this.updateScrollable() && this.options.center) {
 
+                var dh  = this.dialog.outerHeight(),
+                pad = parseInt(this.dialog.css('margin-top'), 10) + parseInt(this.dialog.css('margin-bottom'), 10);
+
+                if ((dh + pad) < window.innerHeight) {
+                    this.dialog.css({'top': (window.innerHeight/2 - dh/2) - pad });
+                } else {
+                    this.dialog.css({'top': ''});
+                }
+            }
         },
 
         updateScrollable: function() {
@@ -101,17 +111,21 @@
             // has scrollable?
             var scrollable = this.dialog.find('.@-overflow-container:visible:first');
 
-            if (scrollable) {
+            if (scrollable.length) {
 
                 scrollable.css("height", 0);
 
                 var offset = Math.abs(parseInt(this.dialog.css("margin-top"), 10)),
-                    dh     = this.dialog.outerHeight(),
-                    wh     = window.innerHeight,
-                    h      = wh - 2*(offset < 20 ? 20:offset) - dh;
+                dh     = this.dialog.outerHeight(),
+                wh     = window.innerHeight,
+                h      = wh - 2*(offset < 20 ? 20:offset) - dh;
 
                 scrollable.css("height", h < this.options.minScrollHeight ? "":h);
+
+                return true;
             }
+
+            return false;
         },
 
         _hide: function() {

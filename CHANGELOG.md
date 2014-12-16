@@ -4,6 +4,7 @@
   - IMPORTANT: Renamed uk-slidenav-inverted to uk-slidenav-contrast
   - Added header, footer, caption and spinner to modal component
   - Added dotnav-contrast to dotnav component
+  - Added center option for modals
   - Better dimension recognition in cover component
   - Iframes with the class uk-responsive-width behave like responsive images now (via JavaScript)
   - Fixed Slideshow without a parent container + fold effect
