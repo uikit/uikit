@@ -206,7 +206,7 @@
                 height = 0;
 
                 this.slides.css('height', '').each(function() {
-                    height = Math.max(height, $(this).data('sizer').height());
+                    height = Math.max(height, $(this).height());
                 });
             }
 
