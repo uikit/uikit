@@ -58,7 +58,7 @@
 
             var $this = this, canvas;
 
-            this.container     = UI.$(this.find('.@-slideshow').andSelf().filter(UI.prefix('.@-slideshow')));
+            this.container     = this.element.hasClass('@-slideshow') ? this.element : UI.$(this.find('.@-slideshow'));
             this.slides        = this.container.children();
             this.slidesCount   = this.slides.length;
             this.current       = this.options.start;
@@ -207,7 +207,7 @@
                 height = 0;
 
                 this.slides.css('height', '').each(function() {
-                    height = Math.max(height, $(this).data('sizer').height());
+                    height = Math.max(height, $(this).height());
                 });
             }
 

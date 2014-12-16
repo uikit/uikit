@@ -4,7 +4,7 @@
     if (typeof define == "function" && define.amd) { // AMD
         define("uikit", function(){
 
-            var uikit = core(window, window.jQuery, window.document);
+            var uikit = window.UIkit || core(window, window.jQuery, window.document);
 
             uikit.load = function(res, req, onload, config) {
 
@@ -992,6 +992,46 @@
             return this;
         }
     });
+
+    // responsive iframes
+    UI.ready((function(){
+
+        var iframes = [], check = function() {
+
+            iframes.forEach(function(iframe){
+
+                if (!iframe.is(':visible')) return;
+
+                var width  = iframe.parent().width(),
+                    iwidth = iframe.data('width'),
+                    ratio  = (width / iwidth),
+                    height = Math.floor(ratio * iframe.data('height'));
+
+                iframe.css({'height': (width < iwidth) ? height : iframe.data('height')});
+            });
+        };
+
+        UI.$win.on('resize', UI.Utils.debounce(check, 15));
+
+        return function(context){
+
+            UI.$('iframe.@-responsive-width', context).each(function(){
+
+                var iframe = $(this);
+
+                if (!iframe.data('responsive') && iframe.attr('width') && iframe.attr('height')) {
+
+                    iframe.data('width'     , iframe.attr('width'));
+                    iframe.data('height'    , iframe.attr('height'));
+                    iframe.data('responsive', true);
+                    iframes.push(iframe);
+                }
+            });
+
+            check();
+        };
+
+    })());
 
 })(jQuery, UIkit);
 
@@ -1988,7 +2028,8 @@
         defaults: {
             keyboard: true,
             bgclose: true,
-            minScrollHeight: 150
+            minScrollHeight: 150,
+            center: false
         },
 
         scrollable: false,
@@ -2071,8 +2112,17 @@
 
             this.element.css('overflow-y', this.scrollbarwidth ? 'scroll' : 'auto');
 
-            this.updateScrollable();
+            if (!this.updateScrollable() && this.options.center) {
 
+                var dh  = this.dialog.outerHeight(),
+                pad = parseInt(this.dialog.css('margin-top'), 10) + parseInt(this.dialog.css('margin-bottom'), 10);
+
+                if ((dh + pad) < window.innerHeight) {
+                    this.dialog.css({'top': (window.innerHeight/2 - dh/2) - pad });
+                } else {
+                    this.dialog.css({'top': ''});
+                }
+            }
         },
 
         updateScrollable: function() {
@@ -2080,17 +2130,21 @@
             // has scrollable?
             var scrollable = this.dialog.find('.@-overflow-container:visible:first');
 
-            if (scrollable) {
+            if (scrollable.length) {
 
                 scrollable.css("height", 0);
 
                 var offset = Math.abs(parseInt(this.dialog.css("margin-top"), 10)),
-                    dh     = this.dialog.outerHeight(),
-                    wh     = window.innerHeight,
-                    h      = wh - 2*(offset < 20 ? 20:offset) - dh;
+                dh     = this.dialog.outerHeight(),
+                wh     = window.innerHeight,
+                h      = wh - 2*(offset < 20 ? 20:offset) - dh;
 
                 scrollable.css("height", h < this.options.minScrollHeight ? "":h);
+
+                return true;
             }
+
+            return false;
         },
 
         _hide: function() {

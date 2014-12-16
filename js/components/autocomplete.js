@@ -82,7 +82,7 @@
             }
 
             if (this.options.flipDropdown) {
-                this.dropdown.addClass('@-dropdown-flip');
+                this.dropdown.addClass(UI.prefix('@-dropdown-flip'));
             }
 
             this.input.on({

@@ -6061,7 +6061,7 @@ a.uk-thumbnail:focus {
   }
 }
 /* Keyframes: Rotate
- * Used by icon and search component
+ * Used by icon component
  ========================================================================== */
 @-webkit-keyframes uk-rotate {
   0% {
@@ -6434,8 +6434,9 @@ a.uk-thumbnail:focus {
 /*
  * 1. Create position context for `uk-modal-dialog-frameless`
  * 2. Set box sizing
- * 3. Set style
- * 4. Slide-in transition
+ * 3. Min-height needed for initial loading and spinner
+ * 4. Set style
+ * 5. Slide-in transition
  */
 .uk-modal-dialog {
   /* 1 */
@@ -6449,8 +6450,10 @@ a.uk-thumbnail:focus {
   max-width: 100%;
   max-width: calc(100% - 20px);
   /* 3 */
-  background: #ffffff;
+  min-height: 200px;
   /* 4 */
+  background: #ffffff;
+  /* 5 */
   opacity: 0;
   -webkit-transform: translateY(-100px);
   transform: translateY(-100px);
@@ -6481,7 +6484,7 @@ a.uk-thumbnail:focus {
 /*
  * Remove margin from the last-child
  */
-.uk-modal-dialog > :last-child {
+.uk-modal-dialog > :not([class*='uk-modal-']):last-child {
   margin-bottom: 0;
 }
 /* Close in modal
@@ -6493,7 +6496,7 @@ a.uk-thumbnail:focus {
 /*
  * Remove margin from adjacent element
  */
-.uk-modal-dialog > .uk-close:first-child + * {
+.uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) {
   margin-top: 0;
 }
 /* Modifier: `uk-modal-dialog-frameless`
@@ -6531,6 +6534,58 @@ a.uk-thumbnail:focus {
   .uk-modal-dialog-large {
     width: 1130px;
   }
+}
+/* Sub-Object: `uk-modal-header`
+ ========================================================================== */
+.uk-modal-header {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 24px;
+  line-height: 30px;
+  margin: -20px -20px 15px -20px;
+  padding: 20px;
+  border-bottom: 1px solid #dddddd;
+  border-radius: 4px 4px 0 0;
+  background: #fafafa;
+}
+/* Sub-Object: `uk-modal-footer`
+ ========================================================================== */
+.uk-modal-footer {
+  margin-top: 15px;
+  text-align: right;
+  margin: 15px -20px -20px -20px;
+  padding: 20px;
+  border-top: 1px solid #dddddd;
+  border-radius: 0 0 4px 4px;
+  background: #fafafa;
+}
+/* Sub-Object: `uk-modal-caption`
+ ========================================================================== */
+.uk-modal-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -20px;
+  margin-bottom: -10px;
+  color: #ffffff;
+  text-align: center;
+}
+/* Sub-Object: `uk-modal-spinner`
+ ========================================================================== */
+.uk-modal-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  color: #ddd;
+}
+.uk-modal-spinner:after {
+  content: "\f110";
+  font-family: FontAwesome;
+  -webkit-animation: uk-rotate 2s infinite linear;
+  animation: uk-rotate 2s infinite linear;
 }
 /* ========================================================================
    Component: Off-canvas
