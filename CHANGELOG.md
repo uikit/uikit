@@ -2,6 +2,7 @@
 
 ### WIP
   - IMPORTANT: Renamed uk-slidenav-inverted to uk-slidenav-contrast
+  - Added header, footer, caption and spinner to modal component
   - Added dotnav-contrast to dotnav component
   - Better dimension recognition in cover component
   - Iframes with the class uk-responsive-width behave like responsive images now (via JavaScript)

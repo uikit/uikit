@@ -11,6 +11,14 @@
 
 @modal-dialog-background:                       @global-background;
 
+@modal-header-margin-bottom:                    @global-margin;
+@modal-header-font-size:                        round((@global-font-size * 1.74)); // 24px / 28px
+@modal-header-line-height:                      round((@modal-header-font-size * 1.27)); // 30px / 36px
+
+@modal-footer-margin-top:                       @global-margin;
+
+@modal-caption-color:                           @global-contrast-color;
+
 
 // Component
 // ========================================================================
@@ -22,6 +30,30 @@
 // ========================================================================
 
 .hook-modal-dialog() {}
+
+
+// Sub-object: `uk-modal-header`
+// ========================================================================
+
+.hook-modal-header() {}
+
+
+// Sub-object: `uk-modal-footer`
+// ========================================================================
+
+.hook-modal-footer() {}
+
+
+// Sub-object: `uk-modal-caption`
+// ========================================================================
+
+.hook-modal-caption() {}
+
+
+// Sub-object: `uk-modal-spinner`
+// ========================================================================
+
+.hook-modal-spinner() {}
 
 
 // Miscellaneous

@@ -41,6 +41,15 @@
 @modal-dialog-large-width:                      930px;
 @modal-dialog-large-width-large:                1130px;
 
+@modal-header-margin-bottom:                    15px;
+@modal-header-font-size:                        24px;
+@modal-header-line-height:                      30px;
+
+@modal-footer-margin-top:                       15px;
+
+@modal-caption-margin-bottom:                   -10px;
+@modal-caption-color:                           #fff;
+
 
 /* ========================================================================
    Component: Modal
@@ -97,8 +106,9 @@
 /*
  * 1. Create position context for `uk-modal-dialog-frameless`
  * 2. Set box sizing
- * 3. Set style
- * 4. Slide-in transition
+ * 3. Min-height needed for initial loading and spinner
+ * 4. Set style
+ * 5. Slide-in transition
  */
 
 .uk-modal-dialog {
@@ -113,8 +123,10 @@
     max-width: 100%;
     max-width: ~"calc(100% - 20px)";
     /* 3 */
-    background: @modal-dialog-background;
+    min-height: 200px;
     /* 4 */
+    background: @modal-dialog-background;
+    /* 5 */
     opacity: 0;
     -webkit-transform: translateY(-100px);
     transform: translateY(-100px);
@@ -152,7 +164,7 @@
  * Remove margin from the last-child
  */
 
-.uk-modal-dialog > :last-child { margin-bottom: 0; }
+.uk-modal-dialog > :not([class*='uk-modal-']):last-child { margin-bottom: 0; }
 
 
 /* Close in modal
@@ -167,7 +179,7 @@
  * Remove margin from adjacent element
  */
 
- .uk-modal-dialog > .uk-close:first-child + * { margin-top: 0; }
+ .uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) { margin-top: 0; }
 
 
 /* Modifier: `uk-modal-dialog-frameless`
@@ -216,6 +228,65 @@
 }
 
 
+/* Sub-Object: `uk-modal-header`
+ ========================================================================== */
+
+.uk-modal-header {
+    margin-top: 0;
+    margin-bottom: @modal-header-margin-bottom;
+    font-size: @modal-header-font-size;
+    line-height: @modal-header-line-height;
+    .hook-modal-header;
+}
+
+
+/* Sub-Object: `uk-modal-footer`
+ ========================================================================== */
+
+.uk-modal-footer {
+    margin-top: @modal-footer-margin-top;
+    text-align: right;
+    .hook-modal-footer;
+}
+
+
+/* Sub-Object: `uk-modal-caption`
+ ========================================================================== */
+
+.uk-modal-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: (-@modal-dialog-padding);
+    margin-bottom: @modal-caption-margin-bottom;
+    color: @modal-caption-color;
+    text-align: center;
+    .hook-modal-caption;
+}
+
+
+/* Sub-Object: `uk-modal-spinner`
+ ========================================================================== */
+
+.uk-modal-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    font-size: 25px;
+    color: #ddd;
+    .hook-modal-spinner;
+}
+
+.uk-modal-spinner:after {
+    content: "\f110";
+    font-family: FontAwesome;
+    -webkit-animation: uk-rotate 2s infinite linear;
+    animation: uk-rotate 2s infinite linear;
+}
+
+
 // Hooks
 // ========================================================================
 
@@ -223,4 +294,8 @@
 
 .hook-modal() {}
 .hook-modal-dialog() {}
+.hook-modal-header() {}
+.hook-modal-footer() {}
+.hook-modal-caption() {}
+.hook-modal-spinner() {}
 .hook-modal-misc() {}
