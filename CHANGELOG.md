@@ -10,6 +10,7 @@
   - Fixed Slideshow without a parent container + fold effect
   - Fixed unprefixed autocomplete dropdown flip + search dropdown
   - Fixed switcher with animations for IE < 10
+  - Fixed toggler with animations for IE < 10
 
   **Docs and Repo**
 

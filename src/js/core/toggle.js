@@ -54,7 +54,7 @@
 
             if(!this.totoggle.length) return;
 
-            if (this.options.animation) {
+            if (this.options.animation && UI.support.animation) {
 
                 var $this = this, animations = UI.prefix(this.options.animation).split(',');
 
