@@ -121,7 +121,7 @@
                     return coreAnimation.apply($this, [anim, current, next]);
                 };
 
-            if (animate===false) {
+            if (animate===false || !UI.support.animation) {
                 animation = Animations.none;
             }
 
