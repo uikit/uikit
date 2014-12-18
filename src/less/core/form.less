@@ -99,6 +99,7 @@
 @form-stacked-font-weight:                      bold;
 
 @form-horizontal-label-width:                   200px;
+@form-horizontal-label-small-width:             100px;
 @form-horizontal-label-margin-top:              5px;
 @form-horizontal-controls-margin-left:          215px;
 @form-horizontal-controls-text-padding-top:     5px;
@@ -553,6 +554,13 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 
     .uk-form-horizontal .uk-form-label {
         width: @form-horizontal-label-width;
+        margin-top: @form-horizontal-label-margin-top;
+        float: left;
+        .hook-form-horizontal-label;
+    }
+
+    .uk-form-horizontal .uk-form-label-small {
+        width: @form-horizontal-label-small-width;
         margin-top: @form-horizontal-label-margin-top;
         float: left;
         .hook-form-horizontal-label;
