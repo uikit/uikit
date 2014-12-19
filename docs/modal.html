@@ -170,6 +170,97 @@
 
                             <hr class="uk-article-divider">
 
+                            <h2 id="modal-header-footer"><a href="#modal-header-footer" class="uk-link-reset">Modal header and footer</a></h2>
+
+                            <p>You can create a header and footer for your modal, which are seperated from the content. Just add the <code>.uk-modal-header</code> or the <code>.uk-modal-footer</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal6'}">Open</button>
+                            <div id="modal6" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <button type="button" class="uk-modal-close uk-close"></button>
+                                    <h1 class="uk-modal-header">Headline</h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <div class="uk-modal-footer">
+                                        <button type="button" class="uk-button">Cancel</button>
+                                        <button type="button" class="uk-button uk-button-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is a button toggling the modal --&gt;
+&lt;button class="uk-button" data-uk-modal="{target:'#my-id'}">...&lt;/button&gt;
+
+&lt;!-- This is the modal --&gt;
+&lt;div id="my-id" class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;h1 class="uk-modal-header"&gt;...&lt;/h1&gt;
+        &lt;div class="uk-modal-footer"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="modal-with-caption"><a href="#modal-with-caption" class="uk-link-reset">Modal caption</a></h2>
+
+                            <p>You can also create a caption that will be placed outside the modal. Just add the <code>.uk-modal-caption</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal7'}">Open</button>
+                            <div id="modal7" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <a href="" class="uk-modal-close uk-close"></a>
+                                    <h1>Headline</h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <div class="uk-modal-caption">Caption</div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is a button toggling the modal --&gt;
+&lt;button class="uk-button" data-uk-modal="{target:'#my-id'}">...&lt;/button&gt;
+
+&lt;!-- This is the modal --&gt;
+&lt;div id="my-id" class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-caption"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="modal-with-spinner"><a href="#modal-with-spinner" class="uk-link-reset">Modal spinner</a></h2>
+
+                            <p>To place a spinning icon inside your modal, add the <code>.uk-modal-spinner</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog. This comes in handy, if you are displaying content with the modal that loads with a bit of a delay, like a large image.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <a class="uk-button" href="#modal-spinner" data-uk-modal>Spinner</a>
+                            <div id="modal-spinner" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <div class="uk-modal-spinner"></div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is a button toggling the modal --&gt;
+&lt;button class="uk-button" data-uk-modal="{target:'#my-id'}">...&lt;/button&gt;
+
+&lt;!-- This is the modal --&gt;
+&lt;div id="my-id" class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-spinner"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
                             <h2 id="frameless-modifier"><a href="#frameless-modifier" class="uk-link-reset">Frameless modifier</a></h2>
 
                             <p>By default, the modal box has a padding. To avoid this and remove any framing, just add the <code>.uk-modal-dialog-frameless</code> class. This can be useful, if you want to use the modal as a lightbox for your images. The close button will adjust its position automatically to the frameless dialog.</p>
