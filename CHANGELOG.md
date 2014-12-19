@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.15.0 (December 19, 2014)
   - IMPORTANT: Renamed uk-slidenav-inverted to uk-slidenav-contrast
   - Added header, footer, caption and spinner to modal component
   - Added dotnav-contrast to dotnav component

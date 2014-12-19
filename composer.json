@@ -2,7 +2,7 @@
     "name": "uikit/uikit",
     "type": "library",
     "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-    "version": "2.14.0",
+    "version": "2.15.0",
     "keywords": [],
     "homepage": "http://getuikit.com/",
     "authors": [],
@@ -10,7 +10,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "2.14-dev"
+            "dev-master": "2.15-dev"
         }
     }
 }
