@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.15.0 (December 19, 2014)
   - IMPORTANT: Renamed uk-slidenav-inverted to uk-slidenav-contrast
   - Added header, footer, caption and spinner to modal component
   - Added dotnav-contrast to dotnav component
@@ -12,6 +12,7 @@
   - Fixed unprefixed autocomplete dropdown flip + search dropdown
   - Fixed switcher with animations for IE < 10
   - Fixed toggler with animations for IE < 10
+  - Fixed clearfix method
 
   **Docs and Repo**
 
