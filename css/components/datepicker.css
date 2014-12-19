@@ -1,4 +1,4 @@
-/*! UIkit 2.14.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.15.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Datepicker
  ========================================================================== */
@@ -33,7 +33,7 @@
 .uk-datepicker-nav:before,
 .uk-datepicker-nav:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-datepicker-nav:after {
   clear: both;

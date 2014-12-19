@@ -82,14 +82,14 @@
 /*
  * DEPRECATED
  * Micro clearfix
- * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item
+ * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item, only in Webkit
  */
 
 .uk-grid:before,
 .uk-grid:after {
     content: "";
     /* 1 */
-    display: block;
+    display: table-caption;
 }
 
 .uk-grid:after { clear: both; }

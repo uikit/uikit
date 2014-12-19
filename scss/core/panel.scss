@@ -117,7 +117,7 @@ a.uk-panel:hover {
 .uk-panel:before,
 .uk-panel:after {
     content: "";
-    display: block;
+    display: table-caption;
 }
 
 .uk-panel:after { clear: both; }

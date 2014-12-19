@@ -85,7 +85,7 @@ $navbar-toggle-icon-alt:                         "\f002" !default;
 .uk-navbar:before,
 .uk-navbar:after {
     content: "";
-    display: block;
+    display: table-caption;
 }
 
 .uk-navbar:after { clear: both; }

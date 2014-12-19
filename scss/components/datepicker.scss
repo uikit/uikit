@@ -83,7 +83,7 @@ $datepicker-table-muted-color:                   #999 !default;
 .uk-datepicker-nav:before,
 .uk-datepicker-nav:after {
     content: "";
-    display: block;
+    display: table-caption;
 }
 
 .uk-datepicker-nav:after { clear: both; }

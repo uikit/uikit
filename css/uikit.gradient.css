@@ -1,4 +1,4 @@
-/*! UIkit 2.14.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.15.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -418,13 +418,13 @@ iframe {
 /*
  * DEPRECATED
  * Micro clearfix
- * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item
+ * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item, only in Webkit
  */
 .uk-grid:before,
 .uk-grid:after {
   content: "";
   /* 1 */
-  display: block;
+  display: table-caption;
 }
 .uk-grid:after {
   clear: both;
@@ -1150,7 +1150,7 @@ a.uk-panel:hover {
 .uk-panel:before,
 .uk-panel:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-panel:after {
   clear: both;
@@ -1293,9 +1293,10 @@ a.uk-panel-box-secondary:hover {
     top: -35px;
   }
 }
-.uk-panel-box .uk-panel-teaser > * {
+.uk-panel-box .uk-panel-teaser {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  overflow: hidden;
 }
 /* ========================================================================
    Component: Article
@@ -1306,7 +1307,7 @@ a.uk-panel-box-secondary:hover {
 .uk-article:before,
 .uk-article:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-article:after {
   clear: both;
@@ -1381,7 +1382,7 @@ a.uk-panel-box-secondary:hover {
 .uk-comment-header:before,
 .uk-comment-header:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-comment-header:after {
   clear: both;
@@ -1755,7 +1756,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar:before,
 .uk-navbar:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-navbar:after {
   clear: both;
@@ -2155,7 +2156,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-pagination:before,
 .uk-pagination:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-pagination:after {
   clear: both;
@@ -2282,7 +2283,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab:before,
 .uk-tab:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-tab:after {
   clear: both;
@@ -2383,7 +2384,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab-center:before,
 .uk-tab-center:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-tab-center:after {
   clear: both;
@@ -2579,7 +2580,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-list > li:before,
 .uk-list > li:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-list > li:after {
   clear: both;
@@ -3001,7 +3002,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-form legend:after {
   content: "";
-  display: block;
+  display: table-caption;
   border-bottom: 1px solid #dddddd;
   /* 1 */
   width: 100%;
@@ -3097,7 +3098,7 @@ select.uk-form-width-mini {
 .uk-form-row:before,
 .uk-form-row:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-form-row:after {
   clear: both;
@@ -6825,7 +6826,7 @@ a.uk-thumbnail:focus {
  */
 .uk-tooltip:after {
   content: "";
-  display: block;
+  display: table-caption;
   position: absolute;
   width: 0;
   height: 0;
@@ -7032,7 +7033,7 @@ a.uk-thumbnail:focus {
 .uk-container:before,
 .uk-container:after {
   content: "";
-  display: block;
+  display: table-caption;
 }
 .uk-container:after {
   clear: both;
@@ -7048,13 +7049,13 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 /*
  * Micro clearfix
- * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item
+ * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item, only in Webkit
  */
 .uk-clearfix:before,
 .uk-clearfix:after {
   content: "";
   /* 1 */
-  display: block;
+  display: table-caption;
 }
 .uk-clearfix:after {
   clear: both;
