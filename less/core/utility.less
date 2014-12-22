@@ -90,7 +90,7 @@
 .uk-container:before,
 .uk-container:after {
     content: "";
-    display: table-caption;
+    display: table;
 }
 
 .uk-container:after { clear: both; }
@@ -110,17 +110,22 @@
 
 /*
  * Micro clearfix
- * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item, only in Webkit
+* `table-cell` is used with `:before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
+ * `table` is used again with `:after` because `clear` only works with block elements.
+ * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
  */
 
-.uk-clearfix:before,
-.uk-clearfix:after {
+.uk-clearfix:before {
     content: "";
-    /* 1 */
-    display: table-caption;
+    display: table-cell;
 }
 
-.uk-clearfix:after { clear: both; }
+.uk-clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 
 /*
  *  Create a new block formatting context

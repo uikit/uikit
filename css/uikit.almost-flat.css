@@ -416,13 +416,13 @@ iframe {
 /*
  * DEPRECATED
  * Micro clearfix
- * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item, only in Webkit
+ * Can't use `table` because it creates a 1px gap when it becomes a flex item, only in Webkit
  */
 .uk-grid:before,
 .uk-grid:after {
   content: "";
-  /* 1 */
-  display: table-caption;
+  display: block;
+  overflow: hidden;
 }
 .uk-grid:after {
   clear: both;
@@ -1148,7 +1148,7 @@ a.uk-panel:hover {
 .uk-panel:before,
 .uk-panel:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-panel:after {
   clear: both;
@@ -1305,7 +1305,7 @@ a.uk-panel-box-secondary:hover {
 .uk-article:before,
 .uk-article:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-article:after {
   clear: both;
@@ -1380,7 +1380,7 @@ a.uk-panel-box-secondary:hover {
 .uk-comment-header:before,
 .uk-comment-header:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-comment-header:after {
   clear: both;
@@ -1750,7 +1750,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar:before,
 .uk-navbar:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-navbar:after {
   clear: both;
@@ -2147,7 +2147,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-pagination:before,
 .uk-pagination:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-pagination:after {
   clear: both;
@@ -2263,7 +2263,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab:before,
 .uk-tab:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-tab:after {
   clear: both;
@@ -2364,7 +2364,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-tab-center:before,
 .uk-tab-center:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-tab-center:after {
   clear: both;
@@ -2560,7 +2560,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-list > li:before,
 .uk-list > li:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-list > li:after {
   clear: both;
@@ -2982,7 +2982,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-form legend:after {
   content: "";
-  display: table-caption;
+  display: block;
   border-bottom: 1px solid #dddddd;
   /* 1 */
   width: 100%;
@@ -3078,7 +3078,7 @@ select.uk-form-width-mini {
 .uk-form-row:before,
 .uk-form-row:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-form-row:after {
   clear: both;
@@ -6758,7 +6758,7 @@ a.uk-thumbnail:focus {
  */
 .uk-tooltip:after {
   content: "";
-  display: table-caption;
+  display: block;
   position: absolute;
   width: 0;
   height: 0;
@@ -6965,7 +6965,7 @@ a.uk-thumbnail:focus {
 .uk-container:before,
 .uk-container:after {
   content: "";
-  display: table-caption;
+  display: table;
 }
 .uk-container:after {
   clear: both;
@@ -6981,15 +6981,17 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 /*
  * Micro clearfix
- * 1. Not possible to use `table` because it creates a 1px gap when it becomes a flex item, only in Webkit
+* `table-cell` is used with `:before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
+ * `table` is used again with `:after` because `clear` only works with block elements.
+ * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
  */
-.uk-clearfix:before,
-.uk-clearfix:after {
+.uk-clearfix:before {
   content: "";
-  /* 1 */
-  display: table-caption;
+  display: table-cell;
 }
 .uk-clearfix:after {
+  content: "";
+  display: table;
   clear: both;
 }
 /*

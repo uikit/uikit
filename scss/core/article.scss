@@ -57,7 +57,7 @@ $article-divider-border:                         #ddd !default;
 .uk-article:before,
 .uk-article:after {
     content: "";
-    display: table-caption;
+    display: table;
 }
 
 .uk-article:after { clear: both; }
