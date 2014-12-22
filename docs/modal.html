@@ -172,7 +172,7 @@
 
                             <h2 id="modal-header-footer"><a href="#modal-header-footer" class="uk-link-reset">Modal header and footer</a></h2>
 
-                            <p>You can create a header and footer for your modal, which are seperated from the content. Just add the <code>.uk-modal-header</code> or the <code>.uk-modal-footer</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+                            <p>You can create a header and footer for your modal, which are seperated from the content. Just add the <code>.uk-modal-header</code> or the <code>.uk-modal-footer</code> class to a block element inside the modal dialog.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -191,11 +191,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;!-- This is a button toggling the modal --&gt;
-&lt;button class="uk-button" data-uk-modal="{target:'#my-id'}">...&lt;/button&gt;
-
-&lt;!-- This is the modal --&gt;
-&lt;div id="my-id" class="uk-modal"&gt;
+<pre><code>&lt;div class="uk-modal"&gt;
     &lt;div class="uk-modal-dialog"&gt;
         &lt;h1 class="uk-modal-header"&gt;...&lt;/h1&gt;
         &lt;div class="uk-modal-footer"&gt;...&lt;/div&gt;
@@ -222,11 +218,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;!-- This is a button toggling the modal --&gt;
-&lt;button class="uk-button" data-uk-modal="{target:'#my-id'}">...&lt;/button&gt;
-
-&lt;!-- This is the modal --&gt;
-&lt;div id="my-id" class="uk-modal"&gt;
+<pre><code>&lt;div class="uk-modal"&gt;
     &lt;div class="uk-modal-dialog"&gt;
         &lt;div class="uk-modal-caption"&gt;...&lt;/div&gt;
     &lt;/div&gt;
@@ -236,11 +228,11 @@
 
                             <h2 id="modal-with-spinner"><a href="#modal-with-spinner" class="uk-link-reset">Modal spinner</a></h2>
 
-                            <p>To place a spinning icon inside your modal, add the <code>.uk-modal-spinner</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog. This comes in handy, if you are displaying content with the modal that loads with a bit of a delay, like a large image.</p>
+                            <p>To place a spinning icon inside your modal, add the <code>.uk-modal-spinner</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <a class="uk-button" href="#modal-spinner" data-uk-modal>Spinner</a>
+                            <a class="uk-button" href="#modal-spinner" data-uk-modal>Open</a>
                             <div id="modal-spinner" class="uk-modal">
                                 <div class="uk-modal-dialog">
                                     <div class="uk-modal-spinner"></div>
@@ -249,11 +241,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;!-- This is a button toggling the modal --&gt;
-&lt;button class="uk-button" data-uk-modal="{target:'#my-id'}">...&lt;/button&gt;
-
-&lt;!-- This is the modal --&gt;
-&lt;div id="my-id" class="uk-modal"&gt;
+<pre><code>&lt;div class="uk-modal"&gt;
     &lt;div class="uk-modal-dialog"&gt;
         &lt;div class="uk-modal-spinner"&gt;...&lt;/div&gt;
     &lt;/div&gt;
