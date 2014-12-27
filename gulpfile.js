@@ -231,7 +231,11 @@ gulp.task('dist-bower-file', function(done) {
         "homepage": "http://getuikit.com",
         "main": [
             "css/uikit.min.css",
-            "js/uikit.min.js"
+            "js/uikit.min.js",
+            "fonts/fontawesome-webfont.eot",
+            "fonts/fontawesome-webfont.ttf",
+            "fonts/fontawesome-webfont.woff",
+            "fonts/FontAwesome.otf"
         ],
         "dependencies": {
             "jquery": ">= 1.9.0"
