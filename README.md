@@ -1,5 +1,7 @@
 # UIkit
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
 * Homepage: [http://www.getuikit.com](http://www.getuikit.com)
