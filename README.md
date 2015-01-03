@@ -4,9 +4,11 @@ UIkit is a lightweight and modular front-end framework for developing fast and p
 
 * [Homepage](http://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
-* [Google+](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
-* [Issues](http://github.com/uikit/uikit/issues) - Report bugs
-* [Developer Chat](https://www.hipchat.com/gaWuqCDrW) - Every work day between 8:00 and 18:00 UTC
+* [Google+ Community](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
+
+Join our developer chat. We are online every work day between 8:00 and 18:00 UTC
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
 
 ## Getting started
 
@@ -68,8 +70,6 @@ To use JavaScript with your custom build just call the ```noConflict``` method w
 var myUIkit = UIkit.noConflict('myprefix');
 ```
 
-
-
 ## Contributing
 
 UIkit follows the [GitFlow branching model](http://nvie.com/posts/a-successful-git-branching-model). The ```master``` branch always reflects a production-ready state while the latest development is taking place in the ```develop``` branch.
@@ -80,14 +80,6 @@ Each time you want to work on a fix or a new feature, create a new branch based 
 
 UIkit is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
 
-## Credits
+## Copyright and License
 
-We built UIkit using popular open source projects.
-
-* jQuery ([MIT License](http://opensource.org/licenses/MIT))
-* normalize.css ([MIT License](http://opensource.org/licenses/MIT))
-* FontAwesome ([CC BY 3.0 License](http://creativecommons.org/licenses/by/3.0/))
-
-## Copyright and license
-
-Copyright 2014 [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
+Copyright [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
