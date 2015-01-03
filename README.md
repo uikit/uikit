@@ -70,8 +70,6 @@ To use JavaScript with your custom build just call the ```noConflict``` method w
 var myUIkit = UIkit.noConflict('myprefix');
 ```
 
-
-
 ## Contributing
 
 UIkit follows the [GitFlow branching model](http://nvie.com/posts/a-successful-git-branching-model). The ```master``` branch always reflects a production-ready state while the latest development is taking place in the ```develop``` branch.
@@ -82,14 +80,6 @@ Each time you want to work on a fix or a new feature, create a new branch based 
 
 UIkit is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
 
-## Credits
+## Copyright and License
 
-We built UIkit using popular open source projects.
-
-* jQuery ([MIT License](http://opensource.org/licenses/MIT))
-* normalize.css ([MIT License](http://opensource.org/licenses/MIT))
-* FontAwesome ([CC BY 3.0 License](http://creativecommons.org/licenses/by/3.0/))
-
-## Copyright and license
-
-Copyright 2014 [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
+Copyright [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
