@@ -2,6 +2,7 @@
 
 ### WIP
   - Fixed buttons for input elements
+  - !important for uk-hidden-touch and uk-hidden-notouch
 
   **Docs and Repo**
 
