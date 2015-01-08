@@ -98,6 +98,9 @@
 
                                     if ($this.options.videomute) {
                                         $this.mutemedia(media);
+                                        setTimeout(function() {
+                                            $this.mutemedia(media);
+                                        }, 1000);
                                     }
 
                                 })

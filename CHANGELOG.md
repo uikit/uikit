@@ -4,6 +4,7 @@
   - Added text left small and medium classes
   - Fixed buttons for input elements
   - !important for uk-hidden-touch and uk-hidden-notouch
+  - Added timeout before muting media in slideshow
 
   **Docs and Repo**
 
