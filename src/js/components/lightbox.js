@@ -87,7 +87,7 @@
                 this.modal.modal.show();
             }
 
-            this.modal.loader.removeClass('uk-hidden');
+            this.modal.loader.removeClass(UI.prefix('@-hidden'));
 
             promise.promise().done(function() {
 
@@ -110,11 +110,11 @@
 
             if (this.siblings.length > 1) {
 
-                content = ['<div class="uk-slidenav-position">',
-                                content,
-                                '<a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous uk-hidden-small" data-lightbox-previous></a>',
-                                '<a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next uk-hidden-small" data-lightbox-next></a>',
-                            '</div>'].join('');
+                content = [
+                    content,
+                    '<a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous uk-hidden-touch" data-lightbox-previous></a>',
+                    '<a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next uk-hidden-touch" data-lightbox-next></a>'
+                ].join('');
             }
 
             // calculate width
@@ -139,7 +139,6 @@
 
                     h = Math.ceil( h * (maxwidth / w) );
                     w = maxwidth;
-                    pad = 0;
             }
 
             this.modal.content.css('opacity', 0).width(w).html(content);
@@ -156,15 +155,19 @@
 
             var dh   = h + pad,
                 dpad = parseInt(this.modal.dialog.css('margin-top'), 10) + parseInt(this.modal.dialog.css('margin-bottom'), 10),
-                t    = (window.innerHeight/2 - dh/2) - dpad + pad;
+                t    = (window.innerHeight/2 - dh/2) - pad;
 
             if (t < 0) {
                 t = 0;
             }
 
+            this.modal.closer.addClass(UI.prefix('@-hidden'));
+
             this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, $this.options.duration, 'swing', function() {
-                $this.modal.loader.addClass('uk-hidden');
-                $this.modal.content.css({width:''}).animate({'opacity': 1});
+                $this.modal.loader.addClass(UI.prefix('@-hidden'));
+                $this.modal.content.css({width:''}).animate({'opacity': 1}, function() {
+                    $this.modal.closer.removeClass(UI.prefix('@-hidden'));
+                });
             });
         },
 
@@ -422,7 +425,8 @@
         // init lightbox container
         modal = UI.$([
             '<div class="@-modal">',
-                '<div class="@-modal-dialog @-modal-dialog-lightbox" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
+                '<div class="@-modal-dialog @-modal-dialog-lightbox @-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
+                    '<a href="#" class="@-modal-close @-close @-close-alt"></a>',
                     '<div class="@-lightbox-content"></div>',
                     '<div class="@-modal-spinner @-hidden"></div>',
                 '</div>',
@@ -432,6 +436,7 @@
         modal.dialog  = modal.find(UI.prefix('.@-modal-dialog:first'));
         modal.content = modal.find(UI.prefix('.@-lightbox-content:first'));
         modal.loader  = modal.find(UI.prefix('.@-modal-spinner:first'));
+        modal.closer  = modal.find(UI.prefix('.@-close.@-close-alt'));
         modal.modal   = UI.modal(modal);
 
         // next / previous
