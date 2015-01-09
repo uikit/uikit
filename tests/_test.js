@@ -120,7 +120,7 @@
             "components/form-file",
             "components/form-password",
             "components/form-select",
-            "components/grid",
+            "components/grid-js",
             "components/htmleditor",
             "components/nestable",
             "components/notify",

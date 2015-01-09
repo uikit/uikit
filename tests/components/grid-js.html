@@ -24,6 +24,8 @@
             :nth-child(8n-1) > .uk-panel { height: 170px; background: rgba(0,0,0,0.40); }
             :nth-child(8n) > .uk-panel { height: 130px; background: rgba(0,0,0,0.45); }
 
+            .equal-height > * > .uk-panel { height: 150px; }
+
         </style>
     </head>
 
@@ -33,11 +35,49 @@
 
             <h1>Dynamic Grid</h1>
 
-            <h2>Gutter</h2>
+            <h2>Different Heights and Gutter</h2>
 
-            <div data-uk-grid="{gutter: 20}">
+            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20}">
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4">
+                <div>
+                    <div class="uk-panel">A</div>
+                </div>
+
+                <div>
+                    <div class="uk-panel">B</div>
+                </div>
+
+                <div>
+                    <div class="uk-panel">C</div>
+                </div>
+
+                <div>
+                    <div class="uk-panel">D</div>
+                </div>
+
+                <div>
+                    <div class="uk-panel">E</div>
+                </div>
+
+                <div>
+                    <div class="uk-panel">F</div>
+                </div>
+
+                <div>
+                    <div class="uk-panel">G</div>
+                </div>
+
+                <div>
+                    <div class="uk-panel">H</div>
+                </div>
+
+            </div>
+
+            <h2>Different Widths and No Gutter</h2>
+
+            <div class="equal-height" data-uk-grid>
+
+                <div class="uk-width-small-1-2 uk-width-medium-2-3 uk-width-large-1-2">
                     <div class="uk-panel">A</div>
                 </div>
 
@@ -45,7 +85,7 @@
                     <div class="uk-panel">B</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4">
+                <div class="uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4">
                     <div class="uk-panel">C</div>
                 </div>
 
@@ -53,19 +93,19 @@
                     <div class="uk-panel">D</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4">
+                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-2">
                     <div class="uk-panel">E</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4">
+                <div class="uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4">
                     <div class="uk-panel">F</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4">
+                <div class="uk-width-small-1-2 uk-width-medium-2-3 uk-width-large-1-2">
                     <div class="uk-panel">G</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4">
+                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-2">
                     <div class="uk-panel">H</div>
                 </div>
 
@@ -79,37 +119,37 @@
                 <li><a href="#" data-uk-filter="">Reset</a></li>
             </ul>
 
-            <div data-uk-grid="{controls: '#filter'}">
+            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{controls: '#filter'}">
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-a">
+                <div data-filter="test-a">
                     <div class="uk-panel">A 1</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-b">
+                <div data-filter="test-b">
                     <div class="uk-panel">B 2</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-a">
+                <div data-filter="test-a">
                     <div class="uk-panel">A 3</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-b">
+                <div data-filter="test-b">
                     <div class="uk-panel">B 4</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-b">
+                <div data-filter="test-b">
                     <div class="uk-panel">B 5</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-a">
+                <div data-filter="test-a">
                     <div class="uk-panel">A 6</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-b">
+                <div data-filter="test-b">
                     <div class="uk-panel">B 7</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-filter="test-a">
+                <div data-filter="test-a">
                     <div class="uk-panel">A 8</div>
                 </div>
 
@@ -124,37 +164,37 @@
                 <li><a href="#" data-uk-sort="test2:desc">Number (Desc)</a></li>
             </ul>
 
-            <div data-uk-grid="{controls: '#sort'}">
+            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{controls: '#sort'}">
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="a" data-test2="8">
+                <div data-test="a" data-test2="8">
                     <div class="uk-panel">A 8</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="b" data-test2="7">
+                <div data-test="b" data-test2="7">
                     <div class="uk-panel">B 7</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="c" data-test2="6">
+                <div data-test="c" data-test2="6">
                     <div class="uk-panel">C 6</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="d" data-test2="1">
+                <div data-test="d" data-test2="1">
                     <div class="uk-panel">D 1</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="e" data-test2="5">
+                <div data-test="e" data-test2="5">
                     <div class="uk-panel">E 5</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="f" data-test2="3">
+                <div data-test="f" data-test2="3">
                     <div class="uk-panel">F 3</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="g" data-test2="2">
+                <div data-test="g" data-test2="2">
                     <div class="uk-panel">G 2</div>
                 </div>
 
-                <div class="uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4" data-test="h" data-test2="4">
+                <div data-test="h" data-test2="4">
                     <div class="uk-panel">H 4</div>
                 </div>
 
