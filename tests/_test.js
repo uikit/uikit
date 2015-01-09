@@ -110,6 +110,7 @@
 
         "::Components",
 
+            "components/accordion",
             "components/autocomplete",
             "components/caption",
             "components/cover",

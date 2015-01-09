@@ -1,0 +1,54 @@
+// Name:            Accordion
+// Description:     Defines styles for accodion
+//
+// Component:       `uk-accodion`
+//
+// Sub-objects:     ``
+//
+// Modifier:        ``
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+@accordion-title-border-width:      1px;
+@accordion-title-border:            #ddd;
+@accordion-title-font-size:         14px;
+@accordion-title-background:        #fff;
+@accordion-title-border-radius:     0;
+
+@accordion-content-padding:         10px;
+
+/* ========================================================================
+   Addon: Accordion
+ ========================================================================== */
+
+ .uk-accordion {
+    margin: 0;
+    padding: 0;
+ }
+
+ .uk-accordion-title {
+    margin: 0 0 10px 0;
+    padding: 7px;
+    border: @accordion-title-border-width solid @accordion-title-border;
+    background: @accordion-title-background;
+    border-radius: @accordion-title-border-radius;
+    font-size: @accordion-title-font-size;
+    cursor: pointer;
+    .hook-accordion-title;
+ }
+
+ .uk-accordion-content {
+    padding: @accordion-content-padding;
+    .hook-accordion-content
+}
+
+// Hooks
+// ========================================================================
+.hook-accordion-misc;
+
+.hook-accordion-title() {}
+.hook-accordion-content() {}
+.hook-accordion-misc() {}
