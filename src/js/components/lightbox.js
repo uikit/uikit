@@ -17,7 +17,6 @@
     UI.component('lightbox', {
 
         defaults: {
-            "frameless"  : false,
             "group"      : false,
             "duration"   : 400,
             "keyboard"   : true
@@ -40,7 +39,8 @@
 
             this.modal = getModal(this);
 
-            this.modal.dialog[this.options.frameless ? 'addClass':'removeClass'](UI.prefix('@-modal-dialog-frameless')).stop();
+            // stop previous animation
+            this.modal.dialog.stop();
             this.modal.content.stop();
 
             var $this = this, promise = $.Deferred(), data, source, item, title;
@@ -139,6 +139,7 @@
 
                     h = Math.ceil( h * (maxwidth / w) );
                     w = maxwidth;
+                    pad = 0;
             }
 
             this.modal.content.css('opacity', 0).width(w).html(content);
