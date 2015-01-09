@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Form password component - UIkit documentation</title>
+        <title>Grid component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,7 +14,33 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../src/js/components/form-password.js"></script>
+        <script src="../src/js/components/grid.js"></script>
+        <script>
+        $(function(){
+            $("body").on("click", ".uk-button[data-message]", function(){
+                $.UIkit.notify($(this).data());
+            });
+        })
+        </script>
+
+        <style>
+
+            .uk-docs-panel {
+                padding: 20px;
+                color: #2d7091;
+            }
+
+            :nth-child(8n-7) > .uk-docs-panel { height: 80px; background: rgba(130,200,240,0.1); }
+            :nth-child(8n-6) > .uk-docs-panel { height: 100px; background: rgba(130,200,240,0.15); }
+            :nth-child(8n-5) > .uk-docs-panel { height: 160px; background: rgba(130,200,240,0.2); }
+            :nth-child(8n-4) > .uk-docs-panel { height: 120px; background: rgba(130,200,240,0.25); }
+            :nth-child(8n-3) > .uk-docs-panel { height: 180px; background: rgba(130,200,240,0.3); }
+            :nth-child(8n-2) > .uk-docs-panel { height: 130px; background: rgba(130,200,240,0.35); }
+            :nth-child(8n-1) > .uk-docs-panel { height: 150px; background: rgba(130,200,240,0.40); }
+            :nth-child(8n) > .uk-docs-panel { height: 110px; background: rgba(130,200,240,0.45); }
+
+        </style>
+
     </head>
 
     <body class="tm-background">
@@ -47,7 +73,7 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
-                            <li><a href="addons_grid.html">Grid</a></li>
+                            <li class="uk-active"><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
                             <li><a href="addons_cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
@@ -58,7 +84,7 @@
                             <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
-                            <li class="uk-active"><a href="addons_form-password.html">Form password</a></li>
+                            <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
@@ -80,66 +106,237 @@
 
                         <article class="uk-article">
 
-                            <h1>Form password</h1>
+                            <h1>Grid</h1>
 
-                            <p class="uk-article-lead">Create a form with a toggle to hide or show passwords.</p>
+                            <p class="uk-article-lead">Create a JavaScript based grid utilizing the <a href="grid.html">Grid component</a>.</p>
+
+                            <p>The Grid component allows you to create a dynamic Masonry-style grid layout. Grid items will arrange themselves fluently and seamlessly for a gap-free multi-column layout on all device sizes.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply this component, add the <code>uk-form-password</code> class to a <code>&lt;div&gt;</code> element around a password input field. To create a toggle for showing or hiding passwords, just add the <code>.uk-form-password-toggle</code> class and the <code>data-uk-form-password</code> attribute to an <code>&lt;a&gt;</code> element.</p>
+                            <p>To apply this component, add the <code>data-uk-grid</code> attribute to the container element.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <form class="uk-form">
-                                <div class="uk-form-password">
-                                    <input type="password" value="Bazinga!">
-                                    <a href="" class="uk-form-password-toggle" data-uk-form-password>Show</a>
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid>
+
+                                <div>
+                                    <div class="uk-docs-panel">1</div>
                                 </div>
-                            </form>
+
+                                <div>
+                                    <div class="uk-docs-panel">2</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel">3</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel">4</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel">5</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel">6</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel">7</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel">8</div>
+                                </div>
+
+                            </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;form class="uk-form"&gt;
-    &lt;div class="uk-form-password"&gt;
-        &lt;input type="password"&gt;
-        &lt;a href="" class="uk-form-password-toggle" data-uk-form-password&gt;...&lt;/a&gt;
-    &lt;/div&gt;
-&lt;/form&gt;</code></pre>
+<pre><code>&lt;div data-uk-grid&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+                            <h3>Grid Gutter</h3>
 
-                            <p>This is an example of how to set options via attribute:</p>
+                            <p>Divide grid items with a gutter by adding the <code>{gutter: 20}</code> option to the data attribute. In this case the gutter will be 20px wide.</p>
 
-                            <pre><code>data-uk-form-password=&quot;{lblShow:'...', lblHide:'...'}&quot;</code></pre>
+                            <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Option</th>
-                                            <th>Possible value</th>
-                                            <th>Default</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>lblShow</code></td>
-                                            <td>any string</td>
-                                            <td>'Show'</td>
-                                            <td>Hide label text</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>lblHide</code></td>
-                                            <td>any string</td>
-                                            <td>'Hide'</td>
-                                            <td>Show label text</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20}">
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">1</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">2</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">3</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">4</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">5</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">6</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">7</div>
+                                </div>
+
+                                <div>
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">8</div>
+                                </div>
+
                             </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div data-uk-grid="{gutter: 20}"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Filter</h2>
+
+                            <p>You can also filter your grid so that only particular items will be displayed. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute and the id to a navigation. Each nav item needs to have the <code>data-uk-filter</code> attribute targetting the category you want to filter. Then you need to add the <code>data-filter</code> attribute to each grid item, targetting the respective category as well.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul id="filter" class="uk-subnav uk-subnav-pill">
+                                <li><a href="#" data-uk-filter="filter-a">Filter A</a></li>
+                                <li><a href="#" data-uk-filter="filter-b">Filter B</a></li>
+                                <li><a href="#" data-uk-filter="">Reset</a></li>
+                            </ul>
+
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20, controls: '#filter'}">
+
+                                <div data-filter="filter-a">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 1</div>
+                                </div>
+
+                                <div data-filter="filter-b">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 2</div>
+                                </div>
+
+                                <div data-filter="filter-a">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 3</div>
+                                </div>
+
+                                <div data-filter="filter-b">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 4</div>
+                                </div>
+
+                                <div data-filter="filter-b">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 5</div>
+                                </div>
+
+                                <div data-filter="filter-a">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 6</div>
+                                </div>
+
+                                <div data-filter="filter-b">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 7</div>
+                                </div>
+
+                                <div data-filter="filter-a">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 8</div>
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <p>This example is using a <a href="subnav.html">Subnav</a> to filter the items.</p>
+
+<pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
+    &lt;li&gt;&lt;a href="" data-uk-filter="filter-a"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-filter="filter-b"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-filter=""&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div data-uk-grid="{controls: '#my-id'}"&gt;
+    &lt;div data-filter="filter-a"&gt;...&lt;/div&gt;
+    &lt;div data-filter="filter-b"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Order</h2>
+
+                             <p>Grid items can be ordered ascendingly or descendingly by number or character. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute and the id to a navigation. Each nav item needs to have the <code>data-uk-sort="order"</code> or <code>data-uk-sort="order:desc"</code> attribute, depending on whether ther ordering is ascending or descending. Then you need to add the <code>data-order</code> attribute to each grid item and targetting an alphabetic or numeric string of each item.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>In this example items are ordered by numericly as well as alphabetically.</p>
+
+                            <ul id="sort" class="uk-subnav uk-subnav-pill">
+                                <li><a href="#" data-uk-sort="order">Character (Asc)</a></li>
+                                <li><a href="#" data-uk-sort="order:desc">Character (Desc)</a></li>
+                                <li><a href="#" data-uk-sort="order-number">Number (Asc)</a></li>
+                                <li><a href="#" data-uk-sort="order-number:desc">Number (Desc)</a></li>
+                            </ul>
+
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20, controls: '#sort'}">
+
+                                <div data-order="a" data-order-number="8">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 8</div>
+                                </div>
+
+                                <div data-order="b" data-order-number="7">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 7</div>
+                                </div>
+
+                                <div data-order="c" data-order-number="6">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">C 6</div>
+                                </div>
+
+                                <div data-order="d" data-order-number="1">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">D 1</div>
+                                </div>
+
+                                <div data-order="e" data-order-number="5">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">E 5</div>
+                                </div>
+
+                                <div data-order="f" data-order-number="3">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">F 3</div>
+                                </div>
+
+                                <div data-order="g" data-order-number="2">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">G 2</div>
+                                </div>
+
+                                <div data-order="h" data-order-number="4">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">H 4</div>
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="order"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="order:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="order-number"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="order-number:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div data-uk-grid="{controls: '#my-id'}"&gt;
+    &lt;div data-order="a" data-order-number="8"&gt;...&lt;/div&gt;
+    &lt;div data-order="b" data-order-number="7"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                         </article>
 
@@ -243,13 +440,12 @@
                             <li><a href="offcanvas.html">Off-canvas</a></li>
                             <li><a href="switcher.html">Switcher</a></li>
                             <li><a href="toggle.html">Toggle</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
                             <li><a href="scrollspy.html">Scrollspy</a></li>
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-header">Add-ons</li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
@@ -263,7 +459,7 @@
                             <li><a href="addons_pagination.html">Pagination</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
