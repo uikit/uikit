@@ -121,6 +121,7 @@
             "components/form-password",
             "components/form-select",
             "components/htmleditor",
+            "components/lightbox",
             "components/nestable",
             "components/notify",
             "components/pagination-js",
