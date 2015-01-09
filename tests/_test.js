@@ -12,6 +12,7 @@
 
         // components
         'dist/css/components/flex{style}.css',
+        'dist/css/components/accordion{style}.css',
         'dist/css/components/autocomplete{style}.css',
         'dist/css/components/caption{style}.css',
         'dist/css/components/cover{style}.css',
@@ -110,6 +111,7 @@
 
         "::Components",
 
+            "components/accordion",
             "components/autocomplete",
             "components/caption",
             "components/cover",
