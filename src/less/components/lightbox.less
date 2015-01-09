@@ -1,0 +1,47 @@
+// Name:            Lightbox
+// Description:     Defines styles for the lightbox modal dialog
+//
+// Modifier:        (Modal) `uk-modal-dialog-lightbox`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Lightbox
+ ========================================================================== */
+
+.uk-modal-dialog-lightbox {
+    padding: 0;
+    .hook-lightbox;
+}
+
+/*
+ * Close button
+ */
+
+.uk-modal-dialog-lightbox > .uk-close:first-child {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    margin: 0;
+    float: none;
+}
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    .uk-modal-dialog-lightbox > .uk-close:first-child {
+        top: -7px;
+        right: -7px;
+    }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-lightbox-misc;
+
+.hook-lightbox() {}
+.hook-lightbox-misc() {}
