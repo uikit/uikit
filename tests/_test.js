@@ -23,6 +23,7 @@
         'dist/css/components/form-password{style}.css',
         'dist/css/components/form-select{style}.css',
         'dist/css/components/htmleditor{style}.css',
+        'dist/css/components/lightbox{style}.css',
         'dist/css/components/nestable{style}.css',
         'dist/css/components/notify{style}.css',
         'dist/css/components/placeholder{style}.css',
