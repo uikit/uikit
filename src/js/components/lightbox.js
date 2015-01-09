@@ -17,8 +17,9 @@
     UI.component('lightbox', {
 
         defaults: {
+            "frameless"  : false,
             "group"      : false,
-            "duration"   : 500,
+            "duration"   : 400,
             "keyboard"   : true
         },
 
@@ -38,6 +39,9 @@
         show: function(index) {
 
             this.modal = getModal(this);
+
+            this.modal.dialog[this.options.frameless ? 'addClass':'removeClass'](UI.prefix('@-modal-dialog-frameless')).stop();
+            this.modal.content.stop();
 
             var $this = this, promise = $.Deferred(), data, source, item, title;
 
@@ -66,6 +70,7 @@
                 "index"    : index,
                 "promise"  : promise,
                 "title"    : title,
+                "item"     : item,
                 "meta"     : {
                     "content" : '',
                     "width"   : null,
@@ -84,11 +89,7 @@
 
             this.modal.loader.removeClass('uk-hidden');
 
-            promise.promise().always(function(){
-
-                $this.modal.loader.addClass('uk-hidden');
-
-            }).done(function() {
+            promise.promise().done(function() {
 
                 $this.data = data;
                 $this.fitSize(data);
@@ -156,7 +157,8 @@
                 dpad = parseInt(this.modal.dialog.css('margin-top'), 10) + parseInt(this.modal.dialog.css('margin-bottom'), 10),
                 t    = (window.innerHeight/2 - dh/2) - dpad + pad;
 
-            this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, $this.options.duration, 'easeOutExpo', function() {
+            this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, $this.options.duration, 'swing', function() {
+                $this.modal.loader.addClass('uk-hidden');
                 $this.modal.content.css({width:''}).animate({'opacity': 1});
             });
         },
@@ -392,7 +394,7 @@
                     var ele = $(data.source);
 
                     if (ele.length) {
-                        resolve(ele, 500, 500);
+                        resolve(ele, data.item.data('lightboxWidth') || 600, data.item.data('lightboxHeight') || 450);
                     } else {
                         data.promise.reject('Loading image failed');
                     }
@@ -446,8 +448,8 @@
 
         // init lightbox container
         modal = UI.$([
-            '<div class="@-modal">',
-                '<div class="@-modal-dialog" style="margin-left:auto;margin-right:auto;">',
+            '<div class="@-modal @-modal-lightbox">',
+                '<div class="@-modal-dialog" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
                     '<div class="@-lightbox-content"></div>',
                     '<div class="@-modal-spinner @-hidden"></div>',
                 '</div>',
