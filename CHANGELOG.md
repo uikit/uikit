@@ -1,10 +1,12 @@
 # Changelog
 
 ### WIP
+  - Added dynamic grid component
+  - Added accordion component
   - Added text left small and medium classes
-  - Fixed buttons for input elements
-  - !important for uk-hidden-touch and uk-hidden-notouch
   - Added timeout before muting media in slideshow
+  - Fixed buttons for input elements
+  - Fixed uk-hidden-touch and uk-hidden-notouch with !important
 
   **Docs and Repo**
 
