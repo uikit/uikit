@@ -376,38 +376,6 @@
         }
     });
 
-    UI.plugin('lightbox', 'inline-html', {
-
-        init: function(lightbox) {
-
-            lightbox.on("show.uk.lightbox", function(e, data){
-
-                if (data.type == 'html' || data.source && data.source.match(/^#/)) {
-
-                    var resolve = function(source, width, height) {
-
-                        data.meta = {
-                            "content" : ele.html(),
-                            "width"   : width,
-                            "height"  : height
-                        };
-
-                        data.promise.resolve();
-                    };
-
-                    var ele = $(data.source);
-
-                    if (ele.length) {
-                        resolve(ele, data.item.data('lightboxWidth') || 600, data.item.data('lightboxHeight') || 450);
-                    } else {
-                        data.promise.reject('Loading image failed');
-                    }
-                }
-            });
-        }
-    });
-
-
     $(function(){
 
         UI.$html.on('click', '[data-uk-lightbox]', function(e){
@@ -452,8 +420,8 @@
 
         // init lightbox container
         modal = UI.$([
-            '<div class="@-modal @-modal-lightbox">',
-                '<div class="@-modal-dialog" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
+            '<div class="@-modal">',
+                '<div class="@-modal-dialog @-modal-dialog-lightbox" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
                     '<div class="@-lightbox-content"></div>',
                     '<div class="@-modal-spinner @-hidden"></div>',
                 '</div>',
