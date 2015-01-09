@@ -8,35 +8,6 @@
 
         <script src="../_test.js"></script>
         <script src="../../src/js/components/lightbox.js"></script>
-
-        <style media="screen">
-
-            .uk-lightbox-dialog {
-                width: 100px;
-                height: 100px;
-            }
-
-            .uk-lightbox-content {
-                position: relative;
-            }
-
-            .uk-lightbox-loader {
-                background: rgba(255, 255, 255, 0.5);
-            }
-
-            .uk-lightbox-spinner {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                font-size: 25px;
-                transform: translate(-50%, -50%);
-            }
-
-            .uk-lightbox-caption {
-                padding: 20px 0;
-            }
-        </style>
-
     </head>
 
     <body>
@@ -47,26 +18,46 @@
 
             <div class="uk-grid uk-grid-width-medium-1-5" data-uk-grid-margin>
                 <div>
-                    <a class="lb-group" href="http://unsplash.it/800/800" data-lightbox-type="image" data-uk-lightbox="{group:'.lb-group'}" title="Test title"><img src="http://placehold.it/400x400&amp;text=image" width="400" height="400" alt=""></a>
+
+                    <a class="test" href="http://unsplash.it/800/800" data-lightbox-type="image" data-uk-lightbox="{group:'.test'}" title="Test title">
+                        <img src="holder.js/400x400/#08d:#fff/auto/text:image" width="400" height="400" alt="">
+                    </a>
+
                 </div>
                 <div>
-                    <a class="lb-group" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'.lb-group'}"><img src="http://placehold.it/400x400&amp;text=vimeo" width="400" height="400" alt=""></a>
+
+                    <a class="test" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'.test'}">
+                        <img src="holder.js/400x400/#2eb:#fff/auto/text:video" width="400" height="400" alt="">
+                    </a>
+
                 </div>
                 <div>
-                    <a class="lb-group" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'.lb-group'}"><img src="http://placehold.it/400x400&amp;text=youtube" width="400" height="400" alt=""></a>
+
+                    <a class="test" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'.test'}">
+                        <img src="holder.js/400x400/#f50:#fff/auto/text:vimeo" width="400" height="400" alt="">
+                    </a>
+
                 </div>
                 <div>
-                    <a class="lb-group" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'.lb-group'}"><img src="http://placehold.it/400x400&amp;text=video" width="400" height="400" alt=""></a>
+
+                    <a class="test" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'.test'}">
+                        <img src="holder.js/400x400/#e49:#fff/auto/text:youtube" width="400" height="400" alt="">
+                    </a>
+
                 </div>
                 <div>
-                    <a class="lb-group" href="#inline-content" data-uk-lightbox="{group:'.lb-group'}"><img src="http://placehold.it/400x400&amp;text=content" width="400" height="400" alt=""></a>
+                    
+                    <a class="test" href="#inline-content" data-uk-lightbox="{group:'.test'}">
+                        <img src="holder.js/400x400/#86e:#fff/auto/text:content" width="400" height="400" alt="">
+                    </a>
+
                 </div>
             </div>
-
 
             <div id="inline-content" class="uk-hidden">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
+
         </div>
 
     </body>
