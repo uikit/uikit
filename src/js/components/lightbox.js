@@ -157,6 +157,10 @@
                 dpad = parseInt(this.modal.dialog.css('margin-top'), 10) + parseInt(this.modal.dialog.css('margin-bottom'), 10),
                 t    = (window.innerHeight/2 - dh/2) - dpad + pad;
 
+            if (t < 0) {
+                t = 0;
+            }
+
             this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, $this.options.duration, 'swing', function() {
                 $this.modal.loader.addClass('uk-hidden');
                 $this.modal.content.css({width:''}).animate({'opacity': 1});
