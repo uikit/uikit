@@ -5,8 +5,12 @@
 //
 // Sub-objects:     `uk-modal-dialog`
 //                  `uk-modal-close`
+//                  `uk-modal-header`
+//                  `uk-modal-footer`
+//                  `uk-modal-caption`
+//                  `uk-modal-spinner`
 //
-// Modifiers:       `uk-modal-dialog-frameless`
+// Modifiers:       `uk-modal-dialog-lightbox`
 //                  `uk-modal-dialog-large`
 //
 // States:          `uk-open`
@@ -104,7 +108,7 @@
  ========================================================================== */
 
 /*
- * 1. Create position context for `uk-modal-dialog-frameless`
+ * 1. Create position context for caption, spinner and close button
  * 2. Set box sizing
  * 3. Min-height needed for initial loading and spinner
  * 4. Set style
@@ -182,16 +186,20 @@
  .uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) { margin-top: 0; }
 
 
-/* Modifier: `uk-modal-dialog-frameless`
+/* Modifier: `uk-modal-dialog-lightbox`
  ========================================================================== */
 
-.uk-modal-dialog-frameless { padding: 0; }
+.uk-modal-dialog-lightbox {
+    margin: 10px;
+    padding: 0;
+    .hook-modal-dialog-lightbox;
+}
 
 /*
- * Close in modal
+ * Close button
  */
 
-.uk-modal-dialog-frameless > .uk-close:first-child {
+.uk-modal-dialog-lightbox > .uk-close:first-child {
     position: absolute;
     top: -12px;
     right: -12px;
@@ -202,7 +210,7 @@
 /* Phone landscape and smaller */
 @media (max-width: @breakpoint-small-max) {
 
-    .uk-modal-dialog-frameless > .uk-close:first-child {
+    .uk-modal-dialog-lightbox > .uk-close:first-child {
         top: -7px;
         right: -7px;
     }
@@ -294,6 +302,7 @@
 
 .hook-modal() {}
 .hook-modal-dialog() {}
+.hook-modal-dialog-lightbox() {}
 .hook-modal-header() {}
 .hook-modal-footer() {}
 .hook-modal-caption() {}

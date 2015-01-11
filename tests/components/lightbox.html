@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lightbox - UIkit tests</title>
+
+        <script src="../_test.js"></script>
+        <script src="../../src/js/components/lightbox.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Lightbox</h1>
+
+            <h2>Different image dimensions</h2>
+
+            <div class="uk-grid uk-grid-width-medium-1-5" data-uk-grid-margin>
+                <div>
+
+                    <a class="group1" href="http://unsplash.it/800/600" data-lightbox-type="image" data-uk-lightbox="{group:'.group1'}" title="Title">
+                        <img src="holder.js/400x300/auto/text:800x600" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="group1" href="http://unsplash.it/700/500" data-lightbox-type="image" data-uk-lightbox="{group:'.group1'}" title="Title">
+                        <img src="holder.js/400x300/auto/text:700x500" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="group1" href="http://unsplash.it/400/300" data-lightbox-type="image" data-uk-lightbox="{group:'.group1'}" title="Title">
+                        <img src="holder.js/400x300/auto/text:400x300" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="group1" href="http://unsplash.it/600/2000" data-lightbox-type="image" data-uk-lightbox="{group:'.group1'}" title="Title">
+                        <img src="holder.js/400x300/auto/text:600x2000" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="group1" href="http://unsplash.it/3000/3000" data-lightbox-type="image" data-uk-lightbox="{group:'.group1'}" title="Title">
+                        <img src="holder.js/400x300/auto/text:3000x3000" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+            </div>
+
+            <h2>Different content sources</h2>
+
+            <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
+                <div>
+
+                    <a class="group2" href="http://unsplash.it/800/800" data-lightbox-type="image" data-uk-lightbox="{group:'.group2'}" title="Title">
+                        <img src="holder.js/400x300/auto/text:image" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="group2" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'.group2'}">
+                        <img src="holder.js/400x300/auto/text:video" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="group2" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'.group2'}">
+                        <img src="holder.js/400x300/auto/text:vimeo" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="group2" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'.group2'}">
+                        <img src="holder.js/400x300/auto/text:youtube" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

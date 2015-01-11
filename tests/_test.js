@@ -124,6 +124,7 @@
             "components/form-select",
             "components/grid-js",
             "components/htmleditor",
+            "components/lightbox",
             "components/nestable",
             "components/notify",
             "components/pagination-js",
