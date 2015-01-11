@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
   - Added dynamic grid component
   - Added accordion component
   - Added text left small and medium classes

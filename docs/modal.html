@@ -249,15 +249,15 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="frameless-modifier"><a href="#frameless-modifier" class="uk-link-reset">Frameless modifier</a></h2>
+                            <h2 id="lightbox-modifier"><a href="#lightbox-modifier" class="uk-link-reset">Lightbox modifier</a></h2>
 
-                            <p>By default, the modal box has a padding. To avoid this and remove any framing, just add the <code>.uk-modal-dialog-frameless</code> class. This can be useful, if you want to use the modal as a lightbox for your images. The close button will adjust its position automatically to the frameless dialog.</p>
+                            <p>To create a lightbox-like modal dialog, just add the <code>.uk-modal-dialog-lightbox</code> class. This can be useful, if you want to use the modal as a lightbox for your images. The close button will adjust its position automatically to the dialog.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <button class="uk-button" data-uk-modal="{target:'#modal-3'}">Open</button>
                             <div id="modal-3" class="uk-modal">
-                                <div class="uk-modal-dialog uk-modal-dialog-frameless">
+                                <div class="uk-modal-dialog uk-modal-dialog-lightbox">
                                     <a href="" class="uk-modal-close uk-close uk-close-alt"></a>
                                     <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
                                 </div>
@@ -270,13 +270,13 @@
 
 &lt;!-- This is the modal --&gt;
 &lt;div id="my-id" class="uk-modal"&gt;
-    &lt;div class="uk-modal-dialog uk-modal-dialog-frameless"&gt;
+    &lt;div class="uk-modal-dialog uk-modal-dialog-lightbox"&gt;
         &lt;a href="" class="uk-modal-close uk-close uk-close-alt"&gt;&lt;/a&gt;
         &lt;img src="" alt=""&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-                        <p><span class="uk-badge">NOTE</span> When creating a close button within the frameless modifier, we also recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a>. In that case you need to add the <code>.uk-close-alt</code> class as well to give your button a styling that fits the frameless modal.</p>
+                        <p><span class="uk-badge">NOTE</span> When creating a close button within the lightbox modifier, we also recommend adding the <code>.uk-close-alt</code> class to the close button from the <a href="close.html">Close component</a> to give your button a styling that fits the lightbox modal.</p>
 
                         <hr class="uk-article-divider">
 
