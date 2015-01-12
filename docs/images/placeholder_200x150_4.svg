@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="200px"
+	 height="150px" viewBox="0 0 200 150" enable-background="new 0 0 200 150" xml:space="preserve">
+<g id="Ebene_1">
+</g>
+<g id="placeholder">
+	<rect fill="#DB314B" width="200" height="150"/>
+	<g>
+		<path fill="#FFFFFF" d="M58.268,42.168v65.664h83.465V42.168H58.268z M135.007,100.711h-69.62V49.288h69.62V100.711
+			L135.007,100.711z"/>
+		<polygon fill="#FFFFFF" points="69.132,95.173 83.479,80.092 88.856,82.417 105.82,64.358 112.496,72.346 115.512,70.527
+			131.812,95.173 		"/>
+		<circle fill="#FFFFFF" cx="85.708" cy="62.364" r="6.267"/>
+	</g>
+</g>
+</svg>

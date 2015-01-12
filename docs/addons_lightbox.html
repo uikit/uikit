@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Accordion component - UIkit documentation</title>
+        <title>Lighbox component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,7 +14,8 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../src/js/components/accordion.js"></script>
+        <script src="../src/js/core/modal.js"></script>
+        <script src="../src/js/components/lightbox.js"></script>
         <script>
         $(function(){
             $("body").on("click", ".uk-button[data-message]", function(){
@@ -22,6 +23,16 @@
             });
         })
         </script>
+
+        <style>
+
+            .uk-docs-lightbox-demo a { text-decoration: none; }
+            .uk-docs-lightbox-demo a figcaption {
+                margin-top: 4px;
+                text-align: center;
+            }
+
+        </style>
 
     </head>
 
@@ -70,12 +81,12 @@
                             <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
+                            <li class="uk-active"><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li class="uk-active"><a href="addons_accordion.html">Accordion</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>
@@ -90,67 +101,112 @@
 
                         <article class="uk-article">
 
-                            <h1>Accordion</h1>
+                            <h1>Lightbox</h1>
 
-                            <p class="uk-article-lead">Display or hide separate content elements by expanding and collapsing their sections.</p>
+                            <p class="uk-article-lead">Create a media gallery inside a lightbox utilizing the <a href="modal.html">Modal component</a>.</p>
+
+                            <p>The lightbox requires the <a href="modal.html">Modal component</a> to work. Please make sure that you always include them together.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply the Accordion component, add the <code>uk-accordion</code> class and the <code>data-uk-accordion</code> attribute to a container element. Add the <code>uk-accordion-content</code> class to each of the content sections within the container. Finally, add the <code>uk-accordion-title</code> class to any element, like a heading, above the content section to create a toggle.</p>
+                            <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. The title will be displayed as a caption for the lightbox.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-accordion" data-uk-accordion>
+                            <a class="uk-button" href="images/placeholder_800x400_1.jpg" data-uk-lightbox title="Title">Open lighbox</a>
 
-                                <h3 class="uk-accordion-title">Heading 1</h3>
-                                <div class="uk-accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a href="" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2>Groups</h2>
+
+                            <p>You can link multiple images to the same lightbox and switch between them from within the lightbox, thus creating a gallery. Just add the <code>{group:'my-group'}</code> option to the data attribute of each item using the same name on all items that you want to group.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_1.jpg" width="800" height="600" alt="">
+                                    </a>
+
                                 </div>
+                                <div>
 
-                                <h3 class="uk-accordion-title">Heading 2</h3>
-                                <div class="uk-accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <a href="images/placeholder_800x600_2.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_2.jpg" width="800" height="600" alt="">
+                                    </a>
+
                                 </div>
+                                <div>
 
-                                <h3 class="uk-accordion-title">Heading 3</h3>
-                                <div class="uk-accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <a href="images/placeholder_800x600_3.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_3.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_4.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_4.jpg" width="800" height="600" alt="">
+                                    </a>
+
                                 </div>
 
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div class="uk-accordion" data-uk-accordion&gt;
-    &lt;h3 class="uk-accordion-title"&gt;...&lt;/h3&gt;
-    &lt;div class="uk-accordion-content"&gt;...&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+
+<pre><code>&lt;a href="" data-uk-lightbox="{group:'my-group'}"&gt;...&lt;/a&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2>No Collapse</h2>
+                            <h2>Different content sources</h2>
 
-                            <p>To display multiple content sections at the same time without one collapsing when the other one is opened, add the <code>{collapse: false}</code> option to the date attribute.</p>
+                            <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
+
+                            <p><span class="uk-badge">Note</span> If you are using a placeholder site, that doesn't have file appendixes in the image paths, just add the <code>data-lightbox-type="image"</code> attribute.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-accordion" data-uk-accordion="{collapse: false}">
+                            <div class="uk-grid uk-grid-width-medium-1-4 uk-docs-lightbox-demo" data-uk-grid-margin>
+                                <div>
 
-                                <h3 class="uk-accordion-title">Heading 1</h3>
-                                <div class="uk-accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <a href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group2'}" title="Title">
+                                        <img src="images/placeholder_200x150_1.svg" width="200" height="150" alt="">
+                                        <figcaption>Image</figcaption>
+                                    </a>
+
                                 </div>
+                                <div>
 
-                                <h3 class="uk-accordion-title">Heading 2</h3>
-                                <div class="uk-accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <a href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">
+                                        <img src="images/placeholder_200x150_2.svg" width="200" height="150" alt="">
+                                        <figcaption>MP4</figcaption>
+                                    </a>
+
                                 </div>
+                                <div>
 
-                                <h3 class="uk-accordion-title">Heading 3</h3>
-                                <div class="uk-accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <a href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">
+                                        <img src="images/placeholder_200x150_3.svg" width="200" height="150" alt="">
+                                        <figcaption>Vimeo</figcaption>
+                                    </a>
+
                                 </div>
+                                <div>
 
+                                    <a href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">
+                                        <img src="images/placeholder_200x150_4.svg" width="200" height="150" alt="">
+                                        <figcaption>YouTube</figcaption>
+                                    </a>
+
+                                </div>
                             </div>
 
                         </article>
