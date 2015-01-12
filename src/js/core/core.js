@@ -257,7 +257,7 @@
             elements = $(context);
         }
 
-        elements.trigger('display.uk.check');
+        elements.trigger(UI.prefix('display.@.check'));
 
         // fix firefox / IE animations
         if (initanimation) {
