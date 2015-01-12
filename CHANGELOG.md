@@ -4,6 +4,7 @@
   - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
   - Added dynamic grid component
   - Added accordion component
+  - Added lightbox component
   - Added text left small and medium classes
   - Added timeout before muting media in slideshow
   - Fixed buttons for input elements
