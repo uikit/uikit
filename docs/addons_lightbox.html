@@ -26,7 +26,11 @@
 
         <style>
 
-            .uk-docs-lightbox-demo a { text-decoration: none; }
+            .uk-docs-lightbox-demo a {
+                text-decoration: none;
+                color: #666;
+            }
+
             .uk-docs-lightbox-demo a figcaption {
                 margin-top: 4px;
                 text-align: center;
@@ -107,6 +111,8 @@
 
                             <p>The lightbox requires the <a href="modal.html">Modal component</a> to work. Please make sure that you always include them together.</p>
 
+                            <hr class="uk-article-divider">
+
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
                             <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. The title will be displayed as a caption for the lightbox.</p>
@@ -121,7 +127,7 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2>Groups</h2>
+                            <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
 
                             <p>You can link multiple images to the same lightbox and switch between them from within the lightbox, thus creating a gallery. Just add the <code>{group:'my-group'}</code> option to the data attribute of each item using the same name on all items that you want to group.</p>
 
@@ -166,11 +172,11 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2>Different content sources</h2>
+                            <h2 id="different-content-sources"><a href="#different-content-sources" class="uk-link-reset">Different content sources</a></h2>
 
                             <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
 
-                            <p><span class="uk-badge">Note</span> If you are using a placeholder site, that doesn't have file appendixes in the image paths, just add the <code>data-lightbox-type="image"</code> attribute.</p>
+                            <p><span class="uk-badge">NOTE</span> If you are using a placeholder site, that doesn't have file appendixes in the image paths, just add the <code>data-lightbox-type="image"</code> attribute.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
