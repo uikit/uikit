@@ -110,6 +110,7 @@
             var $this    = this,
                 data     = this.data,
                 pad      = this.modal.dialog.outerWidth() - this.modal.dialog.width(),
+                dpad     = parseInt(this.modal.dialog.css('margin-top'), 10) + parseInt(this.modal.dialog.css('margin-bottom'), 10),
                 content  = data.meta.content,
                 duration = $this.options.duration;
 
@@ -132,18 +133,26 @@
                 'max-width' : $this.modal.dialog.css('max-width'),
                 'padding'   : $this.modal.dialog.css('padding'),
                 'margin'    : $this.modal.dialog.css('margin')
-            }), maxwidth, w = data.meta.width, h = data.meta.height;
+            }), maxwidth, maxheight, w = data.meta.width, h = data.meta.height;
 
             tmp.appendTo('body').width();
 
-            maxwidth = tmp.width();
+            maxwidth  = tmp.width();
+            maxheight = window.innerHeight - (dpad * 2);
 
             tmp.remove();
 
             if (maxwidth < data.meta.width) {
 
-                    h = Math.ceil( h * (maxwidth / w) );
-                    w = maxwidth;
+                h = Math.floor( h * (maxwidth / w) );
+                w = maxwidth;
+
+            }
+
+            if (maxheight < h) {
+
+                h = Math.floor(maxheight);
+                w = Math.ceil(data.meta.width * (maxheight/data.meta.height));
             }
 
             this.modal.content.css('opacity', 0).width(w).html(content);
@@ -159,12 +168,9 @@
             }
 
             var dh   = h + pad,
-                dpad = parseInt(this.modal.dialog.css('margin-top'), 10) + parseInt(this.modal.dialog.css('margin-bottom'), 10),
-                t    = (window.innerHeight/2 - dh/2) - pad;
+                t    = Math.floor(window.innerHeight/2 - dh/2) - dpad;
 
-            if (t < 0) {
-                t = 0;
-            }
+            if (t < 0) { t = 0; }
 
             this.modal.closer.addClass(UI.prefix('@-hidden'));
 
