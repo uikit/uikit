@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add-ons - UIkit documentation</title>
+        <title>Accordion component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,6 +14,33 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
+        <script src="../src/js/components/accordion.js"></script>
+        <script>
+        $(function(){
+            $("body").on("click", ".uk-button[data-message]", function(){
+                $.UIkit.notify($(this).data());
+            });
+        })
+        </script>
+
+        <style>
+
+            .uk-docs-panel {
+                padding: 20px;
+                color: #2d7091;
+            }
+
+            :nth-child(8n-7) > .uk-docs-panel { height: 80px; background: rgba(130,200,240,0.1); }
+            :nth-child(8n-6) > .uk-docs-panel { height: 100px; background: rgba(130,200,240,0.15); }
+            :nth-child(8n-5) > .uk-docs-panel { height: 160px; background: rgba(130,200,240,0.2); }
+            :nth-child(8n-4) > .uk-docs-panel { height: 120px; background: rgba(130,200,240,0.25); }
+            :nth-child(8n-3) > .uk-docs-panel { height: 180px; background: rgba(130,200,240,0.3); }
+            :nth-child(8n-2) > .uk-docs-panel { height: 130px; background: rgba(130,200,240,0.35); }
+            :nth-child(8n-1) > .uk-docs-panel { height: 150px; background: rgba(130,200,240,0.40); }
+            :nth-child(8n) > .uk-docs-panel { height: 110px; background: rgba(130,200,240,0.45); }
+
+        </style>
+
     </head>
 
     <body class="tm-background">
@@ -65,7 +92,7 @@
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>
@@ -80,67 +107,68 @@
 
                         <article class="uk-article">
 
-                            <h1>Add-ons</h1>
+                            <h1>Accordion</h1>
 
-                            <p class="uk-article-lead">All kinds of useful, additional components which are not included in UIkit itself.</p>
-
-                            <p>UIkit offers some advanced components that are not included in the UIkit core framework. Usually you wouldn't use these components in your everyday website. They include stuff like nestables and datepickers, which will come in handy, if you create advanced user interfaces like administration areas.
+                            <p class="uk-article-lead">Display or hide separate content elements by expanding and collapsing their sections.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>After you've <a data-uikit-download>downloaded UIkit</a>, you can find all additional components in separate <code>/css</code> and <code>/js</code> folders:</p>
-
-<pre><code>/css
-    /components
-        &lt;!-- Component with the basic style --&gt;
-        autocomplete.css
-        autocomplete.min.css
-
-        &lt;!-- Component with the Gradient style --&gt;
-        autocomplete.gradient.css
-        autocomplete.gradient.min.css
-
-        &lt;!-- Component with the Almost flat style --&gt;
-        autocomplete.almost-flat.css
-        autocomplete.almost-flat.min.css
-        ...
-
-/js
-    /components
-        &lt;!-- JavaScript of the component and minified version --&gt;
-        autocomplete.js
-        autocomplete.min.js
-        ...</code></pre>
-
-                            <p>To use one of these components, all you need to do is to add the CSS and the component's JavaScript to the header of your document.</p>
+                            <p>To apply the Accordion component, add the <code>uk-accordion</code> class and the <code>data-uk-accordion</code> attribute to a container element. Add the <code>uk-accordion-content</code> class to each of the content sections within the container. Finally, add the <code>uk-accordion-title</code> class to any element, like a heading, above the content section to create a toggle.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;&lt;/title&gt;
-        &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-        &lt;script src="jquery.js">&lt;/script&gt;
-        &lt;script src="uikit.min.js">&lt;/script&gt;
-        &lt;!-- Autocomplete CSS --&gt;
-        &lt;link rel="stylesheet" href="autocomplete/autocomplete.css"&gt;
-        &lt;!-- Autocomplete Javascript --&gt;
-        &lt;script src="autocomplete/autocomplete.js"&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+                            <div class="uk-accordion" data-uk-accordion>
+
+                                <h3 class="uk-accordion-title">Heading 1</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+
+                                <h3 class="uk-accordion-title">Heading 2</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+
+                                <h3 class="uk-accordion-title">Heading 3</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-accordion" data-uk-accordion&gt;
+    &lt;h3 class="uk-accordion-title"&gt;...&lt;/h3&gt;
+    &lt;div class="uk-accordion-content"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="tests"><a href="#tests" class="uk-link-reset">Tests</a></h2>
+                            <h2>No Collapse</h2>
 
-                            <p>UIkit provides test files for every component. Each of these pages contains test cases of its component and gives you an overview of all the possibilities that are supported out of the box.</p>
+                            <p>To display multiple content sections at the same time without one collapsing when the other one is opened, add the <code>{collapse: false}</code> option to the date attribute.</p>
 
-                            <p>In the ZIP file you will find all UIkit CSS, JavaScript and font files ready to use for your project. The core framework of UIkit has almost no styling in order to keep it slim. Therefore we provide two addidional distributions with a gradient and an almost flat style. Each style comes as a single CSS file as well as a minified version. Some <a href="addons.html">advanced components</a> are also included, which are not part of the core framework and can be added separately to your project.</p>
+                            <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p><a class="uk-button uk-button-large uk-button-primary" href="../tests/components/autocomplete.html">Go to tests</a></p>
+                            <div class="uk-accordion" data-uk-accordion="{collapse: false}">
+
+                                <h3 class="uk-accordion-title">Heading 1</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+
+                                <h3 class="uk-accordion-title">Heading 2</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+
+                                <h3 class="uk-accordion-title">Heading 3</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+
+                            </div>
 
                         </article>
 
@@ -173,7 +201,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
+                    <li class="uk-parent"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -244,7 +272,6 @@
                             <li><a href="offcanvas.html">Off-canvas</a></li>
                             <li><a href="switcher.html">Switcher</a></li>
                             <li><a href="toggle.html">Toggle</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
                             <li><a href="scrollspy.html">Scrollspy</a></li>
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
@@ -274,7 +301,7 @@
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
