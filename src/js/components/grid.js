@@ -199,7 +199,7 @@
 
             children.each(function(index){
 
-                var ele = $(this), f = ele.data('filter'), infilter = filter.length ? false : true;
+                var ele = $(this), f = ele.data('ukFilter'), infilter = filter.length ? false : true;
 
                 if (f) {
 
