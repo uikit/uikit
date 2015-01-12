@@ -107,15 +107,11 @@
 
                             <h1>Lightbox</h1>
 
-                            <p class="uk-article-lead">Create a media gallery inside a lightbox utilizing the <a href="modal.html">Modal component</a>.</p>
-
-                            <p>The lightbox requires the <a href="modal.html">Modal component</a> to work. Please make sure that you always include them together.</p>
-
-                            <hr class="uk-article-divider">
+                            <p class="uk-article-lead">Create a fancy lightbox for images and videos utilizing the <a href="modal.html">Modal component</a>.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. The title will be displayed as a caption for the lightbox.</p>
+                            <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. If a title attribute exists it will be displayed as a caption for the lightbox.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -123,7 +119,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;a href="" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
+<pre><code>&lt;a href="my-image.jpg" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -176,8 +172,6 @@
 
                             <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
 
-                            <p><span class="uk-badge">NOTE</span> If you are using a placeholder site, that doesn't have file appendixes in the image paths, just add the <code>data-lightbox-type="image"</code> attribute.</p>
-
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-grid uk-grid-width-medium-1-4 uk-docs-lightbox-demo" data-uk-grid-margin>
@@ -214,6 +208,12 @@
 
                                 </div>
                             </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="content-types"><a href="#different-content-sources" class="uk-link-reset">Content types</a></h2>
+
+                            <p>If you are using a placeholder site, that doesn't have file appendixes in the image paths, just add the <code>data-lightbox-type="image"</code> attribute.</p>
 
                         </article>
 
