@@ -29,8 +29,12 @@
 
             var $this = this;
 
-            this.siblings  = this.options.group ? $(this.options.group):this.element;
-            this.index     = this.siblings.index(this.element);
+            this.siblings  = this.options.group ? UI.$([
+                '[data-@-lightbox*="'+this.options.group+'"]',
+                "[data-@-lightbox*='"+this.options.group+"']"
+            ].join(',')) : this.element;
+
+            this.index = this.siblings.index(this.element);
 
             this.trigger('lightbox-init', [this]);
         },
@@ -101,12 +105,13 @@
             $this.trigger('show.uk.lightbox', [data]);
         },
 
-        fitSize: function(content) {
+        fitSize: function() {
 
-            var $this   = this,
-                data    = this.data,
-                pad     = this.modal.dialog.outerWidth() - this.modal.dialog.width(),
-                content = data.meta.content;
+            var $this    = this,
+                data     = this.data,
+                pad      = this.modal.dialog.outerWidth() - this.modal.dialog.width(),
+                content  = data.meta.content,
+                duration = $this.options.duration;
 
             if (this.siblings.length > 1) {
 
@@ -163,11 +168,17 @@
 
             this.modal.closer.addClass(UI.prefix('@-hidden'));
 
-            this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, $this.options.duration, 'swing', function() {
+            if ($this.modal.data('mwidth') == w &&  $this.modal.data('mheight') == h) {
+                duration = 0;
+            }
+
+            this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, duration, 'swing', function() {
                 $this.modal.loader.addClass(UI.prefix('@-hidden'));
                 $this.modal.content.css({width:''}).animate({'opacity': 1}, function() {
                     $this.modal.closer.removeClass(UI.prefix('@-hidden'));
                 });
+
+                $this.modal.data({'mwidth': w, 'mheight': h});
             });
         },
 
