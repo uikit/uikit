@@ -20,7 +20,7 @@
             animated   : true,
             easing     : 'swing',
             duration   : 500,
-            toggler    : '.uk-accordion-title',
+            toggle    : '.uk-accordion-title',
             containers : '.uk-accordion-content',
             clsactive  : 'uk-active'
         },
@@ -29,28 +29,28 @@
 
             var $this = this;
 
-            this.element.on('click', this.options.toggler, function(e) {
+            this.element.on('click', this.options.toggle, function(e) {
 
                 e.preventDefault();
 
-                $this.toggle($(this).data('wrapper'), $this.options.animated, $this.options.collapse);
+                $this.toggleItem($(this).data('wrapper'), $this.options.animated, $this.options.collapse);
             });
 
             this.update();
 
             if (this.options.showfirst) {
-                this.toggle(this.toggler.eq(0).data('wrapper'), false, false);
+                this.toggleItem(this.toggle.eq(0).data('wrapper'), false, false);
             }
         },
 
-        toggle: function(wrapper, animated, collapse) {
+        toggleItem: function(wrapper, animated, collapse) {
 
-            wrapper.data('toggler').toggleClass(this.options.clsactive);
+            wrapper.data('toggle').toggleClass(this.options.clsactive);
 
-            var active = wrapper.data('toggler').hasClass(this.options.clsactive);
+            var active = wrapper.data('toggle').hasClass(this.options.clsactive);
 
             if (collapse) {
-                this.toggler.not(wrapper.data('toggler')).removeClass(this.options.clsactive);
+                this.toggle.not(wrapper.data('toggle')).removeClass(this.options.clsactive);
                 this.content.not(wrapper.data('content')).parent().stop().animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0});
             }
 
@@ -67,14 +67,14 @@
                 if(active) UI.Utils.checkDisplay(wrapper.data('content'));
             }
 
-            this.element.trigger('uk.accordion.toggle', [active, wrapper.data('toggler'), wrapper.data('content')]);
+            this.element.trigger('uk.accordion.toggle', [active, wrapper.data('toggle'), wrapper.data('content')]);
         },
 
         update: function() {
 
-            var $this = this, $content, $wrapper, $toggler;
+            var $this = this, $content, $wrapper, $toggle;
 
-            this.toggler = this.find(this.options.toggler);
+            this.toggle = this.find(this.options.toggle);
             this.content = this.find(this.options.containers);
 
             this.content.each(function(index) {
@@ -87,11 +87,11 @@
                     $wrapper = $(this).wrap('<div data-wrapper="true" style="overflow:hidden;height:0;position:relative;"></div>').parent();
                 }
 
-                $toggler = $this.toggler.eq(index);
+                $toggle = $this.toggle.eq(index);
 
-                $wrapper.data('toggler', $toggler);
+                $wrapper.data('toggle', $toggle);
                 $wrapper.data('content', $content);
-                $toggler.data('wrapper', $wrapper);
+                $toggle.data('wrapper', $wrapper);
                 $content.data('wrapper', $wrapper);
             });
 
