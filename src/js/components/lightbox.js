@@ -168,7 +168,7 @@
             }
 
             var dh   = h + pad,
-                t    = Math.floor(window.innerHeight/2 - dh/2) - pad;
+                t    = Math.floor(window.innerHeight/2 - dh/2) - dpad;
 
             if (t < 0) { t = 0; }
 
