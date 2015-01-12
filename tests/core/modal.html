@@ -19,6 +19,7 @@
                 <button class="uk-button" data-uk-modal="{target:'#modal'}">Open</button>
                 <a class="uk-button" href="#modal-lightbox" data-uk-modal>Lightbox</a>
                 <a class="uk-button" href="#modal-spinner" data-uk-modal>Spinner</a>
+                <a class="uk-button" href="#modal-lightbox-centered" data-uk-modal="{center:true}">Open centered</a>
             </p>
 
             <h2>Trigger new modal inside current modal</h2>
@@ -77,6 +78,13 @@
             </div>
 
             <div id="modal-lightbox" class="uk-modal uk-modal-center">
+                <div class="uk-modal-dialog uk-modal-dialog-lightbox">
+                    <a href="#" class="uk-modal-close uk-close uk-close-alt"></a>
+                    <img src="holder.js/600x400/sky/auto" alt="">
+                </div>
+            </div>
+
+            <div id="modal-lightbox-centered" class="uk-modal uk-modal-center">
                 <div class="uk-modal-dialog uk-modal-dialog-lightbox">
                     <a href="#" class="uk-modal-close uk-close uk-close-alt"></a>
                     <img src="holder.js/600x400/sky/auto" alt="">
