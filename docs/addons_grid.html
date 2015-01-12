@@ -112,7 +112,7 @@
 
                             <p class="uk-article-lead">Create a multi-column, dynamic grid layout whose items can be sorted and filtered.</p>
 
-                            <p>The Grid component allows you to create a dynamic and responsvie grid layout utilizing the <a href="grid.html">Grid component</a>. Grid items will arrange themselves fluently and seamlessly for a gap-free multi-column layout on all device sizes.</p>
+                            <p>The Grid component allows you to create a dynamic and responsive grid layout utilizing the <a href="grid.html">Grid component</a>. Grid items will arrange themselves fluently and seamlessly for a gap-free multi-column layout on all device sizes.</p>
 
                             <hr class="uk-article-divider">
 
@@ -160,13 +160,13 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;!-- Example using uk-width-* --&gt;
+<pre><code>&lt;!-- This is a grid using uk-width-* on each item --&gt;
 &lt;div data-uk-grid&gt;
     &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
     &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- Example using uk-grid-width-* --&gt;
+&lt;!-- This is a grid using uk-grid-width-* on the grid itself --&gt;
 &lt;div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-4" data-uk-grid&gt;
     &lt;div&gt;...&lt;/div&gt;
     &lt;div&gt;...&lt;/div&gt;
@@ -224,7 +224,7 @@
 
                             <h2 id="filtering"><a href="#filtering" class="uk-link-reset">Filtering</a></h2>
 
-                            <p>You can also filter your grid so that only particular items will be displayed. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the filter controls. Each control needs to have the <code>data-uk-filter</code> attribute to define the category you want to filter. Then you need to add the <code>data-uk-filter</code> attribute also to each grid item, to define in which category the item is in.</p>
+                            <p>You can also filter your grid so that only particular items will be displayed. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the filter controls. Each control needs to have the <code>data-uk-filter</code> attribute to define the category you want to filter. Then you also need to add the <code>data-uk-filter</code> attribute to each grid item to define what category the item belongs to.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -291,50 +291,107 @@
 
                             <h2 id="sorting"><a href="#sorting" class="uk-link-reset">Sorting</a></h2>
 
-                             <p>Grid items can be sorted ascendingly or descendingly by number or character. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the sorting controls. Each control needs to have the <code>data-uk-sort="order"</code> or <code>data-uk-sort="order:desc"</code> attribute, depending on whether ther ordering is ascending or descending. Then you need to add the <code>data-order</code> attribute to each grid item and targetting an alphabetic or numeric string of each item.</p>
+                             <p>Grid items can be sorted ascendingly or descendingly. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the sorting controls. Each control needs to have the <code>data-uk-sort="my-category"</code> or <code>data-uk-sort="my-category:desc"</code> attribute, depending on whether the order is ascending or descending. Then you need to add the <code>data-my-category</code> attribute to each grid item and target its name.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p>In this example items are ordered by numericly as well as alphabetically.</p>
-
-                            <ul id="sort" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-sort="order">Character (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="order:desc">Character (Desc)</a></li>
-                                <li><a href="#" data-uk-sort="order-number">Number (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="order-number:desc">Number (Desc)</a></li>
+                            <ul id="sort1" class="uk-subnav uk-subnav-pill">
+                                <li><a href="#" data-uk-sort="order">Ascending</a></li>
+                                <li><a href="#" data-uk-sort="order:desc">Descending</a></li>
                             </ul>
 
-                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20, controls: '#sort'}">
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20, controls: '#sort1'}">
 
-                                <div data-order="a" data-order-number="8">
+                                <div data-order="a">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A</div>
+                                </div>
+
+                                <div data-order="b">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B</div>
+                                </div>
+
+                                <div data-order="c">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">C</div>
+                                </div>
+
+                                <div data-order="d">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">D</div>
+                                </div>
+
+                                <div data-order="e">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">E</div>
+                                </div>
+
+                                <div data-order="f">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">F</div>
+                                </div>
+
+                                <div data-order="g">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">G</div>
+                                </div>
+
+                                <div data-order="h">
+                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">H</div>
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div data-uk-grid="{controls: '#my-id'}"&gt;
+    &lt;div data-my-category="a"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="b"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Multiple categories</h3>
+
+                            <p>To use more than one category to sort grid items, use a different name for each category.</p>
+
+                            <ul id="sort2" class="uk-subnav uk-subnav-pill">
+                                <li><a href="#" data-uk-sort="order">Character (Asc)</a></li>
+                                <li><a href="#" data-uk-sort="order:desc">Character (Desc)</a></li>
+                                <li><a href="#" data-uk-sort="order2">Number (Asc)</a></li>
+                                <li><a href="#" data-uk-sort="order2:desc">Number (Desc)</a></li>
+                            </ul>
+
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20, controls: '#sort2'}">
+
+                                <div data-order="a" data-order2="8">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 8</div>
                                 </div>
 
-                                <div data-order="b" data-order-number="7">
+                                <div data-order="b" data-order2="7">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 7</div>
                                 </div>
 
-                                <div data-order="c" data-order-number="6">
+                                <div data-order="c" data-order2="6">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">C 6</div>
                                 </div>
 
-                                <div data-order="d" data-order-number="1">
+                                <div data-order="d" data-order2="1">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">D 1</div>
                                 </div>
 
-                                <div data-order="e" data-order-number="5">
+                                <div data-order="e" data-order2="5">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">E 5</div>
                                 </div>
 
-                                <div data-order="f" data-order-number="3">
+                                <div data-order="f" data-order2="3">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">F 3</div>
                                 </div>
 
-                                <div data-order="g" data-order-number="2">
+                                <div data-order="g" data-order2="2">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">G 2</div>
                                 </div>
 
-                                <div data-order="h" data-order-number="4">
+                                <div data-order="h" data-order2="4">
                                     <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">H 4</div>
                                 </div>
 
@@ -343,15 +400,15 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order:desc"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order-number"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order-number:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2:desc"&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
-    &lt;div data-order="a" data-order-number="8"&gt;...&lt;/div&gt;
-    &lt;div data-order="b" data-order-number="7"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="a" data-my-category2="8"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="b" data-my-category2="7"&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
                         </article>
