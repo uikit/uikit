@@ -72,8 +72,124 @@
         '-ms-transform': transform,
         'transform': transform,
         '-webkit-transition': transition,
-        'transition': transition
+        'transition': transition,
+        'content': icons
     };
+
+
+    var iconMap = {
+        // .uk-icon-forward
+        // .uk-icon-backward
+        "\\f04e": "\\f04a",
+        "\\f04a": "\\f04e",
+
+        // .uk-icon-fast-forward
+        // .uk-icon-fast-backward
+        "\\f050": "\\f049",
+        "\\f049": "\\f050",
+
+        // .uk-icon-step-forward
+        // .uk-icon-step-backward
+        "\\f051": "\\f048",
+        "\\f048": "\\f051",
+
+        // .uk-icon-mail-forward
+        // .uk-icon-share
+        // .uk-icon-mail-reply
+        // .uk-icon-reply
+        "\\f064": "\\f112",
+        "\\f112": "\\f064",
+
+        // .uk-icon-rotate-left
+        // .uk-icon-undo
+        // .uk-icon-rotate-right
+        // .uk-icon-repeat
+        "\\f0e2": "\\f01e",
+        "\\f01e": "\\f0e2",
+
+        // .uk-icon-align-left
+        // .uk-icon-align-right
+        "\\f036": "\\f038",
+        "\\f038": "\\f036",
+
+        // .uk-icon-chevron-left
+        // .uk-icon-chevron-right
+        "\\f053": "\\f054",
+        "\\f054": "\\f053",
+
+        // .uk-icon-arrow-left
+        // .uk-icon-arrow-right
+        "\\f060": "\\f061",
+        "\\f061": "\\f060",
+
+        // .uk-icon-hand-o-left
+        // .uk-icon-hand-o-right
+        "\\f0a5": "\\f0a4",
+        "\\f0a4": "\\f0a5",
+
+        // .uk-icon-arrow-circle-left
+        // .uk-icon-arrow-circle-right
+        "\\f0a8": "\\f0a9",
+        "\\f0a9": "\\f0a8",
+
+        // .uk-icon-caret-left
+        // .uk-icon-caret-right
+        "\\f0d9": "\\f0da",
+        "\\f0da": "\\f0d9",
+
+        // .uk-icon-angle-double-left
+        // .uk-icon-angle-double-right
+        "\\f100": "\\f101",
+        "\\f101": "\\f100",
+
+        // .uk-icon-angle-left
+        // .uk-icon-angle-right
+        "\\f104": "\\f105",
+        "\\f105": "\\f104",
+
+        // .uk-icon-quote-left
+        // .uk-icon-quote-right
+        "\\f10d": "\\f10e",
+        "\\f10e": "\\f10d",
+
+        // .uk-icon-chevron-circle-left
+        // .uk-icon-chevron-circle-right
+        "\\f137": "\\f138",
+        "\\f138": "\\f137",
+
+        // .uk-icon-long-arrow-left
+        // .uk-icon-long-arrow-right
+        "\\f177": "\\f178",
+        "\\f178": "\\f177",
+
+        // .uk-icon-arrow-circle-o-left
+        // .uk-icon-arrow-circle-o-right
+        "\\f190": "\\f18e",
+        "\\f18e": "\\f190",
+
+        // .uk-icon-toggle-left
+        // .uk-icon-caret-square-o-left
+        // .uk-icon-toggle-right
+        // .uk-icon-caret-square-o-right
+        "\\f191": "\\f152",
+        "\\f152": "\\f191"
+    };
+
+    function icons(v) {
+        // skip if there is definitely no icon
+        if (v.indexOf('\\f') === -1) {
+            return v;
+        }
+
+        // check all possible icons
+        for (var key in iconMap) {
+            if(v.indexOf(key) > -1) {
+                return v.replace(key, iconMap[key]);
+            }
+        }
+
+        return v;
+    }
 
     function quad(v, m) {
         // 1px 2px 3px 4px => 1px 4px 3px 2px

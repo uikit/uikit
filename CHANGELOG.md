@@ -1,5 +1,8 @@
 # Changelog
 
+### WIP
+  - Added mirroring of icons in RTL mode
+
 ### 2.16.0 (Januar 13, 2015)
   - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
   - Added dynamic grid component
