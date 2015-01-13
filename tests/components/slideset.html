@@ -8,28 +8,68 @@
 
     <script src="../_test.js"></script>
     <script src="../../src/js/components/slideset.js"></script>
+
+    <style media="screen">
+        .uk-slideset-list > li > div {
+            height: 100px;
+            text-align: center;
+        }
+    </style>
+
+    <script charset="utf-8">
+        $(function(){
+            var select = $('#slideset-animation').on('change', function(){
+                select.next('.uk-slideset').data('slideset').options.animation = select.val(); 
+            });
+        });
+    </script>
 </head>
 
 <body>
 
-    <div class="uk-container uk-container-center">
+    <div class="uk-container uk-container-center uk-form">
 
-        <div class="uk-slideset" data-uk-slideset>
+        <h1>Slideset</h1>
 
-            <ul>
-                <li><div>Test 1</div></li>
-                <li><div>Test 2</div></li>
-                <li><div>Test 3</div></li>
-                <li><div>Test 4</div></li>
-                <li><div>Test 5</div></li>
-                <li><div>Test 6</div></li>
-                <li><div>Test 7</div></li>
-                <li><div>Test 8</div></li>
-                <li><div>Test 9</div></li>
-                <li><div>Test 10</div></li>
-            </ul>
-            
+
+        <select id="slideset-animation">
+            <option value="none">No animation</option>
+            <option value="fade">fade</option>
+            <option value="slide-bottom">slide-bottom</option>
+            <option value="slide-top">slide-top</option>
+            <option value="slide-vertical">slide-vertical</option>
+            <option value="slide-left">slide-left</option>
+            <option value="slide-right">slide-right</option>
+            <option value="slide-horizontal">slide-horizontal</option>
+            <option value="scale">scale</option>
+        </select>
+
+        <div class="uk-slideset uk-margin-top" data-uk-slideset="{visible:4, animation: 'none'}">
+
+            <div class="uk-slidenav-position">
+
+                <ul class="uk-slideset-list uk-grid">
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 1</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 2</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 3</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 4</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 5</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 6</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 7</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 8</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 9</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 10</div></li>
+                </ul>
+
+                <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
+                <a href="" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
+
+            </div>
+
         </div>
+
+
+
     </div>
 </body>
 </html>
