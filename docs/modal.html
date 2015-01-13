@@ -276,7 +276,21 @@
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-                        <p><span class="uk-badge">NOTE</span> When creating a close button within the lightbox modifier, we also recommend adding the <code>.uk-close-alt</code> class to the close button from the <a href="close.html">Close component</a> to give your button a styling that fits the lightbox modal.</p>
+                        <p><span class="uk-badge">NOTE</span> When creating a close button within the lightbox modifier, we also recommend adding the <code>.uk-close-alt</code> class from the <a href="close.html">Close component</a> to the close button to give your button a styling that fits the lightbox modal.</p>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="center-modal"><a href="#center-modal" class="uk-link-reset">Center Modal</a></h2>
+
+                        <p>To vertically center the modal, add the <code>{center:true}</code> option to the data-attribute.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <a class="uk-button" href="#modal" data-uk-modal="{center:true}">Open</a>
+
+                        <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a href="#my-id" data-uk-modal="{center:true}"&gt;&lt;/a&gt;</code></pre>
 
                         <hr class="uk-article-divider">
 
@@ -354,7 +368,7 @@
 
                         <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>var modal = $.UIkit.modal(".modalSelector");
+<pre><code>var modal = UIkit.modal(".modalSelector");
 
 if ( modal.isActive() ) {
     modal.hide();
@@ -372,11 +386,11 @@ if ( modal.isActive() ) {
 
 <pre><code>$('.modalSelector').on({
 
-    'uk.modal.show': function(){
+    'show.uk.modal': function(){
         console.log("Modal is visible.");
     },
 
-    'uk.modal.hide': function(){
+    'hide.uk.modal': function(){
         console.log("Element is not visible.");
     }
 });</code></pre>
@@ -540,10 +554,12 @@ if ( modal.isActive() ) {
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>

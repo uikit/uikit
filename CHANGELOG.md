@@ -1,9 +1,10 @@
 # Changelog
 
-### WIP
+### 2.16.0 (Januar 13, 2015)
   - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
   - Added dynamic grid component
   - Added accordion component
+  - Added lightbox component
   - Added text left small and medium classes
   - Added timeout before muting media in slideshow
   - Fixed buttons for input elements
@@ -11,6 +12,8 @@
 
   **Docs and Repo**
 
+  - Added docs and tests for new add-ons
+  - Updated modal doc and test
   - Updated form tests
 
 ### 2.15.0 (December 22, 2014)

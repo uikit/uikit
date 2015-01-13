@@ -15,32 +15,6 @@
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
         <script src="../src/js/components/grid.js"></script>
-        <script>
-        $(function(){
-            $("body").on("click", ".uk-button[data-message]", function(){
-                $.UIkit.notify($(this).data());
-            });
-        })
-        </script>
-
-        <style>
-
-            .uk-docs-panel {
-                padding: 20px;
-                color: #2d7091;
-            }
-
-            :nth-child(8n-7) > .uk-docs-panel { height: 80px; background: rgba(130,200,240,0.1); }
-            :nth-child(8n-6) > .uk-docs-panel { height: 100px; background: rgba(130,200,240,0.15); }
-            :nth-child(8n-5) > .uk-docs-panel { height: 160px; background: rgba(130,200,240,0.2); }
-            :nth-child(8n-4) > .uk-docs-panel { height: 120px; background: rgba(130,200,240,0.25); }
-            :nth-child(8n-3) > .uk-docs-panel { height: 180px; background: rgba(130,200,240,0.3); }
-            :nth-child(8n-2) > .uk-docs-panel { height: 130px; background: rgba(130,200,240,0.35); }
-            :nth-child(8n-1) > .uk-docs-panel { height: 150px; background: rgba(130,200,240,0.40); }
-            :nth-child(8n) > .uk-docs-panel { height: 110px; background: rgba(130,200,240,0.45); }
-
-        </style>
-
     </head>
 
     <body class="tm-background">
@@ -88,10 +62,12 @@
                             <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>
@@ -108,98 +84,60 @@
 
                             <h1>Grid</h1>
 
-                            <p class="uk-article-lead">Create a JavaScript based grid utilizing the <a href="grid.html">Grid component</a>.</p>
+                            <p class="uk-article-lead">Create a multi-column, dynamic grid layout whose items can be sorted and filtered.</p>
 
-                            <p>The Grid component allows you to create a dynamic Masonry-style grid layout. Grid items will arrange themselves fluently and seamlessly for a gap-free multi-column layout on all device sizes.</p>
+                            <p>The Grid component allows you to create a dynamic and responsive grid layout utilizing the <a href="grid.html">Grid component</a>. Grid items will arrange themselves fluently and seamlessly for a gap-free multi-column layout on all device sizes.</p>
+
+                            <hr class="uk-article-divider">
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply this component, add the <code>data-uk-grid</code> attribute to the container element.</p>
+                            <p>To apply this component, add the <code>data-uk-grid</code> attribute to the container element. Set the width of the grid items by using the <code>uk-width-*</code> or <code>.uk-grid-width-*</code> classes from the <a href="grid.html">Grid component</a>.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid>
-
-                                <div>
-                                    <div class="uk-docs-panel">1</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel">2</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel">3</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel">4</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel">5</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel">6</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel">7</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel">8</div>
-                                </div>
-
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-colors tm-grid-heights" data-uk-grid>
+                                <div><div class="uk-panel">1</div></div>
+                                <div><div class="uk-panel">2</div></div>
+                                <div><div class="uk-panel">3</div></div>
+                                <div><div class="uk-panel">4</div></div>
+                                <div><div class="uk-panel">5</div></div>
+                                <div><div class="uk-panel">6</div></div>
+                                <div><div class="uk-panel">7</div></div>
+                                <div><div class="uk-panel">8</div></div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-grid&gt;...&lt;/div&gt;</code></pre>
+<pre><code>&lt;!-- This is a grid using uk-width-* on each item --&gt;
+&lt;div data-uk-grid&gt;
+    &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
+    &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- This is a grid using uk-grid-width-* on the grid itself --&gt;
+&lt;div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-4" data-uk-grid&gt;
+    &lt;div&gt;...&lt;/div&gt;
+    &lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h3>Grid Gutter</h3>
+                            <h3 id="grid-gutter"><a href="#grid-gutter" class="uk-link-reset">Grid Gutter</a></h3>
 
                             <p>Divide grid items with a gutter by adding the <code>{gutter: 20}</code> option to the data attribute. In this case the gutter will be 20px wide.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20}">
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">1</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">2</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">3</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">4</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">5</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">6</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">7</div>
-                                </div>
-
-                                <div>
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">8</div>
-                                </div>
-
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20}">
+                                <div><div class="uk-panel-box">1</div></div>
+                                <div><div class="uk-panel-box">2</div></div>
+                                <div><div class="uk-panel-box">3</div></div>
+                                <div><div class="uk-panel-box">4</div></div>
+                                <div><div class="uk-panel-box">5</div></div>
+                                <div><div class="uk-panel-box">6</div></div>
+                                <div><div class="uk-panel-box">7</div></div>
+                                <div><div class="uk-panel-box">8</div></div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -208,9 +146,9 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2>Filter</h2>
+                            <h2 id="filtering"><a href="#filtering" class="uk-link-reset">Filtering</a></h2>
 
-                            <p>You can also filter your grid so that only particular items will be displayed. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute and the id to a navigation. Each nav item needs to have the <code>data-uk-filter</code> attribute targetting the category you want to filter. Then you need to add the <code>data-filter</code> attribute to each grid item, targetting the respective category as well.</p>
+                            <p>You can also filter your grid so that only particular items will be displayed. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the filter controls. Each control needs to have the <code>data-uk-filter</code> attribute to define the category you want to filter. Then you also need to add the <code>data-uk-filter</code> attribute to each grid item to define what category the item belongs to.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -220,123 +158,190 @@
                                 <li><a href="#" data-uk-filter="">Reset</a></li>
                             </ul>
 
-                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20, controls: '#filter'}">
-
-                                <div data-filter="filter-a">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 1</div>
-                                </div>
-
-                                <div data-filter="filter-b">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 2</div>
-                                </div>
-
-                                <div data-filter="filter-a">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 3</div>
-                                </div>
-
-                                <div data-filter="filter-b">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 4</div>
-                                </div>
-
-                                <div data-filter="filter-b">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 5</div>
-                                </div>
-
-                                <div data-filter="filter-a">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 6</div>
-                                </div>
-
-                                <div data-filter="filter-b">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 7</div>
-                                </div>
-
-                                <div data-filter="filter-a">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 8</div>
-                                </div>
-
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#filter'}">
+                                <div data-uk-filter="filter-a"><div class="uk-panel-box">A 1</div></div>
+                                <div data-uk-filter="filter-b"><div class="uk-panel-box">B 2</div></div>
+                                <div data-uk-filter="filter-a"><div class="uk-panel-box">A 3</div></div>
+                                <div data-uk-filter="filter-b"><div class="uk-panel-box">B 4</div></div>
+                                <div data-uk-filter="filter-b"><div class="uk-panel-box">B 5</div></div>
+                                <div data-uk-filter="filter-a"><div class="uk-panel-box">A 6</div></div>
+                                <div data-uk-filter="filter-b"><div class="uk-panel-box">B 7</div></div>
+                                <div data-uk-filter="filter-a"><div class="uk-panel-box">A 8</div></div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
                             <p>This example is using a <a href="subnav.html">Subnav</a> to filter the items.</p>
 
-<pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
+<pre><code>&lt;!-- Filter Controls --&gt;
+&lt;ul id="my-id" class="uk-subnav"&gt;
     &lt;li&gt;&lt;a href="" data-uk-filter="filter-a"&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="" data-uk-filter="filter-b"&gt;&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="" data-uk-filter=""&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;!-- Dynamic Grid --&gt;
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
-    &lt;div data-filter="filter-a"&gt;...&lt;/div&gt;
-    &lt;div data-filter="filter-b"&gt;...&lt;/div&gt;
+    &lt;div data-uk-filter="filter-a"&gt;...&lt;/div&gt;
+    &lt;div data-uk-filter="filter-b"&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2>Order</h2>
+                            <h2 id="sorting"><a href="#sorting" class="uk-link-reset">Sorting</a></h2>
 
-                             <p>Grid items can be ordered ascendingly or descendingly by number or character. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute and the id to a navigation. Each nav item needs to have the <code>data-uk-sort="order"</code> or <code>data-uk-sort="order:desc"</code> attribute, depending on whether ther ordering is ascending or descending. Then you need to add the <code>data-order</code> attribute to each grid item and targetting an alphabetic or numeric string of each item.</p>
+                             <p>To sort grid items ascendingly, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the sorting controls.</p>
+
+                             <p>Each control needs to have the <code>data-uk-sort</code> attribute with a custom value that targets the category you want to be sorted, for example <code>data-uk-sort="my-category"</code>. You also need to add a data attribute to each grid item, using your target category's name. The value contains the data which should be sorted, for example <code>data-my-category="my-data"</code>.</p>
+
+                             <p>Items are sorted ascendingly by default. To sort the items descendingly just add <code>:desc</code> to the value of the controls' data attribute, for example <code>data-uk-sort="my-category:desc"</code>.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p>In this example items are ordered by numericly as well as alphabetically.</p>
-
-                            <ul id="sort" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-sort="order">Character (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="order:desc">Character (Desc)</a></li>
-                                <li><a href="#" data-uk-sort="order-number">Number (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="order-number:desc">Number (Desc)</a></li>
+                            <ul id="sort1" class="uk-subnav uk-subnav-pill">
+                                <li><a href="#" data-uk-sort="my-category">Ascending</a></li>
+                                <li><a href="#" data-uk-sort="my-category:desc">Descending</a></li>
                             </ul>
 
-                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 20, controls: '#sort'}">
-
-                                <div data-order="a" data-order-number="8">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">A 8</div>
-                                </div>
-
-                                <div data-order="b" data-order-number="7">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">B 7</div>
-                                </div>
-
-                                <div data-order="c" data-order-number="6">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">C 6</div>
-                                </div>
-
-                                <div data-order="d" data-order-number="1">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">D 1</div>
-                                </div>
-
-                                <div data-order="e" data-order-number="5">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">E 5</div>
-                                </div>
-
-                                <div data-order="f" data-order-number="3">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">F 3</div>
-                                </div>
-
-                                <div data-order="g" data-order-number="2">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">G 2</div>
-                                </div>
-
-                                <div data-order="h" data-order-number="4">
-                                    <div class="uk-docs-panel uk-panel-box uk-panel-box-primary">H 4</div>
-                                </div>
-
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#sort1'}">
+                                <div data-my-category="a"><div class="uk-panel-box">A</div></div>
+                                <div data-my-category="b"><div class="uk-panel-box">B</div></div>
+                                <div data-my-category="c"><div class="uk-panel-box">C</div></div>
+                                <div data-my-category="d"><div class="uk-panel-box">D</div></div>
+                                <div data-my-category="e"><div class="uk-panel-box">E</div></div>
+                                <div data-my-category="f"><div class="uk-panel-box">F</div></div>
+                                <div data-my-category="g"><div class="uk-panel-box">G</div></div>
+                                <div data-my-category="h"><div class="uk-panel-box">H</div></div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order:desc"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order-number"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="order-number:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
-    &lt;div data-order="a" data-order-number="8"&gt;...&lt;/div&gt;
-    &lt;div data-order="b" data-order-number="7"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="a"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="b"&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Multiple categories</h3>
+
+                            <p>To use more than one category to sort grid items, use a different name for each category.</p>
+
+                            <ul id="sort2" class="uk-subnav uk-subnav-pill">
+                                <li><a href="#" data-uk-sort="my-category">Character (Asc)</a></li>
+                                <li><a href="#" data-uk-sort="my-category:desc">Character (Desc)</a></li>
+                                <li><a href="#" data-uk-sort="my-category2">Number (Asc)</a></li>
+                                <li><a href="#" data-uk-sort="my-category2:desc">Number (Desc)</a></li>
+                            </ul>
+
+                            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#sort2'}">
+                                <div data-my-category="a" data-my-category2="8"><div class="uk-panel-box">A 8</div></div>
+                                <div data-my-category="b" data-my-category2="7"><div class="uk-panel-box">B 7</div></div>
+                                <div data-my-category="c" data-my-category2="6"><div class="uk-panel-box">C 6</div></div>
+                                <div data-my-category="d" data-my-category2="1"><div class="uk-panel-box">D 1</div></div>
+                                <div data-my-category="e" data-my-category2="5"><div class="uk-panel-box">E 5</div></div>
+                                <div data-my-category="f" data-my-category2="3"><div class="uk-panel-box">F 3</div></div>
+                                <div data-my-category="g" data-my-category2="2"><div class="uk-panel-box">G 2</div></div>
+                                <div data-my-category="h" data-my-category2="4"><div class="uk-panel-box">H 4</div></div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div data-uk-grid="{controls: '#my-id'}"&gt;
+    &lt;div data-my-category="a" data-my-category2="8"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="b" data-my-category2="7"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>colwidth</code></td>
+                                            <td>integer</td>
+                                            <td>auto</td>
+                                            <td>Columns width</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>animation</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Animate columns on update</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>duration</code></td>
+                                            <td>integer</td>
+                                            <td>200</td>
+                                            <td>Animation duration</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>gutter</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Gutter between columns</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>controls</code></td>
+                                            <td>string</td>
+                                            <td>false</td>
+                                            <td>Css selector to connect filter / order controls.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Init element manually</h3>
+
+                            <pre><code>var grid = UIkit.grid(element, { /* options */ });</code></pre>
+
+                            <h3>Events</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>beforeupdate.uk.grid</code></td>
+                                            <td>event, children</td>
+                                            <td>On before update grid</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>afterupdate.uk.grid</code></td>
+                                            <td>event, children</td>
+                                            <td>On after update grid</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </article>
 
@@ -471,10 +476,12 @@
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
                             <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>

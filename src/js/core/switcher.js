@@ -80,6 +80,10 @@
                     active = toggles.eq(UI.prefix(this.options.active));
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
+
+                this.on(UI.prefix('changed.@.dom'), function() {
+                    $this.connect = UI.$($this.options.connect);
+                });
             }
 
         },
@@ -94,10 +98,10 @@
                 tab = UI.$(tab);
             } else {
 
-                var togglers = this.find(this.options.toggle);
+                var toggles = this.find(this.options.toggle);
 
-                tab = tab < 0 ? togglers.length-1 : tab;
-                tab = togglers.eq(togglers[tab] ? tab : 0);
+                tab = tab < 0 ? toggles.length-1 : tab;
+                tab = toggles.eq(toggles[tab] ? tab : 0);
             }
 
             var $this     = this,

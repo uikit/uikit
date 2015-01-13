@@ -42,7 +42,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.15.0';
+    UI.version = '2.16.0';
     UI._prefix = 'uk';
 
     UI.noConflict = function(prefix) {
@@ -257,7 +257,7 @@
             elements = $(context);
         }
 
-        elements.trigger('display.uk.check');
+        elements.trigger(UI.prefix('display.@.check'));
 
         // fix firefox / IE animations
         if (initanimation) {
@@ -585,7 +585,7 @@
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
-                    $element.trigger('changed.uk.dom');
+                    $element.trigger(UI.prefix('changed.@.dom'));
                 }, 50));
 
                 // pass in the target node, as well as the observer options
