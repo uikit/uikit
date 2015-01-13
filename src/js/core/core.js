@@ -585,7 +585,7 @@
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
-                    $element.trigger('changed.uk.dom');
+                    $element.trigger(UI.prefix('changed.@.dom'));
                 }, 50));
 
                 // pass in the target node, as well as the observer options
