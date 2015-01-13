@@ -1,4 +1,4 @@
-/*! UIkit 2.15.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -99,6 +99,9 @@
 
                                     if ($this.options.videomute) {
                                         $this.mutemedia(media);
+                                        setTimeout(function() {
+                                            $this.mutemedia(media);
+                                        }, 1000);
                                     }
 
                                 })
@@ -192,6 +195,18 @@
 
             this.on('swipeRight swipeLeft', function(e) {
                 $this[e.type=='swipeLeft' ? 'next' : 'previous']();
+            });
+
+            this.on('display.@.check', function(){
+                if ($this.element.is(":visible")) {
+
+                    $this.resize();
+
+                    if ($this.fixFullscreen) {
+                        $this.container.css('height', window.innerHeight);
+                        $this.slides.css('height', window.innerHeight);
+                    }
+                }
             });
         },
 

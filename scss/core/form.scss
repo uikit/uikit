@@ -113,6 +113,7 @@ $form-icon-color:                                #999 !default;
  ========================================================================== */
 
 /*
+ * Except for `submit` and `reset` because specificity is to high for button component
  * 1. Define consistent box sizing.
  *    Default is `content-box` with following exceptions set to `border-box`
  *    `button`, `select`, `input[type="checkbox"]` and `input[type="radio"]`
@@ -123,7 +124,7 @@ $form-icon-color:                                #999 !default;
  * 4. Correct `font` properties and `color` not being inherited.
  */
 
-.uk-form input,
+.uk-form input:not([type="submit"]):not([type="reset"]),
 .uk-form select,
 .uk-form textarea {
     /* 1 */

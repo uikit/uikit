@@ -1,9 +1,9 @@
-/*! UIkit 2.15.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(global, $, UI){
 
     "use strict";
 
-    var togglers = [];
+    var toggles = [];
 
     UI.component('toggle', {
 
@@ -29,8 +29,8 @@
 
                 setTimeout(function(){
 
-                    togglers.forEach(function(toggler){
-                        toggler.getTogglers();
+                    toggles.forEach(function(toggle){
+                        toggle.getToggles();
                     });
 
                 }, 0);
@@ -41,14 +41,14 @@
 
             var $this = this;
 
-            this.getTogglers();
+            this.getToggles();
 
             this.on("click", function(e) {
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
                 $this.toggle();
             });
 
-            togglers.push(this);
+            toggles.push(this);
         },
 
         toggle: function() {
@@ -95,7 +95,7 @@
             }
         },
 
-        getTogglers: function() {
+        getToggles: function() {
             this.totoggle = this.options.target ? UI.$(this.options.target):[];
         }
     });

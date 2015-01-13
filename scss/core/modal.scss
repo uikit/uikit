@@ -5,8 +5,12 @@
 //
 // Sub-objects:     `uk-modal-dialog`
 //                  `uk-modal-close`
+//                  `uk-modal-header`
+//                  `uk-modal-footer`
+//                  `uk-modal-caption`
+//                  `uk-modal-spinner`
 //
-// Modifiers:       `uk-modal-dialog-frameless`
+// Modifiers:       `uk-modal-dialog-lightbox`
 //                  `uk-modal-dialog-large`
 //
 // States:          `uk-open`
@@ -104,7 +108,7 @@ $modal-caption-color:                            #fff !default;
  ========================================================================== */
 
 /*
- * 1. Create position context for `uk-modal-dialog-frameless`
+ * 1. Create position context for caption, spinner and close button
  * 2. Set box sizing
  * 3. Min-height needed for initial loading and spinner
  * 4. Set style
@@ -144,7 +148,7 @@ $modal-caption-color:                            #fff !default;
 
     .uk-modal-dialog {
         width: auto;
-        margin: 10px;
+        margin: 10px auto;
     }
 
 }
@@ -182,16 +186,22 @@ $modal-caption-color:                            #fff !default;
  .uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) { margin-top: 0; }
 
 
-/* Modifier: `uk-modal-dialog-frameless`
+/* Modifier: `uk-modal-dialog-lightbox`
  ========================================================================== */
 
-.uk-modal-dialog-frameless { padding: 0; }
+.uk-modal-dialog-lightbox {
+    margin: 15px auto;
+    padding: 0;
+    max-width: 95%;
+    max-width: unquote("calc(100% - 30px)");
+    @include hook-modal-dialog-lightbox();
+}
 
 /*
- * Close in modal
+ * Close button
  */
 
-.uk-modal-dialog-frameless > .uk-close:first-child {
+.uk-modal-dialog-lightbox > .uk-close:first-child {
     position: absolute;
     top: -12px;
     right: -12px;
@@ -202,7 +212,7 @@ $modal-caption-color:                            #fff !default;
 /* Phone landscape and smaller */
 @media (max-width: $breakpoint-small-max) {
 
-    .uk-modal-dialog-frameless > .uk-close:first-child {
+    .uk-modal-dialog-lightbox > .uk-close:first-child {
         top: -7px;
         right: -7px;
     }
@@ -294,6 +304,7 @@ $modal-caption-color:                            #fff !default;
 
 // @mixin hook-modal(){}
 // @mixin hook-modal-dialog(){}
+// @mixin hook-modal-dialog-lightbox(){}
 // @mixin hook-modal-header(){}
 // @mixin hook-modal-footer(){}
 // @mixin hook-modal-caption(){}

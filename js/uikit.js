@@ -1,4 +1,4 @@
-/*! UIkit 2.15.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -43,7 +43,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.15.0';
+    UI.version = '2.16.0';
     UI._prefix = 'uk';
 
     UI.noConflict = function(prefix) {
@@ -258,7 +258,7 @@
             elements = $(context);
         }
 
-        elements.trigger('display.uk.check');
+        elements.trigger(UI.prefix('display.@.check'));
 
         // fix firefox / IE animations
         if (initanimation) {
@@ -586,7 +586,7 @@
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
-                    $element.trigger('changed.uk.dom');
+                    $element.trigger(UI.prefix('changed.@.dom'));
                 }, 50));
 
                 // pass in the target node, as well as the observer options
@@ -1291,7 +1291,7 @@
 
     "use strict";
 
-    var togglers = [];
+    var toggles = [];
 
     UI.component('toggle', {
 
@@ -1317,8 +1317,8 @@
 
                 setTimeout(function(){
 
-                    togglers.forEach(function(toggler){
-                        toggler.getTogglers();
+                    toggles.forEach(function(toggle){
+                        toggle.getToggles();
                     });
 
                 }, 0);
@@ -1329,14 +1329,14 @@
 
             var $this = this;
 
-            this.getTogglers();
+            this.getToggles();
 
             this.on("click", function(e) {
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
                 $this.toggle();
             });
 
-            togglers.push(this);
+            toggles.push(this);
         },
 
         toggle: function() {
@@ -1383,7 +1383,7 @@
             }
         },
 
-        getTogglers: function() {
+        getToggles: function() {
             this.totoggle = this.options.target ? UI.$(this.options.target):[];
         }
     });
@@ -2649,6 +2649,10 @@
                     active = toggles.eq(UI.prefix(this.options.active));
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
+
+                this.on(UI.prefix('changed.@.dom'), function() {
+                    $this.connect = UI.$($this.options.connect);
+                });
             }
 
         },
@@ -2663,10 +2667,10 @@
                 tab = UI.$(tab);
             } else {
 
-                var togglers = this.find(this.options.toggle);
+                var toggles = this.find(this.options.toggle);
 
-                tab = tab < 0 ? togglers.length-1 : tab;
-                tab = togglers.eq(togglers[tab] ? tab : 0);
+                tab = tab < 0 ? toggles.length-1 : tab;
+                tab = toggles.eq(toggles[tab] ? tab : 0);
             }
 
             var $this     = this,

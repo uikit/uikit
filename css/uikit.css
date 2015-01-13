@@ -1,4 +1,4 @@
-/*! UIkit 2.15.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2547,6 +2547,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
    Component: Form
  ========================================================================== */
 /*
+ * Except for `submit` and `reset` because specificity is to high for button component
  * 1. Define consistent box sizing.
  *    Default is `content-box` with following exceptions set to `border-box`
  *    `button`, `select`, `input[type="checkbox"]` and `input[type="radio"]`
@@ -2556,7 +2557,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 3. Remove `border-radius` in iOS.
  * 4. Correct `font` properties and `color` not being inherited.
  */
-.uk-form input,
+.uk-form input:not([type="submit"]):not([type="reset"]),
 .uk-form select,
 .uk-form textarea {
   /* 1 */
@@ -6166,7 +6167,7 @@ a.uk-thumbnail:focus {
 /* Sub-object: `uk-modal-dialog`
  ========================================================================== */
 /*
- * 1. Create position context for `uk-modal-dialog-frameless`
+ * 1. Create position context for caption, spinner and close button
  * 2. Set box sizing
  * 3. Min-height needed for initial loading and spinner
  * 4. Set style
@@ -6201,7 +6202,7 @@ a.uk-thumbnail:focus {
      */
   .uk-modal-dialog {
     width: auto;
-    margin: 10px;
+    margin: 10px auto;
   }
 }
 /*
@@ -6231,15 +6232,18 @@ a.uk-thumbnail:focus {
 .uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) {
   margin-top: 0;
 }
-/* Modifier: `uk-modal-dialog-frameless`
+/* Modifier: `uk-modal-dialog-lightbox`
  ========================================================================== */
-.uk-modal-dialog-frameless {
+.uk-modal-dialog-lightbox {
+  margin: 15px auto;
   padding: 0;
+  max-width: 95%;
+  max-width: calc(100% - 30px);
 }
 /*
- * Close in modal
+ * Close button
  */
-.uk-modal-dialog-frameless > .uk-close:first-child {
+.uk-modal-dialog-lightbox > .uk-close:first-child {
   position: absolute;
   top: -12px;
   right: -12px;
@@ -6248,7 +6252,7 @@ a.uk-thumbnail:focus {
 }
 /* Phone landscape and smaller */
 @media (max-width: 767px) {
-  .uk-modal-dialog-frameless > .uk-close:first-child {
+  .uk-modal-dialog-lightbox > .uk-close:first-child {
     top: -7px;
     right: -7px;
   }
@@ -6608,11 +6612,17 @@ a.uk-thumbnail:focus {
   .uk-text-center-medium {
     text-align: center !important;
   }
+  .uk-text-left-medium {
+    text-align: left !important;
+  }
 }
 /* Phone landscape and smaller */
 @media (max-width: 767px) {
   .uk-text-center-small {
     text-align: center !important;
+  }
+  .uk-text-left-small {
+    text-align: left !important;
   }
 }
 /* Wrap modifiers
@@ -7094,7 +7104,7 @@ a.uk-thumbnail:focus {
 /* Hide on touch */
 .uk-touch .uk-hidden-touch,
 .uk-notouch .uk-hidden-notouch {
-  display: none;
+  display: none !important;
 }
 /* ========================================================================
    Component: Print

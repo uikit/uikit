@@ -1,3 +1,11 @@
+$accordion-title-margin-bottom:                  15px !default;
+$accordion-title-padding-vertical:               5px !default;
+$accordion-title-padding-horizontal:             15px !default;
+$accordion-title-font-size:                      18px !default;
+$accordion-title-line-height:                    24px !default;
+$accordion-title-background:                     #eee !default;
+$accordion-content-padding-horizontal:           $accordion-title-padding-horizontal !default;
+$accordion-content-padding-bottom:               $accordion-title-padding-horizontal !default;
 $nav-autocomplete-color:                         #444 !default;
 $nav-autocomplete-active-background:             #00a8e6 !default;
 $nav-autocomplete-active-color:                  #fff !default;
