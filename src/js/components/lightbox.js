@@ -464,6 +464,11 @@
             modal.lightbox[$(this).is('[data-lightbox-next]') ? 'next':'previous']();
         });
 
+        // destroy content on modal hide
+        modal.on("hide.uk.modal", function(e) {
+            modal.content.html('');
+        });
+
         UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
             if (modal.is(':visible')) modal.lightbox.fitSize();
         }.bind(this), 100));
