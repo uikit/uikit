@@ -381,6 +381,34 @@ html {
     padding-top: 5px;
 }
 
+/*
+ * Generate different grid panel colors
+ */
+
+.tm-grid-colors > * > * { padding: 20px; }
+
+.tm-grid-colors > :nth-child(8n-7) > * { background: rgba(130,200,240,0.1); }
+.tm-grid-colors > :nth-child(8n-6) > * { background: rgba(130,200,240,0.15); }
+.tm-grid-colors > :nth-child(8n-5) > * { background: rgba(130,200,240,0.2); }
+.tm-grid-colors > :nth-child(8n-4) > * { background: rgba(130,200,240,0.25); }
+.tm-grid-colors > :nth-child(8n-3) > * { background: rgba(130,200,240,0.3); }
+.tm-grid-colors > :nth-child(8n-2) > * { background: rgba(130,200,240,0.35); }
+.tm-grid-colors > :nth-child(8n-1) > * { background: rgba(130,200,240,0.40); }
+.tm-grid-colors > :nth-child(8n) > * { background: rgba(130,200,240,0.45); }
+
+/*
+ * Generate different grid panel heights
+ */
+
+.tm-grid-heights > :nth-child(8n-7) > * { height: 80px; }
+.tm-grid-heights > :nth-child(8n-6) > * { height: 100px; }
+.tm-grid-heights > :nth-child(8n-5) > * { height: 160px; }
+.tm-grid-heights > :nth-child(8n-4) > * { height: 120px; }
+.tm-grid-heights > :nth-child(8n-3) > * { height: 180px; }
+.tm-grid-heights > :nth-child(8n-2) > * { height: 130px; }
+.tm-grid-heights > :nth-child(8n-1) > * { height: 150px; }
+.tm-grid-heights > :nth-child(8n) > * { height: 110px; }
+
 
 /* Customizer
  ========================================================================== */
