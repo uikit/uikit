@@ -2,6 +2,7 @@
 
 ### WIP
   - Added mirroring of icons in RTL mode
+  - Added destroy lightbox content on hide
 
 ### 2.16.0 (Januar 13, 2015)
   - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
