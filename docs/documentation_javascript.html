@@ -135,7 +135,7 @@ require("uikit!notify,sortable", function(UI){
 
                             <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
 
-                            <pre><code>$.UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
+                            <pre><code>UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -143,7 +143,7 @@ require("uikit!notify,sortable", function(UI){
 
                             <p>Sometimes components, like <a href="grid.html">Grid</a> or <a href="tab.html">Tab</a> are hidden in the markup. This may happen when used in combination with the <a href="switcher.html">Switcher</a>, <a href="modal.html">Modal</a> or <a href="dropdown.html">Dropdown</a>. Once they become visible, they need to be recalculated to adjust or fix the height and other dimensions.</p>
 
-                            <p>To do so, add the <code>data-uk-check-display</code> attribute to the elements which need to be recalculated. They now listen to the <code>uk.check.display</code> event, which will be triggered by the container component, for example the Switcher. This is not needed for the Grid, it's triggered by default.</p>
+                            <p>To do so, add the <code>data-uk-check-display</code> attribute to the elements which need to be recalculated. They now listen to the <code>display.uk.check</code> event, which will be triggered by the container component, for example the Switcher. This is not needed for the Grid, it's triggered by default.</p>
 
                             <h3 class="tm-article-subtitle">Usage</h3>
 
@@ -151,7 +151,7 @@ require("uikit!notify,sortable", function(UI){
 &lt;div id="myelement" data-uk-check-display&gt;...&lt;/div&gt;
 
 &lt;script&gt;
-$("#myelement").on('uk.check.display', function(){
+$("#myelement").on('display.uk.check', function(){
    // custom code to adjust height etc on show
 });
 &lt;/script&gt;</code></pre>

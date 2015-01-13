@@ -18,7 +18,7 @@
         <script>
         $(function(){
             $("body").on("click", ".uk-button[data-message]", function(){
-                $.UIkit.notify($(this).data());
+                UIkit.notify($(this).data());
             });
         })
         </script>
@@ -159,6 +159,99 @@
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                                 </div>
 
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>showfirst</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Show first item on init</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>collapse</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Allow multiple open items</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>animate</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Animate toggle</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>easing</code></td>
+                                            <td>string</td>
+                                            <td>swing</td>
+                                            <td>Animation function</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>duration</code></td>
+                                            <td>integer</td>
+                                            <td>300</td>
+                                            <td>Animation duration</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>toggle</code></td>
+                                            <td>string</td>
+                                            <td>.uk-accordion-title</td>
+                                            <td>Css selector for toggles</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>containers</code></td>
+                                            <td>string</td>
+                                            <td>.uk-accordion-content</td>
+                                            <td>Css selector for content containers</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clsactive</code></td>
+                                            <td>string</td>
+                                            <td>uk-active</td>
+                                            <td>Class to add when an item is active</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Init element manually</h3>
+
+                            <pre><code>var accordion = UIkit.accordion(element, { /* options */ });</code></pre>
+
+                            <h3>Events</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>toggle.uk.accordion</code></td>
+                                            <td>event, active, toggle, content</td>
+                                            <td>On item toggle</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                         </article>

@@ -368,7 +368,7 @@
 
                         <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>var modal = $.UIkit.modal(".modalSelector");
+<pre><code>var modal = UIkit.modal(".modalSelector");
 
 if ( modal.isActive() ) {
     modal.hide();
@@ -386,11 +386,11 @@ if ( modal.isActive() ) {
 
 <pre><code>$('.modalSelector').on({
 
-    'uk.modal.show': function(){
+    'show.uk.modal': function(){
         console.log("Modal is visible.");
     },
 
-    'uk.modal.hide': function(){
+    'hide.uk.modal': function(){
         console.log("Element is not visible.");
     }
 });</code></pre>

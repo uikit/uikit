@@ -264,6 +264,85 @@
     &lt;div data-my-category="b" data-my-category2="7"&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
+                            <hr class="uk-article-divider">
+
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>colwidth</code></td>
+                                            <td>integer</td>
+                                            <td>auto</td>
+                                            <td>Columns width</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>animation</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Animate columns on update</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>duration</code></td>
+                                            <td>integer</td>
+                                            <td>200</td>
+                                            <td>Animation duration</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>gutter</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Gutter between columns</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>controls</code></td>
+                                            <td>string</td>
+                                            <td>false</td>
+                                            <td>Css selector to connect filter / order controls.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Init element manually</h3>
+
+                            <pre><code>var grid = UIkit.grid(element, { /* options */ });</code></pre>
+
+                            <h3>Events</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>beforeupdate.uk.grid</code></td>
+                                            <td>event, children</td>
+                                            <td>On before update grid</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>afterupdate.uk.grid</code></td>
+                                            <td>event, children</td>
+                                            <td>On after update grid</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </article>
 
                     </div>

@@ -17,10 +17,10 @@
         defaults: {
             showfirst  : true,
             collapse   : true,
-            animated   : true,
+            animate    : true,
             easing     : 'swing',
-            duration   : 500,
-            toggle    : '.uk-accordion-title',
+            duration   : 300,
+            toggle     : '.uk-accordion-title',
             containers : '.uk-accordion-content',
             clsactive  : 'uk-active'
         },
@@ -33,7 +33,7 @@
 
                 e.preventDefault();
 
-                $this.toggleItem($(this).data('wrapper'), $this.options.animated, $this.options.collapse);
+                $this.toggleItem($(this).data('wrapper'), $this.options.animate, $this.options.collapse);
             });
 
             this.update();
@@ -67,7 +67,7 @@
                 if(active) UI.Utils.checkDisplay(wrapper.data('content'));
             }
 
-            this.element.trigger('uk.accordion.toggle', [active, wrapper.data('toggle'), wrapper.data('content')]);
+            this.element.trigger('toggle.uk.accordion', [active, wrapper.data('toggle'), wrapper.data('content')]);
         },
 
         update: function() {
@@ -95,7 +95,7 @@
                 $content.data('wrapper', $wrapper);
             });
 
-            this.element.trigger('uk.accordion.update', [this]);
+            this.element.trigger('update.uk.accordion', [this]);
         }
 
     });
