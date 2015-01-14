@@ -181,6 +181,7 @@
 
                 $this.activeSet = setIndex;
 
+                $this.trigger('show.uk.slideset', [next]);
             });
 
         },
