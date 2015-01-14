@@ -21,7 +21,7 @@
     UI.component('slideset', {
 
         defaults: {
-            visible   : 3,
+            visible   : {},
             animation : 'scale',
             duration  : 400
         },
@@ -52,9 +52,12 @@
             this.list      = this.element.find('.@-slideset-list');
             this.children  = this.list.children();
 
-            this.updateSets();
 
-            this.show(0);
+            UI.$win.on("resize load", UI.Utils.debounce(function() {
+                $this.updateSets();
+            }, 100));
+
+            this.updateSets();
 
             this.on("click", '[data-@-set]', function(e) {
 
@@ -82,27 +85,45 @@
 
         updateSets: function() {
 
-            this.sets = array_chunk(this.children, this.getVisibleOnCurrenBreakpoint());
+            var visible = this.getVisibleOnCurrenBreakpoint();
+
+            this.sets = array_chunk(this.children, visible);
 
             for (var i=0;i<this.sets.length;i++) {
-                this.sets[i].hide().addClass('uk-width-1-'+this.options.visible);
+                this.sets[i].hide().attr({'style': '', 'class': 'uk-width-1-'+visible});
             }
+
+            this.activeSet = false;
+            this.show(0);
         },
 
         getVisibleOnCurrenBreakpoint: function() {
 
             // number of visibles on all breakpoints
             if (!isNaN(this.options.visible)) {
-                return this.options.visible;
+                return parseInt(this.options.visible, 10);
             }
 
-            var def = $.extend({
-                'small'  : 1,
-                'medium' : 4,
-                'large'  : 6
-            }, this.options.visible);
+            var breakpoint  = null,
+                tmp         = UI.$('<div style="position:absolute;height:1px;top:-1000px;"></div>').appendTo('body'),
+                breakpoints = $.extend({
+                    'large'  : 6,
+                    'medium' : 4,
+                    'small'  : 1
+                }, this.options.visible);
 
+                ['large', 'medium', 'small'].forEach(function(bp) {
 
+                    tmp.attr('class', 'uk-visible-'+bp).width();
+
+                    if (!breakpoint && tmp.is(':visible')) {
+                        breakpoint = bp;
+                    }
+                });
+
+                tmp.remove();
+
+                return breakpoints[breakpoint] || 3;
         },
 
         show: function(setIndex) {
