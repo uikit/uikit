@@ -50,8 +50,7 @@
 
             this.activeSet = false;
             this.list      = this.element.find('.@-slideset-list');
-            this.children  = this.list.children();
-
+            this.nav       = this.element.find('.@-slideset-nav');
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {
                 $this.updateSets();
@@ -85,12 +84,21 @@
 
         updateSets: function() {
 
-            var visible = this.getVisibleOnCurrenBreakpoint();
+            var visible = this.getVisibleOnCurrenBreakpoint(), i;
 
-            this.sets = array_chunk(this.children, visible);
+            this.children = this.list.children();
+            this.sets     = array_chunk(this.children, visible);
 
-            for (var i=0;i<this.sets.length;i++) {
+            for (i=0;i<this.sets.length;i++) {
                 this.sets[i].attr({'style': 'display:none;', 'class': 'uk-width-1-'+visible});
+            }
+
+            // update nav
+            if (this.nav.length && this.nav.empty()) {
+
+                for (i=0;i<this.sets.length;i++) {
+                    this.nav.append('<li data-uk-set="'+i+'"><a></a></li>');
+                }
             }
 
             this.activeSet = false;
@@ -98,6 +106,8 @@
         },
 
         getVisibleOnCurrenBreakpoint: function() {
+
+
 
             // number of visibles on all breakpoints
             if (!isNaN(this.options.visible)) {
@@ -156,6 +166,11 @@
 
             $this.animating = true;
 
+            if ($this.nav.length) {
+
+                $this.nav.children().removeClass(UI.prefix('@-active')).eq(setIndex).addClass(UI.prefix('@-active'));
+            }
+
             animation.apply($this, [current, next, setIndex < this.activeSet ? -1:1]).then(function(){
 
                 UI.Utils.checkDisplay(next, true);
@@ -165,6 +180,7 @@
                 $this.animating = false;
 
                 $this.activeSet = setIndex;
+
             });
 
         },
