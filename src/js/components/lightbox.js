@@ -1,13 +1,16 @@
 (function(addon) {
 
-    if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit-lightbox"], function(){
-            return jQuery.UIkit || addon(window.jQuery, window.jQuery.UIkit);
-        });
+    var component;
+
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
-    if (window && window.jQuery && window.jQuery.UIkit) {
-        addon(window.jQuery, window.jQuery.UIkit);
+
+    if (typeof define == "function" && define.amd) { // AMD
+        define(["uikit-lightbox"], function(){
+            return component || addon(jQuery, UIkit);
+        });
     }
 
 })(function($, UI){
