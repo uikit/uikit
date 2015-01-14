@@ -50,7 +50,7 @@
 
         open: function(li, noanimation) {
 
-            var element = this.element, $li = UI.$(li);
+            var $this = this, element = this.element, $li = UI.$(li);
 
             if (!this.options.multiple) {
 
@@ -72,9 +72,12 @@
 
                 if (noanimation) {
                     $li.data('list-container').stop().height($li.hasClass("@-open") ? "auto" : 0);
+                    this.trigger("display.uk.check");
                 } else {
                     $li.data('list-container').stop().animate({
                         height: ($li.hasClass("@-open") ? getHeight($li.data('list-container').find('ul:first')) : 0)
+                    }, function() {
+                        $this.trigger("display.uk.check");
                     });
                 }
             }
