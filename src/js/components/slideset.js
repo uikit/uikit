@@ -23,7 +23,7 @@
         defaults: {
             visible   : {},
             animation : 'scale',
-            duration  : 400
+            duration  : 200
         },
 
         sets: [],
@@ -90,7 +90,7 @@
             this.sets = array_chunk(this.children, visible);
 
             for (var i=0;i<this.sets.length;i++) {
-                this.sets[i].hide().attr({'style': '', 'class': 'uk-width-1-'+visible});
+                this.sets[i].attr({'style': 'display:none;', 'class': 'uk-width-1-'+visible});
             }
 
             this.activeSet = false;
