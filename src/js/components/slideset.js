@@ -198,7 +198,7 @@
 
     function coreAnimation(cls, current, next) {
 
-        var d = $.Deferred(), clsIn, clsOut, release;
+        var d = $.Deferred(), clsIn, clsOut, release, delay = Math.floor(this.options.duration/2);
 
         if (next[0]===current[0]) {
             d.resolve();
@@ -215,34 +215,34 @@
 
         release = function() {
 
-            if (current && current.length) current.hide().removeClass(UI.prefix(clsOut+' @-animation-reverse')).css('animation-delay', '');
+            if (current && current.length) {
+                current.hide().removeClass(UI.prefix(clsOut+' @-animation-reverse')).css({'animation-delay': '', 'animation':''});
+            }
 
             next.each(function(i){
-                $(this).css('animation-delay', (i*100)+'ms');
+                $(this).css('animation-delay', (i*delay)+'ms');
             });
 
             next.addClass(clsIn).last().one(UI.support.animation.end, function() {
 
-                next.removeClass(''+clsIn+'').css({opacity:'', display:'', 'animation-delay':''});
+                next.removeClass(''+clsIn+'').css({opacity:'', display:'', 'animation-delay':'', 'animation':''});
 
                 d.resolve();
 
-            }.bind(this)).end().show();
+            }).end().css('display', '');
         };
 
         next.css('animation-duration', this.options.duration+'ms');
 
         if (current && current.length) {
 
-            current.css('animation-duration', this.options.duration+'ms');
-
-            current.each(function(i){
-                $(this).css('animation-delay', (i*100)+'ms');
-            });
-
-            current.css('display', 'none').addClass(UI.prefix(clsOut+' @-animation-reverse')).last().one(UI.support.animation.end, function() {
+            current.css('animation-duration', this.options.duration+'ms').last().one(UI.support.animation.end, function() {
                 release();
-            }.bind(this)).end().css('display', '');
+            }).end().each(function(i){
+                setTimeout(function(){
+                    $(this).css('display', 'none').css('display', '').css('opacity', 0).addClass(UI.prefix(clsOut+' @-animation-reverse'));
+                }.bind(this), i * delay);
+            });
 
         } else {
             release();
