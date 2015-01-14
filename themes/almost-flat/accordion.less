@@ -11,14 +11,13 @@
 @accordion-title-padding-horizontal:            @global-margin;
 @accordion-title-font-size:                     round((@global-font-size * 1.28)); // 18px / 20px
 @accordion-title-line-height:                   round((@accordion-title-font-size * 1.32)); // 24px / 26px
+@accordion-title-background:                    @global-default-background;
 
 //
 // New
 //
 
 @accordion-title-border:                        @global-border;
-@accordion-title-background:                    @global-default-background;
-
 
 // Component
 // ========================================================================
@@ -32,7 +31,6 @@
 .hook-accordion-title() {
 	border: 1px solid @accordion-title-border;
     border-radius: @global-border-radius;
-    background: @accordion-title-background;
 }
 
 

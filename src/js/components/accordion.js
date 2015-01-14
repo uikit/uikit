@@ -25,6 +25,26 @@
             clsactive  : 'uk-active'
         },
 
+        boot:  function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                setTimeout(function(){
+
+                    UI.$("[data-@-accordion]", context).each(function(){
+
+                        var ele = UI.$(this);
+
+                        if(!ele.data("accordion")) {
+                            UI.accordion(ele, UI.Utils.options(ele.attr('data-@-accordion')));
+                        }
+                    });
+
+                }, 0);
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -45,6 +65,8 @@
 
         toggleItem: function(wrapper, animated, collapse) {
 
+            var $this = this;
+
             wrapper.data('toggle').toggleClass(this.options.clsactive);
 
             var active = wrapper.data('toggle').hasClass(this.options.clsactive);
@@ -57,14 +79,24 @@
             if (animated) {
 
                 wrapper.stop().animate({ height: active ? getHeight(wrapper.data('content')) : 0 }, {easing: this.options.easing, duration: this.options.duration, complete: function() {
-                    if(active) UI.Utils.checkDisplay(wrapper.data('content'));
+
+                    if (active) {
+                        UI.Utils.checkDisplay(wrapper.data('content'));
+                    }
+
+                    $this.trigger("display.uk.check");
+
                 }});
 
             } else {
 
                 wrapper.stop().height(active ? "auto" : 0);
 
-                if(active) UI.Utils.checkDisplay(wrapper.data('content'));
+                if (active) {
+                    UI.Utils.checkDisplay(wrapper.data('content'));
+                }
+
+                this.trigger("display.uk.check");
             }
 
             this.element.trigger('toggle.uk.accordion', [active, wrapper.data('toggle'), wrapper.data('content')]);
@@ -123,23 +155,6 @@
 
         return height;
     }
-
-    // init code
-    UI.ready(function(context) {
-
-        setTimeout(function(){
-
-            $("[data-uk-accordion]", context).each(function(){
-
-                var $ele = $(this);
-
-                if(!$ele.data("accordion")) {
-                    UI.accordion($ele, UI.Utils.options($ele.attr('data-uk-accordion')));
-                }
-            });
-
-        }, 0);
-    });
 
     return UI.accordion;
 });

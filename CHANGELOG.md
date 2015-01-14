@@ -1,5 +1,10 @@
 # Changelog
 
+### WIP
+  - Added mirroring of icons in RTL mode
+  - Added destroy lightbox content on hide
+  - Updated boot code for accordion, grid and lightbox component
+
 ### 2.16.0 (Januar 13, 2015)
   - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
   - Added dynamic grid component
