@@ -52,12 +52,7 @@
             this.list      = this.element.find('.@-slideset-list');
             this.children  = this.list.children();
 
-
-            this.sets     = array_chunk(this.children, this.options.visible);
-
-            for(var i=0;i<this.sets.length;i++) {
-                this.sets[i].hide().addClass('uk-width-1-'+this.options.visible);
-            }
+            this.updateSets();
 
             this.show(0);
 
@@ -83,6 +78,31 @@
             this.on('swipeRight swipeLeft', function(e) {
                 $this[e.type=='swipeLeft' ? 'next' : 'previous']();
             });
+        },
+
+        updateSets: function() {
+
+            this.sets = array_chunk(this.children, this.getVisibleOnCurrenBreakpoint());
+
+            for (var i=0;i<this.sets.length;i++) {
+                this.sets[i].hide().addClass('uk-width-1-'+this.options.visible);
+            }
+        },
+
+        getVisibleOnCurrenBreakpoint: function() {
+
+            // number of visibles on all breakpoints
+            if (!isNaN(this.options.visible)) {
+                return this.options.visible;
+            }
+
+            var def = $.extend({
+                'small'  : 1,
+                'medium' : 4,
+                'large'  : 6
+            }, this.options.visible);
+
+
         },
 
         show: function(setIndex) {
