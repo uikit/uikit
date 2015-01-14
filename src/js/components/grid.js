@@ -31,12 +31,12 @@
             // init code
             UI.ready(function(context) {
 
-                $("[data-uk-grid]", context).each(function(){
+                UI.$("[data-@-grid]", context).each(function(){
 
-                    var ele = $(this);
+                    var ele = UI.$(this);
 
                     if(!ele.data("grid")) {
-                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr("data-uk-grid")));
+                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr("data-@-grid")));
                     }
                 });
             });

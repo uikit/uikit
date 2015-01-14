@@ -32,12 +32,12 @@
 
                 setTimeout(function(){
 
-                    $("[data-uk-accordion]", context).each(function(){
+                    UI.$("[data-@-accordion]", context).each(function(){
 
-                        var $ele = $(this);
+                        var ele = UI.$(this);
 
-                        if(!$ele.data("accordion")) {
-                            UI.accordion($ele, UI.Utils.options($ele.attr('data-uk-accordion')));
+                        if(!ele.data("accordion")) {
+                            UI.accordion(ele, UI.Utils.options(ele.attr('data-@-accordion')));
                         }
                     });
 
@@ -65,6 +65,8 @@
 
         toggleItem: function(wrapper, animated, collapse) {
 
+            var $this = this;
+
             wrapper.data('toggle').toggleClass(this.options.clsactive);
 
             var active = wrapper.data('toggle').hasClass(this.options.clsactive);
@@ -77,14 +79,24 @@
             if (animated) {
 
                 wrapper.stop().animate({ height: active ? getHeight(wrapper.data('content')) : 0 }, {easing: this.options.easing, duration: this.options.duration, complete: function() {
-                    if(active) UI.Utils.checkDisplay(wrapper.data('content'));
+
+                    if (active) {
+                        UI.Utils.checkDisplay(wrapper.data('content'));
+                    }
+
+                    $this.trigger("display.uk.check");
+
                 }});
 
             } else {
 
                 wrapper.stop().height(active ? "auto" : 0);
 
-                if(active) UI.Utils.checkDisplay(wrapper.data('content'));
+                if (active) {
+                    UI.Utils.checkDisplay(wrapper.data('content'));
+                }
+
+                this.trigger("display.uk.check");
             }
 
             this.element.trigger('toggle.uk.accordion', [active, wrapper.data('toggle'), wrapper.data('content')]);

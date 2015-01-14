@@ -27,14 +27,14 @@
 
         boot: function() {
 
-            UI.$html.on('click', '[data-uk-lightbox]', function(e){
+            UI.$html.on('click', UI.prefix('[data-@-lightbox]'), function(e){
 
                 e.preventDefault();
 
-                var link = $(this);
+                var link = UI.$(this);
 
                 if (!link.data("lightbox")) {
-                    UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
+                    UI.lightbox(link, UI.Utils.options(link.attr("data-@-lightbox")));
                 }
 
                 link.data("lightbox").show(link);
