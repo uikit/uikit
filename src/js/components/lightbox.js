@@ -25,6 +25,40 @@
         index : 0,
         items : false,
 
+        boot: function() {
+
+            UI.$html.on('click', '[data-uk-lightbox]', function(e){
+
+                e.preventDefault();
+
+                var link = $(this);
+
+                if (!link.data("lightbox")) {
+                    UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
+                }
+
+                link.data("lightbox").show(link);
+            });
+
+            // keyboard navigation
+            UI.$doc.on('keyup', function(e) {
+
+                if (modal && modal.is(':visible') && modal.lightbox.options.keyboard) {
+
+                    e.preventDefault();
+
+                    switch(e.keyCode) {
+                        case 37:
+                            modal.lightbox.previous();
+                            break;
+                        case 39:
+                            modal.lightbox.next();
+                            break;
+                    }
+                }
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -395,40 +429,6 @@
                 }
             });
         }
-    });
-
-    $(function(){
-
-        UI.$html.on('click', '[data-uk-lightbox]', function(e){
-
-            e.preventDefault();
-
-            var link = $(this);
-
-            if (!link.data("lightbox")) {
-                UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
-            }
-
-            link.data("lightbox").show(link);
-        });
-
-        // keyboard navigation
-        UI.$doc.on( 'keyup', function(e) {
-
-            if (modal && modal.is(':visible') && modal.lightbox.options.keyboard) {
-
-                e.preventDefault();
-
-                switch(e.keyCode) {
-                    case 37:
-                        modal.lightbox.previous();
-                        break;
-                    case 39:
-                        modal.lightbox.next();
-                        break;
-                }
-            }
-        });
     });
 
 

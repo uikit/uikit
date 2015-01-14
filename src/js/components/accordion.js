@@ -25,6 +25,26 @@
             clsactive  : 'uk-active'
         },
 
+        boot:  function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                setTimeout(function(){
+
+                    $("[data-uk-accordion]", context).each(function(){
+
+                        var $ele = $(this);
+
+                        if(!$ele.data("accordion")) {
+                            UI.accordion($ele, UI.Utils.options($ele.attr('data-uk-accordion')));
+                        }
+                    });
+
+                }, 0);
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -123,23 +143,6 @@
 
         return height;
     }
-
-    // init code
-    UI.ready(function(context) {
-
-        setTimeout(function(){
-
-            $("[data-uk-accordion]", context).each(function(){
-
-                var $ele = $(this);
-
-                if(!$ele.data("accordion")) {
-                    UI.accordion($ele, UI.Utils.options($ele.attr('data-uk-accordion')));
-                }
-            });
-
-        }, 0);
-    });
 
     return UI.accordion;
 });
