@@ -55,7 +55,7 @@
 
             this.on("display.uk.check", function(e) {
                 $this.columns = $this.element.children();
-                if(this.element.is(":visible")) this.process();
+                if (this.element.is(":visible")) this.process();
             }.bind(this));
 
             stacks.push(this);
@@ -65,30 +65,7 @@
 
             var $this = this;
 
-            this.revert();
-
-            var skip         = false,
-                firstvisible = this.columns.filter(":visible:first"),
-                offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
-
-            if (offset === false) return;
-
-            this.columns.each(function() {
-
-                var column = UI.$(this);
-
-                if (column.is(":visible")) {
-
-                    if (skip) {
-                        column.addClass($this.options.cls);
-                    } else {
-
-                        if (column.position().top >= offset) {
-                            skip = column.addClass($this.options.cls);
-                        }
-                    }
-                }
-            });
+            UI.Utils.stackMargin(this.columns, this.options);
 
             return this;
         },
@@ -138,5 +115,42 @@
         };
 
     })());
+
+
+    // helper
+
+    UI.Utils.stackMargin = function(elements, options) {
+
+        options = $.extend({
+            'cls': '@-margin-small-top'
+        }, options);
+
+        options.cls = UI.prefix(options.cls);
+
+        elements = $(elements).removeClass(options.cls);
+
+        var skip         = false,
+            firstvisible = elements.filter(":visible:first"),
+            offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+
+        if (offset === false) return;
+
+        elements.each(function() {
+
+            var column = UI.$(this);
+
+            if (column.is(":visible")) {
+
+                if (skip) {
+                    column.addClass(options.cls);
+                } else {
+
+                    if (column.position().top >= offset) {
+                        skip = column.addClass(options.cls);
+                    }
+                }
+            }
+        });
+    };
 
 })(jQuery, UIkit);

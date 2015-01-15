@@ -3,7 +3,9 @@
 ### WIP
   - Added mirroring of icons in RTL mode
   - Added destroy lightbox content on hide
+  - Added UIkit.Utils.stackMargin + UIkit.Utils.matchHeights helper methods
   - Updated boot code for accordion, grid and lightbox component
+  - Fixed form normalization in form component
 
 ### 2.16.0 (Januar 13, 2015)
   - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
