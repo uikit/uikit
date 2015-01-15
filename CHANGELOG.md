@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.16.1 (Januar 15, 2015)
   - Added mirroring of icons in RTL mode
   - Added destroy lightbox content on hide
   - Added UIkit.Utils.stackMargin + UIkit.Utils.matchHeights helper methods
