@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.16.2 (Januar 15, 2015)
+
+  - Fixed ```data-uk-grid-match``` with target option
+
 ### 2.16.1 (Januar 15, 2015)
   - Added mirroring of icons in RTL mode
   - Added destroy lightbox content on hide
