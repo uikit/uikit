@@ -102,12 +102,10 @@
             }
 
             this.activeSet = false;
-            this.show(0);
+            this.show(0, true);
         },
 
         getVisibleOnCurrenBreakpoint: function() {
-
-
 
             // number of visibles on all breakpoints
             if (!isNaN(this.options.visible)) {
@@ -136,7 +134,7 @@
                 return breakpoints[breakpoint] || 3;
         },
 
-        show: function(setIndex) {
+        show: function(setIndex, noanimate) {
 
             var $this = this;
 
@@ -164,10 +162,13 @@
                     return coreAnimation.apply($this, [anim, current, next]);
                 };
 
+            if (noanimate || !UI.support.animation) {
+                animation = Animations.none;
+            }
+
             $this.animating = true;
 
             if ($this.nav.length) {
-
                 $this.nav.children().removeClass(UI.prefix('@-active')).eq(setIndex).addClass(UI.prefix('@-active'));
             }
 
