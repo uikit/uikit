@@ -2,6 +2,7 @@
 
 ### 2.16.2 (Januar 15, 2015)
 
+  - Updated modal header and footer
   - Fixed ```data-uk-grid-match``` with target option
 
 ### 2.16.1 (Januar 15, 2015)
