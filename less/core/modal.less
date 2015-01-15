@@ -46,8 +46,6 @@
 @modal-dialog-large-width-large:                1130px;
 
 @modal-header-margin-bottom:                    15px;
-@modal-header-font-size:                        24px;
-@modal-header-line-height:                      30px;
 
 @modal-footer-margin-top:                       15px;
 
@@ -238,26 +236,25 @@
 }
 
 
-/* Sub-Object: `uk-modal-header`
+/* Sub-Object: `uk-modal-header` and `uk-modal-footer`
  ========================================================================== */
 
 .uk-modal-header {
-    margin-top: 0;
     margin-bottom: @modal-header-margin-bottom;
-    font-size: @modal-header-font-size;
-    line-height: @modal-header-line-height;
     .hook-modal-header;
 }
 
-
-/* Sub-Object: `uk-modal-footer`
- ========================================================================== */
-
 .uk-modal-footer {
     margin-top: @modal-footer-margin-top;
-    text-align: right;
     .hook-modal-footer;
 }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-modal-header  > :last-child,
+.uk-modal-footer  > :last-child { margin-bottom: 0; }
 
 
 /* Sub-Object: `uk-modal-caption`

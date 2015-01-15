@@ -1,3 +1,4 @@
+/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -6607,29 +6608,30 @@ a.uk-thumbnail:focus {
     width: 1130px;
   }
 }
-/* Sub-Object: `uk-modal-header`
+/* Sub-Object: `uk-modal-header` and `uk-modal-footer`
  ========================================================================== */
 .uk-modal-header {
-  margin-top: 0;
   margin-bottom: 15px;
-  font-size: 24px;
-  line-height: 30px;
   margin: -20px -20px 15px -20px;
   padding: 20px;
   border-bottom: 1px solid #dddddd;
   border-radius: 4px 4px 0 0;
   background: #fafafa;
 }
-/* Sub-Object: `uk-modal-footer`
- ========================================================================== */
 .uk-modal-footer {
   margin-top: 15px;
-  text-align: right;
   margin: 15px -20px -20px -20px;
   padding: 20px;
   border-top: 1px solid #dddddd;
   border-radius: 0 0 4px 4px;
   background: #fafafa;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-modal-header > :last-child,
+.uk-modal-footer > :last-child {
+  margin-bottom: 0;
 }
 /* Sub-Object: `uk-modal-caption`
  ========================================================================== */

@@ -1,3 +1,4 @@
+/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function($, UI) {
 
     "use strict";
@@ -64,7 +65,7 @@
 
         match: function() {
 
-            UI.Utils.matchHeights(this.columns, this.options);
+            UI.Utils.matchHeights(this.elements, this.options);
 
             return this;
         },
