@@ -1,14 +1,16 @@
-/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
+
+    var component;
+
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
+    }
+
 
     if (typeof define == "function" && define.amd) { // AMD
         define(["uikit-lightbox"], function(){
-            return jQuery.UIkit || addon(window.jQuery, window.jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
-    }
-
-    if (window && window.jQuery && window.jQuery.UIkit) {
-        addon(window.jQuery, window.jQuery.UIkit);
     }
 
 })(function($, UI){
@@ -25,6 +27,40 @@
 
         index : 0,
         items : false,
+
+        boot: function() {
+
+            UI.$html.on('click', UI.prefix('[data-@-lightbox]'), function(e){
+
+                e.preventDefault();
+
+                var link = UI.$(this);
+
+                if (!link.data("lightbox")) {
+                    UI.lightbox(link, UI.Utils.options(link.attr("data-@-lightbox")));
+                }
+
+                link.data("lightbox").show(link);
+            });
+
+            // keyboard navigation
+            UI.$doc.on('keyup', function(e) {
+
+                if (modal && modal.is(':visible') && modal.lightbox.options.keyboard) {
+
+                    e.preventDefault();
+
+                    switch(e.keyCode) {
+                        case 37:
+                            modal.lightbox.previous();
+                            break;
+                        case 39:
+                            modal.lightbox.next();
+                            break;
+                    }
+                }
+            });
+        },
 
         init: function() {
 
@@ -398,40 +434,6 @@
         }
     });
 
-    $(function(){
-
-        UI.$html.on('click', '[data-uk-lightbox]', function(e){
-
-            e.preventDefault();
-
-            var link = $(this);
-
-            if (!link.data("lightbox")) {
-                UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
-            }
-
-            link.data("lightbox").show(link);
-        });
-
-        // keyboard navigation
-        UI.$doc.on( 'keyup', function(e) {
-
-            if (modal && modal.is(':visible') && modal.lightbox.options.keyboard) {
-
-                e.preventDefault();
-
-                switch(e.keyCode) {
-                    case 37:
-                        modal.lightbox.previous();
-                        break;
-                    case 39:
-                        modal.lightbox.next();
-                        break;
-                }
-            }
-        });
-    });
-
 
     function getModal(lightbox) {
 
@@ -463,6 +465,11 @@
         }).on("click", "[data-lightbox-previous], [data-lightbox-next]", function(e){
             e.preventDefault();
             modal.lightbox[$(this).is('[data-lightbox-next]') ? 'next':'previous']();
+        });
+
+        // destroy content on modal hide
+        modal.on("hide.uk.modal", function(e) {
+            modal.content.html('');
         });
 
         UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){

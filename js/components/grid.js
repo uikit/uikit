@@ -1,15 +1,14 @@
-/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (jQuery && UIkit) {
+        component = addon(jQuery, UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-grid", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(jQuery, UIkit);
         });
     }
 
@@ -25,6 +24,22 @@
             duration  : 200,
             gutter    : 0,
             controls  : false
+        },
+
+        boot:  function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                UI.$("[data-@-grid]", context).each(function(){
+
+                    var ele = UI.$(this);
+
+                    if(!ele.data("grid")) {
+                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr("data-@-grid")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -246,19 +261,6 @@
 
             this.updateLayout(elements.filter(':visible'));
         }
-    });
-
-    // auto init
-    UI.ready(function(context) {
-
-        $("[data-uk-grid]", context).each(function(){
-
-            var ele = $(this);
-
-            if(!ele.data("grid")) {
-                var plugin = UI.grid(ele, UI.Utils.options(ele.attr("data-uk-grid")));
-            }
-        });
     });
 
 

@@ -1,4 +1,3 @@
-/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */

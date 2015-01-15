@@ -1,4 +1,3 @@
-/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */

@@ -1,4 +1,4 @@
-/*! UIkit 2.16.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.16.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2547,7 +2547,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
    Component: Form
  ========================================================================== */
 /*
- * Except for `submit` and `reset` because specificity is to high for button component
  * 1. Define consistent box sizing.
  *    Default is `content-box` with following exceptions set to `border-box`
  *    `button`, `select`, `input[type="checkbox"]` and `input[type="radio"]`
@@ -2557,7 +2556,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 3. Remove `border-radius` in iOS.
  * 4. Correct `font` properties and `color` not being inherited.
  */
-.uk-form input:not([type="submit"]):not([type="reset"]),
+.uk-form input,
 .uk-form select,
 .uk-form textarea {
   /* 1 */
