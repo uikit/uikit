@@ -483,11 +483,21 @@
  * Avoids setting display to `block` so it works also with `inline-block` and `table`
  */
 
-/* Desktop and bigger */
-@media (min-width: @breakpoint-large) {
+/* Big Desktop and bigger */
+@media (min-width: @breakpoint-xlarge) {
 
     .uk-visible-small { display: none !important; }
     .uk-visible-medium { display: none !important; }
+    .uk-visible-large { display: none !important; }
+    .uk-hidden-xlarge { display: none !important; }
+}
+
+/* Desktop */
+@media (min-width: @breakpoint-large) and (max-width: @breakpoint-large-max) {
+
+    .uk-visible-small { display: none !important; }
+    .uk-visible-medium { display: none !important; }
+    .uk-visible-xlarge { display: none !important; }
     .uk-hidden-large { display: none !important; }
 
 }
@@ -497,6 +507,7 @@
 
     .uk-visible-small { display: none !important; }
     .uk-visible-large { display: none !important ; }
+    .uk-visible-xlarge { display: none !important; }
     .uk-hidden-medium { display: none !important; }
 
 }
@@ -506,6 +517,7 @@
 
     .uk-visible-medium { display: none !important; }
     .uk-visible-large { display: none !important; }
+    .uk-visible-xlarge { display: none !important; }
     .uk-hidden-small { display: none !important; }
 
 }
