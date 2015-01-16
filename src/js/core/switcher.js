@@ -206,7 +206,7 @@
 
         'slide-horizontal': function(current, next, dir) {
 
-            var anim = ['@-animation-slide-left', '@-animation-slide-right'];
+            var anim = ['@-animation-slide-right', '@-animation-slide-left'];
 
             if (current && current.index() > next.index()) {
                 anim.reverse();
