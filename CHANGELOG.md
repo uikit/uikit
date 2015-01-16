@@ -1,18 +1,18 @@
 # Changelog
 
-### 2.16.2 (Januar 15, 2015)
+### 2.16.2 (January 15, 2015)
 
   - Updated modal header and footer
   - Fixed ```data-uk-grid-match``` with target option
 
-### 2.16.1 (Januar 15, 2015)
+### 2.16.1 (January 15, 2015)
   - Added mirroring of icons in RTL mode
   - Added destroy lightbox content on hide
   - Added UIkit.Utils.stackMargin + UIkit.Utils.matchHeights helper methods
   - Updated boot code for accordion, grid and lightbox component
   - Fixed form normalization in form component
 
-### 2.16.0 (Januar 13, 2015)
+### 2.16.0 (January 13, 2015)
   - IMPORTANT: Renamed uk-modal-dialog-frameless to uk-modal-dialog-lightbox
   - Added dynamic grid component
   - Added accordion component
