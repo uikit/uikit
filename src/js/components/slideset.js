@@ -83,7 +83,7 @@
             this.on('click', '[data-uk-set-group]', function(e){
                 e.preventDefault();
                 $this.group = $(this).data('ukSetGroup');
-                $this.updateSets(true);
+                $this.updateSets(true, true);
             });
 
             this.on('swipeRight swipeLeft', function(e) {
@@ -91,16 +91,22 @@
             });
         },
 
-        updateSets: function(animate) {
+        updateSets: function(animate, force) {
 
-            var visible = this.getVisibleOnCurrenBreakpoint(), i;
+            var visible = this.visible, i;
+
+            this.visible  = this.getVisibleOnCurrenBreakpoint();
+
+            if (visible == this.visible && !force) {
+                return;
+            }
 
             this.children = this.list.children().hide();
             this.items    = this.getItems();
-            this.sets     = array_chunk(this.items, visible);
+            this.sets     = array_chunk(this.items, this.visible);
 
             for (i=0;i<this.sets.length;i++) {
-                this.sets[i].attr({'style': 'display:none;', 'class': 'uk-width-1-'+visible});
+                this.sets[i].attr({'style': 'display:none;', 'class': 'uk-width-1-'+this.visible});
             }
 
             // update nav
@@ -228,10 +234,12 @@
                 UI.Utils.checkDisplay(next, true);
 
                 $this.children.hide();
-                $this.sets[setIndex].show();
-                $this.animating = false;
+                next.show();
 
+                $this.animating = false;
                 $this.activeSet = setIndex;
+
+                UI.Utils.checkDisplay(next, true);
 
                 $this.trigger('show.uk.slideset', [next]);
             });
@@ -278,23 +286,15 @@
             return coreAnimation.apply(this, [anim, current, next]);
         },
 
-        'slide-left': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-left', current, next]);
-        },
-
-        'slide-right': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-right', current, next]);
-        },
-
         'slide-horizontal': function(current, next, dir) {
 
-            var anim = ['@-animation-slide-left', '@-animation-slide-right'];
+            var anim = ['@-animation-slide-right', '@-animation-slide-left'];
 
             if (dir == -1) {
                 anim.reverse();
             }
 
-            return coreAnimation.apply(this, [anim, current, next]);
+            return coreAnimation.apply(this, [anim, current, next, dir]);
         },
 
         'scale': function(current, next) {
@@ -306,9 +306,11 @@
 
     // helpers
 
-    function coreAnimation(cls, current, next) {
+    function coreAnimation(cls, current, next, dir) {
 
-        var d = $.Deferred(), clsIn, clsOut, release, delay = Math.floor(this.options.duration/2);
+        var d = $.Deferred(), clsIn, clsOut, release, delay = Math.floor(this.options.duration/2), i;
+
+        dir = dir || 1;
 
         if (next[0]===current[0]) {
             d.resolve();
@@ -329,11 +331,11 @@
                 current.hide().removeClass(UI.prefix(clsOut+' @-animation-reverse')).css({'animation-delay': '', 'animation':''});
             }
 
-            next.each(function(i){
-                $(this).css('animation-delay', (i*delay)+'ms');
-            });
+            for (i=0;i<next.length;i++) {
+                next.eq(dir == 1 ? i:(next.length - i)-1).css('animation-delay', (i*delay)+'ms');
+            }
 
-            next.addClass(clsIn).last().one(UI.support.animation.end, function() {
+            next.addClass(clsIn)[dir==1 ? 'last':'first']().one(UI.support.animation.end, function() {
 
                 next.removeClass(''+clsIn+'').css({opacity:'', display:'', 'animation-delay':'', 'animation':''});
 
@@ -346,13 +348,20 @@
 
         if (current && current.length) {
 
-            current.css('animation-duration', this.options.duration+'ms').last().one(UI.support.animation.end, function() {
+            current.css('animation-duration', this.options.duration+'ms')[dir==1 ? 'last':'first']().one(UI.support.animation.end, function() {
                 release();
-            }).end().each(function(i){
-                setTimeout(function(){
-                    $(this).css('display', 'none').css('display', '').css('opacity', 0).addClass(UI.prefix(clsOut+' @-animation-reverse'));
-                }.bind(this), i * delay);
             });
+
+            for (i=0;i<current.length;i++) {
+
+                (function (index, ele){
+
+                    setTimeout(function(){
+                        ele.css('display', 'none').css('display', '').css('opacity', 0).addClass(UI.prefix(clsOut+' @-animation-reverse'));
+                    }.bind(this), i * delay);
+
+                })(i, current.eq(dir == 1 ? i:(current.length - i)-1));
+            }
 
         } else {
             release();
@@ -365,9 +374,7 @@
 
         var x, i = 0, c = -1, l = input.length || 0, n = [];
 
-        if (size < 1) {
-            return null;
-        }
+        if (size < 1) return null;
 
         while (i < l) {
 
