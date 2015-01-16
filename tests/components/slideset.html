@@ -32,6 +32,38 @@
         <h1>Slideset</h1>
 
 
+        <h2>Simple</h2>
+
+
+        <div class="uk-slideset uk-margin-top" data-uk-slideset="{animation: 'none'}">
+
+            <div class="uk-slidenav-position">
+
+                <ul class="uk-slideset-list uk-grid">
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 1</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 2</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 3</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 4</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 5</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 6</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 7</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 8</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 9</div></li>
+                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 10</div></li>
+                </ul>
+
+                <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
+                <a href="" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
+
+            </div>
+
+            <ul class="uk-slideset-nav uk-dotnav uk-text-center uk-margin-top"></ul>
+
+        </div>
+
+
+        <h2>Animations</h2>
+
         <select id="slideset-animation">
             <option value="none">No animation</option>
             <option value="fade">fade</option>
@@ -70,6 +102,51 @@
 
         </div>
 
+        <h2>Groups</h2>
+
+        <div class="uk-slideset uk-margin-top" data-uk-slideset="{animation: 'scale', group: 'group-1,group-2' }">
+
+            <div class="uk-slidenav-position">
+
+                <ul class="uk-subnav uk-subnav-pill">
+                    <li data-uk-set-group="group-1,group-2"><a>All</a></li>
+                    <li data-uk-set-group="group-1"><a>Group 1</a></li>
+                    <li data-uk-set-group="group-2"><a>Group 2</a></li>
+                </ul>
+
+
+                <ul class="uk-slideset-list uk-grid">
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 1</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 2</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 3</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 4</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 5</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 6</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 7</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 8</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 9</div></li>
+                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 10</div></li>
+
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 1</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 2</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 3</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 4</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 5</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 6</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 7</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 8</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 9</div></li>
+                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 10</div></li>
+                </ul>
+
+                <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
+                <a href="" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
+
+            </div>
+
+            <ul class="uk-slideset-nav uk-dotnav uk-text-center uk-margin-top"></ul>
+
+        </div>
 
     </div>
 </body>

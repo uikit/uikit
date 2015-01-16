@@ -132,6 +132,7 @@
             "components/search",
             "components/slidenav",
             "components/slideshow",
+            "components/slideset",
             "components/sortable",
             "components/sticky",
             "components/timepicker",

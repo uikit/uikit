@@ -23,7 +23,8 @@
         defaults: {
             visible   : {},
             animation : 'scale',
-            duration  : 200
+            duration  : 200,
+            group     : false
         },
 
         sets: [],
@@ -56,6 +57,8 @@
                 $this.updateSets();
             }, 100));
 
+            this.group = this.options.group;
+
             this.updateSets();
 
             this.on("click", '[data-@-set]', function(e) {
@@ -77,17 +80,24 @@
 
             });
 
+            this.on('click', '[data-uk-set-group]', function(e){
+                e.preventDefault();
+                $this.group = $(this).data('ukSetGroup');
+                $this.updateSets(true);
+            });
+
             this.on('swipeRight swipeLeft', function(e) {
                 $this[e.type=='swipeLeft' ? 'next' : 'previous']();
             });
         },
 
-        updateSets: function() {
+        updateSets: function(animate) {
 
             var visible = this.getVisibleOnCurrenBreakpoint(), i;
 
-            this.children = this.list.children();
-            this.sets     = array_chunk(this.children, visible);
+            this.children = this.list.children().hide();
+            this.items    = this.getItems();
+            this.sets     = array_chunk(this.items, visible);
 
             for (i=0;i<this.sets.length;i++) {
                 this.sets[i].attr({'style': 'display:none;', 'class': 'uk-width-1-'+visible});
@@ -101,8 +111,12 @@
                 }
             }
 
+            if (this.group!==false) {
+                this.element.find('[data-uk-set-group]').removeClass('uk-active').filter('[data-uk-set-group="'+this.group+'"]').addClass('uk-active');
+            }
+
             this.activeSet = false;
-            this.show(0, true);
+            this.show(0, !animate);
         },
 
         getVisibleOnCurrenBreakpoint: function() {
@@ -115,7 +129,7 @@
             var breakpoint  = null,
                 tmp         = UI.$('<div style="position:absolute;height:1px;top:-1000px;"></div>').appendTo('body'),
                 breakpoints = $.extend({
-                    'large'  : 6,
+                    'large'  : 4,
                     'medium' : 4,
                     'small'  : 1
                 }, this.options.visible);
@@ -132,6 +146,43 @@
                 tmp.remove();
 
                 return breakpoints[breakpoint] || 3;
+        },
+
+        getItems: function() {
+
+            var items = [], filter;
+
+            if (this.group) {
+
+                filter = this.group || [];
+
+                if (typeof(filter) === 'string') {
+                    filter = filter.split(/,/).map(function(item){ return item.trim(); });
+                }
+
+                this.children.each(function(index){
+
+                    var ele = $(this), f = ele.data('group'), infilter = filter.length ? false : true;
+
+                    if (f) {
+
+                        f = f.split(/,/).map(function(item){ return item.trim(); });
+
+                        filter.forEach(function(item){
+                            if (f.indexOf(item) > -1) infilter = true;
+                        });
+                    }
+
+                    if(infilter) items.push(ele[0]);
+                });
+
+                items = $(items);
+
+            } else {
+                items = this.list.children();
+            }
+
+            return items;
         },
 
         show: function(setIndex, noanimate) {
