@@ -64,7 +64,7 @@
 
         match: function() {
 
-            UI.Utils.matchHeights(this.columns, this.options);
+            UI.Utils.matchHeights(this.elements, this.options);
 
             return this;
         },

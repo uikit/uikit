@@ -172,7 +172,7 @@
 
                             <h2 id="modal-header-footer"><a href="#modal-header-footer" class="uk-link-reset">Modal header and footer</a></h2>
 
-                            <p>You can create a header and footer for your modal, which are seperated from the content. Just add the <code>.uk-modal-header</code> or the <code>.uk-modal-footer</code> class to a block element inside the modal dialog.</p>
+                            <p>You can create a header and footer for your modal, which are seperated from the content. Just add the <code>.uk-modal-header</code> or the <code>.uk-modal-footer</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -180,9 +180,11 @@
                             <div id="modal6" class="uk-modal">
                                 <div class="uk-modal-dialog">
                                     <button type="button" class="uk-modal-close uk-close"></button>
-                                    <h1 class="uk-modal-header">Headline</h1>
+                                    <div class="uk-modal-header">
+                                        <h2>Headline</h2>
+                                    </div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                    <div class="uk-modal-footer">
+                                    <div class="uk-modal-footer uk-text-right">
                                         <button type="button" class="uk-button">Cancel</button>
                                         <button type="button" class="uk-button uk-button-primary">Save</button>
                                     </div>
@@ -193,7 +195,8 @@
 
 <pre><code>&lt;div class="uk-modal"&gt;
     &lt;div class="uk-modal-dialog"&gt;
-        &lt;h1 class="uk-modal-header"&gt;...&lt;/h1&gt;
+        &lt;div class="uk-modal-header"&gt;...&lt;/div&gt;
+        ...
         &lt;div class="uk-modal-footer"&gt;...&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -380,7 +383,7 @@ if ( modal.isActive() ) {
 
                         <h3>Events</h3>
 
-                        <p>The modal component triggers an <code>uk.modal.show</code> event every time a modal is opened and <code>uk.modal.hide</code> when a modal is closed.</p>
+                        <p>The modal component triggers an <code>show.uk.modal</code> event every time a modal is opened and <code>hide.uk.modal</code> when a modal is closed.</p>
 
                         <h3 class="tm-article-subtitle">Example</h3>
 

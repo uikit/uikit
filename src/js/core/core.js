@@ -42,7 +42,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.16.0';
+    UI.version = '2.16.2';
     UI._prefix = 'uk';
 
     UI.noConflict = function(prefix) {
