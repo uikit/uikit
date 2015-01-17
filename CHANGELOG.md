@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+    - Deactivated browser history navigation (for IE 11) in modal
+
 ### 2.16.2 (January 15, 2015)
 
   - Updated modal header and footer
