@@ -224,7 +224,7 @@
 
         UI.modal.dialog(([
             '<div class="@-margin @-modal-content">'+String(content)+'</div>',
-            '<div class="@-modal-buttons"><button class="@-button @-button-primary @-modal-close">Ok</button></div>'
+            '<div class="@-modal-footer uk-text-right"><button class="@-button @-button-primary @-modal-close">Ok</button></div>'
         ]).join("").replace(/@-/g, UI._prefix+'-').replace(/@-/g, UI._prefix+'-'), $.extend({bgclose:false, keyboard:false}, options)).show();
     };
 
@@ -234,7 +234,7 @@
 
         var modal = UI.modal.dialog(([
             '<div class="@-margin @-modal-content">'+String(content)+'</div>',
-            '<div class="@-modal-buttons"><button class="@-button @-button-primary js-modal-confirm">Ok</button> <button class="@-button @-modal-close">Cancel</button></div>'
+            '<div class="@-modal-footer uk-text-right"><button class="@-button @-button-primary js-modal-confirm">Ok</button> <button class="@-button @-modal-close">Cancel</button></div>'
         ]).join("").replace(/@-/g, UI._prefix+'-'), $.extend({bgclose:false, keyboard:false}, options));
 
         modal.element.find(".js-modal-confirm").on("click", function(){
