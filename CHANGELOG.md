@@ -2,6 +2,8 @@
 
 ### WIP
 
+  - IMPORTANT: Removed caption component, use overlay instead
+
   **Docs and Repo**
 
   - Updated animation docs
