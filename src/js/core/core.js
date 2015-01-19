@@ -699,19 +699,21 @@
     // add uk-hover class on tap to support overlays on touch devices
     if (UI.support.touch) {
 
-        var hoverset = false, exclude, selector = '.@-overlay, .@-overlay-toggle, .@-caption-toggle, .@-animation-hover, .@-has-hover';
+        var hoverset = false, exclude, hovercls = UI.prefix('@-hover'), selector = UI.prefix('.@-overlay, .@-overlay-toggle, .@-caption-toggle, .@-animation-hover, .@-has-hover');
 
         UI.$html.on('touchstart MSPointerDown pointerdown', selector, function() {
 
-            if (hoverset) UI.$('.@-hover').removeClass('@-hover');
+            if (hoverset) $('.'+hovercls).removeClass(hovercls);
 
-            hoverset = UI.$(this).addClass('@-hover');
+            hoverset = $(this).addClass(hovercls);
 
         }).on('touchend MSPointerUp pointerup', function(e) {
 
-            exclude = UI.$(e.target).parents(selector);
+            exclude = $(e.target).parents(selector);
 
-            if (hoverset) hoverset.not(exclude).removeClass('@-hover');
+            if (hoverset) {
+                hoverset.not(exclude).removeClass(hovercls);
+            }
         });
     }
 
