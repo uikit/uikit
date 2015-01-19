@@ -72,7 +72,121 @@
 .uk-overlay > :first-child { margin-bottom: 0; }
 
 
-/* Sub-object `uk-overlay-area`
+
+
+
+
+
+
+/* Sub-object `uk-overlay-panel`
+ ========================================================================== */
+
+@overlay-panel-padding:                         20px;
+@overlay-panel-color:                           #fff;
+
+/*
+ * 1. Position cover
+ * 2. Style
+ */
+
+.uk-overlay-panel {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* 2 */
+    padding: @overlay-panel-padding;
+    color: @overlay-panel-color;
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-overlay-panel > :last-child { margin-bottom: 0; }
+
+/*
+ * Keep color for headings if the default heading color is changed
+ */
+
+.uk-overlay-panel h1,
+.uk-overlay-panel h2,
+.uk-overlay-panel h3,
+.uk-overlay-panel h4,
+.uk-overlay-panel h5,
+.uk-overlay-panel h6 { color: inherit; }
+
+.uk-overlay-panel a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Sub-object `uk-overlay-hover` and `uk-overlay-active`
+ ========================================================================== */
+
+.uk-overlay-hover:not(:hover):not(.uk-hover) .uk-overlay-panel { display: none; }
+
+.uk-overlay-active :not(.uk-active) > .uk-overlay-panel { display: none; }
+
+
+
+
+/* Position modifiers
+ ========================================================================== */
+
+.uk-overlay-top { bottom: auto; }
+
+.uk-overlay-bottom { top: auto; }
+
+.uk-overlay-left { right: auto; }
+
+.uk-overlay-right { left: auto; }
+
+
+/* Sub-object `uk-overlay-icon`
+ ========================================================================== */
+
+.uk-overlay-icon:before {
+    content: @overlay-area-icon;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: @overlay-area-icon-size;
+    height: @overlay-area-icon-size;
+    margin-top: -(@overlay-area-icon-size / 2);
+    margin-left: -(@overlay-area-icon-size / 2);
+    font-size: @overlay-area-icon-size;
+    line-height: 1;
+    font-family: FontAwesome;
+    text-align: center;
+    color: @overlay-area-icon-color;
+}
+
+
+/* Sub-object `uk-overlay-background`
+ ========================================================================== */
+
+@overlay-panel-background:                      rgba(0,0,0,0.5);
+
+.uk-overlay-background {
+    background: @overlay-panel-background;
+}
+
+
+.uk-overlay [class*='uk-animation-'] {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+}
+
+
+
+
+
+/* DEPRECATED
+ * Sub-object `uk-overlay-area`
  ========================================================================== */
 
 /*
@@ -131,7 +245,8 @@
 }
 
 
-/* Sub-object `uk-overlay-area-content`
+/* DEPRECATED
+ * Sub-object `uk-overlay-area-content`
  ========================================================================== */
 
 /*
