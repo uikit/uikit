@@ -3,6 +3,8 @@
 ### WIP
 
   - IMPORTANT: Removed caption component, use overlay instead
+  - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
+  - Reworked Overlay component completely
 
   **Docs and Repo**
 

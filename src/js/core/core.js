@@ -699,7 +699,7 @@
     // add uk-hover class on tap to support overlays on touch devices
     if (UI.support.touch) {
 
-        var hoverset = false, exclude, hovercls = UI.prefix('@-hover'), selector = UI.prefix('.@-overlay, .@-overlay-toggle, .@-caption-toggle, .@-animation-hover, .@-has-hover');
+        var hoverset = false, exclude, hovercls = UI.prefix('@-hover'), selector = UI.prefix('.@-overlay, .@-overlay-hover, .@-overlay-toggle, .@-animation-hover, .@-has-hover');
 
         UI.$html.on('touchstart MSPointerDown pointerdown', selector, function() {
 

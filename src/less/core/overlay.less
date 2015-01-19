@@ -3,7 +3,25 @@
 //
 // Component:       `uk-overlay`
 //
-// Sub-objects:     `uk-overlay-area`
+// Sub-objects:     `uk-overlay-panel`
+//                  `uk-overlay-hover`
+//                  `uk-overlay-active`
+//                  `uk-overlay-icon`
+//
+// Modifier:        `uk-overlay-background`
+//                  `uk-overlay-top`
+//                  `uk-overlay-bottom`
+//                  `uk-overlay-left`
+//                  `uk-overlay-right`
+//                  `uk-overlay-fade`
+//                  `uk-overlay-scale`
+//                  `uk-overlay-spin`
+//                  `uk-overlay-slide-top`
+//                  `uk-overlay-slide-bottom`
+//                  `uk-overlay-slide-left`
+//                  `uk-overlay-slide-right`
+//
+// DEPRECATED:      `uk-overlay-area`
 //                  `uk-overlay-area-content`
 //                  `uk-overlay-caption`
 //                  `uk-overlay-toggle`
@@ -15,7 +33,7 @@
 // <!-- uk-overlay -->
 // <a class="uk-overlay" href="">
 //     <img src="" alt="">
-//     <div class="uk-overlay-area"></div>
+//     <div class="uk-overlay-panel"></div>
 // </a>
 //
 // ========================================================================
@@ -24,6 +42,16 @@
 // Variables
 // ========================================================================
 
+@overlay-panel-padding:                         20px;
+@overlay-panel-color:                           #fff;
+
+@overlay-panel-background:                      rgba(0,0,0,0.5);
+
+@overlay-icon:                                  "\f002";
+@overlay-icon-size:                             50px;
+@overlay-icon-color:                            #fff;
+
+// DEPRECATED
 @overlay-area-background:                       rgba(0,0,0,0.3);
 
 @overlay-area-icon:                             "\f002";
@@ -72,17 +100,8 @@
 .uk-overlay > :first-child { margin-bottom: 0; }
 
 
-
-
-
-
-
-
 /* Sub-object `uk-overlay-panel`
  ========================================================================== */
-
-@overlay-panel-padding:                         20px;
-@overlay-panel-color:                           #fff;
 
 /*
  * 1. Position cover
@@ -99,6 +118,7 @@
     /* 2 */
     padding: @overlay-panel-padding;
     color: @overlay-panel-color;
+    .hook-overlay-panel;
 }
 
 /*
@@ -127,11 +147,18 @@
 /* Sub-object `uk-overlay-hover` and `uk-overlay-active`
  ========================================================================== */
 
-.uk-overlay-hover:not(:hover):not(.uk-hover) .uk-overlay-panel { display: none; }
+.uk-overlay-hover:not(:hover):not(.uk-hover) .uk-overlay-panel { opacity: 0; }
 
-.uk-overlay-active :not(.uk-active) > .uk-overlay-panel { display: none; }
+.uk-overlay-active :not(.uk-active) > .uk-overlay-panel { opacity: 0; }
 
 
+/* Modifier `uk-overlay-background`
+ ========================================================================== */
+
+.uk-overlay-background {
+    background: @overlay-panel-background;
+    .hook-overlay-background;
+}
 
 
 /* Position modifiers
@@ -150,39 +177,102 @@
  ========================================================================== */
 
 .uk-overlay-icon:before {
-    content: @overlay-area-icon;
+    content: @overlay-icon;
     position: absolute;
     top: 50%;
     left: 50%;
-    width: @overlay-area-icon-size;
-    height: @overlay-area-icon-size;
-    margin-top: -(@overlay-area-icon-size / 2);
-    margin-left: -(@overlay-area-icon-size / 2);
-    font-size: @overlay-area-icon-size;
+    width: @overlay-icon-size;
+    height: @overlay-icon-size;
+    margin-top: -(@overlay-icon-size / 2);
+    margin-left: -(@overlay-icon-size / 2);
+    font-size: @overlay-icon-size;
     line-height: 1;
     font-family: FontAwesome;
     text-align: center;
-    color: @overlay-area-icon-color;
+    color: @overlay-icon-color;
+    .hook-overlay-icon;
 }
 
 
-/* Sub-object `uk-overlay-background`
+/* Transitions
  ========================================================================== */
 
-@overlay-panel-background:                      rgba(0,0,0,0.5);
-
-.uk-overlay-background {
-    background: @overlay-panel-background;
+.uk-overlay-fade,
+.uk-overlay-scale,
+.uk-overlay-spin,
+[class*='uk-overlay-slide'] {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+    transition-property: opacity transform;
 }
 
+/*
+ * Scale
+ */
 
-.uk-overlay [class*='uk-animation-'] {
-    -webkit-animation-duration: 0.3s;
-    animation-duration: 0.3s;
+.uk-overlay-scale {
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }
 
+.uk-overlay-hover:hover .uk-overlay-scale,
+.uk-overlay-active .uk-active > .uk-overlay-scale {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
 
+/*
+ * Spin
+ */
 
+.uk-overlay-spin {
+    -webkit-transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
+}
+
+.uk-overlay-hover:hover .uk-overlay-spin,
+.uk-overlay-active .uk-active > .uk-overlay-spin {
+    -webkit-transform: scale(1.1) rotate(3deg);
+    transform: scale(1.1) rotate(3deg);
+}
+
+/*
+ * Slide
+ */
+
+[class*='uk-overlay-slide'] { opacity: 0; }
+
+/* Top */
+.uk-overlay-slide-top {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+}
+
+/* Bottom */
+.uk-overlay-slide-bottom {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+}
+
+/* Left */
+.uk-overlay-slide-left {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+/* Right */
+.uk-overlay-slide-right {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+/* Hover */
+.uk-overlay-hover:hover [class*='uk-overlay-slide'],
+.uk-overlay-active .uk-active > [class*='uk-overlay-slide'] {
+    opacity: 1;
+    -webkit-transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0);
+}
 
 
 /* DEPRECATED
@@ -350,8 +440,13 @@
 
 .hook-overlay-misc;
 
+.hook-overlay-panel() {}
+.hook-overlay-background() {}
+.hook-overlay-icon() {}
+.hook-overlay-misc() {}
+
+// DEPRECATED
 .hook-overlay-area() {}
 .hook-overlay-area-icon() {}
 .hook-overlay-area-content() {}
 .hook-overlay-caption() {}
-.hook-overlay-misc() {}
