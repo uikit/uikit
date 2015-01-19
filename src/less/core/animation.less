@@ -70,13 +70,6 @@
     animation-timing-function: linear !important;
 }
 
-.uk-animation-fade-small {
-    -webkit-animation-name: uk-fade-8;
-    animation-name: uk-fade-8;
-}
-
-.uk-animation-fade-small:not(.uk-animation-reverse) { opacity: 0.8; }
-
 /*
  * Fade with scale
  */
@@ -120,27 +113,8 @@
  */
 
 .uk-animation-scale {
-    -webkit-animation-name: uk-scale-11;
-    animation-name: uk-scale-11;
-}
-
-.uk-animation-scale:not(.uk-animation-reverse) {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-}
-
-/*
- * Spin
- */
-
-.uk-animation-spin {
-    -webkit-animation-name: uk-spin-11;
-    animation-name: uk-spin-11;
-}
-
-.uk-animation-spin:not(.uk-animation-reverse) {
-    -webkit-transform: scale(1.1) rotate(3deg);
-    transform: scale(1.1) rotate(3deg);
+    -webkit-animation-name: uk-scale-12;
+    animation-name: uk-scale-12;
 }
 
 /*
@@ -222,7 +196,7 @@
 
 /*
  * Enable animation only on hover
- * Needed for Firefox because animations are not triggered when switching between display `hidden` and `block`
+ * Note: Firefox also needs this because animations are not triggered when switching between display `hidden` and `block`
  */
 
 .uk-animation-hover:not(:hover),
@@ -238,10 +212,6 @@
  * Used by dropdown, datepicker and slideshow component
  ========================================================================== */
 
-/*
- * 100%
- */
-
 @-webkit-keyframes uk-fade {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -249,20 +219,6 @@
 
 @keyframes uk-fade {
     0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/*
- * 20%
- */
-
-@-webkit-keyframes uk-fade-8 {
-    0% { opacity: 0.8; }
-    100% { opacity: 1; }
-}
-
-@keyframes uk-fade-8 {
-    0% { opacity: 0.8; }
     100% { opacity: 1; }
 }
 
@@ -522,28 +478,14 @@
 /* Keyframes: Scale
  ========================================================================== */
 
-@-webkit-keyframes uk-scale-11 {
-    0% { -webkit-transform: scale(1.1); }
+@-webkit-keyframes uk-scale-12 {
+    0% { -webkit-transform: scale(1.2); }
     100% { -webkit-transform: scale(1); }
 }
 
-@keyframes uk-scale-11 {
-    0% { transform: scale(1.1); }
+@keyframes uk-scale-12 {
+    0% { transform: scale(1.2); }
     100% { transform: scale(1); }
-}
-
-
-/* Keyframes: Spin
- ========================================================================== */
-
-@-webkit-keyframes uk-spin-11 {
-    0% { -webkit-transform: scale(1.1) rotate(3deg); }
-    100% { -webkit-transform: scale(1) rotate(0deg); }
-}
-
-@keyframes uk-spin-11 {
-    0% { transform: scale(1.1) rotate(3deg); }
-    100% { transform: scale(1) rotate(0deg); }
 }
 
 

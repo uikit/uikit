@@ -1,5 +1,11 @@
 # Changelog
 
+### WIP
+
+  **Docs and Repo**
+
+  - Updated animation docs
+
 ### 2.16.2 (January 15, 2015)
 
   - Updated modal header and footer
