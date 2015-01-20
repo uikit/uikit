@@ -218,7 +218,7 @@
         return modal;
     };
 
-    UI.modal.dialog.template = '<div class="@-modal"><div class="@-modal-dialog"></div></div>';
+    UI.modal.dialog.template = '<div class="@-modal"><div class="@-modal-dialog" style="min-height:0;"></div></div>';
 
     UI.modal.alert = function(content, options) {
 
