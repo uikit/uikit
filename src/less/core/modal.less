@@ -64,6 +64,7 @@
  * 3. Allow scrolling for the modal dialog
  * 4. Mask the background page
  * 5. Fade-in transition
+ * 6. Deactivate browser history navigation in IE11
  */
 
 .uk-modal {
@@ -85,6 +86,8 @@
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
+    /* 6 */
+    touch-action: cross-slide-y pinch-zoom double-tap-zoom;
     .hook-modal;
 }
 
