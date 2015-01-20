@@ -290,7 +290,7 @@
 
         if (start != -1) {
             try {
-                options = UI.Utils.str2json(string.substr(start), true);
+                options = UI.Utils.str2json(string.substr(start));
             } catch (e) {}
         }
 
