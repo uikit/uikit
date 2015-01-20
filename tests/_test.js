@@ -14,7 +14,6 @@
         'dist/css/components/flex{style}.css',
         'dist/css/components/accordion{style}.css',
         'dist/css/components/autocomplete{style}.css',
-        'dist/css/components/caption{style}.css',
         'dist/css/components/cover{style}.css',
         'dist/css/components/datepicker{style}.css',
         'dist/css/components/dotnav{style}.css',
@@ -113,7 +112,6 @@
 
             "components/accordion",
             "components/autocomplete",
-            "components/caption",
             "components/cover",
             "components/datepicker",
             "components/dotnav",
