@@ -4,11 +4,13 @@
 
   - IMPORTANT: Removed caption component (Use overlay component)
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
-  - Reworked Overlay component completely
+  - Added new classes to overlay component and reworked it completely
+  - Added new hover classes to panel component
 
   **Docs and Repo**
 
   - Updated overlay docs and tests
+  - Updated panel docs and tests
   - Updated animation docs
 
 ### 2.16.2 (January 15, 2015)
