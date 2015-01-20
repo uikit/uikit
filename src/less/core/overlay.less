@@ -27,6 +27,8 @@
 //                  `uk-overlay-toggle`
 //
 // States:          `uk-hover`
+//                  `uk-active`
+//                  `uk-ignore`
 //
 // Markup:
 //
@@ -147,9 +149,9 @@
 /* Sub-object `uk-overlay-hover` and `uk-overlay-active`
  ========================================================================== */
 
-.uk-overlay-hover:not(:hover):not(.uk-hover) .uk-overlay-panel { opacity: 0; }
+.uk-overlay-hover:not(:hover):not(.uk-hover) .uk-overlay-panel:not(.uk-ignore) { opacity: 0; }
 
-.uk-overlay-active :not(.uk-active) > .uk-overlay-panel { opacity: 0; }
+.uk-overlay-active :not(.uk-active) > .uk-overlay-panel:not(.uk-ignore) { opacity: 0; }
 
 
 /* Modifier `uk-overlay-background`
@@ -205,6 +207,15 @@
     transition-timing-function: ease-out;
     transition-property: opacity transform;
 }
+
+/*
+ * Fade
+ */
+
+.uk-overlay-fade { opacity: 0.7; }
+
+.uk-overlay-hover:hover .uk-overlay-fade,
+.uk-overlay-active .uk-active > .uk-overlay-fade { opacity: 1; }
 
 /*
  * Scale
