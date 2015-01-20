@@ -12,10 +12,15 @@
    Component: Switcher
  ========================================================================== */
 
+/*
+ * 1. Deactivate browser history navigation in IE11
+ */
 .uk-switcher {
     margin: 0;
     padding: 0;
     list-style: none;
+    /* 1 */
+    touch-action: cross-slide-y pinch-zoom double-tap-zoom;
 }
 
 /*
