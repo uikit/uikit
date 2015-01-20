@@ -175,18 +175,19 @@
 
     UI.Utils = {};
 
-    UI.Utils.str2json = function(str) {
-        return str
-        // wrap keys without quote with valid double quote
-        .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
-        // replacing single quote wrapped ones to double quote
-        .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';});
-
-        /* old method:
-            try {
+    UI.Utils.str2json = function(str, notevil) {
+        try {
+            if (notevil) {
+                return JSON.parse(str
+                    // wrap keys without quote with valid double quote
+                    .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
+                    // replacing single quote wrapped ones to double quote
+                    .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';})
+                );
+            } else {
                 return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
-            } catch(e) { return false; }
-        */
+            }
+        } catch(e) { return false; }
     };
 
     UI.Utils.debounce = function(func, wait, immediate) {
@@ -289,7 +290,7 @@
 
         if (start != -1) {
             try {
-                options = JSON.parse(UI.Utils.str2json(string.substr(start)));
+                options = UI.Utils.str2json(string.substr(start));
             } catch (e) {}
         }
 
@@ -699,19 +700,21 @@
     // add uk-hover class on tap to support overlays on touch devices
     if (UI.support.touch) {
 
-        var hoverset = false, exclude, selector = '.@-overlay, .@-overlay-toggle, .@-caption-toggle, .@-animation-hover, .@-has-hover';
+        var hoverset = false, exclude, hovercls = UI.prefix('@-hover'), selector = UI.prefix('.@-overlay, .@-overlay-hover, .@-overlay-toggle, .@-animation-hover, .@-has-hover');
 
         UI.$html.on('touchstart MSPointerDown pointerdown', selector, function() {
 
-            if (hoverset) UI.$('.@-hover').removeClass('@-hover');
+            if (hoverset) $('.'+hovercls).removeClass(hovercls);
 
-            hoverset = UI.$(this).addClass('@-hover');
+            hoverset = $(this).addClass(hovercls);
 
         }).on('touchend MSPointerUp pointerup', function(e) {
 
-            exclude = UI.$(e.target).parents(selector);
+            exclude = $(e.target).parents(selector);
 
-            if (hoverset) hoverset.not(exclude).removeClass('@-hover');
+            if (hoverset) {
+                hoverset.not(exclude).removeClass(hovercls);
+            }
         });
     }
 

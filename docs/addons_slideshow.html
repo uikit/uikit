@@ -86,7 +86,7 @@
 
                             <h1>Slideshow</h1>
 
-                            <p class="uk-article-lead">Create a responsive image or video slideshow with stunning transition effects, fullscreen mode and captions.</p>
+                            <p class="uk-article-lead">Create a responsive image or video slideshow with stunning transition effects, fullscreen mode and overlays.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
@@ -423,20 +423,20 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="captions"><a href="#captions" class="uk-link-reset">Captions</a></h2>
+                            <h2 id="overlays"><a href="#overlays" class="uk-link-reset">Overlays</a></h2>
 
-                            <p>You can also enhance slideshows with different captions. Just include the <code>caption.js</code> file in your document head and add the <code>.uk-caption</code> to a <code>&lt;div&gt;</code> element inside the list item. For more options, check out the <a href="addons_caption.html">Caption component</a>.</p>
+                            <p>You can also enhance slideshows with different overlays. Just add the <code>.uk-uk-overlay-panel</code> to a <code>&lt;div&gt;</code> element inside the list item. Also add <code>.uk-overlay-background</code> and  <code>.uk-overlay-fade</code> to show a background and a transition. To toggle the overlay once a slide becomes active add the <code>.uk-uk-overlay-active</code> to the list container. For more options, check out the <a href="overlay.html">Overlay component</a>.</p>
 
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-slidenav-position" data-uk-slideshow>
-                                <ul class="uk-slideshow">
+                                <ul class="uk-slideshow uk-overlay-active">
                                     <li>
                                         <img src="images/placeholder_800x400_1.jpg" width="800" height="400" alt="">
-                                        <div class="uk-caption uk-caption-panel uk-animation-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade uk-flex uk-flex-center uk-flex-middle uk-text-center">
                                             <div>
-                                                <h3>Caption</h3>
+                                                <h3>Overlay</h3>
                                                 <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr,<br>sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
                                                 <button class="uk-button uk-button-primary">Button</button>
                                             </div>
@@ -444,32 +444,32 @@
                                     </li>
                                     <li>
                                         <img src="images/placeholder_800x400_2.jpg" width="800" height="400" alt="">
-                                        <div class="uk-caption uk-caption-top uk-caption-panel uk-animation-slide-top">
-                                            <h3>Caption Top</h3>
+                                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-top uk-overlay-slide-top">
+                                            <h3>Overlay Top</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
                                             <button class="uk-button uk-button-primary">Button</button>
                                         </div>
                                     </li>
                                     <li>
                                         <img src="images/placeholder_800x400_3.jpg" width="800" height="400" alt="">
-                                        <div class="uk-caption uk-caption-bottom uk-caption-panel uk-animation-slide-bottom">
-                                            <h3>Caption Bottom</h3>
+                                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-overlay-slide-bottom">
+                                            <h3>Overlay Bottom</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
                                             <button class="uk-button uk-button-primary">Button</button>
                                         </div>
                                     </li>
                                     <li>
                                         <img src="images/placeholder_800x400_1.jpg" width="800" height="400" alt="">
-                                        <div class="uk-caption uk-caption-left uk-caption-panel uk-animation-slide-left uk-width-1-4">
-                                            <h3>Caption Left</h3>
+                                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-left uk-overlay-slide-left uk-width-1-4">
+                                            <h3>Overlay Left</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
                                             <button class="uk-button uk-button-primary">Button</button>
                                         </div>
                                     </li>
                                     <li>
                                         <img src="images/placeholder_800x400_2.jpg" width="800" height="400" alt="">
-                                        <div class="uk-caption uk-caption-right uk-caption-panel uk-animation-slide-right uk-width-1-4">
-                                            <h3>Caption Right</h3>
+                                        <div class="uk-overlay-panel uk-overlay-background uk-overlay-right uk-overlay-slide-right uk-width-1-4">
+                                            <h3>Overlay Right</h3>
                                             <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
                                             <button class="uk-button uk-button-primary">Button</button>
                                         </div>
@@ -481,10 +481,10 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-slideshow" data-uk-slideshow&gt;
+<pre><code>&lt;ul class="uk-slideshow uk-overlay-active" data-uk-slideshow&gt;
     &lt;li&gt;
         &lt;img src="" width="" height="" alt=""&gt;
-        &lt;div class="uk-caption"&gt;...&lt;/div&gt;
+        &lt;div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"&gt;...&lt;/div&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
