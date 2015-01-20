@@ -175,18 +175,19 @@
 
     UI.Utils = {};
 
-    UI.Utils.str2json = function(str) {
-        return str
-        // wrap keys without quote with valid double quote
-        .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
-        // replacing single quote wrapped ones to double quote
-        .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';});
-
-        /* old method:
-            try {
+    UI.Utils.str2json = function(str, notevil) {
+        try {
+            if (notevil) {
+                return JSON.parse(str
+                    // wrap keys without quote with valid double quote
+                    .replace(/([\$\w]+)\s*:/g, function(_, $1){return '"'+$1+'":';})
+                    // replacing single quote wrapped ones to double quote
+                    .replace(/'([^']+)'/g, function(_, $1){return '"'+$1+'"';})
+                );
+            } else {
                 return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
-            } catch(e) { return false; }
-        */
+            }
+        } catch(e) { return false; }
     };
 
     UI.Utils.debounce = function(func, wait, immediate) {
@@ -289,7 +290,7 @@
 
         if (start != -1) {
             try {
-                options = JSON.parse(UI.Utils.str2json(string.substr(start)));
+                options = UI.Utils.str2json(string.substr(start), true);
             } catch (e) {}
         }
 
