@@ -7,6 +7,7 @@
   - Added new classes to overlay component and reworked it completely
   - Added new hover classes to panel component
   - Deactivated browser history navigation (for IE 11) in modal
+  - Added swipe gestures to switcher
 
   **Docs and Repo**
 
