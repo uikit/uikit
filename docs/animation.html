@@ -14,32 +14,6 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script>
-            $(function(){
-                $(document).on('click', '[data-docs-animation]', function() {
-
-                    var element   = $(this),
-                        animation = element.data("docsAnimation"),
-                        duration  = element.hasClass('uk-animation-10') ? 10000 : 500;
-
-                    if (element.data("anim-idle")) {
-                        clearTimeout(element.data("anim-idle"));
-                    }
-
-                    element.removeClass(animation);
-
-                    setTimeout(function(){
-                        element.addClass(animation);
-
-                        element.data("anim-idle", setTimeout(function(){
-                                element.removeClass(animation);
-                                element.data("anim-idle", false);
-                        }, duration));
-
-                    }, 50);
-                });
-            });
-        </script>
     </head>
 
     <body class="tm-background">
@@ -188,37 +162,37 @@
                             <p>Click on any of the boxes to see the animation.</p>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-fade" data-docs-animation="uk-animation-fade">Fade</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-fade">Fade</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale-up" data-docs-animation="uk-animation-scale-up">Scale up</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale-up">Scale up</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale-down" data-docs-animation="uk-animation-scale-down">Scale down</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale-down">Scale down</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-shake" data-docs-animation="uk-animation-shake">Shake</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-shake">Shake</div>
                                 </div>
                             </div>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-top" data-docs-animation="uk-animation-slide-top">Slide top</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-top">Slide top</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-bottom" data-docs-animation="uk-animation-slide-bottom">Slide bottom</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-bottom">Slide bottom</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-left" data-docs-animation="uk-animation-slide-left">Slide left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-left">Slide left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-right" data-docs-animation="uk-animation-slide-right">Slide right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-right">Slide right</div>
                                 </div>
                             </div>
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale" data-docs-animation="uk-animation-scale">Scale</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale">Scale</div>
                                 </div>
                             </div>
 
@@ -237,37 +211,37 @@
                             <p>Click on any of the boxes to see the animation.</p>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-fade">Fade</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-fade">Fade</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-scale-up">Scale up</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale-up">Scale up</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-scale-down">Scale down</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale-down">Scale down</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-shake">Shake</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-shake">Shake</div>
                                 </div>
                             </div>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-top">Slide top</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-top">Slide top</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-bottom">Slide bottom</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-bottom">Slide bottom</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-left">Slide left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-left">Slide left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-right">Slide right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-right">Slide right</div>
                                 </div>
                             </div>
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-scale">Scale</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale">Scale</div>
                                 </div>
                             </div>
 
@@ -284,8 +258,8 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-grid uk-text-center">
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-right uk-animation-10" data-docs-animation="uk-animation-slide-right">Slide right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-right uk-animation-10">Slide right</div>
                                 </div>
                             </div>
 
@@ -349,32 +323,32 @@
                             <p>Click on any of the boxes to see the animation.</p>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-left" data-docs-animation="uk-animation-scale">Top Left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-left">Top Left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-center" data-docs-animation="uk-animation-scale">Top Center</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-center">Top Center</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-right" data-docs-animation="uk-animation-scale">Top Right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-right">Top Right</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-left" data-docs-animation="uk-animation-scale">Middle Left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-left">Middle Left</div>
                                 </div>
                             </div>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-right" data-docs-animation="uk-animation-scale">Middle Right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-right">Middle Right</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-left" data-docs-animation="uk-animation-scale">Bottom Left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-left">Bottom Left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-center" data-docs-animation="uk-animation-scale">Bottom Center</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-center">Bottom Center</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-right" data-docs-animation="uk-animation-scale">Bottom Right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-right">Bottom Right</div>
                                 </div>
                             </div>
 
@@ -529,7 +503,6 @@
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
