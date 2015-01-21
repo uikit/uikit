@@ -4,11 +4,12 @@
 
   - IMPORTANT: Removed caption component (Use overlay component)
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
-  - Added new classes to overlay component and reworked it completely
+  - Reworked overlay component completely
+  - Added gutter collapse and large classes to grid component
+  - Added hover classes to panel component
   - Added new hover classes to panel component
-  - Deactivated browser history navigation (for IE 11) in modal
-  - Added swipe gestures to switcher
-
+  - Deactivated browser history navigation in modal for IE11
+  
   **Docs and Repo**
 
   - Updated overlay docs and tests
