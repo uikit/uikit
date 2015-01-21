@@ -8,7 +8,6 @@
 //
 // Modifiers:       `uk-grid-collapse`
 //                  `uk-grid-small`
-//                  `uk-grid-large`
 //                  `uk-grid-divider`
 //                  `uk-grid-margin`
 //                  `uk-grid-match`
@@ -174,19 +173,6 @@
 .uk-grid-small + .uk-grid-small,
 .uk-grid-small > .uk-grid-margin,
 .uk-grid-small > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-small-vertical; }
-
-/*
- * Large gutter
- */
-
-/* Horizontal */
-.uk-grid-large { margin-left: -@grid-gutter-large-horizontal; }
-.uk-grid-large > * { padding-left: @grid-gutter-large-horizontal; }
-
-/* Vertical */
-.uk-grid-large + .uk-grid-large,
-.uk-grid-large > .uk-grid-margin,
-.uk-grid-large > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
 
 
 /* Modifier: `uk-grid-divider`
