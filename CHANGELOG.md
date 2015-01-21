@@ -3,6 +3,7 @@
 ### WIP
 
   - IMPORTANT: Removed caption component (Use overlay component)
+  - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-large)
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
   - Reworked overlay component completely
   - Added gutter collapse and large classes to grid component
