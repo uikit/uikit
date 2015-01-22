@@ -8,6 +8,7 @@
 //
 // Modifiers:       `uk-grid-collapse`
 //                  `uk-grid-small`
+//                  `uk-grid-medium`
 //                  `uk-grid-divider`
 //                  `uk-grid-margin`
 //                  `uk-grid-match`
@@ -173,6 +174,19 @@
 .uk-grid-small + .uk-grid-small,
 .uk-grid-small > .uk-grid-margin,
 .uk-grid-small > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-small-vertical; }
+
+/*
+ * Medium gutter
+ */
+
+/* Horizontal */
+.uk-grid-medium { margin-left: -@grid-gutter-horizontal; }
+.uk-grid-medium > * { padding-left: @grid-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid-medium + .uk-grid-medium,
+.uk-grid-medium > .uk-grid-margin,
+.uk-grid-medium > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
 
 
 /* Modifier: `uk-grid-divider`
