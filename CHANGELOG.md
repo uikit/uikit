@@ -3,15 +3,21 @@
 ### WIP
 
   - IMPORTANT: Removed caption component (Use overlay component)
+  - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-medium)
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
-  - Added new classes to overlay component and reworked it completely
+  - Reworked overlay component completely
+  - Added gutter collapse and medium classes to grid component
+  - Added hover classes to panel component
   - Added new hover classes to panel component
-
+  - Deactivated browser history navigation in modal for IE11
+  
   **Docs and Repo**
 
   - Updated overlay docs and tests
   - Updated panel docs and tests
+  - Updated grid docs and tests
   - Updated animation docs
+  - Updated text tests
 
 ### 2.16.2 (January 15, 2015)
 

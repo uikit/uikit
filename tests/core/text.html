@@ -7,6 +7,11 @@
         <title>Utility component - UIkit tests</title>
 
         <script src="../_test.js"></script>
+        <style type="text/css">
+
+            .test { background: black; }
+
+        </style>
     </head>
 
     <body>
@@ -14,6 +19,31 @@
         <div class="uk-container uk-container-center">
 
             <h1>Text</h1>
+
+            <h2>Colors</h2>
+
+            <div class="uk-grid">
+                <div class="uk-width-1-2">
+                    <ul class="uk-list">
+                        <li><span class="uk-text-muted">text-muted</span></li>
+                        <li><span class="uk-text-primary">text-primary</span></li>
+                        <li><span class="uk-text-success">text-success</span></li>
+                        <li><span class="uk-text-warning">text-warning</span></li>
+                        <li><span class="uk-text-danger">text-danger</span></li>
+                        <li><span class="uk-text-contrast test">text-contrast</span></li>
+                    </ul>
+                </div>
+                <div class="uk-width-1-2">
+                    <ul class="uk-list">
+                        <li><a class="uk-text-muted" href="#">Link with text-muted</a></li>
+                        <li><a class="uk-text-primary" href="#">Link with text-primary</a></li>
+                        <li><a class="uk-text-success" href="#">Link with text-success</a></li>
+                        <li><a class="uk-text-warning" href="#">Link with text-warning</a></li>
+                        <li><a class="uk-text-danger" href="#">Link with text-danger</a></li>
+                        <li><a class="uk-text-contrast test" href="#">Link with text-contrast</a></li>
+                    </ul>
+                </div>
+            </div>
 
             <h2>Truncate</h2>
 

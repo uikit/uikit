@@ -65,6 +65,9 @@
                             default:
                                 $this.show(item);
                         }
+                    }).on('swipeRight swipeLeft', function(e) {
+                        e.preventDefault();
+                        $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
                     });
                 }
 
