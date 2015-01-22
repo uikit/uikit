@@ -16,6 +16,7 @@
 //                  `uk-overlay-fade`
 //                  `uk-overlay-scale`
 //                  `uk-overlay-spin`
+//                  `uk-overlay-grayscale`
 //                  `uk-overlay-slide-top`
 //                  `uk-overlay-slide-bottom`
 //                  `uk-overlay-slide-left`
@@ -53,6 +54,17 @@
 @overlay-icon-size:                             50px;
 @overlay-icon-color:                            #fff;
 
+@overlay-fade-in-opacity:                       1;
+@overlay-fade-out-opacity:                      0.7;
+
+@overlay-scale-in-scale:                        1.1;
+@overlay-scale-out-scale:                       1;
+
+@overlay-spin-in-scale:                         1.1;
+@overlay-spin-out-scale:                        1;
+@overlay-spin-in-rotate:                        3deg;
+@overlay-spin-out-rotate:                       0deg;
+
 // DEPRECATED
 @overlay-area-background:                       rgba(0,0,0,0.3);
 
@@ -80,7 +92,8 @@
  * 3. Set max-width for responsive images to prevent `inline-block` consequences
  * 4. Remove the gap between the container and its child element
  * 5. Needed for transitions and to fixed wrong scaling calculation for images in Chrome
- * 6. Reset margin
+ * 6. Fixed `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
+ * 7. Reset margin
  */
 
 .uk-overlay {
@@ -95,6 +108,8 @@
     /* 5 */
     overflow: hidden;
     /* 6 */
+    z-index: 1;
+    /* 7 */
     margin: 0;
 }
 
@@ -206,10 +221,12 @@
 .uk-overlay-fade,
 .uk-overlay-scale,
 .uk-overlay-spin,
+.uk-overlay-grayscale,
+.uk-overlay-blur,
 [class*='uk-overlay-slide'] {
     transition-duration: 0.3s;
     transition-timing-function: ease-out;
-    transition-property: opacity transform;
+    transition-property: opacity transform filter;
 }
 
 .uk-overlay-active .uk-overlay-fade,
@@ -221,24 +238,24 @@
  * Fade
  */
 
-.uk-overlay-fade { opacity: 0.7; }
+.uk-overlay-fade { opacity: @overlay-fade-out-opacity; }
 
 .uk-overlay-hover:hover .uk-overlay-fade,
-.uk-overlay-active .uk-active > .uk-overlay-fade { opacity: 1; }
+.uk-overlay-active .uk-active > .uk-overlay-fade { opacity: @overlay-fade-in-opacity; }
 
 /*
  * Scale
  */
 
 .uk-overlay-scale {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    -webkit-transform: scale(@overlay-scale-out-scale);
+    transform: scale(@overlay-scale-out-scale);
 }
 
 .uk-overlay-hover:hover .uk-overlay-scale,
 .uk-overlay-active .uk-active > .uk-overlay-scale {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(@overlay-scale-in-scale);
+    transform: scale(@overlay-scale-in-scale);
 }
 
 /*
@@ -246,14 +263,29 @@
  */
 
 .uk-overlay-spin {
-    -webkit-transform: scale(1) rotate(0deg);
-    transform: scale(1) rotate(0deg);
+    -webkit-transform: scale(@overlay-spin-out-scale) rotate(@overlay-spin-out-rotate);
+    transform: scale(@overlay-spin-out-scale) rotate(@overlay-spin-out-rotate);
 }
 
 .uk-overlay-hover:hover .uk-overlay-spin,
 .uk-overlay-active .uk-active > .uk-overlay-spin {
-    -webkit-transform: scale(1.1) rotate(3deg);
-    transform: scale(1.1) rotate(3deg);
+    -webkit-transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
+    transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
+}
+
+/*
+ * Grayscale
+ */
+
+.uk-overlay-grayscale {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.uk-overlay-hover:hover .uk-overlay-grayscale,
+.uk-overlay-active .uk-active > .uk-overlay-grayscale {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
 }
 
 /*
