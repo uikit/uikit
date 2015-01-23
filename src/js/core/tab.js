@@ -84,7 +84,7 @@
             UI.dropdown(this.responsivetab, {"mode": "click"});
 
             // init
-            $this.trigger("change.uk.tab", [this.element.find(this.options.target).filter('.@-active')]);
+            $this.trigger("change.uk.tab", [this.element.find(this.options.target).filter('.@-active'), {'initial': true}]);
 
             this.check();
 
