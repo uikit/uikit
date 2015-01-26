@@ -195,7 +195,6 @@
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragStop(hasTouch ? e.touches[0] : e);
-                    $this.trigger('stop.uk.nestable', [$this]);
                 }
 
                 draggingElement = false;
@@ -413,6 +412,8 @@
                     this.dragRootEl.trigger(UI.prefix('change.uk.nestable'), [el, "removed"]);
                 }
             }
+
+            this.trigger('stop.uk.nestable', [this, el]);
 
             this.reset();
 
