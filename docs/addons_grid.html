@@ -346,8 +346,8 @@
 
                             <p>Listening for beforeupdate events with jQuery:</p>
 
-<pre><code>$(function($) {
-    $('[data-uk-grid]').on('beforeupdate.uk.grid', function() {
+<pre><code>$(function() {
+    $('[data-uk-grid]').on('beforeupdate.uk.grid', function(e, children) {
         // your event-handling goes here
     });
 });</code></pre>

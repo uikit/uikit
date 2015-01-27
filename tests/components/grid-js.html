@@ -30,15 +30,10 @@
 
         <script>
             // Event logging
-            $(function($) {
+            $(function() {
                 var count = 0;
-                $('[data-uk-grid]').first().on('beforeupdate.uk.grid', function() {
-                    console.log(count + ': beforeupdate');
-                    count++;
-                });
-                $('[data-uk-grid]').first().on('afterupdate.uk.grid', function() {
-                    console.log(count + ': afterupdate');
-                    count++;
+                $('[data-uk-grid]:first').on('beforeupdate.uk.grid afterupdate.uk.grid', function(e) {
+                    console.log((count++), e.type);
                 });
             });
         </script>
