@@ -31,12 +31,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-grid]", context).each(function(){
+                UI.$(UI.prefix('[data-@-grid]'), context).each(function(){
 
                     var ele = UI.$(this);
 
                     if(!ele.data("grid")) {
-                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr("data-@-grid")));
+                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr(UI.prefix('data-@-grid'))));
                     }
                 });
             });
@@ -54,13 +54,13 @@
                 var controls = $(this.options.controls);
 
                 // filter
-                controls.on('click', '[data-uk-filter]', function(e){
+                controls.on('click', UI.prefix('[data-@-filter]'), function(e){
                     e.preventDefault();
                     $this.filter($(this).data('ukFilter'));
                 });
 
                 // sort
-                controls.on('click', '[data-uk-sort]', function(e){
+                controls.on('click', UI.prefix('[data-@-sort]'), function(e){
                     e.preventDefault();
 
                     var cmd = $(this).data('ukSort').split(':');
@@ -75,11 +75,11 @@
 
             this.updateLayout();
 
-            this.on('display.@.check', function(){
+            this.on('display.uk.check', function(){
                 if ($this.element.is(":visible"))  $this.updateLayout();
             });
 
-            UI.$html.on("changed.@.dom", function(e) {
+            UI.$html.on("changed.uk.dom", function(e) {
                 $this.updateLayout();
             });
         },
@@ -125,7 +125,7 @@
 
                 item, width, height, pos, aX, aY, i, z, max, size;
 
-            this.trigger('beforeupdate.@.grid', [children]);
+            this.trigger('beforeupdate.uk.grid', [children]);
 
             children.each(function(index){
 
@@ -200,7 +200,7 @@
                 }.bind(this));
             }
 
-            this.trigger('afterupdate.@.grid', [children]);
+            this.trigger('afterupdate.uk.grid', [children]);
         },
 
         filter: function(filter) {

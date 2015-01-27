@@ -27,6 +27,21 @@
             .equal-height > * > .uk-panel { height: 150px; }
 
         </style>
+
+        <script>
+            // Event logging
+            $(function($) {
+                var count = 0;
+                $('[data-uk-grid]').first().on('beforeupdate.uk.grid', function() {
+                    console.log(count + ': beforeupdate');
+                    count++;
+                });
+                $('[data-uk-grid]').first().on('afterupdate.uk.grid', function() {
+                    console.log(count + ': afterupdate');
+                    count++;
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -72,6 +87,8 @@
                 </div>
 
             </div>
+
+            <p class="uk-text-muted">You can see the events fired by this grid in the console of your browser.</p>
 
             <h2>Different Widths and No Gutter</h2>
 
