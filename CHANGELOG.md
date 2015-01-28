@@ -10,6 +10,7 @@
   - Added hover classes to panel component
   - Added new hover classes to panel component
   - Deactivated browser history navigation in modal for IE11
+  - Fixed events from grid add-on
   
   **Docs and Repo**
 

@@ -195,7 +195,6 @@
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragStop(hasTouch ? e.touches[0] : e);
-                    $this.trigger('stop.uk.nestable', [$this]);
                 }
 
                 draggingElement = false;
@@ -405,14 +404,16 @@
 
             this.dragEl.remove();
 
-            if (this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
+            if (this.hasNewRoot || this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
-                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved"]);
+                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger(UI.prefix('change.uk.nestable'), [el, "removed"]);
+                    this.dragRootEl.trigger(UI.prefix('change.uk.nestable'), [el, "removed", this.dragRootEl]);
                 }
             }
+
+            this.trigger('stop.uk.nestable', [this, el]);
 
             this.reset();
 
