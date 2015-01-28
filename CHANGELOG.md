@@ -8,7 +8,7 @@
   - Reworked overlay component completely
   - Added gutter collapse and medium classes to grid component
   - Added hover classes to panel component
-  - Added new hover classes to panel component
+  - Added icon muted class to icon component
   - Deactivated browser history navigation in modal for IE11
   - Fixed events from grid add-on
   
@@ -17,6 +17,7 @@
   - Updated overlay docs and tests
   - Updated panel docs and tests
   - Updated grid docs and tests
+  - Updated icon docs and tests
   - Updated animation docs
   - Updated text tests
 
