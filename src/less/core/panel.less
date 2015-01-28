@@ -46,6 +46,8 @@
 @panel-title-color:                             #444;
 @panel-title-text-transform:                    none;
 
+@panel-teaser-margin-bottom:                    @panel-title-margin-bottom;
+
 @panel-box-padding:                             15px;
 @panel-box-background:                          #f5f5f5;
 @panel-box-color:                               #444;
@@ -54,7 +56,6 @@
 @panel-box-badge-top:                           10px;
 @panel-box-badge-right:                         @panel-box-badge-top;
 @panel-box-teaser-margin:                       -@panel-box-padding;
-@panel-box-teaser-margin-bottom:                @panel-title-margin-bottom;
 
 @panel-box-primary-background:                  #ebf7fd;
 @panel-box-primary-color:                       #2d7091;
@@ -72,7 +73,6 @@
 @panel-hover-badge-top:                         10px;
 @panel-hover-badge-right:                       @panel-hover-badge-top;
 @panel-hover-teaser-margin:                     -@panel-hover-padding;
-@panel-hover-teaser-margin-bottom:              @panel-title-margin-bottom;
 
 @panel-header-title-padding:                    10px;
 @panel-header-title-border:                     #ddd;
@@ -158,6 +158,11 @@
     .hook-panel-badge;
 }
 
+/* Sub-object: `uk-panel-teaser`
+ ========================================================================== */
+
+.uk-panel-teaser { margin-bottom: @panel-teaser-margin-bottom; }
+
 
 /* Modifier: `uk-panel-box`
  ========================================================================== */
@@ -181,7 +186,11 @@
     right: @panel-box-badge-right;
 }
 
-.uk-panel-box .uk-panel-teaser { margin: @panel-box-teaser-margin @panel-box-teaser-margin @panel-box-teaser-margin-bottom @panel-box-teaser-margin; }
+.uk-panel-box .uk-panel-teaser {
+    margin-top: @panel-box-teaser-margin;
+    margin-left: @panel-box-teaser-margin;
+    margin-right: @panel-box-teaser-margin;
+}
 
 /*
  * Nav in panel
@@ -243,7 +252,11 @@
     right: @panel-hover-badge-right;
 }
 
-.uk-panel-hover .uk-panel-teaser { margin: @panel-hover-teaser-margin @panel-hover-teaser-margin @panel-hover-teaser-margin-bottom @panel-hover-teaser-margin; }
+.uk-panel-hover .uk-panel-teaser {
+    margin-top: @panel-hover-teaser-margin;
+    margin-left: @panel-hover-teaser-margin;
+    margin-right: @panel-hover-teaser-margin;
+}
 
 
 /* Modifier: `uk-panel-header`
