@@ -248,7 +248,7 @@
                     var resolve = function(source, width, height) {
 
                         data.meta = {
-                            "content" : '<img class="uk-responsive-width" width="'+width+'" height="'+height+'" height="" src ="'+source+'">',
+                            "content" : '<img class="uk-responsive-width" width="'+width+'" height="'+height+'" src ="'+source+'">',
                             "width"   : width,
                             "height"  : height
                         };
@@ -399,7 +399,7 @@
                 var resolve = function(source, width, height) {
 
                     data.meta = {
-                        'content': '<video class="uk-responsive-width" src="'+source+'" width="'+width+'" height="'+height+'" controls width="'+width+'" height="'+height+'"></video>',
+                        'content': '<video class="uk-responsive-width" src="'+source+'" width="'+width+'" height="'+height+'" controls></video>',
                         'width': width,
                         'height': height
                     };
