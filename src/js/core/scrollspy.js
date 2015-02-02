@@ -14,6 +14,7 @@
     UI.component('scrollspy', {
 
         defaults: {
+            "target"     : false,
             "cls"        : "@-scrollspy-inview",
             "initcls"    : "@-scrollspy-init-inview",
             "topoffset"  : 0,
@@ -26,7 +27,7 @@
 
             // listen to scroll and resize
             $doc.on("scrolling.uk.document", checkScrollSpy);
-            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
+            $win.on("load resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
             UI.ready(function(context) {
@@ -44,46 +45,65 @@
 
         init: function() {
 
+            var $this = this, inviewstate, initinview, togglecls = this.options.cls.split(/,/), fn = function(){
 
-            var $this = this, idle, inviewstate, initinview,
-                fn = function(){
+                var elements = $this.options.target ? $this.element.find($this.options.target) : $this.element, delayIdx = 0, toggleclsIdx = 0;
 
-                    var inview = UI.Utils.isInView($this.element, $this.options);
+                elements.each(function(idx){
+
+                    var element = UI.$(this), inviewstate = element.data('inviewstate'), inview = UI.Utils.isInView(element, $this.options), toggle = togglecls[toggleclsIdx].trim();
 
                     if (inview && !inviewstate) {
 
-                        if(idle) clearTimeout(idle);
-
-                        if(!initinview) {
-                            $this.element.addClass($this.options.initcls);
-                            $this.offset = $this.element.offset();
-                            initinview = true;
-
-                            $this.trigger("init.uk.scrollspy");
+                        if (element.data('idle')) {
+                            clearTimeout(element.data('idle'));
                         }
 
-                        idle = setTimeout(function(){
+                        if(!initinview) {
+                            element.addClass($this.options.initcls);
+                            $this.offset = element.offset();
+                            initinview = true;
+
+                            element.trigger("init.uk.scrollspy");
+                        }
+
+                        element.data('idle', setTimeout(function(){
 
                             if(inview) {
-                                $this.element.addClass("@-scrollspy-inview").addClass($this.options.cls).width();
+                                element.addClass("@-scrollspy-inview").toggleClass(toggle).width();
                             }
-                        }, $this.options.delay);
 
-                        inviewstate = true;
-                        $this.trigger("inview.uk.scrollspy");
+                        }, $this.options.delay * delayIdx));
+
+                        element.data('inviewstate', true);
+                        element.trigger("inview.uk.scrollspy");
+
+                        delayIdx++;
                     }
+
+                    toggleclsIdx = togglecls[toggleclsIdx + 1] ? (toggleclsIdx + 1) : 0;
 
                     if (!inview && inviewstate && $this.options.repeat) {
-                        $this.element.removeClass("@-scrollspy-inview").removeClass($this.options.cls);
-                        inviewstate = false;
 
-                        $this.trigger("outview.uk.scrollspy");
+                        if (element.data('idle')) {
+                            clearTimeout(element.data('idle'));
+                        }
+
+                        element.removeClass("@-scrollspy-inview").toggleClass(toggle);
+                        element.data('inviewstate', false);
+
+                        element.trigger("outview.uk.scrollspy");
                     }
-                };
+
+                });
+            };
 
             fn();
 
-            this.check = fn;
+            this.check = !this.options.target ? fn : UI.Utils.debounce(function(){
+                fn();
+            }, 50);
+
             scrollspies.push(this);
         }
     });

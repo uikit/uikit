@@ -9,9 +9,10 @@
   - Added gutter collapse and medium classes to grid component
   - Added hover classes to panel component
   - Added icon muted class to icon component
+  - Added scrollspy group with target selector
   - Deactivated browser history navigation in modal for IE11
   - Fixed events from grid add-on
-  
+
   **Docs and Repo**
 
   - Updated overlay docs and tests
