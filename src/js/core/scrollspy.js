@@ -47,6 +47,12 @@
 
             var $this = this, inviewstate, initinview, togglecls = this.options.cls.split(/,/), fn = function(){
 
+                if ($this.element.data('scrollspy-worker')) {
+                    return;
+                }
+
+                $this.element.data('scrollspy-worker', 0);
+
                 var elements = $this.options.target ? $this.element.find($this.options.target) : $this.element, delayIdx = 0, toggleclsIdx = 0;
 
                 elements.each(function(idx){
@@ -69,9 +75,13 @@
 
                         element.data('idle', setTimeout(function(){
 
-                            if(inview) {
+                            if (inview) {
                                 element.addClass("@-scrollspy-inview").toggleClass(toggle).width();
                             }
+
+                            element.data('idle', false);
+
+                            $this.element.data('scrollspy-worker', $this.element.data('scrollspy-worker') - 1);
 
                         }, $this.options.delay * delayIdx));
 
@@ -79,21 +89,19 @@
                         element.trigger("inview.uk.scrollspy");
 
                         delayIdx++;
+
+                        $this.element.data('scrollspy-worker', $this.element.data('scrollspy-worker') + 1);
                     }
 
-                    toggleclsIdx = togglecls[toggleclsIdx + 1] ? (toggleclsIdx + 1) : 0;
-
-                    if (!inview && inviewstate && $this.options.repeat) {
-
-                        if (element.data('idle')) {
-                            clearTimeout(element.data('idle'));
-                        }
+                    if (!inview && inviewstate && $this.options.repeat && !element.data('idle')) {
 
                         element.removeClass("@-scrollspy-inview").toggleClass(toggle);
                         element.data('inviewstate', false);
 
                         element.trigger("outview.uk.scrollspy");
                     }
+
+                    toggleclsIdx = togglecls[toggleclsIdx + 1] ? (toggleclsIdx + 1) : 0;
 
                 });
             };
