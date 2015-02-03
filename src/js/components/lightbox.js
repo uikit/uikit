@@ -448,7 +448,7 @@
                 '<div class="@-modal-dialog @-modal-dialog-lightbox @-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
                     '<a href="#" class="@-modal-close @-close @-close-alt"></a>',
                     '<div class="@-lightbox-content"></div>',
-                    '<div class="@-modal-spinner @-hidden"></div>',
+                    '<div class="@-modal-spinner @-icon-spin @-hidden"></div>',
                 '</div>',
             '</div>'
         ].join('')).appendTo('body');
