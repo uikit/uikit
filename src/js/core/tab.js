@@ -35,8 +35,9 @@
 
             this.on("click", this.options.target, function(e) {
                 e.preventDefault();
+                var previous = $this.find("@-active")[0];
                 $this.find($this.options.target).not(this).removeClass(UI.prefix("@-active")).blur();
-                $this.trigger("change.uk.tab", [UI.$(this).addClass("@-active")]);
+                $this.trigger("change.uk.tab", [UI.$(this).addClass("@-active"), {previous: previous}]);
             });
 
             if (this.options.connect) {
@@ -83,7 +84,7 @@
             UI.dropdown(this.responsivetab, {"mode": "click"});
 
             // init
-            $this.trigger("change.uk.tab", [this.element.find(this.options.target).filter('.@-active')]);
+            $this.trigger("change.uk.tab", [this.element.find(this.options.target).filter('.@-active'), {'initial': true}]);
 
             this.check();
 
