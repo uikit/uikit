@@ -53,7 +53,9 @@
 
                 $this.element.data('scrollspy-worker', 0);
 
-                var elements = $this.options.target ? $this.element.find($this.options.target) : $this.element, delayIdx = 0, toggleclsIdx = 0;
+                var elements     = $this.options.target ? $this.element.find($this.options.target) : $this.element,
+                    delayIdx     = elements.length === 1 ? 1 : 0,
+                    toggleclsIdx = 0;
 
                 elements.each(function(idx){
 
