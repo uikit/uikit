@@ -82,21 +82,21 @@
 
                     if (active) {
                         UI.Utils.checkDisplay(wrapper.data('content'));
+                        wrapper.height('auto');
                     }
 
-                    $this.trigger("display.uk.check");
-
+                    $this.trigger('display.uk.check');
                 }});
 
             } else {
 
-                wrapper.stop().height(active ? "auto" : 0);
+                wrapper.stop().height(active ? 'auto' : 0);
 
                 if (active) {
                     UI.Utils.checkDisplay(wrapper.data('content'));
                 }
 
-                this.trigger("display.uk.check");
+                this.trigger('display.uk.check');
             }
 
             this.element.trigger('toggle.uk.accordion', [active, wrapper.data('toggle'), wrapper.data('content')]);

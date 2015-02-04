@@ -5,6 +5,7 @@
   - IMPORTANT: Removed caption component (Use overlay component)
   - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-medium)
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
+  - Set content wrapper height to auto after accordion animation ends
   - Reworked overlay component completely
   - Added gutter collapse and medium classes to grid component
   - Added hover classes to panel component
