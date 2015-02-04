@@ -13,7 +13,7 @@
   - Added scrollspy group with target selector
   - Updated FontAwesome to v4.3
   - Deactivated browser history navigation in modal for IE11
-  - Fixed events from grid add-on
+  - Fixed events in grid js component
 
   **Docs and Repo**
 
