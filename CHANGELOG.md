@@ -10,6 +10,7 @@
   - Added hover classes to panel component
   - Added icon muted class to icon component
   - Added scrollspy group with target selector
+  - Updated FontAwesome to v4.3
   - Deactivated browser history navigation in modal for IE11
   - Fixed events from grid add-on
 
