@@ -51,12 +51,15 @@
 
             if (this.options.controls) {
 
-                var controls = $(this.options.controls);
+                var controls  = $(this.options.controls),
+                    activeCls = UI.prefix('@-active');
 
                 // filter
                 controls.on('click', UI.prefix('[data-@-filter]'), function(e){
                     e.preventDefault();
                     $this.filter($(this).data('ukFilter'));
+
+                    controls.find(UI.prefix('[data-@-filter]')).removeClass(activeCls).filter(this).addClass(activeCls);
                 });
 
                 // sort
@@ -66,6 +69,8 @@
                     var cmd = $(this).data('ukSort').split(':');
 
                     $this.sort(cmd[0], cmd[1]);
+
+                    controls.find(UI.prefix('[data-@-sort]')).removeClass(activeCls).filter(this).addClass(activeCls);
                 });
             }
 
@@ -188,7 +193,7 @@
                 this.element.stop().animate({'height': maxHeight}, 100);
 
                 positions.forEach(function(pos){
-                    pos.ele.stop().animate({"top": pos.top, "left": pos.left}, this.options.duration);
+                    pos.ele.stop().animate({"top": pos.top, "left": pos.left, opacity: 1}, this.options.duration);
                 }.bind(this));
 
             } else {
@@ -196,7 +201,7 @@
                 this.element.css('height', maxHeight);
 
                 positions.forEach(function(pos){
-                    pos.ele.css({"top": pos.top, "left": pos.left});
+                    pos.ele.css({"top": pos.top, "left": pos.left, opacity: 1});
                 }.bind(this));
             }
 
@@ -211,7 +216,7 @@
                 filter = filter.split(/,/).map(function(item){ return item.trim(); });
             }
 
-            var children = this.element.children(), elements = {"visible": [], "hidden": []};
+            var $this = this, children = this.element.children(), elements = {"visible": [], "hidden": []}, visible, hidden;
 
             children.each(function(index){
 
@@ -233,10 +238,11 @@
             elements.hidden  = $(elements.hidden).map(function () {return this[0];});
             elements.visible = $(elements.visible).map(function () {return this[0];});
 
-            elements.hidden.fadeOut(this.options.duration);
-            elements.visible.show();
+            elements.hidden.filter(':visible').fadeOut(this.options.duration);
 
-            this.updateLayout(elements.visible);
+            elements.visible.filter(':hidden').css('opacity', 0).show();
+
+            $this.updateLayout(elements.visible);
         },
 
         sort: function(by, order){
