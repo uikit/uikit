@@ -32,6 +32,7 @@
 //                  `uk-ignore`
 //
 // Uses:            Icon: `[class*='uk-icon-']`
+//                  `uk-border-circle`
 //
 // Markup:
 //
@@ -110,10 +111,13 @@
     /* 5 */
     overflow: hidden;
     /* 6 */
-    z-index: 1;
+    -webkit-transform: translateZ(0);
     /* 7 */
     margin: 0;
 }
+
+/* 6 for Safari */
+.uk-overlay.uk-border-circle { -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%); }
 
 /*
  * Remove margin from content
