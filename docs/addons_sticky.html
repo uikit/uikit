@@ -79,7 +79,7 @@
                     </div>
                     <div class="tm-main uk-width-medium-3-4">
 
-                        <article class="uk-article" style="min-height: 2500px;">
+                        <article class="uk-article" style="min-height: 3000px;">
 
                             <h1>Sticky</h1>
 
@@ -133,19 +133,50 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;!-- This is basically a shortcode to define a min-width --&gt;
-&lt;div data-uk-sticky="{media: 640}"&gt;...&lt;/div&gt;
+                            <pre><code>
+                                &lt;!-- This is basically a shortcode to define a min-width --&gt;
+                                &lt;div data-uk-sticky="{media: 640}"&gt;...&lt;/div&gt;
 
-&lt;!-- This is a media string using the min-width and orientation properties --&gt;
-&lt;div data-uk-sticky="{media: '(min-width: 640px) and (orientation: landscape)'}&gt;...&lt;/div&gt;
-</code></pre>
+                                &lt;!-- This is a media string using the min-width and orientation properties --&gt;
+                                &lt;div data-uk-sticky="{media: '(min-width: 640px) and (orientation: landscape)'}&gt;...&lt;/div&gt;
+                            </code></pre>
 
+                            <hr class="uk-article-divider">
+
+                            <h2>Sticky boundary</h2>
+
+                            <p>You can define the boundary of a sticky element by setting the <code>boundary</code> parameter. This keeps the sticky element within the dimensions of the boundary element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-margin uk-grid">
+                                <div class="uk-width-1-2">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-secondary" style="height:300px;">
+                                        <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:true}">Sticky bound to parent container</div>
+                                    </div>
+                                </div>
+                                <div class="uk-width-1-2">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-secondary" style="height:300px;">
+                                        <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#javascript-options-container'}">Sticky bound to JavaScript options container</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <pre><code>
+                                &lt;!-- bind sticky to its parent element --&gt;
+                                &lt;div data-uk-sticky="{boundary: true}"&gt;...&lt;/div&gt;
+
+                                &lt;!-- bind sticky to any element --&gt;
+                                &lt;div data-uk-sticky="{boundary: '#myid'}&gt;...&lt;/div&gt;
+                            </code></pre>
 
                             <hr class="uk-article-divider">
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-                            <div class="uk-overflow-container">
+                            <div id="javascript-options-container" class="uk-overflow-container">
                                 <table class="uk-table uk-table-striped uk-text-nowrap">
                                     <thead>
                                         <tr>
@@ -199,7 +230,7 @@
                                             <td>Make sure that a sticky element is not over a targeted element via location hash on dom-ready.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>container</code></td>
+                                            <td><code>boundary</code></td>
                                             <td>mixed</td>
                                             <td>false</td>
                                             <td>Set to <code>true</code> to bind sticky to the parent or a Css selector to bind sticky to a specific element.</td>

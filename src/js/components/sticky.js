@@ -29,7 +29,7 @@
             clsinit      : '@-sticky-init',
             clsactive    : '@-active',
             getWidthFrom : '',
-            container    : false,
+            boundary     : false,
             media        : false,
             target       : false
         },
@@ -74,16 +74,16 @@
                         'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
                         'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
                         'margin' : this.element.css("margin")
-                }), container = this.options.container;
+                }), boundary = this.options.boundary;
 
             wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
 
-            if (container) {
+            if (boundary) {
 
-                if (container === true) {
-                    container = wrapper.parent();
-                } else if (typeof container === "string") {
-                    container = $(container);
+                if (boundary === true) {
+                    boundary = wrapper.parent();
+                } else if (typeof boundary === "string") {
+                    boundary = $(boundary);
                 }
             }
 
@@ -94,7 +94,7 @@
                 wrapper      : wrapper,
                 init         : false,
                 getWidthFrom : this.options.getWidthFrom || wrapper,
-                container    : container || false,
+                boundary     : boundary,
                 reset        : function(force) {
 
                     var finalize = function() {
@@ -187,10 +187,6 @@
 
             } else {
 
-                if (sticky.container !== false && sticky.container instanceof jQuery === false) {
-                    sticky.container = $(sticky.container);
-                }
-
                 if (sticky.options.top < 0) {
                     newTop = 0;
                 } else {
@@ -198,8 +194,8 @@
                     newTop = documentHeight - stickyHeight - sticky.options.top - sticky.options.bottom - scrollTop - extra;
                     newTop = newTop < 0 ? newTop + sticky.options.top : sticky.options.top;
 
-                    if (sticky.container && sticky.container.length) {
-                        containerBottom = documentHeight - (sticky.container.position().top + sticky.container.height());
+                    if (sticky.boundary && sticky.boundary.length) {
+                        containerBottom = documentHeight - (sticky.boundary.position().top + sticky.boundary.height());
                         newTop = (scrollTop + stickyHeight) > (documentHeight - containerBottom) ? (documentHeight - containerBottom) - (scrollTop + stickyHeight) : newTop;
                     }
                 }
