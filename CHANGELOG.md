@@ -8,6 +8,7 @@
   - Set content wrapper height to auto after accordion animation ends
   - Reworked overlay component completely
   - Added gutter collapse and medium classes to grid component
+  - Added container parameter to sticky addon to bind sticky scrolling to an element
   - Added hover classes to panel component
   - Added icon muted class to icon component
   - Added scrollspy group with target selector
