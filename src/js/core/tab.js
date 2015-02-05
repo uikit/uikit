@@ -35,6 +35,11 @@
 
             this.on("click", this.options.target, function(e) {
                 e.preventDefault();
+
+                if ($this.switcher && $this.switcher.animating) {
+                    return;
+                }
+
                 $this.find($this.options.target).not(this).removeClass(UI.prefix("@-active")).blur();
                 $this.trigger("change.uk.tab", [UI.$(this).addClass("@-active")]);
             });
@@ -71,7 +76,7 @@
 
             // init UIkit components
             if (this.options.connect) {
-                UI.switcher(this.element, {
+                this.switcher = UI.switcher(this.element, {
                     "toggle"    : ">li:not(.@-tab-responsive)",
                     "connect"   : this.options.connect,
                     "active"    : this.options.active,

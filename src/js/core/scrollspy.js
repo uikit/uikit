@@ -79,6 +79,7 @@
 
                             if (inview) {
                                 element.addClass("@-scrollspy-inview").toggleClass(toggle).width();
+                                element.trigger("inview.uk.scrollspy");
                             }
 
                             element.data('idle', false);
@@ -88,7 +89,6 @@
                         }, $this.options.delay * delayIdx));
 
                         element.data('inviewstate', true);
-                        element.trigger("inview.uk.scrollspy");
 
                         delayIdx++;
 
