@@ -29,6 +29,7 @@
             flipDropdown: false,
             skipClass: '@-skip',
             hoverClass: '@-active',
+            dropdownClass: null,
             source: null,
             renderer: null,
 
@@ -82,6 +83,10 @@
 
             if (this.options.flipDropdown) {
                 this.dropdown.addClass(UI.prefix('@-dropdown-flip'));
+            }
+            
+            if (this.options.dropdownClass) {
+                this.dropdown.addClass(this.options.dropdownClass));
             }
 
             this.input.on({
