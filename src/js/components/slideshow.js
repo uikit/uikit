@@ -336,12 +336,21 @@
 
             if (!(media && media[0])) return;
 
-
             switch(media[0].nodeName) {
                 case 'VIDEO':
+
+                    if (!this.options.videomute) {
+                        media[0].muted = false;
+                    }
+
                     media[0].play();
                     break;
                 case 'IFRAME':
+
+                    if (!this.options.videomute) {
+                        media[0].contentWindow.postMessage('{ "event": "command", "func": "unmute", "method":"setVolume", "value":1}', '*');
+                    }
+
                     media[0].contentWindow.postMessage('{ "event": "command", "func": "playVideo", "method":"play"}', '*');
                     break;
             }
