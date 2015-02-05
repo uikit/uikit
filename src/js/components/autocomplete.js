@@ -86,7 +86,7 @@
             }
             
             if (this.options.dropdownClass) {
-                this.dropdown.addClass(this.options.dropdownClass));
+                this.dropdown.addClass(this.options.dropdownClass);
             }
 
             this.input.on({
