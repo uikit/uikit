@@ -14,6 +14,7 @@
   - Updated FontAwesome to v4.3
   - Deactivated browser history navigation in modal for IE11
   - Fixed events in grid js component
+  - Fixed quick switching between tabs
 
   **Docs and Repo**
 
