@@ -43,64 +43,24 @@
     var UI = {}, _UI = window.UIkit;
 
     UI.version = '2.16.2';
-    UI._prefix = 'uk';
 
-    UI.noConflict = function(prefix) {
+    UI.noConflict = function() {
         // resore UIkit version
         if (_UI) {
             window.UIkit = _UI;
             $.UIkit      = _UI;
             $.fn.uk      = _UI.fn;
         }
-        if (prefix) {} UI._prefix = prefix;
+
         return UI;
     };
 
     UI.prefix = function(str) {
-        return typeof(str)=='string' ? str.replace(/@/g, UI._prefix) : str;
+        return str;
     };
 
-    // wrap jQuery to auto prefix string arguments
-    UI.$ = function() {
-
-        if (arguments[0] && typeof(arguments[0])=='string') {
-            arguments[0] = UI.prefix(arguments[0]);
-        }
-
-        var obj = $.apply($, arguments), i;
-
-        if (!obj.length) {
-            return obj;
-        }
-
-        [
-            'find', 'filter', 'closest',
-            'attr', 'parent', 'parents', 'children',
-            'addClass', 'removeClass', 'toggleClass', 'hasClass',
-            'is',
-            'on', 'one'
-        ].forEach(function(m){
-
-            var method = obj[m], result, collections = ['find','filter','parent', 'parents', 'children', 'closest'];
-
-            obj[m] = function() {
-
-                for (i=0;i<arguments.length;i++) {
-
-                    if (typeof(arguments[i])=='string') {
-                        arguments[i] = UI.prefix(arguments[i]);
-                    }
-                }
-
-                result = method.apply(this, arguments);
-
-                return (collections.indexOf(m) > -1) ? UI.$(result) : result;
-            };
-            return obj;
-        });
-
-        return obj;
-    };
+    // cache jQuery
+    UI.$ = $;
 
     UI.$doc  = UI.$(document);
     UI.$win  = UI.$(window);
@@ -252,19 +212,19 @@
 
     UI.Utils.checkDisplay = function(context, initanimation) {
 
-        var elements = UI.$('[data-@-margin], [data-@-grid-match], [data-@-grid-margin], [data-@-check-display]', context || document), animated;
+        var elements = UI.$('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
 
         if (context && !elements.length) {
             elements = $(context);
         }
 
-        elements.trigger(UI.prefix('display.@.check'));
+        elements.trigger('display.uk.check');
 
         // fix firefox / IE animations
         if (initanimation) {
 
             if (typeof(initanimation)!='string') {
-                initanimation = UI.prefix('[class*="@-animation-"]');
+                initanimation = '[class*="uk-animation-"]';
             }
 
             elements.find(initanimation).each(function(){
@@ -302,7 +262,7 @@
         var d = $.Deferred();
 
         element = UI.$(element);
-        cls     = UI.prefix(cls);
+        cls     = cls;
 
         element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function() {
             element.removeClass(cls);
@@ -586,7 +546,7 @@
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
-                    $element.trigger(UI.prefix('changed.@.dom'));
+                    $element.trigger('changed.uk.dom');
                 }, 50));
 
                 // pass in the target node, as well as the observer options
@@ -604,7 +564,7 @@
         UI.$body = UI.$('body');
 
         UI.ready(function(context){
-            UI.domObserve('[data-@-observe]');
+            UI.domObserve('[data-uk-observe]');
         });
 
         UI.on('ready.uk.dom', function(){
@@ -678,7 +638,7 @@
                 UI.$win.on('load orientationchange resize', UI.Utils.debounce((function(){
 
                     var fn = function() {
-                        $(UI.prefix('.@-height-viewport')).css('height', window.innerHeight);
+                        $('.uk-height-viewport').css('height', window.innerHeight);
                         return fn;
                     };
 
@@ -695,12 +655,12 @@
     });
 
     // add touch identifier class
-    UI.$html.addClass(UI.support.touch ? "@-touch" : "@-notouch");
+    UI.$html.addClass(UI.support.touch ? "uk-touch" : "uk-notouch");
 
     // add uk-hover class on tap to support overlays on touch devices
     if (UI.support.touch) {
 
-        var hoverset = false, exclude, hovercls = UI.prefix('@-hover'), selector = UI.prefix('.@-overlay, .@-overlay-hover, .@-overlay-toggle, .@-animation-hover, .@-has-hover');
+        var hoverset = false, exclude, hovercls = 'uk-hover', selector = '.uk-overlay, .uk-overlay-hover, .uk-overlay-toggle, .uk-animation-hover, .uk-has-hover';
 
         UI.$html.on('touchstart MSPointerDown pointerdown', selector, function() {
 

@@ -15,8 +15,8 @@
 
         defaults: {
             "target"     : false,
-            "cls"        : "@-scrollspy-inview",
-            "initcls"    : "@-scrollspy-init-inview",
+            "cls"        : "uk-scrollspy-inview",
+            "initcls"    : "uk-scrollspy-init-inview",
             "topoffset"  : 0,
             "leftoffset" : 0,
             "repeat"     : false,
@@ -32,12 +32,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-scrollspy]", context).each(function() {
+                UI.$("[data-uk-scrollspy]", context).each(function() {
 
                     var element = UI.$(this);
 
                     if (!element.data("scrollspy")) {
-                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-@-scrollspy")));
+                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
                     }
                 });
             });
@@ -78,7 +78,7 @@
                         element.data('idle', setTimeout(function(){
 
                             if (inview) {
-                                element.addClass("@-scrollspy-inview").toggleClass(toggle).width();
+                                element.addClass("uk-scrollspy-inview").toggleClass(toggle).width();
                                 element.trigger("inview.uk.scrollspy");
                             }
 
@@ -97,7 +97,7 @@
 
                     if (!inview && inviewstate && $this.options.repeat && !element.data('idle')) {
 
-                        element.removeClass("@-scrollspy-inview").toggleClass(toggle);
+                        element.removeClass("uk-scrollspy-inview").toggleClass(toggle);
                         element.data('inviewstate', false);
 
                         element.trigger("outview.uk.scrollspy");
@@ -129,7 +129,7 @@
     UI.component('scrollspynav', {
 
         defaults: {
-            "cls"          : '@-active',
+            "cls"          : 'uk-active',
             "closest"      : false,
             "topoffset"    : 0,
             "leftoffset"   : 0,
@@ -145,12 +145,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-scrollspy-nav]", context).each(function() {
+                UI.$("[data-uk-scrollspy-nav]", context).each(function() {
 
                     var element = UI.$(this);
 
                     if (!element.data("scrollspynav")) {
-                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-@-scrollspy-nav")));
+                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
                     }
                 });
             });
@@ -162,8 +162,8 @@
                 links   = this.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
                 targets = $(ids.join(",")),
 
-                clsActive  = UI.prefix(this.options.cls),
-                clsClosest = UI.prefix(this.options.closest || this.options.closest);
+                clsActive  = this.options.cls,
+                clsClosest = this.options.closest || this.options.closest;
 
             var $this = this, inviews, fn = function(){
 

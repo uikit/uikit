@@ -31,12 +31,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$(UI.prefix('[data-@-grid]'), context).each(function(){
+                UI.$('[data-uk-grid]', context).each(function(){
 
                     var ele = UI.$(this);
 
                     if(!ele.data("grid")) {
-                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr(UI.prefix('data-@-grid'))));
+                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr('data-uk-grid')));
                     }
                 });
             });
@@ -52,25 +52,25 @@
             if (this.options.controls) {
 
                 var controls  = $(this.options.controls),
-                    activeCls = UI.prefix('@-active');
+                    activeCls = 'uk-active';
 
                 // filter
-                controls.on('click', UI.prefix('[data-@-filter]'), function(e){
+                controls.on('click', '[data-uk-filter]', function(e){
                     e.preventDefault();
                     $this.filter($(this).data('ukFilter'));
 
-                    controls.find(UI.prefix('[data-@-filter]')).removeClass(activeCls).filter(this).addClass(activeCls);
+                    controls.find('[data-uk-filter]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
 
                 // sort
-                controls.on('click', UI.prefix('[data-@-sort]'), function(e){
+                controls.on('click', '[data-uk-sort]', function(e){
                     e.preventDefault();
 
                     var cmd = $(this).data('ukSort').split(':');
 
                     $this.sort(cmd[0], cmd[1]);
 
-                    controls.find(UI.prefix('[data-@-sort]')).removeClass(activeCls).filter(this).addClass(activeCls);
+                    controls.find('[data-uk-sort]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
             }
 

@@ -7,7 +7,7 @@
     UI.component('stackMargin', {
 
         defaults: {
-            'cls': '@-margin-small-top'
+            'cls': 'uk-margin-small-top'
         },
 
         boot: function() {
@@ -15,12 +15,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-margin]", context).each(function() {
+                UI.$("[data-uk-margin]", context).each(function() {
 
                     var ele = UI.$(this), obj;
 
                     if (!ele.data("stackMargin")) {
-                        obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-@-margin")));
+                        obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
                     }
                 });
             });
@@ -98,7 +98,7 @@
 
         return function(context){
 
-            UI.$('iframe.@-responsive-width', context).each(function(){
+            UI.$('iframe.uk-responsive-width', context).each(function(){
 
                 var iframe = $(this);
 
@@ -122,10 +122,10 @@
     UI.Utils.stackMargin = function(elements, options) {
 
         options = $.extend({
-            'cls': '@-margin-small-top'
+            'cls': 'uk-margin-small-top'
         }, options);
 
-        options.cls = UI.prefix(options.cls);
+        options.cls = options.cls;
 
         elements = $(elements).removeClass(options.cls);
 

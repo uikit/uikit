@@ -38,11 +38,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-pagination]", context).each(function(){
+                UI.$("[data-uk-pagination]", context).each(function(){
                     var ele = UI.$(this);
 
                     if (!ele.data("pagination")) {
-                        var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-@-pagination")));
+                        var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
                     }
                 });
             });
@@ -136,10 +136,10 @@
             pageIndex = pageIndex < 0 ? 0 : (pageIndex < this.pages ? pageIndex : this.pages - 1);
             options   = $.extend({ text: pageIndex + 1 }, opts);
 
-            item = (pageIndex == this.currentPage) ? '<li class="@-active"><span>' + (options.text) + '</span></li>'
+            item = (pageIndex == this.currentPage) ? '<li class="uk-active"><span>' + (options.text) + '</span></li>'
                                                    : '<li><a href="#page-'+(pageIndex+1)+'" data-page="'+pageIndex+'">'+options.text+'</a></li>';
 
-            this.element.append(UI.prefix(item));
+            this.element.append(item);
         }
     });
 

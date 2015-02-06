@@ -61,7 +61,7 @@
                     var ele = UI.$(this);
 
                     if(!ele.data("sortable")) {
-                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-@-sortable")));
+                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
                     }
                 });
             });
@@ -124,7 +124,7 @@
             Object.keys(this.options).forEach(function(key){
 
                 if (String($this.options[key]).indexOf('Class')!=-1) {
-                    $this.options[key] = UI.prefix($this.options[key]);
+                    $this.options[key] = $this.options[key];
                 }
             });
 

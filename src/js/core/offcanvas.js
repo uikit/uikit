@@ -15,21 +15,21 @@
             if (!element.length) return;
 
             var $body     = UI.$('body'),
-                bar       = element.find(".@-offcanvas-bar:first"),
+                bar       = element.find(".uk-offcanvas-bar:first"),
                 rtl       = (UI.langdirection == "right"),
-                flip      = bar.hasClass("@-offcanvas-bar-flip") ? -1:1,
+                flip      = bar.hasClass("uk-offcanvas-bar-flip") ? -1:1,
                 dir       = flip * (rtl ? -1 : 1);
 
             scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
 
-            element.addClass("@-active");
+            element.addClass("uk-active");
 
-            $body.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("@-offcanvas-page");
+            $body.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
             $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
 
             $html.css('margin-top', scrollpos.y * -1);
 
-            bar.addClass("@-offcanvas-bar-show");
+            bar.addClass("uk-offcanvas-bar-show");
 
             this._initElement(element);
 
@@ -39,13 +39,13 @@
         hide: function(force) {
 
             var $body = UI.$('body'),
-                panel = UI.$(".@-offcanvas.@-active"),
+                panel = UI.$(".uk-offcanvas.uk-active"),
                 rtl   = (UI.langdirection == "right"),
-                bar   = panel.find(".@-offcanvas-bar:first"),
+                bar   = panel.find(".uk-offcanvas-bar:first"),
                 finalize = function() {
-                    $body.removeClass("@-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
-                    panel.removeClass("@-active");
-                    bar.removeClass("@-offcanvas-bar-show");
+                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
+                    panel.removeClass("uk-active");
+                    bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
                     UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
@@ -60,7 +60,7 @@
                 }).css((rtl ? "margin-right" : "margin-left"), "");
 
                 setTimeout(function(){
-                    bar.removeClass("@-offcanvas-bar-show");
+                    bar.removeClass("uk-offcanvas-bar-show");
                 }, 0);
 
             } else {
@@ -78,9 +78,9 @@
 
                 if (!e.type.match(/swipe/)) {
 
-                    if (!target.hasClass("@-offcanvas-close")) {
-                        if (target.hasClass("@-offcanvas-bar")) return;
-                        if (target.parents(".@-offcanvas-bar:first").length) return;
+                    if (!target.hasClass("uk-offcanvas-close")) {
+                        if (target.hasClass("uk-offcanvas-bar")) return;
+                        if (target.parents(".uk-offcanvas-bar:first").length) return;
                     }
                 }
 
@@ -124,14 +124,14 @@
         boot: function() {
 
             // init code
-            $html.on("click.offcanvas.uikit", "[data-@-offcanvas]", function(e) {
+            $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
 
                 e.preventDefault();
 
                 var ele = UI.$(this);
 
                 if (!ele.data("offcanvasTrigger")) {
-                    var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-@-offcanvas")));
+                    var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
                     ele.trigger("click");
                 }
             });

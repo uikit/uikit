@@ -26,12 +26,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-form-select]", context).each(function(){
+                UI.$("[data-uk-form-select]", context).each(function(){
 
                     var ele = UI.$(this);
 
                     if (!ele.data("formSelect")) {
-                        var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-@-form-select")));
+                        var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
                     }
                 });
             });

@@ -58,17 +58,12 @@ After running `gulp watch` a new browser instance will open, pointing to the uik
 
 ### Custom prefix
 
-Run gulp with your own prefix parameter ```-p``` to have all classes custom prefixed.
+Run gulp with your own prefix parameter ```-p``` to have all classes and JavaScript files custom prefixed.
 
 ```
 gulp -p myprefix
 ```
 
-To use JavaScript with your custom build just call the ```noConflict``` method with your prefix as a parameter after including UIkit.
-
-```
-var myUIkit = UIkit.noConflict('myprefix');
-```
 
 ## Contributing
 

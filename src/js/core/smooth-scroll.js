@@ -7,11 +7,11 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.smooth-scroll.uikit", "[data-@-smooth-scroll]", function(e) {
+            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
                 var ele = UI.$(this);
 
                 if (!ele.data("smoothScroll")) {
-                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-@-smooth-scroll")));
+                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
                     ele.trigger("click");
                 }
 

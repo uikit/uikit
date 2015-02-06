@@ -21,11 +21,11 @@
         boot: function() {
 
             // init code
-            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-@-tooltip]", function(e) {
+            UI.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]", function(e) {
                 var ele = UI.$(this);
 
                 if (!ele.data("tooltip")) {
-                    var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-@-tooltip")));
+                    var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
                     ele.trigger("mouseenter");
                 }
             });
@@ -36,7 +36,7 @@
             var $this = this;
 
             if (!$tooltip) {
-                $tooltip = UI.$('<div class="@-tooltip"></div>').appendTo("body");
+                $tooltip = UI.$('<div class="uk-tooltip"></div>').appendTo("body");
             }
 
             this.on({
@@ -59,7 +59,7 @@
             if (!this.tip.length) return;
 
             $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
-            $tooltip.html(UI.prefix('<div class="@-tooltip-inner">') + this.tip + '</div>');
+            $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
             var $this      = this,
                 pos        = $.extend({}, this.element.offset(), {width: this.element[0].offsetWidth, height: this.element[0].offsetHeight}),
@@ -150,7 +150,7 @@
 
             tooltipdelay = setTimeout(function(){
 
-                $tooltip.css(tcss).attr("class", UI.prefix(["@-tooltip", "@-tooltip-"+position, $this.options.cls].join(' ')));
+                $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
 
                 if ($this.options.animation) {
                     $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);

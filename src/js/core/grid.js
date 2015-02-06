@@ -16,11 +16,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-grid-match]", context).each(function() {
+                UI.$("[data-uk-grid-match]", context).each(function() {
                     var grid = UI.$(this), obj;
 
                     if (!grid.data("gridMatchHeight")) {
-                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-@-grid-match")));
+                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
                     }
                 });
             });
@@ -78,7 +78,7 @@
     UI.component('gridMargin', {
 
         defaults: {
-            "cls": "@-grid-margin"
+            "cls": "uk-grid-margin"
         },
 
         boot: function() {
@@ -86,11 +86,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-grid-margin]", context).each(function() {
+                UI.$("[data-uk-grid-margin]", context).each(function() {
                     var grid = UI.$(this), obj;
 
                     if (!grid.data("gridMargin")) {
-                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-@-grid-margin")));
+                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
                     }
                 });
             });

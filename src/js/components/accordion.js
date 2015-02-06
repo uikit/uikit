@@ -32,12 +32,12 @@
 
                 setTimeout(function(){
 
-                    UI.$("[data-@-accordion]", context).each(function(){
+                    UI.$("[data-uk-accordion]", context).each(function(){
 
                         var ele = UI.$(this);
 
                         if(!ele.data("accordion")) {
-                            UI.accordion(ele, UI.Utils.options(ele.attr('data-@-accordion')));
+                            UI.accordion(ele, UI.Utils.options(ele.attr('data-uk-accordion')));
                         }
                     });
 

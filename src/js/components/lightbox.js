@@ -30,14 +30,14 @@
 
         boot: function() {
 
-            UI.$html.on('click', UI.prefix('[data-@-lightbox]'), function(e){
+            UI.$html.on('click', '[data-uk-lightbox]', function(e){
 
                 e.preventDefault();
 
                 var link = UI.$(this);
 
                 if (!link.data("lightbox")) {
-                    UI.lightbox(link, UI.Utils.options(link.attr("data-@-lightbox")));
+                    UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
                 }
 
                 link.data("lightbox").show(link);
@@ -67,8 +67,8 @@
             var $this = this;
 
             this.siblings  = this.options.group ? UI.$([
-                '[data-@-lightbox*="'+this.options.group+'"]',
-                "[data-@-lightbox*='"+this.options.group+"']"
+                '[data-uk-lightbox*="'+this.options.group+'"]',
+                "[data-uk-lightbox*='"+this.options.group+"']"
             ].join(',')) : this.element;
 
             this.index = this.siblings.index(this.element);
@@ -128,7 +128,7 @@
                 this.modal.modal.show();
             }
 
-            this.modal.loader.removeClass(UI.prefix('@-hidden'));
+            this.modal.loader.removeClass('uk-hidden');
 
             promise.promise().done(function() {
 
@@ -194,10 +194,10 @@
 
             this.modal.content.css('opacity', 0).width(w).html(content);
 
-            this.modal.dialog.find(UI.prefix('.@-modal-caption')).remove();
+            this.modal.dialog.find('.uk-modal-caption').remove();
 
             if (data.title) {
-                this.modal.dialog.append(UI.prefix('<div class="@-modal-caption">')+data.title+'</div>');
+                this.modal.dialog.append('<div class="uk-modal-caption">'+data.title+'</div>');
             }
 
             if (data.type == 'iframe') {
@@ -209,16 +209,16 @@
 
             if (t < 0) { t = 0; }
 
-            this.modal.closer.addClass(UI.prefix('@-hidden'));
+            this.modal.closer.addClass('uk-hidden');
 
             if ($this.modal.data('mwidth') == w &&  $this.modal.data('mheight') == h) {
                 duration = 0;
             }
 
             this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, duration, 'swing', function() {
-                $this.modal.loader.addClass(UI.prefix('@-hidden'));
+                $this.modal.loader.addClass('uk-hidden');
                 $this.modal.content.css({width:''}).animate({'opacity': 1}, function() {
-                    $this.modal.closer.removeClass(UI.prefix('@-hidden'));
+                    $this.modal.closer.removeClass('uk-hidden');
                 });
 
                 $this.modal.data({'mwidth': w, 'mheight': h});
@@ -444,19 +444,19 @@
 
         // init lightbox container
         modal = UI.$([
-            '<div class="@-modal">',
-                '<div class="@-modal-dialog @-modal-dialog-lightbox @-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
-                    '<a href="#" class="@-modal-close @-close @-close-alt"></a>',
-                    '<div class="@-lightbox-content"></div>',
-                    '<div class="@-modal-spinner @-hidden"></div>',
+            '<div class="uk-modal">',
+                '<div class="uk-modal-dialog uk-modal-dialog-lightbox uk-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2 - 200)+'px;">',
+                    '<a href="#" class="uk-modal-close uk-close uk-close-alt"></a>',
+                    '<div class="uk-lightbox-content"></div>',
+                    '<div class="uk-modal-spinner uk-hidden"></div>',
                 '</div>',
             '</div>'
         ].join('')).appendTo('body');
 
-        modal.dialog  = modal.find(UI.prefix('.@-modal-dialog:first'));
-        modal.content = modal.find(UI.prefix('.@-lightbox-content:first'));
-        modal.loader  = modal.find(UI.prefix('.@-modal-spinner:first'));
-        modal.closer  = modal.find(UI.prefix('.@-close.@-close-alt'));
+        modal.dialog  = modal.find('.uk-modal-dialog:first');
+        modal.content = modal.find('.uk-lightbox-content:first');
+        modal.loader  = modal.find('.uk-modal-spinner:first');
+        modal.closer  = modal.find('.uk-close.uk-close-alt');
         modal.modal   = UI.modal(modal);
 
         // next / previous

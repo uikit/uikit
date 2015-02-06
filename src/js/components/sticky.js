@@ -26,8 +26,8 @@
             top          : 0,
             bottom       : 0,
             animation    : '',
-            clsinit      : '@-sticky-init',
-            clsactive    : '@-active',
+            clsinit      : 'uk-sticky-init',
+            clsactive    : 'uk-active',
             getWidthFrom : '',
             boundary     : false,
             media        : false,
@@ -54,12 +54,12 @@
 
                 setTimeout(function(){
 
-                    UI.$("[data-@-sticky]", context).each(function(){
+                    UI.$("[data-uk-sticky]", context).each(function(){
 
                         var $ele = UI.$(this);
 
                         if(!$ele.data("sticky")) {
-                            UI.sticky($ele, UI.Utils.options($ele.attr('data-@-sticky')));
+                            UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
                         }
                     });
 
@@ -70,7 +70,7 @@
 
         init: function() {
 
-            var wrapper  = UI.$('<div class="@-sticky-placeholder"></div>').css({
+            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>').css({
                         'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
                         'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
                         'margin' : this.element.css("margin")
@@ -103,7 +103,7 @@
 
                     var finalize = function() {
                         this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
-                        this.element.removeClass([this.options.animation, '@-animation-reverse', this.options.clsactive].join(' '));
+                        this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
 
                         this.currentTop = null;
                         this.animate    = false;
@@ -118,7 +118,7 @@
                             finalize();
                         }).width(); // force redraw
 
-                        this.element.addClass(this.options.animation+' '+'@-animation-reverse');
+                        this.element.addClass(this.options.animation+' '+'uk-animation-reverse');
                     } else {
                         finalize();
                     }

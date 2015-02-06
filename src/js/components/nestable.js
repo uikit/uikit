@@ -59,20 +59,20 @@
     UI.component('nestable', {
 
         defaults: {
-            prefix          : '@',
+            prefix          : 'uk-',
             listNodeName    : 'ul',
             itemNodeName    : 'li',
-            listBaseClass   : '{prefix}-nestable',
-            listClass       : '{prefix}-nestable-list',
-            listitemClass   : '{prefix}-nestable-list-item',
-            itemClass       : '{prefix}-nestable-item',
-            dragClass       : '{prefix}-nestable-list-dragged',
-            movingClass     : '{prefix}-nestable-moving',
-            handleClass     : '{prefix}-nestable-handle',
-            collapsedClass  : '{prefix}-collapsed',
-            placeClass      : '{prefix}-nestable-placeholder',
-            noDragClass     : '{prefix}-nestable-nodrag',
-            emptyClass      : '{prefix}-nestable-empty',
+            listBaseClass   : '{prefix}nestable',
+            listClass       : '{prefix}nestable-list',
+            listitemClass   : '{prefix}nestable-list-item',
+            itemClass       : '{prefix}nestable-item',
+            dragClass       : '{prefix}nestable-list-dragged',
+            movingClass     : '{prefix}nestable-moving',
+            handleClass     : '{prefix}nestable-handle',
+            collapsedClass  : '{prefix}collapsed',
+            placeClass      : '{prefix}nestable-placeholder',
+            noDragClass     : '{prefix}nestable-nodrag',
+            emptyClass      : '{prefix}nestable-empty',
             group           : 0,
             maxDepth        : 10,
             threshold       : 20
@@ -99,12 +99,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-nestable]", context).each(function(){
+                UI.$("[data-uk-nestable]", context).each(function(){
 
                     var ele = UI.$(this);
 
                     if(!ele.data("nestable")) {
-                        var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-@-nestable")));
+                        var plugin = UI.nestable(ele, UI.Utils.options(ele.attr("data-uk-nestable")));
                     }
                 });
             });
@@ -113,8 +113,6 @@
         init: function() {
 
             var $this = this;
-
-            $this.options.prefix = UI.prefix($this.options.prefix);
 
             Object.keys(this.options).forEach(function(key){
 
@@ -409,7 +407,7 @@
                 this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger(UI.prefix('change.uk.nestable'), [el, "removed", this.dragRootEl]);
+                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl]);
                 }
             }
 

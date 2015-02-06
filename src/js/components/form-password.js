@@ -25,7 +25,7 @@
 
         boot: function() {
             // init code
-            UI.$html.on("click.formpassword.uikit", "[data-@-form-password]", function(e) {
+            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
 
                 var ele = UI.$(this);
 
@@ -33,7 +33,7 @@
 
                     e.preventDefault();
 
-                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-@-form-password")));
+                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
                     ele.trigger("click");
                 }
             });

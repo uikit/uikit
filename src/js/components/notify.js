@@ -51,8 +51,8 @@
         this.uuid    = UI.Utils.uid("notifymsg");
         this.element = UI.$([
 
-            '<div class="@-notify-message">',
-                '<a class="@-close"></a>',
+            '<div class="uk-notify-message">',
+                '<a class="uk-close"></a>',
                 '<div></div>',
             '</div>'
 
@@ -62,7 +62,7 @@
 
         // status
         if (this.options.status) {
-            this.element.addClass('@-notify-message-'+this.options.status);
+            this.element.addClass('uk-notify-message-'+this.options.status);
             this.currentstatus = this.options.status;
         }
 
@@ -71,7 +71,7 @@
         messages[this.uuid] = this;
 
         if(!containers[this.options.pos]) {
-            containers[this.options.pos] = UI.$('<div class="@-notify @-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", UI.prefix(".@-notify-message"), function(){
+            containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
                 UI.$(this).data("notifyMessage").close();
             });
         }
@@ -160,7 +160,7 @@
                 return this.currentstatus;
             }
 
-            this.element.removeClass('@-notify-message-'+this.currentstatus).addClass('@-notify-message-'+status);
+            this.element.removeClass('uk-notify-message-'+this.currentstatus).addClass('uk-notify-message-'+status);
 
             this.currentstatus = status;
 
