@@ -91,9 +91,9 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#sticky-boundary'}">Stick to the top</div>
+                            <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#define-an-offset'}">Stick to the top</div>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
 
                             <pre><code>&lt;div data-uk-sticky&gt;...&lt;/div&gt;</code></pre>
 
@@ -105,9 +105,9 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box" data-uk-sticky="{top:100,boundary:'#sticky-boundary'}">Stick 100px below the top</div>
+                            <div class="uk-panel uk-panel-box" data-uk-sticky="{top:100,boundary:'#add-a-delay'}">Stick 100px below the top</div>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
 
                             <pre><code>&lt;div data-uk-sticky="{top:100}"&gt;...&lt;/div&gt;</code></pre>
 
@@ -119,15 +119,15 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top', boundary:'#sticky-boundary'}">Stick at the top but only after 200px scrolling</div>
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-sticky="{top:-100, animation: 'uk-animation-slide-top', boundary:'#responsive-behavior'}">Stick at the top but only after 100px scrolling</div>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
 
                             <pre><code>&lt;div data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top'}"&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2>Responsive behavior</h2>
+                            <h2 id="responsive-behavior"><a href="#responsive-behavior" class="uk-link-reset">Responsive behavior</a></h2>
 
                             <p>You also have the possibility of disabling the sticky behavior for different devices by adding a breakpoint option to the data attribute, e.g. <code>data-uk-sticky="{media: 640}"</code>. Additionaly you can use any valid media query.</p>
 
@@ -156,19 +156,19 @@
                                     </div>
                                 </div>
                                 <div class="uk-width-1-2">
-                                    <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#boundary'}" style="margin-bottom: 200px;">Sticky as long as bondary is in view</div>
-                                    <div id="boundary" class="uk-panel uk-panel-box">Boundary</div>
+                                    <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#boundary'}" style="margin-bottom: 228px;">Sticky as long as bondary element is in view</div>
+                                    <div id="boundary" class="uk-panel uk-panel-box">Boundary element</div>
                                 </div>
                             </div>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
 
                             <pre><code>
-                                &lt;!-- bind sticky to its parent element --&gt;
+                                &lt;!-- Bind sticky to its parent element --&gt;
                                 &lt;div data-uk-sticky="{boundary: true}"&gt;...&lt;/div&gt;
 
-                                &lt;!-- bind sticky to any element --&gt;
-                                &lt;div data-uk-sticky="{boundary: '#myid'}&gt;...&lt;/div&gt;
+                                &lt;!-- Bind sticky to any element --&gt;
+                                &lt;div data-uk-sticky="{boundary: '#my-id'}&gt;...&lt;/div&gt;
                             </code></pre>
 
                             <hr class="uk-article-divider">
