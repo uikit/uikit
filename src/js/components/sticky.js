@@ -74,28 +74,32 @@
                         'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
                         'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
                         'margin' : this.element.css("margin")
-                }), boundary = this.options.boundary;
+                }), boundary = this.options.boundary, boundtoparent;
 
             wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
 
             if (boundary) {
 
                 if (boundary === true) {
-                    boundary = wrapper.parent();
+
+                    boundary      = wrapper.parent();
+                    boundtoparent = true;
+
                 } else if (typeof boundary === "string") {
                     boundary = $(boundary);
                 }
             }
 
             this.sticky = {
-                options      : this.options,
-                element      : this.element,
-                currentTop   : null,
-                wrapper      : wrapper,
-                init         : false,
-                getWidthFrom : this.options.getWidthFrom || wrapper,
-                boundary     : boundary,
-                reset        : function(force) {
+                options       : this.options,
+                element       : this.element,
+                currentTop    : null,
+                wrapper       : wrapper,
+                init          : false,
+                getWidthFrom  : this.options.getWidthFrom || wrapper,
+                boundary      : boundary,
+                boundtoparent : boundtoparent,
+                reset         : function(force) {
 
                     var finalize = function() {
                         this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
@@ -168,8 +172,7 @@
             extra           = (scrollTop > dwh) ? dwh - scrollTop : 0,
             newTop, containerBottom, stickyHeight;
 
-        if(scrollTop < 0) return;
-
+        if (scrollTop < 0) return;
 
         for (var i = 0; i < sticked.length; i++) {
 
@@ -193,12 +196,21 @@
                     stickyHeight = sticky.element.outerHeight();
                     newTop = documentHeight - stickyHeight - sticky.options.top - sticky.options.bottom - scrollTop - extra;
                     newTop = newTop < 0 ? newTop + sticky.options.top : sticky.options.top;
-
-                    if (sticky.boundary && sticky.boundary.length) {
-                        containerBottom = documentHeight - (sticky.boundary.position().top + sticky.boundary.height());
-                        newTop = (scrollTop + stickyHeight) > (documentHeight - containerBottom) ? (documentHeight - containerBottom) - (scrollTop + stickyHeight) : newTop;
-                    }
                 }
+
+                if (sticky.boundary && sticky.boundary.length) {
+
+                    var bTop = sticky.boundary.position().top;
+
+                    if (sticky.boundtoparent) {
+                        containerBottom = documentHeight - (bTop + sticky.boundary.outerHeight()) + parseInt(sticky.boundary.css('padding-bottom'));
+                    } else {
+                        containerBottom = documentHeight - bTop - parseInt(sticky.boundary.css('margin-top'));
+                    }
+
+                    newTop = (scrollTop + stickyHeight) > (documentHeight - containerBottom - (sticky.options.top < 0 ? 0 : sticky.options.top)) ? (documentHeight - containerBottom) - (scrollTop + stickyHeight) : newTop;
+                }
+
 
                 if (sticky.currentTop != newTop) {
 
@@ -255,9 +267,7 @@
 
             sticky.init = true;
         }
-
     }
-
 
     return UI.sticky;
 });
