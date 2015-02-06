@@ -108,18 +108,17 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <pre><code>
-                            &lt;!-- This is a grid using uk-width-* on each item --&gt;
-                            &lt;div data-uk-grid&gt;
-                                &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
-                                &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
-                            &lt;/div&gt;
+<pre><code>&lt;!-- This is a grid using uk-width-* on each item --&gt;
+&lt;div data-uk-grid&gt;
+    &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
+    &lt;div class="uk-width-small-1-2 uk-width-medium-1-4"&gt;...&lt;/div&gt;
+&lt;/div&gt;
 
-                            &lt;!-- This is a grid using uk-grid-width-* on the grid itself --&gt;
-                            &lt;div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-4" data-uk-grid&gt;
-                                &lt;div&gt;...&lt;/div&gt;
-                                &lt;div&gt;...&lt;/div&gt;
-                            &lt;/div&gt;</code></pre>
+&lt;!-- This is a grid using uk-grid-width-* on the grid itself --&gt;
+&lt;div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-4" data-uk-grid&gt;
+    &lt;div&gt;...&lt;/div&gt;
+    &lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -173,19 +172,18 @@
 
                             <p>This example is using a <a href="subnav.html">Subnav</a> to filter the items.</p>
 
-                            <pre><code>
-                            &lt;!-- Filter Controls --&gt;
-                            &lt;ul id="my-id" class="uk-subnav"&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-filter="filter-a"&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-filter="filter-b"&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-filter=""&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;/ul&gt;
+<pre><code>&lt;!-- Filter Controls --&gt;
+&lt;ul id="my-id" class="uk-subnav"&gt;
+    &lt;li data-uk-filter=""&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter="filter-a"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter="filter-b"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-                            &lt;!-- Dynamic Grid --&gt;
-                            &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
-                                &lt;div data-uk-filter="filter-a"&gt;...&lt;/div&gt;
-                                &lt;div data-uk-filter="filter-b"&gt;...&lt;/div&gt;
-                            &lt;/div&gt;</code></pre>
+&lt;!-- Dynamic Grid --&gt;
+&lt;div data-uk-grid="{controls: '#my-id'}"&gt;
+    &lt;div data-uk-filter="filter-a"&gt;...&lt;/div&gt;
+    &lt;div data-uk-filter="filter-b"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -217,16 +215,15 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <pre><code>
-                            &lt;ul id="my-id" class="uk-subnav"&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;/ul&gt;
+<pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
+    &lt;li data-uk-sort="my-category"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-                            &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
-                                &lt;div data-my-category="a"&gt;...&lt;/div&gt;
-                                &lt;div data-my-category="b"&gt;...&lt;/div&gt;
-                            &lt;/div&gt;</code></pre>
+&lt;div data-uk-grid="{controls: '#my-id'}"&gt;
+    &lt;div data-my-category="a"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="b"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -254,18 +251,17 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <pre><code>
-                            &lt;ul id="my-id" class="uk-subnav"&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-sort="my-category2"&gt;&lt;/a&gt;&lt;/li&gt;
-                                &lt;li&gt;&lt;a href="" data-uk-sort="my-category2:desc"&gt;&lt;/a&gt;&lt;/li&gt;
-                            &lt;/ul&gt;
+<pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
+    &lt;li data-uk-sort="my-category"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category2"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category2:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-                            &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
-                                &lt;div data-my-category="a" data-my-category2="8"&gt;...&lt;/div&gt;
-                                &lt;div data-my-category="b" data-my-category2="7"&gt;...&lt;/div&gt;
-                            &lt;/div&gt;</code></pre>
+&lt;div data-uk-grid="{controls: '#my-id'}"&gt;
+    &lt;div data-my-category="a" data-my-category2="8"&gt;...&lt;/div&gt;
+    &lt;div data-my-category="b" data-my-category2="7"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
