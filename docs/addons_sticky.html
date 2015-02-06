@@ -91,7 +91,7 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box" data-uk-sticky>Stick to the top</div>
+                            <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#sticky-boundary'}">Stick to the top</div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -105,7 +105,7 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box" data-uk-sticky="{top:100}">Stick 100px below the top</div>
+                            <div class="uk-panel uk-panel-box" data-uk-sticky="{top:100,boundary:'#sticky-boundary'}">Stick 100px below the top</div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -119,7 +119,7 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top'}">Stick at the top but only after 200px scrolling</div>
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top', boundary:'#sticky-boundary'}">Stick at the top but only after 200px scrolling</div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -143,7 +143,7 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2>Sticky boundary</h2>
+                            <h2 id="sticky-boundary"><a href="#sticky-boundary" class="uk-link-reset">Sticky boundary</a></h2>
 
                             <p>You can define the boundary of a sticky element by setting the <code>boundary</code> parameter. This keeps the sticky element within the dimensions of the boundary element.</p>
 
@@ -156,9 +156,8 @@
                                     </div>
                                 </div>
                                 <div class="uk-width-1-2">
-                                    <div class="uk-panel uk-panel-box uk-panel-box-secondary" style="height:300px;">
-                                        <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#javascript-options-container'}">Sticky bound to JavaScript options container</div>
-                                    </div>
+                                    <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#boundary'}" style="margin-bottom: 200px;">Sticky as long as bondary is in view</div>
+                                    <div id="boundary" class="uk-panel uk-panel-box">Boundary</div>
                                 </div>
                             </div>
 
