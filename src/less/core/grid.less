@@ -273,17 +273,10 @@
     display: flex;
 }
 
-/*
- * 1. Behave like a block element
- */
-
 .uk-grid-match > * > * {
     -ms-flex: none;
     -webkit-flex: none;
     flex: none;
-    /* 1 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
     width: 100%;
 }
 
@@ -292,8 +285,6 @@
  ========================================================================== */
 
 [class*='uk-grid-width'] > * {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
     width: 100%;
 }
 
@@ -357,8 +348,6 @@
  ========================================================================== */
 
 [class*='uk-width'] {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
     width: 100%;
 }
 

@@ -110,28 +110,24 @@
 
 /*
  * 1. Create position context for caption, spinner and close button
- * 2. Set box sizing
- * 3. Min-height needed for initial loading and spinner
- * 4. Set style
- * 5. Slide-in transition
+ * 2. Min-height needed for initial loading and spinner
+ * 3. Set style
+ * 4. Slide-in transition
  */
 
 .uk-modal-dialog {
     /* 1 */
     position: relative;
-    /* 2 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
     margin: @modal-dialog-margin-vertical auto;
     padding: @modal-dialog-padding;
     width: @modal-dialog-width;
     max-width: 100%;
     max-width: ~"calc(100% - 20px)";
-    /* 3 */
+    /* 2 */
     min-height: 200px;
-    /* 4 */
+    /* 3 */
     background: @modal-dialog-background;
-    /* 5 */
+    /* 4 */
     opacity: 0;
     -webkit-transform: translateY(-100px);
     transform: translateY(-100px);

@@ -141,28 +141,24 @@
 .uk-search-field::-moz-placeholder { opacity: 1; }
 
 /*
- * 1. Define consistent box sizing.
- * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
- * 3. Remove `border-radius` in iOS.
- * 4. Correct `font` properties and `color` not being inherited.
- * 5. Remove default style in iOS.
- * 6. Style
+ * 1. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 2. Remove `border-radius` in iOS.
+ * 3. Correct `font` properties and `color` not being inherited.
+ * 4. Remove default style in iOS.
+ * 5. Style
  */
 
 .uk-search-field {
     /* 1 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    /* 2 */
     margin: 0;
-    /* 3 */
+    /* 2 */
     border-radius: 0;
-    /* 4 */
+    /* 3 */
     font: inherit;
     color: @search-color;
-    /* 5 */
+    /* 4 */
     -webkit-appearance: none;
-    /* 6 */
+    /* 5 */
     width: @search-width;
     height: @search-height;
     padding: 0 0 0 @search-padding;

@@ -113,27 +113,19 @@
  ========================================================================== */
 
 /*
- * 1. Define consistent box sizing.
- *    Default is `content-box` with following exceptions set to `border-box`
- *    `button`, `select`, `input[type="checkbox"]` and `input[type="radio"]`
- *    `input[type="search"]` in Chrome, Safari and Opera
- *    `input[type="color"]` in Firefox
- * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
- * 3. Remove `border-radius` in iOS.
- * 4. Correct `font` properties and `color` not being inherited.
+ * 1. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 2. Remove `border-radius` in iOS.
+ * 3. Correct `font` properties and `color` not being inherited.
  */
 
 .uk-form input,
 .uk-form select,
 .uk-form textarea {
     /* 1 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    /* 2 */
     margin: 0;
-    /* 3 */
+    /* 2 */
     border-radius: 0;
-    /* 4 */
+    /* 3 */
     font: inherit;
     color: inherit;
 }
