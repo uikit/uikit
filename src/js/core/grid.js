@@ -64,7 +64,7 @@
 
         match: function() {
 
-            UI.Utils.matchHeights(this.elements, this.options);
+            UI.Utils.matchHeights(this.elements, this.options, this.element);
 
             return this;
         },
@@ -106,16 +106,17 @@
 
     // helper
 
-    UI.Utils.matchHeights = function(elements, options) {
+    UI.Utils.matchHeights = function(elements, options, parent) {
 
         elements = $(elements).css('min-height', '');
         options  = $.extend({ row : true }, options);
 
         var firstvisible = elements.filter(":visible:first");
+        parent = parent || firstvisible.parent();
 
         if (!firstvisible.length) return;
 
-        var stacked      = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100 ? true : false,
+        var stacked      = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(parent.css('width'))) >= 100 ? true : false,
             max          = 0,
             matchHeights = function(group){
 
