@@ -59,7 +59,10 @@
 
                 elements.each(function(idx){
 
-                    var element = UI.$(this), inviewstate = element.data('inviewstate'), inview = UI.Utils.isInView(element, $this.options), toggle = togglecls[toggleclsIdx].trim();
+                    var element     = UI.$(this),
+                        inviewstate = element.data('inviewstate'),
+                        inview      = UI.Utils.isInView(element, $this.options),
+                        toggle      = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
 
                     if (inview && !inviewstate) {
 
