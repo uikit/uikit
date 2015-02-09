@@ -108,8 +108,6 @@
 
         init: function() {
 
-            var $this = this;
-
             var stackMargin = UI.stackMargin(this.element, this.options);
         }
     });
@@ -121,23 +119,22 @@
         elements = $(elements).css('min-height', '');
         options  = $.extend({ row : true }, options);
 
-        var max          = 0,
-            matchHeights = function(group){
+        var matchHeights = function(group){
 
-                if(group.length < 2) return;
+            if(group.length < 2) return;
 
-                var max = 0;
+            var max = 0;
 
-                group.each(function() {
-                    max = Math.max(max, $(this).outerHeight());
-                }).each(function(i) {
+            group.each(function() {
+                max = Math.max(max, $(this).outerHeight());
+            }).each(function() {
 
-                    var element = $(this),
-                    height  = max - (element.outerHeight() - element.height());
+                var element = $(this),
+                height  = max - (element.outerHeight() - element.height());
 
-                    element.css('min-height', height + 'px');
-                });
-            };
+                element.css('min-height', height + 'px');
+            });
+        };
 
         if(options.row) {
 
@@ -147,7 +144,7 @@
 
                 var lastoffset = false, group = [];
 
-                elements.each(function(i) {
+                elements.each(function() {
 
                     var ele = $(this), offset = ele.offset().top;
 
