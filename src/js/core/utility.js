@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -121,7 +121,7 @@
 
     UI.Utils.stackMargin = function(elements, options) {
 
-        options = $.extend({
+        options = UI.$.extend({
             'cls': 'uk-margin-small-top'
         }, options);
 
@@ -153,4 +153,4 @@
         });
     };
 
-})(jQuery, UIkit);
+})(UIkit);

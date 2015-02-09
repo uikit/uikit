@@ -1,16 +1,18 @@
 (function(addon) {
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-accordion", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
-})(function($, UI){
+})(function(UI){
+
+    "use strict";
 
     UI.component('accordion', {
 
@@ -111,12 +113,12 @@
 
             this.content.each(function(index) {
 
-                $content = $(this);
+                $content = UI.$(this);
 
                 if ($content.parent().data('wrapper')) {
                     $wrapper = $content.parent();
                 } else {
-                    $wrapper = $(this).wrap('<div data-wrapper="true" style="overflow:hidden;height:0;position:relative;"></div>').parent();
+                    $wrapper = UI.$(this).wrap('<div data-wrapper="true" style="overflow:hidden;height:0;position:relative;"></div>').parent();
                 }
 
                 $toggle = $this.toggle.eq(index);
@@ -136,7 +138,7 @@
 
     function getHeight(ele) {
 
-        var $ele = $(ele), height = "auto";
+        var $ele = UI.$(ele), height = "auto";
 
         if ($ele.is(":visible")) {
             height = $ele.outerHeight();

@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-htmleditor", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI) {
+})(function(UI) {
 
     "use strict";
 
@@ -84,7 +84,7 @@
                 this.iframe[0].contentWindow.document.open();
                 this.iframe[0].contentWindow.document.close();
 
-                this.preview.container = $(this.iframe[0].contentWindow.document).find('body');
+                this.preview.container = UI.$(this.iframe[0].contentWindow.document).find('body');
 
                 // append custom stylesheet
                 if (typeof(this.options.iframe) === 'string') {
@@ -173,7 +173,7 @@
         },
 
         addButtons: function(buttons) {
-            $.extend(this.buttons, buttons);
+            UI.$.extend(this.buttons, buttons);
         },
 
         replaceInPreview: function(regexp, callback) {
@@ -302,7 +302,7 @@
 
         addShortcut: function(name, callback) {
             var map = {};
-            if (!$.isArray(name)) {
+            if (!UI.$.isArray(name)) {
                 name = [name];
             }
 
@@ -581,7 +581,7 @@
                 }
             });
 
-            $.extend(editor, {
+            UI.$.extend(editor, {
 
                 enableMarkdown: function() {
                     enableMarkdown()

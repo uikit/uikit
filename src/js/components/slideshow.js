@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-slideshow", ["uikit"], function() {
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI) {
+})(function(UI) {
 
     "use strict";
 
@@ -68,7 +68,7 @@
 
             this.slides.each(function(index) {
 
-                var slide = $(this),
+                var slide = UI.$(this),
                     media = slide.children('img,video,iframe').eq(0);
 
                 slide.data('media', media);
@@ -222,7 +222,7 @@
                 height = 0;
 
                 this.slides.css('height', '').each(function() {
-                    height = Math.max(height, $(this).height());
+                    height = Math.max(height, UI.$(this).height());
                 });
             }
 
@@ -386,14 +386,14 @@
 
         'none': function() {
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
             d.resolve();
             return d.promise();
         },
 
         'scroll': function(current, next, dir) {
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
 
             current.css('animation-duration', this.options.duration+'ms');
             next.css('animation-duration', this.options.duration+'ms');
@@ -415,7 +415,7 @@
 
         'swipe': function(current, next, dir) {
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
 
             current.css('animation-duration', this.options.duration+'ms');
             next.css('animation-duration', this.options.duration+'ms');
@@ -437,7 +437,7 @@
 
         'scale': function(current, next, dir) {
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
 
             current.css('animation-duration', this.options.duration+'ms');
             next.css('animation-duration', this.options.duration+'ms');
@@ -460,7 +460,7 @@
 
         'fade': function(current, next, dir) {
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
 
             current.css('animation-duration', this.options.duration+'ms');
             next.css('animation-duration', this.options.duration+'ms');

@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -62,4 +62,4 @@
 
     });
 
-})(jQuery, UIkit);
+})(UIkit);

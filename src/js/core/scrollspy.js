@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -160,7 +160,7 @@
 
             var ids     = [],
                 links   = this.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
-                targets = $(ids.join(",")),
+                targets = UI.$(ids.join(",")),
 
                 clsActive  = this.options.cls,
                 clsClosest = this.options.closest || this.options.closest;
@@ -216,4 +216,4 @@
         }
     });
 
-})(jQuery, UIkit);
+})(UIkit);

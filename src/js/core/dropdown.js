@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -109,7 +109,7 @@
 
                 }).on("click", function(e){
 
-                    var $target = $(e.target);
+                    var $target = UI.$(e.target);
 
                     if ($this.remainIdle) {
                         clearTimeout($this.remainIdle);
@@ -259,4 +259,4 @@
 
     });
 
-})(jQuery, UIkit);
+})(UIkit);

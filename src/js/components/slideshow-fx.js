@@ -2,34 +2,34 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-slideshow-fx", ["uikit"], function() {
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI) {
+})(function(UI) {
 
     "use strict";
 
     var Animations = UI.slideshow.animations;
 
-    $.extend(UI.slideshow.animations, {
+    UI.$.extend(UI.slideshow.animations, {
         'slice': function(current, next, dir, fromfx) {
 
             if (!current.data('cover')) {
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
 
             var sliceWidth = Math.ceil(this.element.width() / this.options.slices),
                 bgimage    = next.data('cover').css('background-image'),
-                ghost      = $('<li></li>').css({
+                ghost      = UI.$('<li></li>').css({
                     top    : 0,
                     left   : 0,
                     width  : this.container.width(),
@@ -86,7 +86,7 @@
             ghost.width();
 
             ghost.children().each(function() {
-                var bar = $(this);
+                var bar = UI.$(this);
 
                 bar.css({
                     'clip': bar.data('clip'),
@@ -115,11 +115,11 @@
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
 
             var sliceWidth = Math.ceil(this.element.width() / this.options.slices),
                 bgimage    = next.data('cover').css('background-image'),
-                ghost      = $('<li></li>').css({
+                ghost      = UI.$('<li></li>').css({
                     width  : next.width(),
                     height : next.height(),
                     opacity: 1,
@@ -172,7 +172,7 @@
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = $.Deferred(), $this = this;
+            var d = UI.$.Deferred(), $this = this;
 
             var boxCols   = Math.round(this.options.slices/2),
                 boxWidth  = Math.round(next.width()/boxCols),
@@ -246,14 +246,14 @@
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
 
             var boxCols   = Math.round(this.options.slices/2),
                 boxWidth  = Math.round(next.width()/boxCols),
                 boxRows   = Math.round(next.height()/boxWidth),
                 boxHeight = Math.round(next.height()/boxRows)+1,
                 bgimage   = next.data('cover').css('background-image'),
-                ghost     = $('<li></li>').css({
+                ghost     = UI.$('<li></li>').css({
                     width   : next.width(),
                     height  : next.height(),
                     opacity : 1,
@@ -261,11 +261,11 @@
                 }),
                 ghostWidth  = next.width(),
                 ghostHeight = next.height(),
-                box, rect, width;
+                box, rect, width, cols;
 
             for (var rows = 0; rows < boxRows; rows++) {
 
-                for (var cols = 0; cols < boxCols; cols++) {
+                for (cols = 0; cols < boxCols; cols++) {
 
                     width  = (cols == boxCols-1) ? (boxWidth + 2) : boxWidth;
 
@@ -304,7 +304,7 @@
 
             boxes.each(function() {
 
-                box2Darr[rowIndex][colIndex] = $(this);
+                box2Darr[rowIndex][colIndex] = UI.$(this);
                 colIndex++;
 
                 if(colIndex == boxCols) {
@@ -314,7 +314,7 @@
                 }
             });
 
-            for (var cols = 0, prevCol = 0; cols < (boxCols * boxRows); cols++) {
+            for (cols = 0, prevCol = 0; cols < (boxCols * boxRows); cols++) {
 
                 prevCol = cols;
 

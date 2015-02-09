@@ -1,4 +1,4 @@
-(function(global, $, UI){
+(function(UI){
 
     "use strict";
 
@@ -73,7 +73,7 @@
 
                     this.totoggle.each(function(){
                         UI.Utils.animate(this, animations[0]).then(function(){
-                            $(this).css('animation-duration', '');
+                            UI.$(this).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         });
                     });
@@ -99,4 +99,4 @@
         }
     });
 
-})(this, jQuery, UIkit);
+})(UIkit);

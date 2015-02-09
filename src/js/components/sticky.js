@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-sticky", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -86,7 +86,7 @@
                     boundtoparent = true;
 
                 } else if (typeof boundary === "string") {
-                    boundary = $(boundary);
+                    boundary = UI.$(boundary);
                 }
             }
 
@@ -217,7 +217,7 @@
                     sticky.element.css({
                         "position" : "fixed",
                         "top"      : newTop,
-                        "width"    : (typeof sticky.getWidthFrom !== 'undefined') ? $(sticky.getWidthFrom).width() : sticky.element.width(),
+                        "width"    : (typeof sticky.getWidthFrom !== 'undefined') ? UI.$(sticky.getWidthFrom).width() : sticky.element.width(),
                         "left"     : sticky.wrapper.offset().left
                     });
 
@@ -227,7 +227,7 @@
 
                         if (location.hash && scrollTop > 0 && sticky.options.target) {
 
-                            var $target = $(location.hash);
+                            var $target = UI.$(location.hash);
 
                             if ($target.length) {
 

@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-grid", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -51,7 +51,7 @@
 
             if (this.options.controls) {
 
-                var controls  = $(this.options.controls),
+                var controls  = UI.$(this.options.controls),
                     activeCls = 'uk-active';
 
                 // filter
@@ -66,7 +66,7 @@
                 controls.on('click', '[data-uk-sort]', function(e){
                     e.preventDefault();
 
-                    var cmd = $(this).data('ukSort').split(':');
+                    var cmd = UI.$(this).attr('data-uk-sort').split(':');
 
                     $this.sort(cmd[0], cmd[1]);
 
@@ -136,7 +136,7 @@
 
                 size   = getElementSize(this);
 
-                item   = $(this);
+                item   = UI.$(this);
                 width  = size.outerWidth;
                 height = size.outerHeight;
                 left   = 0;
@@ -220,7 +220,7 @@
 
             children.each(function(index){
 
-                var ele = $(this), f = ele.data('ukFilter'), infilter = filter.length ? false : true;
+                var ele = UI.$(this), f = ele.attr('data-uk-filter'), infilter = filter.length ? false : true;
 
                 if (f) {
 
@@ -235,8 +235,8 @@
             });
 
             // convert to jQuery collections
-            elements.hidden  = $(elements.hidden).map(function () {return this[0];});
-            elements.visible = $(elements.visible).map(function () {return this[0];});
+            elements.hidden  = UI.$(elements.hidden).map(function () {return this[0];});
+            elements.visible = UI.$(elements.visible).map(function () {return this[0];});
 
             elements.hidden.filter(':visible').fadeOut(this.options.duration);
 
@@ -258,8 +258,8 @@
 
             elements.sort(function(a, b){
 
-                a = $(a);
-                b = $(b);
+                a = UI.$(a);
+                b = UI.$(b);
 
                 return (b.data(by) || '') < (a.data(by) || '') ? order : (order*-1);
 

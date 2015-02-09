@@ -1,7 +1,6 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
-
 
     UI.component('tab', {
 
@@ -45,7 +44,7 @@
             });
 
             if (this.options.connect) {
-                this.connect = $(this.options.connect);
+                this.connect = UI.$(this.options.connect);
             }
 
             // init responsive tab
@@ -63,7 +62,7 @@
                 e.preventDefault();
                 e.stopPropagation();
 
-                var link = $(this);
+                var link = UI.$(this);
 
                 $this.element.children(':not(.uk-tab-responsive)').eq(link.data('index')).trigger('click');
             });
@@ -142,4 +141,4 @@
         }
     });
 
-})(jQuery, UIkit);
+})(UIkit);

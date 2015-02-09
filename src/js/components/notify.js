@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-notify", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -21,12 +21,12 @@
 
         notify     =  function(options){
 
-            if ($.type(options) == 'string') {
+            if (UI.$.type(options) == 'string') {
                 options = { message: options };
             }
 
             if (arguments[1]) {
-                options = $.extend(options, $.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
+                options = UI.$.extend(options, UI.$.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
             }
 
             return (new Message(options)).show();
@@ -46,7 +46,7 @@
 
         var $this = this;
 
-        this.options = $.extend({}, Message.defaults, options);
+        this.options = UI.$.extend({}, Message.defaults, options);
 
         this.uuid    = UI.Utils.uid("notifymsg");
         this.element = UI.$([
@@ -78,7 +78,7 @@
     };
 
 
-    $.extend(Message.prototype, {
+    UI.$.extend(Message.prototype, {
 
         uuid: false,
         element: false,

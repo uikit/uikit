@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-autocomplete", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -274,7 +274,7 @@
 
                         params[this.options.param] = this.value;
 
-                        $.ajax({
+                        UI.$.ajax({
                             url: this.options.source,
                             data: params,
                             type: this.options.method,

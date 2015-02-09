@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -41,7 +41,7 @@
                     $this.match();
                 };
 
-                $(function() {
+                UI.$(function() {
                     fn();
                     UI.$win.on("load", fn);
                 });
@@ -116,8 +116,8 @@
 
     UI.Utils.matchHeights = function(elements, options) {
 
-        elements = $(elements).css('min-height', '');
-        options  = $.extend({ row : true }, options);
+        elements = UI.$(elements).css('min-height', '');
+        options  = UI.$.extend({ row : true }, options);
 
         var matchHeights = function(group){
 
@@ -126,10 +126,10 @@
             var max = 0;
 
             group.each(function() {
-                max = Math.max(max, $(this).outerHeight());
+                max = Math.max(max, UI.$(this).outerHeight());
             }).each(function() {
 
-                var element = $(this),
+                var element = UI.$(this),
                 height  = max - (element.outerHeight() - element.height());
 
                 element.css('min-height', height + 'px');
@@ -146,7 +146,7 @@
 
                 elements.each(function() {
 
-                    var ele = $(this), offset = ele.offset().top;
+                    var ele = UI.$(this), offset = ele.offset().top;
 
                     if(offset != lastoffset && group.length) {
 
@@ -170,4 +170,4 @@
         }
     };
 
-})(jQuery, UIkit);
+})(UIkit);

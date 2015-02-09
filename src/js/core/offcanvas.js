@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -90,7 +90,7 @@
 
             element.on("click", "a[href^='#']", function(e){
 
-                var element = $(this),
+                var element = UI.$(this),
                     href = element.attr("href");
 
                 if (href == "#") {
@@ -99,7 +99,7 @@
 
                 UI.$doc.one('hide.uk.offcanvas', function() {
 
-                    var target = $(href);
+                    var target = UI.$(href);
 
                     if (!target.length) {
                         target = UI.$('[name="'+href.replace('#','')+'"]');
@@ -148,7 +148,7 @@
 
             var $this = this;
 
-            this.options = $.extend({
+            this.options = UI.$.extend({
                 "target": $this.element.is("a") ? $this.element.attr("href") : false
             }, this.options);
 
@@ -161,4 +161,4 @@
 
     UI.offcanvas = Offcanvas;
 
-})(jQuery, UIkit);
+})(UIkit);

@@ -2,18 +2,20 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
 
     if (typeof define == "function" && define.amd) { // AMD
         define(["uikit-lightbox"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
+
+    "use strict";
 
     var modal, cache = {};
 
@@ -84,7 +86,7 @@
             this.modal.dialog.stop();
             this.modal.content.stop();
 
-            var $this = this, promise = $.Deferred(), data, source, item, title;
+            var $this = this, promise = UI.$.Deferred(), data, source, item, title;
 
             index = index || 0;
 
@@ -161,7 +163,7 @@
             }
 
             // calculate width
-            var tmp = $('<div>&nbsp;</div>').css({
+            var tmp = UI.$('<div>&nbsp;</div>').css({
                 'opacity'   : 0,
                 'position'  : 'absolute',
                 'top'       : 0,
@@ -369,7 +371,7 @@
 
                     if(!cache[id]) {
 
-                        $.ajax({
+                        UI.$.ajax({
                             type     : 'GET',
                             url      : 'http://vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
                             jsonp    : 'callback',
@@ -413,7 +415,7 @@
 
                     if (!cache[data.source]) {
 
-                        var vid = $('<video style="position:fixed;visibility:hidden;top:-10000px;"></video>').attr('src', data.source).appendTo('body');
+                        var vid = UI.$('<video style="position:fixed;visibility:hidden;top:-10000px;"></video>').attr('src', data.source).appendTo('body');
 
                         var idle = setInterval(function() {
 

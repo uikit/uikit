@@ -5,22 +5,22 @@
 
      var component;
 
-     if (jQuery && UIkit) {
-         component = addon(jQuery, UIkit);
+     if (window.UIkit) {
+         component = addon(UIkit);
      }
 
      if (typeof define == "function" && define.amd) {
          define("uikit-nestable", ["uikit"], function(){
-             return component || addon(jQuery, UIkit);
+             return component || addon(UIkit);
          });
      }
 
- })(function($, UI) {
+ })(function(UI) {
 
     "use strict";
 
     var hasTouch     = 'ontouchstart' in window,
-        html         = $("html"),
+        html         = UI.$html,
         touchedlists = [],
         $win         = UI.$win,
         draggingElement;
@@ -32,7 +32,7 @@
      */
     var hasPointerEvents = (function() {
 
-        var el    = document.createElement('div'), docEl = document.documentElement;
+        var el = document.createElement('div'), docEl = document.documentElement;
 
         if (!('pointerEvents' in el.style)) {
             return false;
@@ -135,7 +135,7 @@
             this.element.data("nestable-id", "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000)));
             this.reset();
             this.element.data('nestable-group', this.options.group);
-            this.placeEl = $('<div class="' + this.options.placeClass + '"/>');
+            this.placeEl = UI.$('<div class="' + this.options.placeClass + '"/>');
 
             this.find(this.options.itemNodeName).each(function() {
                 $this.setParent($(this));
@@ -149,7 +149,7 @@
 
                 e.preventDefault();
 
-                var target = $(e.currentTarget),
+                var target = UI.$(e.currentTarget),
                     action = target.data('nestableAction'),
                     item   = target.closest($this.options.itemNodeName);
                 if (action === 'collapse') {
@@ -165,7 +165,7 @@
 
             var onStartEvent = function(e) {
 
-                var handle = $(e.target);
+                var handle = UI.$(e.target);
 
                 if (!handle.hasClass($this.options.handleClass)) {
                     if (handle.closest('.' + $this.options.noDragClass).length) {
@@ -222,8 +222,8 @@
 
                     items.each(function() {
 
-                        var li   = $(this),
-                            item = $.extend({}, li.data()),
+                        var li   = UI.$(this),
+                            item = UI.$.extend({}, li.data()),
                             sub  = li.children(list.options.listNodeName);
 
                         if (sub.length) {
@@ -241,18 +241,19 @@
 
         list: function(options) {
 
-            var data = [],
-                list = this,
+            options = UI.$.extend({}, list.options, options);
+
+            var data  = [],
+                list  = this,
                 depth = 0,
-                options = $.extend({}, list.options, options),
-                step = function(level, depth, parent) {
+                step  = function(level, depth, parent) {
 
                     var items = level.children(options.itemNodeName);
 
                     items.each(function(index) {
-                        var li = $(this),
-                            item = $.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
-                            sub = li.children(options.listNodeName);
+                        var li   = UI.$(this),
+                            item = UI.$.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
+                            sub  = li.children(options.listNodeName);
 
                         data.push(item);
 
@@ -346,7 +347,7 @@
 
         dragStart: function(e) {
             var mouse    = this.mouse,
-                target   = $(e.target),
+                target   = UI.$(e.target),
                 dragItem = target.closest(this.options.itemNodeName),
                 offset   = dragItem.offset();
 
@@ -373,7 +374,7 @@
             dragItem[0].parentNode.removeChild(dragItem[0]);
             dragItem.appendTo(this.dragEl);
 
-            $(document.body).append(this.dragEl);
+            UI.$body.append(this.dragEl);
 
             this.dragEl.css({
                 left : offset.left,
@@ -384,7 +385,7 @@
             var i, depth,
                 items = this.dragEl.find(this.options.itemNodeName);
             for (i = 0; i < items.length; i++) {
-                depth = $(items[i]).parents(this.options.listNodeName).length;
+                depth = UI.$(items[i]).parents(this.options.listNodeName).length;
                 if (depth > this.dragDepth) {
                     this.dragDepth = depth;
                 }
@@ -485,7 +486,7 @@
                     if (depth + this.dragDepth <= opt.maxDepth) {
                         // create new sub-level if one doesn't exist
                         if (!list.length) {
-                            list = $('<' + opt.listNodeName + '/>').addClass(opt.listClass);
+                            list = UI.$('<' + opt.listNodeName + '/>').addClass(opt.listClass);
                             list.append(this.placeEl);
                             prev.append(list);
                             this.setParent(prev);
@@ -516,7 +517,7 @@
             if (!hasPointerEvents) {
                 this.dragEl[0].style.visibility = 'hidden';
             }
-            this.pointEl = $(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - (window.pageYOffset || document.documentElement.scrollTop)));
+            this.pointEl = UI.$(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - (window.pageYOffset || document.documentElement.scrollTop)));
             if (!hasPointerEvents) {
                 this.dragEl[0].style.visibility = 'visible';
             }
@@ -536,7 +537,7 @@
                 isEmpty = true;
             } else if (this.pointEl.data('nestable') && !this.pointEl.children().length) {
                 isEmpty = true;
-                this.pointEl = $(this.tplempty).appendTo(this.pointEl);
+                this.pointEl = UI.$(this.tplempty).appendTo(this.pointEl);
             } else if (!this.pointEl.length || !this.pointEl.hasClass(opt.listitemClass)) {
                 return;
             }

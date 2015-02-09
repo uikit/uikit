@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -18,7 +18,7 @@
 
         init: function() {
 
-            if (!body) body = $('body');
+            if (!body) body = UI.$('body');
 
             var $this = this;
 
@@ -31,7 +31,7 @@
                 $this.hide();
             }).on("click", function(e) {
 
-                var target = $(e.target);
+                var target = UI.$(e.target);
 
                 if (target[0] == $this.element[0] && $this.options.bgclose) {
                     $this.hide();
@@ -185,7 +185,7 @@
 
             var $this = this;
 
-            this.options = $.extend({
+            this.options = UI.$.extend({
                 "target": $this.element.is("a") ? $this.element.attr("href") : false
             }, this.options);
 
@@ -225,17 +225,17 @@
         UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
             '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">Ok</button></div>'
-        ]).join(""), $.extend({bgclose:false, keyboard:false}, options)).show();
+        ]).join(""), UI.$.extend({bgclose:false, keyboard:false}, options)).show();
     };
 
     UI.modal.confirm = function(content, onconfirm, options) {
 
-        onconfirm = $.isFunction(onconfirm) ? onconfirm : function(){};
+        onconfirm = UI.$.isFunction(onconfirm) ? onconfirm : function(){};
 
         var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
             '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
-        ]).join(""), $.extend({bgclose:false, keyboard:false}, options));
+        ]).join(""), UI.$.extend({bgclose:false, keyboard:false}, options));
 
         modal.element.find(".js-modal-confirm").on("click", function(){
             onconfirm();
@@ -262,10 +262,10 @@
             }
         }else if (typeof content === 'string' || typeof content === 'number') {
                 // just insert the data as innerHTML
-                content = $('<div></div>').html(content);
+                content = UI.$('<div></div>').html(content);
         }else {
                 // unsupported data type!
-                content = $('<div></div>').html('UIkit.modal Error: Unsupported data type: ' + typeof content);
+                content = UI.$('<div></div>').html('UIkit.modal Error: Unsupported data type: ' + typeof content);
         }
 
         content.appendTo(modal.element.find('.uk-modal-dialog'));
@@ -273,4 +273,4 @@
         return modal;
     }
 
-})(jQuery, UIkit);
+})(UIkit);

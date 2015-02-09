@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -107,4 +107,4 @@
         return height;
     }
 
-})(jQuery, UIkit);
+})(UIkit);

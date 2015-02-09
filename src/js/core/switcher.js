@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -171,7 +171,7 @@
     Animations = {
 
         'none': function() {
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
             d.resolve();
             return d.promise();
         },
@@ -230,7 +230,7 @@
 
     function coreAnimation(cls, current, next) {
 
-        var d = $.Deferred(), clsIn = cls, clsOut = cls, release;
+        var d = UI.$.Deferred(), clsIn = cls, clsOut = cls, release;
 
         if (next[0]===current[0]) {
             d.resolve();
@@ -275,4 +275,4 @@
         return d.promise();
     }
 
-})(jQuery, UIkit);
+})(UIkit);
