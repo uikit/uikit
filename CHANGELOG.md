@@ -18,6 +18,7 @@
   - Deactivated browser history navigation in modal for IE11
   - Fixed events in grid js component
   - Fixed quick switching between tabs
+  - Fixed deep target selector for data-uk-grid-match
 
   **Docs and Repo**
 

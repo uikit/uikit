@@ -64,7 +64,17 @@
 
         match: function() {
 
-            UI.Utils.matchHeights(this.elements, this.options);
+            var firstvisible = this.columns.filter(":visible:first");
+
+            if (!firstvisible.length) return;
+
+            var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100 ? true : false;
+
+            if (stacked) {
+                this.revert();
+            } else {
+                UI.Utils.matchHeights(this.elements, this.options);
+            }
 
             return this;
         },
@@ -111,12 +121,7 @@
         elements = $(elements).css('min-height', '');
         options  = $.extend({ row : true }, options);
 
-        var firstvisible = elements.filter(":visible:first");
-
-        if (!firstvisible.length) return;
-
-        var stacked      = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100 ? true : false,
-            max          = 0,
+        var max          = 0,
             matchHeights = function(group){
 
                 if(group.length < 2) return;
@@ -134,11 +139,9 @@
                 });
             };
 
-        if (stacked) return;
-
         if(options.row) {
 
-            firstvisible.width(); // force redraw
+            elements.first().width(); // force redraw
 
             setTimeout(function(){
 
