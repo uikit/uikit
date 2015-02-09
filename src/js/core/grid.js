@@ -68,7 +68,7 @@
 
             if (!firstvisible.length) return;
 
-            var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100 ? true : false;
+            var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100;
 
             if (stacked) {
                 this.revert();
