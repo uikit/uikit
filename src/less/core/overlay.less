@@ -68,10 +68,8 @@
 @overlay-spin-in-rotate:                        3deg;
 @overlay-spin-out-rotate:                       0deg;
 
-@overlay-panel-link-color:                      fade(#fff, 70%);
-@overlay-panel-link-hover-color:                #fff;
-@overlay-panel-link-style:                      none;
-@overlay-panel-link-hover-style:                underline;
+@overlay-panel-link-color:                      inherit;
+@overlay-panel-link-text-decoration:            underline;
 
 // DEPRECATED
 @overlay-area-background:                       rgba(0,0,0,0.3);
@@ -170,18 +168,12 @@
 .uk-overlay-panel h5,
 .uk-overlay-panel h6 { color: inherit; }
 
-.uk-overlay-panel a:not([class]),
-.uk-overlay-panel a[class*='uk-icon-']:not(.uk-icon-button) {
-
+.uk-overlay-panel a:not([class]) {
     color: @overlay-panel-link-color;
-    text-decoration: @overlay-panel-link-style;
-
-    &:hover {
-        color: @overlay-panel-link-hover-color;
-        text-decoration: @overlay-panel-link-hover-style;
-    }
-
+    text-decoration: @overlay-panel-link-text-decoration;
 }
+
+.uk-overlay-panel a[class*='uk-icon-']:not(.uk-icon-button) { color: @overlay-panel-link-color; }
 
 
 /* Sub-object `uk-overlay-hover` and `uk-overlay-active`
