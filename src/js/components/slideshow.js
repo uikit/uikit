@@ -30,7 +30,8 @@
             videoautoplay    : true,
             videomute        : true,
             kenburns         : false,
-            slices           : 15
+            slices           : 15,
+            pauseOnHover     : true
         },
 
         current  : false,
@@ -188,7 +189,7 @@
             }
 
             this.container.on({
-                mouseenter: function() { $this.hovering = true;  },
+                mouseenter: function() { if ($this.options.pauseOnHover) $this.hovering = true;  },
                 mouseleave: function() { $this.hovering = false; }
             });
 

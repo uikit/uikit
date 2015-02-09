@@ -7,6 +7,7 @@
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
   - Set content wrapper height to auto after accordion animation ends
   - Reworked overlay component completely
+  - Added pauseOnHover option to slideshow component
   - Added gutter collapse and medium classes to grid component
   - Added toggle uk-active class in sort and filter controls (dynamic grid)
   - Added boundary parameter to sticky addon to bind sticky scrolling to an element
