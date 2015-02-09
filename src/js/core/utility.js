@@ -40,7 +40,7 @@
                     $this.process();
                 };
 
-                $(function() {
+                UI.$(function() {
                     fn();
                     UI.$win.on("load", fn);
                 });
@@ -100,7 +100,7 @@
 
             UI.$('iframe.uk-responsive-width', context).each(function(){
 
-                var iframe = $(this);
+                var iframe = UI.$(this);
 
                 if (!iframe.data('responsive') && iframe.attr('width') && iframe.attr('height')) {
 
@@ -127,7 +127,7 @@
 
         options.cls = options.cls;
 
-        elements = $(elements).removeClass(options.cls);
+        elements = UI.$(elements).removeClass(options.cls);
 
         var skip         = false,
             firstvisible = elements.filter(":visible:first"),

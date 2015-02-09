@@ -359,7 +359,7 @@
                         target = document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop);
                     }
 
-                    if ($(target).hasClass($this.options.childClass)) {
+                    if (UI.$(target).hasClass($this.options.childClass)) {
                         fn.apply(target, [e]);
                     } else if (target !== element) {
 

@@ -162,7 +162,7 @@
         init: function() {
 
             var ids     = [],
-                links   = this.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
+                links   = this.find("a[href^='#']").each(function(){ ids.push(UI.$(this).attr("href")); }),
                 targets = UI.$(ids.join(",")),
 
                 clsActive  = this.options.cls,

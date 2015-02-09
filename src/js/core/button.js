@@ -77,7 +77,7 @@
 
             this.on("click", this.options.target, function(e) {
 
-                if ($(this).is('a[href="#"]')) e.preventDefault();
+                if (UI.$(this).is('a[href="#"]')) e.preventDefault();
 
                 $this.trigger("change.uk.button", [UI.$(this).toggleClass("uk-active").blur()]);
             });

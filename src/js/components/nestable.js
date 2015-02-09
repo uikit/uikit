@@ -138,7 +138,7 @@
             this.placeEl = UI.$('<div class="' + this.options.placeClass + '"/>');
 
             this.find(this.options.itemNodeName).each(function() {
-                $this.setParent($(this));
+                $this.setParent(UI.$(this));
             });
 
             this.on('click', '[data-nestable-action]', function(e) {
@@ -323,14 +323,14 @@
         expandAll: function() {
             var list = this;
             this.find(list.options.itemNodeName).each(function() {
-                list.expandItem($(this));
+                list.expandItem(UI.$(this));
             });
         },
 
         collapseAll: function() {
             var list = this;
             this.find(list.options.itemNodeName).each(function() {
-                list.collapseItem($(this));
+                list.collapseItem(UI.$(this));
             });
         },
 

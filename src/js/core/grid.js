@@ -150,7 +150,7 @@
 
                     if(offset != lastoffset && group.length) {
 
-                        matchHeights($(group));
+                        matchHeights(UI.$(group));
                         group  = [];
                         offset = ele.offset().top;
                     }
@@ -160,7 +160,7 @@
                 });
 
                 if(group.length) {
-                    matchHeights($(group));
+                    matchHeights(UI.$(group));
                 }
 
             }, 0);

@@ -114,7 +114,7 @@
 
             children.each(function(){
 
-                if ($(this).offset().top > top) {
+                if (UI.$(this).offset().top > top) {
                     doresponsive = true;
                 }
             });

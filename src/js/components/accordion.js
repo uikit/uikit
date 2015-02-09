@@ -55,7 +55,7 @@
 
                 e.preventDefault();
 
-                $this.toggleItem($(this).data('wrapper'), $this.options.animate, $this.options.collapse);
+                $this.toggleItem(UI.$(this).data('wrapper'), $this.options.animate, $this.options.collapse);
             });
 
             this.update();

@@ -58,7 +58,7 @@
 
             this.on("click", "a[data-page]", function(e){
                 e.preventDefault();
-                $this.selectPage($(this).data("page"));
+                $this.selectPage(UI.$(this).data("page"));
             });
 
             this._render();

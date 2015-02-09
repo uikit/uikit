@@ -57,7 +57,7 @@
                 // filter
                 controls.on('click', '[data-uk-filter]', function(e){
                     e.preventDefault();
-                    $this.filter($(this).data('ukFilter'));
+                    $this.filter(UI.$(this).data('ukFilter'));
 
                     controls.find('[data-uk-filter]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });

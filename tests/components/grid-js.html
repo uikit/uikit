@@ -30,7 +30,7 @@
 
         <script>
             // Event logging
-            $(function() {
+            jQuery(function($) {
                 var count = 0;
                 $('[data-uk-grid]:first').on('beforeupdate.uk.grid afterupdate.uk.grid', function(e) {
                     console.log((count++), e.type);
