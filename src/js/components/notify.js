@@ -72,7 +72,11 @@
 
         if(!containers[this.options.pos]) {
             containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
-                UI.$(this).data("notifyMessage").close();
+
+                var message = UI.$(this).data("notifyMessage");
+
+                message.element.trigger('manualclose.uk.notify', [message]);
+                message.close();
             });
         }
     };
@@ -121,11 +125,12 @@
                 finalize = function(){
                     $this.element.remove();
 
-                    if(!containers[$this.options.pos].children().length) {
+                    if (!containers[$this.options.pos].children().length) {
                         containers[$this.options.pos].hide();
                     }
 
                     $this.options.onClose.apply($this, []);
+                    $this.element.trigger('close.uk.notify', [$this]);
 
                     delete messages[$this.uuid];
                 };
