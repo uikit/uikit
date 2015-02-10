@@ -35,7 +35,7 @@
 
             var $this = this;
 
-            this.on("click", this.options.toggle, function(e) {
+            this.on("click.uikit.switcher", this.options.toggle, function(e) {
                 e.preventDefault();
                 $this.show(this);
             });

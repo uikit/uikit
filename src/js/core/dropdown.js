@@ -58,7 +58,7 @@
 
             if (this.options.mode == "click" || UI.support.touch) {
 
-                this.on("click", function(e) {
+                this.on("click.uikit.dropdown", function(e) {
 
                     var $target = UI.$(e.target);
 
