@@ -296,7 +296,7 @@
 
             this.container.append(ghost);
 
-            var rowIndex = 0, colIndex = 0, timeBuff = 0, box2Darr = [[]], boxes = ghost.children();
+            var rowIndex = 0, colIndex = 0, timeBuff = 0, box2Darr = [[]], boxes = ghost.children(), prevCol;
 
             if (fromfx == 'boxes-reverse') {
                 boxes = [].reverse.apply(boxes);
