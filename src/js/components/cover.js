@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-cover", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -27,12 +27,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-@-cover]", context).each(function(){
+                UI.$("[data-uk-cover]", context).each(function(){
 
                     var ele = UI.$(this);
 
                     if(!ele.data("cover")) {
-                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-@-cover")));
+                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
                     }
                 });
             });

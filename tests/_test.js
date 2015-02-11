@@ -1,4 +1,4 @@
-(function(iniframe){
+(function(iniframe, $){
 
     window.CustomizerForceUpdate = iniframe;
 
@@ -62,7 +62,6 @@
     ]).forEach(function(script) {
         document.writeln('<script src="'+base+script+'"></script>');
     });
-
 
     if (iniframe) {
         document.writeln('<style data-compiled-css>@import url("../dist/css/uikit.css"); </style>');
@@ -138,7 +137,10 @@
 
     ];
 
+
     document.addEventListener("DOMContentLoaded", function(event) {
+
+        $ = jQuery.noConflict();
 
         var $body      = $("body").css("visibility", "hidden"),
             $scriptest = $(scriptest),

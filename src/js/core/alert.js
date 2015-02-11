@@ -1,4 +1,4 @@
-(function($, UI) {
+(function(UI) {
 
     "use strict";
 
@@ -7,19 +7,19 @@
         defaults: {
             "fade": true,
             "duration": 200,
-            "trigger": ".@-alert-close"
+            "trigger": ".uk-alert-close"
         },
 
         boot: function() {
 
             // init code
-            UI.$html.on("click.alert.uikit", "[data-@-alert]", function(e) {
+            UI.$html.on("click.alert.uikit", "[data-uk-alert]", function(e) {
 
                 var ele = UI.$(this);
 
                 if (!ele.data("alert")) {
 
-                    var alert = UI.alert(ele, UI.Utils.options(ele.attr("data-@-alert")));
+                    var alert = UI.alert(ele, UI.Utils.options(ele.attr("data-uk-alert")));
 
                     if (UI.$(e.target).is(alert.options.trigger)) {
                         e.preventDefault();
@@ -62,4 +62,4 @@
 
     });
 
-})(jQuery, UIkit);
+})(UIkit);

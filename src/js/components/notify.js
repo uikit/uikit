@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-notify", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -21,12 +21,12 @@
 
         notify     =  function(options){
 
-            if ($.type(options) == 'string') {
+            if (UI.$.type(options) == 'string') {
                 options = { message: options };
             }
 
             if (arguments[1]) {
-                options = $.extend(options, $.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
+                options = UI.$.extend(options, UI.$.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
             }
 
             return (new Message(options)).show();
@@ -46,13 +46,13 @@
 
         var $this = this;
 
-        this.options = $.extend({}, Message.defaults, options);
+        this.options = UI.$.extend({}, Message.defaults, options);
 
         this.uuid    = UI.Utils.uid("notifymsg");
         this.element = UI.$([
 
-            '<div class="@-notify-message">',
-                '<a class="@-close"></a>',
+            '<div class="uk-notify-message">',
+                '<a class="uk-close"></a>',
                 '<div></div>',
             '</div>'
 
@@ -62,7 +62,7 @@
 
         // status
         if (this.options.status) {
-            this.element.addClass('@-notify-message-'+this.options.status);
+            this.element.addClass('uk-notify-message-'+this.options.status);
             this.currentstatus = this.options.status;
         }
 
@@ -71,14 +71,18 @@
         messages[this.uuid] = this;
 
         if(!containers[this.options.pos]) {
-            containers[this.options.pos] = UI.$('<div class="@-notify @-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", UI.prefix(".@-notify-message"), function(){
-                UI.$(this).data("notifyMessage").close();
+            containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
+
+                var message = UI.$(this).data("notifyMessage");
+
+                message.element.trigger('manualclose.uk.notify', [message]);
+                message.close();
             });
         }
     };
 
 
-    $.extend(Message.prototype, {
+    UI.$.extend(Message.prototype, {
 
         uuid: false,
         element: false,
@@ -121,11 +125,12 @@
                 finalize = function(){
                     $this.element.remove();
 
-                    if(!containers[$this.options.pos].children().length) {
+                    if (!containers[$this.options.pos].children().length) {
                         containers[$this.options.pos].hide();
                     }
 
                     $this.options.onClose.apply($this, []);
+                    $this.element.trigger('close.uk.notify', [$this]);
 
                     delete messages[$this.uuid];
                 };
@@ -160,7 +165,7 @@
                 return this.currentstatus;
             }
 
-            this.element.removeClass('@-notify-message-'+this.currentstatus).addClass('@-notify-message-'+status);
+            this.element.removeClass('uk-notify-message-'+this.currentstatus).addClass('uk-notify-message-'+status);
 
             this.currentstatus = status;
 

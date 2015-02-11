@@ -141,7 +141,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-grid="{gutter: 20}"&gt;...&lt;/div&gt;</code></pre>
+                            <pre><code>&lt;div data-uk-grid="{gutter: 20}"&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -152,9 +152,9 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <ul id="filter" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-filter="filter-a">Filter A</a></li>
-                                <li><a href="#" data-uk-filter="filter-b">Filter B</a></li>
-                                <li><a href="#" data-uk-filter="">Reset</a></li>
+                                <li class="uk-active" data-uk-filter=""><a href="#">All</a></li>
+                                <li data-uk-filter="filter-a"><a href="#">Filter A</a></li>
+                                <li data-uk-filter="filter-b"><a href="#">Filter B</a></li>
                             </ul>
 
                             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#filter'}">
@@ -174,9 +174,9 @@
 
 <pre><code>&lt;!-- Filter Controls --&gt;
 &lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-filter="filter-a"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-filter="filter-b"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-filter=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter=""&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter="filter-a"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter="filter-b"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;!-- Dynamic Grid --&gt;
@@ -198,8 +198,8 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <ul id="sort1" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-sort="my-category">Ascending</a></li>
-                                <li><a href="#" data-uk-sort="my-category:desc">Descending</a></li>
+                                <li class="uk-active" data-uk-sort="my-category"><a href="#">Ascending</a></li>
+                                <li data-uk-sort="my-category:desc"><a href="#">Descending</a></li>
                             </ul>
 
                             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#sort1'}">
@@ -216,8 +216,8 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
@@ -232,10 +232,10 @@
                             <p>To use more than one category to sort grid items, use a different name for each category.</p>
 
                             <ul id="sort2" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-sort="my-category">Character (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="my-category:desc">Character (Desc)</a></li>
-                                <li><a href="#" data-uk-sort="my-category2">Number (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="my-category2:desc">Number (Desc)</a></li>
+                                <li class="uk-active" data-uk-sort="my-category"><a href="#">Character (Asc)</a></li>
+                                <li data-uk-sort="my-category:desc"><a href="#">Character (Desc)</a></li>
+                                <li data-uk-sort="my-category2"><a href="#">Number (Asc)</a></li>
+                                <li data-uk-sort="my-category2:desc"><a href="#">Number (Desc)</a></li>
                             </ul>
 
                             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#sort2'}">
@@ -252,10 +252,10 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category2"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category2:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
@@ -341,6 +341,16 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>Listening for beforeupdate events with jQuery:</p>
+
+<pre><code>$(function() {
+    $('[data-uk-grid]').on('beforeupdate.uk.grid', function(e, children) {
+        // your event-handling goes here
+    });
+});</code></pre>
 
                         </article>
 

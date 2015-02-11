@@ -78,21 +78,23 @@
 
                             <h2>Prefix via Less</h2>
 
-                            <p>If you are not familiar with the usage of <code>gulp</code>, check out our doc on <a href="documentation_project-structure.html#automate-preprocessing">automating preprocessing</a> to find out how to create a UIkit build. To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes custom prefixed.</p>
+                            <p>If you are not familiar with the usage of <code>gulp</code>, check out our doc on <a href="documentation_project-structure.html#automate-preprocessing">automating preprocessing</a> to find out how to create a UIkit build. To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes and JavaScript files custom prefixed.</p>
 
                             <pre><code>gulp -p myprefix</code></pre>
 
                             <p>After running gulp you'll find your custom prefixed build in the dist folder. e.g.:</p>
-<pre><code>.myprefix-grid { ... }
-...</code></pre>
+                            <pre><code>
+                            .myprefix-grid { ... }
+                            ...
+                            </code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2>Prefix via JavaScript</h2>
+                            <h2>JavaScript noConflict mode</h2>
 
-                            <p>To use UIkits JavaScript and components with your custom build just call the <code>noConflict</code> method with your prefix as a parameter <strong>after</strong> including UIkit:</p>
+                            <p>To prevent conflicts with multiple custom prefixed UIkit versions, just call the <code>noConflict</code> method <strong>after</strong> including UIkit:</p>
 
-<pre><code>var myUIkit = UIkit.noConflict('myprefix');</code></pre>
+                            <pre><code>var myUIkit = UIkit.noConflict();</code></pre>
 
                         </article>
 

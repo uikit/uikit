@@ -539,7 +539,7 @@ gulp.task('prefix', function(done) {
 
     gutil.log("Replacing prefix 'uk' with '"+prefix+"'");
 
-    gulp.src(['./dist/**/*.css', './dist/**/*.less', './dist/**/*.scss'])
+    gulp.src(['./dist/**/*.css', './dist/**/*.less', './dist/**/*.scss', './dist/**/*.js'])
         .pipe(replace(/(uk-([a-z\d\-]+))/g, prefix+'-$2'))
         .pipe(gulp.dest('./dist'))
         .on('end', done);

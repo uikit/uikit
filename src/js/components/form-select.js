@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-form-select", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -26,12 +26,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-form-select]", context).each(function(){
+                UI.$("[data-uk-form-select]", context).each(function(){
 
                     var ele = UI.$(this);
 
                     if (!ele.data("formSelect")) {
-                        var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-@-form-select")));
+                        var obj = UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
                     }
                 });
             });

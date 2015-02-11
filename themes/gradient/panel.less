@@ -21,6 +21,8 @@
 @panel-box-secondary-background:                #fff;
 
 @panel-hover-padding:                           @global-margin;
+@panel-hover-color:                             @global-color;
+@panel-hover-hover-color:                       @global-color;
 @panel-hover-hover-background:                  #fafafa;
 @panel-hover-teaser-margin:                     -(@panel-hover-padding + 1);
 
@@ -95,9 +97,11 @@
 .hook-panel-misc() {
 
     .uk-panel-box .uk-panel-teaser {
-		border-top-left-radius: @global-border-radius;
+        border-top-left-radius: @global-border-radius;
         border-top-right-radius: @global-border-radius;
         overflow: hidden;
+        // Fixed `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
+        -webkit-transform: translateZ(0);
     }
 
 }

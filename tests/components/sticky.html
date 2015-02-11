@@ -32,7 +32,20 @@
                 <div class="uk-panel uk-panel-box" data-uk-sticky="{top:100}">Stick 100px below the top</div>
             </div>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="uk-margin uk-grid">
+                <div class="uk-width-1-2">
+                    <div class="uk-panel uk-panel-box uk-panel-box-primary" style="height:300px;">
+                        <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:true}">Sticky bound to parent container</div>
+                    </div>
+                </div>
+                <div class="uk-width-1-2">
+                    <div class="uk-panel uk-panel-box uk-panel-box-primary" style="height:300px;">
+                        <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#test'}">Sticky bound to next paragraph</div>
+                    </div>
+                </div>
+            </div>
+
+            <p id="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
             <div class="uk-width-1-2">
                 <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top', media: 640}">Stick at the top but only after 200px scrolling and min. device width of 640px</div>
