@@ -17,7 +17,7 @@
     </style>
 
     <script charset="utf-8">
-        $(function(){
+        jQuery(function($){
             var select = $('#slideset-animation').on('change', function(){
                 select.next('.uk-slideset').data('slideset').options.animation = select.val();
             });

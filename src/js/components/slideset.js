@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-slideset", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -34,12 +34,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-@-slideset]", context).each(function(){
+                UI.$("[data-uk-slideset]", context).each(function(){
 
                     var ele = UI.$(this);
 
                     if(!ele.data("slideset")) {
-                        var plugin = UI.slideset(ele, UI.Utils.options(ele.attr("data-@-slideset")));
+                        var plugin = UI.slideset(ele, UI.Utils.options(ele.attr("data-uk-slideset")));
                     }
                 });
             });
@@ -50,8 +50,8 @@
             var $this = this;
 
             this.activeSet = false;
-            this.list      = this.element.find('.@-slideset-list');
-            this.nav       = this.element.find('.@-slideset-nav');
+            this.list      = this.element.find('.uk-slideset-list');
+            this.nav       = this.element.find('.uk-slideset-nav');
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {
                 $this.updateSets();
@@ -61,11 +61,11 @@
 
             this.updateSets();
 
-            this.on("click", '[data-@-set]', function(e) {
+            this.on("click.uikit.slideset", '[data-uk-set]', function(e) {
 
                 e.preventDefault();
 
-                var set = UI.$(this).data(UI._prefix+'Set');
+                var set = UI.$(this).attr('data-uk-set');
 
                 if ($this.activeSet === set) return;
 
@@ -80,9 +80,9 @@
 
             });
 
-            this.on('click', '[data-uk-set-group]', function(e){
+            this.on('click.uikit.slideset', '[data-uk-set-group]', function(e){
                 e.preventDefault();
-                $this.group = $(this).data('ukSetGroup');
+                $this.group = UI.$(this).attr('data-uk-set-group');
                 $this.updateSets(true, true);
             });
 
@@ -134,7 +134,7 @@
 
             var breakpoint  = null,
                 tmp         = UI.$('<div style="position:absolute;height:1px;top:-1000px;"></div>').appendTo('body'),
-                breakpoints = $.extend({
+                breakpoints = UI.$.extend({
                     'large'  : 4,
                     'medium' : 4,
                     'small'  : 1
@@ -168,7 +168,7 @@
 
                 this.children.each(function(index){
 
-                    var ele = $(this), f = ele.data('group'), infilter = filter.length ? false : true;
+                    var ele = UI.$(this), f = ele.data('group'), infilter = filter.length ? false : true;
 
                     if (f) {
 
@@ -182,7 +182,7 @@
                     if(infilter) items.push(ele[0]);
                 });
 
-                items = $(items);
+                items = UI.$(items);
 
             } else {
                 items = this.list.children();
@@ -226,7 +226,7 @@
             $this.animating = true;
 
             if ($this.nav.length) {
-                $this.nav.children().removeClass(UI.prefix('@-active')).eq(setIndex).addClass(UI.prefix('@-active'));
+                $this.nav.children().removeClass('uk-active').eq(setIndex).addClass('uk-active');
             }
 
             animation.apply($this, [current, next, setIndex < this.activeSet ? -1:1]).then(function(){
@@ -258,26 +258,26 @@
     Animations = {
 
         'none': function() {
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
             d.resolve();
             return d.promise();
         },
 
         'fade': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-fade', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-fade', current, next]);
         },
 
         'slide-bottom': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-bottom', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-slide-bottom', current, next]);
         },
 
         'slide-top': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-top', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-slide-top', current, next]);
         },
 
         'slide-vertical': function(current, next, dir) {
 
-            var anim = ['@-animation-slide-top', '@-animation-slide-bottom'];
+            var anim = ['uk-animation-slide-top', 'uk-animation-slide-bottom'];
 
             if (dir == -1) {
                 anim.reverse();
@@ -288,7 +288,7 @@
 
         'slide-horizontal': function(current, next, dir) {
 
-            var anim = ['@-animation-slide-right', '@-animation-slide-left'];
+            var anim = ['uk-animation-slide-right', 'uk-animation-slide-left'];
 
             if (dir == -1) {
                 anim.reverse();
@@ -298,7 +298,7 @@
         },
 
         'scale': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-scale-up', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-scale-up', current, next]);
         }
     };
 
@@ -308,7 +308,7 @@
 
     function coreAnimation(cls, current, next, dir) {
 
-        var d = $.Deferred(), clsIn, clsOut, release, delay = Math.floor(this.options.duration/2), i;
+        var d = UI.$.Deferred(), clsIn, clsOut, release, delay = Math.floor(this.options.duration/2), i;
 
         dir = dir || 1;
 
@@ -318,17 +318,17 @@
         }
 
         if (typeof(cls) == 'object') {
-            clsIn  = UI.prefix(cls[0]);
-            clsOut = UI.prefix(cls[1] || cls[0]);
+            clsIn  = cls[0];
+            clsOut = cls[1] || cls[0];
         } else {
-            clsIn  = UI.prefix(cls);
+            clsIn  = cls;
             clsOut = clsIn;
         }
 
         release = function() {
 
             if (current && current.length) {
-                current.hide().removeClass(UI.prefix(clsOut+' @-animation-reverse')).css({'animation-delay': '', 'animation':''});
+                current.hide().removeClass(clsOut+' uk-animation-reverse').css({'animation-delay': '', 'animation':''});
             }
 
             for (i=0;i<next.length;i++) {
@@ -357,7 +357,7 @@
                 (function (index, ele){
 
                     setTimeout(function(){
-                        ele.css('display', 'none').css('display', '').css('opacity', 0).addClass(UI.prefix(clsOut+' @-animation-reverse'));
+                        ele.css('display', 'none').css('display', '').css('opacity', 0).addClass(clsOut+' uk-animation-reverse');
                     }.bind(this), i * delay);
 
                 })(i, current.eq(dir == 1 ? i:(current.length - i)-1));
