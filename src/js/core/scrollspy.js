@@ -47,12 +47,6 @@
 
             var $this = this, inviewstate, initinview, togglecls = this.options.cls.split(/,/), fn = function(){
 
-                if ($this.element.data('scrollspy-worker')) {
-                    return;
-                }
-
-                $this.element.data('scrollspy-worker', 0);
-
                 var elements     = $this.options.target ? $this.element.find($this.options.target) : $this.element,
                     delayIdx     = elements.length === 1 ? 1 : 0,
                     toggleclsIdx = 0;
@@ -64,13 +58,9 @@
                         inview      = UI.Utils.isInView(element, $this.options),
                         toggle      = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
 
-                    if (inview && !inviewstate) {
+                    if (inview && !inviewstate && !element.data('scrollspy-idle')) {
 
-                        if (element.data('idle')) {
-                            clearTimeout(element.data('idle'));
-                        }
-
-                        if(!initinview) {
+                        if (!initinview) {
                             element.addClass($this.options.initcls);
                             $this.offset = element.offset();
                             initinview = true;
@@ -78,27 +68,24 @@
                             element.trigger("init.uk.scrollspy");
                         }
 
-                        element.data('idle', setTimeout(function(){
+                        element.data('scrollspy-idle', setTimeout(function(){
 
-                            if (inview) {
-                                element.addClass("uk-scrollspy-inview").toggleClass(toggle).width();
-                                element.trigger("inview.uk.scrollspy");
-                            }
+                            element.addClass("uk-scrollspy-inview").toggleClass(toggle).width();
+                            element.trigger("inview.uk.scrollspy");
 
-                            element.data('idle', false);
-
-                            $this.element.data('scrollspy-worker', $this.element.data('scrollspy-worker') - 1);
+                            element.data('scrollspy-idle', false);
+                            element.data('inviewstate', true);
 
                         }, $this.options.delay * delayIdx));
 
-                        element.data('inviewstate', true);
-
                         delayIdx++;
-
-                        $this.element.data('scrollspy-worker', $this.element.data('scrollspy-worker') + 1);
                     }
 
-                    if (!inview && inviewstate && $this.options.repeat && !element.data('idle')) {
+                    if (!inview && inviewstate && $this.options.repeat) {
+
+                        if (element.data('scrollspy-idle')) {
+                            clearTimeout(element.data('scrollspy-idle'));
+                        }
 
                         element.removeClass("uk-scrollspy-inview").toggleClass(toggle);
                         element.data('inviewstate', false);
@@ -113,9 +100,7 @@
 
             fn();
 
-            this.check = !this.options.target ? fn : UI.Utils.debounce(function(){
-                fn();
-            }, 50);
+            this.check = fn;
 
             scrollspies.push(this);
         }
