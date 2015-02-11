@@ -140,7 +140,7 @@
                 }
             });
 
-            this.on("click", '[data-uk-slideshow-item]', function(e) {
+            this.on("click.uikit.slideshow", '[data-uk-slideshow-item]', function(e) {
 
                 e.preventDefault();
 

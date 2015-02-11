@@ -51,7 +51,7 @@
 
             var $this = this;
 
-            this.element.on('click', this.options.toggle, function(e) {
+            this.element.on('click.uikit.accordion', this.options.toggle, function(e) {
 
                 e.preventDefault();
 
