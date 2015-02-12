@@ -106,7 +106,7 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>The scrollspy component listens to page scrolling and triggers events based on the scroll position. For example, if you scroll down a page and an element appears the first time in the viewport you can trigger a smooth animation to fade in the element.</p>
+                            <p>The scrollspy component listens to page scrolling and triggers events based on the scroll position. For example, if you scroll down a page and an element appears the first time in the viewport you can trigger a smooth animation to fade in the element. Just add the <code>data-uk-scrollspy</code> attribute and the following options.</p>
 
                             <div class="uk-overflow-container">
                                 <table class="uk-table uk-text-nowrap">
@@ -118,15 +118,15 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>data-uk-scrollspy="{cls:'MY-CLASS'}"</code></td>
+                                            <td><code>cls:'MY-CLASS'</code></td>
                                             <td>Applies the class only the first time the element appears in the viewport.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>data-uk-scrollspy="{cls:'MY-CLASS', repeat: true}"</code></td>
+                                            <td><code>repeat: true</code></td>
                                             <td>Applies the class everytime the element appears in the viewport.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>data-uk-scrollspy="{cls:'MY-CLASS', delay:600}"</code></td>
+                                            <td><code>delay:600</code></td>
                                             <td>Adds a delay in milliseconds to the animation.</td>
                                         </tr>
                                     </tbody>
@@ -202,33 +202,6 @@
                                 </div>
                             </div>
 
-                            <div class="uk-grid">
-                                <div class="uk-width-medium-1-4">
-                                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-                                        <h3 class="uk-panel-title">Delay</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div>
-                                <div class="uk-width-medium-1-4">
-                                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:300, repeat: true}">
-                                        <h3 class="uk-panel-title">Delay</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div>
-                                <div class="uk-width-medium-1-4">
-                                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:600, repeat: true}">
-                                        <h3 class="uk-panel-title">Delay</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div>
-                                <div class="uk-width-medium-1-4">
-                                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:900, repeat: true}">
-                                        <h3 class="uk-panel-title">Delay</h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                </div>
-                            </div>
-
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;div data-uk-scrollspy="{cls:'uk-animation-fade'}"&gt;...&lt;/div&gt;
@@ -237,6 +210,79 @@
 
 &lt;div data-uk-scrollspy="{cls:'uk-animation-fade', delay:900}"&gt;...&lt;/div&gt;</code></pre>
 
+                            <hr class="uk-article-divider">
+
+                            <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
+
+                            <p>You can also group scrollspy elements, so you won't have to apply the data attribute to each of them. Just add the <code>data-uk-scollspy"{target:'MY-CLASS'}"</code> attribute to a parent container, targetting the selector of its child items. When using a delay it will be applied cumulatively to the items within the row that scrolls into view. The delay will be resetted for the next row within the group when it scrolls into view.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin data-uk-scrollspy="{cls:'uk-animation-fade uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-4">
+                                    <div class="uk-panel uk-panel-box uk-invisible">
+                                        <h3 class="uk-panel-title">Item</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>&lt;div data-uk-scrollspy="{cls:'uk-animation-fade', target:'.my-class', delay:300}"&gt;
+
+    &lt;!-- This item has no delay --&gt;
+    &lt;div class="my-class"&gt;...&lt;/div&gt;
+
+    &lt;!-- This item has a delay of 300ms --&gt;
+    &lt;div class="my-class"&gt;...&lt;/div&gt;
+
+    &lt;!-- This item has a delay of 600ms --&gt;
+    &lt;div class="my-class"&gt;...&lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -261,25 +307,25 @@
                                             <td><code>cls</code></td>
                                             <td>string</td>
                                             <td>'uk-scrollspy-inview'</td>
-                                            <td>Class to add when element is in view</td>
+                                            <td>Class to add when the element is in view.</td>
                                         </tr>
                                         <tr>
                                             <td><code>initcls</code></td>
                                             <td>string</td>
                                             <td>'uk-scrollspy-init-inview'</td>
-                                            <td>Class to add when element is in view for first time</td>
+                                            <td>Class to add when the element is in view for the first time.</td>
                                         </tr>
                                         <tr>
                                             <td><code>topoffset</code></td>
                                             <td>integer</td>
                                             <td>0</td>
-                                            <td>Top offset before triggering in view</td>
+                                            <td>Top offset before triggering in view.</td>
                                         </tr>
                                         <tr>
                                             <td><code>leftoffset</code></td>
                                             <td>integer</td>
                                             <td>0</td>
-                                            <td>Left osset before triggering in view</td>
+                                            <td>Left offset before triggering in view.</td>
                                         </tr>
                                         <tr>
                                             <td><code>repeat</code></td>
@@ -291,7 +337,7 @@
                                             <td><code>delay</code></td>
                                             <td>integer</td>
                                             <td>0</td>
-                                            <td>Delay time in ms</td>
+                                            <td>Delay time in ms.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -313,15 +359,15 @@
                                     <tbody>
                                         <tr>
                                             <td><code>uk.scrollspy.init</code></td>
-                                            <td>Triggered when the element is initially in the viewport</td>
+                                            <td>Triggered when the element is initially in the viewport.</td>
                                         </tr>
                                         <tr>
                                             <td><code>uk.scrollspy.inview</code></td>
-                                            <td>Triggered when the element is in the viewport</td>
+                                            <td>Triggered when the element is in the viewport.</td>
                                         </tr>
                                         <tr>
                                             <td><code>uk.scrollspy.outview</code></td>
-                                            <td>Triggered when the element leaves the viewport</td>
+                                            <td>Triggered when the element leaves the viewport.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -374,12 +420,12 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul class="uk-nav uk-nav-side" data-uk-scrollspy-nav="{closest:'li', smoothscroll:true}"&gt;
-    &lt;li&gt;&lt;a href="#MY-ID"&gt;...&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="#MY-ID2"&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#my-id"&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#my-id2"&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div id="MY-ID"&gt;...&lt;/div&gt;
-&lt;div id="MY-ID2"&gt;...&lt;/div&gt;</code></pre>
+&lt;div id="my-id"&gt;...&lt;/div&gt;
+&lt;div id="my-id2"&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -410,19 +456,19 @@
                                             <td><code>closest</code></td>
                                             <td>CSS selector</td>
                                             <td>false</td>
-                                            <td>Element selector to aply the active class to</td>
+                                            <td>Element selector to which to apply the active class</td>
                                         </tr>
                                         <tr>
                                             <td><code>topoffset</code></td>
                                             <td>integer</td>
                                             <td>0</td>
-                                            <td>Sroll top-offsset</td>
+                                            <td>Scroll top-offsset</td>
                                         </tr>
                                         <tr>
                                             <td><code>leftoffset</code></td>
                                             <td>integer</td>
                                             <td>0</td>
-                                            <td>Sroll left-offsset</td>
+                                            <td>Scroll left-offsset</td>
                                         </tr>
                                         <tr>
                                             <td><code>smoothscroll</code></td>
