@@ -205,6 +205,17 @@
 
                             <pre><code>var lightbox = UIkit.lightbox(element, { /* options */ });</code></pre>
 
+                            <h3 class="tm-article-subtitle">Create dynamic lightbox</h3>
+
+                            <pre><code>
+                                var lightbox = UIkit.lightbox.create([
+                                    {'source': 'http://url/to/video.mp4', 'type':'video'},
+                                    {'source': 'http://url/to/image.jpg', 'type':'image'}
+                                ]);
+
+                                lighbox.show();
+                            </code></pre>
+
                             <h3>Events</h3>
 
                             <div class="uk-overflow-container">
@@ -218,7 +229,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>show.uk.lightbox</code></td>
+                                            <td><code>showitem.uk.lightbox</code></td>
                                             <td>event, data</td>
                                             <td>On lightbox show</td>
                                         </tr>

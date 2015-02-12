@@ -7,6 +7,7 @@
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
   - Set content wrapper height to auto after accordion animation ends
   - Reworked overlay component completely
+  - Added possibility to create dynamic lightboxes
   - Added manualclose.uk.notify and close.uk.notify events
   - Added pauseOnHover option to slideshow component
   - Added gutter collapse and medium classes to grid component
