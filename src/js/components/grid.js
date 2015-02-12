@@ -21,7 +21,7 @@
         defaults: {
             colwidth  : 'auto',
             animation : true,
-            duration  : 200,
+            duration  : 300,
             gutter    : 0,
             controls  : false
         },
