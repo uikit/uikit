@@ -5,7 +5,7 @@
 //
 // Component:       `uk-icon-*`
 //
-// Sub-objects:     `uk-icon-muted`
+// Sub-objects:     `uk-icon-hover`
 //                  `uk-icon-button`
 //
 // Modifiers:       `uk-icon-small`
@@ -31,8 +31,8 @@
 @icon-medium-vertical-align:                    -16%;
 @icon-large-vertical-align:                     -22%;
 
-@icon-muted-color:                              #999;
-@icon-muted-hover-color:                        #444;
+@icon-hover-color:                              #999;
+@icon-hover-hover-color:                        #444;
 
 @icon-button-width:                             35px;
 @icon-button-height:                            @icon-button-width;
@@ -109,21 +109,21 @@
 }
 
 
-/* Modifier: `uk-icon-muted`
+/* Modifier: `uk-icon-hover`
  ========================================================================== */
 
-.uk-icon-muted {
-    color: @icon-muted-color;
-    .hook-icon-muted;
+.uk-icon-hover {
+    color: @icon-hover-color;
+    .hook-icon-hover;
 }
 
 /*
  * Hover
  */
 
-.uk-icon-muted:hover {
-    color: @icon-muted-hover-color;
-    .hook-icon-muted-hover;
+.uk-icon-hover:hover {
+    color: @icon-hover-hover-color;
+    .hook-icon-hover-hover;
 }
 
 
@@ -772,8 +772,8 @@
 
 .hook-icon-misc;
 
-.hook-icon-muted() {}
-.hook-icon-muted-hover() {}
+.hook-icon-hover() {}
+.hook-icon-hover-hover() {}
 .hook-icon-button() {}
 .hook-icon-button-hover() {}
 .hook-icon-button-active() {}

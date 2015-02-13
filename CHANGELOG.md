@@ -14,7 +14,7 @@
   - Added toggle uk-active class in sort and filter controls (dynamic grid)
   - Added boundary parameter to sticky addon to bind sticky scrolling to an element
   - Added hover classes to panel component
-  - Added icon muted class to icon component
+  - Added icon hover class to icon component
   - Added scrollspy group with target selector
   - Updated FontAwesome to v4.3
   - Deactivated browser history navigation in modal for IE11
