@@ -29,6 +29,7 @@
             flipDropdown: false,
             skipClass: 'uk-skip',
             hoverClass: 'uk-active',
+            dropdownClass: null,
             source: null,
             renderer: null,
 
@@ -82,6 +83,10 @@
 
             if (this.options.flipDropdown) {
                 this.dropdown.addClass('uk-dropdown-flip');
+            }
+            
+            if (this.options.dropdownClass) {
+                this.dropdown.addClass(this.options.dropdownClass);
             }
 
             this.input.on({
@@ -313,6 +318,8 @@
 
                 this.trigger('show.uk.autocomplete');
             }
+            else
+                this.hide();
 
             return this;
         }
