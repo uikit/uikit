@@ -448,15 +448,42 @@
 /* Position
  ========================================================================== */
 
-.uk-position-top,
-.uk-position-bottom {
-    position: absolute !important;
+[class*='uk-position-top'],
+[class*='uk-position-bottom'] { position: absolute !important; }
+
+.uk-position-top {
+    top: 0;
     width: 100%;
 }
 
-.uk-position-top { top: 0; }
+.uk-position-bottom {
+    bottom: 0;
+    width: 100%;
+}
 
-.uk-position-bottom { bottom: 0; }
+.uk-position-top-left {
+    top: 0;
+    left: 0;
+}
+
+.uk-position-top-right {
+    top: 0;
+    right: 0;
+}
+
+.uk-position-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.uk-position-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+/*
+ * Cover
+ */
 
 .uk-position-cover {
     position: absolute;
@@ -465,6 +492,10 @@
     left: 0;
     right: 0;
 }
+
+/*
+ * Relative
+ */
 
 .uk-position-relative { position: relative !important; }
 
