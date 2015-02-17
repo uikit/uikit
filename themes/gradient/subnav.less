@@ -9,6 +9,7 @@
 
 @subnav-color:                                  @global-link-color;
 @subnav-hover-color:                            @global-link-hover-color;
+@subnav-active-color:                           @global-link-hover-color;
 @subnav-disabled-color:                         @global-muted-color;
 
 @subnav-line-border:                            @global-border;
@@ -22,22 +23,13 @@
 // Component
 // ========================================================================
 
-//
-// Items
-//
-
 .hook-subnav-item() {}
 
-// Link
-.hook-subnav-link() {}
+.hook-subnav-item-hover() {}
 
-.hook-subnav-link-hover() {}
+.hook-subnav-item-active() {}
 
-// Active
-.hook-subnav-active() {}
-
-// Disabled
-.hook-subnav-disabled() {}
+.hook-subnav-item-disabled() {}
 
 
 // Modifier: `uk-subnav-line'
@@ -49,13 +41,11 @@
 // Modifier: `uk-subnav-pill'
 // ========================================================================
 
-.hook-subnav-pill() { border-radius: @global-border-radius; }
+.hook-subnav-pill-item() { border-radius: @global-border-radius; }
 
-// Hover
-.hook-subnav-pill-hover() { box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
+.hook-subnav-pill-item-hover() { box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
 
-// Active
-.hook-subnav-pill-active() { box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+.hook-subnav-pill-item-active() { box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
 
 
 // Miscellaneous

@@ -9,6 +9,7 @@
 
 @subnav-color:                                  @global-link-color;
 @subnav-hover-color:                            @global-link-hover-color;
+@subnav-active-color:                           @global-link-hover-color;
 @subnav-disabled-color:                         @global-muted-color;
 
 @subnav-line-border:                            @global-border;
@@ -21,22 +22,13 @@
 // Component
 // ========================================================================
 
-//
-// Items
-//
-
 .hook-subnav-item() {}
 
-// Link
-.hook-subnav-link() {}
+.hook-subnav-item-hover() {}
 
-.hook-subnav-link-hover() {}
+.hook-subnav-item-active() {}
 
-// Active
-.hook-subnav-active() {}
-
-// Disabled
-.hook-subnav-disabled() {}
+.hook-subnav-item-disabled() {}
 
 
 // Modifier: `uk-subnav-line'
@@ -48,13 +40,11 @@
 // Modifier: `uk-subnav-pill'
 // ========================================================================
 
-.hook-subnav-pill() {}
+.hook-subnav-pill-item() {}
 
-// Hover
-.hook-subnav-pill-hover() {}
+.hook-subnav-pill-item-hover() {}
 
-// Active
-.hook-subnav-pill-active() {}
+.hook-subnav-pill-item-active() {}
 
 
 // Miscellaneous
