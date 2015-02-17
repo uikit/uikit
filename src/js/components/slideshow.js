@@ -154,7 +154,7 @@
                         $this[slide=='next' ? 'next':'previous']();
                         break;
                     default:
-                        $this.show(slide);
+                        $this.show(parseInt(slide, 10));
                 }
 
                 $this.stop();

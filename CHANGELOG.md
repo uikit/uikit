@@ -27,6 +27,7 @@
   - Fixed events in grid js component
   - Fixed quick switching between tabs
   - Fixed deep target selector for data-uk-grid-match
+  - Fixed goto dom trigger for slideshows
 
   **Docs and Repo**
 

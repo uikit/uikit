@@ -63,7 +63,7 @@
                                 $this.show($this.index + (item=='next' ? 1:-1));
                                 break;
                             default:
-                                $this.show(item);
+                                $this.show(parseInt(item, 10));
                         }
                     }).on('swipeRight swipeLeft', function(e) {
                         e.preventDefault();
