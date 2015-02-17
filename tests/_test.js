@@ -102,6 +102,7 @@
             "core/table",
             "core/text",
             "core/thumbnail",
+            "core/thumbnav",
             "core/toggle",
             "core/tooltip",
             "core/touch",
