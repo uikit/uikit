@@ -24,9 +24,10 @@
 @subnav-margin-horizontal:                      10px;
 @subnav-margin-vertical:                        @subnav-margin-horizontal;
 
-@subnav-color:                                  #07D;
-@subnav-hover-color:                            #059;
-@subnav-active-color:                           #059;
+@subnav-color:                                  #444;
+@subnav-hover-color:                            #07D;
+@subnav-hover-text-decoration:                  none;
+@subnav-active-color:                           #07D;
 
 @subnav-line-border-height:                     10px;
 @subnav-line-border:                            #ddd;
@@ -117,6 +118,7 @@
 .uk-subnav > * > *:hover,
 .uk-subnav > * > *:focus { // 1
     color: @subnav-hover-color;
+    text-decoration: @subnav-hover-text-decoration;
     .hook-subnav-hover;
 }
 
@@ -152,7 +154,6 @@
 
 .uk-subnav-pill > * > * {
     padding: @subnav-pill-padding-vertical @subnav-pill-padding-horizontal;
-    text-decoration: none;
     .hook-subnav-pill;
 }
 
