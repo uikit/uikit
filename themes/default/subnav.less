@@ -10,13 +10,14 @@
 @subnav-color:                                  @global-link-color;
 @subnav-hover-color:                            @global-link-hover-color;
 @subnav-active-color:                           @global-link-hover-color;
-@subnav-disabled-color:                         @global-muted-color;
 
 @subnav-line-border:                            @global-border;
 
 @subnav-pill-hover-color:                       @global-color;
 @subnav-pill-active-background:                 @global-primary-background;
 @subnav-pill-active-color:                      @global-contrast-color;
+
+@subnav-disabled-color:                         @global-muted-color;
 
 
 // Component
@@ -27,8 +28,6 @@
 .hook-subnav-hover() {}
 
 .hook-subnav-active() {}
-
-.hook-subnav-disabled() {}
 
 
 // Modifier: `uk-subnav-line'
@@ -45,6 +44,12 @@
 .hook-subnav-pill-hover() {}
 
 .hook-subnav-pill-active() {}
+
+
+/* Disabled state
+ ========================================================================== */
+
+.hook-subnav-disabled() {}
 
 
 // Miscellaneous

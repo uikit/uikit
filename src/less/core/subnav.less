@@ -27,7 +27,6 @@
 @subnav-color:                                  #07D;
 @subnav-hover-color:                            #059;
 @subnav-active-color:                           #059;
-@subnav-disabled-color:                         #999;
 
 @subnav-line-border-height:                     10px;
 @subnav-line-border:                            #ddd;
@@ -39,6 +38,8 @@
 @subnav-pill-hover-color:                       #444;
 @subnav-pill-active-background:                 #00a8e6;
 @subnav-pill-active-color:                      #fff;
+
+@subnav-disabled-color:                         #999;
 
 
 /* ========================================================================
@@ -128,17 +129,6 @@
     .hook-subnav-active;
 }
 
-/*
- * Disabled
- */
-
-.uk-subnav > .uk-disabled > * {
-    color: @subnav-disabled-color;
-    text-decoration: none;
-    cursor: text;
-    .hook-subnav-disabled;
-}
-
 
 /* Modifier: 'subnav-line'
  ========================================================================== */
@@ -172,8 +162,8 @@
  * 2. Remove default focus style
  */
 
-.uk-subnav-pill > * > a:hover,
-.uk-subnav-pill > * > a:focus { // 1
+.uk-subnav-pill > * > *:hover,
+.uk-subnav-pill > * > *:focus { // 1
     background: @subnav-pill-hover-background;
     color: @subnav-pill-hover-color;
     text-decoration: none;
@@ -187,10 +177,22 @@
  * `li` needed for higher specificity to override hover
  */
 
-.uk-subnav-pill > .uk-active > a {
+.uk-subnav-pill > .uk-active > * {
     background: @subnav-pill-active-background;
     color: @subnav-pill-active-color;
     .hook-subnav-pill-active;
+}
+
+
+/* Disabled state
+ ========================================================================== */
+
+.uk-subnav > .uk-disabled > * {
+    background: none;
+    color: @subnav-disabled-color;
+    text-decoration: none;
+    cursor: text;
+    .hook-subnav-disabled;
 }
 
 
@@ -202,9 +204,9 @@
 .hook-subnav() {}
 .hook-subnav-hover() {}
 .hook-subnav-active() {}
-.hook-subnav-disabled() {}
 .hook-subnav-line-divider() {}
 .hook-subnav-pill() {}
 .hook-subnav-pill-hover() {}
 .hook-subnav-pill-active() {}
+.hook-subnav-disabled() {}
 .hook-subnav-misc() {}
