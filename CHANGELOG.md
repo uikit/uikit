@@ -5,18 +5,24 @@
   - IMPORTANT: Removed caption component (Use overlay component)
   - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-medium)
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
-  - Set content wrapper height to auto after accordion animation ends
+  - DEPRECATED: Thumbnail component
+  - DEPRECATED: uk-dotnav-vertical class (Use uk-flex-column)
   - Reworked overlay component completely
-  - Added possibility to create dynamic lightboxes
-  - Added manualclose.uk.notify and close.uk.notify events
-  - Added pauseOnHover option to slideshow component
+  - Added thumbnav component
   - Added gutter collapse and medium classes to grid component
-  - Added toggle uk-active class in sort and filter controls (dynamic grid)
-  - Added boundary parameter to sticky addon to bind sticky scrolling to an element
+  - Added more position classes to utility component
   - Added hover classes to panel component
   - Added icon hover class to icon component
   - Added scrollspy group with target selector
-  - Updated FontAwesome to v4.3
+  - Added possibility to create dynamic lightboxes
+  - Added manualclose.uk.notify and close.uk.notify events
+  - Added pauseOnHover option to slideshow component
+  - Added toggle uk-active class in sort and filter controls (dynamic grid)
+  - Added boundary parameter to sticky addon to bind sticky scrolling to an element
+  - Updated dotnav to use flexbox
+  - Updated subnav to use flexbox
+  - Updated icon component to FontAwesome to 4.3.0
+  - Set content wrapper height to auto after accordion animation ends
   - Deactivated browser history navigation in modal for IE11
   - Fixed events in grid js component
   - Fixed quick switching between tabs
@@ -203,7 +209,7 @@
 ### 2.10.0 (September 15, 2014)
 
  - Added input types for iOS style reset to form component
- - Updated icon component to Font Awesome to 4.2.0
+ - Updated icon component to FontAwesome to 4.2.0
  - Moved normalization into base, form, button and form component
  - Removed normalize component
  - Fixed upload select works only once if filename is the same
@@ -311,7 +317,7 @@
   - Removed breaking strings on small devices by default from base
   - Prevent search-field uk-active issue
   - Updated dropdown flip and stack behavior
-  - Updated icon component to Font Awesome to 4.1
+  - Updated icon component to FontAwesome to 4.1
 
 **Docs and Repo**
 
@@ -491,7 +497,7 @@
   - Added outerclick support for dropdowns in hover mode
   - Added touch events support for Windows 8 phones
   - Added miscellaneous hooks
-  - Updated icon component to Font Awesome to 4.0.3
+  - Updated icon component to FontAwesome to 4.0.3
   - Changed comments to compile nicer CSS output
 
 **Docs and Repo**
