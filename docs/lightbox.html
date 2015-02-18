@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Autocomplete component - UIkit documentation</title>
+        <title>Lighbox component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,7 +14,8 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../src/js/components/autocomplete.js"></script>
+        <script src="../src/js/core/modal.js"></script>
+        <script src="../src/js/components/lightbox.js"></script>
     </head>
 
     <body class="tm-background">
@@ -26,8 +27,8 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
-                    <li><a href="components.html">Components</a></li>
-                    <li class="uk-active"><a href="addons.html">Add-ons</a></li>
+                    <li><a href="core.html">Core</a></li>
+                    <li class="uk-active"><a href="components.html">Components</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -47,33 +48,33 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li class="uk-active"><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li class="uk-active"><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -81,71 +82,89 @@
 
                         <article class="uk-article">
 
-                            <h1 class="uk-article-title">Autocomplete</h1>
+                            <h1>Lightbox</h1>
 
-                            <p class="uk-article-lead"></p>
-
-                            <p class="uk-article-lead">Create inputs that allow users to choose from a list of pre-generated values while typing.</p>
+                            <p class="uk-article-lead">Create a fancy lightbox for images and videos utilizing the <a href="modal.html">Modal component</a>.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply this component, add the <code>.uk-autocomplete</code> class to a <code>&lt;div&gt;</code> element around an <code>input</code> element. To enable the necessary JavaScript for the autocomplete input, you also need to add the <code>data-uk-autocomplete</code> attribute. Add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your autocomplete list, which needs to be formatted in JSON (<a href="../tests/components/_autocomplete.json">Example</a>). A dropdown from the <a href="dropdown.html">Dropdown component</a> is injected to display autocomplete suggestions. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
+                            <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. If a title attribute exists it will be displayed as a caption for the lightbox.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'../tests/components/_autocomplete.json'}">
-                                <input type="text">
-                            </div>
-
-                            <p><span class="uk-badge">Note</span> Type in Hamburg, New York, Moscow or Amsterdam.</p>
+                            <a class="uk-button" href="images/placeholder_800x400_1.jpg" data-uk-lightbox title="Title">Open lighbox</a>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'my-autocomplete.json'}"&gt;
-    &lt;input type="text"&gt;
-&lt;/div&gt;</code></pre>
+<pre><code>&lt;a href="my-image.jpg" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="custom-templates"><a href="#custom-templates" class="uk-link-reset">Custom templates</a></h2>
+                            <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
 
-                            <p>You can also create custom templates to display the results differently.</p>
+                            <p>You can link multiple images to the same lightbox and switch between them from within the lightbox, thus creating a gallery. Just add the <code>{group:'my-group'}</code> option to the data attribute of each item using the same name on all items that you want to group.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'../tests/components/_autocomplete.json'}">
-                                <input type="text">
-                                <script type="text/autocomplete">
-                                    <ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">
-                                        {{~items}}
-                                        <li data-value="{{ $item.value }}">
-                                            <a>
-                                                {{ $item.title }}
-                                                <div>{{{ $item.text }}}</div>
-                                            </a>
-                                        </li>
-                                        {{/items}}
-                                    </ul>
-                                </script>
+                            <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_1.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_2.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_2.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_3.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_3.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_4.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_4.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:'my-autocomplete.json'}"&gt;
-    &lt;input type="text"&gt;
-    &lt;script type="text/autocomplete"&gt;
-        &lt;ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results"&gt;
-            {{~items}}
-            &lt;li data-value="{{ $item.value }}"&gt;
-                &lt;a&gt;
-                    {{ $item.title }}
-                    &lt;div&gt;{{{ $item.text }}}&lt;/div&gt;
-                &lt;/a&gt;
-            &lt;/li&gt;
-            {{/items}}
-        &lt;/ul&gt;
-    &lt;/script&gt;
-&lt;/div&gt;</code></pre>
+
+<pre><code>&lt;a href="" data-uk-lightbox="{group:'my-group'}"&gt;...&lt;/a&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="different-content-sources"><a href="#different-content-sources" class="uk-link-reset">Different content sources</a></h2>
+
+                            <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>
+                                <a class="uk-button" href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group2'}" title="Title">Image</a>
+                                <a class="uk-button" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">MP4</a>
+                                <a class="uk-button" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">Vimeo</a>
+                                <a class="uk-button" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">YouTube</a>
+                            </p>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="content-types"><a href="#different-content-sources" class="uk-link-reset">Content types</a></h2>
+
+                            <p>If no filename extension is defined in the image path, just add the <code>data-lightbox-type="image"</code> attribute. This works for videos as well.</p>
+
+                            <hr class="uk-article-divider">
 
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
@@ -161,28 +180,22 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>source</code></td>
-                                            <td>url, array, callback function</td>
-                                            <td>[]</td>
-                                            <td>Data source</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>minLength</code></td>
-                                            <td>integer</td>
-                                            <td>3</td>
-                                            <td>Min. input length before triggering autocomplete</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>param</code></td>
+                                            <td><code>group</code></td>
                                             <td>string</td>
-                                            <td>search</td>
-                                            <td>Query name when sending ajax request</td>
+                                            <td>false</td>
+                                            <td>Group name to group elements as a gallery to show</td>
                                         </tr>
                                         <tr>
-                                            <td><code>delay</code></td>
+                                            <td><code>duration</code></td>
                                             <td>integer</td>
-                                            <td>300</td>
-                                            <td>Delay time after stop typing</td>
+                                            <td>400</td>
+                                            <td>Animation duration between gallery item change</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>keyboard</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Allow keyboard navigation</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -190,7 +203,18 @@
 
                             <h3 class="tm-article-subtitle">Init element manually</h3>
 
-                            <pre><code>var autocomplete = UIkit.autocomplete(element, { /* options */ });</code></pre>
+                            <pre><code>var lightbox = UIkit.lightbox(element, { /* options */ });</code></pre>
+
+                            <h3 class="tm-article-subtitle">Create dynamic lightbox</h3>
+
+                            <pre><code>
+                                var lightbox = UIkit.lightbox.create([
+                                    {'source': 'http://url/to/video.mp4', 'type':'video'},
+                                    {'source': 'http://url/to/image.jpg', 'type':'image'}
+                                ]);
+
+                                lighbox.show();
+                            </code></pre>
 
                             <h3>Events</h3>
 
@@ -205,14 +229,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>select.uk.autocomplete</code></td>
-                                            <td>event, data, acobject</td>
-                                            <td>On item selected</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>show.uk.autocomplete</code></td>
-                                            <td>event</td>
-                                            <td>On autocomplete dropdown show</td>
+                                            <td><code>showitem.uk.lightbox</code></td>
+                                            <td>event, data</td>
+                                            <td>On lightbox show</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -254,8 +273,8 @@
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
-                            <li><a href="addons.html">Add-ons</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
@@ -265,7 +284,7 @@
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-nav-header">Core</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
                             <li><a href="base.html">Base</a></li>
@@ -321,50 +340,49 @@
                             <li><a href="offcanvas.html">Off-canvas</a></li>
                             <li><a href="switcher.html">Switcher</a></li>
                             <li><a href="toggle.html">Toggle</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
                             <li><a href="scrollspy.html">Scrollspy</a></li>
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-nav-header">Components</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Pagination</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-divider"></li>

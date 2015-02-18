@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Components - UIkit documentation</title>
+        <title>Slidenav component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -51,7 +51,7 @@
                             <li><a href="cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
                             <li><a href="dotnav.html">Dotnav</a></li>
-                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li class="uk-active"><a href="slidenav.html">Slidenav</a></li>
                             <li><a href="pagination-js.html">Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
                             <li><a href="form-advanced.html">Form advanced</a></li>
@@ -80,69 +80,68 @@
 
                         <article class="uk-article">
 
-                            <h1>Components</h1>
+                            <h1>Slidenav</h1>
 
-                            <p class="uk-article-lead">All kinds of useful, additional components which are not included in UIkit itself.</p>
-
-                            <p>UIkit offers some advanced components that are not included in the UIkit core framework. Usually you wouldn't use these components in your everyday website. They include stuff like nestables and datepickers, which will come in handy, if you create advanced user interfaces like administration areas.
-
-                            <hr class="uk-article-divider">
+                            <p class="uk-article-lead">Defines a navigation with previous and next buttons to browse through slideshows.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>After you've <a data-uikit-download>downloaded UIkit</a>, you can find all additional components in separate <code>/css</code> and <code>/js</code> folders:</p>
-
-<pre><code>/css
-    /components
-        &lt;!-- Component with the basic style --&gt;
-        autocomplete.css
-        autocomplete.min.css
-
-        &lt;!-- Component with the Gradient style --&gt;
-        autocomplete.gradient.css
-        autocomplete.gradient.min.css
-
-        &lt;!-- Component with the Almost flat style --&gt;
-        autocomplete.almost-flat.css
-        autocomplete.almost-flat.min.css
-        ...
-
-/js
-    /components
-        &lt;!-- JavaScript of the component and minified version --&gt;
-        autocomplete.js
-        autocomplete.min.js
-        ...</code></pre>
-
-                            <p>To use one of these components, all you need to do is to add the CSS and the component's JavaScript to the header of your document.</p>
+                            <p>To create a navigation with previous and next buttons, just add the <code>.uk-slidenav</code> class to <code>&lt;a&gt;</code> elements. Add the <code>.uk-slidenav-previous</code> or <code>.uk-slidenav-next</code> class to style the nav items as previous or next buttons.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;&lt;/title&gt;
-        &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-        &lt;script src="jquery.js">&lt;/script&gt;
-        &lt;script src="uikit.min.js">&lt;/script&gt;
-        &lt;!-- Autocomplete CSS --&gt;
-        &lt;link rel="stylesheet" href="components/autocomplete.css"&gt;
-        &lt;!-- Autocomplete Javascript --&gt;
-        &lt;script src="components/autocomplete.js"&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+                            <p>
+                                <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next"></a>
+                            </p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+&lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="tests"><a href="#tests" class="uk-link-reset">Tests</a></h2>
+                            <h2 id="position-slidenav"><a href="#position-slidenav" class="uk-link-reset">Position slidenav</a></h2>
 
-                            <p>UIkit provides test files for every component. Each of these pages contains test cases of its component and gives you an overview of all the possibilities that are supported out of the box.</p>
+                            <p>To position the Slidenav over any content, like a slideshow or an image, just wrap the nav and content inside a container element and add the <code>.uk-slidenav-position</code> class. That way the previous and next buttons will be centered vertically and aligned to the left and right. The Slidenav will only be visible when hovering the content.</p>
 
-                            <p>In the ZIP file you will find all UIkit CSS, JavaScript and font files ready to use for your project. The core framework of UIkit has almost no styling in order to keep it slim. Therefore we provide two addidional distributions with a gradient and an almost flat style. Each style comes as a single CSS file as well as a minified version. Some <a href="components.html">components</a> are also included, which are not part of the core framework and can be added separately to your project.</p>
+                            <div class="uk-slidenav-position uk-display-inline-block">
 
-                            <p><a class="uk-button uk-button-large uk-button-primary" href="../tests/components/autocomplete.html">Go to tests</a></p>
+                                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+
+                                <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next"></a>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-slidenav-position"&gt;
+    &lt;img src="" alt=""&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+    &lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="slidenav-and-images"><a href="#slidenav-and-images" class="uk-link-reset">Slidenav and images</a></h2>
+
+                            <p>For better visibility on images, for example when using the Slidenav as a slideshow navigation, just add the <code>.uk-slidenav-contrast</code> class.</p>
+
+                            <div class="uk-slidenav-position uk-display-inline-block">
+
+                                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+
+                                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next"></a>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous"&gt;&lt;/a&gt;
+&lt;a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next"&gt;&lt;/a&gt;</code></pre>
 
                         </article>
 
@@ -175,7 +174,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
+                    <li class="uk-parent"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -260,7 +259,7 @@
                             <li><a href="cover.html">Cover</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
                             <li><a href="dotnav.html">Dotnav</a></li>
                             <li><a href="slidenav.html">Slidenav</a></li>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Add-ons - UIkit documentation</title>
+        <title>Form select component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,6 +14,7 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
+        <script src="../src/js/components/form-select.js"></script>
     </head>
 
     <body class="tm-background">
@@ -25,8 +26,8 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
-                    <li><a href="components.html">Components</a></li>
-                    <li class="uk-active"><a href="addons.html">Add-ons</a></li>
+                    <li><a href="core.html">Core</a></li>
+                    <li class="uk-active"><a href="components.html">Components</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -46,33 +47,33 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li class="uk-active"><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -80,69 +81,94 @@
 
                         <article class="uk-article">
 
-                            <h1>Add-ons</h1>
+                            <h1>Form select</h1>
 
-                            <p class="uk-article-lead">All kinds of useful, additional components which are not included in UIkit itself.</p>
-
-                            <p>UIkit offers some advanced components that are not included in the UIkit core framework. Usually you wouldn't use these components in your everyday website. They include stuff like nestables and datepickers, which will come in handy, if you create advanced user interfaces like administration areas.
-
-                            <hr class="uk-article-divider">
+                            <p class="uk-article-lead">Replace the default select form with your own HTML content, like a button or text.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>After you've <a data-uikit-download>downloaded UIkit</a>, you can find all additional components in separate <code>/css</code> and <code>/js</code> folders:</p>
-
-<pre><code>/css
-    /components
-        &lt;!-- Component with the basic style --&gt;
-        autocomplete.css
-        autocomplete.min.css
-
-        &lt;!-- Component with the Gradient style --&gt;
-        autocomplete.gradient.css
-        autocomplete.gradient.min.css
-
-        &lt;!-- Component with the Almost flat style --&gt;
-        autocomplete.almost-flat.css
-        autocomplete.almost-flat.min.css
-        ...
-
-/js
-    /components
-        &lt;!-- JavaScript of the component and minified version --&gt;
-        autocomplete.js
-        autocomplete.min.js
-        ...</code></pre>
-
-                            <p>To use one of these components, all you need to do is to add the CSS and the component's JavaScript to the header of your document.</p>
+                            <p>To apply this component, just add the <code>.uk-form-select</code> class and the <code>data-uk-form-select</code> attribute to a container element around a span and a <code>&lt;select&gt;</code> element. Basically, this will overlay the default select element with a custom UIkit form.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;&lt;/title&gt;
-        &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-        &lt;script src="jquery.js">&lt;/script&gt;
-        &lt;script src="uikit.min.js">&lt;/script&gt;
-        &lt;!-- Autocomplete CSS --&gt;
-        &lt;link rel="stylesheet" href="components/autocomplete.css"&gt;
-        &lt;!-- Autocomplete Javascript --&gt;
-        &lt;script src="components/autocomplete.js"&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+                            <div class="uk-margin">
+
+                                <div class="uk-form-select" data-uk-form-select>
+                                    <span></span>
+                                    <select>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-form-select" data-uk-form-select&gt;
+    &lt;span&gt;&lt;/span&gt;
+    &lt;select&gt;
+        &lt;option value=""&gt;...&lt;/option&gt;
+        &lt;option value=""&gt;...&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="tests"><a href="#tests" class="uk-link-reset">Tests</a></h2>
+                            <h3>As a button</h3>
 
-                            <p>UIkit provides test files for every component. Each of these pages contains test cases of its component and gives you an overview of all the possibilities that are supported out of the box.</p>
+                            <p>Add the <code>.uk-button</code> class to the container element to style it as a button.</p>
 
-                            <p>In the ZIP file you will find all UIkit CSS, JavaScript and font files ready to use for your project. The core framework of UIkit has almost no styling in order to keep it slim. Therefore we provide two addidional distributions with a gradient and an almost flat style. Each style comes as a single CSS file as well as a minified version. Some <a href="addons.html">advanced components</a> are also included, which are not part of the core framework and can be added separately to your project.</p>
+                            <div class="uk-margin">
 
-                            <p><a class="uk-button uk-button-large uk-button-primary" href="../tests/components/autocomplete.html">Go to tests</a></p>
+                                <div class="uk-button uk-form-select" data-uk-form-select>
+                                    <span></span>
+                                    <i class="uk-icon-caret-down"></i>
+                                    <select>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-button uk-form-select" data-uk-form-select&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>As an anchor</h3>
+
+                            <p>You can use any element, like an <code>&lt;a&gt;</code> as a select form. Just add the <code>{target:'a'}</code> option to the <code>data-uk-form-select</code> attribute and use an <code>&lt;a&gt;</code> instead of a <code>&lt;span&gt;</code> element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-margin">
+
+                                <div class="uk-form-select" data-uk-form-select="{target:'a'}">
+                                    <a></a>
+                                    <select>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>
+&lt;div class="uk-form-select" data-uk-form-select="{target:'a'}"&gt;
+    &lt;a&gt;&lt;/a&gt;
+    &lt;select&gt;...&lt;/select&gt;
+&lt;/div&gt;</code></pre>
 
                         </article>
 
@@ -175,13 +201,13 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
+                    <li class="uk-parent"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
-                            <li><a href="addons.html">Add-ons</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
@@ -191,7 +217,7 @@
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-nav-header">Core</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
                             <li><a href="base.html">Base</a></li>
@@ -252,45 +278,45 @@
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-nav-header">Components</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Pagination</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-divider"></li>
