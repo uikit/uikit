@@ -25,6 +25,7 @@
   - Updated icon component to FontAwesome to 4.3.0
   - Set content wrapper height to auto after accordion animation ends
   - Deactivated browser history navigation in modal for IE11
+  - Fixed modal caption text overflow
   - Fixed events in grid js component
   - Fixed quick switching between tabs
   - Fixed deep target selector for data-uk-grid-match
