@@ -86,7 +86,7 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To create a navigation with dots, just add the <code>.uk-dotnav</code> class to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list. This is perfect to create a typical slideshow navigation.</p>
+                            <p>To create a navigation with dots, just add the <code>.uk-dotnav</code> class to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list. This is perfect to create a typical slideshow navigation.  This component is built with Flexbox. So to align a dotnav, you can use <a href="addons_flex.html">Flex component</a>.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -118,7 +118,7 @@
 
                                 <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
 
-                                <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-text-center" style="width: 600px;">
+                                <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-flex-center" style="width: 600px;">
                                     <li class="uk-active"><a href="#">Item 1</a></li>
                                     <li><a href="#">Item 2</a></li>
                                     <li><a href="#">Item 3</a></li>
@@ -129,9 +129,11 @@
 
                             </div>
 
+                            <p><span class="uk-badge">NOTE</span> In this example we also applied the <code>.uk-flex-center</code> class from the <a href="addons_flex.html">Flex component</a> to center the dotnav.</p>
+
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-dotnav uk-dotnav-contrast"&gt;
+<pre><code>&lt;ul class="uk-dotnav uk-dotnav-contrast uk-flex-center"&gt;
     &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
@@ -140,11 +142,11 @@
 
                             <h2 id="vertical-dotnav"><a href="#vertical-dotnav" class="uk-link-reset">Vertical dotnav</a></h2>
 
-                            <p>The Dotnav can also be aligned vertically. Just add the <code>.uk-dotnav-vertical</code> class. This is great for page scroll navigation using the <a href="scrollspy.html">Scrollspy</a>.</p>
+                            <p>The Dotnav can also be aligned vertically. Just add the <code>.uk-flex-column</code> class. This is great for page scroll navigation using the <a href="scrollspy.html">Scrollspy component</a>.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <ul class="uk-dotnav uk-dotnav-vertical">
+                            <ul class="uk-dotnav uk-flex-column">
                                 <li class="uk-active"><a href="#">Item 1</a></li>
                                 <li><a href="#">Item 2</a></li>
                                 <li><a href="#">Item 3</a></li>
@@ -155,7 +157,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-dotnav uk-dotnav-vertical"&gt;
+<pre><code>&lt;ul class="uk-dotnav uk-flex-column"&gt;
     &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
@@ -171,7 +173,7 @@
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
 
-                <ul class="uk-subnav uk-subnav-line">
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
                     <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
                     <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
                     <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
@@ -231,6 +233,7 @@
                             <li><a href="breadcrumb.html">Breadcrumb</a></li>
                             <li><a href="pagination.html">Pagination</a></li>
                             <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
