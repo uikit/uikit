@@ -13,6 +13,7 @@
   - Added more position classes to utility component
   - Added hover classes to panel component
   - Added icon hover class to icon component
+  - Added uk-heading-large default values for small screens in utility component
   - Added scrollspy group with target selector
   - Added possibility to create dynamic lightboxes
   - Added manualclose.uk.notify and close.uk.notify events
