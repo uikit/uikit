@@ -10,6 +10,8 @@
 //                  `uk-tab-left`
 //                  `uk-tab-right`
 //                  `uk-tab-responsive`
+//                  `uk-tab-small`
+//                  `uk-tab-large`
 //
 // States:          `uk-active`
 //                  `uk-disabled`
@@ -34,6 +36,14 @@
 @tab-padding-vertical:                          8px;
 @tab-padding-top:                               @tab-padding-vertical;
 @tab-padding-bottom:                            @tab-padding-vertical;
+@tab-padding-small-horizontal:                  6px;
+@tab-padding-small-vertical:                    4px;
+@tab-padding-small-top:                         @tab-padding-small-vertical;
+@tab-padding-small-bottom:                      @tab-padding-small-vertical;
+@tab-padding-large-horizontal:                  12px;
+@tab-padding-large-vertical:                    18px;
+@tab-padding-large-top:                         @tab-padding-large-vertical;
+@tab-padding-large-bottom:                      @tab-padding-large-vertical;
 @tab-margin-horizontal:                         5px;
 @tab-margin-vertical:                           5px;
 @tab-color:                                     #07D;
@@ -130,7 +140,7 @@
 /* Disabled */
 .uk-tab > li.uk-disabled > a {
     color: @tab-disabled-color;
-    cursor: auto;
+    cursor: text;
     .hook-tab-disabled;
 }
 
@@ -284,6 +294,41 @@
     bottom: auto;
 }
 
+/* Modifier: 'tab-small'
+ ========================================================================== */
+
+.uk-tab-small {
+    font-size: @text-small-font-size;
+}
+
+.uk-tab-small > li > a {
+    padding: @tab-padding-small-top @tab-padding-small-horizontal @tab-padding-small-bottom @tab-padding-small-horizontal;
+}
+
+.uk-tab-small > li:not(.uk-active) > a:hover,
+.uk-tab-small > li:not(.uk-active) > a:focus,
+.uk-tab-small > li.uk-open:not(.uk-active) > a {
+    margin-bottom: @tab-border-width;
+    padding-bottom: @tab-padding-small-bottom - @tab-border-width;
+}
+
+/* Modifier: 'tab-large'
+ ========================================================================== */
+
+.uk-tab-large {
+    font-size: @text-large-font-size;
+}
+
+.uk-tab-large > li > a {
+    padding: @tab-padding-large-top @tab-padding-large-horizontal @tab-padding-large-bottom @tab-padding-large-horizontal;
+}
+
+.uk-tab-large > li:not(.uk-active) > a:hover,
+.uk-tab-large > li:not(.uk-active) > a:focus,
+.uk-tab-large > li.uk-open:not(.uk-active) > a {
+    margin-bottom: @tab-border-width;
+    padding-bottom: @tab-padding-large-bottom - @tab-border-width;
+}
 
 /* Modifier: 'tab-left', 'tab-right'
  ========================================================================== */
@@ -352,9 +397,40 @@
         padding-left: @tab-padding-horizontal - @tab-border-width;
     }
     .uk-tab-right > li.uk-active > a { border-left-color: transparent; }
+    
+    /*
+     * Modifier: 'tab-small'
+     */
+
+    .uk-tab-small > li > a {
+        padding-top: @tab-padding-small-top;
+        padding-bottom: @tab-padding-small-bottom;
+    }
+
+    .uk-tab-small > li:not(.uk-active) > a:hover, .uk-tab-small > li:not(.uk-active) > a:focus {
+        margin-bottom: 0;
+        margin-left: @tab-border-width;
+        padding-bottom: @tab-padding-small-vertical;
+        padding-left: @tab-padding-small-horizontal - @tab-border-width;
+    }
+
+    /*
+     * Modifier: 'tab-large'
+     */
+
+    .uk-tab-large > li > a {
+        padding-top: @tab-padding-large-top;
+        padding-bottom: @tab-padding-large-bottom;
+    }
+
+    .uk-tab-large > li:not(.uk-active) > a:hover, .uk-tab-large > li:not(.uk-active) > a:focus {
+        margin-bottom: 0;
+        margin-left: @tab-border-width;
+        padding-bottom: @tab-padding-large-vertical;
+        padding-left: @tab-padding-large-horizontal - @tab-border-width;
+    }
 
 }
-
 
 // Hooks
 // ========================================================================
