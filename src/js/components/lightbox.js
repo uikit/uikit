@@ -6,7 +6,6 @@
         component = addon(UIkit);
     }
 
-
     if (typeof define == "function" && define.amd) { // AMD
         define(["uikit-lightbox"], function(){
             return component || addon(UIkit);
@@ -176,7 +175,9 @@
             var $this    = this,
                 data     = this.data,
                 pad      = this.modal.dialog.outerWidth() - this.modal.dialog.width(),
-                dpad     = parseInt(this.modal.dialog.css('margin-top'), 10) + parseInt(this.modal.dialog.css('margin-bottom'), 10),
+                dpadTop  = parseInt(this.modal.dialog.css('margin-top'), 10),
+                dpadBot  = parseInt(this.modal.dialog.css('margin-bottom'), 10),
+                dpad     = dpadTop + dpadBot,
                 content  = data.meta.content,
                 duration = $this.options.duration;
 
@@ -204,9 +205,16 @@
             tmp.appendTo('body').width();
 
             maxwidth  = tmp.width();
-            maxheight = window.innerHeight - (dpad * 2);
+            maxheight = window.innerHeight - dpad;
 
             tmp.remove();
+
+            this.modal.dialog.find('.uk-modal-caption').remove();
+
+            if (data.title) {
+                this.modal.dialog.append('<div class="uk-modal-caption">'+data.title+'</div>');
+                maxheight -= this.modal.dialog.find('.uk-modal-caption').outerHeight();
+            }
 
             if (maxwidth < data.meta.width) {
 
@@ -221,12 +229,6 @@
             }
 
             this.modal.content.css('opacity', 0).width(w).html(content);
-
-            this.modal.dialog.find('.uk-modal-caption').remove();
-
-            if (data.title) {
-                this.modal.dialog.append('<div class="uk-modal-caption">'+data.title+'</div>');
-            }
 
             if (data.type == 'iframe') {
                 this.modal.content.find('iframe:first').height(h);
