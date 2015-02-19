@@ -8,6 +8,7 @@
   - DEPRECATED: Thumbnail component
   - DEPRECATED: uk-dotnav-vertical class (Use uk-flex-column)
   - Reworked overlay component completely
+  - Added possibility to enable and disable sticky component objects
   - Added thumbnav component
   - Added gutter collapse and medium classes to grid component
   - Added more position classes to utility component
@@ -31,6 +32,7 @@
   - Fixed quick switching between tabs
   - Fixed deep target selector for data-uk-grid-match
   - Fixed goto dom trigger for slideshows
+  - Fixed vertical centering for lightboxes
 
   **Docs and Repo**
 
