@@ -567,6 +567,14 @@
         });
     };
 
+    UI.on('domready.uk.dom', function(){
+
+        UI.domObservers.forEach(function(fn){
+            fn(document);
+        });
+
+        if (UI.domready) UI.Utils.checkDisplay(document);
+    });
 
     $(function(){
 
@@ -575,16 +583,6 @@
         UI.ready(function(context){
             UI.domObserve('[data-uk-observe]');
         });
-
-        UI.on('ready.uk.dom', function(){
-
-            UI.domObservers.forEach(function(fn){
-                fn(document);
-            });
-
-            if (UI.domready) UI.Utils.checkDisplay(document);
-        });
-
 
         UI.on('changed.uk.dom', function(e) {
 
@@ -634,7 +632,7 @@
         })(), 15);
 
         // run component init functions on dom
-        UI.trigger('ready.uk.dom');
+        UI.trigger('domready.uk.dom');
 
         if (UI.support.touch) {
 

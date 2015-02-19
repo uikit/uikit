@@ -1,18 +1,4 @@
-(function(addon) {
-
-    var component;
-
-    if (window.UIkit) {
-        component = addon(UIkit);
-    }
-
-    if (typeof define == "function" && define.amd) {
-        define("uikit-cover", ["uikit"], function(){
-            return component || addon(UIkit);
-        });
-    }
-
-})(function(UI){
+(function(UI){
 
     "use strict";
 
@@ -40,7 +26,7 @@
 
         init: function() {
 
-            this.parent    = this.element.parent();
+            this.parent = this.element.parent();
 
             UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
                 this.check();
@@ -51,8 +37,6 @@
             }.bind(this));
 
             this.check();
-
-            this.element.data("cover", this);
 
             if (this.element.is('iframe') && this.options.automute) {
 
@@ -107,4 +91,4 @@
         }
     });
 
-});
+})(UIkit);
