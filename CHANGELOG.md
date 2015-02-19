@@ -26,6 +26,7 @@
   - Set content wrapper height to auto after accordion animation ends
   - Deactivated browser history navigation in modal for IE11
   - Fixed modal caption text overflow
+  - Fixed modal min-height. Now only applies to lightbox modifier
   - Fixed events in grid js component
   - Fixed quick switching between tabs
   - Fixed deep target selector for data-uk-grid-match
