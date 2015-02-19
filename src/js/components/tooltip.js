@@ -1,4 +1,16 @@
-(function(UI) {
+(function(addon) {
+    var component;
+
+    if (window.UIkit) {
+        component = addon(UIkit);
+    }
+
+    if (typeof define == "function" && define.amd) {
+        define("uikit-tooltip", ["uikit"], function(){
+            return component || addon(UIkit);
+        });
+    }
+})(function(UI){
 
     "use strict";
 
@@ -203,4 +215,5 @@
         }
     });
 
-})(UIkit);
+    return UI.tooltip;
+});

@@ -106,7 +106,7 @@
 
                                 })
                                 .attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''))
-                                .addClass('uk-position-top');
+                                .addClass('uk-position-absolute');
 
                                 // disable pointer events
                                 if(!UI.support.touch) media.css('pointer-events', 'none');
@@ -120,7 +120,7 @@
 
                             break;
                         case 'VIDEO':
-                            media.addClass('uk-cover-object uk-position-top');
+                            media.addClass('uk-cover-object uk-position-absolute');
                             placeholder = true;
 
                             if ($this.options.videomute) $this.mutemedia(media);
