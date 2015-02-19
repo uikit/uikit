@@ -11,10 +11,8 @@
         'dist/css/uikit{style}.css',
 
         // components
-        'dist/css/components/flex{style}.css',
         'dist/css/components/accordion{style}.css',
         'dist/css/components/autocomplete{style}.css',
-        'dist/css/components/cover{style}.css',
         'dist/css/components/datepicker{style}.css',
         'dist/css/components/dotnav{style}.css',
         'dist/css/components/form-advanced{style}.css',
@@ -57,6 +55,7 @@
         'src/js/core/offcanvas.js',
         'src/js/core/switcher.js',
         'src/js/core/tab.js',
+        'src/js/core/cover.js',
         'src/js/core/tooltip.js'
 
     ]).forEach(function(script) {
@@ -80,8 +79,10 @@
             "core/button",
             "core/close",
             "core/comment",
+            "core/cover",
             "core/description-list",
             "core/dropdown",
+            "core/flex",
             "core/form",
             "core/grid",
             "core/icon",
@@ -112,10 +113,8 @@
 
             "components/accordion",
             "components/autocomplete",
-            "components/cover",
             "components/datepicker",
             "components/dotnav",
-            "components/flex",
             "components/form-advanced",
             "components/form-file",
             "components/form-password",
