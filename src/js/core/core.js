@@ -426,6 +426,15 @@
                 methods.split(' ').forEach(function(method) {
                     if (!$this[method]) $this[method] = obj[method].bind($this);
                 });
+            },
+
+            option: function() {
+
+                if (arguments.length == 1) {
+                    return this.options[arguments[0]] || undefined;
+                } else if (arguments.length == 2) {
+                    this.options[arguments[0]] = arguments[1];
+                }
             }
 
         }, def);

@@ -31,13 +31,14 @@
             getWidthFrom : '',
             boundary     : false,
             media        : false,
-            target       : false
+            target       : false,
+            disabled     : false
         },
 
         boot: function() {
 
-            // should be more efficient than using $win.scroll(scroller):
-            UI.$doc.on('scrolling.uk.document', scroller);
+            // should be more efficient than using $win.scroll(checkscrollposition):
+            UI.$doc.on('scrolling.uk.document', function() { checkscrollposition(); });
             UI.$win.on('resize orientationchange', UI.Utils.debounce(function() {
 
                 if (!sticked.length) return;
@@ -46,7 +47,7 @@
                     sticked[i].reset(true);
                 }
 
-                scroller();
+                checkscrollposition();
             }, 100));
 
             // init code
@@ -63,7 +64,7 @@
                         }
                     });
 
-                    scroller();
+                    checkscrollposition();
                 }, 0);
             });
         },
@@ -126,6 +127,10 @@
 
                 check: function() {
 
+                    if (this.options.disabled) {
+                        return false;
+                    }
+
                     if (this.options.media) {
 
                         switch(typeof(this.options.media)) {
@@ -157,30 +162,40 @@
         },
 
         update: function() {
-            scroller();
+            checkscrollposition(this.sticky);
+        },
+
+        enable: function() {
+            this.options.disabled = false;
+            this.update();
+        },
+
+        disable: function(force) {
+            this.options.disabled = true;
+            this.sticky.reset(force);
         }
     });
 
-    function scroller() {
+    function checkscrollposition() {
 
-        if (!sticked.length) return;
+        var stickies = arguments.length ? arguments : sticked;
+
+        if (!stickies.length || $win.scrollTop() < 0) return;
 
         var scrollTop       = $win.scrollTop(),
             documentHeight  = $doc.height(),
             windowHeight    = $win.height(),
             dwh             = documentHeight - windowHeight,
             extra           = (scrollTop > dwh) ? dwh - scrollTop : 0,
-            newTop, containerBottom, stickyHeight;
+            newTop, containerBottom, stickyHeight, sticky;
 
-        if (scrollTop < 0) return;
+        for (var i = 0; i < stickies.length; i++) {
 
-        for (var i = 0; i < sticked.length; i++) {
+            sticky = stickies[i];
 
-            if (!sticked[i].element.is(":visible") || sticked[i].animate) {
+            if (!sticky.element.is(":visible") || sticky.animate) {
                 continue;
             }
-
-            var sticky = sticked[i];
 
             if (!sticky.check()) {
 
