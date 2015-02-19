@@ -40,7 +40,7 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
                 if (theme && t!=theme) return;
 
                 var path = f+'/'+t, uikit = path + '/uikit.less', customizer = path + '/uikit-customizer.less';
-                if (!(fs.lstatSync(path).isDirectory() && fs.existsSync(uikit))) return;
+                if (!((fs.lstatSync(path).isDirectory() || fs.lstatSync(path).isSymbolicLink()) && fs.existsSync(uikit))) return;
                 list.push({"name": t, "path": f+'/'+t, "uikit": uikit});
             });
         });

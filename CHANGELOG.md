@@ -32,6 +32,7 @@
   - Fixed quick switching between tabs
   - Fixed deep target selector for data-uk-grid-match
   - Fixed goto dom trigger for slideshows
+  - Fixed vertical centering for lightboxes
 
   **Docs and Repo**
 
