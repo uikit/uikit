@@ -1,4 +1,4 @@
-(function(iniframe){
+(function(iniframe, $){
 
     window.CustomizerForceUpdate = iniframe;
 
@@ -14,7 +14,6 @@
         'dist/css/components/flex{style}.css',
         'dist/css/components/accordion{style}.css',
         'dist/css/components/autocomplete{style}.css',
-        'dist/css/components/caption{style}.css',
         'dist/css/components/cover{style}.css',
         'dist/css/components/datepicker{style}.css',
         'dist/css/components/dotnav{style}.css',
@@ -64,7 +63,6 @@
         document.writeln('<script src="'+base+script+'"></script>');
     });
 
-
     if (iniframe) {
         document.writeln('<style data-compiled-css>@import url("../dist/css/uikit.css"); </style>');
     }
@@ -104,6 +102,7 @@
             "core/table",
             "core/text",
             "core/thumbnail",
+            "core/thumbnav",
             "core/toggle",
             "core/tooltip",
             "core/touch",
@@ -113,7 +112,6 @@
 
             "components/accordion",
             "components/autocomplete",
-            "components/caption",
             "components/cover",
             "components/datepicker",
             "components/dotnav",
@@ -139,7 +137,10 @@
 
     ];
 
+
     document.addEventListener("DOMContentLoaded", function(event) {
+
+        $ = jQuery.noConflict();
 
         var $body      = $("body").css("visibility", "hidden"),
             $scriptest = $(scriptest),

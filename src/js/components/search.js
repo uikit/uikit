@@ -2,17 +2,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-search", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -21,8 +21,8 @@
             msgResultsHeader   : 'Search Results',
             msgMoreResults     : 'More Results',
             msgNoResults       : 'No results found',
-            template           : '<ul class="@-nav @-nav-search @-autocomplete-results">\
-                                      {{#msgResultsHeader}}<li class="@-nav-header @-skip">{{msgResultsHeader}}</li>{{/msgResultsHeader}}\
+            template           : '<ul class="uk-nav uk-nav-search uk-autocomplete-results">\
+                                      {{#msgResultsHeader}}<li class="uk-nav-header uk-skip">{{msgResultsHeader}}</li>{{/msgResultsHeader}}\
                                       {{#items && items.length}}\
                                           {{~items}}\
                                           <li data-url="{{!$item.url}}">\
@@ -33,12 +33,12 @@
                                           </li>\
                                           {{/items}}\
                                           {{#msgMoreResults}}\
-                                              <li class="@-nav-divider @-skip"></li>\
-                                              <li class="@-search-moreresults" data-moreresults="true"><a href="#" onclick="jQuery(this).closest(\'form\').submit();">{{msgMoreResults}}</a></li>\
+                                              <li class="uk-nav-divider uk-skip"></li>\
+                                              <li class="uk-search-moreresults" data-moreresults="true"><a href="#" onclick="jQuery(this).closest(\'form\').submit();">{{msgMoreResults}}</a></li>\
                                           {{/msgMoreResults}}\
                                       {{/end}}\
                                       {{^items.length}}\
-                                        {{#msgNoResults}}<li class="@-skip"><a>{{msgNoResults}}</a></li>{{/msgNoResults}}\
+                                        {{#msgNoResults}}<li class="uk-skip"><a>{{msgNoResults}}</a></li>{{/msgNoResults}}\
                                       {{/end}}\
                                   </ul>',
 
@@ -54,11 +54,11 @@
         boot: function() {
 
             // init code
-            UI.$html.on("focus.search.uikit", "[data-@-search]", function(e) {
+            UI.$html.on("focus.search.uikit", "[data-uk-search]", function(e) {
                 var ele =UI.$(this);
 
                 if (!ele.data("search")) {
-                    var obj = UI.search(ele, UI.Utils.options(ele.attr("data-@-search")));
+                    var obj = UI.search(ele, UI.Utils.options(ele.attr("data-uk-search")));
                 }
             });
         },
@@ -68,13 +68,13 @@
 
             this.autocomplete = UI.autocomplete(this.element, this.options);
 
-            this.autocomplete.dropdown.addClass(UI.prefix('@-dropdown-search'));
+            this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
             this.autocomplete.input.on("keyup", function(){
-                $this.element[$this.autocomplete.input.val() ? "addClass":"removeClass"]("@-active");
+                $this.element[$this.autocomplete.input.val() ? "addClass":"removeClass"]("uk-active");
             }).closest("form").on("reset", function(){
                 $this.value="";
-                $this.element.removeClass("@-active");
+                $this.element.removeClass("uk-active");
             });
 
             this.on('select.uk.autocomplete', function(e, data) {

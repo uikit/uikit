@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Components - UIkit documentation</title>
+        <title>Sticky component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,6 +14,7 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
+        <script src="../src/js/components/sticky.js"></script>
     </head>
 
     <body class="tm-background">
@@ -70,7 +71,7 @@
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>
                             <li><a href="sortable.html">Sortable</a></li>
-                            <li><a href="sticky.html">Sticky</a></li>
+                            <li class="uk-active"><a href="sticky.html">Sticky</a></li>
                             <li><a href="timepicker.html">Timepicker</a></li>
                             <li><a href="upload.html">Upload</a></li>
                         </ul>
@@ -78,71 +79,168 @@
                     </div>
                     <div class="tm-main uk-width-medium-3-4">
 
-                        <article class="uk-article">
+                        <article class="uk-article" style="min-height: 3000px;">
 
-                            <h1>Components</h1>
+                            <h1>Sticky</h1>
 
-                            <p class="uk-article-lead">All kinds of useful, additional components which are not included in UIkit itself.</p>
-
-                            <p>UIkit offers some advanced components that are not included in the UIkit core framework. Usually you wouldn't use these components in your everyday website. They include stuff like nestables and datepickers, which will come in handy, if you create advanced user interfaces like administration areas.
-
-                            <hr class="uk-article-divider">
+                            <p class="uk-article-lead">Make elements remain at the top of the viewport, like a sticky navbar.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>After you've <a data-uikit-download>downloaded UIkit</a>, you can find all additional components in separate <code>/css</code> and <code>/js</code> folders:</p>
-
-<pre><code>/css
-    /components
-        &lt;!-- Component with the basic style --&gt;
-        autocomplete.css
-        autocomplete.min.css
-
-        &lt;!-- Component with the Gradient style --&gt;
-        autocomplete.gradient.css
-        autocomplete.gradient.min.css
-
-        &lt;!-- Component with the Almost flat style --&gt;
-        autocomplete.almost-flat.css
-        autocomplete.almost-flat.min.css
-        ...
-
-/js
-    /components
-        &lt;!-- JavaScript of the component and minified version --&gt;
-        autocomplete.js
-        autocomplete.min.js
-        ...</code></pre>
-
-                            <p>To use one of these components, all you need to do is to add the CSS and the component's JavaScript to the header of your document.</p>
+                            <p>To create an element that remains at the top of the viewport when scrolling down the site, add the <code>data-uk-sticky</code> attribute to that element.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;&lt;/title&gt;
-        &lt;link rel="stylesheet" href="uikit.min.css" /&gt;
-        &lt;script src="jquery.js">&lt;/script&gt;
-        &lt;script src="uikit.min.js">&lt;/script&gt;
-        &lt;!-- Autocomplete CSS --&gt;
-        &lt;link rel="stylesheet" href="components/autocomplete.css"&gt;
-        &lt;!-- Autocomplete Javascript --&gt;
-        &lt;script src="components/autocomplete.js"&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+                            <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#define-an-offset'}">Stick to the top</div>
+
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
+
+                            <pre><code>&lt;div data-uk-sticky&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="tests"><a href="#tests" class="uk-link-reset">Tests</a></h2>
+                            <h2 id="define-an-offset"><a href="#define-an-offset" class="uk-link-reset">Define an offset</a></h2>
 
-                            <p>UIkit provides test files for every component. Each of these pages contains test cases of its component and gives you an overview of all the possibilities that are supported out of the box.</p>
+                            <p>You can also position the element below the viewport edge. For example, add the <code>data-uk-sticky="{top:100}"</code> attribute to create a margin of 100px.</p>
 
-                            <p>In the ZIP file you will find all UIkit CSS, JavaScript and font files ready to use for your project. The core framework of UIkit has almost no styling in order to keep it slim. Therefore we provide two addidional distributions with a gradient and an almost flat style. Each style comes as a single CSS file as well as a minified version. Some <a href="components.html">components</a> are also included, which are not part of the core framework and can be added separately to your project.</p>
+                            <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p><a class="uk-button uk-button-large uk-button-primary" href="../tests/components/autocomplete.html">Go to tests</a></p>
+                            <div class="uk-panel uk-panel-box" data-uk-sticky="{top:100,boundary:'#add-a-delay'}">Stick 100px below the top</div>
+
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
+
+                            <pre><code>&lt;div data-uk-sticky="{top:100}"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="add-a-delay"><a href="#add-a-delay" class="uk-link-reset">Add a delay</a></h2>
+
+                            <p>To add a delay to the element, so it becomes sticky only after scrolling a specified distance, you need to add a negative offset to the data attribute, e.g. <code>data-uk-sticky="{top:-200}"</code>. You can also add an animation from the <a href="animation.html">Animation component</a> in order to have the sticky element reappear smoothly.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-sticky="{top:-100, animation: 'uk-animation-slide-top', boundary:'#responsive-behavior'}">Stick at the top but only after 100px scrolling</div>
+
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
+
+                            <pre><code>&lt;div data-uk-sticky="{top:-200, animation: 'uk-animation-slide-top'}"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="responsive-behavior"><a href="#responsive-behavior" class="uk-link-reset">Responsive behavior</a></h2>
+
+                            <p>You also have the possibility of disabling the sticky behavior for different devices by adding a breakpoint option to the data attribute, e.g. <code>data-uk-sticky="{media: 640}"</code>. Additionaly you can use any valid media query.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <pre><code>
+                                &lt;!-- This is basically a shortcode to define a min-width --&gt;
+                                &lt;div data-uk-sticky="{media: 640}"&gt;...&lt;/div&gt;
+
+                                &lt;!-- This is a media string using the min-width and orientation properties --&gt;
+                                &lt;div data-uk-sticky="{media: '(min-width: 640px) and (orientation: landscape)'}&gt;...&lt;/div&gt;
+                            </code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="sticky-boundary"><a href="#sticky-boundary" class="uk-link-reset">Sticky boundary</a></h2>
+
+                            <p>You can define the boundary of a sticky element by setting the <code>boundary</code> parameter. This keeps the sticky element within the dimensions of the boundary element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-margin uk-grid">
+                                <div class="uk-width-1-2">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-secondary" style="height:300px;">
+                                        <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:true}">Sticky bound to parent container</div>
+                                    </div>
+                                </div>
+                                <div class="uk-width-1-2">
+                                    <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#boundary'}" style="margin-bottom: 228px;">Sticky as long as bondary element is in view</div>
+                                    <div id="boundary" class="uk-panel uk-panel-box">Boundary element</div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle" style="margin-top: 230px;">Markup</h3>
+
+                            <pre><code>
+                                &lt;!-- Bind sticky to its parent element --&gt;
+                                &lt;div data-uk-sticky="{boundary: true}"&gt;...&lt;/div&gt;
+
+                                &lt;!-- Bind sticky to any element --&gt;
+                                &lt;div data-uk-sticky="{boundary: '#my-id'}&gt;...&lt;/div&gt;
+                            </code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                            <div id="javascript-options-container" class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>top</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Top offset whent sticky should be triggered</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>animation</code></td>
+                                            <td>string</td>
+                                            <td>''</td>
+                                            <td>UIkit animation class</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clsinit</code></td>
+                                            <td>string</td>
+                                            <td>uk-sticky-init</td>
+                                            <td>Init class when the element is sticky for the first time</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clsactive</code></td>
+                                            <td>string</td>
+                                            <td>uk-active</td>
+                                            <td>Active class to add, when element is sticky</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>getWidthFrom</code></td>
+                                            <td>string</td>
+                                            <td>''</td>
+                                            <td>Css selector where to get the width from in sticky mode. By default it takes the width from the created wrapper element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>media</code></td>
+                                            <td>integer / string</td>
+                                            <td>false</td>
+                                            <td>Condition for the active status with a width as integer (e.g. 640) or a css media query</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>target</code></td>
+                                            <td>boolean</td>
+                                            <td>false</td>
+                                            <td>Make sure that a sticky element is not over a targeted element via location hash on dom-ready.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>boundary</code></td>
+                                            <td>mixed</td>
+                                            <td>false</td>
+                                            <td>Set to <code>true</code> to bind sticky to the parent or a Css selector to bind sticky to a specific element.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Init element manually</h3>
+
+                            <pre><code>var sticky = UIkit.sticky(element, { /* options */ });</code></pre>
 
                         </article>
 
@@ -175,7 +273,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
+                    <li class="uk-parent"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -276,7 +374,7 @@
                             <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
                             <li><a href="lightbox.html">Lightbox</a></li>
                             <li><a href="autocomplete.html">Autocomplete</a></li>

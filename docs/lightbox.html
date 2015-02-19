@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Create a theme - UIkit documentation</title>
+        <title>Lightbox component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,6 +14,8 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
+        <script src="../src/js/core/modal.js"></script>
+        <script src="../src/js/components/lightbox.js"></script>
     </head>
 
     <body class="tm-background">
@@ -24,9 +26,9 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
-                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
                     <li><a href="core.html">Core</a></li>
-                    <li><a href="components.html">Components</a></li>
+                    <li class="uk-active"><a href="components.html">Components</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -45,20 +47,34 @@
                     <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
-
-                            <li class="uk-nav-header">Beginners</li>
-                            <li><a href="documentation_get-started.html">Get started</a></li>
-                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
-                            <li><a href="documentation_layouts.html">Layout examples</a></li>
-                            <li class="uk-nav-header">Developers</li>
-                            <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
-                            <li class="uk-active"><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
-                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-                            <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
-
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li class="uk-active"><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -66,107 +82,159 @@
 
                         <article class="uk-article">
 
-                            <h1>Create a theme</h1>
+                            <h1>Lightbox</h1>
 
-                            <p class="uk-article-lead">Extend UIkit and add your own unique theme.</p>
+                            <p class="uk-article-lead">Create a fancy lightbox for images and videos utilizing the <a href="modal.html">Modal component</a>.</p>
 
-                            <h2 id="how-to-start"><a href="#how-to-start" class="uk-link-reset">How to start</a></h2>
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>By default, UIkit comes with a very basic theme. To modify the style, you don't have to edit any of the core framework files. Instead, you can extend UIkit by creating a custom theme. This allows you to easily update UIkit core files. We even provide some neat themes to get you started. To create your own theme, follow these steps:</p>
+                            <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. If a title attribute exists it will be displayed as a caption for the lightbox.</p>
 
-                            <h3>1. Create the theme directory</h3>
+                            <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p>Download or clone UIkit and install Node and Gulp. Finally create your theme folder here <code>/custom/THEME-NAME</code>.</p>
+                            <a class="uk-button" href="images/placeholder_800x400_1.jpg" data-uk-lightbox title="Title">Open lightbox</a>
 
-                            <p><span class="uk-badge">NOTE</span> The <code>/custom</code> folder is set to git ignore, which prevents your custom files from being pushed into the UIkit repository. If you are working with a cloned version of UIkit's git repository, it is a good practice to have <code>/custom</code> as your own git repository. That way your theme files are under version control without interfering with the UIkit files.</p>
+                            <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <h3>2. Add your theme</h3>
-
-                            <p>Create the <code>uikit.less</code> file in the <code>/custom/THEME-NAME</code> folder and add the <code>@import "../../src/less/uikit.less";</code> rule to access all Less files from the core framework and adopt its basic styling. That's it! You can start adding your own theme from scratch.</p>
-
-                            <p><span class="uk-badge">NOTE</span> To get you started right away, we provide the default, gradient and almost-flat theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder into the <code>/custom</code> directory.</p>
-
-                            <h3>3. Customizer and Tests</h3>
-
-                            <p>Run the gulp task <code>indexthemes -a</code> on your UIkit folder. Now the newly created themes will be available automatically in the Customizer and test files.</p>
+<pre><code>&lt;a href="my-image.jpg" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="best-theming-practices"><a href="#best-theming-practices" class="uk-link-reset">Best theming practices</a></h2>
+                            <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
 
-                            <p>There are different approaches to style your theme. We recommend the following workflow.</p>
-
-                            <h3>1. Use variables</h3>
-
-                            <p>The first thing to do is to customize the values of already declared variables. You can find all variables for each component inside their Less files of the core framework and override them in your theme.</p>
+                            <p>You can link multiple images to the same lightbox and switch between them from within the lightbox, thus creating a gallery. Just add the <code>{group:'my-group'}</code> option to the data attribute of each item using the same name on all items that you want to group.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-grid" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-2">
+                            <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
+                                <div>
 
-                                    <p><code>/src/core/button/button.less</code></p>
-<pre><code>// default value
-@button-height: 30px;</code></pre>
-
-                                </div>
-                                <div class="uk-width-medium-1-2">
-
-                                    <p><code>/custom/THEME-NAME/button.less</code></p>
-<pre><code>// new value
-@button-height: 35px;</code></pre>
+                                    <a href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_1.jpg" width="800" height="600" alt="">
+                                    </a>
 
                                 </div>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_2.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_2.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_3.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_3.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+                                <div>
+
+                                    <a href="images/placeholder_800x600_4.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                                        <img src="images/placeholder_800x600_4.jpg" width="800" height="600" alt="">
+                                    </a>
+
+                                </div>
+
                             </div>
 
-                            <h3>2. Use hooks</h3>
-                            <p>To prevent overhead selectors, we use Mixins from <a href="http://lesscss.org">Less</a>, which hook into predefined selectors from the UIkit source and apply additional properties. Selectors don't have to be repeated throughout all documents and gobal changes can be made much more easily.</p>
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+
+<pre><code>&lt;a href="" data-uk-lightbox="{group:'my-group'}"&gt;...&lt;/a&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="different-content-sources"><a href="#different-content-sources" class="uk-link-reset">Different content sources</a></h2>
+
+                            <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-grid" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-2">
+                            <p>
+                                <a class="uk-button" href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group2'}" title="Title">Image</a>
+                                <a class="uk-button" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">MP4</a>
+                                <a class="uk-button" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">Vimeo</a>
+                                <a class="uk-button" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">YouTube</a>
+                            </p>
 
-                                    <p><code>/src/core/panel/panel.less</code></p>
-<pre><code>// CSS rule
-.uk-panel {
-    background: @background;
+                            <hr class="uk-article-divider">
 
-    // mixin to add new declaration
-    .hook-panel;
-}</code></pre>
-                                </div>
-                                <div class="uk-width-medium-1-2">
+                            <h3 id="content-types"><a href="#different-content-sources" class="uk-link-reset">Content types</a></h3>
 
-                                    <p><code>/custom/THEME-NAME/panel.less</code></p>
-<pre><code>// mixin to add new declaration
-.hook-panel&#40;&#41; { color: #fff; }
+                            <p>If no filename extension is defined in the image path, just add the <code>data-lightbox-type="image"</code> attribute. This works for videos as well.</p>
 
+                            <hr class="uk-article-divider">
 
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-
-
-</code></pre>
-
-                                </div>
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>group</code></td>
+                                            <td>string</td>
+                                            <td>false</td>
+                                            <td>Group name to group elements as a gallery to show</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>duration</code></td>
+                                            <td>integer</td>
+                                            <td>400</td>
+                                            <td>Animation duration between gallery item change</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>keyboard</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Allow keyboard navigation</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
+                            <h3 class="tm-article-subtitle">Init element manually</h3>
 
-                            <h3>3. Miscellaneous hooks</h3>
-                            <p>Should there be neither a variable nor a hook available, you can of course create your own selector. To do so, use the <em>.hook-panel-misc</em> hook and write your selector inside. This will sort your new selector to the right place of the compiled CSS file.</p>
+                            <pre><code>var lightbox = UIkit.lightbox(element, { /* options */ });</code></pre>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+                            <h3 class="tm-article-subtitle">Create dynamic lightbox</h3>
 
-                            <div class="uk-width-medium-1-2">
+                            <pre><code>
+                                var lightbox = UIkit.lightbox.create([
+                                    {'source': 'http://url/to/video.mp4', 'type':'video'},
+                                    {'source': 'http://url/to/image.jpg', 'type':'image'}
+                                ]);
 
-                                <p><code>/custom/THEME-NAME/panel.less</code></p>
-<pre><code>// misc mixin
-.hook-panel-misc() {
+                                lightbox.show();
+                            </code></pre>
 
-    // new rule
-    .uk-panel a { color: #f00; }
-}</code></pre>
+                            <h3>Events</h3>
 
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>showitem.uk.lightbox</code></td>
+                                            <td>event, data</td>
+                                            <td>On lightbox show</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                         </article>
@@ -200,7 +268,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
+                    <li class="uk-parent"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -272,7 +340,6 @@
                             <li><a href="offcanvas.html">Off-canvas</a></li>
                             <li><a href="switcher.html">Switcher</a></li>
                             <li><a href="toggle.html">Toggle</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
                             <li><a href="scrollspy.html">Scrollspy</a></li>
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
@@ -301,7 +368,7 @@
                             <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
                             <li><a href="lightbox.html">Lightbox</a></li>
                             <li><a href="autocomplete.html">Autocomplete</a></li>

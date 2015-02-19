@@ -14,32 +14,6 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script>
-            $(function(){
-                $(document).on('click', '[data-docs-animation]', function() {
-
-                    var element   = $(this),
-                        animation = element.data("docsAnimation"),
-                        duration  = element.hasClass('uk-animation-10') ? 10000 : 500;
-
-                    if (element.data("anim-idle")) {
-                        clearTimeout(element.data("anim-idle"));
-                    }
-
-                    element.removeClass(animation);
-
-                    setTimeout(function(){
-                        element.addClass(animation);
-
-                        element.data("anim-idle", setTimeout(function(){
-                                element.removeClass(animation);
-                                element.data("anim-idle", false);
-                        }, duration));
-
-                    }, 50);
-                });
-            });
-        </script>
     </head>
 
     <body class="tm-background">
@@ -51,8 +25,8 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
-                    <li class="uk-active"><a href="components.html">Components</a></li>
-                    <li><a href="addons.html">Add-ons</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -90,6 +64,7 @@
                             <li><a href="breadcrumb.html">Breadcrumb</a></li>
                             <li><a href="pagination.html">Pagination</a></li>
                             <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
 
                             <li class="uk-nav-header">Elements</li>
                             <li><a href="list.html">List</a></li>
@@ -188,37 +163,37 @@
                             <p>Click on any of the boxes to see the animation.</p>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-fade" data-docs-animation="uk-animation-fade">Fade</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-fade">Fade</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale-up" data-docs-animation="uk-animation-scale-up">Scale up</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale-up">Scale up</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale-down" data-docs-animation="uk-animation-scale-down">Scale down</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale-down">Scale down</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-shake" data-docs-animation="uk-animation-shake">Shake</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-shake">Shake</div>
                                 </div>
                             </div>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-top" data-docs-animation="uk-animation-slide-top">Slide top</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-top">Slide top</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-bottom" data-docs-animation="uk-animation-slide-bottom">Slide bottom</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-bottom">Slide bottom</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-left" data-docs-animation="uk-animation-slide-left">Slide left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-left">Slide left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-right" data-docs-animation="uk-animation-slide-right">Slide right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-right">Slide right</div>
                                 </div>
                             </div>
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale" data-docs-animation="uk-animation-scale">Scale</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale">Scale</div>
                                 </div>
                             </div>
 
@@ -237,37 +212,37 @@
                             <p>Click on any of the boxes to see the animation.</p>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-fade">Fade</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-fade">Fade</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-scale-up">Scale up</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale-up">Scale up</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-scale-down">Scale down</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale-down">Scale down</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-shake">Shake</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-shake">Shake</div>
                                 </div>
                             </div>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-top">Slide top</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-top">Slide top</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-bottom">Slide bottom</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-bottom">Slide bottom</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-left">Slide left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-left">Slide left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-slide-right">Slide right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-right">Slide right</div>
                                 </div>
                             </div>
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-reverse" data-docs-animation="uk-animation-scale">Scale</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale">Scale</div>
                                 </div>
                             </div>
 
@@ -284,8 +259,8 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-grid uk-text-center">
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-slide-right uk-animation-10" data-docs-animation="uk-animation-slide-right">Slide right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-slide-right uk-animation-10">Slide right</div>
                                 </div>
                             </div>
 
@@ -349,32 +324,32 @@
                             <p>Click on any of the boxes to see the animation.</p>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-left" data-docs-animation="uk-animation-scale">Top Left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-left">Top Left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-center" data-docs-animation="uk-animation-scale">Top Center</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-center">Top Center</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-right" data-docs-animation="uk-animation-scale">Top Right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-right">Top Right</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-left" data-docs-animation="uk-animation-scale">Middle Left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-left">Middle Left</div>
                                 </div>
                             </div>
 
                             <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-right" data-docs-animation="uk-animation-scale">Middle Right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-right">Middle Right</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-left" data-docs-animation="uk-animation-scale">Bottom Left</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-left">Bottom Left</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-center" data-docs-animation="uk-animation-scale">Bottom Center</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-center">Bottom Center</div>
                                 </div>
-                                <div class="uk-width-medium-1-5">
-                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-right" data-docs-animation="uk-animation-scale">Bottom Right</div>
+                                <div class="uk-width-medium-1-5 uk-animation-hover">
+                                    <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-right">Bottom Right</div>
                                 </div>
                             </div>
 
@@ -416,7 +391,7 @@
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
 
-                <ul class="uk-subnav uk-subnav-line">
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
                     <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
                     <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
                     <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
@@ -441,8 +416,8 @@
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
-                            <li><a href="addons.html">Add-ons</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
@@ -452,7 +427,7 @@
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-nav-header">Core</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
                             <li><a href="base.html">Base</a></li>
@@ -476,6 +451,7 @@
                             <li><a href="breadcrumb.html">Breadcrumb</a></li>
                             <li><a href="pagination.html">Pagination</a></li>
                             <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
@@ -512,46 +488,45 @@
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-nav-header">Components</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_caption.html">Caption</a></li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-divider"></li>

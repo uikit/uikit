@@ -27,6 +27,16 @@
             .equal-height > * > .uk-panel { height: 150px; }
 
         </style>
+
+        <script>
+            // Event logging
+            jQuery(function($) {
+                var count = 0;
+                $('[data-uk-grid]:first').on('beforeupdate.uk.grid afterupdate.uk.grid', function(e) {
+                    console.log((count++), e.type);
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -73,6 +83,8 @@
 
             </div>
 
+            <p class="uk-text-muted">You can see the events fired by this grid in the console of your browser.</p>
+
             <h2>Different Widths and No Gutter</h2>
 
             <div class="equal-height" data-uk-grid>
@@ -114,9 +126,9 @@
             <h2>Filtering</h2>
 
             <ul id="filter" class="uk-subnav">
-                <li><a href="#" data-uk-filter="test-a">Test A</a></li>
-                <li><a href="#" data-uk-filter="test-b">Test B</a></li>
-                <li><a href="#" data-uk-filter="">Reset</a></li>
+                <li data-uk-filter="test-a"><a href="#">Test A</a></li>
+                <li data-uk-filter="test-b"><a href="#">Test B</a></li>
+                <li class="uk-active" data-uk-filter=""><a href="#">Reset</a></li>
             </ul>
 
             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{controls: '#filter'}">
@@ -158,10 +170,10 @@
             <h2>Sorting</h2>
 
             <ul id="sort" class="uk-subnav">
-                <li><a href="#" data-uk-sort="test">Character (Asc)</a></li>
-                <li><a href="#" data-uk-sort="test:desc">Character (Desc)</a></li>
-                <li><a href="#" data-uk-sort="test2">Number (Asc)</a></li>
-                <li><a href="#" data-uk-sort="test2:desc">Number (Desc)</a></li>
+                <li class="uk-active" data-uk-sort="test"><a href="#">Character (Asc)</a></li>
+                <li data-uk-sort="test:desc"><a href="#">Character (Desc)</a></li>
+                <li data-uk-sort="test2"><a href="#">Number (Asc)</a></li>
+                <li data-uk-sort="test2:desc"><a href="#">Number (Desc)</a></li>
             </ul>
 
             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{controls: '#sort'}">

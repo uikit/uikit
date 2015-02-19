@@ -6,11 +6,13 @@
 //                  `uk-push-*`
 //                  `uk-pull-*`
 //
-// Modifiers:       `uk-grid-divider`
+// Modifiers:       `uk-grid-collapse`
+//                  `uk-grid-small`
+//                  `uk-grid-medium`
+//                  `uk-grid-divider`
 //                  `uk-grid-margin`
 //                  `uk-grid-match`
 //                  `uk-grid-width-*`
-//                  `uk-grid-preserve`
 //
 // Uses:            Panel: `uk-panel`
 //
@@ -58,11 +60,8 @@
    Component: Grid
  ========================================================================== */
 
-
-
 /*
- * 1. Needed for the gutter
- * 2. Makes grid more robust so that it can be used with other block elements like lists
+ * 1. Makes grid more robust so that it can be used with other block elements like lists
  */
 
 .uk-grid {
@@ -73,8 +72,7 @@
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     /* 1 */
-    margin: 0 0 0 (-@grid-gutter-horizontal);
-    /* 2 */
+    margin: 0;
     padding: 0;
     list-style: none;
 }
@@ -98,8 +96,7 @@
  * Grid cell
  * 1. Space is allocated solely based on content dimensions
  * 2. Makes grid more robust so that it can be used with other block elements
- * 3. Create horizontal gutter
- * 4. DEPRECATED Using `float` to support IE9
+ * 3. DEPRECATED Using `float` to support IE9
  */
 
 .uk-grid > * {
@@ -110,8 +107,6 @@
     /* 2 */
     margin: 0;
     /* 3 */
-    padding-left: @grid-gutter-horizontal;
-    /* 4 */
     float: left;
 }
 
@@ -126,56 +121,70 @@
  ========================================================================== */
 
 /*
- * Vertical gutter
+ * Default gutter
  */
 
-.uk-grid + .uk-grid { margin-top: @grid-gutter-vertical; }
+/* Horizontal */
+.uk-grid { margin-left: -@grid-gutter-horizontal; }
+.uk-grid > * { padding-left: @grid-gutter-horizontal; }
 
-/*
- * This class is set by JavaScript and applies a vertical gutter if the columns stack or float into the next row
- * Higher specificity to override margin
- */
-
-.uk-grid > .uk-grid-margin { margin-top: @grid-gutter-vertical; }
-
-/*
- * Vertical gutter for panels
- */
-
+/* Vertical */
+.uk-grid + .uk-grid,
+.uk-grid-margin,
 .uk-grid > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
-
-/*
- * Larger gutter for large screens
- */
 
 /* Large screen and bigger */
 @media (min-width: @breakpoint-xlarge) {
 
-    /* Horizontal gutter */
-    .uk-grid:not(.uk-grid-preserve) { margin-left: -@grid-gutter-large-horizontal; }
-    .uk-grid:not(.uk-grid-preserve) > * { padding-left: @grid-gutter-large-horizontal; }
+    /* Horizontal */
+    .uk-grid { margin-left: -@grid-gutter-large-horizontal; }
+    .uk-grid > * { padding-left: @grid-gutter-large-horizontal; }
 
-    /* Vertical gutter */
-    .uk-grid:not(.uk-grid-preserve) + .uk-grid { margin-top: @grid-gutter-large-vertical; }
-    .uk-grid:not(.uk-grid-preserve) > .uk-grid-margin { margin-top: @grid-gutter-large-vertical; }
-
-    /* Vertical gutter for panels */
-    .uk-grid:not(.uk-grid-preserve) > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
+    /* Vertical */
+    .uk-grid + .uk-grid,
+    .uk-grid-margin,
+    .uk-grid > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
 
 }
 
 /*
- * Small gutter
- * Higher specificity to override large gutter
+ * Collapse gutter
  */
 
-.uk-grid.uk-grid-small { margin-left: -@grid-gutter-small-horizontal; }
-.uk-grid.uk-grid-small > * { padding-left: @grid-gutter-small-horizontal; }
+/* Horizontal */
+.uk-grid-collapse { margin-left: 0; }
+.uk-grid-collapse > * { padding-left: 0; }
 
-.uk-grid.uk-grid-small + .uk-grid-small { margin-top: @grid-gutter-small-vertical; }
-.uk-grid.uk-grid-small > .uk-grid-margin { margin-top: @grid-gutter-small-vertical; }
+/* Vertical */
+.uk-grid-collapse + .uk-grid-collapse,
+.uk-grid-collapse > .uk-grid-margin,
+.uk-grid-collapse > * > .uk-panel + .uk-panel { margin-top: 0; }
 
-.uk-grid.uk-grid-small > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-small-vertical; }
+/*
+ * Small gutter
+ */
+
+/* Horizontal */
+.uk-grid-small { margin-left: -@grid-gutter-small-horizontal; }
+.uk-grid-small > * { padding-left: @grid-gutter-small-horizontal; }
+
+/* Vertical */
+.uk-grid-small + .uk-grid-small,
+.uk-grid-small > .uk-grid-margin,
+.uk-grid-small > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-small-vertical; }
+
+/*
+ * Medium gutter
+ */
+
+/* Horizontal */
+.uk-grid-medium { margin-left: -@grid-gutter-horizontal; }
+.uk-grid-medium > * { padding-left: @grid-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid-medium + .uk-grid-medium,
+.uk-grid-medium > .uk-grid-margin,
+.uk-grid-medium > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
 
 
 /* Modifier: `uk-grid-divider`
@@ -183,7 +192,8 @@
 
 /*
  * Horizontal divider
- * Does not work with `uk-push-*`, `uk-pull-*` and not if the columns float into the next row
+ * Only works with the default gutter. Does not work with gutter collapse, small or large.
+ * Does not work with `uk-push-*`, `uk-pull-*` and not if the columns float into the next row.
  */
 
 .uk-grid-divider:not(:empty) {
@@ -227,17 +237,17 @@
      * Large gutter
      */
 
-    .uk-grid-divider:not(.uk-grid-preserve):not(:empty) {
+    .uk-grid-divider:not(:empty) {
         margin-left: -@grid-gutter-large-horizontal;
         margin-right: -@grid-gutter-large-horizontal;
     }
 
-    .uk-grid-divider:not(.uk-grid-preserve) > * {
+    .uk-grid-divider > * {
         padding-left: @grid-gutter-large-horizontal;
         padding-right: @grid-gutter-large-horizontal;
     }
 
-    .uk-grid-divider:not(.uk-grid-preserve):empty {
+    .uk-grid-divider:empty {
         margin-top: @grid-gutter-large-vertical;
         margin-bottom: @grid-gutter-large-vertical;
     }

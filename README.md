@@ -58,17 +58,12 @@ After running `gulp watch` a new browser instance will open, pointing to the uik
 
 ### Custom prefix
 
-Run gulp with your own prefix parameter ```-p``` to have all classes custom prefixed.
+Run gulp with your own prefix parameter ```-p``` to have all classes and JavaScript files custom prefixed.
 
 ```
 gulp -p myprefix
 ```
 
-To use JavaScript with your custom build just call the ```noConflict``` method with your prefix as a parameter after including UIkit.
-
-```
-var myUIkit = UIkit.noConflict('myprefix');
-```
 
 ## Contributing
 
@@ -79,6 +74,12 @@ Each time you want to work on a fix or a new feature, create a new branch based 
 ## Versioning
 
 UIkit is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
+
+## Browser Support
+
+![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png)
+--- | --- | --- | --- | --- |
+Latest ✔ | Latest ✔ | 9+ ✔ | 7.1+ ✔ | Latest ✔ |
 
 ## Copyright and License
 

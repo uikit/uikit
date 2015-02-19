@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Grid component - UIkit documentation</title>
+        <title>Dynamic Grid component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -26,8 +26,8 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
-                    <li><a href="components.html">Components</a></li>
-                    <li class="uk-active"><a href="addons.html">Add-ons</a></li>
+                    <li><a href="core.html">Core</a></li>
+                    <li class="uk-active"><a href="components.html">Components</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -47,34 +47,33 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
-                            <li class="uk-active"><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li class="uk-active"><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
-                            <li><a href="addons_caption.html">Caption</a></li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -82,11 +81,11 @@
 
                         <article class="uk-article">
 
-                            <h1>Grid</h1>
+                            <h1>Dynamic Grid</h1>
 
                             <p class="uk-article-lead">Create a multi-column, dynamic grid layout whose items can be sorted and filtered.</p>
 
-                            <p>The Grid component allows you to create a dynamic and responsive grid layout utilizing the <a href="grid.html">Grid component</a>. Grid items will arrange themselves fluently and seamlessly for a gap-free multi-column layout on all device sizes.</p>
+                            <p>The Dynamic Grid component allows you to create a dynamic and responsive grid layout utilizing the <a href="grid.html">Grid component</a>. Grid items will arrange themselves fluently and seamlessly for a gap-free multi-column layout on all device sizes.</p>
 
                             <hr class="uk-article-divider">
 
@@ -142,7 +141,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-grid="{gutter: 20}"&gt;...&lt;/div&gt;</code></pre>
+                            <pre><code>&lt;div data-uk-grid="{gutter: 20}"&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -153,9 +152,9 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <ul id="filter" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-filter="filter-a">Filter A</a></li>
-                                <li><a href="#" data-uk-filter="filter-b">Filter B</a></li>
-                                <li><a href="#" data-uk-filter="">Reset</a></li>
+                                <li class="uk-active" data-uk-filter=""><a href="#">All</a></li>
+                                <li data-uk-filter="filter-a"><a href="#">Filter A</a></li>
+                                <li data-uk-filter="filter-b"><a href="#">Filter B</a></li>
                             </ul>
 
                             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#filter'}">
@@ -175,9 +174,9 @@
 
 <pre><code>&lt;!-- Filter Controls --&gt;
 &lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-filter="filter-a"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-filter="filter-b"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-filter=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter=""&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter="filter-a"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-filter="filter-b"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;!-- Dynamic Grid --&gt;
@@ -199,8 +198,8 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <ul id="sort1" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-sort="my-category">Ascending</a></li>
-                                <li><a href="#" data-uk-sort="my-category:desc">Descending</a></li>
+                                <li class="uk-active" data-uk-sort="my-category"><a href="#">Ascending</a></li>
+                                <li data-uk-sort="my-category:desc"><a href="#">Descending</a></li>
                             </ul>
 
                             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#sort1'}">
@@ -217,8 +216,8 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
@@ -233,10 +232,10 @@
                             <p>To use more than one category to sort grid items, use a different name for each category.</p>
 
                             <ul id="sort2" class="uk-subnav uk-subnav-pill">
-                                <li><a href="#" data-uk-sort="my-category">Character (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="my-category:desc">Character (Desc)</a></li>
-                                <li><a href="#" data-uk-sort="my-category2">Number (Asc)</a></li>
-                                <li><a href="#" data-uk-sort="my-category2:desc">Number (Desc)</a></li>
+                                <li class="uk-active" data-uk-sort="my-category"><a href="#">Character (Asc)</a></li>
+                                <li data-uk-sort="my-category:desc"><a href="#">Character (Desc)</a></li>
+                                <li data-uk-sort="my-category2"><a href="#">Number (Asc)</a></li>
+                                <li data-uk-sort="my-category2:desc"><a href="#">Number (Desc)</a></li>
                             </ul>
 
                             <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-heights" data-uk-grid="{gutter: 20, controls: '#sort2'}">
@@ -253,10 +252,10 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;ul id="my-id" class="uk-subnav"&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category:desc"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2"&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="" data-uk-sort="my-category2:desc"&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category2"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-uk-sort="my-category2:desc"&gt;&lt;a href=""&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
@@ -343,6 +342,16 @@
                                 </table>
                             </div>
 
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>Listening for beforeupdate events with jQuery:</p>
+
+<pre><code>$(function() {
+    $('[data-uk-grid]').on('beforeupdate.uk.grid', function(e, children) {
+        // your event-handling goes here
+    });
+});</code></pre>
+
                         </article>
 
                     </div>
@@ -354,7 +363,7 @@
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
 
-                <ul class="uk-subnav uk-subnav-line">
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
                     <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
                     <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
                     <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
@@ -379,8 +388,8 @@
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
-                            <li><a href="addons.html">Add-ons</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
@@ -390,7 +399,7 @@
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-nav-header">Core</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
                             <li><a href="base.html">Base</a></li>
@@ -414,6 +423,7 @@
                             <li><a href="breadcrumb.html">Breadcrumb</a></li>
                             <li><a href="pagination.html">Pagination</a></li>
                             <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
@@ -449,46 +459,45 @@
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-nav-header">Components</li>
                     <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_caption.html">Caption</a></li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-divider"></li>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Lighbox component - UIkit documentation</title>
+        <title>Accordion component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +14,15 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../src/js/core/modal.js"></script>
-        <script src="../src/js/components/lightbox.js"></script>
+        <script src="../src/js/components/accordion.js"></script>
+        <script>
+        $(function(){
+            $("body").on("click", ".uk-button[data-message]", function(){
+                UIkit.notify($(this).data());
+            });
+        })
+        </script>
+
     </head>
 
     <body class="tm-background">
@@ -27,8 +34,8 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
-                    <li><a href="components.html">Components</a></li>
-                    <li class="uk-active"><a href="addons.html">Add-ons</a></li>
+                    <li><a href="core.html">Core</a></li>
+                    <li class="uk-active"><a href="components.html">Components</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -48,34 +55,33 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
-                            <li><a href="addons_caption.html">Caption</a></li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
-                            <li class="uk-active"><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
 
                     </div>
@@ -83,87 +89,76 @@
 
                         <article class="uk-article">
 
-                            <h1>Lightbox</h1>
+                            <h1>Accordion</h1>
 
-                            <p class="uk-article-lead">Create a fancy lightbox for images and videos utilizing the <a href="modal.html">Modal component</a>.</p>
+                            <p class="uk-article-lead">Create a list of items, allowing each item's content to be expanded and collapsed by clicking its header.</p>
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. If a title attribute exists it will be displayed as a caption for the lightbox.</p>
+                            <p>To apply the Accordion component, add the <code>uk-accordion</code> class and the <code>data-uk-accordion</code> attribute to a container element. Add the <code>uk-accordion-content</code> class to each of the content sections within the container. Finally, add the <code>uk-accordion-title</code> class to any element, like a heading, above the content section to create a toggle.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <a class="uk-button" href="images/placeholder_800x400_1.jpg" data-uk-lightbox title="Title">Open lighbox</a>
+                            <div class="uk-accordion" data-uk-accordion>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;a href="my-image.jpg" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
-
-                            <p>You can link multiple images to the same lightbox and switch between them from within the lightbox, thus creating a gallery. Just add the <code>{group:'my-group'}</code> option to the data attribute of each item using the same name on all items that you want to group.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
-                                <div>
-
-                                    <a href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_1.jpg" width="800" height="600" alt="">
-                                    </a>
-
+                                <h3 class="uk-accordion-title">Heading 1</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                                 </div>
-                                <div>
 
-                                    <a href="images/placeholder_800x600_2.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_2.jpg" width="800" height="600" alt="">
-                                    </a>
-
+                                <h3 class="uk-accordion-title">Heading 2</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                                 </div>
-                                <div>
 
-                                    <a href="images/placeholder_800x600_3.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_3.jpg" width="800" height="600" alt="">
-                                    </a>
-
-                                </div>
-                                <div>
-
-                                    <a href="images/placeholder_800x600_4.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_4.jpg" width="800" height="600" alt="">
-                                    </a>
-
+                                <h3 class="uk-accordion-title">Heading 3</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                                 </div>
 
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
+<pre><code>&lt;div class="uk-accordion" data-uk-accordion&gt;
 
-<pre><code>&lt;a href="" data-uk-lightbox="{group:'my-group'}"&gt;...&lt;/a&gt;</code></pre>
+    &lt;h3 class="uk-accordion-title"&gt;...&lt;/h3&gt;
+    &lt;div class="uk-accordion-content"&gt;...&lt;/div&gt;
+
+    &lt;h3 class="uk-accordion-title"&gt;...&lt;/h3&gt;
+    &lt;div class="uk-accordion-content"&gt;...&lt;/div&gt;
+
+    &lt;h3 class="uk-accordion-title"&gt;...&lt;/h3&gt;
+    &lt;div class="uk-accordion-content"&gt;...&lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="different-content-sources"><a href="#different-content-sources" class="uk-link-reset">Different content sources</a></h2>
+                            <h2 id="no-collapse"><a href="#no-collapse" class="uk-link-reset">Muliple open items</a></h2>
 
-                            <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
+                            <p>To display multiple content sections at the same time without one collapsing when the other one is opened, add the <code>{collapse: false}</code> option to the date attribute.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p>
-                                <a class="uk-button" href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group2'}" title="Title">Image</a>
-                                <a class="uk-button" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">MP4</a>
-                                <a class="uk-button" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">Vimeo</a>
-                                <a class="uk-button" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">YouTube</a>
-                            </p>
+                            <div class="uk-accordion" data-uk-accordion="{collapse: false}">
 
-                            <hr class="uk-article-divider">
+                                <h3 class="uk-accordion-title">Heading 1</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                </div>
 
-                            <h3 id="content-types"><a href="#different-content-sources" class="uk-link-reset">Content types</a></h2>
+                                <h3 class="uk-accordion-title">Heading 2</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                </div>
 
-                            <p>If no filename extension is defined in the image path, just add the <code>data-lightbox-type="image"</code> attribute. This works for videos as well.</p>
+                                <h3 class="uk-accordion-title">Heading 3</h3>
+                                <div class="uk-accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                </div>
+
+                            </div>
 
                             <hr class="uk-article-divider">
 
@@ -181,22 +176,53 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>group</code></td>
+                                            <td><code>showfirst</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Show first item on init</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>collapse</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Allow multiple open items</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>animate</code></td>
+                                            <td>boolean</td>
+                                            <td>true</td>
+                                            <td>Animate toggle</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>easing</code></td>
                                             <td>string</td>
-                                            <td>false</td>
-                                            <td>Group name to group elements as a gallery to show</td>
+                                            <td>swing</td>
+                                            <td>Animation function</td>
                                         </tr>
                                         <tr>
                                             <td><code>duration</code></td>
                                             <td>integer</td>
-                                            <td>400</td>
-                                            <td>Animation duration between gallery item change</td>
+                                            <td>300</td>
+                                            <td>Animation duration</td>
                                         </tr>
                                         <tr>
-                                            <td><code>keyboard</code></td>
-                                            <td>boolean</td>
-                                            <td>true</td>
-                                            <td>Allow keyboard navigation</td>
+                                            <td><code>toggle</code></td>
+                                            <td>string</td>
+                                            <td>.uk-accordion-title</td>
+                                            <td>Css selector for toggles</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>containers</code></td>
+                                            <td>string</td>
+                                            <td>.uk-accordion-content</td>
+                                            <td>Css selector for content containers</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <td><code>clsactive</code></td>
+                                            <td>string</td>
+                                            <td>uk-active</td>
+                                            <td>Class to add when an item is active</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -204,7 +230,7 @@
 
                             <h3 class="tm-article-subtitle">Init element manually</h3>
 
-                            <pre><code>var lightbox = UIkit.lightbox(element, { /* options */ });</code></pre>
+                            <pre><code>var accordion = UIkit.accordion(element, { /* options */ });</code></pre>
 
                             <h3>Events</h3>
 
@@ -219,9 +245,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>show.uk.lightbox</code></td>
-                                            <td>event, data</td>
-                                            <td>On lightbox show</td>
+                                            <td><code>toggle.uk.accordion</code></td>
+                                            <td>event, active, toggle, content</td>
+                                            <td>On item toggle</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -238,7 +264,7 @@
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
 
-                <ul class="uk-subnav uk-subnav-line">
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
                     <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
                     <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
                     <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
@@ -263,8 +289,8 @@
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
-                            <li><a href="addons.html">Add-ons</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
@@ -274,7 +300,7 @@
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-nav-header">Core</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
                             <li><a href="base.html">Base</a></li>
@@ -298,6 +324,7 @@
                             <li><a href="breadcrumb.html">Breadcrumb</a></li>
                             <li><a href="pagination.html">Pagination</a></li>
                             <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
@@ -333,46 +360,45 @@
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-nav-header">Components</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_caption.html">Caption</a></li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-divider"></li>

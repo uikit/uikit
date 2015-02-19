@@ -16,6 +16,8 @@
                 right: 20px;
             }
 
+            .test { margin-bottom: 200px; }
+
         </style>
 
     </head>
@@ -23,8 +25,8 @@
     <body>
 
         <ul class="uk-nav uk-nav-side" data-uk-scrollspy-nav="{closest:'li', smoothscroll:true}">
-            <li><a href="#animation-repeat">Repeat</a></li>
-            <li><a href="#animation-delay">Delay</a></li>
+            <li><a href="#animation-repeat">Single</a></li>
+            <li><a href="#animation-delay">Group</a></li>
             <li><a href="#animation-fade">Fade</a></li>
             <li><a href="#animation-scale-up">Scale Up</a></li>
             <li><a href="#animation-scale-down">Scale Down</a></li>
@@ -32,13 +34,14 @@
             <li><a href="#animation-slide-right">Slide Right</a></li>
             <li><a href="#animation-slide-top">Slide Top</a></li>
             <li><a href="#animation-slide-bottom">Slide Bottom</a></li>
+            <li><a href="#animation-different">Different Animations</a></li>
         </ul>
 
         <div class="uk-container uk-container-center">
 
             <h1>ScrollSpy</h1>
 
-            <h2 id="animation-repeat">Repeat</h2>
+            <h2 id="animation-repeat">Single, Repeat, Delay</h2>
 
             <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
                 <div class="uk-width-medium-1-4">
@@ -51,309 +54,362 @@
                         <p>The element is animated everytime it appears in the viewport.</p>
                     </div>
                 </div>
-            </div>
-
-            <h2 id="animation-delay">Delay</h2>
-
-            <div class="uk-grid">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-                        <p>The animation of this element is delayed by some milliseconds.</p>
-                    </div>
-                </div>
-                <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:300, repeat: true}">
-                        <p>The animation of this element is delayed by some milliseconds.</p>
-                    </div>
-                </div>
-                <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:600, repeat: true}">
-                        <p>The animation of this element is delayed by some milliseconds.</p>
-                    </div>
-                </div>
-                <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:900, repeat: true}">
-                        <p>The animation of this element is delayed by some milliseconds.</p>
+                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', delay:1500, repeat: true}">
+                        <p>The element is animated everytime it appears in the viewport but delayed by 1.5s.</p>
                     </div>
                 </div>
             </div>
 
-            <h2>IDs</h2>
+            <h2 id="animation-delay">Group, Repeat, Delay</h2>
 
-            <div id="animation-fade" class="uk-grid">
+            <div class="uk-grid" data-uk-scrollspy="{cls:'uk-animation-fade uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <p>The animation of this element is delayed by some milliseconds.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <p>The animation of this element is delayed by some milliseconds.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <p>The animation of this element is delayed by some milliseconds.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <p>The animation of this element is delayed by some milliseconds.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="test">Use nav to the right</h2>
+
+            <h2 id="animation-fade">Group Fade</h2>
+
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-fade uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Fade</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Fade</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Fade</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Fade</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-                        <h3 class="uk-panel-title">Fade</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
+            <h2 id="animation-scale-up">Large Group Scale up</h2>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-2-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-                        <h3 class="uk-panel-title">Fade</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-3-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-                        <h3 class="uk-panel-title">Fade</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="animation-scale-up" class="uk-grid">
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-scale-up uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}" data-uk-grid-margin>
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
-                        <h3 class="uk-panel-title">Scale up</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-2-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
-                        <h3 class="uk-panel-title">Scale up</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-3-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-up', repeat: true}">
-                        <h3 class="uk-panel-title">Scale up</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="animation-scale-down" class="uk-grid">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div><div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div><div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div><div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale up</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <h2 id="animation-scale-down">Group Scale down</h2>
+
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-scale-down uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale down</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale down</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Scale down</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Scale down</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
-                        <h3 class="uk-panel-title">Scale down</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
+            <h2 id="animation-slide-left">Group Slide left</h2>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-2-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
-                        <h3 class="uk-panel-title">Scale down</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-3-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-scale-down', repeat: true}">
-                        <h3 class="uk-panel-title">Scale down</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="animation-slide-left" class="uk-grid">
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-slide-left uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide left</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide left</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide left</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide left</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
-                        <h3 class="uk-panel-title">Slide left</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
+            <h2 id="animation-slide-right">Group Slide right</h2>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-2-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
-                        <h3 class="uk-panel-title">Slide left</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-3-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-left', repeat: true}">
-                        <h3 class="uk-panel-title">Slide left</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="animation-slide-right" class="uk-grid">
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-slide-right uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide right</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide right</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide right</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide right</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
-                        <h3 class="uk-panel-title">Slide right</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
+            <h2 id="animation-slide-top">Group Slide top</h2>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-2-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
-                        <h3 class="uk-panel-title">Slide right</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-3-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-right', repeat: true}">
-                        <h3 class="uk-panel-title">Slide right</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="animation-slide-top" class="uk-grid">
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-slide-top uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide top</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide top</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide top</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide top</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
-                        <h3 class="uk-panel-title">Slide top</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
+            <h2 id="animation-slide-bottom">Group Slide bottom</h2>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-2-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
-                        <h3 class="uk-panel-title">Slide top</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-3-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-top', repeat: true}">
-                        <h3 class="uk-panel-title">Slide top</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="animation-slide-bottom" class="uk-grid">
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-slide-bottom uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide bottom</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide bottom</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
+                        <h3 class="uk-panel-title">Slide bottom</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+            <h2 id="animation-different">Different animations</h2>
+
+            <div class="test uk-grid" data-uk-scrollspy="{cls:'uk-animation-slide-bottom uk-invisible', target:'> div > .uk-panel', delay:300, repeat: true}">
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-2-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible" data-uk-scrollspy-cls="uk-animation-slide-top uk-invisible">
                         <h3 class="uk-panel-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="uk-grid">
-                <div class="uk-width-medium-1-4 uk-push-3-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-slide-bottom', repeat: true}">
+                <div class="uk-width-medium-1-4">
+                    <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
-            </div>
-
-            <div id="animation-delay" class="uk-grid">
                 <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', repeat: true}">
-                        <h3 class="uk-panel-title">Delay</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:300, repeat: true}">
-                        <h3 class="uk-panel-title">Delay</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:600, repeat: true}">
-                        <h3 class="uk-panel-title">Delay</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-                <div class="uk-width-medium-1-4">
-                    <div class="uk-panel uk-panel-box" data-uk-scrollspy="{cls:'uk-animation-fade', delay:900, repeat: true}">
-                        <h3 class="uk-panel-title">Delay</h3>
+                    <div class="uk-panel uk-panel-box uk-invisible" data-uk-scrollspy-cls="uk-animation-slide-top uk-invisible">
+                        <h3 class="uk-panel-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>

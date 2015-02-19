@@ -1,4 +1,4 @@
-(function(global, $, UI){
+(function(UI){
 
     "use strict";
 
@@ -8,7 +8,7 @@
 
         defaults: {
             target    : false,
-            cls       : '@-hidden',
+            cls       : 'uk-hidden',
             animation : false,
             duration  : 200
         },
@@ -18,11 +18,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-toggle]", context).each(function() {
+                UI.$("[data-uk-toggle]", context).each(function() {
                     var ele = UI.$(this);
 
                     if (!ele.data("toggle")) {
-                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-@-toggle")));
+                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
                     }
                 });
 
@@ -56,7 +56,7 @@
 
             if (this.options.animation && UI.support.animation) {
 
-                var $this = this, animations = UI.prefix(this.options.animation).split(',');
+                var $this = this, animations = this.options.animation.split(',');
 
                 if (animations.length == 1) {
                     animations[1] = animations[0];
@@ -73,7 +73,7 @@
 
                     this.totoggle.each(function(){
                         UI.Utils.animate(this, animations[0]).then(function(){
-                            $(this).css('animation-duration', '');
+                            UI.$(this).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         });
                     });
@@ -81,7 +81,7 @@
                 } else {
 
                     this.totoggle.each(function(){
-                        UI.Utils.animate(this, animations[1]+' @-animation-reverse').then(function(){
+                        UI.Utils.animate(this, animations[1]+' uk-animation-reverse').then(function(){
                             UI.$(this).toggleClass($this.options.cls).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         }.bind(this));
@@ -99,4 +99,4 @@
         }
     });
 
-})(this, jQuery, UIkit);
+})(UIkit);

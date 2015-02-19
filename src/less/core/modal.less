@@ -64,6 +64,7 @@
  * 3. Allow scrolling for the modal dialog
  * 4. Mask the background page
  * 5. Fade-in transition
+ * 6. Deactivate browser history navigation in IE11
  */
 
 .uk-modal {
@@ -85,6 +86,8 @@
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
+    /* 6 */
+    touch-action: cross-slide-y pinch-zoom double-tap-zoom;
     .hook-modal;
 }
 
@@ -108,9 +111,8 @@
 /*
  * 1. Create position context for caption, spinner and close button
  * 2. Set box sizing
- * 3. Min-height needed for initial loading and spinner
- * 4. Set style
- * 5. Slide-in transition
+ * 3. Set style
+ * 4. Slide-in transition
  */
 
 .uk-modal-dialog {
@@ -125,10 +127,8 @@
     max-width: 100%;
     max-width: ~"calc(100% - 20px)";
     /* 3 */
-    min-height: 200px;
-    /* 4 */
     background: @modal-dialog-background;
-    /* 5 */
+    /* 4 */
     opacity: 0;
     -webkit-transform: translateY(-100px);
     transform: translateY(-100px);
@@ -190,6 +190,7 @@
 .uk-modal-dialog-lightbox {
     margin: 15px auto;
     padding: 0;
+    min-height: 200px;
     max-width: 95%;
     max-width: ~"calc(100% - 30px)";
     .hook-modal-dialog-lightbox;
@@ -268,6 +269,9 @@
     margin-bottom: @modal-caption-margin-bottom;
     color: @modal-caption-color;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     .hook-modal-caption;
 }
 

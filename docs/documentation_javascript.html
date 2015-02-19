@@ -25,8 +25,8 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="core.html">Core</a></li>
                     <li><a href="components.html">Components</a></li>
-                    <li><a href="addons.html">Add-ons</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -97,7 +97,7 @@ require("path/to/uikit.js", function(UI){
 
 });</code></pre>
 
-                            <h3 class="tm-article-subtitle">Autoload UIkit and its add-ons</h3>
+                            <h3 class="tm-article-subtitle">Autoload UIkit and its components</h3>
 
 <pre><code>/* setup require.js first */
 requirejs.config({
@@ -114,12 +114,32 @@ requirejs.config({
 
 });
 
-/* now you can autoload uikit + addons separated by a comma */
+/* now you can autoload uikit core + components separated by a comma */
 require("uikit!notify,sortable", function(UI){
 
-    // access loaded addons: UI.notify, UI.sortable
+    // access loaded components: UI.notify, UI.sortable
 
 });</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="js-override"><a href="#js-override" class="uk-link-reset">Override default component settings.</a></h2>
+
+                            <p>It is possible to adjust the default component settings as you can see in the following example.</p>
+
+                            <h3 class="tm-article-subtitle">Usage</h3>
+
+                            <pre><code>
+                            // override default tooltip settings
+                            UIkit.on('beforeready.uk.dom', function(){
+
+                                $.extend(UIkit.components.tooltip.prototype.defaults, {
+                                    pos: 'top',
+                                    delay: 500,
+                                    animation: true
+                                });
+                            });
+                            </code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -129,9 +149,11 @@ require("uikit!notify,sortable", function(UI){
 
                             <h3 class="tm-article-subtitle">Usage</h3>
 
-<pre><code>&lt;div data-uk-observe&gt;
-    &lt;!-- inject your dynamic html here --&gt;
-&lt;/div&gt;</code></pre>
+                            <pre><code>
+                            &lt;div data-uk-observe&gt;
+                                &lt;!-- inject your dynamic html here --&gt;
+                            &lt;/div&gt;
+                            </code></pre>
 
                             <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
 
@@ -143,18 +165,20 @@ require("uikit!notify,sortable", function(UI){
 
                             <p>Sometimes components, like <a href="grid.html">Grid</a> or <a href="tab.html">Tab</a> are hidden in the markup. This may happen when used in combination with the <a href="switcher.html">Switcher</a>, <a href="modal.html">Modal</a> or <a href="dropdown.html">Dropdown</a>. Once they become visible, they need to be recalculated to adjust or fix the height and other dimensions.</p>
 
-                            <p>To do so, add the <code>data-uk-check-display</code> attribute to the elements which need to be recalculated. They now listen to the <code>display.uk.check</code> event, which will be triggered by the container component, for example the Switcher. This is not needed for the Grid, it's triggered by default.</p>
+                            <p>To do so, add the <code>data-uk-check-display</code> attribute to the elements which need to be recalculated. They now listen to the <code>display.uk.check</code> event, which will be triggered by the container component, for example the Switcher. This is not needed for elements with <code>data-uk-margin</code>, <code>data-uk-grid-margin</code> and <code>data-uk-grid-match</code> attributes, those will be triggered by default.</p>
 
                             <h3 class="tm-article-subtitle">Usage</h3>
 
-<pre><code>&lt;!-- Element within a modal, switcher or dropdown --&gt;
-&lt;div id="myelement" data-uk-check-display&gt;...&lt;/div&gt;
+                            <pre><code>
+                            &lt;!-- Element within a modal, switcher or dropdown --&gt;
+                            &lt;div id="myelement" data-uk-check-display&gt;...&lt;/div&gt;
 
-&lt;script&gt;
-$("#myelement").on('display.uk.check', function(){
-   // custom code to adjust height etc on show
-});
-&lt;/script&gt;</code></pre>
+                            &lt;script&gt;
+                            $("#myelement").on('display.uk.check', function(){
+                               // custom code to adjust height etc on show
+                            });
+                            &lt;/script&gt;
+                            </code></pre>
 
                         </article>
 
@@ -167,7 +191,7 @@ $("#myelement").on('display.uk.check', function(){
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
 
-                <ul class="uk-subnav uk-subnav-line">
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
                     <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
                     <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
                     <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
@@ -192,8 +216,8 @@ $("#myelement").on('display.uk.check', function(){
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
                             <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
-                            <li><a href="addons.html">Add-ons</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a style</a></li>
@@ -203,7 +227,7 @@ $("#myelement").on('display.uk.check', function(){
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-nav-header">Core</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
                         <ul class="uk-nav-sub">
                             <li><a href="base.html">Base</a></li>
@@ -227,6 +251,7 @@ $("#myelement").on('display.uk.check', function(){
                             <li><a href="breadcrumb.html">Breadcrumb</a></li>
                             <li><a href="pagination.html">Pagination</a></li>
                             <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
@@ -263,46 +288,45 @@ $("#myelement").on('display.uk.check', function(){
                             <li><a href="smooth-scroll.html">Smooth scroll</a></li>
                         </ul>
                     </li>
-                    <li class="uk-nav-header">Add-ons</li>
+                    <li class="uk-nav-header">Components</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_grid.html">Grid</a></li>
-                            <li><a href="addons_flex.html">Flex</a></li>
-                            <li><a href="addons_cover.html">Cover</a></li>
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_dotnav.html">Dotnav</a></li>
-                            <li><a href="addons_slidenav.html">Slidenav</a></li>
-                            <li><a href="addons_pagination.html">Pagination</a></li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_caption.html">Caption</a></li>
-                            <li><a href="addons_form-advanced.html">Form advanced</a></li>
-                            <li><a href="addons_form-file.html">Form file</a></li>
-                            <li><a href="addons_form-password.html">Form password</a></li>
-                            <li><a href="addons_form-select.html">Form select</a></li>
-                            <li><a href="addons_placeholder.html">Placeholder</a></li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="addons_lightbox.html">Lightbox</a></li>
-                            <li><a href="addons_autocomplete.html">Autocomplete</a></li>
-                            <li><a href="addons_datepicker.html">Datepicker</a></li>
-                            <li><a href="addons_htmleditor.html">HTML editor</a></li>
-                            <li><a href="addons_slideshow.html">Slideshow</a></li>
-                            <li><a href="addons_accordion.html">Accordion</a></li>
-                            <li><a href="addons_notify.html">Notify</a></li>
-                            <li><a href="addons_search.html">Search</a></li>
-                            <li><a href="addons_nestable.html">Nestable</a></li>
-                            <li><a href="addons_sortable.html">Sortable</a></li>
-                            <li><a href="addons_sticky.html">Sticky</a></li>
-                            <li><a href="addons_timepicker.html">Timepicker</a></li>
-                            <li><a href="addons_upload.html">Upload</a></li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="upload.html">Upload</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-divider"></li>

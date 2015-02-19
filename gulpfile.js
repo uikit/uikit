@@ -231,7 +231,11 @@ gulp.task('dist-bower-file', function(done) {
         "homepage": "http://getuikit.com",
         "main": [
             "css/uikit.min.css",
-            "js/uikit.min.js"
+            "js/uikit.min.js",
+            "fonts/fontawesome-webfont.eot",
+            "fonts/fontawesome-webfont.ttf",
+            "fonts/fontawesome-webfont.woff",
+            "fonts/FontAwesome.otf"
         ],
         "dependencies": {
             "jquery": ">= 1.9.0"
@@ -535,7 +539,7 @@ gulp.task('prefix', function(done) {
 
     gutil.log("Replacing prefix 'uk' with '"+prefix+"'");
 
-    gulp.src(['./dist/**/*.css', './dist/**/*.less', './dist/**/*.scss'])
+    gulp.src(['./dist/**/*.css', './dist/**/*.less', './dist/**/*.scss', './dist/**/*.js'])
         .pipe(replace(/(uk-([a-z\d\-]+))/g, prefix+'-$2'))
         .pipe(gulp.dest('./dist'))
         .on('end', done);

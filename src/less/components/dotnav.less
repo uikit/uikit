@@ -10,7 +10,7 @@
 //
 // Markup:
 //
-// <!-- uk-dotnav addon -->
+// <!-- uk-dotnav -->
 // <ul class="uk-dotnav">
 //     <li class="uk-active"><a href=""></a></li>
 //     <li><a href=""></a></li>
@@ -22,7 +22,9 @@
 // Variables
 // ========================================================================
 
-@dotnav-margin-left:                            15px;
+@dotnav-margin-horizontal:                      15px;
+@dotnav-margin-vertical:                        @dotnav-margin-horizontal;
+
 @dotnav-width:                                  20px;
 @dotnav-height:                                 @dotnav-width;
 @dotnav-background:                             rgba(50,50,50,0.1);
@@ -36,53 +38,72 @@
 @dotnav-contrast-onclick-background:            rgba(255,255,255,0.9);
 @dotnav-contrast-active-background:             rgba(255,255,255,0.9);
 
-@dotnav-vertical-margin-top:                    @dotnav-margin-left;
-
 
 /* ========================================================================
    Component: Dotnav
  ========================================================================== */
 
 /*
- * 1. Remove default list style
- * 2. Remove whitespace between child elements when using `inline-block`
+ * 1. Gutter
+ * 2. Remove default list style
  */
 
 .uk-dotnav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     /* 1 */
+    margin-left: -@dotnav-margin-horizontal;
+    margin-top: -@dotnav-margin-vertical;
+    /* 2 */
     padding: 0;
     list-style: none;
-    /* 2 */
-    font-size: 0.001px;
 }
+
+/*
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Horizontal gutter is using `padding` so `uk-width-*` classes can be applied
+ */
+
+.uk-dotnav > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: @dotnav-margin-horizontal;
+    margin-top: @dotnav-margin-vertical;
+}
+
+/*
+ * DEPRECATED IE9 Support
+ */
+
+.uk-dotnav:before,
+.uk-dotnav:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+}
+
+.uk-dotnav:after { clear: both; }
+
+.uk-dotnav > * { float: left; }
 
 
 /* Items
  ========================================================================== */
 
 /*
- * 1. Reset whitespace hack
- * 2. Remove the gap at the bottom of it container
- */
-
-.uk-dotnav > li {
-    display: inline-block;
-    /* 1 */
-    font-size: 1rem;
-    /* 2 */
-    vertical-align: top;
-}
-
-.uk-dotnav > li:nth-child(n+2) { margin-left: @dotnav-margin-left; }
-
-/*
  * Items
- * 1. Remove the gap at the bottom of it container
- * 2. Hide text if present
+ * 1. Hide text if present
  */
 
-.uk-dotnav > li > a {
-    display: inline-block;
+.uk-dotnav > * > * {
+    display: block;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     width: @dotnav-width;
@@ -90,8 +111,6 @@
     border-radius: 50%;
     background: @dotnav-background;
     /* 1 */
-    vertical-align: top;
-    /* 2 */
     text-indent: 100%;
     overflow: hidden;
     white-space: nowrap;
@@ -104,8 +123,8 @@
  * 2. Remove default focus style
  */
 
-.uk-dotnav > li > a:hover,
-.uk-dotnav > li > a:focus { // 1
+.uk-dotnav > * > *:hover,
+.uk-dotnav > * > *:focus { // 1
     background: @dotnav-hover-background;
     /* 2 */
     outline: none;
@@ -113,13 +132,13 @@
 }
 
 /* OnClick */
-.uk-dotnav > li > a:active {
+.uk-dotnav > * > *:active {
     background: @dotnav-onclick-background;
     .hook-dotnav-item-onclick;
 }
 
 /* Active */
-.uk-dotnav > li.uk-active > a {
+.uk-dotnav > *.uk-active > * {
     background: @dotnav-active-background;
     .hook-dotnav-item-active;
 }
@@ -128,7 +147,7 @@
 /* Modifier: `uk-dotnav-contrast`
  ========================================================================== */
 
-.uk-dotnav-contrast > li > a {
+.uk-dotnav-contrast > * > * {
     background: @dotnav-contrast-background;
     .hook-dotnav-contrast-item;
 }
@@ -138,20 +157,20 @@
  * 1. Apply hover style also to focus state
  */
 
-.uk-dotnav-contrast > li > a:hover,
-.uk-dotnav-contrast > li > a:focus { // 1
+.uk-dotnav-contrast > * > *:hover,
+.uk-dotnav-contrast > * > *:focus { // 1
     background: @dotnav-contrast-hover-background;
     .hook-dotnav-contrast-item-hover;
 }
 
 /* OnClick */
-.uk-dotnav-contrast > li > a:active {
+.uk-dotnav-contrast > * > *:active {
     background: @dotnav-contrast-onclick-background;
     .hook-dotnav-contrast-item-onclick;
 }
 
 /* Active */
-.uk-dotnav-contrast > li.uk-active > a {
+.uk-dotnav-contrast > *.uk-active > * {
     background: @dotnav-contrast-active-background;
     .hook-dotnav-contrast-item-active;
 }
@@ -160,12 +179,22 @@
 /* Modifier: 'uk-dotnav-vertical'
  ========================================================================== */
 
-.uk-dotnav-vertical > li { display: block; }
+/*
+ * DEPRECATED
+ */
 
-.uk-dotnav-vertical > li:nth-child(n+2) {
-    margin-left: 0;
-    margin-top: @dotnav-vertical-margin-top;
+.uk-dotnav-vertical {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
 }
+
+/*
+ * DEPRECATED IE9 Support
+ */
+
+.uk-dotnav-vertical > * { float: none; }
+
 
 
 // Hooks

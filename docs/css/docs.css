@@ -347,7 +347,7 @@ html {
  * Showcase Overlay
  */
 
-.tm-overlay-area:empty:before {
+.tm-overlay-icon:empty:before {
     content: "\f064";
     width: 60px;
     height: 60px;

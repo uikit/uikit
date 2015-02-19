@@ -5,7 +5,8 @@
 //
 // Component:       `uk-icon-*`
 //
-// Sub-objects:     `uk-icon-button`
+// Sub-objects:     `uk-icon-hover`
+//                  `uk-icon-button`
 //
 // Modifiers:       `uk-icon-small`
 //                  `uk-icon-medium`
@@ -30,6 +31,9 @@
 @icon-medium-vertical-align:                    -16%;
 @icon-large-vertical-align:                     -22%;
 
+@icon-hover-color:                              #999;
+@icon-hover-hover-color:                        #444;
+
 @icon-button-width:                             35px;
 @icon-button-height:                            @icon-button-width;
 @icon-button-border-radius:                     100%;
@@ -52,6 +56,7 @@
     font-family: 'FontAwesome';
     src: url("@{icon-font-path}/fontawesome-webfont.eot");
     src: url("@{icon-font-path}/fontawesome-webfont.eot?#iefix") format("embedded-opentype"),
+         url("@{icon-font-path}/fontawesome-webfont.woff2") format('woff2'),
          url("@{icon-font-path}/fontawesome-webfont.woff") format("woff"),
          url("@{icon-font-path}/fontawesome-webfont.ttf") format("truetype");
     font-weight: normal;
@@ -63,6 +68,7 @@
  * 2. Prevent inherit font style
  * 4. Correct line-height
  * 5. Better font rendering
+ * 6. Remove `text-decoration` for anchors
  */
 
 [class*='uk-icon-'] {
@@ -78,6 +84,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* 6 */
+[class*='uk-icon-'],
+[class*='uk-icon-']:hover,
+[class*='uk-icon-']:focus { text-decoration: none; }
 
 
 /* Size modifiers
@@ -95,6 +106,24 @@
     display: inline-block;
     -webkit-animation: uk-rotate 2s infinite linear;
     animation: uk-rotate 2s infinite linear;
+}
+
+
+/* Modifier: `uk-icon-hover`
+ ========================================================================== */
+
+.uk-icon-hover {
+    color: @icon-hover-color;
+    .hook-icon-hover;
+}
+
+/*
+ * Hover
+ */
+
+.uk-icon-hover:hover {
+    color: @icon-hover-hover-color;
+    .hook-icon-hover-hover;
 }
 
 
@@ -126,7 +155,6 @@
 .uk-icon-button:focus { // 1
     background-color: @icon-button-hover-background;
     color: @icon-button-hover-color;
-    text-decoration: none;
     /* 2 */
     outline: none;
     .hook-icon-button-hover;
@@ -300,6 +328,7 @@
 .uk-icon-bookmark-o:before { content: "\f097"; }
 .uk-icon-phone-square:before { content: "\f098"; }
 .uk-icon-twitter:before { content: "\f099"; }
+.uk-icon-facebook-f:before,
 .uk-icon-facebook:before { content: "\f09a"; }
 .uk-icon-github:before { content: "\f09b"; }
 .uk-icon-unlock:before { content: "\f09c"; }
@@ -539,7 +568,8 @@
 .uk-icon-trello:before { content: "\f181"; }
 .uk-icon-female:before { content: "\f182"; }
 .uk-icon-male:before { content: "\f183"; }
-.uk-icon-gittip:before { content: "\f184"; }
+.uk-icon-gittip:before,
+.uk-icon-gratipay:before { content: "\f184"; }
 .uk-icon-sun-o:before { content: "\f185"; }
 .uk-icon-moon-o:before { content: "\f186"; }
 .uk-icon-archive:before { content: "\f187"; }
@@ -642,6 +672,7 @@
 .uk-icon-send-o:before,
 .uk-icon-paper-plane-o:before { content: "\f1d9"; }
 .uk-icon-history:before { content: "\f1da"; }
+.uk-icon-genderless:before,
 .uk-icon-circle-thin:before { content: "\f1db"; }
 .uk-icon-header:before { content: "\f1dc"; }
 .uk-icon-paragraph:before { content: "\f1dd"; }
@@ -692,6 +723,48 @@
 .uk-icon-sheqel:before,
 .uk-icon-ils:before { content: "\f20b"; }
 .uk-icon-meanpath:before { content: "\f20c"; }
+.uk-icon-buysellads:before { content: "\f20d"; }
+.uk-icon-connectdevelop:before { content: "\f20e"; }
+.uk-icon-dashcube:before { content: "\f210"; }
+.uk-icon-forumbee:before { content: "\f211"; }
+.uk-icon-leanpub:before { content: "\f212"; }
+.uk-icon-sellsy:before { content: "\f213"; }
+.uk-icon-shirtsinbulk:before { content: "\f214"; }
+.uk-icon-simplybuilt:before { content: "\f215"; }
+.uk-icon-skyatlas:before { content: "\f216"; }
+.uk-icon-cart-plus:before { content: "\f217"; }
+.uk-icon-cart-arrow-down:before { content: "\f218"; }
+.uk-icon-diamond:before { content: "\f219"; }
+.uk-icon-ship:before { content: "\f21a"; }
+.uk-icon-user-secret:before { content: "\f21b"; }
+.uk-icon-motorcycle:before { content: "\f21c"; }
+.uk-icon-street-view:before { content: "\f21d"; }
+.uk-icon-heartbeat:before { content: "\f21e"; }
+.uk-icon-venus:before { content: "\f221"; }
+.uk-icon-mars:before { content: "\f222"; }
+.uk-icon-mercury:before { content: "\f223"; }
+.uk-icon-transgender:before { content: "\f224"; }
+.uk-icon-transgender-alt:before { content: "\f225"; }
+.uk-icon-venus-double:before { content: "\f226"; }
+.uk-icon-mars-double:before { content: "\f227"; }
+.uk-icon-venus-mars:before { content: "\f228"; }
+.uk-icon-mars-stroke:before { content: "\f229"; }
+.uk-icon-mars-stroke-v:before { content: "\f22a"; }
+.uk-icon-mars-stroke-h:before { content: "\f22b"; }
+.uk-icon-neuter:before { content: "\f22c"; }
+.uk-icon-facebook-official:before { content: "\f230"; }
+.uk-icon-pinterest-p:before { content: "\f231"; }
+.uk-icon-whatsapp:before { content: "\f232"; }
+.uk-icon-server:before { content: "\f233"; }
+.uk-icon-user-plus:before { content: "\f234"; }
+.uk-icon-user-times:before { content: "\f235"; }
+.uk-icon-hotel:before,
+.uk-icon-bed:before { content: "\f236"; }
+.uk-icon-viacoin:before { content: "\f237"; }
+.uk-icon-train:before { content: "\f238"; }
+.uk-icon-subway:before { content: "\f239"; }
+.uk-icon-medium-logo:before { content: "\f23a"; }
+
 
 
 // Hooks
@@ -699,6 +772,8 @@
 
 .hook-icon-misc;
 
+.hook-icon-hover() {}
+.hook-icon-hover-hover() {}
 .hook-icon-button() {}
 .hook-icon-button-hover() {}
 .hook-icon-button-active() {}
