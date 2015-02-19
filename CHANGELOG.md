@@ -5,6 +5,7 @@
   - IMPORTANT: Removed caption component (Use overlay component)
   - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-medium)
   - IMPORTANT: Moved flex and cover component into the core
+  - IMPORTANT: Moved tooltip and progress from core to components
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
   - DEPRECATED: Thumbnail component
   - DEPRECATED: uk-dotnav-vertical class (Use uk-flex-column)
