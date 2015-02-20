@@ -1,5 +1,5 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function($, UI) {
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+(function(UI) {
 
     "use strict";
 
@@ -22,11 +22,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-switcher]", context).each(function() {
+                UI.$("[data-uk-switcher]", context).each(function() {
                     var switcher = UI.$(this);
 
                     if (!switcher.data("switcher")) {
-                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-@-switcher")));
+                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
                     }
                 });
             });
@@ -36,7 +36,7 @@
 
             var $this = this;
 
-            this.on("click", this.options.toggle, function(e) {
+            this.on("click.uikit.switcher", this.options.toggle, function(e) {
                 e.preventDefault();
                 $this.show(this);
             });
@@ -45,16 +45,16 @@
 
                 this.connect = UI.$(this.options.connect);
 
-                this.connect.find(".@-active").removeClass(".@-active");
+                this.connect.find(".uk-active").removeClass(".uk-active");
 
                 // delegate switch commands within container content
                 if (this.connect.length) {
 
-                    this.connect.on("click", '[data-@-switcher-item]', function(e) {
+                    this.connect.on("click", '[data-uk-switcher-item]', function(e) {
 
                         e.preventDefault();
 
-                        var item = UI.$(this).data(UI._prefix+'SwitcherItem');
+                        var item = UI.$(this).attr('data-uk-switcher-item');
 
                         if ($this.index == item) return;
 
@@ -64,13 +64,16 @@
                                 $this.show($this.index + (item=='next' ? 1:-1));
                                 break;
                             default:
-                                $this.show(item);
+                                $this.show(parseInt(item, 10));
                         }
+                    }).on('swipeRight swipeLeft', function(e) {
+                        e.preventDefault();
+                        $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
                     });
                 }
 
                 var toggles = this.find(this.options.toggle),
-                    active  = toggles.filter(".@-active");
+                    active  = toggles.filter(".uk-active");
 
                 if (active.length) {
                     this.show(active, false);
@@ -78,11 +81,11 @@
 
                     if (this.options.active===false) return;
 
-                    active = toggles.eq(UI.prefix(this.options.active));
+                    active = toggles.eq(this.options.active);
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
 
-                this.on(UI.prefix('changed.@.dom'), function() {
+                this.on('changed.uk.dom', function() {
                     $this.connect = UI.$($this.options.connect);
                 });
             }
@@ -129,10 +132,10 @@
                 animation = Animations.none;
             }
 
-            if (active.hasClass("@-disabled")) return;
+            if (active.hasClass("uk-disabled")) return;
 
-            this.find(this.options.toggle).filter(".@-active").removeClass("@-active");
-            active.addClass("@-active");
+            this.find(this.options.toggle).filter(".uk-active").removeClass("uk-active");
+            active.addClass("uk-active");
 
             if (this.options.connect && this.connect.length) {
 
@@ -146,15 +149,15 @@
 
                     var container = UI.$(this),
                         children  = UI.$(container.children()),
-                        current   = UI.$(children.filter('.@-active')),
+                        current   = UI.$(children.filter('.uk-active')),
                         next      = UI.$(children.eq($this.index));
 
                         $this.animating = true;
 
                         animation.apply($this, [current, next]).then(function(){
 
-                            current.removeClass("@-active");
-                            next.addClass("@-active");
+                            current.removeClass("uk-active");
+                            next.addClass("uk-active");
                             UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;
@@ -169,26 +172,26 @@
     Animations = {
 
         'none': function() {
-            var d = $.Deferred();
+            var d = UI.$.Deferred();
             d.resolve();
             return d.promise();
         },
 
         'fade': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-fade', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-fade', current, next]);
         },
 
         'slide-bottom': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-bottom', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-slide-bottom', current, next]);
         },
 
         'slide-top': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-top', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-slide-top', current, next]);
         },
 
         'slide-vertical': function(current, next, dir) {
 
-            var anim = ['@-animation-slide-top', '@-animation-slide-bottom'];
+            var anim = ['uk-animation-slide-top', 'uk-animation-slide-bottom'];
 
             if (current && current.index() > next.index()) {
                 anim.reverse();
@@ -198,16 +201,16 @@
         },
 
         'slide-left': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-left', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-slide-left', current, next]);
         },
 
         'slide-right': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-slide-right', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-slide-right', current, next]);
         },
 
         'slide-horizontal': function(current, next, dir) {
 
-            var anim = ['@-animation-slide-left', '@-animation-slide-right'];
+            var anim = ['uk-animation-slide-right', 'uk-animation-slide-left'];
 
             if (current && current.index() > next.index()) {
                 anim.reverse();
@@ -217,7 +220,7 @@
         },
 
         'scale': function(current, next) {
-            return coreAnimation.apply(this, ['@-animation-scale-up', current, next]);
+            return coreAnimation.apply(this, ['uk-animation-scale-up', current, next]);
         }
     };
 
@@ -228,7 +231,7 @@
 
     function coreAnimation(cls, current, next) {
 
-        var d = $.Deferred(), clsIn = UI.prefix(cls), clsOut = cls, release;
+        var d = UI.$.Deferred(), clsIn = cls, clsOut = cls, release;
 
         if (next[0]===current[0]) {
             d.resolve();
@@ -242,7 +245,7 @@
 
         release = function() {
 
-            if (current) current.hide().removeClass(UI.prefix('@-active '+clsOut+' @-animation-reverse'));
+            if (current) current.hide().removeClass('uk-active '+clsOut+' uk-animation-reverse');
 
             next.addClass(clsIn).one(UI.support.animation.end, function() {
 
@@ -261,16 +264,16 @@
 
             current.css('animation-duration', this.options.duration+'ms');
 
-            current.css('display', 'none').addClass(UI.prefix(clsOut+' @-animation-reverse')).one(UI.support.animation.end, function() {
+            current.css('display', 'none').addClass(clsOut+' uk-animation-reverse').one(UI.support.animation.end, function() {
                 release();
             }.bind(this)).css('display', '');
 
         } else {
-            next.addClass('@-active');
+            next.addClass('uk-active');
             release();
         }
 
         return d.promise();
     }
 
-})(jQuery, UIkit);
+})(UIkit);

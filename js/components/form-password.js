@@ -1,19 +1,19 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-form-password", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -26,7 +26,7 @@
 
         boot: function() {
             // init code
-            UI.$html.on("click.formpassword.uikit", "[data-@-form-password]", function(e) {
+            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
 
                 var ele = UI.$(this);
 
@@ -34,7 +34,7 @@
 
                     e.preventDefault();
 
-                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-@-form-password")));
+                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
                     ele.trigger("click");
                 }
             });

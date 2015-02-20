@@ -1,19 +1,19 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-autocomplete", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -26,16 +26,16 @@
             param: 'search',
             method: 'post',
             delay: 300,
-            loadingClass: '@-loading',
+            loadingClass: 'uk-loading',
             flipDropdown: false,
-            skipClass: '@-skip',
-            hoverClass: '@-active',
+            skipClass: 'uk-skip',
+            hoverClass: 'uk-active',
             source: null,
             renderer: null,
 
             // template
 
-            template: '<ul class="@-nav @-nav-autocomplete @-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
+            template: '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>'
         },
 
         visible  : false,
@@ -45,12 +45,12 @@
         boot: function() {
 
             // init code
-            UI.$html.on("focus.autocomplete.uikit", "[data-@-autocomplete]", function(e) {
+            UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
 
                 var ele = UI.$(this);
 
                 if (!ele.data("autocomplete")) {
-                    var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-@-autocomplete")));
+                    var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
                 }
             });
 
@@ -72,17 +72,17 @@
                 }, this.options.delay);
 
 
-            this.dropdown = this.find('.@-dropdown');
+            this.dropdown = this.find('.uk-dropdown');
             this.template = this.find('script[type="text/autocomplete"]').html();
-            this.template = UI.Utils.template(UI.prefix(this.template || this.options.template));
+            this.template = UI.Utils.template(this.template || this.options.template);
             this.input    = this.find("input:first").attr("autocomplete", "off");
 
             if (!this.dropdown.length) {
-               this.dropdown = UI.$('<div class="@-dropdown"></div>').appendTo(this.element);
+               this.dropdown = UI.$('<div class="uk-dropdown"></div>').appendTo(this.element);
             }
 
             if (this.options.flipDropdown) {
-                this.dropdown.addClass(UI.prefix('@-dropdown-flip'));
+                this.dropdown.addClass('uk-dropdown-flip');
             }
 
             this.input.on({
@@ -120,11 +120,11 @@
                 "keyup": trigger
             });
 
-            this.dropdown.on("click", UI.prefix(".@-autocomplete-results > *"), function(){
+            this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
                 $this.select();
             });
 
-            this.dropdown.on("mouseover", UI.prefix(".@-autocomplete-results > *"), function(){
+            this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function(){
                 $this.pick(UI.$(this));
             });
 
@@ -149,7 +149,7 @@
         pick: function(item, scrollinview) {
 
             var $this    = this,
-                items    = UI.$(this.dropdown.find(UI.prefix('.@-autocomplete-results')).children(UI.prefix(':not(.'+this.options.skipClass+')'))),
+                items    = UI.$(this.dropdown.find('.uk-autocomplete-results').children(':not(.'+this.options.skipClass+')')),
                 selected = false;
 
             if (typeof item !== "string" && !item.hasClass(this.options.skipClass)) {
@@ -209,7 +209,7 @@
         show: function() {
             if (this.visible) return;
             this.visible = true;
-            this.element.addClass("@-open");
+            this.element.addClass("uk-open");
 
             active = this;
             return this;
@@ -218,7 +218,7 @@
         hide: function() {
             if (!this.visible) return;
             this.visible = false;
-            this.element.removeClass("@-open");
+            this.element.removeClass("uk-open");
 
             if (active === this) {
                 active = false;
@@ -275,7 +275,7 @@
 
                         params[this.options.param] = this.value;
 
-                        $.ajax({
+                        UI.$.ajax({
                             url: this.options.source,
                             data: params,
                             type: this.options.method,

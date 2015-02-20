@@ -1,5 +1,5 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function($, UI) {
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+(function(UI) {
 
     "use strict";
 
@@ -15,8 +15,9 @@
     UI.component('scrollspy', {
 
         defaults: {
-            "cls"        : "@-scrollspy-inview",
-            "initcls"    : "@-scrollspy-init-inview",
+            "target"     : false,
+            "cls"        : "uk-scrollspy-inview",
+            "initcls"    : "uk-scrollspy-init-inview",
             "topoffset"  : 0,
             "leftoffset" : 0,
             "repeat"     : false,
@@ -27,17 +28,17 @@
 
             // listen to scroll and resize
             $doc.on("scrolling.uk.document", checkScrollSpy);
-            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
+            $win.on("load resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-scrollspy]", context).each(function() {
+                UI.$("[data-uk-scrollspy]", context).each(function() {
 
                     var element = UI.$(this);
 
                     if (!element.data("scrollspy")) {
-                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-@-scrollspy")));
+                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
                     }
                 });
             });
@@ -45,46 +46,63 @@
 
         init: function() {
 
+            var $this = this, inviewstate, initinview, togglecls = this.options.cls.split(/,/), fn = function(){
 
-            var $this = this, idle, inviewstate, initinview,
-                fn = function(){
+                var elements     = $this.options.target ? $this.element.find($this.options.target) : $this.element,
+                    delayIdx     = elements.length === 1 ? 1 : 0,
+                    toggleclsIdx = 0;
 
-                    var inview = UI.Utils.isInView($this.element, $this.options);
+                elements.each(function(idx){
 
-                    if (inview && !inviewstate) {
+                    var element     = UI.$(this),
+                        inviewstate = element.data('inviewstate'),
+                        inview      = UI.Utils.isInView(element, $this.options),
+                        toggle      = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
 
-                        if(idle) clearTimeout(idle);
+                    if (inview && !inviewstate && !element.data('scrollspy-idle')) {
 
-                        if(!initinview) {
-                            $this.element.addClass($this.options.initcls);
-                            $this.offset = $this.element.offset();
+                        if (!initinview) {
+                            element.addClass($this.options.initcls);
+                            $this.offset = element.offset();
                             initinview = true;
 
-                            $this.trigger("init.uk.scrollspy");
+                            element.trigger("init.uk.scrollspy");
                         }
 
-                        idle = setTimeout(function(){
+                        element.data('scrollspy-idle', setTimeout(function(){
 
-                            if(inview) {
-                                $this.element.addClass("@-scrollspy-inview").addClass($this.options.cls).width();
-                            }
-                        }, $this.options.delay);
+                            element.addClass("uk-scrollspy-inview").toggleClass(toggle).width();
+                            element.trigger("inview.uk.scrollspy");
 
-                        inviewstate = true;
-                        $this.trigger("inview.uk.scrollspy");
+                            element.data('scrollspy-idle', false);
+                            element.data('inviewstate', true);
+
+                        }, $this.options.delay * delayIdx));
+
+                        delayIdx++;
                     }
 
                     if (!inview && inviewstate && $this.options.repeat) {
-                        $this.element.removeClass("@-scrollspy-inview").removeClass($this.options.cls);
-                        inviewstate = false;
 
-                        $this.trigger("outview.uk.scrollspy");
+                        if (element.data('scrollspy-idle')) {
+                            clearTimeout(element.data('scrollspy-idle'));
+                        }
+
+                        element.removeClass("uk-scrollspy-inview").toggleClass(toggle);
+                        element.data('inviewstate', false);
+
+                        element.trigger("outview.uk.scrollspy");
                     }
-                };
+
+                    toggleclsIdx = togglecls[toggleclsIdx + 1] ? (toggleclsIdx + 1) : 0;
+
+                });
+            };
 
             fn();
 
             this.check = fn;
+
             scrollspies.push(this);
         }
     });
@@ -100,7 +118,7 @@
     UI.component('scrollspynav', {
 
         defaults: {
-            "cls"          : '@-active',
+            "cls"          : 'uk-active',
             "closest"      : false,
             "topoffset"    : 0,
             "leftoffset"   : 0,
@@ -116,12 +134,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-scrollspy-nav]", context).each(function() {
+                UI.$("[data-uk-scrollspy-nav]", context).each(function() {
 
                     var element = UI.$(this);
 
                     if (!element.data("scrollspynav")) {
-                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-@-scrollspy-nav")));
+                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
                     }
                 });
             });
@@ -130,11 +148,11 @@
         init: function() {
 
             var ids     = [],
-                links   = this.find("a[href^='#']").each(function(){ ids.push($(this).attr("href")); }),
-                targets = $(ids.join(",")),
+                links   = this.find("a[href^='#']").each(function(){ ids.push(UI.$(this).attr("href")); }),
+                targets = UI.$(ids.join(",")),
 
-                clsActive  = UI.prefix(this.options.cls),
-                clsClosest = UI.prefix(this.options.closest || this.options.closest);
+                clsActive  = this.options.cls,
+                clsClosest = this.options.closest || this.options.closest;
 
             var $this = this, inviews, fn = function(){
 
@@ -187,4 +205,4 @@
         }
     });
 
-})(jQuery, UIkit);
+})(UIkit);

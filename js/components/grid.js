@@ -1,19 +1,19 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-grid", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -22,7 +22,7 @@
         defaults: {
             colwidth  : 'auto',
             animation : true,
-            duration  : 200,
+            duration  : 300,
             gutter    : 0,
             controls  : false
         },
@@ -32,12 +32,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-grid]", context).each(function(){
+                UI.$('[data-uk-grid]', context).each(function(){
 
                     var ele = UI.$(this);
 
                     if(!ele.data("grid")) {
-                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr("data-@-grid")));
+                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr('data-uk-grid')));
                     }
                 });
             });
@@ -52,21 +52,26 @@
 
             if (this.options.controls) {
 
-                var controls = $(this.options.controls);
+                var controls  = UI.$(this.options.controls),
+                    activeCls = 'uk-active';
 
                 // filter
                 controls.on('click', '[data-uk-filter]', function(e){
                     e.preventDefault();
-                    $this.filter($(this).data('ukFilter'));
+                    $this.filter(UI.$(this).data('ukFilter'));
+
+                    controls.find('[data-uk-filter]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
 
                 // sort
                 controls.on('click', '[data-uk-sort]', function(e){
                     e.preventDefault();
 
-                    var cmd = $(this).data('ukSort').split(':');
+                    var cmd = UI.$(this).attr('data-uk-sort').split(':');
 
                     $this.sort(cmd[0], cmd[1]);
+
+                    controls.find('[data-uk-sort]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
             }
 
@@ -76,11 +81,11 @@
 
             this.updateLayout();
 
-            this.on('display.@.check', function(){
+            this.on('display.uk.check', function(){
                 if ($this.element.is(":visible"))  $this.updateLayout();
             });
 
-            UI.$html.on("changed.@.dom", function(e) {
+            UI.$html.on("changed.uk.dom", function(e) {
                 $this.updateLayout();
             });
         },
@@ -126,13 +131,13 @@
 
                 item, width, height, pos, aX, aY, i, z, max, size;
 
-            this.trigger('beforeupdate.@.grid', [children]);
+            this.trigger('beforeupdate.uk.grid', [children]);
 
             children.each(function(index){
 
                 size   = getElementSize(this);
 
-                item   = $(this);
+                item   = UI.$(this);
                 width  = size.outerWidth;
                 height = size.outerHeight;
                 left   = 0;
@@ -189,7 +194,7 @@
                 this.element.stop().animate({'height': maxHeight}, 100);
 
                 positions.forEach(function(pos){
-                    pos.ele.stop().animate({"top": pos.top, "left": pos.left}, this.options.duration);
+                    pos.ele.stop().animate({"top": pos.top, "left": pos.left, opacity: 1}, this.options.duration);
                 }.bind(this));
 
             } else {
@@ -197,11 +202,11 @@
                 this.element.css('height', maxHeight);
 
                 positions.forEach(function(pos){
-                    pos.ele.css({"top": pos.top, "left": pos.left});
+                    pos.ele.css({"top": pos.top, "left": pos.left, opacity: 1});
                 }.bind(this));
             }
 
-            this.trigger('afterupdate.@.grid', [children]);
+            this.trigger('afterupdate.uk.grid', [children]);
         },
 
         filter: function(filter) {
@@ -212,11 +217,11 @@
                 filter = filter.split(/,/).map(function(item){ return item.trim(); });
             }
 
-            var children = this.element.children(), elements = {"visible": [], "hidden": []};
+            var $this = this, children = this.element.children(), elements = {"visible": [], "hidden": []}, visible, hidden;
 
             children.each(function(index){
 
-                var ele = $(this), f = ele.data('ukFilter'), infilter = filter.length ? false : true;
+                var ele = UI.$(this), f = ele.attr('data-uk-filter'), infilter = filter.length ? false : true;
 
                 if (f) {
 
@@ -231,13 +236,14 @@
             });
 
             // convert to jQuery collections
-            elements.hidden  = $(elements.hidden).map(function () {return this[0];});
-            elements.visible = $(elements.visible).map(function () {return this[0];});
+            elements.hidden  = UI.$(elements.hidden).map(function () {return this[0];});
+            elements.visible = UI.$(elements.visible).map(function () {return this[0];});
 
-            elements.hidden.fadeOut(this.options.duration);
-            elements.visible.show();
+            elements.hidden.filter(':visible').fadeOut(this.options.duration);
 
-            this.updateLayout(elements.visible);
+            elements.visible.filter(':hidden').css('opacity', 0).show();
+
+            $this.updateLayout(elements.visible);
         },
 
         sort: function(by, order){
@@ -253,8 +259,8 @@
 
             elements.sort(function(a, b){
 
-                a = $(a);
-                b = $(b);
+                a = UI.$(a);
+                b = UI.$(b);
 
                 return (b.data(by) || '') < (a.data(by) || '') ? order : (order*-1);
 

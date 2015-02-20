@@ -130,7 +130,7 @@ $tab-disabled-color:                             #999 !default;
 /* Disabled */
 .uk-tab > li.uk-disabled > a {
     color: $tab-disabled-color;
-    cursor: auto;
+    cursor: text;
     @include hook-tab-disabled();
 }
 

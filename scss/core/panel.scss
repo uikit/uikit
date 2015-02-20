@@ -8,8 +8,11 @@
 //                  `uk-panel-teaser`
 //
 // Modifiers:       `uk-panel-box`
+//                  `uk-panel-box-hover`
 //                  `uk-panel-box-primary`
+//                  `uk-panel-box-primary-hover`
 //                  `uk-panel-box-secondary`
+//                  `uk-panel-box-secondary-hover`
 //                  `uk-panel-hover`
 //                  `uk-panel-header`
 //                  `uk-panel-space`
@@ -43,6 +46,8 @@ $panel-title-font-weight:                        normal !default;
 $panel-title-color:                              #444 !default;
 $panel-title-text-transform:                     none !default;
 
+$panel-teaser-margin-bottom:                     $panel-title-margin-bottom !default;
+
 $panel-box-padding:                              15px !default;
 $panel-box-background:                           #f5f5f5 !default;
 $panel-box-color:                                #444 !default;
@@ -51,7 +56,6 @@ $panel-box-title-color:                          #444 !default;
 $panel-box-badge-top:                            10px !default;
 $panel-box-badge-right:                          $panel-box-badge-top !default;
 $panel-box-teaser-margin:                        -$panel-box-padding !default;
-$panel-box-teaser-margin-bottom:                 $panel-title-margin-bottom !default;
 
 $panel-box-primary-background:                   #ebf7fd !default;
 $panel-box-primary-color:                        #2d7091 !default;
@@ -64,12 +68,12 @@ $panel-box-secondary-hover-color:                $panel-box-secondary-color !def
 $panel-box-secondary-title-color:                #444 !default;
 
 $panel-hover-padding:                            15px !default;
+$panel-hover-color:                              #444 !default;
 $panel-hover-hover-background:                   #f5f5f5 !default;
 $panel-hover-hover-color:                        #444 !default;
 $panel-hover-badge-top:                          10px !default;
 $panel-hover-badge-right:                        $panel-hover-badge-top !default;
 $panel-hover-teaser-margin:                      -$panel-hover-padding !default;
-$panel-hover-teaser-margin-bottom:               $panel-title-margin-bottom !default;
 
 $panel-header-title-padding:                     10px !default;
 $panel-header-title-border:                      #ddd !default;
@@ -105,10 +109,7 @@ $panel-divider-border-width:                     1px !default;
  */
 
 .uk-panel,
-a.uk-panel:hover {
-    color: inherit;
-    text-decoration: none;
-}
+.uk-panel:hover { text-decoration: none; }
 
 /*
  * Micro clearfix to make panels more robust
@@ -155,6 +156,11 @@ a.uk-panel:hover {
     @include hook-panel-badge();
 }
 
+/* Sub-object: `uk-panel-teaser`
+ ========================================================================== */
+
+.uk-panel-teaser { margin-bottom: $panel-teaser-margin-bottom; }
+
 
 /* Modifier: `uk-panel-box`
  ========================================================================== */
@@ -166,7 +172,7 @@ a.uk-panel:hover {
     @include hook-panel-box();
 }
 
-a.uk-panel-box:hover {
+.uk-panel-box-hover:hover {
     color: $panel-box-hover-color;
     @include hook-panel-box-hover();
 }
@@ -178,7 +184,11 @@ a.uk-panel-box:hover {
     right: $panel-box-badge-right;
 }
 
-.uk-panel-box .uk-panel-teaser { margin: $panel-box-teaser-margin $panel-box-teaser-margin $panel-box-teaser-margin-bottom $panel-box-teaser-margin; }
+.uk-panel-box .uk-panel-teaser {
+    margin-top: $panel-box-teaser-margin;
+    margin-left: $panel-box-teaser-margin;
+    margin-right: $panel-box-teaser-margin;
+}
 
 /*
  * Nav in panel
@@ -196,7 +206,7 @@ a.uk-panel-box:hover {
     @include hook-panel-box-primary();
 }
 
-a.uk-panel-box-primary:hover {
+.uk-panel-box-primary-hover:hover {
     color: $panel-box-primary-hover-color;
     @include hook-panel-box-primary-hover();
 }
@@ -213,7 +223,7 @@ a.uk-panel-box-primary:hover {
     @include hook-panel-box-secondary();
 }
 
-a.uk-panel-box-secondary:hover {
+.uk-panel-box-secondary-hover:hover {
     color: $panel-box-secondary-hover-color;
     @include hook-panel-box-secondary-hover();
 }
@@ -226,6 +236,7 @@ a.uk-panel-box-secondary:hover {
 
 .uk-panel-hover {
     padding: $panel-hover-padding;
+    color: $panel-hover-color;
     @include hook-panel-hover();
 }
 
@@ -240,7 +251,11 @@ a.uk-panel-box-secondary:hover {
     right: $panel-hover-badge-right;
 }
 
-.uk-panel-hover .uk-panel-teaser { margin: $panel-hover-teaser-margin $panel-hover-teaser-margin $panel-hover-teaser-margin-bottom $panel-hover-teaser-margin; }
+.uk-panel-hover .uk-panel-teaser {
+    margin-top: $panel-hover-teaser-margin;
+    margin-left: $panel-hover-teaser-margin;
+    margin-right: $panel-hover-teaser-margin;
+}
 
 
 /* Modifier: `uk-panel-header`

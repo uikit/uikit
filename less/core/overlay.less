@@ -3,19 +3,43 @@
 //
 // Component:       `uk-overlay`
 //
-// Sub-objects:     `uk-overlay-area`
+// Sub-objects:     `uk-overlay-panel`
+//                  `uk-overlay-hover`
+//                  `uk-overlay-active`
+//                  `uk-overlay-icon`
+//
+// Modifier:        `uk-overlay-background`
+//                  `uk-overlay-top`
+//                  `uk-overlay-bottom`
+//                  `uk-overlay-left`
+//                  `uk-overlay-right`
+//                  `uk-overlay-fade`
+//                  `uk-overlay-scale`
+//                  `uk-overlay-spin`
+//                  `uk-overlay-grayscale`
+//                  `uk-overlay-slide-top`
+//                  `uk-overlay-slide-bottom`
+//                  `uk-overlay-slide-left`
+//                  `uk-overlay-slide-right`
+//
+// DEPRECATED:      `uk-overlay-area`
 //                  `uk-overlay-area-content`
 //                  `uk-overlay-caption`
 //                  `uk-overlay-toggle`
 //
 // States:          `uk-hover`
+//                  `uk-active`
+//                  `uk-ignore`
+//
+// Uses:            Icon: `[class*='uk-icon-']`
+//                  `uk-border-circle`
 //
 // Markup:
 //
 // <!-- uk-overlay -->
 // <a class="uk-overlay" href="">
 //     <img src="" alt="">
-//     <div class="uk-overlay-area"></div>
+//     <div class="uk-overlay-panel"></div>
 // </a>
 //
 // ========================================================================
@@ -24,6 +48,30 @@
 // Variables
 // ========================================================================
 
+@overlay-panel-padding:                         20px;
+@overlay-panel-color:                           #fff;
+
+@overlay-panel-background:                      rgba(0,0,0,0.5);
+
+@overlay-icon:                                  "\f002";
+@overlay-icon-size:                             50px;
+@overlay-icon-color:                            #fff;
+
+@overlay-fade-in-opacity:                       1;
+@overlay-fade-out-opacity:                      0.7;
+
+@overlay-scale-in-scale:                        1.1;
+@overlay-scale-out-scale:                       1;
+
+@overlay-spin-in-scale:                         1.1;
+@overlay-spin-out-scale:                        1;
+@overlay-spin-in-rotate:                        3deg;
+@overlay-spin-out-rotate:                       0deg;
+
+@overlay-panel-link-color:                      inherit;
+@overlay-panel-link-text-decoration:            underline;
+
+// DEPRECATED
 @overlay-area-background:                       rgba(0,0,0,0.3);
 
 @overlay-area-icon:                             "\f002";
@@ -49,7 +97,9 @@
  * 2. Create position context
  * 3. Set max-width for responsive images to prevent `inline-block` consequences
  * 4. Remove the gap between the container and its child element
- * 5. Fixed wrong scaling calculation for images in Chrome
+ * 5. Needed for transitions and to fixed wrong scaling calculation for images in Chrome
+ * 6. Fixed `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
+ * 7. Reset margin
  */
 
 .uk-overlay {
@@ -63,7 +113,14 @@
     vertical-align: middle;
     /* 5 */
     overflow: hidden;
+    /* 6 */
+    -webkit-transform: translateZ(0);
+    /* 7 */
+    margin: 0;
 }
+
+/* 6 for Safari */
+.uk-overlay.uk-border-circle { -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%); }
 
 /*
  * Remove margin from content
@@ -72,7 +129,217 @@
 .uk-overlay > :first-child { margin-bottom: 0; }
 
 
-/* Sub-object `uk-overlay-area`
+/* Sub-object `uk-overlay-panel`
+ ========================================================================== */
+
+/*
+ * 1. Position cover
+ * 2. Style
+ */
+
+.uk-overlay-panel {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* 2 */
+    padding: @overlay-panel-padding;
+    color: @overlay-panel-color;
+    .hook-overlay-panel;
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-overlay-panel > :last-child,
+.uk-overlay-panel.uk-flex > * > :last-child { margin-bottom: 0; }
+
+/*
+ * Keep color for headings if the default heading color is changed
+ */
+
+.uk-overlay-panel h1,
+.uk-overlay-panel h2,
+.uk-overlay-panel h3,
+.uk-overlay-panel h4,
+.uk-overlay-panel h5,
+.uk-overlay-panel h6 { color: inherit; }
+
+.uk-overlay-panel a:not([class]) {
+    color: @overlay-panel-link-color;
+    text-decoration: @overlay-panel-link-text-decoration;
+}
+
+.uk-overlay-panel a[class*='uk-icon-']:not(.uk-icon-button) { color: @overlay-panel-link-color; }
+
+
+/* Sub-object `uk-overlay-hover` and `uk-overlay-active`
+ ========================================================================== */
+
+.uk-overlay-hover:not(:hover):not(.uk-hover) .uk-overlay-panel:not(.uk-ignore) { opacity: 0; }
+
+.uk-overlay-active :not(.uk-active) > .uk-overlay-panel:not(.uk-ignore) { opacity: 0; }
+
+
+/* Modifier `uk-overlay-background`
+ ========================================================================== */
+
+.uk-overlay-background {
+    background: @overlay-panel-background;
+    .hook-overlay-background;
+}
+
+
+/* Position modifiers
+ ========================================================================== */
+
+.uk-overlay-top { bottom: auto; }
+
+.uk-overlay-bottom { top: auto; }
+
+.uk-overlay-left { right: auto; }
+
+.uk-overlay-right { left: auto; }
+
+
+/* Sub-object `uk-overlay-icon`
+ ========================================================================== */
+
+.uk-overlay-icon:before {
+    content: @overlay-icon;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: @overlay-icon-size;
+    height: @overlay-icon-size;
+    margin-top: -(@overlay-icon-size / 2);
+    margin-left: -(@overlay-icon-size / 2);
+    font-size: @overlay-icon-size;
+    line-height: 1;
+    font-family: FontAwesome;
+    text-align: center;
+    color: @overlay-icon-color;
+    .hook-overlay-icon;
+}
+
+
+/* Transitions
+ ========================================================================== */
+
+.uk-overlay-fade,
+.uk-overlay-scale,
+.uk-overlay-spin,
+.uk-overlay-grayscale,
+.uk-overlay-blur,
+[class*='uk-overlay-slide'] {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+    transition-property: opacity transform filter;
+}
+
+.uk-overlay-active .uk-overlay-fade,
+.uk-overlay-active .uk-overlay-scale,
+.uk-overlay-active .uk-overlay-spin,
+.uk-overlay-active [class*='uk-overlay-slide'] { transition-duration: 0.8s; }
+
+/*
+ * Fade
+ */
+
+.uk-overlay-fade { opacity: @overlay-fade-out-opacity; }
+
+.uk-overlay-hover:hover .uk-overlay-fade,
+.uk-overlay-active .uk-active > .uk-overlay-fade { opacity: @overlay-fade-in-opacity; }
+
+/*
+ * Scale
+ */
+
+.uk-overlay-scale {
+    -webkit-transform: scale(@overlay-scale-out-scale);
+    transform: scale(@overlay-scale-out-scale);
+}
+
+.uk-overlay-hover:hover .uk-overlay-scale,
+.uk-overlay-active .uk-active > .uk-overlay-scale {
+    -webkit-transform: scale(@overlay-scale-in-scale);
+    transform: scale(@overlay-scale-in-scale);
+}
+
+/*
+ * Spin
+ */
+
+.uk-overlay-spin {
+    -webkit-transform: scale(@overlay-spin-out-scale) rotate(@overlay-spin-out-rotate);
+    transform: scale(@overlay-spin-out-scale) rotate(@overlay-spin-out-rotate);
+}
+
+.uk-overlay-hover:hover .uk-overlay-spin,
+.uk-overlay-active .uk-active > .uk-overlay-spin {
+    -webkit-transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
+    transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
+}
+
+/*
+ * Grayscale
+ */
+
+.uk-overlay-grayscale {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.uk-overlay-hover:hover .uk-overlay-grayscale,
+.uk-overlay-active .uk-active > .uk-overlay-grayscale {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+
+/*
+ * Slide
+ */
+
+[class*='uk-overlay-slide'] { opacity: 0; }
+
+/* Top */
+.uk-overlay-slide-top {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+}
+
+/* Bottom */
+.uk-overlay-slide-bottom {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+}
+
+/* Left */
+.uk-overlay-slide-left {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+/* Right */
+.uk-overlay-slide-right {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+/* Hover */
+.uk-overlay-hover:hover [class*='uk-overlay-slide'],
+.uk-overlay-active .uk-active > [class*='uk-overlay-slide'] {
+    opacity: 1;
+    -webkit-transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0);
+}
+
+
+/* DEPRECATED
+ * Sub-object `uk-overlay-area`
  ========================================================================== */
 
 /*
@@ -131,7 +398,8 @@
 }
 
 
-/* Sub-object `uk-overlay-area-content`
+/* DEPRECATED
+ * Sub-object `uk-overlay-area-content`
  ========================================================================== */
 
 /*
@@ -235,8 +503,13 @@
 
 .hook-overlay-misc;
 
+.hook-overlay-panel() {}
+.hook-overlay-background() {}
+.hook-overlay-icon() {}
+.hook-overlay-misc() {}
+
+// DEPRECATED
 .hook-overlay-area() {}
 .hook-overlay-area-icon() {}
 .hook-overlay-area-content() {}
 .hook-overlay-caption() {}
-.hook-overlay-misc() {}

@@ -52,7 +52,7 @@
 /* Hide animated element if scrollspy is used */
 @media screen {
 
-    [data-uk-scrollspy*='uk-animation-'] { opacity: 0; }
+    [data-uk-scrollspy*='uk-animation-']:not([data-uk-scrollspy*='target']) { opacity: 0; }
 
 }
 
@@ -196,7 +196,7 @@
 
 /*
  * Enable animation only on hover
- * Needed for Firefox because animations are not triggered when switching between display `hidden` and `block`
+ * Note: Firefox also needs this because animations are not triggered when switching between display `hidden` and `block`
  */
 
 .uk-animation-hover:not(:hover),

@@ -1,4 +1,4 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -6,17 +6,17 @@
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-sortable", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -62,7 +62,7 @@
                     var ele = UI.$(this);
 
                     if(!ele.data("sortable")) {
-                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-@-sortable")));
+                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
                     }
                 });
             });
@@ -125,7 +125,7 @@
             Object.keys(this.options).forEach(function(key){
 
                 if (String($this.options[key]).indexOf('Class')!=-1) {
-                    $this.options[key] = UI.prefix($this.options[key]);
+                    $this.options[key] = $this.options[key];
                 }
             });
 
@@ -139,13 +139,13 @@
                 this.element.on('mousedown touchstart', 'a[href]', function(e) {
                     // don't break browser shortcuts for click+open in new tab
                     if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                        clickedlink = $(this);
+                        clickedlink = UI.$(this);
                         e.preventDefault();
                     }
 
                 }).on('click', 'a[href]', function(e) {
                     if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                        clickedlink = $(this);
+                        clickedlink = UI.$(this);
                         e.stopImmediatePropagation();
                         return false;
                     }
@@ -157,7 +157,7 @@
                 moving = false;
                 dragging = false;
 
-                var target = $(e.target), children = $this.element.children();
+                var target = UI.$(e.target), children = $this.element.children();
 
                 if (!supportsTouch && e.button==2) {
                     return;
@@ -189,7 +189,7 @@
                 // init drag placeholder
                 if (draggingPlaceholder) draggingPlaceholder.remove();
 
-                var $current = $(currentlyDraggingElement), offset = $current.offset();
+                var $current = UI.$(currentlyDraggingElement), offset = $current.offset();
 
                 delayIdle = {
 
@@ -197,7 +197,7 @@
                     threshold : $this.options.threshold,
                     'apply'   : function() {
 
-                        draggingPlaceholder = $('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
+                        draggingPlaceholder = UI.$('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
                             display : 'none',
                             top     : offset.top,
                             left    : offset.left,
@@ -252,7 +252,7 @@
 
                 if (previousCounter === 0) {
 
-                    $(this).addClass($this.options.overClass);
+                    UI.$(this).addClass($this.options.overClass);
 
                     if (!$this.options.warp) {
                         $this.moveElementNextTo(currentlyDraggingElement, this);
@@ -270,7 +270,7 @@
 
                 // This is a fix for child elements firing dragenter before the parent fires dragleave
                 if (!$this.dragenterData(this)) {
-                    $(this).removeClass($this.options.overClass);
+                    UI.$(this).removeClass($this.options.overClass);
                     $this.dragenterData(this, false);
                 }
             });
@@ -313,12 +313,12 @@
 
                 $this.element.children().each(function() {
                     if (this.nodeType === 1) {
-                        $(this).removeClass($this.options.overClass).removeClass($this.options.placeholderClass).removeClass($this.options.childClass);
+                        UI.$(this).removeClass($this.options.overClass).removeClass($this.options.placeholderClass).removeClass($this.options.childClass);
                         $this.dragenterData(this, false);
                     }
                 });
 
-                $('html').removeClass($this.options.dragMovingClass);
+                UI.$('html').removeClass($this.options.dragMovingClass);
 
                 removeFakeDragHandlers();
 
@@ -343,7 +343,7 @@
                 if (!$this.options.warp) {
                     $this.moveElementNextTo(currentlyDraggingElement, this);
                 } else {
-                    $(this).addClass($this.options.overClass);
+                    UI.$(this).addClass($this.options.overClass);
                 }
 
                 return prevent(e);
@@ -360,7 +360,7 @@
                         target = document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop);
                     }
 
-                    if ($(target).hasClass($this.options.childClass)) {
+                    if (UI.$(target).hasClass($this.options.childClass)) {
                         fn.apply(target, [e]);
                     } else if (target !== element) {
 
@@ -422,7 +422,7 @@
 
         dragenterData: function(element, val) {
 
-            element = $(element);
+            element = UI.$(element);
 
             if (arguments.length == 1) {
                 return parseInt(element.attr('data-child-dragenter'), 10) || 0;
@@ -438,7 +438,7 @@
             dragging = true;
 
             var $this    = this,
-                list     = $(element).parent().css('min-height', ''),
+                list     = UI.$(element).parent().css('min-height', ''),
                 next     = isBelow(element, elementToMoveNextTo) ? elementToMoveNextTo : elementToMoveNextTo.nextSibling,
                 children = list.children(),
                 count    = children.length;
@@ -452,7 +452,7 @@
             list.css('min-height', list.height());
 
             children.stop().each(function(){
-                var ele = $(this),
+                var ele = UI.$(this),
                     offset = ele.position();
 
                     offset.width = ele.width();
@@ -465,17 +465,17 @@
             UI.Utils.checkDisplay($this.element.parent());
 
             children = list.children().each(function() {
-                var ele    = $(this);
+                var ele    = UI.$(this);
                 ele.data('offset-after', ele.position());
             }).each(function() {
-                var ele    = $(this),
+                var ele    = UI.$(this),
                     before = ele.data('offset-before');
                 ele.css({'position':'absolute', 'top':before.top, 'left':before.left, 'min-width':before.width });
             });
 
             children.each(function(){
 
-                var ele    = $(this),
+                var ele    = UI.$(this),
                     before = ele.data('offset-before'),
                     offset = ele.data('offset-after');
 
@@ -492,6 +492,18 @@
                         });
                     }, 0);
             });
+        },
+
+        serialize: function() {
+
+            var data = [], item;
+
+            this.element.children().each(function() {
+                item = UI.$.extend({}, UI.$(this).data());
+                data.push(item);
+            });
+
+            return data;
         }
     });
 

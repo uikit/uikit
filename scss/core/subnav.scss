@@ -21,11 +21,13 @@
 // Variables
 // ========================================================================
 
-$subnav-font-size:                               1rem !default;
-$subnav-margin:                                  10px !default;
-$subnav-color:                                   #07D !default;
-$subnav-hover-color:                             #059 !default;
-$subnav-disabled-color:                          #999 !default;
+$subnav-margin-horizontal:                       10px !default;
+$subnav-margin-vertical:                         $subnav-margin-horizontal !default;
+
+$subnav-color:                                   #444 !default;
+$subnav-hover-color:                             #07D !default;
+$subnav-hover-text-decoration:                   none !default;
+$subnav-active-color:                            #07D !default;
 
 $subnav-line-border-height:                      10px !default;
 $subnav-line-border:                             #ddd !default;
@@ -38,92 +40,110 @@ $subnav-pill-hover-color:                        #444 !default;
 $subnav-pill-active-background:                  #00a8e6 !default;
 $subnav-pill-active-color:                       #fff !default;
 
+$subnav-disabled-color:                          #999 !default;
+
 
 /* ========================================================================
    Component: Subnav
  ========================================================================== */
 
 /*
- * 1. Remove default list style
- * 2. Remove whitespace between child elements when using `inline-block`
+ * 1. Gutter
+ * 2. Remove default list style
  */
 
 .uk-subnav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     /* 1 */
+    margin-left: -$subnav-margin-horizontal;
+    margin-top: -$subnav-margin-vertical;
+    /* 2 */
     padding: 0;
     list-style: none;
-    /* 2 */
-    font-size: 0.001px;
 }
+
+/*
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Horizontal gutter is using `padding` so `uk-width-*` classes can be applied
+ * 3. Create position context for dropdowns
+ */
+
+.uk-subnav > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: $subnav-margin-horizontal;
+    margin-top: $subnav-margin-vertical;
+    /* 3 */
+    position: relative;
+}
+
+/*
+ * DEPRECATED IE9 Support
+ */
+
+.uk-subnav:before,
+.uk-subnav:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+}
+
+.uk-subnav:after { clear: both; }
+
+.uk-subnav > * { float: left; }
 
 
 /* Items
  ========================================================================== */
 
-/*
- * 1. Create position context for dropdowns
- * 2. Reset whitespace hack
- */
-
-.uk-subnav > li {
-    /* 1 */
-    position: relative;
-    /* 2 */
-    font-size: $subnav-font-size;
-    vertical-align: top;
-}
-
-.uk-subnav > li,
-.uk-subnav > li > a,
-.uk-subnav > li > span { display: inline-block; }
-
-.uk-subnav > li:nth-child(n+2) { margin-left: $subnav-margin; }
-
-/*
- * Items
- */
-
-.uk-subnav > li > a,
-.uk-subnav > li > span {
-    @include hook-subnav-item();
-}
-
-.uk-subnav > li > a {
+.uk-subnav > * > * {
+    display: inline-block;
     color: $subnav-color;
-    @include hook-subnav-link();
+    @include hook-subnav();
 }
 
-.uk-subnav > li > a:hover {
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+
+.uk-subnav > * > *:hover,
+.uk-subnav > * > *:focus { // 1
     color: $subnav-hover-color;
-    @include hook-subnav-link-hover();
+    text-decoration: $subnav-hover-text-decoration;
+    @include hook-subnav-hover();
 }
 
 /*
  * Active
  */
 
-.uk-subnav > li.uk-active > a {
+.uk-subnav > .uk-active > * {
+    color: $subnav-active-color;
     @include hook-subnav-active();
-}
-
-/*
- * Disabled
- */
-
-.uk-subnav > li > span {
-    color: $subnav-disabled-color;
-    @include hook-subnav-disabled();
 }
 
 
 /* Modifier: 'subnav-line'
  ========================================================================== */
 
-.uk-subnav-line > li:nth-child(n+2):before {
+.uk-subnav-line > :before {
     content: "";
     display: inline-block;
     height: $subnav-line-border-height;
-    margin-right: $subnav-margin;
+    vertical-align: middle;
+}
+
+.uk-subnav-line > :nth-child(n+2):before {
+    margin-right: $subnav-margin-horizontal;
     border-left: $subnav-line-border-width solid $subnav-line-border;
     @include hook-subnav-line-divider();
 }
@@ -132,10 +152,8 @@ $subnav-pill-active-color:                       #fff !default;
 /* Modifier: 'subnav-pill'
  ========================================================================== */
 
-.uk-subnav-pill > li > a,
-.uk-subnav-pill > li > span {
+.uk-subnav-pill > * > * {
     padding: $subnav-pill-padding-vertical $subnav-pill-padding-horizontal;
-    text-decoration: none;
     @include hook-subnav-pill();
 }
 
@@ -145,10 +163,11 @@ $subnav-pill-active-color:                       #fff !default;
  * 2. Remove default focus style
  */
 
-.uk-subnav-pill > li > a:hover,
-.uk-subnav-pill > li > a:focus { // 1
+.uk-subnav-pill > * > *:hover,
+.uk-subnav-pill > * > *:focus { // 1
     background: $subnav-pill-hover-background;
     color: $subnav-pill-hover-color;
+    text-decoration: none;
     /* 2 */
     outline: none;
     @include hook-subnav-pill-hover();
@@ -159,10 +178,22 @@ $subnav-pill-active-color:                       #fff !default;
  * `li` needed for higher specificity to override hover
  */
 
-.uk-subnav-pill > li.uk-active > a {
+.uk-subnav-pill > .uk-active > * {
     background: $subnav-pill-active-background;
     color: $subnav-pill-active-color;
     @include hook-subnav-pill-active();
+}
+
+
+/* Disabled state
+ ========================================================================== */
+
+.uk-subnav > .uk-disabled > * {
+    background: none;
+    color: $subnav-disabled-color;
+    text-decoration: none;
+    cursor: text;
+    @include hook-subnav-disabled();
 }
 
 
@@ -171,13 +202,12 @@ $subnav-pill-active-color:                       #fff !default;
 
 @include hook-subnav-misc();
 
-// @mixin hook-subnav-item(){}
-// @mixin hook-subnav-link(){}
-// @mixin hook-subnav-link-hover(){}
+// @mixin hook-subnav(){}
+// @mixin hook-subnav-hover(){}
 // @mixin hook-subnav-active(){}
-// @mixin hook-subnav-disabled(){}
 // @mixin hook-subnav-line-divider(){}
 // @mixin hook-subnav-pill(){}
 // @mixin hook-subnav-pill-hover(){}
 // @mixin hook-subnav-pill-active(){}
+// @mixin hook-subnav-disabled(){}
 // @mixin hook-subnav-misc(){}

@@ -1,19 +1,19 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-upload", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -35,7 +35,7 @@
     UI.component('uploadDrop', {
 
         defaults: {
-            'dragoverClass': '@-dragover'
+            'dragoverClass': 'uk-dragover'
         },
 
         init: function() {
@@ -94,7 +94,7 @@
     })();
 
     if (UI.support.ajaxupload){
-        $.event.props.push("dataTransfer");
+        UI.$.event.props.push("dataTransfer");
     }
 
     function xhrupload(files, settings) {
@@ -103,7 +103,7 @@
             return this;
         }
 
-        settings = $.extend({}, xhrupload.defaults, settings);
+        settings = UI.$.extend({}, xhrupload.defaults, settings);
 
         if (!files.length){
             return;
@@ -198,7 +198,7 @@
 
                     if (settings.type=="json") {
                         try {
-                            response = $.parseJSON(response);
+                            response = UI.$.parseJSON(response);
                         } catch(e) {
                             response = false;
                         }

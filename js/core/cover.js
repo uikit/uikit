@@ -1,19 +1,5 @@
-/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(addon) {
-
-    var component;
-
-    if (jQuery && UIkit) {
-        component = addon(jQuery, UIkit);
-    }
-
-    if (typeof define == "function" && define.amd) {
-        define("uikit-cover", ["uikit"], function(){
-            return component || addon(jQuery, UIkit);
-        });
-    }
-
-})(function($, UI){
+/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+(function(UI){
 
     "use strict";
 
@@ -28,12 +14,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-@-cover]", context).each(function(){
+                UI.$("[data-uk-cover]", context).each(function(){
 
                     var ele = UI.$(this);
 
                     if(!ele.data("cover")) {
-                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-@-cover")));
+                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
                     }
                 });
             });
@@ -41,7 +27,7 @@
 
         init: function() {
 
-            this.parent    = this.element.parent();
+            this.parent = this.element.parent();
 
             UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
                 this.check();
@@ -52,8 +38,6 @@
             }.bind(this));
 
             this.check();
-
-            this.element.data("cover", this);
 
             if (this.element.is('iframe') && this.options.automute) {
 
@@ -108,4 +92,4 @@
         }
     });
 
-});
+})(UIkit);
