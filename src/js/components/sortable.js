@@ -491,6 +491,18 @@
                         });
                     }, 0);
             });
+        },
+
+        serialize: function() {
+
+            var data = [], item;
+
+            this.element.children().each(function() {
+                item = UI.$.extend({}, UI.$(this).data());
+                data.push(item);
+            });
+
+            return data;
         }
     });
 

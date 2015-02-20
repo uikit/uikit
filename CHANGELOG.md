@@ -10,6 +10,7 @@
   - DEPRECATED: Thumbnail component
   - DEPRECATED: uk-dotnav-vertical class (Use uk-flex-column)
   - Reworked overlay component completely
+  - Added serialize method to sortable object
   - Added possibility to enable and disable sticky component objects
   - Added thumbnav component
   - Added gutter collapse and medium classes to grid component
