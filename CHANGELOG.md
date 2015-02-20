@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.17.0 (February 20, 2015)
 
   - IMPORTANT: Removed caption component (Use overlay component)
   - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-medium)
