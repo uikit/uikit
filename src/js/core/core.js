@@ -42,7 +42,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.16.2';
+    UI.version = '2.17.0';
 
     UI.noConflict = function() {
         // resore UIkit version

@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.17.0 (February 20, 2015)
 
   - IMPORTANT: Removed caption component (Use overlay component)
   - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-medium)
@@ -10,14 +10,14 @@
   - DEPRECATED: Thumbnail component
   - DEPRECATED: uk-dotnav-vertical class (Use uk-flex-column)
   - Reworked overlay component completely
-  - Added serialize method to sortable object
-  - Added possibility to enable and disable sticky component objects
   - Added thumbnav component
   - Added gutter collapse and medium classes to grid component
   - Added more position classes to utility component
   - Added hover classes to panel component
   - Added icon hover class to icon component
   - Added uk-heading-large default values for small screens in utility component
+  - Added serialize method to sortable object
+  - Added possibility to enable and disable sticky component objects
   - Added scrollspy group with target selector
   - Added possibility to create dynamic lightboxes
   - Added manualclose.uk.notify and close.uk.notify events
