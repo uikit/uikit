@@ -35,7 +35,7 @@
 
             if (!this.columns.length) return;
 
-            UI.$win.on('resize orientationchange', (function() {
+            UI.$win.on('load resize orientationchange', (function() {
 
                 var fn = function() {
                     $this.match();
