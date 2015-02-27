@@ -41,10 +41,7 @@
                     $this.match();
                 };
 
-                UI.$(function() {
-                    fn();
-                    UI.$win.on("load", fn);
-                });
+                UI.$(function() { fn(); });
 
                 return UI.Utils.debounce(fn, 50);
             })());
