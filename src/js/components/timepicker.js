@@ -7,7 +7,7 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-search", ["uikit"], function(){
+        define("uikit-timepicker", ["uikit"], function(){
             return component || addon(UIkit);
         });
     }
@@ -173,11 +173,5 @@
                 }
             }
         },
-
-        formatTime: function(hour, minute, meridian) {
-            hour = hour < 10 ? '0' + hour : hour;
-            minute = minute < 10 ? '0' + minute : minute;
-            return hour + ':' + minute + (this.options.format == '12h' ? ' ' + meridian : '');
-        }
     });
 });
