@@ -32,8 +32,8 @@
             var $this = this;
 
             // Init ARIA
-            this.find(":not(.uk-active)").attr('aria-checked', false);
-            this.find(".uk-active").attr('aria-checked', true);
+            this.find($this.options.target).not(".uk-active").attr('aria-checked', false);
+            this.find($this.options.target).filter(".uk-active").attr('aria-checked', true);
 
             this.on("click", this.options.target, function(e) {
 
@@ -45,8 +45,8 @@
                 ele.addClass("uk-active");
 
                 // Update ARIA
-                $this.find(":not(.uk-active)").attr('aria-checked', false);
-                $this.find(".uk-active").attr('aria-checked', true);
+                $this.find($this.options.target).not(ele).attr('aria-checked', false);
+                ele.attr('aria-checked', true);
 
                 $this.trigger("change.uk.button", [ele]);
             });
@@ -86,15 +86,15 @@
             var $this = this;
 
             // Init ARIA
-            this.find(":not(.uk-active)").attr('aria-checked', false);
-            this.find(".uk-active").attr('aria-checked', true);
+            this.find($this.options.target).not(".uk-active").attr('aria-checked', false);
+            this.find($this.options.target).filter(".uk-active").attr('aria-checked', true);
 
             this.on("click", this.options.target, function(e) {
                 var ele = UI.$(this);
 
                 if (ele.is('a[href="#"]')) e.preventDefault();
 
-                ele.toggleClass("uk-active").blur()
+                ele.toggleClass("uk-active").blur();
 
                 // Update ARIA
                 ele.attr('aria-checked', ele.hasClass("uk-active"));
