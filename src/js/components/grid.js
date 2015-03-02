@@ -205,6 +205,11 @@
                 }.bind(this));
             }
 
+            // make sure to trigger possible scrollpies etc.
+            setTimeout(function() {
+                UI.$doc.trigger('scrolling.uk.document');
+            }, 2 * this.options.duration * (this.options.animation ? 1:0));
+
             this.trigger('afterupdate.uk.grid', [children]);
         },
 

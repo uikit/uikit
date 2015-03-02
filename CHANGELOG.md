@@ -2,6 +2,7 @@
 
 ### W.I.P
 
+  - Added trigger ```scrolling.uk.document``` after update grid layout
   - Fixed sticky wrapper resize on window resize/orientation change
 
 
