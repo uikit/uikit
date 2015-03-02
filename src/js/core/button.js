@@ -32,8 +32,8 @@
             var $this = this;
 
             // Init ARIA
-            this.find($this.options.target).not(".uk-active").attr('aria-checked', false);
-            this.find($this.options.target).filter(".uk-active").attr('aria-checked', true);
+            this.find($this.options.target).not(".uk-active").attr('aria-checked', 'false');
+            this.find($this.options.target).filter(".uk-active").attr('aria-checked', 'true');
 
             this.on("click", this.options.target, function(e) {
 
@@ -45,8 +45,8 @@
                 ele.addClass("uk-active");
 
                 // Update ARIA
-                $this.find($this.options.target).not(ele).attr('aria-checked', false);
-                ele.attr('aria-checked', true);
+                $this.find($this.options.target).not(ele).attr('aria-checked', 'false');
+                ele.attr('aria-checked', 'true');
 
                 $this.trigger("change.uk.button", [ele]);
             });
@@ -86,8 +86,8 @@
             var $this = this;
 
             // Init ARIA
-            this.find($this.options.target).not(".uk-active").attr('aria-checked', false);
-            this.find($this.options.target).filter(".uk-active").attr('aria-checked', true);
+            this.find($this.options.target).not(".uk-active").attr('aria-checked', 'false');
+            this.find($this.options.target).filter(".uk-active").attr('aria-checked', 'true');
 
             this.on("click", this.options.target, function(e) {
                 var ele = UI.$(this);
