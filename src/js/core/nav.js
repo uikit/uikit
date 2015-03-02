@@ -44,7 +44,7 @@
                 parent.data("list-container", $ele.parent());
 
                 // Init ARIA
-                parent.attr('aria-hidden', !parent.hasClass("uk-open"));
+                parent.attr('aria-expanded', parent.hasClass("uk-open"));
 
                 if (active) $this.open(parent, true);
             });
@@ -72,7 +72,7 @@
             $li.toggleClass("uk-open");
 
             // Update ARIA
-            $li.attr('aria-hidden', !$li.hasClass("uk-open"));
+            $li.attr('aria-expanded', $li.hasClass("uk-open"));
 
             if ($li.data("list-container")) {
 
