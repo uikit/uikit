@@ -24,6 +24,9 @@
 
             element.addClass("uk-active");
 
+            // Init ARIA
+            element.attr('aria-hidden', 'false');
+
             $body.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
             $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
 
@@ -45,6 +48,10 @@
                 finalize = function() {
                     $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
                     panel.removeClass("uk-active");
+
+                    // Update ARIA
+                    panel.attr('aria-hidden', 'true');
+
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
