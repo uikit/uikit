@@ -50,13 +50,13 @@
                     $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
                     panel.removeClass("uk-active");
 
-                    // Update ARIA
-                    panel.attr('aria-hidden', 'true');
-
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
                     UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
+                    
+                    // Update ARIA
+                    panel.attr('aria-hidden', 'true');
                 };
 
             if (!panel.length) return;
