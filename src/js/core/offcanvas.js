@@ -24,8 +24,6 @@
 
             element.addClass("uk-active");
 
-            // Init ARIA
-            element.attr('aria-hidden', 'false');
 
             $body.css({"width": window.innerWidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
             $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
@@ -37,6 +35,9 @@
             this._initElement(element);
 
             $doc.trigger('show.uk.offcanvas', [element, bar]);
+            
+            // Update ARIA
+            element.attr('aria-hidden', 'false');
         },
 
         hide: function(force) {
