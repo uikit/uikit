@@ -3,6 +3,7 @@
 ### W.I.P
 
   - Added trigger ```scrolling.uk.document``` after update grid layout
+  - Added ARIA support to javascript core
   - Fixed sticky wrapper resize on window resize/orientation change
 
 
