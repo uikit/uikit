@@ -32,8 +32,7 @@
             var $this = this;
 
             // Init ARIA
-            this.find($this.options.target).not(".uk-active").attr('aria-checked', 'false');
-            this.find($this.options.target).filter(".uk-active").attr('aria-checked', 'true');
+            this.find($this.options.target).attr('aria-checked', 'false').filter(".uk-active").attr('aria-checked', 'true');
 
             this.on("click", this.options.target, function(e) {
 
@@ -86,8 +85,7 @@
             var $this = this;
 
             // Init ARIA
-            this.find($this.options.target).not(".uk-active").attr('aria-checked', 'false');
-            this.find($this.options.target).filter(".uk-active").attr('aria-checked', 'true');
+            this.find($this.options.target).attr('aria-checked', 'false').filter(".uk-active").attr('aria-checked', 'true');
 
             this.on("click", this.options.target, function(e) {
                 var ele = UI.$(this);
