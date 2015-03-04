@@ -92,6 +92,13 @@
                 this.totoggle.toggleClass(this.options.cls);
                 UI.Utils.checkDisplay(this.totoggle);
             }
+
+            // Update ARIA
+            if (this.options.cls.indexOf('uk-hidden') !== -1) {
+                this.totoggle.each(function(){
+                   UI.$(this).attr('aria-hidden', UI.$(this).hasClass('uk-hidden'));
+                });
+            }
         },
 
         getToggles: function() {
