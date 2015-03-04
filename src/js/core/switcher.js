@@ -142,7 +142,7 @@
             if (active.hasClass("uk-disabled")) return;
 
             // Update ARIA for Toggles
-            toggles.filter(".uk-active").not(active).attr('aria-expanded', false);
+            toggles.attr('aria-expanded', 'false');
             active.attr('aria-expanded', 'true');
 
             toggles.filter(".uk-active").removeClass("uk-active");
