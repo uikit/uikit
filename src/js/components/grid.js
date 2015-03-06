@@ -243,9 +243,8 @@
             elements.hidden  = UI.$(elements.hidden).map(function () {return this[0];});
             elements.visible = UI.$(elements.visible).map(function () {return this[0];});
 
-            elements.hidden.filter(':visible').fadeOut(this.options.duration);
-
-            elements.visible.filter(':hidden').css('opacity', 0).show();
+            elements.hidden.attr('aria-hidden', 'true').filter(':visible').fadeOut(this.options.duration);
+            elements.visible.attr('aria-hidden', 'false').filter(':hidden').css('opacity', 0).show();
 
             $this.updateLayout(elements.visible);
         },
