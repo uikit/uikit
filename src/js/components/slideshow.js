@@ -161,7 +161,7 @@
             });
 
             // Set start slide
-            this.slides.eq(this.current).addClass('uk-active');
+            this.slides.attr('aria-hidden', 'true').eq(this.current).addClass('uk-active').attr('aria-hidden', 'false');
             this.triggers.filter('[data-uk-slideshow-item="'+this.current+'"]').addClass('uk-active');
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {
@@ -255,8 +255,8 @@
                         $this.playmedia(nextmedia);
                     }
 
-                    next.addClass("uk-active");
-                    current.removeClass("uk-active");
+                    next.addClass("uk-active").attr('aria-hidden', 'false');
+                    current.removeClass("uk-active").attr('aria-hidden', 'true');
 
                     $this.animating = false;
                     $this.current   = index;
