@@ -2,8 +2,8 @@
 
 ### W.I.P
 
+  - Added ARIA support to JavaScript components
   - Added trigger ```scrolling.uk.document``` after update grid layout
-  - Added ARIA support to JavaScript core components
   - Fixed sticky wrapper resize on window resize/orientation change
   - Fixed nestable+sortable: serialize only includes data attributes from HTML
 
