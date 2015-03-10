@@ -16,7 +16,7 @@
 
     "use strict";
 
-    var Animations;
+    var Animations, playerId = 0;
 
     UI.component('slideshow', {
 
@@ -86,9 +86,10 @@
                             media.css({'width': '100%','height': 'auto'});
                             slide.prepend(cover).data('cover', cover);
                             break;
+
                         case 'IFRAME':
 
-                            var src = media[0].src;
+                            var src = media[0].src, iframeId = 'sw-'+(++playerId);
 
                             media
                                 .attr('src', '').on('load', function(){
@@ -98,18 +99,25 @@
                                     }
 
                                     if ($this.options.videomute) {
+
                                         $this.mutemedia(media);
-                                        setTimeout(function() {
-                                            $this.mutemedia(media);
-                                        }, 1000);
+
+                                        var inv = setInterval((function(ic) {
+                                            return function() {
+                                                $this.mutemedia(media);
+                                                if (++ic >= 4) clearInterval(inv);
+                                            }
+                                        })(0), 250);
                                     }
 
                                 })
-                                .attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''))
+                                .data('slideshow', $this)  // add self-reference for the vimeo-ready listener
+                                .attr('data-player-id', iframeId)  // add frameId for the vimeo-ready listener
+                                .attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1&player_id='+iframeId].join(''))
                                 .addClass('uk-position-absolute');
 
-                                // disable pointer events
-                                if(!UI.support.touch) media.css('pointer-events', 'none');
+                            // disable pointer events
+                            if(!UI.support.touch) media.css('pointer-events', 'none');
 
                             placeholder = true;
 
@@ -119,6 +127,7 @@
                             }
 
                             break;
+
                         case 'VIDEO':
                             media.addClass('uk-cover-object uk-position-absolute');
                             placeholder = true;
@@ -483,5 +492,18 @@
     };
 
     UI.slideshow.animations = Animations;
+
+    // Listen for messages from the vimeo player
+    window.addEventListener('message', function onMessageReceived(e) {
+        var data = JSON.parse(e.data), iframe;
+
+        if (e.origin && e.origin.indexOf('vimeo') > -1 && data.event == 'ready' && data.player_id) {
+            iframe = UI.$('[data-player-id="'+ data.player_id+'"]');
+
+            if (iframe.length) {
+                iframe.data('slideshow').mutemedia(iframe);
+            }
+        }
+    }, false);
 
 });
