@@ -75,7 +75,7 @@
 
             if (collapse) {
                 this.toggle.not(wrapper.data('toggle')).removeClass(this.options.clsactive);
-                this.content.not(wrapper.data('content')).parent().stop().animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0});
+                this.content.not(wrapper.data('content')).parent().stop().animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0}).attr('aria-expanded', 'false');
             }
 
             if (animated) {
@@ -101,6 +101,9 @@
                 this.trigger('display.uk.check');
             }
 
+            // Update ARIA
+            wrapper.attr('aria-expanded', active);
+
             this.element.trigger('toggle.uk.accordion', [active, wrapper.data('toggle'), wrapper.data('content')]);
         },
 
@@ -119,6 +122,9 @@
                     $wrapper = $content.parent();
                 } else {
                     $wrapper = UI.$(this).wrap('<div data-wrapper="true" style="overflow:hidden;height:0;position:relative;"></div>').parent();
+
+                    // Init ARIA
+                    $wrapper.attr('aria-expanded', 'false');
                 }
 
                 $toggle = $this.toggle.eq(index);

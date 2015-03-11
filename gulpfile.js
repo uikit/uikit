@@ -449,7 +449,8 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
     themes.forEach(function(theme) {
 
         var modifyVars = {
-            'global-image-path': ('"../../'+theme.path+'/images"')
+            'global-image-path': ('"../../'+theme.path+'/images"'),
+            'global-font-path': ('"../../'+theme.path+'/fonts"')
         };
 
         promises.push(new Promise(function(resolve, reject){

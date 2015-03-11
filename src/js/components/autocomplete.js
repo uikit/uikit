@@ -84,6 +84,8 @@
                 this.dropdown.addClass('uk-dropdown-flip');
             }
 
+            this.dropdown.attr('aria-expanded', 'false');
+
             this.input.on({
                 "keydown": function(e) {
 
@@ -211,6 +213,10 @@
             this.element.addClass("uk-open");
 
             active = this;
+
+            // Update aria
+            this.dropdown.attr('aria-expanded', 'true');
+
             return this;
         },
 
@@ -222,6 +228,9 @@
             if (active === this) {
                 active = false;
             }
+
+            // Update aria
+            this.dropdown.attr('aria-expanded', 'false');
 
             return this;
         },

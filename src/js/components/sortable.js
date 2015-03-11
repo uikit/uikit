@@ -495,10 +495,16 @@
 
         serialize: function() {
 
-            var data = [], item;
+            var data = [], item, attribute;
 
-            this.element.children().each(function() {
-                item = UI.$.extend({}, UI.$(this).data());
+            this.element.children().each(function(j, child) {
+                item = {};
+                for (var i = 0; i < child.attributes.length; i++) {
+                    attribute = child.attributes[i];
+                    if (attribute.name.indexOf('data-') === 0) {
+                        item[attribute.name.substr(5)] = UI.Utils.str2json(attribute.value);
+                    }
+                }
                 data.push(item);
             });
 

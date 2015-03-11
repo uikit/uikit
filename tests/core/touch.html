@@ -9,14 +9,14 @@
         <script src="../_test.js"></script>
 
         <script>
-            $(window).bind('swipeRight', 'body', function(e) {
-                $('#output').prepend('<li>swipe right</li>');
+            jQuery(window).bind('swipeRight', 'body', function(e) {
+                jQuery('#output').prepend('<li>swipe right</li>');
             });
-            $(window).bind('swipeLeft', 'body', function(e) {
-                $('#output').prepend('<li>swipe left</li>');
+            jQuery(window).bind('swipeLeft', 'body', function(e) {
+                jQuery('#output').prepend('<li>swipe left</li>');
             });
-            $(window).bind('tap', 'body', function(e) {
-                $('#output').prepend('<li>tap</li>');
+            jQuery(window).bind('tap', 'body', function(e) {
+                jQuery('#output').prepend('<li>tap</li>');
             });
         </script>
 

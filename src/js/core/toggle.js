@@ -40,6 +40,8 @@
 
             var $this = this;
 
+            this.aria = (this.options.cls.indexOf('uk-hidden') !== -1);
+
             this.getToggles();
 
             this.on("click", function(e) {
@@ -92,10 +94,22 @@
                 this.totoggle.toggleClass(this.options.cls);
                 UI.Utils.checkDisplay(this.totoggle);
             }
+
+            this.updateAria();
+
         },
 
         getToggles: function() {
             this.totoggle = this.options.target ? UI.$(this.options.target):[];
+            this.updateAria();
+        },
+
+        updateAria: function() {
+            if (this.aria && this.totoggle.length) {
+                this.totoggle.each(function(){
+                    UI.$(this).attr('aria-hidden', UI.$(this).hasClass('uk-hidden'));
+                });
+            }
         }
     });
 
