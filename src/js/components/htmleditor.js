@@ -27,7 +27,6 @@
             autocomplete : true,
             height       : 500,
             maxsplitsize : 1000,
-            markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
             codemirror   : { mode: 'htmlmixed', lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, indentWithTabs: false, tabSize: 4, hintOptions: {completionSingle:false} },
             toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
             lblPreview   : 'Preview',
@@ -505,14 +504,12 @@
 
         init: function(editor) {
 
-            var parser = editor.options.marked || marked;
+            var parser = editor.options.mdparser || marked || null;
 
             if (!parser) return;
 
-            parser.setOptions(editor.options.markedOptions);
-
             if (editor.options.markdown) {
-                enableMarkdown()
+                enableMarkdown();
             }
 
             addAction('bold', '**$1**');
