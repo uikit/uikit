@@ -1,6 +1,6 @@
 # Changelog
 
-### W.I.P
+### 2.18.0 (March 11, 2015)
 
   - Added ARIA support to JavaScript components
   - Added trigger ```scrolling.uk.document``` after update grid layout
