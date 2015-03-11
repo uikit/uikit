@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -35,6 +35,9 @@
             this._initElement(element);
 
             $doc.trigger('show.uk.offcanvas', [element, bar]);
+            
+            // Update ARIA
+            element.attr('aria-hidden', 'false');
         },
 
         hide: function(force) {
@@ -46,10 +49,14 @@
                 finalize = function() {
                     $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
                     panel.removeClass("uk-active");
+
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
                     UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
+                    
+                    // Update ARIA
+                    panel.attr('aria-hidden', 'true');
                 };
 
             if (!panel.length) return;

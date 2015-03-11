@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -44,6 +44,9 @@
                 $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
                 parent.data("list-container", $ele.parent());
 
+                // Init ARIA
+                parent.attr('aria-expanded', parent.hasClass("uk-open"));
+
                 if (active) $this.open(parent, true);
             });
 
@@ -68,6 +71,9 @@
             }
 
             $li.toggleClass("uk-open");
+
+            // Update ARIA
+            $li.attr('aria-expanded', $li.hasClass("uk-open"));
 
             if ($li.data("list-container")) {
 

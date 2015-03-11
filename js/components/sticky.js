@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -46,6 +46,7 @@
 
                 for (var i = 0; i < sticked.length; i++) {
                     sticked[i].reset(true);
+                    sticked[i].self.computeWrapper();
                 }
 
                 checkscrollposition();
@@ -72,19 +73,17 @@
 
         init: function() {
 
-            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>').css({
-                        'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
-                        'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
-                        'margin' : this.element.css("margin")
-                }), boundary = this.options.boundary, boundtoparent;
+            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>'), boundary = this.options.boundary, boundtoparent;
 
-            wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
+            this.wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
+
+            this.computeWrapper();
 
             if (boundary) {
 
                 if (boundary === true) {
 
-                    boundary      = wrapper.parent();
+                    boundary      = this.wrapper.parent();
                     boundtoparent = true;
 
                 } else if (typeof boundary === "string") {
@@ -93,12 +92,13 @@
             }
 
             this.sticky = {
+                self          : this,
                 options       : this.options,
                 element       : this.element,
                 currentTop    : null,
-                wrapper       : wrapper,
+                wrapper       : this.wrapper,
                 init          : false,
-                getWidthFrom  : this.options.getWidthFrom || wrapper,
+                getWidthFrom  : this.options.getWidthFrom || this.wrapper,
                 boundary      : boundary,
                 boundtoparent : boundtoparent,
                 reset         : function(force) {
@@ -174,6 +174,15 @@
         disable: function(force) {
             this.options.disabled = true;
             this.sticky.reset(force);
+        },
+
+        computeWrapper: function() {
+
+            this.wrapper.css({
+                'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
+                'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
+                'margin' : this.element.css("margin")
+            });
         }
     });
 

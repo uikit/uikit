@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1167,9 +1167,9 @@ iframe {
   clear: both;
 }
 /*
- * Remove margin from the last-child if not `uk-widget-title`
+ * Remove margin from the last-child
  */
-.uk-panel > :not(.uk-panel-title):last-child {
+.uk-panel > :last-child {
   margin-bottom: 0;
 }
 /* Sub-object: `uk-panel-title`

@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -40,8 +40,16 @@
                     return;
                 }
 
-                $this.find($this.options.target).not(this).removeClass("uk-active").blur();
+                var current = $this.find($this.options.target).not(this);
+
+                current.removeClass("uk-active").blur();
                 $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active")]);
+
+                // Update ARIA
+                if (!$this.options.connect) {
+                    current.attr('aria-expanded', 'false');
+                    UI.$(this).attr('aria-expanded', 'true');
+                }
             });
 
             if (this.options.connect) {

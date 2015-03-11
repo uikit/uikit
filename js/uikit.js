@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -43,7 +43,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.17.0';
+    UI.version = '2.18.0';
 
     UI.noConflict = function() {
         // resore UIkit version
@@ -1331,6 +1331,8 @@
 
             var $this = this;
 
+            this.aria = (this.options.cls.indexOf('uk-hidden') !== -1);
+
             this.getToggles();
 
             this.on("click", function(e) {
@@ -1383,10 +1385,22 @@
                 this.totoggle.toggleClass(this.options.cls);
                 UI.Utils.checkDisplay(this.totoggle);
             }
+
+            this.updateAria();
+
         },
 
         getToggles: function() {
             this.totoggle = this.options.target ? UI.$(this.options.target):[];
+            this.updateAria();
+        },
+
+        updateAria: function() {
+            if (this.aria && this.totoggle.length) {
+                this.totoggle.each(function(){
+                    UI.$(this).attr('aria-hidden', UI.$(this).hasClass('uk-hidden'));
+                });
+            }
         }
     });
 
@@ -1491,6 +1505,9 @@
 
             var $this = this;
 
+            // Init ARIA
+            this.find($this.options.target).attr('aria-checked', 'false').filter(".uk-active").attr('aria-checked', 'true');
+
             this.on("click", this.options.target, function(e) {
 
                 var ele = UI.$(this);
@@ -1498,7 +1515,13 @@
                 if (ele.is('a[href="#"]')) e.preventDefault();
 
                 $this.find($this.options.target).not(ele).removeClass("uk-active").blur();
-                $this.trigger("change.uk.button", [ele.addClass("uk-active")]);
+                ele.addClass("uk-active");
+
+                // Update ARIA
+                $this.find($this.options.target).not(ele).attr('aria-checked', 'false');
+                ele.attr('aria-checked', 'true');
+
+                $this.trigger("change.uk.button", [ele]);
             });
 
         },
@@ -1525,7 +1548,7 @@
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
-                        ele.trigger("change.uk.button", [target.toggleClass("uk-active").blur()]);
+                        target.trigger("click");
                     }
                 }
             });
@@ -1535,11 +1558,20 @@
 
             var $this = this;
 
+            // Init ARIA
+            this.find($this.options.target).attr('aria-checked', 'false').filter(".uk-active").attr('aria-checked', 'true');
+
             this.on("click", this.options.target, function(e) {
+                var ele = UI.$(this);
 
-                if (UI.$(this).is('a[href="#"]')) e.preventDefault();
+                if (ele.is('a[href="#"]')) e.preventDefault();
 
-                $this.trigger("change.uk.button", [UI.$(this).toggleClass("uk-active").blur()]);
+                ele.toggleClass("uk-active").blur();
+
+                // Update ARIA
+                ele.attr('aria-checked', ele.hasClass("uk-active"));
+
+                $this.trigger("change.uk.button", [ele]);
             });
 
         },
@@ -1571,6 +1603,9 @@
 
             var $this = this;
 
+            // Init ARIA
+            this.element.attr('aria-pressed', this.element.hasClass("uk-active"));
+
             this.on("click", function(e) {
 
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
@@ -1583,6 +1618,9 @@
 
         toggle: function() {
             this.element.toggleClass("uk-active");
+
+            // Update ARIA
+            this.element.attr('aria-pressed', this.element.hasClass("uk-active"));
         }
     });
 
@@ -1645,6 +1683,10 @@
             if (!this.boundary.length) {
                 this.boundary = UI.$win;
             }
+
+            // Init ARIA
+            this.element.attr('aria-haspopup', 'true');
+            this.element.attr('aria-expanded', this.element.hasClass("uk-open"));
 
             if (this.options.mode == "click" || UI.support.touch) {
 
@@ -1720,6 +1762,9 @@
 
             if (active && active[0] != this.element[0]) {
                 active.removeClass('uk-open');
+
+                // Update ARIA
+                active.attr('aria-expanded', 'false');
             }
 
             if (hoverIdle) {
@@ -1728,6 +1773,10 @@
 
             this.checkDimensions();
             this.element.addClass('uk-open');
+
+            // Update ARIA
+            this.element.attr('aria-expanded', 'true');
+
             this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
@@ -1739,6 +1788,9 @@
         hide: function() {
             this.element.removeClass('uk-open');
             this.remainIdle = false;
+
+            // Update ARIA
+            this.element.attr('aria-expanded', 'false');
 
             if (active && active[0] == this.element[0]) active = false;
         },
@@ -1888,16 +1940,13 @@
 
             if (!this.columns.length) return;
 
-            UI.$win.on('resize orientationchange', (function() {
+            UI.$win.on('load resize orientationchange', (function() {
 
                 var fn = function() {
                     $this.match();
                 };
 
-                UI.$(function() {
-                    fn();
-                    UI.$win.on("load", fn);
-                });
+                UI.$(function() { fn(); });
 
                 return UI.Utils.debounce(fn, 50);
             })());
@@ -2053,6 +2102,9 @@
             this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
             this.dialog     = this.find(".uk-modal-dialog");
 
+            // Update ARIA
+            this.element.attr('aria-hidden', this.element.hasClass("uk-open"));
+
             this.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
                 $this.hide();
@@ -2083,7 +2135,12 @@
             active = this;
             $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
-            this.element.addClass("uk-open").trigger("show.uk.modal");
+            this.element.addClass("uk-open");
+
+            // Update ARIA
+            this.element.attr('aria-hidden', 'false');
+
+            this.element.trigger("show.uk.modal");
 
             UI.Utils.checkDisplay(this.dialog, true);
 
@@ -2158,6 +2215,9 @@
         _hide: function() {
 
             this.element.hide().removeClass("uk-open");
+
+            // Update ARIA
+            this.element.attr('aria-hidden', 'true');
 
             $html.removeClass("uk-modal-page");
 
@@ -2347,6 +2407,9 @@
                 $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
                 parent.data("list-container", $ele.parent());
 
+                // Init ARIA
+                parent.attr('aria-expanded', parent.hasClass("uk-open"));
+
                 if (active) $this.open(parent, true);
             });
 
@@ -2371,6 +2434,9 @@
             }
 
             $li.toggleClass("uk-open");
+
+            // Update ARIA
+            $li.attr('aria-expanded', $li.hasClass("uk-open"));
 
             if ($li.data("list-container")) {
 
@@ -2449,6 +2515,9 @@
             this._initElement(element);
 
             $doc.trigger('show.uk.offcanvas', [element, bar]);
+            
+            // Update ARIA
+            element.attr('aria-hidden', 'false');
         },
 
         hide: function(force) {
@@ -2460,10 +2529,14 @@
                 finalize = function() {
                     $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
                     panel.removeClass("uk-active");
+
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
                     UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
+                    
+                    // Update ARIA
+                    panel.attr('aria-hidden', 'true');
                 };
 
             if (!panel.length) return;
@@ -2629,6 +2702,9 @@
                 // delegate switch commands within container content
                 if (this.connect.length) {
 
+                    // Init ARIA for connect
+                    this.connect.children().attr('aria-hidden', 'true');
+
                     this.connect.on("click", '[data-uk-switcher-item]', function(e) {
 
                         e.preventDefault();
@@ -2664,6 +2740,10 @@
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
 
+                // Init ARIA for toggles
+                toggles.not(active).attr('aria-expanded', 'false');
+                active.attr('aria-expanded', 'true');
+
                 this.on('changed.uk.dom', function() {
                     $this.connect = UI.$($this.options.connect);
                 });
@@ -2688,6 +2768,7 @@
             }
 
             var $this     = this,
+                toggles   = this.find(this.options.toggle),
                 active    = UI.$(tab),
                 animation = Animations[this.options.animation] || function(current, next) {
 
@@ -2713,7 +2794,11 @@
 
             if (active.hasClass("uk-disabled")) return;
 
-            this.find(this.options.toggle).filter(".uk-active").removeClass("uk-active");
+            // Update ARIA for Toggles
+            toggles.attr('aria-expanded', 'false');
+            active.attr('aria-expanded', 'true');
+
+            toggles.filter(".uk-active").removeClass("uk-active");
             active.addClass("uk-active");
 
             if (this.options.connect && this.connect.length) {
@@ -2737,6 +2822,11 @@
 
                             current.removeClass("uk-active");
                             next.addClass("uk-active");
+
+                            // Update ARIA for connect
+                            current.attr('aria-hidden', 'true');
+                            next.attr('aria-hidden', 'false');
+
                             UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;
@@ -2898,8 +2988,16 @@
                     return;
                 }
 
-                $this.find($this.options.target).not(this).removeClass("uk-active").blur();
+                var current = $this.find($this.options.target).not(this);
+
+                current.removeClass("uk-active").blur();
                 $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active")]);
+
+                // Update ARIA
+                if (!$this.options.connect) {
+                    current.attr('aria-expanded', 'false');
+                    UI.$(this).attr('aria-expanded', 'true');
+                }
             });
 
             if (this.options.connect) {

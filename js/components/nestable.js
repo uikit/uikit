@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
@@ -223,9 +223,16 @@
 
                     items.each(function() {
 
-                        var li   = UI.$(this),
-                            item = UI.$.extend({}, li.data()),
-                            sub  = li.children(list.options.listNodeName);
+                        var li    = UI.$(this),
+                            item  = {}, attribute,
+                            sub   = li.children(list.options.listNodeName);
+
+                        for (var i = 0; i < li[0].attributes.length; i++) {
+                            attribute = li[0].attributes[i];
+                            if (attribute.name.indexOf('data-') === 0) {
+                                item[attribute.name.substr(5)] = UI.Utils.str2json(attribute.value);
+                            }
+                        }
 
                         if (sub.length) {
                             item.children = step(sub, depth + 1);

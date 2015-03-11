@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -32,6 +32,9 @@
 
             var $this = this;
 
+            // Init ARIA
+            this.find($this.options.target).attr('aria-checked', 'false').filter(".uk-active").attr('aria-checked', 'true');
+
             this.on("click", this.options.target, function(e) {
 
                 var ele = UI.$(this);
@@ -39,7 +42,13 @@
                 if (ele.is('a[href="#"]')) e.preventDefault();
 
                 $this.find($this.options.target).not(ele).removeClass("uk-active").blur();
-                $this.trigger("change.uk.button", [ele.addClass("uk-active")]);
+                ele.addClass("uk-active");
+
+                // Update ARIA
+                $this.find($this.options.target).not(ele).attr('aria-checked', 'false');
+                ele.attr('aria-checked', 'true');
+
+                $this.trigger("change.uk.button", [ele]);
             });
 
         },
@@ -66,7 +75,7 @@
                         target = UI.$(e.target);
 
                     if (target.is(obj.options.target)) {
-                        ele.trigger("change.uk.button", [target.toggleClass("uk-active").blur()]);
+                        target.trigger("click");
                     }
                 }
             });
@@ -76,11 +85,20 @@
 
             var $this = this;
 
+            // Init ARIA
+            this.find($this.options.target).attr('aria-checked', 'false').filter(".uk-active").attr('aria-checked', 'true');
+
             this.on("click", this.options.target, function(e) {
+                var ele = UI.$(this);
 
-                if (UI.$(this).is('a[href="#"]')) e.preventDefault();
+                if (ele.is('a[href="#"]')) e.preventDefault();
 
-                $this.trigger("change.uk.button", [UI.$(this).toggleClass("uk-active").blur()]);
+                ele.toggleClass("uk-active").blur();
+
+                // Update ARIA
+                ele.attr('aria-checked', ele.hasClass("uk-active"));
+
+                $this.trigger("change.uk.button", [ele]);
             });
 
         },
@@ -112,6 +130,9 @@
 
             var $this = this;
 
+            // Init ARIA
+            this.element.attr('aria-pressed', this.element.hasClass("uk-active"));
+
             this.on("click", function(e) {
 
                 if ($this.element.is('a[href="#"]')) e.preventDefault();
@@ -124,6 +145,9 @@
 
         toggle: function() {
             this.element.toggleClass("uk-active");
+
+            // Update ARIA
+            this.element.attr('aria-pressed', this.element.hasClass("uk-active"));
         }
     });
 

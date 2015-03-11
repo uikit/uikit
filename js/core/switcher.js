@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -50,6 +50,9 @@
                 // delegate switch commands within container content
                 if (this.connect.length) {
 
+                    // Init ARIA for connect
+                    this.connect.children().attr('aria-hidden', 'true');
+
                     this.connect.on("click", '[data-uk-switcher-item]', function(e) {
 
                         e.preventDefault();
@@ -85,6 +88,10 @@
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
 
+                // Init ARIA for toggles
+                toggles.not(active).attr('aria-expanded', 'false');
+                active.attr('aria-expanded', 'true');
+
                 this.on('changed.uk.dom', function() {
                     $this.connect = UI.$($this.options.connect);
                 });
@@ -109,6 +116,7 @@
             }
 
             var $this     = this,
+                toggles   = this.find(this.options.toggle),
                 active    = UI.$(tab),
                 animation = Animations[this.options.animation] || function(current, next) {
 
@@ -134,7 +142,11 @@
 
             if (active.hasClass("uk-disabled")) return;
 
-            this.find(this.options.toggle).filter(".uk-active").removeClass("uk-active");
+            // Update ARIA for Toggles
+            toggles.attr('aria-expanded', 'false');
+            active.attr('aria-expanded', 'true');
+
+            toggles.filter(".uk-active").removeClass("uk-active");
             active.addClass("uk-active");
 
             if (this.options.connect && this.connect.length) {
@@ -158,6 +170,11 @@
 
                             current.removeClass("uk-active");
                             next.addClass("uk-active");
+
+                            // Update ARIA for connect
+                            current.attr('aria-hidden', 'true');
+                            next.attr('aria-hidden', 'false');
+
                             UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;

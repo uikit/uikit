@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -206,6 +206,11 @@
                 }.bind(this));
             }
 
+            // make sure to trigger possible scrollpies etc.
+            setTimeout(function() {
+                UI.$doc.trigger('scrolling.uk.document');
+            }, 2 * this.options.duration * (this.options.animation ? 1:0));
+
             this.trigger('afterupdate.uk.grid', [children]);
         },
 
@@ -239,9 +244,8 @@
             elements.hidden  = UI.$(elements.hidden).map(function () {return this[0];});
             elements.visible = UI.$(elements.visible).map(function () {return this[0];});
 
-            elements.hidden.filter(':visible').fadeOut(this.options.duration);
-
-            elements.visible.filter(':hidden').css('opacity', 0).show();
+            elements.hidden.attr('aria-hidden', 'true').filter(':visible').fadeOut(this.options.duration);
+            elements.visible.attr('aria-hidden', 'false').filter(':hidden').css('opacity', 0).show();
 
             $this.updateLayout(elements.visible);
         },

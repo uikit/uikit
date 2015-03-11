@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -84,6 +84,8 @@
             if (this.options.flipDropdown) {
                 this.dropdown.addClass('uk-dropdown-flip');
             }
+
+            this.dropdown.attr('aria-expanded', 'false');
 
             this.input.on({
                 "keydown": function(e) {
@@ -212,6 +214,10 @@
             this.element.addClass("uk-open");
 
             active = this;
+
+            // Update aria
+            this.dropdown.attr('aria-expanded', 'true');
+
             return this;
         },
 
@@ -223,6 +229,9 @@
             if (active === this) {
                 active = false;
             }
+
+            // Update aria
+            this.dropdown.attr('aria-expanded', 'false');
 
             return this;
         },

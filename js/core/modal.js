@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -26,6 +26,9 @@
             this.transition = UI.support.transition;
             this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
             this.dialog     = this.find(".uk-modal-dialog");
+
+            // Update ARIA
+            this.element.attr('aria-hidden', this.element.hasClass("uk-open"));
 
             this.on("click", ".uk-modal-close", function(e) {
                 e.preventDefault();
@@ -57,7 +60,12 @@
             active = this;
             $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
-            this.element.addClass("uk-open").trigger("show.uk.modal");
+            this.element.addClass("uk-open");
+
+            // Update ARIA
+            this.element.attr('aria-hidden', 'false');
+
+            this.element.trigger("show.uk.modal");
 
             UI.Utils.checkDisplay(this.dialog, true);
 
@@ -132,6 +140,9 @@
         _hide: function() {
 
             this.element.hide().removeClass("uk-open");
+
+            // Update ARIA
+            this.element.attr('aria-hidden', 'true');
 
             $html.removeClass("uk-modal-page");
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -36,16 +36,13 @@
 
             if (!this.columns.length) return;
 
-            UI.$win.on('resize orientationchange', (function() {
+            UI.$win.on('load resize orientationchange', (function() {
 
                 var fn = function() {
                     $this.match();
                 };
 
-                UI.$(function() {
-                    fn();
-                    UI.$win.on("load", fn);
-                });
+                UI.$(function() { fn(); });
 
                 return UI.Utils.debounce(fn, 50);
             })());

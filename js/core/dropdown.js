@@ -1,4 +1,4 @@
-/*! UIkit 2.17.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -56,6 +56,10 @@
             if (!this.boundary.length) {
                 this.boundary = UI.$win;
             }
+
+            // Init ARIA
+            this.element.attr('aria-haspopup', 'true');
+            this.element.attr('aria-expanded', this.element.hasClass("uk-open"));
 
             if (this.options.mode == "click" || UI.support.touch) {
 
@@ -131,6 +135,9 @@
 
             if (active && active[0] != this.element[0]) {
                 active.removeClass('uk-open');
+
+                // Update ARIA
+                active.attr('aria-expanded', 'false');
             }
 
             if (hoverIdle) {
@@ -139,6 +146,10 @@
 
             this.checkDimensions();
             this.element.addClass('uk-open');
+
+            // Update ARIA
+            this.element.attr('aria-expanded', 'true');
+
             this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
@@ -150,6 +161,9 @@
         hide: function() {
             this.element.removeClass('uk-open');
             this.remainIdle = false;
+
+            // Update ARIA
+            this.element.attr('aria-expanded', 'false');
 
             if (active && active[0] == this.element[0]) active = false;
         },
