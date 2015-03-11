@@ -31,16 +31,16 @@
             times['12h'].push({value: (h+':00 AM')});
             times['12h'].push({value: (h+':30 AM')});
         }
-
-        if (i > 12) {
+         if (i >= 12) {
 
             h = h-12;
-
+            if (h == 0) h = 12;
             if (h < 10) h = '0'+String(h);
 
             times['12h'].push({value: (h+':00 PM')});
             times['12h'].push({value: (h+':30 PM')});
         }
+       
     }
 
 
