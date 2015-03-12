@@ -1,11 +1,11 @@
 # Changelog
 
-### W.I.P
+### 2.18.0 (March 11, 2015)
 
   - Added ARIA support to JavaScript components
   - Added trigger ```scrolling.uk.document``` after update grid layout
   - Fixed sticky wrapper resize on window resize/orientation change
-  - Fixed nestable+sortable: serialize only includes data attributes from HTML
+  - Fixed serialize to only include data attributes from HTML in nestable and sortable component
   - Fixed video mute bug in slideshow for vimeo player
 
 
