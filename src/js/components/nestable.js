@@ -1,3 +1,4 @@
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
@@ -72,6 +73,8 @@
             collapsedClass  : '{prefix}collapsed',
             placeClass      : '{prefix}nestable-placeholder',
             noDragClass     : '{prefix}nestable-nodrag',
+            noNestClass     : '{prefix}nestable-nonest',
+            noChildrenClass     : '{prefix}nestable-nochildren',
             emptyClass      : '{prefix}nestable-empty',
             group           : 0,
             maxDepth        : 10,
@@ -113,6 +116,8 @@
         init: function() {
 
             var $this = this;
+
+            //this.disabledNest = false;
 
             Object.keys(this.options).forEach(function(key){
 
@@ -166,6 +171,7 @@
             var onStartEvent = function(e) {
 
                 var handle = UI.$(e.target);
+                $this.disabledNest = ($(e.target).closest("."+$this.options.noNestClass).length > 0);
 
                 if (!handle.hasClass($this.options.handleClass)) {
                     if (handle.closest('.' + $this.options.noDragClass).length) {
@@ -431,10 +437,17 @@
                 opt   = this.options,
                 mouse = this.mouse;
 
-            this.dragEl.css({
-                left : e.pageX - mouse.offsetX,
-                top  : e.pageY - mouse.offsetY
-            });
+            if (this.disabledNest){
+              this.dragEl.css({
+                  top  : e.pageY - mouse.offsetY
+              });
+            }
+            else{
+              this.dragEl.css({
+                  left : e.pageX - mouse.offsetX,
+                  top  : e.pageY - mouse.offsetY
+              });
+            }
 
             // mouse position last events
             mouse.lastX = mouse.nowX;
@@ -485,7 +498,7 @@
                 mouse.distAxX = 0;
                 prev = this.placeEl.prev(opt.itemNodeName);
                 // increase horizontal level if previous sibling exists and is not collapsed
-                if (mouse.distX > 0 && prev.length && !prev.hasClass(opt.collapsedClass)) {
+               if (mouse.distX > 0 && prev.length && !prev.hasClass(opt.collapsedClass) && !prev.find("."+this.itemClass).hasClass(opt.noChildrenClass)) {
                     // cannot increase level when item above is collapsed
                     list = prev.find(opt.listNodeName).last();
                     // check if depth limit has reached
