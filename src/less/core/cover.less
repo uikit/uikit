@@ -61,6 +61,14 @@
     transform: translate(-50%,-50%);
 }
 
+/*
+ * Prevent off-center fullscreen display in Chrome
+ */
+
+[data-uk-cover]:-webkit-full-screen {
+  -webkit-transform: translate(0,0);
+  transform: translate(0,0);
+}
 
 // Hooks
 // ========================================================================
