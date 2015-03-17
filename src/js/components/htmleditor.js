@@ -70,7 +70,10 @@
             this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
             this.editor.htmleditor = this;
             this.editor.on('change', UI.Utils.debounce(function() { $this.render(); }, 150));
-            this.editor.on('change', function() { $this.editor.save(); });
+            this.editor.on('change', function() { 
+                $this.editor.save();
+                $this.element.trigger('input');
+            });
             this.code.find('.CodeMirror').css('height', this.options.height);
 
             // iframe mode?

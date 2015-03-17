@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Added trigger 'input' after htmleditor change
+
 ### 2.18.0 (March 11, 2015)
 
   - Added ARIA support to JavaScript components
