@@ -273,7 +273,7 @@
 
             lightbox.on("showitem.uk.lightbox", function(e, data){
 
-                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
+                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
 
                     var resolve = function(source, width, height) {
 
@@ -439,7 +439,7 @@
                     data.promise.resolve();
                 };
 
-                if (data.type == 'video' || data.source.match(/\.(mp4|webm|ogv)$/)) {
+                if (data.type == 'video' || data.source.match(/\.(mp4|webm|ogv)$/i)) {
 
                     if (!cache[data.source]) {
 
