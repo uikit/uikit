@@ -3,6 +3,7 @@
 ### WIP
 
   - Added trigger 'input' after htmleditor change
+  - Fixed lightbox extension matcher is now case insensitive
 
 ### 2.18.0 (March 11, 2015)
 
@@ -11,7 +12,6 @@
   - Fixed sticky wrapper resize on window resize/orientation change
   - Fixed serialize to only include data attributes from HTML in nestable and sortable component
   - Fixed video mute bug in slideshow for vimeo player
-  - Fixed lighbox extension matcher is now case insensitive
 
 
 ### 2.17.0 (February 20, 2015)
