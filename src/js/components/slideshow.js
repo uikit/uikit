@@ -495,7 +495,17 @@
 
     // Listen for messages from the vimeo player
     window.addEventListener('message', function onMessageReceived(e) {
-        var data = JSON.parse(e.data), iframe;
+
+        var data = e.data, iframe;
+
+        if (typeof(data) == 'string') {
+
+            try {
+                data = JSON.parse(data);
+            } catch(err) {
+                data = {};
+            }
+        }
 
         if (e.origin && e.origin.indexOf('vimeo') > -1 && data.event == 'ready' && data.player_id) {
             iframe = UI.$('[data-player-id="'+ data.player_id+'"]');
