@@ -236,7 +236,9 @@
                         if (sub.length) {
                             item.children = step(sub, depth + 1);
                         }
+
                         array.push(item);
+
                     });
                     return array;
                 };
@@ -247,8 +249,6 @@
         },
 
         list: function(options) {
-
-            options = UI.$.extend({}, list.options, options);
 
             var data  = [],
                 list  = this,
@@ -269,6 +269,8 @@
                         }
                     });
                 };
+
+            options = UI.$.extend({}, list.options, options);
 
             step(list.element, depth);
 
@@ -412,10 +414,10 @@
 
             if (this.hasNewRoot || this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
-                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl]);
+                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl, this]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl]);
+                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl, this]);
                 }
             }
 

@@ -5,6 +5,7 @@
   - Added trigger 'input' after htmleditor change
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
+  - Fixed nestable list helper function
 
 ### 2.18.0 (March 11, 2015)
 
