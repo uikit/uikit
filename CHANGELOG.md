@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added support for overlaying an image with a second image to overlay component
   - Added trigger 'input' after htmleditor change
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
