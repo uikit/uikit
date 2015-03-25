@@ -417,7 +417,7 @@
                 this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl, this]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl, this]);
+                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl, this.dragRootEl.data('nestable')]);
                 }
             }
 
