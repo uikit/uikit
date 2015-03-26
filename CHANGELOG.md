@@ -8,6 +8,7 @@
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
   - Fixed nestable list helper function
+  - Fixed nestable event arguments
 
 ### 2.18.0 (March 11, 2015)
 

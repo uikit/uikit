@@ -1,21 +1,21 @@
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
- (function(addon) {
+(function(addon) {
 
-     var component;
+    var component;
 
-     if (window.UIkit) {
-         component = addon(UIkit);
-     }
+    if (window.UIkit) {
+        component = addon(UIkit);
+    }
 
-     if (typeof define == "function" && define.amd) {
-         define("uikit-nestable", ["uikit"], function(){
-             return component || addon(UIkit);
-         });
-     }
+    if (typeof define == "function" && define.amd) {
+        define("uikit-nestable", ["uikit"], function(){
+            return component || addon(UIkit);
+        });
+    }
 
- })(function(UI) {
+})(function(UI) {
 
     "use strict";
 
@@ -414,10 +414,10 @@
 
             if (this.hasNewRoot || this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
-                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl, this]);
+                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl, this.dragRootEl.data('nestable')]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl, this.dragRootEl.data('nestable')]);
+                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.element, this]);
                 }
             }
 
