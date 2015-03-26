@@ -18,22 +18,24 @@
 
     var parallaxes      = [],
         scrolltop       = 0,
-        scrolldir       = 1,
         checkParallaxes = function() {
 
-            scrolldir = scrolltop < UI.$win.scrollTop() ? 1 : -1;
             scrolltop = UI.$win.scrollTop();
 
-            for (var i=0; i < parallaxes.length; i++) {
-                parallaxes[i].process();
-            }
+            UI.support.requestAnimationFrame.apply(window, [function(){
+                for (var i=0; i < parallaxes.length; i++) {
+                    parallaxes[i].process();
+                }
+            }]);
         };
+
 
     UI.component('parallax', {
 
         defaults: {
-            _v : 1,
-            _b : false
+            _v : 0.8,
+            _b : false,
+            _d : false
         },
 
         boot: function() {
@@ -87,7 +89,7 @@
                 percent = 0,
                 top     = scrolltop < wh ? scrolltop : scrolltop - wh,
                 start   = offset.top < wh ? 0 : offset.top - wh,
-                end     = offset.top + height;
+                end     = this.options._d ? offset.top : offset.top + height;
 
             if (end > (UI.$html.height() - 2*wh)) {
                 end = UI.$html.height() - wh;
@@ -126,8 +128,15 @@
                     val = opts.start + (opts.diff * compercent * opts.dir);
                 }
 
+                if ((prop == 'bg' || prop == 'bg%') && !this._bgcovered) {
+                    css['background-size']   = 'cover';
+                    css['background-repeat'] = 'no-repeat';
+                    this._bgcovered = true;
+                }
+
                 switch(prop) {
 
+                    // transforms
                     case "x":
                         css.transform += ' translateX('+val+'px)';
                         break;
@@ -143,13 +152,19 @@
                     case "rotate":
                         css.transform += ' rotate('+val+'deg)';
                         break;
-                        break;
                     case "scale":
                         css.transform += ' scale('+val+')';
                         break;
 
-                    default:
+                    // bg image
+                    case "bg":
+                        css['background-position'] = '50% '+val+'px';
+                        break;
+                    case "bg%":
+                        css['background-position'] = '50% '+val+'%';
+                        break;
 
+                    default:
                         css[prop] = val;
                         break;
                 }
