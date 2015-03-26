@@ -33,9 +33,9 @@
     UI.component('parallax', {
 
         defaults: {
-            _v : 0.8,
-            _b : false,
-            _d : false
+            velocity : 0.8,
+            target   : false,
+            dock     : false
         },
 
         boot: function() {
@@ -60,12 +60,12 @@
 
         init: function() {
 
-            this.base  = this.options._b ? UI.$(this.options._b) : this.element;
+            this.base  = this.options.target ? UI.$(this.options.target) : this.element;
             this.props = {};
 
             Object.keys(this.options).forEach(function(prop){
 
-                if (prop[0] == '_' || prop == 'plugins') {
+                if (prop == 'target' || prop == 'velocity' || prop == 'dock' || prop == 'plugins') {
                     return;
                 }
 
@@ -89,7 +89,7 @@
                 percent = 0,
                 top     = scrolltop < wh ? scrolltop : scrolltop - wh,
                 start   = offset.top < wh ? 0 : offset.top - wh,
-                end     = this.options._d ? offset.top : offset.top + height;
+                end     = this.options.dock ? offset.top : offset.top + height;
 
             if (end > (UI.$html.height() - 2*wh)) {
                 end = UI.$html.height() - wh;
@@ -108,7 +108,7 @@
 
         update: function(percent) {
 
-            var css = {'transform':''}, compercent = percent == 1 ? 1 : percent * (this.options._v || 1), opts, val;
+            var css = {'transform':''}, compercent = percent == 1 ? 1 : percent * (this.options.velocity || 1), opts, val;
 
             compercent = compercent > 1 ? 1 : compercent;
 
