@@ -32,7 +32,8 @@
     UI.component('parallax', {
 
         defaults: {
-            _velocity : 1.2
+            _v : 1,
+            _b : false
         },
 
         boot: function() {
@@ -57,7 +58,7 @@
 
         init: function() {
 
-            this.base  = this.options._base ? UI.$(this.options._base) : this.element;
+            this.base  = this.options._b ? UI.$(this.options._b) : this.element;
             this.props = {};
 
             Object.keys(this.options).forEach(function(prop){
@@ -105,7 +106,7 @@
 
         update: function(percent) {
 
-            var css = {}, compercent = percent == 1 ? 1 : percent * (this.options._velocity || 1), opts;
+            var css = {'transform':''}, compercent = percent == 1 ? 1 : percent * (this.options._v || 1), opts, val;
 
             compercent = compercent > 1 ? 1 : compercent;
 
@@ -117,18 +118,39 @@
 
                 opts = this.props[prop];
 
+                if (percent === 0) {
+                    val = opts.start;
+                } else if(percent === 1) {
+                    val = opts.end;
+                } else {
+                    val = opts.start + (opts.diff * compercent * opts.dir);
+                }
+
                 switch(prop) {
+
+                    case "x":
+                        css.transform += ' translateX('+val+'px)';
+                        break;
+                    case "x%":
+                        css.transform += ' translateX('+val+'%)';
+                        break;
+                    case "y":
+                        css.transform += ' translateY('+val+'px)';
+                        break;
+                    case "y%":
+                        css.transform += ' translateY('+val+'%)';
+                        break;
+                    case "rotate":
+                        css.transform += ' rotate('+val+'deg)';
+                        break;
+                        break;
+                    case "scale":
+                        css.transform += ' scale('+val+')';
+                        break;
 
                     default:
 
-                        if (percent === 0) {
-                            css[prop] = opts.start;
-                        } else if(percent === 1) {
-                            css[prop] = opts.end;
-                        } else {
-                            css[prop] = opts.start + (opts.diff * compercent * opts.dir);
-                        }
-
+                        css[prop] = val;
                         break;
                 }
 
@@ -154,6 +176,4 @@
     });
 
     return UI.parallax;
-
-
 });
