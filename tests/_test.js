@@ -124,6 +124,7 @@
             "components/nestable",
             "components/notify",
             "components/pagination-js",
+            "components/parallax",
             "components/placeholder",
             "components/progress",
             "components/search",

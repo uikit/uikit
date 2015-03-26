@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Parallax - UIkit tests</title>
+        <script src="../_test.js"></script>
+        <script src="../../src/js/components/parallax.js"></script>
+
+        <style media="screen">
+
+            body {
+                min-height: 400vh;
+            }
+
+            [data-uk-parallax] {
+                background-attachment: fixed;
+                background-position  : 50% 0;
+                background-size      : cover;
+                background-repeat    : no-repeat;
+                overflow             : hidden;
+            }
+
+            [class*="parallax-"] {
+                min-height: 400px;
+            }
+
+            .parallax-1 {
+                background-image: url(https://ununsplash.imgix.net/photo-1423753623104-718aaace6772?q=75&fm=jpg&s=1ffa61419561b5c796bca3158e7c704c);
+            }
+
+            .parallax-2 {
+                background-image: url(https://unsplash.imgix.net/photo-1421986527537-888d998adb74?q=75&fm=jpg&s=e633562a1da53293c4dc391fd41ce41d);
+            }
+
+            .parallax-3 {
+                background-image: url(https://ununsplash.imgix.net/photo-1422022098106-b3a9edc463af?q=75&fm=jpg&s=bbe0beb19ba846e0de37abd1f63acf13);
+            }
+
+            .parallax-4 {
+                background-image: url(https://unsplash.imgix.net/uploads/14129863345840df499fc/0165574c?q=75&fm=jpg&s=6e5127e797feb9b5a72f7ae4a0f3a89b);
+            }
+
+            .parallax-5 {
+                background-image: url(https://ununsplash.imgix.net/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?q=75&fm=jpg&s=c8e85e7825f6c74ff13321833a9bc28d);
+            }
+
+            .parallax-6 {
+                background-image: url(https://ununsplash.imgix.net/photo-1420708392410-3c593b80d416?q=75&fm=jpg&s=db450320d7ee6de66c24c9b0bf2de3c6);
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Parallax</h1>
+
+            <div class="uk-margin parallax-1 uk-flex uk-flex-middle">
+                <h1 data-uk-parallax="{_base:'.parallax-1', opacity:0, 'margin-top':-200}">Child parallax</h1>
+            </div>
+        </div>
+
+    </body>
+</html>
