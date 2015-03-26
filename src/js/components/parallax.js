@@ -129,8 +129,9 @@
                 }
 
                 if ((prop == 'bg' || prop == 'bg%') && !this._bgcovered) {
-                    css['background-size']   = 'cover';
-                    css['background-repeat'] = 'no-repeat';
+                    css['background-attachment'] = 'fixed';
+                    css['background-size']       = 'cover';
+                    css['background-repeat']     = 'no-repeat';
                     this._bgcovered = true;
                 }
 
