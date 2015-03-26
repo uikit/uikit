@@ -567,13 +567,20 @@
         });
     };
 
-    UI.on('domready.uk.dom', function(){
+    UI.init = function(root) {
+
+        root = root || document;
 
         UI.domObservers.forEach(function(fn){
-            fn(document);
+            fn(root);
         });
+    };
 
-        if (UI.domready) UI.Utils.checkDisplay(document);
+    UI.on('domready.uk.dom', function(){
+
+        UI.init();
+
+        if (UI.domready) UI.Utils.checkDisplay();
     });
 
     $(function(){

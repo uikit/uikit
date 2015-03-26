@@ -4,6 +4,7 @@
 
   - Added support for overlaying an image with a second image to overlay component
   - Added trigger 'input' after htmleditor change
+  - Added UIkit.init([rootelement]) added to manually init js components
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
   - Fixed nestable list helper function
