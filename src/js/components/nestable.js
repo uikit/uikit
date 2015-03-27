@@ -414,10 +414,10 @@
 
             if (this.hasNewRoot || this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
-                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl, this.dragRootEl.data('nestable')]);
+                this.dragRootEl.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl, this.dragRootEl.data('nestable')]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.element, this]);
+                    this.element.trigger('change.uk.nestable', [el, "removed", this.element, this]);
                 }
             }
 
