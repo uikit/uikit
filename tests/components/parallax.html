@@ -19,11 +19,15 @@
             }
 
             .uk-panel {
-                min-height: 400px;
+                height: 400px;
             }
 
             .parallax-1 {
                 background-image: url(https://ununsplash.imgix.net/photo-1423753623104-718aaace6772?q=75&fm=jpg&s=1ffa61419561b5c796bca3158e7c704c);
+            }
+
+            #parallax-2 {
+                border: 10px #fff solid;
             }
 
         </style>
@@ -40,10 +44,10 @@
                 <h1 data-uk-parallax="{target:'#parallax-1', velocity:0.8, opacity:0, y:200, scale:'1,0'}">Nested parallax</h1>
             </div>
 
-            <div id="parallax-2" class="uk-panel uk-panel-box uk-margin uk-flex uk-flex-center uk-flex-middle">
+            <div id="parallax-2" class="uk-panel uk-margin uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{dock:true, 'background-color':'white,yellow', 'border-color':'#000,#f00'}">
                 <div class="uk-text-center">
-                    <h1 data-uk-parallax="{target:'#parallax-2', dock:true, opacity:'0,1', yp:'-100,0'}">Parrallax</h1>
-                    <div class="uk-h1 uk-margin">
+                    <h1 data-uk-parallax="{target:'#parallax-2', dock:true, opacity:'0,1', yp:'-100,0', scale: '0,1'}">Parrallax</h1>
+                    <div class="uk-h1 uk-margin" data-uk-parallax="{target:'#parallax-2', dock:true, color:'#f00'}">
                         <span class="uk-icon-html5"></span>
                         <span class="uk-icon-plus"></span>
                         <span class="uk-icon-css3"></span>
