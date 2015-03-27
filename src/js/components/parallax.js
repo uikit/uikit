@@ -33,7 +33,7 @@
     UI.component('parallax', {
 
         defaults: {
-            velocity : 0.8,
+            velocity : 0.5,
             target   : false,
             dock     : false
         },
@@ -60,8 +60,9 @@
 
         init: function() {
 
-            this.base  = this.options.target ? UI.$(this.options.target) : this.element;
-            this.props = {};
+            this.base     = this.options.target ? UI.$(this.options.target) : this.element;
+            this.props    = {};
+            this.velocity = (this.options.velocity || 1);
 
             Object.keys(this.options).forEach(function(prop){
 
@@ -108,9 +109,13 @@
 
         update: function(percent) {
 
-            var css = {'transform':''}, compercent = percent == 1 ? 1 : percent * (this.options.velocity || 1), opts, val;
+            var css        = {'transform':''},
+                compercent = percent * (1 - (this.velocity - (this.velocity * percent))),
+                opts, val;
 
-            compercent = compercent > 1 ? 1 : compercent;
+            if (compercent < 0) compercent = 0;
+            if (compercent > 1) compercent = 1;
+
 
             if (this._percent !== undefined && this._percent == compercent) {
                 return;
@@ -140,13 +145,13 @@
                     case "x":
                         css.transform += ' translateX('+val+'px)';
                         break;
-                    case "x%":
+                    case "xp":
                         css.transform += ' translateX('+val+'%)';
                         break;
                     case "y":
                         css.transform += ' translateY('+val+'px)';
                         break;
-                    case "y%":
+                    case "yp":
                         css.transform += ' translateY('+val+'%)';
                         break;
                     case "rotate":
@@ -160,7 +165,7 @@
                     case "bg":
                         css['background-position'] = '50% '+val+'px';
                         break;
-                    case "bg%":
+                    case "bgp":
                         css['background-position'] = '50% '+val+'%';
                         break;
 

@@ -18,7 +18,7 @@
                 overflow: hidden;
             }
 
-            [class*="parallax"] {
+            .uk-panel {
                 min-height: 400px;
             }
 
@@ -36,11 +36,23 @@
 
             <h1>Parallax</h1>
 
-            <div class="uk-margin parallax-1 uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200, velocity:0.4}">
-                <h1 data-uk-parallax="{target:'.parallax-1', velocity:0.4, opacity:0, y:200, scale:'1,0'}">Nested parallax</h1>
+            <div id="parallax-1" class="uk-panel uk-margin parallax-1 uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <h1 data-uk-parallax="{target:'#parallax-1', velocity:0.8, opacity:0, y:200, scale:'1,0'}">Nested parallax</h1>
             </div>
 
-        </div>
+            <div id="parallax-2" class="uk-panel uk-panel-box uk-margin uk-flex uk-flex-center uk-flex-middle">
+                <div class="uk-text-center">
+                    <h1 data-uk-parallax="{target:'#parallax-2', dock:true, opacity:'0,1', yp:'-100,0'}">Parrallax</h1>
+                    <div class="uk-h1 uk-margin">
+                        <span class="uk-icon-html5"></span>
+                        <span class="uk-icon-plus"></span>
+                        <span class="uk-icon-css3"></span>
+                    </div>
+                    <div class="uk-text-large uk-text-muted" data-uk-parallax="{target:'#parallax-2', dock:true, opacity:'0,1', yp:'100,0'}">
+                        Is awsome web animation stuff
+                    </div>
+                </div>
+            </div>
 
     </body>
 </html>
