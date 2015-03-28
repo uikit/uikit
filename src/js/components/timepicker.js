@@ -7,7 +7,7 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-search", ["uikit"], function(){
+        define("uikit-timepicker", ["uikit"], function(){
             return component || addon(UIkit);
         });
     }
@@ -18,36 +18,12 @@
 
     var times = {'12h':[], '24h':[]};
 
-    for(var i = 0, h=''; i<24; i++) {
-
-        h = ''+i;
-
-        if(i<10)  h = '0'+h;
-
-        times['24h'].push({value: (h+':00')});
-        times['24h'].push({value: (h+':30')});
-
-        if (i > 0 && i<13) {
-            times['12h'].push({value: (h+':00 AM')});
-            times['12h'].push({value: (h+':30 AM')});
-        }
-
-        if (i > 12) {
-
-            h = h-12;
-
-            if (h < 10) h = '0'+String(h);
-
-            times['12h'].push({value: (h+':00 PM')});
-            times['12h'].push({value: (h+':30 PM')});
-        }
-    }
-
-
     UI.component('timepicker', {
 
         defaults: {
             format : '24h',
+            startTime: 0,
+            endTime: 24,
             delay  : 0
         },
 
@@ -97,6 +73,7 @@
 
                 $this.autocomplete.value = Math.random();
                 $this.autocomplete.triggercomplete();
+                $this.prepareTime();
 
             }).on('blur', function() {
                 $this.checkTime();
@@ -162,7 +139,39 @@
             hour = hour < 10 ? '0' + hour : hour;
             minute = minute < 10 ? '0' + minute : minute;
             return hour + ':' + minute + (this.options.format == '12h' ? ' ' + meridian : '');
-        }
-    });
+        },
+        
+        prepareTime: function() {
+            
+            var startTime = this.options.startTime,
+                endTime = this.options.endTime;
+        
+            times['12h'] = [];
+            times['24h'] = [];
+        
+            for(var i = startTime, h=''; i<endTime; i++) {
+                h = ''+i;
 
+                if(i<10)  h = '0'+h;
+
+                times['24h'].push({value: (h+':00')});
+                times['24h'].push({value: (h+':30')});
+
+                if (i > 0 && i<13) {
+                    times['12h'].push({value: (h+':00 AM')});
+                    times['12h'].push({value: (h+':30 AM')});
+                }
+
+                if (i > 12) {
+
+                    h = h-12;
+
+                    if (h < 10) h = '0'+String(h);
+
+                    times['12h'].push({value: (h+':00 PM')});
+                    times['12h'].push({value: (h+':30 PM')});
+                }
+            }
+        },
+    });
 });
