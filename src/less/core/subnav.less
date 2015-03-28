@@ -178,7 +178,7 @@
  * `li` needed for higher specificity to override hover
  */
 
-.uk-subnav-pill > .uk-active > * {
+.uk-subnav-pill > .uk-active > :not(.uk-dropdown) {
     background: @subnav-pill-active-background;
     color: @subnav-pill-active-color;
     .hook-subnav-pill-active;
