@@ -22,7 +22,7 @@
 
         defaults: {
             visible   : {},
-            animation : 'scale',
+            animation : 'fade',
             duration  : 200,
             group     : false
         },
@@ -50,7 +50,7 @@
             var $this = this;
 
             this.activeSet = false;
-            this.list      = this.element.find('.uk-slideset-list');
+            this.list      = this.element.find('.uk-slideset');
             this.nav       = this.element.find('.uk-slideset-nav');
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {

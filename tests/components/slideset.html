@@ -9,17 +9,10 @@
     <script src="../_test.js"></script>
     <script src="../../src/js/components/slideset.js"></script>
 
-    <style media="screen">
-        .uk-slideset-list > li > div {
-            height: 100px;
-            text-align: center;
-        }
-    </style>
-
     <script charset="utf-8">
         jQuery(function($){
             var select = $('#slideset-animation').on('change', function(){
-                select.next('.uk-slideset').data('slideset').options.animation = select.val();
+                select.next('[data-uk-slideset]').data('slideset').options.animation = select.val();
             });
         });
     </script>
@@ -31,119 +24,117 @@
 
         <h1>Slideset</h1>
 
+        <h2>Controls</h2>
 
-        <h2>Simple</h2>
-
-
-        <div class="uk-slideset uk-margin-top" data-uk-slideset="{animation: 'none'}">
-
-            <div class="uk-slidenav-position">
-
-                <ul class="uk-slideset-list uk-grid">
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 1</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 2</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 3</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 4</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 5</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 6</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 7</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 8</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 9</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 10</div></li>
+        <div class="uk-margin" data-uk-slideset="{animation: 'none'}">
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid">
+                    <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
                 </ul>
-
-                <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
-                <a href="" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
-
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
             </div>
-
-            <ul class="uk-slideset-nav uk-dotnav uk-text-center uk-margin-top"></ul>
-
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
         </div>
-
 
         <h2>Animations</h2>
 
         <select id="slideset-animation">
-            <option value="none">No animation</option>
             <option value="fade">fade</option>
-            <option value="slide-bottom">slide-bottom</option>
-            <option value="slide-top">slide-top</option>
-            <option value="slide-vertical">slide-vertical</option>
-            <option value="slide-horizontal">slide-horizontal</option>
             <option value="scale">scale</option>
+            <option value="slide-horizontal">slide-horizontal</option>
+            <option value="slide-vertical">slide-vertical</option>
+            <option value="slide-top">slide-top</option>
+            <option value="slide-bottom">slide-bottom</option>
         </select>
 
-        <div class="uk-slideset uk-margin-top" data-uk-slideset="{animation: 'none'}">
-
-            <div class="uk-slidenav-position">
-
-                <ul class="uk-slideset-list uk-grid">
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 1</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 2</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 3</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 4</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 5</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 6</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 7</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 8</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 9</div></li>
-                    <li><div class="uk-panel uk-panel-box uk-panel-box-primary">Item 10</div></li>
+        <div class="uk-margin" data-uk-slideset>
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid">
+                    <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
                 </ul>
-
-                <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
-                <a href="" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
-
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
             </div>
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
+        </div>
 
-            <ul class="uk-slideset-nav uk-dotnav uk-text-center uk-margin-top"></ul>
+        <h2>Gutter Collapse</h2>
 
+        <div class="uk-margin" data-uk-slideset="{animation: 'slide-horizontal'}">
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid uk-grid-collapse">
+                    <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                </ul>
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
+            </div>
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
         </div>
 
         <h2>Groups</h2>
 
-        <div class="uk-slideset uk-margin-top" data-uk-slideset="{animation: 'scale', group: 'group-1,group-2' }">
+        <div class="uk-margin" data-uk-slideset="{animation: 'scale', group: 'group-1,group-2' }">
+            <ul class="uk-subnav uk-subnav-pill">
+                <li data-uk-set-group="group-1,group-2"><a>All</a></li>
+                <li data-uk-set-group="group-1"><a>Group 1</a></li>
+                <li data-uk-set-group="group-2"><a>Group 2</a></li>
+            </ul>
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid">
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 1" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 2" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 3" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 4" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 5" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 6" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 7" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 8" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 9" width="600" height="400" alt=""></li>
+                    <li data-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 10" width="600" height="400" alt=""></li>
 
-            <div class="uk-slidenav-position">
-
-                <ul class="uk-subnav uk-subnav-pill">
-                    <li data-uk-set-group="group-1,group-2"><a>All</a></li>
-                    <li data-uk-set-group="group-1"><a>Group 1</a></li>
-                    <li data-uk-set-group="group-2"><a>Group 2</a></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 1" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 2" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 3" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 4" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 5" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 6" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 7" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 8" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 9" width="600" height="400" alt=""></li>
+                    <li data-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 10" width="600" height="400" alt=""></li>
                 </ul>
-
-
-                <ul class="uk-slideset-list uk-grid">
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 1</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 2</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 3</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 4</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 5</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 6</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 7</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 8</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 9</div></li>
-                    <li data-group="group-1"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 1</strong></p> Item 10</div></li>
-
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 1</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 2</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 3</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 4</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 5</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 6</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 7</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 8</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 9</div></li>
-                    <li data-group="group-2"><div class="uk-panel uk-panel-box uk-panel-box-primary uk-text-center"><p><strong>Group 2</strong></p> Item 10</div></li>
-                </ul>
-
-                <a href="" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
-                <a href="" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
-
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-set="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-set="next"></a>
             </div>
-
-            <ul class="uk-slideset-nav uk-dotnav uk-text-center uk-margin-top"></ul>
-
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
         </div>
 
     </div>
