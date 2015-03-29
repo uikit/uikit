@@ -18,15 +18,13 @@
                 overflow: hidden;
             }
 
-            .uk-panel {
+            .test-bg {
                 height: 400px;
+                background-image: url('http://unsplash.it/1200/810');
             }
 
-            .parallax-1 {
-                background-image: url(https://ununsplash.imgix.net/photo-1423753623104-718aaace6772?q=75&fm=jpg&s=1ffa61419561b5c796bca3158e7c704c);
-            }
-
-            #parallax-2 {
+            #test-dock {
+                height: 400px;
                 border: 10px #fff solid;
             }
 
@@ -40,19 +38,61 @@
 
             <h1>Parallax</h1>
 
-            <div id="parallax-1" class="uk-panel uk-margin parallax-1 uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
-                <h1 data-uk-parallax="{target:'#parallax-1', velocity:0.8, opacity:0, y:200, scale:'1,0'}">Nested parallax</h1>
+            <h2>Background Image</h2>
+
+            <div class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast">Title</h1>
+                    <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
             </div>
 
-            <div id="parallax-2" class="uk-panel uk-margin uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{dock:true, 'background-color':'white,yellow', 'border-color':'#000,#f00'}">
+            <h2>Nested Parallax</h2>
+
+            <div id="test-nested" class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast" data-uk-parallax="{target:'#test-nested', opacity:1, y:-200, scale:2}">Title</h1>
+                    <p class="uk-text-large" data-uk-parallax="{target:'#test-nested', opacity:0, y:200, scale:0}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Reverse</h2>
+
+            <div id="test-reverse" class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast" data-uk-parallax="{target:'#test-reverse', opacity:'0,1', y:'-200,0', scale:'1,2'}">Title</h1>
+                    <p class="uk-text-large" data-uk-parallax="{target:'#test-reverse', opacity:'1,0', y:'200,0', scale:'1,0'}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Velocity</h2>
+
+            <div id="test-velocity" class="test-bg uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-grid uk-flex-center uk-flex-middle">
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0}">0</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.2}">0.2</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.4}">0.4</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.6}">0.6</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.8}">0.8</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:1}">1</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:2}">2</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:3}">3</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:4}">4</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:5}">5</div></div>
+                </div>
+            </div>
+
+            <h2>Dock</h2>
+
+            <div id="test-dock" class="uk-panel uk-margin uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{dock:true, 'background-color':'white,yellow', 'border-color':'#000,#f00'}">
                 <div class="uk-text-center">
-                    <h1 data-uk-parallax="{target:'#parallax-2', dock:true, opacity:'0,1', yp:'-100,0', scale: '0,1'}">Parrallax</h1>
-                    <div class="uk-h1 uk-margin" data-uk-parallax="{target:'#parallax-2', dock:true, color:'#f00'}">
+                    <h1 data-uk-parallax="{target:'#test-dock', dock:true, opacity:'0,1', yp:'-100,0', scale: '0,1'}">Parallax</h1>
+                    <div class="uk-h1 uk-margin" data-uk-parallax="{target:'#test-dock', dock:true, color:'#f00'}">
                         <span class="uk-icon-html5"></span>
                         <span class="uk-icon-plus"></span>
                         <span class="uk-icon-css3"></span>
                     </div>
-                    <div class="uk-text-large uk-text-muted" data-uk-parallax="{target:'#parallax-2', dock:true, opacity:'0,1', yp:'100,0'}">
+                    <div class="uk-text-large uk-text-muted" data-uk-parallax="{target:'#test-dock', dock:true, opacity:'0,1', yp:'100,0'}">
                         Is awsome web animation stuff
                     </div>
                 </div>
