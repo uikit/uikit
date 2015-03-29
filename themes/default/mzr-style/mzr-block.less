@@ -1,0 +1,71 @@
+.mzr-block{
+
+  .mzr-shadow();
+  background-color: #ffffff;
+
+  .mzr-block-header{
+
+    font-size: 20px;
+    padding: 10px;
+
+    &:after{
+      display: block;
+      margin-top: 10px;
+      border-top: 1px dashed @mzr-color-gray-border;
+      content: '';
+    }
+
+  }
+
+  .mzr-block-content{
+    padding: 10px;
+    padding-top: 0;
+  }
+
+  .mzr-block-menu{
+    @mzr-block-menu-height: 40px;
+    font-size: 14px;
+    padding-left: 10px;
+    min-height: @mzr-block-menu-height;
+    background-color: @mzr-color-gray-lite;
+    border-top: 1px solid @mzr-color-gray-border;
+    color: @mzr-color-gray-dark;
+
+//    &::after{
+//      display: inline-block;
+//      vertical-align: middle;
+//      height: @mzr-block-menu-height;
+//    }
+
+    .uk-flex();
+    .uk-flex-middle();
+    .uk-flex-wrap();
+    //.uk-flex-wrap-space-around();
+
+    >.mzr-block-menu-item{
+      margin-right: 15px;
+      cursor: pointer;
+      &:hover{
+        color: @mzr-color-gray-dark-hover;
+      }
+
+      >span{
+        display: inline-block;
+        vertical-align: middle;
+      }
+      [class*='uk-icon-']{
+        font-size: 30px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      [class*='uk-icon-']+span{
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+//<div class="uk-flex uk-flex-middle uk-flex-space-between">...</div>
+.mzr-block + .mzr-block, .mzr-block + div,  div + .mzr-block {
+  margin-top: 10px;
+}

@@ -7,6 +7,8 @@
 // Variables
 // ========================================================================
 
+@button-background: @mzr-color-primary-background;
+
 @button-height:                                 @global-height;
 @button-mini-height:                            @global-height-mini;
 @button-small-height:                           @global-height-small;
@@ -25,10 +27,14 @@
 @button-hover-color:                            @global-color;
 @button-active-color:                           @global-color;
 
-@button-primary-background:                     @global-primary-background;
-@button-primary-color:                          @global-contrast-color;
-@button-primary-hover-color:                    @global-contrast-color;
-@button-primary-active-color:                   @global-contrast-color;
+@button-primary-background: @mzr-color-turquoise;//@global-primary-background;
+@button-primary-color: @mzr-color-turquoise-contrast;//@global-contrast-color;
+@button-primary-hover-color: @mzr-color-turquoise-contrast;//@global-contrast-color;
+@button-primary-active-color: @mzr-color-turquoise-contrast;
+
+@button-primary-hover-background:               lighten(@mzr-color-turquoise, 5%);
+@button-primary-hover-color: @mzr-color-turquoise-contrast;
+@button-primary-active-background:              lighten(@mzr-color-red, 5%);
 
 @button-success-background:                     @global-success-background;
 @button-success-color:                          @global-contrast-color;
