@@ -7,9 +7,9 @@
 // Variables
 // ========================================================================
 
-@subnav-color:                                  @global-link-color;
-@subnav-hover-color:                            @global-link-hover-color;
-@subnav-disabled-color:                         @global-muted-color;
+@subnav-color:                                  @global-color;
+@subnav-hover-color:                            @global-link-color;
+@subnav-active-color:                           @global-link-color;
 
 @subnav-line-border:                            @global-border;
 
@@ -18,26 +18,17 @@
 @subnav-pill-active-background:                 @global-primary-background;
 @subnav-pill-active-color:                      @global-contrast-color;
 
+@subnav-disabled-color:                         @global-muted-color;
+
 
 // Component
 // ========================================================================
 
-//
-// Items
-//
+.hook-subnav() {}
 
-.hook-subnav-item() {}
+.hook-subnav-hover() {}
 
-// Link
-.hook-subnav-link() {}
-
-.hook-subnav-link-hover() {}
-
-// Active
 .hook-subnav-active() {}
-
-// Disabled
-.hook-subnav-disabled() {}
 
 
 // Modifier: `uk-subnav-line'
@@ -51,11 +42,15 @@
 
 .hook-subnav-pill() { border-radius: @global-border-radius; }
 
-// Hover
 .hook-subnav-pill-hover() { box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
 
-// Active
 .hook-subnav-pill-active() { box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+
+
+// Disabled state
+// ========================================================================
+
+.hook-subnav-disabled() { box-shadow: none; }
 
 
 // Miscellaneous

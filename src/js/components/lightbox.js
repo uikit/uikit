@@ -6,7 +6,6 @@
         component = addon(UIkit);
     }
 
-
     if (typeof define == "function" && define.amd) { // AMD
         define(["uikit-lightbox"], function(){
             return component || addon(UIkit);
@@ -39,6 +38,7 @@
                 var link = UI.$(this);
 
                 if (!link.data("lightbox")) {
+
                     UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
                 }
 
@@ -66,14 +66,36 @@
 
         init: function() {
 
-            var $this = this;
+            var $this = this, siblings = [];
 
-            this.siblings  = this.options.group ? UI.$([
-                '[data-uk-lightbox*="'+this.options.group+'"]',
-                "[data-uk-lightbox*='"+this.options.group+"']"
-            ].join(',')) : this.element;
+            this.index    = 0;
+            this.siblings = [];
 
-            this.index = this.siblings.index(this.element);
+            if (this.element && this.element.length) {
+
+                var domSiblings  = this.options.group ? UI.$([
+                    '[data-uk-lightbox*="'+this.options.group+'"]',
+                    "[data-uk-lightbox*='"+this.options.group+"']"
+                ].join(',')) : this.element;
+
+                domSiblings.each(function() {
+
+                    var ele = UI.$(this);
+
+                    siblings.push({
+                        'source': ele.attr('href'),
+                        'title' : ele.attr('title'),
+                        'type'  : ele.attr("data-lightbox-type") || 'auto',
+                        'link'  : ele
+                    });
+                });
+
+                this.index    = domSiblings.index(this.element);
+                this.siblings = siblings;
+
+            } else if (this.options.group && this.options.group.length) {
+                this.siblings = this.options.group;
+            }
 
             this.trigger('lightbox-init', [this]);
         },
@@ -86,13 +108,19 @@
             this.modal.dialog.stop();
             this.modal.content.stop();
 
-            var $this = this, promise = UI.$.Deferred(), data, source, item, title;
+            var $this = this, promise = UI.$.Deferred(), data, item;
 
             index = index || 0;
 
             // index is a jQuery object or DOM element
             if (typeof(index) == 'object') {
-                index = this.siblings.index(index);
+
+                this.siblings.forEach(function(s, idx){
+
+                    if (index[0] === s.link[0]) {
+                        index = idx;
+                    }
+                });
             }
 
             // fix index if needed
@@ -102,17 +130,15 @@
                 index = 0;
             }
 
-            item   = this.siblings.eq(index);
-            source = item.attr('href');
-            title  = item.attr('title');
+            item   = this.siblings[index];
 
             data = {
                 "lightbox" : $this,
-                "source"   : source,
-                "type"     : item.data("lightboxType") || 'auto',
+                "source"   : item.source,
+                "type"     : item.type,
                 "index"    : index,
                 "promise"  : promise,
-                "title"    : title,
+                "title"    : item.title,
                 "item"     : item,
                 "meta"     : {
                     "content" : '',
@@ -141,7 +167,7 @@
                 alert('Loading resource failed!');
             });
 
-            $this.trigger('show.uk.lightbox', [data]);
+            $this.trigger('showitem.uk.lightbox', [data]);
         },
 
         fitSize: function() {
@@ -149,7 +175,9 @@
             var $this    = this,
                 data     = this.data,
                 pad      = this.modal.dialog.outerWidth() - this.modal.dialog.width(),
-                dpad     = parseInt(this.modal.dialog.css('margin-top'), 10) + parseInt(this.modal.dialog.css('margin-bottom'), 10),
+                dpadTop  = parseInt(this.modal.dialog.css('margin-top'), 10),
+                dpadBot  = parseInt(this.modal.dialog.css('margin-bottom'), 10),
+                dpad     = dpadTop + dpadBot,
                 content  = data.meta.content,
                 duration = $this.options.duration;
 
@@ -177,15 +205,21 @@
             tmp.appendTo('body').width();
 
             maxwidth  = tmp.width();
-            maxheight = window.innerHeight - (dpad * 2);
+            maxheight = window.innerHeight - dpad;
 
             tmp.remove();
+
+            this.modal.dialog.find('.uk-modal-caption').remove();
+
+            if (data.title) {
+                this.modal.dialog.append('<div class="uk-modal-caption">'+data.title+'</div>');
+                maxheight -= this.modal.dialog.find('.uk-modal-caption').outerHeight();
+            }
 
             if (maxwidth < data.meta.width) {
 
                 h = Math.floor( h * (maxwidth / w) );
                 w = maxwidth;
-
             }
 
             if (maxheight < h) {
@@ -195,12 +229,6 @@
             }
 
             this.modal.content.css('opacity', 0).width(w).html(content);
-
-            this.modal.dialog.find('.uk-modal-caption').remove();
-
-            if (data.title) {
-                this.modal.dialog.append('<div class="uk-modal-caption">'+data.title+'</div>');
-            }
 
             if (data.type == 'iframe') {
                 this.modal.content.find('iframe:first').height(h);
@@ -243,9 +271,9 @@
 
         init: function(lightbox) {
 
-            lightbox.on("show.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function(e, data){
 
-                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
+                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
 
                     var resolve = function(source, width, height) {
 
@@ -291,7 +319,7 @@
                 youtubeRegExpShort = /youtu\.be\/(.*)/;
 
 
-            lightbox.on("show.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function(e, data){
 
                 var id, matches, resolve = function(id, width, height) {
 
@@ -350,7 +378,7 @@
             var regex = /(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/, matches;
 
 
-            lightbox.on("show.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function(e, data){
 
                 var id, resolve = function(id, width, height) {
 
@@ -396,7 +424,7 @@
 
         init: function(lightbox) {
 
-            lightbox.on("show.uk.lightbox", function(e, data){
+            lightbox.on("showitem.uk.lightbox", function(e, data){
 
                 var resolve = function(source, width, height) {
 
@@ -411,7 +439,7 @@
                     data.promise.resolve();
                 };
 
-                if (data.type == 'video' || data.source.match(/\.(mp4|webm|ogv)$/)) {
+                if (data.type == 'video' || data.source.match(/\.(mp4|webm|ogv)$/i)) {
 
                     if (!cache[data.source]) {
 
@@ -466,7 +494,7 @@
             modal.lightbox[e.type=='swipeLeft' ? 'next':'previous']();
         }).on("click", "[data-lightbox-previous], [data-lightbox-next]", function(e){
             e.preventDefault();
-            modal.lightbox[$(this).is('[data-lightbox-next]') ? 'next':'previous']();
+            modal.lightbox[UI.$(this).is('[data-lightbox-next]') ? 'next':'previous']();
         });
 
         // destroy content on modal hide
@@ -482,6 +510,27 @@
 
         return modal;
     }
+
+    UI.lightbox.create = function(items, options) {
+
+        if (!items) return;
+
+        var group = [], o;
+
+        items.forEach(function(item) {
+
+            group.push(UI.$.extend({
+                'source' : '',
+                'title'  : '',
+                'type'   : 'auto',
+                'link'   : false
+            }, (typeof(item) == 'string' ? {'source': item} : item)));
+        });
+
+        o = UI.lightbox(UI.$.extend({}, options, {'group':group}));
+
+        return o;
+    };
 
     return UI.lightbox;
 });

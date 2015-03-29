@@ -2,24 +2,59 @@
 
 ### WIP
 
+  - Added support for overlaying an image with a second image to overlay component
+  - Added trigger 'input' after htmleditor change
+  - Added UIkit.init([rootelement]) added to manually init js components
+  - Fixed lightbox extension matcher is now case insensitive
+  - Fixed slideshow on message handler
+  - Fixed nestable list helper function
+  - Fixed nestable event arguments
+
+### 2.18.0 (March 11, 2015)
+
+  - Added ARIA support to JavaScript components
+  - Added trigger ```scrolling.uk.document``` after update grid layout
+  - Fixed sticky wrapper resize on window resize/orientation change
+  - Fixed serialize to only include data attributes from HTML in nestable and sortable component
+  - Fixed video mute bug in slideshow for vimeo player
+
+
+### 2.17.0 (February 20, 2015)
+
   - IMPORTANT: Removed caption component (Use overlay component)
   - IMPORTANT: Removed uk-grid-preserve (Use uk-grid-medium)
+  - IMPORTANT: Moved flex and cover component into the core
+  - IMPORTANT: Moved tooltip and progress from core to components
   - DEPRECATED: Old overlay component (uk-overlay-area-* uk-overlay-caption uk-overlay-toggle)
-  - Set content wrapper height to auto after accordion animation ends
+  - DEPRECATED: Thumbnail component
+  - DEPRECATED: uk-dotnav-vertical class (Use uk-flex-column)
   - Reworked overlay component completely
+  - Added thumbnav component
+  - Added gutter collapse and medium classes to grid component
+  - Added more position classes to utility component
+  - Added hover classes to panel component
+  - Added icon hover class to icon component
+  - Added uk-heading-large default values for small screens in utility component
+  - Added serialize method to sortable object
+  - Added possibility to enable and disable sticky component objects
+  - Added scrollspy group with target selector
+  - Added possibility to create dynamic lightboxes
   - Added manualclose.uk.notify and close.uk.notify events
   - Added pauseOnHover option to slideshow component
-  - Added gutter collapse and medium classes to grid component
   - Added toggle uk-active class in sort and filter controls (dynamic grid)
   - Added boundary parameter to sticky addon to bind sticky scrolling to an element
-  - Added hover classes to panel component
-  - Added icon muted class to icon component
-  - Added scrollspy group with target selector
-  - Updated FontAwesome to v4.3
+  - Updated dotnav to use flexbox
+  - Updated subnav to use flexbox
+  - Updated icon component to FontAwesome to 4.3.0
+  - Set content wrapper height to auto after accordion animation ends
   - Deactivated browser history navigation in modal for IE11
+  - Fixed modal caption text overflow
+  - Fixed modal min-height. Now only applies to lightbox modifier
   - Fixed events in grid js component
   - Fixed quick switching between tabs
   - Fixed deep target selector for data-uk-grid-match
+  - Fixed goto dom trigger for slideshows
+  - Fixed vertical centering for lightboxes
 
   **Docs and Repo**
 
@@ -202,7 +237,7 @@
 ### 2.10.0 (September 15, 2014)
 
  - Added input types for iOS style reset to form component
- - Updated icon component to Font Awesome to 4.2.0
+ - Updated icon component to FontAwesome to 4.2.0
  - Moved normalization into base, form, button and form component
  - Removed normalize component
  - Fixed upload select works only once if filename is the same
@@ -310,7 +345,7 @@
   - Removed breaking strings on small devices by default from base
   - Prevent search-field uk-active issue
   - Updated dropdown flip and stack behavior
-  - Updated icon component to Font Awesome to 4.1
+  - Updated icon component to FontAwesome to 4.1
 
 **Docs and Repo**
 
@@ -490,7 +525,7 @@
   - Added outerclick support for dropdowns in hover mode
   - Added touch events support for Windows 8 phones
   - Added miscellaneous hooks
-  - Updated icon component to Font Awesome to 4.0.3
+  - Updated icon component to FontAwesome to 4.0.3
   - Changed comments to compile nicer CSS output
 
 **Docs and Repo**

@@ -31,22 +31,24 @@
             getWidthFrom : '',
             boundary     : false,
             media        : false,
-            target       : false
+            target       : false,
+            disabled     : false
         },
 
         boot: function() {
 
-            // should be more efficient than using $win.scroll(scroller):
-            UI.$doc.on('scrolling.uk.document', scroller);
+            // should be more efficient than using $win.scroll(checkscrollposition):
+            UI.$doc.on('scrolling.uk.document', function() { checkscrollposition(); });
             UI.$win.on('resize orientationchange', UI.Utils.debounce(function() {
 
                 if (!sticked.length) return;
 
                 for (var i = 0; i < sticked.length; i++) {
                     sticked[i].reset(true);
+                    sticked[i].self.computeWrapper();
                 }
 
-                scroller();
+                checkscrollposition();
             }, 100));
 
             // init code
@@ -63,26 +65,24 @@
                         }
                     });
 
-                    scroller();
+                    checkscrollposition();
                 }, 0);
             });
         },
 
         init: function() {
 
-            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>').css({
-                        'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
-                        'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
-                        'margin' : this.element.css("margin")
-                }), boundary = this.options.boundary, boundtoparent;
+            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>'), boundary = this.options.boundary, boundtoparent;
 
-            wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
+            this.wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
+
+            this.computeWrapper();
 
             if (boundary) {
 
                 if (boundary === true) {
 
-                    boundary      = wrapper.parent();
+                    boundary      = this.wrapper.parent();
                     boundtoparent = true;
 
                 } else if (typeof boundary === "string") {
@@ -91,12 +91,13 @@
             }
 
             this.sticky = {
+                self          : this,
                 options       : this.options,
                 element       : this.element,
                 currentTop    : null,
-                wrapper       : wrapper,
+                wrapper       : this.wrapper,
                 init          : false,
-                getWidthFrom  : this.options.getWidthFrom || wrapper,
+                getWidthFrom  : this.options.getWidthFrom || this.wrapper,
                 boundary      : boundary,
                 boundtoparent : boundtoparent,
                 reset         : function(force) {
@@ -125,6 +126,10 @@
                 },
 
                 check: function() {
+
+                    if (this.options.disabled) {
+                        return false;
+                    }
 
                     if (this.options.media) {
 
@@ -157,30 +162,49 @@
         },
 
         update: function() {
-            scroller();
+            checkscrollposition(this.sticky);
+        },
+
+        enable: function() {
+            this.options.disabled = false;
+            this.update();
+        },
+
+        disable: function(force) {
+            this.options.disabled = true;
+            this.sticky.reset(force);
+        },
+
+        computeWrapper: function() {
+
+            this.wrapper.css({
+                'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
+                'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
+                'margin' : this.element.css("margin")
+            });
         }
     });
 
-    function scroller() {
+    function checkscrollposition() {
 
-        if (!sticked.length) return;
+        var stickies = arguments.length ? arguments : sticked;
+
+        if (!stickies.length || $win.scrollTop() < 0) return;
 
         var scrollTop       = $win.scrollTop(),
             documentHeight  = $doc.height(),
             windowHeight    = $win.height(),
             dwh             = documentHeight - windowHeight,
             extra           = (scrollTop > dwh) ? dwh - scrollTop : 0,
-            newTop, containerBottom, stickyHeight;
+            newTop, containerBottom, stickyHeight, sticky;
 
-        if (scrollTop < 0) return;
+        for (var i = 0; i < stickies.length; i++) {
 
-        for (var i = 0; i < sticked.length; i++) {
+            sticky = stickies[i];
 
-            if (!sticked[i].element.is(":visible") || sticked[i].animate) {
+            if (!sticky.element.is(":visible") || sticky.animate) {
                 continue;
             }
-
-            var sticky = sticked[i];
 
             if (!sticky.check()) {
 

@@ -8,6 +8,20 @@
 
         <script src="../_test.js"></script>
         <script src="../../src/js/components/lightbox.js"></script>
+
+        <script charset="utf-8">
+            jQuery(function($){
+
+                var lightbox = UIkit.lightbox.create([
+                    {'source': 'http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4', 'type':'video'},
+                    {'source': 'http://unsplash.it/700/500', 'type':'image'}
+                ]);
+
+                $('#btnLightbox').on('click', function(){
+                    lightbox.show();
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -88,6 +102,10 @@
 
                 </div>
             </div>
+
+            <h2>Dynamic lightbox</h2>
+
+            <button id="btnLightbox" class="uk-button">Show dynamic lightbox</button>
 
         </div>
 

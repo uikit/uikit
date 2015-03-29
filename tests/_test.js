@@ -11,10 +11,8 @@
         'dist/css/uikit{style}.css',
 
         // components
-        'dist/css/components/flex{style}.css',
         'dist/css/components/accordion{style}.css',
         'dist/css/components/autocomplete{style}.css',
-        'dist/css/components/cover{style}.css',
         'dist/css/components/datepicker{style}.css',
         'dist/css/components/dotnav{style}.css',
         'dist/css/components/form-advanced{style}.css',
@@ -25,11 +23,13 @@
         'dist/css/components/nestable{style}.css',
         'dist/css/components/notify{style}.css',
         'dist/css/components/placeholder{style}.css',
+        'dist/css/components/progress{style}.css',
         'dist/css/components/search{style}.css',
         'dist/css/components/slidenav{style}.css',
         'dist/css/components/slideshow{style}.css',
         'dist/css/components/sortable{style}.css',
         'dist/css/components/sticky{style}.css',
+        'dist/css/components/tooltip{style}.css',
         'dist/css/components/upload{style}.css'
     ];
 
@@ -57,7 +57,7 @@
         'src/js/core/offcanvas.js',
         'src/js/core/switcher.js',
         'src/js/core/tab.js',
-        'src/js/core/tooltip.js'
+        'src/js/core/cover.js'
 
     ]).forEach(function(script) {
         document.writeln('<script src="'+base+script+'"></script>');
@@ -80,8 +80,10 @@
             "core/button",
             "core/close",
             "core/comment",
+            "core/cover",
             "core/description-list",
             "core/dropdown",
+            "core/flex",
             "core/form",
             "core/grid",
             "core/icon",
@@ -93,7 +95,6 @@
             "core/overlay",
             "core/pagination",
             "core/panel",
-            "core/progress",
             "core/scrollspy",
             "core/smooth-scroll",
             "core/subnav",
@@ -102,8 +103,8 @@
             "core/table",
             "core/text",
             "core/thumbnail",
+            "core/thumbnav",
             "core/toggle",
-            "core/tooltip",
             "core/touch",
             "core/utility",
 
@@ -111,10 +112,8 @@
 
             "components/accordion",
             "components/autocomplete",
-            "components/cover",
             "components/datepicker",
             "components/dotnav",
-            "components/flex",
             "components/form-advanced",
             "components/form-file",
             "components/form-password",
@@ -126,6 +125,7 @@
             "components/notify",
             "components/pagination-js",
             "components/placeholder",
+            "components/progress",
             "components/search",
             "components/slidenav",
             "components/slideshow",
@@ -133,6 +133,7 @@
             "components/sortable",
             "components/sticky",
             "components/timepicker",
+            "components/tooltip",
             "components/upload"
 
     ];

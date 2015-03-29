@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Flex component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li class="uk-active"><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1>Flex</h1>
+
+                            <p class="uk-article-lead">Utilize the power of Flexbox to create a wide range of layouts.</p>
+
+                            <p>This component uses Flexbox, a concept that is still quite new but extremely powerful for creating layouts.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+                            <p>To apply this component, just add the <code>.uk-flex</code> class to a <code>&lt;div&gt;</code> element. This will create the flex container. By default, all flex items will be aligned to the left and equally matched in height and width.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-flex">
+                                <div class="uk-width-1-4 uk-panel uk-panel-box">Box</div>
+                                <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left">Box</div>
+                                <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left" style="height: 100px;">Box</div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-flex"&gt;
+    &lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Flex inline</h3>
+
+                            <p>By default, the flex container is displayed as a block element. To apply the behavior of an inline element while still laying out its content according to the flexbox model, use the <code>.uk-flex-inline</code> class instead of <code>uk-flex</code>.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="modifiers"><a href="#usage" class="uk-link-reset">Modifiers</a></h2>
+
+                            <p>You can add a number of different classes to modify the flex behavior.</p>
+
+                            <h3 id="alignment"><a href="#alignment" class="uk-link-reset">Alignment</a></h3>
+
+                            <p>These classes define the horizontal and vertical alignment of flex items and distribute the space between them.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-flex-center</code></td>
+                                            <td>Add this class to center flex items horizontally.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-right</code></td>
+                                            <td>Add this class to align flex items to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-top</code></td>
+                                            <td>Add this class to align flex items to the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-middle</code></td>
+                                            <td>Add this class to vertically center flex items.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-bottom</code></td>
+                                            <td>Add this class to align flex items to the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-space-between</code></td>
+                                            <td>Add this class to distribute items evenly, with the first item at the beginning and last item at the end of the main axis.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-space-around</code></td>
+                                            <td>Add this class to distribute items evenly with equal space on both sides of each item.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                           <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                               <div class="uk-width-1-4 uk-panel uk-panel-box" style="height: 50px;">Box</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box" style="height: 70px;">Box</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box" style="height: 100px;">Box</div>
+                           </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-flex uk-flex-middle uk-flex-space-between"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="direction"><a href="#direction" class="uk-link-reset">Direction</a></h3>
+
+                            <p>These classes define the axis flex items placed on and their direction. By default, items run horizontally from left to right.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-flex-row-reverse</code></td>
+                                            <td>Add this class to lay out flex items from right to left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-column</code></td>
+                                            <td>Add this class to lay out flex items as vertical columns.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-column-reverse</code></td>
+                                            <td>Add this class to lay out flex items from bottom to top.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                           <div class="uk-flex uk-flex-column uk-flex-column-reverse">
+                               <div class="uk-width-1-4 uk-panel uk-panel-box">1</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-bottom">2</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-bottom">3</div>
+                           </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <pre><code>&lt;div class="uk-flex uk-flex-column uk-flex-column-reverse"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="wrap"><a href="#wrap" class="uk-link-reset">Wrap</a></h3>
+
+                            <p>By default, flex items fit themselves into one row. Add the <code>.uk-flex-wrap</code> class, so that the items wrap into another row when they no longer fit the viewport. To change the items' direction so that they run from right to left, add the <code>.uk-flex-wrap-reverse</code> class. The following classes modify the alignment of wrapping flex items.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-flex-wrap-top</code></td>
+                                            <td>Add this class to align multirow flex items to the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-wrap-middle</code></td>
+                                            <td>Add this class to vertically center  multirow flex items.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-wrap-bottom</code></td>
+                                            <td>Add this class to align multiline flex items to the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-wrap-space-between </code></td>
+                                            <td>Add this class to distribute item rows evenly, with the first row at the top and last row at the bottom of the container.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-wrap-space-around</code></td>
+                                            <td>Add this class to distribute rows evenly with equal space at the top and bottom of each row.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-flex uk-flex-wrap uk-flex-wrap-reverse uk-flex-wrap-space-around" style="height: 250px; background: #fafafa;">
+                                <div class="uk-width-1-3 uk-panel uk-panel-box uk-panel-box-primary">1</div>
+                                <div class="uk-width-1-2 uk-panel uk-panel-box uk-panel-box-primary uk-margin-left">2</div>
+                                <div class="uk-width-1-3 uk-panel uk-panel-box uk-panel-box-primary">3</div>
+                                <div class="uk-width-1-3 uk-panel uk-panel-box uk-panel-box-primary uk-margin-left">4</div>
+                                <div class="uk-width-1-2 uk-panel uk-panel-box uk-panel-box-primary">5</div>
+                                <div class="uk-width-1-3 uk-panel uk-panel-box uk-panel-box-primary uk-margin-left">6</div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                             <pre><code>&lt;div class="uk-flex uk-flex-wrap uk-flex-wrap-reverse uk-flex-wrap-space-around"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="item-order"><a href="#item-order" class="uk-link-reset">Item order</a></h3>
+
+                            <p>By default, flex items are laid out according to the source order. To display a certain item as the first or last one, just add one of these classes.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-flex-order-first</code></td>
+                                            <td>Displays the item as the first one.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-order-last</code></td>
+                                            <td>Displays the item as the last one.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-order-first-small</code><br><code>.uk-flex-order-last-small</code></td>
+                                            <td>Affects device widths of <em>480px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-order-first-medium</code><br><code>.uk-flex-order-last-medium</code></td>
+                                            <td>Affects device widths of <em>768px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-order-first-large</code><br><code>.uk-flex-order-last-large</code></td>
+                                            <td>Affects device widths of <em>960px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-order-first-xlarge</code><br><code>.uk-flex-order-last-xlarge</code></td>
+                                            <td>Affects device widths of <em>1220px</em> and higher.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-flex">
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left">1</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-margin-left">2</div>
+                               <div class="uk-width-1-4 uk-panel uk-panel-box uk-flex-order-first">3</div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-flex"&gt;
+   &lt;div class="uk-flex-order-first"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="item-dimensions"><a href="#item-dimensions" class="uk-link-reset">Item dimensions</a></h3>
+
+                            <p>To determine how much space a flex item should take up, add one of the following classes to the item.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-flex-item-none</code></td>
+                                            <td>The box's size is determined by its content.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-item-auto</code></td>
+                                            <td>The space is allocated considering the item's content.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-flex-item-1</code></td>
+                                            <td>The space is allocated solely based on flex.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="flex-grid"><a href="#flex-grid" class="uk-link-reset">Flex and grid</a></h2>
+
+                            <p>The Flex component can be combined with a grid from the <a href="grid.html">Grid component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-flex-middle" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-3">
+                                    <div class="uk-panel"><img src="images/placeholder_400x250.svg" alt="Placeholder"></div>
+                                </div>
+                                <div class="uk-width-medium-2-3 uk-flex-middle">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                </div>
+                            </div>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

@@ -21,11 +21,13 @@
 // Variables
 // ========================================================================
 
-@subnav-font-size:                              1rem;
-@subnav-margin:                                 10px;
-@subnav-color:                                  #07D;
-@subnav-hover-color:                            #059;
-@subnav-disabled-color:                         #999;
+@subnav-margin-horizontal:                      10px;
+@subnav-margin-vertical:                        @subnav-margin-horizontal;
+
+@subnav-color:                                  #444;
+@subnav-hover-color:                            #07D;
+@subnav-hover-text-decoration:                  none;
+@subnav-active-color:                           #07D;
 
 @subnav-line-border-height:                     10px;
 @subnav-line-border:                            #ddd;
@@ -38,92 +40,110 @@
 @subnav-pill-active-background:                 #00a8e6;
 @subnav-pill-active-color:                      #fff;
 
+@subnav-disabled-color:                         #999;
+
 
 /* ========================================================================
    Component: Subnav
  ========================================================================== */
 
 /*
- * 1. Remove default list style
- * 2. Remove whitespace between child elements when using `inline-block`
+ * 1. Gutter
+ * 2. Remove default list style
  */
 
 .uk-subnav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
     /* 1 */
+    margin-left: -@subnav-margin-horizontal;
+    margin-top: -@subnav-margin-vertical;
+    /* 2 */
     padding: 0;
     list-style: none;
-    /* 2 */
-    font-size: 0.001px;
 }
+
+/*
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Horizontal gutter is using `padding` so `uk-width-*` classes can be applied
+ * 3. Create position context for dropdowns
+ */
+
+.uk-subnav > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: @subnav-margin-horizontal;
+    margin-top: @subnav-margin-vertical;
+    /* 3 */
+    position: relative;
+}
+
+/*
+ * DEPRECATED IE9 Support
+ */
+
+.uk-subnav:before,
+.uk-subnav:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+}
+
+.uk-subnav:after { clear: both; }
+
+.uk-subnav > * { float: left; }
 
 
 /* Items
  ========================================================================== */
 
-/*
- * 1. Create position context for dropdowns
- * 2. Reset whitespace hack
- */
-
-.uk-subnav > li {
-    /* 1 */
-    position: relative;
-    /* 2 */
-    font-size: @subnav-font-size;
-    vertical-align: top;
-}
-
-.uk-subnav > li,
-.uk-subnav > li > a,
-.uk-subnav > li > span { display: inline-block; }
-
-.uk-subnav > li:nth-child(n+2) { margin-left: @subnav-margin; }
-
-/*
- * Items
- */
-
-.uk-subnav > li > a,
-.uk-subnav > li > span {
-    .hook-subnav-item;
-}
-
-.uk-subnav > li > a {
+.uk-subnav > * > * {
+    display: inline-block;
     color: @subnav-color;
-    .hook-subnav-link;
+    .hook-subnav;
 }
 
-.uk-subnav > li > a:hover {
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+
+.uk-subnav > * > *:hover,
+.uk-subnav > * > *:focus { // 1
     color: @subnav-hover-color;
-    .hook-subnav-link-hover;
+    text-decoration: @subnav-hover-text-decoration;
+    .hook-subnav-hover;
 }
 
 /*
  * Active
  */
 
-.uk-subnav > li.uk-active > a {
+.uk-subnav > .uk-active > * {
+    color: @subnav-active-color;
     .hook-subnav-active;
-}
-
-/*
- * Disabled
- */
-
-.uk-subnav > li > span {
-    color: @subnav-disabled-color;
-    .hook-subnav-disabled;
 }
 
 
 /* Modifier: 'subnav-line'
  ========================================================================== */
 
-.uk-subnav-line > li:nth-child(n+2):before {
+.uk-subnav-line > :before {
     content: "";
     display: inline-block;
     height: @subnav-line-border-height;
-    margin-right: @subnav-margin;
+    vertical-align: middle;
+}
+
+.uk-subnav-line > :nth-child(n+2):before {
+    margin-right: @subnav-margin-horizontal;
     border-left: @subnav-line-border-width solid @subnav-line-border;
     .hook-subnav-line-divider;
 }
@@ -132,10 +152,8 @@
 /* Modifier: 'subnav-pill'
  ========================================================================== */
 
-.uk-subnav-pill > li > a,
-.uk-subnav-pill > li > span {
+.uk-subnav-pill > * > * {
     padding: @subnav-pill-padding-vertical @subnav-pill-padding-horizontal;
-    text-decoration: none;
     .hook-subnav-pill;
 }
 
@@ -145,10 +163,11 @@
  * 2. Remove default focus style
  */
 
-.uk-subnav-pill > li > a:hover,
-.uk-subnav-pill > li > a:focus { // 1
+.uk-subnav-pill > * > *:hover,
+.uk-subnav-pill > * > *:focus { // 1
     background: @subnav-pill-hover-background;
     color: @subnav-pill-hover-color;
+    text-decoration: none;
     /* 2 */
     outline: none;
     .hook-subnav-pill-hover;
@@ -159,10 +178,22 @@
  * `li` needed for higher specificity to override hover
  */
 
-.uk-subnav-pill > li.uk-active > a {
+.uk-subnav-pill > .uk-active > * {
     background: @subnav-pill-active-background;
     color: @subnav-pill-active-color;
     .hook-subnav-pill-active;
+}
+
+
+/* Disabled state
+ ========================================================================== */
+
+.uk-subnav > .uk-disabled > * {
+    background: none;
+    color: @subnav-disabled-color;
+    text-decoration: none;
+    cursor: text;
+    .hook-subnav-disabled;
 }
 
 
@@ -171,13 +202,12 @@
 
 .hook-subnav-misc;
 
-.hook-subnav-item() {}
-.hook-subnav-link() {}
-.hook-subnav-link-hover() {}
+.hook-subnav() {}
+.hook-subnav-hover() {}
 .hook-subnav-active() {}
-.hook-subnav-disabled() {}
 .hook-subnav-line-divider() {}
 .hook-subnav-pill() {}
 .hook-subnav-pill-hover() {}
 .hook-subnav-pill-active() {}
+.hook-subnav-disabled() {}
 .hook-subnav-misc() {}

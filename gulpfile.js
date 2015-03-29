@@ -40,7 +40,7 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
                 if (theme && t!=theme) return;
 
                 var path = f+'/'+t, uikit = path + '/uikit.less', customizer = path + '/uikit-customizer.less';
-                if (!(fs.lstatSync(path).isDirectory() && fs.existsSync(uikit))) return;
+                if (!((fs.lstatSync(path).isDirectory() || fs.lstatSync(path).isSymbolicLink()) && fs.existsSync(uikit))) return;
                 list.push({"name": t, "path": f+'/'+t, "uikit": uikit});
             });
         });
@@ -72,7 +72,7 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
         './src/js/core/offcanvas.js',
         './src/js/core/switcher.js',
         './src/js/core/tab.js',
-        './src/js/core/tooltip.js'
+        './src/js/core/cover.js'
     ];
 
 
@@ -449,7 +449,8 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
     themes.forEach(function(theme) {
 
         var modifyVars = {
-            'global-image-path': ('"../../'+theme.path+'/images"')
+            'global-image-path': ('"../../'+theme.path+'/images"'),
+            'global-font-path': ('"../../'+theme.path+'/fonts"')
         };
 
         promises.push(new Promise(function(resolve, reject){
@@ -605,10 +606,10 @@ gulp.task('sublime-js', function(done) {
         gulp.src(['dist/**/*.min.js', 'dist/uikit.min.js']).pipe(concat('sublime_tmp_js.py')).pipe(tap(function(file) {
 
             var js       = file.contents.toString(),
-                dataList = js.match(/data-@-[a-z\d\-]+/g),
+                dataList = js.match(/data-uk-[a-z\d\-]+/g),
                 dataSet  = {};
 
-            dataList.forEach(function(s) { dataSet[s.replace('@', 'uk')] = true; });
+            dataList.forEach(function(s) { dataSet[s] = true; });
 
             pystring = 'uikit_data = ' + pythonList(Object.keys(dataSet)) + '\n';
 

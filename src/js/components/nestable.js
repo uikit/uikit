@@ -1,21 +1,21 @@
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
- (function(addon) {
+(function(addon) {
 
-     var component;
+    var component;
 
-     if (window.UIkit) {
-         component = addon(UIkit);
-     }
+    if (window.UIkit) {
+        component = addon(UIkit);
+    }
 
-     if (typeof define == "function" && define.amd) {
-         define("uikit-nestable", ["uikit"], function(){
-             return component || addon(UIkit);
-         });
-     }
+    if (typeof define == "function" && define.amd) {
+        define("uikit-nestable", ["uikit"], function(){
+            return component || addon(UIkit);
+        });
+    }
 
- })(function(UI) {
+})(function(UI) {
 
     "use strict";
 
@@ -222,14 +222,23 @@
 
                     items.each(function() {
 
-                        var li   = UI.$(this),
-                            item = UI.$.extend({}, li.data()),
-                            sub  = li.children(list.options.listNodeName);
+                        var li    = UI.$(this),
+                            item  = {}, attribute,
+                            sub   = li.children(list.options.listNodeName);
+
+                        for (var i = 0; i < li[0].attributes.length; i++) {
+                            attribute = li[0].attributes[i];
+                            if (attribute.name.indexOf('data-') === 0) {
+                                item[attribute.name.substr(5)] = UI.Utils.str2json(attribute.value);
+                            }
+                        }
 
                         if (sub.length) {
                             item.children = step(sub, depth + 1);
                         }
+
                         array.push(item);
+
                     });
                     return array;
                 };
@@ -240,8 +249,6 @@
         },
 
         list: function(options) {
-
-            options = UI.$.extend({}, list.options, options);
 
             var data  = [],
                 list  = this,
@@ -262,6 +269,8 @@
                         }
                     });
                 };
+
+            options = UI.$.extend({}, list.options, options);
 
             step(list.element, depth);
 
@@ -405,10 +414,10 @@
 
             if (this.hasNewRoot || this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
 
-                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl]);
+                this.dragRootEl.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl, this.dragRootEl.data('nestable')]);
 
                 if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl]);
+                    this.element.trigger('change.uk.nestable', [el, "removed", this.element, this]);
                 }
             }
 

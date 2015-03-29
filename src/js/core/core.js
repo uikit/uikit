@@ -42,7 +42,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.16.2';
+    UI.version = '2.18.0';
 
     UI.noConflict = function() {
         // resore UIkit version
@@ -426,6 +426,15 @@
                 methods.split(' ').forEach(function(method) {
                     if (!$this[method]) $this[method] = obj[method].bind($this);
                 });
+            },
+
+            option: function() {
+
+                if (arguments.length == 1) {
+                    return this.options[arguments[0]] || undefined;
+                } else if (arguments.length == 2) {
+                    this.options[arguments[0]] = arguments[1];
+                }
             }
 
         }, def);
@@ -558,6 +567,21 @@
         });
     };
 
+    UI.init = function(root) {
+
+        root = root || document;
+
+        UI.domObservers.forEach(function(fn){
+            fn(root);
+        });
+    };
+
+    UI.on('domready.uk.dom', function(){
+
+        UI.init();
+
+        if (UI.domready) UI.Utils.checkDisplay();
+    });
 
     $(function(){
 
@@ -567,25 +591,9 @@
             UI.domObserve('[data-uk-observe]');
         });
 
-        UI.on('ready.uk.dom', function(){
-
-            UI.domObservers.forEach(function(fn){
-                fn(document);
-            });
-
-            if (UI.domready) UI.Utils.checkDisplay(document);
-        });
-
-
         UI.on('changed.uk.dom', function(e) {
-
-            var ele = e.target;
-
-            UI.domObservers.forEach(function(fn){
-                fn(ele);
-            });
-
-            UI.Utils.checkDisplay(ele);
+            UI.init(e.target);
+            UI.Utils.checkDisplay(e.target);
         });
 
         UI.trigger('beforeready.uk.dom');
@@ -625,7 +633,7 @@
         })(), 15);
 
         // run component init functions on dom
-        UI.trigger('ready.uk.dom');
+        UI.trigger('domready.uk.dom');
 
         if (UI.support.touch) {
 

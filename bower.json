@@ -1,6 +1,6 @@
 {
   "name": "uikit",
-  "version": "2.16.2",
+  "version": "2.18.0",
   "homepage": "http://getuikit.com",
   "main": [
     "./dist/**/*.*"

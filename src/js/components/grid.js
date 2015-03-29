@@ -21,7 +21,7 @@
         defaults: {
             colwidth  : 'auto',
             animation : true,
-            duration  : 200,
+            duration  : 300,
             gutter    : 0,
             controls  : false
         },
@@ -205,6 +205,11 @@
                 }.bind(this));
             }
 
+            // make sure to trigger possible scrollpies etc.
+            setTimeout(function() {
+                UI.$doc.trigger('scrolling.uk.document');
+            }, 2 * this.options.duration * (this.options.animation ? 1:0));
+
             this.trigger('afterupdate.uk.grid', [children]);
         },
 
@@ -238,9 +243,8 @@
             elements.hidden  = UI.$(elements.hidden).map(function () {return this[0];});
             elements.visible = UI.$(elements.visible).map(function () {return this[0];});
 
-            elements.hidden.filter(':visible').fadeOut(this.options.duration);
-
-            elements.visible.filter(':hidden').css('opacity', 0).show();
+            elements.hidden.attr('aria-hidden', 'true').filter(':visible').fadeOut(this.options.duration);
+            elements.visible.attr('aria-hidden', 'false').filter(':hidden').css('opacity', 0).show();
 
             $this.updateLayout(elements.visible);
         },

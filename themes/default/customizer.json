@@ -288,13 +288,6 @@
             ]
         },
         {
-            "label": "Progress",
-            "advanced": true,
-            "vars": [
-                "@progress-*"
-            ]
-        },
-        {
             "label": "Subnav",
             "advanced": true,
             "vars": [
@@ -327,13 +320,6 @@
             "advanced": true,
             "vars": [
                 "@thumbnail-*"
-            ]
-        },
-        {
-            "label": "Tooltip",
-            "advanced": true,
-            "vars": [
-                "@tooltip-*"
             ]
         },
         {

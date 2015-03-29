@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tooltip - UIkit tests</title>
+
+        <script src="../_test.js"></script>
+        <script src="../../src/js/components/tooltip.js"></script>
+        <style type="text/css">
+
+            .tooltip-container { height: 110px; }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Tooltip</h1>
+
+            <div class="tooltip-container">
+                <div class="uk-tooltip uk-tooltip-top" style="display: block;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+            </div>
+
+            <p>
+                <button class="uk-button" data-uk-tooltip title="Hello World">No options</button>
+                <span data-uk-tooltip title="Hello World">No options</span>
+            </p>
+
+            <p>
+                <button class="uk-button" data-uk-tooltip="{pos:'top'}" title="Hello World">Top</button>
+                <button class="uk-button" data-uk-tooltip="{pos:'top-left'}" title="Hello World">Top/Left</button>
+                <button class="uk-button" data-uk-tooltip="{pos:'top-right'}" title="Hello World">Top/Right</button>
+                <span data-uk-tooltip="{pos:'top'}" title="Hello World">Top</span>
+                <span data-uk-tooltip="{pos:'top-left'}" title="Hello World">Top/Left</span>
+                <span data-uk-tooltip="{pos:'top-right''}" title="Hello World">Top/Right</span>
+            </p>
+
+            <p>
+                <button class="uk-button" data-uk-tooltip="{pos:'bottom'}" title="Hello World">Bottom</button>
+                <button class="uk-button" data-uk-tooltip="{pos:'bottom-left'}" title="Hello World">Bottom/Left</button>
+                <button class="uk-button" data-uk-tooltip="{pos:'bottom-right'}" title="Hello World">Bottom/Right</button>
+                <span data-uk-tooltip="{pos:'bottom'}" title="Hello World">Bottom</span>
+                <span data-uk-tooltip="{pos:'bottom-left'}" title="Hello World">Bottom/Left</span>
+                <span data-uk-tooltip="{pos:'bottom-right'}" title="Hello World">Bottom/Right</span>
+            </p>
+
+            <p>
+                <button class="uk-button" data-uk-tooltip="{pos:'left'}" title="Hello World">Left</button>
+                <span data-uk-tooltip="{pos:'left'}" title="Hello World">Left</span>
+            </p>
+
+            <p>
+                <button class="uk-button" data-uk-tooltip="{pos:'right'}" title="Hello World">Right</button>
+                <span data-uk-tooltip="{pos:'right'}" title="Hello World">Right</span>
+            </p>
+
+            <h2>Inputs</h2>
+            <form class="uk-form">
+                <input type="text" placeholder="Tooltip left" data-uk-tooltip="{pos:'left'}" title="Hello World">
+                <input type="text" placeholder="Tooltip right" data-uk-tooltip="{pos:'right'}" title="Hello World">
+            </form>
+
+        </div>
+
+    </body>
+</html>
