@@ -35,7 +35,7 @@
         defaults: {
             velocity : 0.5,
             target   : false,
-            range     : false
+            range    : false
         },
 
         boot: function() {
@@ -233,6 +233,7 @@
             switch(prop) {
                 case 'scale':
                     value = 1;
+                    break;
                 default:
                     value = this.element.css(prop);
             }
