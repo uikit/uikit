@@ -35,7 +35,7 @@
         defaults: {
             velocity : 0.5,
             target   : false,
-            dock     : false
+            range     : false
         },
 
         boot: function() {
@@ -66,7 +66,7 @@
 
             Object.keys(this.options).forEach(function(prop){
 
-                if (prop == 'target' || prop == 'velocity' || prop == 'dock' || prop == 'plugins') {
+                if (prop == 'target' || prop == 'velocity' || prop == 'range' || prop == 'plugins') {
                     return;
                 }
 
@@ -103,7 +103,32 @@
                 percent = 0,
                 top     = scrolltop < wh ? scrolltop : scrolltop - wh,
                 start   = offset.top < wh ? 0 : offset.top - wh,
-                end     = this.options.dock ? offset.top : offset.top + height;
+                end     = offset.top + height;
+
+            if (this.options.range) {
+
+                switch(this.options.range) {
+                    case 'dock':
+                        end = offset.top;
+                        break;
+                    case 'center':
+
+                        if (offset.top < wh && (offset.top + height) < wh) {
+                            end = Math.ceil(window.innerHeight/2 - height/2);
+                        } else {
+                            end = offset.top - Math.ceil(window.innerHeight/2 - height/2);
+                        }
+
+                        break;
+
+                    default:
+                        if (offset.top < wh && (offset.top + height) < wh) {
+                            end = Math.ceil(window.innerHeight - height) * this.options.range;
+                        } else {
+                            end = offset.top - Math.ceil(window.innerHeight - height) * this.options.range;
+                        }
+                }
+            }
 
             if (end > (UI.$html.height() - 2*wh)) {
                 end = UI.$html.height() - wh;
@@ -206,6 +231,8 @@
             var value = 0;
 
             switch(prop) {
+                case 'scale':
+                    value = 1;
                 default:
                     value = this.element.css(prop);
             }
@@ -222,36 +249,15 @@
     // From Interface by Stefan Petre
     // http://interface.eyecon.ro/
     var colors = {
-        'aqua': [0,255,255,1],
-        'azure': [240,255,255,1],
-        'beige': [245,245,220,1],
         'black': [0,0,0,1],
         'blue': [0,0,255,1],
         'brown': [165,42,42,1],
         'cyan': [0,255,255,1],
-        'darkblue': [0,0,139,1],
-        'darkcyan': [0,139,139,1],
-        'darkgrey': [169,169,169,1],
-        'darkgreen': [0,100,0,1],
-        'darkkhaki': [189,183,107,1],
-        'darkmagenta': [139,0,139,1],
-        'darkolivegreen': [85,107,47,1],
-        'darkorange': [255,140,0,1],
-        'darkorchid': [153,50,204,1],
-        'darkred': [139,0,0,1],
-        'darksalmon': [233,150,122,1],
-        'darkviolet': [148,0,211,1],
         'fuchsia': [255,0,255,1],
         'gold': [255,215,0,1],
         'green': [0,128,0,1],
         'indigo': [75,0,130,1],
         'khaki': [240,230,140,1],
-        'lightblue': [173,216,230,1],
-        'lightcyan': [224,255,255,1],
-        'lightgreen': [144,238,144,1],
-        'lightgrey': [211,211,211,1],
-        'lightpink': [255,182,193,1],
-        'lightyellow': [255,255,224,1],
         'lime': [0,255,0,1],
         'magenta': [255,0,255,1],
         'maroon': [128,0,0,1],
@@ -270,59 +276,57 @@
 
     function calcColor(start, end, pos) {
 
-        /**!
-         * @preserve Color animation 1.6.0
-         * http://www.bitstorm.org/jquery/color-animation/
-         * Copyright 2011, 2013 Edwin Martin <edwin@bitstorm.org>
-         * Released under the MIT and GPL licenses.
-         */
-
         start = parseColor(start);
         end   = parseColor(end);
         pos   = pos || 0;
 
-        //var properties = ['color', 'backgroundColor', 'borderBottomColor', 'borderLeftColor', 'borderRightColor', 'borderTopColor', 'outlineColor'];
-
-        // Calculate an in-between color. Returns "#aabbcc"-like string.
-        function calculateColor(begin, end, pos) {
-            var color = 'rgba('
-                    + parseInt((begin[0] + pos * (end[0] - begin[0])), 10) + ','
-                    + parseInt((begin[1] + pos * (end[1] - begin[1])), 10) + ','
-                    + parseInt((begin[2] + pos * (end[2] - begin[2])), 10) + ','
-                    + (begin && end ? parseFloat(begin[3] + pos * (end[3] - begin[3])) : 1);
-
-            color += ')';
-            return color;
-        }
-
-        // Parse an CSS-syntax color. Outputs an array [r, g, b]
-        function parseColor(color) {
-
-            var match, quadruplet;
-
-            // Match #aabbcc
-            if (match = /#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})/.exec(color)) {
-                quadruplet = [parseInt(match[1], 16), parseInt(match[2], 16), parseInt(match[3], 16), 1];
-
-                // Match #abc
-            } else if (match = /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/.exec(color)) {
-                quadruplet = [parseInt(match[1], 16) * 17, parseInt(match[2], 16) * 17, parseInt(match[3], 16) * 17, 1];
-
-                // Match rgb(n, n, n)
-            } else if (match = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color)) {
-                quadruplet = [parseInt(match[1]), parseInt(match[2]), parseInt(match[3]), 1];
-
-            } else if (match = /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9\.]*)\s*\)/.exec(color)) {
-                quadruplet = [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3], 10),parseFloat(match[4])];
-
-                // No browser returns rgb(n%, n%, n%), so little reason to support this format.
-            } else {
-                quadruplet = colors[color] || [255,255,255,0];
-            }
-            return quadruplet;
-        }
-
         return calculateColor(start, end, pos);
+    }
+
+    /**!
+     * @preserve Color animation 1.6.0
+     * http://www.bitstorm.org/jquery/color-animation/
+     * Copyright 2011, 2013 Edwin Martin <edwin@bitstorm.org>
+     * Released under the MIT and GPL licenses.
+     */
+
+    // Calculate an in-between color. Returns "#aabbcc"-like string.
+    function calculateColor(begin, end, pos) {
+        var color = 'rgba('
+                + parseInt((begin[0] + pos * (end[0] - begin[0])), 10) + ','
+                + parseInt((begin[1] + pos * (end[1] - begin[1])), 10) + ','
+                + parseInt((begin[2] + pos * (end[2] - begin[2])), 10) + ','
+                + (begin && end ? parseFloat(begin[3] + pos * (end[3] - begin[3])) : 1);
+
+        color += ')';
+        return color;
+    }
+
+    // Parse an CSS-syntax color. Outputs an array [r, g, b]
+    function parseColor(color) {
+
+        var match, quadruplet;
+
+        // Match #aabbcc
+        if (match = /#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})/.exec(color)) {
+            quadruplet = [parseInt(match[1], 16), parseInt(match[2], 16), parseInt(match[3], 16), 1];
+
+            // Match #abc
+        } else if (match = /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/.exec(color)) {
+            quadruplet = [parseInt(match[1], 16) * 17, parseInt(match[2], 16) * 17, parseInt(match[3], 16) * 17, 1];
+
+            // Match rgb(n, n, n)
+        } else if (match = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(color)) {
+            quadruplet = [parseInt(match[1]), parseInt(match[2]), parseInt(match[3]), 1];
+
+        } else if (match = /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9\.]*)\s*\)/.exec(color)) {
+            quadruplet = [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3], 10),parseFloat(match[4])];
+
+            // No browser returns rgb(n%, n%, n%), so little reason to support this format.
+        } else {
+            quadruplet = colors[color] || [255,255,255,0];
+        }
+        return quadruplet;
     }
 
     return UI.parallax;
