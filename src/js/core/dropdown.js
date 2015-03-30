@@ -164,6 +164,8 @@
             // Update ARIA
             this.element.attr('aria-expanded', 'false');
 
+            this.trigger('hide.uk.dropdown', [this]);
+
             if (active && active[0] == this.element[0]) active = false;
         },
 
