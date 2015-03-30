@@ -21,9 +21,10 @@ var pkg         = require('./package.json'),
     browserSync = require('browser-sync'),
     Promise     = require('promise');
 
-var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
-    watchCache = {},
-    getThemes  = function(theme, all){
+var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
+    watchCache   = {},
+    watchfolders = ['src/**/*', 'themes/**/*', 'custom/**/*.less'],
+    getThemes    = function(theme, all) {
 
         var list = [], themefolders = ["themes"];
 
@@ -157,9 +158,14 @@ gulp.task('browser-reload', function (done) {
     done();
 });
 
-gulp.task('watch', ['browser-sync', 'indexthemes'], function(done) {
+gulp.task('watch', ['indexthemes'], function(done) {
 
-    watchfolders = ['src/**/*', 'themes/**/*', 'custom/**/*.less'];
+    gulp.watch(watchfolders, function(files) {
+        runSequence('dist');
+    });
+});
+
+gulp.task('browsersync', ['browser-sync', 'indexthemes'], function(done) {
 
     gulp.watch(watchfolders, function(files) {
         runSequence('browser-reload');
