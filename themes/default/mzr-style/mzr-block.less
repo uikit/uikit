@@ -2,70 +2,301 @@
 
   .mzr-shadow();
   background-color: #ffffff;
+}
 
-  .mzr-block-header{
+.mzr-block-header{
 
-    font-size: 20px;
-    padding: 10px;
+  font-size: 20px;
+  padding: 10px;
+  padding-bottom: 0px;
 
-    &:after{
-      display: block;
-      margin-top: 10px;
-      border-top: 1px dashed @mzr-color-gray-border;
-      content: '';
+  //переопределяем свойства h1..h6
+  margin: 0;
+  line-height: 20px;
+  //end
+
+  &:after{
+    display: block;
+    margin-top: 10px;
+    border-top: 1px dashed @mzr-color-gray-border;
+    content: '';
+  }
+
+}
+
+.mzr-block-content{
+  padding: 10px;
+
+  /*
+  Заголовок может быть вложен в content, нужно исправит левый и правый отступ
+  */
+  > .mzr-block-header{
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: 5px;//увеличим нижний отступ
+  }
+}
+
+.mzr-block-menu{
+  @mzr-block-menu-height: 40px;
+  font-size: 14px;
+  padding-left: 10px;
+  min-height: @mzr-block-menu-height;
+  background-color: @mzr-color-gray-lite;
+  border-top: 1px solid @mzr-color-gray-border;
+  color: @mzr-color-gray-dark;
+
+  .uk-flex();
+  .uk-flex-middle();
+  .uk-flex-wrap();
+
+  >.mzr-block-menu-item{
+    line-height: 40px;
+    margin-right: 15px;
+    cursor: pointer;
+    &:hover{
+      color: @mzr-color-gray-dark-hover;
     }
 
-  }
-
-  .mzr-block-content{
-    padding: 10px;
-    padding-top: 0;
-  }
-
-  .mzr-block-menu{
-    @mzr-block-menu-height: 40px;
-    font-size: 14px;
-    padding-left: 10px;
-    min-height: @mzr-block-menu-height;
-    background-color: @mzr-color-gray-lite;
-    border-top: 1px solid @mzr-color-gray-border;
-    color: @mzr-color-gray-dark;
-
-//    &::after{
-//      display: inline-block;
-//      vertical-align: middle;
-//      height: @mzr-block-menu-height;
-//    }
-
-    .uk-flex();
-    .uk-flex-middle();
-    .uk-flex-wrap();
-    //.uk-flex-wrap-space-around();
-
-    >.mzr-block-menu-item{
-      margin-right: 15px;
-      cursor: pointer;
-      &:hover{
-        color: @mzr-color-gray-dark-hover;
-      }
-
-      >span{
-        display: inline-block;
-        vertical-align: middle;
-      }
-      [class*='uk-icon-']{
-        font-size: 30px;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      [class*='uk-icon-']+span{
-        margin-left: 5px;
-      }
+    >span{
+      display: inline-block;
+      vertical-align: middle;
+    }
+    [class*='uk-icon-']{
+      font-size: 30px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    [class*='uk-icon-']+span{
+      margin-left: 5px;
     }
   }
 }
 
-//<div class="uk-flex uk-flex-middle uk-flex-space-between">...</div>
+//todo проверить
 .mzr-block + .mzr-block, .mzr-block + div,  div + .mzr-block {
   margin-top: 10px;
+}
+
+/*
+-----------mzr-block-recipe----------------
+*/
+.mzr-block-recipe{
+  &:extend(.mzr-block);
+  max-width: 730px;
+
+  .mzr-block-recipe-nutritional-value{
+    color: @mzr-color-text-mute;
+  }
+
+  .mzr-block-recipe-nutritional-value{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .mzr-block-recipe-ingredients-item{
+    margin-top: 0;
+    padding: 3px 5px 3px 20px;
+    &:nth-of-type(even){
+      background-color: @mzr-color-gray-lite;
+    }
+  }
+
+  .mzr-block-recipe-weight-input{
+    width: 3.5em;
+    text-align: right;
+  }
+}
+
+/*
+-----------mzr-block-inner---------------------------
+*/
+.mzr-inner-block {
+  border: 1px solid @mzr-color-gray-border;
+  background-color: #ffffff;
+}
+
+.mzr-inner-block-header{
+  height: 40px;
+  line-height: 40px;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  background-color: @mzr-color-turquoise;
+  position: relative;
+  overflow: hidden;
+  .mzr-inner-block-close{
+    font-size: 12px;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+  &.__red{
+    background-color: @mzr-color-red;
+  }
+}
+.mzr-inner-block-header__left{
+  text-align: left;
+  padding-left: 15px;
+}
+
+
+
+
+/*
+----------mzr-block-nutritional-value--------------
+*/
+.mzr-block-nutritional-value{
+
+  &:extend(.mzr-inner-block);
+
+  .__align-right{
+    text-align: right;
+  }
+
+  .__p-l{
+    padding-left: 2px;
+  }
+
+  .__p-r{
+    padding-right: 2px;
+  }
+
+
+  >div >.uk-grid{
+
+    input{
+      width: 8em;
+    }
+
+    &.__intro{
+      background-color: #ffffff;
+      padding-left: 2px;
+    }
+    @media (min-width: 340px) {
+      //для маленьких экранов убираем вертикальное выравнивание и высоту строки
+      min-height: 40px;
+      line-height: 40px;
+    }
+    margin-bottom: 1px;
+    background-color: @mzr-color-turquoise-lighter;
+
+
+    [class*="mzr-icon-nutr-"]{
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 2px;
+      margin-right: 6px;
+    }
+  }
+  &.__max-width{
+    max-width: 400px;
+  }
+}
+
+
+/*
+-----------------------mzr-block-nutr-balans----------------------
+*/
+.mzr-block-food-nutr-balans{
+  &:extend(.mzr-inner-block);
+  box-sizing: border-box;
+
+  font-size: 0.8em;
+
+  .-content{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+
+  ////////////////////////
+  //размеры
+
+  /*Стандартные размеры*/
+  @bar-width: 168px;
+  @bar-height: 19px;
+
+  .-column{
+
+    margin-left: auto;
+    margin-right: auto;
+    tr, td{
+      height: @bar-height;
+      cursor: pointer;
+    }
+
+    .-bar-wrap {
+      width: @bar-width;
+      .-bar{
+        height: @bar-height - 2;
+      }
+    }
+  }
+  /*Маленькие рамзеры*/
+  @bar-width__small: 120px;
+  //@bar-height__small: 16px;
+
+    .__small-bar .-column{
+
+//      tr, td{
+//        height: @bar-height__small;
+//      }
+      .-bar-wrap {
+        width: @bar-width__small;
+//        .-bar{
+//          height: @bar-height__small - 2;
+//        }
+      }
+
+    }
+
+  //end
+
+
+
+  text-overflow: ellipsis;
+
+  &.__max-width{
+    max-width: 400px;
+  }
+
+  .-column{
+    border-collapse: collapse;
+
+
+    .-name, .-value{
+      vertical-align: middle;
+      text-align: right;
+      padding-right: 4px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .-value{
+      padding-right: 0px;
+      padding-left: 4px;
+      max-width: 50px;
+    }
+    .-bar-wrap{
+      padding: 0px;
+      border: 1px solid @mzr-color-gray-border;
+      vertical-align: middle;
+
+      .-bar{
+        float: left;
+        width: 45%;
+        background-color: @mzr-color-nutr-other;
+
+      }
+
+      &:after{
+        content: " ";
+        display: table;
+        clear: both;
+      }
+    }
+  }
 }

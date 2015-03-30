@@ -49,6 +49,7 @@
         width: 100px;
         height: 100px;
     }
+
 </style>
 <h1>Цвета</h1>
 
@@ -169,13 +170,11 @@
 
 </div>
 
-<h2>Пример 2.</h2>
+<h2>Пример 2: Заголовок в несколько строк</h2>
 <div  class="mzr-block">
 
     <div class="mzr-block-header">Заголовок блока может быть длинным: Phasellus enim quam, efficitur eu dapibus sit amet, pellentesque at ligula. Fusce non laoreet nunc, sed pretium mauris. Nulla sed leo pellentesque nisi porta cursus quis non lorem.</div>
     <div class="mzr-block-content">
-        <p>Phasellus enim quam, efficitur eu dapibus sit amet, pellentesque at ligula. Fusce non laoreet nunc, sed pretium mauris. Nulla sed leo pellentesque nisi porta cursus quis non lorem. Suspendisse potenti. Quisque malesuada arcu sed risus hendrerit, vel dapibus ante finibus. Nunc non pellentesque lectus. Curabitur vehicula elit et mauris mollis sollicitudin vitae quis augue. Aenean a dui eget massa tincidunt euismod id tincidunt velit. Nunc laoreet diam non euismod egestas. Sed tincidunt risus non diam auctor, non dapibus massa semper.</p>
-        <p>Phasellus enim quam, efficitur eu dapibus sit amet, pellentesque at ligula. Fusce non laoreet nunc, sed pretium mauris. Nulla sed leo pellentesque nisi porta cursus quis non lorem. Suspendisse potenti. Quisque malesuada arcu sed risus hendrerit, vel dapibus ante finibus. Nunc non pellentesque lectus. Curabitur vehicula elit et mauris mollis sollicitudin vitae quis augue. Aenean a dui eget massa tincidunt euismod id tincidunt velit. Nunc laoreet diam non euismod egestas. Sed tincidunt risus non diam auctor, non dapibus massa semper.</p>
         <p>Phasellus enim quam, efficitur eu dapibus sit amet, pellentesque at ligula. Fusce non laoreet nunc, sed pretium mauris. Nulla sed leo pellentesque nisi porta cursus quis non lorem. Suspendisse potenti. Quisque malesuada arcu sed risus hendrerit, vel dapibus ante finibus. Nunc non pellentesque lectus. Curabitur vehicula elit et mauris mollis sollicitudin vitae quis augue. Aenean a dui eget massa tincidunt euismod id tincidunt velit. Nunc laoreet diam non euismod egestas. Sed tincidunt risus non diam auctor, non dapibus massa semper.</p>
     </div>
     <div class="mzr-block-menu">Здесь будет меню</div>
@@ -183,8 +182,450 @@
 
 </div>
 
+<h2>Пример 3: Отсуствует меню</h2>
+<div  class="mzr-block">
+
+    <div class="mzr-block-header">Заголовок блока</div>
+    <div class="mzr-block-content">
+        <p>Phasellus enim quam, efficitur eu dapibus sit amet, pellentesque at ligula. Fusce non laoreet nunc, sed pretium mauris. Nulla sed leo pellentesque nisi porta cursus quis non lorem. Suspendisse potenti. Quisque malesuada arcu sed risus hendrerit, vel dapibus ante finibus. Nunc non pellentesque lectus. Curabitur vehicula elit et mauris mollis sollicitudin vitae quis augue. Aenean a dui eget massa tincidunt euismod id tincidunt velit. Nunc laoreet diam non euismod egestas. Sed tincidunt risus non diam auctor, non dapibus massa semper.</p>
+    </div>
+
+
+</div>
+
 <hr/>
 
+
+<!--mzr-block-recipe-->
+
+<h1>mzr-block-recipe <a href="#mzr-block-recipe">(*)</a></h1>
+<a name="mzr-block-recipe"></a>
+<p>Блок - используется для отображения рецептов. Включена микроразметка schema.org/Recipe</p>
+<div  class="mzr-block-recipe" itemscope itemtype="http://schema.org/Recipe">
+    <h1 class="mzr-block-header" itemprop="name">Рецепт плов. Калорийность, химический состав и пищевая ценность.</h1>
+    <div class="mzr-block-content">
+
+        <div class="uk-grid">
+            <div class="uk-width-medium-1-2 uk-hidden-small ">Описание рецепта плов:</div>
+            <div class="uk-width-medium-1-2 uk-width-small-1-1" >
+                <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script><div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,lj"></div>
+            </div>
+        </div>
+
+        <div class="mzr-block-header">
+            Ингредиенты на <input class="mzr-block-recipe-weight-input" type="text" value="100" disabled/> г
+        </div>
+
+        <div class="uk-grid mzr-block-recipe-ingredients-item" itemprop="ingredients">
+            <div class="uk-width-3-5">Горбуша натуральная (консервы)</div>
+            <div class="uk-width-2-5">100 г</div>
+        </div>
+
+        <div class="uk-grid mzr-block-recipe-ingredients-item" itemprop="ingredients">
+            <div class="uk-width-3-5">Морковь красная</div>
+            <div class="uk-width-2-5">250 г</div>
+        </div>
+
+        <div class="uk-grid mzr-block-recipe-ingredients-item" itemprop="ingredients">
+            <div class="uk-width-3-5">Очень длинное наименование продукта, котрое просто не вместится в одну строку</div>
+            <div class="uk-width-2-5">250 г</div>
+        </div>
+
+        <div class="mzr-block-recipe-nutritional-value" itemprop="nutrition" itemscope itemtype="http://schema.org/NutritionInformation">
+            Пищевая ценность 100 г продукта:
+            белки - <span itemprop="proteinContent">0 г</span>;
+            жиры - <span itemprop="fatContent">3 г</span>;
+            углеводы - <span itemprop="carbohydrateContent">4 г</span>;
+            калорийность - <span itemprop="calories">48 кКал</span>.
+            Рецепт создан в приложении <a href="http://health-diet.ru/health_diet/">Мой здоровый рацион</a>
+        </div>
+
+        <div class="mzr-block-header">
+            Способ приготовления
+        </div>
+
+        <div itemprop="recipeInstructions">
+            <p>Перловую крупу хорошо промываем и варим мин 15. В кастрюлю закладываем чищеный, резаный кубиками картофель, добавляем перловку и варим. Пену снимаем шумовкой. Добавляем измельченный лук и морковь, соль, подсолнечное масло. Варим рассольник после закипания 20 мин. Затем соленые огурцы натираем на крупной терке, закладываем в кастрюлю, варим еще 10 мин. Добавляем укроп, петрушку, лавровый лист, варим примерно 2-3 мин и выключаем. На стол подаем со сметаной.</p>
+            <p>Перловую крупу хорошо промываем и варим мин 15. В кастрюлю закладываем чищеный, резаный кубиками картофель, добавляем перловку и варим. Пену снимаем шумовкой. Добавляем измельченный лук и морковь, соль, подсолнечное масло. Варим рассольник после закипания 20 мин. Затем соленые огурцы натираем на крупной терке, закладываем в кастрюлю, варим еще 10 мин. Добавляем укроп, петрушку, лавровый лист, варим примерно 2-3 мин и выключаем. На стол подаем со сметаной.</p>
+        </div>
+
+    </div>
+    <div class="mzr-block-menu">
+        <div class="mzr-block-menu-item">
+            <i class="uk-icon-print"></i><span>Печать</span>
+        </div>
+        <div class="mzr-block-menu-item">
+            <i class="uk-icon-share"></i><span>Картинка для вставки в блог</span>
+        </div>
+    </div>
+</div>
+
+
+<!--mzr-block-inner-->
+
+<h1>mzr-block-inner <a href="#mzr-block-inner">(*)</a></h1>
+<a name="mzr-block-inner"></a>
+<p>Внутренний блок - используется для отображения блоков в mzr-block</p>
+<div class="mzr-block">
+    <div class="mzr-block-content">
+
+
+        <div class="mzr-inner-block">
+            <div class="mzr-inner-block-header">ПИЩЕВАЯ ЦЕННОСТЬ <span class="mzr-inner-block-close">СКРЫТЬ</span>
+            </div>
+            <p>Phasellus enim quam, efficitur eu dapibus sit amet, pellentesque at ligula. Fusce non laoreet nunc, sed pretium mauris. Nulla sed leo pellentesque nisi porta cursus quis non lorem. Suspendisse potenti. Quisque malesuada arcu sed risus hendrerit, vel dapibus ante finibus. Nunc non pellentesque lectus. Curabitur vehicula elit et mauris mollis sollicitudin vitae quis augue. Aenean a dui eget massa tincidunt euismod id tincidunt velit. Nunc laoreet diam non euismod egestas. Sed tincidunt risus non diam auctor, non dapibus massa semper.</p>
+        </div>
+
+
+        <br/>
+        <p>Заголовок выравнен по левому краю.</p>
+
+
+        <div class="mzr-inner-block">
+            <div class="mzr-inner-block-header mzr-inner-block-header__left">ПИЩЕВАЯ ЦЕННОСТЬ <span class="mzr-inner-block-close">СКРЫТЬ</span>
+            </div>
+            <p>Phasellus enim quam, efficitur eu dapibus sit amet, pellentesque at ligula. Fusce non laoreet nunc, sed pretium mauris. Nulla sed leo pellentesque nisi porta cursus quis non lorem. Suspendisse potenti. Quisque malesuada arcu sed risus hendrerit, vel dapibus ante finibus. Nunc non pellentesque lectus. Curabitur vehicula elit et mauris mollis sollicitudin vitae quis augue. Aenean a dui eget massa tincidunt euismod id tincidunt velit. Nunc laoreet diam non euismod egestas. Sed tincidunt risus non diam auctor, non dapibus massa semper.</p>
+        </div>
+
+
+    </div>
+</div>
+
+
+<!--mzr-block-recipe-->
+
+<h1>mzr-block-nutritional-value <a href="#mzr-block-nutritional-value">(*)</a></h1>
+<a name="mzr-block-nutritional-value"></a>
+<p>Блок "Пищевая ценность продукта/рецепта" - используется для отображения пищевой ценности продуктов/рецептов. Включена микроразметка schema.org/Recipe.
+    Всегда расположен в mzr-block.</p>
+<div class="mzr-block">
+    <div class="mzr-block-content">
+
+
+        <div class="mzr-block-nutritional-value __max-width">
+            <div class="mzr-inner-block-header">ПИЩЕВАЯ ЦЕННОСТЬ</div>
+
+            <div itemprop="nutrition" itemscope itemtype="http://schema.org/NutritionInformation">
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-1-2 __p-l">
+                        Размер порции (г)
+                    </div>
+
+                    <div class="uk-width-1-2 __align-right __p-r"><input type="text" value="120"/></div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse __intro">
+                    <div class="uk-width-2-4">
+                        Содержание в порции
+                    </div>
+
+                    <div class="uk-width-2-4 __align-right __p-r">% от нормы</div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-2-4">
+                        <i class="mzr-icon-nutr-calorie"></i><span>Калории</span>
+                    </div>
+                    <div class="uk-width-1-4 __align-right"><span itemprop="calories">50 г</span></div>
+                    <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-2-4">
+                        <i class="mzr-icon-nutr-protein"></i><span>Белки</span>
+                    </div>
+                    <div class="uk-width-1-4 __align-right"><span itemprop="proteinContent">50 г</span></div>
+                    <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-2-4">
+                        <i class="mzr-icon-nutr-fat"></i><span>Жиры</span>
+                    </div>
+                    <div class="uk-width-1-4 __align-right"><span itemprop="fatContent">50 г</span></div>
+                    <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-2-4">
+                        <i class="mzr-icon-nutr-carb"></i><span>Углеводы</span>
+                    </div>
+                    <div class="uk-width-1-4 __align-right"><span itemprop="carbohydrateContent">50 г</span></div>
+                    <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-2-4">
+                        <i class="mzr-icon-nutr-fiber"></i><span>Пищевые волокна</span>
+                    </div>
+                    <div class="uk-width-1-4 __align-right"><span itemprop="fiberContent">50 г</span></div>
+                    <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-2-4">
+                        <i class="mzr-icon-nutr-salt"></i><span>Натрий</span>
+                    </div>
+                    <div class="uk-width-1-4 __align-right"><span itemprop="sodiumContent">50 г</span></div>
+                    <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse">
+                    <div class="uk-width-2-4">
+                        <i class="mzr-icon-nutr-water"></i><span>Вода</span>
+                    </div>
+                    <div class="uk-width-1-4 __align-right"><span>50 г</span></div>
+                    <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<!--mzr-block-nutr-balans-->
+
+<h1>mzr-block-food-nutr-balans <a href="#mzr-block-food-nutr-balans">(*)</a></h1>
+<a name="mzr-block-nutritional-value"></a>
+<p>Блок "Нутриентный баланс продукта/рецепта" - используется для отображения нутриентного баланса.
+    Всегда расположен в mzr-block.</p>
+<div class="mzr-block">
+    <div class="mzr-block-content">
+
+        <div class="mzr-block-food-nutr-balans __max-width">
+            <div class="mzr-inner-block-header">НУТРИЕНТНЫЙ БАЛАНС</div>
+
+            <div class="-content">
+                <div class="uk-grid">
+                    <div class="uk-width-1-1">
+
+                        <table class="-column">
+                            <tr>
+                                <td class="-name">Калорийность</td>
+                                <td class="-bar-wrap"><div class="-bar"></div></td>
+                                <td class="-value">45%</td>
+                            </tr>
+                            <tr>
+                                <td class="-name">Калорийность</td>
+                                <td class="-bar-wrap"><div class="-bar"></div></td>
+                                <td class="-value">45%</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="uk-grid uk-grid-collapse __small-bar uk-container-center">
+                    <div class="uk-width-small-1-2">
+                        <table class="-column">
+                            <tr>
+                                <td class="-name">Волок</td>
+                                <td class="-bar-wrap"><div class="-bar"></div></td>
+                                <td class="-value">45%</td>
+                            </tr>
+                            <tr>
+                                <td class="-name">Волок</td>
+                                <td class="-bar-wrap"><div class="-bar"></div></td>
+                                <td class="-value">45%</td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div class="uk-width-small-1-2 ">
+                        <table class="-column">
+                            <tr>
+                                <td class="-name">Волок</td>
+                                <td class="-bar-wrap"><div class="-bar"></div></td>
+                                <td class="-value">45%</td>
+                            </tr>
+                            <tr>
+                                <td class="-name">Волок</td>
+                                <td class="-bar-wrap"><div class="-bar"></div></td>
+                                <td class="-value">45%</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="mzr-block" style="max-width: 730px;">
+    <div class="mzr-block-header ">Калькулятор рецепта</div>
+    <div class="mzr-block-content">
+        <div class="uk-grid uk-grid-small">
+            <div class="uk-width-small-1-2">
+
+
+                <div class="mzr-block-nutritional-value __max-width">
+                    <div class="mzr-inner-block-header">ПИЩЕВАЯ ЦЕННОСТЬ</div>
+
+                    <div itemprop="nutrition" itemscope itemtype="http://schema.org/NutritionInformation">
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-1-2 __p-l">
+                                Размер порции (г)
+                            </div>
+
+                            <div class="uk-width-1-2 __align-right __p-r"><input type="text" value="120"/></div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse __intro">
+                            <div class="uk-width-2-4">
+                                Содержание в порции
+                            </div>
+
+                            <div class="uk-width-2-4 __align-right __p-r">% от нормы</div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-2-4">
+                                <i class="mzr-icon-nutr-calorie"></i><span>Калории</span>
+                            </div>
+                            <div class="uk-width-1-4 __align-right"><span itemprop="calories">50 г</span></div>
+                            <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-2-4">
+                                <i class="mzr-icon-nutr-protein"></i><span>Белки</span>
+                            </div>
+                            <div class="uk-width-1-4 __align-right"><span itemprop="proteinContent">50 г</span></div>
+                            <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-2-4">
+                                <i class="mzr-icon-nutr-fat"></i><span>Жиры</span>
+                            </div>
+                            <div class="uk-width-1-4 __align-right"><span itemprop="fatContent">50 г</span></div>
+                            <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-2-4">
+                                <i class="mzr-icon-nutr-carb"></i><span>Углеводы</span>
+                            </div>
+                            <div class="uk-width-1-4 __align-right"><span itemprop="carbohydrateContent">50 г</span></div>
+                            <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-2-4">
+                                <i class="mzr-icon-nutr-fiber"></i><span>Пищевые волокна</span>
+                            </div>
+                            <div class="uk-width-1-4 __align-right"><span itemprop="fiberContent">50 г</span></div>
+                            <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-2-4">
+                                <i class="mzr-icon-nutr-salt"></i><span>Натрий</span>
+                            </div>
+                            <div class="uk-width-1-4 __align-right"><span itemprop="sodiumContent">50 г</span></div>
+                            <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse">
+                            <div class="uk-width-2-4">
+                                <i class="mzr-icon-nutr-water"></i><span>Вода</span>
+                            </div>
+                            <div class="uk-width-1-4 __align-right"><span>50 г</span></div>
+                            <div class="uk-width-1-4 __align-right __p-r"><span>40%</span></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="uk-width-small-1-2">
+
+
+                <div class="mzr-block-food-nutr-balans __max-width">
+                    <div class="mzr-inner-block-header __red">НУТРИЕНТНЫЙ БАЛАНС</div>
+
+                    <div class="-content">
+                        <div class="uk-grid">
+                            <div class="uk-width-1-1">
+
+                                <table class="-column">
+                                    <tr>
+                                        <td class="-name">Калорийность</td>
+                                        <td class="-bar-wrap"><div class="-bar"></div></td>
+                                        <td class="-value">45%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="-name">Калорийность</td>
+                                        <td class="-bar-wrap"><div class="-bar"></div></td>
+                                        <td class="-value">45%</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="uk-grid uk-grid-collapse __small-bar uk-container-center">
+                            <div class="uk-width-small-1-2">
+                                <table class="-column">
+                                    <tr>
+                                        <td class="-name">Волок</td>
+                                        <td class="-bar-wrap"><div class="-bar"></div></td>
+                                        <td class="-value">45%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="-name">Волок</td>
+                                        <td class="-bar-wrap"><div class="-bar"></div></td>
+                                        <td class="-value">45%</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                            <div class="uk-width-small-1-2 ">
+                                <table class="-column">
+                                    <tr>
+                                        <td class="-name">Волок</td>
+                                        <td class="-bar-wrap"><div class="-bar"></div></td>
+                                        <td class="-value">45%</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="-name">Волок</td>
+                                        <td class="-bar-wrap"><div class="-bar"></div></td>
+                                        <td class="-value">45%</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<br/>
+<br/>
 
 </body>
 </html>
