@@ -24,7 +24,8 @@
             visible   : {},
             animation : 'fade',
             duration  : 200,
-            group     : false
+            group     : false,
+            delay     : false
         },
 
         sets: [],
@@ -61,11 +62,15 @@
 
             this.updateSets();
 
-            this.on("click.uikit.slideset", '[data-uk-set]', function(e) {
+            this.on("click.uikit.slideset", '[data-uk-slideset-item]', function(e) {
 
                 e.preventDefault();
 
-                var set = UI.$(this).attr('data-uk-set');
+                if ($this.animating) {
+                    return;
+                }
+
+                var set = UI.$(this).attr('data-uk-slideset-item');
 
                 if ($this.activeSet === set) return;
 
@@ -80,9 +85,14 @@
 
             });
 
-            this.on('click.uikit.slideset', '[data-uk-set-group]', function(e){
+            this.on('click.uikit.slideset', '[data-uk-slideset-group]', function(e){
                 e.preventDefault();
-                $this.group = UI.$(this).attr('data-uk-set-group');
+
+                if ($this.animating) {
+                    return;
+                }
+
+                $this.group = UI.$(this).attr('data-uk-slideset-group');
                 $this.updateSets(true, true);
             });
 
@@ -113,12 +123,12 @@
             if (this.nav.length && this.nav.empty()) {
 
                 for (i=0;i<this.sets.length;i++) {
-                    this.nav.append('<li data-uk-set="'+i+'"><a></a></li>');
+                    this.nav.append('<li data-uk-slideset-item="'+i+'"><a></a></li>');
                 }
             }
 
             if (this.group!==false) {
-                this.element.find('[data-uk-set-group]').removeClass('uk-active').filter('[data-uk-set-group="'+this.group+'"]').addClass('uk-active');
+                this.element.find('[data-uk-slideset-group]').removeClass('uk-active').filter('[data-uk-slideset-group="'+this.group+'"]').addClass('uk-active');
             }
 
             this.activeSet = false;
@@ -132,15 +142,20 @@
                 return parseInt(this.options.visible, 10);
             }
 
-            var breakpoint  = null,
+            var breakpoint  = 'default',
                 tmp         = UI.$('<div style="position:absolute;height:1px;top:-1000px;"></div>').appendTo('body'),
                 breakpoints = UI.$.extend({
-                    'large'  : 4,
-                    'medium' : 4,
-                    'small'  : 1
+                    //'large'  : 4,
+                    //'medium' : 4,
+                    'small'  : 1,
+                    'default': 4
                 }, this.options.visible);
 
                 ['large', 'medium', 'small'].forEach(function(bp) {
+
+                    if (!breakpoints[bp]) {
+                        return;
+                    }
 
                     tmp.attr('class', 'uk-visible-'+bp).width();
 
@@ -151,7 +166,7 @@
 
                 tmp.remove();
 
-                return breakpoints[breakpoint] || 3;
+                return breakpoints[breakpoint] || 4;
         },
 
         getItems: function() {
@@ -168,7 +183,7 @@
 
                 this.children.each(function(index){
 
-                    var ele = UI.$(this), f = ele.data('group'), infilter = filter.length ? false : true;
+                    var ele = UI.$(this), f = ele.attr('data-uk-group'), infilter = filter.length ? false : true;
 
                     if (f) {
 
@@ -234,7 +249,7 @@
                 UI.Utils.checkDisplay(next, true);
 
                 $this.children.hide();
-                next.show();
+                next.css('display', '');
 
                 $this.animating = false;
                 $this.activeSet = setIndex;
@@ -308,7 +323,9 @@
 
     function coreAnimation(cls, current, next, dir) {
 
-        var d = UI.$.Deferred(), clsIn, clsOut, release, delay = Math.floor(this.options.duration/2), i;
+        var d = UI.$.Deferred(),
+            delay = (this.options.delay === false) ? Math.floor(this.options.duration/2) : this.options.delay,
+            clsIn, clsOut, release, i;
 
         dir = dir || 1;
 
