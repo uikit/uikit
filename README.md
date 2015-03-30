@@ -51,10 +51,10 @@ The built version of UIkit will be put in the `/dist` subdirectory. Pass a theme
 ### Browsersync
 
 ```
-gulp watch
+gulp browsersync
 ```
 
-After running `gulp watch` a new browser instance will open, pointing to the uikit folder - `http://localhost:3000/`. The browser window will reload anytime you modify a source file.
+After running `gulp browsersync` a new browser instance will open, pointing to the uikit folder - `http://localhost:3000/`. The browser window will reload anytime you modify a source file.
 
 ### Custom prefix
 
