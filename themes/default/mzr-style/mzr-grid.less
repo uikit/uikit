@@ -22,12 +22,14 @@
     float: left;
     margin: 0 0 0 -(@mzr-content-width + @mzr-left-side-width + @mzr-padding-width);//940px
     width: @mzr-left-side-width;
+    overflow-x: hidden;
   }
 
   .mzr-grid-right-side{
     float: right;
     margin: 0;
     width: @mzr-right-side-width;
+    overflow-x: hidden;
   }
 
   .mzr-grid-content{
@@ -36,5 +38,6 @@
     float: left;
     margin: 0 0 0 (@mzr-left-side-width + @mzr-padding-width);
     min-height: 1px;
+    overflow-x: hidden;
   }
 }
