@@ -6,8 +6,7 @@
     "./dist/**/*.*"
   ],
   "dependencies": {
-    "jquery": ">= 1.9.0",
-    "react": "~0.13.1"
+    "jquery": ">= 1.9.0"
   },
   "ignore": [
     "node_modules",
