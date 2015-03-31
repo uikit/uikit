@@ -1,0 +1,29 @@
+/*
+-----------mzr-block-recipe----------------
+*/
+.mzr-block-recipe{
+  &:extend(.mzr-block);
+  //max-width: 730px;
+
+  .mzr-block-recipe-nutritional-value{
+    color: @mzr-color-text-mute;
+  }
+
+  .mzr-block-recipe-nutritional-value{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .mzr-block-recipe-ingredients-item{
+    margin-top: 0;
+    padding: 3px 5px 3px 20px;
+    &:nth-of-type(even){
+      background-color: @mzr-color-gray-lite;
+    }
+  }
+
+  .mzr-block-recipe-weight-input{
+    width: 3.5em;
+    text-align: right;
+  }
+}

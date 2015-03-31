@@ -1,15 +1,26 @@
+/*
+3 столбца 200 - 730 240
+*/
 .mzr-grid-3-column{
 
-  @mzr-left-side-width: 200px;
-  @mzr-right-side-width: 240px;
-  @mzr-content-width: 730px;
-  @mzr-padding-width: 10px;
+  @mzr-grid_3-column-left-side-width: 200px;
+  @mzr-grid_3-column-right-side-width: 240px;
+  @mzr-grid_3-column-content-width: 730px;
+  @mzr-grid_3-column-padding-width: 10px;
 
-  @mzr-grid-width: @mzr-left-side-width + @mzr-padding-width + @mzr-right-side-width + @mzr-padding-width + @mzr-content-width;
+  @mzr-grid_3-column-left-side-width__guest: 280px;
+
+  @mzr-grid_3-column-width: @mzr-grid_3-column-left-side-width + @mzr-grid_3-column-padding-width + @mzr-grid_3-column-right-side-width + @mzr-grid_3-column-padding-width +  @mzr-grid_3-column-content-width;
+  @mzr-grid_3-column-width__guest: @mzr-grid_3-column-left-side-width__guest + @mzr-grid_3-column-padding-width + @mzr-grid_3-column-right-side-width + @mzr-grid_3-column-padding-width +  @mzr-grid_3-column-content-width;
 
   margin: 0 auto;
-  width: @mzr-grid-width;
-  padding: @mzr-padding-width;
+  width: @mzr-grid_3-column-width;
+  //модификатор mzr-grid-3-column__guest
+  &.mzr-grid-3-column__guest{
+    width: @mzr-grid_3-column-width__guest;
+  }
+
+  //padding: @mzr-grid_3-column-padding-width;
   position: relative;
 
   &:after{
@@ -19,25 +30,151 @@
   }
 
   .mzr-grid-left-side{
+    background-color: #00aff2;
     float: left;
-    margin: 0 0 0 -(@mzr-content-width + @mzr-left-side-width + @mzr-padding-width);//940px
-    width: @mzr-left-side-width;
-    overflow-x: hidden;
+    margin: 0 0 0 -(@mzr-grid_3-column-content-width + @mzr-grid_3-column-left-side-width + @mzr-grid_3-column-padding-width);//940px
+    width: @mzr-grid_3-column-left-side-width;
+    //fix overflow-x: hidden; fix, иначе не будет видна mzr-shadow
   }
 
+  //модификатор mzr-grid-3-column__guest
+  &.mzr-grid-3-column__guest .mzr-grid-left-side{
+    margin: 0 0 0 -(@mzr-grid_3-column-content-width + @mzr-grid_3-column-left-side-width__guest + @mzr-grid_3-column-padding-width);
+    width: @mzr-grid_3-column-left-side-width__guest;
+  }
+
+
   .mzr-grid-right-side{
+    background-color: #00aff2;
     float: right;
     margin: 0;
-    width: @mzr-right-side-width;
-    overflow-x: hidden;
+    width: @mzr-grid_3-column-right-side-width;
+    //fix overflow-x: hidden; fix, иначе не будет видна mzr-shadow
   }
 
   .mzr-grid-content{
-    width: @mzr-content-width;
+    width: @mzr-grid_3-column-content-width;
     position: relative;
     float: left;
-    margin: 0 0 0 (@mzr-left-side-width + @mzr-padding-width);
+    margin: 0 0 0 (@mzr-grid_3-column-left-side-width + @mzr-grid_3-column-padding-width);
     min-height: 1px;
-    overflow-x: hidden;
+    //fix overflow-x: hidden; fix, иначе не будет видна mzr-shadow
   }
+  //модификатор mzr-grid-3-column__guest
+  &.mzr-grid-3-column__guest .mzr-grid-content{
+    margin: 0 0 0 (@mzr-grid_3-column-left-side-width__guest + @mzr-grid_3-column-padding-width);
+  }
+
+  /*
+  ********************************************************
+  media запросы
+  *********************************************************
+  */
+  /*
+  Без модификаторов
+  */
+  &:not(.mzr-grid-3-column__guest){
+
+    @media (max-width: 1205px ) {
+
+      .mzr-grid-clear-fix-after-content{
+        /*
+        Только с отдельнм элементом работает
+        */
+        content: '';
+        display: table;
+        clear: both;
+      }
+
+      .mzr-grid-right-side{
+
+        float: none;
+        margin: 10px auto;
+
+      }
+      &.mzr-grid-3-column{
+        width: @mzr-grid_3-column-left-side-width + @mzr-grid_3-column-padding-width + @mzr-grid_3-column-content-width;
+      }
+    }
+
+    @media (max-width: 960px ) {
+      &.mzr-grid-3-column{
+        width: 100%;
+      }
+
+      .mzr-grid-content{
+        width: 100%;
+        margin: 0;
+        float: none;
+      }
+
+      .mzr-grid-left-side{
+        display: none;
+      }
+    }
+  }
+
+  //модификатор mzr-grid-3-column__guest
+  &.mzr-grid-3-column__guest{
+
+    @media (max-width: 1285px ) {
+
+      .mzr-grid-clear-fix-after-content{
+        /*
+        Только с отдельнм элементом работает
+        */
+        content: '';
+        display: table;
+        clear: both;
+      }
+
+
+      .mzr-grid-right-side{
+
+        float: none;
+        margin: 10px auto;
+
+      }
+      &.mzr-grid-3-column{
+        width: @mzr-grid_3-column-left-side-width__guest + @mzr-grid_3-column-padding-width + @mzr-grid_3-column-content-width;
+      }
+    }
+
+    @media (max-width: 1040px ) {
+
+    @mzr-grid_3-column-content-width__guest: @mzr-grid_3-column-content-width - 80;
+
+      &.mzr-grid-3-column{
+        width: @mzr-grid_3-column-content-width__guest + @mzr-grid_3-column-left-side-width__guest + @mzr-grid_3-column-padding-width;
+      }
+
+      .mzr-grid-left-side{
+        margin: 0 0 0 -(@mzr-grid_3-column-content-width__guest + @mzr-grid_3-column-left-side-width__guest + @mzr-grid_3-column-padding-width);
+      }
+
+      .mzr-grid-content{
+        width: @mzr-grid_3-column-content-width__guest;
+      }
+
+
+    }
+
+    @media (max-width: 959px ) {
+      &.mzr-grid-3-column{
+        width: 100%;
+      }
+
+      .mzr-grid-content{
+        width: 100%;
+        margin: 0;
+        float: none;
+      }
+
+      .mzr-grid-left-side{
+        display: none;
+      }
+    }
+
+  }
+
 }

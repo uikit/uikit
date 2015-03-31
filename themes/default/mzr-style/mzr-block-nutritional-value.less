@@ -1,0 +1,50 @@
+/*
+----------mzr-block-nutritional-value--------------
+*/
+.mzr-block-nutritional-value{
+
+  &:extend(.mzr-inner-block);
+
+  .__align-right{
+    text-align: right;
+  }
+
+  .__p-l{
+    padding-left: 2px;
+  }
+
+  .__p-r{
+    padding-right: 2px;
+  }
+
+
+  >div >.uk-grid{
+
+    input{
+      width: 8em;
+    }
+
+    &.__intro{
+      background-color: #ffffff;
+      padding-left: 2px;
+    }
+    @media (min-width: 340px) {
+      //для маленьких экранов убираем вертикальное выравнивание и высоту строки
+      min-height: 40px;
+      line-height: 40px;
+    }
+    margin-bottom: 1px;
+    background-color: @mzr-color-turquoise-lighter;
+
+
+    [class*="mzr-icon-nutr-"]{
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 2px;
+      margin-right: 6px;
+    }
+  }
+  &.__max-width{
+    max-width: 400px;
+  }
+}
