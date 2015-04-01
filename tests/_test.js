@@ -128,6 +128,7 @@
             "components/progress",
             "components/search",
             "components/slidenav",
+            "components/slider",
             "components/slideshow",
             "components/sortable",
             "components/sticky",
