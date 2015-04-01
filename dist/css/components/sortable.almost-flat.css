@@ -1,0 +1,52 @@
+/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/* ========================================================================
+   Component: Sortable
+ ========================================================================== */
+.uk-sortable {
+  position: relative;
+}
+/*
+ * 1. Makes text unselectable
+ * 2. Deactivate browser touch actions in IE11
+ */
+.uk-sortable > * {
+  /* 1 */
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* 2 */
+  touch-action: none;
+}
+/*
+ * Prevents images and links from being dragged (default browser behavior)
+ * Currently only works in Webkit
+ */
+.uk-sortable > * * {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+/* Sub-modifier `uk-sortable-dragged`
+ ========================================================================== */
+.uk-sortable-dragged {
+  position: absolute;
+  z-index: 1050;
+  pointer-events: none;
+}
+/* Sub-modifier `uk-sortable-placeholder`
+ ========================================================================== */
+.uk-sortable-placeholder {
+  opacity: 0;
+}
+/* Sub-modifier `uk-sortable-over`
+ * Only if `warp:true`
+ ========================================================================== */
+.uk-sortable-over {
+  opacity: 0.3;
+}
+/* Sub-object `uk-sortable-moving`
+ ========================================================================== */
+.uk-sortable-moving,
+.uk-sortable-moving * {
+  cursor: move;
+}

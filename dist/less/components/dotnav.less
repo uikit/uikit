@@ -1,0 +1,213 @@
+// Name:            Dotnav
+// Description:     Defines styles for a dot navigation
+//
+// Component:       `uk-dotnav`
+//
+// Modifier:        `uk-dotnav-contrast`
+//                  `uk-dotnav-vertical`
+//
+// States:          `uk-active`
+//
+// Markup:
+//
+// <!-- uk-dotnav -->
+// <ul class="uk-dotnav">
+//     <li class="uk-active"><a href=""></a></li>
+//     <li><a href=""></a></li>
+// </ul>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dotnav-margin-horizontal:                      15px;
+@dotnav-margin-vertical:                        @dotnav-margin-horizontal;
+
+@dotnav-width:                                  20px;
+@dotnav-height:                                 @dotnav-width;
+@dotnav-background:                             rgba(50,50,50,0.1);
+
+@dotnav-hover-background:                       rgba(50,50,50,0.4);
+@dotnav-onclick-background:                     rgba(50,50,50,0.6);
+@dotnav-active-background:                      rgba(50,50,50,0.4);
+
+@dotnav-contrast-background:                    rgba(255,255,255,0.4);
+@dotnav-contrast-hover-background:              rgba(255,255,255,0.7);
+@dotnav-contrast-onclick-background:            rgba(255,255,255,0.9);
+@dotnav-contrast-active-background:             rgba(255,255,255,0.9);
+
+
+/* ========================================================================
+   Component: Dotnav
+ ========================================================================== */
+
+/*
+ * 1. Gutter
+ * 2. Remove default list style
+ */
+
+.uk-dotnav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 1 */
+    margin-left: -@dotnav-margin-horizontal;
+    margin-top: -@dotnav-margin-vertical;
+    /* 2 */
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Horizontal gutter is using `padding` so `uk-width-*` classes can be applied
+ */
+
+.uk-dotnav > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: @dotnav-margin-horizontal;
+    margin-top: @dotnav-margin-vertical;
+}
+
+/*
+ * DEPRECATED IE9 Support
+ */
+
+.uk-dotnav:before,
+.uk-dotnav:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+}
+
+.uk-dotnav:after { clear: both; }
+
+.uk-dotnav > * { float: left; }
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items
+ * 1. Hide text if present
+ */
+
+.uk-dotnav > * > * {
+    display: block;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: @dotnav-width;
+    height: @dotnav-height;
+    border-radius: 50%;
+    background: @dotnav-background;
+    /* 1 */
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    .hook-dotnav-item;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-dotnav > * > *:hover,
+.uk-dotnav > * > *:focus { // 1
+    background: @dotnav-hover-background;
+    /* 2 */
+    outline: none;
+    .hook-dotnav-item-hover;
+}
+
+/* OnClick */
+.uk-dotnav > * > *:active {
+    background: @dotnav-onclick-background;
+    .hook-dotnav-item-onclick;
+}
+
+/* Active */
+.uk-dotnav > *.uk-active > * {
+    background: @dotnav-active-background;
+    .hook-dotnav-item-active;
+}
+
+
+/* Modifier: `uk-dotnav-contrast`
+ ========================================================================== */
+
+.uk-dotnav-contrast > * > * {
+    background: @dotnav-contrast-background;
+    .hook-dotnav-contrast-item;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+
+.uk-dotnav-contrast > * > *:hover,
+.uk-dotnav-contrast > * > *:focus { // 1
+    background: @dotnav-contrast-hover-background;
+    .hook-dotnav-contrast-item-hover;
+}
+
+/* OnClick */
+.uk-dotnav-contrast > * > *:active {
+    background: @dotnav-contrast-onclick-background;
+    .hook-dotnav-contrast-item-onclick;
+}
+
+/* Active */
+.uk-dotnav-contrast > *.uk-active > * {
+    background: @dotnav-contrast-active-background;
+    .hook-dotnav-contrast-item-active;
+}
+
+
+/* Modifier: 'uk-dotnav-vertical'
+ ========================================================================== */
+
+/*
+ * DEPRECATED
+ */
+
+.uk-dotnav-vertical {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+/*
+ * DEPRECATED IE9 Support
+ */
+
+.uk-dotnav-vertical > * { float: none; }
+
+
+
+// Hooks
+// ========================================================================
+
+.hook-dotnav-misc;
+
+.hook-dotnav-item() {}
+.hook-dotnav-item-hover() {}
+.hook-dotnav-item-onclick() {}
+.hook-dotnav-item-active() {}
+.hook-dotnav-contrast-item() {}
+.hook-dotnav-contrast-item-hover() {}
+.hook-dotnav-contrast-item-onclick() {}
+.hook-dotnav-contrast-item-active() {}
+.hook-dotnav-misc() {}

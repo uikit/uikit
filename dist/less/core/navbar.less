@@ -1,0 +1,327 @@
+// Name:            Navbar
+// Description:     Defines styles for the navigation bar
+//
+// Component:       `uk-navbar`
+//
+// Sub-objects:     `uk-navbar-nav`
+//                  `uk-navbar-nav-subtitle`
+//                  `uk-navbar-content`
+//                  `uk-navbar-brand`
+//                  `uk-navbar-toggle`
+//                  `uk-navbar-toggle-alt`
+//                  `uk-navbar-center`
+//                  `uk-navbar-flip`
+//
+// Modifiers:       `uk-navbar-attached`
+//
+// States:          `uk-active`
+//                  `uk-parent`
+//                  `uk-open`
+//
+// Used by:         Dropdown
+//
+// Markup:
+//
+// <!-- uk-navbar -->
+// <nav class="uk-navbar">
+//     <ul class="uk-navbar-nav">
+//         <li class="uk-active"><a href=""></a></li>
+//         <li><a href=""></a></li>
+//     </ul>
+// </nav>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@navbar-background:                             #eee;
+@navbar-color:                                  #444;
+@navbar-link-color:                             #07D;
+@navbar-link-hover-color:                       #059;
+
+@navbar-nav-height:                             40px;
+@navbar-nav-line-height:                        @navbar-nav-height;
+@navbar-nav-padding-horizontal:                 15px;
+@navbar-nav-color:                              #444;
+@navbar-nav-font-size:                          14px;
+@navbar-nav-font-weight:                        normal;
+@navbar-nav-font-family:                        "Helvetica Neue", Helvetica, Arial, sans-serif;
+@navbar-nav-hover-background:                   #f5f5f5;
+@navbar-nav-hover-color:                        #444;
+@navbar-nav-onclick-background:                 #ddd;
+@navbar-nav-onclick-color:                      #444;
+@navbar-nav-active-background:                  #f5f5f5;
+@navbar-nav-active-color:                       #444;
+@navbar-nav-subtitle-font-size:                 10px;
+@navbar-nav-subtitle-offset:                    2px;
+
+@navbar-brand-font-size:                        18px;
+@navbar-brand-color:                            #444;
+@navbar-brand-hover-color:                      #444;
+
+@navbar-toggle-font-size:                       18px;
+@navbar-toggle-color:                           #444;
+@navbar-toggle-hover-color:                     #444;
+@navbar-toggle-icon:                            "\f0c9";
+@navbar-toggle-icon-alt:                        "\f002";
+
+
+/* ========================================================================
+   Component: Navbar
+ ========================================================================== */
+
+.uk-navbar {
+    background: @navbar-background;
+    color: @navbar-color;
+    .hook-navbar;
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-navbar:before,
+.uk-navbar:after {
+    content: "";
+    display: table;
+}
+
+.uk-navbar:after { clear: both; }
+
+
+/* Sub-object: `uk-navbar-nav`
+ ========================================================================== */
+
+.uk-navbar-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+}
+
+/*
+ * 1. Create position context for dropdowns
+ */
+
+.uk-navbar-nav > li {
+    float: left;
+    /* 1 */
+    position: relative;
+}
+
+/*
+ * 1. Dimensions
+ * 2. Style
+ */
+
+.uk-navbar-nav > li > a {
+    display: block;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-decoration: none;
+    /* 1 */
+    height: @navbar-nav-height;
+    padding: 0 @navbar-nav-padding-horizontal;
+    line-height: @navbar-nav-line-height;
+    /* 2 */
+    color: @navbar-nav-color;
+    font-size: @navbar-nav-font-size;
+    font-family: @navbar-nav-font-family;
+    font-weight: @navbar-nav-font-weight;
+    .hook-navbar-nav;
+}
+
+/* Appear not as link */
+.uk-navbar-nav > li > a[href='#'] { cursor: text; }
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Also apply if dropdown is opened
+ * 3. Remove default focus style
+ */
+
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li > a:focus, // 1
+.uk-navbar-nav > li.uk-open > a { // 2
+    background-color: @navbar-nav-hover-background;
+    color: @navbar-nav-hover-color;
+    /* 3 */
+    outline: none;
+    .hook-navbar-nav-hover;
+}
+
+/* OnClick */
+.uk-navbar-nav > li > a:active {
+    background-color: @navbar-nav-onclick-background;
+    color: @navbar-nav-onclick-color;
+    .hook-navbar-nav-onclick;
+}
+
+/* Active */
+.uk-navbar-nav > li.uk-active > a {
+    background-color: @navbar-nav-active-background;
+    color: @navbar-nav-active-color;
+    .hook-navbar-nav-active;
+}
+
+
+/* Sub-objects: `uk-navbar-nav-subtitle`
+ ========================================================================== */
+
+.uk-navbar-nav .uk-navbar-nav-subtitle { line-height: @navbar-nav-line-height - @navbar-nav-subtitle-font-size - @navbar-nav-subtitle-offset; }
+
+.uk-navbar-nav-subtitle > div {
+    margin-top: ((@navbar-nav-line-height - @navbar-nav-subtitle-font-size - @navbar-nav-font-size) / -2) + @navbar-nav-subtitle-offset;
+    font-size: @navbar-nav-subtitle-font-size;
+    line-height: @navbar-nav-subtitle-font-size + @navbar-nav-subtitle-offset;
+}
+
+
+/* Sub-objects: `uk-navbar-content`, `uk-navbar-brand`, `uk-navbar-toggle`
+ ========================================================================== */
+
+/*
+ * Imitate navbar items
+ */
+
+.uk-navbar-content,
+.uk-navbar-brand,
+.uk-navbar-toggle {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    height: @navbar-nav-height;
+    padding: 0 @navbar-nav-padding-horizontal;
+    float: left;
+    .hook-navbar-content;
+}
+
+/*
+ * Helper to center all child elements vertically
+ */
+
+.uk-navbar-content:before,
+.uk-navbar-brand:before,
+.uk-navbar-toggle:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+/* Sub-objects: `uk-navbar-content`
+ ========================================================================== */
+
+/*
+ * Better sibling spacing
+ */
+
+.uk-navbar-content + .uk-navbar-content:not(.uk-navbar-center) { padding-left: 0; }
+
+/*
+ * Link colors
+ */
+
+.uk-navbar-content > a:not([class]) { color: @navbar-link-color; }
+.uk-navbar-content > a:not([class]):hover { color: @navbar-link-hover-color; }
+
+
+/* Sub-objects: `uk-navbar-brand`
+ ========================================================================== */
+
+.uk-navbar-brand {
+    font-size: @navbar-brand-font-size;
+    color: @navbar-brand-color;
+    text-decoration: none;
+}
+
+/*
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-navbar-brand:hover,
+.uk-navbar-brand:focus { // 1
+    color: @navbar-brand-hover-color;
+    text-decoration: none;
+    /* 2 */
+    outline: none;
+}
+
+
+/* Sub-object: `uk-navbar-toggle`
+ ========================================================================== */
+
+.uk-navbar-toggle {
+    font-size: @navbar-toggle-font-size;
+    color: @navbar-toggle-color;
+    text-decoration: none;
+}
+
+/*
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-navbar-toggle:hover,
+.uk-navbar-toggle:focus { // 1
+    color: @navbar-toggle-hover-color;
+    text-decoration: none;
+    /* 2 */
+    outline: none;
+}
+
+/*
+ * 1. Center icon vertically
+ */
+
+.uk-navbar-toggle:after {
+    content: @navbar-toggle-icon;
+    font-family: FontAwesome;
+    /* 1 */
+    vertical-align: middle;
+}
+
+.uk-navbar-toggle-alt:after { content: @navbar-toggle-icon-alt; }
+
+
+/* Sub-object: `uk-navbar-center`
+ ========================================================================== */
+
+/*
+ * The element with this class needs to be last child in the navbar
+ * 1. This hack is needed because other float elements shift centered text
+ */
+
+.uk-navbar-center {
+    float: none;
+    text-align: center;
+    /* 1 */
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Sub-object: `uk-navbar-flip`
+ ========================================================================== */
+
+.uk-navbar-flip { float: right; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-navbar-misc;
+
+.hook-navbar() {}
+.hook-navbar-nav() {}
+.hook-navbar-nav-hover() {}
+.hook-navbar-nav-onclick() {}
+.hook-navbar-nav-active() {}
+.hook-navbar-content() {}
+.hook-navbar-misc() {}

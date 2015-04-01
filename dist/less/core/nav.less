@@ -1,0 +1,468 @@
+// Name:            Nav
+// Description:     Defines styles for list navigations
+//
+// Component:       `uk-nav`
+//
+// Sub-objects:     `uk-nav-header`
+//                  `uk-nav-divider`
+//                  `uk-nav-sub`
+//
+// Modifiers:       `uk-nav-parent-icon`
+//                  `uk-nav-side`
+//                  `uk-nav-dropdown`
+//                  `uk-nav-navbar`
+//                  `uk-nav-offcanvas`
+//
+// States:          `uk-active`
+//                  `uk-parent`
+//                  `uk-open`
+//                  `uk-touch`
+//
+// Uses:            Icon: FontAwesome
+//
+// Used by:         Panel
+//                  Dropdown
+//
+// Markup:
+//
+// <!-- uk-nav -->
+// <ul class="uk-nav">
+//     <li class="uk-active"><a href=""></a></li>
+//     <li><a href=""></a></li>
+// </ul>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@nav-padding-vertical:                          5px;
+@nav-padding-horizontal:                        15px;
+
+@nav-header-padding-vertical:                   @nav-padding-vertical;
+@nav-header-padding-horizontal:                 @nav-padding-horizontal;
+@nav-header-font-size:                          12px;
+@nav-header-font-weight:                        bold;
+@nav-header-text-transform:                     uppercase;
+@nav-header-margin-top:                         15px;
+
+@nav-divider-margin-vertical:                   9px;
+@nav-divider-margin-horizontal:                 @nav-padding-horizontal;
+
+@nav-subtitle-font-size:                        12px;
+@nav-subtitle-line-height:                      18px;
+
+@nav-nested-padding-left:                       15px;
+@nav-nested-padding-vertical:                   2px;
+@nav-nested-padding-horizontal:                 0;
+
+@nav-sub-padding-vertical:                      5px;
+@nav-sub-padding-left:                          @nav-padding-horizontal;
+
+@nav-parent-icon:                               "\f104";
+@nav-parent-open-icon:                          "\f107";
+@nav-parent-icon-width:                         20px;
+@nav-parent-icon-margin-right:                  -10px;
+
+@nav-side-color:                                #444;
+@nav-side-hover-background:                     rgba(0,0,0,0.05);
+@nav-side-hover-color:                          #444;
+@nav-side-active-background:                    #00a8e6;
+@nav-side-active-color:                         #fff;
+@nav-side-header-color:                         #444;
+@nav-side-divider-border:                       #ddd;
+@nav-side-divider-border-width:                 1px;
+@nav-side-nested-color:                         #07D;
+@nav-side-nested-hover-color:                   #059;
+
+@nav-dropdown-color:                            #444;
+@nav-dropdown-hover-background:                 #00a8e6;
+@nav-dropdown-hover-color:                      #fff;
+@nav-dropdown-header-color:                     #999;
+@nav-dropdown-divider-border:                   #ddd;
+@nav-dropdown-divider-border-width:             1px;
+@nav-dropdown-nested-color:                     #07D;
+@nav-dropdown-nested-hover-color:               #059;
+
+@nav-navbar-color:                              #444;
+@nav-navbar-hover-background:                   #00a8e6;
+@nav-navbar-hover-color:                        #fff;
+@nav-navbar-header-color:                       #999;
+@nav-navbar-divider-border:                     #ddd;
+@nav-navbar-divider-border-width:               1px;
+@nav-navbar-nested-color:                       #07D;
+@nav-navbar-nested-hover-color:                 #059;
+
+@nav-offcanvas-padding-vertical:                10px;
+@nav-offcanvas-padding-horizontal:              15px;
+@nav-offcanvas-color:                           #ccc;
+@nav-offcanvas-hover-background:                #404040;
+@nav-offcanvas-hover-color:                     #fff;
+@nav-offcanvas-active-background:               #1a1a1a;
+@nav-offcanvas-active-color:                    #fff;
+@nav-offcanvas-header-color:                    #777;
+@nav-offcanvas-divider-border:                  #1a1a1a;
+@nav-offcanvas-divider-border-width:            1px;
+@nav-offcanvas-nested-color:                    #ccc;
+@nav-offcanvas-nested-hover-color:              #fff;
+
+
+/* ========================================================================
+   Component: Nav
+ ========================================================================== */
+
+.uk-nav,
+.uk-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Items
+ */
+
+.uk-nav li > a {
+    display: block;
+    text-decoration: none;
+}
+
+.uk-nav > li > a { padding: @nav-padding-vertical @nav-padding-horizontal; }
+
+/*
+ * Nested items
+ */
+
+.uk-nav ul { padding-left: @nav-nested-padding-left; }
+
+.uk-nav ul a { padding: @nav-nested-padding-vertical @nav-nested-padding-horizontal; }
+
+/*
+ * Item subtitle
+ */
+
+.uk-nav li > a > div {
+    font-size: @nav-subtitle-font-size;
+    line-height: @nav-subtitle-line-height;
+}
+
+
+/* Sub-object: `uk-nav-header`
+ ========================================================================== */
+
+.uk-nav-header {
+    padding: @nav-header-padding-vertical @nav-header-padding-horizontal;
+    text-transform: @nav-header-text-transform;
+    font-weight: @nav-header-font-weight;
+    font-size: @nav-header-font-size;
+    .hook-nav-header;
+}
+
+.uk-nav-header:not(:first-child) { margin-top: @nav-header-margin-top; }
+
+
+/* Sub-object: `uk-nav-divider`
+ ========================================================================== */
+
+.uk-nav-divider {
+    margin: @nav-divider-margin-vertical @nav-divider-margin-horizontal;
+    .hook-nav-divider;
+}
+
+
+/* Sub-object: `uk-nav-sub`
+ ========================================================================== */
+
+/*
+ * `ul` needed for higher specificity to override padding
+ */
+
+ul.uk-nav-sub {
+    padding: @nav-sub-padding-vertical 0 @nav-sub-padding-vertical @nav-sub-padding-left;
+    .hook-nav-sub;
+}
+
+
+/* Modifier: `uk-nav-parent-icon`
+ ========================================================================== */
+
+.uk-nav-parent-icon > .uk-parent > a:after {
+    content: @nav-parent-icon;
+    width: @nav-parent-icon-width;
+    margin-right: @nav-parent-icon-margin-right;
+    float: right;
+    font-family: FontAwesome;
+    text-align: center;
+    .hook-nav-parent-icon;
+}
+
+.uk-nav-parent-icon > .uk-parent.uk-open > a:after { content: @nav-parent-open-icon; }
+
+
+/* Modifier `uk-nav-side`
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-nav-side > li > a {
+    color: @nav-side-color;
+    .hook-nav-side;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-nav-side > li > a:hover,
+.uk-nav-side > li > a:focus { // 1
+    background: @nav-side-hover-background;
+    color: @nav-side-hover-color;
+    /* 2 */
+    outline: none;
+    .hook-nav-side-hover;
+}
+
+/* Active */
+.uk-nav-side > li.uk-active > a {
+    background: @nav-side-active-background;
+    color: @nav-side-active-color;
+    .hook-nav-side-active;
+}
+
+/*
+ * Sub-object: `uk-nav-header`
+ */
+
+.uk-nav-side .uk-nav-header {
+    color: @nav-side-header-color;
+    .hook-nav-side-header;
+}
+
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+
+.uk-nav-side .uk-nav-divider {
+    border-top: @nav-side-divider-border-width solid @nav-side-divider-border;
+    .hook-nav-side-divider;
+}
+
+/*
+ * Nested items
+ */
+
+.uk-nav-side ul a { color: @nav-side-nested-color; }
+.uk-nav-side ul a:hover { color: @nav-side-nested-hover-color; }
+
+
+/* Modifier `uk-nav-dropdown`
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-nav-dropdown > li > a {
+    color: @nav-dropdown-color;
+    .hook-nav-dropdown;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-nav-dropdown > li > a:hover,
+.uk-nav-dropdown > li > a:focus { // 1
+    background: @nav-dropdown-hover-background;
+    color: @nav-dropdown-hover-color;
+    /* 2 */
+    outline: none;
+    .hook-nav-dropdown-hover;
+}
+
+/*
+ * Sub-object: `uk-nav-header`
+ */
+
+.uk-nav-dropdown .uk-nav-header {
+    color: @nav-dropdown-header-color;
+    .hook-nav-dropdown-header;
+}
+
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+
+.uk-nav-dropdown .uk-nav-divider {
+    border-top: @nav-dropdown-divider-border-width solid @nav-dropdown-divider-border;
+    .hook-nav-dropdown-divider;
+}
+
+/*
+ * Nested items
+ */
+
+.uk-nav-dropdown ul a { color: @nav-dropdown-nested-color; }
+.uk-nav-dropdown ul a:hover { color: @nav-dropdown-nested-hover-color; }
+
+
+/* Modifier `uk-nav-navbar`
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-nav-navbar > li > a {
+    color: @nav-navbar-color;
+    .hook-nav-navbar;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-nav-navbar > li > a:hover,
+.uk-nav-navbar > li > a:focus { // 1
+    background: @nav-navbar-hover-background;
+    color: @nav-navbar-hover-color;
+    /* 2 */
+    outline: none;
+    .hook-nav-navbar-hover;
+}
+
+/*
+ * Sub-object: `uk-nav-header`
+ */
+
+.uk-nav-navbar .uk-nav-header {
+    color: @nav-navbar-header-color;
+    .hook-nav-navbar-header;
+}
+
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+
+.uk-nav-navbar .uk-nav-divider {
+    border-top: @nav-navbar-divider-border-width solid @nav-navbar-divider-border;
+    .hook-nav-navbar-divider;
+}
+
+/*
+ * Nested items
+ */
+
+.uk-nav-navbar ul a { color: @nav-navbar-nested-color; }
+.uk-nav-navbar ul a:hover { color: @nav-navbar-nested-hover-color; }
+
+
+/* Modifier `uk-nav-offcanvas`
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-nav-offcanvas > li > a {
+    color: @nav-offcanvas-color;
+    padding: @nav-offcanvas-padding-vertical @nav-offcanvas-padding-horizontal;
+    .hook-nav-offcanvas;
+}
+
+/*
+ * Hover
+ * No hover on touch devices because it behaves buggy in fixed offcanvas
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-nav-offcanvas > .uk-open > a,
+html:not(.uk-touch) .uk-nav-offcanvas > li > a:hover,
+html:not(.uk-touch) .uk-nav-offcanvas > li > a:focus { // 1
+    background: @nav-offcanvas-hover-background;
+    color: @nav-offcanvas-hover-color;
+    /* 2 */
+    outline: none;
+    .hook-nav-offcanvas-hover;
+}
+
+/*
+ * Active
+ * `html .uk-nav` needed for higher specificity to override hover
+ */
+html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
+    background: @nav-offcanvas-active-background;
+    color: @nav-offcanvas-active-color;
+    .hook-nav-offcanvas-active;
+}
+
+/*
+ * Sub-object: `uk-nav-header`
+ */
+
+.uk-nav-offcanvas .uk-nav-header {
+    color: @nav-offcanvas-header-color;
+    .hook-nav-offcanvas-header;
+}
+
+/*
+ * Sub-object: `uk-nav-divider`
+ */
+
+.uk-nav-offcanvas .uk-nav-divider {
+    border-top: @nav-offcanvas-divider-border-width solid @nav-offcanvas-divider-border;
+    .hook-nav-offcanvas-divider;
+}
+
+/*
+ * Nested items
+ * No hover on touch devices because it behaves buggy in fixed offcanvas
+ */
+
+.uk-nav-offcanvas ul a { color: @nav-offcanvas-nested-color; }
+html:not(.uk-touch) .uk-nav-offcanvas ul a:hover { color: @nav-offcanvas-nested-hover-color; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-nav-misc;
+
+.hook-nav-header() {}
+.hook-nav-divider() {}
+.hook-nav-sub() {}
+.hook-nav-parent-icon() {}
+
+.hook-nav-side() {}
+.hook-nav-side-hover() {}
+.hook-nav-side-active() {}
+.hook-nav-side-header() {}
+.hook-nav-side-divider() {}
+
+.hook-nav-dropdown() {}
+.hook-nav-dropdown-hover() {}
+.hook-nav-dropdown-header() {}
+.hook-nav-dropdown-divider() {}
+
+.hook-nav-navbar() {}
+.hook-nav-navbar-hover() {}
+.hook-nav-navbar-header() {}
+.hook-nav-navbar-divider() {}
+
+.hook-nav-offcanvas() {}
+.hook-nav-offcanvas-hover() {}
+.hook-nav-offcanvas-active() {}
+.hook-nav-offcanvas-header() {}
+.hook-nav-offcanvas-divider() {}
+
+.hook-nav-misc() {}

@@ -1,0 +1,315 @@
+// Name:            Flex
+// Description:     Defines styles to create layouts with flexbox
+//
+// Component:       `uk-flex-*`
+//
+// Used by:         Caption
+//
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Flex
+ ========================================================================== */
+
+.uk-flex {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.uk-flex-inline {
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+}
+
+/*
+ * Fixes initial flex-shrink value in IE10
+ */
+
+.uk-flex > *,
+.uk-flex-inline > * { -ms-flex-negative: 1; }
+
+
+/* Alignment
+ ========================================================================== */
+
+/*
+ * Vertical alignment
+ * Default value is `stretch`
+ */
+
+// .uk-flex-stretch { align-items: stretch; }
+
+.uk-flex-top {
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+}
+
+.uk-flex-middle {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.uk-flex-bottom {
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+}
+
+/*
+ * Horizontal alignment
+ * Default value is `flex-start`
+ */
+
+// .uk-flex-left { justify-content: flex-start; }
+
+.uk-flex-center {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.uk-flex-right {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+.uk-flex-space-between {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.uk-flex-space-around {
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+}
+
+
+/* Direction
+ ========================================================================== */
+
+// .uk-flex-row { flex-direction: row; }
+
+.uk-flex-row-reverse {
+    -ms-flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+
+.uk-flex-column {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.uk-flex-column-reverse {
+    -ms-flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+
+/* Wrap
+ ========================================================================== */
+
+// .uk-flex-nowrap { flex-wrap: nowrap; }
+
+.uk-flex-wrap {
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.uk-flex-wrap-reverse {
+    -ms-flex-wrap: wrap-reverse;
+    -webkit-flex-wrap: wrap-reverse;
+    flex-wrap: wrap-reverse;
+}
+
+/*
+ * Horizontal alignment
+ * Default value is `stretch`
+ */
+
+// .uk-flex-wrap-stretch { align-content: stretch; }
+
+.uk-flex-wrap-top {
+    -ms-flex-line-pack: start;
+    -webkit-align-content: flex-start;
+    align-content: flex-start;
+}
+
+.uk-flex-wrap-middle {
+    -ms-flex-line-pack: center;
+    -webkit-align-content: center;
+    align-content: center;
+}
+
+.uk-flex-wrap-bottom {
+    -ms-flex-line-pack: end;
+    -webkit-align-content: flex-end;
+    align-content: flex-end;
+}
+
+.uk-flex-wrap-space-between {
+    -ms-flex-line-pack: justify;
+    -webkit-align-content: space-between;
+    align-content: space-between;
+}
+
+.uk-flex-wrap-space-around {
+    -ms-flex-line-pack: distribute;
+    -webkit-align-content: space-around;
+    align-content: space-around;
+}
+
+
+/* Item ordering
+ ========================================================================== */
+
+/*
+ * Default is 0
+ */
+
+.uk-flex-order-first {
+    -ms-flex-order: -1;
+    -webkit-order: -1;
+    order: -1;
+}
+
+.uk-flex-order-last {
+    -ms-flex-order: 99;
+    -webkit-order: 99;
+    order: 99;
+}
+
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-flex-order-first-small {
+        -ms-flex-order: -1;
+        -webkit-order: -1;
+        order: -1;
+    }
+
+    .uk-flex-order-last-small {
+        -ms-flex-order: 99;
+        -webkit-order: 99;
+        order: 99;
+    }
+
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-flex-order-first-medium {
+        -ms-flex-order: -1;
+        -webkit-order: -1;
+        order: -1;
+    }
+
+    .uk-flex-order-last-medium {
+        -ms-flex-order: 99;
+        -webkit-order: 99;
+        order: 99;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-flex-order-first-large {
+        -ms-flex-order: -1;
+        -webkit-order: -1;
+        order: -1;
+    }
+
+    .uk-flex-order-last-large {
+        -ms-flex-order: 99;
+        -webkit-order: 99;
+        order: 99;
+    }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-flex-order-first-xlarge {
+        -ms-flex-order: -1;
+        -webkit-order: -1;
+        order: -1;
+    }
+
+    .uk-flex-order-last-xlarge {
+        -ms-flex-order: 99;
+        -webkit-order: 99;
+        order: 99;
+    }
+
+}
+
+
+
+/* Item dimensions
+ ========================================================================== */
+
+/*
+ * Initial: 0 1 auto
+ * Content dimensions, but shrinks
+ */
+
+/*
+ * No Flex: 0 0 auto
+ * Content dimensions
+ */
+
+.uk-flex-item-none {
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+}
+
+/*
+ * Relative Flex: 1 1 auto
+ * Space is allocated considering content
+ * 1. Fixes flex-shrink value in IE10
+ */
+
+.uk-flex-item-auto {
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
+    /* 1 */
+    -ms-flex-negative: 1;
+}
+
+/*
+ * Absolute Flex: 1 1 0%
+ * Space is allocated solely based on flex
+ */
+
+.uk-flex-item-1 {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-flex-misc;
+
+.hook-flex-misc() {}

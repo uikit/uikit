@@ -1,0 +1,25 @@
+{
+    "name": "uikit",
+    "version": "2.18.0",
+    "homepage": "http://getuikit.com",
+    "main": [
+        "css/uikit.min.css",
+        "js/uikit.min.js",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/FontAwesome.otf"
+    ],
+    "dependencies": {
+        "jquery": ">= 1.9.0"
+    },
+    "ignore": [
+        "node_modules",
+        "bower_components",
+        "docs",
+        "vendor",
+        "composer.json",
+        "index.html"
+    ],
+    "private": true
+}

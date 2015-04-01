@@ -1,0 +1,66 @@
+// Name:            Form select
+// Description:     Extends form component
+//
+// Component:       `uk-form`
+//
+// Sub-objects:     `uk-form-select`
+//
+// Markup:
+//
+// <!-- uk-form-select -->
+// <div class="uk-form-select" data-uk-form-select>
+//     <span></span>
+//     <select>
+//         <option value=""></option>
+//     </select>
+// </div>
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Form select
+ ========================================================================== */
+
+/*
+ * 1. Behave like form elements
+ * 2. Create position context for dropdowns
+ * 3. Clip content
+ */
+
+.uk-form-select {
+    /* 1 */
+    display: inline-block;
+    vertical-align: middle;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    overflow: hidden;
+}
+
+/*
+ * 1. Required for Firefox
+ * 1. Required for Webkit to make `height` work
+ */
+
+.uk-form-select select {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    /* 1 */
+    left: 0;
+    /* 2 */
+    -webkit-appearance: none;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-form-select-misc;
+
+.hook-form-select-misc() {}

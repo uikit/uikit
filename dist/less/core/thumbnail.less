@@ -1,0 +1,123 @@
+// Name:            Thumbnail
+// Description:     Defines styles for image thumbnails
+//
+// Component:       `uk-thumbnail`
+//
+// Sub-objects:     `uk-thumbnail-caption`
+//
+// Modifiers:       `uk-thumbnail-mini`
+//                  `uk-thumbnail-small`
+//                  `uk-thumbnail-medium`
+//                  `uk-thumbnail-large`
+//                  `uk-thumbnail-expand`
+//
+// Markup:
+//
+// <!-- uk-thumbnail -->
+// <figure class="uk-thumbnail">
+//     <img src="" alt="">
+//     <figcaption class="uk-thumbnail-caption"></figcaption>
+// </figure>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@thumbnail-padding:                             4px;
+@thumbnail-border:                              #ddd;
+@thumbnail-border-width:                        1px;
+@thumbnail-background:                          #fff;
+@thumbnail-hover-border:                        #aaa;
+@thumbnail-hover-background:                    #fff;
+
+@thumbnail-caption-padding:                     @thumbnail-padding;
+@thumbnail-caption-color:                       #444;
+
+@thumbnail-mini-width:                          150px;
+@thumbnail-small-width:                         200px;
+@thumbnail-medium-width:                        300px;
+@thumbnail-large-width:                         400px;
+
+
+/* ========================================================================
+   Component: Thumbnail
+ ========================================================================== */
+
+/*
+ * 1. Container width fits its content
+ * 2. Responsive behavior
+ * 3. Corrects `max-width` behavior sed
+ * 4. Required for `figure` element
+ * 5. Style
+ */
+
+.uk-thumbnail {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    max-width: 100%;
+    /* 3 */
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /* 3 */
+    margin: 0;
+    /* 4 */
+    padding: @thumbnail-padding;
+    border: @thumbnail-border-width solid @thumbnail-border;
+    background: @thumbnail-background;
+    .hook-thumbnail;
+}
+
+/*
+ * Hover state for `a` elements
+ * 1. Apply hover style also to focus state
+ * 2. Needed for caption
+ * 3. Remove default focus style
+ */
+
+a.uk-thumbnail:hover,
+a.uk-thumbnail:focus { // 1
+    border-color: @thumbnail-hover-border;
+    background-color: @thumbnail-hover-background;
+    /* 2 */
+    text-decoration: none;
+    /* 3 */
+    outline: none;
+    .hook-thumbnail-hover;
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.uk-thumbnail-caption {
+    padding-top: @thumbnail-caption-padding;
+    text-align: center;
+    color: @thumbnail-caption-color;
+    .hook-thumbnail-caption;
+}
+
+
+/* Sizes
+ ========================================================================== */
+
+.uk-thumbnail-mini { width: @thumbnail-mini-width; }
+.uk-thumbnail-small { width: @thumbnail-small-width; }
+.uk-thumbnail-medium { width: @thumbnail-medium-width; }
+.uk-thumbnail-large { width: @thumbnail-large-width; }
+
+.uk-thumbnail-expand,
+.uk-thumbnail-expand > img { width: 100%; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-thumbnail-misc;
+
+.hook-thumbnail() {}
+.hook-thumbnail-hover() {}
+.hook-thumbnail-caption() {}
+.hook-thumbnail-misc() {}
