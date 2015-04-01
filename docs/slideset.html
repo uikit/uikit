@@ -139,6 +139,42 @@
 
                             <hr class="uk-article-divider">
 
+                            <h2 id="responsive"><a href="#responsive" class="uk-link-reset">Responsive items</a></h2>
+
+                            <p>The slideset supports media query based items visibility. Just add the <code>visible</code> option to the <code>data-uk-slideset</code> attribute.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-margin" data-uk-slideset="{visible: {default:4, small: 1, large:6}}">
+                                <div class="uk-slidenav-position uk-margin">
+                                    <ul class="uk-slideset uk-grid uk-flex-center">
+                                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                                    </ul>
+                                    <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
+                                    <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
+                                </div>
+                                <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
+                            </div>
+
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div data-uk-slideset=&quot;{visible: {default:4, small: 1, large:6}}&quot;&gt;
+...
+&lt;/div&gt;</code></pre>
+
+
+                            <hr class="uk-article-divider">
+
                             <h2 id="animations"><a href="#animations" class="uk-link-reset">Animations</a></h2>
 
                             <p>The slideset supports different animations. Add the <code>animation</code> option to the <code>data-uk-slideset</code> attribute.</p>
@@ -262,7 +298,7 @@
                                         <tr>
                                             <td><code>visible</code></td>
                                             <td>mixed</td>
-                                            <td>4</td>
+                                            <td>{default:4, small:1}</td>
                                             <td>Visible items in a set at once</td>
                                         </tr>
                                         <tr>
