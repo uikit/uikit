@@ -6,6 +6,7 @@
   - Added trigger 'input' after htmleditor change
   - Added UIkit.init([rootelement]) added to manually init js components
   - Added trigger ```hide.uk.dropdown``` when dropdown is closed
+  - Added location reminder to customizer when reloading the page
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
   - Fixed nestable list helper function

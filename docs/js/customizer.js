@@ -16,7 +16,13 @@ jQuery(function($) {
                 {"name": "Gradient", "url": ["../themes/gradient/uikit-customizer.less"], "config": "../themes/gradient/customizer.json"},
                 {"name": "Almost Flat", "url": ["../themes/almost-flat/uikit-customizer.less"], "config": "../themes/almost-flat/customizer.json"}
             ]
-        };
+        },
+        memory = window.sessionStorage || {};
+
+    // navigate the iframe to the latest page
+    if (memory["uikit-customizer-last-test"]) {
+        $iframe.attr('src', memory["uikit-customizer-last-test"]);
+    }
 
     $iframe.css("opacity", "0");
     $spinner.show();
@@ -70,6 +76,9 @@ jQuery(function($) {
 
         $iframe.on("load", function() {
             $customizer.trigger("update", [false, $iframe[0].contentWindow["CustomizerForceUpdate"]]);
+
+            // save the latest page displayed by the iframe
+            memory["uikit-customizer-last-test"] = $iframe[0].contentWindow.location.href;
         });
     });
 
