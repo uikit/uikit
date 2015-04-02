@@ -8,6 +8,52 @@
 
         <script src="../_test.js"></script>
         <script src="../../src/js/components/slider.js"></script>
+
+        <style media="screen">
+
+            [data-uk-slider] {
+                overflow: hidden;
+                position: relative;
+            }
+
+            .uk-slider-items {
+                overflow: hidden;
+            }
+
+            .uk-slider-items:not(.uk-dragging) {
+                -webkit-transition: transform 200ms linear;
+                transition: transform 200ms linear;
+            }
+
+            .uk-slider-items.uk-dragging {
+                cursor: col-resize;
+            }
+
+            .uk-slider-items > * {
+                box-sizing: border-box;
+                position: absolute;
+                top: 0;
+                left: 0;
+                min-height: 50vh;
+                background: #EB540A;
+                box-shadow: 0 0 200px rgba(0,0,0,0.4) inset;
+
+                font-weight: bold;
+                text-align: center;
+                font-size: 40px;
+                padding-top: 40px;
+
+                touch-action: pan-y;
+                -webkit-user-select: none;
+                -webkit-touch-callout: none;
+                -webkit-user-drag: none;
+            }
+
+            .uk-slider-items > *:nth-child(2n+1) {
+                background: #F59E03;
+            }
+        </style>
+
     </head>
 
     <body>
@@ -16,7 +62,27 @@
 
             <h1>Slider</h1>
 
-            
+            <div class="uk-slidenav-position uk-margin" data-uk-slider>
+
+                <div class="uk-slider-items uk-grid-width-1-1 uk-grid-width-medium-1-3">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                    <div>10</div>
+                    <div>11</div>
+                    <div>12</div>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
 
         </div>
 
