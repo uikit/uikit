@@ -39,8 +39,8 @@
             ],
             "options": [
                 {"name": "Fade", "value": "uk-fade"},
-                {"name": "Slide-Down", "value": "uk-slide-bottom-fixed"},
-                {"name": "Slide-Up", "value": "uk-slide-top-fixed"}
+                {"name": "Slide-Up", "value": "uk-slide-bottom-fixed"},
+                {"name": "Slide-Down", "value": "uk-slide-top-fixed"}
             ]
         },
         {
