@@ -14,12 +14,13 @@
 
     "use strict";
 
-    var dragging;
+    var dragging, delayIdle;
 
     UI.component('slider', {
 
         defaults: {
-            centered: false
+            centered: false,
+            threshold: 10
         },
 
         boot:  function() {
@@ -72,18 +73,27 @@
 
             this.container.on('touchstart mousedown', function(e) {
 
-                dragging = $this;
+                delayIdle = function(e) {
 
-                if (e.originalEvent && e.originalEvent.touches) {
-                    e = e.originalEvent.touches[0];
-                }
+                    dragging = $this;
 
-                dragging.element.data({
-                    'pointer-start': {x: parseInt(e.pageX, 10), y: parseInt(e.pageY, 10)},
-                    'pointer-pos-start': $this.pos
-                });
+                    if (e.originalEvent && e.originalEvent.touches) {
+                        e = e.originalEvent.touches[0];
+                    }
 
-                $this.container.addClass('uk-dragging');
+                    dragging.element.data({
+                        'pointer-start': {x: parseInt(e.pageX, 10), y: parseInt(e.pageY, 10)},
+                        'pointer-pos-start': $this.pos
+                    });
+
+                    $this.container.addClass('uk-dragging');
+
+                    delayIdle = false;
+                };
+
+                delayIdle.x         = parseInt(e.pageX, 10);
+                delayIdle.threshold = $this.options.threshold;
+
             });
 
             this.resize();
@@ -143,7 +153,7 @@
 
         next: function() {
 
-            var focus = this.items[this.focus + 1] ? (this.focus + 1) : 0;
+            var focus = this.items[this.focus + 1] ? (this.focus + 1) : this.focus;
 
             if (focus > 0 && this.items.eq(focus).data('area') <= this.vp) {
 
@@ -160,7 +170,7 @@
         },
 
         previous: function() {
-            var focus = this.items[this.focus - 1] ? (this.focus - 1) : (this.items.length - 1);
+            var focus = this.items[this.focus - 1] ? (this.focus - 1) : this.focus;
 
             if (this.items.eq(focus).data('area') <= this.vp) {
                 focus = 0;
@@ -174,12 +184,16 @@
     // handle dragging
     UI.$doc.on('mousemove.uikit.slider touchmove.uikit.slider', function(e) {
 
-        if (!dragging) {
-            return;
-        }
-
         if (e.originalEvent && e.originalEvent.touches) {
             e = e.originalEvent.touches[0];
+        }
+
+        if (delayIdle && Math.abs(e.pageX - delayIdle.x) > delayIdle.threshold) {
+            delayIdle(e);
+        }
+
+        if (!dragging) {
+            return;
         }
 
         var x, xDiff, pos;
@@ -234,8 +248,9 @@
                 dragging.updateFocus(dragging.items.length-1);
             }
 
-            dragging = false;
         }
+
+        dragging = delayIdle = false;
     });
 
     return UI.slider;
