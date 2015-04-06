@@ -140,10 +140,18 @@
 
             var $this = this, ele, item = this.items.eq(idx);
 
-            if (item.data('area') <= this.vp) {
-                this.updatePos(0);
+            if (this.options.centered) {
+
+                this.updatePos((item.data('left') - (this.vp/2 - item.data('width')/2))*-1);
+
             } else {
-                this.updatePos((item.data('area') - this.vp)*-1);
+
+                if (item.data('area') <= this.vp) {
+                    this.updatePos(0);
+                } else {
+                    this.updatePos((item.data('area') - this.vp)*-1);
+                }
+
             }
 
             this.items.removeClass('uk-slider-focus').filter(item).addClass('uk-slider-focus');

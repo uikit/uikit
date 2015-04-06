@@ -22,7 +22,7 @@
 
             .uk-slider-items:not(.uk-dragging) {
                 -webkit-transition: transform 200ms linear;
-                transition: transform 200ms linear;
+                transition: all 200ms linear;
             }
 
             .uk-slider-items.uk-dragging {
@@ -52,6 +52,12 @@
             .uk-slider-items > *:nth-child(2n+1) {
                 background: #F59E03;
             }
+
+
+            [data-uk-slider*="centered:true"] .uk-slider-items > *:not(.uk-slider-focus){
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
         </style>
 
     </head>
@@ -63,6 +69,31 @@
             <h1>Slider</h1>
 
             <div class="uk-slidenav-position uk-margin" data-uk-slider>
+
+                <div class="uk-slider-items uk-grid-width-1-1 uk-grid-width-medium-1-3">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>
+                    <div>10</div>
+                    <div>11</div>
+                    <div>12</div>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+
+            <h3>Centered mode</h3>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider="{centered:true}">
 
                 <div class="uk-slider-items uk-grid-width-1-1 uk-grid-width-medium-1-3">
                     <div>1</div>
