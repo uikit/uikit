@@ -230,13 +230,30 @@
 
             if (dragging.options.centered) {
 
-                pos = Math.abs(pos);
+                if (pos < 0) {
+
+                    pos = Math.abs(dragging.pos);
+
+                    if (pos > dragging.cw - dragging.vp ) {
+                        pos = dragging.cw - dragging.vp/2;
+                    }
+
+                } else {
+
+                    if (pos < dragging.vp) {
+                        pos = 0;
+                    }
+                }
 
                 for (focus=0;focus<dragging.items.length;focus++) {
 
                     item = dragging.items.eq(focus);
 
                     if (item.data('center') > pos) break;
+                }
+
+                if (focus>=dragging.items.length) {
+                    focus = dragging.items.length-1;
                 }
 
                 dragging.updateFocus(focus);
