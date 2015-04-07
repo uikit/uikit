@@ -36,7 +36,7 @@
         defaults: {
             velocity : 0.5,
             target   : false,
-            range    : false
+            viewport : false
         },
 
         boot: function() {
@@ -102,8 +102,8 @@
 
             var percent = this.percentageInViewport();
 
-            if (this.options.range) {
-                percent = percent / this.options.range;
+            if (this.options.viewport) {
+                percent = percent / this.options.viewport;
             }
 
             this.update(percent);
