@@ -22,7 +22,7 @@
 
             .uk-slider-items:not(.uk-dragging) {
                 -webkit-transition: transform 200ms linear;
-                transition: all 200ms linear;
+                transition: transform 200ms linear;
             }
 
             .uk-slider-items.uk-dragging {
@@ -51,12 +51,6 @@
 
             .uk-slider-items > *:nth-child(2n+1) {
                 background: #F59E03;
-            }
-
-
-            [data-uk-slider*="centered:true"] .uk-slider-items > *:not(.uk-slider-focus){
-                transform: scale(0.8);
-                opacity: 0.5;
             }
         </style>
 

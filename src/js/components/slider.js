@@ -101,9 +101,10 @@
 
         resize: function() {
 
-            var pos = 0, maxheight = 0, item, width, size;
+            var $this = this, pos = 0, maxheight = 0, item, width, size;
 
             this.items = this.container.children();
+            this.vp    = this.element[0].getBoundingClientRect().width;
 
             this.container.css({'min-width': '', 'min-height': ''});
 
@@ -114,14 +115,13 @@
                 width     = size.width;
                 maxheight = Math.max(maxheight, size.height);
 
-                item.css({'left': pos, 'width':width}).data({'left': pos, 'width': width, 'area': (pos+width)});
+                item.css({'left': pos, 'width':width}).data({'left': pos, 'width': width, 'area': (pos+width), 'center':(pos - ($this.vp/2 - width/2))});
 
                 pos += width;
             });
 
             this.container.css({'min-width': pos, 'min-height': maxheight});
 
-            this.vp = this.element[0].getBoundingClientRect().width;
             this.cw = pos;
 
             this.updateFocus(0);
@@ -142,7 +142,7 @@
 
             if (this.options.centered) {
 
-                this.updatePos((item.data('left') - (this.vp/2 - item.data('width')/2))*-1);
+                this.updatePos(item.data('center')*-1);
 
             } else {
 
@@ -154,7 +154,8 @@
 
             }
 
-            this.items.removeClass('uk-slider-focus').filter(item).addClass('uk-slider-focus');
+            this.items.filter('.uk-slider-active').removeClass('uk-slider-active');
+            this.items.filter(item).addClass('uk-slider-active');
 
             this.focus = idx;
         },
@@ -163,7 +164,7 @@
 
             var focus = this.items[this.focus + 1] ? (this.focus + 1) : this.focus;
 
-            if (focus > 0 && this.items.eq(focus).data('area') <= this.vp) {
+            if (!this.options.centered && focus > 0 && this.items.eq(focus).data('area') <= this.vp) {
 
                 for (var i=focus;i<this.items.length;i++) {
 
@@ -180,7 +181,7 @@
         previous: function() {
             var focus = this.items[this.focus - 1] ? (this.focus - 1) : this.focus;
 
-            if (this.items.eq(focus).data('area') <= this.vp) {
+            if (!this.options.centered && this.items.eq(focus).data('area') <= this.vp) {
                 focus = 0;
             }
 
@@ -225,35 +226,52 @@
 
             dragging.container.removeClass('uk-dragging');
 
-            var direction = dragging.element.data('pointer-pos-start') > dragging.pos ? 1:-1, focus = 0, pos = dragging.pos;
+            var direction = dragging.element.data('pointer-pos-start') > dragging.pos ? 1:-1, focus = 0, pos = dragging.pos, item;
 
-            if (pos < 0) {
+            if (dragging.options.centered) {
 
-                pos = Math.abs(dragging.pos);
-
-                if (pos > dragging.cw - dragging.vp ) {
-                    pos = dragging.cw - dragging.vp;
-                }
-
-            } else {
-                pos = 0;
-            }
-
-            if (pos < (dragging.cw - dragging.vp)) {
+                pos = Math.abs(pos);
 
                 for (focus=0;focus<dragging.items.length;focus++) {
-                    if (dragging.items.eq(focus).data('area')>(dragging.vp + pos)) break;
-                }
 
+                    item = dragging.items.eq(focus);
 
-                if (direction==-1 && focus > 0) {
-                    focus -= 1;
+                    if (item.data('center') > pos) break;
                 }
 
                 dragging.updateFocus(focus);
 
-            } else if (pos >= (dragging.cw - dragging.vp)) {
-                dragging.updateFocus(dragging.items.length-1);
+            } else {
+
+                if (pos < 0) {
+
+                    pos = Math.abs(dragging.pos);
+
+                    if (pos > dragging.cw - dragging.vp ) {
+                        pos = dragging.cw - dragging.vp;
+                    }
+
+                } else {
+                    pos = 0;
+                }
+
+                if (pos < (dragging.cw - dragging.vp)) {
+
+                    for (focus=0;focus<dragging.items.length;focus++) {
+                        if (dragging.items.eq(focus).data('area')>(dragging.vp + pos)) break;
+                    }
+
+
+                    if (direction==-1 && focus > 0) {
+                        focus -= 1;
+                    }
+
+                    dragging.updateFocus(focus);
+
+                } else if (pos >= (dragging.cw - dragging.vp)) {
+                    dragging.updateFocus(dragging.items.length-1);
+                }
+
             }
 
         }
