@@ -18,6 +18,7 @@
 
     var parallaxes      = [],
         scrolltop       = 0,
+        wh              = window.innerHeight,
         checkParallaxes = function() {
 
             scrolltop = UI.$win.scrollTop();
@@ -42,7 +43,10 @@
 
             // listen to scroll and resize
             UI.$doc.on("scrolling.uk.document", checkParallaxes);
-            UI.$win.on("load resize orientationchange", UI.Utils.debounce(checkParallaxes, 50));
+            UI.$win.on("load resize orientationchange", UI.Utils.debounce(function(){
+                wh = window.innerHeight;
+                checkParallaxes();
+            }, 50));
 
             // init code
             UI.ready(function(context) {
@@ -96,53 +100,40 @@
 
         process: function() {
 
-            var base    = this.base,
-                offset  = base.offset(),
-                height  = base.outerHeight(),
-                wh      = window.innerHeight,
-                percent = 0,
-                top     = scrolltop < wh ? scrolltop : scrolltop - wh,
-                start   = offset.top < wh ? 0 : offset.top - wh,
-                end     = offset.top + height;
+            var percent = this.percentageInViewport();
 
             if (this.options.range) {
-
-                switch(this.options.range) {
-                    case 'dock':
-                        end = offset.top;
-                        break;
-                    case 'center':
-
-                        if (offset.top < wh && (offset.top + height) < wh) {
-                            end = Math.ceil(window.innerHeight/2 - height/2);
-                        } else {
-                            end = offset.top - Math.ceil(window.innerHeight/2 - height/2);
-                        }
-
-                        break;
-
-                    default:
-                        if (offset.top < wh && (offset.top + height) < wh) {
-                            end = Math.ceil(window.innerHeight - height) * this.options.range;
-                        } else {
-                            end = offset.top - Math.ceil(window.innerHeight - height) * this.options.range;
-                        }
-                }
-            }
-
-            if (end > (UI.$html.height() - 2*wh)) {
-                end = UI.$html.height() - wh;
-            }
-
-            if (scrolltop < start) {
-                percent = 0;
-            } else if(scrolltop > end) {
-                percent = 1;
-            } else {
-                percent = (start ? scrolltop : top ) / end;
+                percent = percent / this.options.range;
             }
 
             this.update(percent);
+        },
+
+        percentageInViewport: function() {
+
+            var top     = this.base.offset().top,
+                height  = this.base.outerHeight(),
+                distance, percentage, percent;
+
+            if (top > (scrolltop + wh)) {
+                percent = 0;
+            } else if ((top + height) < scrolltop) {
+                percent = 1;
+            } else {
+
+                if ((top + height) < wh) {
+
+                    percent = (scrolltop < wh ? scrolltop : scrolltop - wh) / (top+height);
+
+                } else {
+
+                    distance   = (scrolltop + wh) - top;
+                    percentage = Math.round(distance / ((wh + height) / 100));
+                    percent    = percentage/100;
+                }
+            }
+
+            return percent;
         },
 
         update: function(percent) {
@@ -210,7 +201,6 @@
                     case "color":
                     case "background-color":
                     case "border-color":
-                        //console.log(opts)
                         css[prop] = calcColor(opts.start, opts.end, compercent);
                         break;
 
