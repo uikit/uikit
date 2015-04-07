@@ -58,6 +58,23 @@
 
 .uk-slider-container { overflow: hidden; }
 
+/*
+ * Dragged
+ */
+
+.uk-slider:not(.uk-drag) {
+    -webkit-transition: transform 200ms linear;
+    transition: transform 200ms linear;
+}
+
+.uk-slider.uk-drag {
+    cursor: col-resize;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+}
+
 
 /* Modifier: `uk-slider-fullscreen`
  ========================================================================== */

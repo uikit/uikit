@@ -86,7 +86,7 @@
                         'pointer-pos-start': $this.pos
                     });
 
-                    $this.container.addClass('uk-dragging');
+                    $this.container.addClass('uk-drag');
 
                     delayIdle = false;
                 };
@@ -224,7 +224,7 @@
 
         if (dragging) {
 
-            dragging.container.removeClass('uk-dragging');
+            dragging.container.removeClass('uk-drag');
 
             var direction = dragging.element.data('pointer-pos-start') > dragging.pos ? 1:-1, focus = 0, pos = dragging.pos, item;
 
