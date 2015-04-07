@@ -140,7 +140,7 @@
             var breakpoint  = null,
                 tmp         = UI.$('<div style="position:absolute;height:1px;top:-1000px;width:100px"><div></div></div>').appendTo('body'),
                 testdiv     = tmp.children().eq(0),
-                breakpoints = UI.$.extend({}, this.options);
+                breakpoints = this.options;
 
                 ['xlarge', 'large', 'medium', 'small'].forEach(function(bp) {
 
@@ -157,7 +157,7 @@
 
                 tmp.remove();
 
-                return breakpoints[breakpoint] || breakpoints['default'];
+                return this.options[breakpoint] || this.options['default'];
         },
 
         getItems: function() {
