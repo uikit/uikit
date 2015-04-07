@@ -21,7 +21,7 @@
     UI.component('slideset', {
 
         defaults: {
-            visible   : {},
+            default   : 1,
             animation : 'fade',
             duration  : 200,
             group     : false,
@@ -137,36 +137,27 @@
 
         getVisibleOnCurrenBreakpoint: function() {
 
-            // number of visibles on all breakpoints
-            if (!isNaN(this.options.visible)) {
-                return parseInt(this.options.visible, 10);
-            }
+            var breakpoint  = null,
+                tmp         = UI.$('<div style="position:absolute;height:1px;top:-1000px;width:100px"><div></div></div>').appendTo('body'),
+                testdiv     = tmp.children().eq(0),
+                breakpoints = UI.$.extend({}, this.options);
 
-            var breakpoint  = 'default',
-                tmp         = UI.$('<div style="position:absolute;height:1px;top:-1000px;"></div>').appendTo('body'),
-                breakpoints = UI.$.extend({
-                    'default': 4,
-                    'small'  : 1
-                    //'medium' : 3,
-                    //'large'  : 4,
-                }, this.options.visible);
+                ['xlarge', 'large', 'medium', 'small'].forEach(function(bp) {
 
-                ['large', 'medium', 'small'].forEach(function(bp) {
-
-                    if (!breakpoints[bp]) {
+                    if (!breakpoints[bp] || breakpoint) {
                         return;
                     }
 
-                    tmp.attr('class', 'uk-visible-'+bp).width();
+                    tmp.attr('class', 'uk-grid-width-'+bp+'-1-2').width();
 
-                    if (tmp.is(':visible')) {
+                    if (testdiv.width() == 50) {
                         breakpoint = bp;
                     }
                 });
 
                 tmp.remove();
 
-                return breakpoints[breakpoint] || 4;
+                return breakpoints[breakpoint] || breakpoints['default'];
         },
 
         getItems: function() {
