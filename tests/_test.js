@@ -26,6 +26,7 @@
         'dist/css/components/progress{style}.css',
         'dist/css/components/search{style}.css',
         'dist/css/components/slidenav{style}.css',
+        'dist/css/components/slider{style}.css',
         'dist/css/components/slideshow{style}.css',
         'dist/css/components/sortable{style}.css',
         'dist/css/components/sticky{style}.css',

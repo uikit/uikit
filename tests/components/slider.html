@@ -11,21 +11,12 @@
 
         <style media="screen">
 
-            [data-uk-slider] {
-                overflow: hidden;
-                position: relative;
-            }
-
-            .uk-slider-items {
-                overflow: hidden;
-            }
-
-            .uk-slider-items:not(.uk-dragging) {
+            .uk-slider:not(.uk-dragging) {
                 -webkit-transition: transform 200ms linear;
                 transition: transform 200ms linear;
             }
 
-            .uk-slider-items.uk-dragging {
+            .uk-slider.uk-dragging {
                 cursor: col-resize;
                 touch-action: pan-y;
                 -webkit-user-select: none;
@@ -33,23 +24,19 @@
                 -webkit-user-drag: none;
             }
 
-            .uk-slider-items > * {
-                box-sizing: border-box;
-                position: absolute;
-                top: 0;
-                left: 0;
-                min-height: 50vh;
+            .uk-slider > * {
+/*                min-height: 50vh;
                 background: #EB540A;
                 box-shadow: 0 0 200px rgba(0,0,0,0.4) inset;
 
                 font-weight: bold;
                 text-align: center;
                 font-size: 40px;
-                padding-top: 40px;
+                padding-top: 40px;*/
             }
 
-            .uk-slider-items > *:nth-child(2n+1) {
-                background: #F59E03;
+            .uk-slider > :nth-child(2n+1) {
+                /*background: #F59E03;*/
             }
         </style>
 
@@ -63,19 +50,21 @@
 
             <div class="uk-slidenav-position uk-margin" data-uk-slider>
 
-                <div class="uk-slider-items uk-grid-width-1-1 uk-grid-width-medium-1-3">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
-                    <div>10</div>
-                    <div>11</div>
-                    <div>12</div>
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid-width-medium-1-4">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
                 </div>
 
                 <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
@@ -84,23 +73,25 @@
             </div>
 
 
-            <h3>Centered mode</h3>
+            <h2>Centered Mode</h2>
 
             <div class="uk-slidenav-position uk-margin" data-uk-slider="{centered:true}">
 
-                <div class="uk-slider-items uk-grid-width-1-1 uk-grid-width-medium-1-3">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
-                    <div>10</div>
-                    <div>11</div>
-                    <div>12</div>
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid-width-medium-1-4">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
                 </div>
 
                 <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>

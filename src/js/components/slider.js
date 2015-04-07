@@ -47,7 +47,7 @@
 
             var $this = this;
 
-            this.container = this.element.find('.uk-slider-items');
+            this.container = this.element.find('.uk-slider');
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {
                 $this.resize();
