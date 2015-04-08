@@ -61,6 +61,17 @@
 
             this.currentFilter = this.options.group;
 
+            $this.list.addClass('uk-grid-width-1-'+$this.options.default);
+
+            ['xlarge', 'large', 'medium', 'small'].forEach(function(bp) {
+
+                if (!$this.options[bp]) {
+                    return;
+                }
+
+                $this.list.addClass('uk-grid-width-'+bp+'-1-'+$this.options[bp]);
+            });
+
             this.updateSets();
 
             this.on("click.uikit.slideset", '[data-uk-slideset-item]', function(e) {
@@ -130,7 +141,7 @@
             this.sets     = array_chunk(this.items, this.visible);
 
             for (i=0;i<this.sets.length;i++) {
-                this.sets[i].attr({'style': 'display:none;', 'class': 'uk-width-1-'+this.visible});
+                this.sets[i].css({'display': 'none'});
             }
 
             // update nav
