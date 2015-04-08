@@ -25,7 +25,8 @@
             animation : 'fade',
             duration  : 200,
             group     : false,
-            delay     : false
+            delay     : false,
+            controls  : false
         },
 
         sets: [],
@@ -58,7 +59,7 @@
                 $this.updateSets();
             }, 100));
 
-            this.group = this.options.group;
+            this.currentFilter = this.options.group;
 
             this.updateSets();
 
@@ -85,16 +86,29 @@
 
             });
 
-            this.on('click.uikit.slideset', '[data-uk-slideset-group]', function(e){
+            this.on('click.uikit.slideset', '[data-uk-slideset-filter]', function(e){
                 e.preventDefault();
 
                 if ($this.animating) {
                     return;
                 }
 
-                $this.group = UI.$(this).attr('data-uk-slideset-group');
+                $this.currentFilter = UI.$(this).attr('data-uk-slideset-filter');
                 $this.updateSets(true, true);
             });
+
+            if (this.options.controls) {
+                UI.$(this.options.controls).on('click.uikit.slideset', '[data-uk-slideset-filter]', function(e){
+                    e.preventDefault();
+
+                    if ($this.animating) {
+                        return;
+                    }
+
+                    $this.currentFilter = UI.$(this).attr('data-uk-slideset-filter');
+                    $this.updateSets(true, true);
+                });
+            }
 
             this.on('swipeRight swipeLeft', function(e) {
                 $this[e.type=='swipeLeft' ? 'next' : 'previous']();
@@ -127,8 +141,12 @@
                 }
             }
 
-            if (this.group!==false) {
-                this.element.find('[data-uk-slideset-group]').removeClass('uk-active').filter('[data-uk-slideset-group="'+this.group+'"]').addClass('uk-active');
+            if (this.currentFilter!==false) {
+                this.element.find('[data-uk-slideset-filter]').removeClass('uk-active').filter('[data-uk-slideset-filter="'+this.currentFilter+'"]').addClass('uk-active');
+
+                if (this.options.controls) {
+                    UI.$(this.options.controls).find('[data-uk-slideset-filter]').removeClass('uk-active').filter('[data-uk-slideset-filter="'+this.currentFilter+'"]').addClass('uk-active');
+                }
             }
 
             this.activeSet = false;
@@ -164,9 +182,9 @@
 
             var items = [], filter;
 
-            if (this.group) {
+            if (this.currentFilter) {
 
-                filter = this.group || [];
+                filter = this.currentFilter || [];
 
                 if (typeof(filter) === 'string') {
                     filter = filter.split(/,/).map(function(item){ return item.trim(); });
@@ -174,7 +192,7 @@
 
                 this.children.each(function(index){
 
-                    var ele = UI.$(this), f = ele.attr('data-uk-group'), infilter = filter.length ? false : true;
+                    var ele = UI.$(this), f = ele.attr('data-uk-filter'), infilter = filter.length ? false : true;
 
                     if (f) {
 
