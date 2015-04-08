@@ -19,8 +19,9 @@
     UI.component('slider', {
 
         defaults: {
-            centered: false,
-            threshold: 10
+            centered  : false,
+            threshold : 10,
+            infinite  : false
         },
 
         boot:  function() {
@@ -48,9 +49,10 @@
             var $this = this;
 
             this.container = this.element.find('.uk-slider');
+            this.focus     = 0;
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {
-                $this.resize();
+                $this.resize(true);
             }, 100));
 
             this.on("click.uikit.slider", '[data-uk-slider-item]', function(e) {
@@ -96,10 +98,10 @@
 
             });
 
-            this.resize();
+            this.resize(true);
         },
 
-        resize: function() {
+        resize: function(focus) {
 
             var $this = this, pos = 0, maxheight = 0, item, width, size;
 
@@ -108,21 +110,28 @@
 
             this.container.css({'min-width': '', 'min-height': ''});
 
-            this.items.each(function(){
+            this.items.each(function(idx){
 
                 item      = UI.$(this);
                 size      = item.css({'left': '', 'width':''})[0].getBoundingClientRect();
                 width     = size.width;
                 maxheight = Math.max(maxheight, size.height);
 
-                item.css({'left': pos, 'width':width}).data({'left': pos, 'width': width, 'area': (pos+width), 'center':(pos - ($this.vp/2 - width/2))});
+                item.css({'left': pos, 'width':width}).data({'idx':idx, 'left': pos, 'width': width, 'area': (pos+width), 'center':(pos - ($this.vp/2 - width/2))});
 
                 pos += width;
             });
 
             this.container.css({'min-width': pos, 'min-height': maxheight});
 
-            this.cw = pos;
+            this.cw  = pos;
+            this.pos = 0;
+
+            this.container.css({
+                '-ms-transform': 'translateX(0)',
+                '-webkit-transform': 'translateX(0)',
+                'transform': 'translateX(0)'
+            });
 
             this.updateFocus(0);
         },
@@ -136,9 +145,11 @@
             });
         },
 
-        updateFocus: function(idx) {
+        updateFocus: function(idx, dir) {
 
-            var $this = this, ele, item = this.items.eq(idx);
+            dir = dir || (idx > this.focus ? 1:-1);
+
+            var $this = this, item = this.items.eq(idx);
 
             if (this.options.centered) {
 
@@ -146,46 +157,102 @@
 
             } else {
 
-                if (item.data('area') <= this.vp) {
-                    this.updatePos(0);
+                if (this.options.infinite) {
+
+                    this.infinite(idx, dir);
+                    this.updatePos(item.data('left')*-1);
+
                 } else {
-                    this.updatePos((item.data('area') - this.vp)*-1);
+
+                    var area = item.data('width'), i;
+
+                    for (i=idx;i<this.items.length;i++) {
+                        area += this.items.eq(i).data('width');
+                    }
+
+                    if (area > this.vp) {
+                        this.updatePos(item.data('left')*-1);
+                    }
                 }
 
             }
 
-            this.items.filter('.uk-slider-active').removeClass('uk-slider-active');
-            this.items.filter(item).addClass('uk-slider-active');
-
             this.focus = idx;
+
         },
 
         next: function() {
 
-            var focus = this.items[this.focus + 1] ? (this.focus + 1) : this.focus;
+            var focus = this.items[this.focus + 1] ? (this.focus + 1) : (this.options.infinite ? 0:this.focus);
 
-            if (!this.options.centered && focus > 0 && this.items.eq(focus).data('area') <= this.vp) {
-
-                for (var i=focus;i<this.items.length;i++) {
-
-                    if (this.items.eq(i).data('area')>this.vp) {
-                        focus = i;
-                        break;
-                    }
-                }
-            }
-
-            this.updateFocus(focus);
+            this.updateFocus(focus, 1);
         },
 
         previous: function() {
-            var focus = this.items[this.focus - 1] ? (this.focus - 1) : this.focus;
 
-            if (!this.options.centered && this.items.eq(focus).data('area') <= this.vp) {
-                focus = 0;
+            var focus = this.items[this.focus - 1] ? (this.focus - 1) : (this.options.infinite ? (this.items[this.focus - 1] ? this.items-1:this.items.length-1):this.focus);
+
+            this.updateFocus(focus, -1);
+        },
+
+        infinite: function(baseidx, direction) {
+
+            var item = this.items.eq(baseidx), i, z = baseidx, move, lastvisible;
+
+            if (direction == 1) {
+
+                var maxleft = 0;
+
+                for (i=0;i<this.items.length;i++) {
+
+                    if (this.items.eq(z).data('left') > maxleft) {
+                        lastvisible = this.items.eq(z);
+                        maxleft = lastvisible.data('left');
+                    }
+
+                    z = z+1 == this.items.length ? 0:z+1;
+                }
+
+                if (lastvisible.data('left') - item.data('left') <= this.vp) {
+                    move = this.items.eq(this.items[lastvisible.data('idx') + 1] ? lastvisible.data('idx') + 1 : 0);
+                    move.css({'left': lastvisible.data('area')}).data({
+                        'left'  : lastvisible.data('area'),
+                        'area'  : (lastvisible.data('area')+move.data('width')),
+                        'center': (lastvisible.data('area') - (this.vp/2 - move.data('width')/2))
+                    });
+
+                }
+
+
+            } else {
+
+                var minleft = 10000000;
+
+                for (i=0;i<this.items.length;i++) {
+
+                    if (this.items.eq(z).data('left') < minleft) {
+                        lastvisible = this.items.eq(z);
+                        minleft = lastvisible.data('left');
+                    }
+
+                    z = z+1 == this.items.length ? 0:z+1;
+                }
+
+                if (lastvisible.data('left') - item.data('left') <= 0) {
+
+                    move = this.items.eq(this.items[lastvisible.data('idx') - 1] ? lastvisible.data('idx') - 1 : this.items.length-1);
+
+                    var left = item.data('left') - lastvisible.data('width');
+
+                    move.css({'left': left}).data({
+                        'left'  : left,
+                        'area'  : (left+move.data('width')),
+                        'center': (left - (this.vp/2 - move.data('width')/2))
+                    });
+                }
+
             }
 
-            this.updateFocus(focus);
         }
 
     });
@@ -225,72 +292,6 @@
         if (dragging) {
 
             dragging.container.removeClass('uk-drag');
-
-            var direction = dragging.element.data('pointer-pos-start') > dragging.pos ? 1:-1, focus = 0, pos = dragging.pos, item;
-
-            if (dragging.options.centered) {
-
-                if (pos < 0) {
-
-                    pos = Math.abs(dragging.pos);
-
-                    if (pos > dragging.cw - dragging.vp ) {
-                        pos = dragging.cw - dragging.vp/2;
-                    }
-
-                } else {
-
-                    if (pos < dragging.vp) {
-                        pos = 0;
-                    }
-                }
-
-                for (focus=0;focus<dragging.items.length;focus++) {
-
-                    item = dragging.items.eq(focus);
-
-                    if (item.data('center') > pos) break;
-                }
-
-                if (focus>=dragging.items.length) {
-                    focus = dragging.items.length-1;
-                }
-
-                dragging.updateFocus(focus);
-
-            } else {
-
-                if (pos < 0) {
-
-                    pos = Math.abs(dragging.pos);
-
-                    if (pos > dragging.cw - dragging.vp ) {
-                        pos = dragging.cw - dragging.vp;
-                    }
-
-                } else {
-                    pos = 0;
-                }
-
-                if (pos < (dragging.cw - dragging.vp)) {
-
-                    for (focus=0;focus<dragging.items.length;focus++) {
-                        if (dragging.items.eq(focus).data('area')>(dragging.vp + pos)) break;
-                    }
-
-
-                    if (direction==-1 && focus > 0) {
-                        focus -= 1;
-                    }
-
-                    dragging.updateFocus(focus);
-
-                } else if (pos >= (dragging.cw - dragging.vp)) {
-                    dragging.updateFocus(dragging.items.length-1);
-                }
-
-            }
-
         }
 
         dragging = delayIdle = false;
