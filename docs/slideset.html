@@ -97,11 +97,11 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply the Slideset component, add the <code>data-uk-slideset</code> attribute to a container element.</p>
+                            <p>To apply the Slideset component, add the <code>data-uk-slideset</code> attribute to a container element. By adding the <code>default</code> option to the <code>data-uk-slideset</code> attribute, the number of items within a set can be adjusted. The <a href="slidenav.html">Slidenav</a> and <a href="dotnav.html">Dotnav</a> can be used to enable navigation through the sets.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-margin" data-uk-slideset="{default:4}">
+                            <div class="uk-margin" data-uk-slideset="{default: 4}">
                                 <div class="uk-slidenav-position uk-margin">
                                     <ul class="uk-slideset uk-grid uk-flex-center">
                                         <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
@@ -123,7 +123,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-slideset&gt;
+<pre><code>&lt;div data-uk-slideset=&quot;{default: 4}&quot;&gt;
     &lt;div class=&quot;uk-slidenav-position&quot;&gt;
         &lt;ul class=&quot;uk-slideset uk-grid&quot;&gt;
             &lt;li&gt;&lt;img src=&quot;path/to/image1.jpg&quot; alt=&quot;Image 1&quot;&gt;&lt;/li&gt;
@@ -141,11 +141,11 @@
 
                             <h2 id="responsive"><a href="#responsive" class="uk-link-reset">Responsive items</a></h2>
 
-                            <p>The slideset supports media query based items visibility. Just add the <code>visible</code> option to the <code>data-uk-slideset</code> attribute.</p>
+                            <p>The slideset supports media query based items visibility. Just add an option named like the breakpoint (e.g. small, medium, large) to the <code>data-uk-slideset</code> attribute and pass a number of items to be displayed within this breakpoint. The <code>default</code> option will be overwritten by the breakpoint option. The breakpoint option also applies to all screen-sizes that are larger than the breakpoint.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-margin" data-uk-slideset="{small: 2, medium:4, large:6}">
+                            <div class="uk-margin" data-uk-slideset="{small: 2, medium: 4, large: 6}">
                                 <div class="uk-slidenav-position uk-margin">
                                     <ul class="uk-slideset uk-grid uk-flex-center">
                                         <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
@@ -168,7 +168,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-slideset=&quot;{visible: {default:4, small: 1, large:6}}&quot;&gt;
+<pre><code>&lt;div data-uk-slideset=&quot;{small: 2, medium: 4, large: 6}&quot;&gt;
 ...
 &lt;/div&gt;</code></pre>
 
@@ -177,7 +177,44 @@
 
                             <h2 id="animations"><a href="#animations" class="uk-link-reset">Animations</a></h2>
 
-                            <p>The slideset supports different animations. Add the <code>animation</code> option to the <code>data-uk-slideset</code> attribute.</p>
+                            <p>There is a batch of animations which can be used to display the next set of items. The default animation can be changed by setting the <code>animation</code> option in the <code>data-uk-slideset</code> attribute to the name of one of the animations. The animation duration can also be adjusted by using the <code>duration</code> option.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Animation</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>fade</code></td>
+                                            <td>The items fade in and out.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>scale</code></td>
+                                            <td>The items scale up and down.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-horizontal</code></td>
+                                            <td>The items slide to the side.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-vertical</code></td>
+                                            <td>The items slide vertically.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-top</code></td>
+                                            <td>The items slide to and from the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-bottom</code></td>
+                                            <td>The items slide to and from the bottom.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -190,7 +227,7 @@
                                 <option value="slide-bottom">slide-bottom</option>
                             </select>
 
-                            <div class="uk-margin" data-uk-slideset="{medium:4}">
+                            <div class="uk-margin" data-uk-slideset="{small: 2, medium: 4}">
                                 <div class="uk-slidenav-position uk-margin">
                                     <ul class="uk-slideset uk-grid uk-flex-center">
                                         <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
@@ -213,7 +250,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-slideset=&quot;{animation: 'scale'}&quot;&gt;
+<pre><code>&lt;div data-uk-slideset=&quot;{animation: 'scale', duration: 200}&quot;&gt;
     ...
 &lt;/div&gt;</code></pre>
 
@@ -221,39 +258,43 @@
 
                             <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
 
-                            <p>The slideset supports different animations. Add the <code>animation</code> option to the <code>data-uk-slideset</code> attribute.</p>
+                            <p>You can also filter your slideset so that only particular items will be displayed.
+                                Add the <code>data-uk-filter</code> attribute to the slideset items to define what category the item belongs to.
+                                Also add a filter control, which can be included within the slideset or referenced by passing the id to the <code>controls</code> option in the <code>data-uk-slideset</code> attribute.
+                                Each control needs to have the data-uk-slideset-filter attribute to define the category you want to filter.
+                            You can set the default filter group by settiing the <code>group</code> option.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-margin" data-uk-slideset="{animation: 'scale', group: 'group-1,group-2', medium:4}">
                                 <ul class="uk-subnav uk-subnav-pill">
-                                    <li data-uk-slideset-group="group-1,group-2"><a>All</a></li>
-                                    <li data-uk-slideset-group="group-1"><a>Group 1</a></li>
-                                    <li data-uk-slideset-group="group-2"><a>Group 2</a></li>
+                                    <li data-uk-slideset-filter="group-1,group-2"><a>All</a></li>
+                                    <li data-uk-slideset-filter="group-1"><a>Group 1</a></li>
+                                    <li data-uk-slideset-filter="group-2"><a>Group 2</a></li>
                                 </ul>
                                 <div class="uk-slidenav-position uk-margin">
                                     <ul class="uk-slideset uk-grid uk-flex-center">
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 1" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 2" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 3" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 4" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 5" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 6" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 7" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 8" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 9" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 10" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 1" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 2" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 3" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 4" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 5" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 6" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 7" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 8" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 9" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-1"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 10" width="600" height="400" alt=""></li>
 
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 1" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 2" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 3" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 4" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 5" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 6" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 7" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 8" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 9" width="600" height="400" alt=""></li>
-                                        <li data-uk-group="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 10" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 1" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 2" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 3" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 4" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 5" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 6" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 7" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 8" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 9" width="600" height="400" alt=""></li>
+                                        <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 10" width="600" height="400" alt=""></li>
                                     </ul>
                                     <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
                                     <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
@@ -265,15 +306,15 @@
 
 <pre><code>&lt;div data-uk-slideset=&quot;{group: 'group-1,group-2'}&quot;&gt;
     &lt;ul class=&quot;uk-subnav uk-subnav-pill&quot;&gt;
-        &lt;li data-uk-slideset-group=&quot;group-1,group-2&quot;&gt;&lt;a&gt;All&lt;/a&gt;&lt;/li&gt;
-        &lt;li data-uk-slideset-group=&quot;group-1&quot;&gt;&lt;a&gt;Group 1&lt;/a&gt;&lt;/li&gt;
-        &lt;li data-uk-slideset-group=&quot;group-2&quot;&gt;&lt;a&gt;Group 2&lt;/a&gt;&lt;/li&gt;
+        &lt;li data-uk-slideset-filter=&quot;group-1,group-2&quot;&gt;&lt;a&gt;All&lt;/a&gt;&lt;/li&gt;
+        &lt;li data-uk-slideset-filter=&quot;group-1&quot;&gt;&lt;a&gt;Group 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li data-uk-slideset-filter=&quot;group-2&quot;&gt;&lt;a&gt;Group 2&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
 
     &lt;ul class=&quot;uk-slideset uk-grid uk-flex-center&quot;&gt;
-        &lt;li data-uk-group=&quot;group-1&quot;&gt;&lt;img src=&quot;image1.jpg&quot;&gt;&lt;/li&gt;
-        &lt;li data-uk-group=&quot;group-1&quot;&gt;&lt;img src=&quot;image2.jpg&quot;&gt;&lt;/li&gt;
-        &lt;li data-uk-group=&quot;group-2&quot;&gt;&lt;img src=&quot;image3.jpg&quot;&gt;&lt;/li&gt;
+        &lt;li data-uk-filter=&quot;group-1&quot;&gt;&lt;img src=&quot;image1.jpg&quot;&gt;&lt;/li&gt;
+        &lt;li data-uk-filter=&quot;group-1&quot;&gt;&lt;img src=&quot;image2.jpg&quot;&gt;&lt;/li&gt;
+        &lt;li data-uk-filter=&quot;group-2&quot;&gt;&lt;img src=&quot;image3.jpg&quot;&gt;&lt;/li&gt;
         ...
     &lt;/ul&gt;
 
