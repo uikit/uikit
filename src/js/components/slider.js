@@ -23,7 +23,8 @@
         defaults: {
             centered  : false,
             threshold : 10,
-            infinite  : false
+            infinite  : false,
+            activecls : 'uk-active'
         },
 
         boot:  function() {
@@ -161,8 +162,8 @@
 
                 this.updatePos(item.data('center')*-1);
 
-                this.items.filter('.uk-active').removeClass('uk-active');
-                item.addClass('uk-active');
+                this.items.filter(this.options.activecls).removeClass(this.options.activecls);
+                item.addClass(this.options.activecls);
 
             } else {
 
