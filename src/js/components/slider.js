@@ -232,7 +232,7 @@
                     z = z+1 == this.items.length ? 0:z+1;
                 }
 
-                if (lastvisible.data('left') - item.data('left') <= this.vp) {
+                if (lastvisible && lastvisible.data('left') - item.data('left') <= this.vp) {
 
                     move = this.items.eq(this.items[lastvisible.data('idx') + 1] ? lastvisible.data('idx') + 1 : 0);
                     move.css({'left': lastvisible.data('area')}).data({
@@ -283,7 +283,7 @@
 
                 } else {
 
-                    var minleft = 1000000000000000;
+                    var minleft = 1000000000000000000000000000000000000;
 
                     for (i=0;i<this.items.length;i++) {
 
@@ -327,7 +327,7 @@
             return;
         }
 
-        var x, xDiff, pos, dir, focus;
+        var x, xDiff, pos, dir, focus, item, base, diff;
 
         if (e.clientX || e.clientY) {
             x = e.clientX;
@@ -339,9 +339,9 @@
         pos   = dragging.element.data('pointer-pos-start') + xDiff;
         dir   = x > store.touchx ? -1:1;
 
-        var item = dragging.items.eq(store.focus),
-            base = dragging.op,
-            diff = Math.abs(item.data(store.base)) - Math.abs(pos);
+        item  = dragging.items.eq(store.focus),
+        base  = dragging.op,
+        diff  = Math.abs(item.data(store.base)) - Math.abs(pos);
 
         if (diff < 0 || diff > item.data('width')) {
 
