@@ -1,4 +1,5 @@
 (function(addon) {
+
     var component;
 
     if (window.UIkit) {
@@ -10,6 +11,7 @@
             return component || addon(UIkit);
         });
     }
+
 })(function(UI){
 
     "use strict";
@@ -128,9 +130,9 @@
             this.pos = 0;
 
             this.container.css({
-                '-ms-transform': 'translateX(0)',
-                '-webkit-transform': 'translateX(0)',
-                'transform': 'translateX(0)'
+                '-ms-transform': '',
+                '-webkit-transform': '',
+                'transform': ''
             });
 
             this.updateFocus(0);
@@ -151,15 +153,21 @@
 
             var $this = this, item = this.items.eq(idx);
 
+            if (this.options.infinite) {
+                this.infinite(idx, dir);
+            }
+
             if (this.options.centered) {
 
                 this.updatePos(item.data('center')*-1);
+
+                this.items.filter('.uk-active').removeClass('uk-active');
+                item.addClass('uk-active');
 
             } else {
 
                 if (this.options.infinite) {
 
-                    this.infinite(idx, dir);
                     this.updatePos(item.data('left')*-1);
 
                 } else {
@@ -178,7 +186,6 @@
             }
 
             this.focus = idx;
-
         },
 
         next: function() {
@@ -197,7 +204,7 @@
 
         infinite: function(baseidx, direction) {
 
-            var item = this.items.eq(baseidx), i, z = baseidx, move, lastvisible;
+            var $this = this, item = this.items.eq(baseidx), i, z = baseidx, move, lastvisible;
 
             if (direction == 1) {
 
@@ -214,47 +221,83 @@
                 }
 
                 if (lastvisible.data('left') - item.data('left') <= this.vp) {
+
                     move = this.items.eq(this.items[lastvisible.data('idx') + 1] ? lastvisible.data('idx') + 1 : 0);
                     move.css({'left': lastvisible.data('area')}).data({
                         'left'  : lastvisible.data('area'),
                         'area'  : (lastvisible.data('area')+move.data('width')),
                         'center': (lastvisible.data('area') - (this.vp/2 - move.data('width')/2))
                     });
-
                 }
-
 
             } else {
 
-                var minleft = 10000000;
+                if (this.options.centered) {
 
-                for (i=0;i<this.items.length;i++) {
+                    var area = 0;
 
-                    if (this.items.eq(z).data('left') < minleft) {
-                        lastvisible = this.items.eq(z);
-                        minleft = lastvisible.data('left');
+                    move = [];
+
+                    for (i=this.items.length-1;i<this.items.length;i--) {
+
+                        area += this.items.eq(z).data('width');
+
+                        if (z != baseidx) {
+                            move.push(this.items.eq(z));
+                        }
+
+                        if (area > this.vp/2) {
+                            break;
+                        }
+
+                        z = z-1 == -1 ? this.items.length-1:z-1;
                     }
 
-                    z = z+1 == this.items.length ? 0:z+1;
+                    if (move.length) {
+
+                        move.forEach(function(itm){
+
+                            var left = item.data('left') - itm.data('width');
+
+                            itm.css({'left': left}).data({
+                                'left'  : left,
+                                'area'  : (left+itm.data('width')),
+                                'center': (left - ($this.vp/2 - itm.data('width')/2))
+                            });
+
+                            item = itm;
+                        });
+                    }
+
+                } else {
+
+                    var minleft = 1000000000000000;
+
+                    for (i=0;i<this.items.length;i++) {
+
+                        if (this.items.eq(z).data('left') < minleft) {
+                            lastvisible = this.items.eq(z);
+                            minleft = lastvisible.data('left');
+                        }
+
+                        z = z+1 == this.items.length ? 0:z+1;
+                    }
+
+                    if (lastvisible.data('left') - item.data('left') <= 0) {
+
+                        move = this.items.eq(this.items[lastvisible.data('idx') - 1] ? lastvisible.data('idx') - 1 : this.items.length-1);
+
+                        var left = item.data('left') - lastvisible.data('width');
+
+                        move.css({'left': left}).data({
+                            'left'  : left,
+                            'area'  : (left+move.data('width')),
+                            'center': (left - (this.vp/2 - move.data('width')/2))
+                        });
+                    }
                 }
-
-                if (lastvisible.data('left') - item.data('left') <= 0) {
-
-                    move = this.items.eq(this.items[lastvisible.data('idx') - 1] ? lastvisible.data('idx') - 1 : this.items.length-1);
-
-                    var left = item.data('left') - lastvisible.data('width');
-
-                    move.css({'left': left}).data({
-                        'left'  : left,
-                        'area'  : (left+move.data('width')),
-                        'center': (left - (this.vp/2 - move.data('width')/2))
-                    });
-                }
-
             }
-
         }
-
     });
 
     // handle dragging
