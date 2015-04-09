@@ -101,11 +101,11 @@
 
         <h2>Filter</h2>
 
-        <div class="uk-margin" data-uk-slideset="{medium: 4, animation: 'scale', group: 'test-a,test-b'}">
+        <div class="uk-margin" data-uk-slideset="{medium: 4, animation: 'scale'}">
             <ul class="uk-subnav uk-subnav-pill">
-                <li data-uk-slideset-filter="test-a,test-b"><a href="#">All</a></li>
-                <li data-uk-slideset-filter="test-a"><a href="#">Group 1</a></li>
-                <li data-uk-slideset-filter="test-b"><a href="#">Group 2</a></li>
+                <li data-uk-filter=""><a href="#">All</a></li>
+                <li data-uk-filter="test-a"><a href="#">Group 1</a></li>
+                <li data-uk-filter="test-b"><a href="#">Group 2</a></li>
             </ul>
             <div class="uk-slidenav-position uk-margin">
                 <ul class="uk-slideset uk-grid uk-flex-center">
@@ -140,12 +140,12 @@
         <h2>Filter with external nav</h2>
 
         <ul id="slideset-filter" class="uk-subnav uk-subnav-pill">
-            <li data-uk-slideset-filter="test-a,test-b"><a href="#">All</a></li>
-            <li data-uk-slideset-filter="test-a"><a href="#">Group 1</a></li>
-            <li data-uk-slideset-filter="test-b"><a href="#">Group 2</a></li>
+            <li data-uk-filter=""><a href="#">All</a></li>
+            <li data-uk-filter="test-a"><a href="#">Group 1</a></li>
+            <li data-uk-filter="test-b"><a href="#">Group 2</a></li>
         </ul>
 
-        <div class="uk-margin" data-uk-slideset="{medium: 4, animation: 'scale', group: 'test-a,test-b', controls: '#slideset-filter'}">
+        <div class="uk-margin" data-uk-slideset="{medium: 4, animation: 'scale', controls: '#slideset-filter'}">
             <div class="uk-slidenav-position uk-margin">
                 <ul class="uk-slideset uk-grid uk-flex-center">
                     <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 1" width="600" height="400" alt=""></li>

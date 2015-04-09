@@ -24,7 +24,7 @@
             default   : 1,
             animation : 'fade',
             duration  : 200,
-            group     : false,
+            filter    : '',
             delay     : false,
             controls  : false
         },
@@ -59,8 +59,6 @@
                 $this.updateSets();
             }, 100));
 
-            this.currentFilter = this.options.group;
-
             $this.list.addClass('uk-grid-width-1-'+$this.options.default);
 
             ['xlarge', 'large', 'medium', 'small'].forEach(function(bp) {
@@ -72,7 +70,7 @@
                 $this.list.addClass('uk-grid-width-'+bp+'-1-'+$this.options[bp]);
             });
 
-            this.updateSets();
+
 
             this.on("click.uikit.slideset", '[data-uk-slideset-item]', function(e) {
 
@@ -97,38 +95,33 @@
 
             });
 
-            this.on('click.uikit.slideset', '[data-uk-slideset-filter]', function(e){
+            this.currentFilter = this.options.filter;
+            this.controls      = this.options.controls ? UI.$(this.options.controls) : this.element;
+
+            this.controls.on('click.uikit.slideset', '[data-uk-filter]', function(e){
                 e.preventDefault();
 
-                if ($this.animating) {
+                var ele = UI.$(this);
+
+                if ($this.animating || ele.parent().hasClass('uk-slideset')) {
                     return;
                 }
 
-                $this.currentFilter = UI.$(this).attr('data-uk-slideset-filter');
+                $this.currentFilter = ele.attr('data-uk-filter');
                 $this.updateSets(true, true);
             });
 
-            if (this.options.controls) {
-                UI.$(this.options.controls).on('click.uikit.slideset', '[data-uk-slideset-filter]', function(e){
-                    e.preventDefault();
-
-                    if ($this.animating) {
-                        return;
-                    }
-
-                    $this.currentFilter = UI.$(this).attr('data-uk-slideset-filter');
-                    $this.updateSets(true, true);
-                });
-            }
 
             this.on('swipeRight swipeLeft', function(e) {
                 $this[e.type=='swipeLeft' ? 'next' : 'previous']();
             });
+
+            this.updateSets();
         },
 
         updateSets: function(animate, force) {
 
-            var visible = this.visible, i;
+            var $this = this, visible = this.visible, i;
 
             this.visible  = this.getVisibleOnCurrenBreakpoint();
 
@@ -152,13 +145,21 @@
                 }
             }
 
-            if (this.currentFilter!==false) {
-                this.element.find('[data-uk-slideset-filter]').removeClass('uk-active').filter('[data-uk-slideset-filter="'+this.currentFilter+'"]').addClass('uk-active');
+            var filter;
 
-                if (this.options.controls) {
-                    UI.$(this.options.controls).find('[data-uk-slideset-filter]').removeClass('uk-active').filter('[data-uk-slideset-filter="'+this.currentFilter+'"]').addClass('uk-active');
+            this.controls.find('[data-uk-filter]').each(function(){
+
+                filter = UI.$(this);
+
+                if (!filter.parent().hasClass('uk-slideset')) {
+
+                    if (filter.attr('data-uk-filter') == $this.currentFilter) {
+                        filter.addClass('uk-active');
+                    } else {
+                        filter.removeClass('uk-active');
+                    }
                 }
-            }
+            });
 
             this.activeSet = false;
             this.show(0, !animate);
