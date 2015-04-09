@@ -16,7 +16,7 @@
 
     "use strict";
 
-    var dragging, delayIdle, touchx;
+    var dragging, delayIdle, store = {};
 
     UI.component('slider', {
 
@@ -86,6 +86,12 @@
                 delayIdle = function(e) {
 
                     dragging = $this;
+                    store    = {
+                        touchx : parseInt(e.pageX, 10),
+                        dir    : 1,
+                        focus  : $this.focus,
+                        base   : $this.options.centered ? 'center':'area'
+                    };
 
                     if (e.originalEvent && e.originalEvent.touches) {
                         e = e.originalEvent.touches[0];
@@ -95,8 +101,6 @@
                         'pointer-start': {x: parseInt(e.pageX, 10), y: parseInt(e.pageY, 10)},
                         'pointer-pos-start': $this.pos
                     });
-
-                    touchx = parseInt(e.pageX, 10);
 
                     $this.container.addClass('uk-drag');
 
@@ -323,53 +327,49 @@
             return;
         }
 
-        var x, xDiff, pos;
+        var x, xDiff, pos, dir, focus;
 
         if (e.clientX || e.clientY) {
-          x = e.clientX;
+            x = e.clientX;
         } else if (e.pageX || e.pageY) {
-          x = e.pageX - document.body.scrollLeft - document.documentElement.scrollLeft;
+            x = e.pageX - document.body.scrollLeft - document.documentElement.scrollLeft;
         }
 
         xDiff = x - dragging.element.data('pointer-start').x;
         pos   = dragging.element.data('pointer-pos-start') + xDiff;
+        dir   = x > store.touchx ? -1:1;
 
-        if (dragging.options.infinite) {
+        var item = dragging.items.eq(store.focus),
+            base = dragging.op,
+            diff = Math.abs(item.data(store.base)) - Math.abs(pos);
 
-            var item = dragging.eq(dragging.focus);
+        if (diff < 0 || diff > item.data('width')) {
 
-            if (dragging.options.centered) {
-
+            if (dir == 1) {
+                focus = dragging.items[store.focus + 1] ? (store.focus + 1) : (dragging.options.infinite ? 0:store.focus);
             } else {
+                focus = dragging.items[store.focus - 1] ? (store.focus - 1) : (dragging.options.infinite ? (dragging.items[store.focus - 1] ? dragging.items-1:dragging.items.length-1):store.focus);
+            }
 
-                for (var i=0;i<dragging.items.length;i++) {
+            store.focus  = focus;
 
-                    if (dragging.items.eq(i).data('area') - Math.abs(pos) > dragging.vp) {
-                        dragging.infinite(i, x > touchx ? -1:1);
-                        break;
-                    }
-                }
+            if (dragging.options.infinite) {
+                dragging.infinite(focus, dir);
             }
         }
 
         dragging.updatePos(pos);
 
-        touchx = parseInt(e.pageX, 10);
+        store.dir    = dir;
+        store.touchx = parseInt(e.pageX, 10);
     });
 
     UI.$doc.on('mouseup.uikit.slider touchend.uikit.slider', function(e) {
 
         if (dragging) {
 
-            for (var i=0;i<dragging.items.length;i++) {
-
-                if (dragging.items.eq(i).data('area') - Math.abs(dragging.pos) > dragging.vp) {
-                    dragging.updateFocus(i);
-                    break;
-                }
-            }
-
             dragging.container.removeClass('uk-drag');
+            dragging.updateFocus(store.focus);
         }
 
         dragging = delayIdle = false;
