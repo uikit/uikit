@@ -68,9 +68,11 @@
             this.props    = {};
             this.velocity = (this.options.velocity || 1);
 
+            var reserved  = ['target','velocity','viewport','plugins'];
+
             Object.keys(this.options).forEach(function(prop){
 
-                if (prop == 'target' || prop == 'velocity' || prop == 'range' || prop == 'plugins') {
+                if (reserved.indexOf(prop) !== -1) {
                     return;
                 }
 
