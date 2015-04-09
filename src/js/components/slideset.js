@@ -269,7 +269,7 @@
                 UI.Utils.checkDisplay(next, true);
 
                 $this.children.hide();
-                next.css('display', '');
+                next.css({'display': '', 'opacity':''});
 
                 $this.animating = false;
                 $this.activeSet = setIndex;
@@ -365,7 +365,7 @@
         release = function() {
 
             if (current && current.length) {
-                current.hide().removeClass(clsOut+' uk-animation-reverse').css({'animation-delay': '', 'animation':''});
+                current.hide().removeClass(clsOut+' uk-animation-reverse').css({'opacity':'', 'animation-delay': '', 'animation':''});
             }
 
             for (i=0;i<next.length;i++) {
