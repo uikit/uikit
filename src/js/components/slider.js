@@ -16,7 +16,7 @@
 
     "use strict";
 
-    var dragging, delayIdle;
+    var dragging, delayIdle, touchx;
 
     UI.component('slider', {
 
@@ -78,6 +78,11 @@
 
             this.container.on('touchstart mousedown', function(e) {
 
+                // ignore right click button
+                if (e.button && e.button==2) {
+                    return;
+                }
+
                 delayIdle = function(e) {
 
                     dragging = $this;
@@ -90,6 +95,8 @@
                         'pointer-start': {x: parseInt(e.pageX, 10), y: parseInt(e.pageY, 10)},
                         'pointer-pos-start': $this.pos
                     });
+
+                    touchx = parseInt(e.pageX, 10);
 
                     $this.container.addClass('uk-drag');
 
@@ -162,7 +169,7 @@
 
                 this.updatePos(item.data('center')*-1);
 
-                this.items.filter(this.options.activecls).removeClass(this.options.activecls);
+                this.items.filter('.'+this.options.activecls).removeClass(this.options.activecls);
                 item.addClass(this.options.activecls);
 
             } else {
@@ -325,15 +332,42 @@
         }
 
         xDiff = x - dragging.element.data('pointer-start').x;
+        pos   = dragging.element.data('pointer-pos-start') + xDiff;
 
-        pos = dragging.element.data('pointer-pos-start') + xDiff;
+        if (dragging.options.infinite) {
+
+            var item = dragging.eq(dragging.focus);
+
+            if (dragging.options.centered) {
+
+            } else {
+
+                for (var i=0;i<dragging.items.length;i++) {
+
+                    if (dragging.items.eq(i).data('area') - Math.abs(pos) > dragging.vp) {
+                        dragging.infinite(i, x > touchx ? -1:1);
+                        break;
+                    }
+                }
+            }
+        }
 
         dragging.updatePos(pos);
+
+        touchx = parseInt(e.pageX, 10);
     });
 
     UI.$doc.on('mouseup.uikit.slider touchend.uikit.slider', function(e) {
 
         if (dragging) {
+
+            for (var i=0;i<dragging.items.length;i++) {
+
+                if (dragging.items.eq(i).data('area') - Math.abs(dragging.pos) > dragging.vp) {
+                    dragging.updateFocus(i);
+                    break;
+                }
+            }
 
             dragging.container.removeClass('uk-drag');
         }
