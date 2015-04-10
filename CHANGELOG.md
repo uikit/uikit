@@ -11,6 +11,7 @@
   - Fixed slideshow on message handler
   - Fixed nestable list helper function
   - Fixed nestable event arguments
+  - Fixed 12hr format for Timepicker
 
 ### 2.18.0 (March 11, 2015)
 
