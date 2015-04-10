@@ -1,0 +1,97 @@
+// Name:            Slider
+// Description:     Defines styles for a horizontal slider
+//
+// Component:       `uk-slider`
+//
+// Sub-objects:     `uk-slider-container`
+//
+// Modifier:        `uk-slider-fullscreen`
+//
+// Sub-modifier:
+//
+// States:          `uk-active`
+//
+// Uses:            Cover (JS)
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Slider
+ ========================================================================== */
+
+/*
+ * 1. Create position context
+ * 2. Create stacking context to prevent z-index issues with other components
+ * 3. Reset list style
+ * 4. Deactivate browser history navigation in IE11
+ */
+
+.uk-slider {
+    /* 1 */
+    position: relative;
+    /* 2 */
+    z-index: 0;
+    /* 3 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 4 */
+    touch-action: pan-y;
+}
+
+/*
+ * Sub-object item
+ * 1. Position items above each other
+ */
+
+.uk-slider > * {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*
+ * Clip child elements
+ */
+
+.uk-slider-container { overflow: hidden; }
+
+/*
+ * Dragged
+ */
+
+.uk-slider:not(.uk-drag) {
+    -webkit-transition: transform 200ms linear;
+    transition: transform 200ms linear;
+}
+
+.uk-slider.uk-drag {
+    cursor: col-resize;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+}
+
+.uk-slider img {
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+
+/* Modifier: `uk-slider-fullscreen`
+ ========================================================================== */
+
+.uk-slider-fullscreen,
+.uk-slider-fullscreen > li { height: 100vh; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-slider-misc;
+
+.hook-slider-misc() {}
