@@ -211,9 +211,6 @@
             }
 
             if (this.options.kenburns) {
-
-                var duration = this.options.kenburns == true ? '15s': this.options.kenburns;
-
                 this.applyKenBurns(this.slides.eq(this.current));
             }
 
