@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Slideset - UIkit tests</title>
+
+    <script src="../_test.js"></script>
+    <script src="../../src/js/components/slideset.js"></script>
+
+    <script charset="utf-8">
+        jQuery(function($){
+            var select = $('#slideset-animation').on('change', function(){
+                select.next('[data-uk-slideset]').data('slideset').options.animation = select.val();
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="uk-container uk-container-center uk-form">
+
+        <h1>Slideset</h1>
+
+        <h2>Breakpoints</h2>
+
+        <div class="uk-margin" data-uk-slideset="{animation: 'none', default: 2, small: 3, medium: 4, large: 5, xlarge: 6}">
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid uk-flex-center">
+                    <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                </ul>
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
+            </div>
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
+        </div>
+
+        <h2>Animations</h2>
+
+        <select id="slideset-animation">
+            <option value="fade">fade</option>
+            <option value="scale">scale</option>
+            <option value="slide-horizontal">slide-horizontal</option>
+            <option value="slide-vertical">slide-vertical</option>
+            <option value="slide-top">slide-top</option>
+            <option value="slide-bottom">slide-bottom</option>
+        </select>
+
+        <div class="uk-margin" data-uk-slideset="{medium: 4}">
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid uk-flex-center">
+                    <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                </ul>
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
+            </div>
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
+        </div>
+
+        <h2>Gutter Collapse + No Delay</h2>
+
+        <div class="uk-margin" data-uk-slideset="{medium: 4, animation: 'slide-bottom', delay: 0}">
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid uk-grid-collapse uk-flex-center">
+                    <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                    <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                </ul>
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
+            </div>
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
+        </div>
+
+        <h2>Filter</h2>
+
+        <div class="uk-margin" data-uk-slideset="{medium: 4, animation: 'scale'}">
+            <ul class="uk-subnav uk-subnav-pill">
+                <li data-uk-filter=""><a href="#">All</a></li>
+                <li data-uk-filter="test-a"><a href="#">Group 1</a></li>
+                <li data-uk-filter="test-b"><a href="#">Group 2</a></li>
+            </ul>
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid uk-flex-center">
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 1" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 2" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 3" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 4" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 5" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 6" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 7" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 8" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 9" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 10" width="600" height="400" alt=""></li>
+
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 1" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 2" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 3" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 4" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 5" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 6" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 7" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 8" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 9" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 10" width="600" height="400" alt=""></li>
+                </ul>
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
+            </div>
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
+        </div>
+
+        <h2>Filter with external nav</h2>
+
+        <ul id="slideset-filter" class="uk-subnav uk-subnav-pill">
+            <li data-uk-filter=""><a href="#">All</a></li>
+            <li data-uk-filter="test-a"><a href="#">Group 1</a></li>
+            <li data-uk-filter="test-b"><a href="#">Group 2</a></li>
+        </ul>
+
+        <div class="uk-margin" data-uk-slideset="{medium: 4, animation: 'scale', controls: '#slideset-filter'}">
+            <div class="uk-slidenav-position uk-margin">
+                <ul class="uk-slideset uk-grid uk-flex-center">
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 1" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 2" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 3" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 4" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 5" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 6" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 7" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 8" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 9" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-a"><img src="holder.js/600x400/sky/auto/text:Group 1 \n Item 10" width="600" height="400" alt=""></li>
+
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 1" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 2" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 3" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 4" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 5" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 6" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 7" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 8" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 9" width="600" height="400" alt=""></li>
+                    <li data-uk-filter="test-b"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 10" width="600" height="400" alt=""></li>
+                </ul>
+                <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
+            </div>
+            <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
+        </div>
+
+    </div>
+</body>
+</html>
