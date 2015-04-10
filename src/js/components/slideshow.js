@@ -56,7 +56,7 @@
 
         init: function() {
 
-            var $this = this, canvas;
+            var $this = this, canvas, kbanimduration;
 
             this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow'));
             this.slides        = this.container.children();
@@ -65,6 +65,15 @@
             this.animating     = false;
             this.triggers      = this.find('[data-uk-slideshow-item]');
             this.fixFullscreen = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) && this.container.hasClass('uk-slideshow-fullscreen'); // viewport unit fix for height:100vh - should be fixed in iOS 8
+
+            if (this.options.kenburns) {
+
+                kbanimduration = this.options.kenburns === true ? '15s': this.options.kenburns;
+
+                if (!String(kbanimduration).match(/(ms|s)$/)) {
+                    kbanimduration += 'ms';
+                }
+            }
 
             this.slides.each(function(index) {
 
@@ -147,6 +156,14 @@
                 } else {
                     slide.data('sizer', slide);
                 }
+
+                if ($this.hasKenBurns(slide)) {
+
+                    slide.data('cover').css({
+                        '-webkit-animation-duration': kbanimduration,
+                        'animation-duration': kbanimduration
+                    });
+                }
             });
 
             this.on("click.uikit.slideshow", '[data-uk-slideshow-item]', function(e) {
@@ -194,6 +211,9 @@
             }
 
             if (this.options.kenburns) {
+
+                var duration = this.options.kenburns == true ? '15s': this.options.kenburns;
+
                 this.applyKenBurns(this.slides.eq(this.current));
             }
 
@@ -305,11 +325,11 @@
                     '', // middle-center
                     'uk-animation-bottom-right'
                 ],
-                index = this.kbindex || 0;
+                index    = this.kbindex || 0;
 
 
             slide.data('cover').attr('class', 'uk-cover-background uk-position-cover').width();
-            slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', 'uk-animation-15', animations[index]].join(' '));
+            slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', animations[index]].join(' '));
 
             this.kbindex = animations[index + 1] ? (index+1):0;
         },
