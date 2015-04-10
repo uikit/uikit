@@ -17,6 +17,7 @@
     "use strict";
 
     var parallaxes      = [],
+        supports3d      = false,
         scrolltop       = 0,
         wh              = window.innerHeight,
         checkParallaxes = function() {
@@ -31,6 +32,7 @@
         };
 
 
+
     UI.component('parallax', {
 
         defaults: {
@@ -40,6 +42,32 @@
         },
 
         boot: function() {
+
+            supports3d = (function(){
+
+                var el = document.createElement('div'),
+                    has3d,
+                    transforms = {
+                        'WebkitTransform':'-webkit-transform',
+                        'MSTransform':'-ms-transform',
+                        'MozTransform':'-moz-transform',
+                        'Transform':'transform'
+                    };
+
+                // Add it to the body to get the computed style.
+                document.body.insertBefore(el, null);
+
+                for (var t in transforms) {
+                    if (el.style[t] !== undefined) {
+                        el.style[t] = "translate3d(1px,1px,1px)";
+                        has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+                    }
+                }
+
+                document.body.removeChild(el);
+
+                return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
+            })();
 
             // listen to scroll and resize
             UI.$doc.on("scrolling.uk.document", checkParallaxes);
@@ -163,26 +191,24 @@
                     val = opts.start + (opts.diff * compercent * opts.dir);
                 }
 
-                if ((prop == 'bg' || prop == 'bg%') && !this._bgcovered) {
-                    css['background-size']   = 'cover';
-                    css['background-repeat'] = 'no-repeat';
-                    this._bgcovered = true;
+                if ((prop == 'bg' || prop == 'bgp') && !this._bgcover) {
+                    this._bgcover = initBgImageParallax(this, prop, opts);
                 }
 
                 switch(prop) {
 
                     // transforms
                     case "x":
-                        css.transform += ' translateX('+val+'px)';
+                        css.transform += supports3d ? ' translate3d('+val+'px, 0, 0)':' translateX('+val+'px)';
                         break;
                     case "xp":
-                        css.transform += ' translateX('+val+'%)';
+                        css.transform += supports3d ? ' translate3d('+val+'%, 0, 0)':' translateX('+val+'%)';
                         break;
                     case "y":
-                        css.transform += ' translateY('+val+'px)';
+                        css.transform += supports3d ? ' translate3d(0, '+val+'px, 0)':' translateY('+val+'px)';
                         break;
                     case "yp":
-                        css.transform += ' translateY('+val+'%)';
+                        css.transform += supports3d ? ' translate3d(0, '+val+'%, 0)':' translateY('+val+'%)';
                         break;
                     case "rotate":
                         css.transform += ' rotate('+val+'deg)';
@@ -237,6 +263,54 @@
 
 
     // helper
+
+    function initBgImageParallax(obj, prop, opts) {
+
+        var img = new Image(), url, loaded, element, size, check, ratio, width, height;
+
+        element = obj.element.css({'background-size': 'cover',  'background-repeat': 'no-repeat'});
+        url     = element.css('background-image').replace(/^url\(/g, '').replace(/\)$/g, '').replace(/("|')/g, '');
+        check   = function() {
+
+            var w = element.width(), h = element.height();
+
+            h += (prop=='bg') ? opts.diff : (opts.diff/100) * h;
+
+            // if element height < parent height (gap underneath)
+            if ((w / ratio) < h) {
+                width  = Math.ceil(h * ratio);
+                height = h;
+
+            // element width < parent width (gap to right)
+            } else {
+                width  = w;
+                height = Math.ceil(w / ratio);
+            }
+
+            obj.element.css({'background-size': (width+'px '+height+'px')})
+        };
+
+        img.onerror = function(){
+            // image url doesn't exist
+        };
+
+        img.onload = function(){
+            size  = {w:img.width, height:img.height};
+            ratio = img.width / img.height;
+
+            UI.$win.on("load resize orientationchange", UI.Utils.debounce(function(){
+                check();
+            }, 50));
+
+            check();
+        };
+
+        img.src = url;
+
+        return true;
+    }
+
+
 
     // Some named colors to work with, added by Bradley Ayers
     // From Interface by Stefan Petre

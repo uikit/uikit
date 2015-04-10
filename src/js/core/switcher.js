@@ -70,7 +70,9 @@
                         }
                     }).on('swipeRight swipeLeft', function(e) {
                         e.preventDefault();
-                        $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                        if(!window.getSelection().toString()) {
+                            $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                        }
                     });
                 }
 
