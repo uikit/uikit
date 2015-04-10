@@ -17,6 +17,7 @@
     "use strict";
 
     var parallaxes      = [],
+        supports3d      = false,
         scrolltop       = 0,
         wh              = window.innerHeight,
         checkParallaxes = function() {
@@ -31,6 +32,7 @@
         };
 
 
+
     UI.component('parallax', {
 
         defaults: {
@@ -40,6 +42,32 @@
         },
 
         boot: function() {
+
+            supports3d = (function(){
+
+                var el = document.createElement('div'),
+                    has3d,
+                    transforms = {
+                        'WebkitTransform':'-webkit-transform',
+                        'MSTransform':'-ms-transform',
+                        'MozTransform':'-moz-transform',
+                        'Transform':'transform'
+                    };
+
+                // Add it to the body to get the computed style.
+                document.body.insertBefore(el, null);
+
+                for (var t in transforms) {
+                    if (el.style[t] !== undefined) {
+                        el.style[t] = "translate3d(1px,1px,1px)";
+                        has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+                    }
+                }
+
+                document.body.removeChild(el);
+
+                return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
+            })();
 
             // listen to scroll and resize
             UI.$doc.on("scrolling.uk.document", checkParallaxes);
@@ -171,16 +199,16 @@
 
                     // transforms
                     case "x":
-                        css.transform += ' translateX('+val+'px)';
+                        css.transform += supports3d ? ' translate3d('+val+'px, 0, 0)':' translateX('+val+'px)';
                         break;
                     case "xp":
-                        css.transform += ' translateX('+val+'%)';
+                        css.transform += supports3d ? ' translate3d('+val+'%, 0, 0)':' translateX('+val+'%)';
                         break;
                     case "y":
-                        css.transform += ' translateY('+val+'px)';
+                        css.transform += supports3d ? ' translate3d(0, '+val+'px, 0)':' translateY('+val+'px)';
                         break;
                     case "yp":
-                        css.transform += ' translateY('+val+'%)';
+                        css.transform += supports3d ? ' translate3d(0, '+val+'%, 0)':' translateY('+val+'%)';
                         break;
                     case "rotate":
                         css.transform += ' rotate('+val+'deg)';
