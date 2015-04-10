@@ -99,13 +99,13 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{top: -200, opacity: 0}">
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{y: -200, opacity: 0}">
                                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-parallax=&quot;{top: -200, opacity: 0}&quot;&gt;
+<pre><code>&lt;div data-uk-parallax=&quot;{y: -200, opacity: 0}&quot;&gt;
     ...
 &lt;/div&gt;</code></pre>
 
@@ -197,7 +197,7 @@
                             <h3 class="tm-article-subtitle">Markup</h3>
 
 <pre><code>&lt;div data-uk-parallax=&quot;{bg: '50,-50'}&quot;&gt;
-    &lt;div data-uk-parallax=&quot;{scale:0}&quot;&gt;...&lt;/div&gt;
+    ...
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
@@ -251,11 +251,11 @@
 
                             <h2 id="viewport"><a href="#viewport" class="uk-link-reset">Viewport</a></h2>
 
-                            <p>Using the <code>viewport</code> option, the animation duration can be adjusted, which can help to e.g. finish an animation earlier. The default value (1) causes the animation to last as long as the element is visible on the viewport. Setting it to e.g. 0.5 animates the property only in the first half of the viewport when the element passes it. So the animation is finished when the element is in the middle of the viewport.</p>
+                            <p>Using the <code>viewport</code> option, the animation duration can be adjusted, which can help to e.g. finish an animation earlier. The default value (0) causes the animation to last as long as the element is visible on the viewport. Setting it to e.g. 0.5 animates the property only in the first half of the viewport when the element passes it. So the animation is finished when the element is in the middle of the viewport.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{top: -100, opacity: 0, viewport: 0.7}">
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{y: -100, opacity: 0, viewport: 0.5}">
                                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                             </div>
 
