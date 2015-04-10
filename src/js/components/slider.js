@@ -23,7 +23,7 @@
         defaults: {
             centered  : false,
             threshold : 10,
-            infinite  : false,
+            infinite  : true,
             activecls : 'uk-active'
         },
 
@@ -217,6 +217,8 @@
             }
 
             this.focus = idx;
+
+            this.trigger('focus.uikit.slider', [idx,this.items.eq(idx), this]);
         },
 
         next: function() {
