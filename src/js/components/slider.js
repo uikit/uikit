@@ -163,7 +163,7 @@
 
             dir = dir || (idx > this.focus ? 1:-1);
 
-            var $this = this, item = this.items.eq(idx);
+            var $this = this, item = this.items.eq(idx), area, i;
 
             if (this.options.infinite) {
                 this.infinite(idx, dir);
@@ -184,17 +184,36 @@
 
                 } else {
 
-                    var area = item.data('width'), i;
+                    area = item.data('width');
 
                     for (i=idx;i<this.items.length;i++) {
                         area += this.items.eq(i).data('width');
                     }
 
                     if (area > this.vp) {
+
                         this.updatePos(item.data('left')*-1);
+
+                    } else {
+
+                        if (dir == 1) {
+
+                            area = 0;
+
+                            for (i=this.items.length-1;i>=0;i--) {
+
+                                area += this.items.eq(i).data('width');
+
+                                if (area >= this.vp) {
+                                    idx = area == this.vp ? i : i-1;
+                                    break;
+                                }
+                            }
+
+                            this.updatePos(this.items.eq(idx).data('left')*-1);
+                        }
                     }
                 }
-
             }
 
             this.focus = idx;
