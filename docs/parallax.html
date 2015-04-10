@@ -71,12 +71,13 @@
                             <li><a href="autocomplete.html">Autocomplete</a></li>
                             <li><a href="datepicker.html">Datepicker</a></li>
                             <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
+                            <li class="uk-active"><a href="parallax.html">Parallax</a></li>
                             <li><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>
-                            <li class="uk-active"><a href="parallax.html">Parallax</a></li>
                             <li><a href="sortable.html">Sortable</a></li>
                             <li><a href="sticky.html">Sticky</a></li>
                             <li><a href="timepicker.html">Timepicker</a></li>
@@ -95,25 +96,7 @@
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>To apply the Parallax component, add the <code>data-uk-parallax</code> attribute to a container element. Then add options to the <code>data-uk-parallax</code> attribute (e.g. left, right, top, bottom, opacity...) for each CSS property you want to animate with their animation target value.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{y: -200, opacity: 0}">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div data-uk-parallax=&quot;{y: -200, opacity: 0}&quot;&gt;
-    ...
-&lt;/div&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-                            <h2 id="special-properties"><a href="#special-properties" class="uk-link-reset">Special properties</a></h2>
-
-                            <p>The parallax-component comes with some special properties, you can animate.</p>
+                            <p>To apply this component, add the <code>data-uk-parallax</code> attribute to a container element. Add an option with the desired animation target value for each CSS property you want to animate. UIkit provides a number of options that you can add to the <code>data-uk-parallax</code> attribute:</p>
 
                             <div class="uk-overflow-container">
                                 <table class="uk-table uk-text-nowrap">
@@ -164,13 +147,23 @@
                                 </table>
                             </div>
 
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{y: -200, opacity: 0}">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div data-uk-parallax=&quot;{y: -200, opacity: 0}&quot;&gt;...&lt;/div&gt;</code></pre>
+
                             <hr class="uk-article-divider">
 
                             <h2 id="start-stop-value"><a href="#start-stop-value" class="uk-link-reset">Start and stop values</a></h2>
 
-                            <p>Properties are always animated from the current value to the target value being set via the option. But there is always the possibility to not only define a target value, but also a start value. This is being done by passing a string to the option which contains two values separated by comma.</p>
+                            <p>Properties are always animated from the current value to the target value which you set in the option. However, you can also define a start value yourself. This is done by passing a string to the option which contains two values separated by comma.</p>
 
-                            <p><span class="uk-badge">Note</span> Some properties (like color) need to have a start and stop value!</p>
+                            <p><span class="uk-badge">NOTE</span> Some properties, like colors, require a start and a stop value!</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -180,25 +173,21 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-parallax=&quot;{x: '-100,100', 'background-color': '#EBF7FD,#FFF1F0'}&quot;&gt;
-    ...
-&lt;/div&gt;</code></pre>
+<pre><code>&lt;div data-uk-parallax=&quot;{x: '-100,100', 'background-color': '#EBF7FD,#FFF1F0'}&quot;&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
                             <h2 id="background-image"><a href="#background-image" class="uk-link-reset">Background image</a></h2>
 
-                            <p>It is also possible to animate a background-image. Using the <code>bg</code> option in the <code>data-uk-parralax</code> attribute, a (start and) stop value can be set. With the <code>bgp</code> option the given values are interpreted as percent.</p>
+                            <p>You can also animate a background image. Just add the <code>bg</code> option with a (start and) stop value to the <code>data-uk-parallax</code> attribute. If you use the <code>bgp</code> option, the given values will be interpreted as percent.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg: '50,-50'}"></div>
+                            <div class="uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg: '50,-50'}" style="height: 350px; background-image: url('images/placeholder_800x400_2.jpg');"></div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-parallax=&quot;{bg: '50,-50'}&quot;&gt;
-    ...
-&lt;/div&gt;</code></pre>
+<pre><code>&lt;div data-uk-parallax=&quot;{bg: '50,-50'}&quot;&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -208,7 +197,7 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg: '50,-50'}">
+                            <div class="uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg: '50,-50'}" style="height: 350px; background-image: url('images/placeholder_800x400_2.jpg');">
                                 <div class="uk-width-medium-1-2" data-uk-parallax="{scale: 0}">
                                     <h1 class="uk-text-contrast">Title</h1>
                                     <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -225,11 +214,11 @@
 
                             <h2 id="velocity"><a href="#velocity" class="uk-link-reset">Velocity</a></h2>
 
-                            <p>With the <code>velocity</code> option, the easing of the animation can be adjusted.</p>
+                            <p>To adjust the easing of the animation, add the <code>velocity</code> option.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div id="test-velocity" class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle">
+                            <div id="test-velocity" class="uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" style="height: 350px; background-image: url('images/placeholder_800x400_2.jpg'); background-size: cover;">
                                 <div class="uk-grid uk-flex-center uk-flex-middle">
                                     <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:150, velocity:0.04, viewport: 0.9}">0.04</div></div>
                                     <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:150, velocity:0.2, viewport: 0.9}">0.2</div></div>
@@ -251,7 +240,7 @@
 
                             <h2 id="viewport"><a href="#viewport" class="uk-link-reset">Viewport</a></h2>
 
-                            <p>Using the <code>viewport</code> option, the animation duration can be adjusted, which can help to e.g. finish an animation earlier. The default value (0) causes the animation to last as long as the element is visible on the viewport. Setting it to e.g. 0.5 animates the property only in the first half of the viewport when the element passes it. So the animation is finished when the element is in the middle of the viewport.</p>
+                            <p>Using the <code>viewport</code> option, the animation duration can be adjusted. With the value (0) the animation lasts as long as the element is in the viewport. Setting it to 0.5, for example, animates the property only in the first half of the viewport. The animation is finished when the element reaches the middle of the viewport.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -261,9 +250,7 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-parallax=&quot;{viewport: 0.5}&quot;&gt;
-    ...
-&lt;/div&gt;</code></pre>
+<pre><code>&lt;div data-uk-parallax=&quot;{viewport: 0.5}&quot;&gt;...&lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -443,7 +430,9 @@
                             <li><a href="autocomplete.html">Autocomplete</a></li>
                             <li><a href="datepicker.html">Datepicker</a></li>
                             <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
                             <li><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
