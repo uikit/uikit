@@ -388,7 +388,12 @@
         if (dragging) {
 
             dragging.container.removeClass('uk-drag');
-            dragging.updateFocus(store.focus);
+
+            if (dragging.focus == store.focus) {
+                dragging[store.dir == 1 ? 'next':'previous']();
+            } else {
+                dragging.updateFocus(store.focus);
+            }
         }
 
         dragging = delayIdle = false;
