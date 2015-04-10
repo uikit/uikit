@@ -113,6 +113,12 @@
             });
 
             this.resize(true);
+
+            this.on('display.uk.check', function(){
+                if ($this.element.is(":visible")) {
+                    $this.resize(true);
+                }
+            });
         },
 
         resize: function(focus) {
