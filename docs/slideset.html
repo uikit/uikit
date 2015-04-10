@@ -261,16 +261,16 @@
                             <p>You can also filter your slideset so that only particular items will be displayed.
                                 Add the <code>data-uk-filter</code> attribute to the slideset items to define what category the item belongs to.
                                 Also add a filter control, which can be included within the slideset or referenced by passing the id to the <code>controls</code> option in the <code>data-uk-slideset</code> attribute.
-                                Each control needs to have the data-uk-slideset-filter attribute to define the category you want to filter.
-                            You can set the default filter group by settiing the <code>group</code> option.</p>
+                                Each control needs to have the data-uk-filter attribute to define the category you want to filter.
+                            You can set the default filter group by settiing the <code>filter</code> option.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-margin" data-uk-slideset="{animation: 'scale', group: 'group-1,group-2', medium:4}">
+                            <div class="uk-margin" data-uk-slideset="{animation: 'scale', medium:4}">
                                 <ul class="uk-subnav uk-subnav-pill">
-                                    <li data-uk-slideset-filter="group-1,group-2"><a>All</a></li>
-                                    <li data-uk-slideset-filter="group-1"><a>Group 1</a></li>
-                                    <li data-uk-slideset-filter="group-2"><a>Group 2</a></li>
+                                    <li data-uk-filter=""><a>All</a></li>
+                                    <li data-uk-filter="group-1"><a>Group 1</a></li>
+                                    <li data-uk-filter="group-2"><a>Group 2</a></li>
                                 </ul>
                                 <div class="uk-slidenav-position uk-margin">
                                     <ul class="uk-slideset uk-grid uk-flex-center">
@@ -296,19 +296,19 @@
                                         <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 9" width="600" height="400" alt=""></li>
                                         <li data-uk-filter="group-2"><img src="holder.js/600x400/vine/auto/text:Group 2 \n Item 10" width="600" height="400" alt=""></li>
                                     </ul>
-                                    <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slideset-item="previous"></a>
-                                    <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slideset-item="next"></a>
+                                    <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-item="previous"></a>
+                                    <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-item="next"></a>
                                 </div>
                                 <ul class="uk-slideset-nav uk-dotnav uk-flex-center"></ul>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div data-uk-slideset=&quot;{group: 'group-1,group-2'}&quot;&gt;
+<pre><code>&lt;div data-uk-slideset=&quot;{filter: ''}&quot;&gt;
     &lt;ul class=&quot;uk-subnav uk-subnav-pill&quot;&gt;
-        &lt;li data-uk-slideset-filter=&quot;group-1,group-2&quot;&gt;&lt;a&gt;All&lt;/a&gt;&lt;/li&gt;
-        &lt;li data-uk-slideset-filter=&quot;group-1&quot;&gt;&lt;a&gt;Group 1&lt;/a&gt;&lt;/li&gt;
-        &lt;li data-uk-slideset-filter=&quot;group-2&quot;&gt;&lt;a&gt;Group 2&lt;/a&gt;&lt;/li&gt;
+        &lt;li data-uk-filter=&quot;&quot;&gt;&lt;a&gt;All&lt;/a&gt;&lt;/li&gt;
+        &lt;li data-uk-filter=&quot;group-1&quot;&gt;&lt;a&gt;Group 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li data-uk-filter=&quot;group-2&quot;&gt;&lt;a&gt;Group 2&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
 
     &lt;ul class=&quot;uk-slideset uk-grid uk-flex-center&quot;&gt;
@@ -383,6 +383,13 @@
                                             <td>integer</td>
                                             <td>100</td>
                                             <td>Animation delay between items in a set</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <td><code>filter</code></td>
+                                            <td>string</td>
+                                            <td>''</td>
+                                            <td>Items filter</td>
                                         </tr>
                                     </tbody>
                                 </table>
