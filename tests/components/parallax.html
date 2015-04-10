@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Parallax - UIkit tests</title>
+        <script src="../_test.js"></script>
+        <script src="../../src/js/components/parallax.js"></script>
+
+        <style media="screen">
+
+            body {
+                min-height: 400vh;
+            }
+
+            .test-bg {
+                height: 400px;
+                background-image: url('http://unsplash.it/1200/800');
+            }
+
+            .test-color {
+                height: 400px;
+                border: 10px #fff solid;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Parallax</h1>
+
+            <h2>Background Image</h2>
+
+            <div class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast">Title</h1>
+                    <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Target</h2>
+
+            <div id="test-target" class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast" data-uk-parallax="{target:'#test-target', opacity:0, y:-200, scale:2}">Title</h1>
+                    <p class="uk-text-large" data-uk-parallax="{target:'#test-target', opacity:0, y:200, scale:0}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Start + End (Reverse)</h2>
+
+            <div id="test-reverse" class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast" data-uk-parallax="{target:'#test-reverse', opacity:'0,1', y:'-200,0', scale:'2,1', viewport: 0.5}">Title</h1>
+                    <p class="uk-text-large" data-uk-parallax="{target:'#test-reverse', opacity:'0,1', y:'200,0', scale:'0,1', viewport: 0.5}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Velocity</h2>
+
+            <div id="test-velocity" class="test-bg uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg:-200}">
+                <div class="uk-grid uk-flex-center uk-flex-middle">
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0}">0</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.2}">0.2</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.4}">0.4</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.6}">0.6</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:0.8}">0.8</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:1}">1</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:2}">2</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:3}">3</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:4}">4</div></div>
+                    <div><div class="uk-panel uk-panel-box" data-uk-parallax="{target:'#test-velocity', y:200, velocity:5}">5</div></div>
+                </div>
+            </div>
+
+            <h2>Color and Viewport</h2>
+
+            <div id="test-color" class="test-color uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{'background-color':'yellow,white', 'border-color':'#00f,#f00', viewport:0.5}">
+                <div class="uk-width-medium-1-2">
+                    <h1 data-uk-parallax="{target:'#test-color', opacity:'0,1', yp:'-200,0', viewport:0.5}">Title</h1>
+                    <p class="uk-text-large" data-uk-parallax="{target:'#test-color', opacity:'0,1', viewport:0.5}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p data-uk-parallax="{target:'#test-color', yp:'200,0', color:'#0f0', viewport:0.5}">
+                        <i class="uk-icon-html5 uk-icon-large"></i>
+                        <i class="uk-icon-plus uk-icon-large"></i>
+                        <i class="uk-icon-css3 uk-icon-large"></i>
+                    </p>
+                </div>
+            </div>
+
+    </body>
+</html>
