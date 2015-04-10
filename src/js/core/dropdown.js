@@ -33,7 +33,7 @@
                         dropdown.element.trigger(triggerevent);
                     }
 
-                    if(dropdown.element.find('.uk-dropdown').length) {
+                    if (dropdown.element.find('.uk-dropdown').length) {
                         e.preventDefault();
                     }
                 }
