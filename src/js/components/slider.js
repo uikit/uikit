@@ -16,7 +16,7 @@
 
     "use strict";
 
-    var dragging, delayIdle, store = {};
+    var dragging, delayIdle, anchor, dragged, store = {};
 
     UI.component('slider', {
 
@@ -76,14 +76,26 @@
                 }
             });
 
-            this.container.on('touchstart mousedown', function(e) {
+            this.container.on('touchstart mousedown', function(evt) {
 
                 // ignore right click button
-                if (e.button && e.button==2) {
+                if (evt.button && evt.button==2) {
                     return;
                 }
 
+                anchor  = UI.$(evt.target).parents('a:first');
+                dragged = false;
+
+                if (anchor.length) {
+
+                    anchor.one('click', function(e){
+                        if (dragged) e.preventDefault();
+                    });
+                }
+
                 delayIdle = function(e) {
+
+                    dragged = true;
 
                     dragging = $this;
                     store    = {
@@ -107,7 +119,7 @@
                     delayIdle = false;
                 };
 
-                delayIdle.x         = parseInt(e.pageX, 10);
+                delayIdle.x         = parseInt(evt.pageX, 10);
                 delayIdle.threshold = $this.options.threshold;
 
             });
