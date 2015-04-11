@@ -79,7 +79,7 @@
             this.container.on('touchstart mousedown', function(evt) {
 
                 // ignore right click button
-                if (evt.button && evt.button==2) {
+                if (evt.button && evt.button==2 || !$this.active) {
                     return;
                 }
 
@@ -156,8 +156,9 @@
 
             this.container.css({'min-width': pos, 'min-height': maxheight});
 
-            this.cw  = pos;
-            this.pos = 0;
+            this.cw     = pos;
+            this.pos    = 0;
+            this.active = pos >= this.vp;
 
             this.container.css({
                 '-ms-transform': '',
@@ -178,6 +179,10 @@
         },
 
         updateFocus: function(idx, dir) {
+
+            if (!this.active) {
+                return;
+            }
 
             dir = dir || (idx > this.focus ? 1:-1);
 
