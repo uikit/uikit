@@ -83,7 +83,7 @@
                     return;
                 }
 
-                anchor  = UI.$(evt.target).parents('a:first');
+                anchor  = UI.$(evt.target).is('a') ? UI.$(evt.target) : UI.$(evt.target).parents('a:first');
                 dragged = false;
 
                 if (anchor.length) {
