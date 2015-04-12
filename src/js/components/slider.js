@@ -156,11 +156,13 @@
 
             this.container.css({'min-width': pos, 'min-height': maxheight});
 
-            if (this.options.infinite && pos <= (2*this.vp)) {
+            if (this.options.infinite && pos <= (2*this.vp) && !this.itemsResized) {
 
                 this.items.each(function(idx){
                    $this.container.append($this.items.eq(idx).clone());
                 });
+
+                this.itemsResized = true;
 
                 return this.resize();
             }
