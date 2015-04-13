@@ -16,6 +16,7 @@
   - Fixed nestable event arguments
   - Fixed 12hr format for Timepicker
   - Fixed switcher text selection for IE11
+  - Fixed slideshow jumping in chrome
 
 ### 2.18.0 (March 11, 2015)
 
