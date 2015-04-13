@@ -65,7 +65,6 @@
 
 /*
  * 1. Makes text unselectable
- * 2. 
  */
 
 .uk-slider.uk-drag {
@@ -75,16 +74,21 @@
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    /* 2 */
-    -webkit-touch-callout: none;
-    -webkit-user-drag: none;
 }
+
+/*
+ * 1. Prevents images and links from being dragged (default browser behavior)
+ * 2. Disables the default callout shown when you touch and hold a touch target.
+ * Currently only works in Webkit
+ */
 
 .uk-slider a,
 .uk-slider img {
-    -webkit-touch-callout: none;
+    /* 1 */
     -webkit-user-drag: none;
     user-drag: none;
+    /* 2 */
+    -webkit-touch-callout: none;
 }
 
 
