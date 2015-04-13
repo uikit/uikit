@@ -21,7 +21,7 @@
     UI.component('slider', {
 
         defaults: {
-            centered  : false,
+            center    : false,
             threshold : 10,
             infinite  : true,
             activecls : 'uk-active'
@@ -102,7 +102,7 @@
                         touchx : parseInt(e.pageX, 10),
                         dir    : 1,
                         focus  : $this.focus,
-                        base   : $this.options.centered ? 'center':'area'
+                        base   : $this.options.center ? 'center':'area'
                     };
 
                     if (e.originalEvent && e.originalEvent.touches) {
@@ -203,7 +203,7 @@
                 this.infinite(idx, dir);
             }
 
-            if (this.options.centered) {
+            if (this.options.center) {
 
                 this.updatePos(item.data('center')*-1);
 
@@ -299,7 +299,7 @@
 
             } else {
 
-                if (this.options.centered) {
+                if (this.options.center) {
 
                     var area = 0;
 
@@ -398,7 +398,8 @@
         base  = dragging.op,
         diff  = Math.abs(item.data(store.base)) - Math.abs(pos);
 
-        if (diff < 0 || diff > item.data('width')) {
+        //if (diff < 0 || diff > item.data('width')) {
+        if ((dir==1 && diff < item.data('width')/3) || (dir==-1 && diff > item.data('width')/3)) {
 
             if (dir == 1) {
                 focus = dragging.items[store.focus + 1] ? (store.focus + 1) : (dragging.options.infinite ? 0:store.focus);
