@@ -7,11 +7,7 @@
 //
 // Modifier:        `uk-slider-fullscreen`
 //
-// Sub-modifier:
-//
-// States:          `uk-active`
-//
-// Uses:            Cover (JS)
+// States:          `uk-drag`
 //
 // ========================================================================
 
@@ -72,19 +68,32 @@
     transition: transform 200ms linear;
 }
 
+/*
+ * 1. Makes text unselectable
+ */
+
 .uk-slider.uk-drag {
     cursor: col-resize;
-    touch-action: pan-y;
+    /* 1 */
+    -moz-user-select: none;
     -webkit-user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-drag: none;
+    -ms-user-select: none;
+    user-select: none;
 }
+
+/*
+ * 1. Prevents images and links from being dragged (default browser behavior)
+ * 2. Disables the default callout shown when you touch and hold a touch target.
+ * Currently only works in Webkit
+ */
 
 .uk-slider a,
 .uk-slider img {
-    -webkit-touch-callout: none;
+    /* 1 */
     -webkit-user-drag: none;
     user-drag: none;
+    /* 2 */
+    -webkit-touch-callout: none;
 }
 
 
