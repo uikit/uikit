@@ -218,11 +218,12 @@
 
                 } else {
 
-                    area = item.data('width');
+                    area = 0;
 
                     for (i=idx;i<this.items.length;i++) {
                         area += this.items.eq(i).data('width');
                     }
+
 
                     if (area > this.vp) {
 
@@ -239,7 +240,7 @@
                                 area += this.items.eq(i).data('width');
 
                                 if (area >= this.vp) {
-                                    idx = area == this.vp ? i : i-1;
+                                    idx = i;
                                     break;
                                 }
                             }
