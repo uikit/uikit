@@ -199,7 +199,10 @@
                 }
             }, 100));
 
-            this.resize();
+            // chrome image load fix
+            setTimeout(function(){
+                $this.resize();
+            }, 80);
 
             // Set autoplay
             if (this.options.autoplay) {
