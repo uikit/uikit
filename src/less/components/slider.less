@@ -19,8 +19,7 @@
 /*
  * 1. Create position context
  * 2. Create stacking context to prevent z-index issues with other components
- * 3. Reset list style
- * 4. Deactivate browser history navigation in IE11
+ * 3. Deactivate browser history navigation in IE11
  */
 
 .uk-slider {
@@ -29,11 +28,17 @@
     /* 2 */
     z-index: 0;
     /* 3 */
+    touch-action: pan-y;
+}
+
+/*
+ * 1. Reset list style without interfering with grid
+ */
+.uk-slider:not(.uk-grid) {
+    /* 1 */
     margin: 0;
     padding: 0;
     list-style: none;
-    /* 4 */
-    touch-action: pan-y;
 }
 
 /*
