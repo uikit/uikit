@@ -297,7 +297,7 @@
                     move.css({'left': lastvisible.data('area')}).data({
                         'left'  : lastvisible.data('area'),
                         'area'  : (lastvisible.data('area')+move.data('width')),
-                        'center': (lastvisible.data('area') - (this.vp/2 - move.data('width')/2))
+                        'center': ((lastvisible.data('area')+move.data('width')) - (this.vp/2 - move.data('width')/2))
                     });
                 }
 
@@ -387,7 +387,7 @@
             return;
         }
 
-        var x, xDiff, pos, dir, focus, item, base, diff;
+        var x, xDiff, pos, dir, focus, item, next, diff, i, z, itm;
 
         if (e.clientX || e.clientY) {
             x = e.clientX;
@@ -395,34 +395,57 @@
             x = e.pageX - document.body.scrollLeft - document.documentElement.scrollLeft;
         }
 
+        focus = store.focus;
         xDiff = x - dragging.element.data('pointer-start').x;
         pos   = dragging.element.data('pointer-pos-start') + xDiff;
         dir   = x > store.touchx ? -1:1;
+        item  = dragging.items.eq(store.focus);
 
-        item  = dragging.items.eq(store.focus),
-        base  = dragging.op,
-        diff  = Math.abs(item.data(store.base)) - Math.abs(pos);
+        if (dir == 1) {
 
-        //if (diff < 0 || diff > item.data('width')) {
-        if ((dir==1 && diff < item.data('width')/3) || (dir==-1 && diff > item.data('width')/3)) {
+            diff = item.data('left') + Math.abs(xDiff);
 
-            if (dir == 1) {
-                focus = dragging.items[store.focus + 1] ? (store.focus + 1) : (dragging.options.infinite ? 0:store.focus);
-            } else {
-                focus = dragging.items[store.focus - 1] ? (store.focus - 1) : (dragging.options.infinite ? (dragging.items[store.focus - 1] ? dragging.items-1:dragging.items.length-1):store.focus);
+            for (i=0,z=store.focus;i<dragging.items.length;i++) {
+
+                itm = dragging.items.eq(z);
+
+                if (z != store.focus && itm.data('left') < diff && itm.data('area') > diff) {
+                    focus = z;
+                    break;
+                }
+
+                z = z+1 == dragging.items.length ? 0:z+1;
             }
 
-            store.focus  = focus;
 
-            if (dragging.options.infinite) {
-                dragging.infinite(focus, dir);
+        } else {
+
+            diff = item.data('left') - Math.abs(xDiff);
+
+
+            for (i=0,z=store.focus;i<dragging.items.length;i++) {
+
+                itm = dragging.items.eq(z);
+
+                if (z != store.focus && itm.data('area') <= item.data('left') && diff > itm.data('center')) {
+                    focus = z;
+                    break;
+                }
+
+                z = z-1 == -1 ? dragging.items.length-1:z-1;
             }
+
+        }
+
+        if (dragging.options.infinite && focus!=store._focus) {
+            dragging.infinite(focus, dir);
         }
 
         dragging.updatePos(pos);
 
-        store.dir    = dir;
-        store.touchx = parseInt(e.pageX, 10);
+        store.dir     = dir;
+        store._focus  = focus;
+        store.touchx  = parseInt(e.pageX, 10);
     });
 
     UI.$doc.on('mouseup.uikit.slider touchend.uikit.slider', function(e) {
@@ -431,14 +454,15 @@
 
             dragging.container.removeClass('uk-drag');
 
-            if (dragging.focus == store.focus) {
-                dragging[store.dir == 1 ? 'next':'previous']();
-            } else {
-                dragging.updateFocus(store.focus);
-            }
+            dragging.updateFocus(store._focus);
+
+            setTimeout(function(){
+                dragging[store.dir==1 ? 'next':'previous']();
+                dragging = delayIdle = false;
+            }, 10);
         }
 
-        dragging = delayIdle = false;
+
     });
 
     return UI.slider;
