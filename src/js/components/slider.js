@@ -317,12 +317,13 @@
                             move.push(this.items.eq(z));
                         }
 
-                        if (area > this.vp/2) {
+                        if (area > this.vp) {
                             break;
                         }
 
                         z = z-1 == -1 ? this.items.length-1:z-1;
                     }
+
 
                     if (move.length) {
 
@@ -348,7 +349,7 @@
 
                         if (this.items.eq(z).data('left') < minleft) {
                             lastvisible = this.items.eq(z);
-                            minleft = lastvisible.data('left');
+                            minleft     = lastvisible.data('left');
                         }
 
                         z = z+1 == this.items.length ? 0:z+1;
@@ -358,7 +359,7 @@
 
                         move = this.items.eq(this.items[lastvisible.data('idx') - 1] ? lastvisible.data('idx') - 1 : this.items.length-1);
 
-                        var left = item.data('left') - lastvisible.data('width');
+                        var left = item.data('left') - move.data('width');
 
                         move.css({'left': left}).data({
                             'left'  : left,
