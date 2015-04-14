@@ -55,11 +55,11 @@
 
             this.element.removeClass("uk-open").show();
             this.resize();
-
             active = this;
-            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open");
+
+            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             // Update ARIA
             this.element.attr('aria-hidden', 'false');
