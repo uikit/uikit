@@ -8,6 +8,21 @@
 
         <script src="../_test.js"></script>
         <script src="../../src/js/components/nestable.js"></script>
+        <script>
+        jQuery(function($){
+            $('.uk-nestable').on({
+                'start.uk.nestable': function(){
+                    //console.log('start', arguments);
+                },
+                'move.uk.nestable': function(){
+                    //console.log('move', arguments);
+                },
+                'change.uk.nestable': function(){
+                    console.log('change', arguments);
+                }
+            });
+        });
+        </script>
     </head>
 
     <body>
@@ -15,6 +30,12 @@
         <div class="uk-container uk-container-center">
 
             <h1>Nestable</h1>
+
+            Empty list:
+
+            <ul class="uk-nestable test" data-uk-nestable></ul>
+
+            <hr>
 
             <ul class="uk-nestable" data-uk-nestable>
                 <li>
