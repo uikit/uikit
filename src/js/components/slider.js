@@ -131,6 +131,9 @@
                     $this.resize(true);
                 }
             });
+
+            // prevent dragging links + images
+            this.element.find('a,img').attr('draggable', 'false');
         },
 
         resize: function(focus) {
