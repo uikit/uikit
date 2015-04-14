@@ -264,7 +264,7 @@
                                         <tr>
                                             <th>Option</th>
                                             <th>Possible value</th>
-                                            <th>Default</th>
+                                            <th class="uk-width-1-5">Default</th>
                                             <th>Description</th>
                                         </tr>
                                     </thead>
@@ -280,6 +280,90 @@
                                             <td>integer</td>
                                             <td>10</td>
                                             <td>Max nesting level</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>threshold</code></td>
+                                            <td>integer</td>
+                                            <td>20</td>
+                                            <td>Pixel threshold before starting to drag</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>listNodeName</code></td>
+                                            <td>string</td>
+                                            <td>ul</td>
+                                            <td>List node name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>itemNodeName</code></td>
+                                            <td>string</td>
+                                            <td>li</td>
+                                            <td>Item node name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>listBaseClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable</td>
+                                            <td>List base class</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>listClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-list</td>
+                                            <td>List class</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>listitemClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-list-item</td>
+                                            <td>List item class</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>itemClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-item</td>
+                                            <td>Item class</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>dragClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-list-dragged</td>
+                                            <td>Class added to dragged list</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>movingClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-moving</td>
+                                            <td>Class added to <code>&lt;html&gt;</code> when moving</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>handleClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-handle</td>
+                                            <td>Class for drag handle</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>collapsedClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-collapsed</td>
+                                            <td>Class for collapsed items</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>placeClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-placeholder</td>
+                                            <td>Class for placeholder of currently dragged element</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>noDragClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-nodrag</td>
+                                            <td>Elements with this class will not trigger dragging. Useful when having the complete item draggable and not just the handle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>emptyClass</code></td>
+                                            <td>string</td>
+                                            <td>uk-nestable-empty</td>
+                                            <td>Class for empty lists</td>
                                         </tr>
                                     </tbody>
                                 </table>
