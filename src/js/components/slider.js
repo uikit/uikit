@@ -161,8 +161,13 @@
 
             if (this.options.infinite && pos <= (2*this.vp) && !this.itemsResized) {
 
+                // fill with cloned items
                 this.items.each(function(idx){
-                   $this.container.append($this.items.eq(idx).clone());
+                   $this.container.append($this.items.eq(idx).clone(true));
+                });
+
+                this.items.each(function(idx){
+                   $this.container.append($this.items.eq(idx).clone(true));
                 });
 
                 this.itemsResized = true;
