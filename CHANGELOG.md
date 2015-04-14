@@ -12,6 +12,7 @@
   - Added location reminder to customizer when reloading the page
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
+  - Fixed nestable component events + empty lists
   - Fixed nestable list helper function
   - Fixed nestable event arguments
   - Fixed 12hr format for Timepicker
