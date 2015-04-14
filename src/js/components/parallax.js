@@ -191,8 +191,10 @@
                     val = opts.start + (opts.diff * compercent * opts.dir);
                 }
 
-                if ((prop == 'bg' || prop == 'bgp') && !this._bgcover) {
-                    this._bgcover = initBgImageParallax(this, prop, opts);
+                if ((prop == 'bg' || prop == 'bg%') && !this._bgcovered) {
+                    css['background-size']   = 'cover';
+                    css['background-repeat'] = 'no-repeat';
+                    this._bgcovered = true;
                 }
 
                 switch(prop) {
@@ -263,54 +265,6 @@
 
 
     // helper
-
-    function initBgImageParallax(obj, prop, opts) {
-
-        var img = new Image(), url, loaded, element, size, check, ratio, width, height;
-
-        element = obj.element.css({'background-size': 'cover',  'background-repeat': 'no-repeat'});
-        url     = element.css('background-image').replace(/^url\(/g, '').replace(/\)$/g, '').replace(/("|')/g, '');
-        check   = function() {
-
-            var w = element.width(), h = element.height();
-
-            h += (prop=='bg') ? opts.diff : (opts.diff/100) * h;
-
-            // if element height < parent height (gap underneath)
-            if ((w / ratio) < h) {
-                width  = Math.ceil(h * ratio);
-                height = h;
-
-            // element width < parent width (gap to right)
-            } else {
-                width  = w;
-                height = Math.ceil(w / ratio);
-            }
-
-            obj.element.css({'background-size': (width+'px '+height+'px')})
-        };
-
-        img.onerror = function(){
-            // image url doesn't exist
-        };
-
-        img.onload = function(){
-            size  = {w:img.width, height:img.height};
-            ratio = img.width / img.height;
-
-            UI.$win.on("load resize orientationchange", UI.Utils.debounce(function(){
-                check();
-            }, 50));
-
-            check();
-        };
-
-        img.src = url;
-
-        return true;
-    }
-
-
 
     // Some named colors to work with, added by Bradley Ayers
     // From Interface by Stefan Petre
