@@ -198,8 +198,8 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg: '50,-50'}" style="height: 350px; background-image: url('images/placeholder_800x400_2.jpg');">
-                                <div class="uk-width-medium-1-2" data-uk-parallax="{scale: 0}">
+                            <div id="target-example" class="uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" data-uk-parallax="{bg: '50,-50'}" style="height: 350px; background-image: url('images/placeholder_800x400_2.jpg');">
+                                <div class="uk-width-medium-1-2" data-uk-parallax="{target: '#target-example', scale: 0}">
                                     <h1 class="uk-text-contrast">Title</h1>
                                     <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
@@ -209,6 +209,28 @@
 
 <pre><code>&lt;div data-uk-parallax=&quot;{bg: '50,-50'}&quot;&gt;
     &lt;div data-uk-parallax=&quot;{scale: 0}&quot;&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="target-option"><a href="#target-option" class="uk-link-reset">Target Option</a></h2>
+
+                            <p>Usually, the animation lasts as long as the element itself is in the viewport. To start and stop the animation based on the viewport visibility of another element, use the <code>target</code> option. This can be helpful when using nested animations, so that the inner and outer elements animation start and stop simultaniously.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{x: '-50,50', target: '#target-option'}">
+                                This box is animated as long as the headline &quot;Target Option&quot; is in the viewport.
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- Using any target --&gt;
+&lt;div data-uk-parallax=&quot;{target: '#target-id', y: -50}&quot;&gt;...&lt;/div&gt;
+
+&lt;!-- Nested animation --&gt;
+&lt;div id=&quot;target-id&quot; data-uk-parallax=&quot;{bg: '-50'}&quot;&gt;
+    &lt;div data-uk-parallax=&quot;{target: '#target-id', y: -50}&quot;&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
@@ -245,7 +267,7 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{x: -100, viewport: 0.5}">
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary" data-uk-parallax="{x: '-50,50', viewport: 0.5}">
                                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                             </div>
 
