@@ -132,8 +132,8 @@
 
             var percent = this.percentageInViewport();
 
-            if (this.options.viewport) {
-                percent = percent / this.options.viewport;
+            if (this.options.viewport !== false) {
+                percent = (this.options.viewport === 0) ? 1 : percent / this.options.viewport;
             }
 
             this.update(percent);
