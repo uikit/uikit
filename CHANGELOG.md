@@ -9,9 +9,12 @@
   - Added position class to set a z-index
   - Added overflow hidden class to utility component
   - Added trigger 'input' after htmleditor change
+  - Added filter option to dynamic grid
+  - Added define horizontal and vertical gutter for dynamic grid
   - Added UIkit.init([rootelement]) added to manually init js components
   - Added trigger ```hide.uk.dropdown``` when dropdown is closed
   - Added location reminder to customizer when reloading the page
+  - Updated error handling if lightbox resource not found
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
   - Fixed nestable component events + empty lists
