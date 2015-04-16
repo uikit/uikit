@@ -45,7 +45,10 @@
 
         init: function() {
 
-            var $this = this;
+            var $this = this, gutter = String(this.options.gutter).split(' ');
+
+            this.gutterv  = parseInt(gutter[0], 10);
+            this.gutterh  = parseInt((gutter[1] || gutter[0]), 10);
 
             // make sure parent element has the right position property
             this.element.css({'position': 'relative'});
@@ -105,10 +108,11 @@
             };
 
             if (this.options.gutter) {
-                css['padding-left']   = this.options.gutter;
-                css['padding-bottom'] = this.options.gutter;
 
-                this.element.css('margin-left', this.options.gutter * -1);
+                css['padding-left']   = this.gutterh;
+                css['padding-bottom'] = this.gutterv;
+
+                this.element.css('margin-left', this.gutterh * -1);
             }
 
             children.attr('data-grid-prepared', 'true').css(css);
@@ -121,9 +125,8 @@
             elements = elements || this.element.children(':visible');
 
             var $this     = this,
-                gutter    = this.options.gutter,
                 children  = elements,
-                maxwidth  = this.element.width() + (2*gutter) + 2,
+                maxwidth  = this.element.width() + (2*this.gutterh) + 2,
                 left      = 0,
                 top       = 0,
                 positions = [],
@@ -186,7 +189,7 @@
                 maxHeight = Math.max(maxHeight, pos.aY);
             }
 
-            maxHeight = maxHeight - gutter;
+            maxHeight = maxHeight - this.gutterv;
 
             if (this.options.animation) {
 
