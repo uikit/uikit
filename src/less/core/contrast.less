@@ -1,0 +1,50 @@
+// Name:            Contrast
+// Description:     Defines styles to adjust colors for dark or colored blocks
+//
+// Component:       `uk-contrast`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@contrast-color:                                #fff;
+@contrast-hover-color:                          #fff;
+@contrast-text-decoration:                      underline;
+
+
+
+/* ========================================================================
+   Component: Contrast
+ ========================================================================== */
+
+/*
+ * Base
+ */
+
+.uk-contrast h1,
+.uk-contrast h2,
+.uk-contrast h3,
+.uk-contrast h4,
+.uk-contrast h5,
+.uk-contrast h6 { color: inherit; }
+
+.uk-contrast a:not([class]) {
+    color: @contrast-color;
+    text-decoration: @contrast-text-decoration;
+}
+
+/*
+ * Icon
+ */
+
+.uk-contrast a[class*='uk-icon-']:not(.uk-icon-button) { color: @contrast-color; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-contrast-misc;
+
+.hook-contrast-misc() {}

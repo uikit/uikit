@@ -77,6 +77,7 @@
             "core/article",
             "core/badge",
             "core/base",
+            "core/block",
             "core/breadcrumb",
             "core/button",
             "core/close",

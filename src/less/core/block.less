@@ -1,0 +1,157 @@
+// Name:            Block
+// Description:     Defines styles to create horizontal layout blocks
+//
+// Component:       `uk-block`
+//
+// Modifiers:       `uk-list-line`
+//                  `uk-list-striped`
+//                  `uk-list-space`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@block-padding-vertical:                        40px;
+
+@block-large-padding-vertical:                  100px;
+
+@block-default-background:                      #fff;
+@block-light-background:                        #f9f9f9;
+@block-dark-background:                         #222;
+@block-primary-background:                      #00a8e6;
+
+
+/* ========================================================================
+   Component: List
+ ========================================================================== */
+
+.uk-block {
+    position: relative;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: @block-padding-vertical;
+    padding-bottom: @block-padding-vertical;
+    .hook-block;
+}
+
+/*
+ * Micro clearfix to make blocks more robust
+ */
+
+.uk-block:before,
+.uk-block:after {
+    content: "";
+    display: table;
+}
+
+.uk-block:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-block > :last-child { margin-bottom: 0; }
+
+
+/* Padding Modifier
+ ========================================================================== */
+
+/*
+ * Remove padding
+ */
+
+.uk-block-padding-remove {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/*
+ * Large padding
+ */
+
+.uk-block-large {
+    padding-top: @block-large-padding-vertical;
+    padding-bottom: @block-large-padding-vertical;
+}
+
+/*
+ * Responsiveness
+ */
+
+/* Tablets and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-block { padding: 70px 0; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-block { padding: 100px 0; }
+
+}
+
+
+/* Color Modifier
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-block-default {
+    background: @block-default-background;
+    .hook-block-default;
+}
+
+/*
+ * Light
+ */
+
+.uk-block-light {
+    background: @block-light-background;
+    .hook-block-light;
+}
+
+/*
+ * Dark
+ */
+
+.uk-block-dark {
+    background: @block-dark-background;
+    .hook-block-dark;
+}
+
+/*
+ * Primary
+ */
+
+.uk-block-primary {
+    background: @block-primary-background;
+    .hook-block-primary;
+}
+
+/*
+ * Adjust padding between equal colored blocks
+ */
+
+.uk-block-default + .uk-block-default,
+.uk-block-light + .uk-block-light,
+.uk-block-dark + .uk-block-dark,
+.uk-block-primary + .uk-block-primary { padding-top: 0; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-block-misc;
+
+.hook-block() {}
+.hook-block-default() {}
+.hook-block-light() {}
+.hook-block-dark() {}
+.hook-block-primary() {}
+.hook-block-misc() {}
