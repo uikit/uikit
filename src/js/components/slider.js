@@ -397,7 +397,6 @@
                 z = z+1 == dragging.items.length ? 0:z+1;
             }
 
-
         } else {
 
             diff = item.data('left') - Math.abs(xDiff);
@@ -406,7 +405,7 @@
 
                 itm = dragging.items.eq(z);
 
-                if (z != store.focus && itm.data('area') <= item.data('left') && diff > itm.data('center')) {
+                if (z != store.focus && itm.data('area') <= item.data('left') && itm.data('center') < diff) {
                     focus = z;
                     break;
                 }
@@ -424,6 +423,7 @@
         store.dir     = dir;
         store._focus  = focus;
         store.touchx  = parseInt(e.pageX, 10);
+        store.diff    = diff;
     });
 
     UI.$doc.on('mouseup.uikit.slider touchend.uikit.slider', function(e) {
@@ -431,14 +431,41 @@
         if (dragging) {
 
             dragging.container.removeClass('uk-drag');
-            dragging.focus = store._focus;
 
-            setTimeout(function(){
+            var item  = dragging.items.eq(store.focus), itm, focus = false, i, z;
 
-                dragging[store.dir == -1 ? 'previous':'next']();
-                dragging = delayIdle = false;
+            if (store.dir == 1) {
 
-            }, 10);
+                for (i=0,z=store.focus;i<dragging.items.length;i++) {
+
+                    itm = dragging.items.eq(z);
+
+                    if (z != store.focus && itm.data('left') > store.diff) {
+                        focus = z;
+                        break;
+                    }
+
+                    z = z+1 == dragging.items.length ? 0:z+1;
+                }
+
+            } else {
+
+                for (i=0,z=store.focus;i<dragging.items.length;i++) {
+
+                    itm = dragging.items.eq(z);
+
+                    if (z != store.focus && itm.data('left') < store.diff) {
+                        focus = z;
+                        break;
+                    }
+
+                    z = z-1 == -1 ? dragging.items.length-1:z-1;
+                }
+            }
+
+            dragging.updateFocus(focus!==false ? focus:store._focus);
+
+            dragging = delayIdle = false;
         }
 
 
