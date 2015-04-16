@@ -13,6 +13,7 @@
   - Added UIkit.init([rootelement]) added to manually init js components
   - Added trigger ```hide.uk.dropdown``` when dropdown is closed
   - Added location reminder to customizer when reloading the page
+  - Updated error handling if lightbox resource not found
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
   - Fixed nestable component events + empty lists

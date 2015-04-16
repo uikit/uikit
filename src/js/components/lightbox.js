@@ -164,7 +164,13 @@
                 $this.fitSize(data);
 
             }).fail(function(){
-                alert('Loading resource failed!');
+
+                data.meta.content = '<div class="uk-position-cover uk-flex uk-flex-middle uk-flex-center"><strong>Loading resource failed!</strong></div>';
+                data.meta.width   = 400;
+                data.meta.height  = 300;
+
+                $this.data = data;
+                $this.fitSize(data);
             });
 
             $this.trigger('showitem.uk.lightbox', [data]);
