@@ -143,6 +143,8 @@
                 for (i=0;i<this.sets.length;i++) {
                     this.nav.append('<li data-uk-slideset-item="'+i+'"><a></a></li>');
                 }
+
+                this.nav[this.nav.children().length==1 ? 'addClass':'removeClass']('uk-invisible');
             }
 
             var filter;
