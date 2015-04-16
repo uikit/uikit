@@ -23,7 +23,8 @@
             animation : true,
             duration  : 300,
             gutter    : 0,
-            controls  : false
+            controls  : false,
+            filter    : false
         },
 
         boot:  function() {
@@ -49,36 +50,29 @@
             // make sure parent element has the right position property
             this.element.css({'position': 'relative'});
 
+            this.controls = null;
+
             if (this.options.controls) {
 
-                var controls  = UI.$(this.options.controls),
-                    activeCls = 'uk-active';
+                this.controls = UI.$(this.options.controls);
 
                 // filter
-                controls.on('click', '[data-uk-filter]', function(e){
+                this.controls.on('click', '[data-uk-filter]', function(e){
                     e.preventDefault();
                     $this.filter(UI.$(this).data('ukFilter'));
-
-                    controls.find('[data-uk-filter]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
 
                 // sort
-                controls.on('click', '[data-uk-sort]', function(e){
+                this.controls.on('click', '[data-uk-sort]', function(e){
                     e.preventDefault();
-
                     var cmd = UI.$(this).attr('data-uk-sort').split(':');
-
                     $this.sort(cmd[0], cmd[1]);
-
-                    controls.find('[data-uk-sort]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
             }
 
             UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
                 this.updateLayout();
             }.bind(this), 100));
-
-            this.updateLayout();
 
             this.on('display.uk.check', function(){
                 if ($this.element.is(":visible"))  $this.updateLayout();
@@ -87,6 +81,12 @@
             UI.$html.on("changed.uk.dom", function(e) {
                 $this.updateLayout();
             });
+
+            if (this.options.filter !== false) {
+                $this.filter(this.options.filter);
+            } else {
+                this.updateLayout();
+            }
         },
 
         _prepareElements: function() {
@@ -247,6 +247,10 @@
             elements.visible.attr('aria-hidden', 'false').filter(':hidden').css('opacity', 0).show();
 
             $this.updateLayout(elements.visible);
+
+            if (this.controls && this.controls.length) {
+                this.controls.find('[data-uk-filter]').removeClass('uk-active').filter(this).addClass('uk-active');
+            }
         },
 
         sort: function(by, order){
@@ -270,6 +274,10 @@
             }).appendTo(this.element);
 
             this.updateLayout(elements.filter(':visible'));
+
+            if (this.controls && this.controls.length) {
+                this.controls.find('[data-uk-sort]').removeClass('uk-active').filter(this).addClass('uk-active');
+            }
         }
     });
 
