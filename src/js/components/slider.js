@@ -359,8 +359,13 @@
             e = e.originalEvent.touches[0];
         }
 
-        if (delayIdle && !window.getSelection().toString() && Math.abs(e.pageX - delayIdle.x) > delayIdle.threshold) {
-            delayIdle(e);
+        if (delayIdle && Math.abs(e.pageX - delayIdle.x) > delayIdle.threshold) {
+
+            if (!window.getSelection().toString()) {
+                delayIdle(e);
+            } else {
+                dragging = delayIdle = false;
+            }
         }
 
         if (!dragging) {
