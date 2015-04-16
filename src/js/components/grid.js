@@ -45,7 +45,7 @@
 
         init: function() {
 
-            var $this = this, gutter = String(this.options.gutter).split(' ');
+            var $this = this, gutter = String(this.options.gutter).trim().split(' ');
 
             this.gutterv  = parseInt(gutter[0], 10);
             this.gutterh  = parseInt((gutter[1] || gutter[0]), 10);
