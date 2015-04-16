@@ -109,6 +109,14 @@
     -webkit-touch-callout: none;
 }
 
+/*
+ * 1. Prevents images and links from being dragged in firefox
+ */
+.uk-slider img {
+    /* 1 */
+    pointer-events: none;
+}
+
 
 /* Modifier: `uk-slider-fullscreen`
  ========================================================================== */
