@@ -7,6 +7,7 @@
   - Added custom animation duration for kenburns effect (slideshow component)
   - Added support for overlaying an image with a second image to overlay component
   - Added position class to set a z-index
+  - Added overflow hidden class to utility component
   - Added trigger 'input' after htmleditor change
   - Added UIkit.init([rootelement]) added to manually init js components
   - Added trigger ```hide.uk.dropdown``` when dropdown is closed
