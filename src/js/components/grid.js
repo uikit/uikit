@@ -70,7 +70,6 @@
                     e.preventDefault();
                     var cmd = UI.$(this).attr('data-uk-sort').split(':');
                     $this.sort(cmd[0], cmd[1]);
-                    $this.controls.find('[data-uk-sort]').removeClass('uk-active').filter(this).addClass('uk-active');
                 });
             }
 
@@ -278,6 +277,10 @@
             }).appendTo(this.element);
 
             this.updateLayout(elements.filter(':visible'));
+
+            if (this.controls && this.controls.length) {
+                this.controls.find('[data-uk-sort]').removeClass('uk-active').filter('[data-uk-sort="'+by+':'+(order == -1 ? 'desc':'asc')+'"]').addClass('uk-active');
+            }
         }
     });
 
