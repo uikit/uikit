@@ -70,6 +70,7 @@
                     e.preventDefault();
                     var cmd = UI.$(this).attr('data-uk-sort').split(':');
                     $this.sort(cmd[0], cmd[1]);
+                    $this.controls.find('[data-uk-sort]').removeClass('uk-active').filter(this).addClass('uk-active');
                 });
             }
 
@@ -85,10 +86,10 @@
                 $this.updateLayout();
             });
 
+            this.updateLayout();
+
             if (this.options.filter !== false) {
-                $this.filter(this.options.filter);
-            } else {
-                this.updateLayout();
+                this.filter(this.options.filter);
             }
         },
 
@@ -252,7 +253,7 @@
             $this.updateLayout(elements.visible);
 
             if (this.controls && this.controls.length) {
-                this.controls.find('[data-uk-filter]').removeClass('uk-active').filter(this).addClass('uk-active');
+                this.controls.find('[data-uk-filter]').removeClass('uk-active').filter('[data-uk-filter="'+filter+'"]').addClass('uk-active');
             }
         },
 
@@ -277,10 +278,6 @@
             }).appendTo(this.element);
 
             this.updateLayout(elements.filter(':visible'));
-
-            if (this.controls && this.controls.length) {
-                this.controls.find('[data-uk-sort]').removeClass('uk-active').filter(this).addClass('uk-active');
-            }
         }
     });
 
