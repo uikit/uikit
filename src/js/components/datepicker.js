@@ -168,7 +168,7 @@
 
             this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
-            this.on("click", function(){
+            this.on("click focus", function(){
                 if (active!==$this) $this.pick(this.value);
             }).on("change", function(){
 

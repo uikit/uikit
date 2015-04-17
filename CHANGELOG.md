@@ -15,6 +15,7 @@
   - Added trigger ```hide.uk.dropdown``` when dropdown is closed
   - Added location reminder to customizer when reloading the page
   - Updated error handling if lightbox resource not found
+  - Updated trigger datepicker dropdown on focus
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow on message handler
   - Fixed nestable component events + empty lists
