@@ -17,6 +17,7 @@
   - Updated error handling if lightbox resource not found
   - Updated trigger datepicker dropdown on focus
   - Fixed lightbox extension matcher is now case insensitive
+  - Fixed slideshow autoplay
   - Fixed datepicker to use minDate option as initial value if provided
   - Fixed slideshow on message handler
   - Fixed nestable component events + empty lists
