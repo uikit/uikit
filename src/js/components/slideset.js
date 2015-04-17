@@ -271,8 +271,8 @@
 
                 UI.Utils.checkDisplay(next, true);
 
-                $this.children.hide();
-                next.css({'display': '', 'opacity':''});
+                $this.children.hide().removeClass('uk-active');
+                next.addClass('uk-active').css({'display': '', 'opacity':''});
 
                 $this.animating = false;
                 $this.activeSet = setIndex;

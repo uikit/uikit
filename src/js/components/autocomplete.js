@@ -212,6 +212,10 @@
             this.visible = true;
             this.element.addClass("uk-open");
 
+            if (active && active!==this) {
+                active.hide();
+            }
+
             active = this;
 
             // Update aria

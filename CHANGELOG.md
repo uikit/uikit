@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.19.0 (April 17, 2015)
   - Added parallax component
   - Added slideset component
   - Added slider component
@@ -15,7 +15,11 @@
   - Added trigger ```hide.uk.dropdown``` when dropdown is closed
   - Added location reminder to customizer when reloading the page
   - Updated error handling if lightbox resource not found
+  - Updated trigger datepicker dropdown on focus
+  - Fixed hide opened autocomplete dropdowns on autocomplete show
   - Fixed lightbox extension matcher is now case insensitive
+  - Fixed slideshow autoplay
+  - Fixed datepicker to use minDate option as initial value if provided
   - Fixed slideshow on message handler
   - Fixed nestable component events + empty lists
   - Fixed nestable list helper function
