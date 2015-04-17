@@ -16,6 +16,7 @@
   - Added location reminder to customizer when reloading the page
   - Updated error handling if lightbox resource not found
   - Updated trigger datepicker dropdown on focus
+  - Fixed hide opened autocomplete dropdowns on autocomplete show
   - Fixed lightbox extension matcher is now case insensitive
   - Fixed slideshow autoplay
   - Fixed datepicker to use minDate option as initial value if provided
