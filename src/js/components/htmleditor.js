@@ -70,7 +70,7 @@
             this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
             this.editor.htmleditor = this;
             this.editor.on('change', UI.Utils.debounce(function() { $this.render(); }, 150));
-            this.editor.on('change', function() { 
+            this.editor.on('change', function() {
                 $this.editor.save();
                 $this.element.trigger('input');
             });
@@ -97,7 +97,7 @@
                 this.preview.container = this.preview;
             }
 
-            UI.$win.on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
+            UI.$win.on('resize load', UI.Utils.debounce(function() { $this.fit(); }, 200));
 
             var previewContainer = this.iframe ? this.preview.container:$this.preview.parent(),
                 codeContent      = this.code.find('.CodeMirror-sizer'),
