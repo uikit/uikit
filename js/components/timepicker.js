@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -17,26 +17,32 @@
 
     "use strict";
 
-    var times = {'12h':[], '24h':[]};
+    var times = {'12h':[], '24h':[]}, i, h;
 
-    for(var i = 0, h=''; i<24; i++) {
+    for (i = 0, h=''; i<24; i++) {
 
         h = ''+i;
 
-        if(i<10)  h = '0'+h;
+        if (i<10)  h = '0'+h;
 
         times['24h'].push({value: (h+':00')});
         times['24h'].push({value: (h+':30')});
 
-        if (i > 0 && i<13) {
+        if (i === 0) {
+            h = 12;
             times['12h'].push({value: (h+':00 AM')});
             times['12h'].push({value: (h+':30 AM')});
         }
 
-        if (i > 12) {
+        if (i > 0 && i<13 && i!==12) {
+            times['12h'].push({value: (h+':00 AM')});
+            times['12h'].push({value: (h+':30 AM')});
+        }
+
+        if (i >= 12) {
 
             h = h-12;
-
+            if (h === 0) h = 12;
             if (h < 10) h = '0'+String(h);
 
             times['12h'].push({value: (h+':00 PM')});

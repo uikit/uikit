@@ -20,6 +20,13 @@
 //
 // Uses:            Cover (JS)
 //
+// Markup:
+//
+// <!-- uk-slideshow -->
+// <ul class="uk-slideshow" data-uk-slideshow>
+//     <li><img src="" width="" height="" alt=""></li>
+// </ul>
+//
 // ========================================================================
 
 
@@ -54,7 +61,7 @@
 }
 
 /*
- * Sub-object slides
+ * Sub-object item
  * 1. Position items above each other
  * 2. Expand to parent container width
  * 3. Hide by default

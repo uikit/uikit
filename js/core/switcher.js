@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -71,7 +71,9 @@
                         }
                     }).on('swipeRight swipeLeft', function(e) {
                         e.preventDefault();
-                        $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                        if(!window.getSelection().toString()) {
+                            $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                        }
                     });
                 }
 

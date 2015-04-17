@@ -9,6 +9,7 @@
 //                  `uk-overlay-icon`
 //
 // Modifier:        `uk-overlay-background`
+//                  `uk-overlay-image`
 //                  `uk-overlay-top`
 //                  `uk-overlay-bottom`
 //                  `uk-overlay-left`
@@ -190,6 +191,19 @@
 .uk-overlay-background {
     background: @overlay-panel-background;
     .hook-overlay-background;
+}
+
+
+/* Modifier `uk-overlay-image`
+ ========================================================================== */
+
+/*
+ * Reset panel
+ */
+
+.uk-overlay-image {
+    padding: 0;
+    .hook-overlay-image;
 }
 
 
@@ -505,6 +519,7 @@
 
 .hook-overlay-panel() {}
 .hook-overlay-background() {}
+.hook-overlay-image() {}
 .hook-overlay-icon() {}
 .hook-overlay-misc() {}
 

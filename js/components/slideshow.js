@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -57,7 +57,7 @@
 
         init: function() {
 
-            var $this = this, canvas;
+            var $this = this, canvas, kbanimduration;
 
             this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow'));
             this.slides        = this.container.children();
@@ -66,6 +66,15 @@
             this.animating     = false;
             this.triggers      = this.find('[data-uk-slideshow-item]');
             this.fixFullscreen = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) && this.container.hasClass('uk-slideshow-fullscreen'); // viewport unit fix for height:100vh - should be fixed in iOS 8
+
+            if (this.options.kenburns) {
+
+                kbanimduration = this.options.kenburns === true ? '15s': this.options.kenburns;
+
+                if (!String(kbanimduration).match(/(ms|s)$/)) {
+                    kbanimduration += 'ms';
+                }
+            }
 
             this.slides.each(function(index) {
 
@@ -148,6 +157,14 @@
                 } else {
                     slide.data('sizer', slide);
                 }
+
+                if ($this.hasKenBurns(slide)) {
+
+                    slide.data('cover').css({
+                        '-webkit-animation-duration': kbanimduration,
+                        'animation-duration': kbanimduration
+                    });
+                }
             });
 
             this.on("click.uikit.slideshow", '[data-uk-slideshow-item]', function(e) {
@@ -183,7 +200,10 @@
                 }
             }, 100));
 
-            this.resize();
+            // chrome image load fix
+            setTimeout(function(){
+                $this.resize();
+            }, 80);
 
             // Set autoplay
             if (this.options.autoplay) {
@@ -306,11 +326,11 @@
                     '', // middle-center
                     'uk-animation-bottom-right'
                 ],
-                index = this.kbindex || 0;
+                index    = this.kbindex || 0;
 
 
             slide.data('cover').attr('class', 'uk-cover-background uk-position-cover').width();
-            slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', 'uk-animation-15', animations[index]].join(' '));
+            slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', animations[index]].join(' '));
 
             this.kbindex = animations[index + 1] ? (index+1):0;
         },
@@ -334,7 +354,7 @@
             var $this = this;
 
             this.interval = setInterval(function() {
-                if (!$this.hovering) $this.show($this.options.start, $this.next());
+                if (!$this.hovering) $this.next();
             }, this.options.autoplayInterval);
 
         },
@@ -496,7 +516,17 @@
 
     // Listen for messages from the vimeo player
     window.addEventListener('message', function onMessageReceived(e) {
-        var data = JSON.parse(e.data), iframe;
+
+        var data = e.data, iframe;
+
+        if (typeof(data) == 'string') {
+
+            try {
+                data = JSON.parse(data);
+            } catch(err) {
+                data = {};
+            }
+        }
 
         if (e.origin && e.origin.indexOf('vimeo') > -1 && data.event == 'ready' && data.player_id) {
             iframe = UI.$('[data-player-id="'+ data.player_id+'"]');

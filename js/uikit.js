@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -43,7 +43,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.18.0';
+    UI.version = '2.19.0';
 
     UI.noConflict = function() {
         // resore UIkit version
@@ -568,13 +568,20 @@
         });
     };
 
-    UI.on('domready.uk.dom', function(){
+    UI.init = function(root) {
+
+        root = root || document;
 
         UI.domObservers.forEach(function(fn){
-            fn(document);
+            fn(root);
         });
+    };
 
-        if (UI.domready) UI.Utils.checkDisplay(document);
+    UI.on('domready.uk.dom', function(){
+
+        UI.init();
+
+        if (UI.domready) UI.Utils.checkDisplay();
     });
 
     $(function(){
@@ -586,14 +593,8 @@
         });
 
         UI.on('changed.uk.dom', function(e) {
-
-            var ele = e.target;
-
-            UI.domObservers.forEach(function(fn){
-                fn(ele);
-            });
-
-            UI.Utils.checkDisplay(ele);
+            UI.init(e.target);
+            UI.Utils.checkDisplay(e.target);
         });
 
         UI.trigger('beforeready.uk.dom');
@@ -1661,7 +1662,7 @@
                         dropdown.element.trigger(triggerevent);
                     }
 
-                    if(dropdown.element.find('.uk-dropdown').length) {
+                    if (dropdown.element.find('.uk-dropdown').length) {
                         e.preventDefault();
                     }
                 }
@@ -1760,11 +1761,8 @@
 
             UI.$html.off("click.outer.dropdown");
 
-            if (active && active[0] != this.element[0]) {
-                active.removeClass('uk-open');
-
-                // Update ARIA
-                active.attr('aria-expanded', 'false');
+            if (active && active != this) {
+                active.hide();
             }
 
             if (hoverIdle) {
@@ -1780,19 +1778,26 @@
             this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
-            active = this.element;
+            active = this;
 
             this.registerOuterClick();
         },
 
         hide: function() {
             this.element.removeClass('uk-open');
+
+            if (this.remainIdle) {
+                clearTimeout(this.remainIdle);
+            }
+
             this.remainIdle = false;
 
             // Update ARIA
             this.element.attr('aria-expanded', 'false');
 
-            if (active && active[0] == this.element[0]) active = false;
+            this.trigger('hide.uk.dropdown', [this]);
+
+            if (active == this) active = false;
         },
 
         registerOuterClick: function(){
@@ -1811,7 +1816,7 @@
 
                     var $target = UI.$(e.target);
 
-                    if (active && active[0] == $this.element[0] && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
+                    if (active == $this && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
                         $this.hide();
                         UI.$html.off("click.outer.dropdown");
                     }
@@ -2131,11 +2136,11 @@
 
             this.element.removeClass("uk-open").show();
             this.resize();
-
             active = this;
-            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open");
+
+            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             // Update ARIA
             this.element.attr('aria-hidden', 'false');
@@ -2514,8 +2519,8 @@
 
             this._initElement(element);
 
-            $doc.trigger('show.uk.offcanvas', [element, bar]);
-            
+            bar.trigger('show.uk.offcanvas', [element, bar]);
+
             // Update ARIA
             element.attr('aria-hidden', 'false');
         },
@@ -2533,8 +2538,8 @@
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
-                    UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
-                    
+                    bar.trigger('hide.uk.offcanvas', [panel, bar]);
+
                     // Update ARIA
                     panel.attr('aria-hidden', 'true');
                 };
@@ -2723,7 +2728,9 @@
                         }
                     }).on('swipeRight swipeLeft', function(e) {
                         e.preventDefault();
-                        $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                        if(!window.getSelection().toString()) {
+                            $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                        }
                     });
                 }
 
@@ -2981,7 +2988,10 @@
 
             var $this = this;
 
+            this.current = false;
+
             this.on("click.uikit.tab", this.options.target, function(e) {
+
                 e.preventDefault();
 
                 if ($this.switcher && $this.switcher.animating) {
@@ -2991,7 +3001,10 @@
                 var current = $this.find($this.options.target).not(this);
 
                 current.removeClass("uk-active").blur();
-                $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active")]);
+
+                $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active"), $this.current]);
+
+                $this.current = UI.$(this);
 
                 // Update ARIA
                 if (!$this.options.connect) {

@@ -440,6 +440,8 @@ $utility-scrollable-box-border-width:            1px !default;
 /* Overflow
  ========================================================================== */
 
+.uk-overflow-hidden { overflow: hidden; }
+
 /*
  * Enable scrollbars if content is clipped
  */
@@ -506,6 +508,12 @@ $utility-scrollable-box-border-width:            1px !default;
  */
 
 .uk-position-relative { position: relative !important; }
+
+/*
+ * Z-index
+ */
+
+.uk-position-z-index { z-index: 1; }
 
 
 /* Display

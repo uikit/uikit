@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -33,7 +33,10 @@
 
             var $this = this;
 
+            this.current = false;
+
             this.on("click.uikit.tab", this.options.target, function(e) {
+
                 e.preventDefault();
 
                 if ($this.switcher && $this.switcher.animating) {
@@ -43,7 +46,10 @@
                 var current = $this.find($this.options.target).not(this);
 
                 current.removeClass("uk-active").blur();
-                $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active")]);
+
+                $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active"), $this.current]);
+
+                $this.current = UI.$(this);
 
                 // Update ARIA
                 if (!$this.options.connect) {

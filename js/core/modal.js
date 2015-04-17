@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -56,11 +56,11 @@
 
             this.element.removeClass("uk-open").show();
             this.resize();
-
             active = this;
-            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open");
+
+            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             // Update ARIA
             this.element.attr('aria-hidden', 'false');

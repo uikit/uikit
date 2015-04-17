@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -28,7 +28,6 @@
             autocomplete : true,
             height       : 500,
             maxsplitsize : 1000,
-            markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
             codemirror   : { mode: 'htmlmixed', lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, indentWithTabs: false, tabSize: 4, hintOptions: {completionSingle:false} },
             toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
             lblPreview   : 'Preview',
@@ -72,7 +71,10 @@
             this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
             this.editor.htmleditor = this;
             this.editor.on('change', UI.Utils.debounce(function() { $this.render(); }, 150));
-            this.editor.on('change', function() { $this.editor.save(); });
+            this.editor.on('change', function() {
+                $this.editor.save();
+                $this.element.trigger('input');
+            });
             this.code.find('.CodeMirror').css('height', this.options.height);
 
             // iframe mode?
@@ -96,7 +98,7 @@
                 this.preview.container = this.preview;
             }
 
-            UI.$win.on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
+            UI.$win.on('resize load', UI.Utils.debounce(function() { $this.fit(); }, 200));
 
             var previewContainer = this.iframe ? this.preview.container:$this.preview.parent(),
                 codeContent      = this.code.find('.CodeMirror-sizer'),
@@ -506,14 +508,12 @@
 
         init: function(editor) {
 
-            var parser = editor.options.marked || marked;
+            var parser = editor.options.mdparser || marked || null;
 
             if (!parser) return;
 
-            parser.setOptions(editor.options.markedOptions);
-
             if (editor.options.markdown) {
-                enableMarkdown()
+                enableMarkdown();
             }
 
             addAction('bold', '**$1**');

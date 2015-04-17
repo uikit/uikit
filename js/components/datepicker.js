@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -169,8 +169,8 @@
 
             this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
-            this.on("click", function(){
-                if (active!==$this) $this.pick(this.value);
+            this.on("click focus", function(){
+                if (active!==$this) $this.pick(this.value ? this.value:($this.options.minDate ? $this.options.minDate :''));
             }).on("change", function(){
 
                 if ($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {

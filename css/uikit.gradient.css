@@ -1,4 +1,4 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5842,6 +5842,14 @@ a.uk-thumbnail:focus {
 .uk-overlay-background {
   background: rgba(0, 0, 0, 0.5);
 }
+/* Modifier `uk-overlay-image`
+ ========================================================================== */
+/*
+ * Reset panel
+ */
+.uk-overlay-image {
+  padding: 0;
+}
 /* Position modifiers
  ========================================================================== */
 .uk-overlay-top {
@@ -6833,8 +6841,6 @@ a.uk-thumbnail:focus {
   background: #ffffff;
   color: #444444;
   left: -1px;
-  border: 1px solid #cbcbcb;
-  border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .uk-open > .uk-dropdown-navbar {
@@ -6864,6 +6870,7 @@ a.uk-thumbnail:focus {
  * 4. Mask the background page
  * 5. Fade-in transition
  * 6. Deactivate browser history navigation in IE11
+ * 7. force hardware acceleration to prevent browser rendering hiccups
  */
 .uk-modal {
   /* 1 */
@@ -6886,6 +6893,9 @@ a.uk-thumbnail:focus {
   transition: opacity 0.15s linear;
   /* 6 */
   touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+  /* 7 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 /*
  * Open state
@@ -6972,7 +6982,6 @@ a.uk-thumbnail:focus {
 .uk-modal-dialog-lightbox {
   margin: 15px auto;
   padding: 0;
-  min-height: 200px;
   max-width: 95%;
   max-width: calc(100% - 30px);
   border-radius: 0;
@@ -7657,6 +7666,9 @@ a.uk-thumbnail:focus {
 }
 /* Overflow
  ========================================================================== */
+.uk-overflow-hidden {
+  overflow: hidden;
+}
 /*
  * Enable scrollbars if content is clipped
  */
@@ -7713,6 +7725,12 @@ a.uk-thumbnail:focus {
  */
 .uk-position-relative {
   position: relative !important;
+}
+/*
+ * Z-index
+ */
+.uk-position-z-index {
+  z-index: 1;
 }
 /* Display
  ========================================================================== */
