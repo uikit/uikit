@@ -199,7 +199,7 @@
             // calculate width
             var tmp = UI.$('<div>&nbsp;</div>').css({
                 'opacity'   : 0,
-                'position'  : 'absolute',
+                'position'  : 'relative',
                 'top'       : 0,
                 'left'      : 0,
                 'width'     : '100%',
@@ -210,7 +210,7 @@
 
             tmp.appendTo('body').width();
 
-            maxwidth  = tmp.width();
+            maxwidth  = tmp.width() - pad;
             maxheight = window.innerHeight - dpad;
 
             tmp.remove();
@@ -224,7 +224,7 @@
 
             if (maxwidth < data.meta.width) {
 
-                h = Math.floor( h * (maxwidth / w) );
+                h = Math.round( h * (maxwidth / w) );
                 w = maxwidth;
             }
 
