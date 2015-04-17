@@ -169,7 +169,7 @@
             this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
             this.on("click focus", function(){
-                if (active!==$this) $this.pick(this.value);
+                if (active!==$this) $this.pick(this.value ? this.value:($this.options.minDate ? $this.options.minDate :''));
             }).on("change", function(){
 
                 if ($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
