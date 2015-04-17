@@ -74,7 +74,13 @@
             }
 
             UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
-                this.updateLayout();
+
+                if ($this.currentfilter) {
+                    $this.filter($this.currentfilter);
+                } else {
+                    this.updateLayout();
+                }
+
             }.bind(this), 100));
 
             this.on('display.uk.check', function(){
@@ -85,10 +91,10 @@
                 $this.updateLayout();
             });
 
-            this.updateLayout();
-
             if (this.options.filter !== false) {
                 this.filter(this.options.filter);
+            } else {
+                this.updateLayout();
             }
         },
 
@@ -217,6 +223,8 @@
         },
 
         filter: function(filter) {
+
+            this.currentfilter = filter;
 
             filter = filter || [];
 

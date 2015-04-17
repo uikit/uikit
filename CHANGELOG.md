@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.19.0 (April 17, 2015)
   - Added parallax component
   - Added slideset component
   - Added slider component
