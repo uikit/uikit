@@ -42,7 +42,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.18.0';
+    UI.version = '2.19.0';
 
     UI.noConflict = function() {
         // resore UIkit version
@@ -567,13 +567,20 @@
         });
     };
 
-    UI.on('domready.uk.dom', function(){
+    UI.init = function(root) {
+
+        root = root || document;
 
         UI.domObservers.forEach(function(fn){
-            fn(document);
+            fn(root);
         });
+    };
 
-        if (UI.domready) UI.Utils.checkDisplay(document);
+    UI.on('domready.uk.dom', function(){
+
+        UI.init();
+
+        if (UI.domready) UI.Utils.checkDisplay();
     });
 
     $(function(){
@@ -585,14 +592,8 @@
         });
 
         UI.on('changed.uk.dom', function(e) {
-
-            var ele = e.target;
-
-            UI.domObservers.forEach(function(fn){
-                fn(ele);
-            });
-
-            UI.Utils.checkDisplay(ele);
+            UI.init(e.target);
+            UI.Utils.checkDisplay(e.target);
         });
 
         UI.trigger('beforeready.uk.dom');

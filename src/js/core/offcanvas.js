@@ -33,8 +33,8 @@
 
             this._initElement(element);
 
-            $doc.trigger('show.uk.offcanvas', [element, bar]);
-            
+            bar.trigger('show.uk.offcanvas', [element, bar]);
+
             // Update ARIA
             element.attr('aria-hidden', 'false');
         },
@@ -52,8 +52,8 @@
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
-                    UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
-                    
+                    bar.trigger('hide.uk.offcanvas', [panel, bar]);
+
                     // Update ARIA
                     panel.attr('aria-hidden', 'true');
                 };

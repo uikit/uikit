@@ -23,7 +23,8 @@
             animation : true,
             duration  : 300,
             gutter    : 0,
-            controls  : false
+            controls  : false,
+            filter    : false
         },
 
         boot:  function() {
@@ -44,41 +45,43 @@
 
         init: function() {
 
-            var $this = this;
+            var $this = this, gutter = String(this.options.gutter).trim().split(' ');
+
+            this.gutterv  = parseInt(gutter[0], 10);
+            this.gutterh  = parseInt((gutter[1] || gutter[0]), 10);
 
             // make sure parent element has the right position property
             this.element.css({'position': 'relative'});
 
+            this.controls = null;
+
             if (this.options.controls) {
 
-                var controls  = UI.$(this.options.controls),
-                    activeCls = 'uk-active';
+                this.controls = UI.$(this.options.controls);
 
                 // filter
-                controls.on('click', '[data-uk-filter]', function(e){
+                this.controls.on('click', '[data-uk-filter]', function(e){
                     e.preventDefault();
                     $this.filter(UI.$(this).data('ukFilter'));
-
-                    controls.find('[data-uk-filter]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
 
                 // sort
-                controls.on('click', '[data-uk-sort]', function(e){
+                this.controls.on('click', '[data-uk-sort]', function(e){
                     e.preventDefault();
-
                     var cmd = UI.$(this).attr('data-uk-sort').split(':');
-
                     $this.sort(cmd[0], cmd[1]);
-
-                    controls.find('[data-uk-sort]').removeClass(activeCls).filter(this).addClass(activeCls);
                 });
             }
 
             UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
-                this.updateLayout();
-            }.bind(this), 100));
 
-            this.updateLayout();
+                if ($this.currentfilter) {
+                    $this.filter($this.currentfilter);
+                } else {
+                    this.updateLayout();
+                }
+
+            }.bind(this), 100));
 
             this.on('display.uk.check', function(){
                 if ($this.element.is(":visible"))  $this.updateLayout();
@@ -87,6 +90,12 @@
             UI.$html.on("changed.uk.dom", function(e) {
                 $this.updateLayout();
             });
+
+            if (this.options.filter !== false) {
+                this.filter(this.options.filter);
+            } else {
+                this.updateLayout();
+            }
         },
 
         _prepareElements: function() {
@@ -105,10 +114,11 @@
             };
 
             if (this.options.gutter) {
-                css['padding-left']   = this.options.gutter;
-                css['padding-bottom'] = this.options.gutter;
 
-                this.element.css('margin-left', this.options.gutter * -1);
+                css['padding-left']   = this.gutterh;
+                css['padding-bottom'] = this.gutterv;
+
+                this.element.css('margin-left', this.gutterh * -1);
             }
 
             children.attr('data-grid-prepared', 'true').css(css);
@@ -121,9 +131,8 @@
             elements = elements || this.element.children(':visible');
 
             var $this     = this,
-                gutter    = this.options.gutter,
                 children  = elements,
-                maxwidth  = this.element.width() + (2*gutter) + 2,
+                maxwidth  = this.element.width() + (2*this.gutterh) + 2,
                 left      = 0,
                 top       = 0,
                 positions = [],
@@ -186,7 +195,7 @@
                 maxHeight = Math.max(maxHeight, pos.aY);
             }
 
-            maxHeight = maxHeight - gutter;
+            maxHeight = maxHeight - this.gutterv;
 
             if (this.options.animation) {
 
@@ -214,6 +223,8 @@
         },
 
         filter: function(filter) {
+
+            this.currentfilter = filter;
 
             filter = filter || [];
 
@@ -247,6 +258,10 @@
             elements.visible.attr('aria-hidden', 'false').filter(':hidden').css('opacity', 0).show();
 
             $this.updateLayout(elements.visible);
+
+            if (this.controls && this.controls.length) {
+                this.controls.find('[data-uk-filter]').removeClass('uk-active').filter('[data-uk-filter="'+filter+'"]').addClass('uk-active');
+            }
         },
 
         sort: function(by, order){
@@ -270,6 +285,10 @@
             }).appendTo(this.element);
 
             this.updateLayout(elements.filter(':visible'));
+
+            if (this.controls && this.controls.length) {
+                this.controls.find('[data-uk-sort]').removeClass('uk-active').filter('[data-uk-sort="'+by+':'+(order == -1 ? 'desc':'asc')+'"]').addClass('uk-active');
+            }
         }
     });
 

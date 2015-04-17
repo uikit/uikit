@@ -10,8 +10,24 @@
 
         <script src="../_test.js"></script>
         <script src="../../vendor/codemirror/codemirror.js"></script>
+
         <script src="../../vendor/marked.js"></script>
+        <script src="../../vendor/commonmark.js"></script>
         <script src="../../src/js/components/htmleditor.js"></script>
+
+        <script>
+            (function() {
+
+                var reader = new commonmark.Parser();
+                var writer = new commonmark.HtmlRenderer();
+
+                window.commonmarkparser = function(text){
+                    var tree = reader.parse(text);
+                    return writer.render(tree);
+                };
+
+            })();
+        </script>
     </head>
 
     <body>
@@ -66,8 +82,11 @@
             <h3>Tab mode</h3>
             <textarea data-uk-htmleditor="{mode:'tab'}" placeholder="Enter code..."></textarea>
 
-            <h3>Split mode with markdown rendering</h3>
+            <h3>Split mode with markdown rendering (marked)</h3>
             <textarea data-uk-htmleditor="{markdown:true}">**test**</textarea>
+
+            <h3>Split mode with markdown rendering (commonmark)</h3>
+            <textarea data-uk-htmleditor="{markdown:true, mdparser: window.commonmarkparser}">**test**</textarea>
 
         </div>
 

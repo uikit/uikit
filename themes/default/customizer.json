@@ -39,8 +39,8 @@
             ],
             "options": [
                 {"name": "Fade", "value": "uk-fade"},
-                {"name": "Slide-Down", "value": "uk-slide-bottom-fixed"},
-                {"name": "Slide-Up", "value": "uk-slide-top-fixed"}
+                {"name": "Slide-Up", "value": "uk-slide-bottom-fixed"},
+                {"name": "Slide-Down", "value": "uk-slide-top-fixed"}
             ]
         },
         {
@@ -288,13 +288,6 @@
             ]
         },
         {
-            "label": "Progress",
-            "advanced": true,
-            "vars": [
-                "@progress-*"
-            ]
-        },
-        {
             "label": "Subnav",
             "advanced": true,
             "vars": [
@@ -327,13 +320,6 @@
             "advanced": true,
             "vars": [
                 "@thumbnail-*"
-            ]
-        },
-        {
-            "label": "Tooltip",
-            "advanced": true,
-            "vars": [
-                "@tooltip-*"
             ]
         },
         {

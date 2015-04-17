@@ -1,5 +1,34 @@
 # Changelog
 
+### 2.19.0 (April 17, 2015)
+  - Added parallax component
+  - Added slideset component
+  - Added slider component
+  - Added custom animation duration for kenburns effect (slideshow component)
+  - Added support for overlaying an image with a second image to overlay component
+  - Added position class to set a z-index
+  - Added overflow hidden class to utility component
+  - Added trigger 'input' after htmleditor change
+  - Added filter option to dynamic grid
+  - Added define horizontal and vertical gutter for dynamic grid
+  - Added UIkit.init([rootelement]) added to manually init js components
+  - Added trigger ```hide.uk.dropdown``` when dropdown is closed
+  - Added location reminder to customizer when reloading the page
+  - Updated error handling if lightbox resource not found
+  - Updated trigger datepicker dropdown on focus
+  - Fixed hide opened autocomplete dropdowns on autocomplete show
+  - Fixed lightbox extension matcher is now case insensitive
+  - Fixed slideshow autoplay
+  - Fixed datepicker to use minDate option as initial value if provided
+  - Fixed slideshow on message handler
+  - Fixed nestable component events + empty lists
+  - Fixed nestable list helper function
+  - Fixed nestable event arguments
+  - Fixed 12hr format for Timepicker
+  - Fixed switcher text selection for IE11
+  - Fixed slideshow jumping in chrome
+  - Fixed scrolling on large modal dialogs
+
 ### 2.18.0 (March 11, 2015)
 
   - Added ARIA support to JavaScript components

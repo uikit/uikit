@@ -1,21 +1,21 @@
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
- (function(addon) {
+(function(addon) {
 
-     var component;
+    var component;
 
-     if (window.UIkit) {
-         component = addon(UIkit);
-     }
+    if (window.UIkit) {
+        component = addon(UIkit);
+    }
 
-     if (typeof define == "function" && define.amd) {
-         define("uikit-nestable", ["uikit"], function(){
-             return component || addon(UIkit);
-         });
-     }
+    if (typeof define == "function" && define.amd) {
+        define("uikit-nestable", ["uikit"], function(){
+            return component || addon(UIkit);
+        });
+    }
 
- })(function(UI) {
+})(function(UI) {
 
     "use strict";
 
@@ -23,7 +23,7 @@
         html         = UI.$html,
         touchedlists = [],
         $win         = UI.$win,
-        draggingElement;
+        draggingElement, dragSource;
 
     /**
      * Detect CSS pointer-events property
@@ -236,7 +236,9 @@
                         if (sub.length) {
                             item.children = step(sub, depth + 1);
                         }
+
                         array.push(item);
+
                     });
                     return array;
                 };
@@ -247,8 +249,6 @@
         },
 
         list: function(options) {
-
-            options = UI.$.extend({}, list.options, options);
 
             var data  = [],
                 list  = this,
@@ -269,6 +269,8 @@
                         }
                     });
                 };
+
+            options = UI.$.extend({}, list.options, options);
 
             step(list.element, depth);
 
@@ -304,9 +306,8 @@
             this.pointEl    = null;
 
             for (var i=0; i<touchedlists.length; i++) {
-                if (!touchedlists[i].children().length) {
-                    touchedlists[i].append(this.tplempty);
-                }
+
+                this.checkEmptyList(touchedlists[i]);
             }
 
             touchedlists = [];
@@ -402,21 +403,25 @@
         },
 
         dragStop: function(e) {
+
             // fix for zepto.js
             //this.placeEl.replaceWith(this.dragEl.children(this.options.itemNodeName + ':first').detach());
-            var el = this.dragEl.children(this.options.itemNodeName).first();
+            var el   = this.dragEl.children(this.options.itemNodeName).first(),
+                root = this.placeEl.parents('.'+this.options.listBaseClass+':first');
+
             el[0].parentNode.removeChild(el[0]);
+
             this.placeEl.replaceWith(el);
 
             this.dragEl.remove();
 
-            if (this.hasNewRoot || this.tmpDragOnSiblings[0]!=el[0].previousSibling || (this.tmpDragOnSiblings[1] && this.tmpDragOnSiblings[1]!=el[0].nextSibling)) {
+            if (this.element[0] !== root[0]) {
 
-                this.element.trigger('change.uk.nestable',[el, this.hasNewRoot ? "added":"moved", this.dragRootEl]);
+                root.trigger('change.uk.nestable',[el, "added", root, root.data('nestable')]);
+                this.element.trigger('change.uk.nestable', [el, "removed", this.element, this]);
 
-                if (this.hasNewRoot) {
-                    this.dragRootEl.trigger('change.uk.nestable', [el, "removed", this.dragRootEl]);
-                }
+            } else {
+                this.element.trigger('change.uk.nestable',[el, "moved", this.element, this]);
             }
 
             this.trigger('stop.uk.nestable', [this, el]);
@@ -535,7 +540,7 @@
 
                 var nestableitem = this.pointEl.closest('.'+opt.itemClass);
 
-                if(nestableitem.length) {
+                if (nestableitem.length) {
                     this.pointEl = nestableitem.closest(opt.itemNodeName);
                 }
             }
@@ -552,15 +557,15 @@
             // find parent list of item under cursor
             var pointElRoot = this.element,
                 tmpRoot     = this.pointEl.closest('.'+this.options.listBaseClass),
-                isNewRoot   = pointElRoot[0] !== this.pointEl.closest('.'+this.options.listBaseClass)[0],
-                $newRoot    = tmpRoot;
+                isNewRoot   = pointElRoot[0] !== this.pointEl.closest('.'+this.options.listBaseClass)[0];
 
             /**
              * move vertical
              */
             if (!mouse.dirAx || isNewRoot || isEmpty) {
+
                 // check if groups match if dragging over new root
-                if (isNewRoot && opt.group !== $newRoot.data('nestable-group')) {
+                if (isNewRoot && opt.group !== tmpRoot.data('nestable-group')) {
                     return;
                 } else {
                     touchedlists.push(pointElRoot);
@@ -590,15 +595,23 @@
                     if(!parent.data("nestable")) this.unsetParent(parent.parent());
                 }
 
-                if (!this.dragRootEl.find(opt.itemNodeName).length && !this.dragRootEl.children().length) {
-                    this.dragRootEl.append(this.tplempty);
-                }
+                this.checkEmptyList(this.dragRootEl);
+                this.checkEmptyList(pointElRoot);
 
                 // parent root list has changed
                 if (isNewRoot) {
                     this.dragRootEl = tmpRoot;
                     this.hasNewRoot = this.element[0] !== this.dragRootEl[0];
                 }
+            }
+        },
+
+        checkEmptyList: function(list) {
+
+            list  = list ? UI.$(list) : this.element;
+
+            if (!list.children().length) {
+                list.find('.'+this.options.emptyClass).remove().end().append(this.tplempty);
             }
         }
 

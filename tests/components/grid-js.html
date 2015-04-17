@@ -126,12 +126,12 @@
             <h2>Filtering</h2>
 
             <ul id="filter" class="uk-subnav">
+                <li class="uk-active" data-uk-filter=""><a href="#">All</a></li>
                 <li data-uk-filter="test-a"><a href="#">Test A</a></li>
                 <li data-uk-filter="test-b"><a href="#">Test B</a></li>
-                <li class="uk-active" data-uk-filter=""><a href="#">Reset</a></li>
             </ul>
 
-            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{controls: '#filter'}">
+            <div class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{controls: '#filter', filter:'test-a'}">
 
                 <div data-uk-filter="test-a">
                     <div class="uk-panel">A 1</div>
