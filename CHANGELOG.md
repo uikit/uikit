@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - Added heading hooks to base component
   - Fixed link reset on focus
 
 ### 2.19.0 (April 17, 2015)
