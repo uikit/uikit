@@ -1,5 +1,8 @@
 # Changelog
 
+### WIP
+  - Fixed link reset on focus
+
 ### 2.19.0 (April 17, 2015)
   - Added parallax component
   - Added slideset component
