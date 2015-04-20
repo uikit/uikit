@@ -4,6 +4,7 @@
   - Added heading hooks to base component
   - Fixed link reset on focus
   - Fixed overflow hidden on expanded accordion content
+  - Fixed smooth scroll options with offcanvas menu links 
 
 ### 2.19.0 (April 17, 2015)
   - Added parallax component
