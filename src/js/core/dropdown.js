@@ -99,8 +99,12 @@
                         clearTimeout(hoverIdle);
                     }
 
+                    if (active && active == $this) {
+                        return;
+                    }
+
                     // pseudo manuAim
-                    if (active && active != this) {
+                    if (active && active != $this) {
 
                         hoverIdle = setTimeout(function() {
                             hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
@@ -118,7 +122,7 @@
                     }
 
                     $this.remainIdle = setTimeout(function() {
-                        $this.hide();
+                        if (active && active == $this) $this.hide();
                     }, $this.options.remaintime);
 
                 }).on("click", function(e){
