@@ -261,7 +261,7 @@
 
         show: function(index, direction) {
 
-            if (this.animating) return;
+            if (this.animating || this.current == index) return;
 
             this.animating = true;
 
