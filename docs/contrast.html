@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Components - UIkit documentation</title>
+        <title>Contrast component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -57,6 +57,7 @@
                             <li><a href="article.html">Article</a></li>
                             <li><a href="comment.html">Comment</a></li>
                             <li><a href="utility.html">Utility</a></li>
+                            <li class="uk-active"><a href="contrast.html">Contrast</a></li>
                             <li><a href="flex.html">Flex</a></li>
                             <li><a href="cover.html">Cover</a></li>
 
@@ -102,135 +103,76 @@
 
                         <article class="uk-article">
 
-                            <h1 class="uk-article-title">Core</h1>
+                            <h1 class="uk-article-title">Contrast</h1>
 
-                            <p class="uk-article-lead">All UIkit core components at a glance.</p>
+                            <p class="uk-article-lead">Improve the appearance of elements when placing them on colored backgrounds or images.</p>
 
-                            <p>UIkit offers over 30 modular and extendible components, which can be combined with each other. Components are divided into different compartments according to their purpose and functionality.</p>
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <div class="uk-grid" data-uk-grid-margin>
+                            <p>To apply this component, just add the <code>.uk-contrast</code> class to a container or the element whose color you would like to adjust. Text, <a href="button.html">Buttons</a>, the nav side from the <a href="nav.html#style-modifiers">Nav component</a>, the subnav line and subnav pill from the <a href="subnav.html#modifiers">Subnav component</a>, <a href="icon.html">Icons</a>, default forms from the <a href="form.html">Form component</a> as well as the list line from the <a href="llist.html#modifiers">List component</a> will automatically change their appearence.</p>
 
-                                <div class="uk-width-medium-1-3">
-                                    <div class="uk-panel">
-                                        <h2 class="uk-panel-title">Defaults</h2>
-                                        <p>These components generally normalize HTML elements for cross browser functionality and add some very basic styling.</p>
+                            <p>This comes in really handy when placing content inside differently colored blocks from the <a href="block.html">Block component</a> or on top of images.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-block uk-block-secondary uk-contrast">
+
+                                <div class="uk-container">
+
+                                    <div class="uk-grid uk-grid-match" data-uk-grid-margin>
+                                        <div class="uk-width-medium-1-3">
+                                            <div class="uk-panel">
+                                                <h3>Text</h3>
+                                                <p>Lorem ipsum <a href="#">dolor sit</a> amet, consectetur adipisicing elit.</p>
+
+                                                <h3>Form</h3>
+                                                <form class="uk-form">
+                                                    <div class="uk-form-row">
+                                                        <input type="text" placeholder=":focus">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-3">
+                                            <div class="uk-panel">
+                                                <h3>Button</h3>
+                                                <p><button class="uk-button">Button</button> <button class="uk-button uk-button-primary">Button</button></p>
+
+                                                <h3>Icon</h3>
+                                                <p>
+                                                    <a href="#" class="uk-icon-hover uk-icon-medium uk-icon-github"></a>
+                                                    <a href="#" class="uk-icon-hover uk-icon-medium uk-icon-twitter"></a>
+                                                    <a href="#" class="uk-icon-button uk-icon-dribbble"></a>
+                                                    <a href="#" class="uk-icon-button uk-icon-html5"></a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-3">
+                                            <div class="uk-panel">
+                                                <h3>Subnav</h3>
+                                                <ul class="uk-subnav uk-subnav-pill">
+                                                    <li class="uk-active"><a href="#">Active</a></li>
+                                                    <li><a href="#">Item</a></li>
+                                                    <li class="uk-disabled"><a href="#">Disabled</a></li>
+                                                </ul>
+
+                                                <ul class="uk-nav uk-nav-side">
+                                                    <li class="uk-nav-header">Nav Side</li>
+                                                    <li class="uk-nav-divider"></li>
+                                                    <li class="uk-active"><a href="#">Active</a></li>
+                                                    <li><a href="#">Item</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="uk-width-medium-1-3">
-                                    <div class="uk-panel">
-                                        <h2 class="uk-panel-title">Layout</h2>
-                                        <p>Apply our fully responsive fluid grid system and panels, common layout parts like blog articles and comments and useful utility classes.</p>
-                                    </div>
-                                </div>
-                                <div class="uk-width-medium-1-3">
-                                    <div class="uk-panel">
-                                        <h2 class="uk-panel-title">Navigations</h2>
-                                        <p>UIkit offers different types of navigations, like navigation bars and side navigations. Use breadcrumbs or a pagination to steer through articles.</p>
-                                    </div>
+
                                 </div>
 
                             </div>
 
-                            <div class="uk-grid" data-uk-grid-margin>
+                            <h3 class="tm-article-subtitle">Markup</h3>
 
-                                <div class="uk-width-medium-1-3">
-                                    <div class="uk-panel">
-                                        <h2 class="uk-panel-title">Elements</h2>
-                                        <p>Style basic HTML elements, like tables and forms. These components use their own classes. They won't interfere with any default element styling.</p>
-                                    </div>
-                                </div>
-                                <div class="uk-width-medium-1-3">
-                                    <div class="uk-panel">
-                                        <h2 class="uk-panel-title">Common</h2>
-                                        <p>Here you'll find components that you often use within your content, like buttons, icons, badges, overlays, animations and much more.</p>
-                                    </div>
-                                </div>
-                                <div class="uk-width-medium-1-3">
-                                    <div class="uk-panel">
-                                        <h2 class="uk-panel-title">JavaScript</h2>
-                                        <p>These components rely mostly on JavaScript to fade in hidden content, like dropdowns, modal dialogs, off-canvas bars and tooltips.</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <hr class="uk-article-divider">
-
-                            <h2 id="breakpoints"><a href="#breakpoints" class="uk-link-reset">Breakpoints</a></h2>
-
-                            <p>UIkit includes a number of responsive classes to style your content for different viewport widths. This table gives you an overview of the available breakpoints and the associated devices. You can adjust all breakpoints through the <a href="customizer.html">Customizer</a>.</p>
-
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>Size</th>
-                                        <th>Breakpoints</th>
-                                        <th>Device</th>
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Mini</td>
-                                            <td>up to 479px</td>
-                                            <td>Phones portrait</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Small</td>
-                                            <td>480px to 767px</td>
-                                            <td>Phones landscape</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Medium</td>
-                                            <td>768px to 959px</td>
-                                            <td>Tablets portrait</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Large</td>
-                                            <td>960px to 1199px</td>
-                                            <td>Desktops &amp; tablets landscape</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Xlarge</td>
-                                            <td>1200px and larger</td>
-                                            <td>Large Desktops</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <hr class="uk-article-divider">
-
-                            <h2 id="css-architecture"><a href="#css-architecture" class="uk-link-reset">CSS architecture</a></h2>
-
-                            <p>To avoid conflicts with other CSS frameworks, all UIkit classes are name-spaced with the <code>uk-</code> prefix. Components are divided into the component itself, sub-objects and modifiers, whose class names always pick up the component name.</p>
-
-                            <h3>Definitions</h3>
-
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Object</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Component</td>
-                                            <td>Components abstract recurring parts of a website into class-based modules, like buttons for example. These can be reused and combined.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sub-object</td>
-                                            <td>Sub-objects are placed within a component to enhance its funtionality, for example a close button in an alert box.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Modifier</td>
-                                            <td>Modifier classes alter the style of components and their sub-objects, like button colors and sizes.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+<pre><code>&lt;div class="uk-contrast"&gt;...&lt;/div&gt;</code></pre>
 
                         </article>
 
@@ -263,7 +205,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
+                    <li class="uk-parent"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -286,7 +228,7 @@
                             <li><a href="print.html">Print</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
                             <li><a href="grid.html">Grid</a></li>
                             <li><a href="panel.html">Panel</a></li>
@@ -294,6 +236,7 @@
                             <li><a href="article.html">Article</a></li>
                             <li><a href="comment.html">Comment</a></li>
                             <li><a href="utility.html">Utility</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
                             <li><a href="flex.html">Flex</a></li>
                             <li><a href="cover.html">Cover</a></li>
                         </ul>
