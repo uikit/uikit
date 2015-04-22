@@ -77,7 +77,7 @@
                 $this.element.removeClass("uk-active");
             });
 
-            this.on('select.uk.autocomplete', function(e, data) {
+            this.on('selectitem.uk.autocomplete', function(e, data) {
                 if (data.url) {
                   location.href = data.url;
                 } else if(data.moreresults) {
