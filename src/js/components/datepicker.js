@@ -226,26 +226,15 @@
                 css.left  = "";
             }
 
-            var posTop = (offset.top - this.element.outerHeight() + this.element.height()) - this.options.offsettop - dropdown.outerHeight(),
+            var posTop    = (offset.top - this.element.outerHeight() + this.element.height()) - this.options.offsettop - dropdown.outerHeight(),
                 posBottom = offset.top + this.element.outerHeight() + this.options.offsettop;
 
-            // set the position of the datepicker
-            switch (this.options.pos) {
-                case 'auto':
-                    if (window.innerHeight - posBottom - dropdown.outerHeight() < 0 && posTop >= 0) {
-                        // if under the element is not enough space AND above the element is enough space
-                        css.top = posTop;
-                    }
-                    else {
-                        css.top = posBottom;
-                    }
-                    break;
-                case 'top':
-                    css.top = posTop;
-                    break;
-                case 'bottom':
-                    css.top = posBottom;
-                    break;
+            css.top = posBottom;
+
+            if (this.options.pos == 'top') {
+                css.top = posTop;
+            } else if(this.options.pos == 'auto' && (window.innerHeight - posBottom - dropdown.outerHeight() < 0 && posTop >= 0) ) {
+                css.top = posTop;
             }
 
             dropdown.css(css).show();
