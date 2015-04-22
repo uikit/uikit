@@ -3,6 +3,7 @@
 ### WIP
   - Added heading hooks to base component
   - Added autoplay to slideset component
+  - Added position option to datepicker
   - Updated hover delay for dropdown component
   - Fixed link reset on focus
   - Fixed overflow hidden on expanded accordion content

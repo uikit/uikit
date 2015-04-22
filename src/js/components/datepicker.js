@@ -33,6 +33,7 @@
             offsettop: 5,
             maxDate: false,
             minDate: false,
+            pos: 'auto',
             template: function(data, opts) {
 
                 var content = '', maxDate, minDate, i;
@@ -213,7 +214,7 @@
         pick: function(initdate) {
 
             var offset = this.element.offset(),
-                css    = {"top": offset.top + this.element.outerHeight() + this.options.offsettop, "left": offset.left, "right":""};
+                css    = {"left": offset.left, "right":""};
 
             this.current  = initdate ? moment(initdate, this.options.format):moment();
             this.initdate = this.current.format("YYYY-MM-DD");
@@ -223,6 +224,28 @@
             if (UI.langdirection == 'right') {
                 css.right = window.innerWidth - (css.left + this.element.outerWidth());
                 css.left  = "";
+            }
+
+            var posTop = (offset.top - this.element.outerHeight() + this.element.height()) - this.options.offsettop - dropdown.outerHeight(),
+                posBottom = offset.top + this.element.outerHeight() + this.options.offsettop;
+
+            // set the position of the datepicker
+            switch (this.options.pos) {
+                case 'auto':
+                    if (window.innerHeight - posBottom - dropdown.outerHeight() < 0 && posTop >= 0) {
+                        // if under the element is not enough space AND above the element is enough space
+                        css.top = posTop;
+                    }
+                    else {
+                        css.top = posBottom;
+                    }
+                    break;
+                case 'top':
+                    css.top = posTop;
+                    break;
+                case 'bottom':
+                    css.top = posBottom;
+                    break;
             }
 
             dropdown.css(css).show();
