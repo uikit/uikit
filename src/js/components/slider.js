@@ -163,11 +163,11 @@
 
                 // fill with cloned items
                 this.items.each(function(idx){
-                   $this.container.append($this.items.eq(idx).clone(true));
+                   $this.container.append($this.items.eq(idx).clone(true).attr('id', ''));
                 });
 
                 this.items.each(function(idx){
-                   $this.container.append($this.items.eq(idx).clone(true));
+                   $this.container.append($this.items.eq(idx).clone(true).attr('id', ''));
                 });
 
                 this.itemsResized = true;
@@ -280,98 +280,73 @@
 
         infinite: function(baseidx, direction) {
 
-            var $this = this, item = this.items.eq(baseidx), i, z = baseidx, move, lastvisible;
+            var $this = this, item = this.items.eq(baseidx), i, z = baseidx, move = [], lastvisible, area = 0;
 
             if (direction == 1) {
 
-                var maxleft = 0;
 
                 for (i=0;i<this.items.length;i++) {
 
-                    if (this.items.eq(z).data('left') > maxleft) {
-                        lastvisible = this.items.eq(z);
-                        maxleft = lastvisible.data('left');
+                    if (z != baseidx) {
+                        area += this.items.eq(z).data('width');
+                        move.push(this.items.eq(z));
+                    }
+
+                    if (area > this.vp) {
+                        break;
                     }
 
                     z = z+1 == this.items.length ? 0:z+1;
                 }
 
-                if (lastvisible && lastvisible.data('left') - item.data('left') <= this.vp) {
+                if (move.length) {
 
-                    move = this.items.eq(this.items[lastvisible.data('idx') + 1] ? lastvisible.data('idx') + 1 : 0);
-                    move.css({'left': lastvisible.data('area')}).data({
-                        'left'  : lastvisible.data('area'),
-                        'area'  : (lastvisible.data('area')+move.data('width')),
-                        'center': ((lastvisible.data('area')+move.data('width')) - (this.vp/2 - move.data('width')/2))
+                    move.forEach(function(itm){
+
+                        var left = item.data('area');
+
+                        itm.css({'left': left}).data({
+                            'left'  : left,
+                            'area'  : (left+itm.data('width')),
+                            'center': (left - ($this.vp/2 - itm.data('width')/2))
+                        });
+
+                        item = itm;
                     });
                 }
 
+
             } else {
 
-                if (this.options.center) {
+                for (i=this.items.length-1;i >-1 ;i--) {
 
-                    var area = 0;
+                    area += this.items.eq(z).data('width');
 
-                    move = [];
-
-                    for (i=this.items.length-1;i<this.items.length;i--) {
-
-                        area += this.items.eq(z).data('width');
-
-                        if (z != baseidx) {
-                            move.push(this.items.eq(z));
-                        }
-
-                        if (area > this.vp) {
-                            break;
-                        }
-
-                        z = z-1 == -1 ? this.items.length-1:z-1;
+                    if (z != baseidx) {
+                        move.push(this.items.eq(z));
                     }
 
-
-                    if (move.length) {
-
-                        move.forEach(function(itm){
-
-                            var left = item.data('left') - itm.data('width');
-
-                            itm.css({'left': left}).data({
-                                'left'  : left,
-                                'area'  : (left+itm.data('width')),
-                                'center': (left - ($this.vp/2 - itm.data('width')/2))
-                            });
-
-                            item = itm;
-                        });
+                    if (area > this.vp) {
+                        break;
                     }
 
-                } else {
+                    z = z-1 == -1 ? this.items.length-1:z-1;
+                }
 
-                    var minleft = 1000000000000000000000000000000000000;
+                if (move.length) {
 
-                    for (i=0;i<this.items.length;i++) {
+                    move.forEach(function(itm){
 
-                        if (this.items.eq(z).data('left') < minleft) {
-                            lastvisible = this.items.eq(z);
-                            minleft     = lastvisible.data('left');
-                        }
+                        var left = item.data('left') - itm.data('width');
 
-                        z = z+1 == this.items.length ? 0:z+1;
-                    }
-
-                    if (lastvisible.data('left') - item.data('left') <= 0) {
-
-                        move = this.items.eq(this.items[lastvisible.data('idx') - 1] ? lastvisible.data('idx') - 1 : this.items.length-1);
-
-                        var left = item.data('left') - move.data('width');
-
-                        move.css({'left': left}).data({
+                        itm.css({'left': left}).data({
                             'left'  : left,
-                            'area'  : (left+move.data('width')),
-                            'center': (left - (this.vp/2 - move.data('width')/2))
+                            'area'  : (left+itm.data('width')),
+                            'center': (left - ($this.vp/2 - itm.data('width')/2))
                         });
-                    }
+
+                        item = itm;
+                    });
                 }
             }
         }
@@ -384,8 +359,13 @@
             e = e.originalEvent.touches[0];
         }
 
-        if (delayIdle && !window.getSelection().toString() && Math.abs(e.pageX - delayIdle.x) > delayIdle.threshold) {
-            delayIdle(e);
+        if (delayIdle && Math.abs(e.pageX - delayIdle.x) > delayIdle.threshold) {
+
+            if (!window.getSelection().toString()) {
+                delayIdle(e);
+            } else {
+                dragging = delayIdle = false;
+            }
         }
 
         if (!dragging) {
@@ -403,7 +383,7 @@
         focus = store.focus;
         xDiff = x - dragging.element.data('pointer-start').x;
         pos   = dragging.element.data('pointer-pos-start') + xDiff;
-        dir   = x > store.touchx ? -1:1;
+        dir   = x > dragging.element.data('pointer-start').x ? -1:1;
         item  = dragging.items.eq(store.focus);
 
         if (dir == 1) {
@@ -422,24 +402,21 @@
                 z = z+1 == dragging.items.length ? 0:z+1;
             }
 
-
         } else {
 
             diff = item.data('left') - Math.abs(xDiff);
-
 
             for (i=0,z=store.focus;i<dragging.items.length;i++) {
 
                 itm = dragging.items.eq(z);
 
-                if (z != store.focus && itm.data('area') <= item.data('left') && diff > itm.data('center')) {
+                if (z != store.focus && itm.data('area') <= item.data('left') && itm.data('center') < diff) {
                     focus = z;
                     break;
                 }
 
                 z = z-1 == -1 ? dragging.items.length-1:z-1;
             }
-
         }
 
         if (dragging.options.infinite && focus!=store._focus) {
@@ -451,6 +428,7 @@
         store.dir     = dir;
         store._focus  = focus;
         store.touchx  = parseInt(e.pageX, 10);
+        store.diff    = diff;
     });
 
     UI.$doc.on('mouseup.uikit.slider touchend.uikit.slider', function(e) {
@@ -459,12 +437,40 @@
 
             dragging.container.removeClass('uk-drag');
 
-            dragging.updateFocus(store._focus);
+            var item  = dragging.items.eq(store.focus), itm, focus = false, i, z;
 
-            setTimeout(function(){
-                dragging[store.dir==1 ? 'next':'previous']();
-                dragging = delayIdle = false;
-            }, 10);
+            if (store.dir == 1) {
+
+                for (i=0,z=store.focus;i<dragging.items.length;i++) {
+
+                    itm = dragging.items.eq(z);
+
+                    if (z != store.focus && itm.data('left') > store.diff) {
+                        focus = z;
+                        break;
+                    }
+
+                    z = z+1 == dragging.items.length ? 0:z+1;
+                }
+
+            } else {
+
+                for (i=0,z=store.focus;i<dragging.items.length;i++) {
+
+                    itm = dragging.items.eq(z);
+
+                    if (z != store.focus && itm.data('left') < store.diff) {
+                        focus = z;
+                        break;
+                    }
+
+                    z = z-1 == -1 ? dragging.items.length-1:z-1;
+                }
+            }
+
+            dragging.updateFocus(focus!==false ? focus:store._focus);
+
+            dragging = delayIdle = false;
         }
 
 

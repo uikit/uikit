@@ -353,7 +353,7 @@
             var $this = this;
 
             this.interval = setInterval(function() {
-                if (!$this.hovering) $this.show($this.options.start, $this.next());
+                if (!$this.hovering) $this.next();
             }, this.options.autoplayInterval);
 
         },

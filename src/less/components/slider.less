@@ -9,6 +9,18 @@
 //
 // States:          `uk-drag`
 //
+// Markup:
+//
+// <!-- uk-slider -->
+// <div data-uk-slider>
+//     <div class="uk-slider-container">
+//         <ul class="uk-slider">
+//             <li></li>
+//             <li></li>
+//         </ul>
+//     </div>
+// </div>
+//
 // ========================================================================
 
 
@@ -34,6 +46,7 @@
 /*
  * 1. Reset list style without interfering with grid
  */
+
 .uk-slider:not(.uk-grid) {
     /* 1 */
     margin: 0;
@@ -95,6 +108,12 @@
     /* 2 */
     -webkit-touch-callout: none;
 }
+
+/*
+ * 1. Prevents images and links from being dragged in Firefox
+ */
+
+.uk-slider img { pointer-events: none; }
 
 
 /* Modifier: `uk-slider-fullscreen`

@@ -33,8 +33,8 @@
 
             this._initElement(element);
 
-            $doc.trigger('show.uk.offcanvas', [element, bar]);
-            
+            bar.trigger('show.uk.offcanvas', [element, bar]);
+
             // Update ARIA
             element.attr('aria-hidden', 'false');
         },
@@ -52,8 +52,8 @@
                     bar.removeClass("uk-offcanvas-bar-show");
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
-                    UI.$doc.trigger('hide.uk.offcanvas', [panel, bar]);
-                    
+                    bar.trigger('hide.uk.offcanvas', [panel, bar]);
+
                     // Update ARIA
                     panel.attr('aria-hidden', 'true');
                 };
@@ -97,8 +97,8 @@
 
             element.on("click", "a[href^='#']", function(e){
 
-                var element = UI.$(this),
-                    href = element.attr("href");
+                var link = UI.$(this),
+                    href = link.attr("href");
 
                 if (href == "#") {
                     return;
@@ -112,8 +112,8 @@
                         target = UI.$('[name="'+href.replace('#','')+'"]');
                     }
 
-                    if (UI.Utils.scrollToElement && target.length) {
-                        UI.Utils.scrollToElement(target);
+                    if (link.attr('data-uk-smooth-scroll') && UI.Utils.scrollToElement && target.length) {
+                        UI.Utils.scrollToElement(target, UI.Utils.options(link.attr('data-uk-smooth-scroll') || '{}'));
                     } else {
                         window.location.href = href;
                     }

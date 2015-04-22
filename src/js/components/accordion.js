@@ -75,16 +75,18 @@
 
             if (collapse) {
                 this.toggle.not(wrapper.data('toggle')).removeClass(this.options.clsactive);
-                this.content.not(wrapper.data('content')).parent().stop().animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0}).attr('aria-expanded', 'false');
+                this.content.not(wrapper.data('content')).parent().stop().css('overflow', 'hidden').animate({ height: 0 }, {easing: this.options.easing, duration: animated ? this.options.duration : 0}).attr('aria-expanded', 'false');
             }
+
+            wrapper.stop().css('overflow', 'hidden');
 
             if (animated) {
 
-                wrapper.stop().animate({ height: active ? getHeight(wrapper.data('content')) : 0 }, {easing: this.options.easing, duration: this.options.duration, complete: function() {
+                wrapper.animate({ height: active ? getHeight(wrapper.data('content')) : 0 }, {easing: this.options.easing, duration: this.options.duration, complete: function() {
 
                     if (active) {
+                        wrapper.css({'overflow': '', 'height': 'auto'});
                         UI.Utils.checkDisplay(wrapper.data('content'));
-                        wrapper.height('auto');
                     }
 
                     $this.trigger('display.uk.check');
@@ -92,9 +94,10 @@
 
             } else {
 
-                wrapper.stop().height(active ? 'auto' : 0);
+                wrapper.height(active ? 'auto' : 0);
 
                 if (active) {
+                    wrapper.css({'overflow': ''});
                     UI.Utils.checkDisplay(wrapper.data('content'));
                 }
 

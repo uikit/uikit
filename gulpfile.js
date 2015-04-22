@@ -23,7 +23,7 @@ var pkg         = require('./package.json'),
 
 var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
     watchCache   = {},
-    watchfolders = ['src/**/*', 'themes/**/*', 'custom/**/*.less'],
+    watchfolders = ['src/**/*', 'themes/**/*.less', 'custom/**/*.less'],
     getThemes    = function(theme, all) {
 
         var list = [], themefolders = ["themes"];
@@ -40,7 +40,8 @@ var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
 
                 if (theme && t!=theme) return;
 
-                var path = f+'/'+t, uikit = path + '/uikit.less', customizer = path + '/uikit-customizer.less';
+                var path = f+'/'+t, uikit = path + '/uikit.less';
+
                 if (!((fs.lstatSync(path).isDirectory() || fs.lstatSync(path).isSymbolicLink()) && fs.existsSync(uikit))) return;
                 list.push({"name": t, "path": f+'/'+t, "uikit": uikit});
             });
@@ -54,7 +55,7 @@ var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
         var theme = gutil.env.t || gutil.env.theme || false,
             all   = gutil.env.all || gutil.env.a || theme;
 
-        return getThemes( theme, all);
+        return getThemes(theme, all);
     })(),
 
     corejs = [

@@ -21,12 +21,15 @@
     UI.component('slideset', {
 
         defaults: {
-            default   : 1,
-            animation : 'fade',
-            duration  : 200,
-            filter    : '',
-            delay     : false,
-            controls  : false
+            default          : 1,
+            animation        : 'fade',
+            duration         : 200,
+            filter           : '',
+            delay            : false,
+            controls         : false,
+            autoplay         : false,
+            autoplayInterval : 7000,
+            pauseOnHover     : true
         },
 
         sets: [],
@@ -69,8 +72,6 @@
 
                 $this.list.addClass('uk-grid-width-'+bp+'-1-'+$this.options[bp]);
             });
-
-
 
             this.on("click.uikit.slideset", '[data-uk-slideset-item]', function(e) {
 
@@ -117,6 +118,16 @@
             });
 
             this.updateSets();
+
+            this.element.on({
+                mouseenter: function() { if ($this.options.pauseOnHover) $this.hovering = true;  },
+                mouseleave: function() { $this.hovering = false; }
+            });
+
+            // Set autoplay
+            if (this.options.autoplay) {
+                this.start();
+            }
         },
 
         updateSets: function(animate, force) {
@@ -143,6 +154,8 @@
                 for (i=0;i<this.sets.length;i++) {
                     this.nav.append('<li data-uk-slideset-item="'+i+'"><a></a></li>');
                 }
+
+                this.nav[this.nav.children().length==1 ? 'addClass':'removeClass']('uk-invisible');
             }
 
             var filter;
@@ -269,8 +282,8 @@
 
                 UI.Utils.checkDisplay(next, true);
 
-                $this.children.hide();
-                next.css({'display': '', 'opacity':''});
+                $this.children.hide().removeClass('uk-active');
+                next.addClass('uk-active').css({'display': '', 'opacity':''});
 
                 $this.animating = false;
                 $this.activeSet = setIndex;
@@ -288,6 +301,22 @@
 
         previous: function() {
             this.show(this.sets[this.activeSet - 1] ? (this.activeSet - 1) : (this.sets.length - 1));
+        },
+
+        start: function() {
+
+            this.stop();
+
+            var $this = this;
+
+            this.interval = setInterval(function() {
+                if (!$this.hovering && !$this.animating) $this.next();
+            }, this.options.autoplayInterval);
+
+        },
+
+        stop: function() {
+            if (this.interval) clearInterval(this.interval);
         }
     });
 
