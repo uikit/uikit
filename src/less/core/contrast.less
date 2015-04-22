@@ -9,79 +9,86 @@
 // Variables
 // ========================================================================
 
-@contrast-base-color:                           #fff;
+@contrast-color:                                #fff;
+@contrast-inverted-color:                       #444;
 
-@contrast-base-link-color:                      rgba(255,255,255,0.7);
+//
+// Components
+//
+
+@contrast-base-color:                           @contrast-color;
+
+@contrast-base-link-color:                      fade(@contrast-color, 70%);
 @contrast-base-link-text-decoration:            none;
-@contrast-base-link-hover-color:                #fff;
+@contrast-base-link-hover-color:                @contrast-color;
 @contrast-base-link-hover-text-decoration:      underline;
 
-@contrast-base-code-color:                      #fff;
-@contrast-base-em-color:                        #fff;
+@contrast-base-code-color:                      @contrast-color;
+@contrast-base-em-color:                        @contrast-color;
 
-@contrast-base-heading-color:                   #fff;
+@contrast-base-heading-color:                   @contrast-color;
 
-@contrast-base-hr-border:                       rgba(255,255,255,0.2);
+@contrast-base-hr-border:                       fade(@contrast-color, 20%);
 
-@contrast-nav-side-color:                       #fff;
-@contrast-nav-side-hover-background:            rgba(255,255,255,0.1);
-@contrast-nav-side-hover-color:                 #fff;
-@contrast-nav-side-active-background:           #fff;
-@contrast-nav-side-active-color:                #444;
-@contrast-nav-side-header-color:                #fff;
-@contrast-nav-side-divider-border:              rgba(255,255,255,0.2);
-@contrast-nav-side-nested-color:                rgba(255,255,255,0.7);
-@contrast-nav-side-nested-hover-color:          #fff;
+@contrast-nav-side-color:                       @contrast-color;
+@contrast-nav-side-hover-background:            fade(@contrast-color, 10%);
+@contrast-nav-side-hover-color:                 @contrast-color;
+@contrast-nav-side-active-background:           @contrast-color;
+@contrast-nav-side-active-color:                @contrast-inverted-color;
+@contrast-nav-side-header-color:                @contrast-color;
+@contrast-nav-side-divider-border:              fade(@contrast-color, 20%);
+@contrast-nav-side-nested-color:                fade(@contrast-color, 70%);
+@contrast-nav-side-nested-hover-color:          @contrast-color;
 
-@contrast-subnav-color:                         rgba(255,255,255,0.7);
-@contrast-subnav-hover-color:                   #fff;
+@contrast-subnav-color:                         fade(@contrast-color, 70%);
+@contrast-subnav-hover-color:                   @contrast-color;
 @contrast-subnav-hover-text-decoration:         none;
-@contrast-subnav-active-color:                  #fff;
+@contrast-subnav-active-color:                  @contrast-color;
 
-@contrast-subnav-line-border:                   rgba(255,255,255,0.2);
+@contrast-subnav-line-border:                   fade(@contrast-color, 20%);
 
-@contrast-subnav-pill-hover-background:         rgba(255,255,255,0.7);
-@contrast-subnav-pill-hover-color:              #444;
-@contrast-subnav-pill-active-background:        #fff;
-@contrast-subnav-pill-active-color:             #444;
+@contrast-subnav-pill-hover-background:         fade(@contrast-color, 70%);
+@contrast-subnav-pill-hover-color:              @contrast-inverted-color;
+@contrast-subnav-pill-active-background:        @contrast-color;
+@contrast-subnav-pill-active-color:             @contrast-inverted-color;
 
-@contrast-list-line-border:                     rgba(255,255,255,0.2);
+@contrast-list-line-border:                     fade(@contrast-color, 20%);
 
-@contrast-form-border:                          rgba(255,255,255,0.8);
-@contrast-form-background:                      rgba(255,255,255,0.8);
-@contrast-form-color:                           #444;
-@contrast-form-focus-border:                    #fff;
-@contrast-form-focus-background:                #fff;
-@contrast-form-focus-color:                     #444;
+@contrast-form-border:                          fade(@contrast-color, 80%);
+@contrast-form-background:                      fade(@contrast-color, 80%);
+@contrast-form-color:                           @contrast-inverted-color;
+@contrast-form-focus-border:                    @contrast-color;
+@contrast-form-focus-background:                @contrast-color;
+@contrast-form-focus-color:                     @contrast-inverted-color;
 
-@contrast-form-placeholder-color:               #999;
+@contrast-form-placeholder-color:               fade(@contrast-inverted-color, 70%);
 
-@contrast-button-background:                    #fff;
-@contrast-button-color:                         #444;
-@contrast-button-hover-background:              rgba(255,255,255,0.8);
-@contrast-button-hover-color:                   #444;
-@contrast-button-active-background:             rgba(255,255,255,0.7);
-@contrast-button-active-color:                  #444;
+@contrast-button-background:                    @contrast-color;
+@contrast-button-color:                         @contrast-inverted-color;
+@contrast-button-hover-background:              fade(@contrast-color, 80%);
+@contrast-button-hover-color:                   @contrast-inverted-color;
+@contrast-button-active-background:             fade(@contrast-color, 70%);
+@contrast-button-active-color:                  @contrast-inverted-color;
 
-@contrast-button-primary-background:            #00a8e6;
-@contrast-button-primary-color:                 #fff;
-@contrast-button-primary-hover-background:      #35b3ee;
-@contrast-button-primary-hover-color:           #fff;
-@contrast-button-primary-active-background:     #0091ca;
-@contrast-button-primary-active-color:          #fff;
+@contrast-button-primary-background:            @button-primary-background;
+@contrast-button-primary-color:                 @contrast-color;
+@contrast-button-primary-hover-background:      @button-primary-hover-background;
+@contrast-button-primary-hover-color:           @contrast-color;
+@contrast-button-primary-active-background:     @button-primary-active-background;
+@contrast-button-primary-active-color:          @contrast-color;
 
-@contrast-icon-hover-color:                     rgba(255,255,255,0.7);
-@contrast-icon-hover-hover-color:               #fff;
+@contrast-icon-hover-color:                     fade(@contrast-color, 70%);
+@contrast-icon-hover-hover-color:               @contrast-color;
 
-@contrast-icon-button-background:               #fff;
-@contrast-icon-button-color:                    #444;
-@contrast-icon-button-hover-background:         rgba(255,255,255,0.8);
-@contrast-icon-button-hover-color:              #444;
-@contrast-icon-button-active-background:        rgba(255,255,255,0.7);
-@contrast-icon-button-active-color:             #444;
+@contrast-icon-button-background:               @contrast-color;
+@contrast-icon-button-color:                    @contrast-inverted-color;
+@contrast-icon-button-hover-background:         fade(@contrast-color, 80%);
+@contrast-icon-button-hover-color:              @contrast-inverted-color;
+@contrast-icon-button-active-background:        fade(@contrast-color, 70%);
+@contrast-icon-button-active-color:             @contrast-inverted-color;
 
-@contrast-text-muted-color:                     rgba(255, 255, 255, 0.6);
-@contrast-text-primary-color:                   #2d7091;
+@contrast-text-muted-color:                     fade(@contrast-color, 60%);
+@contrast-text-primary-color:                   @text-primary-color;
 
 
 /* ========================================================================
@@ -196,6 +203,7 @@
 
     .uk-subnav > * > a {
         color: @contrast-subnav-color;
+        text-decoration: none;
         .hook-contrast-subnav;
     }
 
@@ -239,7 +247,7 @@
     }
 
 
-    // List line
+    // List
     // ========================================================================
 
     .uk-list-line > li:nth-child(n+2) {
