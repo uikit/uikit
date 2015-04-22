@@ -26,16 +26,6 @@
                 touch-action: pan-y pinch-zoom double-tap-zoom;
             }
 
-            .uk-notouch .touch-detected {
-                visibility: hidden;
-                display: none;
-            }
-
-            .uk-touch .notouch-detected {
-                visibility: hidden;
-                display: none;
-            }
-
         </style>
 
     </head>
@@ -48,8 +38,8 @@
 
             <div class="uk-panel uk-panel-box uk-overflow-container prevent-ie11-navigation" style="min-height: 200px;">
                 <ul id="output" class="uk-list">
-                    <li class="touch-detected uk-text-success">UIkit detected touch support on your device! :)</li>
-                    <li class="notouch-detected uk-text-danger">UIkit did not detect touch support on your device! :(</li>
+                    <li class="uk-hidden-notouch uk-text-success">UIkit detected touch support on your device! :)</li>
+                    <li class="uk-hidden-touch uk-text-danger">UIkit did not detect touch support on your device! :(</li>
                 </ul>
             </div>
 
