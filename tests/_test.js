@@ -82,6 +82,7 @@
             "core/button",
             "core/close",
             "core/comment",
+            "core/contrast",
             "core/cover",
             "core/description-list",
             "core/dropdown",

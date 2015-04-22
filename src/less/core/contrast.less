@@ -1,5 +1,5 @@
 // Name:            Contrast
-// Description:     Defines styles to adjust colors for dark or colored blocks
+// Description:     Utility class to adjust colors for dark or colored blocks
 //
 // Component:       `uk-contrast`
 //
@@ -9,44 +9,422 @@
 // Variables
 // ========================================================================
 
-@contrast-color:                                #fff;
-@contrast-hover-color:                          #fff;
-@contrast-text-decoration:                      underline;
+@contrast-base-color:                           #fff;
 
+@contrast-base-link-color:                      #fff;
+@contrast-base-link-text-decoration:            none;
+@contrast-base-link-hover-color:                #fff;
+@contrast-base-link-hover-text-decoration:      underline;
+
+@contrast-base-code-color:                      #D05;
+@contrast-base-em-color:                        #D05;
+
+@contrast-base-heading-color:                   #fff;
+
+@contrast-base-hr-border:                       #fff;
+
+@contrast-nav-side-color:                       #444;
+@contrast-nav-side-hover-background:            rgba(0,0,0,0.05);
+@contrast-nav-side-hover-color:                 #444;
+@contrast-nav-side-active-background:           #00a8e6;
+@contrast-nav-side-active-color:                #fff;
+@contrast-nav-side-header-color:                #444;
+@contrast-nav-side-divider-border:              #ddd;
+@contrast-nav-side-nested-color:                #07D;
+@contrast-nav-side-nested-hover-color:          #059;
+
+@contrast-subnav-color:                         #444;
+@contrast-subnav-hover-color:                   #07D;
+@contrast-subnav-hover-text-decoration:         none;
+@contrast-subnav-active-color:                  #07D;
+
+@contrast-subnav-line-border:                   #ddd;
+
+@contrast-subnav-pill-hover-background:         #eee;
+@contrast-subnav-pill-hover-color:              #444;
+@contrast-subnav-pill-active-background:        #00a8e6;
+@contrast-subnav-pill-active-color:             #fff;
+
+@contrast-list-line-border:                     #ddd;
+
+@contrast-form-border:                          #ddd;
+@contrast-form-background:                      #fff;
+@contrast-form-color:                           #444;
+@contrast-form-focus-border:                    #99baca;
+@contrast-form-focus-background:                #f5fbfe;
+@contrast-form-focus-color:                     #444;
+
+@contrast-form-placeholder-color:               #999;
+
+@contrast-button-background:                    #eee;
+@contrast-button-color:                         #444;
+@contrast-button-hover-background:              #f5f5f5;
+@contrast-button-hover-color:                   #444;
+@contrast-button-active-background:             #ddd;
+@contrast-button-active-color:                  #444;
+
+@contrast-button-primary-background:            #00a8e6;
+@contrast-button-primary-color:                 #fff;
+@contrast-button-primary-hover-background:      #35b3ee;
+@contrast-button-primary-hover-color:           #fff;
+@contrast-button-primary-active-background:     #0091ca;
+@contrast-button-primary-active-color:          #fff;
+
+@contrast-icon-hover-color:                     #999;
+@contrast-icon-hover-hover-color:               #444;
+
+@contrast-icon-button-background:               #eee;
+@contrast-icon-button-color:                    #444;
+@contrast-icon-button-hover-background:         #f5f5f5;
+@contrast-icon-button-hover-color:              #444;
+@contrast-icon-button-active-background:        #ddd;
+@contrast-icon-button-active-color:             #444;
+
+@contrast-text-muted-color:                     #999;
+@contrast-text-primary-color:                   #2d7091;
 
 
 /* ========================================================================
    Component: Contrast
  ========================================================================== */
 
-.uk-contrast { color: @contrast-color; }
+.uk-contrast {
 
-/*
- * Base
- */
+    color: @contrast-base-color;
 
-.uk-contrast h1,
-.uk-contrast h2,
-.uk-contrast h3,
-.uk-contrast h4,
-.uk-contrast h5,
-.uk-contrast h6 { color: @contrast-color; }
+    // Base
+    // ========================================================================
 
-.uk-contrast a:not([class]) {
-    color: @contrast-color;
-    text-decoration: @contrast-text-decoration;
+    /*
+     * Link
+     */
+
+    a:not([class]),
+    .uk-link  {
+        color: @contrast-base-link-color;
+        text-decoration: @contrast-base-link-text-decoration;
+    }
+
+    a:not([class]):hover,
+    .uk-link:hover {
+        color: @contrast-base-link-hover-color;
+        text-decoration: @contrast-base-link-hover-text-decoration;
+    }
+
+    /*
+     * Code
+     */
+
+    :not(pre) > code,
+    :not(pre) > kbd,
+    :not(pre) > samp {
+        color: @contrast-base-code-color;
+        .hook-contrast-base-code;
+    }
+
+    /*
+     * Emphasize
+     */
+
+    em { color: @contrast-base-em-color; }
+
+    /*
+     * Headings
+     */
+
+    h1, h2, h3, h4, h5, h6 { color: @contrast-base-heading-color; }
+
+    /*
+     * Horizontal rules
+     */
+
+    hr { border-top-color: @contrast-base-hr-border; }
+
+
+    // Nav
+    // ========================================================================
+
+    .uk-nav-side > li > a {
+        color: @contrast-nav-side-color;
+        .hook-contrast-nav-side;
+    }
+
+    .uk-nav-side > li > a:hover,
+    .uk-nav-side > li > a:focus {
+        background: @contrast-nav-side-hover-background;
+        color: @contrast-nav-side-hover-color;
+        .hook-contrast-nav-side-hover;
+    }
+
+    .uk-nav-side > li.uk-active > a {
+        background: @contrast-nav-side-active-background;
+        color: @contrast-nav-side-active-color;
+        .hook-contrast-nav-side-active;
+    }
+
+    /*
+     * Nav header
+     */
+
+    .uk-nav-side .uk-nav-header {
+        color: @contrast-nav-side-header-color;
+        .hook-contrast-nav-side-header;
+    }
+
+    /*
+     * Nav divider
+     */
+
+    .uk-nav-side .uk-nav-divider {
+        border-top-color: @contrast-nav-side-divider-border;
+        .hook-contrast-nav-side-divider;
+    }
+
+    /*
+     * Nested items
+     */
+
+    .uk-nav-side ul a { color: @contrast-nav-side-nested-color; }
+    .uk-nav-side ul a:hover { color: @contrast-nav-side-nested-hover-color; }
+
+
+    // Subnav
+    // ========================================================================
+
+    .uk-subnav > * > * {
+        color: @contrast-subnav-color;
+        .hook-contrast-subnav;
+    }
+
+    .uk-subnav > * > *:hover,
+    .uk-subnav > * > *:focus {
+        color: @contrast-subnav-hover-color;
+        text-decoration: @contrast-subnav-hover-text-decoration;
+        .hook-contrast-subnav-hover;
+    }
+
+    .uk-subnav > .uk-active > * {
+        color: @contrast-subnav-active-color;
+        .hook-contrast-subnav-active;
+    }
+
+    /*
+     * Subnav line
+     */
+
+    .uk-subnav-line > :nth-child(n+2):before {
+        border-left-color: @contrast-subnav-line-border;
+        .hook-contrast-subnav-line-divider;
+    }
+
+    /*
+     * Subnav pill
+     */
+
+    .uk-subnav-pill > * > *:hover,
+    .uk-subnav-pill > * > *:focus {
+        background: @contrast-subnav-pill-hover-background;
+        color: @contrast-subnav-pill-hover-color;
+        text-decoration: none;
+        .hook-contrast-subnav-pill-hover;
+    }
+
+    .uk-subnav-pill > .uk-active > * {
+        background: @contrast-subnav-pill-active-background;
+        color: @contrast-subnav-pill-active-color;
+        .hook-contrast-subnav-pill-active;
+    }
+
+
+    // List line
+    // ========================================================================
+
+    .uk-list-line > li:nth-child(n+2) {
+        border-top-color: @contrast-list-line-border;
+        .hook-contrast-list-line;
+    }
+
+
+    // Form
+    // ========================================================================
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+        border-color: @contrast-form-border;
+        background: @contrast-form-background;
+        color: @contrast-form-color;
+        .hook-contrast-form;
+
+        &:focus {
+            border-color: @contrast-form-focus-border;
+            background: @contrast-form-focus-background;
+            color: @contrast-form-focus-color;
+            .hook-contrast-form-focus;
+        }
+    }
+
+    /*
+     * Placeholder
+     */
+
+    .uk-form :-ms-input-placeholder { color: @contrast-form-placeholder-color !important; }
+    .uk-form ::-moz-placeholder { color: @contrast-form-placeholder-color; }
+    .uk-form ::-webkit-input-placeholder { color: @contrast-form-placeholder-color; }
+
+
+    // Button
+    // ========================================================================
+
+    .uk-button {
+        color: @contrast-button-color;
+        background: @contrast-button-background;
+        .hook-contrast-button;
+    }
+
+    .uk-button:hover,
+    .uk-button:focus {
+        background-color: @contrast-button-hover-background;
+        color: @contrast-button-hover-color;
+        .hook-contrast-button-hover;
+    }
+
+    .uk-button:active,
+    .uk-button.uk-active {
+        background-color: @contrast-button-active-background;
+        color: @contrast-button-active-color;
+        .hook-contrast-button-active;
+    }
+
+    /*
+     * Button primary
+     */
+
+    .uk-button-primary {
+        background-color: @contrast-button-primary-background;
+        color: @contrast-button-primary-color;
+        .hook-contrast-button-primary;
+    }
+
+    .uk-button-primary:hover,
+    .uk-button-primary:focus {
+        background-color: @contrast-button-primary-hover-background;
+        color: @contrast-button-primary-hover-color;
+        .hook-contrast-button-primary-hover;
+    }
+
+    .uk-button-primary:active,
+    .uk-button-primary.uk-active {
+        background-color: @contrast-button-primary-active-background;
+        color: @contrast-button-primary-active-color;
+        .hook-contrast-button-primary-active;
+    }
+
+
+    // Icon
+    // ========================================================================
+
+    /*
+     * Icon hover
+     */
+
+    .uk-icon-hover {
+        color: @contrast-icon-hover-color;
+        .hook-contrast-icon-hover;
+    }
+
+    .uk-icon-hover:hover {
+        color: @contrast-icon-hover-hover-color;
+        .hook-contrast-icon-hover-hover;
+    }
+
+    /*
+     * Icon button
+     */
+
+    .uk-icon-button {
+        background: @contrast-icon-button-background;
+        color: @contrast-icon-button-color;
+        .hook-contrast-icon-button;
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: @contrast-icon-button-hover-background;
+        color: @contrast-icon-button-hover-color;
+        .hook-contrast-icon-button-hover;
+    }
+
+    .uk-icon-button:active {
+        background-color: @contrast-icon-button-active-background;
+        color: @contrast-icon-button-active-color;
+        .hook-contrast-icon-button-active;
+    }
+
+
+    // Text
+    // ========================================================================
+
+    .uk-text-muted { color: @contrast-text-muted-color !important; }
+    .uk-text-primary { color: @contrast-text-primary-color !important; }
+
+
+    // Misc hook
+    // ========================================================================
+
+    .hook-contrast-misc;
+
 }
-
-/*
- * Icon
- */
-
-.uk-contrast a[class*='uk-icon-']:not(.uk-icon-button) { color: @contrast-color; }
 
 
 // Hooks
 // ========================================================================
 
-.hook-contrast-misc;
+.hook-contrast-base-code() {}
+
+.hook-contrast-nav-side() {}
+.hook-contrast-nav-side-hover() {}
+.hook-contrast-nav-side-active() {}
+.hook-contrast-nav-side-header() {}
+.hook-contrast-nav-side-divider() {}
+
+.hook-contrast-subnav() {}
+.hook-contrast-subnav-hover() {}
+.hook-contrast-subnav-active() {}
+.hook-contrast-subnav-line-divider() {}
+.hook-contrast-subnav-pill-hover() {}
+.hook-contrast-subnav-pill-active() {}
+
+.hook-contrast-list-line() {}
+
+.hook-contrast-form() {}
+.hook-contrast-form-focus() {}
+
+.hook-contrast-button() {}
+.hook-contrast-button-hover() {}
+.hook-contrast-button-active() {}
+.hook-contrast-button-primary() {}
+.hook-contrast-button-primary-hover() {}
+.hook-contrast-button-primary-active() {}
+
+.hook-contrast-icon-hover() {}
+.hook-contrast-icon-hover-hover() {}
+.hook-contrast-icon-button() {}
+.hook-contrast-icon-button-hover() {}
+.hook-contrast-icon-button-active() {}
 
 .hook-contrast-misc() {}
