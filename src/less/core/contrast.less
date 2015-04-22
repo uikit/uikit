@@ -11,56 +11,56 @@
 
 @contrast-base-color:                           #fff;
 
-@contrast-base-link-color:                      #fff;
+@contrast-base-link-color:                      rgba(255,255,255,0.7);
 @contrast-base-link-text-decoration:            none;
 @contrast-base-link-hover-color:                #fff;
 @contrast-base-link-hover-text-decoration:      underline;
 
-@contrast-base-code-color:                      #D05;
-@contrast-base-em-color:                        #D05;
+@contrast-base-code-color:                      #fff;
+@contrast-base-em-color:                        #fff;
 
 @contrast-base-heading-color:                   #fff;
 
-@contrast-base-hr-border:                       #fff;
+@contrast-base-hr-border:                       rgba(255,255,255,0.2);
 
-@contrast-nav-side-color:                       #444;
-@contrast-nav-side-hover-background:            rgba(0,0,0,0.05);
-@contrast-nav-side-hover-color:                 #444;
-@contrast-nav-side-active-background:           #00a8e6;
-@contrast-nav-side-active-color:                #fff;
-@contrast-nav-side-header-color:                #444;
-@contrast-nav-side-divider-border:              #ddd;
-@contrast-nav-side-nested-color:                #07D;
-@contrast-nav-side-nested-hover-color:          #059;
+@contrast-nav-side-color:                       #fff;
+@contrast-nav-side-hover-background:            rgba(255,255,255,0.1);
+@contrast-nav-side-hover-color:                 #fff;
+@contrast-nav-side-active-background:           #fff;
+@contrast-nav-side-active-color:                #444;
+@contrast-nav-side-header-color:                #fff;
+@contrast-nav-side-divider-border:              rgba(255,255,255,0.2);
+@contrast-nav-side-nested-color:                rgba(255,255,255,0.7);
+@contrast-nav-side-nested-hover-color:          #fff;
 
-@contrast-subnav-color:                         #444;
-@contrast-subnav-hover-color:                   #07D;
+@contrast-subnav-color:                         rgba(255,255,255,0.7);
+@contrast-subnav-hover-color:                   #fff;
 @contrast-subnav-hover-text-decoration:         none;
-@contrast-subnav-active-color:                  #07D;
+@contrast-subnav-active-color:                  #fff;
 
-@contrast-subnav-line-border:                   #ddd;
+@contrast-subnav-line-border:                   rgba(255,255,255,0.2);
 
-@contrast-subnav-pill-hover-background:         #eee;
+@contrast-subnav-pill-hover-background:         rgba(255,255,255,0.7);
 @contrast-subnav-pill-hover-color:              #444;
-@contrast-subnav-pill-active-background:        #00a8e6;
-@contrast-subnav-pill-active-color:             #fff;
+@contrast-subnav-pill-active-background:        #fff;
+@contrast-subnav-pill-active-color:             #444;
 
-@contrast-list-line-border:                     #ddd;
+@contrast-list-line-border:                     rgba(255,255,255,0.2);
 
-@contrast-form-border:                          #ddd;
-@contrast-form-background:                      #fff;
+@contrast-form-border:                          rgba(255,255,255,0.8);
+@contrast-form-background:                      rgba(255,255,255,0.8);
 @contrast-form-color:                           #444;
-@contrast-form-focus-border:                    #99baca;
-@contrast-form-focus-background:                #f5fbfe;
+@contrast-form-focus-border:                    #fff;
+@contrast-form-focus-background:                #fff;
 @contrast-form-focus-color:                     #444;
 
 @contrast-form-placeholder-color:               #999;
 
-@contrast-button-background:                    #eee;
+@contrast-button-background:                    #fff;
 @contrast-button-color:                         #444;
-@contrast-button-hover-background:              #f5f5f5;
+@contrast-button-hover-background:              rgba(255,255,255,0.8);
 @contrast-button-hover-color:                   #444;
-@contrast-button-active-background:             #ddd;
+@contrast-button-active-background:             rgba(255,255,255,0.7);
 @contrast-button-active-color:                  #444;
 
 @contrast-button-primary-background:            #00a8e6;
@@ -70,17 +70,17 @@
 @contrast-button-primary-active-background:     #0091ca;
 @contrast-button-primary-active-color:          #fff;
 
-@contrast-icon-hover-color:                     #999;
-@contrast-icon-hover-hover-color:               #444;
+@contrast-icon-hover-color:                     rgba(255,255,255,0.7);
+@contrast-icon-hover-hover-color:               #fff;
 
-@contrast-icon-button-background:               #eee;
+@contrast-icon-button-background:               #fff;
 @contrast-icon-button-color:                    #444;
-@contrast-icon-button-hover-background:         #f5f5f5;
+@contrast-icon-button-hover-background:         rgba(255,255,255,0.8);
 @contrast-icon-button-hover-color:              #444;
-@contrast-icon-button-active-background:        #ddd;
+@contrast-icon-button-active-background:        rgba(255,255,255,0.7);
 @contrast-icon-button-active-color:             #444;
 
-@contrast-text-muted-color:                     #999;
+@contrast-text-muted-color:                     rgba(255, 255, 255, 0.6);
 @contrast-text-primary-color:                   #2d7091;
 
 
@@ -144,6 +144,9 @@
     // Nav
     // ========================================================================
 
+    .uk-nav li > a,
+    .uk-nav li > a:hover { text-decoration: none; }
+
     .uk-nav-side > li > a {
         color: @contrast-nav-side-color;
         .hook-contrast-nav-side;
@@ -191,19 +194,19 @@
     // Subnav
     // ========================================================================
 
-    .uk-subnav > * > * {
+    .uk-subnav > * > a {
         color: @contrast-subnav-color;
         .hook-contrast-subnav;
     }
 
-    .uk-subnav > * > *:hover,
-    .uk-subnav > * > *:focus {
+    .uk-subnav > * > a:hover,
+    .uk-subnav > * > a:focus {
         color: @contrast-subnav-hover-color;
         text-decoration: @contrast-subnav-hover-text-decoration;
         .hook-contrast-subnav-hover;
     }
 
-    .uk-subnav > .uk-active > * {
+    .uk-subnav > .uk-active > a {
         color: @contrast-subnav-active-color;
         .hook-contrast-subnav-active;
     }
@@ -221,15 +224,15 @@
      * Subnav pill
      */
 
-    .uk-subnav-pill > * > *:hover,
-    .uk-subnav-pill > * > *:focus {
+    .uk-subnav-pill > * > a:hover,
+    .uk-subnav-pill > * > a:focus {
         background: @contrast-subnav-pill-hover-background;
         color: @contrast-subnav-pill-hover-color;
         text-decoration: none;
         .hook-contrast-subnav-pill-hover;
     }
 
-    .uk-subnav-pill > .uk-active > * {
+    .uk-subnav-pill > .uk-active > a {
         background: @contrast-subnav-pill-active-background;
         color: @contrast-subnav-pill-active-color;
         .hook-contrast-subnav-pill-active;
@@ -268,6 +271,7 @@
         border-color: @contrast-form-border;
         background: @contrast-form-background;
         color: @contrast-form-color;
+        background-clip: padding-box;
         .hook-contrast-form;
 
         &:focus {
