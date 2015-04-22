@@ -14,14 +14,14 @@
 // ========================================================================
 
 @block-padding-vertical:                        20px;
-@block-padding-vertical-large:                  40px;
+@block-padding-vertical-large:                  50px;
 
 @block-large-padding-vertical:                  @block-padding-vertical;
 @block-large-padding-vertical-medium:           @block-padding-vertical-large;
 @block-large-padding-vertical-large:            100px;
 
 @block-default-background:                      #fff;
-@block-light-background:                        #f9f9f9;
+@block-muted-background:                        #f9f9f9;
 @block-primary-background:                      #00a8e6;
 @block-secondary-background:                    #222;
 
@@ -40,7 +40,7 @@
 }
 
 /* Phone landscape and bigger */
-@media (min-width: @breakpoint-small) {
+@media (min-width: @breakpoint-medium) {
 
     .uk-block {
         padding-top: @block-padding-vertical-large;
@@ -114,12 +114,12 @@
 }
 
 /*
- * Light
+ * Muted
  */
 
-.uk-block-light {
-    background: @block-light-background;
-    .hook-block-light;
+.uk-block-muted {
+    background: @block-muted-background;
+    .hook-block-muted;
 }
 
 /*
@@ -145,7 +145,7 @@
  */
 
 .uk-block-default + .uk-block-default,
-.uk-block-light + .uk-block-light,
+.uk-block-muted + .uk-block-muted,
 .uk-block-primary + .uk-block-primary,
 .uk-block-secondary + .uk-block-secondary { padding-top: 0; }
 
@@ -157,7 +157,7 @@
 
 .hook-block() {}
 .hook-block-default() {}
-.hook-block-light() {}
+.hook-block-muted() {}
 .hook-block-secondary() {}
 .hook-block-primary() {}
 .hook-block-misc() {}
