@@ -7,6 +7,7 @@
   - Fixed link reset on focus
   - Fixed overflow hidden on expanded accordion content
   - Fixed smooth scroll options with offcanvas menu links
+  - Fixed touch detection (no longer dependent on user agent)
 
 ### 2.19.0 (April 17, 2015)
   - Added parallax component
