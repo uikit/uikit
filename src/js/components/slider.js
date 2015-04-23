@@ -143,7 +143,7 @@
 
             var $this = this, pos = 0, maxheight = 0, item, width, size;
 
-            this.items = this.container.children();
+            this.items = this.container.children().filter(':visible');
             this.vp    = this.element[0].getBoundingClientRect().width;
 
             this.container.css({'min-width': '', 'min-height': ''});
@@ -165,11 +165,9 @@
             if (this.options.infinite && pos <= (2*this.vp) && !this.itemsResized) {
 
                 // fill with cloned items
-                this.items.each(function(idx){
+                this.container.children().each(function(idx){
                    $this.container.append($this.items.eq(idx).clone(true).attr('id', ''));
-                });
-
-                this.items.each(function(idx){
+                }).each(function(idx){
                    $this.container.append($this.items.eq(idx).clone(true).attr('id', ''));
                 });
 

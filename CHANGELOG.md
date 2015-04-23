@@ -1,6 +1,8 @@
 # Changelog
 
 ### WIP
+  - Added block component
+  - Added contrast component
   - Added heading hooks to base component
   - Added autoplay to slideset component
   - Added position option to datepicker
@@ -11,6 +13,12 @@
   - Fixed overflow hidden on expanded accordion content
   - Fixed smooth scroll options with offcanvas menu links
   - Fixed touch detection (no longer dependent on user agent)
+
+  **Docs and Repo**
+
+  - Added docs and tests for block component
+  - Added docs and tests for contrast component
+  - Updated parallax docs
 
 ### 2.19.0 (April 17, 2015)
   - Added parallax component
