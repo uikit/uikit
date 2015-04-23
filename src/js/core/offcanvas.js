@@ -105,9 +105,14 @@
                 }
 
                 UI.$doc.one('hide.uk.offcanvas', function() {
-
-                    var target = UI.$(href);
-
+                    var target;
+                    
+                    try {
+                        target = UI.$(href);
+                    } catch (e){
+                        target = ""
+                    }
+                    
                     if (!target.length) {
                         target = UI.$('[name="'+href.replace('#','')+'"]');
                     }
