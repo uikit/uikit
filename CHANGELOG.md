@@ -6,6 +6,7 @@
   - Added position option to datepicker
   - Updated hover delay for dropdown component
   - Updated event name select.uk.autocomplete to selectitem.uk.autocomplete
+  - Fixed slider on touch devices
   - Fixed link reset on focus
   - Fixed overflow hidden on expanded accordion content
   - Fixed smooth scroll options with offcanvas menu links

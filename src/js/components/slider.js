@@ -78,6 +78,10 @@
 
             this.container.on('touchstart mousedown', function(evt) {
 
+                if (evt.originalEvent && evt.originalEvent.touches) {
+                    evt = evt.originalEvent.touches[0];
+                }
+
                 // ignore right click button
                 if (evt.button && evt.button==2 || !$this.active) {
                     return;
@@ -95,8 +99,7 @@
 
                 delayIdle = function(e) {
 
-                    dragged = true;
-
+                    dragged  = true;
                     dragging = $this;
                     store    = {
                         touchx : parseInt(e.pageX, 10),
@@ -470,10 +473,9 @@
 
             dragging.updateFocus(focus!==false ? focus:store._focus);
 
-            dragging = delayIdle = false;
         }
 
-
+        dragging = delayIdle = false;
     });
 
     return UI.slider;
