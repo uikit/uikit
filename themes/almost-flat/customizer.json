@@ -177,6 +177,13 @@
             ]
         },
         {
+            "label": "Block",
+            "advanced": true,
+            "vars": [
+                "@block-*"
+            ]
+        },
+        {
             "label": "Breadcrumb",
             "advanced": true,
             "vars": [
@@ -202,6 +209,14 @@
             "advanced": true,
             "vars": [
                 "@comment-*"
+            ]
+        },
+        {
+            "label": "Contrast",
+            "advanced": true,
+            "vars": [
+                "@contrast-color",
+                "@contrast-inverted-color"
             ]
         },
         {
