@@ -121,13 +121,6 @@
                 currentlyDraggingTarget  = null,
                 children;
 
-            Object.keys(this.options).forEach(function(key){
-
-                if (String($this.options[key]).indexOf('Class')!=-1) {
-                    $this.options[key] = $this.options[key];
-                }
-            });
-
             if (supportsDragAndDrop) {
                 this.element.children().attr("draggable", "true");
 
