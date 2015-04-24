@@ -16,6 +16,7 @@
   - Fixed touch detection (no longer dependent on user agent)
   - Fixed links in slideset component
   - Fixed slider with gutter in center mode
+  - Fixed sticky element with animation flickering
 
   **Docs and Repo**
 
