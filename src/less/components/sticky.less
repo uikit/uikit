@@ -20,8 +20,6 @@
 
  /*
   * 1. More robust if padding and border are used
-  * 2. Resolve frame-rate issues on devices with lower frame-rates
-  * Forces hardware acceleration
   */
 
  [data-uk-sticky].uk-active {
@@ -29,9 +27,15 @@
      /* 1 */
      -moz-box-sizing: border-box;
      box-sizing: border-box;
-     /* 2 */
-     -webkit-backface-visibility: hidden;
-     backface-visibility: hidden;
+ }
+ 
+ /*
+ * 1. Resolve frame-rate issues on devices with lower frame-rates. Forces hardware acceleration
+ */
+ [data-uk-sticky-placeholder] > * {
+    /* 1 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
  }
 
 /*
