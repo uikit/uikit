@@ -369,6 +369,34 @@
 
                         <hr class="uk-article-divider">
 
+                        <h2 id="native-dialogs"><a href="#native-dialogs" class="uk-link-reset">Dialogs</a></h2>
+
+                        <p>The modal component also provides alternatives to the native dialogs: window.alert, window.confirm and window.prompt.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <button type="button" class="uk-button" onclick="UIkit.modal.alert('Attention!')">Alert</button>
+
+<pre><code>UIkit.modal.alert("Attention!");</code></pre>
+
+                        <button type="button" class="uk-button" onclick="UIkit.modal.confirm('Are you sure?', function(){ UIkit.modal.alert('Confirmed!'); });">Confirm</button>
+
+<pre><code>UIkit.modal.confirm("Are you sure?", function(){
+    // will be executed on confirm.
+});</code></pre>
+
+                        <button type="button" class="uk-button" onclick="UIkit.modal.prompt('Name:', '', function(val){ UIkit.modal.alert('Hello '+(val || 'Mr noname')+'!'); });">Prompt</button>
+
+<pre><code>UIkit.modal.prompt("Name:", value, function(newvalue){
+    // will be executed on submit.
+});</code></pre>
+
+                        <button type="button" class="uk-button" onclick="(function(modal){ modal = UIkit.modal.blockUI('Wait 5 sec...'); setTimeout(function(){ modal.hide() }, 5000) })();">Block UI</button>
+
+<pre><code>var modal = UIkit.modal.blockUI("Any content..."); // modal.hide() to unblock</code></pre>
+
+                        <hr class="uk-article-divider">
+
                         <h2 id="javascript"><a href="#javascript" class="uk-link-reset">JavaScript</a></h2>
 
                         <p>You can handle modal dialogs via raw javascript.</p>
