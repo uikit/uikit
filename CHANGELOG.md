@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.20.0 (April 24, 2015)
   - Added block component
   - Added contrast component
   - Added alternatives to native dialogs for window.alert, window.confirm, window.prompt
