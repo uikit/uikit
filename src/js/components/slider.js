@@ -141,7 +141,7 @@
 
         resize: function(focus) {
 
-            var $this = this, pos = 0, maxheight = 0, item, width, size;
+            var $this = this, pos = 0, maxheight = 0, item, width, cwidth, size;
 
             this.items = this.container.children().filter(':visible');
             this.vp    = this.element[0].getBoundingClientRect().width;
@@ -153,9 +153,10 @@
                 item      = UI.$(this);
                 size      = item.css({'left': '', 'width':''})[0].getBoundingClientRect();
                 width     = size.width;
+                cwidth    = item.width();
                 maxheight = Math.max(maxheight, size.height);
 
-                item.css({'left': pos, 'width':width}).data({'idx':idx, 'left': pos, 'width': width, 'area': (pos+width), 'center':(pos - ($this.vp/2 - width/2))});
+                item.css({'left': pos, 'width':width}).data({'idx':idx, 'left': pos, 'width': width, 'cwidth':cwidth, 'area': (pos+width), 'center':(pos - ($this.vp/2 - cwidth/2))});
 
                 pos += width;
             });
@@ -309,7 +310,7 @@
                         itm.css({'left': left}).data({
                             'left'  : left,
                             'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('width')/2))
+                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;
@@ -343,7 +344,7 @@
                         itm.css({'left': left}).data({
                             'left'  : left,
                             'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('width')/2))
+                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;

@@ -15,6 +15,7 @@
   - Fixed smooth scroll options with offcanvas menu links
   - Fixed touch detection (no longer dependent on user agent)
   - Fixed links in slideset component
+  - Fixed slider with gutter in center mode
 
   **Docs and Repo**
 
