@@ -3,6 +3,7 @@
 ### WIP
   - Added block component
   - Added contrast component
+  - Added alternatives to native dialogs for window.alert, window.confirm, window.prompt
   - Added heading hooks to base component
   - Added autoplay to slideset component
   - Added position option to datepicker
