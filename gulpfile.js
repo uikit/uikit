@@ -675,3 +675,28 @@ gulp.task('sublime', ['sublime-css', 'sublime-js', 'sublime-snippets'], function
             gulp.src("dist/sublime/tmp_*.py", {read: false}).pipe(rimraf()).on('end', done);
         });
 });
+
+
+var react = require('gulp-react');
+
+gulp.task('watch-react-jsx-to-js', function() {
+
+    watchfolders = ['uimzr/**/*.jsx'];
+
+    gulp.watch(watchfolders, function(files) {
+
+        console.log('jsx to js: '+files.path);
+        return gulp.src(files.path)
+            .pipe(react())
+            .pipe(gulp.dest(path.dirname(files.path)));
+
+    });
+});
+
+
+
+gulp.task('react-jsx-to-js', function () {
+    return gulp.src('uimzr/**/*.jsx')
+        .pipe(react())
+        .pipe(gulp.dest('uimzr'));
+});

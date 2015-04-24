@@ -16,5 +16,8 @@
     "server.js",
     "composer.json",
     "index.html"
-  ]
+  ],
+  "devDependencies": {
+    "react-router": "~0.13.2"
+  }
 }

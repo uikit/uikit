@@ -7966,7 +7966,7 @@ a.uk-thumbnail:focus {
 .mzr-block-header:after {
   display: block;
   margin-top: 10px;
-  border-top: 1px dashed #e6e6e6;
+  border-top: 1px solid #e6e6e6;
   content: '';
 }
 .mzr-block-content {
