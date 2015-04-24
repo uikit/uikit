@@ -3,6 +3,7 @@
 ### WIP
   - Added block component
   - Added contrast component
+  - Added alternatives to native dialogs for window.alert, window.confirm, window.prompt
   - Added heading hooks to base component
   - Added autoplay to slideset component
   - Added position option to datepicker
@@ -13,6 +14,7 @@
   - Fixed overflow hidden on expanded accordion content
   - Fixed smooth scroll options with offcanvas menu links
   - Fixed touch detection (no longer dependent on user agent)
+  - Fixed links in slideset component
 
   **Docs and Repo**
 
