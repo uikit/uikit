@@ -13,6 +13,7 @@
   - Fixed overflow hidden on expanded accordion content
   - Fixed smooth scroll options with offcanvas menu links
   - Fixed touch detection (no longer dependent on user agent)
+  - Fixed links in slideset component
 
   **Docs and Repo**
 

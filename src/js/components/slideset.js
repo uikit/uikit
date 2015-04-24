@@ -99,12 +99,17 @@
             this.currentFilter = this.options.filter;
             this.controls      = this.options.controls ? UI.$(this.options.controls) : this.element;
 
-            this.controls.on('click.uikit.slideset', '[data-uk-filter]', function(e){
-                e.preventDefault();
+            this.controls.on('click.uikit.slideset', '[data-uk-filter]', function(e) {
 
                 var ele = UI.$(this);
 
-                if ($this.animating || $this.currentFilter == ele.attr('data-uk-filter') || ele.parent().hasClass('uk-slideset')) {
+                if (ele.parent().hasClass('uk-slideset')) {
+                    return;
+                }
+
+                e.preventDefault();
+
+                if ($this.animating || $this.currentFilter == ele.attr('data-uk-filter')) {
                     return;
                 }
 
