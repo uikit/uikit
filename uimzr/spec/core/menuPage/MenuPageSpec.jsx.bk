@@ -1,0 +1,91 @@
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['Spec'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('Spec'));
+    }
+}(this, function (Spec) {
+
+
+    var MenuPageSpec = React.createClass({
+
+        render: function(){
+
+            return (
+
+                <Spec title="menu page (css, jsx)" anchor="core:menuPage" group="core">
+                    <p>Меню страницы.</p>
+                    <code>Less: themes/default/mzr-style/mzr-menu-page.less</code>
+                    <p>Пример css компонента:</p>
+                    <div className="mzr-menu-page">
+                        <div className="item--left">
+                            <ul className="mzr-menu-page__items">
+                                <li>
+                                    <div className="mzr-menu-page-header">Дневник тренировок</div>
+                                </li>
+                                <li>
+                                    <div className="mzr-menu-page-date">
+                                        <div className="__left"><i className="uk-icon-chevron-left"></i></div>
+                                        <div className="__date">01.01.2015</div>
+                                        <div className="__right"><i className="uk-icon-chevron-right"></i></div>
+                                        <div className="date-icon"><i className="uk-icon-calendar"></i></div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div className="item--right">
+                            <ul className="mzr-menu-page__items">
+                                <li className="uk-parent uk-hidden-small" data-uk-dropdown >
+                                    <div className="mzr-menu-page-button-icon mzr-menu-page-border-left">
+                                        <i className="uk-icon-question-circle"></i>
+                                    </div>
+                                    <div className="uk-dropdown uk-dropdown-navbar">
+                                        <ul className="uk-nav uk-nav-navbar uk-text-left">
+                                            <li><a  href="#">Меню 1</a></li>
+                                            <li><a  href="#">Меню 2</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="mzr-menu-page-button-with-text mzr-menu-page-border-left">
+                                        <div className="__inner">
+                                            <div className="__row">
+                                                <div className="__icon"><i className="uk-icon-question-circle"></i></div>
+                                            </div>
+                                            <div className="__row">
+                                                <div className="__text">Справка <br/>приложения</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="mzr-menu-page-button-with-text mzr-menu-page-border-left">
+                                        <div className="__inner">
+                                            <div className="__row">
+                                                <div className="__icon"><i className="uk-icon-calendar"></i></div>
+                                            </div>
+                                            <div className="__row">
+                                                <div className="__text">Справка <br/>приложения</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+
+                </Spec>
+
+            );
+
+        }
+    });
+    return MenuPageSpec;
+
+}));

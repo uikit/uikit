@@ -13,7 +13,7 @@
 
             return (
 
-                <Spec title="Block (css)" anchor="Core_BlockSpec" group="core">
+                <Spec title="Block (css)" anchor="core:block" group="core">
                     <p>Является основным блоком отображения контента.</p>
                     <code>Less: themes/default/mzr-style/mzr-block.less</code>
                     <p>Примеры:</p>

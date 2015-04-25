@@ -1,6 +1,7 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define([
+            'uimzr/lib/Events',
             'uimzr/spec/core/spec/SpecGrid3Column',
             'uimzr/spec/core/spec/SpecGridClearFix',
             'uimzr/spec/core/spec/SpecGridContent',
@@ -10,6 +11,7 @@
     } else if (typeof exports === 'object') {
 
         module.exports = factory(
+            require('uimzr/lib/Events'),
             require('uimzr/spec/core/spec/SpecGrid3Column'),
             require('uimzr/spec/core/spec/SpecGridClearFix'),
             require('uimzr/spec/core/spec/SpecGridContent'),
@@ -17,7 +19,7 @@
             require('uimzr/spec/core/spec/SpecGridRightSide')
         );
     }
-}(this, function (SpecGrid3Column, SpecGridClearFix, SpecGridContent, SpecGridLeftSide, SpecGridRightSide) {
+}(this, function (Events, SpecGrid3Column, SpecGridClearFix, SpecGridContent, SpecGridLeftSide, SpecGridRightSide) {
 
     var Spec = React.createClass({
 
@@ -25,7 +27,7 @@
 
             title: React.PropTypes.string.isRequired,
             anchor: React.PropTypes.string.isRequired,
-            group: React.PropTypes.oneOf('core').isRequired,
+            group: React.PropTypes.oneOf(['core']).isRequired,
             grid: React.PropTypes.oneOf('3').isRequired
 
         },
@@ -40,6 +42,9 @@
 
 
         componentDidMount:function(){
+
+            Events.trigger('uimzr:Spec:addSpeck', {title: this.props.title, anchor: this.props.anchor, group: this.props.group});
+
             $('pre code').each(function(i, block) {
                 hljs.highlightBlock(block);
             });
@@ -53,13 +58,19 @@
         render: function(){
 
 
-            return (<div>
+            var lStyle = {
+                borderTopWidth: 1,
+                borderTopStyle: 'solid',
+                borderTopColor: '#6e7487',
+                marginTop: 15
+            };
+            return (<div style={lStyle}>
 
                 <SpecGrid3Column>
 
                     <SpecGridContent>
-                        <a name={this.props.anchor}></a>
-                        <h1>{this.props.title}</h1>
+
+                        <h1>{this.props.title} (<a href={'#'+this.props.anchor}>{'#'}</a>)</h1>
                         {this.props.children}
                     </SpecGridContent>
 

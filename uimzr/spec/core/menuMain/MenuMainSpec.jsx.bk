@@ -1,0 +1,88 @@
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['Spec'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('Spec'));
+    }
+}(this, function (Spec) {
+
+    var menuMainSpec = React.createClass({
+
+        render: function(){
+
+            return (
+
+                <div>
+                    <Spec title="menu main (css)" anchor="core:menuMain" group="core">
+                        <p>Меню страницы.</p>
+                        <nav className="uk-navbar mzr-navbar--menu-page">
+                            <div className="uk-navbar-content mzr-navbar-header">
+                                Дневник питания
+                            </div>
+
+                            <ul className="uk-navbar-nav">
+                                <li>
+                                    <a href=""><i className="uk-icon-chevron-left"></i></a>
+                                </li>
+                                <li>
+                                    <a href="">01.01.2015</a>
+                                </li>
+                                    <li>
+                                        <a href=""><i className="uk-icon-chevron-right"></i></a>
+                                    </li>
+                            </ul>
+
+                            <ul className="uk-navbar-nav uk-navbar-flip">
+                                <li>
+                                    <a href="" className="uk-navbar-nav-subtitle"><i className="uk-icon-calendar"></i><div>Справка <br/> приложения</div></a>
+                                </li>
+                                <li>
+                                    <a href="" className="uk-navbar-nav-subtitle"><i className="uk-icon-calendar"></i><div>Одна</div></a>
+                                </li>
+                            </ul>
+
+
+                        </nav>
+                    </Spec>
+                    <nav className="uk-navbar mzr-navbar--menu-page">
+                        <a href="" className="uk-navbar-brand">
+                            <img src="http://health-diet.ru/local/components/mzr14/nav-top-menu/templates/.default/img/logo.png"/>
+                        </a>
+                        <div className="uk-navbar-content">
+                            <button className="uk-button uk-button-primary"><i className="uk-icon-calendar"></i>Меню мкнывы</button>
+                        </div>
+                        <ul className="uk-navbar-nav">
+                            <li>
+                                <a href="" className="uk-navbar-nav-subtitle"><i className="uk-icon-calendar"></i><div>Справка <br/> приложения</div></a>
+                            </li>
+                            <li>
+                                <a href="" className="uk-navbar-nav-subtitle"><i className="uk-icon-calendar"></i><div>Одна</div></a>
+                            </li>
+                        </ul>
+                        <div className="uk-navbar-content">
+                            <i className="uk-icon-question-circle" ></i>
+                        </div>
+
+                        <ul className="uk-navbar-nav">
+                            <li className="uk-active"><a href="">erer</a></li>
+                            <li><a href="">erere</a></li>
+                            <li className="uk-parent"><a href="">rerere</a></li>
+                        </ul>
+                        <div className="uk-navbar-content uk-navbar-flip  uk-hidden-small">
+                            <div className="uk-button-group">
+                                <a className="uk-button uk-button-danger" href="#">Link</a>
+                                <button className="uk-button uk-button-danger">Button</button>
+                            </div>
+                        </div>
+
+                    </nav>
+                </div>
+
+
+            );
+
+        }
+    });
+    return menuMainSpec;
+
+}));

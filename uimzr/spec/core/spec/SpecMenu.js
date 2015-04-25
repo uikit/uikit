@@ -9,7 +9,7 @@
 
 
 
-    var SpecMenu = React.createClass({
+    var SpecMenu = React.createClass({displayName: "SpecMenu",
 
         propTypes: {
 
@@ -63,20 +63,20 @@
             for(var i=0; i<this.state.groups.length; i++){
                 var lGroup = this.state.groups[i];
                 var lSumMenu= [];
-                lSumMenu.push(<li key={0}><a href={"#"+lGroup.group}>{lGroup.group}</a>:</li>);
+                lSumMenu.push(React.createElement("li", {key: 0}, React.createElement("a", {href: "#"+lGroup.group}, lGroup.group), ":"));
                 for(var j=0; j < lGroup.specks.length; j++){
-                    lSumMenu.push(<li key={j+1}><a href={"#"+lGroup.specks[j].anchor}>{lGroup.specks[j].title}</a></li>);
+                    lSumMenu.push(React.createElement("li", {key: j+1}, React.createElement("a", {href: "#"+lGroup.specks[j].anchor}, lGroup.specks[j].title)));
                 }
-                lMenu.push(<ul key={i+25} className="uk-subnav uk-subnav-line">{lSumMenu}</ul>);
+                lMenu.push(React.createElement("ul", {key: i+25, className: "uk-subnav uk-subnav-line"}, lSumMenu));
             }
 
             return (
-                <div className="uk-container uk-width-1-1 uk-container-center">
-                    <div className="mzr-block">
-                        <div className="mzr-block-header">Компоненты: css, jsx js; общие библиотеки; style guid</div>
-                        <div className="mzr-block-content">{lMenu}</div>
-                    </div>
-                </div>);
+                React.createElement("div", {className: "uk-container uk-width-1-1 uk-container-center"}, 
+                    React.createElement("div", {className: "mzr-block"}, 
+                        React.createElement("div", {className: "mzr-block-header"}, "Компоненты: css, jsx js; общие библиотеки; style guid"), 
+                        React.createElement("div", {className: "mzr-block-content"}, lMenu)
+                    )
+                ));
         }
     });
     return SpecMenu;

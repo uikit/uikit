@@ -13,7 +13,7 @@
 
             return (
 
-                React.createElement(Spec, {title: "Block (css)", anchor: "Core_BlockSpec", group: "core"}, 
+                React.createElement(Spec, {title: "Block (css)", anchor: "core:block", group: "core"}, 
                     React.createElement("p", null, "Является основным блоком отображения контента."), 
                     React.createElement("code", null, "Less: themes/default/mzr-style/mzr-block.less"), 
                     React.createElement("p", null, "Примеры:"), 
