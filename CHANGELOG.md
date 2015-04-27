@@ -2,6 +2,7 @@
 
 ### WIP
   - Added active state for table rows
+  - Added new hooks to table component
 
 ### 2.20.0 (April 24, 2015)
   - Added block component
