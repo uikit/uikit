@@ -161,7 +161,7 @@ gulp.task('browser-reload', function (done) {
 
 gulp.task('browsersync', ['browser-sync', 'indexthemes'], function(done) {
 
-    watchfolders = ['src/**/*', 'themes/**/*', 'custom/**/*.less'];
+    watchfolders = ['src/**/*', 'themes/**/*.less', 'custom/**/*.less'];
 
     gulp.watch(watchfolders, function(files) {
         runSequence('browser-reload');
