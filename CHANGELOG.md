@@ -5,6 +5,7 @@
   - Added contrast component
   - Added alternatives to native dialogs for window.alert, window.confirm, window.prompt
   - Added heading hooks to base component
+  - Added support for indeterminate state in form-advanced
   - Added autoplay to slideset component
   - Added position option to datepicker
   - Added start and end option for the timepicker component
