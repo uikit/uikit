@@ -1,0 +1,163 @@
+// Name:            Block
+// Description:     Defines styles to create horizontal layout blocks
+//
+// Component:       `uk-block`
+//
+// Modifiers:       `uk-list-line`
+//                  `uk-list-striped`
+//                  `uk-list-space`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$block-padding-vertical:                         20px !default;
+$block-padding-vertical-large:                   50px !default;
+
+$block-large-padding-vertical:                   $block-padding-vertical !default;
+$block-large-padding-vertical-medium:            $block-padding-vertical-large !default;
+$block-large-padding-vertical-large:             100px !default;
+
+$block-default-background:                       #fff !default;
+$block-muted-background:                         #f9f9f9 !default;
+$block-primary-background:                       #00a8e6 !default;
+$block-secondary-background:                     #222 !default;
+
+
+/* ========================================================================
+   Component: List
+ ========================================================================== */
+
+.uk-block {
+    position: relative;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: $block-padding-vertical;
+    padding-bottom: $block-padding-vertical;
+    @include hook-block();
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-block {
+        padding-top: $block-padding-vertical-large;
+        padding-bottom: $block-padding-vertical-large;
+    }
+
+}
+
+/*
+ * Micro clearfix to make blocks more robust
+ */
+
+.uk-block:before,
+.uk-block:after {
+    content: "";
+    display: table;
+}
+
+.uk-block:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-block > :last-child { margin-bottom: 0; }
+
+
+/* Padding Modifier
+ ========================================================================== */
+
+/*
+ * Large padding
+ */
+
+.uk-block-large {
+    padding-top: $block-large-padding-vertical;
+    padding-bottom: $block-large-padding-vertical;
+}
+
+/* Tablets and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-block-large {
+        padding-top: $block-large-padding-vertical-medium;
+        padding-bottom: $block-large-padding-vertical-medium;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-block-large {
+        padding-top: $block-large-padding-vertical-large;
+        padding-bottom: $block-large-padding-vertical-large;
+    }
+
+}
+
+
+/* Color Modifier
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-block-default {
+    background: $block-default-background;
+    @include hook-block-default();
+}
+
+/*
+ * Muted
+ */
+
+.uk-block-muted {
+    background: $block-muted-background;
+    @include hook-block-muted();
+}
+
+/*
+ * Primary
+ */
+
+.uk-block-primary {
+    background: $block-primary-background;
+    @include hook-block-primary();
+}
+
+/*
+ * Secondary
+ */
+
+.uk-block-secondary {
+    background: $block-secondary-background;
+    @include hook-block-secondary();
+}
+
+/*
+ * Adjust padding between equal colored blocks
+ */
+
+.uk-block-default + .uk-block-default,
+.uk-block-muted + .uk-block-muted,
+.uk-block-primary + .uk-block-primary,
+.uk-block-secondary + .uk-block-secondary { padding-top: 0; }
+
+
+// Hooks
+// ========================================================================
+
+@include hook-block-misc();
+
+// @mixin hook-block(){}
+// @mixin hook-block-default(){}
+// @mixin hook-block-muted(){}
+// @mixin hook-block-secondary(){}
+// @mixin hook-block-primary(){}
+// @mixin hook-block-misc(){}

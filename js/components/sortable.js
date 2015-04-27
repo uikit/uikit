@@ -1,4 +1,4 @@
-/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -121,13 +121,6 @@
                 currentlyDraggingElement = null,
                 currentlyDraggingTarget  = null,
                 children;
-
-            Object.keys(this.options).forEach(function(key){
-
-                if (String($this.options[key]).indexOf('Class')!=-1) {
-                    $this.options[key] = $this.options[key];
-                }
-            });
 
             if (supportsDragAndDrop) {
                 this.element.children().attr("draggable", "true");

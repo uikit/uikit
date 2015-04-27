@@ -23,10 +23,20 @@
  */
 
 [data-uk-sticky].uk-active {
-    z-index: @sticky-z-index;
+   z-index: @sticky-z-index;
+   /* 1 */
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+/*
+ * 1. Resolve frame-rate issues on devices with lower frame-rates. Forces hardware acceleration
+ */
+
+.uk-sticky-placeholder > * {
     /* 1 */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /*

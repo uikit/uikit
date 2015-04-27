@@ -20,6 +20,7 @@ $form-advanced-checked-color:                  #00a8e6 !default;
 $form-advanced-radio-size:                     8px !default;
 
 $form-advanced-checkbox-icon:                  "\f00c" !default;
+$form-advanced-checkbox-indeterminate-icon:    "\f068" !default;
 $form-advanced-checkbox-font-size:             12px !default;
 
 $form-advanced-disabled-border:                #ddd !default;
@@ -67,8 +68,8 @@ $form-advanced-disabled-color:                 #aaa !default;
  * Checked
  */
 
-.uk-form input[type=checkbox]:checked:before,
-.uk-form input[type=radio]:checked:before {
+.uk-form input[type=radio]:before,
+.uk-form input[type=checkbox]:before {
     display: block;
     @include hook-form-advanced-checked();
 }
@@ -85,7 +86,8 @@ $form-advanced-disabled-color:                 #aaa !default;
 }
 
 /* Checkbox */
-.uk-form input[type=checkbox]:checked:before {
+.uk-form input[type=checkbox]:checked:before,
+.uk-form input[type=checkbox]:indeterminate:before {
     content: $form-advanced-checkbox-icon;
     font-family: FontAwesome;
     font-size: $form-advanced-checkbox-font-size;
@@ -95,6 +97,8 @@ $form-advanced-disabled-color:                 #aaa !default;
     color: $form-advanced-checked-color;
     @include hook-form-advanced-checkbox();
 }
+
+.uk-form input[type=checkbox]:indeterminate:before { content: $form-advanced-checkbox-indeterminate-icon; }
 
 /*
  * Disabled
@@ -107,7 +111,8 @@ $form-advanced-disabled-color:                 #aaa !default;
 }
 
 .uk-form input[type=radio]:disabled:checked:before { background-color: $form-advanced-disabled-color; }
-.uk-form input[type=checkbox]:disabled:checked:before { color: $form-advanced-disabled-color; }
+.uk-form input[type=checkbox]:disabled:checked:before,
+.uk-form input[type=checkbox]:disabled:indeterminate:before { color: $form-advanced-disabled-color; }
 
 
 // Hooks

@@ -1,4 +1,4 @@
-/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -262,7 +262,7 @@
 
         show: function(index, direction) {
 
-            if (this.animating) return;
+            if (this.animating || this.current == index) return;
 
             this.animating = true;
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -273,9 +273,10 @@
         url     = element.css('background-image').replace(/^url\(/g, '').replace(/\)$/g, '').replace(/("|')/g, '');
         check   = function() {
 
-            var w = element.width(), h = element.height();
+            var w = element.width(), h = element.height(), extra = (prop=='bg') ? opts.diff : (opts.diff/100) * h;
 
-            h += (prop=='bg') ? opts.diff : (opts.diff/100) * h;
+            h += extra;
+            w += Math.ceil(extra * ratio);
 
             // if element height < parent height (gap underneath)
             if ((w / ratio) < h) {
@@ -288,7 +289,7 @@
                 height = Math.ceil(w / ratio);
             }
 
-            obj.element.css({'background-size': (width+'px '+height+'px')})
+            obj.element.css({'background-size': (width+'px '+height+'px')});
         };
 
         img.onerror = function(){
@@ -310,7 +311,6 @@
 
         return true;
     }
-
 
 
     // Some named colors to work with, added by Bradley Ayers

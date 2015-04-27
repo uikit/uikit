@@ -1,4 +1,4 @@
-/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -8,7 +8,7 @@
     }
 
     if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit-lightbox"], function(){
+        define("uikit-lightbox", ["uikit"], function(){
             return component || addon(UIkit);
         });
     }

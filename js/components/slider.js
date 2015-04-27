@@ -1,4 +1,4 @@
-/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -79,6 +79,10 @@
 
             this.container.on('touchstart mousedown', function(evt) {
 
+                if (evt.originalEvent && evt.originalEvent.touches) {
+                    evt = evt.originalEvent.touches[0];
+                }
+
                 // ignore right click button
                 if (evt.button && evt.button==2 || !$this.active) {
                     return;
@@ -96,8 +100,7 @@
 
                 delayIdle = function(e) {
 
-                    dragged = true;
-
+                    dragged  = true;
                     dragging = $this;
                     store    = {
                         touchx : parseInt(e.pageX, 10),
@@ -139,9 +142,9 @@
 
         resize: function(focus) {
 
-            var $this = this, pos = 0, maxheight = 0, item, width, size;
+            var $this = this, pos = 0, maxheight = 0, item, width, cwidth, size;
 
-            this.items = this.container.children();
+            this.items = this.container.children().filter(':visible');
             this.vp    = this.element[0].getBoundingClientRect().width;
 
             this.container.css({'min-width': '', 'min-height': ''});
@@ -151,9 +154,10 @@
                 item      = UI.$(this);
                 size      = item.css({'left': '', 'width':''})[0].getBoundingClientRect();
                 width     = size.width;
+                cwidth    = item.width();
                 maxheight = Math.max(maxheight, size.height);
 
-                item.css({'left': pos, 'width':width}).data({'idx':idx, 'left': pos, 'width': width, 'area': (pos+width), 'center':(pos - ($this.vp/2 - width/2))});
+                item.css({'left': pos, 'width':width}).data({'idx':idx, 'left': pos, 'width': width, 'cwidth':cwidth, 'area': (pos+width), 'center':(pos - ($this.vp/2 - cwidth/2))});
 
                 pos += width;
             });
@@ -163,11 +167,9 @@
             if (this.options.infinite && pos <= (2*this.vp) && !this.itemsResized) {
 
                 // fill with cloned items
-                this.items.each(function(idx){
+                this.container.children().each(function(idx){
                    $this.container.append($this.items.eq(idx).clone(true).attr('id', ''));
-                });
-
-                this.items.each(function(idx){
+                }).each(function(idx){
                    $this.container.append($this.items.eq(idx).clone(true).attr('id', ''));
                 });
 
@@ -309,7 +311,7 @@
                         itm.css({'left': left}).data({
                             'left'  : left,
                             'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('width')/2))
+                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;
@@ -343,7 +345,7 @@
                         itm.css({'left': left}).data({
                             'left'  : left,
                             'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('width')/2))
+                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;
@@ -471,10 +473,9 @@
 
             dragging.updateFocus(focus!==false ? focus:store._focus);
 
-            dragging = delayIdle = false;
         }
 
-
+        dragging = delayIdle = false;
     });
 
     return UI.slider;

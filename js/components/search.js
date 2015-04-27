@@ -1,4 +1,4 @@
-/*! UIkit 2.19.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -78,7 +78,7 @@
                 $this.element.removeClass("uk-active");
             });
 
-            this.on('select.uk.autocomplete', function(e, data) {
+            this.on('selectitem.uk.autocomplete', function(e, data) {
                 if (data.url) {
                   location.href = data.url;
                 } else if(data.moreresults) {
