@@ -1,5 +1,8 @@
 # Changelog
 
+### WIP
+  - Added active state for table rows
+
 ### 2.20.0 (April 24, 2015)
   - Added block component
   - Added contrast component

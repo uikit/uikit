@@ -8,6 +8,8 @@
 //                  `uk-table-condensed`
 //                  `uk-table-hover`
 //
+// States:          `uk-active`
+//
 // ========================================================================
 
 
@@ -27,6 +29,8 @@
 @table-condensed-padding-horizontal:            8px;
 
 @table-hover-background:                        #EEE;
+
+@table-active-background:                       @table-hover-background;
 
 
 /* ========================================================================
@@ -85,6 +89,12 @@
     color: @table-caption-color;
 }
 
+/*
+ * Active State
+ */
+
+.uk-table tbody tr.uk-active { background: @table-active-background; }
+
 
 /* Sub-modifier: `uk-table-middle`
  ========================================================================== */
@@ -109,6 +119,7 @@
  ========================================================================== */
 
 .uk-table-hover tbody tr:hover { background: @table-hover-background; }
+
 
 
 // Hooks
