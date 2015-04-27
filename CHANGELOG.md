@@ -7,6 +7,7 @@
   - Added heading hooks to base component
   - Added autoplay to slideset component
   - Added position option to datepicker
+  - Added start and end option for the timepicker component
   - Updated hover delay for dropdown component
   - Updated event name select.uk.autocomplete to selectitem.uk.autocomplete
   - Fixed slider on touch devices
