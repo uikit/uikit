@@ -5,7 +5,10 @@ requirejs.config({
     paths: {
         //core: "core",
         Spec: "uimzr/spec/core/spec/Spec",
-        SpecMenu: "uimzr/spec/core/spec/SpecMenu"
+        SpecMenu: "uimzr/spec/core/spec/SpecMenu",
+        'beautify': "../bower_components/js-beautify/js/",
+        'beautify-lib': "../bower_components/js-beautify/js/lib/"
+
     },
 
 

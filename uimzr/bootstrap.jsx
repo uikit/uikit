@@ -43,7 +43,9 @@ require([
 
         render: function(){
 
+
             return (<div>
+
 
                 <SpecMenu />
                 <SBlock></SBlock>
@@ -57,6 +59,46 @@ require([
     });
 
 
+    //var AppTest = React.createClass({
+    //
+    //    componentDidMount:function(){
+    //
+    //        $('pre code').each(function(i, block) {
+    //            //hljs.highlightBlock(block);
+    //        });
+    //        //$("#test").html(React.renderToStaticMarkup(this.props.children));
+    //        var lText = React.renderToStaticMarkup(this.props.children);
+    //        console.log(lText);
+    //        //$("#test").append(lText);
+    //
+    //        //var sdd = style_html(lText);
+    //        var beautify_js = require('js-beautify');
+    //
+    //        $("#test2").append("<pre className='prettyprint linenums'>"  +
+    //        $("#test").html().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    //        +"</pre>");
+    //    },
+    //    render: function(){
+    //        var lText = React.renderToStaticMarkup(this.props.children);
+    //
+    //        console.log(lText);
+    //        return (<div>
+    //
+    //            <pre className="prettyprint linenums">
+    //               {lText}
+    //            </pre>
+    //
+    //
+    //
+    //        </div>);
+    //    }
+    //});
+
+    //React.renderToStaticMarkup(this.props.children[0])
+    //document.createTextNode(React.findDOMNode(this))
+    //console.log(React.findDOMNode(this).innerHTML);
+
+
     var AppHome = React.createClass({
 
         render: function(){
@@ -67,8 +109,10 @@ require([
             });
             return (<div>
 
-                {AllSpeck}
 
+
+
+                {AllSpeck}
 
             </div>);
         }
@@ -112,7 +156,7 @@ require([
 
 
     Router.run(routes, function (Handler) {
-        React.render(<Handler/>, document.body);
+        React.render(<Handler/>, document.getElementById("uimzr"));
     });
 
 

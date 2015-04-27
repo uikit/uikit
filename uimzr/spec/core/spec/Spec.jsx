@@ -46,12 +46,15 @@
             Events.trigger('uimzr:Spec:addSpeck', {title: this.props.title, anchor: this.props.anchor, group: this.props.group});
 
             $('pre code').each(function(i, block) {
-                hljs.highlightBlock(block);
+               // hljs.highlightBlock(block);
             });
+
+
+           // console.log(React.findDOMNode(this).innerHTML);
         },
         componentDidUpdate:function(){
             $('pre code').each(function(i, block) {
-                hljs.highlightBlock(block);
+             //   hljs.highlightBlock(block);
             });
         },
 

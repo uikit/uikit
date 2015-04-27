@@ -7759,6 +7759,19 @@ a.uk-thumbnail:focus {
   background-position: left center, right center;
   background-repeat: no-repeat;
 }
+.mzr-avatar {
+  border-radius: 25px;
+  border: 0 solid #FFF;
+  height: 44px;
+  width: 44px;
+}
+.mzr-link-to-text,
+.mzr-link-to-text:hover,
+.mzr-link-to-text:visited,
+.mzr-link-to-text:active {
+  color: #1c1c1c;
+  text-decoration: none;
+}
 .mzr-color-red-bg {
   background-color: #e74c3c;
 }
@@ -8211,6 +8224,50 @@ div + .mzr-block {
 }
 .mzr-user-menu {
   background: white;
+}
+.mzr-user-menu:before,
+.mzr-user-menu:after {
+  content: "";
+  display: table;
+}
+.mzr-user-menu button {
+  margin-left: 10px;
+}
+.mzr-user-menu .uk-nav > li > a {
+  border-bottom: 1px solid #f8f8f8;
+}
+.mzr-user-menu .uk-nav > li > a,
+.mzr-user-menu .uk-nav-header {
+  padding: 5px 10px;
+}
+.mzr-user-menu .mzr-user-menu-header {
+  margin: 10px;
+}
+.mzr-user-menu .mzr-user-menu-header:before,
+.mzr-user-menu .mzr-user-menu-header:after {
+  content: "";
+  display: table;
+}
+.mzr-user-menu .mzr-user-menu-header:after {
+  clear: both;
+}
+.mzr-user-menu .mzr-user-menu-header > img {
+  margin-right: 15px;
+  float: left;
+}
+.mzr-user-menu .mzr-user-menu-header .el-title {
+  margin: 5px 0 0;
+  font-size: 1.1em;
+  line-height: 1;
+}
+.mzr-user-menu .mzr-user-menu-header .el-meta {
+  margin: 5px 0 0;
+  font-size: 11px;
+  line-height: 16px;
+}
+.mzr-user-menu .mzr-user-menu-header .el-meta a {
+  color: #a1a1a1;
+  text-decoration: none;
 }
 /*
 Логотип сайта

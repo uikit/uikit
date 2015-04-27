@@ -1,3 +1,56 @@
+
+
 .mzr-user-menu{
   background: white;
+  //border-top: 1px solid white;
+  &:before, &:after{
+    content: "";
+    display: table;
+  }
+
+  button{
+    margin-left: 10px;
+  }
+
+  .uk-nav > li > a{
+    border-bottom: 1px solid @mzr-color-gray-lite;
+  }
+
+  .uk-nav > li > a, .uk-nav-header {
+    padding: 5px 10px;
+  }
+
+  .mzr-user-menu-header{
+
+    margin: 10px;
+
+    &:before, &:after{
+      content: "";
+      display: table;
+    }
+    &:after{
+      clear: both;
+    }
+
+    >img{
+      margin-right: 15px;
+      float: left;
+    }
+
+    .el-title{
+        margin: 5px 0 0;
+        font-size: 1.1em;
+        line-height: 1;
+    }
+
+    .el-meta {
+      margin: 5px 0 0;
+      font-size: 11px;
+      line-height: 16px;
+      a{
+        color: @mzr-color-text-mute;
+        text-decoration: none;
+      }
+    }
+  }
 }
