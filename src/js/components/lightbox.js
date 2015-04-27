@@ -7,7 +7,7 @@
     }
 
     if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit-lightbox"], function(){
+        define("uikit-lightbox", ["uikit"], function(){
             return component || addon(UIkit);
         });
     }

@@ -40,12 +40,12 @@ var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
 
                 if (theme && t!=theme) return;
 
-                var path = f+'/'+t, uikit = path + '/uikit.less';
-
+                var path = f+'/'+t, uikit = path + '/uikit.less', customizer = path + '/uikit-customizer.less';
                 if (!((fs.lstatSync(path).isDirectory() || fs.lstatSync(path).isSymbolicLink()) && fs.existsSync(uikit))) return;
                 list.push({"name": t, "path": f+'/'+t, "uikit": uikit});
             });
         });
+
 
         return list;
     },
@@ -159,17 +159,19 @@ gulp.task('browser-reload', function (done) {
     done();
 });
 
-gulp.task('watch', ['indexthemes'], function(done) {
-
-    gulp.watch(watchfolders, function(files) {
-        runSequence('dist');
-    });
-});
-
 gulp.task('browsersync', ['browser-sync', 'indexthemes'], function(done) {
+
+    watchfolders = ['src/**/*', 'themes/**/*.less', 'custom/**/*.less'];
 
     gulp.watch(watchfolders, function(files) {
         runSequence('browser-reload');
+    });
+});
+
+gulp.task('watch', ['dist-clean', 'indexthemes'], function(done) {
+
+    gulp.watch(watchfolders, function(files) {
+        runSequence('dist');
     });
 });
 

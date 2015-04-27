@@ -1,5 +1,31 @@
 # Changelog
 
+### 2.20.0 (April 24, 2015)
+  - Added block component
+  - Added contrast component
+  - Added alternatives to native dialogs for window.alert, window.confirm, window.prompt
+  - Added heading hooks to base component
+  - Added support for indeterminate state in form-advanced
+  - Added autoplay to slideset component
+  - Added position option to datepicker
+  - Added start and end option for the timepicker component
+  - Updated hover delay for dropdown component
+  - Updated event name select.uk.autocomplete to selectitem.uk.autocomplete
+  - Fixed slider on touch devices
+  - Fixed link reset on focus
+  - Fixed overflow hidden on expanded accordion content
+  - Fixed smooth scroll options with offcanvas menu links
+  - Fixed touch detection (no longer dependent on user agent)
+  - Fixed links in slideset component
+  - Fixed slider with gutter in center mode
+  - Fixed sticky element with animation flickering
+
+  **Docs and Repo**
+
+  - Added docs and tests for block component
+  - Added docs and tests for contrast component
+  - Updated parallax docs
+
 ### 2.19.0 (April 17, 2015)
   - Added parallax component
   - Added slideset component
