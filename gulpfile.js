@@ -108,12 +108,31 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 /*
  * development related tasks
  * ---------------------------------------------------------*/
-gulp.task('browser-sync', function() {
-    browserSync({
+gulp.task('sync', function() {
+
+    function buildTheme(theme) {
+
+        return new Promise(function(resolve){
+
+            var tmp = themes;
+
+            themes = getThemes(theme);
+
+            runSequence('dist-themes-core', function(){
+                themes = tmp;
+                resolve();
+            });
+        });
+    }
+
+    var currenttheme,
+        bs = browserSync({
+        open: "external",
         server: {
-            baseDir: "./",
-            startPath: "/tests",
-            middleware: function (req, res, next) {
+
+            baseDir    : "./",
+            startPath  : "/tests",
+            middleware : function (req, res, next) {
 
                 var m, theme;
 
@@ -125,19 +144,11 @@ gulp.task('browser-sync', function() {
 
                 if (theme) {
 
+                    currenttheme = theme;
+
                     if (!watchCache[theme]) {
 
-                        watchCache[theme] = new Promise(function(resolve){
-
-                            var tmp = themes;
-
-                            themes = getThemes(theme);
-
-                            runSequence('dist-themes-core', function(){
-                                themes = tmp;
-                                resolve();
-                            });
-                        });
+                        watchCache[theme] = buildTheme(theme);
                     }
 
                     watchCache[theme].then(function(){
@@ -149,23 +160,21 @@ gulp.task('browser-sync', function() {
                 }
 
             }
-        }
+        },
+
+        files: [{
+            match: watchfolders,
+            fn: function (event, file) {
+
+                if (currenttheme) {
+
+                    watchCache = {};
+                    bs.reload();
+                }
+            }
+        }]
     });
-});
 
-gulp.task('browser-reload', function (done) {
-    watchCache = {};
-    browserSync.reload();
-    done();
-});
-
-gulp.task('browsersync', ['browser-sync', 'indexthemes'], function(done) {
-
-    watchfolders = ['src/**/*', 'themes/**/*.less', 'custom/**/*.less'];
-
-    gulp.watch(watchfolders, function(files) {
-        runSequence('browser-reload');
-    });
 });
 
 gulp.task('watch', ['dist-clean', 'indexthemes'], function(done) {
