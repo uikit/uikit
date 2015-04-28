@@ -103,8 +103,8 @@ $thumbnav-active-opacity:                        1 !default;
  * Hover
  */
 
-.uk-thumbnav > * > *:hover > img,
-.uk-thumbnav > * > *:focus > img { opacity: $thumbnav-hover-opacity; }
+.uk-thumbnav > * > :hover > img,
+.uk-thumbnav > * > :focus > img { opacity: $thumbnav-hover-opacity; }
 
 /*
  * Active

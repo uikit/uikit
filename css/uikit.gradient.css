@@ -1,4 +1,4 @@
-/*! UIkit 2.20.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1169,9 +1169,9 @@ iframe {
   clear: both;
 }
 /*
- * Remove margin from the last-child
+ * Remove margin from the last-child if not `uk-widget-title`
  */
-.uk-panel > :last-child {
+.uk-panel > :not(.uk-panel-title):last-child {
   margin-bottom: 0;
 }
 /* Sub-object: `uk-panel-title`
@@ -1323,7 +1323,7 @@ iframe {
   -webkit-transform: translateZ(0);
 }
 /* ========================================================================
-   Component: List
+   Component: Block
  ========================================================================== */
 .uk-block {
   position: relative;
@@ -2226,8 +2226,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * Hover
  * 1. Apply hover style also to focus state
  */
-.uk-subnav > * > *:hover,
-.uk-subnav > * > *:focus {
+.uk-subnav > * > :hover,
+.uk-subnav > * > :focus {
   color: #0077dd;
   text-decoration: none;
 }
@@ -2260,8 +2260,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  * 1. Apply hover style also to focus state
  * 2. Remove default focus style
  */
-.uk-subnav-pill > * > *:hover,
-.uk-subnav-pill > * > *:focus {
+.uk-subnav-pill > * > :hover,
+.uk-subnav-pill > * > :focus {
   background: #fafafa;
   color: #444444;
   text-decoration: none;
@@ -2824,8 +2824,8 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 /*
  * Hover
  */
-.uk-thumbnav > * > *:hover > img,
-.uk-thumbnav > * > *:focus > img {
+.uk-thumbnav > * > :hover > img,
+.uk-thumbnav > * > :focus > img {
   opacity: 1;
 }
 /*
@@ -2976,6 +2976,12 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-table caption {
   text-align: left;
   color: #999999;
+}
+/*
+ * Active State
+ */
+.uk-table tbody tr.uk-active {
+  background: #f0f0f0;
 }
 /* Sub-modifier: `uk-table-middle`
  ========================================================================== */
@@ -7066,7 +7072,7 @@ a.uk-thumbnail:focus {
 /*
  * Remove margin from adjacent element
  */
-.uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) {
+.uk-modal-dialog > .uk-close:first-child + :not([class*='uk-modal-']) {
   margin-top: 0;
 }
 /* Modifier: `uk-modal-dialog-lightbox`
@@ -7301,7 +7307,7 @@ a.uk-thumbnail:focus {
 /*
  * Items
  */
-.uk-switcher > *:not(.uk-active) {
+.uk-switcher > :not(.uk-active) {
   display: none;
 }
 /* ========================================================================
@@ -8151,48 +8157,6 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 .uk-contrast {
   color: #ffffff;
-  /*
-     * Link
-     */
-  /*
-     * Code
-     */
-  /*
-     * Emphasize
-     */
-  /*
-     * Headings
-     */
-  /*
-     * Horizontal rules
-     */
-  /*
-     * Nav header
-     */
-  /*
-     * Nav divider
-     */
-  /*
-     * Nested items
-     */
-  /*
-     * Subnav line
-     */
-  /*
-     * Subnav pill
-     */
-  /*
-     * Placeholder
-     */
-  /*
-     * Button primary
-     */
-  /*
-     * Icon hover
-     */
-  /*
-     * Icon button
-     */
 }
 .uk-contrast a:not([class]),
 .uk-contrast .uk-link {

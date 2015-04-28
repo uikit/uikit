@@ -8,6 +8,8 @@
 //                  `uk-table-condensed`
 //                  `uk-table-hover`
 //
+// States:          `uk-active`
+//
 // ========================================================================
 
 
@@ -28,6 +30,8 @@ $table-condensed-padding-horizontal:             8px !default;
 
 $table-hover-background:                         #EEE !default;
 
+$table-active-background:                        $table-hover-background !default;
+
 
 /* ========================================================================
    Component: Table
@@ -40,7 +44,7 @@ $table-hover-background:                         #EEE !default;
  */
 
 .uk-table {
-	/* 1 */
+    /* 1 */
     border-collapse: collapse;
     border-spacing: 0;
     /* 2 */
@@ -85,6 +89,15 @@ $table-hover-background:                         #EEE !default;
     color: $table-caption-color;
 }
 
+/*
+ * Active State
+ */
+
+.uk-table tbody tr.uk-active {
+    background: $table-active-background;
+    @include hook-table-active();
+}
+
 
 /* Sub-modifier: `uk-table-middle`
  ========================================================================== */
@@ -96,19 +109,29 @@ $table-hover-background:                         #EEE !default;
 /* Modifier: `uk-table-striped`
  ========================================================================== */
 
-.uk-table-striped tbody tr:nth-of-type(odd) { background: $table-striped-background; }
+.uk-table-striped tbody tr:nth-of-type(odd) {
+    background: $table-striped-background;
+    @include hook-table-striped();
+}
 
 
 /* Modifier: `uk-table-condensed`
  ========================================================================== */
 
-.uk-table-condensed td { padding: $table-condensed-padding-vertical $table-condensed-padding-horizontal; }
+.uk-table-condensed td {
+    padding: $table-condensed-padding-vertical $table-condensed-padding-horizontal;
+    @include hook-table-condensed();
+}
 
 
 /* Modifier: `uk-table-hover`
  ========================================================================== */
 
-.uk-table-hover tbody tr:hover { background: $table-hover-background; }
+.uk-table-hover tbody tr:hover {
+    background: $table-hover-background;
+    @include hook-table-hover();
+}
+
 
 
 // Hooks
@@ -117,4 +140,8 @@ $table-hover-background:                         #EEE !default;
 @include hook-table-misc();
 
 // @mixin hook-table(){}
+// @mixin hook-table-active(){}
+// @mixin hook-table-striped(){}
+// @mixin hook-table-condensed(){}
+// @mixin hook-table-hover(){}
 // @mixin hook-table-misc(){}

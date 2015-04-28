@@ -124,10 +124,10 @@
 .uk-panel:after { clear: both; }
 
 /*
- * Remove margin from the last-child
+ * Remove margin from the last-child if not `uk-widget-title`
  */
 
-.uk-panel > :last-child { margin-bottom: 0; }
+.uk-panel > :not(.uk-panel-title):last-child { margin-bottom: 0; }
 
 
 /* Sub-object: `uk-panel-title`

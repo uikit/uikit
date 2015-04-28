@@ -123,8 +123,8 @@ $dotnav-contrast-active-background:              rgba(255,255,255,0.9) !default;
  * 2. Remove default focus style
  */
 
-.uk-dotnav > * > *:hover,
-.uk-dotnav > * > *:focus { // 1
+.uk-dotnav > * > :hover,
+.uk-dotnav > * > :focus { // 1
     background: $dotnav-hover-background;
     /* 2 */
     outline: none;
@@ -132,13 +132,13 @@ $dotnav-contrast-active-background:              rgba(255,255,255,0.9) !default;
 }
 
 /* OnClick */
-.uk-dotnav > * > *:active {
+.uk-dotnav > * > :active {
     background: $dotnav-onclick-background;
     @include hook-dotnav-item-onclick();
 }
 
 /* Active */
-.uk-dotnav > *.uk-active > * {
+.uk-dotnav > .uk-active > * {
     background: $dotnav-active-background;
     @include hook-dotnav-item-active();
 }
@@ -157,20 +157,20 @@ $dotnav-contrast-active-background:              rgba(255,255,255,0.9) !default;
  * 1. Apply hover style also to focus state
  */
 
-.uk-dotnav-contrast > * > *:hover,
-.uk-dotnav-contrast > * > *:focus { // 1
+.uk-dotnav-contrast > * > :hover,
+.uk-dotnav-contrast > * > :focus { // 1
     background: $dotnav-contrast-hover-background;
     @include hook-dotnav-contrast-item-hover();
 }
 
 /* OnClick */
-.uk-dotnav-contrast > * > *:active {
+.uk-dotnav-contrast > * > :active {
     background: $dotnav-contrast-onclick-background;
     @include hook-dotnav-contrast-item-onclick();
 }
 
 /* Active */
-.uk-dotnav-contrast > *.uk-active > * {
+.uk-dotnav-contrast > .uk-active > * {
     background: $dotnav-contrast-active-background;
     @include hook-dotnav-contrast-item-active();
 }

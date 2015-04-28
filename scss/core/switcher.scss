@@ -27,7 +27,7 @@
  * Items
  */
 
-.uk-switcher > *:not(.uk-active) { display: none; }
+.uk-switcher > :not(.uk-active) { display: none; }
 
 
 // Hooks

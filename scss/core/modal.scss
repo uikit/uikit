@@ -185,7 +185,7 @@ $modal-caption-color:                            #fff !default;
  * Remove margin from adjacent element
  */
 
- .uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) { margin-top: 0; }
+ .uk-modal-dialog > .uk-close:first-child + :not([class*='uk-modal-']) { margin-top: 0; }
 
 
 /* Modifier: `uk-modal-dialog-lightbox`
