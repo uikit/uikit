@@ -91,7 +91,7 @@ gulp.task('default', ['dist', 'build-docs', 'indexthemes'], function(done) {
 
 gulp.task('dist', ['dist-themes-core'], function(done) {
 
-    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'browser-reload', 'dist-bower-file', function(){
+    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'dist-bower-file', function(){
 
         if (gutil.env.m || gutil.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
@@ -127,7 +127,6 @@ gulp.task('sync', function() {
 
     var currenttheme,
         bs = browserSync({
-        open: "external",
         server: {
 
             baseDir    : "./",
