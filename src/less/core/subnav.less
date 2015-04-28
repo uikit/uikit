@@ -115,8 +115,8 @@
  * 1. Apply hover style also to focus state
  */
 
-.uk-subnav > * > *:hover,
-.uk-subnav > * > *:focus { // 1
+.uk-subnav > * > :hover,
+.uk-subnav > * > :focus { // 1
     color: @subnav-hover-color;
     text-decoration: @subnav-hover-text-decoration;
     .hook-subnav-hover;
@@ -163,8 +163,8 @@
  * 2. Remove default focus style
  */
 
-.uk-subnav-pill > * > *:hover,
-.uk-subnav-pill > * > *:focus { // 1
+.uk-subnav-pill > * > :hover,
+.uk-subnav-pill > * > :focus { // 1
     background: @subnav-pill-hover-background;
     color: @subnav-pill-hover-color;
     text-decoration: none;

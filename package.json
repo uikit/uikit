@@ -2,7 +2,7 @@
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "2.20.0",
+  "version": "2.20.1",
   "homepage": "http://www.getuikit.com",
   "author": {
     "name": "UIkit",
@@ -23,7 +23,7 @@
     "node-promise": "^0.5.10"
   },
   "devDependencies": {
-    "browser-sync": "^1.3.7",
+    "browser-sync": "^2.6.5",
     "del": "^0.1.2",
     "glob": "^4.0.5",
     "gulp": "^3.8.8",

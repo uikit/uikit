@@ -1,5 +1,10 @@
 # Changelog
 
+### 2.20.1 (April 28, 2015)
+  - Added active state for table rows
+  - Added new hooks to table component
+  - Fixed panel title margin
+
 ### 2.20.0 (April 24, 2015)
   - Added block component
   - Added contrast component
