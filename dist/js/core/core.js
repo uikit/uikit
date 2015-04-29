@@ -1,3 +1,4 @@
+/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -42,7 +43,7 @@
 
     var UI = {}, _UI = window.UIkit;
 
-    UI.version = '2.18.0';
+    UI.version = '2.20.1';
 
     UI.noConflict = function() {
         // resore UIkit version
@@ -125,7 +126,7 @@
 
     UI.support.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || function(callback){ setTimeout(callback, 1000/60); };
     UI.support.touch                 = (
-        ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
+        ('ontouchstart' in document) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
         (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
         (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
@@ -567,13 +568,20 @@
         });
     };
 
-    UI.on('domready.uk.dom', function(){
+    UI.init = function(root) {
+
+        root = root || document;
 
         UI.domObservers.forEach(function(fn){
-            fn(document);
+            fn(root);
         });
+    };
 
-        if (UI.domready) UI.Utils.checkDisplay(document);
+    UI.on('domready.uk.dom', function(){
+
+        UI.init();
+
+        if (UI.domready) UI.Utils.checkDisplay();
     });
 
     $(function(){
@@ -585,14 +593,8 @@
         });
 
         UI.on('changed.uk.dom', function(e) {
-
-            var ele = e.target;
-
-            UI.domObservers.forEach(function(fn){
-                fn(ele);
-            });
-
-            UI.Utils.checkDisplay(ele);
+            UI.init(e.target);
+            UI.Utils.checkDisplay(e.target);
         });
 
         UI.trigger('beforeready.uk.dom');

@@ -1,0 +1,163 @@
+// Name:            Block
+// Description:     Defines styles to create horizontal layout blocks
+//
+// Component:       `uk-block`
+//
+// Modifiers:       `uk-list-line`
+//                  `uk-list-striped`
+//                  `uk-list-space`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@block-padding-vertical:                        20px;
+@block-padding-vertical-large:                  50px;
+
+@block-large-padding-vertical:                  @block-padding-vertical;
+@block-large-padding-vertical-medium:           @block-padding-vertical-large;
+@block-large-padding-vertical-large:            100px;
+
+@block-default-background:                      #fff;
+@block-muted-background:                        #f9f9f9;
+@block-primary-background:                      #00a8e6;
+@block-secondary-background:                    #222;
+
+
+/* ========================================================================
+   Component: Block
+ ========================================================================== */
+
+.uk-block {
+    position: relative;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: @block-padding-vertical;
+    padding-bottom: @block-padding-vertical;
+    .hook-block;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-block {
+        padding-top: @block-padding-vertical-large;
+        padding-bottom: @block-padding-vertical-large;
+    }
+
+}
+
+/*
+ * Micro clearfix to make blocks more robust
+ */
+
+.uk-block:before,
+.uk-block:after {
+    content: "";
+    display: table;
+}
+
+.uk-block:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-block > :last-child { margin-bottom: 0; }
+
+
+/* Padding Modifier
+ ========================================================================== */
+
+/*
+ * Large padding
+ */
+
+.uk-block-large {
+    padding-top: @block-large-padding-vertical;
+    padding-bottom: @block-large-padding-vertical;
+}
+
+/* Tablets and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-block-large {
+        padding-top: @block-large-padding-vertical-medium;
+        padding-bottom: @block-large-padding-vertical-medium;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-block-large {
+        padding-top: @block-large-padding-vertical-large;
+        padding-bottom: @block-large-padding-vertical-large;
+    }
+
+}
+
+
+/* Color Modifier
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-block-default {
+    background: @block-default-background;
+    .hook-block-default;
+}
+
+/*
+ * Muted
+ */
+
+.uk-block-muted {
+    background: @block-muted-background;
+    .hook-block-muted;
+}
+
+/*
+ * Primary
+ */
+
+.uk-block-primary {
+    background: @block-primary-background;
+    .hook-block-primary;
+}
+
+/*
+ * Secondary
+ */
+
+.uk-block-secondary {
+    background: @block-secondary-background;
+    .hook-block-secondary;
+}
+
+/*
+ * Adjust padding between equal colored blocks
+ */
+
+.uk-block-default + .uk-block-default,
+.uk-block-muted + .uk-block-muted,
+.uk-block-primary + .uk-block-primary,
+.uk-block-secondary + .uk-block-secondary { padding-top: 0; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-block-misc;
+
+.hook-block() {}
+.hook-block-default() {}
+.hook-block-muted() {}
+.hook-block-secondary() {}
+.hook-block-primary() {}
+.hook-block-misc() {}

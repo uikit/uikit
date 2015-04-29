@@ -21,9 +21,10 @@ var pkg         = require('./package.json'),
     browserSync = require('browser-sync'),
     Promise     = require('promise');
 
-var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
-    watchCache = {},
-    getThemes  = function(theme, all){
+var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
+    watchCache   = {},
+    watchfolders = ['src/**/*', 'themes/**/*.less', 'custom/**/*.less'],
+    getThemes    = function(theme, all) {
 
         var list = [], themefolders = ["themes"];
 
@@ -45,6 +46,7 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
             });
         });
 
+
         return list;
     },
 
@@ -53,7 +55,7 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
         var theme = gutil.env.t || gutil.env.theme || false,
             all   = gutil.env.all || gutil.env.a || theme;
 
-        return getThemes( theme, all);
+        return getThemes(theme, all);
     })(),
 
     corejs = [
@@ -89,13 +91,13 @@ gulp.task('default', ['dist', 'build-docs', 'indexthemes'], function(done) {
 
 gulp.task('dist', ['dist-themes-core'], function(done) {
 
-    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'browser-reload', 'dist-bower-file', function(){
+    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'dist-bower-file', function(){
 
         if (gutil.env.m || gutil.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
-            .pipe(rimraf()).on('end', function(){
-                done();
-            });
+                .pipe(rimraf()).on('end', function(){
+                    done();
+                });
         } else {
             done();
         }
@@ -106,63 +108,78 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 /*
  * development related tasks
  * ---------------------------------------------------------*/
-gulp.task('browser-sync', function() {
-    browserSync({
-        server: {
-            baseDir: "./",
-            startPath: "/tests",
-            middleware: function (req, res, next) {
+gulp.task('sync', function() {
 
-                var m, theme;
+    function buildTheme(theme) {
 
-                if (m = req.url.match(/dist\/css\/components\/(.*)\.css/)) {
-                    theme = m[1].split('.')[1] || 'default';
-                } else if (m = req.url.match(/dist\/css\/(.*)\.css/)) {
-                    theme = m[1].split('.')[1] || 'default';
-                }
+        return new Promise(function(resolve){
 
-                if (theme) {
+            var tmp = themes;
 
-                    if (!watchCache[theme]) {
+            themes = getThemes(theme);
 
-                        watchCache[theme] = new Promise(function(resolve){
+            runSequence('dist-themes-core', function(){
+                themes = tmp;
+                resolve();
+            });
+        });
+    }
 
-                            var tmp = themes;
+    var currenttheme,
+        bs = browserSync({
+            server: {
 
-                            themes = getThemes(theme);
+                baseDir    : "./",
+                startPath  : "/tests",
+                middleware : function (req, res, next) {
 
-                            runSequence('dist-themes-core', function(){
-                                themes = tmp;
-                                resolve();
-                            });
-                        });
+                    var m, theme;
+
+                    if (m = req.url.match(/dist\/css\/components\/(.*)\.css/)) {
+                        theme = m[1].split('.')[1] || 'default';
+                    } else if (m = req.url.match(/dist\/css\/(.*)\.css/)) {
+                        theme = m[1].split('.')[1] || 'default';
                     }
 
-                    watchCache[theme].then(function(){
+                    if (theme) {
+
+                        currenttheme = theme;
+
+                        if (!watchCache[theme]) {
+
+                            watchCache[theme] = buildTheme(theme);
+                        }
+
+                        watchCache[theme].then(function(){
+                            next();
+                        });
+
+                    } else {
                         next();
-                    });
+                    }
 
-                } else {
-                    next();
                 }
+            },
 
-            }
-        }
-    });
+            files: [{
+                match: watchfolders,
+                fn: function (event, file) {
+
+                    if (currenttheme) {
+
+                        watchCache = {};
+                        bs.reload();
+                    }
+                }
+            }]
+        });
+
 });
 
-gulp.task('browser-reload', function (done) {
-    watchCache = {};
-    browserSync.reload();
-    done();
-});
-
-gulp.task('watch', ['browser-sync', 'indexthemes'], function(done) {
-
-    watchfolders = ['src/**/*', 'themes/**/*', 'custom/**/*.less'];
+gulp.task('watch', ['dist-clean', 'indexthemes'], function(done) {
 
     gulp.watch(watchfolders, function(files) {
-        runSequence('browser-reload');
+        runSequence('dist');
     });
 });
 
@@ -280,18 +297,18 @@ gulp.task('sass-copy', function() {
 gulp.task('sass-convert', ['sass-copy'], function() {
 
     return gulp.src('./dist/scss/**/*.scss')
-           .pipe(replace(/\/less\//g, '/scss/'))                              // change less/ dir to scss/ on imports
-           .pipe(replace(/\.less/g, '.scss'))                                 // change .less extensions to .scss on imports
-           .pipe(replace(/@/g, '$'))                                          // convert variables
-           .pipe(replace(/ e\(/g, ' unquote('))                               // convert escape function
-           .pipe(replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){'))   // hook -> mixins
-           .pipe(replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}'))   // comment empty mixins
-           .pipe(replace(/\.(hook[a-zA-Z\-\d]+);/g, '@include $1();'))        // hook calls
-           .pipe(replace(/\$(import|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1')) // replace valid '@' statements
-           .pipe(replace(/(\$[\w\-]*)\s*:(.*);\n/g, '$1: $2 !default;\n'))    // make variables optional
-           .pipe(replace(/\$\{/g, '#{$'))                                      // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
-           .pipe(replace(/~("[^"]+")/g, 'unquote($1)'))                       // string literals: for real
-           .pipe(gulp.dest('./dist/scss'));
+        .pipe(replace(/\/less\//g, '/scss/'))                              // change less/ dir to scss/ on imports
+        .pipe(replace(/\.less/g, '.scss'))                                 // change .less extensions to .scss on imports
+        .pipe(replace(/@/g, '$'))                                          // convert variables
+        .pipe(replace(/ e\(/g, ' unquote('))                               // convert escape function
+        .pipe(replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){'))   // hook -> mixins
+        .pipe(replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}'))   // comment empty mixins
+        .pipe(replace(/\.(hook[a-zA-Z\-\d]+);/g, '@include $1();'))        // hook calls
+        .pipe(replace(/\$(import|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1')) // replace valid '@' statements
+        .pipe(replace(/(\$[\w\-]*)\s*:(.*);\n/g, '$1: $2 !default;\n'))    // make variables optional
+        .pipe(replace(/\$\{/g, '#{$'))                                      // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
+        .pipe(replace(/~("[^"]+")/g, 'unquote($1)'))                       // string literals: for real
+        .pipe(gulp.dest('./dist/scss'));
 });
 
 gulp.task('sass', ['sass-convert'], function(done) {
@@ -334,8 +351,8 @@ gulp.task('sass', ['sass-convert'], function(done) {
 
         Promise.all(promises).then(function(){
             fs.writeFile('./dist/scss/uikit-mixins.scss', mixins.join('\n'), function (err) {
-              if (err) throw err;
-              done();
+                if (err) throw err;
+                done();
             });
         });
     });
@@ -376,8 +393,8 @@ gulp.task('dist-variables', ['dist-core-move'], function(done) {
         Promise.all(promises).then(function(){
 
             fs.writeFile('./dist/less/uikit-variables.less', variables.join('\n'), function (err) {
-              if (err) throw err;
-              done();
+                if (err) throw err;
+                done();
             });
         });
     });
@@ -622,11 +639,11 @@ gulp.task('sublime-js', function(done) {
 gulp.task('sublime-snippets',  function(done) {
 
     var template = ["<snippet>",
-                        "<content><![CDATA[{content}]]></content>",
-                        "<tabTrigger>{trigger}</tabTrigger>",
-                        "<scope>text.html</scope>",
-                        "<description>{description}</description>",
-                    "</snippet>"].join("\n");
+        "<content><![CDATA[{content}]]></content>",
+        "<tabTrigger>{trigger}</tabTrigger>",
+        "<scope>text.html</scope>",
+        "<description>{description}</description>",
+        "</snippet>"].join("\n");
 
     mkdirp.sync("dist/sublime/snippets");
 
@@ -645,12 +662,12 @@ gulp.task('sublime-snippets',  function(done) {
             // place tab indices
             i = 1; // tab index, start with 1
             content = content.replace(/class="([^"]+)"/g, 'class="${{index}:$1}"') // inside class attributes
-                             .replace(/(<[^>]+>)(<\/[^>]+>)/g, '$1${index}$2') // inside empty elements
-                             .replace(/\{index\}/g, function() { return i++; });
+                .replace(/(<[^>]+>)(<\/[^>]+>)/g, '$1${index}$2') // inside empty elements
+                .replace(/\{index\}/g, function() { return i++; });
 
             snippet = template.replace("{content}", content)
-                              .replace("{trigger}", "uikit")
-                              .replace("{description}", description);
+                .replace("{trigger}", "uikit")
+                .replace("{description}", description);
 
             fs.writeFile('dist/sublime/snippets/'+name+'.sublime-snippet', snippet);
 

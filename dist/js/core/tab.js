@@ -1,3 +1,4 @@
+/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -32,7 +33,10 @@
 
             var $this = this;
 
+            this.current = false;
+
             this.on("click.uikit.tab", this.options.target, function(e) {
+
                 e.preventDefault();
 
                 if ($this.switcher && $this.switcher.animating) {
@@ -42,7 +46,10 @@
                 var current = $this.find($this.options.target).not(this);
 
                 current.removeClass("uk-active").blur();
-                $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active")]);
+
+                $this.trigger("change.uk.tab", [UI.$(this).addClass("uk-active"), $this.current]);
+
+                $this.current = UI.$(this);
 
                 // Update ARIA
                 if (!$this.options.connect) {
@@ -72,7 +79,7 @@
 
                 var link = UI.$(this);
 
-                $this.element.children(':not(.uk-tab-responsive)').eq(link.data('index')).trigger('click');
+                $this.element.children('li:not(.uk-tab-responsive)').eq(link.data('index')).trigger('click');
             });
 
             this.on('show.uk.switcher change.uk.tab', function(e, tab) {
@@ -110,7 +117,7 @@
 
         check: function() {
 
-            var children = this.element.children(':not(.uk-tab-responsive)').removeClass('uk-hidden');
+            var children = this.element.children('li:not(.uk-tab-responsive)').removeClass('uk-hidden');
 
             if (!children.length) return;
 
@@ -145,7 +152,7 @@
                 }
             }
 
-            this.responsivetab[this.responsivetab.lst.children().length ? 'removeClass':'addClass']('uk-hidden');
+            this.responsivetab[this.responsivetab.lst.children('li').length ? 'removeClass':'addClass']('uk-hidden');
         }
     });
 

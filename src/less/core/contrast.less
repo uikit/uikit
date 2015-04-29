@@ -1,0 +1,442 @@
+// Name:            Contrast
+// Description:     Utility class to adjust colors for dark or colored blocks
+//
+// Component:       `uk-contrast`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@contrast-color:                                #fff;
+@contrast-inverted-color:                       #444;
+
+//
+// Components
+//
+
+@contrast-base-color:                           @contrast-color;
+
+@contrast-base-link-color:                      fade(@contrast-color, 70%);
+@contrast-base-link-text-decoration:            none;
+@contrast-base-link-hover-color:                @contrast-color;
+@contrast-base-link-hover-text-decoration:      underline;
+
+@contrast-base-code-color:                      @contrast-color;
+@contrast-base-em-color:                        @contrast-color;
+
+@contrast-base-heading-color:                   @contrast-color;
+
+@contrast-base-hr-border:                       fade(@contrast-color, 20%);
+
+@contrast-nav-side-color:                       @contrast-color;
+@contrast-nav-side-hover-background:            fade(@contrast-color, 10%);
+@contrast-nav-side-hover-color:                 @contrast-color;
+@contrast-nav-side-active-background:           @contrast-color;
+@contrast-nav-side-active-color:                @contrast-inverted-color;
+@contrast-nav-side-header-color:                @contrast-color;
+@contrast-nav-side-divider-border:              fade(@contrast-color, 20%);
+@contrast-nav-side-nested-color:                fade(@contrast-color, 70%);
+@contrast-nav-side-nested-hover-color:          @contrast-color;
+
+@contrast-subnav-color:                         fade(@contrast-color, 70%);
+@contrast-subnav-hover-color:                   @contrast-color;
+@contrast-subnav-hover-text-decoration:         none;
+@contrast-subnav-active-color:                  @contrast-color;
+
+@contrast-subnav-line-border:                   fade(@contrast-color, 20%);
+
+@contrast-subnav-pill-hover-background:         fade(@contrast-color, 70%);
+@contrast-subnav-pill-hover-color:              @contrast-inverted-color;
+@contrast-subnav-pill-active-background:        @contrast-color;
+@contrast-subnav-pill-active-color:             @contrast-inverted-color;
+
+@contrast-list-line-border:                     fade(@contrast-color, 20%);
+
+@contrast-form-border:                          fade(@contrast-color, 80%);
+@contrast-form-background:                      fade(@contrast-color, 80%);
+@contrast-form-color:                           @contrast-inverted-color;
+@contrast-form-focus-border:                    @contrast-color;
+@contrast-form-focus-background:                @contrast-color;
+@contrast-form-focus-color:                     @contrast-inverted-color;
+
+@contrast-form-placeholder-color:               fade(@contrast-inverted-color, 70%);
+
+@contrast-button-background:                    @contrast-color;
+@contrast-button-color:                         @contrast-inverted-color;
+@contrast-button-hover-background:              fade(@contrast-color, 80%);
+@contrast-button-hover-color:                   @contrast-inverted-color;
+@contrast-button-active-background:             fade(@contrast-color, 70%);
+@contrast-button-active-color:                  @contrast-inverted-color;
+
+@contrast-button-primary-background:            @button-primary-background;
+@contrast-button-primary-color:                 @contrast-color;
+@contrast-button-primary-hover-background:      @button-primary-hover-background;
+@contrast-button-primary-hover-color:           @contrast-color;
+@contrast-button-primary-active-background:     @button-primary-active-background;
+@contrast-button-primary-active-color:          @contrast-color;
+
+@contrast-icon-hover-color:                     fade(@contrast-color, 70%);
+@contrast-icon-hover-hover-color:               @contrast-color;
+
+@contrast-icon-button-background:               @contrast-color;
+@contrast-icon-button-color:                    @contrast-inverted-color;
+@contrast-icon-button-hover-background:         fade(@contrast-color, 80%);
+@contrast-icon-button-hover-color:              @contrast-inverted-color;
+@contrast-icon-button-active-background:        fade(@contrast-color, 70%);
+@contrast-icon-button-active-color:             @contrast-inverted-color;
+
+@contrast-text-muted-color:                     fade(@contrast-color, 60%);
+@contrast-text-primary-color:                   @text-primary-color;
+
+
+/* ========================================================================
+   Component: Contrast
+ ========================================================================== */
+
+.uk-contrast {
+
+    color: @contrast-base-color;
+
+    // Base
+    // ========================================================================
+
+    //
+    // Link
+    //
+
+    a:not([class]),
+    .uk-link  {
+        color: @contrast-base-link-color;
+        text-decoration: @contrast-base-link-text-decoration;
+    }
+
+    a:not([class]):hover,
+    .uk-link:hover {
+        color: @contrast-base-link-hover-color;
+        text-decoration: @contrast-base-link-hover-text-decoration;
+    }
+
+    //
+    // Code
+    //
+
+    :not(pre) > code,
+    :not(pre) > kbd,
+    :not(pre) > samp {
+        color: @contrast-base-code-color;
+        .hook-contrast-base-code;
+    }
+
+    //
+    // Emphasize
+    //
+
+    em { color: @contrast-base-em-color; }
+
+    //
+    // Headings
+    //
+
+    h1, h2, h3, h4, h5, h6 { color: @contrast-base-heading-color; }
+
+    //
+    // Horizontal rules
+    //
+
+    hr { border-top-color: @contrast-base-hr-border; }
+
+
+    // Nav
+    // ========================================================================
+
+    .uk-nav li > a,
+    .uk-nav li > a:hover { text-decoration: none; }
+
+    .uk-nav-side > li > a {
+        color: @contrast-nav-side-color;
+        .hook-contrast-nav-side;
+    }
+
+    .uk-nav-side > li > a:hover,
+    .uk-nav-side > li > a:focus {
+        background: @contrast-nav-side-hover-background;
+        color: @contrast-nav-side-hover-color;
+        .hook-contrast-nav-side-hover;
+    }
+
+    .uk-nav-side > li.uk-active > a {
+        background: @contrast-nav-side-active-background;
+        color: @contrast-nav-side-active-color;
+        .hook-contrast-nav-side-active;
+    }
+
+    //
+    // Nav header
+    //
+
+    .uk-nav-side .uk-nav-header {
+        color: @contrast-nav-side-header-color;
+        .hook-contrast-nav-side-header;
+    }
+
+    //
+    // Nav divider
+    //
+
+    .uk-nav-side .uk-nav-divider {
+        border-top-color: @contrast-nav-side-divider-border;
+        .hook-contrast-nav-side-divider;
+    }
+
+    //
+    // Nested items
+    //
+
+    .uk-nav-side ul a { color: @contrast-nav-side-nested-color; }
+    .uk-nav-side ul a:hover { color: @contrast-nav-side-nested-hover-color; }
+
+
+    // Subnav
+    // ========================================================================
+
+    .uk-subnav > * > a {
+        color: @contrast-subnav-color;
+        text-decoration: none;
+        .hook-contrast-subnav;
+    }
+
+    .uk-subnav > * > a:hover,
+    .uk-subnav > * > a:focus {
+        color: @contrast-subnav-hover-color;
+        text-decoration: @contrast-subnav-hover-text-decoration;
+        .hook-contrast-subnav-hover;
+    }
+
+    .uk-subnav > .uk-active > a {
+        color: @contrast-subnav-active-color;
+        .hook-contrast-subnav-active;
+    }
+
+    //
+    // Subnav line
+    //
+
+    .uk-subnav-line > :nth-child(n+2):before {
+        border-left-color: @contrast-subnav-line-border;
+        .hook-contrast-subnav-line-divider;
+    }
+
+    //
+    // Subnav pill
+    //
+
+    .uk-subnav-pill > * > a:hover,
+    .uk-subnav-pill > * > a:focus {
+        background: @contrast-subnav-pill-hover-background;
+        color: @contrast-subnav-pill-hover-color;
+        text-decoration: none;
+        .hook-contrast-subnav-pill-hover;
+    }
+
+    .uk-subnav-pill > .uk-active > a {
+        background: @contrast-subnav-pill-active-background;
+        color: @contrast-subnav-pill-active-color;
+        .hook-contrast-subnav-pill-active;
+    }
+
+
+    // List
+    // ========================================================================
+
+    .uk-list-line > li:nth-child(n+2) {
+        border-top-color: @contrast-list-line-border;
+        .hook-contrast-list-line;
+    }
+
+
+    // Form
+    // ========================================================================
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+        border-color: @contrast-form-border;
+        background: @contrast-form-background;
+        color: @contrast-form-color;
+        background-clip: padding-box;
+        .hook-contrast-form;
+
+        &:focus {
+            border-color: @contrast-form-focus-border;
+            background: @contrast-form-focus-background;
+            color: @contrast-form-focus-color;
+            .hook-contrast-form-focus;
+        }
+    }
+
+    //
+    // Placeholder
+    //
+
+    .uk-form :-ms-input-placeholder { color: @contrast-form-placeholder-color !important; }
+    .uk-form ::-moz-placeholder { color: @contrast-form-placeholder-color; }
+    .uk-form ::-webkit-input-placeholder { color: @contrast-form-placeholder-color; }
+
+
+    // Button
+    // ========================================================================
+
+    .uk-button {
+        color: @contrast-button-color;
+        background: @contrast-button-background;
+        .hook-contrast-button;
+    }
+
+    .uk-button:hover,
+    .uk-button:focus {
+        background-color: @contrast-button-hover-background;
+        color: @contrast-button-hover-color;
+        .hook-contrast-button-hover;
+    }
+
+    .uk-button:active,
+    .uk-button.uk-active {
+        background-color: @contrast-button-active-background;
+        color: @contrast-button-active-color;
+        .hook-contrast-button-active;
+    }
+
+    //
+    // Button primary
+    //
+
+    .uk-button-primary {
+        background-color: @contrast-button-primary-background;
+        color: @contrast-button-primary-color;
+        .hook-contrast-button-primary;
+    }
+
+    .uk-button-primary:hover,
+    .uk-button-primary:focus {
+        background-color: @contrast-button-primary-hover-background;
+        color: @contrast-button-primary-hover-color;
+        .hook-contrast-button-primary-hover;
+    }
+
+    .uk-button-primary:active,
+    .uk-button-primary.uk-active {
+        background-color: @contrast-button-primary-active-background;
+        color: @contrast-button-primary-active-color;
+        .hook-contrast-button-primary-active;
+    }
+
+
+    // Icon
+    // ========================================================================
+
+    //
+    // Icon hover
+    //
+
+    .uk-icon-hover {
+        color: @contrast-icon-hover-color;
+        .hook-contrast-icon-hover;
+    }
+
+    .uk-icon-hover:hover {
+        color: @contrast-icon-hover-hover-color;
+        .hook-contrast-icon-hover-hover;
+    }
+
+    //
+    // Icon button
+    //
+
+    .uk-icon-button {
+        background: @contrast-icon-button-background;
+        color: @contrast-icon-button-color;
+        .hook-contrast-icon-button;
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: @contrast-icon-button-hover-background;
+        color: @contrast-icon-button-hover-color;
+        .hook-contrast-icon-button-hover;
+    }
+
+    .uk-icon-button:active {
+        background-color: @contrast-icon-button-active-background;
+        color: @contrast-icon-button-active-color;
+        .hook-contrast-icon-button-active;
+    }
+
+
+    // Text
+    // ========================================================================
+
+    .uk-text-muted { color: @contrast-text-muted-color !important; }
+    .uk-text-primary { color: @contrast-text-primary-color !important; }
+
+
+    // Misc hook
+    // ========================================================================
+
+    .hook-contrast-misc;
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-contrast-base-code() {}
+
+.hook-contrast-nav-side() {}
+.hook-contrast-nav-side-hover() {}
+.hook-contrast-nav-side-active() {}
+.hook-contrast-nav-side-header() {}
+.hook-contrast-nav-side-divider() {}
+
+.hook-contrast-subnav() {}
+.hook-contrast-subnav-hover() {}
+.hook-contrast-subnav-active() {}
+.hook-contrast-subnav-line-divider() {}
+.hook-contrast-subnav-pill-hover() {}
+.hook-contrast-subnav-pill-active() {}
+
+.hook-contrast-list-line() {}
+
+.hook-contrast-form() {}
+.hook-contrast-form-focus() {}
+
+.hook-contrast-button() {}
+.hook-contrast-button-hover() {}
+.hook-contrast-button-active() {}
+.hook-contrast-button-primary() {}
+.hook-contrast-button-primary-hover() {}
+.hook-contrast-button-primary-active() {}
+
+.hook-contrast-icon-hover() {}
+.hook-contrast-icon-hover-hover() {}
+.hook-contrast-icon-button() {}
+.hook-contrast-icon-button-hover() {}
+.hook-contrast-icon-button-active() {}
+
+.hook-contrast-misc() {}

@@ -1,3 +1,4 @@
+/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -198,7 +199,7 @@
 
             var data = this.selected.data();
 
-            this.trigger("select.uk.autocomplete", [data, this]);
+            this.trigger("selectitem.uk.autocomplete", [data, this]);
 
             if (data.value) {
                 this.input.val(data.value).trigger('change');
@@ -211,6 +212,10 @@
             if (this.visible) return;
             this.visible = true;
             this.element.addClass("uk-open");
+
+            if (active && active!==this) {
+                active.hide();
+            }
 
             active = this;
 

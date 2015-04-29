@@ -1,3 +1,4 @@
+/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Slideshow
  ========================================================================== */
@@ -26,7 +27,7 @@
   touch-action: pan-y;
 }
 /*
- * Sub-object slides
+ * Sub-object item
  * 1. Position items above each other
  * 2. Expand to parent container width
  * 3. Hide by default

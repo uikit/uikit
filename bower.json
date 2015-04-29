@@ -1,6 +1,6 @@
 {
   "name": "uikit",
-  "version": "2.18.0",
+  "version": "2.20.1",
   "homepage": "http://getuikit.com",
   "main": [
     "./dist/**/*.*"
@@ -16,8 +16,5 @@
     "server.js",
     "composer.json",
     "index.html"
-  ],
-  "devDependencies": {
-    "react-router": "~0.13.2"
-  }
+  ]
 }

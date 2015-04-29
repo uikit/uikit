@@ -8,6 +8,8 @@
 //                  `uk-table-condensed`
 //                  `uk-table-hover`
 //
+// States:          `uk-active`
+//
 // ========================================================================
 
 
@@ -28,6 +30,8 @@
 
 @table-hover-background:                        #EEE;
 
+@table-active-background:                       @table-hover-background;
+
 
 /* ========================================================================
    Component: Table
@@ -40,7 +44,7 @@
  */
 
 .uk-table {
-	/* 1 */
+    /* 1 */
     border-collapse: collapse;
     border-spacing: 0;
     /* 2 */
@@ -85,6 +89,15 @@
     color: @table-caption-color;
 }
 
+/*
+ * Active State
+ */
+
+.uk-table tbody tr.uk-active {
+    background: @table-active-background;
+    .hook-table-active;
+}
+
 
 /* Sub-modifier: `uk-table-middle`
  ========================================================================== */
@@ -96,19 +109,29 @@
 /* Modifier: `uk-table-striped`
  ========================================================================== */
 
-.uk-table-striped tbody tr:nth-of-type(odd) { background: @table-striped-background; }
+.uk-table-striped tbody tr:nth-of-type(odd) {
+    background: @table-striped-background;
+    .hook-table-striped;
+}
 
 
 /* Modifier: `uk-table-condensed`
  ========================================================================== */
 
-.uk-table-condensed td { padding: @table-condensed-padding-vertical @table-condensed-padding-horizontal; }
+.uk-table-condensed td {
+    padding: @table-condensed-padding-vertical @table-condensed-padding-horizontal;
+    .hook-table-condensed;
+}
 
 
 /* Modifier: `uk-table-hover`
  ========================================================================== */
 
-.uk-table-hover tbody tr:hover { background: @table-hover-background; }
+.uk-table-hover tbody tr:hover {
+    background: @table-hover-background;
+    .hook-table-hover;
+}
+
 
 
 // Hooks
@@ -117,4 +140,8 @@
 .hook-table-misc;
 
 .hook-table() {}
+.hook-table-active() {}
+.hook-table-striped() {}
+.hook-table-condensed() {}
+.hook-table-hover() {}
 .hook-table-misc() {}

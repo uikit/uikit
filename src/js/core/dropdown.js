@@ -33,7 +33,7 @@
                         dropdown.element.trigger(triggerevent);
                     }
 
-                    if(dropdown.element.find('.uk-dropdown').length) {
+                    if (dropdown.element.find('.uk-dropdown').length) {
                         e.preventDefault();
                     }
                 }
@@ -99,7 +99,21 @@
                         clearTimeout(hoverIdle);
                     }
 
-                    hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
+                    if (active && active == $this) {
+                        return;
+                    }
+
+                    // pseudo manuAim
+                    if (active && active != $this) {
+
+                        hoverIdle = setTimeout(function() {
+                            hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
+                        }, 100);
+
+                    } else {
+
+                        hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
+                    }
 
                 }).on("mouseleave", function() {
 
@@ -108,7 +122,7 @@
                     }
 
                     $this.remainIdle = setTimeout(function() {
-                        $this.hide();
+                        if (active && active == $this) $this.hide();
                     }, $this.options.remaintime);
 
                 }).on("click", function(e){
@@ -132,11 +146,8 @@
 
             UI.$html.off("click.outer.dropdown");
 
-            if (active && active[0] != this.element[0]) {
-                active.removeClass('uk-open');
-
-                // Update ARIA
-                active.attr('aria-expanded', 'false');
+            if (active && active != this) {
+                active.hide();
             }
 
             if (hoverIdle) {
@@ -152,19 +163,26 @@
             this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
-            active = this.element;
+            active = this;
 
             this.registerOuterClick();
         },
 
         hide: function() {
             this.element.removeClass('uk-open');
+
+            if (this.remainIdle) {
+                clearTimeout(this.remainIdle);
+            }
+
             this.remainIdle = false;
 
             // Update ARIA
             this.element.attr('aria-expanded', 'false');
 
-            if (active && active[0] == this.element[0]) active = false;
+            this.trigger('hide.uk.dropdown', [this]);
+
+            if (active == this) active = false;
         },
 
         registerOuterClick: function(){
@@ -183,7 +201,7 @@
 
                     var $target = UI.$(e.target);
 
-                    if (active && active[0] == $this.element[0] && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
+                    if (active == $this && ($target.is("a:not(.js-uk-prevent)") || $target.is(".uk-dropdown-close") || !$this.dropdown.find(e.target).length)) {
                         $this.hide();
                         UI.$html.off("click.outer.dropdown");
                     }

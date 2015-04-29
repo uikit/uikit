@@ -1,6 +1,6 @@
 {
     "name": "uikit",
-    "version": "2.18.0",
+    "version": "2.20.1",
     "homepage": "http://getuikit.com",
     "main": [
         "css/uikit.min.css",

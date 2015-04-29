@@ -1,3 +1,4 @@
+/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Form advanced
    Note: Only works in Webkit at the moment
@@ -34,8 +35,8 @@
 /*
  * Checked
  */
-.uk-form input[type=checkbox]:checked:before,
-.uk-form input[type=radio]:checked:before {
+.uk-form input[type=radio]:before,
+.uk-form input[type=checkbox]:before {
   display: block;
 }
 /* Radio */
@@ -48,7 +49,8 @@
   background: #00a8e6;
 }
 /* Checkbox */
-.uk-form input[type=checkbox]:checked:before {
+.uk-form input[type=checkbox]:checked:before,
+.uk-form input[type=checkbox]:indeterminate:before {
   content: "\f00c";
   font-family: FontAwesome;
   font-size: 12px;
@@ -56,6 +58,9 @@
   text-align: center;
   line-height: 12px;
   color: #00a8e6;
+}
+.uk-form input[type=checkbox]:indeterminate:before {
+  content: "\f068";
 }
 /*
  * Disabled
@@ -67,7 +72,8 @@
 .uk-form input[type=radio]:disabled:checked:before {
   background-color: #aaaaaa;
 }
-.uk-form input[type=checkbox]:disabled:checked:before {
+.uk-form input[type=checkbox]:disabled:checked:before,
+.uk-form input[type=checkbox]:disabled:indeterminate:before {
   color: #aaaaaa;
 }
 /*Основной брэндовый цвет: красный*/

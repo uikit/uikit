@@ -33,6 +33,7 @@
             offsettop: 5,
             maxDate: false,
             minDate: false,
+            pos: 'auto',
             template: function(data, opts) {
 
                 var content = '', maxDate, minDate, i;
@@ -168,8 +169,8 @@
 
             this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
-            this.on("click", function(){
-                if (active!==$this) $this.pick(this.value);
+            this.on("click focus", function(){
+                if (active!==$this) $this.pick(this.value ? this.value:($this.options.minDate ? $this.options.minDate :''));
             }).on("change", function(){
 
                 if ($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
@@ -213,7 +214,7 @@
         pick: function(initdate) {
 
             var offset = this.element.offset(),
-                css    = {"top": offset.top + this.element.outerHeight() + this.options.offsettop, "left": offset.left, "right":""};
+                css    = {"left": offset.left, "right":""};
 
             this.current  = initdate ? moment(initdate, this.options.format):moment();
             this.initdate = this.current.format("YYYY-MM-DD");
@@ -223,6 +224,17 @@
             if (UI.langdirection == 'right') {
                 css.right = window.innerWidth - (css.left + this.element.outerWidth());
                 css.left  = "";
+            }
+
+            var posTop    = (offset.top - this.element.outerHeight() + this.element.height()) - this.options.offsettop - dropdown.outerHeight(),
+                posBottom = offset.top + this.element.outerHeight() + this.options.offsettop;
+
+            css.top = posBottom;
+
+            if (this.options.pos == 'top') {
+                css.top = posTop;
+            } else if(this.options.pos == 'auto' && (window.innerHeight - posBottom - dropdown.outerHeight() < 0 && posTop >= 0) ) {
+                css.top = posTop;
             }
 
             dropdown.css(css).show();

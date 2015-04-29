@@ -198,7 +198,7 @@
 
             var data = this.selected.data();
 
-            this.trigger("select.uk.autocomplete", [data, this]);
+            this.trigger("selectitem.uk.autocomplete", [data, this]);
 
             if (data.value) {
                 this.input.val(data.value).trigger('change');
@@ -211,6 +211,10 @@
             if (this.visible) return;
             this.visible = true;
             this.element.addClass("uk-open");
+
+            if (active && active!==this) {
+                active.hide();
+            }
 
             active = this;
 

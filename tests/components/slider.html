@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Slider - UIkit tests</title>
+
+        <script src="../_test.js"></script>
+        <script src="../../src/js/components/slider.js"></script>
+        <style media="screen">
+
+            .test-images > :nth-child(1) { background-image: url(http://unsplash.it/400/600); }
+            .test-images > :nth-child(2) { background-image: url(http://unsplash.it/400/601); }
+            .test-images > :nth-child(3) { background-image: url(http://unsplash.it/400/602); }
+            .test-images > :nth-child(4) { background-image: url(http://unsplash.it/400/603); }
+            .test-images > :nth-child(5) { background-image: url(http://unsplash.it/400/604); }
+            .test-images > :nth-child(6) { background-image: url(http://unsplash.it/400/605); }
+            .test-images > :nth-child(7) { background-image: url(http://unsplash.it/400/606); }
+            .test-images > :nth-child(8) { background-image: url(http://unsplash.it/400/607); }
+            .test-images > :nth-child(9) { background-image: url(http://unsplash.it/400/608); }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Slider</h1>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider>
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid-width-medium-1-4">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h3>Centered</h3>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider="{center:true}">
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid-width-medium-1-4">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h2>No Infinite Scrolling</h2>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider="{infinite:false}">
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid-width-medium-1-4">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h3>Centered</h3>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider="{center:true, infinite:false}">
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid-width-medium-1-4">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h2>Grid Gutter</h2>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider>
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid uk-grid-width-medium-1-4">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h3>Centered</h3>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider="{center: true}">
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid uk-grid-width-medium-1-5">
+                        <li><img src="holder.js/600x400/sky/auto/text:1/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:2/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:3/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:4/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:5/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:6/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:7/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:8/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:9/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/sky/auto/text:10/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/vine/auto/text:11/size:100" width="600" height="400" alt=""></li>
+                        <li><img src="holder.js/600x400/lava/auto/text:12/size:100" width="600" height="400" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h2>Custom Widths</h2>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider>
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider">
+                        <li class="uk-width-1-3"><img src="holder.js/400x200/sky/auto/text:1/size:100" width="400" height="200" alt=""></li>
+                        <li class="uk-width-1-5"><img src="holder.js/240x200/vine/auto/text:2/size:100" width="240" height="200" alt=""></li>
+                        <li class="uk-width-2-5"><img src="holder.js/480x200/lava/auto/text:3/size:100" width="480" height="200" alt=""></li>
+                        <li class="uk-width-1-4"><img src="holder.js/300x200/sky/auto/text:4/size:100" width="300" height="200" alt=""></li>
+                        <li class="uk-width-1-3"><img src="holder.js/400x200/vine/auto/text:5/size:100" width="400" height="200" alt=""></li>
+                        <li class="uk-width-1-5"><img src="holder.js/240x200/lava/auto/text:6/size:100" width="240" height="200" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h3>Centered</h3>
+
+            <div class="uk-slidenav-position uk-margin" data-uk-slider="{center:true}">
+
+                <div class="uk-slider-container">
+                    <ul class="uk-slider">
+                        <li class="uk-width-1-3"><img src="holder.js/400x200/sky/auto/text:1/size:100" width="400" height="200" alt=""></li>
+                        <li class="uk-width-1-5"><img src="holder.js/240x200/vine/auto/text:2/size:100" width="240" height="200" alt=""></li>
+                        <li class="uk-width-2-5"><img src="holder.js/480x200/lava/auto/text:3/size:100" width="480" height="200" alt=""></li>
+                        <li class="uk-width-1-4"><img src="holder.js/300x200/sky/auto/text:4/size:100" width="300" height="200" alt=""></li>
+                        <li class="uk-width-1-3"><img src="holder.js/400x200/vine/auto/text:5/size:100" width="400" height="200" alt=""></li>
+                        <li class="uk-width-1-5"><img src="holder.js/240x200/lava/auto/text:6/size:100" width="240" height="200" alt=""></li>
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+            </div>
+
+            <h2>Background Images + Fullscreen</h2>
+
+        </div>
+
+        <div class="uk-slidenav-position" data-uk-slider>
+
+            <div class="uk-slider-container">
+                <ul class="test-images uk-slider uk-slider-fullscreen uk-grid-width-medium-1-4">
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                                <h1 class="uk-text-contrast">Title</h1>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                                <a href="#" class="uk-button">Link</a>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+            <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+        </div>
+
+        <div class="uk-slidenav-position" data-uk-slider="{center:true}">
+            <div class="uk-slider-container">
+                <ul class="test-images uk-slider uk-slider-fullscreen uk-grid-width-medium-1-4">
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                    <li class="uk-cover-background uk-flex uk-flex-center uk-flex-middle uk-text-center uk-text-contrast">
+                        <div class="uk-panel-space">
+                            <h1 class="uk-text-contrast">Title</h1>
+                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slider-item="previous"></a>
+            <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+
+        </div>
+
+    </body>
+</html>

@@ -2,7 +2,7 @@
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "2.18.0",
+  "version": "2.20.1",
   "homepage": "http://www.getuikit.com",
   "author": {
     "name": "UIkit",
@@ -23,7 +23,7 @@
     "node-promise": "^0.5.10"
   },
   "devDependencies": {
-    "browser-sync": "^1.3.7",
+    "browser-sync": "^2.6.5",
     "del": "^0.1.2",
     "glob": "^4.0.5",
     "gulp": "^3.8.8",
@@ -32,7 +32,6 @@
     "gulp-ignore": "^1.2.0",
     "gulp-less": "latest",
     "gulp-minify-css": "^0.3.7",
-    "gulp-react": "^3.0.1",
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.4.0",
     "gulp-rimraf": "latest",
@@ -40,15 +39,10 @@
     "gulp-uglify": "^0.3.1",
     "gulp-util": "latest",
     "gulp-watch": "^0.6.9",
-    "gulp-webpack": "^1.3.2",
     "gulp-zip": "^2.0.2",
     "mkdirp": "latest",
     "promise": "latest",
-    "react": "^0.13.1",
-    "react-tools": "^0.13.1",
-    "requirejs": "^2.1.17",
-    "run-sequence": "^0.3.6",
-    "webpack": "^1.8.4"
+    "run-sequence": "^0.3.6"
   },
   "keywords": []
 }

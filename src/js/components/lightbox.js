@@ -7,7 +7,7 @@
     }
 
     if (typeof define == "function" && define.amd) { // AMD
-        define(["uikit-lightbox"], function(){
+        define("uikit-lightbox", ["uikit"], function(){
             return component || addon(UIkit);
         });
     }
@@ -164,7 +164,13 @@
                 $this.fitSize(data);
 
             }).fail(function(){
-                alert('Loading resource failed!');
+
+                data.meta.content = '<div class="uk-position-cover uk-flex uk-flex-middle uk-flex-center"><strong>Loading resource failed!</strong></div>';
+                data.meta.width   = 400;
+                data.meta.height  = 300;
+
+                $this.data = data;
+                $this.fitSize(data);
             });
 
             $this.trigger('showitem.uk.lightbox', [data]);
@@ -273,7 +279,7 @@
 
             lightbox.on("showitem.uk.lightbox", function(e, data){
 
-                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/)) {
+                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
 
                     var resolve = function(source, width, height) {
 
@@ -439,7 +445,7 @@
                     data.promise.resolve();
                 };
 
-                if (data.type == 'video' || data.source.match(/\.(mp4|webm|ogv)$/)) {
+                if (data.type == 'video' || data.source.match(/\.(mp4|webm|ogv)$/i)) {
 
                     if (!cache[data.source]) {
 

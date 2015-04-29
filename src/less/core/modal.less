@@ -65,6 +65,7 @@
  * 4. Mask the background page
  * 5. Fade-in transition
  * 6. Deactivate browser history navigation in IE11
+ * 7. force hardware acceleration to prevent browser rendering hiccups
  */
 
 .uk-modal {
@@ -88,6 +89,9 @@
     transition: opacity 0.15s linear;
     /* 6 */
     touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+    /* 7 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
     .hook-modal;
 }
 
@@ -181,7 +185,7 @@
  * Remove margin from adjacent element
  */
 
- .uk-modal-dialog > .uk-close:first-child + *:not([class*='uk-modal-']) { margin-top: 0; }
+ .uk-modal-dialog > .uk-close:first-child + :not([class*='uk-modal-']) { margin-top: 0; }
 
 
 /* Modifier: `uk-modal-dialog-lightbox`
@@ -190,7 +194,6 @@
 .uk-modal-dialog-lightbox {
     margin: 15px auto;
     padding: 0;
-    min-height: 200px;
     max-width: 95%;
     max-width: ~"calc(100% - 30px)";
     .hook-modal-dialog-lightbox;

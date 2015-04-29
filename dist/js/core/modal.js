@@ -1,3 +1,4 @@
+/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -22,7 +23,6 @@
 
             var $this = this;
 
-            this.transition = UI.support.transition;
             this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
             this.dialog     = this.find(".uk-modal-dialog");
 
@@ -55,11 +55,11 @@
 
             this.element.removeClass("uk-open").show();
             this.resize();
-
             active = this;
-            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             this.element.addClass("uk-open");
+
+            $html.addClass("uk-modal-page").height(); // force browser engine redraw
 
             // Update ARIA
             this.element.attr('aria-hidden', 'false');
@@ -254,6 +254,38 @@
         });
 
         modal.show();
+    };
+
+    UI.modal.prompt = function(text, value, onsubmit, options) {
+
+        onsubmit = UI.$.isFunction(onsubmit) ? onsubmit : function(value){};
+
+        var modal = UI.modal.dialog(([
+            text ? '<div class="uk-modal-content uk-form">'+String(text)+'</div>':'',
+            '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary js-modal-ok">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
+        ]).join(""), UI.$.extend({bgclose:false, keyboard:false}, options)),
+        input = modal.element.find("input[type='text']").val(value || '');
+
+        modal.element.find(".js-modal-ok").on("click", function(){
+            if (onsubmit(input.val())!==false){
+                modal.hide();
+            }
+        });
+        modal.show();
+        setTimeout(function(){ input.focus(); }, 100);
+    };
+
+    UI.modal.blockUI = function(content, options) {
+
+        var modal = UI.modal.dialog(([
+            '<div class="uk-margin uk-modal-content">'+String(content || '<div class="uk-text-center">...</div>')+'</div>'
+        ]).join(""), UI.$.extend({bgclose:false, keyboard:false}, options));
+
+        modal.content = modal.element.find('.uk-modal-content:first');
+        modal.show();
+
+        return modal;
     };
 
 
