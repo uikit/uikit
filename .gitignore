@@ -12,7 +12,6 @@
 .project
 .settings
 themes.json
-src
 bower_components
 dist/scss
 dist
