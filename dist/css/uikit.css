@@ -1,4 +1,3 @@
-/*! UIkit 2.18.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -6695,6 +6694,13 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 .uk-modal-header {
   margin-bottom: 15px;
+  margin: -20px -20px 15px;
+  height: 40px;
+  line-height: 40px;
+  background: none repeat scroll 0% 0% #e6e6e6;
+  font-weight: 700;
+  padding-left: 12px;
+  color: #e74c3c;
 }
 .uk-modal-footer {
   margin-top: 15px;
@@ -7740,14 +7746,16 @@ a.uk-thumbnail:focus {
 Высота
 */
 .mzr-navbar-nav-line {
+  width: 2px;
+  height: 60px;
   background-position: left center;
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAXCAYAAAAhrZ4MAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK6wAACusBgosNWgAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDQvMjIvMTQkLa3AAAAAIUlEQVQImWP8//+/AAMDgwHD////Hf7///+fiQEKhiIDAB4jCqIgixBjAAAAAElFTkSuQmCC');
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAXCAYAAAAhrZ4MAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK6wAACusBgosNWgAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDQvMjIvMTQkLa3AAAAAIUlEQVQImWP8//+/AAMDgwHD////Hf7///+fiQEKhiIDAB4jCqIgixBjAAAAAElFTkSuQmCC') !important;
   background-repeat: no-repeat;
 }
 @font-face {
   font-family: "Flaticon";
-  src: url("../fonts/Flaticon.eot");
-  src: url("../fonts/Flaticon.eot?#iefix") format("embedded-opentype"), url("../fonts/flaticon.svg") format("svg"), url("../fonts/Flaticon.woff") format("woff"), url("../fonts/Flaticon.ttf") format("truetype");
+  src: url("../fonts/flaticon.eot");
+  src: url("../fonts/flaticon.eot?#iefix") format("embedded-opentype"), url("../fonts/flaticon.svg") format("svg"), url("../fonts/flaticon.woff") format("woff"), url("../fonts/flaticon.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

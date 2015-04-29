@@ -28,16 +28,20 @@
                             <li>
                                 <a href="">Моя страница</a>
                             </li>
-                            <li className="mzr-navbar-nav-line">
+                            <li className="mzr-navbar-nav-line"></li>
+                            <li>
                                 <a href="">Истории успеха</a>
                             </li>
-                            <li className="mzr-navbar-nav-line">
+                            <li className="mzr-navbar-nav-line"></li>
+                            <li>
                                 <a href="">Дневники</a>
                             </li>
-                            <li className="mzr-navbar-nav-line">
+                            <li className="mzr-navbar-nav-line"></li>
+                            <li>
                                 <a href="">Рецепты</a>
                             </li>
-                            <li className="mzr-navbar-nav-line">
+                            <li className="mzr-navbar-nav-line"></li>
+                            <li>
                                 <a href="">Таблицы калорийности</a>
                             </li>
                             <li className="uk-parent" data-uk-dropdown>

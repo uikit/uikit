@@ -22,7 +22,7 @@
 
                     <div style={lStyle}>
 
-                        <div className="mzr-user-menu">
+                        <aside className="mzr-user-menu mzr-shadow">
 
                             <div className="mzr-user-menu-header">
                                 <img className="mzr-avatar" src="http://upload-1f47061a063c9bb9706729066dc63a02.commondatastorage.googleapis.com/resize_cache/24511/baa33f78e6ab4760fb3031ec096e6105/main/c10/c102c53774cde6b1ebf9200fa8555680/e06c9f80dbf264087a97f9410f14d2b2.jpg"/>
@@ -122,7 +122,7 @@
                                 <li className="uk-nav-header">Статьи</li>
                                 <li><a href="http://www.health-diet.ru/base_of_meals/meals_21252/index.php"><i className="flaticon-healthy8"></i> Варенье и джемы</a></li>
                             </ul>
-                        </div>
+                        </aside>
                     </div>
 
                 </Spec>

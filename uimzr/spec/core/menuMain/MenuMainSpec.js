@@ -28,16 +28,20 @@
                             React.createElement("li", null, 
                                 React.createElement("a", {href: ""}, "Моя страница")
                             ), 
-                            React.createElement("li", {className: "mzr-navbar-nav-line"}, 
+                            React.createElement("li", {className: "mzr-navbar-nav-line"}), 
+                            React.createElement("li", null, 
                                 React.createElement("a", {href: ""}, "Истории успеха")
                             ), 
-                            React.createElement("li", {className: "mzr-navbar-nav-line"}, 
+                            React.createElement("li", {className: "mzr-navbar-nav-line"}), 
+                            React.createElement("li", null, 
                                 React.createElement("a", {href: ""}, "Дневники")
                             ), 
-                            React.createElement("li", {className: "mzr-navbar-nav-line"}, 
+                            React.createElement("li", {className: "mzr-navbar-nav-line"}), 
+                            React.createElement("li", null, 
                                 React.createElement("a", {href: ""}, "Рецепты")
                             ), 
-                            React.createElement("li", {className: "mzr-navbar-nav-line"}, 
+                            React.createElement("li", {className: "mzr-navbar-nav-line"}), 
+                            React.createElement("li", null, 
                                 React.createElement("a", {href: ""}, "Таблицы калорийности")
                             ), 
                             React.createElement("li", {className: "uk-parent", "data-uk-dropdown": true}, 
