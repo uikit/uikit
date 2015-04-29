@@ -8,7 +8,7 @@
 // ========================================================================
 
 @dropdown-navbar-background: white;
-
+@dropdown-background: white;
 @dropdown-z-index:                              @global-z-index + 20;
 @dropdown-color:                                @global-color;
 @dropdown-divider-border:                       @global-border;
@@ -25,7 +25,9 @@
 // Modifier: `uk-dropdown-navbar`
 // ========================================================================
 
-.hook-dropdown-navbar() {}
+.hook-dropdown-navbar() {
+  .mzr-shadow;
+}
 
 
 // Miscellaneous

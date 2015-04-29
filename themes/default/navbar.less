@@ -13,7 +13,7 @@
 Устанавливаем брэндовый цвет navbar и цвет текста
 */
 @navbar-background: @mzr-color-red;
-@navbar-nav-hover-background: @mzr-color-red;
+@navbar-nav-hover-background: darken(@mzr-color-red, 5%);
 @navbar-color: @mzr-color-red-contrast;
 @navbar-nav-color: @mzr-color-red-contrast;
 @navbar-brand-color: @mzr-color-red-contrast;
@@ -28,14 +28,14 @@
 /*
 Цвет активного меню
 */
-@navbar-nav-active-background: @mzr-color-red;
+@navbar-nav-active-background: darken(@mzr-color-red, 5%);
 
 /*
 Высота
 */
 @navbar-nav-height: 60px;
 
-@navbar-nav-onclick-background: @mzr-color-red;
+@navbar-nav-onclick-background: darken(@mzr-color-red, 5%);;
 //end
 
 
@@ -64,40 +64,40 @@
 // ========================================================================
 
 
-/*
-Рисуем вертикальную линию
-*/
-
+///*
+//Рисуем вертикальную линию
+//*/
+//
 @mzr-navbar-nav-line-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAXCAYAAAAhrZ4MAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK6wAACusBgosNWgAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDQvMjIvMTQkLa3AAAAAIUlEQVQImWP8//+/AAMDgwHD////Hf7///+fiQEKhiIDAB4jCqIgixBjAAAAAElFTkSuQmCC');
 .mzr-navbar-nav-line{
-  //background-position: right center;
+  background-position: left center;
   background-image: @mzr-navbar-nav-line-image;
   background-repeat: no-repeat;
 }
-
-.mzr-navbar-nav-line--align-right{
-  background-position: right center;
-}
-.mzr-navbar-nav-line--align-left{
-  background-position: left center;
-}
+//
+//.mzr-navbar-nav-line--align-right{
+//  background-position: right center;
+//}
+//.mzr-navbar-nav-line--align-left{
+//  background-position: left center;
+//}
 
 .hook-navbar-nav() {
-  &:extend(.mzr-navbar-nav-line, .mzr-navbar-nav-line--align-left);
+  //&:extend(.mzr-navbar-nav-line, .mzr-navbar-nav-line--align-left);
 
 }
-/*
-  Для последнего элемента нарисуем две линии.
-  TODO: возможно есть другой способ, не вставляя несколкь раз один и тот же background
-  */
+///*
+//  Для последнего элемента нарисуем две линии.
+//  TODO: возможно есть другой способ, не вставляя несколкь раз один и тот же background
+//  */
 
-.uk-navbar-nav > li:last-child{
-  a{
-    background-image: @mzr-navbar-nav-line-image, @mzr-navbar-nav-line-image;
-    background-position: left center, right center;
-    background-repeat: no-repeat;
-  }
-}
+//.uk-navbar-nav > li:last-child{
+//  a{
+//    background-image: @mzr-navbar-nav-line-image, @mzr-navbar-nav-line-image;
+//    background-position: left center, right center;
+//    background-repeat: no-repeat;
+//  }
+//}
 
 // Hover
 .hook-navbar-nav-hover() {}
