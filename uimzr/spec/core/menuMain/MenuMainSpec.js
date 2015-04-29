@@ -18,11 +18,11 @@
                     ), 
                     React.createElement("nav", {className: "uk-navbar"}, 
                         React.createElement("div", {className: "uk-navbar-content"}, 
-                            React.createElement("button", {className: "uk-button uk-button-primary mzr-navbar-button"}, React.createElement("i", {className: "uk-icon-navicon"}), React.createElement("div", null, "Меню"))
+                            React.createElement("a", {className: "uk-button uk-button-primary mzr-navbar-button"}, React.createElement("i", {className: "uk-icon-navicon"}), React.createElement("div", null, "Меню"))
                         ), 
                         React.createElement("a", {href: "/", className: "uk-navbar-brand mzr-navbar-logo"}), 
                         React.createElement("div", {className: "uk-navbar-content"}, 
-                            React.createElement("button", {className: "uk-button uk-button-primary mzr-navbar-button"}, React.createElement("i", {className: "uk-icon-hand-o-right"}), "Начать программу похудения")
+                            React.createElement("a", {className: "uk-button uk-button-primary mzr-navbar-button"}, React.createElement("i", {className: "uk-icon-hand-o-right"}), "Начать программу похудения")
                         ), 
                         React.createElement("ul", {className: "uk-navbar-nav"}, 
                             React.createElement("li", null, 
@@ -40,7 +40,7 @@
                         ), 
 
                         React.createElement("div", {className: "uk-navbar-content uk-navbar-flip "}, 
-                            React.createElement("button", {className: "uk-button uk-button-primary mzr-navbar-button"}, React.createElement("i", {className: "uk-icon-sign-in"}), React.createElement("div", null, "Войти"))
+                            React.createElement("a", {className: "uk-button uk-button-primary mzr-navbar-button"}, React.createElement("i", {className: "uk-icon-sign-in"}), React.createElement("div", null, "Войти"))
 
                         )
 

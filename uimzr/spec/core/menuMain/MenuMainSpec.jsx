@@ -18,13 +18,16 @@
                     </Spec>
                     <nav className="uk-navbar">
                         <div className="uk-navbar-content">
-                            <button className="uk-button uk-button-primary mzr-navbar-button"><i className="uk-icon-navicon"></i><div>Меню</div></button>
+                            <a className="uk-button uk-button-primary mzr-navbar-button"><i className="uk-icon-navicon"></i><div>Меню</div></a>
                         </div>
                         <a href="/" className="uk-navbar-brand mzr-navbar-logo"></a>
                         <div className="uk-navbar-content">
-                            <button className="uk-button uk-button-primary mzr-navbar-button"><i className="uk-icon-hand-o-right"></i>Начать программу похудения</button>
+                            <a className="uk-button uk-button-primary mzr-navbar-button"><i className="uk-icon-hand-o-right"></i>Начать программу похудения</a>
                         </div>
                         <ul className="uk-navbar-nav">
+                            <li>
+                                <a href="">Моя страница</a>
+                            </li>
                             <li>
                                 <a href="">Истории успеха</a>
                             </li>
@@ -40,7 +43,7 @@
                         </ul>
 
                         <div className="uk-navbar-content uk-navbar-flip ">
-                            <button className="uk-button uk-button-primary mzr-navbar-button"><i className="uk-icon-sign-in"></i><div>Войти</div></button>
+                            <a className="uk-button uk-button-primary mzr-navbar-button"><i className="uk-icon-sign-in"></i><div>Войти</div></a>
 
                         </div>
 

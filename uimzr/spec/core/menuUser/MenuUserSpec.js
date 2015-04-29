@@ -54,9 +54,9 @@
                                 React.createElement("li", {className: "uk-nav-header"}, "Интересное"), 
 
                                 React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-cook1"}), " Рецепты")), 
-                                React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-five8"}), " Лучшие рационы")), 
                                 React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-businessman272"}), " Истории успеха")), 
                                 React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-restaurant23"}), React.createElement("i", {className: "flaticon-standing92"}), " Дневники питания и тренировок")), 
+                                React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-five8"}), " Лучшие рационы")), 
                                 React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-blog4"}), " Блоги")), 
                                 React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-table19"}), " Таблицы калорийности")), 
                                 React.createElement("li", null, React.createElement("a", {href: "#"}, React.createElement("i", {className: "flaticon-calculator69"}), " Калькуляторы")), 

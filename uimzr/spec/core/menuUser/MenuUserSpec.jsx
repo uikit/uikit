@@ -54,9 +54,9 @@
                                 <li className="uk-nav-header">Интересное</li>
 
                                 <li><a href="#"><i className="flaticon-cook1"></i> Рецепты</a></li>
-                                <li><a href="#"><i className="flaticon-five8"></i> Лучшие рационы</a></li>
                                 <li><a href="#"><i className="flaticon-businessman272"></i> Истории успеха</a></li>
                                 <li><a href="#"><i className="flaticon-restaurant23"></i><i className="flaticon-standing92"></i> Дневники питания и тренировок</a></li>
+                                <li><a href="#"><i className="flaticon-five8"></i> Лучшие рационы</a></li>
                                 <li><a href="#"><i className="flaticon-blog4"></i> Блоги</a></li>
                                 <li><a href="#"><i className="flaticon-table19"></i> Таблицы калорийности</a></li>
                                 <li><a href="#"><i className="flaticon-calculator69"></i> Калькуляторы</a></li>
