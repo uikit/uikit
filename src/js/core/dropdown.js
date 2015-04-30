@@ -12,7 +12,7 @@
            'justify'    : false,
            'boundary'   : UI.$win,
            'delay'      : 0,
-           'hoverDelayIdle'  : 300
+           'hoverDelayIdle'  : 250
         },
 
         remainIdle: false,

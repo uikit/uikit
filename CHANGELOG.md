@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.20.2 (April 30, 2015)
+  - Updated hover delay for dropdown component
+  - Updated requestAnimationFrame polyfill
+
 ### 2.20.1 (April 28, 2015)
   - Added active state for table rows
   - Added new hooks to table component
