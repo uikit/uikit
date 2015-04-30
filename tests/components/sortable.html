@@ -20,6 +20,50 @@
             }
 
         </style>
+
+        <script charset="utf-8">
+            jQuery(function($) {
+
+                var startFunction = UIkit.sortable('#startFunction', {
+                    start: function (event, sortable, element) {
+                        console.log('Start.');
+
+                        console.log('Event:', event);
+                        console.log('Sortable object:', sortable);
+                        console.log('Dragged element:', element);
+                    }
+                });
+
+                var moveFunction = UIkit.sortable('#moveFunction', {
+                    move: function (event, sortable) {
+                        console.log('Move.');
+
+                        console.log('Event:', event);
+                        console.log('Sortable object:', sortable);
+                    }
+                });
+
+                var stopFunction = UIkit.sortable('#stopFunction', {
+                    stop: function (event, sortable, element) {
+                        console.log('Stop.');
+
+                        console.log('Event:', event);
+                        console.log('Sortable object:', sortable);
+                        console.log('Dragged element:', element);
+                    }
+                });
+
+                var changeFunction = UIkit.sortable('#changeFunction', {
+                    change: function (event, sortable, element) {
+                        console.log('Change.');
+
+                        console.log('Event:', event);
+                        console.log('Sortable object:', sortable);
+                        console.log('Dragged element:', element);
+                    }
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -80,7 +124,50 @@
                     <li><a href="#">Item</a></li>
                     <li><a href="#">Item</a></li>
                 </ul>
+            </div>
 
+            <h2>Start function</h2>
+
+            <div id="startFunction" class="uk-sortable uk-margin">
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 1</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 2</div>
+                </div>
+            </div>
+
+            <h2>Move function</h2>
+
+            <div id="moveFunction" class="uk-sortable uk-margin">
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 1</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 2</div>
+                </div>
+            </div>
+
+            <h2>Stop function</h2>
+
+            <div id="stopFunction" class="uk-sortable uk-margin">
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 1</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 2</div>
+                </div>
+            </div>
+
+            <h2>Change function</h2>
+
+            <div id="changeFunction" class="uk-sortable uk-margin">
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 1</div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-panel uk-panel-box">Test 2</div>
+                </div>
             </div>
 
         </div>

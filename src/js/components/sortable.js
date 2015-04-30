@@ -79,12 +79,15 @@
 
                 if (draggingPlaceholder) {
 
+                    var element = draggingPlaceholder.$sortable.element,
+                        $this = element.data('sortable');
+
                     if (!moving) {
                         moving = true;
                         draggingPlaceholder.show();
 
                         draggingPlaceholder.$current.addClass(draggingPlaceholder.$sortable.options.placeholderClass);
-                        draggingPlaceholder.$sortable.element.children().addClass(draggingPlaceholder.$sortable.options.childClass);
+                        element.children().addClass(draggingPlaceholder.$sortable.options.childClass);
 
                         UI.$html.addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
                     }
@@ -99,6 +102,11 @@
                         UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/2));
                     } else if ( (top + draggingPlaceholder.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
                         UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/2));
+                    }
+
+                    if ($this.options.move) {
+                        $this.options.move(e, $this);
+                        $this.trigger('move.uk.sortable', [e, $this]);
                     }
                 }
             });
@@ -206,8 +214,8 @@
 
                         addFakeDragHandlers();
 
-                        $this.options.start(this, currentlyDraggingElement);
-                        $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement]);
+                        $this.options.start(e, $this, currentlyDraggingElement);
+                        $this.trigger('start.uk.sortable', [e, $this, currentlyDraggingElement]);
 
                         delayIdle = false;
                     }
@@ -294,14 +302,11 @@
                     UI.Utils.checkDisplay($this.element.parent());
                 }
 
-                $this.options.change(this, currentlyDraggingElement);
-                $this.trigger('change.uk.sortable', [$this, currentlyDraggingElement]);
+                $this.options.change(e, $this, currentlyDraggingElement);
+                $this.trigger('change.uk.sortable', [e, $this, currentlyDraggingElement]);
             });
 
             var handleDragEnd = function(e) {
-
-                currentlyDraggingElement = null;
-                currentlyDraggingTarget  = null;
 
                 $this.element.children().each(function() {
                     if (this.nodeType === 1) {
@@ -314,8 +319,11 @@
 
                 removeFakeDragHandlers();
 
-                $this.options.stop(this);
-                $this.trigger('stop.uk.sortable', [$this]);
+                $this.options.stop(e, $this, currentlyDraggingElement);
+                $this.trigger('stop.uk.sortable', [e, $this, currentlyDraggingElement]);
+
+                currentlyDraggingElement = null;
+                currentlyDraggingTarget  = null;
 
                 draggingPlaceholder.remove();
                 draggingPlaceholder = null;
