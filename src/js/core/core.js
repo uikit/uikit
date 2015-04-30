@@ -107,22 +107,28 @@
         return animationEnd && { end: animationEnd };
     })();
 
-    window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(callback, element) {
-        var currTime = new Date().getTime();
-        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-        var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
-        lastTime = currTime + timeToCall;
-        return id;
-    };
+    // requestAnimationFrame polyfill
+    (function(){
 
-    if (!window.cancelAnimationFrame) {
+        var lastTime = 0;
 
-        window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
+        window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
         };
-    }
 
-    window.requestAnimationFrame = window.requestAnimationFrame;
+        if (!window.cancelAnimationFrame) {
+
+            window.cancelAnimationFrame = function(id) {
+                clearTimeout(id);
+            };
+        }
+
+    })();
+
 
     UI.support.touch                 = (
         ('ontouchstart' in document) ||
