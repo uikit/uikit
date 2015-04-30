@@ -7,7 +7,7 @@
         scrollspies    = [],
         checkScrollSpy = function() {
             for(var i=0; i < scrollspies.length; i++) {
-                UI.support.requestAnimationFrame.apply(window, [scrollspies[i].check]);
+                window.requestAnimationFrame.apply(window, [scrollspies[i].check]);
             }
         };
 
@@ -110,7 +110,7 @@
     var scrollspynavs = [],
         checkScrollSpyNavs = function() {
             for(var i=0; i < scrollspynavs.length; i++) {
-                UI.support.requestAnimationFrame.apply(window, [scrollspynavs[i].check]);
+                window.requestAnimationFrame.apply(window, [scrollspynavs[i].check]);
             }
         };
 

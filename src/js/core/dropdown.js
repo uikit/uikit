@@ -11,7 +11,8 @@
            'remaintime' : 800,
            'justify'    : false,
            'boundary'   : UI.$win,
-           'delay'      : 0
+           'delay'      : 0,
+           'hoverDelayIdle'  : 250
         },
 
         remainIdle: false,
@@ -108,7 +109,7 @@
 
                         hoverIdle = setTimeout(function() {
                             hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
-                        }, 100);
+                        }, $this.options.hoverDelayIdle);
 
                     } else {
 

@@ -24,13 +24,12 @@
 
             scrolltop = UI.$win.scrollTop();
 
-            UI.support.requestAnimationFrame.apply(window, [function(){
+            window.requestAnimationFrame.apply(window, [function(){
                 for (var i=0; i < parallaxes.length; i++) {
                     parallaxes[i].process();
                 }
             }]);
         };
-
 
 
     UI.component('parallax', {

@@ -40,12 +40,12 @@
 
     "use strict";
 
-    var UI = {}, _UI = window.UIkit;
+    var UI = {}, _UI = window.UIkit ? Object.create(window.UIkit) : undefined;
 
     UI.version = '2.20.1';
 
     UI.noConflict = function() {
-        // resore UIkit version
+        // restore UIkit version
         if (_UI) {
             window.UIkit = _UI;
             $.UIkit      = _UI;
@@ -65,22 +65,6 @@
     UI.$doc  = UI.$(document);
     UI.$win  = UI.$(window);
     UI.$html = UI.$('html');
-
-    UI.fn = function(command, options) {
-
-        var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
-
-        if (!UI[component]) {
-            $.error("UIkit component [" + component + "] does not exist.");
-            return this;
-        }
-
-        return this.each(function() {
-            var $this = $(this), data = $this.data(component);
-            if (!data) $this.data(component, (data = UI[component](this, method ? undefined : options)));
-            if (method) data[method].apply(data, Array.prototype.slice.call(args, 1));
-        });
-    };
 
     UI.support = {};
     UI.support.transition = (function() {
@@ -123,7 +107,23 @@
         return animationEnd && { end: animationEnd };
     })();
 
-    UI.support.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || function(callback){ setTimeout(callback, 1000/60); };
+    window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+
+    if (!window.cancelAnimationFrame) {
+
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+    }
+
+    window.requestAnimationFrame = window.requestAnimationFrame;
+
     UI.support.touch                 = (
         ('ontouchstart' in document) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
@@ -343,6 +343,25 @@
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
     window.UIkit = UI;
+
+    // deprecated
+
+    UI.fn = function(command, options) {
+
+        var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
+
+        if (!UI[component]) {
+            $.error("UIkit component [" + component + "] does not exist.");
+            return this;
+        }
+
+        return this.each(function() {
+            var $this = $(this), data = $this.data(component);
+            if (!data) $this.data(component, (data = UI[component](this, method ? undefined : options)));
+            if (method) data[method].apply(data, Array.prototype.slice.call(args, 1));
+        });
+    };
+
     $.UIkit      = UI;
     $.fn.uk      = UI.fn;
 
