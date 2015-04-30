@@ -1,4 +1,4 @@
-/*! UIkit 2.20.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -25,13 +25,12 @@
 
             scrolltop = UI.$win.scrollTop();
 
-            UI.support.requestAnimationFrame.apply(window, [function(){
+            window.requestAnimationFrame.apply(window, [function(){
                 for (var i=0; i < parallaxes.length; i++) {
                     parallaxes[i].process();
                 }
             }]);
         };
-
 
 
     UI.component('parallax', {
