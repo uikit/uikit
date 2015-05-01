@@ -42,7 +42,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.20.1';
+    UI.version = '2.20.2';
 
     UI.noConflict = function() {
         // restore UIkit version
