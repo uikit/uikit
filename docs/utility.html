@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Utility component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li class="uk-active"><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1 class="uk-article-title">Utility</h1>
+
+                            <p class="uk-article-lead">A collection of useful utility classes to style your content.</p>
+
+                            <h2 id="container"><a href="#container" class="uk-link-reset">Container</a></h2>
+
+                            <p>Add the <code>.uk-container</code> class to a block element to give it a max-width and wrap the main content of your website. For large screens it applies a different max-width.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Centering</h3>
+
+                            <p>To center the container, use the <code>.uk-container-center</code> class. For any other block element, you additionally need to apply a width.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-width-medium-1-2 uk-container-center">
+                                <div class="uk-panel uk-panel-box uk-panel-box-primary">Centered block element</div>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+                            <pre><code>&lt;div class="uk-width-medium-1-2 uk-container-center"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="clearing-and-floating"><a href="#clearing-and-floating" class="uk-link-reset">Clearing and floating</a></h2>
+
+                            <p>Floating is fundamental for creating all kinds of layouts. But floats need to be cleared or in the worst case, you might end up with a scrambled site. The following classes will help you to setup basic layouts.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-float-left</code></td>
+                                            <td>Float the element to the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-float-right</code></td>
+                                            <td>Float the element to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-clearfix</code></td>
+                                            <td>Add this class to a parent container to clear floats.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-clearfix"&gt;
+    &lt;div class="uk-float-right"&gt;...&lt;/div&gt;
+    &lt;div class="uk-float-left"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <h3>New block formatting context</h3>
+
+                            <p>Instead of using the <code>.uk-clearfix</code> class, you can create a new block formatting context to clear floats. Depending on your setup, you can evaluate which method is more suited.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-nbfc</code></td>
+                                            <td>Sets overflow to hidden to create a new block formatting context.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-nbfc-alt</code></td>
+                                            <td>Sets display to table-cell to create a new block formatting context.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Alignment of images and objects</h3>
+
+                            <p>Align images or other elements with spacing between the text and the element.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-align-left</code></td>
+                                            <td>Floats the element to the left and creates right and bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-align-right</code></td>
+                                            <td>Floats the element to the right and creates left and bottom margin.</td>
+                                        <tr>
+                                            <td><code>.uk-align-medium-left</code></td>
+                                            <td>Only affects device widths of <em>768px</em> and higher.</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-align-medium-right</code></td>
+                                            <td>Only affects device widths of <em>768px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-align-center</code></td>
+                                            <td>Centers the element and creates bottom margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                                <p class="uk-clearfix"><img class="uk-align-medium-right" src="images/placeholder_400x200.svg" width="400" height="200" alt="Image aligned to the right">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;p class="uk-clearfix"&gt;
+    &lt;img class="uk-align-medium-right" src="" alt=""&gt;
+    ...
+&lt;/p&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="vertical-alignment"><a href="#vertical-alignment" class="uk-link-reset">Vertical alignment</a></h2>
+
+                            <p>To align objects vertically, you need to create a parent container to which the object itself will be aligned.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-vertical-align</code></td>
+                                            <td>Add this class to the parent container. This container needs a specific height.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-vertical-align-middle</code></td>
+                                            <td>Add this class to the child element to center your content.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-vertical-align-bottom</code></td>
+                                            <td>Add this class to the child element to align your content to the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-height-1-1</code></td>
+                                            <td>This helper class applies a height of 100%.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+
+                                    <div class="uk-vertical-align uk-panel uk-panel-box" style="height: 200px;">
+                                        <div class="uk-vertical-align-middle uk-width-medium-1-2">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="uk-width-medium-1-2">
+
+                                    <div class="uk-vertical-align uk-panel uk-panel-box" style="height: 200px;">
+                                        <div class="uk-vertical-align-bottom uk-width-medium-1-2">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+
+<pre><code>&lt;div class="uk-vertical-align"&gt;
+    &lt;div class="uk-vertical-align-middle"&gt;
+    ...
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+                                </div>
+                                <div class="uk-width-medium-1-2">
+
+<pre><code>&lt;div class="uk-vertical-align"&gt;
+    &lt;div class="uk-vertical-align-bottom"&gt;
+    ...
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+                                </div>
+                            </div>
+
+                            <p><span class="uk-badge">NOTE</span> The object you align needs to have a width or max-width that is smaller than its parent container.</p>
+
+                            <h3>Center the entire page</h3>
+
+                            <p>The <code>.uk-height-1-1</code> class comes in handy, if you want to extend the <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> elements to the full height of the page. This can be very useful when creating error pages.</p>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;html class="uk-height-1-1"&gt;
+    ...
+    &lt;body class="uk-height-1-1"&gt;
+        &lt;div class="uk-vertical-align"&gt;
+            &lt;div class="uk-vertical-align-middle"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Center horizontally</h3>
+
+                            <p> To center your content horizontally as well, add the <code>.uk-text-center</code> class to the parent and the <code>.uk-container-center</code> class to the child element. This is necessary because of the responsive behavior.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="viewport-height"><a href="#viewport-height" class="uk-link-reset">Viewport height</a></h2>
+
+                            <p>To create a container that fills the height of the entire viewport, for example for fullscreen image or video teasers, just add the <code>.uk-height-viewport</code> class.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="position-elements"><a href="#position-elements" class="uk-link-reset">Position elements</a></h2>
+
+                            <p>UIkit provides a number of classes to position your content without having to add your own CSS.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-position-top</code></td>
+                                            <td>Positions an element absolute at the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-top-left</code></td>
+                                            <td>Positions an element absolute at the top left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-top-right</code></td>
+                                            <td>Positions an element absolute at the top right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-bottom</code></td>
+                                            <td>Positions an element absolute at the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-bottom-left</code></td>
+                                            <td>Positions an element absolute at the bottom left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-bottom-right</code></td>
+                                            <td>Positions an element absolute at the bottom right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-cover</code></td>
+                                            <td>Adds absolute positioning to an element and stretches it to cover the entire parent.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-relative</code></td>
+                                            <td>Adds relative positioning to an element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-z-index</code></td>
+                                            <td>Adds a <em>z-index</em> of 1 to an element.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="responsive-objects"><a href="#responsive-objects" class="uk-link-reset">Responsive objects</a></h2>
+
+                            <p>Images in UIkit adapt to the width of their parent container by default. If you want to apply the responsive behavior to media elements, like a video object, just add one of the following classes.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-responsive-width</code></td>
+                                            <td>Adjusts the object's width according to its parent's width, keeping the original aspect ratio.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-responsive-height</code></td>
+                                            <td>Adjusts the object's height according to its parent's height, keeping the original aspect ratio.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p><span class="uk-badge">NOTE</span> The <code>.uk-responsive-width</code> class can also be applied to an Iframe, provided its width and height attributes are set.</p>
+
+                            <h3 class="tm-article-subtitle">Example width</h3>
+
+                            <p>
+                                <video controls class="uk-responsive-width" width="600" height="350">
+                                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
+                                        <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
+                                </video>
+                            </p>
+
+                            <h3 class="tm-article-subtitle">Example height</h3>
+
+                            <p style="height: 100px;"><img class="uk-responsive-height" src="images/placeholder_400x200.svg" width="400" height="200"></p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;video controls class="uk-responsive-width"&gt;&lt;/video&gt;
+
+&lt;img class="uk-responsive-height" src="" alt=""&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="margin"><a href="#margin" class="uk-link-reset">Margin</a></h2>
+
+                            <p>Add one of the following classes to add spacing to block elements.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin</code></td>
+                                            <td>Adds the same top and bottom margins as a paragraph usually has.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-top</code></td>
+                                            <td>Adds top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-bottom</code></td>
+                                            <td>Adds bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-left</code></td>
+                                            <td>Adds left margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-right</code></td>
+                                            <td>Adds right margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Larger margin</h3>
+
+                            <p>Add one of the following classes to add larger spacing to block elements.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin-large</code></td>
+                                            <td>Adds large top and bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-top</code></td>
+                                            <td>Adds large top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-bottom</code></td>
+                                            <td>Adds large bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-left</code></td>
+                                            <td>Adds large left margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-large-right</code></td>
+                                            <td>Adds large right margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Smaller margin</h3>
+
+                            <p>Add one of the following classes to add smaller spacing to block elements.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin-small</code></td>
+                                            <td>Adds small top and bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-top</code></td>
+                                            <td>Adds small top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-bottom</code></td>
+                                            <td>Adds small bottom margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-left</code></td>
+                                            <td>Adds small left margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-small-right</code></td>
+                                            <td>Adds small right margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Remove margin</h3>
+
+                            <p>Add one of the following classes to remove margin from block elements.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-margin-remove</code></td>
+                                            <td>Removes all margins.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-top-remove</code></td>
+                                            <td>Removes top margin.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-margin-bottom-remove</code></td>
+                                            <td>Removes bottom margin.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="auto-margin"><a href="#auto-margin" class="uk-link-reset">Auto margin</a></h2>
+
+                            <p>To add spacing to stacking elements, for example inline elements that wrap on smaller vieports, just add the <code>data-uk-margin</code> attribute to their parent container. It will automatically add the <code>.uk-margin-small-top</code> to the lower element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p class="uk-width-1-2" data-uk-margin>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                                <button class="uk-button">Button</button>
+                            </p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;p data-uk-margin&gt;
+    &lt;button class="uk-button"&gt;...&lt;/button&gt;
+    &lt;button class="uk-button"&gt;...&lt;/button&gt;
+&lt;/p&gt;</code></pre>
+
+                            <p><span class="uk-badge">NOTE</span> By default, the data attribute adds the <code>.uk-margin-small-top</code> class to stacking elements. To apply a bigger margin, just add the <code>{cls:'uk-margin-top'}</code> option.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="padding"><a href="#padding" class="uk-link-reset">Padding</a></h2>
+
+                            <p>To remove the padding from a block element, add one of the following classes.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-padding-remove</code></td>
+                                            <td>Removes all padding.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-padding-top-remove</code></td>
+                                            <td>Removes top padding.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-padding-bottom-remove</code></td>
+                                            <td>Removes bottom padding.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-padding-vertical-remove</code></td>
+                                            <td>Removes top and bottom padding.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="border-radius"><a href="#border-radius" class="uk-link-reset">Border radius</a></h2>
+
+                            <p>To add rounded corners to an element, like an image, just add the <code>.uk-border-rounded</code>. To a apply a circled shape, add the <code>.uk-border-circle</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>
+                                <img class="uk-border-rounded" src="images/placeholder_200x200.svg" width="200" height="200" alt="Border rounded">
+                                <img class="uk-border-circle" src="images/placeholder_200x200.svg" width="200" height="200" alt="Border circle">
+                            </p>
+
+<pre><code>&lt;img class="uk-border-rounded" src="" alt=""&gt;
+&lt;img class="uk-border-circle" src="" alt=""&gt;
+</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="heading-large"><a href="#heading-large" class="uk-link-reset">Heading large</a></h2>
+
+                            <p>To increase the font size of your headings on tablets and desktops, just add the <code>.uk-heading-large</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <h1 class="uk-heading-large">Heading</h1>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;h1 class="uk-heading-large"&gt;...&lt;h1&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="link-muted"><a href="#link-muted" class="uk-link-reset">Link muted</a></h2>
+
+                            <p>If a link should not have the default link color, just add the <code>.uk-link-muted</code> class to the anchor element or the parent element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <h2 class="uk-link-muted"><a href="">Heading</a></h2>
+
+                            <ul class="uk-list uk-width-medium-1-4 uk-link-muted">
+                                <li><a href="">Link</a></li>
+                                <li><a href="">Link</a></li>
+                                <li><a href="">Link</a></li>
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a class="uk-link-muted"&gt;...&lt;a&gt;
+
+&lt;h1 class="uk-link-muted"&gt;&lt;a&gt;...&lt;a&gt;&lt;h1&gt;
+
+&lt;ul class="uk-link-muted"&gt;
+    &lt;li&gt;&lt;a&gt;...&lt;a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a&gt;...&lt;a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a&gt;...&lt;a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="scrollable-preformatted-text"><a href="#scrollable-preformatted-text" class="uk-link-reset">Scrollable preformatted text</a></h2>
+
+                             <p>Add the <code>.uk-scrollable-text</code> class to set a max-height and provide a vertical scrollbar. This is very useful for preformatted text, if you don't want your code blocks to take too much space.</p>
+
+                             <h3 class="tm-article-subtitle">Example</h3>
+
+<pre class="uk-scrollable-text"><code>&lt;!-- This is sample code to demonstrate preformatted text with a scrollbar. --&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;div class="uk-panel uk-panel-box uk-text-left"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;div class="uk-panel uk-panel-box uk-text-right"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;div class="uk-panel uk-panel-box uk-text-center"&gt;...&lt;/div&gt;
+    &lt;/div>
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;div class="uk-panel uk-panel-box uk-text-justify"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;div class="uk-panel uk-panel-box uk-text-break"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;div class="uk-panel uk-panel-box"&gt;&lt;p class="uk-margin-remove uk-text-truncate"&gt;...&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="scrollable-box"><a href="#scrollable-box" class="uk-link-reset">Scrollable box</a></h2>
+
+                            <p>Add the <code>.uk-scrollable-box</code> class to create a panel-like box which has a max-height and provides a vertical scrollbar. It can contain any kind of content.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-scrollable-box uk-width-medium-1-3">
+                                <ul class="uk-list">
+                                    <li><label><input type="checkbox"> Category 1</label></li>
+                                    <li>
+                                        <label><input type="checkbox"> Category 2</label>
+                                        <ul>
+                                            <li><label><input type="checkbox"> Category 2.1</label></li>
+                                            <li><label><input type="checkbox"> Category 2.2</label></li>
+                                            <li>
+                                                <label><input type="checkbox"> Category 2.3</label>
+                                                <ul>
+                                                    <li><label><input type="checkbox"> Category 2.3.1</label></li>
+                                                    <li><label><input type="checkbox"> Category 2.3.2</label></li>
+                                                </ul>
+                                            </li>
+                                            <li><label><input type="checkbox"> Category 2.4</label></li>
+                                        </ul>
+                                    </li>
+                                    <li><label><input type="checkbox"> Category 3</label></li>
+                                    <li><label><input type="checkbox"> Category 4</label></li>
+                                </ul>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-scrollable-box"&gt;
+    &lt;ul class="uk-list"&gt;
+        &lt;li&gt;&lt;label&gt;&lt;input type="checkbox"&gt;...&lt;/label&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;label&gt;&lt;input type="checkbox"&gt;...&lt;/label&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overflow-container"><a href="#overflow-container" class="uk-link-reset">Overflow container</a></h2>
+
+                            <p>To create a container that provides a horizontal scrollbar whenever the elements inside it are wider than the container itself, just add the <code>.uk-overflow-container</code> class to a <code>&lt;div&gt;</code> element. This comes in useful when having to handle tables on a responsive website, which at some point would just get too big.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                            <th>Table Heading</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                            <td>Table Footer</td>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                            <td>Table Data</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-overflow-container"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="display-utilities"><a href="#display-utilities" class="uk-link-reset">Display utilities</a></h2>
+
+                            <p>Add one of these classes to change the display properties of an element.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-display-block</code></td>
+                                            <td>Forces the element to behave like a block element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-display-inline</code></td>
+                                            <td>Forces the element to behave like an inline element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-display-inline-block</code></td>
+                                            <td>Forces the element to behave like an inline-block element.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="visibility-utilities"><a href="#visibility-utilities" class="uk-link-reset">Visibility utilities</a></h2>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-3-4">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-hidden</code></td>
+                                            <td>Hides the element on any device.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-touch</code></td>
+                                            <td>Hides the element on touch devices.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-notouch</code></td>
+                                            <td>Hides the element on non-touch devices.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-invisible</code></td>
+                                            <td>Hides the element without removing it from the flow.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-hover</code></td>
+                                            <td>Displays hidden content on hover using <code>display: block</code>. Add this class to the parent element.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-hover-inline</code></td>
+                                            <td>Displays hidden content on hover using <code>display: inline-block</code>. Add this class to the parent element.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-visible-hover-inline uk-margin">Hover me... <div class="uk-hidden">Bazinga!</div></div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-visible-hover"&gt;
+    &lt;div class="uk-hidden"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Responsive visibility</h3>
+
+                            <p>You can show or hide content on specific viewport widths. Breakpoints are set through variables and can easily be modified. Since the line between different device sizes keeps blurring, class names are kept general and do not refer to particular devices.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-line uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="uk-width-1-4">Class</th>
+                                            <th class="uk-width-1-4">Small<br><small>(Phones)</small><br><small style="font-weight: normal;">up to 767</small></th>
+                                            <th class="uk-width-1-4">Medium<br><small>(Tablets)</small><br><small style="font-weight: normal;">768 to 959</small></th>
+                                            <th class="uk-width-1-4">Large<br><small>(Desktops)</small><br><small style="font-weight: normal;">960 and larger</small></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-visible-small</code></td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-medium</code></td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-visible-large</code></td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-small</code></td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-success">Visible</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-medium</code></td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                            <td class="uk-text-success">Visible</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-large</code></td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-success">Visible</td>
+                                            <td class="uk-text-muted">Hidden</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

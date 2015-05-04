@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Modal component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li class="uk-active"><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1 class="uk-article-title">Modal</h1>
+
+                            <p class="uk-article-lead">Create modal dialogs with different styles and transitions.</p>
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+                            <p>The modal component consists of an overlay, a dialog and a close button.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-modal</code></td>
+                                            <td>Add this class to a <code>&lt;div&gt;</code> element to create the dialog container and an overlay that blanks out the page. It is important to add an id to indicate the element for toggling.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-modal-dialog</code></td>
+                                            <td>Add this class to a child <code>&lt;div&gt;</code> element to create the dialog box.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-modal-close</code></td>
+                                            <td>Add this class to an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> element to create a close button within the dialog box. We recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a> to give the button a proper styling, though you can also use text or an image.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p>You can use any element to toggle a modal dialog. An <code>&lt;a&gt;</code> element needs to be linked to the modal's id. To enable the necessary JavaScript, add the <code>data-uk-modal</code> attribute. If you are using another element, like a button, just add the <code>data-uk-modal="{target:'#ID'}"</code> attribute to target the modal's id.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal'}">Open</button>
+                            <a href="#modal" data-uk-modal>Open</a>
+                            <div id="modal" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <a href="" class="uk-modal-close uk-close"></a>
+                                    <h1>Headline</h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is an anchor toggling the modal --&gt;
+&lt;a href="#my-id" data-uk-modal&gt;...&lt;/a&gt;
+
+&lt;!-- This is a button toggling the modal --&gt;
+&lt;button class="uk-button" data-uk-modal="{target:'#my-id'}"&gt;...&lt;/button&gt;
+
+&lt;!-- This is the modal --&gt;
+&lt;div id="my-id" class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;a class="uk-modal-close uk-close"&gt;&lt;/a&gt;
+        ...
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>JavaScript options</h3>
+
+                            <p>By default, the modal closes automatically when clicking on the modal overlay. To prevent this from happening, just add the <code>data-uk-modal="{target:'#ID',bgclose:false}"</code> attribute.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="modal-header-footer"><a href="#modal-header-footer" class="uk-link-reset">Modal header and footer</a></h2>
+
+                            <p>You can create a header and footer for your modal, which are seperated from the content. Just add the <code>.uk-modal-header</code> or the <code>.uk-modal-footer</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal6'}">Open</button>
+                            <div id="modal6" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <button type="button" class="uk-modal-close uk-close"></button>
+                                    <div class="uk-modal-header">
+                                        <h2>Headline</h2>
+                                    </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <div class="uk-modal-footer uk-text-right">
+                                        <button type="button" class="uk-button">Cancel</button>
+                                        <button type="button" class="uk-button uk-button-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-header"&gt;...&lt;/div&gt;
+        ...
+        &lt;div class="uk-modal-footer"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="modal-with-caption"><a href="#modal-with-caption" class="uk-link-reset">Modal caption</a></h2>
+
+                            <p>You can also create a caption that will be placed outside the modal. Just add the <code>.uk-modal-caption</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal7'}">Open</button>
+                            <div id="modal7" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <a href="" class="uk-modal-close uk-close"></a>
+                                    <h1>Headline</h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <div class="uk-modal-caption">Caption</div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-caption"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="lightbox-modifier"><a href="#lightbox-modifier" class="uk-link-reset">Lightbox modifier</a></h2>
+
+                            <p>To create a lightbox-like modal dialog, just add the <code>.uk-modal-dialog-lightbox</code> class. This can be useful, if you want to use the modal as a lightbox for your images. The close button will adjust its position automatically to the dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal-3'}">Open</button>
+                            <div id="modal-3" class="uk-modal">
+                                <div class="uk-modal-dialog uk-modal-dialog-lightbox">
+                                    <a href="" class="uk-modal-close uk-close uk-close-alt"></a>
+                                    <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the anchor toggling the modal --&gt;
+&lt;a href="#my-id" data-uk-modal&gt;...&lt;/a&gt;
+
+&lt;!-- This is the modal --&gt;
+&lt;div id="my-id" class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog uk-modal-dialog-lightbox"&gt;
+        &lt;a href="" class="uk-modal-close uk-close uk-close-alt"&gt;&lt;/a&gt;
+        &lt;img src="" alt=""&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <p><span class="uk-badge">NOTE</span> When creating a close button within the lightbox modifier, we also recommend adding the <code>.uk-close-alt</code> class from the <a href="close.html">Close component</a> to the close button to give your button a styling that fits the lightbox modal.</p>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="modal-with-spinner"><a href="#modal-with-spinner" class="uk-link-reset">Modal spinner</a></h2>
+
+                        <p>To place a spinning icon inside your modal, add the <code>.uk-modal-spinner</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <a class="uk-button" href="#modal-spinner" data-uk-modal>Open</a>
+                        <div id="modal-spinner" class="uk-modal">
+                            <div class="uk-modal-dialog">
+                                <div class="uk-modal-spinner"></div>
+                            </div>
+                        </div>
+
+                        <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-spinner"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <hr class="uk-article-divider">
+
+
+                        <h2 id="center-modal"><a href="#center-modal" class="uk-link-reset">Center Modal</a></h2>
+
+                        <p>To vertically center the modal, add the <code>{center:true}</code> option to the data-attribute.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <a class="uk-button" href="#modal" data-uk-modal="{center:true}">Open</a>
+
+                        <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a href="#my-id" data-uk-modal="{center:true}"&gt;&lt;/a&gt;</code></pre>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="large-dialog-modifier"><a href="#large-dialog-modifier" class="uk-link-reset">Large dialog modifier</a></h2>
+
+                        <p>To apply the site's container width to the modal dialog, just add the <code>.uk-modal-dialog-large</code> class.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <a href="#modal-4" class="uk-button" data-uk-modal>Open</a>
+                        <div id="modal-4" class="uk-modal">
+                            <div class="uk-modal-dialog uk-modal-dialog-large">
+                                <button type="button" class="uk-modal-close uk-close"></button>
+                                <h1>Headline</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+                        </div>
+
+<h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal-dialog uk-modal-dialog-large"&gt;...&lt;/div&gt;</code></pre>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="overflow-container-in-modal"><a href="#overflow-container-in-modal" class="uk-link-reset">Overflow container in modal</a></h2>
+
+                        <p>You can also display the modal's content in a scrollable container. Just add the <code>.uk-overflow-container</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog. The modal will automatically expand and fill the site's height.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <a href="#modal-5" class="uk-button" data-uk-modal>Open</a>
+                        <div id="modal-5" class="uk-modal">
+                            <div class="uk-modal-dialog uk-modal-dialog-large">
+                                <button type="button" class="uk-modal-close uk-close"></button>
+                                <h1>Headline</h1>
+                                <h2>Some text above the scrollable box</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                <div class="uk-overflow-container">
+                                    <h2>Overflow container</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                                <h2>Some text below the overflow container</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+                        </div>
+
+<h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal-dialog"&gt;
+    &lt;p&gt;...&lt;/p&gt;
+    &lt;div class="uk-overflow-container"&gt;...&lt;/div&gt;
+    &lt;p&gt;...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="native-dialogs"><a href="#native-dialogs" class="uk-link-reset">Dialogs</a></h2>
+
+                        <p>The modal component also provides alternatives to the native dialogs: window.alert, window.confirm and window.prompt.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <button type="button" class="uk-button" onclick="UIkit.modal.alert('Attention!')">Alert</button>
+
+<pre><code>UIkit.modal.alert("Attention!");</code></pre>
+
+                        <button type="button" class="uk-button" onclick="UIkit.modal.confirm('Are you sure?', function(){ UIkit.modal.alert('Confirmed!'); });">Confirm</button>
+
+<pre><code>UIkit.modal.confirm("Are you sure?", function(){
+    // will be executed on confirm.
+});</code></pre>
+
+                        <button type="button" class="uk-button" onclick="UIkit.modal.prompt('Name:', '', function(val){ UIkit.modal.alert('Hello '+(val || 'Mr noname')+'!'); });">Prompt</button>
+
+<pre><code>UIkit.modal.prompt("Name:", value, function(newvalue){
+    // will be executed on submit.
+});</code></pre>
+
+                        <button type="button" class="uk-button" onclick="(function(modal){ modal = UIkit.modal.blockUI('Wait 5 sec...'); setTimeout(function(){ modal.hide() }, 5000) })();">Block UI</button>
+
+<pre><code>var modal = UIkit.modal.blockUI("Any content..."); // modal.hide() to unblock</code></pre>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="javascript"><a href="#javascript" class="uk-link-reset">JavaScript</a></h2>
+
+                        <p>You can handle modal dialogs via raw javascript.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>var modal = UIkit.modal(".modalSelector");
+
+if ( modal.isActive() ) {
+    modal.hide();
+} else {
+    modal.show();
+}</code></pre>
+
+                        <hr class="uk-article-divider">
+
+                        <h3>Events</h3>
+
+                        <p>The modal component triggers an <code>show.uk.modal</code> event every time a modal is opened and <code>hide.uk.modal</code> when a modal is closed.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>$('.modalSelector').on({
+
+    'show.uk.modal': function(){
+        console.log("Modal is visible.");
+    },
+
+    'hide.uk.modal': function(){
+        console.log("Element is not visible.");
+    }
+});</code></pre>
+
+                            <h3>Events</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>show.uk.modal</code></td>
+                                            <td>event</td>
+                                            <td>On modal show</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>hide.uk.modal</code></td>
+                                            <td>event</td>
+                                            <td>On modal hide</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

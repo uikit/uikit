@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notify component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+        <script src="../src/js/components/notify.js"></script>
+        <script>
+        $(function(){
+            $("body").on("click", ".uk-button[data-message]", function(){
+                UIkit.notify($(this).data());
+            });
+        })
+        </script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="core.html">Core</a></li>
+                    <li class="uk-active"><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1>Notify</h1>
+
+                            <p class="uk-article-lead">Create toggleable notifications that fade out automatically.</p>
+
+                            <p>The notification will not fade out but remain visible when you hover the message until you stop hovering. You can also close the notification by clicking it.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+                            <p>Notify provides a simple API which you can reuse in your application code. The following JavaScript code snippet gets you started.</p>
+
+                            <h3 class="tm-article-subtitle">JavaScript</h3>
+
+<pre><code>UIkit.notify({
+    message : 'Bazinga!',
+    status  : 'info',
+    timeout : 5000,
+    pos     : 'top-center'
+});
+
+
+// Shortcuts
+UIkit.notify('My message');
+UIkit.notify('My message', status);
+UIkit.notify('My message', { /* options */ });</code></pre>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>
+                                <button class="uk-button" data-message="Message..." data-pos="top-center">Click me</button>
+                            </p>
+
+                            <pre><code>UIkit.notify("Message...");</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>HTML message</h3>
+
+                            <p>You can use HTML inside your notification message, like an icon from the <a href="icon.html">Icon component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>
+                                <button class="uk-button" data-message="<i class='uk-icon-check'></i> Message with an icon...">With icon</button>
+                            </p>
+
+                            <pre><code>UIkit.notify("&lt;i class='uk-icon-check'&gt;&lt;/i&gt; Message with an icon...");</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Delay and sticky</h3>
+
+                            <p>You can define via <code>timeout</code> for what amount of time in milliseconds a message is visible. You can also create a sticky message by setting the timeout to zero.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>
+                                <button class="uk-button" data-message="Sticky message..." data-timeout="0">Sticky</button>
+                            </p>
+
+                            <pre><code>UIkit.notify("Message...", {timeout: 0});</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Positions</h3>
+
+                            <p>Add one of the following parameters to adjust the notification's position to different corners.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Parameter</th>
+                                            <th>Code</th>
+                                            <th>Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>top-center</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {pos:'top-center'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-center">Top Center</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>top-left</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {pos:'top-left'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-left">Top Left</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>top-right</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {pos:'top-right'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-right">Top Right</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>bottom-center</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {pos:'bottom-center'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-center">Bottom Center</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>bottom-left</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {pos:'bottom-left'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-left">Bottom Left</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>bottom-right</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {pos:'bottom-right'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-right">Bottom Right</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Status</h3>
+
+                            <p>A notification can be styled by adding a status to the message to indicate an info, success, warning or a danger status.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Code</th>
+                                            <th>Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>info</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {status:'info'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Info message..." data-status="info">Info</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>success</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {status:'success'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Success message..." data-status="success">Success</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>warning</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {status:'warning'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Warning message..." data-status="warning">Warning</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>danger</code></td>
+                                            <td>
+                                                <pre><code>UIkit.notify("...", {status:'danger'})</code></pre>
+                                            </td>
+                                            <td><button class="uk-button uk-width-1-1" data-message="Danger message..." data-status="danger">Danger</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Switcher component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li class="uk-active"><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1 class="uk-article-title">Switcher</h1>
+
+                            <p class="uk-article-lead">Dynamically transition through different content panes.</p>
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+                            <p>The switcher component consists of a number of toggles and their related content items. Add the <code>data-uk-switcher="{connect:'#ID'}"</code> attribute to the element which contains the toggles, targetting the same id as is used on the element containing the content items. Add the <code>.uk-switcher</code> class to the same element. Typically the switcher is combined with other components, some of which will be shown here.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#subnav-pill-content-1'}">
+                                <li class="uk-active"><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                            <ul id="subnav-pill-content-1" class="uk-switcher">
+                                <li class="uk-active">Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the container of the toggling elements --&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="switcher-content-switch"><a href="#switcher-content-switch" class="uk-link-reset">Switch items from within content</a></h3>
+
+                            <p>In some cases you want to switch to another content section from within the active content. This is possible using the <code>data-uk-switcher-item</code> attribute. To target the items, you need to set the data attribute to the number of the respective content item.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-4">
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switch-from-content'}">
+                                        <li class="uk-active"><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-3-4">
+
+                                    <ul id="switch-from-content" class="uk-switcher">
+                                        <li class="uk-active">Hello! <a href="#" data-uk-switcher-item="next">Switch to the next content section</a></li>
+                                        <li>Hello again! <a href="#" data-uk-switcher-item="2">Switch to third content section 3</a></li>
+                                        <li>Bazinga! <a href="#" data-uk-switcher-item="previous">Switch to the previous content section</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;!-- This is the nav containing the toggling elements --&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher"&gt;
+    &lt;li&gt; ... &lt;a href="" data-uk-switcher-item="0"&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt; ... &lt;a href="" data-uk-switcher-item="1"&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <p>Setting the attribute to <code>next</code> and <code>previous</code> will switch to the adjacent items.</p>
+
+<h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;li&gt; ... &lt;a href="" data-uk-switcher-item="next"&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt; ... &lt;a href="" data-uk-switcher-item="previous"&gt;...&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="switcher-multiple"><a href="#switcher-multiple" class="uk-link-reset">Connect multiple items</a></h3>
+
+                            <p>It is also possible to connect multiple content containers. Just extend the <code>connect</code> parameter with the ID of the additional container.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-4">
+
+                                    <ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#switch-multiple-1, #switch-multiple-2'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-3-4">
+                                    <div class="uk-grid uk-grid-width-medium-1-2" data-uk-margin>
+
+                                        <div>
+                                            <h4>Container 1</h4>
+                                            <ul id="switch-multiple-1" class="uk-switcher">
+                                                <li class="uk-active">Hello from container 1!</li>
+                                                <li>Hello again from container 1!</li>
+                                                <li>Bazinga from container 1!</li>
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <h4>Container 2</h4>
+                                            <ul id="switch-multiple-2" class="uk-switcher">
+                                                <li class="uk-active">Hello from container 2!</li>
+                                                <li>Hello again from container 2!</li>
+                                                <li>Bazinga from container 2!</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;!-- This is the nav containing the toggling elements --&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id-one, #my-id-two'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- These are the containers of the content items --&gt;
+&lt;ul id="my-id-one" class="uk-switcher"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul id="my-id-two" class="uk-switcher"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-animations"><a href="#switcher-animations" class="uk-link-reset">Animations</a></h2>
+
+                            <p>The Switcher component allows you to add different animations to items when toggling between them. All you need to do is add the <code>animation</code> parameter to the data-attribute and define the animation that you want to apply. Check the table below for an overview of the animations provided.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>fade</code></td>
+                                            <td>The element fades in.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>scale</code></td>
+                                            <td>The items scale up.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-top</code></td>
+                                            <td>The items slide in from the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-bottom</code></td>
+                                            <td>The items slide in from the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-left</code></td>
+                                            <td>The items slide in from the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-right</code></td>
+                                            <td>The items slide in from the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-horizontal</code></td>
+                                            <td>The items slide horizontally, the direction depending on the adjacency of the item.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>slide-vertical</code></td>
+                                            <td>The items slide vertically, the direction depending on the adjacency of the item.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-grid-width-medium-1-4 uk-margin" data-uk-grid-margin>
+                                <div>
+
+                                    <h5 class="uk-h4">Fade</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-fade', animation: 'fade'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-fade" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h5 class="uk-h4">Scale</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-scale', animation: 'scale'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-scale" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h5 class="uk-h4">Slide top</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-top', animation: 'slide-top'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-top" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h5 class="uk-h4">Slide bottom</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-bottom', animation: 'slide-bottom'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-bottom" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h5 class="uk-h4">Slide left</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-left', animation: 'slide-left'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-left" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h5 class="uk-h4">Slide right</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-right', animation: 'slide-right'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-right" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h5 class="uk-h4">Slide horizontal</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-horizontal', animation: 'slide-horizontal'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-horizontal" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div>
+
+                                    <h5 class="uk-h4">Slide vertical</h5>
+
+                                    <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#switcher-content-a-slide-vertical', animation: 'slide-vertical'}">
+                                        <li class="uk-active"><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                    <ul id="switcher-content-a-slide-vertical" class="uk-switcher uk-margin">
+                                        <li>Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the container of the toggling elements --&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id', animation: 'fade'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3 id="switcher-custom-animations"><a href="#switcher-custom-animations" class="uk-link-reset">Custom animations</a></h3>
+
+                            <p>You can also apply multiple animations by using the <code>uk-animation-*</code> classes from the <a href="animation.html">Animation component</a>. That way you can even create your own custom class to apply a different transition to the switcher.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#tab-content-a-anim-custom', animation: 'uk-animation-fade, uk-animation-slide-left'}">
+                                <li class="uk-active"><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                            </ul>
+
+                            <ul id="tab-content-a-anim-custom" class="uk-switcher uk-margin">
+                                <li>Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                            </ul>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;!-- This is the container of the toggling elements --&gt;
+&lt;ul data-uk-switcher="{connect:'#my-id', animation: 'uk-animation-fade, uk-animation-slide-left'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-with-subnav"><a href="#switcher-with-subnav" class="uk-link-reset">Switcher with subnav</a></h2>
+
+                            <p>The switcher is easily applied to the <a href="subnav.html">Subnav component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#subnav-pill-content-2'}">
+                                <li class="uk-active"><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                            <ul id="subnav-pill-content-2" class="uk-switcher">
+                                <li class="uk-active">Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the subnav containing the toggling elements --&gt;
+&lt;ul class="uk-subnav uk-subnav-pill" data-uk-switcher="{connect:'#my-id'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-with-tabs"><a href="#switcher-with-tabs" class="uk-link-reset">Switcher with tabs</a></h2>
+
+                            <p>As an exception to the rule, add the <code>data-uk-tab="{connect:'#ID'}"</code> attribute, using the parameter "tab" instead of "switcher", to the tabbed navigation to combine the switcher with the <a href="tab.html">Tab component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+
+                                    <ul class="uk-tab" data-uk-tab="{connect:'#tab-content'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                    <ul id="tab-content" class="uk-switcher uk-margin">
+                                        <li class="uk-active">Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-1-2">
+
+                                    <ul id="tab-bottom-content" class="uk-switcher uk-margin">
+                                        <li class="uk-active">Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                    <ul class="uk-tab uk-tab-bottom" data-uk-tab="{connect:'#tab-bottom-content'}">
+                                        <li class="uk-active"><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                        <li><a href="#">Tab</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the tabbed navigation containing the toggling elements --&gt;
+&lt;ul class="uk-tab" data-uk-tab="{connect:'#my-id'}"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher uk-margin"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <p><span class="uk-badge">NOTE</span>  When using the tab bottom modifier, navigation and content need to be arranged in reversed order, so that the content appears above the tabs.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Vertical tab</h3>
+
+                            <p>Use the <a href="grid.html">Grid component</a> to display content correctly with a vertical tabbed navigation.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+
+                                    <div class="uk-grid">
+                                        <div class="uk-width-medium-1-2">
+
+                                            <ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#tab-left-content'}">
+                                                <li class="uk-active"><a href="#">Tab</a></li>
+                                                <li><a href="#">Tab</a></li>
+                                                <li><a href="#">Tab</a></li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="uk-width-medium-1-2">
+
+                                            <ul id="tab-left-content" class="uk-switcher">
+                                                <li class="uk-active">Hello!</li>
+                                                <li>Hello again!</li>
+                                                <li>Bazinga!</li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="uk-width-medium-1-2">
+
+                                    <div class="uk-grid" data-uk-grid-margin>
+                                        <div class="uk-width-medium-1-2 uk-push-1-2">
+
+                                            <ul class="uk-tab uk-tab-right" data-uk-tab="{connect:'#tab-right-content'}">
+                                                <li class="uk-active"><a href="#">Tab</a></li>
+                                                <li><a href="#">Tab</a></li>
+                                                <li><a href="#">Tab</a></li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="uk-width-medium-1-2 uk-pull-1-2">
+
+                                            <ul id="tab-right-content" class="uk-switcher">
+                                                <li class="uk-active">Hello!</li>
+                                                <li>Hello again!</li>
+                                                <li>Bazinga!</li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+<pre><code>&lt;!-- This is the left vertical tabbed navigation --&gt;
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;!-- This is the vertical tabbed navigation containing the toggling elements --&gt;
+        &lt;ul class="uk-tab uk-tab-left" data-uk-tab="{connect:'#my-id'}"&gt;...&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;!-- This is the container of the content items --&gt;
+        &lt;ul id="my-id" class="uk-switcher"&gt;...&lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- This is the right vertical tabbed navigation --&gt;
+&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-2 uk-push-1-2"&gt;
+        &lt;!-- This is the vertical tabbed navigation containing the toggling elements --&gt;
+        &lt;ul class="uk-tab uk-tab-right" data-uk-tab="{connect:'#my-id'}"&gt;...&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="uk-width-medium-1-2 uk-pull-1-2"&gt;
+        &lt;!-- This is the container of the content items --&gt;
+        &lt;ul id="my-id" class="uk-switcher"&gt;...&lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-with-buttons"><a href="#switcher-with-buttons" class="uk-link-reset">Switcher with buttons</a></h2>
+
+                            <p>The switcher can also be applied to buttons or button groups from the <a href="button.html">Button component</a>. Just add the switcher data attribute to a <code>&lt;div&gt;</code> element around a group of buttons or to the element with the <code>.button-group</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+
+                                    <div data-uk-switcher="{connect:'#button-content'}">
+                                        <a class="uk-button" href="#">Link</a>
+                                        <button class="uk-button">Button</button>
+                                        <button class="uk-button" type="button">Button</button>
+                                    </div>
+
+                                    <ul id="button-content" class="uk-switcher uk-margin">
+                                        <li class="uk-active">Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-1-2">
+
+                                    <div class="uk-button-group" data-uk-switcher="{connect:'#button-group-content'}">
+                                        <a class="uk-button" href="#">Link</a>
+                                        <button class="uk-button" type="button">Button</button>
+                                        <button class="uk-button" type="button">Button</button>
+                                    </div>
+
+                                    <ul id="button-group-content" class="uk-switcher uk-margin">
+                                        <li class="uk-active">Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This is the container of the toggling buttons --&gt;
+&lt;div data-uk-switcher="{connect:'#my-id'}"&gt;
+    &lt;button class="uk-button" type="button"&gt;...&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher uk-margin"&gt;...&lt;/ul&gt;
+
+&lt;!-- This is the button group containing the toggling buttons --&gt;
+&lt;div class="uk-button-group" data-uk-switcher="{connect:'#my-id'}"&gt;
+    &lt;button class="uk-button" type="button"&gt;...&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- This is the container of the content items --&gt;
+&lt;ul id="my-id" class="uk-switcher uk-margin"&gt;...&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="switcher-with-navs"><a href="#switcher-with-navs" class="uk-link-reset">Switcher with navs</a></h2>
+
+                            <p>To apply the switcher to the <a href="nav.html">Nav component</a>, add the data attribute to the nav <code>&lt;ul&gt;</code>. Use the <a href="grid.html">Grid component</a> to arrange nav and content in a grid layout.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-4">
+
+                                    <ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#nav-content'}">
+                                        <li class="uk-active"><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-3-4">
+
+                                    <ul id="nav-content" class="uk-switcher">
+                                        <li class="uk-active">Hello!</li>
+                                        <li>Hello again!</li>
+                                        <li>Bazinga!</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-4"&gt;
+
+        &lt;!-- This is the nav containing the toggling elements --&gt;
+        &lt;ul class="uk-nav uk-nav-side" data-uk-switcher="{connect:'#my-id'}"&gt;
+            &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="uk-width-medium-3-4"&gt;
+
+        &lt;!-- This is the container of the content items --&gt;
+        &lt;ul id="my-id" class="uk-switcher"&gt;
+            &lt;li&gt;...&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                            <p>This is an example of how to set options via attribute:</p>
+
+                            <pre><code>data-uk-switcher=&quot;{active:1}&quot;</code></pre>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>connect</code></td>
+                                            <td>CSS selector</td>
+                                            <td>false</td>
+                                            <td>Related items container</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>toggle</code></td>
+                                            <td>CSS selector</td>
+                                            <td>'&gt; *'</td>
+                                            <td>Toggle css selector, triggering content switching on click</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>active</code></td>
+                                            <td>integer</td>
+                                            <td>0</td>
+                                            <td>Active index on init</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>animation</code></td>
+                                            <td>mixed</td>
+                                            <td>false</td>
+                                            <td>Predefined animation name or any uk-animation class name.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3>Events</h3>
+
+                            <p>You can bind callbacks to following events for custom functionality:</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>show.uk.switcher</code></td>
+                                            <td>event, active item</td>
+                                            <td>On switcher item show/change</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+<pre><code>$('[data-uk-switcher]').on('show.uk.switcher', function(event, area){
+    console.log("Switcher switched to ", area);
+});</code></pre>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

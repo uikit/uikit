@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tab component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li class="uk-active"><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1 class="uk-article-title">Tab</h1>
+
+                            <p class="uk-article-lead">Create a tabbed navigation with different styles.</p>
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+                            <p>The Tab component consists of clickable tabs, that are aligned side by side.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-tab</code></td>
+                                            <td>Add this class to a <code>&lt;ul&gt;</code> element to define the Tab component. Use <code>&lt;a&gt;</code> elements as tab items within the list.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-active</code></td>
+                                            <td>Add this class to a list item to apply an active state.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-disabled</code></td>
+                                            <td>Add this class to a list item to apply a disabled state.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p>The <code>data-uk-tab</code> attribute is required for two purposes. Firstly, it enables the responsive behaviour. If the parent container is too small to accomodate all tabs, they will be combined into a dropdown, toggled by a single tab, which represents the active tab item. This also requires the <a href="dropdown.html">Dropdown component</a> in order to work.</p>
+                            <p>And secondly, its functionality is coupled to the <a href="switcher.html">Switcher component</a>, which is necessary to dynamically transition through different contents using tabbed navigation.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                                <ul class="uk-tab uk-width-medium-7-10" data-uk-tab>
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li class="uk-disabled"><a href="#">Disabled</a></li>
+                                </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-tab" data-uk-tab&gt;
+    &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="uk-disabled"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="horizontal-modifiers"><a href="#horizontal-modifiers" class="uk-link-reset">Horizontal modifiers</a></h2>
+
+                            <p>Add one of the following classes to alter your tabs' styling. These modifiers can also be combined.</p>
+
+                            <h3>Align tabs</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-tab-flip</code></td>
+                                            <td>Add this class to align tabs right and in reversed order.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-tab-bottom</code></td>
+                                            <td>Add this class to the <code>&lt;ul&gt;</code> to place tabs at the bottom. This can also be combined with the other modifiers.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+                                    <ul class="uk-tab uk-tab-flip" data-uk-tab>
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+                                </div>
+                                <div class="uk-width-medium-1-2">
+                                    <ul class="uk-tab uk-tab-bottom" data-uk-tab>
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-tab uk-tab-flip" data-uk-tab&gt;...&lt;/ul&gt;
+&lt;ul class="uk-tab uk-tab-bottom" data-uk-tab&gt;...&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Justify tabs</h3>
+
+                            <p>Add the <code>.uk-tab-grid</code> class and one of the <code>.uk-width-*</code> classes from the <a href="grid.html">Grid component</a> to the list items to arrange tabs in a grid that takes up full width of its parent element.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-width-medium-1-2">
+                                <ul class="uk-tab uk-tab-grid uk-tab-bottom" data-uk-tab>
+                                    <li class="uk-width-1-3 uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-width-1-3"><a href="#">Item</a></li>
+                                    <li class="uk-width-1-3"><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;ul class="uk-tab uk-tab-grid uk-tab-bottom" data-uk-tab&gt;
+    &lt;li class="uk-width-1-3"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Center tabs</h3>
+
+                            <p>Add the <code>.uk-tab-center</code> class to a <code>&lt;div&gt;</code> element around the tabbed navigation to center tabs.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-width-medium-1-2">
+                                <div class="uk-tab-center">
+                                    <ul class="uk-tab" data-uk-tab>
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-tab-center"&gt;
+    &lt;ul class="uk-tab" data-uk-tab&gt;...&lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="vertical-modifiers"><a href="#vertical-modifiers" class="uk-link-reset">Vertical modifiers</a></h2>
+
+                            <p>Add the <code>.uk-tab-left</code> or <code>.uk-tab-right</code> class to align tabs vertically to the left or right side.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+
+                                    <ul class="uk-tab uk-tab-left uk-width-medium-1-2" data-uk-tab>
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="uk-width-medium-1-2">
+
+                                    <ul class="uk-tab uk-tab-right uk-width-medium-1-2" data-uk-tab>
+                                        <li class="uk-active"><a href="#">Active</a></li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Item</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <div class="uk-grid" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2">
+<pre><code>&lt;ul class="uk-tab uk-tab-left uk-width-medium-1-2"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                                </div>
+                                <div class="uk-width-medium-1-2">
+<pre><code>&lt;ul class="uk-tab uk-tab-right uk-width-medium-1-2"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <h3>Responsive behavior</h3>
+
+                            <p>In narrower viewports, like phones, vertical tabs align themselves horizontally. Adding the <code>data-uk-tab</code> attribute will apply the same responsive behavior as horizontal tabs.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="tabs-with-dropdowns"><a href="#tabs-with-dropdowns" class="uk-link-reset">Tabs with dropdowns</a></h2>
+
+                            <p>This is an example of how to use tabs with the <a href="dropdown.html">Dropdown component</a>.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <ul class="uk-tab uk-width-medium-7-10" data-uk-tab>
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li data-uk-dropdown="{mode:'click'}">
+                                    <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                                    <div class="uk-dropdown uk-dropdown-small">
+                                         <ul class="uk-nav uk-nav-dropdown">
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#">Item</a></li>
+                                            <li><a href="#">Another item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#">Separated item</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;ul class="uk-tab"&gt;
+    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+
+    &lt;!-- This is the container enabling the JavaScript --&gt;
+    &lt;li data-uk-dropdown="{mode:'click'}"&gt;
+
+        &lt;!-- This is the menu item toggling the dropdown --&gt;
+        &lt;a href=""&gt;...&lt;/a&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown uk-dropdown-small"&gt;
+            &lt;ul class="uk-nav uk-nav-dropdown"&gt;
+                &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Events</h3>
+
+                            <p>You can bind callbacks to following events for custom functionality:</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameters</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>change.uk.tab</code></td>
+                                            <td>event, active item, previous item</td>
+                                            <td>On tab item change</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

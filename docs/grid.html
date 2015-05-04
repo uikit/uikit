@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Grid component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li class="uk-active"><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1 class="uk-article-title">Grid</h1>
+
+                            <p class="uk-article-lead">Create a fully responsive, fluid and nestable grid layout.</p>
+
+                            <p>The grid system of UIkit follows the mobile-first approach and accomodates up to 10 grid columns. It uses units with predefined classes inside each grid, which define the column width. It is also possible to combine the grid with classes from the <a href="flex.html">Flex component</a>, although it works only in modern browsers.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+                            <p>To create the grid container, add the <code>.uk-grid</code> class to a parent element. Add one of the <code>.uk-width-*</code> classes to child elements to determine, how the units shall be sized. The grid supports 1, 2, 3, 4, 5, 6 and 10 unit divisions. This table gives you an overview of the <code>uk-width-*</code> classes that can be applied to units.</code></p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-width-1-1</code></td>
+                                            <td>Fills 100% of the available width.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-2</code></td>
+                                            <td>Divides the grid into halves.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-3</code> to <code>.uk-width-2-3</code></td>
+                                            <td>Divides the grid into thirds.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-4</code> to <code>.uk-width-3-4</code></td>
+                                            <td>Divides the grid into fourths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-5</code> to <code>.uk-width-4-5</code></td>
+                                            <td>Divides the grid into fifths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-6</code> to <code>.uk-width-5-6</code></td>
+                                            <td>Divides the grid into sixths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-1-10</code> to <code>.uk-width-9-10</code></td>
+                                            <td>Divides the grid into tenths.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p>We built an intentional redundancy into each set of unit classes, so that for instance the <code>.uk-width-5-10</code> class will work just as well as <code>.uk-width-1-2</code>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <p>Take a closer look at the following grid example, which gives you a great overwiew of all basic <code>.uk-width-*</code> classes.</p>
+
+                            <div class="tm-grid-truncate uk-text-center">
+
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-1-3</code></div></div>
+                                    <div class="uk-width-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-1-3</code></div></div>
+                                    <div class="uk-width-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-1-3</code></div></div>
+                                </div>
+
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-2"><div class="uk-panel uk-panel-box"><code>.uk-width-1-2</code></div></div>
+                                    <div class="uk-width-1-2"><div class="uk-panel uk-panel-box"><code>.uk-width-1-2</code></div></div>
+                                </div>
+
+                                <div class="uk-grid">
+                                    <div class="uk-width-3-10"><div class="uk-panel uk-panel-box"><code>.uk-width-3-10</code></div></div>
+                                    <div class="uk-width-7-10"><div class="uk-panel uk-panel-box"><code>.uk-width-7-10</code></div></div>
+                                </div>
+
+                            </div>
+
+                            <p><span class="uk-badge">NOTE</span> The grid has no style related CSS. In our example we used panels from the <a href="panel.html">Panel component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+                            <p>Here is a simple code example of how the default grid with 2 columns would look like:</p>
+
+<pre><code>&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;...&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="responsive-width"><a href="#responsive-width" class="uk-link-reset">Responsive width</a></h2>
+
+                            <p>UIkit provides a number of very useful responsive widths classes. Basicall they work just like the usual width classes, except they are prefixed, so that they only come to effect at certain breakpoints. These classes can be combined with the visibility classes from the <a href="utility.html">Utility component</a>. This is great to adjust your layout and content for different device sizes.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-width-*</code></td>
+                                            <td>Affects all device widths, grid columns stay side by side.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-small-*</code></td>
+                                            <td>Affects device widths of <em>480px</em> and higher. Grid columns will stack on smaller sizes.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-medium-*</code></td>
+                                            <td>Affects device widths of <em>768px</em> and higher. Grid columns will stack on smaller sizes.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-width-large-*</code></td>
+                                            <td>Affects device widths of <em>960px</em> and higher. Grid columns will stack on smaller sizes.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> To create a margin between stacking grid columns, just add the <code>data-uk-grid-margin</code> attribute.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="tm-grid-truncate uk-text-center">
+                                <div class="uk-grid" data-uk-grid-margin>
+                                    <div class="uk-width-large-1-3 uk-width-medium-1-2"><div class="uk-panel uk-panel-box uk-panel-box-primary"><code>.uk-width-medium-1-2</code> <code>.uk-width-large-1-3</code></div></div>
+                                    <div class="uk-width-large-1-3 uk-hidden-medium"><div class="uk-panel uk-panel-box"><code>.uk-hidden-medium</code> <code>.uk-width-large-1-3</code></div></div>
+                                    <div class="uk-width-large-1-3 uk-width-medium-1-2"><div class="uk-panel uk-panel-box uk-panel-box-primary"><code>.uk-width-medium-1-2</code> <code>.uk-width-large-1-3</code></div></div>
+                                </div>
+
+                                <div class="uk-grid" data-uk-grid-margin>
+                                    <div class="uk-width-medium-1-3 uk-width-1-2"><div class="uk-panel uk-panel-box uk-panel-box-secondary"><code>.uk-width-1-2</code> <code>.uk-width-medium-1-3</code></div></div>
+                                    <div class="uk-width-medium-1-3 uk-hidden-small"><div class="uk-panel uk-panel-box"><code>.uk-hidden-small</code> <code>.uk-width-medium-1-3</code></div></div>
+                                    <div class="uk-width-medium-1-3 uk-width-1-2"><div class="uk-panel uk-panel-box uk-panel-box-secondary"><code>.uk-width-1-2</code> <code>.uk-width-medium-1-3</code></div></div>
+                                </div>
+
+                                <div class="uk-grid" data-uk-grid-margin>
+                                    <div class="uk-width-1-1 uk-visible-small"><div class="uk-panel uk-panel-box uk-panel-box-secondary"><code>.uk-width-1-1 .uk-visible-small</code></div></div>
+                                    <div class="uk-width-medium-1-1 uk-visible-medium"><div class="uk-panel uk-panel-box uk-panel-box-primary"><code>.uk-width-medium-1-1 .uk-visible-medium</code></div></div>
+                                    <div class="uk-width-large-1-1 uk-visible-large"><div class="uk-panel uk-panel-box uk-panel-box"><code>.uk-width-large-1-1 .uk-visible-large</code></div></div>
+                                </div>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="grid-gutter"><a href="#grid-gutter" class="uk-link-reset">Grid gutter</a></h2>
+
+                            <p>Grids automatically create a horizontal gutter between columns and a vertical one between two succeeding grids. By default, the grid gutter is wider on large screens.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid">
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Medium gutter</h3>
+
+                            <p>To apply a medium sized gutter between grid columns, just add the <code>.uk-grid-medium</code> class.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-grid uk-grid-medium">
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Small gutter</h3>
+
+                            <p>To apply a smaller gutter between grid columns, just add the <code>.uk-grid-small</code> class.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Collapse gutter</h3>
+
+                            <p>To remove the gutter entirely, just add the <code>.uk-grid-collapse</code> class.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-grid uk-grid-collapse">
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                                <div class="uk-width-1-3"><div class="uk-panel uk-panel-box uk-panel-box-primary">Lorem ipsum</div></div>
+                            </div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="nested-grid"><a href="#nested-grid" class="uk-link-reset">Nested grid</a></h2>
+
+                            <p>You can easily extend your grid layout with nested grids.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="tm-grid-truncate uk-text-center">
+
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-2"><div class="uk-panel uk-panel-box"><code>.uk-width-1-2</code></div></div>
+                                    <div class="uk-width-1-2">
+                                        <div class="uk-grid">
+                                            <div class="uk-width-1-2"><div class="uk-panel uk-panel-box uk-panel-box-primary"><code>.uk-width-1-2</code></div></div>
+                                            <div class="uk-width-1-2"><div class="uk-panel uk-panel-box uk-panel-box-primary"><code>.uk-width-1-2</code></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-1-2"&gt;...&lt;/div&gt;
+    &lt;div class="uk-width-1-2"&gt;
+        &lt;div class="uk-grid"&gt;
+            &lt;div class="uk-width-1-2"&gt;...&lt;/div&gt;
+            &lt;div class="uk-width-1-2"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="center-grid"><a href="#center-grid" class="uk-link-reset">Center grid</a></h2>
+
+                            <p>Add the <code>.uk-container-center</code> class from the <a href="utility.html">Utility component</a> to center a grid column.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <div class="uk-panel uk-panel-box uk-panel-box-primary uk-width-1-2 uk-container-center uk-text-center"><code>.uk-container-center</code></div>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="grid-divider"><a href="#grid-divider" class="uk-link-reset">Grid divider</a></h2>
+
+                            <p>Add the <code>.uk-grid-divider</code> class to separate grid columns with lines. To separate grids with a horizontal line, just add the class to a <code>&lt;hr&gt;</code> or <code>&lt;div&gt;</code> element.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="tm-grid-truncate uk-grid uk-grid-divider uk-text-center" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-3</code></div></div>
+                                <div class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-3</code></div></div>
+                                <div class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-3</code></div></div>
+                            </div>
+                            <hr class="uk-grid-divider">
+                            <div class="uk-grid uk-grid-divider uk-text-center" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-3</code></div></div>
+                                <div class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-3</code></div></div>
+                                <div class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-3</code></div></div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-grid uk-grid-divider"&gt;...&lt;/div&gt;
+&lt;hr class="uk-grid-divider"&gt;
+&lt;div class="uk-grid uk-grid-divider"&gt;...&lt;/div&gt;</code></pre>
+
+                            <p><span class="uk-badge">NOTE</span> The horizontal divider can not be applied to grids with any of the <code>uk-push-*</code> or <code>uk-pull-*</code> classes.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="source-ordering"><a href="#source-ordering" class="uk-link-reset">Source ordering</a></h2>
+
+                            <p>You can change the display order of the columns to keep a specific column order in the source code. Add one of the <code>.uk-push-*</code> classes to move the column to the right and add one of the <code>.uk-pull-*</code> classes to move a column to the left. This allows you for example to flip the columns' display order for wider viewports. The classes can also be used to offset columns, creating additional space between them.</p>
+
+                            <p>Source ordering is useful for SEO and responsive design, because in narrow viewports the grid will be displayed according to the source order of the markup.</p>
+
+                            <p><span class="uk-badge">NOTE</span> This feature only works in combination with one of the <code>.uk-width-medium-*</code> classes.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-text-center" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-2 uk-push-1-2"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-2 .uk-push-1-2</code></div></div>
+                                <div class="uk-width-medium-1-2 uk-pull-1-2"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-1-2 .uk-pull-1-2</code></div></div>
+                            </div>
+
+                            <div class="uk-grid uk-text-center" data-uk-grid-margin>
+                                <div class="uk-width-medium-2-5 uk-push-3-5"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-2-5 .uk-push-3-5</code></div></div>
+                                <div class="uk-width-medium-2-5 uk-pull-2-5"><div class="uk-panel uk-panel-box"><code>.uk-width-medium-2-5 .uk-pull-2-5</code></div></div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-grid"&gt;
+    &lt;div class="uk-width-medium-1-2 uk-push-1-2"&gt;...&lt;/div&gt;
+    &lt;div class="uk-width-medium-1-2 uk-pull-1-2"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="match-column-heights"><a href="#match-column-heights" class="uk-link-reset">Match column heights</a></h2>
+
+                            <p>The Grid component uses Flexbox, so the height of grid columns is matched automatically. To achieve the same effect in older browsers that don't support Flexbox, just add the <code>data-uk-grid-match</code> attribute to your grid. If your grid wraps into multiple rows, only grid columns within the same row are matched. To match grid columns accross all rows just use <code>data-uk-grid-match="{row: false}"</code>.<p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-grid-divider" data-uk-grid-match>
+                                <div class="uk-width-medium-1-3">Lorem ipsum dolor sit amet.</div>
+                                <div class="uk-width-medium-1-3">Lorem ipsum dolor sit amet.</div>
+                                <div class="uk-width-medium-1-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-grid" data-uk-grid-match&gt;...&lt;/div&gt;</code></pre>
+
+                            <p><span class="uk-badge">NOTE</span> If grid columns extend to a width of 100%, their heights will no longer be matched. This makes sense, for example, if they stack vertically in narrower viewports.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Match height of panels</h3>
+
+                            <p>If you want to match the heights of panels in a grid, just add the <code>.uk-grid-match</code> class. When using the data attribute, you need to add the <code>{target:'.uk-panel'}</code> selector.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-grid-match" data-uk-grid-match="{target:'.uk-panel'}" data-uk-grid-margin>
+                                <div class="uk-width-medium-1-3">
+                                    <div class="uk-panel uk-panel-box">Lorem ipsum dolor sit amet.</div>
+                                </div>
+                                <div class="uk-width-medium-1-3">
+                                    <div class="uk-panel uk-panel-box">Lorem ipsum dolor sit amet.</div>
+                                </div>
+                                <div class="uk-width-medium-1-3">
+                                    <div class="uk-panel uk-panel-box">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-grid uk-grid-match" data-uk-grid-match="{target:'.uk-panel'}"&gt;
+    &lt;div class="uk-width-medium-1-3"&gt;
+        &lt;div class="uk-panel"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="wrap-multiple-rows"><a href="#wrap-multiple-rows" class="uk-link-reset">Wrap multiple rows</a></h2>
+
+                            <p>You can also create a grid with as many columns as you want, which automatically break into the next line. Just add the <code>data-uk-grid-margin</code> attribute to create a margin between the grid rows. Typically this layout is built using a <code>&lt;ul&gt;</code> element.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <ul class="uk-grid uk-text-center" data-uk-grid-margin>
+                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width-medium-1-3"><div class="uk-panel uk-panel-box">Box</div></li>
+                            </ul>
+
+                            <p><span class="uk-badge">NOTE</span> You can also apply a custom width to your grid columns. Just add the <code>.uk-width</code> class and use an inline style to define the width. This example uses fixed pixel values for the widths as you would do with images.</p>
+
+                            <ul class="uk-grid uk-text-center" data-uk-grid-margin>
+                                <li class="uk-width" style="width: 100px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width" style="width: 120px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width" style="width: 140px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width" style="width: 160px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width" style="width: 180px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width" style="width: 200px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width" style="width: 220px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li class="uk-width" style="width: 240px;"><div class="uk-panel uk-panel-box">Box</div></li>
+                            </ul>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;ul class="uk-grid" data-uk-grid-margin&gt;
+
+    &lt;!-- These elements have a width in percent --&gt;
+    &lt;li class="uk-width-medium-1-5"&gt;...&lt;/li&gt;
+    &lt;li class="uk-width-medium-3-10"&gt;...&lt;/li&gt;
+
+    &lt;!-- These elements have a width in pixel --&gt;
+    &lt;li class="uk-width" style="width: 100px;"&gt;...&lt;/li&gt;
+    &lt;li class="uk-width" style="width: 150px;"&gt;...&lt;/li&gt;
+
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="even-grid-columns"><a href="#even-grid-columns" class="uk-link-reset">Even grid columns</a></h2>
+
+                            <p>To create a grid whose child elements' widths are evenly split, you don't have to apply the same class to each list item within the grid. Just add one of the <code>.uk-grid-width-*</code> classes to the grid itself.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-2</code></td>
+                                            <td>Divides the grid into halves.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-3</code></td>
+                                            <td>Divides the grid into thirds.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-4</code></td>
+                                            <td>Divides the grid into fourths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-5</code></td>
+                                            <td>Divides the grid into fifths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-6</code></td>
+                                            <td>Divides the grid into sixths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-1-10</code></td>
+                                            <td>Divides the grid into tenths.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-grid uk-grid-width-1-5 uk-text-center">
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-grid uk-grid-width-1-5"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Responsive width</h3>
+
+                            <p>UIkit also provides responsive grid width classes. You can apply these to maintain evenly sized grid columns, regardless of the device width.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-grid-width-*</code></td>
+                                            <td>Affects all device widths.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-small-*</code></td>
+                                            <td>Affects device widths of <em>480px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-medium-*</code></td>
+                                            <td>Affects device widths of <em>768px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-large-*</code></td>
+                                            <td>Affects device widths of <em>960px</em> and higher.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-grid-width-xlarge-*</code></td>
+                                            <td>Affects device widths of <em>1220px</em> and higher.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-grid uk-grid-width-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-5 uk-text-center" data-uk-grid-margin>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                                <li><div class="uk-panel uk-panel-box">Box</div></li>
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-grid uk-grid-width-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-5"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

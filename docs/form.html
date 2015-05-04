@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Form component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li class="uk-active"><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1 class="uk-article-title">Form</h1>
+
+                            <p class="uk-article-lead">Easily create nicely looking forms with different styles and layouts.</p>
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+                            <p>To apply this component, add the <code>.uk-form</code> class to a form element. All form control elements are placed side by side within the next row.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <form class="uk-form">
+
+                                <fieldset data-uk-margin>
+                                    <legend>Form</legend>
+                                    <input type="text" placeholder="Text input">
+                                    <input type="password" placeholder="Password input">
+                                    <select>
+                                        <option>Option 01</option>
+                                        <option>Option 02</option>
+                                    </select>
+                                    <button class="uk-button">Button</button>
+                                    <label><input type="checkbox"> Checkbox</label>
+                                </fieldset>
+
+                            </form>
+
+                            <p><span class="uk-badge">NOTE</span> In this example we used a button from the <a href="button.html">Button component</a>. To add a top margin to form elements, when they stack on smaller viewports, just add the <code>data-uk-margin</code> attribute from the <a href="utility.html">Utility component</a> to the parent element.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;form class="uk-form"&GT;
+
+    &lt;fieldset data-uk-margin&GT;
+        &lt;legend&GT;...&lt;/legend&GT;
+        &lt;input type="text" placeholder=""&GT;
+        &lt;input type="password" placeholder=""&GT;
+        &lt;select&GT;
+            &lt;option&GT;...&lt;/option&GT;
+            &lt;option&GT;...&lt;/option&GT;
+        &lt;/select&GT;
+        &lt;button class="uk-button"&GT;...&lt;/button&GT;
+        &lt;label&GT;&lt;input type="checkbox"&GT; ...&lt;/label&GT;
+    &lt;/fieldset&GT;
+
+&lt;/form&GT;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Rows</h3>
+
+                            <p>Add the <code>.uk-form-row</code> class to a <code>&lt;div&gt;</code> element to stack form controls.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form uk-width-medium-1-3">
+
+                                <fieldset>
+                                    <legend>Legend</legend>
+                                    <div class="uk-form-row">
+                                        <input type="text" placeholder="Text input">
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <input type="password" placeholder="Password input">
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <select>
+                                            <option>Option 01</option>
+                                            <option>Option 02</option>
+                                        </select>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <button class="uk-button">Button</button>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <label><input type="checkbox"> Checkbox</label>
+                                    </div>
+                                </fieldset>
+
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;form class="uk-form"&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;...&lt;/legend&gt;
+        &lt;div class="uk-form-row"&gt;...&lt;/div&gt;
+        &lt;div class="uk-form-row"&gt;...&lt;/div&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+                            <h2 id="control-states"><a href="#control-states" class="uk-link-reset">Control states</a></h2>
+                            <p>Provide the user with basic information through feedback states on form controls.</p>
+
+                            <h3>Disabled</h3>
+
+                            <p>Add the <code>disabled</code> attribute to a form control and it will be appear muted.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <form class="uk-form">
+                                <input type="text" placeholder="Text input" disabled>
+                                <select disabled>
+                                    <option>Option 01</option>
+                                    <option>Option 02</option>
+                                </select>
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;input type="text" placeholder="" disabled&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Validation states</h3>
+
+                            <p>Add the <code>.uk-form-danger</code> or <code>.uk-form-success</code> class to a form control to notify the user, whether or not the value is validated.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form">
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-danger" class="uk-form-danger" value="form-danger">
+                                </div>
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-success" class="uk-form-success" value="form-success">
+                                </div>
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;input type="text" placeholder="" class="uk-form-danger"&gt;
+&lt;input type="text" placeholder="" class="uk-form-success"&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="control-modifiers"><a href="#control-modifiers" class="uk-link-reset">Control modifiers</a></h2>
+
+                            <h3>Size modifiers</h3>
+
+                            <p>Add the <code>.uk-form-large</code> or <code>.uk-form-small</code> class to an <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code> element to make it smaller or larger.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form">
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-large" class="uk-form-large">
+                                </div>
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="Default">
+                                </div>
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-small" class="uk-form-small">
+                                </div>
+
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;input type="text" placeholder="" class="uk-form-large"&gt;
+&lt;input type="text" placeholder="" class="uk-form-small"&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Width modifiers</h3>
+
+                            <p>Add the <code>.uk-form-width-large</code>, <code>.uk-form-width-medium</code>, <code>.uk-form-width-small</code> or <code>.uk-form-width-mini</code> class to an <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code> or <code>&lt;textarea&gt;</code> element to adjust its width.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form">
+
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-width-large" class="uk-form-width-large">
+                                </div>
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-width-medium" class="uk-form-width-medium">
+                                </div>
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-width-small" class="uk-form-width-small">
+                                </div>
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-width-mini" class="uk-form-width-mini">
+                                </div>
+
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;input type="text" placeholder="" class="uk-form-width-large"&gt;
+&lt;input type="text" placeholder="" class="uk-form-width-medium"&gt;
+&lt;input type="text" placeholder="" class="uk-form-width-small"&gt;
+&lt;input type="text" placeholder="" class="uk-form-width-mini"&gt;</code></pre>
+
+                            <p>You can also apply the <code>.uk-width-*</code> classes from the <a href="grid.html">Grid component</a> to form controls. This is especially useful, if you want form controls to extend to the full width of their parent container.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form">
+
+                                <input type="text" placeholder="width-100" class="uk-width-1-1">
+
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;input type="text" placeholder="" class="uk-width-1-1"&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Form blank</h3>
+
+                            <p>Add the <code>.uk-form-blank</code> class to minimize the styling of form controls.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form">
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="form-blank" class="uk-form-blank">
+                                </div>
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;input type="text" placeholder="" class="uk-form-blank"&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Help text</h3>
+
+                            <p>Use the <code>.uk-form-help-inline</code> or <code>.uk-form-help-block</code> class to add inline and block level help text for the controls.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form">
+
+                                <div class="uk-form-row">
+                                    <input type="text" placeholder="Text input"> <span class="uk-form-help-inline">The <code>.uk-form-help-inline</code> class creates spacing to the left.</span>
+                                </div>
+
+                                <div class="uk-form-row">
+                                    <textarea cols="30" rows="5" placeholder="Textarea"></textarea>
+                                    <p class="uk-form-help-block">The <code>.uk-form-help-block</code> class creates an associated paragraph.</p>
+                                </div>
+
+                            </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-form-row"&gt;
+    &lt;input type="text" placeholder=""&gt; &lt;span class="uk-form-help-inline"&gt;...&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="uk-form-row"&gt;
+    &lt;textarea cols="" rows="" placeholder=""&gt;...&lt;/textarea&gt;
+    &lt;p class="uk-form-help-block"&gt;...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="layout-modifiers"><a href="#layout-modifiers" class="uk-link-reset">Layout modifiers</a></h2>
+
+                            <p>There are two layout modifiers available: <code>.uk-form-stacked</code> and <code>.uk-form-horizontal</code>. Both require form controls to be wrapped with the <code>.uk-form-row</code> class in order to stack them. Labels need the <code>.uk-form-label</code> class and controls must be wrapped in the <code>.uk-form-controls</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;form class="uk-form uk-form-stacked"&gt;
+    &lt;div class="uk-form-row"&gt;
+        &lt;label class="uk-form-label" for=""&gt;...&lt;/label&gt;
+        &lt;div class="uk-form-controls"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+
+                            <p><span class="uk-badge">NOTE</span> Layout modifiers can also be added to a <code>&lt;fieldset&gt;</code> element. This means, if you use fieldsets, you can have different form layouts for each fieldset.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Form stacked</h3>
+
+                            <p>Add the <code>.uk-form-stacked</code> class to display labels on top of controls.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form uk-form-stacked">
+
+                                    <div class="uk-form-row">
+                                        <label class="uk-form-label" for="form-s-it">Text input</label>
+                                        <div class="uk-form-controls">
+                                            <input type="text" id="form-s-it" placeholder="Text input">
+                                        </div>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <label class="uk-form-label" for="form-s-ip">Password input</label>
+                                        <div class="uk-form-controls">
+                                            <input type="password" id="form-s-ip" placeholder="Password input">
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-form-row">
+                                        <label class="uk-form-label" for="form-s-s">Select field</label>
+                                        <div class="uk-form-controls">
+                                            <select id="form-s-s">
+                                                <option>Option 01</option>
+                                                <option>Option 02</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-form-row">
+                                        <label class="uk-form-label" for="form-s-t">Textarea</label>
+                                        <div class="uk-form-controls">
+                                            <textarea id="form-s-t" cols="30" rows="5" placeholder="Textarea text"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <span class="uk-form-label">Radio input</span>
+                                        <div class="uk-form-controls">
+                                            <input type="radio" id="form-s-r" name="radio"> <label for="form-s-r">Radio input</label><br>
+                                            <input type="radio" id="form-s-r1" name="radio"> <label for="form-s-r1">1</label>
+                                            <label><input type="radio" name="radio"> 2</label>
+                                            <label><input type="radio" name="radio"> 3</label>
+                                        </div>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <span class="uk-form-label">Checkbox input</span>
+                                        <div class="uk-form-controls">
+                                            <input type="checkbox" id="form-s-c"> <label for="form-s-c">Checkbox input</label><br>
+                                            <input type="checkbox" id="form-s-c1"> <label for="form-s-c1">1</label>
+                                            <label><input type="checkbox"> 2</label>
+                                            <label><input type="checkbox"> 3</label>
+                                        </div>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <span class="uk-form-label">Mixed controls</span>
+                                        <div class="uk-form-controls">
+                                            <input type="checkbox" id="form-s-mix1"> <label for="form-s-mix1">Checkbox input</label>
+                                            <input type="number" id="form-s-mix2" min="0" max="10" value="5" class="uk-form-width-mini uk-form-small"> <label for="form-s-mix2">Number input</label>
+                                            <select id="form-s-mix3" class="uk-form-small">
+                                                <option selected="selected">Option 01</option>
+                                                <option>Option 02</option>
+                                            </select>
+                                            <label for="form-s-mix3">Select field</label>
+                                        </div>
+                                    </div>
+
+                            </form>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Form horizontal</h3>
+
+                            <p>Add the <code>.uk-form-horizontal</code> class to display labels and controls side by side.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form uk-form-horizontal">
+
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="form-h-it">Text input</label>
+                                    <div class="uk-form-controls">
+                                        <input type="text" id="form-h-it" placeholder="Text input">
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="form-h-ip">Password input</label>
+                                    <div class="uk-form-controls">
+                                        <input type="password" id="form-h-ip" placeholder="Password input">
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="form-h-s">Select field</label>
+                                    <div class="uk-form-controls">
+                                        <select id="form-h-s">
+                                            <option>Option 01</option>
+                                            <option>Option 02</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="form-h-t">Textarea</label>
+                                    <div class="uk-form-controls">
+                                        <textarea id="form-h-t" cols="30" rows="5" placeholder="Textarea text"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="uk-form-row">
+                                    <span class="uk-form-label">Radio input</span>
+                                    <div class="uk-form-controls uk-form-controls-text">
+                                        <input type="radio" id="form-h-r" name="radio"> <label for="form-h-r">Radio input</label><br>
+                                        <input type="radio" id="form-h-r1" name="radio"> <label for="form-h-r1">1</label>
+                                        <label><input type="radio" name="radio"> 2</label>
+                                        <label><input type="radio" name="radio"> 3</label>
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <span class="uk-form-label">Checkbox input</span>
+                                    <div class="uk-form-controls uk-form-controls-text">
+                                        <input type="checkbox" id="form-h-c"> <label for="form-h-c">Checkbox input</label><br>
+                                        <input type="checkbox" id="form-h-c1"> <label for="form-h-c1">1</label>
+                                        <label><input type="checkbox"> 2</label>
+                                        <label><input type="checkbox"> 3</label>
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <span class="uk-form-label">Mixed controls</span>
+                                    <div class="uk-form-controls uk-form-controls-text">
+                                        <input type="checkbox" id="form-h-mix4"> <label for="form-h-mix4">Checkbox input</label>
+                                        <input type="number" id="form-h-mix5" min="0" max="10" value="5" class="uk-form-width-mini uk-form-small"> <label for="form-h-mix5">Number input</label>
+                                        <select id="form-h-mix6" class="uk-form-small">
+                                            <option selected="selected">Option 01</option>
+                                            <option>Option 02</option>
+                                        </select>
+                                        <label for="form-h-mix6">Select field</label>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Text in form controls</h3>
+
+                            <p>If you use text and checkboxes or radio buttons in form controls, just add the <code>.uk-form-controls-text</code> class to align the text properly.</p>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-form-controls uk-form-controls-text"&gt;...&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h3>Vertical spacing in form controls</h3>
+
+                            <p>If you create paragraphs in form controls, add the <code>.uk-form-controls-condensed</code> class to reduce spacing.</p>
+
+                            <h4 class="tm-article-subtitle">Example</h4>
+
+                            <form class="uk-form uk-form-stacked">
+                                <div class="uk-form-row">
+                                    <span class="uk-form-label">Mixed controls</span>
+                                    <div class="uk-form-controls uk-form-controls-text">
+                                        <p class="uk-form-controls-condensed">
+                                            <input type="checkbox" id="form-h-mix1"> <label for="form-h-mix1">Checkbox input</label>
+                                            <input type="number" id="form-h-mix2" min="0" max="10" value="5" class="uk-form-width-mini uk-form-small"> <label for="form-h-mix2">Number input</label>
+                                            <select id="form-h-mix3" class="uk-form-small">
+                                                <option selected="selected">Option 01</option>
+                                                <option>Option 02</option>
+                                            </select>
+                                            <label for="form-h-mix3">Select field</label>
+                                        </p>
+                                        <p class="uk-form-controls-condensed">
+                                            <label><input type="checkbox"> Checkbox input</label>
+                                            <label><input type="number" min="0" max="10" value="5" class="uk-form-width-mini uk-form-small"> Number input</label>
+                                            <label>
+                                                <select class="uk-form-small">
+                                                    <option selected="selected">Option 01</option>
+                                                    <option>Option 02</option>
+                                                </select>
+                                                Select field
+                                            </label>
+                                        </p>
+                                    </div>
+                                </div>
+
+                        </form>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;div class="uk-form-controls uk-form-controls-text"&gt;
+    &lt;p class="uk-form-controls-condensed"&gt;...&lt;/p&gt;
+    &lt;p class="uk-form-controls-condensed"&gt;...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="form-and-grid"><a href="#form-and-grid" class="uk-link-reset">Form and grid</a></h2>
+
+                            <p>This is an example of how to use forms with the <a href="grid.html">Grid component</a>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <form class="uk-form">
+
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-1">
+                                        <input type="text" placeholder="100" class="uk-width-1-1">
+                                    </div>
+                                </div>
+
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-2"><input type="text" placeholder="50" class="uk-width-1-1"></div>
+                                    <div class="uk-width-1-4"><input type="text" placeholder="25" class="uk-width-1-1"></div>
+                                    <div class="uk-width-1-4"><input type="text" placeholder="25" class="uk-width-1-1"></div>
+                                </div>
+
+                                <div class="uk-grid" data-uk-grid-margin>
+                                    <div class="uk-width-medium-1-2">
+                                        <div class="uk-form-controls">
+                                            <input type="text" placeholder="50" class="uk-width-1-1">
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-medium-1-2">
+                                        <div class="uk-form-controls">
+                                            <input type="text" placeholder="50" class="uk-width-1-1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;form class="uk-form"&gt;
+
+    &lt;div class="uk-grid"&gt;
+        &lt;div class="uk-width-1-2"&gt;&lt;input type="text" placeholder="" class="uk-width-1-1"&gt;&lt;/div&gt;
+        &lt;div class="uk-width-1-4"&gt;&lt;input type="text" placeholder="" class="uk-width-1-1"&gt;&lt;/div&gt;
+        &lt;div class="uk-width-1-4"&gt;&lt;input type="text" placeholder="" class="uk-width-1-1"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/form&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="form-and-icons"><a href="#form-and-icons" class="uk-link-reset">Form and icons</a></h2>
+
+                            <p>This is an example of how to add an icon from the <a href="icon.html">Icon component</a> to a form.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <form class="uk-form" data-uk-margin>
+
+                                <div class="uk-form-icon">
+                                    <i class="uk-icon-calendar"></i>
+                                    <input type="text">
+                                </div>
+                                <div class="uk-form-icon">
+                                    <i class="uk-icon-clock-o"></i>
+                                    <input type="text">
+                                </div>
+
+                            </form>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-form-icon"&gt;
+    &lt;i class="uk-icon-calendar"&gt;&lt;/i&gt;
+    &lt;input type="text"&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="form-advanced"><a href="#form-advanced" class="uk-link-reset">Form advanced</a></h2>
+
+                            <p>The form can be extended through the <a href="form-advanced.html">Form advanced component</a> to style radio and checkbox inputs.</p>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

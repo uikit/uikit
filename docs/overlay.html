@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Overlay component - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="css/docs.css">
+        <link rel="stylesheet" href="../vendor/highlight/highlight.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/highlight/highlight.js"></script>
+        <script src="js/docs.js"></script>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="customizer.html">Customizer</a></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-middle">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+
+                        <ul class="tm-nav uk-nav" data-uk-nav>
+
+                            <li class="uk-nav-header">Defaults</li>
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+
+                            <li class="uk-nav-header">Layout</li>
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+
+                            <li class="uk-nav-header">Navigations</li>
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+
+                            <li class="uk-nav-header">Elements</li>
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+
+                            <li class="uk-nav-header">Common</li>
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li class="uk-active"><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+
+                            <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+
+                        </ul>
+
+                    </div>
+                    <div class="tm-main uk-width-medium-3-4">
+
+                        <article class="uk-article">
+
+                            <h1 class="uk-article-title">Overlay</h1>
+
+                            <p class="uk-article-lead">Create an image overlay, which comes in different styles.</p>
+
+                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+                            <p>This component is easily applied. To create a position context, add the <code>.uk-overlay</code> class to a container element around an image. Add the <code>.uk-overlay-panel</code> class to a child element to create the actual overlay panel. Usually you would use a <code>&lt;figure</code> and <code>&lt;figcaption&gt;</code> element for this.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-width-medium-1-2">
+                                <figure class="uk-overlay">
+                                    <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                    <figcaption class="uk-overlay-panel">
+                                        <h3>Title</h3>
+                                        <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel"&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-on-hover-active"><a href="#overlay-on-hover-active" class="uk-link-reset">Toggle overlay on hover</a></h2>
+
+                            <p>By default, the overlay is always visible. To hide the overlay and display it on hover, add the <code>.uk-overlay-hover</code> class to the overlay container.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-width-medium-1-2">
+                                <figure class="uk-overlay uk-overlay-hover">
+                                    <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                    <figcaption class="uk-overlay-panel uk-overlay-fade">
+                                        <h3>Title</h3>
+                                        <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+<pre><code>&lt;figure class="uk-overlay uk-overlay-hover"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel"&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <h3>Toggle on active</h3>
+
+                            <p>To toggle an overlay when its parent container is in an active state, add the <code>.uk-overlay-active</code> class. This comes in handy, for example, in combination with the <a href="slideshow.html">Slideshow component</a>.</p>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-background"><a href="#overlay-background" class="uk-link-reset">Overlay background</a></h2>
+
+                            <p>To give the overlay a background just add the <code>.uk-overlay-background</code> class to the overlay container.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-width-medium-1-2">
+                                <figure class="uk-overlay">
+                                    <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                    <figcaption class="uk-overlay-panel uk-overlay-background">
+                                        <h3>Title</h3>
+                                        <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel uk-overlay-background"&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-position"><a href="#overlay-position" class="uk-link-reset">Overlay position</a></h2>
+
+                            <p>By default, the overlay covers its entire parent container from the top left. To position and crop the overlay, add one of the following classes to the overlay panel.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-overlay-top</code></td>
+                                            <td>Add this class to align the overlay to the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-bottom</code></td>
+                                            <td>Add this class to align the overlay to the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-left</code></td>
+                                            <td>Add this class to align the overlay to the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-right</code></td>
+                                            <td>Add this class to align the overlay to the right.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-grid" data-uk-grid-margin>
+
+                                <li class="uk-width-medium-1-2">
+                                    <figure class="uk-overlay">
+                                        <img src="images/placeholder_600x400.svg" width="600" height="400" alt="Image">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-top">
+                                            <h3>Overlay Top</h3>
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                                <li class="uk-width-medium-1-2">
+                                    <figure class="uk-overlay">
+                                        <img src="images/placeholder_600x400.svg" width="600" height="400" alt="Image">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom">
+                                            <h3>Overlay Bottom</h3>
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                                <li class="uk-width-medium-1-2">
+                                    <figure class="uk-overlay">
+                                        <img src="images/placeholder_600x400.svg" width="600" height="400" alt="Image">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-left">
+                                            <h3>Overlay Left</h3>
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                                <li class="uk-width-medium-1-2">
+                                    <figure class="uk-overlay">
+                                        <img src="images/placeholder_600x400.svg" width="600" height="400" alt="Image">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-right">
+                                            <h3>Overlay Right</h3>
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel uk-overlay-top"&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-icon"><a href="#overlay-icon" class="uk-link-reset">Overlay icon</a></h2>
+
+                            <p>It is possible to put basically any content into your overlay. But you can also add the <code>.uk-overlay-icon</code> class to the overlay panel, so it will display an icon instead.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-width-medium-1-2">
+                                <figure class="uk-overlay">
+                                    <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-background"></div>
+                                </figure>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;div class="uk-overlay-panel uk-overlay-icon"&gt;&lt;/div&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-image"><a href="#overlay-image" class="uk-link-reset">Overlay image</a></h2>
+
+                            <p>To apply an image as an overlay, add the <code>.uk-overlay-image</code> class to an <code>&lt;img&gt;</code> element with the <code>.uk-overlay-panel</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-width-medium-1-2">
+                                <figure class="uk-overlay uk-overlay-hover">
+                                    <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                    <img class="uk-overlay-panel uk-overlay-image uk-overlay-fade" src="images/placeholder_600x400_2.svg" width="600" height="400" alt="">
+                                </figure>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;img class="uk-overlay-panel uk-overlay-image" src="" width="" height="" alt=""&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-transitions"><a href="#overlay-transitions" class="uk-link-reset">Overlay transitions</a></h2>
+
+                            <p>Overlay panels and images can easily be animated. Just add one of the following classes to the overlay panel or <code>&lt;img&gt;</code> element. Note, that this only works in combination with the <code>.uk-overlay-hover</code> or <code>.uk-overlay-active</code> class.</p>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>.uk-overlay-slide-top</code></td>
+                                            <td>Add this class to the overlay panel to slide it in from the top.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-slide-bottom</code></td>
+                                            <td>Add this class to the overlay panel to slide it in from the bottom.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-slide-left</code></td>
+                                            <td>Add this class to the overlay panel to slide it in from the left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-slide-right</code></td>
+                                            <td>Add this class to the overlay panel to slide it in from the right.</td>
+                                        </tr>
+                                                                                <tr>
+                                            <td><code>.uk-overlay-fade</code></td>
+                                            <td>Add this class to the overlay panel or image to fade it in.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-scale</code></td>
+                                            <td>Add this class to the image to scale it up.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-spin</code></td>
+                                            <td>Add this class to the image to slightly rotate it to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-overlay-grayscale</code></td>
+                                            <td>Add this class to the image to desaturate it and color it on hover.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p><span class="uk-badge">NOTE</span> If you'd like to animate the image, but want the overlay panel to be visible at all times, just add the <code>.uk-ignore</code> class to the panel. That way it will be displayed despite the <code>.uk-overlay-hover</code> class.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-grid" data-uk-grid-margin>
+
+                                <li class="uk-width-medium-1-3">
+                                    <figure class="uk-overlay uk-overlay-hover">
+                                        <img src="images/placeholder_600x400.svg" width="600" height="400" alt="Image">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background  uk-overlay-bottom uk-overlay-slide-bottom">
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                                <li class="uk-width-medium-1-3">
+                                    <figure class="uk-overlay uk-overlay-hover">
+                                        <img class="uk-overlay-scale" src="images/placeholder_600x400.svg" width="600" height="400" alt="Image">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-ignore">
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                                <li class="uk-width-medium-1-3">
+                                    <figure class="uk-overlay uk-overlay-hover">
+                                        <img class="uk-overlay-spin" src="images/placeholder_600x400.svg" width="600" height="400" alt="Image">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-bottom uk-overlay-slide-bottom">
+                                            <p>Lorem ipsum dolor sit amet.</p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- This example is sliding in the overlay panel from the top --&gt;
+&lt;figure class="uk-overlay uk-overlay-hover"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel uk-overlay-slide-top"&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- This example is scaling up the image while the overlay panel always remains visible --&gt;
+&lt;figure class="uk-overlay uk-overlay-hover"&gt;
+    &lt;img class="uk-overlay-scale" src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel uk-ignore"&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- This example is spinning the image and sliding in the overlay panel from the bottom --&gt;
+&lt;figure class="uk-overlay uk-overlay-hover"&gt;
+    &lt;img class="uk-overlay-spin" src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel uk-overlay-slide-top"&gt;...&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-flex"><a href="#overlay-flex" class="uk-link-reset">Overlay and flex</a></h2>
+
+                            <p>You can use the <a href="flex.html">Flex component</a> to align the overlay vertically and horizontally without cropping it.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <ul class="uk-grid" data-uk-grid-margin>
+
+                                <li class="uk-width-medium-1-2">
+                                    <figure class="uk-overlay">
+                                        <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                                            <div>
+                                                <h3>Title</h3>
+                                                <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
+                                                <button class="uk-button uk-button-primary">Button</button>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                                <li class="uk-width-medium-1-2">
+                                    <figure class="uk-overlay">
+                                        <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                        <figcaption class="uk-overlay-panel uk-overlay-background uk-flex uk-flex-bottom">
+                                            <div>
+                                                <h3>Title</h3>
+                                                <p>Lorem <a href="#">ipsum dolor</a> sit amet, consetetur sadipscing elitr.</p>
+                                                <button class="uk-button uk-button-primary">Button</button>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+
+                            </ul>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;!-- In this example the overlay panel is centered vertically and horizontally -->
+&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel uk-flex uk-flex-center uk-flex-middle uk-text-center"&gt;
+        &lt;div&gt;...&lt;/div&gt;
+    &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- In this example the overlay panel is aligned to the bottom -->
+&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;figcaption class="uk-overlay-panel uk-flex uk-flex-bottom"&gt;
+        &lt;div&gt;...&lt;/div&gt;
+    &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="overlay-anchor"><a href="#overlay-anchor" class="uk-link-reset">Overlay anchor</a></h2>
+
+                            <p>To use the entire overlay as a link, just place an <code>&lt;a&gt;</code> element inside the overlay container and add the <code>.uk-position-cover</code> class from the <a href="utility.html">Utility component</a>.</p>
+
+                            <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> When applying this, make sure to replace the <code>&lt;figcaption&gt;</code> element with another container element, like a <code>&lt;div&gt;</code>. Otherwise the markup will not be validated.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-width-medium-1-2">
+                                <figure class="uk-overlay uk-overlay-hover">
+                                    <img src="images/placeholder_600x400.svg" alt="Image">
+                                    <div class="uk-overlay-panel uk-overlay-fade uk-overlay-background">
+                                        <h3>Anchor</h3>
+                                        <p>Lorem ipsum dolor sit amet.</p>
+                                    </div>
+                                    <a class="uk-position-cover" href="#"></a>
+                                </figure>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;figure class="uk-overlay"&gt;
+    &lt;img src="" width="" height="" alt=""&gt;
+    &lt;div class="uk-overlay-panel"&gt;...&lt;/div&gt;
+    &lt;a class="uk-position-cover" href=""&gt;&lt;/a&gt;
+&lt;/figure&gt;</code></pre>
+
+                            <p><span class="uk-badge">NOTE</span> To display only the overlay panel as a link, just place the anchor inside the overlay panel.</p>
+
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="http://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="http://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="http://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br>Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="documentation_get-started.html">Get started</a></li>
+                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="base.html">Base</a></li>
+                            <li><a href="print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid.html">Grid</a></li>
+                            <li><a href="panel.html">Panel</a></li>
+                            <li><a href="block.html">Block</a></li>
+                            <li><a href="article.html">Article</a></li>
+                            <li><a href="comment.html">Comment</a></li>
+                            <li><a href="utility.html">Utility</a></li>
+                            <li><a href="flex.html">Flex</a></li>
+                            <li><a href="cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="nav.html">Nav</a></li>
+                            <li><a href="navbar.html">Navbar</a></li>
+                            <li><a href="subnav.html">Subnav</a></li>
+                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="pagination.html">Pagination</a></li>
+                            <li><a href="tab.html">Tab</a></li>
+                            <li><a href="thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="list.html">List</a></li>
+                            <li><a href="description-list.html">Description list</a></li>
+                            <li><a href="table.html">Table</a></li>
+                            <li><a href="form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="button.html">Button</a></li>
+                            <li><a href="icon.html">Icon</a></li>
+                            <li><a href="close.html">Close</a></li>
+                            <li><a href="badge.html">Badge</a></li>
+                            <li><a href="alert.html">Alert</a></li>
+                            <li><a href="thumbnail.html">Thumbnail</a></li>
+                            <li><a href="overlay.html">Overlay</a></li>
+                            <li><a href="text.html">Text</a></li>
+                            <li><a href="animation.html">Animation</a></li>
+                            <li><a href="contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dropdown.html">Dropdown</a></li>
+                            <li><a href="modal.html">Modal</a></li>
+                            <li><a href="offcanvas.html">Off-canvas</a></li>
+                            <li><a href="switcher.html">Switcher</a></li>
+                            <li><a href="toggle.html">Toggle</a></li>
+                            <li><a href="scrollspy.html">Scrollspy</a></li>
+                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="grid-js.html">Dynamic Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li><a href="slidenav.html">Slidenav</a></li>
+                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="form-advanced.html">Form advanced</a></li>
+                            <li><a href="form-file.html">Form file</a></li>
+                            <li><a href="form-password.html">Form password</a></li>
+                            <li><a href="form-select.html">Form select</a></li>
+                            <li><a href="placeholder.html">Placeholder</a></li>
+                            <li><a href="progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li><a href="autocomplete.html">Autocomplete</a></li>
+                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li><a href="htmleditor.html">HTML editor</a></li>
+                            <li><a href="slider.html">Slider</a></li>
+                            <li><a href="slideset.html">Slideset</a></li>
+                            <li><a href="slideshow.html">Slideshow</a></li>
+                            <li><a href="parallax.html">Parallax</a></li>
+                            <li><a href="accordion.html">Accordion</a></li>
+                            <li><a href="notify.html">Notify</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="nestable.html">Nestable</a></li>
+                            <li><a href="sortable.html">Sortable</a></li>
+                            <li><a href="sticky.html">Sticky</a></li>
+                            <li><a href="timepicker.html">Timepicker</a></li>
+                            <li><a href="tooltip.html">Tooltip</a></li>
+                            <li><a href="upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="../showcase/index.html">Showcase</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
