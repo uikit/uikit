@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.20.3 (May 04, 2015)
   - Updated jQuery to 2.1.4
   - Updated grid match items to wrap onto multiple lines
   - Fixed Slider animation on iOS
