@@ -4,6 +4,7 @@
   - Updated jQuery to 2.1.4
   - Updated grid match items to wrap onto multiple lines
   - Fixed Slider animation on iOS
+  - Fixed Modal show when no modal container exists
 
 ### 2.20.2 (April 30, 2015)
   - Updated hover delay for dropdown component
