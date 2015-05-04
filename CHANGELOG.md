@@ -1,5 +1,12 @@
 # Changelog
 
+### 2.20.3 (May 04, 2015)
+  - Updated jQuery to 2.1.4
+  - Updated grid match items to wrap onto multiple lines
+  - Fixed Slider animation on iOS
+  - Fixed Modal show when no modal container exists
+  - Fixed data-uk-grid-match for IE9
+
 ### 2.20.2 (April 30, 2015)
   - Updated hover delay for dropdown component
   - Updated requestAnimationFrame polyfill

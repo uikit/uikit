@@ -20,6 +20,8 @@
 
             if (!body) body = UI.$('body');
 
+            if (!this.element.length) return;
+
             var $this = this;
 
             this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
@@ -46,6 +48,8 @@
         },
 
         show: function() {
+
+            if (!this.element.length) return;
 
             var $this = this;
 

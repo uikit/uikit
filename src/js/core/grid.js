@@ -127,7 +127,8 @@
             }).each(function() {
 
                 var element = UI.$(this),
-                height  = max - (element.outerHeight() - element.height());
+                    height  = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
+
 
                 element.css('min-height', height + 'px');
             });

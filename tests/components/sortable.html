@@ -83,6 +83,49 @@
 
             </div>
 
+            <h2>Connect</h2>
+
+            <div class="uk-grid uk-grid-width-1-2" data-uk-observe="">
+                <div>
+                    <h3>List 1</h3>
+                    <ul class="uk-sortable uk-grid uk-grid-width-medium-1-5 js-list-group" data-uk-sortable="{group:'groupid'}" data-uk-grid-margin>
+                        <li data-id="1"><div class="uk-panel uk-panel-box test"><a href="http://www.getuikit.com">Test 1</a></div></li>
+                        <li data-id="2"><a class="uk-panel uk-panel-box test" href="http://www.getuikit.com">Test 2</a></li>
+                        <li data-id="3"><div class="uk-panel uk-panel-box test">Test 3</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 4</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 5</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 6</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 7</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 8</div></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Empty list</h3>
+                    <ul class="uk-sortable uk-grid uk-grid-width-medium-1-5 js-list-group" data-uk-sortable="{group:'groupid'}" data-uk-grid-margin>
+                    </ul>
+                    <h3>List 2</h3>
+                    <ul class="uk-sortable uk-grid uk-grid-width-medium-1-5 js-list-group" data-uk-sortable="{group:'groupid'}" data-uk-grid-margin>
+                        <li data-id="42"><div class="uk-panel uk-panel-box test"><a href="http://www.getuikit.com">Test 1</a></div></li>
+                        <li data-id="43"><a class="uk-panel uk-panel-box test" href="http://www.getuikit.com">Test 2</a></li>
+                        <li data-id="44"><div class="uk-panel uk-panel-box test">Test 3</div></li>
+                        <li data-id="45"><div class="uk-panel uk-panel-box test">Test 4</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 5</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 6</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 7</div></li>
+                        <li data-id="23"><div class="uk-panel uk-panel-box test">Test 8</div></li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
+        <script type="text/javascript">
+        (function($) {
+            $("body").on('change.uk.sortable', function (e, foo, el, mode) {
+                console.log('change', mode);
+            }).on('stop.uk.sortable', function(e, sortable) {
+                console.log( sortable.serialize() );
+            });
+        })(jQuery);
+        </script>
     </body>
 </html>
