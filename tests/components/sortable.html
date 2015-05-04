@@ -120,11 +120,10 @@
         </div>
         <script type="text/javascript">
         (function($) {
-            $(".js-list-group").on('change.uk.sortable', function (e, foo, el, mode) {
-                console.log(mode);
-            }).on('stop.uk.sortable', function() {
-                console.log('stop');
-                console.log( $(this).data("sortable").serialize() );
+            $("body").on('change.uk.sortable', function (e, foo, el, mode) {
+                console.log('change', mode);
+            }).on('stop.uk.sortable', function(e, sortable) {
+                console.log( $sortable.serialize() );
             });
         })(jQuery);
         </script>
