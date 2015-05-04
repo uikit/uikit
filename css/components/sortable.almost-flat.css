@@ -1,4 +1,4 @@
-/*! UIkit 2.20.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Sortable
  ========================================================================== */
@@ -25,6 +25,27 @@
 .uk-sortable > * * {
   -webkit-user-drag: none;
   user-drag: none;
+}
+.uk-sortable:empty {
+  min-height: 30px;
+}
+/*
+ * Give empty lists a placeholder style to make sure drag and drop works
+ */
+.uk-sortable:empty::after {
+  min-height: 30px;
+  width: 100%;
+}
+/*
+ * Handle empty list inside grid
+ */
+.uk-grid .uk-sortable:empty::after {
+  margin-left: 25px;
+}
+@media (min-width: 1220px) {
+  .uk-grid .uk-sortable:empty::after {
+    margin-left: 35px;
+  }
 }
 /* Sub-modifier `uk-sortable-dragged`
  ========================================================================== */

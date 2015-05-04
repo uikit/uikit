@@ -1,4 +1,4 @@
-/*! UIkit 2.20.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -128,7 +128,8 @@
             }).each(function() {
 
                 var element = UI.$(this),
-                height  = max - (element.outerHeight() - element.height());
+                    height  = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
+
 
                 element.css('min-height', height + 'px');
             });

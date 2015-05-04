@@ -1,4 +1,4 @@
-/*! UIkit 2.20.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -20,6 +20,8 @@
         init: function() {
 
             if (!body) body = UI.$('body');
+
+            if (!this.element.length) return;
 
             var $this = this;
 
@@ -47,6 +49,8 @@
         },
 
         show: function() {
+
+            if (!this.element.length) return;
 
             var $this = this;
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.20.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.20.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -41,14 +41,14 @@
 
     "use strict";
 
-    var UI = {}, _UI = window.UIkit ? Object.create(window.UIkit) : undefined;
+    var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.20.1';
+    UI.version = '2.20.3';
 
     UI.noConflict = function() {
         // restore UIkit version
         if (_UI) {
-            window.UIkit = _UI;
+            global.UIkit = _UI;
             $.UIkit      = _UI;
             $.fn.uk      = _UI.fn;
         }
@@ -108,30 +108,37 @@
         return animationEnd && { end: animationEnd };
     })();
 
-    window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(callback, element) {
-        var currTime = new Date().getTime();
-        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-        var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
-        lastTime = currTime + timeToCall;
-        return id;
-    };
+    // requestAnimationFrame polyfill
+    // https://gist.github.com/paulirish/1579671
+    (function(){
 
-    if (!window.cancelAnimationFrame) {
+        var lastTime = 0;
 
-        window.cancelAnimationFrame = function(id) {
-            clearTimeout(id);
+        global.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = global.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
         };
-    }
 
-    window.requestAnimationFrame = window.requestAnimationFrame;
+        if (!global.cancelAnimationFrame) {
 
-    UI.support.touch                 = (
+            global.cancelAnimationFrame = function(id) {
+                clearTimeout(id);
+            };
+        }
+
+    })();
+
+    UI.support.touch = (
         ('ontouchstart' in document) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
         (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
         (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
         false
     );
+
     UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
 
     UI.Utils = {};
@@ -343,7 +350,7 @@
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
-    window.UIkit = UI;
+    global.UIkit = UI;
 
     // deprecated
 
@@ -2071,7 +2078,8 @@
             }).each(function() {
 
                 var element = UI.$(this),
-                height  = max - (element.outerHeight() - element.height());
+                    height  = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
+
 
                 element.css('min-height', height + 'px');
             });
@@ -2135,6 +2143,8 @@
 
             if (!body) body = UI.$('body');
 
+            if (!this.element.length) return;
+
             var $this = this;
 
             this.paddingdir = "padding-" + (UI.langdirection == 'left' ? "right":"left");
@@ -2161,6 +2171,8 @@
         },
 
         show: function() {
+
+            if (!this.element.length) return;
 
             var $this = this;
 

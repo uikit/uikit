@@ -77,7 +77,7 @@
  */
 
 .uk-slider:not(.uk-drag) {
-    -webkit-transition: transform 200ms linear;
+    -webkit-transition: -webkit-transform 200ms linear;
     transition: transform 200ms linear;
 }
 
