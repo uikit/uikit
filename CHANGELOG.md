@@ -2,6 +2,7 @@
 
 ### WIP
   - Updated grid match items to wrap onto multiple lines
+  - Fixed Slider animation on iOS
 
 ### 2.20.2 (April 30, 2015)
   - Updated hover delay for dropdown component
