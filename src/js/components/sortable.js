@@ -97,8 +97,8 @@
                     }
 
                     var offset = draggingPlaceholder.data('mouse-offset'),
-                    left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
-                    top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
+                        left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
+                        top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
 
                     draggingPlaceholder.css({'left': left, 'top': top });
 
@@ -151,24 +151,17 @@
                 this.element.html('');
             }
 
-            this.element.data('sortable-group', this.options.group );
+            this.element.data('sortable-group', this.options.group ? this.options.group : 'sortable-group-'+(Math.random() * 341));
 
             // prevent leaving page after link clicking
             this.element.on('mousedown touchstart', 'a[href]', function(e) {
+
                 // don't break browser shortcuts for click+open in new tab
-                if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
                     clickedlink = UI.$(this);
                     e.preventDefault();
                 }
-
-            }).on('click', 'a[href]', function(e) {
-                if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                    clickedlink = UI.$(this);
-                    e.stopImmediatePropagation();
-                    return false;
-                }
             });
-
 
             var handleDragStart = delegate(function(e) {
                 return $this.dragStart(e, this);
@@ -304,7 +297,7 @@
 
             if ($this.options.handleClass) {
 
-                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, element);
+                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, $this.element);
 
                 if (!handle.length) {
                     //e.preventDefault();
@@ -315,12 +308,6 @@
             // prevent dragging if taget is a form field
             if (target.is(':input')) {
                 return;
-            }
-
-            if (e.dataTransfer) {
-                e.dataTransfer.effectAllowed = 'move';
-                e.dataTransfer.dropEffect = 'move';
-                e.dataTransfer.setData('Text', "*"); // Need to set to something or else drag doesn't start
             }
 
             currentlyDraggingElement = elem;
