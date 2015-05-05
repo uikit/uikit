@@ -3,6 +3,7 @@
 ### WIP
 
   - Updated Slideset filter activation
+  - Removed warp mode from sortable component
 
 ### 2.20.3 (May 04, 2015)
   - Updated jQuery to 2.1.4

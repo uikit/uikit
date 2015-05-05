@@ -40,7 +40,6 @@
 
         defaults: {
 
-            warp             : false,
             animation        : 150,
             threshold        : 10,
 
@@ -216,11 +215,7 @@
                 $this.element.children().removeClass($this.options.overClass);
                 currentlyDraggingTarget = this;
 
-                if (!$this.options.warp) {
-                    $this.moveElementNextTo(currentlyDraggingElement, this);
-                } else {
-                    UI.$(this).addClass($this.options.overClass);
-                }
+                $this.moveElementNextTo(currentlyDraggingElement, this);
 
                 return prevent(e);
             });
@@ -420,9 +415,7 @@
 
                 UI.$(elem).addClass(this.options.overClass);
 
-                if (!this.options.warp) {
-                    this.moveElementNextTo(currentlyDraggingElement, elem);
-                }
+                this.moveElementNextTo(currentlyDraggingElement, elem);
             }
 
             return false;
@@ -479,15 +472,6 @@
                 }
             }
 
-            if (this.options.warp) {
-
-                var thisSibling = currentlyDraggingElement.nextSibling;
-                elem.parentNode.insertBefore(currentlyDraggingElement, elem);
-                elem.parentNode.insertBefore(elem, thisSibling);
-
-                UI.Utils.checkDisplay(this.element.parent());
-            }
-
             this.triggerChangeEvents();
         },
 
@@ -536,7 +520,7 @@
                 children = list.children(),
                 count    = children.length;
 
-            if ($this.options.warp || !$this.options.animation) {
+            if (!$this.options.animation) {
                 elementToMoveNextTo.parentNode.insertBefore(element, next);
                 UI.Utils.checkDisplay($this.element.parent());
                 return;
