@@ -27,9 +27,9 @@
 
 @sortable-placeholder-opacity:                  0;
 
-@sortable-over-opacity:                         0.3;
-
 @sortable-empty-height:                         30px;
+
+@sortable-over-opacity:                         0.3;
 
 
 /* ========================================================================
@@ -66,29 +66,6 @@
     user-drag: none;
 }
 
-.uk-sortable:empty { min-height: @sortable-empty-height; }
-
-/*
- * Give empty lists a placeholder style to make sure drag and drop works
- */
-
-.uk-sortable:empty::after {
-    min-height: @sortable-empty-height;
-    width: 100%;
-}
-
-
-/*
- * Handle empty list inside grid
- */
-
-.uk-grid .uk-sortable:empty::after { margin-left: @grid-gutter-horizontal; }
-
-@media (min-width: @breakpoint-xlarge) {
-
-    .uk-grid .uk-sortable:empty::after { margin-left: @grid-gutter-large-horizontal; }
-}
-
 
 /* Sub-modifier `uk-sortable-dragged`
  ========================================================================== */
@@ -107,6 +84,21 @@
 .uk-sortable-placeholder {
     opacity: @sortable-placeholder-opacity;
     .hook-sortable-placeholder;
+}
+
+/* Sub-object `uk-sortable-handle`
+ ========================================================================== */
+
+.uk-sortable-handle:hover { cursor: move; }
+
+
+/* Empty List
+ ========================================================================== */
+
+.uk-sortable:empty {
+    min-height: @sortable-empty-height;
+    border: 1px solid #eee;
+    .hook-sortable-empty;
 }
 
 
@@ -135,5 +127,6 @@
 .hook-sortable() {}
 .hook-sortable-dragged() {}
 .hook-sortable-placeholder() {}
+.hook-sortable-empty() {}
 .hook-sortable-over() {}
 .hook-sortable-misc() {}

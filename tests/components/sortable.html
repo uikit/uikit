@@ -31,7 +31,10 @@
             <h2>Grid</h2>
 
             <ul class="uk-sortable uk-grid uk-grid-width-1-5" data-uk-sortable="{handleClass:'uk-panel'}" data-uk-grid-margin>
-                <li><div class="uk-panel uk-panel-box test"><a href="http://www.getuikit.com">Test 1</a></div></li>
+                <li><div class="uk-panel uk-panel-box test">
+                        <a href="http://www.getuikit.com">Test 1</a><br>
+                        <img src="holder.js/60x40/sky/auto/" width="60" height="40" alt="">
+                </div></li>
                 <li><a class="uk-panel uk-panel-box test" href="http://www.getuikit.com">Test 2</a></li>
                 <li><div class="uk-panel uk-panel-box test">Test 3</div></li>
                 <li><div class="uk-panel uk-panel-box test">Test 4</div></li>
@@ -45,23 +48,60 @@
                 <li><div class="uk-panel uk-panel-box test">Test 12</div></li>
             </ul>
 
-            <h2>Stacked</h2>
+            <div class="uk-grid uk-grid-width-medium-1-3">
+                <div>
 
-            <div class="uk-sortable uk-margin" data-uk-sortable>
-                <div class="uk-margin">
-                    <div class="uk-panel uk-panel-box">Test 1</div>
+                    <h2>Stacked</h2>
+
+                    <div class="uk-sortable uk-margin" data-uk-sortable>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box">Test 1</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box">Test 2</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box">Test 3</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box">Test 4</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box">Test 5</div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="uk-margin">
-                    <div class="uk-panel uk-panel-box">Test 2</div>
+                <div>
+
+                    <h2>Handle</h2>
+
+                    <div class="uk-sortable uk-margin" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i> Test 1</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i> Test 2</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i> Test 3</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i> Test 4</div>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i> Test 5</div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="uk-margin">
-                    <div class="uk-panel uk-panel-box">Test 3</div>
-                </div>
-                <div class="uk-margin">
-                    <div class="uk-panel uk-panel-box">Test 4</div>
-                </div>
-                <div class="uk-margin">
-                    <div class="uk-panel uk-panel-box">Test 5</div>
+                <div>
+
+                    <h2>Empty</h2>
+
+                    <div class="uk-sortable uk-margin" data-uk-sortable>
+                    </div>
+
                 </div>
             </div>
 
