@@ -57,14 +57,25 @@
 }
 
 /*
- * Prevents images and links from being dragged (default browser behavior)
+ * 1. Prevents images and links from being dragged (default browser behavior)
+ * 2. Disables the default callout shown when you touch and hold a touch target
  * Currently only works in Webkit
  */
 
-.uk-sortable > * * {
+.uk-sortable a,
+.uk-sortable img {
+    /* 1 */
     -webkit-user-drag: none;
     user-drag: none;
+    /* 2 */
+    -webkit-touch-callout: none;
 }
+
+/*
+ * 1. Prevents images and links from being dragged in Firefox
+ */
+
+.uk-sortable img { pointer-events: none; }
 
 
 /* Sub-modifier `uk-sortable-dragged`
@@ -100,15 +111,6 @@
     .hook-sortable-empty;
 }
 
-
-/* Sub-modifier `uk-sortable-over`
- * Only if `warp:true`
- ========================================================================== */
-
-.uk-sortable-over {
-    opacity: @sortable-over-opacity;
-    .hook-sortable-over;
-}
 
 /* Sub-object `uk-sortable-moving`
  ========================================================================== */
