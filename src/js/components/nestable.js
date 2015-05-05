@@ -25,31 +25,6 @@
         $win         = UI.$win,
         draggingElement, dragSource;
 
-    /**
-     * Detect CSS pointer-events property
-     * events are normally disabled on the dragging element to avoid conflicts
-     * https://github.com/ausi/Feature-detection-technique-for-pointer-events/blob/master/modernizr-pointerevents.js
-     */
-    var hasPointerEvents = (function() {
-
-        var el = document.createElement('div'), docEl = document.documentElement;
-
-        if (!('pointerEvents' in el.style)) {
-            return false;
-        }
-
-        el.style.pointerEvents = 'auto';
-        el.style.pointerEvents = 'x';
-
-        docEl.appendChild(el);
-
-        var supports = window.getComputedStyle && window.getComputedStyle(el, '').pointerEvents === 'auto';
-
-        docEl.removeChild(el);
-
-        return !!supports;
-    })();
-
     var eStart  = hasTouch ? 'touchstart'  : 'mousedown',
         eMove   = hasTouch ? 'touchmove'   : 'mousemove',
         eEnd    = hasTouch ? 'touchend'    : 'mouseup',
@@ -59,20 +34,19 @@
     UI.component('nestable', {
 
         defaults: {
-            prefix          : 'uk-',
             listNodeName    : 'ul',
             itemNodeName    : 'li',
-            listBaseClass   : '{prefix}nestable',
-            listClass       : '{prefix}nestable-list',
-            listitemClass   : '{prefix}nestable-list-item',
-            itemClass       : '{prefix}nestable-item',
-            dragClass       : '{prefix}nestable-list-dragged',
-            movingClass     : '{prefix}nestable-moving',
-            handleClass     : '{prefix}nestable-handle',
-            collapsedClass  : '{prefix}collapsed',
-            placeClass      : '{prefix}nestable-placeholder',
-            noDragClass     : '{prefix}nestable-nodrag',
-            emptyClass      : '{prefix}nestable-empty',
+            listBaseClass   : 'uk-nestable',
+            listClass       : 'uk-nestable-list',
+            listitemClass   : 'uk-nestable-list-item',
+            itemClass       : 'uk-nestable-item',
+            dragClass       : 'uk-nestable-list-dragged',
+            movingClass     : 'uk-nestable-moving',
+            handleClass     : 'uk-nestable-handle',
+            collapsedClass  : 'uk-collapsed',
+            placeClass      : 'uk-nestable-placeholder',
+            noDragClass     : 'uk-nestable-nodrag',
+            emptyClass      : 'uk-nestable-empty',
             group           : 0,
             maxDepth        : 10,
             threshold       : 20
@@ -113,13 +87,6 @@
         init: function() {
 
             var $this = this;
-
-            Object.keys(this.options).forEach(function(key){
-
-                if(String($this.options[key]).indexOf('{prefix}')!=-1) {
-                    $this.options[key] = $this.options[key].replace('{prefix}', $this.options.prefix);
-                }
-            });
 
             this.tplempty = '<div class="' + this.options.emptyClass + '"/>';
 
@@ -168,11 +135,17 @@
                 var handle = UI.$(e.target);
 
                 if (!handle.hasClass($this.options.handleClass)) {
+
                     if (handle.closest('.' + $this.options.noDragClass).length) {
                         return;
                     }
-                    handle = handle.closest('.' + $this.options.handleClass);
+
+                    if ($this.options.handleClass) {
+                        handle = handle.closest('.' + $this.options.handleClass);
+                    }
                 }
+
+
                 if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches.length !== 1)) {
                     return;
                 }
@@ -526,15 +499,9 @@
             var isEmpty = false;
 
             // find list item under cursor
-            if (!hasPointerEvents) {
-                this.dragEl[0].style.visibility = 'hidden';
-            }
             this.pointEl = UI.$(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - (window.pageYOffset || document.documentElement.scrollTop)));
-            if (!hasPointerEvents) {
-                this.dragEl[0].style.visibility = 'visible';
-            }
 
-            if (this.pointEl.hasClass(opt.handleClass)) {
+            if (opt.handleClass && this.pointEl.hasClass(opt.handleClass)) {
                 this.pointEl = this.pointEl.closest(opt.itemNodeName);
             } else {
 
