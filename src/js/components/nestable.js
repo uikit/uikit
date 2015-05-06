@@ -43,7 +43,7 @@
             collapsedClass  : 'uk-collapsed',
             placeholderClass: 'uk-nestable-placeholder',
             noDragClass     : 'uk-nestable-nodrag',
-            group           : 0,
+            group           : false,
             maxDepth        : 10,
             threshold       : 20
         },
@@ -94,9 +94,8 @@
 
             this.checkEmptyList();
 
-            this.element.data("nestable-id", "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() *100000)));
             this.reset();
-            this.element.data('nestable-group', this.options.group);
+            this.element.data('nestable-group', this.options.group || 'nestable-group-'+(Math.random() * 341));
 
             this.find(this.options._listItemClass).each(function() {
                 $this.setParent(UI.$(this));

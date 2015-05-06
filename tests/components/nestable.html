@@ -33,15 +33,15 @@
 
             Empty list:
 
-            <ul class="uk-nestable test" data-uk-nestable></ul>
+            <ul class="uk-nestable test" data-uk-nestable="{group:'connect'}"></ul>
 
             <hr>
 
-            <ul class="uk-nestable" data-uk-nestable>
+            <ul class="uk-nestable" data-uk-nestable="{group:'connect'}">
                 <li  class="uk-nestable-item">
                     <div class="uk-nestable-panel">
                         <div class="uk-nestable-handle"></div>
-                        Item 1
+                        Item 1 - <a href="http://getuikit.com">Link</a>
                     </div>
                 </li>
                 <li  class="uk-nestable-item">
@@ -78,7 +78,7 @@
 
             <h2>Second list</h2>
 
-            <ul class="uk-nestable" data-uk-nestable>
+            <ul class="uk-nestable" data-uk-nestable="{group:'connect'}">
                 <li  class="uk-nestable-item">
                     <div class="uk-nestable-panel">
                         <div class="uk-nestable-handle"></div>
@@ -89,7 +89,7 @@
 
             <h2>Nesting disabled</h2>
 
-            <ul class="uk-nestable" data-uk-nestable="{maxDepth:1, group:'no-nesting'}">
+            <ul class="uk-nestable" data-uk-nestable="{maxDepth:1}">
                 <li  class="uk-nestable-item">
                     <div class="uk-nestable-panel">
                         <div class="uk-nestable-handle"></div>
