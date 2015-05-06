@@ -92,7 +92,7 @@
                         $this[set=='next' ? 'next':'previous']();
                         break;
                     default:
-                        $this.show(set);
+                        $this.show(parseInt(set, 10));
                 }
 
             });
