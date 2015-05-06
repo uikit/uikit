@@ -6,7 +6,6 @@
 // Sub-objects:     `uk-nestable-list`
 //                  `uk-nestable-item`
 //                  `uk-nestable-placeholder`
-//                  `uk-nestable-empty`
 //                  `uk-nestable-handle`
 //                  `uk-nestable-moving`
 //                  `[data-nestable-action='toggle']`
@@ -66,6 +65,11 @@
     .hook-nestable;
 }
 
+.uk-nestable:empty {
+    min-height: @nestable-empty-height;
+    border: 1px dashed @nestable-placeholder-border;
+}
+
 
 /* Sub-object `uk-nestable-list`
  ========================================================================== */
@@ -92,7 +96,7 @@
 /* Sub-object `uk-nestable-item`
  ========================================================================== */
 
-.uk-nestable-item {
+.uk-nestable-item > div {
     margin-bottom: @nestable-item-margin-bottom;
     padding: @nestable-item-padding;
     background: @nestable-item-background;
@@ -112,15 +116,7 @@
     .hook-nestable-placeholder;
 }
 
-
-/* Sub-object `uk-nestable-empty`
- * The style of an empty list
- ========================================================================== */
-
-.uk-nestable-empty {
-    min-height: @nestable-empty-height;
-    .hook-nestable-empty;
-}
+.uk-nestable-placeholder > * { opacity: 0; }
 
 
 /* Sub-object `uk-nestable-handle`
