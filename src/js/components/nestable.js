@@ -448,11 +448,12 @@
                 // reset move distance on x-axis for new phase
                 mouse.distAxX = 0;
                 prev = this.placeEl.prev('li');
+
                 // increase horizontal level if previous sibling exists and is not collapsed
                 if (mouse.distX > 0 && prev.length && !prev.hasClass(opt.collapsedClass)) {
 
                     // cannot increase level when item above is collapsed
-                    list = prev.find('ul').last();
+                    list = prev.find(opt._listClass).last();
 
                     // check if depth limit has reached
                     depth = this.placeEl.parents(opt._listClass+','+opt._listBaseClass).length;
@@ -502,6 +503,10 @@
                 if (nestableitem.length) {
                     this.pointEl = nestableitem;
                 }
+            }
+
+            if (this.placeEl.find(this.pointEl).length) {
+                return;
             }
 
             if (this.pointEl.data('nestable') && !this.pointEl.children().length) {
