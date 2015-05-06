@@ -4,14 +4,13 @@
 // Component:       `uk-nestable`
 //
 // Sub-objects:     `uk-nestable-list`
-//                  `uk-nestable-item`
-//                  `uk-nestable-placeholder`
-//                  `uk-nestable-empty`
 //                  `uk-nestable-handle`
 //                  `uk-nestable-moving`
 //                  `[data-nestable-action='toggle']`
+//                  `uk-nestable-panel`
 //
-// Modifier:        `uk-nestable-list-dragged`
+// Modifier:        `uk-nestable-dragged`
+//                  `uk-nestable-placeholder`
 //
 // States:          `uk-parent`
 //                  `uk-collapsed`
@@ -20,13 +19,8 @@
 //
 // <!-- uk-nestable -->
 // <ul class="uk-nestable" data-uk-nestable>
-//     <li>
-//         <div class="uk-nestable-item">
-//             <div class="uk-nestable-handle"></div>
-//             <div data-nestable-action="toggle"></div>
-//             <span></span>
-//         </div>
-//     </li>
+//     <li></li>
+//     <li></li>
 // </ul>
 //
 // ========================================================================
@@ -38,22 +32,18 @@
 @nestable-padding-left:                         40px;
 @nestable-dragged-z-index:                      1050;
 
-@nestable-item-margin-bottom:                   10px;
-@nestable-item-padding:                         5px;
-@nestable-item-background:                      #f5f5f5;
-
-@nestable-placeholder-border:                   #ddd;
+@nestable-placeholder-opacity:                  0;
 
 @nestable-empty-height:                         40px;
-
-@nestable-handle-font-size:                     18px;
-@nestable-handle-color:                         #ddd;
-@nestable-handle-icon:                          "\f0c9";
 
 @nestable-toggle-color:                         #999;
 @nestable-toggle-hover-color:                   #444;
 @nestable-toggle-icon:                          "\f147";
 @nestable-toggle-collapsed-icon:                "\f196";
+
+@nestable-panel-margin-bottom:                  10px;
+@nestable-panel-padding:                        5px;
+@nestable-panel-background:                     #f5f5f5;
 
 
 /* ========================================================================
@@ -77,47 +67,30 @@
 }
 
 
-/* Sub-modifier `uk-nestable-list-dragged`
+/* Sub-modifier `uk-nestable-dragged`
  ========================================================================== */
 
-.uk-nestable-list-dragged {
+.uk-nestable-dragged {
     position: absolute;
     z-index: @nestable-dragged-z-index;
-    padding-left: 0;
     pointer-events: none;
-    .hook-nestable-list-dragged;
+    .hook-nestable-dragged;
 }
 
 
-/* Sub-object `uk-nestable-item`
- ========================================================================== */
-
-.uk-nestable-item {
-    margin-bottom: @nestable-item-margin-bottom;
-    padding: @nestable-item-padding;
-    background: @nestable-item-background;
-    .hook-nestable-item;
-}
-
-
-/* Sub-object `uk-nestable-placeholder`
- * The placeholder which marks the drop area
+/* Sub-modifier `uk-nestable-placeholder`
  ========================================================================== */
 
 .uk-nestable-placeholder {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    margin-bottom: @nestable-item-margin-bottom;
-    border: 1px dashed @nestable-placeholder-border;
+    opacity: @nestable-placeholder-opacity;
     .hook-nestable-placeholder;
 }
 
 
-/* Sub-object `uk-nestable-empty`
- * The style of an empty list
+/* Empty List
  ========================================================================== */
 
-.uk-nestable-empty {
+.uk-nestable:empty {
     min-height: @nestable-empty-height;
     .hook-nestable-empty;
 }
@@ -127,26 +100,13 @@
  ========================================================================== */
 
 /*
- * 1. Deactivate browser touch actions in IE11
+ * Deactivate browser touch actions in IE11
  */
 
-.uk-nestable-handle {
-    display: inline-block;
-    font-size: @nestable-handle-font-size;
-    color: @nestable-handle-color;
-    /* 1 */
-    touch-action: none;
-    .hook-nestable-handle;
-}
+.uk-nestable-handle { touch-action: none; }
 
 /* Hover */
 .uk-nestable-handle:hover { cursor: move; }
-
-/* Icon */
-.uk-nestable-handle:after {
-    content: @nestable-handle-icon;
-    font-family: FontAwesome;
-}
 
 
 /* Sub-object `uk-nestable-moving`
@@ -161,7 +121,7 @@
  ========================================================================== */
 
 /* Hidden by default */
-[data-nestable-action='toggle'] {
+.uk-nestable-handle {
     display: inline-block;
     color: @nestable-toggle-color;
     visibility: hidden;
@@ -169,13 +129,13 @@
 }
 
 /* Hover */
-[data-nestable-action='toggle']:hover {
+.uk-nestable-handle:hover {
     color: @nestable-toggle-hover-color;
     cursor: pointer;
 }
 
 /* Icon */
-[data-nestable-action='toggle']:after {
+.uk-nestable-handle:after {
     content: @nestable-toggle-icon;
     font-family: FontAwesome;
 }
@@ -184,15 +144,33 @@
  * Show if nested
  */
 
-.uk-parent > .uk-nestable-item [data-nestable-action='toggle'] { visibility: visible; }
+.uk-parent > .uk-nestable-item .uk-nestable-handle { visibility: visible; }
 
 /*
  * Collapsed
  */
 
-.uk-collapsed > .uk-nestable-item [data-nestable-action='toggle']:after { content: @nestable-toggle-collapsed-icon; }
+.uk-collapsed > .uk-nestable-item .uk-nestable-handle:after { content: @nestable-toggle-collapsed-icon; }
 
 .uk-collapsed .uk-nestable-list { display: none; }
+
+
+
+
+
+
+
+
+
+/* Sub-object `uk-nestable-panel`
+ ========================================================================== */
+
+.uk-nestable-panel {
+    margin-bottom: @nestable-panel-margin-bottom;
+    padding: @nestable-panel-padding;
+    background: @nestable-panel-background;
+    .hook-nestable-panel;
+}
 
 
 // Hooks
@@ -201,10 +179,9 @@
 .hook-nestable-misc;
 
 .hook-nestable() {}
-.hook-nestable-list-dragged() {}
-.hook-nestable-item() {}
+.hook-nestable-dragged() {}
 .hook-nestable-placeholder() {}
 .hook-nestable-empty() {}
-.hook-nestable-handle() {}
 .hook-nestable-toggle() {}
+.hook-nestable-panel() {}
 .hook-nestable-misc() {}
