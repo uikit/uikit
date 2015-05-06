@@ -83,7 +83,14 @@
 
             var $this = this;
 
-            this.find('.'+this.options.listItemClass).find(">ul").addClass(this.options.listClass);
+            Object.keys(this.options).forEach(function(key){
+
+                if(String(key).indexOf('Class')!=-1) {
+                    $this.options['_'+key] = '.' + $this.options[key];
+                }
+            });
+
+            this.find(this.options._listItemClass).find(">ul").addClass(this.options.listClass);
 
             this.checkEmptyList();
 
@@ -91,7 +98,7 @@
             this.reset();
             this.element.data('nestable-group', this.options.group);
 
-            this.find('.'+this.options.listItemClass).each(function() {
+            this.find(this.options._listItemClass).each(function() {
                 $this.setParent(UI.$(this));
             });
 
@@ -105,7 +112,7 @@
 
                 var target = UI.$(e.currentTarget),
                     action = target.data('nestableAction'),
-                    item   = target.closest('.'+$this.options.listItemClass);
+                    item   = target.closest($this.options._listItemClass);
 
                 if (action === 'collapse') {
                     $this.collapseItem(item);
@@ -124,12 +131,12 @@
 
                 if (!handle.hasClass($this.options.handleClass)) {
 
-                    if (handle.closest('.' + $this.options.noDragClass).length) {
+                    if (handle.closest($this.options._noDragClass).length) {
                         return;
                     }
 
                     if ($this.options.handleClass) {
-                        handle = handle.closest('.' + $this.options.handleClass);
+                        handle = handle.closest($this.options._handleClass);
                     }
                 }
 
@@ -179,13 +186,13 @@
                 list  = this,
                 step  = function(level, depth) {
 
-                    var array = [ ], items = level.children('.'+list.options.listItemClass);
+                    var array = [ ], items = level.children(list.options._listItemClass);
 
                     items.each(function() {
 
                         var li    = UI.$(this),
                             item  = {}, attribute,
-                            sub   = li.children('.'+list.options.listClass);
+                            sub   = li.children(list.options._listClass);
 
                         for (var i = 0; i < li[0].attributes.length; i++) {
                             attribute = li[0].attributes[i];
@@ -216,12 +223,12 @@
                 depth = 0,
                 step  = function(level, depth, parent) {
 
-                    var items = level.children('.'+options.listItemClass);
+                    var items = level.children(options._listItemClass);
 
                     items.each(function(index) {
                         var li   = UI.$(this),
                             item = UI.$.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
-                            sub  = li.children('.'+options.listClass);
+                            sub  = li.children(options._listClass);
 
                         data.push(item);
 
@@ -267,7 +274,6 @@
             this.pointEl    = null;
 
             for (var i=0; i<touchedlists.length; i++) {
-
                 this.checkEmptyList(touchedlists[i]);
             }
 
@@ -283,7 +289,7 @@
         },
 
         collapseItem: function(li) {
-            var lists = li.children('.'+this.options.listClass);
+            var lists = li.children(this.options._listClass);
             if (lists.length) {
                 li.addClass(this.options.collapsedClass);
             }
@@ -291,37 +297,38 @@
 
         expandAll: function() {
             var list = this;
-            this.find('.'+list.options.listItemClass).each(function() {
+            this.find(list.options._listItemClass).each(function() {
                 list.expandItem(UI.$(this));
             });
         },
 
         collapseAll: function() {
             var list = this;
-            this.find('.'+list.options.listItemClass).each(function() {
+            this.find(list.options._listItemClass).each(function() {
                 list.collapseItem(UI.$(this));
             });
         },
 
         setParent: function(li) {
-            if (li.children('.'+this.options.listClass).length) {
+
+            if (li.children(this.options._listClass).length) {
                 li.addClass("uk-parent");
             }
         },
 
         unsetParent: function(li) {
             li.removeClass('uk-parent '+this.options.collapsedClass);
-            li.children('.'+this.options.listClass).remove();
+            li.children(this.options._listClass).remove();
         },
 
         dragStart: function(e) {
 
             var mouse    = this.mouse,
                 target   = UI.$(e.target),
-                dragItem = target.closest('.'+this.options.listItemClass),
+                dragItem = target.closest(this.options._listItemClass),
                 offset   = dragItem.offset();
 
-            this.placeEl = dragItem.addClass(this.options.placeholderClass);
+            this.placeEl = dragItem;
 
             mouse.offsetX = e.pageX - offset.left;
             mouse.offsetY = e.pageY - offset.top;
@@ -333,6 +340,7 @@
 
             this.dragEl = UI.$('<ul></ul>').addClass(this.options.listClass + ' ' + this.options.dragClass).append(dragItem.clone());
             this.dragEl.css('width', dragItem.width());
+            this.placeEl.addClass(this.options.placeholderClass);
 
             draggingElement = this.dragEl;
 
@@ -346,10 +354,10 @@
             });
 
             // total depth of dragging item
-            var i, depth,
-                items = this.dragEl.find('.'+this.options.listItemClass);
+            var i, depth, items = this.dragEl.find(this.options._listItemClass);
+
             for (i = 0; i < items.length; i++) {
-                depth = UI.$(items[i]).parents('ul').length;
+                depth = UI.$(items[i]).parents(this.options._listClass+','+this.options._listBaseClass).length;
                 if (depth > this.dragDepth) {
                     this.dragDepth = depth;
                 }
@@ -361,7 +369,7 @@
         dragStop: function(e) {
 
             var el   = this.placeEl,
-                root = this.placeEl.parents('.'+this.options.listBaseClass+':first');
+                root = this.placeEl.parents(this.options._listBaseClass+':first');
 
             this.placeEl.removeClass(this.options.placeholderClass);
             this.dragEl.remove();
@@ -447,7 +455,7 @@
                     list = prev.find('ul').last();
 
                     // check if depth limit has reached
-                    depth = this.placeEl.parents('ul').length;
+                    depth = this.placeEl.parents(opt._listClass+','+opt._listBaseClass).length;
 
                     if (depth + this.dragDepth <= opt.maxDepth) {
 
@@ -459,7 +467,7 @@
                             this.setParent(prev);
                         } else {
                             // else append to next level up
-                            list = prev.children('.'+opt.listClass).last();
+                            list = prev.children(opt._listClass).last();
                             list.append(this.placeEl);
                         }
                     }
@@ -470,7 +478,7 @@
                     next = this.placeEl.next('li');
                     if (!next.length) {
                         parent = this.placeEl.parent();
-                        this.placeEl.closest('.'+opt.listItemClass).after(this.placeEl);
+                        this.placeEl.closest(opt._listItemClass).after(this.placeEl);
                         if (!parent.children().length) {
                             this.unsetParent(parent.parent());
                         }
@@ -485,11 +493,11 @@
 
             if (opt.handleClass && this.pointEl.hasClass(opt.handleClass)) {
 
-                this.pointEl = this.pointEl.closest('.'+opt.listItemClass);
+                this.pointEl = this.pointEl.closest(opt._listItemClass);
 
             } else {
 
-                var nestableitem = this.pointEl.closest('.'+opt.listItemClass);
+                var nestableitem = this.pointEl.closest(opt._listItemClass);
 
                 if (nestableitem.length) {
                     this.pointEl = nestableitem;
@@ -505,8 +513,8 @@
 
             // find parent list of item under cursor
             var pointElRoot = this.element,
-                tmpRoot     = this.pointEl.closest('.'+this.options.listBaseClass),
-                isNewRoot   = pointElRoot[0] !== this.pointEl.closest('.'+this.options.listBaseClass)[0];
+                tmpRoot     = this.pointEl.closest(this.options._listBaseClass),
+                isNewRoot   = pointElRoot[0] !== this.pointEl.closest(this.options._listBaseClass)[0];
 
             /**
              * move vertical
@@ -521,7 +529,7 @@
                 }
 
                 // check depth limit
-                depth = this.dragDepth - 1 + this.pointEl.parents('ul').length;
+                depth = this.dragDepth - 1 + this.pointEl.parents(opt._listClass+','+opt._listBaseClass).length;
 
                 if (depth > opt.maxDepth) {
                     return;

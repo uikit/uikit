@@ -4,6 +4,7 @@
 // Component:       `uk-nestable`
 //
 // Sub-objects:     `uk-nestable-list`
+//                  `uk-nestable-item`
 //                  `uk-nestable-handle`
 //                  `uk-nestable-moving`
 //                  `[data-nestable-action='toggle']`
@@ -41,7 +42,7 @@
 @nestable-toggle-icon:                          "\f147";
 @nestable-toggle-collapsed-icon:                "\f196";
 
-@nestable-panel-margin-bottom:                  10px;
+@nestable-item-margin:                          10px;
 @nestable-panel-padding:                        5px;
 @nestable-panel-background:                     #f5f5f5;
 
@@ -67,6 +68,16 @@
 }
 
 
+/* Sub-modifier `uk-nestable-item`
+ ========================================================================== */
+.uk-nestable-item {
+    margin-bottom: @nestable-item-margin;
+    .hook-nestable-item;
+}
+
+.uk-nestable-list:not(.uk-nestable-dragged) > .uk-nestable-item:first-child { margin-top: @nestable-item-margin; }
+
+
 /* Sub-modifier `uk-nestable-dragged`
  ========================================================================== */
 
@@ -77,9 +88,7 @@
     .hook-nestable-dragged;
 }
 
-.uk-nestable-dragged.uk-nestable-list {
-    padding-left: 0;
-}
+.uk-nestable-dragged.uk-nestable-list { padding-left: 0; }
 
 
 /* Sub-modifier `uk-nestable-placeholder`
@@ -87,9 +96,10 @@
 
 
 .uk-nestable-placeholder {
-    opacity: @nestable-placeholder-opacity;
     .hook-nestable-placeholder;
 }
+
+.uk-nestable-placeholder > * { opacity: @nestable-placeholder-opacity; }
 
 
 /* Empty List
@@ -162,16 +172,10 @@
 
 
 
-
-
-
-
-
 /* Sub-object `uk-nestable-panel`
  ========================================================================== */
 
 .uk-nestable-panel {
-    margin-bottom: @nestable-panel-margin-bottom;
     padding: @nestable-panel-padding;
     background: @nestable-panel-background;
     .hook-nestable-panel;
@@ -184,6 +188,7 @@
 .hook-nestable-misc;
 
 .hook-nestable() {}
+.hook-nestable-item() {}
 .hook-nestable-dragged() {}
 .hook-nestable-placeholder() {}
 .hook-nestable-empty() {}
