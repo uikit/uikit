@@ -142,6 +142,10 @@
 
     UI.Utils = {};
 
+    UI.Utils.isFullscreen = function() {
+        return document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.fullscreenElement || false;
+    };
+
     UI.Utils.str2json = function(str, notevil) {
         try {
             if (notevil) {
