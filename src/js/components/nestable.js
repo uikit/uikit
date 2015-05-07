@@ -45,7 +45,8 @@
             noDragClass     : 'uk-nestable-nodrag',
             group           : false,
             maxDepth        : 10,
-            threshold       : 20
+            threshold       : 20,
+            idlethreshold   : 10
         },
 
         boot: function() {
@@ -150,16 +151,45 @@
                 if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches.length !== 1)) {
                     return;
                 }
+
+                if (e.originalEvent && e.originalEvent.touches) {
+                    e = evt.originalEvent.touches[0];
+                }
+
+                $this.delayMove = function(evt) {
+
+                    evt.preventDefault();
+                    $this.dragStart(e);
+                    $this.trigger('start.uk.nestable', [$this]);
+
+                    $this.delayMove = false;
+                };
+
+                $this.delayMove.x         = parseInt(e.pageX, 10);
+                $this.delayMove.y         = parseInt(e.pageY, 10);
+                $this.delayMove.threshold = $this.options.idlethreshold;
+
                 e.preventDefault();
-                $this.dragStart(hasTouch ? e.touches[0] : e);
-                $this.trigger('start.uk.nestable', [$this]);
             };
 
             var onMoveEvent = function(e) {
 
+                if (e.originalEvent && e.originalEvent.touches) {
+                    e = e.originalEvent.touches[0];
+                }
+
+                if ($this.delayMove && (Math.abs(e.pageX - $this.delayMove.x) > $this.delayMove.threshold || Math.abs(e.pageY - $this.delayMove.y) > $this.delayMove.threshold)) {
+
+                    if (!window.getSelection().toString()) {
+                        $this.delayMove(e);
+                    } else {
+                        $this.delayMove = false;
+                    }
+                }
+
                 if ($this.dragEl) {
                     e.preventDefault();
-                    $this.dragMove(hasTouch ? e.touches[0] : e);
+                    $this.dragMove(e);
                     $this.trigger('move.uk.nestable', [$this]);
                 }
             };
@@ -172,6 +202,7 @@
                 }
 
                 draggingElement = false;
+                $this.delayMove = false;
             };
 
             if (hasTouch) {
