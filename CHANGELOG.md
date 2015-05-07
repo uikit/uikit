@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added UIkit.Utils.isFullscreen helper function
   - Added uk-active class to form-select component
   - Updated Slideset filter activation
   - Removed warp mode from sortable component

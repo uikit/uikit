@@ -432,6 +432,7 @@
 
             lightbox.on("showitem.uk.lightbox", function(e, data){
 
+
                 var resolve = function(source, width, height) {
 
                     data.meta = {
@@ -508,8 +509,8 @@
             modal.content.html('');
         });
 
-        UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
-            if (modal.is(':visible')) modal.lightbox.fitSize();
+        UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(e){
+            if (modal.is(':visible') && !UI.Utils.isFullscreen()) modal.lightbox.fitSize();
         }.bind(this), 100));
 
         modal.lightbox = lightbox;
