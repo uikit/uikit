@@ -128,17 +128,24 @@
 
                 var handle = UI.$(e.target);
 
-                if (!handle.hasClass($this.options.handleClass)) {
+                if (e.target === $this.element[0]) {
+                    return;
+                }
 
-                    if (handle.closest($this.options._noDragClass).length) {
-                        return;
-                    }
+                if (handle.is($this.options._noDragClass) || handle.closest($this.options._noDragClass).length) {
+                    return;
+                }
+
+                if (handle.is('[data-nestable-action]') || handle.closest('[data-nestable-action]').length) {
+                    return;
+                }
+
+                if ($this.options.handleClass && !handle.hasClass($this.options.handleClass)) {
 
                     if ($this.options.handleClass) {
                         handle = handle.closest($this.options._handleClass);
                     }
                 }
-
 
                 if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches.length !== 1)) {
                     return;
@@ -149,6 +156,7 @@
             };
 
             var onMoveEvent = function(e) {
+
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragMove(hasTouch ? e.touches[0] : e);
@@ -157,6 +165,7 @@
             };
 
             var onEndEvent = function(e) {
+
                 if ($this.dragEl) {
                     e.preventDefault();
                     $this.dragStop(hasTouch ? e.touches[0] : e);

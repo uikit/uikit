@@ -132,14 +132,15 @@
 .uk-nestable-moving * { cursor: move; }
 
 
-/* Sub-object `[data-action='toggle']`
+/* Sub-object `uk-nestable-handle`
  ========================================================================== */
 
-/* Hidden by default */
 .uk-nestable-handle {
     display: inline-block;
     color: @nestable-toggle-color;
-    visibility: hidden;
+    -webkit-user-select: none;
+    -user-user-select: none;
+    user-select: none;
     .hook-nestable-toggle;
 }
 
@@ -151,25 +152,42 @@
 
 /* Icon */
 .uk-nestable-handle:after {
+    content: "\f0c9";
+    font-family: FontAwesome;
+}
+
+/* Sub-object `[data-nestable-action='toggle']`
+ ========================================================================== */
+
+[data-nestable-action='toggle'] {
+    display: inline-block;
+    visibility: hidden;
+    -webkit-user-select: none;
+    -user-user-select: none;
+    user-select: none;
+    .hook-nestable-toggle;
+}
+
+[data-nestable-action='toggle']:after {
     content: @nestable-toggle-icon;
     font-family: FontAwesome;
 }
 
-/*
- * Show if nested
- */
-
-.uk-parent > .uk-nestable-item .uk-nestable-handle { visibility: visible; }
+.uk-parent > [data-nestable-action='toggle'],
+.uk-parent > * > [data-nestable-action='toggle'] {
+    visibility: visible;
+}
 
 /*
  * Collapsed
  */
 
-.uk-collapsed > .uk-nestable-item .uk-nestable-handle:after { content: @nestable-toggle-collapsed-icon; }
+.uk-parent.uk-collapsed > [data-nestable-action='toggle']:after,
+.uk-parent.uk-collapsed > * > [data-nestable-action='toggle']:after {
+    content: @nestable-toggle-collapsed-icon;
+}
 
 .uk-collapsed .uk-nestable-list { display: none; }
-
-
 
 
 /* Sub-object `uk-nestable-panel`
@@ -192,6 +210,7 @@
 .hook-nestable-dragged() {}
 .hook-nestable-placeholder() {}
 .hook-nestable-empty() {}
+.hook-nestable-handle() {}
 .hook-nestable-toggle() {}
 .hook-nestable-panel() {}
 .hook-nestable-misc() {}
