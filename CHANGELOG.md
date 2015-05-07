@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added uk-active class to form-select component
   - Updated Slideset filter activation
   - Removed warp mode from sortable component
   - Fixed slideset nav
