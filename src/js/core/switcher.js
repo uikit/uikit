@@ -152,7 +152,7 @@
 
             if (this.options.connect && this.connect.length) {
 
-                this.index = this.find(this.options.toggle).index(active);
+                this.index = active.data('ukSwitcherItem') !== undefined ? active.data('ukSwitcherItem') : this.find(this.options.toggle).index(active);
 
                 if (this.index == -1 ) {
                     this.index = 0;
