@@ -3,11 +3,11 @@
 //
 // Component:       `uk-sortable`
 //
-// Sub-objects:     `uk-sortable-moving`
+// Sub-objects:     `uk-sortable-handle`
+//                  `uk-sortable-moving`
 //
 // Modifier:        `uk-sortable-dragged`
 //                  `uk-sortable-placeholder`
-//                  `uk-sortable-over`
 //
 // Markup:
 //
@@ -28,8 +28,6 @@
 @sortable-placeholder-opacity:                  0;
 
 @sortable-empty-height:                         30px;
-
-@sortable-over-opacity:                         0.3;
 
 
 /* ========================================================================
@@ -97,11 +95,6 @@
     .hook-sortable-placeholder;
 }
 
-/* Sub-object `uk-sortable-handle`
- ========================================================================== */
-
-.uk-sortable-handle:hover { cursor: move; }
-
 
 /* Empty List
  ========================================================================== */
@@ -110,6 +103,19 @@
     min-height: @sortable-empty-height;
     .hook-sortable-empty;
 }
+
+
+/* Sub-object `uk-sortable-handle`
+ ========================================================================== */
+
+/*
+ * Deactivate browser touch actions in IE11
+ */
+
+.uk-sortable-handle { touch-action: none; }
+
+/* Hover */
+.uk-sortable-handle:hover { cursor: move; }
 
 
 /* Sub-object `uk-sortable-moving`
@@ -129,5 +135,4 @@
 .hook-sortable-dragged() {}
 .hook-sortable-placeholder() {}
 .hook-sortable-empty() {}
-.hook-sortable-over() {}
 .hook-sortable-misc() {}
