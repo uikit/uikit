@@ -40,40 +40,18 @@
 }
 
 /*
- * 1. Makes text unselectable
- * 2. Deactivate browser touch actions in IE11
+ * Deactivate browser touch actions in IE11
  */
 
-.uk-sortable > * {
-    /* 1 */
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    /* 2 */
-    touch-action: none;
-}
+.uk-sortable > * { touch-action: none; }
 
 /*
- * 1. Prevents images and links from being dragged (default browser behavior)
- * 2. Disables the default callout shown when you touch and hold a touch target
+ * Disables the default callout shown when you touch and hold a touch target
  * Currently only works in Webkit
  */
 
 .uk-sortable a,
-.uk-sortable img {
-    /* 1 */
-    -webkit-user-drag: none;
-    user-drag: none;
-    /* 2 */
-    -webkit-touch-callout: none;
-}
-
-/*
- * 1. Prevents images and links from being dragged in Firefox
- */
-
-.uk-sortable img { pointer-events: none; }
+.uk-sortable img { -webkit-touch-callout: none; }
 
 
 /* Sub-modifier `uk-sortable-dragged`
