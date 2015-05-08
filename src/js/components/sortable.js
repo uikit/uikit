@@ -20,7 +20,7 @@
     "use strict";
 
     var supportsTouch       = ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
-        draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists;
+        draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved;
 
     function closestSortable(ele) {
 
@@ -49,6 +49,7 @@
             draggingClass    : 'uk-sortable-dragged',
             dragMovingClass  : 'uk-sortable-moving',
             baseClass        : 'uk-sortable',
+            noDragClass      : 'uk-sortable-nodrag',
             dragCustomClass  : '',
             handleClass      : false,
             group            : false,
@@ -113,10 +114,6 @@
 
             UI.$html.on('mouseup touchend', function(e) {
 
-                if(!moving && clickedlink) {
-                    location.href = clickedlink.attr('href');
-                }
-
                 delayIdle = clickedlink = false;
 
                 // dragging?
@@ -153,17 +150,22 @@
 
             this.element.data('sortable-group', this.options.group ? this.options.group : 'sortable-group-'+(Math.random() * 341));
 
-            // prevent leaving page after link clicking
-            this.element.on('mousedown touchstart', 'a[href]', function(e) {
-
-                // don't break browser shortcuts for click+open in new tab
-                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                    clickedlink = UI.$(this);
-                    e.preventDefault();
-                }
-            });
-
             var handleDragStart = delegate(function(e) {
+
+                var $target = UI.$(e.target),
+                    $link   = $target.is('a[href]') ? $target:$target.parents('a[href]');
+
+                e.preventDefault();
+
+                if (!supportsTouch && $link.length) {
+
+                    $link.one('click', function(e){
+                        e.preventDefault();
+                    }).one('mouseup', function(){
+                        if(!moved) $link.trigger('click');
+                    });
+                }
+
                 return $this.dragStart(e, this);
             });
 
@@ -284,11 +286,12 @@
 
         dragStart: function(e, elem) {
 
-            moving = false;
+            moved    = false;
+            moving   = false;
             dragging = false;
 
-            var $this = this,
-                target = UI.$(e.target),
+            var $this    = this,
+                target   = UI.$(e.target),
                 children = $this.element.children();
 
             if (!supportsTouch && e.button==2) {
@@ -305,6 +308,10 @@
                 }
             }
 
+            if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options._noDragClass).length) {
+                return;
+            }
+
             // prevent dragging if taget is a form field
             if (target.is(':input')) {
                 return;
@@ -313,7 +320,9 @@
             currentlyDraggingElement = elem;
 
             // init drag placeholder
-            if (draggingPlaceholder) draggingPlaceholder.remove();
+            if (draggingPlaceholder) {
+                draggingPlaceholder.remove();
+            }
 
             var $current = UI.$(currentlyDraggingElement), offset = $current.offset();
 
@@ -321,7 +330,7 @@
 
                 pos       : { x:e.pageX, y:e.pageY },
                 threshold : $this.options.threshold,
-                'apply'   : function() {
+                apply     : function() {
 
                     draggingPlaceholder = UI.$('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
                         display : 'none',
@@ -348,11 +357,10 @@
                     $this.options.start(this, currentlyDraggingElement);
                     $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement]);
 
+                    moved     = true;
                     delayIdle = false;
                 }
             };
-
-            e.preventDefault();
         },
 
         dragMove: function(e, elem) {

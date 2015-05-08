@@ -576,7 +576,6 @@
                 // check depth limit
                 depth = this.dragDepth - 1 + this.pointEl.parents(opt._listClass+','+opt._listBaseClass).length;
 
-
                 if (depth > maxDepth) {
                     return;
                 }
