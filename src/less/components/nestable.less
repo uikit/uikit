@@ -31,16 +31,18 @@
 // ========================================================================
 
 @nestable-padding-left:                         40px;
+
+@nestable-item-margin:                          10px;
+
 @nestable-dragged-z-index:                      1050;
 
-@nestable-placeholder-opacity:                  0.3;
+@nestable-placeholder-border:                   #ddd;
 
 @nestable-empty-height:                         30px;
 
 @nestable-toggle-icon:                          "\f147";
 @nestable-toggle-collapsed-icon:                "\f196";
 
-@nestable-item-margin:                          10px;
 @nestable-panel-padding:                        5px;
 @nestable-panel-background:                     #f5f5f5;
 
@@ -111,8 +113,19 @@
 /* Sub-modifier `uk-nestable-placeholder`
  ========================================================================== */
 
-.uk-nestable-placeholder {
-    opacity: @nestable-placeholder-opacity;
+.uk-nestable-placeholder { position: relative; }
+
+.uk-nestable-placeholder > * { opacity: 0; }
+
+.uk-nestable-placeholder:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 1px dashed @nestable-placeholder-border;
+    opacity: 1;
     .hook-nestable-placeholder;
 }
 
