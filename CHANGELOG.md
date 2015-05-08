@@ -7,6 +7,7 @@
   - Updated Slideset filter activation
   - Removed warp mode from sortable component
   - Fixed slideset nav
+  - Fixed nestable maxdepth check when moving items between lists
 
   **Docs and Repo**
 

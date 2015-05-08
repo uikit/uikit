@@ -407,8 +407,8 @@
 
         dragStop: function(e) {
 
-            var el   = this.placeEl,
-                root = this.placeEl.parents(this.options._listBaseClass+':first');
+            var el       = this.placeEl,
+                root     = this.placeEl.parents(this.options._listBaseClass+':first');
 
             this.placeEl.removeClass(this.options.placeholderClass);
             this.dragEl.remove();
@@ -431,8 +431,9 @@
 
         dragMove: function(e) {
             var list, parent, prev, next, depth,
-                opt   = this.options,
-                mouse = this.mouse;
+                opt      = this.options,
+                mouse    = this.mouse,
+                maxDepth = this.dragRootEl ? this.dragRootEl.data('nestable').options.maxDepth : opt.maxDepth;
 
             this.dragEl.css({
                 left : e.pageX - mouse.offsetX,
@@ -497,7 +498,7 @@
                     // check if depth limit has reached
                     depth = this.placeEl.parents(opt._listClass+','+opt._listBaseClass).length;
 
-                    if (depth + this.dragDepth <= opt.maxDepth) {
+                    if (depth + this.dragDepth <= maxDepth) {
 
                         // create new sub-level if one doesn't exist
                         if (!list.length) {
@@ -575,7 +576,8 @@
                 // check depth limit
                 depth = this.dragDepth - 1 + this.pointEl.parents(opt._listClass+','+opt._listBaseClass).length;
 
-                if (depth > opt.maxDepth) {
+
+                if (depth > maxDepth) {
                     return;
                 }
 
