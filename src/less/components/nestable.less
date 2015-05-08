@@ -7,7 +7,7 @@
 //                  `uk-nestable-item`
 //                  `uk-nestable-handle`
 //                  `uk-nestable-moving`
-//                  `[data-nestable-action='toggle']`
+//                  `uk-nestable-toggle`
 //                  `uk-nestable-panel`
 //
 // Modifier:        `uk-nestable-dragged`
@@ -33,12 +33,10 @@
 @nestable-padding-left:                         40px;
 @nestable-dragged-z-index:                      1050;
 
-@nestable-placeholder-opacity:                  0.2;
+@nestable-placeholder-opacity:                  0.3;
 
-@nestable-empty-height:                         40px;
+@nestable-empty-height:                         30px;
 
-@nestable-toggle-color:                         #999;
-@nestable-toggle-hover-color:                   #444;
 @nestable-toggle-icon:                          "\f147";
 @nestable-toggle-collapsed-icon:                "\f196";
 
@@ -149,35 +147,46 @@
 .uk-nestable-moving * { cursor: move; }
 
 
-/* Sub-object `[data-nestable-action='toggle']`
+/* [data-nestable-action='toggle']
  ========================================================================== */
 
+/*
+ * 1. Makes text unselectable. Happens if double clicked by mistake
+ */
+
 [data-nestable-action='toggle'] {
+    cursor: pointer;
+    /* 1 */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* Sub-object `.uk-nestable-toggle`
+ ========================================================================== */
+
+.uk-nestable-toggle {
     display: inline-block;
     visibility: hidden;
     .hook-nestable-toggle;
 }
 
-[data-nestable-action='toggle']:after {
+.uk-nestable-toggle:after {
     content: @nestable-toggle-icon;
     font-family: FontAwesome;
 }
 
-.uk-parent > [data-nestable-action='toggle'],
-.uk-parent > * > [data-nestable-action='toggle'] {
-    visibility: visible;
-}
+.uk-parent > :not(.uk-nestable-list) .uk-nestable-toggle { visibility: visible; }
 
 /*
  * Collapsed
  */
 
-.uk-parent.uk-collapsed > [data-nestable-action='toggle']:after,
-.uk-parent.uk-collapsed > * > [data-nestable-action='toggle']:after {
-    content: @nestable-toggle-collapsed-icon;
-}
-
 .uk-collapsed .uk-nestable-list { display: none; }
+
+.uk-collapsed .uk-nestable-toggle:after { content: @nestable-toggle-collapsed-icon; }
 
 
 /* Sub-object `uk-nestable-panel`
