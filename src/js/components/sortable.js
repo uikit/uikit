@@ -81,7 +81,7 @@
                     var src = e.originalEvent.targetTouches ? e.originalEvent.targetTouches[0] : e;
 
                     if (Math.abs(src.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(src.pageY - delayIdle.pos.y) > delayIdle.threshold) {
-                        delayIdle.apply();
+                        delayIdle.apply(src);
                     }
                 }
 
@@ -330,7 +330,7 @@
 
                 pos       : { x:e.pageX, y:e.pageY },
                 threshold : $this.options.threshold,
-                apply     : function() {
+                apply     : function(evt) {
 
                     draggingPlaceholder = UI.$('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
                         display : 'none',
@@ -341,8 +341,8 @@
                         padding : $current.css('padding')
                     }).data({
                         'mouse-offset': {
-                            'left'   : offset.left - parseInt(e.pageX, 10),
-                            'top'    : offset.top  - parseInt(e.pageY, 10)
+                            'left'   : offset.left - parseInt(evt.pageX, 10),
+                            'top'    : offset.top  - parseInt(evt.pageY, 10)
                         },
                         'origin' : $this.element,
                         'index'  : $current.index()
