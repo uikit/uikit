@@ -57,6 +57,14 @@
     .hook-nestable;
 }
 
+/*
+ * Disables the default callout shown when you touch and hold a touch target
+ * Currently only works in Webkit
+ */
+
+.uk-nestable a,
+.uk-nestable img { -webkit-touch-callout: none; }
+
 
 /* Sub-object `uk-nestable-list`
  ========================================================================== */
@@ -70,8 +78,15 @@
 
 /* Sub-modifier `uk-nestable-item`
  ========================================================================== */
+
+/*
+ * 1. Deactivate browser touch actions in IE11
+ */
+
 .uk-nestable-item {
     margin-bottom: @nestable-item-margin;
+    /* 1 */
+    touch-action: none;
     .hook-nestable-item;
 }
 
@@ -81,25 +96,27 @@
 /* Sub-modifier `uk-nestable-dragged`
  ========================================================================== */
 
+/*
+ * 1. Reset style
+ */
+
 .uk-nestable-dragged {
     position: absolute;
     z-index: @nestable-dragged-z-index;
     pointer-events: none;
+    /* 1 */
+    padding-left: 0;
     .hook-nestable-dragged;
 }
-
-.uk-nestable-dragged.uk-nestable-list { padding-left: 0; }
 
 
 /* Sub-modifier `uk-nestable-placeholder`
  ========================================================================== */
 
-
 .uk-nestable-placeholder {
+    opacity: @nestable-placeholder-opacity;
     .hook-nestable-placeholder;
 }
-
-.uk-nestable-placeholder > * { opacity: @nestable-placeholder-opacity; }
 
 
 /* Empty List
@@ -132,39 +149,12 @@
 .uk-nestable-moving * { cursor: move; }
 
 
-/* Sub-object `uk-nestable-handle`
- ========================================================================== */
-
-.uk-nestable-handle {
-    display: inline-block;
-    color: @nestable-toggle-color;
-    -webkit-user-select: none;
-    -user-user-select: none;
-    user-select: none;
-    .hook-nestable-toggle;
-}
-
-/* Hover */
-.uk-nestable-handle:hover {
-    color: @nestable-toggle-hover-color;
-    cursor: pointer;
-}
-
-/* Icon */
-.uk-nestable-handle:after {
-    content: "\f0c9";
-    font-family: FontAwesome;
-}
-
 /* Sub-object `[data-nestable-action='toggle']`
  ========================================================================== */
 
 [data-nestable-action='toggle'] {
     display: inline-block;
     visibility: hidden;
-    -webkit-user-select: none;
-    -user-user-select: none;
-    user-select: none;
     .hook-nestable-toggle;
 }
 
