@@ -176,6 +176,73 @@
                             <hr class="uk-article-divider">
 
 
+                            <h3 id ="group"><a href="#group" class="uk-link-reset">Connect multiple lists</a></h3>
+
+                            <p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-sortable="{group:'GROUP-NAME'}"</code> attribute to each list.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-grid uk-grid-width-1-2">
+
+                                <div>
+
+                                    <h4>List A</h4>
+
+                                    <div class="uk-sortable uk-margin" data-uk-sortable="{group:'test'}">
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item A - 1</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item A - 2</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item A - 3</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item A - 4</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item A - 5</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div>
+
+                                    <h4>List B</h4>
+
+                                    <div class="uk-sortable uk-margin" data-uk-sortable="{group:'test'}">
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item B - 1</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item B - 2</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item B - 3</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item B - 4</div>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <div class="uk-panel uk-panel-box">Item B - 5</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+
+<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;
+&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
                             <p>This is an example of how to set options through the data attribute:</p>

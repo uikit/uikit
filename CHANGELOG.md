@@ -16,6 +16,8 @@
   **Docs and Repo**
 
   - Updated dynamic grid test and docs
+  - Updated sortable test and docs
+  - Updated nestable test and docs
 
 ### 2.20.3 (May 04, 2015)
   - Updated jQuery to 2.1.4
