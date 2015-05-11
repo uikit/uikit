@@ -8,6 +8,7 @@
   - Added uk-active class to form-select component
   - Added kenburnsanimations option to slideshow component
   - Updated Slideset filter activation
+  - Updated changed event from focus.uk.slider to focusitem.uk.slider
   - Removed warp mode from sortable component
   - Fixed slideset nav
   - Fixed nestable maxdepth check when moving items between lists
