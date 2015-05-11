@@ -7,6 +7,7 @@
   - Added UIkit.Utils.isFullscreen helper function
   - Added uk-active class to form-select component
   - Added kenburnsanimations option to slideshow component
+  - Added activeClass option to tooltip component
   - Updated Slideset filter activation
   - Updated changed event from focus.uk.slider to focusitem.uk.slider
   - Removed warp mode from sortable component

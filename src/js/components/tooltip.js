@@ -25,6 +25,7 @@
             "animation": false,
             "delay": 0, // in miliseconds
             "cls": "",
+            "activeClass": "uk-active",
             "src": function() { return this.attr("title"); }
         },
 
@@ -70,7 +71,7 @@
             if (checkdelay)       clearTimeout(checkdelay);
             if (!this.tip.length) return;
 
-            $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
+            $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).removeClass(this.options.activeClass).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
             var $this      = this,
@@ -165,9 +166,9 @@
                 $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
 
                 if ($this.options.animation) {
-                    $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
+                    $tooltip.css({opacity: 0, display: 'block'}).addClass($this.options.activeClass).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
                 } else {
-                    $tooltip.show();
+                    $tooltip.show().addClass($this.options.activeClass);
                 }
 
                 tooltipdelay = false;
@@ -189,9 +190,15 @@
             $tooltip.stop();
 
             if (this.options.animation) {
-                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400);
+
+                var $this = this;
+
+                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400, function(){
+                    $tooltip.removeClass($this.options.activeClass)
+                });
+                
             } else {
-                $tooltip.hide();
+                $tooltip.hide().removeClass(this.options.activeClass);
             }
         },
 
