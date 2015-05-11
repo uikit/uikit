@@ -263,7 +263,7 @@
 
             this.focus = idx;
 
-            this.trigger('focus.uikit.slider', [idx,this.items.eq(idx), this]);
+            this.trigger('focusitem.uk.slider', [idx,this.items.eq(idx),this]);
         },
 
         next: function() {

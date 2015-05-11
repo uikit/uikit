@@ -21,6 +21,17 @@
             .test-images > :nth-child(9) { background-image: url(http://unsplash.it/400/608); }
 
         </style>
+
+        <script type="text/javascript">
+
+            jQuery(function($){
+
+                $("body").on('focusitem.uk.slider', function (e, idx, item, slider) {
+                    console.log('focus', idx, item);
+                });
+            });
+
+        </script>
     </head>
 
     <body>
