@@ -96,7 +96,7 @@
             this.checkEmptyList();
 
             this.reset();
-            this.element.data('nestable-group', this.options.group || 'nestable-group-'+(Math.random() * 341));
+            this.element.data('nestable-group', this.options.group || UI.Utils.uid('nestable-group'));
 
             this.find(this.options._listItemClass).each(function() {
                 $this.setParent(UI.$(this));

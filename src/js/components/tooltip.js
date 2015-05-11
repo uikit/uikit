@@ -52,10 +52,10 @@
             }
 
             this.on({
-                "focus"     : function(e) { $this.show(); },
-                "blur"      : function(e) { $this.hide(); },
-                "mouseenter": function(e) { $this.show(); },
-                "mouseleave": function(e) { $this.hide(); }
+                focus      : function(e) { $this.show(); },
+                blur       : function(e) { $this.hide(); },
+                mouseenter : function(e) { $this.show(); },
+                mouseleave : function(e) { $this.hide(); }
             });
 
             this.tip = typeof(this.options.src) === "function" ? this.options.src.call(this.element) : this.options.src;

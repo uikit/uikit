@@ -1,6 +1,7 @@
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
+
         define("uikit", function(){
 
             var uikit = window.UIkit || core(window, window.jQuery, window.document);
@@ -373,12 +374,12 @@
         });
     };
 
-    $.UIkit      = UI;
-    $.fn.uk      = UI.fn;
+    $.UIkit          = UI;
+    $.fn.uk          = UI.fn;
 
     UI.langdirection = UI.$html.attr("dir") == "rtl" ? "right" : "left";
 
-    UI.components = {};
+    UI.components    = {};
 
     UI.component = function(name, def) {
 

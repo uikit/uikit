@@ -148,7 +148,7 @@
                 this.element.html('');
             }
 
-            this.element.data('sortable-group', this.options.group ? this.options.group : 'sortable-group-'+(Math.random() * 341));
+            this.element.data('sortable-group', this.options.group ? this.options.group : UI.Utils.uid('sortable-group'));
 
             var handleDragStart = delegate(function(e) {
 
