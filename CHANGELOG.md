@@ -8,6 +8,7 @@
   - Removed warp mode from sortable component
   - Fixed slideset nav
   - Fixed nestable maxdepth check when moving items between lists
+  - Fixed generated minified css files missing rules 
 
   **Docs and Repo**
 
