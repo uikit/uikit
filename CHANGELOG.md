@@ -2,10 +2,11 @@
 
 ### WIP
 
-  - IMPORTANT: Updated Nestable component
+  - IMPORTANT: Reworked nestable component
   - Added connect multiple sortable lists
   - Added UIkit.Utils.isFullscreen helper function
   - Added uk-active class to form-select component
+  - Added uk-flex-nowrap class to flex component
   - Added kenburnsanimations option to slideshow component
   - Added activeClass option to tooltip component
   - Updated Slideset filter activation
