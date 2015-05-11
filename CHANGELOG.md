@@ -2,13 +2,15 @@
 
 ### WIP
 
+  - IMPORTANT: Updated Nestable component
+  - Added connect multiple sortable lists
   - Added UIkit.Utils.isFullscreen helper function
   - Added uk-active class to form-select component
   - Updated Slideset filter activation
   - Removed warp mode from sortable component
   - Fixed slideset nav
   - Fixed nestable maxdepth check when moving items between lists
-  - Fixed generated minified css files missing rules 
+  - Fixed gulp css minifier
 
   **Docs and Repo**
 
