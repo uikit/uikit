@@ -9,6 +9,7 @@
   - Added uk-flex-nowrap class to flex component
   - Added kenburnsanimations option to slideshow component
   - Added activeClass option to tooltip component
+  - Updated tooltip component to look for an updated title attribute before show
   - Updated Slideset filter activation
   - Updated changed event from focus.uk.slider to focusitem.uk.slider
   - Removed warp mode from sortable component

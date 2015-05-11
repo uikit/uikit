@@ -10,6 +10,7 @@
             return component || addon(UIkit);
         });
     }
+
 })(function(UI){
 
     "use strict";
@@ -26,7 +27,16 @@
             "delay": 0, // in miliseconds
             "cls": "",
             "activeClass": "uk-active",
-            "src": function() { return this.attr("title"); }
+            "src": function(ele, title) {
+
+                title = ele.attr('title');
+
+                if (title) {
+                    ele.data('cached-title', title).removeAttr('title');
+                }
+
+                return ele.data("cached-title");
+            }
         },
 
         tip: "",
@@ -58,14 +68,11 @@
                 mouseenter : function(e) { $this.show(); },
                 mouseleave : function(e) { $this.hide(); }
             });
-
-            this.tip = typeof(this.options.src) === "function" ? this.options.src.call(this.element) : this.options.src;
-
-            // disable title attribute
-            this.element.attr("data-cached-title", this.element.attr("title")).attr("title", "");
         },
 
         show: function() {
+
+            this.tip = typeof(this.options.src) === "function" ? this.options.src(this.element) : this.options.src;
 
             if (tooltipdelay)     clearTimeout(tooltipdelay);
             if (checkdelay)       clearTimeout(checkdelay);
@@ -196,7 +203,7 @@
                 $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400, function(){
                     $tooltip.removeClass($this.options.activeClass)
                 });
-                
+
             } else {
                 $tooltip.hide().removeClass(this.options.activeClass);
             }
