@@ -6,6 +6,7 @@
   - Added connect multiple sortable lists
   - Added UIkit.Utils.isFullscreen helper function
   - Added uk-active class to form-select component
+  - Added kenburnsanimations option to slideshow component
   - Updated Slideset filter activation
   - Removed warp mode from sortable component
   - Fixed slideset nav
