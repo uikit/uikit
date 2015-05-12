@@ -6,13 +6,13 @@
   - Added connect multiple sortable lists
   - Added UIkit.responsiveElement component (e.g. for iframes)
   - Added UIkit.Utils.isFullscreen helper function
+  - Updated UIkit.modal.alert, UIkit.modal.prompt, UIkit.modal.confirm don't close open modals
   - Added uk-active class to form-select component
   - Added uk-flex-nowrap class to flex component
   - Added kenburnsanimations option to slideshow component
   - Added activeClass option to tooltip component
   - Updated tooltip component to look for an updated title attribute before show
   - Updated slideset filter activation
-  - Updated UIkit.modal.alert, UIkit.modal.prompt, UIkit.modal.confirm don't close opened modals
   - Updated changed event from focus.uk.slider to focusitem.uk.slider
   - Removed warp mode from sortable component
   - Fixed tab component having no items
