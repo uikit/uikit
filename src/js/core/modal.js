@@ -247,10 +247,18 @@
 
     UI.modal.alert = function(content, options) {
 
-        UI.modal.dialog(([
+        var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
             '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">Ok</button></div>'
-        ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options)).show();
+        ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options));
+
+        modal.on('show.uk.modal', function(){
+            setTimeout(function(){
+                modal.element.find('button:first').focus();
+            }, 50);
+        });
+
+        modal.show();
     };
 
     UI.modal.confirm = function(content, onconfirm, options) {
@@ -267,6 +275,12 @@
             modal.hide();
         });
 
+        modal.on('show.uk.modal', function(){
+            setTimeout(function(){
+                modal.element.find('button:first').focus();
+            }, 50);
+        });
+
         modal.show();
     };
 
@@ -279,15 +293,26 @@
             '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
             '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary js-modal-ok">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
         ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options)),
-        input = modal.element.find("input[type='text']").val(value || '');
+
+        input = modal.element.find("input[type='text']").val(value || '').on('keyup', function(e){
+            if (e.keyCode == 13) {
+                modal.element.find(".js-modal-ok").trigger('click');
+            }
+        });
 
         modal.element.find(".js-modal-ok").on("click", function(){
             if (onsubmit(input.val())!==false){
                 modal.hide();
             }
         });
+
+        modal.on('show.uk.modal', function(){
+            setTimeout(function(){
+                input.focus();
+            }, 50);
+        });
+
         modal.show();
-        setTimeout(function(){ input.focus(); }, 100);
     };
 
     UI.modal.blockUI = function(content, options) {
