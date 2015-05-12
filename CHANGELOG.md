@@ -12,6 +12,7 @@
   - Added activeClass option to tooltip component
   - Updated tooltip component to look for an updated title attribute before show
   - Updated slideset filter activation
+  - Updated UIkit.modal.alert, UIkit.modal.prompt, UIkit.modal.confirm don't close opened modals
   - Updated changed event from focus.uk.slider to focusitem.uk.slider
   - Removed warp mode from sortable component
   - Fixed tab component having no items
