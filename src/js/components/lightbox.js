@@ -494,7 +494,7 @@
         modal.content = modal.find('.uk-lightbox-content:first');
         modal.loader  = modal.find('.uk-modal-spinner:first');
         modal.closer  = modal.find('.uk-close.uk-close-alt');
-        modal.modal   = UI.modal(modal);
+        modal.modal   = UI.modal(modal, {modal:false});
 
         // next / previous
         modal.on("swipeRight swipeLeft", function(e) {
