@@ -10,9 +10,10 @@
   - Added kenburnsanimations option to slideshow component
   - Added activeClass option to tooltip component
   - Updated tooltip component to look for an updated title attribute before show
-  - Updated Slideset filter activation
+  - Updated slideset filter activation
   - Updated changed event from focus.uk.slider to focusitem.uk.slider
   - Removed warp mode from sortable component
+  - Fixed tab component having no items
   - Fixed slideset nav
   - Fixed nestable maxdepth check when moving items between lists
   - Fixed gulp css minifier
