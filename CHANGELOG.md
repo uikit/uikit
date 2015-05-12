@@ -9,6 +9,7 @@
   - Updated UIkit.modal.alert, UIkit.modal.prompt, UIkit.modal.confirm don't close open modals
   - Added uk-active class to form-select component
   - Added uk-flex-nowrap class to flex component
+  - Added uk-icon-justify class to icon component
   - Added kenburnsanimations option to slideshow component
   - Added activeClass option to tooltip component
   - Updated tooltip component to look for an updated title attribute before show
@@ -25,6 +26,7 @@
   - Updated dynamic grid test and docs
   - Updated sortable test and docs
   - Updated nestable test and docs
+  - Updated icon test and docs
 
 ### 2.20.3 (May 04, 2015)
   - Updated jQuery to 2.1.4
