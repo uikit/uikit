@@ -4,6 +4,7 @@
 
   - IMPORTANT: Reworked nestable component
   - Added connect multiple sortable lists
+  - Added UIkit.responsiveElement component (e.g. for iframes)
   - Added UIkit.Utils.isFullscreen helper function
   - Added uk-active class to form-select component
   - Added uk-flex-nowrap class to flex component
