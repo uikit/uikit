@@ -11,6 +11,7 @@
 // Modifiers:       `uk-icon-small`
 //                  `uk-icon-medium`
 //                  `uk-icon-large`
+//                  `uk-icon-justify`
 //                  `uk-icon-spin`
 //
 // Uses:            Animation
@@ -94,9 +95,29 @@
 /* Size modifiers
  ========================================================================== */
 
-.uk-icon-small:before { font-size: @icon-small-font-size; vertical-align: @icon-small-vertical-align; }
-.uk-icon-medium:before { font-size: @icon-medium-font-size; vertical-align: @icon-medium-vertical-align; }
-.uk-icon-large:before { font-size: @icon-large-font-size; vertical-align: @icon-large-vertical-align; }
+.uk-icon-small {
+    font-size: @icon-small-font-size;
+    vertical-align: @icon-small-vertical-align;
+}
+
+.uk-icon-medium {
+    font-size: @icon-medium-font-size;
+    vertical-align: @icon-medium-vertical-align;
+}
+
+.uk-icon-large {
+    font-size: @icon-large-font-size;
+    vertical-align: @icon-large-vertical-align;
+}
+
+
+/* Modifier: `uk-icon-justify`
+ ========================================================================== */
+
+.uk-icon-justify {
+    width: 1em;
+    text-align: center;
+}
 
 
 /* Modifier: `uk-icon-spin`
