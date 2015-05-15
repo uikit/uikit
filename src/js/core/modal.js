@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var active = false, $html = UI.$html, body;
+    var active = false, activeCount = 0, $html = UI.$html, body;
 
     UI.component('modal', {
 
@@ -70,6 +70,8 @@
             }
 
             this.active = true;
+
+            activeCount++;
 
             this.element.addClass("uk-open");
 
@@ -151,15 +153,17 @@
         _hide: function() {
 
             this.active = false;
+            activeCount--;
 
             this.element.hide().removeClass("uk-open");
 
             // Update ARIA
             this.element.attr('aria-hidden', 'true');
 
-            $html.removeClass("uk-modal-page");
-
-            body.css(this.paddingdir, "");
+            if (!activeCount) {
+                $html.removeClass("uk-modal-page");
+                body.css(this.paddingdir, "");
+            }
 
             if(active===this) active = false;
 
