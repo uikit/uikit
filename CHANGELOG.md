@@ -9,6 +9,7 @@
   - Updated UIkit.modal.alert, UIkit.modal.prompt, UIkit.modal.confirm don't close open modals
   - Added uk-active class to form-select component
   - Added uk-flex-nowrap class to flex component
+  - Added ignorestacked option to gridMatchHeight component
   - Added uk-icon-justify class to icon component
   - Added kenburnsanimations option to slideshow component
   - Added media option to parallax component

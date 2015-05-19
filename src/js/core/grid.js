@@ -7,8 +7,9 @@
     UI.component('gridMatchHeight', {
 
         defaults: {
-            "target" : false,
-            "row"    : true
+            "target"        : false,
+            "row"           : true,
+            "ignorestacked" : false
         },
 
         boot: function() {
@@ -67,7 +68,7 @@
 
             var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100;
 
-            if (stacked) {
+            if (stacked && !this.options.ignorestacked) {
                 this.revert();
             } else {
                 UI.Utils.matchHeights(this.elements, this.options);
