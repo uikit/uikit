@@ -3571,17 +3571,23 @@ select.uk-form-width-mini {
 }
 /* Size modifiers
  ========================================================================== */
-.uk-icon-small:before {
+.uk-icon-small {
   font-size: 150%;
   vertical-align: -10%;
 }
-.uk-icon-medium:before {
+.uk-icon-medium {
   font-size: 200%;
   vertical-align: -16%;
 }
-.uk-icon-large:before {
+.uk-icon-large {
   font-size: 250%;
   vertical-align: -22%;
+}
+/* Modifier: `uk-icon-justify`
+ ========================================================================== */
+.uk-icon-justify {
+  width: 1em;
+  text-align: center;
 }
 /* Modifier: `uk-icon-spin`
  ========================================================================== */
@@ -7663,6 +7669,11 @@ a.uk-thumbnail:focus {
 }
 /* Wrap
  ========================================================================== */
+.uk-flex-nowrap {
+  -ms-flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
 .uk-flex-wrap {
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;

@@ -22,17 +22,25 @@
     UI.component('slideshow', {
 
         defaults: {
-            animation        : "fade",
-            duration         : 500,
-            height           : "auto",
-            start            : 0,
-            autoplay         : false,
-            autoplayInterval : 7000,
-            videoautoplay    : true,
-            videomute        : true,
-            kenburns         : false,
-            slices           : 15,
-            pauseOnHover     : true
+            animation          : "fade",
+            duration           : 500,
+            height             : "auto",
+            start              : 0,
+            autoplay           : false,
+            autoplayInterval   : 7000,
+            videoautoplay      : true,
+            videomute          : true,
+            slices             : 15,
+            pauseOnHover       : true,
+            kenburns           : false,
+            kenburnsanimations : [
+                'uk-animation-middle-left',
+                'uk-animation-top-right',
+                'uk-animation-bottom-left',
+                'uk-animation-top-center',
+                '', // middle-center
+                'uk-animation-bottom-right'
+            ],
         },
 
         current  : false,
@@ -73,6 +81,10 @@
 
                 if (!String(kbanimduration).match(/(ms|s)$/)) {
                     kbanimduration += 'ms';
+                }
+
+                if (typeof(this.options.kenburnsanimations) == 'string') {
+                    this.options.kenburnsanimations = this.options.kenburnsanimations.split(',');
                 }
             }
 
@@ -318,19 +330,12 @@
                 return;
             }
 
-            var animations = [
-                    'uk-animation-middle-left',
-                    'uk-animation-top-right',
-                    'uk-animation-bottom-left',
-                    'uk-animation-top-center',
-                    '', // middle-center
-                    'uk-animation-bottom-right'
-                ],
-                index    = this.kbindex || 0;
+            var animations = this.options.kenburnsanimations,
+                index      = this.kbindex || 0;
 
 
             slide.data('cover').attr('class', 'uk-cover-background uk-position-cover').width();
-            slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', animations[index]].join(' '));
+            slide.data('cover').addClass(['uk-animation-scale', 'uk-animation-reverse', animations[index].trim()].join(' '));
 
             this.kbindex = animations[index + 1] ? (index+1):0;
         },

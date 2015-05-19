@@ -6,46 +6,18 @@
   position: relative;
 }
 /*
- * 1. Makes text unselectable
- * 2. Deactivate browser touch actions in IE11
+ * Deactivate browser touch actions in IE11
  */
 .uk-sortable > * {
-  /* 1 */
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  /* 2 */
   touch-action: none;
 }
 /*
- * Prevents images and links from being dragged (default browser behavior)
+ * Disables the default callout shown when you touch and hold a touch target
  * Currently only works in Webkit
  */
-.uk-sortable > * * {
-  -webkit-user-drag: none;
-  user-drag: none;
-}
-.uk-sortable:empty {
-  min-height: 30px;
-}
-/*
- * Give empty lists a placeholder style to make sure drag and drop works
- */
-.uk-sortable:empty::after {
-  min-height: 30px;
-  width: 100%;
-}
-/*
- * Handle empty list inside grid
- */
-.uk-grid .uk-sortable:empty::after {
-  margin-left: 25px;
-}
-@media (min-width: 1220px) {
-  .uk-grid .uk-sortable:empty::after {
-    margin-left: 35px;
-  }
+.uk-sortable a,
+.uk-sortable img {
+  -webkit-touch-callout: none;
 }
 /* Sub-modifier `uk-sortable-dragged`
  ========================================================================== */
@@ -59,11 +31,22 @@
 .uk-sortable-placeholder {
   opacity: 0;
 }
-/* Sub-modifier `uk-sortable-over`
- * Only if `warp:true`
+/* Empty List
  ========================================================================== */
-.uk-sortable-over {
-  opacity: 0.3;
+.uk-sortable:empty {
+  min-height: 30px;
+}
+/* Sub-object `uk-sortable-handle`
+ ========================================================================== */
+/*
+ * Deactivate browser touch actions in IE11
+ */
+.uk-sortable-handle {
+  touch-action: none;
+}
+/* Hover */
+.uk-sortable-handle:hover {
+  cursor: move;
 }
 /* Sub-object `uk-sortable-moving`
  ========================================================================== */

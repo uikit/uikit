@@ -120,7 +120,12 @@
 /* Wrap
  ========================================================================== */
 
-// .uk-flex-nowrap { flex-wrap: nowrap; }
+// Default
+.uk-flex-nowrap {
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
 
 .uk-flex-wrap {
     -ms-flex-wrap: wrap;
