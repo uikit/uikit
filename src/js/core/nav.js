@@ -41,7 +41,7 @@
                     active = parent.hasClass("uk-active");
 
                 $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
-                parent.data("list-container", $ele.parent());
+                parent.data("list-container", $ele.parent()[active ? 'removeClass':'addClass']('uk-hidden'));
 
                 // Init ARIA
                 parent.attr('aria-expanded', parent.hasClass("uk-open"));
@@ -53,7 +53,7 @@
 
         open: function(li, noanimation) {
 
-            var $this = this, element = this.element, $li = UI.$(li);
+            var $this = this, element = this.element, $li = UI.$(li), $container = $li.data('list-container');
 
             if (!this.options.multiple) {
 
@@ -63,7 +63,7 @@
 
                     if (ele.data("list-container")) {
                         ele.data("list-container").stop().animate({height: 0}, function() {
-                            UI.$(this).parent().removeClass("uk-open");
+                            UI.$(this).parent().removeClass("uk-open").end().addClass('uk-hidden');
                         });
                     }
                 });
@@ -74,15 +74,32 @@
             // Update ARIA
             $li.attr('aria-expanded', $li.hasClass("uk-open"));
 
-            if ($li.data("list-container")) {
+            if ($container) {
+
+                if ($li.hasClass("uk-open")) {
+                    $container.removeClass('uk-hidden');
+                }
 
                 if (noanimation) {
-                    $li.data('list-container').stop().height($li.hasClass("uk-open") ? "auto" : 0);
+
+                    $container.stop().height($li.hasClass("uk-open") ? "auto" : 0);
+
+                    if (!$li.hasClass("uk-open")) {
+                        $container.addClass('uk-hidden');
+                    }
+
                     this.trigger("display.uk.check");
+
                 } else {
-                    $li.data('list-container').stop().animate({
-                        height: ($li.hasClass("uk-open") ? getHeight($li.data('list-container').find('ul:first')) : 0)
+
+                    $container.stop().animate({
+                        height: ($li.hasClass("uk-open") ? getHeight($container.find('ul:first')) : 0)
                     }, function() {
+
+                        if (!$li.hasClass("uk-open")) {
+                            $container.addClass('uk-hidden');
+                        }
+
                         $this.trigger("display.uk.check");
                     });
                 }
