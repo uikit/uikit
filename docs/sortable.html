@@ -122,32 +122,29 @@
 
                             <hr class="uk-article-divider">
 
-                            <h3 id="sortable-handle"><a href="#sortable-handle" class="uk-link-reset">Sortable handle</a></h3>
+                            <h2 id="sortable-handle"><a href="#sortable-handle" class="uk-link-reset">Sortable handle</a></h2>
 
-                            <p>To determine a different element to be used as a handle to sort the items, just add the <code>{handleClass:'uk-panel'}</code> option to the data attribute.</p>
+                            <p>You can determine any element to be used as a handle to sort the items. Just add the <code>{handleClass:'MY-CLASS'}</code> option to the data attribute and the handle class to the element that you want to use as a handle.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p>Note how only the panels serve as handles here, whereas in the example above you would already drag elements by clicking into the gap between them.</p>
-
-                            <ul class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-5" data-uk-sortable="{handleClass:'uk-panel'}">
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 1</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 2</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 3</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 4</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 5</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 6</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 7</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 8</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 9</div></li>
-                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 10</div></li>
+                            <ul class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-5" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 1</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 2</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 3</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 4</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 5</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 6</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 7</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 8</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 9</div></li>
+                                <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 10</div></li>
                             </ul>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{handleClass:'uk-panel'}"&gt;
-    &lt;li&gt;...&lt;/li&gt;
-    &lt;li&gt;...&lt;/li&gt;
+<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{handleClass:'my-class'}"&gt;
+    &lt;li&gt;&lt;div class="my-class"&gt;&lt;/div&gt;...&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
@@ -260,7 +257,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>	
+                                        <tr>
                                             <td><code>group</code></td>
                                             <td>string</td>
                                             <td>false</td>
