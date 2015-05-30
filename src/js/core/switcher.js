@@ -249,7 +249,7 @@
 
     function coreAnimation(cls, current, next) {
 
-        var d = UI.$.Deferred(), clsIn = cls, clsOut = cls, release;
+        var d = UI.$.Deferred(), clsIn = cls, clsOut = cls, release, $this = this;
 
         if (next[0]===current[0]) {
             d.resolve();
@@ -265,7 +265,7 @@
 
             if (current) current.hide().removeClass('uk-active '+clsOut+' uk-animation-reverse');
 
-            next.addClass(clsIn).one(UI.support.animation.end, function() {
+            setTimeout(function() {
 
                 next.removeClass(''+clsIn+'').css({opacity:'', display:''});
 
@@ -273,7 +273,9 @@
 
                 if (current) current.css({opacity:'', display:''});
 
-            }.bind(this)).show();
+            }, $this.options.duration);
+            
+            next.addClass(clsIn).show();
         };
 
         next.css('animation-duration', this.options.duration+'ms');
@@ -282,9 +284,11 @@
 
             current.css('animation-duration', this.options.duration+'ms');
 
-            current.css('display', 'none').addClass(clsOut+' uk-animation-reverse').one(UI.support.animation.end, function() {
+            setTimeout(function() {
                 release();
-            }.bind(this)).css('display', '');
+            }, this.options.duration);
+
+            current.css('display', 'none').addClass(clsOut+' uk-animation-reverse').css('display', '');
 
         } else {
             next.addClass('uk-active');
