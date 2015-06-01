@@ -45,7 +45,7 @@
 
         init: function() {
 
-            var $this  = this, times = getTimeRange(this.options.start, this.options.end);
+            var $this  = this, times = getTimeRange(this.options.start, this.options.end), container;
 
             this.options.minLength = 0;
             this.options.template  = '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">{{~items}}<li data-value="{{$item.value}}"><a>{{$item.value}}</a></li>{{/items}}</ul>';
@@ -54,9 +54,14 @@
                 release(times[$this.options.format] || times['12h']);
             };
 
-            this.element.wrap('<div class="uk-autocomplete"></div>');
+            if (this.element.is('input')) {
+                this.element.wrap('<div class="uk-autocomplete"></div>');
+                container = this.element.parent();
+            } else {
+                container = this.element.addClass('uk-autocomplete');
+            }
 
-            this.autocomplete = UI.autocomplete(this.element.parent(), this.options);
+            this.autocomplete = UI.autocomplete(container, this.options);
             this.autocomplete.dropdown.addClass('uk-dropdown-small uk-dropdown-scrollable');
 
             this.autocomplete.on('show.uk.autocomplete', function() {
