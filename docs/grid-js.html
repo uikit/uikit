@@ -150,7 +150,7 @@
 
                             <h2 id="filtering"><a href="#filtering" class="uk-link-reset">Filtering</a></h2>
 
-                            <p>You can also filter your grid so that only particular items will be displayed. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the filter controls. Each control needs to have the <code>data-uk-filter</code> attribute to define the category you want to filter. Then you also need to add the <code>data-uk-filter</code> attribute to each grid item to define what category the item belongs to.</p>
+                            <p>You can also filter your grid so that only particular items will be displayed. To do so, add the <code>{controls: '#my-id'}</code> option to the data-attribute to target the id for the filter controls. Each control needs to have the <code>data-uk-filter</code> attribute to define the category you want to filter. Then you also need to add the <code>data-uk-filter</code> attribute to each grid item to define what category the item belongs to. Separate multiple categories by comma.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -168,7 +168,7 @@
                                 <div data-uk-filter="filter-b"><div class="uk-panel-box">B 5</div></div>
                                 <div data-uk-filter="filter-a"><div class="uk-panel-box">A 6</div></div>
                                 <div data-uk-filter="filter-b"><div class="uk-panel-box">B 7</div></div>
-                                <div data-uk-filter="filter-a"><div class="uk-panel-box">A 8</div></div>
+                                <div data-uk-filter="filter-a,filter-b"><div class="uk-panel-box">A+B 8</div></div>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -186,6 +186,7 @@
 &lt;div data-uk-grid="{controls: '#my-id'}"&gt;
     &lt;div data-uk-filter="filter-a"&gt;...&lt;/div&gt;
     &lt;div data-uk-filter="filter-b"&gt;...&lt;/div&gt;
+    &lt;div data-uk-filter="filter-a,filter-b"&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">

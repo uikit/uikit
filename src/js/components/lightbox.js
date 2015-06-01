@@ -432,6 +432,7 @@
 
             lightbox.on("showitem.uk.lightbox", function(e, data){
 
+
                 var resolve = function(source, width, height) {
 
                     data.meta = {
@@ -493,7 +494,7 @@
         modal.content = modal.find('.uk-lightbox-content:first');
         modal.loader  = modal.find('.uk-modal-spinner:first');
         modal.closer  = modal.find('.uk-close.uk-close-alt');
-        modal.modal   = UI.modal(modal);
+        modal.modal   = UI.modal(modal, {modal:false});
 
         // next / previous
         modal.on("swipeRight swipeLeft", function(e) {
@@ -508,8 +509,8 @@
             modal.content.html('');
         });
 
-        UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
-            if (modal.is(':visible')) modal.lightbox.fitSize();
+        UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(e){
+            if (modal.is(':visible') && !UI.Utils.isFullscreen()) modal.lightbox.fitSize();
         }.bind(this), 100));
 
         modal.lightbox = lightbox;

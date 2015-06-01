@@ -19,7 +19,8 @@
     UI.component('formSelect', {
 
         defaults: {
-            'target': '>span:first'
+            'target': '>span:first',
+            'activeClass': 'uk-active'
         },
 
         boot: function() {
@@ -51,6 +52,8 @@
                     try {
                         $this.target.text(select.options[select.selectedIndex].text);
                     } catch(e) {}
+
+                    $this.element[$this.select.val() ? 'addClass':'removeClass']($this.options.activeClass);
 
                     return fn;
                 };

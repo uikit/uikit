@@ -582,6 +582,10 @@
 
                             <hr class="uk-article-divider">
 
+                                    <h3 class="tm-article-subtitle">Init element manually</h3>
+
+                                    <pre><code>var slideshow = UIkit.slideshow(element, { /* options */ });</code></pre>
+
                             <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript Options</a></h2>
 
                             <div class="uk-overflow-container">
@@ -644,6 +648,14 @@
                                             <td><code>kenburns</code></td>
                                             <td>false</td>
                                             <td>Defines whether or not the Ken Burns effect is active. If <code>kenburns</code> is a numeric value, it will be used as the animation duration.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>kenburnsanimations</code></td>
+                                            <td>
+                                                uk-animation-middle-left, uk-animation-top-right,<br>
+                                                uk-animation-bottom-left, uk-animation-top-center,<br>
+                                                uk-animation-bottom-right</td>
+                                            <td>Animation series.</td>
                                         </tr>
                                         <tr>
                                             <td><code>slices</code></td>

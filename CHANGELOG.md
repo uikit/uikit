@@ -1,5 +1,36 @@
 # Changelog
 
+### 2.21.0 (June 01, 2015)
+
+  - IMPORTANT: Reworked nestable component
+  - Added uk-active class to form-select component
+  - Added uk-flex-nowrap class to flex component
+  - Added uk-icon-justify class to icon component
+  - Added kenburnsanimations option to slideshow component
+  - Added media option to parallax component
+  - Added connect multiple sortable lists
+  - Added activeClass option to tooltip component
+  - Added ignorestacked option to gridMatchHeight component
+  - Added UIkit.responsiveElement component (e.g. for iframes)
+  - Added UIkit.Utils.isFullscreen helper function
+  - Updated UIkit.modal.alert, UIkit.modal.prompt, UIkit.modal.confirm don't close open modals
+  - Updated tooltip component to look for an updated title attribute before show
+  - Updated timepicker to be initialized on a parent element
+  - Updated slideset filter activation
+  - Updated changed event from focus.uk.slider to focusitem.uk.slider
+  - Removed warp mode from sortable component
+  - Fixed tab component having no items
+  - Fixed slideset nav
+  - Fixed nestable maxdepth check when moving items between lists
+  - Fixed gulp css minifier
+
+  **Docs and Repo**
+
+  - Updated dynamic grid test and docs
+  - Updated sortable test and docs
+  - Updated nestable test and docs
+  - Updated icon test and docs
+
 ### 2.20.3 (May 04, 2015)
   - Updated jQuery to 2.1.4
   - Updated grid match items to wrap onto multiple lines

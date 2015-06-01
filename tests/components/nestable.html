@@ -31,115 +31,159 @@
 
             <h1>Nestable</h1>
 
-            Empty list:
+            <div class="uk-grid uk-grid-width-medium-1-3" data-uk-grid-margin>
+                <div>
 
-            <ul class="uk-nestable test" data-uk-nestable></ul>
+                    <h2>Default</h2>
 
-            <hr>
+                    <ul class="uk-nestable" data-uk-nestable="{group:'test'}">
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                <a href="http://www.getuikit.com">Item 1</a>
+                                <img src="holder.js/60x20/sky/auto/" width="60" height="20" alt="">
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <a class="uk-nestable-panel uk-display-block" href="http://www.getuikit.com">
+                                Item 2
+                            </a>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 3
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 4
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 5
+                            </div>
+                        </li>
+                    </ul>
 
-            <ul class="uk-nestable" data-uk-nestable>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 1
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 2
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 3
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 4
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 5
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 6
-                    </div>
-                </li>
-            </ul>
+                </div>
+                <div>
 
-            <h2>Second list</h2>
+                    <h2>Handle + Toggle</h2>
 
-            <ul class="uk-nestable" data-uk-nestable>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 7
-                    </div>
-                </li>
-            </ul>
+                    <ul class="uk-nestable" data-uk-nestable="{group:'test', handleClass:'uk-nestable-handle'}">
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+                                <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+                                Item 1
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+                                <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+                                Item 2
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+                                <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+                                Item 3
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+                                <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+                                Item 4
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+                                <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+                                Item 5
+                            </div>
+                        </li>
+                    </ul>
 
-            <h2>Nesting disabled</h2>
+                </div>
+                <div>
 
-            <ul class="uk-nestable" data-uk-nestable="{maxDepth:1, group:'no-nesting'}">
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 1
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 2
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 3
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 4
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 5
-                    </div>
-                </li>
-                <li>
-                    <div class="uk-nestable-item">
-                        <div class="uk-nestable-handle"></div>
-                        <div data-nestable-action="toggle"></div>
-                        Item 6
-                    </div>
-                </li>
-            </ul>
+                    <h2>Empty</h2>
+
+                    <ul class="uk-nestable test" data-uk-nestable="{group:'test'}"></ul>
+
+                </div>
+                <div>
+
+                    <h2>No Nesting</h2>
+
+                    <ul class="uk-nestable" data-uk-nestable="{group:'test', maxDepth:1}">
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 1
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 2
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 3
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 4
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 5
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div>
+
+                <h2>No Group</h2>
+
+                    <ul class="uk-nestable" data-uk-nestable>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 1
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 2
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 3
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 4
+                            </div>
+                        </li>
+                        <li  class="uk-nestable-item">
+                            <div class="uk-nestable-panel">
+                                Item 5
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            
         </div>
     </body>
 </html>

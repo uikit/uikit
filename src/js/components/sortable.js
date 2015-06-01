@@ -20,7 +20,7 @@
     "use strict";
 
     var supportsTouch       = ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
-        draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists;
+        draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved;
 
     function closestSortable(ele) {
 
@@ -40,7 +40,6 @@
 
         defaults: {
 
-            warp             : false,
             animation        : 150,
             threshold        : 10,
 
@@ -50,6 +49,7 @@
             draggingClass    : 'uk-sortable-dragged',
             dragMovingClass  : 'uk-sortable-moving',
             baseClass        : 'uk-sortable',
+            noDragClass      : 'uk-sortable-nodrag',
             dragCustomClass  : '',
             handleClass      : false,
             group            : false,
@@ -81,7 +81,7 @@
                     var src = e.originalEvent.targetTouches ? e.originalEvent.targetTouches[0] : e;
 
                     if (Math.abs(src.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(src.pageY - delayIdle.pos.y) > delayIdle.threshold) {
-                        delayIdle.apply();
+                        delayIdle.apply(src);
                     }
                 }
 
@@ -98,8 +98,8 @@
                     }
 
                     var offset = draggingPlaceholder.data('mouse-offset'),
-                    left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
-                    top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
+                        left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
+                        top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
 
                     draggingPlaceholder.css({'left': left, 'top': top });
 
@@ -113,10 +113,6 @@
             });
 
             UI.$html.on('mouseup touchend', function(e) {
-
-                if(!moving && clickedlink) {
-                    location.href = clickedlink.attr('href');
-                }
 
                 delayIdle = clickedlink = false;
 
@@ -152,26 +148,28 @@
                 this.element.html('');
             }
 
-            this.element.data('sortable-group', this.options.group );
-
-            // prevent leaving page after link clicking
-            this.element.on('mousedown touchstart', 'a[href]', function(e) {
-                // don't break browser shortcuts for click+open in new tab
-                if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                    clickedlink = UI.$(this);
-                    e.preventDefault();
-                }
-
-            }).on('click', 'a[href]', function(e) {
-                if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                    clickedlink = UI.$(this);
-                    e.stopImmediatePropagation();
-                    return false;
-                }
-            });
-
+            this.element.data('sortable-group', this.options.group ? this.options.group : UI.Utils.uid('sortable-group'));
 
             var handleDragStart = delegate(function(e) {
+
+                var $target = UI.$(e.target),
+                    $link   = $target.is('a[href]') ? $target:$target.parents('a[href]');
+                
+                if ($target.is(':input')) {
+                    return;
+                }
+                
+                e.preventDefault();
+
+                if (!supportsTouch && $link.length) {
+
+                    $link.one('click', function(e){
+                        e.preventDefault();
+                    }).one('mouseup', function(){
+                        if(!moved) $link.trigger('click');
+                    });
+                }
+
                 return $this.dragStart(e, this);
             });
 
@@ -216,11 +214,7 @@
                 $this.element.children().removeClass($this.options.overClass);
                 currentlyDraggingTarget = this;
 
-                if (!$this.options.warp) {
-                    $this.moveElementNextTo(currentlyDraggingElement, this);
-                } else {
-                    UI.$(this).addClass($this.options.overClass);
-                }
+                $this.moveElementNextTo(currentlyDraggingElement, this);
 
                 return prevent(e);
             });
@@ -296,11 +290,12 @@
 
         dragStart: function(e, elem) {
 
-            moving = false;
+            moved    = false;
+            moving   = false;
             dragging = false;
 
-            var $this = this,
-                target = UI.$(e.target),
+            var $this    = this,
+                target   = UI.$(e.target),
                 children = $this.element.children();
 
             if (!supportsTouch && e.button==2) {
@@ -309,7 +304,7 @@
 
             if ($this.options.handleClass) {
 
-                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, element);
+                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, $this.element);
 
                 if (!handle.length) {
                     //e.preventDefault();
@@ -317,21 +312,21 @@
                 }
             }
 
+            if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options._noDragClass).length) {
+                return;
+            }
+
             // prevent dragging if taget is a form field
             if (target.is(':input')) {
                 return;
             }
 
-            if (e.dataTransfer) {
-                e.dataTransfer.effectAllowed = 'move';
-                e.dataTransfer.dropEffect = 'move';
-                e.dataTransfer.setData('Text', "*"); // Need to set to something or else drag doesn't start
-            }
-
             currentlyDraggingElement = elem;
 
             // init drag placeholder
-            if (draggingPlaceholder) draggingPlaceholder.remove();
+            if (draggingPlaceholder) {
+                draggingPlaceholder.remove();
+            }
 
             var $current = UI.$(currentlyDraggingElement), offset = $current.offset();
 
@@ -339,7 +334,7 @@
 
                 pos       : { x:e.pageX, y:e.pageY },
                 threshold : $this.options.threshold,
-                'apply'   : function() {
+                apply     : function(evt) {
 
                     draggingPlaceholder = UI.$('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
                         display : 'none',
@@ -350,8 +345,8 @@
                         padding : $current.css('padding')
                     }).data({
                         'mouse-offset': {
-                            'left'   : offset.left - parseInt(e.pageX, 10),
-                            'top'    : offset.top  - parseInt(e.pageY, 10)
+                            'left'   : offset.left - parseInt(evt.pageX, 10),
+                            'top'    : offset.top  - parseInt(evt.pageY, 10)
                         },
                         'origin' : $this.element,
                         'index'  : $current.index()
@@ -366,11 +361,10 @@
                     $this.options.start(this, currentlyDraggingElement);
                     $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement]);
 
+                    moved     = true;
                     delayIdle = false;
                 }
             };
-
-            e.preventDefault();
         },
 
         dragMove: function(e, elem) {
@@ -420,9 +414,7 @@
 
                 UI.$(elem).addClass(this.options.overClass);
 
-                if (!this.options.warp) {
-                    this.moveElementNextTo(currentlyDraggingElement, elem);
-                }
+                this.moveElementNextTo(currentlyDraggingElement, elem);
             }
 
             return false;
@@ -479,15 +471,6 @@
                 }
             }
 
-            if (this.options.warp) {
-
-                var thisSibling = currentlyDraggingElement.nextSibling;
-                elem.parentNode.insertBefore(currentlyDraggingElement, elem);
-                elem.parentNode.insertBefore(elem, thisSibling);
-
-                UI.Utils.checkDisplay(this.element.parent());
-            }
-
             this.triggerChangeEvents();
         },
 
@@ -536,7 +519,7 @@
                 children = list.children(),
                 count    = children.length;
 
-            if ($this.options.warp || !$this.options.animation) {
+            if (!$this.options.animation) {
                 elementToMoveNextTo.parentNode.insertBefore(element, next);
                 UI.Utils.checkDisplay($this.element.parent());
                 return;

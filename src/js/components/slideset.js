@@ -57,6 +57,7 @@
             this.activeSet = false;
             this.list      = this.element.find('.uk-slideset');
             this.nav       = this.element.find('.uk-slideset-nav');
+            this.controls  = this.options.controls ? UI.$(this.options.controls) : this.element;
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {
                 $this.updateSets();
@@ -91,13 +92,10 @@
                         $this[set=='next' ? 'next':'previous']();
                         break;
                     default:
-                        $this.show(set);
+                        $this.show(parseInt(set, 10));
                 }
 
             });
-
-            this.currentFilter = this.options.filter;
-            this.controls      = this.options.controls ? UI.$(this.options.controls) : this.element;
 
             this.controls.on('click.uikit.slideset', '[data-uk-filter]', function(e) {
 
@@ -113,17 +111,19 @@
                     return;
                 }
 
+                $this.updateFilter(ele.attr('data-uk-filter'));
+
                 $this._hide().then(function(){
-                    $this.currentFilter = ele.attr('data-uk-filter');
+
                     $this.updateSets(true, true);
                 });
             });
-
 
             this.on('swipeRight swipeLeft', function(e) {
                 $this[e.type=='swipeLeft' ? 'next' : 'previous']();
             });
 
+            this.updateFilter(this.options.filter);
             this.updateSets();
 
             this.element.on({
@@ -165,7 +165,15 @@
                 this.nav[this.nav.children().length==1 ? 'addClass':'removeClass']('uk-invisible');
             }
 
-            var filter;
+            this.activeSet = false;
+            this.show(0, !animate);
+        },
+
+        updateFilter: function(currentfilter) {
+
+            var $this = this, filter;
+
+            this.currentFilter = currentfilter;
 
             this.controls.find('[data-uk-filter]').each(function(){
 
@@ -180,9 +188,6 @@
                     }
                 }
             });
-
-            this.activeSet = false;
-            this.show(0, !animate);
         },
 
         getVisibleOnCurrenBreakpoint: function() {

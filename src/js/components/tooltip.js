@@ -10,6 +10,7 @@
             return component || addon(UIkit);
         });
     }
+
 })(function(UI){
 
     "use strict";
@@ -25,7 +26,17 @@
             "animation": false,
             "delay": 0, // in miliseconds
             "cls": "",
-            "src": function() { return this.attr("title"); }
+            "activeClass": "uk-active",
+            "src": function(ele, title) {
+
+                title = ele.attr('title');
+
+                if (title) {
+                    ele.data('cached-title', title).removeAttr('title');
+                }
+
+                return ele.data("cached-title");
+            }
         },
 
         tip: "",
@@ -52,25 +63,22 @@
             }
 
             this.on({
-                "focus"     : function(e) { $this.show(); },
-                "blur"      : function(e) { $this.hide(); },
-                "mouseenter": function(e) { $this.show(); },
-                "mouseleave": function(e) { $this.hide(); }
+                focus      : function(e) { $this.show(); },
+                blur       : function(e) { $this.hide(); },
+                mouseenter : function(e) { $this.show(); },
+                mouseleave : function(e) { $this.hide(); }
             });
-
-            this.tip = typeof(this.options.src) === "function" ? this.options.src.call(this.element) : this.options.src;
-
-            // disable title attribute
-            this.element.attr("data-cached-title", this.element.attr("title")).attr("title", "");
         },
 
         show: function() {
+
+            this.tip = typeof(this.options.src) === "function" ? this.options.src(this.element) : this.options.src;
 
             if (tooltipdelay)     clearTimeout(tooltipdelay);
             if (checkdelay)       clearTimeout(checkdelay);
             if (!this.tip.length) return;
 
-            $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).show();
+            $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).removeClass(this.options.activeClass).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
 
             var $this      = this,
@@ -165,9 +173,9 @@
                 $tooltip.css(tcss).attr("class", ["uk-tooltip", "uk-tooltip-"+position, $this.options.cls].join(' '));
 
                 if ($this.options.animation) {
-                    $tooltip.css({opacity: 0, display: 'block'}).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
+                    $tooltip.css({opacity: 0, display: 'block'}).addClass($this.options.activeClass).animate({opacity: 1}, parseInt($this.options.animation, 10) || 400);
                 } else {
-                    $tooltip.show();
+                    $tooltip.show().addClass($this.options.activeClass);
                 }
 
                 tooltipdelay = false;
@@ -189,9 +197,15 @@
             $tooltip.stop();
 
             if (this.options.animation) {
-                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400);
+
+                var $this = this;
+
+                $tooltip.fadeOut(parseInt(this.options.animation, 10) || 400, function(){
+                    $tooltip.removeClass($this.options.activeClass)
+                });
+
             } else {
-                $tooltip.hide();
+                $tooltip.hide().removeClass(this.options.activeClass);
             }
         },
 

@@ -101,7 +101,7 @@
             UI.dropdown(this.responsivetab, {"mode": "click"});
 
             // init
-            $this.trigger("change.uk.tab", [this.element.find(this.options.target).filter('.uk-active')]);
+            $this.trigger("change.uk.tab", [this.element.find(this.options.target).not('.uk-tab-responsive').filter('.uk-active')]);
 
             this.check();
 
@@ -118,11 +118,14 @@
 
             var children = this.element.children('li:not(.uk-tab-responsive)').removeClass('uk-hidden');
 
-            if (!children.length) return;
+            if (!children.length) {
+                this.responsivetab.addClass('uk-hidden');
+                return;
+            }
 
             var top          = (children.eq(0).offset().top + Math.ceil(children.eq(0).height()/2)),
                 doresponsive = false,
-                item, link;
+                item, link, clone;
 
             this.responsivetab.lst.empty();
 
@@ -137,16 +140,19 @@
 
                 for (var i = 0; i < children.length; i++) {
 
-                    item = UI.$(children.eq(i));
-                    link = item.find('a');
+                    item  = UI.$(children.eq(i));
+                    link  = item.find('a');
 
                     if (item.css('float') != 'none' && !item.attr('uk-dropdown')) {
 
-                        item.addClass('uk-hidden');
-
                         if (!item.hasClass('uk-disabled')) {
-                            this.responsivetab.lst.append('<li><a href="'+link.attr('href')+'" data-index="'+i+'">'+link.html()+'</a></li>');
+
+                            clone = item[0].outerHTML.replace('<a ', '<a data-index="'+i+'" ');
+
+                            this.responsivetab.lst.append(clone);
                         }
+
+                        item.addClass('uk-hidden');
                     }
                 }
             }

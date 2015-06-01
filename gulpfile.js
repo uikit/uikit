@@ -223,7 +223,7 @@ gulp.task('dist-core-minify', function(done) {
     }
 
     // minify css
-    gulp.src(['!./dist/css/**/*.min.css', './dist/css/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss()).pipe(gulp.dest('./dist/css')).on('end', function(){
+    gulp.src(['!./dist/css/**/*.min.css', './dist/css/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss({advanced:false})).pipe(gulp.dest('./dist/css')).on('end', function(){
 
         // minify js
         gulp.src(['!./dist/js/**/*.min.js', './dist/js/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist/js')).on('end', function(){
@@ -501,7 +501,7 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 gulp.task('build-docs', function(done) {
 
     // minify css
-    gulp.src('./docs/less/uikit.less').pipe(less()).pipe(rename({ suffix: '.docs.min' })).pipe(minifycss()).pipe(gulp.dest('./docs/css')).on('end', function(){
+    gulp.src('./docs/less/uikit.less').pipe(less()).pipe(rename({ suffix: '.docs.min' })).pipe(minifycss({advanced:false})).pipe(gulp.dest('./docs/css')).on('end', function(){
 
         gulp.src(corejs).pipe(concat('uikit.min.js')).pipe(uglify()).pipe(gulp.dest('./docs/js')).on('end', function(){
             done();
