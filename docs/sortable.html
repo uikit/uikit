@@ -122,9 +122,23 @@
 
                             <hr class="uk-article-divider">
 
+                            <h3 id ="sort-any-element"><a href="#sort-any-element" class="uk-link-reset">Sort any element</a></h3>
+
+                            <p>The sortable component is not limited to <code>&lt;ul&gt;</code> elements. You can use any block element as a container.</p>
+
+                            <h4 class="tm-article-subtitle">Markup</h4>
+
+
+<pre><code>&lt;div class="uk-sortable" data-uk-sortable&gt;
+    &lt;div&gt;...&lt;/div&gt;
+    &lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
                             <h2 id="sortable-handle"><a href="#sortable-handle" class="uk-link-reset">Sortable handle</a></h2>
 
-                            <p>You can determine any element to be used as a handle to sort the items. Just add the <code>{handleClass:'MY-CLASS'}</code> option to the data attribute and the handle class to the element that you want to use as a handle.</p>
+                            <p>By default, the entire sortable element can be used for drag and drop sorting. To create a handle which will be used instead, just add the <code>{handleClass:'uk-sortable-handle'}</code> option to the data attribute and add the handle class to the element that you want to use as a handle.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -141,39 +155,18 @@
                                 <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 10</div></li>
                             </ul>
 
+                            <p><span class="uk-badge">NOTE</span> In this example we used the <code>.uk-icon-bars</code> class from the <a href="icon.html">Icon component</a> to style the handle.</p>
+
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{handleClass:'my-class'}"&gt;
-    &lt;li&gt;&lt;div class="my-class"&gt;&lt;/div&gt;...&lt;/li&gt;
+<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{handleClass:'uk-sortable-handle'}"&gt;
+    &lt;li&gt;&lt;div class="uk-sortable-handle"&gt;&lt;/div&gt;...&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
-                            <h2 id ="sort-any-element"><a href="#sort-any-element" class="uk-link-reset">Sort any element</a></h2>
 
-                            <p>The sortable component is not limited to <code>&lt;ul&gt;</code> elements. You can use any block element as a container.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-sortable" data-uk-sortable>
-                               <div><p class="uk-alert">Item 1</p></div>
-                               <div><p class="uk-alert uk-alert-success">Item 2</p></div>
-                               <div><p class="uk-alert uk-alert-warning">Item 3</p></div>
-                               <div><p class="uk-alert uk-alert-danger">Item 4</p></div>
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-
-<pre><code>&lt;div class="uk-sortable" data-uk-sortable&gt;
-    &lt;div&gt;...&lt;/div&gt;
-    &lt;div&gt;...&lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-                            <hr class="uk-article-divider">
-
-
-                            <h2 id ="group"><a href="#group" class="uk-link-reset">Sort multiple lists</a></h2>
+                            <h2 id ="group"><a href="#group" class="uk-link-reset">Multiple lists</a></h2>
 
                             <p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-sortable="{group:'GROUP-NAME'}"</code> attribute to each list.</p>
 
@@ -183,46 +176,40 @@
 
                                 <div>
 
-                                    <h4>List A</h4>
+                                    <h3>First list</h3>
 
                                     <div class="uk-sortable uk-margin" data-uk-sortable="{group:'test'}">
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item A - 1</div>
+                                            <div class="uk-panel uk-panel-box">Item 1</div>
                                         </div>
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item A - 2</div>
+                                            <div class="uk-panel uk-panel-box">Item 2</div>
                                         </div>
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item A - 3</div>
+                                            <div class="uk-panel uk-panel-box">Item 3</div>
                                         </div>
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item A - 4</div>
-                                        </div>
-                                        <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item A - 5</div>
+                                            <div class="uk-panel uk-panel-box">Item 4</div>
                                         </div>
                                     </div>
 
                                 </div>
                                 <div>
 
-                                    <h4>List B</h4>
+                                    <h3>Second list</h3>
 
                                     <div class="uk-sortable uk-margin" data-uk-sortable="{group:'test'}">
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item B - 1</div>
+                                            <div class="uk-panel uk-panel-box">Item 1</div>
                                         </div>
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item B - 2</div>
+                                            <div class="uk-panel uk-panel-box">Item 2</div>
                                         </div>
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item B - 3</div>
+                                            <div class="uk-panel uk-panel-box">Item 3</div>
                                         </div>
                                         <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item B - 4</div>
-                                        </div>
-                                        <div class="uk-margin">
-                                            <div class="uk-panel uk-panel-box">Item B - 5</div>
+                                            <div class="uk-panel uk-panel-box">Item 4</div>
                                         </div>
                                     </div>
 
