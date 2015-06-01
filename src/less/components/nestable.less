@@ -84,11 +84,12 @@
  */
 
 .uk-nestable-item {
-    margin-bottom: @nestable-item-margin;
     /* 1 */
     touch-action: none;
     .hook-nestable-item;
 }
+
+.uk-nestable-item + .uk-nestable-item { margin-top: @nestable-item-margin; }
 
 .uk-nestable-list:not(.uk-nestable-dragged) > .uk-nestable-item:first-child { margin-top: @nestable-item-margin; }
 
