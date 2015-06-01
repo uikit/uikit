@@ -530,7 +530,9 @@
             var isEmpty = false;
 
             // find list item under cursor
-            this.pointEl = UI.$(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - (window.pageYOffset || document.documentElement.scrollTop)));
+            var pointX = this.dragEl.offset().left - (window.pageXOffset || document.scrollLeft || 0),
+                pointY = e.pageY - (window.pageYOffset || document.documentElement.scrollTop);
+            this.pointEl = UI.$(document.elementFromPoint(pointX, pointY));
 
             if (opt.handleClass && this.pointEl.hasClass(opt.handleClass)) {
 

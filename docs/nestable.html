@@ -115,11 +115,15 @@
                                         </tr>
                                         <tr>
                                             <td><code>.uk-nestable-item</code></td>
-                                            <td>Add this class to a <code>&lt;div&gt;</code> element inside each list item.</td>
+                                            <td>Add this class to each <code>&lt;li&gt;</code> element the list item.</td>
                                         </tr>
                                         <tr>
                                             <td><code>.uk-nestable-handle</code></td>
                                             <td>This class creates the handle to enable drag and drop sorting.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-nestable-toggle</code></td>
+                                            <td>This class creates creates a toggle to hide or show nested list items.</td>
                                         </tr>
                                         <tr>
                                             <td><code>data-nestable-action="toggle"</code></td>
@@ -169,6 +173,23 @@
 
                         <hr class="uk-article-divider">
 
+                        <h3 id="nestable-handle"><a href="#nestable-handle" class="uk-link-reset">Nestable handle</a></h3>
+
+                        <p>You can use any element to create a nestable handle. Just add the <code>{handleClass:'MY-CLASS'}</code> option to the data attribute and add the handle class to the element that you want to use as a handle.</p>
+
+                        <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable="{handleClass:'my-class'}"&gt;
+    &lt;li class="uk-nestable-item"&gt;
+        &lt;div class="uk-nestable-panel"&gt;
+            &lt;div class="my-class"&gt;&lt;/div&gt;
+            ...
+        &lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                        <hr class="uk-article-divider">
+
                         <h2 id ="sort-multiple-lists"><a href="#sort-multiple-lists" class="uk-link-reset">Sort multiple lists</a></h2>
 
                         <p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-nestable="{group:'GROUP-NAME'}"</code> attribute to each list.</p>
@@ -210,6 +231,10 @@
                                 </div>
                             </li>
                         </ul>
+
+                        <h3>Empty list</h3>
+
+                        <ul class="uk-nestable" data-uk-nestable="{group:'my-group'}"></ul>
 
                         <h3 class="tm-article-subtitle">Markup</h3>
 
@@ -271,8 +296,8 @@
                                     <tbody>
                                         <tr>
                                             <td><code>group</code></td>
-                                            <td>integer (0..6)</td>
-                                            <td>0</td>
+                                            <td>string</td>
+                                            <td>false</td>
                                             <td>List group</td>
                                         </tr>
                                         <tr>

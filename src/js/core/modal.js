@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var active = false, $html = UI.$html, body;
+    var active = false, activeCount = 0, $html = UI.$html, body;
 
     UI.component('modal', {
 
@@ -70,6 +70,8 @@
             }
 
             this.active = true;
+
+            activeCount++;
 
             this.element.addClass("uk-open");
 
@@ -151,15 +153,17 @@
         _hide: function() {
 
             this.active = false;
+            activeCount--;
 
             this.element.hide().removeClass("uk-open");
 
             // Update ARIA
             this.element.attr('aria-hidden', 'true');
 
-            $html.removeClass("uk-modal-page");
-
-            body.css(this.paddingdir, "");
+            if (!activeCount) {
+                $html.removeClass("uk-modal-page");
+                body.css(this.paddingdir, "");
+            }
 
             if(active===this) active = false;
 
@@ -247,10 +251,12 @@
 
     UI.modal.alert = function(content, options) {
 
+        options = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
+
         var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">Ok</button></div>'
-        ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options));
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">'+options.labels.Ok+'</button></div>'
+        ]).join(""), options);
 
         modal.on('show.uk.modal', function(){
             setTimeout(function(){
@@ -264,11 +270,12 @@
     UI.modal.confirm = function(content, onconfirm, options) {
 
         onconfirm = UI.$.isFunction(onconfirm) ? onconfirm : function(){};
+        options   = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
 
         var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary js-modal-confirm">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
-        ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options));
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button> <button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button></div>'
+        ]).join(""), options);
 
         modal.element.find(".js-modal-confirm").on("click", function(){
             onconfirm();
@@ -287,12 +294,13 @@
     UI.modal.prompt = function(text, value, onsubmit, options) {
 
         onsubmit = UI.$.isFunction(onsubmit) ? onsubmit : function(value){};
+        options  = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
 
         var modal = UI.modal.dialog(([
             text ? '<div class="uk-modal-content uk-form">'+String(text)+'</div>':'',
             '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary js-modal-ok">Ok</button> <button class="uk-button uk-modal-close">Cancel</button></div>'
-        ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options)),
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary js-modal-ok">'+options.labels.Ok+'</button> <button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button></div>'
+        ]).join(""), options),
 
         input = modal.element.find("input[type='text']").val(value || '').on('keyup', function(e){
             if (e.keyCode == 13) {
@@ -325,6 +333,12 @@
         modal.show();
 
         return modal;
+    };
+
+
+    UI.modal.labels = {
+        'Ok': 'Ok',
+        'Cancel': 'Cancel'
     };
 
 
