@@ -1,4 +1,4 @@
-/*! UIkit 2.20.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Nestable
  ========================================================================== */
@@ -27,9 +27,11 @@
  * 1. Deactivate browser touch actions in IE11
  */
 .uk-nestable-item {
-  margin-bottom: 10px;
   /* 1 */
   touch-action: none;
+}
+.uk-nestable-item + .uk-nestable-item {
+  margin-top: 10px;
 }
 .uk-nestable-list:not(.uk-nestable-dragged) > .uk-nestable-item:first-child {
   margin-top: 10px;

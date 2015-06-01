@@ -1,4 +1,4 @@
-/*! UIkit 2.20.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
@@ -531,7 +531,9 @@
             var isEmpty = false;
 
             // find list item under cursor
-            this.pointEl = UI.$(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - (window.pageYOffset || document.documentElement.scrollTop)));
+            var pointX = this.dragEl.offset().left - (window.pageXOffset || document.scrollLeft || 0),
+                pointY = e.pageY - (window.pageYOffset || document.documentElement.scrollTop);
+            this.pointEl = UI.$(document.elementFromPoint(pointX, pointY));
 
             if (opt.handleClass && this.pointEl.hasClass(opt.handleClass)) {
 

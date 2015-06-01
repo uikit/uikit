@@ -53,6 +53,12 @@ $sortable-empty-height:                          30px !default;
 .uk-sortable a,
 .uk-sortable img { -webkit-touch-callout: none; }
 
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-sortable > :last-child { margin-bottom: 0; }
+
 
 /* Sub-modifier `uk-sortable-dragged`
  ========================================================================== */
