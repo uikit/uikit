@@ -55,7 +55,7 @@
 
             // register outer click for autocompletes
             UI.$html.on("click.autocomplete.uikit", function(e) {
-                if (active && e.target!=active.input[0]) active.hide();
+                if (active && e.target!=active.input[0] && !$.contains($('.vir-form-search')[0], e.target)) active.hide();
             });
         },
 
