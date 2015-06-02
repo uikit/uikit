@@ -30,9 +30,7 @@
 
             var $this = this;
 
-            this.columns = this.element.children();
-
-            if (!this.columns.length) return;
+            this.columns = [];
 
             UI.$win.on('resize orientationchange', (function() {
 
@@ -49,12 +47,10 @@
             })());
 
             UI.$html.on("changed.uk.dom", function(e) {
-                $this.columns  = $this.element.children();
                 $this.process();
             });
 
             this.on("display.uk.check", function(e) {
-                $this.columns = $this.element.children();
                 if (this.element.is(":visible")) this.process();
             }.bind(this));
 
@@ -63,7 +59,7 @@
 
         process: function() {
 
-            var $this = this;
+            this.columns = this.element.children();
 
             UI.Utils.stackMargin(this.columns, this.options);
 
