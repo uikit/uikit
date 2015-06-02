@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed grid match items to wrap onto multiple lines
+
 ### 2.21.0 (June 01, 2015)
 
   - IMPORTANT: Reworked nestable component
