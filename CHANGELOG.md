@@ -1,5 +1,11 @@
 # Changelog
 
+### WIP
+
+  - Fixed grid match items to wrap onto multiple lines
+  - Fixed dropdown hide behavior
+  - Fixed stack margin with dynamic added children
+
 ### 2.21.0 (June 01, 2015)
 
   - IMPORTANT: Reworked nestable component
