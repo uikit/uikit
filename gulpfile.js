@@ -252,6 +252,7 @@ gulp.task('dist-bower-file', function(done) {
             "fonts/fontawesome-webfont.eot",
             "fonts/fontawesome-webfont.ttf",
             "fonts/fontawesome-webfont.woff",
+            "fonts/fontawesome-webfont.woff2",
             "fonts/FontAwesome.otf"
         ],
         "dependencies": {
