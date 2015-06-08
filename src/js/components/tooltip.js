@@ -76,7 +76,8 @@
 
             if (tooltipdelay)     clearTimeout(tooltipdelay);
             if (checkdelay)       clearTimeout(checkdelay);
-            if (!this.tip.length) return;
+
+            if (typeof(this.tip) === 'string' ? !this.tip.length:true) return;
 
             $tooltip.stop().css({"top": -2000, "visibility": "hidden"}).removeClass(this.options.activeClass).show();
             $tooltip.html('<div class="uk-tooltip-inner">' + this.tip + '</div>');
