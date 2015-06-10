@@ -33,7 +33,7 @@
 
                     e.preventDefault();
 
-                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
+                    UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
                     ele.trigger("click");
                 }
             });

@@ -44,7 +44,7 @@
 
             renderer: function(data) {
 
-                var $this = this, opts = this.options;
+                var opts = this.options;
 
                 this.dropdown.append(this.template({"items":data.results || [], "msgResultsHeader":opts.msgResultsHeader, "msgMoreResults": opts.msgMoreResults, "msgNoResults": opts.msgNoResults}));
                 this.show();
@@ -58,7 +58,7 @@
                 var ele =UI.$(this);
 
                 if (!ele.data("search")) {
-                    var obj = UI.search(ele, UI.Utils.options(ele.attr("data-uk-search")));
+                    UI.search(ele, UI.Utils.options(ele.attr("data-uk-search")));
                 }
             });
         },

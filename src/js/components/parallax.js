@@ -84,7 +84,7 @@
                     var parallax = UI.$(this);
 
                     if (!parallax.data("parallax")) {
-                        var obj = UI.parallax(parallax, UI.Utils.options(parallax.attr("data-uk-parallax")));
+                        UI.parallax(parallax, UI.Utils.options(parallax.attr("data-uk-parallax")));
                     }
                 });
             });
@@ -282,7 +282,7 @@
 
     function initBgImageParallax(obj, prop, opts) {
 
-        var img = new Image(), url, loaded, element, size, check, ratio, width, height;
+        var img = new Image(), url, element, size, check, ratio, width, height;
 
         element = obj.element.css({'background-size': 'cover',  'background-repeat': 'no-repeat'});
         url     = element.css('background-image').replace(/^url\(/g, '').replace(/\)$/g, '').replace(/("|')/g, '');

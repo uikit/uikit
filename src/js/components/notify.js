@@ -44,8 +44,6 @@
 
     var Message = function(options){
 
-        var $this = this;
-
         this.options = UI.$.extend({}, Message.defaults, options);
 
         this.uuid    = UI.Utils.uid("notifymsg");
