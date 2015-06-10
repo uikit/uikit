@@ -37,7 +37,7 @@
                     var ele = UI.$(this);
 
                     if(!ele.data("grid")) {
-                        var plugin = UI.grid(ele, UI.Utils.options(ele.attr('data-uk-grid')));
+                        UI.grid(ele, UI.Utils.options(ele.attr('data-uk-grid')));
                     }
                 });
             });
@@ -130,14 +130,13 @@
 
             elements = elements || this.element.children(':visible');
 
-            var $this     = this,
-                children  = elements,
+            var children  = elements,
                 maxwidth  = this.element.width() + (2*this.gutterh) + 2,
                 left      = 0,
                 top       = 0,
                 positions = [],
 
-                item, width, height, pos, aX, aY, i, z, max, size;
+                item, width, height, pos, i, z, max, size;
 
             this.trigger('beforeupdate.uk.grid', [children]);
 

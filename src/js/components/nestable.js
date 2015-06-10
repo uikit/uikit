@@ -23,7 +23,7 @@
         html         = UI.$html,
         touchedlists = [],
         $win         = UI.$win,
-        draggingElement, dragSource;
+        draggingElement;
 
     var eStart  = hasTouch ? 'touchstart'  : 'mousedown',
         eMove   = hasTouch ? 'touchmove'   : 'mousemove',

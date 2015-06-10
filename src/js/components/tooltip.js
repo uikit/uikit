@@ -48,7 +48,7 @@
                 var ele = UI.$(this);
 
                 if (!ele.data("tooltip")) {
-                    var obj = UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
+                    UI.tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
                     ele.trigger("mouseenter");
                 }
             });
