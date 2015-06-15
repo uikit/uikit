@@ -153,11 +153,11 @@
 
                 var $target = UI.$(e.target),
                     $link   = $target.is('a[href]') ? $target:$target.parents('a[href]');
-                
+
                 if ($target.is(':input')) {
                     return;
                 }
-                
+
                 e.preventDefault();
 
                 if (!supportsTouch && $link.length) {
@@ -375,6 +375,7 @@
                 overChild;
 
             if (overRoot[0] !== currentRoot[0] && groupCurrent !== undefined && groupOver === groupCurrent) {
+
                 overRoot.data('sortable').addDragHandlers();
 
                 touchedlists.push(overRoot);
@@ -383,7 +384,13 @@
                 // swap root
                 if (overRoot.children().length > 0) {
                     overChild = overEl.closest('.'+this.options.childClass);
-                    overChild.before($current);
+
+                    if (overChild.length) {
+                        overChild.before($current);
+                    } else {
+                        overRoot.append($current);
+                    }
+
                 } else { // empty list
                     overEl.append($current);
                 }

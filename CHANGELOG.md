@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Fixed element swapping between grouped lists
   - Fixed grid match items to wrap onto multiple lines
   - Fixed dropdown hide behavior
   - Fixed stack margin with dynamic added children
