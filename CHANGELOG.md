@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Updated placeholder default variables for all themes
   - Fixed element swapping between grouped lists
   - Fixed grid match items to wrap onto multiple lines
   - Fixed dropdown hide behavior
