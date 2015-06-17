@@ -513,17 +513,27 @@
                         }
                     }
                 }
+
                 // decrease horizontal level
                 if (mouse.distX < 0) {
 
-                    // we can't decrease a level if an item preceeds the current one
+                    // we cannot decrease the level if an item precedes the current one
                     next = this.placeEl.next(opt._listItemClass);
                     if (!next.length) {
-                        parent = this.placeEl.parent();
-                        this.placeEl.closest(opt._listItemClass).after(this.placeEl);
-                        if (!parent.children().not(this.placeEl).length) {
-                            parent.parent().after(this.placeEl);
-                            this.unsetParent(parent.parent());
+
+                        // get parent ul of the list item
+                        var parentUl = this.placeEl.closest([opt._listBaseClass, opt._listClass].join(','));
+                        // try to get the li surrounding the ul
+                        var surroundingLi = parentUl.closest(opt._listItemClass);
+
+                        // if the ul is inside of a li (meaning it is nested)
+                        if (surroundingLi.length) {
+                            // we can decrease the horizontal level
+                            surroundingLi.after(this.placeEl);
+                            // if the previous parent ul is now empty
+                            if (!parentUl.children().length) {
+                                this.unsetParent(surroundingLi);
+                            }
                         }
                     }
                 }
@@ -532,7 +542,7 @@
             var isEmpty = false;
 
             // find list item under cursor
-            var pointX = this.dragEl.offset().left - (window.pageXOffset || document.scrollLeft || 0),
+            var pointX = e.pageX - (window.pageXOffset || document.scrollLeft || 0),
                 pointY = e.pageY - (window.pageYOffset || document.documentElement.scrollTop);
             this.pointEl = UI.$(document.elementFromPoint(pointX, pointY));
 
