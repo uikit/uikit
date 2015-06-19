@@ -68,6 +68,9 @@
     UI.$html = UI.$('html');
 
     UI.support = {};
+
+    UI.support.webcomponents = ('registerElement' in document);
+
     UI.support.transition = (function() {
 
         var transitionEnd = (function() {
@@ -290,6 +293,17 @@
         return (prefix || 'id') + (new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
     };
 
+    UI.Utils.attributes = function(element) {
+
+        element = element[0] || element;
+
+        var options = {};
+
+        for(var i=0;i<element.attributes.length;i++) {
+            options[element.attributes[i].name] = UI.Utils.str2json(element.attributes[i].value);
+        }
+    };
+
     UI.Utils.template = function(str, data) {
 
         var tokens = str.replace(/\n/g, '\\n').replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g),
@@ -396,6 +410,7 @@
                 this.element.data(name, this);
             }
 
+            this.attached();
             this.init();
 
             (this.options.plugins.length ? this.options.plugins : Object.keys(fn.plugins)).forEach(function(plugin) {
@@ -420,6 +435,12 @@
 
             boot: function(){},
             init: function(){},
+
+            // triggerd as webcomponent
+            attached: function() {},
+            created: function() {},
+            detached: function() {},
+            attributeChanged: function(){},
 
             on: function(a1,a2,a3){
                 return UI.$(this.element || this).on(a1,a2,a3);
@@ -469,6 +490,46 @@
             }
 
         }, def);
+
+        if (def.webcomponent) {
+
+            if (UI.support.webcomponents) {
+
+                var webcomponent = $.extend({
+                    prototype: Object.create(HTMLElement.prototype),
+                    tag: name
+                }, def.webcomponent);
+
+                if (typeof(webcomponent.prototype) == 'string') {
+                    webcomponent.prototype = Object.create(window[webcomponent.prototype]);
+                }
+
+                $.extend(webcomponent.prototype, {
+
+                    attachedCallback: function(){
+                        UI[name](this, UI.Utils.attributes(this)); // attached is called in the constructor
+                    },
+                    detachedCallback: function(){
+                        UI[name](this).detached();
+                    },
+                    attributeChangedCallback: function() {
+                        UI[name](this).attributeChanged.apply(this, arguments);
+                    }
+                });
+
+                document.registerElement('uk-'+webcomponent.tag, { prototype: webcomponent.prototype});
+
+            } else {
+
+                // custom element fallback
+                UI.ready(function(context) {
+
+                    UI.$("uk-"+(webcomponent && webcomponent.tag || name), context).each(function() {
+                        UI[name](this, UI.Utils.attributes(this));
+                    });
+                });
+            }
+        }
 
         this.components[name] = fn;
 

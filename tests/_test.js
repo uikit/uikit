@@ -7,6 +7,8 @@
 
     var styles = [
 
+        'dist/css/components/webcomponents.css',
+
         // uikit core
         'dist/css/uikit{style}.css',
 
@@ -41,6 +43,7 @@
         // vendor
         'vendor/jquery.js',
         'vendor/holder.js',
+        'vendor/webcomponents-lite.min.js',
 
         // uikit
         'src/js/core/core.js',

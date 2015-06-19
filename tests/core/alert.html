@@ -7,6 +7,18 @@
         <title>Alert - UIkit tests</title>
 
         <script src="../_test.js"></script>
+
+        <script>
+
+            jQuery(function($){
+                $('#addbtn').on('click', function() {
+
+                    $('uk-alert:last').after('<uk-alert close>Test</uk-alert>');
+                });
+            });
+
+        </script>
+
     </head>
 
     <body>
@@ -60,6 +72,28 @@
                 <h2>Today's headline</h2>
                 <p>This is a danger alert using an button element as close button. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
             </div>
+
+            <h1>Webcomponent</h1>
+
+            <uk-alert close>
+                <p>This is an info alert.</p>
+            </uk-alert>
+
+            <uk-alert type="success" close>
+                <p>This is a success alert.</p>
+            </uk-alert>
+
+            <uk-alert type="warning" close>
+                <p>This is a warning alert.</p>
+            </uk-alert>
+
+            <uk-alert type="danger" close>
+                <p>This is a danger alert.</p>
+            </uk-alert>
+
+            <p>
+                <buuton class="uk-button" id="addbtn">Add dynamic alert element</buuton>
+            </p>
 
         </div>
 

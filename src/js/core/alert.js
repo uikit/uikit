@@ -10,6 +10,21 @@
             "trigger": ".uk-alert-close"
         },
 
+        webcomponent: true,
+
+        attached: function() {
+
+            this.element.addClass('uk-alert');
+
+            if (this.element.attr('close') !== undefined) {
+                this.element.prepend('<a href="#" class="uk-alert-close uk-close"></a>');
+            }
+
+            if (this.element.attr('type')) {
+                this.element.addClass('uk-alert-'+this.element.attr('type'));
+            }
+        },
+
         boot: function() {
 
             // init code
