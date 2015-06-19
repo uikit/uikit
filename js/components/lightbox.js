@@ -67,7 +67,7 @@
 
         init: function() {
 
-            var $this = this, siblings = [];
+            var siblings = [];
 
             this.index    = 0;
             this.siblings = [];

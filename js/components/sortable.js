@@ -70,7 +70,7 @@
                     var ele = UI.$(this);
 
                     if(!ele.data("sortable")) {
-                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
+                        UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
                     }
                 });
             });
@@ -139,8 +139,7 @@
         init: function() {
 
             var $this   = this,
-                element = this.element[0],
-                children;
+                element = this.element[0];
 
             touchedlists = [];
 
@@ -155,11 +154,11 @@
 
                 var $target = UI.$(e.target),
                     $link   = $target.is('a[href]') ? $target:$target.parents('a[href]');
-                
+
                 if ($target.is(':input')) {
                     return;
                 }
-                
+
                 e.preventDefault();
 
                 if (!supportsTouch && $link.length) {
@@ -296,8 +295,7 @@
             dragging = false;
 
             var $this    = this,
-                target   = UI.$(e.target),
-                children = $this.element.children();
+                target   = UI.$(e.target);
 
             if (!supportsTouch && e.button==2) {
                 return;
@@ -378,6 +376,7 @@
                 overChild;
 
             if (overRoot[0] !== currentRoot[0] && groupCurrent !== undefined && groupOver === groupCurrent) {
+
                 overRoot.data('sortable').addDragHandlers();
 
                 touchedlists.push(overRoot);
@@ -386,7 +385,13 @@
                 // swap root
                 if (overRoot.children().length > 0) {
                     overChild = overEl.closest('.'+this.options.childClass);
-                    overChild.before($current);
+
+                    if (overChild.length) {
+                        overChild.before($current);
+                    } else {
+                        overRoot.append($current);
+                    }
+
                 } else { // empty list
                     overEl.append($current);
                 }

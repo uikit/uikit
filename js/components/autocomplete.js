@@ -50,7 +50,7 @@
                 var ele = UI.$(this);
 
                 if (!ele.data("autocomplete")) {
-                    var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
+                    UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
                 }
             });
 
@@ -309,8 +309,6 @@
         },
 
         render: function(data) {
-
-            var $this = this;
 
             this.dropdown.empty();
 

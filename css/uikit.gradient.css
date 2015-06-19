@@ -3471,7 +3471,7 @@ select.uk-form-width-mini {
   position: absolute;
   top: 50%;
   width: 30px;
-  margin-top: -7px;
+  margin-top: -8px;
   font-size: 14px;
   color: #999999;
   text-align: center;
@@ -3806,7 +3806,9 @@ select.uk-form-width-mini {
      * the active state will not work if you click the icon inside the button
      * Workaround: Just use a `button` or `input` element as button
      */
-.uk-button-group .uk-button:active {
+.uk-button-group .uk-button:hover,
+.uk-button-group .uk-button:active,
+.uk-button-group .uk-button.uk-active {
   position: relative;
 }
 /* ========================================================================

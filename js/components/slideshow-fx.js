@@ -132,8 +132,6 @@
 
             for (var i = 0; i < this.options.slices; i++) {
 
-                var width = (i == this.options.slices-1) ? (ghostWidth - (sliceWidth*i)) : sliceWidth;
-
                 bar = UI.$('<div class="uk-cover-background"></div>').css({
                     'position'           : 'absolute',
                     'top'                : 0,
@@ -361,7 +359,7 @@
             if (!animations[this.fxIndex]) this.fxIndex = 0;
 
             return Animations[animations[this.fxIndex]].apply(this, arguments);
-        },
+        }
     });
 
 
