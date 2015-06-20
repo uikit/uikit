@@ -224,7 +224,7 @@
 
                 if (sticky.boundary && sticky.boundary.length) {
 
-                    var bTop = sticky.boundary.position().top;
+                    var bTop = sticky.boundary.offset().top;
 
                     if (sticky.boundtoparent) {
                         containerBottom = documentHeight - (bTop + sticky.boundary.outerHeight()) + parseInt(sticky.boundary.css('padding-bottom'));
