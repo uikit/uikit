@@ -46,7 +46,8 @@
             group           : false,
             maxDepth        : 10,
             threshold       : 20,
-            idlethreshold   : 10
+            idlethreshold   : 10,
+            removeWhitespace: true
         },
 
         boot: function() {
@@ -625,7 +626,7 @@
 
             list  = list ? UI.$(list) : this.element;
 
-            if (!list.children().length) {
+            if (this.options.removeWhitespace && !list.children().length) {
                 list.html('');
             }
         }
