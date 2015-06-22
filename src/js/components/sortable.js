@@ -53,6 +53,7 @@
             dragCustomClass  : '',
             handleClass      : false,
             group            : false,
+            removeWhitespace : true,
 
             stop             : function() {},
             start            : function() {},
@@ -143,7 +144,7 @@
             touchedlists = [];
 
             // make sure :empty selector works on empty lists
-            if (this.element.children().length === 0) {
+            if (this.options.removeWhitespace && this.element.children().length === 0) {
                 this.element.html('');
             }
 
@@ -401,7 +402,7 @@
                 }
 
                 // list empty? remove inner whitespace to make sure :empty selector works
-                if (currentRoot.children().length === 0) {
+                if (this.options.removeWhitespace && currentRoot.children().length === 0) {
                     currentRoot.html('');
                 }
 
