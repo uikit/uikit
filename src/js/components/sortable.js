@@ -352,7 +352,12 @@
 
                     draggingPlaceholder.$current  = $current;
                     draggingPlaceholder.$sortable = $this;
-                    $current.data('sortable-group', $this.options.group);
+
+                    $current.data({
+                        'start-list': $current.parent(),
+                        'start-index': $current.index(),
+                        'sortable-group': $this.options.group
+                    });
 
                     $this.addDragHandlers();
 
