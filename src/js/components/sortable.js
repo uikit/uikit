@@ -50,10 +50,10 @@
             dragMovingClass  : 'uk-sortable-moving',
             baseClass        : 'uk-sortable',
             noDragClass      : 'uk-sortable-nodrag',
+            emptyClass       : 'uk-sortable-empty',
             dragCustomClass  : '',
             handleClass      : false,
             group            : false,
-            removeWhitespace : true,
 
             stop             : function() {},
             start            : function() {},
@@ -143,10 +143,7 @@
 
             touchedlists = [];
 
-            // make sure :empty selector works on empty lists
-            if (this.options.removeWhitespace && this.element.children().length === 0) {
-                this.element.html('');
-            }
+            this.checkEmptyList();
 
             this.element.data('sortable-group', this.options.group ? this.options.group : UI.Utils.uid('sortable-group'));
 
@@ -401,13 +398,11 @@
                     overEl.append($current);
                 }
 
-                // list empty? remove inner whitespace to make sure :empty selector works
-                if (this.options.removeWhitespace && currentRoot.children().length === 0) {
-                    currentRoot.html('');
-                }
-
                 UIkit.$doc.trigger('mouseover');
             }
+
+            this.checkEmptyList();
+            this.checkEmptyList(currentRoot);
         },
 
         dragEnter: function(e, elem) {
@@ -597,6 +592,15 @@
             });
 
             return data;
+        },
+
+        checkEmptyList: function(list) {
+
+            list  = list ? UI.$(list) : this.element;
+
+            if (this.options.emptyClass) {
+                list[!list.children().length ? 'addClass':'removeClass'](this.options.emptyClass);
+            }
         }
     });
 
