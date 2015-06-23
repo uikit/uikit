@@ -39,6 +39,7 @@
             listItemClass   : 'uk-nestable-item',
             dragClass       : 'uk-nestable-dragged',
             movingClass     : 'uk-nestable-moving',
+            emptyClass      : 'uk-nestable-empty',
             handleClass     : '',
             collapsedClass  : 'uk-collapsed',
             placeholderClass: 'uk-nestable-placeholder',
@@ -47,7 +48,6 @@
             maxDepth        : 10,
             threshold       : 20,
             idlethreshold   : 10,
-            removeWhitespace: true
         },
 
         boot: function() {
@@ -626,8 +626,8 @@
 
             list  = list ? UI.$(list) : this.element;
 
-            if (this.options.removeWhitespace && !list.children().length) {
-                list.html('');
+            if (this.options.emptyClass) {
+                list[!list.children().length ? 'addClass':'removeClass'](this.options.emptyClass);
             }
         }
 
