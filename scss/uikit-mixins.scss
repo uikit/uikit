@@ -107,6 +107,11 @@
 @mixin hook-article-lead(){}
 @mixin hook-article-divider(){}
 @mixin hook-article-misc(){}
+@mixin hook-badge(){}
+@mixin hook-badge-success(){}
+@mixin hook-badge-warning(){}
+@mixin hook-badge-danger(){}
+@mixin hook-badge-misc(){}
 @mixin hook-base-body(){}
 @mixin hook-base-code(){}
 @mixin hook-base-h1(){}
@@ -117,11 +122,6 @@
 @mixin hook-base-h6(){}
 @mixin hook-base-pre(){}
 @mixin hook-base-misc(){}
-@mixin hook-badge(){}
-@mixin hook-badge-success(){}
-@mixin hook-badge-warning(){}
-@mixin hook-badge-danger(){}
-@mixin hook-badge-misc(){}
 @mixin hook-block(){}
 @mixin hook-block-default(){}
 @mixin hook-block-muted(){}

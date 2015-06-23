@@ -39,7 +39,7 @@
 }
 /* Empty List
  ========================================================================== */
-.uk-sortable:empty {
+.uk-sortable-empty {
   min-height: 30px;
 }
 /* Sub-object `uk-sortable-handle`

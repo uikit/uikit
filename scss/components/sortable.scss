@@ -83,7 +83,7 @@ $sortable-empty-height:                          30px !default;
 /* Empty List
  ========================================================================== */
 
-.uk-sortable:empty {
+.uk-sortable-empty {
     min-height: $sortable-empty-height;
     @include hook-sortable-empty();
 }

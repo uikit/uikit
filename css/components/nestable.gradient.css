@@ -68,7 +68,7 @@
 }
 /* Empty List
  ========================================================================== */
-.uk-nestable:empty {
+.uk-nestable-empty {
   min-height: 30px;
 }
 /* Sub-object `uk-nestable-handle`
