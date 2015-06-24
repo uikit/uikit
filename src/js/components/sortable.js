@@ -481,6 +481,8 @@
         },
 
         triggerChangeEvents: function() {
+         
+            var $this = this;
 
             // trigger events once
             if (!currentlyDraggingElement) return;
@@ -498,6 +500,7 @@
             }
 
             triggers.forEach(function (trigger, i) {
+                $this.options.change(this, currentlyDraggingElement);
                 trigger.el.trigger('change.uk.sortable', [trigger.el, currentlyDraggingElement, trigger.mode]);
             });
         },
