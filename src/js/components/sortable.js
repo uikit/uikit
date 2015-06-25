@@ -488,17 +488,18 @@
             var $current = UI.$(currentlyDraggingElement),
                 oldRoot  = draggingPlaceholder.data("origin"),
                 newRoot  = $current.closest('.'+this.options.baseClass),
-                triggers = [];
+                triggers = [],
+                el       = UI.$(currentlyDraggingElement);
 
             // events depending on move inside lists or across lists
             if (oldRoot[0] === newRoot[0] && draggingPlaceholder.data('index') != $current.index() ) {
-                triggers.push({el: this, mode: 'moved'});
+                triggers.push({sortable: this, mode: 'moved'});
             } else if (oldRoot[0] != newRoot[0]) {
-                triggers.push({el: newRoot, mode: 'added'}, {el: oldRoot, mode: 'removed'});
+                triggers.push({sortable: UI.$(newRoot).data('sortable'), mode: 'added'}, {sortable: UI.$(oldRoot).data('sortable'), mode: 'removed'});
             }
 
             triggers.forEach(function (trigger, i) {
-                trigger.el.trigger('change.uk.sortable', [trigger.el, currentlyDraggingElement, trigger.mode]);
+                trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
             });
         },
 

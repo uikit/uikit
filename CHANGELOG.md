@@ -9,6 +9,7 @@
   - Fixed dropdown hide behavior
   - Fixed stack margin with dynamic added children
   - Fixed form icon margin
+  - Unified sortable and nestable change event parameters
 
 ### 2.21.0 (June 01, 2015)
 
