@@ -5,13 +5,13 @@
   - Updated placeholder default variables for all themes
   - Updated sortable and nestable empty selectors
   - Moved block padding adjustment into themes
+  - Unified sortable and nestable change event parameters
   - Fixed element swapping between grouped lists
   - Fixed grid match items to wrap onto multiple lines
   - Fixed dropdown hide behavior
   - Fixed stack margin with dynamic added children
   - Fixed form icon margin
-  - Unified sortable and nestable change event parameters
-
+  
 ### 2.21.0 (June 01, 2015)
 
   - IMPORTANT: Reworked nestable component
