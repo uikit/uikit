@@ -3,7 +3,8 @@
 ### WIP
 
   - Updated placeholder default variables for all themes
-  - Added uk-sortable-empty and uk-nestable-empty classes
+  - Updated sortable and nestable empty selectors
+  - Moved block padding adjustment into themes
   - Fixed element swapping between grouped lists
   - Fixed grid match items to wrap onto multiple lines
   - Fixed dropdown hide behavior
