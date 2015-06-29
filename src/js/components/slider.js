@@ -207,7 +207,7 @@
 
             dir = dir || (idx > this.focus ? 1:-1);
 
-            var $this = this, item = this.items.eq(idx), area, i;
+            var item = this.items.eq(idx), area, i;
 
             if (this.options.infinite) {
                 this.infinite(idx, dir);
@@ -282,7 +282,7 @@
 
         infinite: function(baseidx, direction) {
 
-            var $this = this, item = this.items.eq(baseidx), i, z = baseidx, move = [], lastvisible, area = 0;
+            var $this = this, item = this.items.eq(baseidx), i, z = baseidx, move = [], area = 0;
 
             if (direction == 1) {
 
@@ -439,7 +439,10 @@
 
             dragging.container.removeClass('uk-drag');
 
-            var item  = dragging.items.eq(store.focus), itm, focus = false, i, z;
+            // TODO is this needed?
+            dragging.items.eq(store.focus);
+
+            var itm, focus = false, i, z;
 
             if (store.dir == 1) {
 

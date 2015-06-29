@@ -24,9 +24,14 @@
 
             jQuery(function($){
 
-                $("body").on('change.uk.sortable', function (e, foo, el, mode) {
-                    console.log('change', mode);
+                $("body").on('start.uk.sortable', function (e, sortable, el) {
+                    console.log('start.uk.sortable', sortable, el);
+                }).on('move.uk.sortable', function(e, sortable) {
+                    console.log('move.uk.sortable', sortable);
+                }).on('change.uk.sortable', function(e, sortable, el, mode) {
+                    console.log('change.uk.sortable', sortable, el, mode);
                 }).on('stop.uk.sortable', function(e, sortable) {
+                    console.log('stop.uk.sortable', sortable);
                     console.log( sortable.serialize() );
                 });
             });
@@ -63,22 +68,22 @@
             <div class="uk-grid uk-grid-width-medium-1-3">
                 <div>
 
-                    <h2>Stacked</h2>
+                    <h2>Stacked with data</h2>
 
                     <div class="uk-sortable uk-margin" data-uk-sortable="{group:'test'}">
-                        <div class="uk-margin">
+                        <div class="uk-margin" data-test="{id: 1, name: 'Item 1'}">
                             <div class="uk-panel uk-panel-box">Item 1</div>
                         </div>
-                        <div class="uk-margin">
+                        <div class="uk-margin" data-test="{id: 2, name: 'Item 2'}">
                             <div class="uk-panel uk-panel-box">Item 2</div>
                         </div>
-                        <div class="uk-margin">
+                        <div class="uk-margin" data-test="{id: 3, name: 'Item 3'}">
                             <div class="uk-panel uk-panel-box">Item 3</div>
                         </div>
-                        <div class="uk-margin">
+                        <div class="uk-margin" data-test="{id: 4, name: 'Item 4'}">
                             <div class="uk-panel uk-panel-box">Item 4</div>
                         </div>
-                        <div class="uk-margin">
+                        <div class="uk-margin" data-test="{id: 5, name: 'Item 5'}">
                             <div class="uk-panel uk-panel-box">Item 5</div>
                         </div>
                     </div>

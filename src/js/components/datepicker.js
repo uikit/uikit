@@ -143,7 +143,7 @@
 
                 if (!ele.data("datepicker")) {
                     e.preventDefault();
-                    var obj = UI.datepicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
+                    UI.datepicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
                     ele.trigger("focus");
                 }
             });

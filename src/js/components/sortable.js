@@ -50,6 +50,7 @@
             dragMovingClass  : 'uk-sortable-moving',
             baseClass        : 'uk-sortable',
             noDragClass      : 'uk-sortable-nodrag',
+            emptyClass       : 'uk-sortable-empty',
             dragCustomClass  : '',
             handleClass      : false,
             group            : false,
@@ -69,7 +70,7 @@
                     var ele = UI.$(this);
 
                     if(!ele.data("sortable")) {
-                        var plugin = UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
+                        UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
                     }
                 });
             });
@@ -138,15 +139,11 @@
         init: function() {
 
             var $this   = this,
-                element = this.element[0],
-                children;
+                element = this.element[0];
 
             touchedlists = [];
 
-            // make sure :empty selector works on empty lists
-            if (this.element.children().length === 0) {
-                this.element.html('');
-            }
+            this.checkEmptyList();
 
             this.element.data('sortable-group', this.options.group ? this.options.group : UI.Utils.uid('sortable-group'));
 
@@ -154,11 +151,11 @@
 
                 var $target = UI.$(e.target),
                     $link   = $target.is('a[href]') ? $target:$target.parents('a[href]');
-                
+
                 if ($target.is(':input')) {
                     return;
                 }
-                
+
                 e.preventDefault();
 
                 if (!supportsTouch && $link.length) {
@@ -295,8 +292,7 @@
             dragging = false;
 
             var $this    = this,
-                target   = UI.$(e.target),
-                children = $this.element.children();
+                target   = UI.$(e.target);
 
             if (!supportsTouch && e.button==2) {
                 return;
@@ -354,7 +350,12 @@
 
                     draggingPlaceholder.$current  = $current;
                     draggingPlaceholder.$sortable = $this;
-                    $current.data('sortable-group', $this.options.group);
+
+                    $current.data({
+                        'start-list': $current.parent(),
+                        'start-index': $current.index(),
+                        'sortable-group': $this.options.group
+                    });
 
                     $this.addDragHandlers();
 
@@ -377,6 +378,7 @@
                 overChild;
 
             if (overRoot[0] !== currentRoot[0] && groupCurrent !== undefined && groupOver === groupCurrent) {
+
                 overRoot.data('sortable').addDragHandlers();
 
                 touchedlists.push(overRoot);
@@ -385,18 +387,22 @@
                 // swap root
                 if (overRoot.children().length > 0) {
                     overChild = overEl.closest('.'+this.options.childClass);
-                    overChild.before($current);
+
+                    if (overChild.length) {
+                        overChild.before($current);
+                    } else {
+                        overRoot.append($current);
+                    }
+
                 } else { // empty list
                     overEl.append($current);
                 }
 
-                // list empty? remove inner whitespace to make sure :empty selector works
-                if (currentRoot.children().length === 0) {
-                    currentRoot.html('');
-                }
-
                 UIkit.$doc.trigger('mouseover');
             }
+
+            this.checkEmptyList();
+            this.checkEmptyList(currentRoot);
         },
 
         dragEnter: function(e, elem) {
@@ -482,17 +488,18 @@
             var $current = UI.$(currentlyDraggingElement),
                 oldRoot  = draggingPlaceholder.data("origin"),
                 newRoot  = $current.closest('.'+this.options.baseClass),
-                triggers = [];
+                triggers = [],
+                el       = UI.$(currentlyDraggingElement);
 
             // events depending on move inside lists or across lists
             if (oldRoot[0] === newRoot[0] && draggingPlaceholder.data('index') != $current.index() ) {
-                triggers.push({el: this, mode: 'moved'});
+                triggers.push({sortable: this, mode: 'moved'});
             } else if (oldRoot[0] != newRoot[0]) {
-                triggers.push({el: newRoot, mode: 'added'}, {el: oldRoot, mode: 'removed'});
+                triggers.push({sortable: UI.$(newRoot).data('sortable'), mode: 'added'}, {sortable: UI.$(oldRoot).data('sortable'), mode: 'removed'});
             }
 
             triggers.forEach(function (trigger, i) {
-                trigger.el.trigger('change.uk.sortable', [trigger.el, currentlyDraggingElement, trigger.mode]);
+                trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
             });
         },
 
@@ -586,6 +593,15 @@
             });
 
             return data;
+        },
+
+        checkEmptyList: function(list) {
+
+            list  = list ? UI.$(list) : this.element;
+
+            if (this.options.emptyClass) {
+                list[!list.children().length ? 'addClass':'removeClass'](this.options.emptyClass);
+            }
         }
     });
 
