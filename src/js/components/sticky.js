@@ -90,6 +90,27 @@
                 }
             }
 
+            // dynamic top parameter
+            if (this.options.top && typeof(this.options.top) == 'string') {
+
+                // e.g. 50vh
+                if (this.options.top.match(/^(\d+)vh$/)) {
+                    this.options.top = -1 * window.innerHeight * parseInt(this.options.top, 10)/100;
+
+                // e.g. #elementId, or .class-1,class-2,.class-3 (first found is used)
+                } else {
+
+                    var topElement = UI.$(this.options.top).first();
+
+                    if (topElement.length && topElement.is(':visible')) {
+                        this.options.top = -1 * topElement.offset().top - this.wrapper.offset().top;
+                    } else {
+                        this.options.top = 0;
+                    }
+                }
+
+            }
+
             this.sticky = {
                 self          : this,
                 options       : this.options,
