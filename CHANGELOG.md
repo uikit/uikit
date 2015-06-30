@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added animation duration variables to sticky
   - Updated placeholder default variables for all themes
   - Updated sortable and nestable empty selectors
   - Moved block padding adjustment into themes
