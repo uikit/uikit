@@ -3,6 +3,7 @@
 ### WIP
 
   - Added animation duration variables to sticky
+  - Added showup option to sticky component
   - Updated placeholder default variables for all themes
   - Updated sortable and nestable empty selectors
   - Moved block padding adjustment into themes

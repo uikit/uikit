@@ -18,7 +18,8 @@
 
     var $win         = UI.$win,
         $doc         = UI.$doc,
-        sticked      = [];
+        sticked      = [],
+        direction    = 1;
 
     UI.component('sticky', {
 
@@ -29,6 +30,7 @@
             clsinit      : 'uk-sticky-init',
             clsactive    : 'uk-active',
             getWidthFrom : '',
+            showup      : false,
             boundary     : false,
             media        : false,
             target       : false,
@@ -38,7 +40,11 @@
         boot: function() {
 
             // should be more efficient than using $win.scroll(checkscrollposition):
-            UI.$doc.on('scrolling.uk.document', function() { checkscrollposition(); });
+            UI.$doc.on('scrolling.uk.document', function(e, data) {
+                direction = data.dir.y;
+                checkscrollposition();
+            });
+
             UI.$win.on('resize orientationchange', UI.Utils.debounce(function() {
 
                 if (!sticked.length) return;
@@ -173,9 +179,14 @@
                         dwh            = documentHeight - window.innerHeight,
                         extra          = (scrollTop > dwh) ? dwh - scrollTop : 0,
                         elementTop     = this.wrapper.offset().top,
-                        etse           = elementTop - this.options.top - extra;
+                        etse           = elementTop - this.options.top - extra,
+                        active         = (scrollTop  >= etse);
 
-                    return (scrollTop  >= etse);
+                    if (active && this.options.showup && direction == 1) {
+                        active = false;
+                    }
+
+                    return active;
                 }
             };
 
@@ -206,7 +217,7 @@
         }
     });
 
-    function checkscrollposition() {
+    function checkscrollposition(direction) {
 
         var stickies = arguments.length ? arguments : sticked;
 
