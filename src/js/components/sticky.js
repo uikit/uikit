@@ -101,7 +101,7 @@
 
                 // e.g. 50vh
                 if (this.options.top.match(/^(\d+)vh$/)) {
-                    this.options.top = -1 * window.innerHeight * parseInt(this.options.top, 10)/100;
+                    this.options.top = window.innerHeight * parseInt(this.options.top, 10)/100;
 
                 // e.g. #elementId, or .class-1,class-2,.class-3 (first found is used)
                 } else {
