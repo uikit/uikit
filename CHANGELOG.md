@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added autoplay to slider component
   - Added animation duration variables to sticky
   - Added showup option to sticky component
   - Updated placeholder default variables for all themes
