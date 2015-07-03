@@ -16,6 +16,7 @@
   - Fixed dropdown prevent show() on active element
   - Fixed stack margin with dynamic added children
   - Fixed form icon margin
+  - Fixed pagination "currentPage" option
 
 ### 2.21.0 (June 01, 2015)
 

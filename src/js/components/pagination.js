@@ -27,7 +27,7 @@
             pages          : 0,
             displayedPages : 3,
             edges          : 3,
-            currentPage    : 1,
+            currentPage    : 0,
             lblPrev        : false,
             lblNext        : false,
             onSelectPage   : function() {}
@@ -53,7 +53,7 @@
             var $this = this;
 
             this.pages         = this.options.pages ?  this.options.pages : Math.ceil(this.options.items / this.options.itemsOnPage) ? Math.ceil(this.options.items / this.options.itemsOnPage) : 1;
-            this.currentPage   = this.options.currentPage - 1;
+            this.currentPage   = this.options.currentPage;
             this.halfDisplayed = this.options.displayedPages / 2;
 
             this.on("click", "a[data-page]", function(e){
