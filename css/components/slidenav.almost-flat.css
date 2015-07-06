@@ -11,7 +11,6 @@
   /* 1 */
   display: inline-block;
   /* 2 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 60px;
   height: 60px;

@@ -73,7 +73,6 @@ $dropdown-scrollable-height:                     200px !default;
     left: 0;
     z-index: $dropdown-z-index;
     /* 3 */
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     /* 4 */
     width: $dropdown-width;

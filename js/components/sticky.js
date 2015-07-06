@@ -19,7 +19,8 @@
 
     var $win         = UI.$win,
         $doc         = UI.$doc,
-        sticked      = [];
+        sticked      = [],
+        direction    = 1;
 
     UI.component('sticky', {
 
@@ -30,6 +31,7 @@
             clsinit      : 'uk-sticky-init',
             clsactive    : 'uk-active',
             getWidthFrom : '',
+            showup      : false,
             boundary     : false,
             media        : false,
             target       : false,
@@ -39,7 +41,11 @@
         boot: function() {
 
             // should be more efficient than using $win.scroll(checkscrollposition):
-            UI.$doc.on('scrolling.uk.document', function() { checkscrollposition(); });
+            UI.$doc.on('scrolling.uk.document', function(e, data) {
+                direction = data.dir.y;
+                checkscrollposition();
+            });
+
             UI.$win.on('resize orientationchange', UI.Utils.debounce(function() {
 
                 if (!sticked.length) return;
@@ -89,6 +95,27 @@
                 } else if (typeof boundary === "string") {
                     boundary = UI.$(boundary);
                 }
+            }
+
+            // dynamic top parameter
+            if (this.options.top && typeof(this.options.top) == 'string') {
+
+                // e.g. 50vh
+                if (this.options.top.match(/^(\d+)vh$/)) {
+                    this.options.top = window.innerHeight * parseInt(this.options.top, 10)/100;
+
+                // e.g. #elementId, or .class-1,class-2,.class-3 (first found is used)
+                } else {
+
+                    var topElement = UI.$(this.options.top).first();
+
+                    if (topElement.length && topElement.is(':visible')) {
+                        this.options.top = -1 * topElement.offset().top - this.wrapper.offset().top;
+                    } else {
+                        this.options.top = 0;
+                    }
+                }
+
             }
 
             this.sticky = {
@@ -153,9 +180,14 @@
                         dwh            = documentHeight - window.innerHeight,
                         extra          = (scrollTop > dwh) ? dwh - scrollTop : 0,
                         elementTop     = this.wrapper.offset().top,
-                        etse           = elementTop - this.options.top - extra;
+                        etse           = elementTop - this.options.top - extra,
+                        active         = (scrollTop  >= etse);
 
-                    return (scrollTop  >= etse);
+                    if (active && this.options.showup && direction == 1) {
+                        active = false;
+                    }
+
+                    return active;
                 }
             };
 
@@ -186,7 +218,7 @@
         }
     });
 
-    function checkscrollposition() {
+    function checkscrollposition(direction) {
 
         var stickies = arguments.length ? arguments : sticked;
 
@@ -225,7 +257,7 @@
 
                 if (sticky.boundary && sticky.boundary.length) {
 
-                    var bTop = sticky.boundary.position().top;
+                    var bTop = sticky.boundary.offset().top;
 
                     if (sticky.boundtoparent) {
                         containerBottom = documentHeight - (bTop + sticky.boundary.outerHeight()) + parseInt(sticky.boundary.css('padding-bottom'));

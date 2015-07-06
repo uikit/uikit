@@ -8,7 +8,6 @@
 [data-uk-sticky].uk-active {
   z-index: 980;
   /* 1 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 /*
@@ -23,10 +22,10 @@
  * Faster animations
  */
 [data-uk-sticky][class*='uk-animation-'] {
-  -webkit-animation-duration: 0.15s;
-  animation-duration: 0.15s;
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
 }
 [data-uk-sticky].uk-animation-reverse {
-  -webkit-animation-duration: 0.04s;
-  animation-duration: 0.04s;
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
 }

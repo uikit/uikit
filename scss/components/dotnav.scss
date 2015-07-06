@@ -104,7 +104,6 @@ $dotnav-contrast-active-background:              rgba(255,255,255,0.9) !default;
 
 .uk-dotnav > * > * {
     display: block;
-    -moz-box-sizing: content-box;
     box-sizing: content-box;
     width: $dotnav-width;
     height: $dotnav-height;

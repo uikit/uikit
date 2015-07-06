@@ -15,7 +15,6 @@
   position: absolute;
   z-index: 1030;
   /* 3 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   max-width: 200px;
   padding: 5px 8px;

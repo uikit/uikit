@@ -64,7 +64,6 @@ $slidenav-contrast-active-color:                 rgba(255,255,255,0.9) !default;
     /* 1 */
     display: inline-block;
     /* 2 */
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: $slidenav-width;
     height: $slidenav-height;

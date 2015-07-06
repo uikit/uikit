@@ -13,6 +13,9 @@
 
 @sticky-z-index:                                980;
 
+@sticky-animation-duration:                     0.2s;
+@sticky-reverse-animation-duration:             0.2s;
+
 
 /* ========================================================================
    Component: Sticky
@@ -25,7 +28,6 @@
 [data-uk-sticky].uk-active {
    z-index: @sticky-z-index;
    /* 1 */
-   -moz-box-sizing: border-box;
    box-sizing: border-box;
 }
 
@@ -44,13 +46,13 @@
  */
 
 [data-uk-sticky][class*='uk-animation-'] {
-    -webkit-animation-duration: 0.15s;
-    animation-duration: 0.15s;
+    -webkit-animation-duration: @sticky-animation-duration;
+    animation-duration: @sticky-animation-duration;
 }
 
 [data-uk-sticky].uk-animation-reverse {
-    -webkit-animation-duration: 0.04s;
-    animation-duration: 0.04s;
+    -webkit-animation-duration: @sticky-reverse-animation-duration;
+    animation-duration: @sticky-reverse-animation-duration;
 }
 
 

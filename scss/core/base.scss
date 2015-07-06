@@ -243,7 +243,6 @@ img {
     max-width: 100%;
     height: auto;
     /* 2 */
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     /* 3 */
     border: 0;
@@ -396,7 +395,6 @@ dd { margin-left: 0; }
 
 hr {
     /* 1 */
-    -moz-box-sizing: content-box;
     box-sizing: content-box;
     height: 0;
     /* 2 */

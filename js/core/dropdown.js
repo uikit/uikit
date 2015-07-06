@@ -135,6 +135,10 @@
                         clearTimeout($this.remainIdle);
                     }
 
+                    if (active && active == $this) {
+                        return;
+                    }
+
                     if ($target.is("a[href='#']") || $target.parent().is("a[href='#']")){
                         e.preventDefault();
                     }

@@ -28,11 +28,10 @@
             "delay": 0, // in miliseconds
             "cls": "",
             "activeClass": "uk-active",
-            "src": function(ele, title) {
+            "src": function(ele) {
+                var title = ele.attr('title');
 
-                title = ele.attr('title');
-
-                if (title) {
+                if (title !== undefined) {
                     ele.data('cached-title', title).removeAttr('title');
                 }
 

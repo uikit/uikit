@@ -149,7 +149,6 @@ img {
   max-width: 100%;
   height: auto;
   /* 2 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 3 */
   border: 0;
@@ -292,7 +291,6 @@ dd {
  */
 hr {
   /* 1 */
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
   /* 2 */
@@ -612,14 +610,12 @@ iframe {
   -ms-flex: none;
   -webkit-flex: none;
   flex: none;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
 }
 /* Even grid cell widths
  ========================================================================== */
 [class*='uk-grid-width'] > * {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
 }
@@ -728,7 +724,6 @@ iframe {
 /* Sub-objects: `uk-width-*`
  ========================================================================== */
 [class*='uk-width'] {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
 }
@@ -1329,7 +1324,6 @@ iframe {
  ========================================================================== */
 .uk-block {
   position: relative;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -1408,8 +1402,8 @@ iframe {
   background: #222222;
 }
 /*
- * Adjust padding between equal colored blocks
- */
+     * Adjust padding between equal colored blocks
+     */
 .uk-block-default + .uk-block-default,
 .uk-block-muted + .uk-block-muted,
 .uk-block-primary + .uk-block-primary,
@@ -1944,7 +1938,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
  */
 .uk-navbar-nav > li > a {
   display: block;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   text-decoration: none;
   /* 1 */
@@ -2019,7 +2012,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-content,
 .uk-navbar-brand,
 .uk-navbar-toggle {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
   height: 41px;
@@ -2378,7 +2370,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   line-height: 20px;
   text-decoration: none;
   /* 1 */
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   /* 2 */
   text-align: center;
@@ -3005,7 +2996,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-form select,
 .uk-form textarea {
   /* 1 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 2 */
   margin: 0;
@@ -3509,7 +3499,6 @@ select.uk-form-width-mini {
   text-transform: none;
   /* 7 */
   display: inline-block;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0 12px;
   background: #f5f5f5;
@@ -3849,7 +3838,6 @@ select.uk-form-width-mini {
 /* Modifier: `uk-icon-button`
  ========================================================================== */
 .uk-icon-button {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: inline-block;
   width: 35px;
@@ -5553,7 +5541,6 @@ select.uk-form-width-mini {
   background: transparent;
   /* 8 */
   display: inline-block;
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   width: 20px;
   line-height: 20px;
@@ -5632,7 +5619,6 @@ a.uk-badge:hover {
 /* Modifier: `uk-badge-notification`;
  ========================================================================== */
 .uk-badge-notification {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   min-width: 18px;
   border-radius: 500px;
@@ -5750,7 +5736,6 @@ a.uk-badge:hover {
   /* 2 */
   max-width: 100%;
   /* 3 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 3 */
   margin: 0;
@@ -6109,7 +6094,6 @@ a.uk-thumbnail:focus {
 .uk-overlay-area-content {
   /* 1 */
   display: inline-block;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
   vertical-align: middle;
@@ -6740,7 +6724,6 @@ a.uk-thumbnail:focus {
   left: 0;
   z-index: 1020;
   /* 3 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 4 */
   width: 200px;
@@ -6971,7 +6954,6 @@ a.uk-thumbnail:focus {
   /* 1 */
   position: relative;
   /* 2 */
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 50px auto;
   padding: 20px;
@@ -7373,7 +7355,6 @@ a.uk-thumbnail:focus {
 /* Container
  ========================================================================== */
 .uk-container {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   max-width: 980px;
   padding: 0 25px;
@@ -7520,7 +7501,6 @@ a.uk-thumbnail:focus {
  * More robust if padding and border are used
  */
 [class*='uk-height'] {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 /*
@@ -7544,7 +7524,6 @@ a.uk-thumbnail:focus {
  */
 .uk-responsive-width,
 .uk-responsive-height {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 /*
@@ -7717,7 +7696,6 @@ a.uk-thumbnail:focus {
  * Box with scrolling enabled
  */
 .uk-scrollable-box {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 170px;
   padding: 10px;

@@ -7,7 +7,6 @@
  * 2. Vertical alignment if text is used
  */
 .uk-progress {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   height: 20px;
   margin-bottom: 15px;

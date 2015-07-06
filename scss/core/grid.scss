@@ -286,7 +286,6 @@ $grid-divider-border-width:                      1px !default;
     -ms-flex: none;
     -webkit-flex: none;
     flex: none;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
 }
@@ -296,7 +295,6 @@ $grid-divider-border-width:                      1px !default;
  ========================================================================== */
 
 [class*='uk-grid-width'] > * {
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
 }
@@ -361,7 +359,6 @@ $grid-divider-border-width:                      1px !default;
  ========================================================================== */
 
 [class*='uk-width'] {
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
 }

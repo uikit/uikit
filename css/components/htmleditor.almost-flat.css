@@ -38,7 +38,6 @@
  */
 .uk-htmleditor-navbar-nav > li > a {
   display: block;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   text-decoration: none;
   /* 1 */
@@ -144,7 +143,6 @@
  ========================================================================== */
 .uk-htmleditor-code,
 .uk-htmleditor-preview {
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .uk-htmleditor-preview {
@@ -183,7 +181,6 @@
  ========================================================================== */
 .uk-htmleditor .CodeMirror {
   padding: 10px;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 /*

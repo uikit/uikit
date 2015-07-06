@@ -56,7 +56,6 @@
  */
 .uk-dotnav > * > * {
   display: block;
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   width: 20px;
   height: 20px;
