@@ -20,6 +20,8 @@
 @description-list-line-border:                  #ddd;
 @description-list-line-color:                   #999;
 
+@description-list-term-weight:                  @base-body-font-weight;
+
 
 /* ========================================================================
    Component: Description list
@@ -51,7 +53,7 @@
 /* Modifier: `uk-description-list-line`
  ========================================================================== */
 
-.uk-description-list-line > dt { font-weight: normal; }
+.uk-description-list-line > dt { font-weight: @description-list-term-weight; }
 
 .uk-description-list-line > dt:nth-child(n+2) {
     margin-top: @description-list-line-margin-top;
