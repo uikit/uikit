@@ -152,15 +152,17 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-margin uk-grid">
+                            <div class="uk-margin uk-grid uk-grid-match">
                                 <div class="uk-width-1-2">
                                     <div class="uk-panel uk-panel-box uk-panel-box-secondary" style="height:300px;">
                                         <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:true}">Sticky bound to parent container</div>
                                     </div>
                                 </div>
                                 <div class="uk-width-1-2">
-                                    <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#boundary'}" style="margin-bottom: 228px;">Sticky as long as bondary element is in view</div>
-                                    <div id="boundary" class="uk-panel uk-panel-box">Boundary element</div>
+                                    <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+                                        <div class="uk-panel uk-panel-box" data-uk-sticky="{boundary:'#boundary'}">Sticky as long as bondary element is in view</div>
+                                        <div id="boundary" class="uk-panel uk-panel-box" style="margin-top:50px;">Boundary element</div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -230,6 +232,13 @@
                                             <td>boolean</td>
                                             <td>false</td>
                                             <td>Make sure that a sticky element is not over a targeted element via location hash on dom-ready.</td>
+                                        </tr>
+                                        </tr>
+                                        <tr>
+                                            <td><code>showup</code></td>
+                                            <td>boolean</td>
+                                            <td>false</td>
+                                            <td>Show sticky element only when scrolling up.</td>
                                         </tr>
                                         <tr>
                                             <td><code>boundary</code></td>

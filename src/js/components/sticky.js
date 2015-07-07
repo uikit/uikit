@@ -96,27 +96,6 @@
                 }
             }
 
-            // dynamic top parameter
-            if (this.options.top && typeof(this.options.top) == 'string') {
-
-                // e.g. 50vh
-                if (this.options.top.match(/^(\d+)vh$/)) {
-                    this.options.top = window.innerHeight * parseInt(this.options.top, 10)/100;
-
-                // e.g. #elementId, or .class-1,class-2,.class-3 (first found is used)
-                } else {
-
-                    var topElement = UI.$(this.options.top).first();
-
-                    if (topElement.length && topElement.is(':visible')) {
-                        this.options.top = -1 * topElement.offset().top - this.wrapper.offset().top;
-                    } else {
-                        this.options.top = 0;
-                    }
-                }
-
-            }
-
             this.sticky = {
                 self          : this,
                 options       : this.options,
@@ -127,7 +106,34 @@
                 getWidthFrom  : this.options.getWidthFrom || this.wrapper,
                 boundary      : boundary,
                 boundtoparent : boundtoparent,
+                top           : 0,
+                calcTop       : function() {
+
+                    var top = this.options.top;
+
+                    // dynamic top parameter
+                    if (this.options.top && typeof(this.options.top) == 'string') {
+
+                        // e.g. 50vh
+                        if (this.options.top.match(/^(-|)(\d+)vh$/)) {
+                            top = window.innerHeight * parseInt(this.options.top, 10)/100;
+                        // e.g. #elementId, or .class-1,class-2,.class-3 (first found is used)
+                        } else {
+
+                            var topElement = UI.$(this.options.top).first();
+
+                            if (topElement.length && topElement.is(':visible')) {
+                                top = -1 * (topElement.offset().top - this.wrapper.offset().top);
+                            }
+                        }
+
+                    }
+
+                    this.top = top;
+                },
                 reset         : function(force) {
+
+                    this.calcTop();
 
                     var finalize = function() {
                         this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
@@ -179,7 +185,7 @@
                         dwh            = documentHeight - window.innerHeight,
                         extra          = (scrollTop > dwh) ? dwh - scrollTop : 0,
                         elementTop     = this.wrapper.offset().top,
-                        etse           = elementTop - this.options.top - extra,
+                        etse           = elementTop - this.top - extra,
                         active         = (scrollTop  >= etse);
 
                     if (active && this.options.showup && direction == 1) {
@@ -189,6 +195,8 @@
                     return active;
                 }
             };
+
+            this.sticky.calcTop();
 
             sticked.push(this.sticky);
         },
@@ -246,12 +254,12 @@
 
             } else {
 
-                if (sticky.options.top < 0) {
+                if (sticky.top < 0) {
                     newTop = 0;
                 } else {
                     stickyHeight = sticky.element.outerHeight();
-                    newTop = documentHeight - stickyHeight - sticky.options.top - sticky.options.bottom - scrollTop - extra;
-                    newTop = newTop < 0 ? newTop + sticky.options.top : sticky.options.top;
+                    newTop = documentHeight - stickyHeight - sticky.top - sticky.options.bottom - scrollTop - extra;
+                    newTop = newTop < 0 ? newTop + sticky.top : sticky.top;
                 }
 
                 if (sticky.boundary && sticky.boundary.length) {
@@ -264,7 +272,7 @@
                         containerBottom = documentHeight - bTop - parseInt(sticky.boundary.css('margin-top'));
                     }
 
-                    newTop = (scrollTop + stickyHeight) > (documentHeight - containerBottom - (sticky.options.top < 0 ? 0 : sticky.options.top)) ? (documentHeight - containerBottom) - (scrollTop + stickyHeight) : newTop;
+                    newTop = (scrollTop + stickyHeight) > (documentHeight - containerBottom - (sticky.top < 0 ? 0 : sticky.top)) ? (documentHeight - containerBottom) - (scrollTop + stickyHeight) : newTop;
                 }
 
 
