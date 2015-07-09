@@ -17,6 +17,7 @@
   - Fixed stack margin with dynamic added children
   - Fixed form icon margin
   - Fixed pagination "currentPage" option
+  - Fixed initial focus on confirm dialog
 
 ### 2.21.0 (June 01, 2015)
 
