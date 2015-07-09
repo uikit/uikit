@@ -265,7 +265,7 @@
             }, 50);
         });
 
-        modal.show();
+        return modal.show();
     };
 
     UI.modal.confirm = function(content, onconfirm, options) {
@@ -289,7 +289,7 @@
             }, 50);
         });
 
-        modal.show();
+        return modal.show();
     };
 
     UI.modal.prompt = function(text, value, onsubmit, options) {
@@ -321,7 +321,7 @@
             }, 50);
         });
 
-        modal.show();
+        return modal.show();
     };
 
     UI.modal.blockUI = function(content, options) {
@@ -331,9 +331,8 @@
         ]).join(""), UI.$.extend({bgclose:false, keyboard:false, modal:false}, options));
 
         modal.content = modal.element.find('.uk-modal-content:first');
-        modal.show();
 
-        return modal;
+        return modal.show();
     };
 
 

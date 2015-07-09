@@ -91,7 +91,7 @@
 
                 // append custom stylesheet
                 if (typeof(this.options.iframe) === 'string') {
-                   this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
+                    this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
                 }
 
             } else {
@@ -181,7 +181,7 @@
 
         replaceInPreview: function(regexp, callback) {
 
-            var editor = this.editor, results = [], value = editor.getValue(), offset = -1;
+            var editor = this.editor, results = [], value = editor.getValue(), offset = -1, index = 0;
 
             this.currentvalue = this.currentvalue.replace(regexp, function() {
 
@@ -206,11 +206,13 @@
                     }
                 };
 
-                var result = callback(match);
+                var result = callback(match, index);
 
                 if (!result) {
                     return arguments[0];
                 }
+
+                index++;
 
                 results.push(match);
                 return result;
