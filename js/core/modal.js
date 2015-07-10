@@ -285,7 +285,7 @@
 
         modal.on('show.uk.modal', function(){
             setTimeout(function(){
-                modal.element.find('button:first').focus();
+                modal.element.find('.js-modal-confirm').focus();
             }, 50);
         });
 
