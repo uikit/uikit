@@ -78,9 +78,9 @@
                 $this.autocomplete.value = Math.random();
                 $this.autocomplete.triggercomplete();
 
-            }).on('blur', function() {
+            }).on('blur', UI.Utils.debounce(function() {
                 $this.checkTime();
-            });
+            }, 100));
 
             this.element.data("timepicker", this);
         },

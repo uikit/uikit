@@ -16,6 +16,7 @@
   - Fixed dropdown prevent show() on active element
   - Fixed stack margin with dynamic added children
   - Fixed form icon margin
+  - Fixed timpicker flickering on blur after time picking
   - Fixed pagination "currentPage" option
   - Fixed initial focus on confirm dialog
 
