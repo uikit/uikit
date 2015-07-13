@@ -124,7 +124,7 @@
                             var topElement = UI.$(this.options.top).first();
 
                             if (topElement.length && topElement.is(':visible')) {
-                                top = -1 * (topElement.offset().top - this.wrapper.offset().top);
+                                top = -1 * ((topElement.offset().top + topElement.outerHeight()) - this.wrapper.offset().top);
                             }
                         }
 
