@@ -29,6 +29,7 @@
             animation    : '',
             clsinit      : 'uk-sticky-init',
             clsactive    : 'uk-active',
+            clsinactive  : '',
             getWidthFrom : '',
             showup      : false,
             boundary     : false,
@@ -138,6 +139,7 @@
                     var finalize = function() {
                         this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
                         this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
+                        this.element.addClass(this.options.clsinactive);
 
                         this.currentTop = null;
                         this.animate    = false;
@@ -318,7 +320,7 @@
                         }
                     }
 
-                    sticky.element.addClass(sticky.options.clsactive);
+                    sticky.element.addClass(sticky.options.clsactive).removeClass(sticky.options.clsinactive);
                     sticky.element.css('margin', '');
 
                     if (sticky.options.animation && sticky.init) {
