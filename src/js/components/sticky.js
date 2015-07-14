@@ -220,9 +220,9 @@
         computeWrapper: function() {
 
             this.wrapper.css({
-                'height' : this.element.css('position') != 'absolute' ? this.element.outerHeight() : '',
-                'float'  : this.element.css("float") != "none" ? this.element.css("float") : '',
-                'margin' : this.element.css("margin")
+                'height' : ['absolute','fixed'].indexOf(this.element.css('position')) == -1 ? this.element.outerHeight() : '',
+                'float'  : this.element.css('float') != 'none' ? this.element.css('float') : '',
+                'margin' : this.element.css('margin')
             });
         }
     });
