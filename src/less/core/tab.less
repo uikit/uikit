@@ -182,31 +182,41 @@
 }
 
 .uk-tab-center:before,
-.uk-tab-center:after {
+.uk-tab-center:after,
+.uk-tab-center-bottom:before,
+.uk-tab-center-bottom:after {
     content: "";
     display: table;
 }
 
-.uk-tab-center:after { clear: both; }
+.uk-tab-center:after,
+.uk-tab-center-bottom:after { 
+   clear: both;
+}
 
 
 /*
  * 1. Using `right` to prevent vertical scrollbar caused by centering if to many tabs
  */
 
-.uk-tab-center .uk-tab {
+.uk-tab-center .uk-tab,
+.uk-tab-center-bottom .uk-tab {
     position: relative;
     right: 50%;
     border: none;
     float: right;
 }
 
-.uk-tab-center .uk-tab > li {
+.uk-tab-center .uk-tab > li,
+.uk-tab-center-bottom .uk-tab > li {
     position: relative;
     right: -50%;
 }
 
-.uk-tab-center .uk-tab > li > a { text-align: center; }
+.uk-tab-center .uk-tab > li > a,
+.uk-tab-center-bottom .uk-tab > li > a {
+   text-align: center;
+}
 
 
 /* Modifier: 'tab-bottom'
