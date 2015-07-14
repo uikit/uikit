@@ -323,7 +323,7 @@
                     sticky.element.addClass(sticky.options.clsactive).removeClass(sticky.options.clsinactive);
                     sticky.element.css('margin', '');
 
-                    if (sticky.options.animation && sticky.init) {
+                    if (sticky.options.animation && sticky.init && !UI.Utils.isInView(sticky.wrapper)) {
                         sticky.element.addClass(sticky.options.animation);
                     }
 
