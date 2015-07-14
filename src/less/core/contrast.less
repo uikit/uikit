@@ -40,34 +40,6 @@
 @contrast-nav-side-nested-color:                fade(@contrast-color, 70%);
 @contrast-nav-side-nested-hover-color:          @contrast-color;
 
-@contrast-nav-dropdown-color:                   @nav-dropdown-color;
-@contrast-nav-dropdown-hover-color:             @nav-dropdown-hover-color;
-@contrast-nav-dropdown-nested-color:            @nav-dropdown-nested-color;
-@contrast-nav-dropdown-nested-hover-color:      @nav-dropdown-nested-hover-color;
-@contrast-nav-navbar-color:                     @nav-navbar-color;
-@contrast-nav-navbar-hover-color:               @nav-navbar-hover-color;
-@contrast-nav-navbar-nested-color:              @nav-navbar-nested-color;
-@contrast-nav-navbar-nested-hover-color:        @nav-navbar-nested-hover-color;
-
-@contrast-navbar-background:                    transparent;
-@contrast-navbar-color:                         @contrast-color;
-@contrast-navbar-link-color:                    fade(@contrast-color, 70%);
-@contrast-navbar-link-hover-color:              @contrast-color;
-
-@contrast-navbar-nav-color:                     fade(@contrast-color, 70%);
-@contrast-navbar-nav-hover-background:          transparent;
-@contrast-navbar-nav-hover-color:               @contrast-color;
-@contrast-navbar-nav-onclick-background:        transparent;
-@contrast-navbar-nav-onclick-color:             @contrast-color;
-@contrast-navbar-nav-active-background:         transparent;
-@contrast-navbar-nav-active-color:              @contrast-color;
-
-@contrast-navbar-brand-color:                   fade(@contrast-color, 70%);
-@contrast-navbar-brand-hover-color:             @contrast-color;
-
-@contrast-navbar-toggle-color:                  fade(@contrast-color, 70%);
-@contrast-navbar-toggle-hover-color:            @contrast-color;
-
 @contrast-subnav-color:                         fade(@contrast-color, 70%);
 @contrast-subnav-hover-color:                   @contrast-color;
 @contrast-subnav-hover-text-decoration:         none;
@@ -219,131 +191,6 @@
     // Nested items
     .uk-nav-side ul a { color: @contrast-nav-side-nested-color; }
     .uk-nav-side ul a:hover { color: @contrast-nav-side-nested-hover-color; }
-
-    //
-    // Nav Dropdown (Repair Link Reset)
-    //
-
-    .uk-nav-dropdown > li > a {
-        color: @nav-dropdown-color;
-        .hook-contrast-nav-dropdown;
-    }
-
-    .uk-nav-dropdown > li > a:hover,
-    .uk-nav-dropdown > li > a:focus {
-        color: @nav-dropdown-hover-color;
-        .hook-contrast-nav-dropdown-hover;
-    }
-
-    .uk-nav-dropdown ul a { color: @nav-dropdown-nested-color; }
-    .uk-nav-dropdown ul a:hover { color: @nav-dropdown-nested-hover-color; }
-
-    //
-    // Nav Navbar (Repair Link Reset)
-    //
-
-    .uk-nav-navbar > li > a {
-        color: @nav-navbar-color;
-        .hook-contrast-nav-navbar;
-    }
-
-
-    .uk-nav-navbar > li > a:hover,
-    .uk-nav-navbar > li > a:focus {
-        color: @nav-navbar-hover-color;
-        .hook-contrast-nav-navbar-hover;
-    }
-
-    .uk-nav-navbar ul a { color: @nav-navbar-nested-color; }
-    .uk-nav-navbar ul a:hover { color: @nav-navbar-nested-hover-color; }
-
-
-    // Navbar
-    // ========================================================================
-
-    .uk-navbar {
-        background: @contrast-navbar-background;
-        color: @contrast-navbar-color;
-        .hook-contrast-navbar;
-    }
-
-    //
-    // Nav
-    //
-
-    .uk-navbar-nav > li > a {
-        color: @contrast-navbar-nav-color;
-        text-decoration: none;
-        .hook-contrast-navbar-nav;
-    }
-
-    .uk-navbar-nav > li:hover > a,
-    .uk-navbar-nav > li > a:focus,
-    .uk-navbar-nav > li.uk-open > a {
-        background-color: @contrast-navbar-nav-hover-background;
-        color: @contrast-navbar-nav-hover-color;
-        text-decoration: none;
-        .hook-contrast-navbar-nav-hover;
-    }
-
-    .uk-navbar-nav > li > a:active {
-        background-color: @contrast-navbar-nav-onclick-background;
-        color: @contrast-navbar-nav-onclick-color;
-        text-decoration: none;
-        .hook-contrast-navbar-nav-onclick;
-    }
-
-    .uk-navbar-nav > li.uk-active > a {
-        background-color: @contrast-navbar-nav-active-background;
-        color: @contrast-navbar-nav-active-color;
-        text-decoration: none;
-        .hook-contrast-navbar-nav-active;
-    }
-
-    //
-    // Content
-    //
-
-    .uk-navbar-content,
-    .uk-navbar-brand,
-    .uk-navbar-toggle { .hook-contrast-navbar-content; }
-
-    //
-    // Link
-    //
-
-    .uk-navbar-content > a:not([class]) { color: @contrast-navbar-link-color; }
-    .uk-navbar-content > a:not([class]):hover { color: @contrast-navbar-link-hover-color; }
-
-    //
-    // Brand
-    //
-
-    .uk-navbar-brand {
-        color: @contrast-navbar-brand-color;
-        text-decoration: none;
-    }
-
-    .uk-navbar-brand:hover,
-    .uk-navbar-brand:focus {
-        color: @contrast-navbar-brand-hover-color;
-        text-decoration: none;
-    }
-
-    //
-    // Toggle
-    //
-
-    .uk-navbar-toggle {
-        color: @contrast-navbar-toggle-color;
-        text-decoration: none;
-    }
-
-    .uk-navbar-toggle:hover,
-    .uk-navbar-toggle:focus {
-        color: @contrast-navbar-toggle-hover-color;
-        text-decoration: none;
-    }
 
 
     // Subnav
@@ -561,17 +408,6 @@
 .hook-contrast-nav-side-active() {}
 .hook-contrast-nav-side-header() {}
 .hook-contrast-nav-side-divider() {}
-.hook-contrast-nav-dropdown() {}
-.hook-contrast-nav-dropdown-hover() {}
-.hook-contrast-nav-navbar() {}
-.hook-contrast-nav-navbar-hover() {}
-
-.hook-contrast-navbar() {}
-.hook-contrast-navbar-nav() {}
-.hook-contrast-navbar-nav-hover() {}
-.hook-contrast-navbar-nav-onclick() {}
-.hook-contrast-navbar-nav-active() {}
-.hook-contrast-navbar-content() {}
 
 .hook-contrast-subnav() {}
 .hook-contrast-subnav-hover() {}
