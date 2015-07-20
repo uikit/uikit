@@ -2906,17 +2906,6 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   .uk-description-list-horizontal > dd {
     margin-left: 180px;
   }
-  /* Modifier: `uk-description-list-line`
-     ========================================================================== */
-  .uk-description-list-horizontal.uk-description-list-line > dd {
-    margin-left: 160px;
-    padding-left: 20px;
-  }
-  .uk-description-list-horizontal.uk-description-list-line > dd:nth-child(n+3) {
-    margin-top: 5px;
-    padding-top: 5px;
-    border-top: 1px solid #dddddd;
-  }
 }
 /* Modifier: `uk-description-list-line`
  ========================================================================== */

@@ -46,19 +46,6 @@ $description-list-line-font-weight:              normal !default;
     }
 
     .uk-description-list-horizontal > dd { margin-left: $description-list-horizontal-margin-left; }
-
-    /* Modifier: `uk-description-list-line`
-     ========================================================================== */
-    .uk-description-list-horizontal.uk-description-list-line > dd {
-        margin-left: $description-list-horizontal-width;
-        padding-left: ($description-list-horizontal-margin-left - $description-list-horizontal-width);
-    }
-    .uk-description-list-horizontal.uk-description-list-line > dd:nth-child(n+3)  {
-        margin-top: $description-list-line-margin-top;
-        padding-top: $description-list-line-margin-top;
-        border-top: $description-list-line-border-width solid $description-list-line-border;
-    }
-
 }
 
 

@@ -70,11 +70,11 @@ $contrast-button-hover-color:                    $contrast-inverted-color !defau
 $contrast-button-active-background:              fade($contrast-color, 70%) !default;
 $contrast-button-active-color:                   $contrast-inverted-color !default;
 
-$contrast-button-primary-background:             $button-primary-background !default;
+$contrast-button-primary-background:             #00a8e6 !default;
 $contrast-button-primary-color:                  $contrast-color !default;
-$contrast-button-primary-hover-background:       $button-primary-hover-background !default;
+$contrast-button-primary-hover-background:       #35b3ee !default;
 $contrast-button-primary-hover-color:            $contrast-color !default;
-$contrast-button-primary-active-background:      $button-primary-active-background !default;
+$contrast-button-primary-active-background:      #0091ca !default;
 $contrast-button-primary-active-color:           $contrast-color !default;
 
 $contrast-icon-hover-color:                      fade($contrast-color, 70%) !default;
@@ -88,7 +88,7 @@ $contrast-icon-button-active-background:         fade($contrast-color, 70%) !def
 $contrast-icon-button-active-color:              $contrast-inverted-color !default;
 
 $contrast-text-muted-color:                      fade($contrast-color, 60%) !default;
-$contrast-text-primary-color:                    $text-primary-color !default;
+$contrast-text-primary-color:                    #2d7091 !default;
 
 
 /* ========================================================================
@@ -154,6 +154,10 @@ $contrast-text-primary-color:                    $text-primary-color !default;
     .uk-nav li > a,
     .uk-nav li > a:hover { text-decoration: none; }
 
+    //
+    // Nav Site
+    //
+
     .uk-nav-side > li > a {
         color: $contrast-nav-side-color;
         @include hook-contrast-nav-side();
@@ -172,28 +176,19 @@ $contrast-text-primary-color:                    $text-primary-color !default;
         @include hook-contrast-nav-side-active();
     }
 
-    //
     // Nav header
-    //
-
     .uk-nav-side .uk-nav-header {
         color: $contrast-nav-side-header-color;
         @include hook-contrast-nav-side-header();
     }
 
-    //
     // Nav divider
-    //
-
     .uk-nav-side .uk-nav-divider {
         border-top-color: $contrast-nav-side-divider-border;
         @include hook-contrast-nav-side-divider();
     }
 
-    //
     // Nested items
-    //
-
     .uk-nav-side ul a { color: $contrast-nav-side-nested-color; }
     .uk-nav-side ul a:hover { color: $contrast-nav-side-nested-hover-color; }
 
