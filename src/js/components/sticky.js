@@ -146,7 +146,7 @@
                     }.bind(this);
 
 
-                    if (!force && this.options.animation && UI.support.animation) {
+                    if (!force && this.options.animation && UI.support.animation && !UI.Utils.isInView(this.wrapper)) {
 
                         this.animate = true;
 
