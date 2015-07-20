@@ -78,7 +78,7 @@ var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
     ];
 
 
-gulp.task('default', ['dist', 'build-docs', 'indexthemes'], function(done) {
+gulp.task('default', ['dist', 'indexthemes'], function(done) {
 
     if(gutil.env.p || gutil.env.prefix) {
         runSequence('prefix', function(){
