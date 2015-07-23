@@ -36,15 +36,7 @@
             pos: 'auto',
             template: function(data, opts) {
 
-                var content = '', maxDate, minDate, i;
-
-                if (opts.maxDate!==false){
-                    maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add(opts.maxDate, 'days');
-                }
-
-                if (opts.minDate!==false){
-                    minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add(opts.minDate-1, 'days');
-                }
+                var content = '', i;
 
                 content += '<div class="uk-datepicker-nav">';
                 content += '<a href="" class="uk-datepicker-previous"></a>';
@@ -68,8 +60,8 @@
 
                     options = [];
 
-                    minYear = minDate ? minDate.year() : currentyear - 50;
-                    maxYear = maxDate ? maxDate.year() : currentyear + 20;
+                    minYear = data.minDate ? data.minDate.year() : currentyear - 50;
+                    maxYear = data.maxDate ? data.maxDate.year() : currentyear + 20;
 
                     for (i=minYear;i<=maxYear;i++) {
                         if (i == data.year) {
@@ -109,9 +101,7 @@
 
                                 if(!day.inmonth) cls.push("uk-datepicker-table-muted");
                                 if(day.selected) cls.push("uk-active");
-
-                                if (maxDate && day.day > maxDate) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
-                                if (minDate && minDate > day.day) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
+                                if(day.disabled) cls.push('uk-datepicker-date-disabled uk-datepicker-table-muted');
 
                                 content += '<td><a href="" class="'+cls.join(" ")+'" data-date="'+day.day.format()+'">'+day.day.format("D")+'</a></td>';
                             }
@@ -193,11 +183,11 @@
                     if (ele.hasClass('uk-datepicker-date-disabled')) return false;
 
                     if (ele.is('[data-date]')) {
-                        active.element.val(moment(ele.data("date")).format(active.options.format)).trigger("change");
-                        dropdown.hide();
-                        active = false;
+                        active.current = moment(ele.data("date"));
+                        active.element.val(active.current.format(active.options.format)).trigger("change");
+                        active.hide();
                     } else {
-                       active.add(1 * (ele.hasClass("uk-datepicker-next") ? 1:-1), "months");
+                       active.add((ele.hasClass("uk-datepicker-next") ? 1:-1), "months");
                     }
                 });
 
@@ -274,8 +264,16 @@
                 now    = moment().format('YYYY-MM-DD'),
                 days   = [31, (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month],
                 before = new Date(year, month, 1).getDay(),
-                data   = {"month":month, "year":year,"weekdays":[],"days":[]},
+                data   = {"month":month, "year":year,"weekdays":[],"days":[], "maxDate": false, "minDate": false},
                 row    = [];
+
+            if (opts.maxDate!==false){
+                data.maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add(opts.maxDate, 'days');
+            }
+
+            if (opts.minDate!==false){
+                data.minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add(opts.minDate-1, 'days');
+            }
 
             data.weekdays = (function(){
 
@@ -311,7 +309,7 @@
             for (var i = 0, r = 0; i < cells; i++) {
 
                 day        = new Date(year, month, 1 + (i - before));
-                isDisabled = (opts.mindate && day < opts.mindate) || (opts.maxdate && day > opts.maxdate);
+                isDisabled = (data.minDate && data.minDate > day) || (data.maxDate && day > data.maxDate);
                 isInMonth  = !(i < before || i >= (days + before));
 
                 day = moment(day);
