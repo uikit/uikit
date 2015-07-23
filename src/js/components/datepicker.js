@@ -187,7 +187,7 @@
                         active.element.val(active.current.format(active.options.format)).trigger("change");
                         active.hide();
                     } else {
-                       active.add(1 * (ele.hasClass("uk-datepicker-next") ? 1:-1), "months");
+                       active.add((ele.hasClass("uk-datepicker-next") ? 1:-1), "months");
                     }
                 });
 
