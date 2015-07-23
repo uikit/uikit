@@ -138,7 +138,7 @@
                 }
             });
 
-            UI.$html.on("click.datepicker.uikit", function(e) {
+            UI.$html.on("click focus", '*', function(e) {
 
                 var target = UI.$(e.target);
 
