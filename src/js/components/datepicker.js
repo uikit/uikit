@@ -193,7 +193,8 @@
                     if (ele.hasClass('uk-datepicker-date-disabled')) return false;
 
                     if (ele.is('[data-date]')) {
-                        active.element.val(moment(ele.data("date")).format(active.options.format)).trigger("change");
+                        active.current = moment(ele.data("date"));
+                        active.element.val(active.current.format(active.options.format)).trigger("change");
                         dropdown.hide();
                         active = false;
                     } else {

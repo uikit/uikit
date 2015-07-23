@@ -43,6 +43,23 @@
                 </div>
 
                 <div class="uk-form-row">
+                    <script>
+                        UIkit.ready(function () {
+                            var date1 = UIkit.datepicker(UIkit.$('#date1'));
+                            date1.on('change.uk.datepicker', function () {
+                                UIkit.$('#output-date1').text(date1.current.format('DD.MM.YYYY'));
+                            });
+                        });
+                    </script>
+
+                    <label class="uk-form-label" for="form-date">Date</label>
+                    <div class="uk-form-controls">
+                        <input type="text" data-uk-datepicker="{format:'DD-MM-YYYY'}" id="date1">
+                        <p class="uk-form-help-block">Value <code>this.current</code> after 'change' event: <span id="output-date1"></span></p>
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
                     <label class="uk-form-label" for="form-date">Date</label>
                     <div class="uk-form-controls">
                         <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY', pos: 'top'}">
