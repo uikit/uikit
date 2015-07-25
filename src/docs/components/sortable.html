@@ -1,0 +1,240 @@
+<!-- @extend components.template.html -->
+
+  <article class="uk-article">
+
+      <h1>Sortable</h1>
+
+      <p class="uk-article-lead">Create sortable grids and lists to rearrange the order of its elements.</p>
+
+      <p>Drag and drop an element to a new location within the the sortable grid, while the other items adjust to fit. This is great, if you want to sort items like gallery or menu items, for example.</p>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To apply this component, add the <code>.uk-sortable</code> class to a container and create child elements to define the component. To enable the necessary JavaScript, just add the <code>data-uk-sortable</code> attribute.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p>In this example we used a grid from the <a href="grid.html">Grid component</a> to arrange the sortable items.</p>
+
+      <ul class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-5" data-uk-sortable>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 1</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 2</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 3</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 4</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 5</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 6</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 7</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 8</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 9</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box">Item 10</div></li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-sortable" data-uk-sortable&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h3 id ="sort-any-element"><a href="#sort-any-element" class="uk-link-reset">Sort any element</a></h3>
+
+      <p>The sortable component is not limited to <code>&lt;ul&gt;</code> elements. You can use any block element as a container.</p>
+
+      <h4 class="tm-article-subtitle">Markup</h4>
+
+
+<pre><code>&lt;div class="uk-sortable" data-uk-sortable&gt;
+&lt;div&gt;...&lt;/div&gt;
+&lt;div&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="sortable-handle"><a href="#sortable-handle" class="uk-link-reset">Sortable handle</a></h2>
+
+      <p>By default, the entire sortable element can be used for drag and drop sorting. To create a handle which will be used instead, just add the <code>{handleClass:'uk-sortable-handle'}</code> option to the data attribute and add the handle class to the element that you want to use as a handle.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-5" data-uk-sortable="{handleClass:'uk-sortable-handle'}">
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 1</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 2</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 3</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 4</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 5</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 6</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 7</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 8</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 9</div></li>
+          <li class="uk-grid-margin"><div class="uk-panel uk-panel-box"><i class="uk-sortable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>Item 10</div></li>
+      </ul>
+
+      <p><span class="uk-badge">NOTE</span> In this example we used the <code>.uk-icon-bars</code> class from the <a href="icon.html">Icon component</a> to style the handle.</p>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{handleClass:'uk-sortable-handle'}"&gt;
+&lt;li&gt;&lt;div class="uk-sortable-handle"&gt;&lt;/div&gt;...&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+
+      <h2 id ="group"><a href="#group" class="uk-link-reset">Multiple lists</a></h2>
+
+      <p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-sortable="{group:'GROUP-NAME'}"</code> attribute to each list.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-grid uk-grid-width-1-2">
+
+          <div>
+
+              <h3>First list</h3>
+
+              <div class="uk-sortable uk-margin" data-uk-sortable="{group:'test'}">
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 1</div>
+                  </div>
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 2</div>
+                  </div>
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 3</div>
+                  </div>
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 4</div>
+                  </div>
+              </div>
+
+          </div>
+          <div>
+
+              <h3>Second list</h3>
+
+              <div class="uk-sortable uk-margin" data-uk-sortable="{group:'test'}">
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 1</div>
+                  </div>
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 2</div>
+                  </div>
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 3</div>
+                  </div>
+                  <div class="uk-margin">
+                      <div class="uk-panel uk-panel-box">Item 4</div>
+                  </div>
+              </div>
+
+          </div>
+
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+
+<pre><code>&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;
+&lt;ul class="uk-sortable" data-uk-sortable="{group:'my-group'}"&gt;...&lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+
+      <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+      <p>This is an example of how to set options through the data attribute:</p>
+
+      <pre><code>data-uk-sortable=&quot;{animation:0, dragCustomClass:'dragging'}&quot;</code></pre>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Option</th>
+                      <th>Possible value</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>group</code></td>
+                      <td>string</td>
+                      <td>false</td>
+                      <td>List group</td>
+                  </tr>
+                  <tr>
+                      <td><code>animation</code></td>
+                      <td>integer</td>
+                      <td>150</td>
+                      <td>Animation speed in ms</td>
+                  </tr>
+                  <tr>
+                      <td><code>threshold</code></td>
+                      <td>integer</td>
+                      <td>10</td>
+                      <td>Mouse movement threshold in pixel until trigger element dragging</td>
+                  </tr>
+                  <tr>
+                      <td><code>handleClass</code></td>
+                      <td>string</td>
+                      <td>''</td>
+                      <td>Custom class to define elements which can trigger sorting</td>
+                  </tr>
+                  <tr>
+                      <td><code>dragCustomClass</code></td>
+                      <td>string</td>
+                      <td>''</td>
+                      <td>Custom class added to the dragged element</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Init element manually</h3>
+
+      <pre><code>var sortable = UIkit.sortable(element, { /* options */ });</code></pre>
+
+      <h3>Events</h3>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>start.uk.sortable</code></td>
+                      <td>event, sortable object, dragged element</td>
+                      <td>On sortable drag start</td>
+                  </tr>
+                  <tr>
+                      <td><code>move.uk.sortable</code></td>
+                      <td>event, sortable object</td>
+                      <td>On sortable move item</td>
+                  </tr>
+                  <tr>
+                      <td><code>stop.uk.sortable</code></td>
+                      <td>event, sortable object, dragged element</td>
+                      <td>On sortable stop dragging</td>
+                  </tr>
+                  <tr>
+                      <td><code>change.uk.sortable</code></td>
+                      <td>event, sortable object, dragged element</td>
+                      <td>On sortable change item</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+  </article>
+<!-- @endextend -->

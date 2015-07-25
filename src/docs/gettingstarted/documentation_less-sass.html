@@ -1,0 +1,64 @@
+<!-- @extend gettingstarted.template.html -->
+    <article class="uk-article">
+
+        <h1>Less &amp; Sass files</h1>
+
+        <p class="uk-article-lead">A separate Bower UIkit repository contains all distribution files including Less and Sass.</p>
+
+        <p>The great thing about UIkit is that you can easily integrate its source files in your project to keep your custom project workflow for building assets and stay with your preferred CSS preprocessor.</p>
+
+        <p>UIkit uses the package manager <a href="http://bower.io/">Bower</a> to load assets. Therefore UIkit automatically generates the distributions into a separate <a href="https://github.com/uikit/bower-uikit">Bower UIkit repository</a>. It contains all CSS, Less, SCSS and JavaScript files from UIkit and its components.</p>
+
+        <h3>Get the latest UIkit distribution</h3>
+
+        <ol>
+            <li>Install with <a href="http://bower.io/">Bower</a> <code>bower install uikit</code></li>
+            <li>Or get the Package from <a href="https://github.com/uikit/bower-uikit/">Github</a></li>
+        </ol>
+
+        <p>
+            You'll find both, Less files and Sass files side by side seperated in their own folders:
+        </p>
+
+        <pre><code>/uikit
+        less/
+        uikit.less
+        ...
+        scss/
+        uikit-mixins.scss
+        uikit.scss
+        ...
+
+        </code></pre>
+
+        <h2>Embedding Less in your project</h2>
+
+        <p>
+            Using Less is pretty straightforward. Just include UIkit and additional components at the top of your main Less file and start customizing by utilizing UIkits hooks and override its variables.
+        </p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <pre><code>@import "uikit/less/uikit.less";
+        @import "uikit/less/components/autocomplete.less";
+
+        // your custom code goes here, e.g. mixins, variables
+        </code></pre>
+
+        <h2>Embedding Sass in your project</h2>
+
+        <p>
+            Due to the way Sass is parsing code, it is needed that you include <code>uikit-mixins.scss</code> first then add your customizations (hooks, variables) and finally UIkit and additional components.
+        </p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <pre><code>@import "uikit/scss/uikit-mixins.scss";
+
+        // your custom code goes here, e.g. mixins, variables
+
+        @import "uikit/scss/uikit.scss";
+        @import "uikit/scss/components/autocomplete.scss";
+        </code></pre>
+            </article>
+<!-- @endextend -->

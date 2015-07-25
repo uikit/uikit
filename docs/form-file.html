@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Form file component - UIkit documentation</title>
+        <title>Components - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -26,7 +26,7 @@
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
                     <li><a href="core.html">Core</a></li>
-                    <li class="uk-active"><a href="components.html">Components</a></li>
+                    <li><a href="components.html">Components</a></li>
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
@@ -38,88 +38,84 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                  <div class="uk-grid" data-uk-grid-margin>
+      <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Layout</li>
+          <li><a href="grid-js.html">Dynamic Grid</a></li>
+          <li class="uk-nav-header">Navigations</li>
+          <li><a href="dotnav.html">Dotnav</a></li>
+          <li><a href="slidenav.html">Slidenav</a></li>
+          <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+          <li class="uk-nav-header">Common</li>
+          <li><a href="form-advanced.html">Form advanced</a></li>
+          <li class="uk-active"><a href="form-file.html">Form file</a></li>
+          <li><a href="form-password.html">Form password</a></li>
+          <li><a href="form-select.html">Form select</a></li>
+          <li><a href="placeholder.html">Placeholder</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li class="uk-nav-header">JavaScript</li>
+          <li><a href="lightbox.html">Lightbox</a></li>
+          <li><a href="autocomplete.html">Autocomplete</a></li>
+          <li><a href="datepicker.html">Datepicker</a></li>
+          <li><a href="htmleditor.html">HTML editor</a></li>
+          <li><a href="slider.html">Slider</a></li>
+          <li><a href="slideset.html">Slideset</a></li>
+          <li><a href="slideshow.html">Slideshow</a></li>
+          <li><a href="parallax.html">Parallax</a></li>
+          <li><a href="accordion.html">Accordion</a></li>
+          <li><a href="notify.html">Notify</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="nestable.html">Nestable</a></li>
+          <li><a href="sortable.html">Sortable</a></li>
+          <li><a href="sticky.html">Sticky</a></li>
+          <li><a href="timepicker.html">Timepicker</a></li>
+          <li><a href="tooltip.html">Tooltip</a></li>
+          <li><a href="upload.html">Upload</a></li>
+      </ul>
+    </div>
+    <div class="tm-main uk-width-medium-3-4">
+          <article class="uk-article">
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <h1>Form file</h1>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
-                            <li class="uk-nav-header">Layout</li>
-                            <li><a href="grid-js.html">Dynamic Grid</a></li>
-                            <li class="uk-nav-header">Navigations</li>
-                            <li><a href="dotnav.html">Dotnav</a></li>
-                            <li><a href="slidenav.html">Slidenav</a></li>
-                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
-                            <li class="uk-nav-header">Common</li>
-                            <li><a href="form-advanced.html">Form advanced</a></li>
-                            <li class="uk-active"><a href="form-file.html">Form file</a></li>
-                            <li><a href="form-password.html">Form password</a></li>
-                            <li><a href="form-select.html">Form select</a></li>
-                            <li><a href="placeholder.html">Placeholder</a></li>
-                            <li><a href="progress.html">Progress</a></li>
-                            <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="lightbox.html">Lightbox</a></li>
-                            <li><a href="autocomplete.html">Autocomplete</a></li>
-                            <li><a href="datepicker.html">Datepicker</a></li>
-                            <li><a href="htmleditor.html">HTML editor</a></li>
-                            <li><a href="slider.html">Slider</a></li>
-                            <li><a href="slideset.html">Slideset</a></li>
-                            <li><a href="slideshow.html">Slideshow</a></li>
-                            <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
-                            <li><a href="notify.html">Notify</a></li>
-                            <li><a href="search.html">Search</a></li>
-                            <li><a href="nestable.html">Nestable</a></li>
-                            <li><a href="sortable.html">Sortable</a></li>
-                            <li><a href="sticky.html">Sticky</a></li>
-                            <li><a href="timepicker.html">Timepicker</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
-                            <li><a href="upload.html">Upload</a></li>
-                        </ul>
+        <p class="uk-article-lead">Replace the default file input with your own HTML content, like a button.</p>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                        <article class="uk-article">
+        <p>To apply this component, just add the <code>.uk-form-file</code> class to a container element around a button and an <code>&lt;input type="file"&gt;</code> element. You can also use any other element instead of a button.</p>
 
-                            <h1>Form file</h1>
+        <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p class="uk-article-lead">Replace the default file input with your own HTML content, like a button.</p>
+        <div class="uk-margin">
 
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+            <div class="uk-form-file">
+                <button class="uk-button">Select</button>
+                <input id="form-file" type="file">
+            </div>
 
-                            <p>To apply this component, just add the <code>.uk-form-file</code> class to a container element around a button and an <code>&lt;input type="file"&gt;</code> element. You can also use any other element instead of a button.</p>
+            You can also use
+            <div class="uk-form-file uk-text-primary">text<input id="form-file" type="file"></div>.
+        </div>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+        <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <div class="uk-margin">
+        <pre><code>&lt;div class="uk-form-file"&gt;
+        &lt;button class="uk-button"&gt;...&lt;/button&gt;
+        &lt;input type="file"&gt;
+        &lt;/div&gt;
 
-                                <div class="uk-form-file">
-                                    <button class="uk-button">Select</button>
-                                    <input id="form-file" type="file">
-                                </div>
+        &lt;div class="uk-form-file"&gt;Text&lt;input type="file"&gt;&lt;/div&gt;</code></pre>
 
-                                You can also use
-                                <div class="uk-form-file uk-text-primary">text<input id="form-file" type="file"></div>.
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div class="uk-form-file"&gt;
-    &lt;button class="uk-button"&gt;...&lt;/button&gt;
-    &lt;input type="file"&gt;
-&lt;/div&gt;
-
-&lt;div class="uk-form-file"&gt;Text&lt;input type="file"&gt;&lt;/div&gt;</code></pre>
-
-                        </article>
-
-                    </div>
-                </div>
-
+    </article>
+    </div>
+  </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -144,7 +140,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent"><a href="#">Documentation</a>
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -236,10 +232,10 @@
                             <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
                             <li><a href="form-advanced.html">Form advanced</a></li>
-                            <li><a href="form-file.html">Form file</a></li>
+                            <li class="uk-active"><a href="form-file.html">Form file</a></li>
                             <li><a href="form-password.html">Form password</a></li>
                             <li><a href="form-select.html">Form select</a></li>
                             <li><a href="placeholder.html">Placeholder</a></li>
@@ -256,7 +252,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

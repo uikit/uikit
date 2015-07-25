@@ -1,0 +1,159 @@
+<!-- @extend core.template.html -->
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Block</h1>
+
+      <p class="uk-article-lead">Separate content sections by bundling them in blocks with different styles.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To apply this component, just add the <code>.uk-block</code> class to a container element.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-block uk-block-muted">
+
+          <div class="uk-container">
+
+          <h3>Block</h3>
+
+              <div class="uk-grid uk-grid-match" data-uk-grid-margin>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-block"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="modifiers"><a href="#modifiers" class="uk-link-reset">Modifiers</a></h2>
+
+      <p>To apply different background colors and paddings, add one of the following classes. If two consecutive blocks have the same background color, the padding will automatically be divided.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-block-default</code></td>
+                      <td>Add the default background color, usually white or similar.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-block-muted</code></td>
+                      <td>Adds a light background color.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-block-primary</code></td>
+                      <td>Adds a primary background color.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-block-secondary</code></td>
+                      <td>Adds a another background color, usually a dark one.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <p><span class="uk-badge">NOTE</span> To properly display colors, borders and other elements on colored blocks, you might want to apply the <code>.uk-contrast</code> class from the <a href="contrast.html">Contrast component</a>.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-block uk-block-primary uk-contrast">
+
+          <div class="uk-container">
+
+              <h3>Primary</h3>
+
+              <div class="uk-grid uk-grid-match" data-uk-grid-margin>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-block uk-block-primary"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="modifiers"><a href="#modifiers" class="uk-link-reset">Padding</a></h2>
+
+      <p>To add a larger padding to your block, just add the <code>.uk-block-large</code> class. You can also the block's padding using one of the <code>.uk-padding-*</code> classes from the <a href="utility.html#padding">Utility component</a>.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-block uk-block-secondary uk-contrast uk-block-large">
+
+          <div class="uk-container">
+
+              <h3>Large</h3>
+
+              <div class="uk-grid uk-grid-match" data-uk-grid-margin>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-block uk-block-large"&gt;...&lt;/div&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

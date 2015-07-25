@@ -1,0 +1,359 @@
+<!-- @extend core.template.html -->
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">Table</h1>
+
+        <p class="uk-article-lead">Easily create nicely looking tables, which come in different styles.</p>
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>To apply this component, add the <code>.uk-table</code> class to a <code>&lt;table&gt;</code> element.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table">
+                <caption>Table caption</caption>
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;table class="uk-table"&gt;
+        &lt;caption&gt;...&lt;/caption&gt;
+        &lt;thead&gt;
+        &lt;tr&gt;
+        &lt;th&gt;...&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tfoot&gt;
+        &lt;tr&gt;
+        &lt;td&gt;...&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/tfoot&gt;
+        &lt;tbody&gt;
+        &lt;tr&gt;
+        &lt;td&gt;...&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;/tbody&gt;
+        &lt;/table&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Columns</h3>
+
+        <p>To modify the column width or content, you can use other components. Here are some useful examples:</p>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table">
+                <thead>
+                    <tr>
+                        <th>Style</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><em>Column width</em></td>
+                        <td>Add one of the <code>.uk-width-*</code> classes from the <a href="grid.html">Grid component</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><em>Text alignment</em></td>
+                        <td>Add the <code>.uk-text-left</code>, <code>.uk-text-right</code> or <code>.uk-text-center</code> class from the <a href="text.html">Text component</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><em>Text style</em></td>
+                        <td>Take a look at the <a href="text.html">Text component</a>. For example add the <code>.uk-text-bold</code> class.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;td class="uk-width-1-10 uk-text-right"&gt;...&lt;/td&gt;
+        &lt;td class="uk-width-9-10 uk-text-bold"&gt;...&lt;/td&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Vertical modifier</h3>
+
+        <p>To vertically center table content, just add the <code>.uk-table-middle</code> class to the <code>&lt;tr&gt;</code> or <code>&lt;td&gt;</code> elements.</p>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="modifiers"><a href="#modifiers" class="uk-link-reset">Modifiers</a></h2>
+
+        <p>To display the table in a different style, just add a modifier to the the <code>.uk-table</code> class.</p>
+
+        <h3>Table hover</h3>
+
+        <p>Add the <code>.uk-table-hover</code> class to display a hover state on table rows.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-hover">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+<pre><code>&lt;table class="uk-table uk-table-hover"&gt;...&lt;/table&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Table striped</h3>
+
+        <p>Add zebra-striping to a table by adding the <code>.uk-table-striped</code> class.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;table class="uk-table uk-table-striped"&gt;...&lt;/table&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Table condensed</h3>
+
+        <p>Add the <code>.uk-table-condensed</code> class to make table cells more compact.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-condensed">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;table class="uk-table uk-table-condensed"&gt;...&lt;/table&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Combine modifiers</h3>
+
+        <p>The modifiers of the Table component are combinable with each other.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;table class="uk-table uk-table-hover uk-table-striped uk-table-condensed"&gt;...&lt;/table&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="overflow-container"><a href="#overflow-container" class="uk-link-reset">Responsive Table</a></h2>
+
+        <p>If your table happens to be wider than its container element or would eventually get too big on a specific viewport width, just wrap it inside a <code>&lt;div&gt;</code> element and add the <code>.uk-overflow-container</code> class. This creates a container that provides a horizontal scrollbar whenever the elements inside it are wider than the container itself.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-overflow-container"&gt;
+        &lt;table&gt;...&lt;/table&gt;
+        &lt;/div&gt;</code></pre>
+
+    </article>
+<!-- @endextend -->

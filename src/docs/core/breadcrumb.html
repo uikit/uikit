@@ -1,0 +1,55 @@
+<!-- @extend core.template.html -->
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Breadcrumb</h1>
+
+      <p class="uk-article-lead">Create breadcrumbs to show users their location within a website.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>The Breadcrumb component consists of links which are aligned side by side and separated by a divider.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-breadcrumb</code></td>
+                      <td>Add this class to a <code>&lt;ul&gt;</code> element to define the Breadcrumb component. Use <code>&lt;a&gt;</code> elements as breadcrumb items within the list.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-active</code></td>
+                      <td>Add this class to a list item to apply an active state and use a <code>&lt;span&gt;</code> instead of an <code>&lt;a&gt;</code> element.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <p>Use a <code>&lt;span&gt;</code> instead of an <code>&lt;a&gt;</code> element to disable a breadcrumb item.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><span>Category</span></li>
+          <li class="uk-active"><span>Post</span></li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;ul class="uk-breadcrumb"&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;span&gt;...&lt;/span&gt;&lt;/li&gt;
+      &lt;li class="uk-active">&lt;span&gt;...&lt;/span&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

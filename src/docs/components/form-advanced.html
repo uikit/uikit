@@ -1,0 +1,40 @@
+<!-- @extend components.template.html -->
+
+  <article class="uk-article">
+
+      <h1>Form advanced</h1>
+
+      <p class="uk-article-lead">Apply a custom style to radio and checkbox inputs when utilizing the Form component.</p>
+
+      <p>UIkit uses the <em>appearance</em> property to style them through CSS only, without applying custom markup. Currently the appearance property is only fully supported by webkit browsers, so that the styling will only apply to Chrome, Safari and Opera. This will change, of course, once other browsers start supporting the property.</p>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>You can apply this component to extend the <a href="form.html">Form component</a>. Just place the <code>&lt;input&gt;</code> element inside a <code>&lt;form&gt;</code> element and add the <code>.uk-form</code> class.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <form class="uk-form uk-margin">
+          <p>
+              <input type="radio" id="form-s-r1" name="radio2" checked> <label for="form-s-r1">1</label>
+              <label><input type="radio" name="radio2"> 2</label>
+              <label><input type="radio" name="radio2"> 3</label>
+          </p>
+          <p>
+              <input type="checkbox" id="form-s-c1" checked> <label for="form-s-c1">1</label>
+              <label><input type="checkbox"> 2</label>
+              <label><input type="checkbox"> 3</label>
+          </p>
+      </form>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;form class="uk-form"&gt;
+      &lt;input type="radio"&gt;
+      &lt;input type="checkbox"&gt;
+      &lt;/form&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

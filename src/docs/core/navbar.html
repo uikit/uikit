@@ -1,0 +1,547 @@
+<!-- @extend core.template.html -->
+
+<article class="uk-article">
+
+  <h1 class="uk-article-title">Navbar</h1>
+
+  <p class="uk-article-lead">Defines different styles for the navigation bar.</p>
+
+  <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+  <p>The Navbar component consists of the navbar itself and one or more navigations.</p>
+
+  <div class="uk-overflow-container">
+      <table class="uk-table">
+          <thead>
+              <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><code>.uk-navbar</code></td>
+                  <td>Add this class to a <code>&lt;nav&gt;</code> element to define the Navbar component.</td>
+              </tr>
+              <tr>
+                  <td><code>.uk-navbar-nav</code></td>
+                  <td>Add this class to a <code>&lt;ul&gt;</code> element to create a navigation. Use <code>&lt;a&gt;</code> elements as menu items within the list.</td>
+              </tr>
+              <tr>
+                  <td><code>.uk-active</code></td>
+                  <td>Add this class to a list item to apply an active state.</td>
+              </tr>
+              <tr>
+                  <td><code>.uk-parent</code></td>
+                  <td>Add this class to indicate a parent menu item.</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <nav class="uk-navbar">
+
+      <ul class="uk-navbar-nav">
+          <li class="uk-active"><a href="">Active</a></li>
+          <li><a href="">Item</a></li>
+          <li class="uk-parent" data-uk-dropdown>
+              <a href="">Parent</a>
+
+              <div class="uk-dropdown uk-dropdown-navbar">
+                  <ul class="uk-nav uk-nav-navbar">
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-header">Header</li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-divider"></li>
+                      <li><a href="#">Separated item</a></li>
+                  </ul>
+              </div>
+
+          </li>
+      </ul>
+
+  </nav>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+  <pre><code>&lt;nav class="uk-navbar"&gt;
+  &lt;ul class="uk-navbar-nav"&gt;
+  &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+  &lt;li class="uk-parent"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/nav&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h3>Navbar flip</h3>
+
+  <p>Add the <code>.uk-navbar-flip</code> class to a <code>&lt;div&gt;</code> element to group and align navigations and items to the right.</p>
+
+  <h4 class="tm-article-subtitle">Example</h4>
+
+  <nav class="uk-navbar">
+
+      <ul class="uk-navbar-nav">
+          <li class="uk-active"><a href="">Active</a></li>
+          <li><a href="">Item</a></li>
+          <li class="uk-parent" data-uk-dropdown>
+              <a href="">Parent</a>
+
+              <div class="uk-dropdown uk-dropdown-navbar">
+                  <ul class="uk-nav uk-nav-navbar">
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-header">Header</li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-divider"></li>
+                      <li><a href="#">Separated item</a></li>
+                  </ul>
+              </div>
+
+          </li>
+      </ul>
+
+      <div class="uk-navbar-flip">
+
+          <ul class="uk-navbar-nav">
+              <li class="uk-parent" data-uk-dropdown>
+                  <a href="">Parent</a>
+
+                  <div class="uk-dropdown uk-dropdown-navbar">
+                      <ul class="uk-nav uk-nav-navbar">
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-header">Header</li>
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-divider"></li>
+                          <li><a href="#">Separated item</a></li>
+                      </ul>
+                  </div>
+
+              </li>
+              <li><a href="">Item</a></li>
+              <li class="uk-active"><a href="">Active</a></li>
+          </ul>
+
+      </div>
+
+  </nav>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+  <pre><code>&lt;nav class="uk-navbar"&gt;
+  &lt;div class="uk-navbar-flip"&gt;
+  &lt;ul class="uk-navbar-nav"&gt;
+  &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;/nav&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h3>Navbar subtitle</h3>
+
+  <p>Add the <code>.uk-navbar-nav-subtitle</code> class to an <code>&lt;a&gt;</code> element in the list item to indicate that it has a subtitle. Use a <code>&lt;div&gt;</code> element for the subtitle itself.</p>
+
+  <h4 class="tm-article-subtitle">Example</h4>
+
+  <nav class="uk-navbar">
+
+      <ul class="uk-navbar-nav">
+          <li class="uk-active"><a href="" class="uk-navbar-nav-subtitle">Active<div>Subtitle</div></a></li>
+          <li><a href="" class="uk-navbar-nav-subtitle">Item<div>Subtitle</div></a></li>
+          <li class="uk-parent" data-uk-dropdown>
+              <a href="" class="uk-navbar-nav-subtitle">Parent<div>Subtitle</div></a>
+
+              <div class="uk-dropdown uk-dropdown-navbar">
+                  <ul class="uk-nav uk-nav-navbar">
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-header">Header</li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-divider"></li>
+                      <li><a href="#">Separated item</a></li>
+                  </ul>
+              </div>
+
+          </li>
+      </ul>
+
+  </nav>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+  <pre><code>&lt;nav class="uk-navbar"&gt;
+  &lt;ul class="uk-navbar-nav"&gt;
+  &lt;li&gt;&lt;a href="" class="uk-navbar-nav-subtitle"&gt;
+  ...
+  &lt;div&gt;...&lt;/div&gt;
+  &lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/nav&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h2 id="content"><a href="#content" class="uk-link-reset">Content</a></h2>
+
+  <p>You can also add custom content to the navbar, like text, icons, buttons, forms or even a toggle. By default, there is no JavaScript attached to the toggle. As an example, you can add an off-canvas navigation from the <a href="offcanvas.html">Off-canvas component</a>.</p>
+
+  <div class="uk-overflow-container">
+      <table class="uk-table">
+          <thead>
+              <tr>
+                  <th>Class</th>
+                  <th>Description</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><code>.uk-navbar-content</code></td>
+                  <td>Add this class to a <code>&lt;div&gt;</code> element, which serves as a container for your custom content. The content will be centered vertically.</td>
+              </tr>
+              <tr>
+                  <td><code>.uk-navbar-brand</code></td>
+                  <td>Add this class to an <code>&lt;a&gt;</code> or <code>&lt;div&gt;</code> element to indicate your brand.</td>
+              </tr>
+              <tr>
+                  <td><code>.uk-navbar-center</code></td>
+                  <td>Add this class to center your navbar content or brand. The element needs to be the last child in the navbar.</td>
+              </tr>
+              <tr>
+                  <td><code>.uk-navbar-toggle</code></td>
+                  <td>Add this class to an <code>&lt;a&gt;</code> or <code>&lt;div&gt;</code> element to create an icon as a toggle.</td>
+              </tr>
+              <tr>
+                  <td><code>.uk-navbar-toggle-alt</code></td>
+                  <td>Add this class to create an alternative icon as a toggle.</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <div class="uk-margin">
+
+      <nav class="uk-navbar">
+
+          <a class="uk-navbar-brand" href="#">Brand</a>
+
+          <ul class="uk-navbar-nav">
+              <li class="uk-parent uk-active" data-uk-dropdown>
+                  <a href=""><i class="uk-icon-home"></i> Level1</a>
+
+                  <div class="uk-dropdown uk-dropdown-navbar">
+                      <ul class="uk-nav uk-nav-navbar">
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-header">Header</li>
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-divider"></li>
+                          <li><a href="#">Separated item</a></li>
+                      </ul>
+                  </div>
+
+              </li>
+
+          </ul>
+
+          <div class="uk-navbar-content">Some <a href="#">link</a>.</div>
+
+          <div class="uk-navbar-content uk-hidden-small">
+              <form class="uk-form uk-margin-remove uk-display-inline-block">
+                  <input type="text" placeholder="Search">
+                  <button class="uk-button uk-button-primary">Submit</button>
+              </form>
+          </div>
+
+          <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
+              <div class="uk-button-group">
+                  <a class="uk-button uk-button-danger" href="#">Link</a>
+                  <button class="uk-button uk-button-danger">Button</button>
+              </div>
+          </div>
+
+      </nav>
+
+  </div>
+
+  <div class="uk-margin">
+
+      <nav class="uk-navbar">
+
+          <ul class="uk-navbar-nav">
+              <li class="uk-active"><a href="">Active</a></li>
+              <li class="uk-hidden-small"><a href="">Item</a></li>
+              <li class="uk-parent" data-uk-dropdown>
+                  <a href="">Parent</a>
+
+                  <div class="uk-dropdown uk-dropdown-navbar">
+                      <ul class="uk-nav uk-nav-navbar">
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-header">Header</li>
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-divider"></li>
+                          <li><a href="#">Separated item</a></li>
+                      </ul>
+                  </div>
+
+              </li>
+          </ul>
+
+          <div class="uk-navbar-flip">
+
+              <ul class="uk-navbar-nav">
+                  <li class="uk-parent" data-uk-dropdown>
+                      <a href="">Parent</a>
+
+                      <div class="uk-dropdown uk-dropdown-navbar">
+                          <ul class="uk-nav uk-nav-navbar">
+                              <li><a href="#">Item</a></li>
+                              <li><a href="#">Another item</a></li>
+                              <li class="uk-nav-header">Header</li>
+                              <li><a href="#">Item</a></li>
+                              <li><a href="#">Another item</a></li>
+                              <li class="uk-nav-divider"></li>
+                              <li><a href="#">Separated item</a></li>
+                          </ul>
+                      </div>
+
+                  </li>
+                  <li class="uk-hidden-small"><a href="">Item</a></li>
+                  <li class="uk-active"><a href="">Active</a></li>
+              </ul>
+
+          </div>
+
+          <div class="uk-navbar-content uk-navbar-center">Center</div>
+
+      </nav>
+
+  </div>
+
+  <div class="uk-margin">
+
+      <nav class="uk-navbar">
+
+          <a href="#" class="uk-navbar-toggle"></a>
+
+          <div class="uk-navbar-flip">
+
+              <a href="" class="uk-navbar-toggle uk-navbar-toggle-alt"></a>
+
+          </div>
+
+      </nav>
+
+  </div>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+  <pre><code>&lt;nav class="uk-navbar"&gt;
+  &lt;a href="" class="uk-navbar-brand"&gt;...&lt;/a&gt;
+  &lt;ul class="uk-navbar-nav"&gt;...&lt;/ul&gt;
+  &lt;div class="uk-navbar-content"&gt;...&lt;/div&gt;
+  &lt;div class="uk-navbar-content uk-navbar-center"&gt;...&lt;/div&gt;
+  &lt;a href="" class="uk-navbar-toggle"&gt;&lt;/a&gt;
+  &lt;/nav&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h2 id="responsive-visibility"><a href="#responsive-visibility" class="uk-link-reset">Responsive visibility</a></h2>
+
+  <p>To hide or display certain navbar items, just add one of the responsive visibility classes from the <a href="utility.html">Utility component</a>. This comes in handy, if you want to use a toggle to trigger a mobile navigation for example.</p>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <p>Resize your browser window to see it in action.</p>
+
+  <nav class="uk-navbar">
+
+      <ul class="uk-navbar-nav uk-hidden-small">
+          <li class="uk-active"><a href="">Active</a></li>
+          <li><a href="">Item</a></li>
+          <li class="uk-parent" data-uk-dropdown>
+              <a href="">Parent</a>
+
+              <div class="uk-dropdown uk-dropdown-navbar">
+                  <ul class="uk-nav uk-nav-navbar">
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-header">Header</li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-divider"></li>
+                      <li><a href="#">Separated item</a></li>
+                  </ul>
+              </div>
+
+          </li>
+      </ul>
+
+      <a href="#offcanvas-1" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+      <div class="uk-navbar-flip">
+
+          <a href="" class="uk-navbar-toggle uk-navbar-toggle-alt uk-visible-small"></a>
+
+          <ul class="uk-navbar-nav uk-hidden-small">
+              <li class="uk-parent" data-uk-dropdown>
+                  <a href="">Parent</a>
+
+                  <div class="uk-dropdown uk-dropdown-navbar">
+                      <ul class="uk-nav uk-nav-navbar">
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-header">Header</li>
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-divider"></li>
+                          <li><a href="#">Separated item</a></li>
+                      </ul>
+                  </div>
+
+              </li>
+              <li><a href="">Item</a></li>
+              <li class="uk-active"><a href="">Active</a></li>
+          </ul>
+
+      </div>
+
+  </nav>
+
+  <div id="offcanvas-1" class="uk-offcanvas">
+
+      <div class="uk-offcanvas-bar">
+
+          <div class="uk-panel">Lorem ipsum dolor sit amet, <a href="#">consetetur</a> sadipscing elitr.</div>
+
+      </div>
+
+  </div>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+  <pre><code>&lt;nav class="uk-navbar"&gt;
+  &lt;ul class="uk-navbar-nav uk-hidden-small"&gt;...&lt;/ul&gt;
+  &lt;a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas&gt;&lt;/a&gt;
+  &lt;/nav&gt;
+
+  &lt;div id="my-id" class="uk-offcanvas"&gt;
+  ...
+  &lt;/div&gt;</code></pre>
+
+  <p><span class="uk-badge">NOTE</span> In this example we added an off-canvas sidebar fron the <a href="offcanvas.html">Off-canvas component</a>.</p>
+
+  <hr class="uk-article-divider">
+
+  <h2 id="modifiers"><a href="#modifiers" class="uk-link-reset">Modifiers</a></h2>
+
+  <p>To display the navbar in a different style, just add modifier classes. These modifiers can be combined with each other</p>
+
+  <h3>Navbar attached</h3>
+
+  <p>Add the <code>.uk-navbar-attached</code> class to optimize the navbar's styling to be attached to the top of the viewport. For example, rounded corners will be removed.</p>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <nav class="uk-navbar uk-navbar-attached">
+
+      <ul class="uk-navbar-nav">
+          <li class="uk-active"><a href="">Active</a></li>
+          <li><a href="">Item</a></li>
+          <li class="uk-parent" data-uk-dropdown>
+              <a href="">Parent</a>
+
+              <div class="uk-dropdown uk-dropdown-navbar">
+                  <ul class="uk-nav uk-nav-navbar">
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-header">Header</li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-divider"></li>
+                      <li><a href="#">Separated item</a></li>
+                  </ul>
+              </div>
+
+          </li>
+      </ul>
+
+      <div class="uk-navbar-flip">
+
+          <ul class="uk-navbar-nav">
+              <li class="uk-parent" data-uk-dropdown>
+                  <a href="">Parent</a>
+
+                  <div class="uk-dropdown uk-dropdown-navbar">
+                      <ul class="uk-nav uk-nav-navbar">
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-header">Header</li>
+                          <li><a href="#">Item</a></li>
+                          <li><a href="#">Another item</a></li>
+                          <li class="uk-nav-divider"></li>
+                          <li><a href="#">Separated item</a></li>
+                      </ul>
+                  </div>
+
+              </li>
+              <li><a href="">Item</a></li>
+              <li class="uk-active"><a href="">Active</a></li>
+          </ul>
+
+      </div>
+
+  </nav>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+  <pre><code>&lt;nav class="uk-navbar uk-navbar-attached"&gt;...&lt;/nav&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h2 id="navbar-with-dropdowns"><a href="#navbar-with-dropdowns" class="uk-link-reset">Navbar with dropdowns</a></h2>
+
+  <p>A navbar can contain a dropdown from the <a href="dropdown.html">Dropdown component</a>. Just add the <code>.uk-dropdown-navbar</code> modifier to the dropdown, so it fits perfectly into the navbar's styling.</p>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <nav class="uk-navbar">
+
+      <ul class="uk-navbar-nav">
+          <li class="uk-active"><a href="">Active</a></li>
+          <li><a href="">Item</a></li>
+          <li class="uk-parent" data-uk-dropdown>
+              <a href="">Parent <i class="uk-icon-caret-down"></i></a>
+
+              <div class="uk-dropdown uk-dropdown-navbar">
+                  <ul class="uk-nav uk-nav-navbar">
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-header">Header</li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Another item</a></li>
+                      <li class="uk-nav-divider"></li>
+                      <li><a href="#">Separated item</a></li>
+                  </ul>
+              </div>
+
+          </li>
+      </ul>
+
+  </nav>
+
+</article>
+<!-- @endextend -->

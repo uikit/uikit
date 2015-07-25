@@ -1,0 +1,946 @@
+<!-- @extend core.template.html -->
+
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">Dropdown</h1>
+
+        <p class="uk-article-lead">Defines different styles for a toggleable dropdown.</p>
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>Any content, like a button, can toggle a dropdown. Just wrap the toggle with a <code>&lt;div&gt;</code> element and add the <code>data-uk-dropdown</code> attribute. Add the <code>.uk-dropdown</code> class to a child <code>&lt;div&gt;</code> element to create the dropdown itself. A dropdown can be enabled by either hovering or clicking the the toggle.</p>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table">
+                <thead>
+                    <tr>
+                        <th>Data attribute</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>data-uk-dropdown</code></td>
+                        <td>Opens the dropdown on hover and adds a little delay, so the dropdown won't disappear immediately, once you stop hovering the toggle.</td>
+                    </tr>
+                    <tr>
+                        <td><code>data-uk-dropdown="{mode:'click'}"</code></td>
+                        <td>Opens the dropdown by clicking the toggle. The dropdown closes again on the next click.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> To apply a dropdown, it is important that a parent element has a relative position to align the dropdown properly. Many components create the position context by default, like the <a href="button.html">Button</a>, <a href="navbar.html">Navbar</a>, <a href="subnav.html">Subnav</a> and the <a href="tab.html">Tab</a> component.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-margin">
+
+            <div class="uk-button-dropdown" data-uk-dropdown>
+                <button class="uk-button">Hover me <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                <button class="uk-button">Click me <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <p><span class="uk-badge">NOTE</span> In this example we are using a button from the <a href="button.html">Button component</a> as a toggle.</p>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;div data-uk-dropdown&gt;
+
+        &lt;!-- This is the element toggling the dropdown --&gt;
+        &lt;div&gt;...&lt;/div&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown"&gt;...&lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- This is the container enabling the JavaScript in click mode --&gt;
+        &lt;div data-uk-dropdown="{mode:'click'}"&gt;
+
+        &lt;!-- This is the element toggling the dropdown --&gt;
+        &lt;div&gt;...&lt;/div&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown"&gt;...&lt;/div&gt;
+
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Delayed dropdowns in hover mode</h3>
+
+        <p>You can set a <code>delay</code> parameter in milliseconds to prevent the immediate appearance of the dropdown.</p>
+
+        <div class="uk-button-dropdown" data-uk-dropdown="{delay: 1000}">
+            <button class="uk-button">Hover me <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#">Separated item</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-dropdown" data-uk-dropdown="{delay: 1000}"&gt;
+        ...
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Dropdown with navs</h3>
+
+        <p>A dropdown can contain a nav from the <a href="nav.html">Nav component</a>. Just add the <code>.uk-nav</code> class and the <code>.uk-nav-dropdown</code> modifier to a <code>&lt;ul&gt;</code> element.</p>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-dropdown"&gt;
+        &lt;ul class="uk-nav uk-nav-dropdown"&gt;...&lt;/ul&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="alignment-modifiers"><a href="#alignment-modifiers" class="uk-link-reset">Alignment modifiers</a></h2>
+
+        <p>Add one of the following classes to align the dropdown menu.</p>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.uk-dropdown-flip</code></td>
+                        <td>Aligns the dropdown menu to the right.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.uk-dropdown-up</code></td>
+                        <td>Aligns the dropdown menu above the toggle.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.uk-dropdown-center</code></td>
+                        <td>Centers the dropdown menu.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-button-dropdown" data-uk-dropdown>
+            <button class="uk-button">Flip <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-flip">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#">Separated item</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="uk-button-dropdown" data-uk-dropdown>
+            <button class="uk-button">Up <i class="uk-icon-caret-up"></i></button>
+            <div class="uk-dropdown uk-dropdown-up">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#">Separated item</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="uk-button-dropdown" data-uk-dropdown>
+            <button class="uk-button">Center <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-center">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#">Separated item</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;div class="uk-dropdown uk-dropdown-flip"&gt;
+        ...
+        &lt;/div&gt;
+
+        &lt;div class="uk-dropdown uk-dropdown-up"&gt;
+        ...
+        &lt;/div&gt;
+
+        &lt;div class="uk-dropdown uk-dropdown-center"&gt;
+        ...
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Justify dropdown</h3>
+
+        <p>To justify a dropdown, just add the <code>data-uk-dropdown="{justify:'#ID'}"</code> attribute. The parent element, to which the dropdown should be justified, needs to have the target id, so the dropdown will expand to the full width of the targeted element.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div id="justify1">
+            <div class="uk-button-dropdown" data-uk-dropdown="{justify:'#justify1'}">
+                <button class="uk-button">Justify <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;!-- This is the parent element to which the dropdown is being justified --&gt;
+        &lt;div id="my-id"&gt;
+
+        &lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;div class="uk-button-dropdown" data-uk-dropdown="{justify:'#my-id'}"&gt;
+
+        &lt;!-- This is the element toggling the dropdown --&gt;
+        &lt;button class="uk-button"&gt;...&lt;/button&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Automatic dropdown flip</h3>
+
+        <p>By default, the dropdown flips automatically when it exceeds the viewport's edge. If you want to flip it according to a container's boundary, just add the <code>data-uk-dropdown="{boundary:'#ID'}"</code> attribute, using a selector for the container.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div id="boundary" class="uk-button-dropdown" data-uk-dropdown="{boundary:'#boundary'}">
+            <button class="uk-button">Boundary <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#">Separated item</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div id="my-id"&gt;
+        &lt;div class="uk-button-dropdown" data-uk-dropdown="{boundary:'#my-id'}"&gt;...&lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="grid"><a href="#grid" class="uk-link-reset">Grid</a></h2>
+
+        <p>You can even place a grid from the <a href="grid.html">Grid component</a> inside a dropdown, which can hold a navigation or any other content. Just wrap the content with a <code>&lt;div&gt;</code> and add the <code>.uk-grid</code> class. To optimize the grid for use inside the dropdown, add the <code>.uk-dropdown-grid</code> class. Add one of the <code>.uk-dropdown-width-*</code> classes to the grid's child elements to multiply the dropdown's width by up to 5.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-button-dropdown" data-uk-dropdown>
+            <button class="uk-button">2 Columns <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-width-2">
+
+                <div class="uk-grid uk-dropdown-grid">
+                    <div class="uk-width-1-2">
+
+                        <ul class="uk-nav uk-nav-dropdown uk-panel">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="uk-width-1-2">
+
+                        <ul class="uk-nav uk-nav-dropdown uk-panel">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="uk-button-dropdown" data-uk-dropdown>
+            <button class="uk-button">3 Columns <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-width-3">
+
+                <div class="uk-grid uk-dropdown-grid">
+                    <div class="uk-width-1-3">
+
+                        <ul class="uk-nav uk-nav-dropdown uk-panel">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+
+                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                    </div>
+                    <div class="uk-width-1-3">
+
+                        <ul class="uk-nav uk-nav-dropdown uk-panel">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+
+                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                    </div>
+                    <div class="uk-width-1-3">
+
+                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                        <div class="uk-panel">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;div class="uk-dropdown uk-dropdown-width-2"&gt;
+
+        &lt;div class="uk-grid uk-dropdown-grid"&gt;
+        &lt;div class="uk-width-1-2"&gt;
+        &lt;ul class="uk-nav uk-nav-dropdown uk-panel"&gt;...&lt;/ul&gt;
+        &lt;div class="uk-panel"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="uk-width-1-2"&gt;
+        &lt;div class="uk-panel"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;/div&gt;</code></pre>
+
+        <h3>Responsive behavior</h3>
+
+        <p>In narrower viewports, like phones, there might not be enough space for the dropdown to expand. In that case the dropdown flips its alignment. Should there still not be enough space, the grid columns take up full width and stack vertically inside the dropdown.</p>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="small-modifier"><a href="#small-modifier" class="uk-link-reset">Small modifier</a></h2>
+
+        <p>By default, the dropdown has a fixed width and the text is wrapping into the next line. If you want your dropdown to be smaller, so that it extends to the width of its content without the text wrapping, add the <code>.uk-dropdown-small</code> class. This is useful for button dropdowns.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-button-dropdown" data-uk-dropdown>
+            <button class="uk-button">Dropdown <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#">Separated item</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-dropdown uk-dropdown-small"&gt;...&lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="scrollable-modifier"><a href="#scrollable-modifier" class="uk-link-reset">Scrollable modifier</a></h2>
+
+        <p>To give the dropdown a fixed height and enable its content to scroll, just add the <code>.uk-dropdown-scrollable</code> class.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-button-dropdown" data-uk-dropdown>
+            <button class="uk-button">Dropdown <i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-scrollable">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Another item</a></li>
+                    <li><a href="#">Yet another item</a></li>
+                    <li><a href="#">And another item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#">Separated item</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-dropdown uk-dropdown-scrollable"&gt;...&lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="navbar-modifier"><a href="#navbar-modifier" class="uk-link-reset">Navbar modifier</a></h2>
+
+        <p>Dropdowns are an essential part of a navbar from the <a href="navbar.html">Navbar component</a>. Just add the <code>.uk-dropdown-navbar</code> class to the dropdown, so the dropdown fits perfectly into the navbar.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <nav class="uk-navbar">
+
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="">Active</a></li>
+                <li><a href="">Item</a></li>
+                <li class="uk-parent" data-uk-dropdown>
+                    <a href="">Parent <i class="uk-icon-caret-down"></i></a>
+
+                    <div class="uk-dropdown uk-dropdown-navbar">
+                        <ul class="uk-nav uk-nav-navbar">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+
+        </nav>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;nav class="uk-navbar"&gt;
+        &lt;ul class="uk-navbar-nav"&gt;
+
+        &lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;li class="uk-parent" data-uk-dropdown&gt;
+
+        &lt;!-- This is the menu item toggling the dropdown --&gt;
+        &lt;a href=""&gt;...&lt;/a&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown uk-dropdown-navbar"&gt;
+        &lt;ul class="uk-nav uk-nav-navbar"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/nav&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="dropdown-in-buttons"><a href="#dropdown-in-buttons" class="uk-link-reset">Dropdown in buttons</a></h2>
+
+        <p>A button from the <a href="button.html">Button component</a> can be used to trigger a dropdown menu.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-margin" data-uk-margin>
+
+            <div class="uk-button-dropdown" data-uk-dropdown>
+                <button class="uk-button">Hover <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uk-button-dropdown" data-uk-dropdown>
+                <button class="uk-button uk-button-primary">Hover <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uk-button-dropdown" data-uk-dropdown>
+                <button class="uk-button uk-button-success">Hover <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uk-button-dropdown" data-uk-dropdown>
+                <button class="uk-button uk-button-danger">Hover <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uk-button-dropdown" data-uk-dropdown>
+                <button class="uk-button" disabled>Hover <i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;div class="uk-button-dropdown" data-uk-dropdown&gt;
+
+        &lt;!-- This is the button toggling the dropdown --&gt;
+        &lt;button class="uk-button"&gt;...&lt;/button&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown uk-dropdown-small"&gt;
+        &lt;ul class="uk-nav uk-nav-dropdown"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Dropdown in button groups</h3>
+
+        <p>Use button groups from the <a href="button.html">Button component</a> to split buttons into a standard action and a dropdown toggle.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-margin" data-uk-margin>
+            <div class="uk-button-group">
+                <button class="uk-button">Button</button>
+                <div data-uk-dropdown="{mode:'click'}">
+                    <button class="uk-button"><i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-button-group">
+                <button class="uk-button uk-button-primary">Button</button>
+                <div data-uk-dropdown="{mode:'click'}">
+                    <a href="#" class="uk-button uk-button-primary"><i class="uk-icon-caret-down"></i></a>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-button-group">
+                <button class="uk-button uk-button-success">Button</button>
+                <div data-uk-dropdown="{mode:'click'}">
+                    <a href="#" class="uk-button uk-button-success"><i class="uk-icon-caret-down"></i></a>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-button-group">
+                <button class="uk-button uk-button-danger">Button</button>
+                <div data-uk-dropdown="{mode:'click'}">
+                    <a href="#" class="uk-button uk-button-danger"><i class="uk-icon-caret-down"></i></a>
+                    <div class="uk-dropdown uk-dropdown-small">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-button-group">
+                <button class="uk-button" disabled>Button</button>
+                <div data-uk-dropdown="{mode:'click'}">
+                    <button class="uk-button" disabled><i class="uk-icon-caret-down"></i></button>
+                    <div class="uk-dropdown">
+                        <ul class="uk-nav uk-nav-dropdown">
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Another item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">Separated item</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-button-group"&gt;
+
+        &lt;!-- This is a button --&gt;
+        &lt;button class="uk-button"&gt;...&lt;/button&gt;
+
+        &lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;div data-uk-dropdown="{mode:'click'}"&gt;
+
+        &lt;!-- This is the button toggling the dropdown --&gt;
+        &lt;a href="" class="uk-button"&gt;...&lt;/a&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown uk-dropdown-small"&gt;
+        &lt;ul class="uk-nav uk-nav-dropdown"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="dropdown-in-subnavs"><a href="#dropdown-in-subnavs" class="uk-link-reset">Dropdown in subnavs</a></h2>
+
+        <p>Dropdowns can also be applied to a subnav from the <a href="subnav.html">Subnav component</a>.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <ul class="uk-subnav uk-subnav-pill">
+            <li class="uk-active"><a href="#">Active</a></li>
+            <li><a href="#">Item</a></li>
+            <li data-uk-dropdown="{mode:'click'}">
+                <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;ul class="uk-subnav uk-subnav-pill"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+
+        &lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;li data-uk-dropdown="{mode:'click'}"&gt;
+
+        &lt;!-- This is the nav item toggling the dropdown --&gt;
+        &lt;a href=""&gt;...&lt;/a&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown uk-dropdown-small"&gt;
+        &lt;ul class="uk-nav uk-nav-dropdown"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="dropdown-in-tabs"><a href="#dropdown-in-tabs" class="uk-link-reset">Dropdown in tabs</a></h2>
+
+        <p>Dropdowns can be used on a tab from the <a href="tab.html">Tab component</a>.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <ul class="uk-tab uk-width-medium-1-2" data-uk-tab>
+            <li class="uk-active"><a href="#">Tab One</a></li>
+            <li><a href="#">Tab Two</a></li>
+            <li data-uk-dropdown="{mode:'click'}">
+                <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;ul class="uk-tab" data-uk-tab&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+
+        &lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;li data-uk-dropdown="{mode:'click'}"&gt;
+
+        &lt;!-- This is the menu item toggling the dropdown --&gt;
+        &lt;a href=""&gt;...&lt;/a&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown uk-dropdown-small"&gt;
+        &lt;ul class="uk-nav uk-nav-dropdown"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+
+        <hr class="uk-article-divider">
+
+        <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+        <p>This is an example of how to set options via attribute:</p>
+
+        <pre><code>data-uk-dropdown=&quot;{mode:'hover'}&quot;</code></pre>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Possible value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>mode</code></td>
+                        <td>hover, click</td>
+                        <td>hover</td>
+                        <td>Dropdown trigger behaviour</td>
+                    </tr>
+                    <tr>
+                        <td><code>remaintime</code></td>
+                        <td>integer</td>
+                        <td>800</td>
+                        <td>Remain time before auto closing dropdown in hover mode</td>
+                    </tr>
+                    <tr>
+                        <td><code>justify</code></td>
+                        <td>CSS selector</td>
+                        <td>false</td>
+                        <td>Stretch dropdown width to a specified element</td>
+                    </tr>
+                    <tr>
+                        <td><code>boundary</code></td>
+                        <td>window</td>
+                        <td>CSS selector</td>
+                        <td>Referenced element to keep dropdowns visibilty</td>
+                    </tr>
+                    <tr>
+                        <td><code>delay</code></td>
+                        <td>integer</td>
+                        <td>0</td>
+                        <td>Delay time in hover mode before a dropdown is shown in ms</td>
+                    </tr>
+                    <tr>
+                        <td><code>hoverDelayIdle</code></td>
+                        <td>integer</td>
+                        <td>250</td>
+                        <td>Is added to the delay time when hovering from one active dropdown to another dropdown (in ms)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h3>Events</h3>
+
+        <p>You can bind callbacks to following events for custom functionality:</p>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>show.uk.dropdown</code></td>
+                        <td>Triggered on dropdown show</td>
+                    </tr>
+                    <tr>
+                        <td><code>hide.uk.dropdown</code></td>
+                        <td>Triggered on dropdown hide</td>
+                    </tr>
+                    <tr>
+                        <td><code>stack.uk.dropdown</code></td>
+                        <td>Triggered when a dropdown stacks to fit into screen</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+      <pre><code>$('[data-uk-dropdown]').on('show.uk.dropdown', function(){
+      // custom code...
+      });
+      </code></pre>
+
+    </article>
+  <!-- @endextend -->

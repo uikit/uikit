@@ -1,0 +1,174 @@
+<!-- @extend core.template.html -->
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Comment</h1>
+
+      <p class="uk-article-lead">Create comments, for example about articles.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>The Comment component consists of a comment header, including an avatar, a title and meta data, and a comment body.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-comment</code></td>
+                      <td>Add this class to define the Comment component.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-comment-header</code></td>
+                      <td>Add this class to create a comment header.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-comment-avatar</code></td>
+                      <td>Add this class to an <code>&lt;img&gt;</code> element to create an avatar for the comment author.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-comment-title</code></td>
+                      <td>Add this class to a heading to create a comment title.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-comment-meta</code></td>
+                      <td>Add this class to a paragraph to create meta data about your comment.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-comment-body</code></td>
+                      <td>Add this class to a <code>&lt;div&gt;</code> element to create comment body.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+          <article class="uk-comment">
+              <header class="uk-comment-header">
+                  <img class="uk-comment-avatar" src="images/placeholder_avatar.svg" width="50" height="50" alt="">
+                  <h4 class="uk-comment-title">Author</h4>
+                  <div class="uk-comment-meta">12 days ago | Profile | #</div>
+              </header>
+              <div class="uk-comment-body">
+                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+              </div>
+          </article>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;article class="uk-comment"&gt;
+      &lt;header class="uk-comment-header"&gt;
+      &lt;img class="uk-comment-avatar" src="" alt=""&gt;
+      &lt;h4 class="uk-comment-title"&gt;...&lt;/h4&gt;
+      &lt;div class="uk-comment-meta"&gt;...&lt;/div&gt;
+      &lt;/header&gt;
+      &lt;div class="uk-comment-body"&gt;...&lt;/div&gt;
+      &lt;/article&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="comment-lists"><a href="#comment-lists" class="uk-link-reset">Comment lists</a></h2>
+
+      <p>Add the <code>.uk-comment-list</code> class to a <code>&lt;ul&gt;</code> element to create a list of comments. You can nest any number of <code>&lt;ul&gt;</code> elements inside a comment list.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-comment-list">
+          <li>
+              <article class="uk-comment">
+                  <header class="uk-comment-header">
+                      <img class="uk-comment-avatar" src="images/placeholder_avatar.svg" width="50" height="50" alt="">
+                      <h4 class="uk-comment-title">Author</h4>
+                      <div class="uk-comment-meta">12 days ago | Profile | #</div>
+                  </header>
+                  <div class="uk-comment-body">
+                      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                  </div>
+              </article>
+              <ul>
+                  <li>
+                      <article class="uk-comment">
+                          <header class="uk-comment-header">
+                              <img class="uk-comment-avatar" src="images/placeholder_avatar.svg" width="50" height="50" alt="">
+                              <h4 class="uk-comment-title">Author</h4>
+                              <div class="uk-comment-meta">12 days ago | Profile | #</div>
+                          </header>
+                          <div class="uk-comment-body">
+                              <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                          </div>
+                      </article>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;ul class="uk-comment-list"&gt;
+      &lt;li&gt;
+      &lt;article class="uk-comment"&gt;...&lt;/article&gt;
+      &lt;ul&gt;
+      &lt;li&gt;&lt;article class="uk-comment"&gt;...&lt;/article&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;article class="uk-comment"&gt;...&lt;/article&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="color-modifier"><a href="#color-modifier" class="uk-link-reset">Color modifier</a></h2>
+
+      <p>To style a comment differently, for example to highlight it as the admin's comment, just add the <code>.uk-comment-primary</code> class.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <article class="uk-comment uk-comment-primary">
+          <header class="uk-comment-header">
+              <img class="uk-comment-avatar" src="images/placeholder_avatar.svg" width="50" height="50" alt="">
+              <h4 class="uk-comment-title">Author</h4>
+              <div class="uk-comment-meta">12 days ago | Profile | #</div>
+          </header>
+          <div class="uk-comment-body">
+              <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+          </div>
+      </article>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;article class="uk-comment uk-comment-primary"&gt;...&lt;/article&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="subnav-in-comments"><a href="#subnav-in-comments" class="uk-link-reset">Subnav in comments</a></h2>
+
+      <p>You can also use a subnav from the <a href="subnav.html">Subnav component</a> to display the comment's meta data.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <article class="uk-comment">
+          <header class="uk-comment-header">
+              <img class="uk-comment-avatar" src="images/placeholder_avatar.svg" width="50" height="50" alt="">
+              <h4 class="uk-comment-title">Subnav as comment meta</h4>
+              <ul class="uk-comment-meta uk-subnav uk-subnav-line">
+                  <li class="uk-disabled"><a href="#">12 days ago</a></li>
+                  <li><a href="#">Profile</a></li>
+                  <li><a href="#">#</a></li>
+              </ul>
+          </header>
+      </article>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;ul class="uk-comment-meta uk-subnav uk-subnav-line"&gt;
+      &lt;li&gt;...&lt;/li&gt;
+      &lt;/ul&gt;
+      </article></code></pre>
+
+  </article>
+<!-- @endextend -->

@@ -1,0 +1,285 @@
+<!-- @extend core.template.html -->
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Animation</h1>
+
+      <p class="uk-article-lead">A basic collection of smooth animations to use within your page.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To apply this component, add any <code>.uk-animation-*</code> class to an element and it will fade in with a nice animation. These classes are commonly set by using JavaScript to apply the animation to specific behaviors.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-animation-fade</code></td>
+                      <td>The element fades in.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-scale-up</code></td>
+                      <td>The element scales up.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-scale-down</code></td>
+                      <td>The element scales down.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-slide-top</code></td>
+                      <td>The element slides in from the top.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-slide-bottom</code></td>
+                      <td>The element slides in from the bottom.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-slide-left</code></td>
+                      <td>The element slides in from the left.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-slide-right</code></td>
+                      <td>The element slides in from the right.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-shake</code></td>
+                      <td>The element shakes.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-scale</code></td>
+                      <td>The element scales down without fading in.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p>Hover over any of the boxes to see the animation.</p>
+
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-fade">Fade</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale-up">Scale up</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale-down">Scale down</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-shake">Shake</div>
+          </div>
+      </div>
+
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-slide-top">Slide top</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-slide-bottom">Slide bottom</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-slide-left">Slide left</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-slide-right">Slide right</div>
+          </div>
+      </div>
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale">Scale</div>
+          </div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-animation-fade"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="reverse-modifier"><a href="#reverse-modifier" class="uk-link-reset">Reverse modifier</a></h2>
+
+      <p>By default, all aimations are incoming. To reverse any animation, add the <code>.uk-animation-reverse</code> class.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p>Hover over any of the boxes to see the animation.</p>
+
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-fade">Fade</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale-up">Scale up</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale-down">Scale down</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-shake">Shake</div>
+          </div>
+      </div>
+
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-top">Slide top</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-bottom">Slide bottom</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-left">Slide left</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-slide-right">Slide right</div>
+          </div>
+      </div>
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-reverse uk-animation-scale">Scale</div>
+          </div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-animation-fade uk-animation-reverse"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="duration-modifier"><a href="#duration-modifier" class="uk-link-reset">Duration modifier</a></h2>
+
+      <p>To stretch the animation duration to 15 seconds, add the <code>.uk-animation-15</code> class.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-grid uk-text-center">
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-slide-right uk-animation-15">Slide right</div>
+          </div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-animation-slide-right uk-animation-15"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="origin-modifier"><a href="#origin-modifier" class="uk-link-reset">Origin modifier</a></h2>
+
+      <p>By default, scaling animations originate from the center. To modify this behavior, add one of these classes.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-animation-top-left</code></td>
+                      <td>The animation spreads from the top left.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-top-center</code></td>
+                      <td>The animation spreads from the top center.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-top-right</code></td>
+                      <td>The animation spreads from the top right.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-middle-left</code></td>
+                      <td>The animation spreads from the middle left.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-middle-right</code></td>
+                      <td>The animation spreads from the middle right.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-bottom-left</code></td>
+                      <td>The animation spreads from the bottom left.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-bottom-center</code></td>
+                      <td>The animation spreads from the bottom center.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-animation-bottom-right</code></td>
+                      <td>The animation spreads from the bottom right.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p>Hover over any of the boxes to see the animation.</p>
+
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-left">Top Left</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-center">Top Center</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-top-right">Top Right</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-left">Middle Left</div>
+          </div>
+      </div>
+
+      <div class="uk-grid uk-text-center" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-middle-right">Middle Right</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-left">Bottom Left</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-center">Bottom Center</div>
+          </div>
+          <div class="uk-width-medium-1-5 uk-animation-hover">
+              <div class="uk-panel uk-panel-box uk-animation-scale uk-animation-bottom-right">Bottom Right</div>
+          </div>
+      </div>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="animation-hover"><a href="#animation-hover" class="uk-link-reset">Animation hover</a></h2>
+
+      <p>To trigger an animation on hover, just add the <code>.uk-animation-hover</code> class to the animated element itself or to a container.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-grid uk-text-center">
+          <div class="uk-width-medium-1-5">
+              <div class="uk-panel uk-panel-box uk-animation-fade uk-animation-hover">Fade</div>
+          </div>
+          <div class="uk-width-medium-1-5">
+              <div class="uk-animation-hover">
+                  <div class="uk-panel uk-panel-box uk-animation-slide-right">Slide right</div>
+              </div>
+          </div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-animation-hover uk-animation-fade"&gt;...&lt;/div&gt;
+
+      &lt;div class="uk-animation-hover"&gt;
+      &lt;div class="uk-animation-slide-right"&gt;...&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

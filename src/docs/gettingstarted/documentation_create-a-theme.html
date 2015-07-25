@@ -1,0 +1,107 @@
+<!-- @extend gettingstarted.template.html -->
+    <article class="uk-article">
+
+        <h1>Create a theme</h1>
+
+        <p class="uk-article-lead">Extend UIkit and add your own unique theme.</p>
+
+        <h2 id="how-to-start"><a href="#how-to-start" class="uk-link-reset">How to start</a></h2>
+
+        <p>By default, UIkit comes with a very basic theme. To modify the style, you don't have to edit any of the core framework files. Instead, you can extend UIkit by creating a custom theme. This allows you to easily update UIkit core files. We even provide some neat themes to get you started. To create your own theme, follow these steps:</p>
+
+        <h3>1. Create the theme directory</h3>
+
+        <p>Download or clone UIkit and install Node and Gulp. Finally create your theme folder here <code>/custom/THEME-NAME</code>. If the <code>/custom</code> directory is not present, create it first.</p>
+
+        <p><span class="uk-badge">NOTE</span> The <code>/custom</code> folder is set to git ignore, which prevents your custom files from being pushed into the UIkit repository. If you are working with a cloned version of UIkit's git repository, it is a good practice to have <code>/custom</code> as your own git repository. That way your theme files are under version control without interfering with the UIkit files.</p>
+
+        <h3>2. Add your theme</h3>
+
+        <p>Create the <code>uikit.less</code> file in the <code>/custom/THEME-NAME</code> folder and add the <code>@import "../../src/less/uikit.less";</code> rule to access all Less files from the core framework and adopt its basic styling. That's it! You can start adding your own theme from scratch.</p>
+
+        <p><span class="uk-badge">NOTE</span> To get you started right away, we provide the default, gradient and almost-flat theme. All default files are already imported and you will also find all theme files with their related hooks. So all you need to do is to duplicate and rename the folder into the <code>/custom</code> directory.</p>
+
+        <h3>3. Customizer and Tests</h3>
+
+        <p>Run the gulp task <code>indexthemes</code> in your UIkit folder. Now the newly created themes will be available automatically in the Customizer and test files.</p>
+
+        <h3>4. Build your theme</h3>
+
+        <p>You can generate your theme's CSS from within the Customizer. If you want to use a gulp task instead, run <code>gulp dist -t THEME-NAME</code>. The generated files will be located in the <code>dist/</code> folder.</p>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="best-theming-practices"><a href="#best-theming-practices" class="uk-link-reset">Best theming practices</a></h2>
+
+        <p>There are different approaches to style your theme. We recommend the following workflow.</p>
+
+        <h3>1. Use variables</h3>
+
+        <p>The first thing to do is to customize the values of already declared variables. You can find all variables for each component inside their Less files of the core framework and override them in your theme.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-medium-1-2">
+
+                <p><code>/src/core/button/button.less</code></p>
+                <pre><code>// default value
+                @button-height: 30px;</code></pre>
+
+            </div>
+            <div class="uk-width-medium-1-2">
+
+                <p><code>/custom/THEME-NAME/button.less</code></p>
+                <pre><code>// new value
+                @button-height: 35px;</code></pre>
+
+            </div>
+        </div>
+
+        <h3>2. Use hooks</h3>
+        <p>To prevent overhead selectors, we use Mixins from <a href="http://lesscss.org">Less</a>, which hook into predefined selectors from the UIkit source and apply additional properties. Selectors don't have to be repeated throughout all documents and gobal changes can be made much more easily.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-medium-1-2">
+
+                <p><code>/src/core/panel/panel.less</code></p>
+                <pre><code>// CSS rule
+                .uk-panel {
+                background: @background;
+
+                // mixin to add new declaration
+                .hook-panel;
+                }</code></pre>
+            </div>
+            <div class="uk-width-medium-1-2">
+
+                <p><code>/custom/THEME-NAME/panel.less</code></p>
+                <pre><code>// mixin to add new declaration
+                .hook-panel&#40;&#41; { color: #fff; }
+                </code></pre>
+
+            </div>
+        </div>
+
+
+        <h3>3. Miscellaneous hooks</h3>
+        <p>Should there be neither a variable nor a hook available, you can of course create your own selector. To do so, use the <em>.hook-panel-misc</em> hook and write your selector inside. This will sort your new selector to the right place of the compiled CSS file.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-width-medium-1-2">
+
+            <p><code>/custom/THEME-NAME/panel.less</code></p>
+              <pre><code>// misc mixin
+              .hook-panel-misc() {
+
+              // new rule
+              .uk-panel a { color: #f00; }
+              }</code></pre>
+
+        </div>
+
+    </article>
+  <!-- @endextend -->

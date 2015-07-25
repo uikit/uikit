@@ -1,0 +1,128 @@
+<!-- @extend core.template.html -->
+
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Toggle</h1>
+
+      <p class="uk-article-lead">Hide, switch or change the appearence of different contents through a toggle.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To apply this component, just add the <code>data-uk-toggle="{target: #ID}"</code> attribute to a <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element. You can use any selector with the toggle attribute.</p>
+      <p>The toggle will add or remove a class from the item. By default, it adds the <code>.uk-hidden</code> class to hide the element.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p><button class="uk-button" data-uk-toggle="{target:'#toggle1'}">Toggle</button></p>
+
+      <div id="toggle1" class="uk-panel uk-panel-box">What's up?</div>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id'}"&gt;...&lt;/button&gt;
+
+      &lt;div id="my-id"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="multiple-items"><a href="#multiple-items" class="uk-link-reset">Multiple items</a></h2>
+
+      <p>You can also toggle multiple items at the same time. Just use the appropriate selector.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p><button class="uk-button" data-uk-toggle="{target:'.toggle2'}">Toggle</button></p>
+
+      <div class="uk-panel uk-panel-box toggle2">Hello!</div>
+
+      <div class="uk-panel uk-panel-box toggle2 uk-hidden">Bazinga!</div>
+
+      <p><span class="uk-badge">NOTE</span> In this example we added the <code>.uk-hidden</code> class to one of the items, so that only the other item will be shown. The toggle will switch visible states between both elements.</p>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'.my-class'}"&gt;...&lt;/button&gt;
+
+      &lt;div class="my-class"&gt;...&lt;/div&gt;
+      &lt;div class="my-class uk-hidden"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="custom-class"><a href="#custom-class" class="uk-link-reset">Custom class</a></h2>
+
+      <p>If you don't want to toggle the <code>.uk-hidden</code> class, you can also add your own custom class.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p><button class="uk-button" data-uk-toggle="{target:'#toggle3', cls:'uk-panel-box-primary'}">Toggle</button></p>
+
+      <div id="toggle3" class="uk-panel uk-panel-box">What's up?</div>
+
+      <p><span class="uk-badge">NOTE</span> In this example we used the <code>.uk-panel-box-primary</code> class to switch between different panel styles.</p>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id', cls:'uk-panel-box-primary'}"&gt;...&lt;/button&gt;
+
+      &lt;div id="my-id" class="uk-panel uk-panel-box"&gt;...&lt;/div&gt;</code></pre>
+
+      <h2 id="toggle-animations"><a href="#toggle-animations" class="uk-link-reset">Animations</a></h2>
+
+      <p>The Toggle component allows you to add animations to items when toggling between them. Just add one of the <code>.uk-animation-*</code> classes from the <a href="animation.html">Animation component</a> to the <code>animation</code> parameter. The class will be applied to the in as well as the out animation. If you prefer a different out animation, just add another class.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p><button class="uk-button" data-uk-toggle="{target:'#toggle5', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">Toggle</button></p>
+
+      <div id="toggle5" class="uk-panel uk-panel-box">It's magic!</div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;button class="uk-button" data-uk-toggle="{target:'#my-id', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}"&gt;...&lt;/button&gt;
+
+      &lt;div id="my-id"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+      <p>This is an example of how to set options via attribute:</p>
+
+      <pre><code>data-uk-toggle=&quot;{target:'#my-id'}&quot;</code></pre>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped">
+              <thead>
+                  <tr>
+                      <th>Option</th>
+                      <th>Possible value</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>target</code></td>
+                      <td>CSS selector</td>
+                      <td>false</td>
+                      <td>Elements where classes should be toggled</td>
+                  </tr>
+                  <tr>
+                      <td><code>cls</code></td>
+                      <td>string</td>
+                      <td>'uk-hidden'</td>
+                      <td>Class to toggle</td>
+                  </tr>
+                  <tr>
+                      <td><code>animation</code></td>
+                      <td>mixed</td>
+                      <td>false</td>
+                      <td>Any uk-animation class name.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+  </article>
+<!-- @endextend -->

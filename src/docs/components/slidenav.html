@@ -1,0 +1,68 @@
+<!-- @extend components.template.html -->
+  <article class="uk-article">
+
+      <h1>Slidenav</h1>
+
+      <p class="uk-article-lead">Defines a navigation with previous and next buttons to browse through slideshows.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To create a navigation with previous and next buttons, just add the <code>.uk-slidenav</code> class to <code>&lt;a&gt;</code> elements. Add the <code>.uk-slidenav-previous</code> or <code>.uk-slidenav-next</code> class to style the nav items as previous or next buttons.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p>
+          <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+          <a href="#" class="uk-slidenav uk-slidenav-next"></a>
+      </p>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+      &lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="position-slidenav"><a href="#position-slidenav" class="uk-link-reset">Position slidenav</a></h2>
+
+      <p>To position the Slidenav over any content, like a slideshow or an image, just wrap the nav and content inside a container element and add the <code>.uk-slidenav-position</code> class. That way the previous and next buttons will be centered vertically and aligned to the left and right. The Slidenav will only be visible when hovering the content.</p>
+
+      <div class="uk-slidenav-position uk-display-inline-block">
+
+          <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+
+          <a href="#" class="uk-slidenav uk-slidenav-previous"></a>
+          <a href="#" class="uk-slidenav uk-slidenav-next"></a>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-slidenav-position"&gt;
+      &lt;img src="" alt=""&gt;
+      &lt;a href="" class="uk-slidenav uk-slidenav-previous"&gt;&lt;/a&gt;
+      &lt;a href="" class="uk-slidenav uk-slidenav-next"&gt;&lt;/a&gt;
+      &lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="slidenav-and-images"><a href="#slidenav-and-images" class="uk-link-reset">Slidenav and images</a></h2>
+
+      <p>For better visibility on images, for example when using the Slidenav as a slideshow navigation, just add the <code>.uk-slidenav-contrast</code> class.</p>
+
+      <div class="uk-slidenav-position uk-display-inline-block">
+
+          <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+
+          <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous"></a>
+          <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next"></a>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous"&gt;&lt;/a&gt;
+      &lt;a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next"&gt;&lt;/a&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->
