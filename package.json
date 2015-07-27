@@ -34,12 +34,12 @@
     "gulp-minify-css": "^1.1.1",
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.4.0",
-    "gulp-rimraf": "latest",
     "gulp-tap": "latest",
     "gulp-uglify": "^0.3.1",
     "gulp-util": "latest",
     "gulp-watch": "^0.6.9",
     "gulp-zip": "^2.0.2",
+    "vinyl-paths": "^1.0.0",
     "mkdirp": "latest",
     "promise": "latest",
     "run-sequence": "^0.3.6"

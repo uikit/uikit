@@ -8,7 +8,6 @@ var pkg         = require('./package.json'),
     concat      = require('gulp-concat'),
     ignore      = require('gulp-ignore'),
     rename      = require('gulp-rename'),
-    rimraf      = require('gulp-rimraf'),
     replace     = require('gulp-replace'),
     header      = require('gulp-header'),
     less        = require('gulp-less'),
@@ -19,7 +18,9 @@ var pkg         = require('./package.json'),
     zip         = require('gulp-zip'),
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync'),
-    Promise     = require('promise');
+    Promise     = require('promise')
+    vinylPaths  = require('vinyl-paths'),
+    del         = require('del');
 
 var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
     watchCache   = {},
@@ -95,7 +96,7 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 
         if (gutil.env.m || gutil.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
-            .pipe(rimraf()).on('end', function(){
+            .pipe(vinylPaths(del)).on('end', function(){
                 done();
             });
         } else {
@@ -206,7 +207,7 @@ gulp.task('help', function(done) {
 gulp.task('dist-clean', function(done) {
 
     if (gutil.env.c || gutil.env.clean) {
-        return gulp.src('dist', {read: false}).pipe(rimraf());
+        return gulp.src('dist', {read: false}).pipe(vinylPaths(del));
     } else {
         done();
     }
@@ -690,6 +691,6 @@ gulp.task('sublime', ['sublime-css', 'sublime-js', 'sublime-snippets'], function
         .pipe(concat(outfile))
         .pipe(gulp.dest('dist/sublime/'))
         .on('end', function(){
-            gulp.src("dist/sublime/tmp_*.py", {read: false}).pipe(rimraf()).on('end', done);
+            gulp.src("dist/sublime/tmp_*.py", {read: false}).pipe(vinylPaths(del)).on('end', done);
         });
 });
