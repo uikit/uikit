@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Components - UIkit documentation</title>
+        <title>UIkit - <!-- @echo page_title --></title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,10 +24,34 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
+                    <!-- @ifdef page_section_getstarted -->
+                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <!-- @endif -->
+                    <!-- @ifndef page_section_getstarted -->
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+                    <!-- @endif -->
+
+                    <!-- @ifdef page_section_core -->
+                    <li class="uk-active"><a href="core.html">Core</a></li>
+                    <!-- @endif -->
+                    <!-- @ifndef page_section_core -->
                     <li><a href="core.html">Core</a></li>
+                    <!-- @endif -->
+
+                    <!-- @ifdef page_section_components -->
+                    <li class="uk-active"><a href="components.html">Components</a></li>
+                    <!-- @endif -->
+                    <!-- @ifndef page_section_components -->
                     <li><a href="components.html">Components</a></li>
+                    <!-- @endif -->
+
+                    <!-- @ifdef page_section_customizer -->
+                    <li class="uk-active"><a href="customizer.html">Customizer</a></li>
+                    <!-- @endif -->
+                    <!-- @ifndef page_section_customizer -->
                     <li><a href="customizer.html">Customizer</a></li>
+                    <!-- @endif -->
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 

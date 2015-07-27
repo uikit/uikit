@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Custom Prefix - UIkit documentation</title>
+        <title>UIkit - Custom Prefix</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,10 +26,14 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
-                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,71 +44,68 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                    <div class="uk-grid" data-uk-grid-margin>
+        <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+            <ul class="tm-nav uk-nav" data-uk-nav>
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+                <li class="uk-nav-header">Beginners</li>
+                <li><a href="documentation_get-started.html">Get started</a></li>
+                <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                <li><a href="documentation_layouts.html">Layout examples</a></li>
+                <li class="uk-nav-header">Developers</li>
+                <li><a href="documentation_project-structure.html">Project structure</a></li>
+                <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                <li><a href="documentation_javascript.html">JavaScript</a></li>
+                <li class="uk-active"><a href="documentation_custom-prefix.html">Custom prefix</a></li>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
+            </ul>
 
-                            <li class="uk-nav-header">Beginners</li>
-                            <li><a href="documentation_get-started.html">Get started</a></li>
-                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
-                            <li><a href="documentation_layouts.html">Layout examples</a></li>
-                            <li class="uk-nav-header">Developers</li>
-                            <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
-                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-                            <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li class="uk-active"><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+        </div>
+        <div class="tm-main uk-width-medium-3-4">
+            <article class="uk-article" style="min-height:50vh;">
 
-                        </ul>
+      <h1 class="uk-article-title">Custom prefix</h1>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <p class="uk-article-lead">Create a custom prefixed UIkit builds to avoid issues when using multiple UIkit versions side by side.</p>
 
-                        <article class="uk-article" style="min-height:50vh;">
+      <p>As we keep releasing newer versions of UIkit, some components or classes will be altered or dismissed, while more and more themes and extensions are built with UIkit and loaded on the same page. This might cause conflicts when classes that occur in both versions are working differently.</p>
 
-                            <h1 class="uk-article-title">Custom prefix</h1>
+      <p>That's why you can custom prefix your UIkit version. Basically this will replace the usual <code>uk-</code> with whatever prefix you set.</p>
 
-                            <p class="uk-article-lead">Create a custom prefixed UIkit builds to avoid issues when using multiple UIkit versions side by side.</p>
+      <hr class="uk-article-divider">
 
-                            <p>As we keep releasing newer versions of UIkit, some components or classes will be altered or dismissed, while more and more themes and extensions are built with UIkit and loaded on the same page. This might cause conflicts when classes that occur in both versions are working differently.</p>
+      <h2>Prefix via Less</h2>
 
-                            <p>That's why you can custom prefix your UIkit version. Basically this will replace the usual <code>uk-</code> with whatever prefix you set.</p>
+      <p>If you are not familiar with the usage of <code>gulp</code>, check out our doc on <a href="documentation_project-structure.html#automate-preprocessing">automating preprocessing</a> to find out how to create a UIkit build. To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes and JavaScript files custom prefixed.</p>
 
-                            <hr class="uk-article-divider">
+      <pre><code>gulp -p myprefix</code></pre>
 
-                            <h2>Prefix via Less</h2>
+      <p>After running gulp you'll find your custom prefixed build in the dist folder. e.g.:</p>
+      <pre><code>
+      .myprefix-grid { ... }
+      ...
+      </code></pre>
 
-                            <p>If you are not familiar with the usage of <code>gulp</code>, check out our doc on <a href="documentation_project-structure.html#automate-preprocessing">automating preprocessing</a> to find out how to create a UIkit build. To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes and JavaScript files custom prefixed.</p>
+      <hr class="uk-article-divider">
 
-                            <pre><code>gulp -p myprefix</code></pre>
+      <h2>JavaScript noConflict mode</h2>
 
-                            <p>After running gulp you'll find your custom prefixed build in the dist folder. e.g.:</p>
-                            <pre><code>
-                            .myprefix-grid { ... }
-                            ...
-                            </code></pre>
+      <p>To prevent conflicts with multiple custom prefixed UIkit versions, just call the <code>noConflict</code> method <strong>after</strong> including UIkit:</p>
 
-                            <hr class="uk-article-divider">
+      <pre><code>var myUIkit = UIkit.noConflict();</code></pre>
 
-                            <h2>JavaScript noConflict mode</h2>
-
-                            <p>To prevent conflicts with multiple custom prefixed UIkit versions, just call the <code>noConflict</code> method <strong>after</strong> including UIkit:</p>
-
-                            <pre><code>var myUIkit = UIkit.noConflict();</code></pre>
-
-                        </article>
-
-                    </div>
-                </div>
-
+  </article>
+        </div>
+    </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -135,11 +138,11 @@
                             <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a style</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li class="uk-active"><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
@@ -239,7 +242,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

@@ -1,4 +1,17 @@
+<!-- @set page_title "Accordion"-->
+<!-- @set page_section_components "Components"-->
 <!-- @extend components.template.html -->
+
+<script src="../src/js/components/accordion.js"></script>
+<script>
+  $(function(){
+      $("body").on("click", ".uk-button[data-message]", function(){
+          UIkit.notify($(this).data());
+   });
+ })
+</script>
+
+
 <article class="uk-article">
 
     <h1>Accordion</h1>

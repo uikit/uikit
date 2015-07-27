@@ -1,6 +1,17 @@
+<!-- @set page_title "Notify"-->
+<!-- @set page_section_components "components" -->
 <!-- @extend components.template.html -->
 
-  <article class="uk-article">
+      <script src="../src/js/components/notify.js"></script>
+      <script>
+      $(function(){
+         $("body").on("click", ".uk-button[data-message]", function(){
+              UIkit.notify($(this).data());
+          });
+      })
+      </script>
+
+      <article class="uk-article">
 
       <h1>Notify</h1>
 

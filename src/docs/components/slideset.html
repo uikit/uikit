@@ -1,4 +1,16 @@
+<!-- @set page_title "Slidereset"-->
+<!-- @set page_section_components "components" -->
 <!-- @extend components.template.html -->
+  <script src="../vendor/holder.js"></script>
+  <script src="../src/js/components/slideset.js"></script>
+  <script charset="utf-8">
+      jQuery(function($){
+          var select = $('#slideset-animation').on('change', function(){
+              select.next('[data-uk-slideset]').data('slideset').options.animation = select.val();
+          });
+      });
+  </script>
+
   <article class="uk-article">
 
       <h1>Slideset</h1>

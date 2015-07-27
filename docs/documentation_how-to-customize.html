@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>How to customize - UIkit documentation</title>
+        <title>UIkit - How to Customize</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,10 +26,14 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
-                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,73 +44,70 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                    <div class="uk-grid" data-uk-grid-margin>
+        <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+            <ul class="tm-nav uk-nav" data-uk-nav>
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+                <li class="uk-nav-header">Beginners</li>
+                <li><a href="documentation_get-started.html">Get started</a></li>
+                <li class="uk-active"><a href="documentation_how-to-customize.html">How to customize</a></li>
+                <li><a href="documentation_layouts.html">Layout examples</a></li>
+                <li class="uk-nav-header">Developers</li>
+                <li><a href="documentation_project-structure.html">Project structure</a></li>
+                <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                <li><a href="documentation_javascript.html">JavaScript</a></li>
+                <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
+            </ul>
 
-                            <li class="uk-nav-header">Beginners</li>
-                            <li><a href="documentation_get-started.html">Get started</a></li>
-                            <li class="uk-active"><a href="documentation_how-to-customize.html">How to customize</a></li>
-                            <li><a href="documentation_layouts.html">Layout examples</a></li>
-                            <li class="uk-nav-header">Developers</li>
-                            <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
-                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-                            <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+        </div>
+        <div class="tm-main uk-width-medium-3-4">
+            <article class="uk-article">
 
-                        </ul>
+      <h1>How to customize</h1>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <p class="uk-article-lead">Create your own style with the customizer.</p>
 
-                        <article class="uk-article">
+      <p>UIkit comes with a <a href="customizer.html">customizer</a> that enables you to make adjustments to the theme you are using with just a few clicks and no need for any CSS knowledge. You can then download your new CSS and even the pending Less variables, all ready to use.</p>
 
-                            <h1>How to customize</h1>
+      <p><span class="uk-badge">NOTE</span> To optimize performance, we recommend disabling add-ons, like Web Developer and Firebug in <em>Firefox</em>.</p>
 
-                            <p class="uk-article-lead">Create your own style with the customizer.</p>
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p>UIkit comes with a <a href="customizer.html">customizer</a> that enables you to make adjustments to the theme you are using with just a few clicks and no need for any CSS knowledge. You can then download your new CSS and even the pending Less variables, all ready to use.</p>
+      <p>Choose the theme that you would like to customize from the select box. Click inside a color square to open the dialog and change your color. To adjust a numeric value, like width or margin, just click in the text area and type your own value. You can even use a different unit and the customizer will recalculate automatically. Once you are satisfied with your adjustments, hit <em>Get CSS</em> to download your new theme and copy it into your UIkit <code>/css</code> folder.</p>
 
-                            <p><span class="uk-badge">NOTE</span> To optimize performance, we recommend disabling add-ons, like Web Developer and Firebug in <em>Firefox</em>.</p>
+      <h3>Advanced mode</h3>
 
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+      <p>The variables within the customizer are separated into two main parts. First, variables which are displayed by default and variables which only appear in the <em>Advanced Mode</em>. The visible variables are often the global ones, because they usually define the value of component variables. To see the component variables, just check the Advanced mode box.</p>
 
-                            <p>Choose the theme that you would like to customize from the select box. Click inside a color square to open the dialog and change your color. To adjust a numeric value, like width or margin, just click in the text area and type your own value. You can even use a different unit and the customizer will recalculate automatically. Once you are satisfied with your adjustments, hit <em>Get CSS</em> to download your new theme and copy it into your UIkit <code>/css</code> folder.</p>
+      <h3>More</h3>
 
-                            <h3>Advanced mode</h3>
+      <p>By default, variables whose value is defined through another variable are hidden. In Advanced mode you can see a <em>(More)</em> button next to groups that include these kinds of variables. This option is extremely powerful as it enables you to set your own value for any component variable.</p>
 
-                            <p>The variables within the customizer are separated into two main parts. First, variables which are displayed by default and variables which only appear in the <em>Advanced Mode</em>. The visible variables are often the global ones, because they usually define the value of component variables. To see the component variables, just check the Advanced mode box.</p>
+      <h3>Minified CSS</h3>
 
-                            <h3>More</h3>
+      <p>Check <em>Minify CSS</em> before downloading your theme, so UIkit removes all line breaks and unnecessary spaces from your CSS, reducing its file size considerably. </p>
 
-                            <p>By default, variables whose value is defined through another variable are hidden. In Advanced mode you can see a <em>(More)</em> button next to groups that include these kinds of variables. This option is extremely powerful as it enables you to set your own value for any component variable.</p>
+      <h3>RTL</h3>
 
-                            <h3>Minified CSS</h3>
+      <p>UIkit has the option of on the fly right-to-left language localization. All you need to do is check <em>RTL mode</em> and the whole theme will convert automatically.</p>
 
-                            <p>Check <em>Minify CSS</em> before downloading your theme, so UIkit removes all line breaks and unnecessary spaces from your CSS, reducing its file size considerably. </p>
+      <h3>Get Less</h3>
 
-                            <h3>RTL</h3>
+      <p>You can also download only the variables in one Less file to use them in your project.</p>
 
-                            <p>UIkit has the option of on the fly right-to-left language localization. All you need to do is check <em>RTL mode</em> and the whole theme will convert automatically.</p>
-
-                            <h3>Get Less</h3>
-
-                            <p>You can also download only the variables in one Less file to use them in your project.</p>
-
-                        </article>
-
-                    </div>
-                </div>
-
+  </article>
+        </div>
+    </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -241,7 +244,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>
