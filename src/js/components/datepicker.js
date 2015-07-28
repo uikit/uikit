@@ -263,7 +263,7 @@
             var opts   = this.options,
                 now    = moment().format('YYYY-MM-DD'),
                 days   = [31, (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month],
-                before = new Date(year, month, 1).getDay(),
+                before = new Date(year, month, 1, 12).getDay(),
                 data   = {"month":month, "year":year,"weekdays":[],"days":[], "maxDate": false, "minDate": false},
                 row    = [];
 
@@ -308,7 +308,7 @@
 
             for (var i = 0, r = 0; i < cells; i++) {
 
-                day        = new Date(year, month, 1 + (i - before));
+                day        = new Date(year, month, 1 + (i - before), 12);
                 isDisabled = (data.minDate && data.minDate > day) || (data.maxDate && day > data.maxDate);
                 isInMonth  = !(i < before || i >= (days + before));
 
