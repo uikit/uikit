@@ -1,0 +1,276 @@
+<!-- @set page_title "Off Canvas"-->
+<!-- @set page_section_core "core" -->
+<!-- @extend core.template.html -->
+
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">Off-canvas</h1>
+
+        <p class="uk-article-lead">Create a smooth off-canvas sidebar that slides in and out of the page.</p>
+
+        <p>The Off-canvas component is perfect for building a mobile navigation, similar to those which are popular with many native mobile apps, where a single button in the upper left corner toggles an off-canvas sidebar with a menu.</p>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>The Off-canvas component consists of an overlay and an off-canvas bar.</p>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.uk-offcanvas</code></td>
+                        <td>Add this class to a <code>&lt;div&gt;</code> element to create the bar container and an overlay, blanking out the page. An id also needs to be added, so the off-canvas sidebar can be toggled.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.uk-offcanvas-bar</code></td>
+                        <td>Add this class to a child <code>&lt;div&gt;</code> element to create the off-canvas bar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>You can use any element to toggle an off-canvas sidebar. An <code>&lt;a&gt;</code> element needs to be linked to the id of the off-canvas container. To enable the necessary JavaScript, just add the <code>data-uk-offcanvas</code> attribute. If you are using another element, like a button, just add the <code>data-uk-offcanvas="{target:'#ID'}"</code> attribute to target the id of the off-canvas container.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-1'}">Open</button>
+        <a href="#offcanvas-1" data-uk-offcanvas>Open</a>
+        <div id="offcanvas-1" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar">
+                <div class="uk-panel">Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+
+                <div class="uk-panel">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;!-- This is an anchor toggling the off-canvas sidebar --&gt;
+        &lt;a href="#my-id" data-uk-offcanvas&gt;...&lt;/a&gt;
+
+        &lt;!-- This is a button toggling the off-canvas sidebar --&gt;
+        &lt;button class="uk-button" data-uk-offcanvas="{target:'#my-id'}"&gt;...&lt;/button&gt;
+
+        &lt;!-- This is the off-canvas sidebar --&gt;
+        &lt;div id="my-id" class="uk-offcanvas"&gt;
+        &lt;div class="uk-offcanvas-bar"&gt;...&lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="flip-modifier"><a href="#flip-modifier" class="uk-link-reset">Flip modifier</a></h2>
+
+        <p>Add the <code>.uk-offcanvas-bar-flip</code> class to the off-canvas bar to adjust its alignment, so that it slides in from the right.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-2'}">Right</button>
+        <div id="offcanvas-2" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
+                <div class="uk-panel">Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+
+                <div class="uk-panel">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;div id="my-id" class="uk-offcanvas"&gt;
+        &lt;div class="uk-offcanvas-bar uk-offcanvas-bar-flip"&gt;...&lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="off-canvas-navs"><a href="#off-canvas-navs" class="uk-link-reset">Off-canvas navs</a></h2>
+
+        <p>An off-canvas sidebar can contain a nav from the <a href="nav.html">Nav component</a>. Add the <code>.uk-nav-offcanvas</code> class to style the nav according to the off-canvas context.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-button-group">
+            <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-3'}">Left</button>
+            <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-4'}">Right</button>
+        </div>
+
+        <div id="offcanvas-3" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+                    <li><a href="">Item</a></li>
+                    <li class="uk-active"><a href="">Active</a></li>
+
+                    <li class="uk-parent">
+                        <a href="#">Parent</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="">Sub item</a></li>
+                            <li><a href="">Sub item</a>
+                                <ul>
+                                    <li><a href="">Sub item</a></li>
+                                    <li><a href="">Sub item</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="uk-parent">
+                        <a href="#">Parent</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="">Sub item</a></li>
+                            <li><a href="">Sub item</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="">Item</a></li>
+
+                    <li class="uk-nav-header">Header</li>
+                    <li class="uk-parent"><a href=""><i class="uk-icon-star"></i> Parent</a></li>
+                    <li><a href=""><i class="uk-icon-twitter"></i> Item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href=""><i class="uk-icon-rss"></i> Item</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div id="offcanvas-4" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+                    <li><a href="">Item</a></li>
+                    <li class="uk-active"><a href="">Active</a></li>
+
+                    <li class="uk-parent">
+                        <a href="#">Parent</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="">Sub item</a></li>
+                            <li><a href="">Sub item</a>
+                                <ul>
+                                    <li><a href="">Sub item</a></li>
+                                    <li><a href="">Sub item</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="uk-parent">
+                        <a href="#">Parent</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="">Sub item</a></li>
+                            <li><a href="">Sub item</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="">Item</a></li>
+
+                    <li class="uk-nav-header">Header</li>
+                    <li class="uk-parent"><a href=""><i class="uk-icon-star"></i> Parent</a></li>
+                    <li><a href=""><i class="uk-icon-twitter"></i> Item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href=""><i class="uk-icon-rss"></i> Item</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;!-- This is the button toggling the off-canvas sidebar --&gt;
+        &lt;button class="uk-button" data-uk-offcanvas="{target:'#my-id'}"&gt;...&lt;/button&gt;
+
+        &lt;!-- This is the off-canvas sidebar --&gt;
+        &lt;div id="my-id" class="uk-offcanvas"&gt;
+        &lt;div class="uk-offcanvas-bar"&gt;
+        &lt;ul class="uk-nav uk-nav-offcanvas" data-uk-nav&gt;...&lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="off-canvas-panels"><a href="#off-canvas-panels" class="uk-link-reset">Off-canvas panels</a></h2>
+
+        <p>You can place any custom content inside the off-canvas bar. Just wrap it with a <code>&lt;div&gt;</code> and add the <code>.uk-panel</code> class.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-5'}">Open</button>
+        <div id="offcanvas-5" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar">
+                <div class="uk-panel">
+                    <h3 class="uk-panel-title">Panel title</h3>
+                    Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div>
+
+                <div class="uk-panel">
+                    <h3 class="uk-panel-title">Panel title</h3>
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;!-- This is the button toggling the off-canvas sidebar --&gt;
+        &lt;button class="uk-button" data-uk-offcanvas="{target:'#my-id'}"&gt;...&lt;/button&gt;
+
+        &lt;!-- This is the off-canvas sidebar --&gt;
+        &lt;div id="my-id" class="uk-offcanvas"&gt;
+        &lt;div class="uk-offcanvas-bar"&gt;
+        &lt;div class="uk-panel"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+
+        <hr class="uk-article-divider">
+
+        <h2 id="javascript"><a href="#javascript" class="uk-link-reset">JavaScript</a></h2>
+
+        <p>You can open and close the offcanvas via JavaScript:</p>
+
+        <pre><code class="javascript">// Show an off-canvas matching the passed CSS selector
+        UIkit.offcanvas.show('#my-id');
+
+        // Hide any active offcanvas. Set force to true, if you don't want any animation.
+        UIkit.offcanvas.hide([force = false])
+        </code></pre>
+
+        <h3>Events</h3>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped uk-text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>show.uk.offcanvas</code></td>
+                        <td>event, panel, bar</td>
+                        <td>On offcanvas show</td>
+                    </tr>
+                    <tr>
+                        <td><code>hide.uk.offcanvas</code></td>
+                        <td>event, panel, bar</td>
+                        <td>On offcanvas hide</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </article>
+  <!-- @endextend -->

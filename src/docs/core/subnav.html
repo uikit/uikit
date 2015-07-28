@@ -1,0 +1,150 @@
+<!-- @set page_title "Subnav"-->
+<!-- @set page_section_core "core" -->
+<!-- @extend core.template.html -->
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">Subnav</h1>
+
+        <p class="uk-article-lead">Defines different styles for a sub navigation.</p>
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>To apply this component, use the following classes. To align a subnav, for example to horizontally center it, you can use the <a href="flex.html">Flex component</a>.</p>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.uk-tab</code></td>
+                        <td>Add this class to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.uk-active</code></td>
+                        <td>Add this class to a list item to apply an active state.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.uk-disabled</code></td>
+                        <td>Add this class to a list item to apply a disabled state.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <ul class="uk-subnav">
+            <li class="uk-active"><a href="#">Item</a></li>
+            <li><a href="#">Item</a></li>
+            <li><a href="#">Item</a></li>
+            <li class="uk-disabled"><a href="#">Disabled</a></li>
+        </ul>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;ul class="uk-subnav"&gt;
+        &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="uk-disabled"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="modifiers"><a href="#modifiers" class="uk-link-reset">Modifiers</a></h2>
+
+        <h3>Subnav line</h3>
+
+        <p>Add the <code>.uk-subnav-line</code> class to separate menu items with lines.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <ul class="uk-subnav uk-subnav-line">
+            <li class="uk-active"><a href="#">Item</a></li>
+            <li><a href="#">Item</a></li>
+            <li><a href="#">Item</a></li>
+            <li class="uk-disabled"><a href="#">Disabled</a></li>
+        </ul>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;ul class="uk-subnav uk-subnav-line"&gt;
+        &lt;li&gt;...&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Subnav pill</h3>
+
+        <p>Add the <code>.uk-subnav-pill</code> class to highlight the active menu item with a background. To apply an active state to a menu item, just add the <code>.uk-active</code> class.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <ul class="uk-subnav uk-subnav-pill">
+            <li class="uk-active"><a href="#">Item</a></li>
+            <li><a href="#">Item</a></li>
+            <li><a href="#">Item</a></li>
+            <li class="uk-disabled"><a href="#">Disabled</a></li>
+        </ul>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;ul class="uk-subnav uk-subnav-pill"&gt;
+        &lt;li class="uk-active"&gt;...&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="subnav-with-dropdowns"><a href="#subnav-with-dropdowns" class="uk-link-reset">Subnav with dropdowns</a></h2>
+
+        <p>This is an example of how to use a subnav with the <a href="dropdown.html">Dropdown component</a>.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <ul class="uk-subnav uk-subnav-pill">
+            <li class="uk-active"><a href="#">Active</a></li>
+            <li><a href="#">Item</a></li>
+            <li class="uk-disabled"><a href="#">Disabled</a></li>
+            <li data-uk-dropdown="{mode:'click'}">
+                <a href="#">More <i class="uk-icon-caret-down"></i></a>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Another item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">Separated item</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;ul class="uk-subnav"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+
+        &lt;!-- This is the container enabling the JavaScript --&gt;
+        &lt;li data-uk-dropdown="{mode:'click'}"&gt;
+
+        &lt;!-- This is the nav item toggling the dropdown --&gt;
+        &lt;a href=""&gt;...&lt;/a&gt;
+
+        &lt;!-- This is the dropdown --&gt;
+        &lt;div class="uk-dropdown uk-dropdown-small"&gt;
+        &lt;ul class="uk-nav uk-nav-dropdown"&gt;
+        &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+    </article>
+  <!-- @endextend -->

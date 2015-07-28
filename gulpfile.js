@@ -19,7 +19,8 @@ var pkg         = require('./package.json'),
     zip         = require('gulp-zip'),
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync'),
-    Promise     = require('promise');
+    Promise     = require('promise'),
+    preprocess  = require('gulp-preprocess');
 
 var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
     watchCache   = {},
@@ -500,12 +501,25 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
  * misc tasks
  * ---------------------------------------------------------*/
 gulp.task('build-docs', function(done) {
-
     // minify css
     gulp.src('./docs/less/uikit.less').pipe(less()).pipe(rename({ suffix: '.docs.min' })).pipe(minifycss({advanced:false})).pipe(gulp.dest('./docs/css')).on('end', function(){
-
+      // Pass JS
         gulp.src(corejs).pipe(concat('uikit.min.js')).pipe(uglify()).pipe(gulp.dest('./docs/js')).on('end', function(){
+          // preprocess docs html
+          markup = glob.sync('./src/docs/**/*([^.]).html');
+          gulp.src(markup)
+          .pipe(preprocess())
+          .pipe(tap(function(file,t){
+              // Add .uk-active to all matching <a> links
+              fname = file.path.split('/').pop();
+              file.contents = new Buffer(file.contents.toString().replace(new RegExp('<li>(.*)<a href="'+fname+'">(.*)<\/a>(.*)<\/li>', 'gm'), function(match, p1, p2, p3, p4){
+                  return '<li class="uk-active"><a href="'+fname+'">'+p2+'</a></li>';
+              }));
+          }))
+          .pipe(gulp.dest('./docs/'))
+          .on('end', function(){
             done();
+          });
         });
     });
 });

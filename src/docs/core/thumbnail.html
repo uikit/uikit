@@ -1,0 +1,156 @@
+<!-- @set page_title "Thumbnail"-->
+<!-- @set page_section_core "core" -->
+<!-- @extend core.template.html -->
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">Thumbnail</h1>
+
+        <p class="uk-article-lead">Create different thumbnail images, which come in various styles and sizes.</p>
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>To apply this component, just add the <code>.uk-thumbnail</code> class to an <code>&lt;img&gt;</code>, <code>&lt;a&gt;</code> or <code>&lt;figure&gt;</code> element.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-margin" data-uk-margin>
+            <img class="uk-thumbnail" src="images/placeholder_200x100.svg" width="200" height="100" alt="">
+            <a class="uk-thumbnail" href="#"><img src="images/placeholder_200x100.svg" width="200" height="100" alt=""></a>
+            <figure class="uk-thumbnail"><img src="images/placeholder_200x100.svg" width="200" height="100" alt=""></figure>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;!-- This is an image as a thumbnail --&gt;
+        &lt;img class="uk-thumbnail" src="" alt=""&gt;
+
+        &lt;!-- This is an anchor as a thumbnail --&gt;
+        &lt;a class="uk-thumbnail" href=""&gt;&lt;img src="" alt=""&gt;&lt;/a&gt;
+
+        &lt;!-- This is a figure as a thumbnail --&gt;
+        &lt;figure class="uk-thumbnail"&gt;&lt;img src="" alt=""&gt;&lt;/figure&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Caption</h3>
+
+        <p>Add the <code>.uk-thumbnail-caption</code> class to a <code>&lt;div&gt;</code> element to apply a text caption under the image.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-margin" data-uk-margin>
+            <div class="uk-thumbnail">
+                <img src="images/placeholder_200x100.svg" width="200" height="100" alt="">
+                <div class="uk-thumbnail-caption">Caption <code>&lt;div&gt;</code></div>
+            </div>
+            <a class="uk-thumbnail" href="#">
+                <img src="images/placeholder_200x100.svg" width="200" height="100" alt="">
+                <div class="uk-thumbnail-caption">Caption <code>&lt;a&gt;</code></div>
+            </a>
+            <figure class="uk-thumbnail">
+                <img src="images/placeholder_200x100.svg" width="200" height="100" alt="">
+                <figcaption class="uk-thumbnail-caption">Caption <code>&lt;figure&gt;</code></figcaption>
+            </figure>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;!-- This is a div as a thumbnail with a caption --&gt;
+        &lt;div class="uk-thumbnail"&gt;
+        &lt;img src="" alt=""&gt;
+        &lt;div class="uk-thumbnail-caption"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- This is an anchor as a thumbnail with a caption --&gt;
+        &lt;a class="uk-thumbnail" href=""&gt;
+        &lt;img src="" alt=""&gt;
+        &lt;div class="uk-thumbnail-caption"&gt;...&lt;/div&gt;
+        &lt;/a&gt;
+
+        &lt;!-- This is a figure as a thumbnail with a caption --&gt;
+        &lt;figure class="uk-thumbnail"&gt;
+        &lt;img src="" alt=""&gt;
+        &lt;figcaption class="uk-thumbnail-caption"&gt;...&lt;/figcaption&gt;
+        &lt;/figure&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="size-modifiers"><a href="#size-modifiers" class="uk-link-reset">Size modifiers</a></h2>
+
+        <p>Apply the <code>.uk-thumbnail-large</code>, <code>.uk-thumbnail-medium</code>, <code>.uk-thumbnail-small</code> or <code>.uk-thumbnail-mini</code> classes to resize images. The <a href="base.html">Base component</a> is required to make the images responsive by default.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-margin">
+            <div class="uk-thumbnail uk-thumbnail-large">
+                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                <div class="uk-thumbnail-caption"><code>.uk-thumbnail-large</code></div>
+            </div>
+        </div>
+        <div class="uk-margin" data-uk-margin>
+            <div class="uk-thumbnail uk-thumbnail-medium">
+                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                <div class="uk-thumbnail-caption"><code>.uk-thumbnail-medium</code></div>
+            </div>
+            <div class="uk-thumbnail uk-thumbnail-small">
+                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                <div class="uk-thumbnail-caption"><code>.uk-thumbnail-small</code></div>
+            </div>
+            <div class="uk-thumbnail uk-thumbnail-mini">
+                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                <div class="uk-thumbnail-caption"><code>.uk-thumbnail-mini</code></div>
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;div class="uk-thumbnail uk-thumbnail-large"&gt;...&lt;/div&gt;
+        &lt;div class="uk-thumbnail uk-thumbnail-medium"&gt;...&lt;/div&gt;
+        &lt;div class="uk-thumbnail uk-thumbnail-small"&gt;...&lt;/div&gt;
+        &lt;div class="uk-thumbnail uk-thumbnail-mini"&gt;...&lt;/div&gt;</code></pre>
+
+        <p>You can even scale a thumbnail beyond its proper size, so that it extends to the full width of its parent element. Just add the <code>.uk-thumbnail-expand</code> class.
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-thumbnail uk-thumbnail-expand">
+            <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+            <div class="uk-thumbnail-caption"><code>.uk-thumbnail-expand</code></div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;div class="uk-thumbnail uk-thumbnail-expand"&gt;...&lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="grid"><a href="#grid" class="uk-link-reset">Grid</a></h2>
+
+        <p>You can easily create a grid with thumbnails by using the <a href="grid.html">Grid component</a>.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-medium-1-2"><img class="uk-thumbnail" src="images/placeholder_600x400.svg" width="600" height="400" alt=""></div>
+            <div class="uk-width-medium-1-2">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-medium-1-2"><img class="uk-thumbnail" src="images/placeholder_300x455.svg" width="300" height="455" alt=""></div>
+                    <div class="uk-width-medium-1-2"><img class="uk-thumbnail" src="images/placeholder_120x255.svg" width="120" height="255" alt=""></div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;div class="uk-grid"&gt;
+        &lt;div class="uk-width-medium-1-2"&gt;&lt;img class="uk-thumbnail" src="" alt=""&gt;&lt;/div&gt;
+        &lt;div class="uk-width-medium-1-2"&gt;
+        &lt;div class="uk-grid"&gt;
+        &lt;div class="uk-width-medium-1-2"&gt;&lt;img class="uk-thumbnail" src="" alt="">&lt;/div&gt;
+        &lt;div class="uk-width-medium-1-2"&gt;&lt;img class="uk-thumbnail" src="" alt="">&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;</code></pre>
+
+    </article>
+  <!-- @endextend -->

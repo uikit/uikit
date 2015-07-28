@@ -1,0 +1,142 @@
+<!-- @set page_title "Progress"-->
+<!-- @set page_section_components "components" -->
+<!-- @extend components.template.html -->
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Progress</h1>
+
+      <p class="uk-article-lead">Defines different styles for progress bars.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+      <p>The progress bar consists of a background bar and the progress bar itself, indicating the increase.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-progress</code></td>
+                      <td>This class is used on the parent container to create the background of the progress bar.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-progress-bar</code></td>
+                      <td>This class needs to be added to the child element to create the actual progress bar.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-progress">
+          <div class="uk-progress-bar" style="width: 40%;">40%</div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-progress"&gt;
+      &lt;div class="uk-progress-bar" style="width: 40%;"&gt;40%&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="size-modifiers"><a href="#size-modifiers" class="uk-link-reset">Size modifiers</a></h2>
+
+      <p>Add the <code>.uk-progress-mini</code> or <code>.uk-progress-small</code> class to change the size of the bar.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-progress uk-progress-mini">
+          <div class="uk-progress-bar" style="width: 50%;"></div>
+      </div>
+
+      <div class="uk-progress uk-progress-small">
+          <div class="uk-progress-bar" style="width: 55%;"></div>
+      </div>
+
+      <div class="uk-progress">
+          <div class="uk-progress-bar" style="width: 60%;"></div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-progress uk-progress-mini"&gt;...&lt;/div&gt;
+      &lt;div class="uk-progress uk-progress-small"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="color-modifiers"><a href="#color-modifiers" class="uk-link-reset">Color modifiers</a></h2>
+
+      <p>To apply different colors to your progress bars, just add the <code>.uk-progress-success</code>, <code>.uk-progress-warning</code> or <code>.uk-progress-danger</code> class.</p>
+
+      <h4 class="tm-article-subtitle">Example</h4>
+
+      <div class="uk-progress uk-progress-success">
+          <div class="uk-progress-bar" style="width: 75%;"></div>
+      </div>
+
+      <div class="uk-progress uk-progress-warning">
+          <div class="uk-progress-bar" style="width: 55%;"></div>
+      </div>
+
+      <div class="uk-progress uk-progress-danger">
+          <div class="uk-progress-bar" style="width: 35%;"></div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-progress uk-progress-success"&gt;...&lt;/div&gt;
+      &lt;div class="uk-progress uk-progress-warning"&gt;...&lt;/div&gt;
+      &lt;div class="uk-progress uk-progress-danger"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h3>Striped</h3>
+
+      <p>To create a striped progress bar, use the <code>.uk-progress-striped</code> class.</p>
+
+      <h4 class="tm-article-subtitle">Example</h4>
+
+      <div class="uk-progress uk-progress-striped">
+          <div class="uk-progress-bar" style="width: 65%;"></div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-progress uk-progress-striped"&gt;...&lt;/div&gt;</code></pre>
+
+      <p>You can even animate the striped bar. To do so, just add the <code>.uk-active</code> class.</p>
+
+      <h4 class="tm-article-subtitle">Example</h4>
+
+      <div class="uk-progress uk-progress-striped uk-active">
+          <div class="uk-progress-bar" style="width: 85%;"></div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-progress uk-progress-striped uk-active"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h3>Combinable</h3>
+
+      <p>All modifiers of the Progress component can be combined with each other.</p>
+
+      <h4 class="tm-article-subtitle">Example</h4>
+
+      <div class="uk-progress uk-progress-small uk-progress-danger uk-progress-striped uk-active">
+          <div class="uk-progress-bar" style="width: 55%;"></div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-progress uk-progress-small uk-progress-danger uk-progress-striped uk-active"&gt;...&lt;/div&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

@@ -1,0 +1,91 @@
+<!-- @set page_title "Dot Nav"-->
+<!-- @set page_section_components "components" -->
+<!-- @extend components.template.html -->
+
+  <article class="uk-article">
+
+      <h1>Dotnav</h1>
+
+      <p class="uk-article-lead">Create a dot navigation with a horizontal or vertical layout to navigate through slideshows or to scroll to different page sections.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To create a navigation with dots, just add the <code>.uk-dotnav</code> class to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list. This is perfect to create a typical slideshow navigation.  This component is built with Flexbox. So to align a dotnav, you can use <a href="flex.html">Flex component</a>.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-dotnav">
+          <li class="uk-active"><a href="#">Item 1</a></li>
+          <li><a href="#">Item 2</a></li>
+          <li><a href="#">Item 3</a></li>
+          <li><a href="#">Item 4</a></li>
+          <li><a href="#">Item 5</a></li>
+          <li><a href="#">Item 6</a></li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;ul class="uk-dotnav"&gt;
+      &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="slidenav-and-images"><a href="#slidenav-and-images" class="uk-link-reset">Dotnav and images</a></h2>
+
+      <p>For better visibility on images, for example when using the Dotnav as a slideshow navigation, just add the <code>.uk-dotnav-contrast</code> class.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-position-relative uk-width-medium-2-3">
+
+          <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+
+          <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-flex-center">
+              <li class="uk-active"><a href="#">Item 1</a></li>
+              <li><a href="#">Item 2</a></li>
+              <li><a href="#">Item 3</a></li>
+              <li><a href="#">Item 4</a></li>
+              <li><a href="#">Item 5</a></li>
+              <li><a href="#">Item 6</a></li>
+          </ul>
+
+      </div>
+
+      <p><span class="uk-badge">NOTE</span> In this example we also applied the <code>.uk-flex-center</code> class from the <a href="flex.html">Flex component</a> to center the dotnav.</p>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;ul class="uk-dotnav uk-dotnav-contrast uk-flex-center"&gt;
+      &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="vertical-dotnav"><a href="#vertical-dotnav" class="uk-link-reset">Vertical dotnav</a></h2>
+
+      <p>The Dotnav can also be aligned vertically. Just add the <code>.uk-flex-column</code> class. This is great for page scroll navigation using the <a href="scrollspy.html">Scrollspy component</a>.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-dotnav uk-flex-column">
+          <li class="uk-active"><a href="#">Item 1</a></li>
+          <li><a href="#">Item 2</a></li>
+          <li><a href="#">Item 3</a></li>
+          <li><a href="#">Item 4</a></li>
+          <li><a href="#">Item 5</a></li>
+          <li><a href="#">Item 6</a></li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;ul class="uk-dotnav uk-flex-column"&gt;
+      &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
+
+  </article>
+
+  <!-- @endextend -->

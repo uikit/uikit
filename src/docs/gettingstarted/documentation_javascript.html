@@ -1,0 +1,122 @@
+<!-- @set page_title "Javascript"-->
+<!-- @set page_section_gettingstarted "gettingstarted" -->
+<!-- @extend gettingstarted.template.html -->
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">JavaScript</h1>
+
+        <p class="uk-article-lead">Use data attributes to apply JavaScript to UIkit components</p>
+
+        <p>You can use all UIkit components by just adding <code>data-uk-*</code> attributes to your HTML elements without writing a single line of JavaScript. This is UIkit's best practice of using its components and should always be considered first.</p>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;button data-uk-button&gt;My Button&lt;/button&gt;</code></pre>
+
+        <p>But of course you can still use the components just through the jQuery API.</p>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>$(".button").uk("button");</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="amd-support"><a href="#amd-support" class="uk-link-reset">AMD support</a></h2>
+
+        <p>AMD (Asynchronous Module Definition) is a way of defining JavaScript modules and their dependencies so they can be loaded asynchronously.</p>
+
+        <h3 class="tm-article-subtitle">Usage</h3>
+
+        <pre><code>/* Simple require of the UIkit core */
+        require("path/to/uikit.js", function(UI){
+
+        // UI is the global UIkit object a.k.a. $.UIkit
+
+        });</code></pre>
+
+        <h3 class="tm-article-subtitle">Autoload UIkit and its components</h3>
+
+        <pre><code>/* setup require.js first */
+        requirejs.config({
+
+        paths: {
+        "uikit": 'path/to/uikit.js'
+        },
+
+        config: {
+        "uikit": {
+        "base": "path/to/uikit_dist_folder"
+        }
+        }
+
+        });
+
+        /* now you can autoload uikit core + components separated by a comma */
+        require("uikit!notify,sortable", function(UI){
+
+        // access loaded components: UI.notify, UI.sortable
+
+        });</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="js-override"><a href="#js-override" class="uk-link-reset">Override default component settings.</a></h2>
+
+        <p>It is possible to adjust the default component settings as you can see in the following example.</p>
+
+        <h3 class="tm-article-subtitle">Usage</h3>
+
+        <pre><code>
+        // override default tooltip settings
+        UIkit.on('beforeready.uk.dom', function(){
+
+            $.extend(UIkit.components.tooltip.prototype.defaults, {
+                pos: 'top',
+                delay: 500,
+                animation: true
+            });
+        });
+        </code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="dom-observe"><a href="#dom-observe" class="uk-link-reset">Observe the DOM to auto-init new added components, e.g via AJAX.</a></h2>
+
+        <p>If you inject dynamic HTML markup into the DOM via JavaScript, just add the <code>data-uk-observe</code> attribute to one of the parent elements to auto-initialize UIKit JavaScript components.</p>
+
+        <h3 class="tm-article-subtitle">Usage</h3>
+
+        <pre><code>
+        &lt;div data-uk-observe&gt;
+            &lt;!-- inject your dynamic html here --&gt;
+        &lt;/div&gt;
+        </code></pre>
+
+        <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
+
+        <pre><code>UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="data-check-display"><a href="#data-check-display" class="uk-link-reset">Check Display event on visibility change.</a></h2>
+
+        <p>Sometimes components, like <a href="grid.html">Grid</a> or <a href="tab.html">Tab</a> are hidden in the markup. This may happen when used in combination with the <a href="switcher.html">Switcher</a>, <a href="modal.html">Modal</a> or <a href="dropdown.html">Dropdown</a>. Once they become visible, they need to be recalculated to adjust or fix the height and other dimensions.</p>
+
+        <p>To do so, add the <code>data-uk-check-display</code> attribute to the elements which need to be recalculated. They now listen to the <code>display.uk.check</code> event, which will be triggered by the container component, for example the Switcher. This is not needed for elements with <code>data-uk-margin</code>, <code>data-uk-grid-margin</code> and <code>data-uk-grid-match</code> attributes, those will be triggered by default.</p>
+
+        <h3 class="tm-article-subtitle">Usage</h3>
+
+        <pre><code>
+        &lt;!-- Element within a modal, switcher or dropdown --&gt;
+        &lt;div id="myelement" data-uk-check-display&gt;...&lt;/div&gt;
+
+        &lt;script&gt;
+        $("#myelement").on('display.uk.check', function(){
+           // custom code to adjust height etc on show
+        });
+        &lt;/script&gt;
+        </code></pre>
+
+    </article>
+  <!-- @endextend -->

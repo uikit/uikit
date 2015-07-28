@@ -1,0 +1,79 @@
+<!-- @set page_title "Contrast" -->
+<!-- @set page_section_core "core"-->
+<!-- @extend core.template.html -->
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Contrast</h1>
+
+      <p class="uk-article-lead">Improve the appearance of elements when placing them on colored backgrounds or images.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To apply this component, just add the <code>.uk-contrast</code> class to a container or the element whose color you would like to adjust. Text, <a href="button.html">Buttons</a>, the nav side from the <a href="nav.html#style-modifiers">Nav component</a>, the subnav line and subnav pill from the <a href="subnav.html#modifiers">Subnav component</a>, <a href="icon.html">Icons</a>, default forms from the <a href="form.html">Form component</a> as well as the list line from the <a href="llist.html#modifiers">List component</a> will automatically change their appearence.</p>
+
+      <p>This comes in really handy when placing content inside differently colored blocks from the <a href="block.html">Block component</a> or on top of images.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-block uk-block-secondary uk-contrast">
+
+          <div class="uk-container">
+
+              <div class="uk-grid uk-grid-match" data-uk-grid-margin>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <h3>Text</h3>
+                          <p>Lorem ipsum <a href="#">dolor sit</a> amet, consectetur adipisicing elit.</p>
+
+                          <h3>Form</h3>
+                          <form class="uk-form">
+                              <div class="uk-form-row">
+                                  <input type="text" placeholder=":focus">
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <h3>Button</h3>
+                          <p><button class="uk-button">Button</button> <button class="uk-button uk-button-primary">Button</button></p>
+
+                          <h3>Icon</h3>
+                          <p>
+                              <a href="#" class="uk-icon-hover uk-icon-medium uk-icon-github"></a>
+                              <a href="#" class="uk-icon-hover uk-icon-medium uk-icon-twitter"></a>
+                              <a href="#" class="uk-icon-button uk-icon-dribbble"></a>
+                              <a href="#" class="uk-icon-button uk-icon-html5"></a>
+                          </p>
+                      </div>
+                  </div>
+                  <div class="uk-width-medium-1-3">
+                      <div class="uk-panel">
+                          <h3>Subnav</h3>
+                          <ul class="uk-subnav uk-subnav-pill">
+                              <li class="uk-active"><a href="#">Active</a></li>
+                              <li><a href="#">Item</a></li>
+                              <li class="uk-disabled"><a href="#">Disabled</a></li>
+                          </ul>
+
+                          <ul class="uk-nav uk-nav-side">
+                              <li class="uk-nav-header">Nav Side</li>
+                              <li class="uk-nav-divider"></li>
+                              <li class="uk-active"><a href="#">Active</a></li>
+                              <li><a href="#">Item</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-contrast"&gt;...&lt;/div&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

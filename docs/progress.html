@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Progress component - UIkit documentation</title>
+        <title>UIkit - Progress</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -25,9 +27,13 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li class="uk-active"><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,193 +44,189 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                  <div class="uk-grid" data-uk-grid-margin>
+      <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Layout</li>
+          <li><a href="grid-js.html">Dynamic Grid</a></li>
+          <li class="uk-nav-header">Navigations</li>
+          <li><a href="dotnav.html">Dotnav</a></li>
+          <li><a href="slidenav.html">Slidenav</a></li>
+          <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+          <li class="uk-nav-header">Common</li>
+          <li><a href="form-advanced.html">Form advanced</a></li>
+          <li><a href="form-file.html">Form file</a></li>
+          <li><a href="form-password.html">Form password</a></li>
+          <li><a href="form-select.html">Form select</a></li>
+          <li><a href="placeholder.html">Placeholder</a></li>
+          <li class="uk-active"><a href="progress.html">Progress</a></li>
+          <li class="uk-nav-header">JavaScript</li>
+          <li><a href="lightbox.html">Lightbox</a></li>
+          <li><a href="autocomplete.html">Autocomplete</a></li>
+          <li><a href="datepicker.html">Datepicker</a></li>
+          <li><a href="htmleditor.html">HTML editor</a></li>
+          <li><a href="slider.html">Slider</a></li>
+          <li><a href="slideset.html">Slideset</a></li>
+          <li><a href="slideshow.html">Slideshow</a></li>
+          <li><a href="parallax.html">Parallax</a></li>
+          <li><a href="accordion.html">Accordion</a></li>
+          <li><a href="notify.html">Notify</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="nestable.html">Nestable</a></li>
+          <li><a href="sortable.html">Sortable</a></li>
+          <li><a href="sticky.html">Sticky</a></li>
+          <li><a href="timepicker.html">Timepicker</a></li>
+          <li><a href="tooltip.html">Tooltip</a></li>
+          <li><a href="upload.html">Upload</a></li>
+      </ul>
+    </div>
+    <div class="tm-main uk-width-medium-3-4">
+        <article class="uk-article">
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+      <h1 class="uk-article-title">Progress</h1>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
-                            <li class="uk-nav-header">Layout</li>
-                            <li><a href="grid-js.html">Dynamic Grid</a></li>
-                            <li class="uk-nav-header">Navigations</li>
-                            <li><a href="dotnav.html">Dotnav</a></li>
-                            <li><a href="slidenav.html">Slidenav</a></li>
-                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
-                            <li class="uk-nav-header">Common</li>
-                            <li><a href="form-advanced.html">Form advanced</a></li>
-                            <li><a href="form-file.html">Form file</a></li>
-                            <li><a href="form-password.html">Form password</a></li>
-                            <li><a href="form-select.html">Form select</a></li>
-                            <li><a href="placeholder.html">Placeholder</a></li>
-                            <li class="uk-active"><a href="progress.html">Progress</a></li>
-                            <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="lightbox.html">Lightbox</a></li>
-                            <li><a href="autocomplete.html">Autocomplete</a></li>
-                            <li><a href="datepicker.html">Datepicker</a></li>
-                            <li><a href="htmleditor.html">HTML editor</a></li>
-                            <li><a href="slider.html">Slider</a></li>
-                            <li><a href="slideset.html">Slideset</a></li>
-                            <li><a href="slideshow.html">Slideshow</a></li>
-                            <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
-                            <li><a href="notify.html">Notify</a></li>
-                            <li><a href="search.html">Search</a></li>
-                            <li><a href="nestable.html">Nestable</a></li>
-                            <li><a href="sortable.html">Sortable</a></li>
-                            <li><a href="sticky.html">Sticky</a></li>
-                            <li><a href="timepicker.html">Timepicker</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
-                            <li><a href="upload.html">Upload</a></li>
-                        </ul>
+      <p class="uk-article-lead">Defines different styles for progress bars.</p>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+      <p>The progress bar consists of a background bar and the progress bar itself, indicating the increase.</p>
 
-                        <article class="uk-article">
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-progress</code></td>
+                      <td>This class is used on the parent container to create the background of the progress bar.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-progress-bar</code></td>
+                      <td>This class needs to be added to the child element to create the actual progress bar.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
 
-                            <h1 class="uk-article-title">Progress</h1>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p class="uk-article-lead">Defines different styles for progress bars.</p>
+      <div class="uk-progress">
+          <div class="uk-progress-bar" style="width: 40%;">40%</div>
+      </div>
 
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
-                            <p>The progress bar consists of a background bar and the progress bar itself, indicating the increase.</p>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Class</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>.uk-progress</code></td>
-                                            <td>This class is used on the parent container to create the background of the progress bar.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>.uk-progress-bar</code></td>
-                                            <td>This class needs to be added to the child element to create the actual progress bar.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+      <pre><code>&lt;div class="uk-progress"&gt;
+      &lt;div class="uk-progress-bar" style="width: 40%;"&gt;40%&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <hr class="uk-article-divider">
 
-                            <div class="uk-progress">
-                                <div class="uk-progress-bar" style="width: 40%;">40%</div>
-                            </div>
+      <h2 id="size-modifiers"><a href="#size-modifiers" class="uk-link-reset">Size modifiers</a></h2>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>Add the <code>.uk-progress-mini</code> or <code>.uk-progress-small</code> class to change the size of the bar.</p>
 
-<pre><code>&lt;div class="uk-progress"&gt;
-    &lt;div class="uk-progress-bar" style="width: 40%;"&gt;40%&lt;/div&gt;
-&lt;/div&gt;</code></pre>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-progress uk-progress-mini">
+          <div class="uk-progress-bar" style="width: 50%;"></div>
+      </div>
 
-                            <h2 id="size-modifiers"><a href="#size-modifiers" class="uk-link-reset">Size modifiers</a></h2>
+      <div class="uk-progress uk-progress-small">
+          <div class="uk-progress-bar" style="width: 55%;"></div>
+      </div>
 
-                            <p>Add the <code>.uk-progress-mini</code> or <code>.uk-progress-small</code> class to change the size of the bar.</p>
+      <div class="uk-progress">
+          <div class="uk-progress-bar" style="width: 60%;"></div>
+      </div>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <div class="uk-progress uk-progress-mini">
-                                <div class="uk-progress-bar" style="width: 50%;"></div>
-                            </div>
+      <pre><code>&lt;div class="uk-progress uk-progress-mini"&gt;...&lt;/div&gt;
+      &lt;div class="uk-progress uk-progress-small"&gt;...&lt;/div&gt;</code></pre>
 
-                            <div class="uk-progress uk-progress-small">
-                                <div class="uk-progress-bar" style="width: 55%;"></div>
-                            </div>
+      <hr class="uk-article-divider">
 
-                            <div class="uk-progress">
-                                <div class="uk-progress-bar" style="width: 60%;"></div>
-                            </div>
+      <h2 id="color-modifiers"><a href="#color-modifiers" class="uk-link-reset">Color modifiers</a></h2>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>To apply different colors to your progress bars, just add the <code>.uk-progress-success</code>, <code>.uk-progress-warning</code> or <code>.uk-progress-danger</code> class.</p>
 
-<pre><code>&lt;div class="uk-progress uk-progress-mini"&gt;...&lt;/div&gt;
-&lt;div class="uk-progress uk-progress-small"&gt;...&lt;/div&gt;</code></pre>
+      <h4 class="tm-article-subtitle">Example</h4>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-progress uk-progress-success">
+          <div class="uk-progress-bar" style="width: 75%;"></div>
+      </div>
 
-                            <h2 id="color-modifiers"><a href="#color-modifiers" class="uk-link-reset">Color modifiers</a></h2>
+      <div class="uk-progress uk-progress-warning">
+          <div class="uk-progress-bar" style="width: 55%;"></div>
+      </div>
 
-                            <p>To apply different colors to your progress bars, just add the <code>.uk-progress-success</code>, <code>.uk-progress-warning</code> or <code>.uk-progress-danger</code> class.</p>
+      <div class="uk-progress uk-progress-danger">
+          <div class="uk-progress-bar" style="width: 35%;"></div>
+      </div>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <div class="uk-progress uk-progress-success">
-                                <div class="uk-progress-bar" style="width: 75%;"></div>
-                            </div>
+      <pre><code>&lt;div class="uk-progress uk-progress-success"&gt;...&lt;/div&gt;
+      &lt;div class="uk-progress uk-progress-warning"&gt;...&lt;/div&gt;
+      &lt;div class="uk-progress uk-progress-danger"&gt;...&lt;/div&gt;</code></pre>
 
-                            <div class="uk-progress uk-progress-warning">
-                                <div class="uk-progress-bar" style="width: 55%;"></div>
-                            </div>
+      <hr class="uk-article-divider">
 
-                            <div class="uk-progress uk-progress-danger">
-                                <div class="uk-progress-bar" style="width: 35%;"></div>
-                            </div>
+      <h3>Striped</h3>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>To create a striped progress bar, use the <code>.uk-progress-striped</code> class.</p>
 
-<pre><code>&lt;div class="uk-progress uk-progress-success"&gt;...&lt;/div&gt;
-&lt;div class="uk-progress uk-progress-warning"&gt;...&lt;/div&gt;
-&lt;div class="uk-progress uk-progress-danger"&gt;...&lt;/div&gt;</code></pre>
+      <h4 class="tm-article-subtitle">Example</h4>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-progress uk-progress-striped">
+          <div class="uk-progress-bar" style="width: 65%;"></div>
+      </div>
 
-                            <h3>Striped</h3>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p>To create a striped progress bar, use the <code>.uk-progress-striped</code> class.</p>
+      <pre><code>&lt;div class="uk-progress uk-progress-striped"&gt;...&lt;/div&gt;</code></pre>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
+      <p>You can even animate the striped bar. To do so, just add the <code>.uk-active</code> class.</p>
 
-                            <div class="uk-progress uk-progress-striped">
-                                <div class="uk-progress-bar" style="width: 65%;"></div>
-                            </div>
+      <h4 class="tm-article-subtitle">Example</h4>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <div class="uk-progress uk-progress-striped uk-active">
+          <div class="uk-progress-bar" style="width: 85%;"></div>
+      </div>
 
-<pre><code>&lt;div class="uk-progress uk-progress-striped"&gt;...&lt;/div&gt;</code></pre>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p>You can even animate the striped bar. To do so, just add the <code>.uk-active</code> class.</p>
+      <pre><code>&lt;div class="uk-progress uk-progress-striped uk-active"&gt;...&lt;/div&gt;</code></pre>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
+      <hr class="uk-article-divider">
 
-                            <div class="uk-progress uk-progress-striped uk-active">
-                                <div class="uk-progress-bar" style="width: 85%;"></div>
-                            </div>
+      <h3>Combinable</h3>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>All modifiers of the Progress component can be combined with each other.</p>
 
-<pre><code>&lt;div class="uk-progress uk-progress-striped uk-active"&gt;...&lt;/div&gt;</code></pre>
+      <h4 class="tm-article-subtitle">Example</h4>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-progress uk-progress-small uk-progress-danger uk-progress-striped uk-active">
+          <div class="uk-progress-bar" style="width: 55%;"></div>
+      </div>
 
-                            <h3>Combinable</h3>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p>All modifiers of the Progress component can be combined with each other.</p>
+      <pre><code>&lt;div class="uk-progress uk-progress-small uk-progress-danger uk-progress-striped uk-active"&gt;...&lt;/div&gt;</code></pre>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
-
-                            <div class="uk-progress uk-progress-small uk-progress-danger uk-progress-striped uk-active">
-                                <div class="uk-progress-bar" style="width: 55%;"></div>
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;div class="uk-progress uk-progress-small uk-progress-danger uk-progress-striped uk-active"&gt;...&lt;/div&gt;</code></pre>
-
-                        </article>
-
-                    </div>
-                </div>
-
+  </article>
+    </div>
+  </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -249,7 +251,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent"><a href="#">Documentation</a>
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -341,14 +343,14 @@
                             <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
                             <li><a href="form-advanced.html">Form advanced</a></li>
                             <li><a href="form-file.html">Form file</a></li>
                             <li><a href="form-password.html">Form password</a></li>
                             <li><a href="form-select.html">Form select</a></li>
                             <li><a href="placeholder.html">Placeholder</a></li>
-                            <li><a href="progress.html">Progress</a></li>
+                            <li class="uk-active"><a href="progress.html">Progress</a></li>
                         </ul>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
@@ -361,7 +363,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

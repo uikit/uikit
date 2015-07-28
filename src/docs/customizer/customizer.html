@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="cm-customizer" lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Customizer - UIkit documentation</title>
+        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
+        <link rel="stylesheet" href="../vendor/spectrum/spectrum.css">
+        <script>
+            var less = { env: "development" };
+        </script>
+        <script src="../vendor/less.js"></script>
+        <script src="../vendor/jquery.js"></script>
+        <script src="../vendor/jquery.less.js"></script>
+        <script src="../vendor/jquery.mustache.js"></script>
+        <script src="js/uikit.min.js"></script>
+        <script src="../vendor/spectrum/spectrum.js"></script>
+        <script src="../vendor/jquery.rtl.js"></script>
+        <script src="../vendor/customizer.js"></script>
+        <script src="js/customizer.js"></script>
+        <link rel="stylesheet" href="css/docs.css">
+    </head>
+
+    <body>
+
+        <div id="customizer">
+            <div class="cm-sidebar">
+
+                <header class="cm-sidebar-header">
+
+                    <h1 class="cm-sidebar-title">Select a theme</h1>
+                    <div class="uk-form">
+                        <div class="uk-form-row">
+                            <select class="uk-width-1-1" name="style"></select>
+                        </div>
+                        <div class="uk-form-row">
+                            <div class="uk-grid uk-grid-medium">
+                                <div class="uk-width-3-5">
+                                    <label><input type="checkbox" name="advanced"> Advanced Mode</label>
+                                </div>
+                                <div class="uk-width-2-5">
+                                    <label><input type="checkbox" name="rtl"> RTL Mode</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </header>
+
+                <section class="cm-sidebar-content"></section>
+
+                <footer class="cm-sidebar-footer">
+
+                    <div class="uk-grid uk-grid-medium">
+
+                        <div class="uk-width-1-2">
+                            <label><input type="checkbox" name="minify"> Minify CSS</label>
+                        </div>
+
+                        <div class="uk-width-1-2">
+                            <div class="cm-file-import">Import Less<input type="file"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="uk-grid uk-grid-medium">
+
+                        <div class="uk-width-1-2">
+                            <a href="" class="uk-button uk-button-primary uk-width-1-1" download="uikit.css">Get CSS</a>
+                        </div>
+
+                        <div class="uk-width-1-2">
+                            <a href="" class="uk-button uk-width-1-1" download="style.less">Get Less</a>
+                        </div>
+
+                    </div>
+
+                </footer>
+
+            </div>
+
+            <div class="cm-wrapper">
+
+                <nav class="tm-navbar uk-navbar uk-navbar-attached">
+                    <div class="uk-container uk-container-center">
+
+                        <a class="uk-navbar-brand uk-visible-large" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                        <ul class="uk-navbar-nav uk-visible-large">
+                            <li><a href="documentation_get-started.html">Get Started</a></li>
+                            <li><a href="core.html">Core</a></li>
+                            <li><a href="components.html">Components</a></li>
+                            <li class="uk-active"><a href="customizer.html">Customizer</a></li>
+                            <li><a href="../showcase/index.html">Showcase</a></li>
+                        </ul>
+
+                        <a href="#tm-offcanvas" class="uk-navbar-toggle uk-hidden-large" data-uk-offcanvas></a>
+
+                        <div class="uk-navbar-brand uk-navbar-center uk-hidden-large"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+                    </div>
+                </nav>
+
+                <i class="uk-icon-spinner uk-icon-spin cm-spinner"></i>
+                <div class="uk-alert uk-alert-danger uk-alert-large cm-error"></div>
+                <iframe id="cm-theme-preview" src="../tests/overview.html"></iframe>
+
+            </div>
+
+            <div id="tm-offcanvas" class="uk-offcanvas">
+
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-offcanvas">
+                        <li><a href="documentation_get-started.html">Get Started</a></li>
+                        <li><a href="core.html">Core</a></li>
+                        <li class="uk-active"><a href="customizer.html">Customizer</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div id="modal" class="uk-modal cm-modal">
+                <div class="uk-form uk-modal-dialog">
+                    <a class="uk-modal-close uk-close"></a>
+                    <h2></h2>
+                    <textarea class="uk-width-1-1" readonly></textarea>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

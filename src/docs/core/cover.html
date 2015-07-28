@@ -1,0 +1,137 @@
+<!-- @set page_title "Cover" -->
+<!-- @set page_section_core "core" -->
+<!-- @extend core.template.html -->
+
+
+  <article class="uk-article">
+
+      <h1>Cover</h1>
+
+      <p class="uk-article-lead">Expand images or videos to cover their entire container.</p>
+
+      <p>This component allows you to create fullscreen teasers using images, objects or even iframes. Regardless what kind of element, it will always be centered vertically and horizontally and cover its container without losing its proportions. You can also place additional content, like text or an image, on top of the image or video.</p>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>The Cover component is applied differently, depending on whether you are using a background image, an object or an iframe. The simplest way is to add the <code>.uk-cover-background</code> class to a <code>&lt;div&gt;</code> element with a background image.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-cover-background" style="height: 300px; background-image: url(images/placeholder_600x400.svg);"></div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-cover-background"&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2>Video</h2>
+
+      <p>To create a video that covers its parent container, add the <code>.uk-cover-object</code> class to a video. Wrap a container element around the video and add the <code>.uk-cover</code> class to clip the content.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-cover" style="height: 300px;">
+          <video class="uk-cover-object" width="600" height="400" autoplay loop muted controls>
+              <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
+              <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
+          </video>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-cover"&gt;
+      &lt;video class="uk-cover-object" width="" height=""&gt;
+      &lt;source src="" type=""&gt;
+      &lt;/video&gt;
+      &lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2>Iframe</h2>
+
+      <p>To apply the Cover component to an iframe, you just need to add the <code>data-uk-cover</code> attribute to the iframe. Now you only need to add the <code>.uk-cover</code> class to a container element around the iframe to clip the content.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-cover" style="height: 300px;">
+          <iframe data-uk-cover src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen=""></iframe>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-cover"&gt;
+      &lt;iframe data-uk-cover src="" width="" height="" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+      &lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2>Responsive</h2>
+
+      <p>To add responsive behavior to your cover image, you need to add the <code>.uk-invisible</code> class to an <code>&lt;img&gt;</code> element and place it inside your cover element. That way it will adapt the responsive behavior of the image.</p>
+
+      <p><span class="uk-badge">NOTE</span> Adding the <code>.uk-height-viewport</code> class from the <a href="utility.html">Utility component</a> will stretch the height of the parent element to fill the whole viewport.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-cover-background" style="background-image: url(images/placeholder_600x400.svg);">
+          <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="Placeholder">
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-cover-background"&gt;
+      &lt;img class="uk-invisible" src="" width="" height="" alt=""&gt;
+      &lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h3>Video</h3>
+
+      <p>To add the same behavior to a video, you also need to add the <code>.uk-position-relative</code> class to the cover container and the <code>.uk-position-absolute</code> class to the cover object. The same applies to iframes.</p>
+
+      <h4 class="tm-article-subtitle">Example</h4>
+
+      <div class="uk-cover uk-position-relative">
+          <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+          <video class="uk-cover-object uk-position-absolute" width="600" height="400" autoplay loop muted controls>
+              <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test2" type="video/mp4">
+              <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test2" type="video/ogg">
+          </video>
+      </div>
+
+      <h4 class="tm-article-subtitle">Markup</h4>
+
+      <pre><code>&lt;div class="uk-cover uk-position-relative"&gt;
+      &lt;img class="uk-invisible" src="" width="" height="" alt=""&gt;
+      &lt;video class="uk-cover-object uk-position-absolute" width="" height=""&gt;
+      &lt;source src="" type=""&gt;
+      &lt;/video&gt;
+      &lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2>Position content</h2>
+
+      <p>You can also position content absolutely on top of the covering element. To do so, just add the <code>.uk-position-cover</code> class from the <a href="utility.html">Utility component</a> to a container element after your image or video. If you want to center the content vertically and horizontally, just use the <a href="flex.html">Flex component</a>.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-cover-background uk-position-relative" style="height: 300px; background-image: url(images/placeholder_600x400.svg);">
+          <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+          <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+              <div style="background: rgba(42, 142, 183, 0.8); font-size: 50px; line-height: 75px; color: #fff;">Bazinga!</div>
+          </div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-cover-background uk-position-relative"&gt;
+      &lt;img class="uk-invisible" src="" width="" height="" alt=""&gt;
+      &lt;div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle"&gt;...&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

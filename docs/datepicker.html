@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Datepicker component - UIkit documentation</title>
+        <title>UIkit - Date Picker</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +16,6 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../src/js/components/datepicker.js"></script>
-        <script src="../src/js/components/form-select.js"></script>
     </head>
 
     <body class="tm-background">
@@ -27,9 +27,13 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li class="uk-active"><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -40,185 +44,177 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                  <div class="uk-grid" data-uk-grid-margin>
+      <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Layout</li>
+          <li><a href="grid-js.html">Dynamic Grid</a></li>
+          <li class="uk-nav-header">Navigations</li>
+          <li><a href="dotnav.html">Dotnav</a></li>
+          <li><a href="slidenav.html">Slidenav</a></li>
+          <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+          <li class="uk-nav-header">Common</li>
+          <li><a href="form-advanced.html">Form advanced</a></li>
+          <li><a href="form-file.html">Form file</a></li>
+          <li><a href="form-password.html">Form password</a></li>
+          <li><a href="form-select.html">Form select</a></li>
+          <li><a href="placeholder.html">Placeholder</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li class="uk-nav-header">JavaScript</li>
+          <li><a href="lightbox.html">Lightbox</a></li>
+          <li><a href="autocomplete.html">Autocomplete</a></li>
+          <li class="uk-active"><a href="datepicker.html">Datepicker</a></li>
+          <li><a href="htmleditor.html">HTML editor</a></li>
+          <li><a href="slider.html">Slider</a></li>
+          <li><a href="slideset.html">Slideset</a></li>
+          <li><a href="slideshow.html">Slideshow</a></li>
+          <li><a href="parallax.html">Parallax</a></li>
+          <li><a href="accordion.html">Accordion</a></li>
+          <li><a href="notify.html">Notify</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="nestable.html">Nestable</a></li>
+          <li><a href="sortable.html">Sortable</a></li>
+          <li><a href="sticky.html">Sticky</a></li>
+          <li><a href="timepicker.html">Timepicker</a></li>
+          <li><a href="tooltip.html">Tooltip</a></li>
+          <li><a href="upload.html">Upload</a></li>
+      </ul>
+    </div>
+    <div class="tm-main uk-width-medium-3-4">
+        <article class="uk-article">
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+      <h1>Datepicker</h1>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
-                            <li class="uk-nav-header">Layout</li>
-                            <li><a href="grid-js.html">Dynamic Grid</a></li>
-                            <li class="uk-nav-header">Navigations</li>
-                            <li><a href="dotnav.html">Dotnav</a></li>
-                            <li><a href="slidenav.html">Slidenav</a></li>
-                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
-                            <li class="uk-nav-header">Common</li>
-                            <li><a href="form-advanced.html">Form advanced</a></li>
-                            <li><a href="form-file.html">Form file</a></li>
-                            <li><a href="form-password.html">Form password</a></li>
-                            <li><a href="form-select.html">Form select</a></li>
-                            <li><a href="placeholder.html">Placeholder</a></li>
-                            <li><a href="progress.html">Progress</a></li>
-                            <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="lightbox.html">Lightbox</a></li>
-                            <li><a href="autocomplete.html">Autocomplete</a></li>
-                            <li class="uk-active"><a href="datepicker.html">Datepicker</a></li>
-                            <li><a href="htmleditor.html">HTML editor</a></li>
-                            <li><a href="slider.html">Slider</a></li>
-                            <li><a href="slideset.html">Slideset</a></li>
-                            <li><a href="slideshow.html">Slideshow</a></li>
-                            <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
-                            <li><a href="notify.html">Notify</a></li>
-                            <li><a href="search.html">Search</a></li>
-                            <li><a href="nestable.html">Nestable</a></li>
-                            <li><a href="sortable.html">Sortable</a></li>
-                            <li><a href="sticky.html">Sticky</a></li>
-                            <li><a href="timepicker.html">Timepicker</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
-                            <li><a href="upload.html">Upload</a></li>
-                        </ul>
+      <p class="uk-article-lead">Create a toggleable dropdown with an datepicker.</p>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                        <article class="uk-article">
+      <p>To create a datepicker, just add the <code>data-uk-datepicker</code> attribute to an <code>&lt;input&gt;</code> element. You also have the possibility of customizing the date format. Just add the <em>format</em> option to the <code>data-uk-datepicker</code> attribute.</p>
 
-                            <h1>Datepicker</h1>
+      <p>The datepicker detects whether the JavaScript from the <a href="form-select.html">Form select component</a> is being loaded. This allows you to quickly toggle between years and months through a select form inside the datepicker.</p>
 
-                            <p class="uk-article-lead">Create a toggleable dropdown with an datepicker.</p>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+      <form class="uk-form">
+          <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+      </form>
 
-                            <p>To create a datepicker, just add the <code>data-uk-datepicker</code> attribute to an <code>&lt;input&gt;</code> element. You also have the possibility of customizing the date format. Just add the <em>format</em> option to the <code>data-uk-datepicker</code> attribute.</p>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p>The datepicker detects whether the JavaScript from the <a href="form-select.html">Form select component</a> is being loaded. This allows you to quickly toggle between years and months through a select form inside the datepicker.</p>
+      <pre><code>&lt;form class="uk-form"&gt;
+      &lt;input type="" data-uk-datepicker="{format:'DD.MM.YYYY'}"&gt;
+      &lt;/form&gt;</code></pre>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <hr class="uk-article-divider">
 
-                            <form class="uk-form">
-                                <input type="text" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                            </form>
+      <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>This is an example of how to set options via attribute:</p>
 
-<pre><code>&lt;form class="uk-form"&gt;
-    &lt;input type="" data-uk-datepicker="{format:'DD.MM.YYYY'}"&gt;
-&lt;/form&gt;</code></pre>
+      <pre><code>data-uk-datepicker=&quot;{weekstart:0, format:'DD.MM.YYYY'}&quot;</code></pre>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Option</th>
+                      <th>Possible value</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>weekstart</code></td>
+                      <td>integer (0..6)</td>
+                      <td>1</td>
+                      <td>Start of the week</td>
+                  </tr>
+                  <tr>
+                      <td><code>i18n</code></td>
+                      <td>JSON object</td>
+                      <td>{ months:['January',...], weekdays:['Sun',..,'Sat'] }</td>
+                      <td>Language string definitions</td>
+                  </tr>
+                  <tr>
+                      <td><code>format</code></td>
+                      <td>any combination of DD, MM and YY</td>
+                      <td>'DD.MM.YYYY'</td>
+                      <td>Date format string</td>
+                  </tr>
+                  <tr>
+                      <td><code>offsettop</code></td>
+                      <td>integer</td>
+                      <td>5</td>
+                      <td>Offset to the input value</td>
+                  </tr>
+                  <tr>
+                      <td><code>minDate</code></td>
+                      <td>misc</td>
+                      <td>false</td>
+                      <td>Min. date</td>
+                  </tr>
+                  <tr>
+                      <td><code>maxDate</code></td>
+                      <td>misc</td>
+                      <td>false</td>
+                      <td>Max. date</td>
+                  </tr>
+                  <tr>
+                      <td><code>pos</code></td>
+                      <td>'auto', 'top', 'bottom'</td>
+                      <td>'auto'</td>
+                      <td>Position of the datepicker</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
 
-                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+      <h3 class="tm-article-subtitle">Init element manually</h3>
 
-                            <p>This is an example of how to set options via attribute:</p>
+      <pre><code>var datepicker = UIkit.datepicker(element, { /* options */ });</code></pre>
 
-                            <pre><code>data-uk-datepicker=&quot;{weekstart:0, format:'DD.MM.YYYY'}&quot;</code></pre>
+      <h3>Events</h3>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Option</th>
-                                            <th>Possible value</th>
-                                            <th>Default</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>weekstart</code></td>
-                                            <td>integer (0..6)</td>
-                                            <td>1</td>
-                                            <td>Start of the week</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>i18n</code></td>
-                                            <td>JSON object</td>
-                                            <td>{ months:['January',...], weekdays:['Sun',..,'Sat'] }</td>
-                                            <td>Language string definitions</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>format</code></td>
-                                            <td>any combination of DD, MM and YYYY</td>
-                                            <td>'DD.MM.YYYY'</td>
-                                            <td>Date format string</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>offsettop</code></td>
-                                            <td>integer</td>
-                                            <td>5</td>
-                                            <td>Offset to the input value</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>minDate</code></td>
-                                            <td>bool (false to ignore the option)<br/>
-                                                string (date as in <code>format</code>)<br/>
-                                                integer (offset in days from current date)                                            </td>
-                                            <td>false</td>
-                                            <td>Min. date</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>maxDate</code></td>
-                                            <td>bool (false to ignore the option)<br/>
-                                                string (date as in <code>format</code>)<br/>
-                                                integer (offset in days from current date)                                            </td>
-                                            </td>
-                                            <td>false</td>
-                                            <td>Max. date</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>pos</code></td>
-                                            <td>'auto', 'top', 'bottom'</td>
-                                            <td>'auto'</td>
-                                            <td>Position of the datepicker</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>show.uk.datepicker</code></td>
+                      <td>event</td>
+                      <td>On datepicker dropdown show</td>
+                  </tr>
+                  <tr>
+                      <td><code>hide.uk.datepicker</code></td>
+                      <td>event</td>
+                      <td>On datepicker dropdown hide</td>
+                  </tr>
+                  <tr>
+                      <td><code>update.uk.datepicker</code></td>
+                      <td>event</td>
+                      <td>On calendar rendering</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
 
-                            <h3 class="tm-article-subtitle">Init element manually</h3>
+  </article>
 
-                            <pre><code>var datepicker = UIkit.datepicker(element, { /* options */ });</code></pre>
-
-                            <h3>Events</h3>
-
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Parameter</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>show.uk.datepicker</code></td>
-                                            <td>event</td>
-                                            <td>On datepicker dropdown show</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>hide.uk.datepicker</code></td>
-                                            <td>event</td>
-                                            <td>On datepicker dropdown hide</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>update.uk.datepicker</code></td>
-                                            <td>event</td>
-                                            <td>On calendar rendering</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </article>
-
-                    </div>
-                </div>
-
+    </div>
+  </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -243,7 +239,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent"><a href="#">Documentation</a>
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -345,17 +341,17 @@
                             <li><a href="progress.html">Progress</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
                             <li><a href="lightbox.html">Lightbox</a></li>
                             <li><a href="autocomplete.html">Autocomplete</a></li>
-                            <li><a href="datepicker.html">Datepicker</a></li>
+                            <li class="uk-active"><a href="datepicker.html">Datepicker</a></li>
                             <li><a href="htmleditor.html">HTML editor</a></li>
                             <li><a href="slider.html">Slider</a></li>
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

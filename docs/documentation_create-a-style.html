@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Create a style - UIkit documentation</title>
+        <title>UIkit - Create a Style</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,10 +26,14 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
-                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,63 +44,60 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                    <div class="uk-grid" data-uk-grid-margin>
+        <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+            <ul class="tm-nav uk-nav" data-uk-nav>
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+                <li class="uk-nav-header">Beginners</li>
+                <li><a href="documentation_get-started.html">Get started</a></li>
+                <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                <li><a href="documentation_layouts.html">Layout examples</a></li>
+                <li class="uk-nav-header">Developers</li>
+                <li><a href="documentation_project-structure.html">Project structure</a></li>
+                <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                <li class="uk-active"><a href="documentation_create-a-style.html">Create a style</a></li>
+                <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                <li><a href="documentation_javascript.html">JavaScript</a></li>
+                <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
+            </ul>
 
-                            <li class="uk-nav-header">Beginners</li>
-                            <li><a href="documentation_get-started.html">Get started</a></li>
-                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
-                            <li><a href="documentation_layouts.html">Layout examples</a></li>
-                            <li class="uk-nav-header">Developers</li>
-                            <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li class="uk-active"><a href="documentation_create-a-style.html">Create a style</a></li>
-                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-                            <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+        </div>
+        <div class="tm-main uk-width-medium-3-4">
+            <article class="uk-article">
 
-                        </ul>
+      <h1>Create a style</h1>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <p class="uk-article-lead">Extend UIkit and add your own unique style.</p>
 
-                        <article class="uk-article">
+      <p>Styles are just a set of variables. They change the look of a present theme. You can create unlimited styles for each theme. To create your own style, follow these steps:</p>
 
-                            <h1>Create a style</h1>
+      <h3>1. Create the style directory</h3>
 
-                            <p class="uk-article-lead">Extend UIkit and add your own unique style.</p>
+      <p>Create your style folder here <code>/custom/THEME-NAME/styles/STYLE-NAME</code>.
 
-                            <p>Styles are just a set of variables. They change the look of a present theme. You can create unlimited styles for each theme. To create your own style, follow these steps:</p>
+      <h3>2. Add your style</h3>
 
-                            <h3>1. Create the style directory</h3>
+      <p>Create a blank <em>style.less</em> file in the <code>/custom/THEME-NAME/styles/STYLE-NAME</code> folder. Now you can add new variable declarations manually or use the <a href="customizer.html">Customizer</a>. When you are finished, hit the <em>Get Less</em> button in the Customizer and save the file in your style folder.</p>
 
-                            <p>Create your style folder here <code>/custom/THEME-NAME/styles/STYLE-NAME</code>.
+      <h3>3. Customizer and Tests</h3>
 
-                            <h3>2. Add your style</h3>
+      <p>Run the gulp task <em>indexthemes</em> on the UIkit directory to make your newly created style available in the Customizer and tests.</p>
 
-                            <p>Create a blank <em>style.less</em> file in the <code>/custom/THEME-NAME/styles/STYLE-NAME</code> folder. Now you can add new variable declarations manually or use the <a href="customizer.html">Customizer</a>. When you are finished, hit the <em>Get Less</em> button in the Customizer and save the file in your style folder.</p>
+      <h3>4. Continue customizing</h3>
 
-                            <h3>3. Customizer and Tests</h3>
+      <p>Now you can continue to <a href="documentation_how-to-customize.html">customize</a> your style.</p>
 
-                            <p>Run the gulp task <em>indexthemes</em> on the UIkit directory to make your newly created style available in the Customizer and tests.</p>
-
-                            <h3>4. Continue customizing</h3>
-
-                            <p>Now you can continue to <a href="documentation_how-to-customize.html">customize</a> your style.</p>
-
-                        </article>
-
-                    </div>
-                </div>
-
+  </article>
+        </div>
+    </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -129,7 +132,7 @@
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
                             <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a style</a></li>
+                            <li class="uk-active"><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
@@ -231,7 +234,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

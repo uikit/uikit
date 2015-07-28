@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>JavaScript - UIkit documentation</title>
+        <title>UIkit - Javascript</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -24,10 +26,14 @@
                 <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
-                    <li class="uk-active"><a href="documentation_get-started.html">Get Started</a></li>
+                    <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,155 +44,152 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                    <div class="uk-grid" data-uk-grid-margin>
+        <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+            <ul class="tm-nav uk-nav" data-uk-nav>
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+                <li class="uk-nav-header">Beginners</li>
+                <li><a href="documentation_get-started.html">Get started</a></li>
+                <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                <li><a href="documentation_layouts.html">Layout examples</a></li>
+                <li class="uk-nav-header">Developers</li>
+                <li><a href="documentation_project-structure.html">Project structure</a></li>
+                <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                <li class="uk-active"><a href="documentation_javascript.html">JavaScript</a></li>
+                <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
+            </ul>
 
-                            <li class="uk-nav-header">Beginners</li>
-                            <li><a href="documentation_get-started.html">Get started</a></li>
-                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
-                            <li><a href="documentation_layouts.html">Layout examples</a></li>
-                            <li class="uk-nav-header">Developers</li>
-                            <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
-                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-                            <li class="uk-active"><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+        </div>
+        <div class="tm-main uk-width-medium-3-4">
+              <article class="uk-article">
 
-                        </ul>
+        <h1 class="uk-article-title">JavaScript</h1>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+        <p class="uk-article-lead">Use data attributes to apply JavaScript to UIkit components</p>
 
-                        <article class="uk-article">
+        <p>You can use all UIkit components by just adding <code>data-uk-*</code> attributes to your HTML elements without writing a single line of JavaScript. This is UIkit's best practice of using its components and should always be considered first.</p>
 
-                            <h1 class="uk-article-title">JavaScript</h1>
+        <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p class="uk-article-lead">Use data attributes to apply JavaScript to UIkit components</p>
+        <pre><code>&lt;button data-uk-button&gt;My Button&lt;/button&gt;</code></pre>
 
-                            <p>You can use all UIkit components by just adding <code>data-uk-*</code> attributes to your HTML elements without writing a single line of JavaScript. This is UIkit's best practice of using its components and should always be considered first.</p>
+        <p>But of course you can still use the components just through the jQuery API.</p>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+        <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <pre><code>&lt;button data-uk-button&gt;My Button&lt;/button&gt;</code></pre>
+        <pre><code>$(".button").uk("button");</code></pre>
 
-                            <p>But of course you can still use the components just through the jQuery API.</p>
+        <hr class="uk-article-divider">
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+        <h2 id="amd-support"><a href="#amd-support" class="uk-link-reset">AMD support</a></h2>
 
-                            <pre><code>$(".button").uk("button");</code></pre>
+        <p>AMD (Asynchronous Module Definition) is a way of defining JavaScript modules and their dependencies so they can be loaded asynchronously.</p>
 
-                            <hr class="uk-article-divider">
+        <h3 class="tm-article-subtitle">Usage</h3>
 
-                            <h2 id="amd-support"><a href="#amd-support" class="uk-link-reset">AMD support</a></h2>
+        <pre><code>/* Simple require of the UIkit core */
+        require("path/to/uikit.js", function(UI){
 
-                            <p>AMD (Asynchronous Module Definition) is a way of defining JavaScript modules and their dependencies so they can be loaded asynchronously.</p>
+        // UI is the global UIkit object a.k.a. $.UIkit
 
-                            <h3 class="tm-article-subtitle">Usage</h3>
+        });</code></pre>
 
-<pre><code>/* Simple require of the UIkit core */
-require("path/to/uikit.js", function(UI){
+        <h3 class="tm-article-subtitle">Autoload UIkit and its components</h3>
 
-    // UI is the global UIkit object a.k.a. $.UIkit
+        <pre><code>/* setup require.js first */
+        requirejs.config({
 
-});</code></pre>
-
-                            <h3 class="tm-article-subtitle">Autoload UIkit and its components</h3>
-
-<pre><code>/* setup require.js first */
-requirejs.config({
-
-    paths: {
+        paths: {
         "uikit": 'path/to/uikit.js'
-    },
+        },
 
-    config: {
+        config: {
         "uikit": {
-            "base": "path/to/uikit_dist_folder"
+        "base": "path/to/uikit_dist_folder"
         }
-    }
+        }
 
-});
+        });
 
-/* now you can autoload uikit core + components separated by a comma */
-require("uikit!notify,sortable", function(UI){
+        /* now you can autoload uikit core + components separated by a comma */
+        require("uikit!notify,sortable", function(UI){
 
-    // access loaded components: UI.notify, UI.sortable
+        // access loaded components: UI.notify, UI.sortable
 
-});</code></pre>
+        });</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h2 id="js-override"><a href="#js-override" class="uk-link-reset">Override default component settings.</a></h2>
+        <h2 id="js-override"><a href="#js-override" class="uk-link-reset">Override default component settings.</a></h2>
 
-                            <p>It is possible to adjust the default component settings as you can see in the following example.</p>
+        <p>It is possible to adjust the default component settings as you can see in the following example.</p>
 
-                            <h3 class="tm-article-subtitle">Usage</h3>
+        <h3 class="tm-article-subtitle">Usage</h3>
 
-                            <pre><code>
-                            // override default tooltip settings
-                            UIkit.on('beforeready.uk.dom', function(){
+        <pre><code>
+        // override default tooltip settings
+        UIkit.on('beforeready.uk.dom', function(){
 
-                                $.extend(UIkit.components.tooltip.prototype.defaults, {
-                                    pos: 'top',
-                                    delay: 500,
-                                    animation: true
-                                });
-                            });
-                            </code></pre>
+            $.extend(UIkit.components.tooltip.prototype.defaults, {
+                pos: 'top',
+                delay: 500,
+                animation: true
+            });
+        });
+        </code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h2 id="dom-observe"><a href="#dom-observe" class="uk-link-reset">Observe the DOM to auto-init new added components, e.g via AJAX.</a></h2>
+        <h2 id="dom-observe"><a href="#dom-observe" class="uk-link-reset">Observe the DOM to auto-init new added components, e.g via AJAX.</a></h2>
 
-                            <p>If you inject dynamic HTML markup into the DOM via JavaScript, just add the <code>data-uk-observe</code> attribute to one of the parent elements to auto-initialize UIKit JavaScript components.</p>
+        <p>If you inject dynamic HTML markup into the DOM via JavaScript, just add the <code>data-uk-observe</code> attribute to one of the parent elements to auto-initialize UIKit JavaScript components.</p>
 
-                            <h3 class="tm-article-subtitle">Usage</h3>
+        <h3 class="tm-article-subtitle">Usage</h3>
 
-                            <pre><code>
-                            &lt;div data-uk-observe&gt;
-                                &lt;!-- inject your dynamic html here --&gt;
-                            &lt;/div&gt;
-                            </code></pre>
+        <pre><code>
+        &lt;div data-uk-observe&gt;
+            &lt;!-- inject your dynamic html here --&gt;
+        &lt;/div&gt;
+        </code></pre>
 
-                            <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
+        <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
 
-                            <pre><code>UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
+        <pre><code>UIkit.domObserve('#element', function(element) { /* apply on dom change within element */ })</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h2 id="data-check-display"><a href="#data-check-display" class="uk-link-reset">Check Display event on visibility change.</a></h2>
+        <h2 id="data-check-display"><a href="#data-check-display" class="uk-link-reset">Check Display event on visibility change.</a></h2>
 
-                            <p>Sometimes components, like <a href="grid.html">Grid</a> or <a href="tab.html">Tab</a> are hidden in the markup. This may happen when used in combination with the <a href="switcher.html">Switcher</a>, <a href="modal.html">Modal</a> or <a href="dropdown.html">Dropdown</a>. Once they become visible, they need to be recalculated to adjust or fix the height and other dimensions.</p>
+        <p>Sometimes components, like <a href="grid.html">Grid</a> or <a href="tab.html">Tab</a> are hidden in the markup. This may happen when used in combination with the <a href="switcher.html">Switcher</a>, <a href="modal.html">Modal</a> or <a href="dropdown.html">Dropdown</a>. Once they become visible, they need to be recalculated to adjust or fix the height and other dimensions.</p>
 
-                            <p>To do so, add the <code>data-uk-check-display</code> attribute to the elements which need to be recalculated. They now listen to the <code>display.uk.check</code> event, which will be triggered by the container component, for example the Switcher. This is not needed for elements with <code>data-uk-margin</code>, <code>data-uk-grid-margin</code> and <code>data-uk-grid-match</code> attributes, those will be triggered by default.</p>
+        <p>To do so, add the <code>data-uk-check-display</code> attribute to the elements which need to be recalculated. They now listen to the <code>display.uk.check</code> event, which will be triggered by the container component, for example the Switcher. This is not needed for elements with <code>data-uk-margin</code>, <code>data-uk-grid-margin</code> and <code>data-uk-grid-match</code> attributes, those will be triggered by default.</p>
 
-                            <h3 class="tm-article-subtitle">Usage</h3>
+        <h3 class="tm-article-subtitle">Usage</h3>
 
-                            <pre><code>
-                            &lt;!-- Element within a modal, switcher or dropdown --&gt;
-                            &lt;div id="myelement" data-uk-check-display&gt;...&lt;/div&gt;
+        <pre><code>
+        &lt;!-- Element within a modal, switcher or dropdown --&gt;
+        &lt;div id="myelement" data-uk-check-display&gt;...&lt;/div&gt;
 
-                            &lt;script&gt;
-                            $("#myelement").on('display.uk.check', function(){
-                               // custom code to adjust height etc on show
-                            });
-                            &lt;/script&gt;
-                            </code></pre>
+        &lt;script&gt;
+        $("#myelement").on('display.uk.check', function(){
+           // custom code to adjust height etc on show
+        });
+        &lt;/script&gt;
+        </code></pre>
 
-                        </article>
-
-                    </div>
-                </div>
-
+    </article>
+        </div>
+    </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -219,11 +222,11 @@ require("uikit!notify,sortable", function(UI){
                             <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a style</a></li>
-                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-                            <li><a href="documentation_javascript.html">JavaScript</a></li>
                             <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                            <li class="uk-active"><a href="documentation_javascript.html">JavaScript</a></li>
                             <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
@@ -323,7 +326,7 @@ require("uikit!notify,sortable", function(UI){
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

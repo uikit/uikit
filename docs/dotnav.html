@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Dotnav component - UIkit documentation</title>
+        <title>UIkit - Dot Nav</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -25,9 +27,13 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li class="uk-active"><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,140 +44,137 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                  <div class="uk-grid" data-uk-grid-margin>
+      <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Layout</li>
+          <li><a href="grid-js.html">Dynamic Grid</a></li>
+          <li class="uk-nav-header">Navigations</li>
+          <li class="uk-active"><a href="dotnav.html">Dotnav</a></li>
+          <li><a href="slidenav.html">Slidenav</a></li>
+          <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+          <li class="uk-nav-header">Common</li>
+          <li><a href="form-advanced.html">Form advanced</a></li>
+          <li><a href="form-file.html">Form file</a></li>
+          <li><a href="form-password.html">Form password</a></li>
+          <li><a href="form-select.html">Form select</a></li>
+          <li><a href="placeholder.html">Placeholder</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li class="uk-nav-header">JavaScript</li>
+          <li><a href="lightbox.html">Lightbox</a></li>
+          <li><a href="autocomplete.html">Autocomplete</a></li>
+          <li><a href="datepicker.html">Datepicker</a></li>
+          <li><a href="htmleditor.html">HTML editor</a></li>
+          <li><a href="slider.html">Slider</a></li>
+          <li><a href="slideset.html">Slideset</a></li>
+          <li><a href="slideshow.html">Slideshow</a></li>
+          <li><a href="parallax.html">Parallax</a></li>
+          <li><a href="accordion.html">Accordion</a></li>
+          <li><a href="notify.html">Notify</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="nestable.html">Nestable</a></li>
+          <li><a href="sortable.html">Sortable</a></li>
+          <li><a href="sticky.html">Sticky</a></li>
+          <li><a href="timepicker.html">Timepicker</a></li>
+          <li><a href="tooltip.html">Tooltip</a></li>
+          <li><a href="upload.html">Upload</a></li>
+      </ul>
+    </div>
+    <div class="tm-main uk-width-medium-3-4">
+        <article class="uk-article">
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+      <h1>Dotnav</h1>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
-                            <li class="uk-nav-header">Layout</li>
-                            <li><a href="grid-js.html">Dynamic Grid</a></li>
-                            <li class="uk-nav-header">Navigations</li>
-                            <li class="uk-active"><a href="dotnav.html">Dotnav</a></li>
-                            <li><a href="slidenav.html">Slidenav</a></li>
-                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
-                            <li class="uk-nav-header">Common</li>
-                            <li><a href="form-advanced.html">Form advanced</a></li>
-                            <li><a href="form-file.html">Form file</a></li>
-                            <li><a href="form-password.html">Form password</a></li>
-                            <li><a href="form-select.html">Form select</a></li>
-                            <li><a href="placeholder.html">Placeholder</a></li>
-                            <li><a href="progress.html">Progress</a></li>
-                            <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="lightbox.html">Lightbox</a></li>
-                            <li><a href="autocomplete.html">Autocomplete</a></li>
-                            <li><a href="datepicker.html">Datepicker</a></li>
-                            <li><a href="htmleditor.html">HTML editor</a></li>
-                            <li><a href="slider.html">Slider</a></li>
-                            <li><a href="slideset.html">Slideset</a></li>
-                            <li><a href="slideshow.html">Slideshow</a></li>
-                            <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
-                            <li><a href="notify.html">Notify</a></li>
-                            <li><a href="search.html">Search</a></li>
-                            <li><a href="nestable.html">Nestable</a></li>
-                            <li><a href="sortable.html">Sortable</a></li>
-                            <li><a href="sticky.html">Sticky</a></li>
-                            <li><a href="timepicker.html">Timepicker</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
-                            <li><a href="upload.html">Upload</a></li>
-                        </ul>
+      <p class="uk-article-lead">Create a dot navigation with a horizontal or vertical layout to navigate through slideshows or to scroll to different page sections.</p>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                        <article class="uk-article">
+      <p>To create a navigation with dots, just add the <code>.uk-dotnav</code> class to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list. This is perfect to create a typical slideshow navigation.  This component is built with Flexbox. So to align a dotnav, you can use <a href="flex.html">Flex component</a>.</p>
 
-                            <h1>Dotnav</h1>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p class="uk-article-lead">Create a dot navigation with a horizontal or vertical layout to navigate through slideshows or to scroll to different page sections.</p>
+      <ul class="uk-dotnav">
+          <li class="uk-active"><a href="#">Item 1</a></li>
+          <li><a href="#">Item 2</a></li>
+          <li><a href="#">Item 3</a></li>
+          <li><a href="#">Item 4</a></li>
+          <li><a href="#">Item 5</a></li>
+          <li><a href="#">Item 6</a></li>
+      </ul>
 
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p>To create a navigation with dots, just add the <code>.uk-dotnav</code> class to an <code>&lt;ul&gt;</code> element and nest <code>&lt;a&gt;</code> elements within the list. This is perfect to create a typical slideshow navigation.  This component is built with Flexbox. So to align a dotnav, you can use <a href="flex.html">Flex component</a>.</p>
+      <pre><code>&lt;ul class="uk-dotnav"&gt;
+      &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <hr class="uk-article-divider">
 
-                            <ul class="uk-dotnav">
-                                <li class="uk-active"><a href="#">Item 1</a></li>
-                                <li><a href="#">Item 2</a></li>
-                                <li><a href="#">Item 3</a></li>
-                                <li><a href="#">Item 4</a></li>
-                                <li><a href="#">Item 5</a></li>
-                                <li><a href="#">Item 6</a></li>
-                            </ul>
+      <h2 id="slidenav-and-images"><a href="#slidenav-and-images" class="uk-link-reset">Dotnav and images</a></h2>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>For better visibility on images, for example when using the Dotnav as a slideshow navigation, just add the <code>.uk-dotnav-contrast</code> class.</p>
 
-<pre><code>&lt;ul class="uk-dotnav"&gt;
-    &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-position-relative uk-width-medium-2-3">
 
-                            <h2 id="slidenav-and-images"><a href="#slidenav-and-images" class="uk-link-reset">Dotnav and images</a></h2>
+          <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
 
-                            <p>For better visibility on images, for example when using the Dotnav as a slideshow navigation, just add the <code>.uk-dotnav-contrast</code> class.</p>
+          <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-flex-center">
+              <li class="uk-active"><a href="#">Item 1</a></li>
+              <li><a href="#">Item 2</a></li>
+              <li><a href="#">Item 3</a></li>
+              <li><a href="#">Item 4</a></li>
+              <li><a href="#">Item 5</a></li>
+              <li><a href="#">Item 6</a></li>
+          </ul>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      </div>
 
-                            <div class="uk-position-relative uk-width-medium-2-3">
+      <p><span class="uk-badge">NOTE</span> In this example we also applied the <code>.uk-flex-center</code> class from the <a href="flex.html">Flex component</a> to center the dotnav.</p>
 
-                                <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                                <ul class="uk-dotnav uk-dotnav-contrast uk-position-bottom uk-flex-center">
-                                    <li class="uk-active"><a href="#">Item 1</a></li>
-                                    <li><a href="#">Item 2</a></li>
-                                    <li><a href="#">Item 3</a></li>
-                                    <li><a href="#">Item 4</a></li>
-                                    <li><a href="#">Item 5</a></li>
-                                    <li><a href="#">Item 6</a></li>
-                                </ul>
+      <pre><code>&lt;ul class="uk-dotnav uk-dotnav-contrast uk-flex-center"&gt;
+      &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
 
-                            </div>
+      <hr class="uk-article-divider">
 
-                            <p><span class="uk-badge">NOTE</span> In this example we also applied the <code>.uk-flex-center</code> class from the <a href="flex.html">Flex component</a> to center the dotnav.</p>
+      <h2 id="vertical-dotnav"><a href="#vertical-dotnav" class="uk-link-reset">Vertical dotnav</a></h2>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>The Dotnav can also be aligned vertically. Just add the <code>.uk-flex-column</code> class. This is great for page scroll navigation using the <a href="scrollspy.html">Scrollspy component</a>.</p>
 
-<pre><code>&lt;ul class="uk-dotnav uk-dotnav-contrast uk-flex-center"&gt;
-    &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <hr class="uk-article-divider">
+      <ul class="uk-dotnav uk-flex-column">
+          <li class="uk-active"><a href="#">Item 1</a></li>
+          <li><a href="#">Item 2</a></li>
+          <li><a href="#">Item 3</a></li>
+          <li><a href="#">Item 4</a></li>
+          <li><a href="#">Item 5</a></li>
+          <li><a href="#">Item 6</a></li>
+      </ul>
 
-                            <h2 id="vertical-dotnav"><a href="#vertical-dotnav" class="uk-link-reset">Vertical dotnav</a></h2>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p>The Dotnav can also be aligned vertically. Just add the <code>.uk-flex-column</code> class. This is great for page scroll navigation using the <a href="scrollspy.html">Scrollspy component</a>.</p>
+      <pre><code>&lt;ul class="uk-dotnav uk-flex-column"&gt;
+      &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+  </article>
 
-                            <ul class="uk-dotnav uk-flex-column">
-                                <li class="uk-active"><a href="#">Item 1</a></li>
-                                <li><a href="#">Item 2</a></li>
-                                <li><a href="#">Item 3</a></li>
-                                <li><a href="#">Item 4</a></li>
-                                <li><a href="#">Item 5</a></li>
-                                <li><a href="#">Item 6</a></li>
-                            </ul>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;ul class="uk-dotnav uk-flex-column"&gt;
-    &lt;li class="uk-active"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
-
-                        </article>
-
-                    </div>
-                </div>
-
+    </div>
+  </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -196,7 +199,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent"><a href="#">Documentation</a>
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -281,9 +284,9 @@
                             <li><a href="grid-js.html">Dynamic Grid</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="dotnav.html">Dotnav</a></li>
+                            <li class="uk-active"><a href="dotnav.html">Dotnav</a></li>
                             <li><a href="slidenav.html">Slidenav</a></li>
                             <li><a href="pagination-js.html">Dynamic Pagination</a></li>
                         </ul>
@@ -308,7 +311,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

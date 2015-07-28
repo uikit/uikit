@@ -1,0 +1,89 @@
+<!-- @set page_title "Alert"-->
+<!-- @set page_section_core "core"-->
+<!-- @extend core.template.html -->
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">Alert</h1>
+
+        <p class="uk-article-lead">Defines styles for success, warning and error messages.</p>
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>To apply this component, add the <code>.uk-alert</code> class to a block element.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-alert">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;div class="uk-alert"&gt;...&lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Close button</h3>
+
+        <p>To apply a close button, add the <code>.uk-alert-close</code> class to a <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element inside the alert box. To enable the JavaScript for the close button, just add the <code>data-uk-alert</code> attribute to the alert box. We recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a> to give the button a proper styling, though you can also use text or an image.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-alert" data-uk-alert>
+            <a href="" class="uk-alert-close uk-close"></a>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-alert" data-uk-alert&gt;
+        &lt;a href="" class="uk-alert-close uk-close"&gt;&lt;/a&gt;
+        &lt;p&gt;...&lt;/p&gt;
+        &lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="color-modifiers"><a href="#color-modifiers" class="uk-link-reset">Color modifiers</a></h2>
+
+        <p>There are several color modifiers available. Just add one of the following classes to apply a different look.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <div class="uk-alert uk-alert-success" data-uk-alert>
+            <a href="" class="uk-alert-close uk-close"></a>
+            <p>To indicate success or a positive message add the <code>.uk-alert-success</code> class.</p>
+        </div>
+        <div class="uk-alert uk-alert-warning" data-uk-alert>
+            <a href="" class="uk-alert-close uk-close"></a>
+            <p>To indicate a message containing a warning add the <code>.uk-alert-warning</code> class.</p>
+        </div>
+        <div class="uk-alert uk-alert-danger" data-uk-alert>
+            <a href="" class="uk-alert-close uk-close"></a>
+            <p>To indicate an important message add the <code>.uk-alert-danger</code> class.</p>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-alert uk-alert-success"&gt; ... &lt;/div&gt;
+        &lt;div class="uk-alert uk-alert-warning"&gt;...&lt;/div&gt;
+        &lt;div class="uk-alert uk-alert-danger"&gt;...&lt;/div&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="size-modifier"><a href="#size-modifier" class="uk-link-reset">Size modifier</a></h2>
+
+        <p>Add the <code>.uk-alert-large</code> class to increase the spacing in an alert box. This can be useful, if you want to use richer typography.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <div class="uk-alert uk-alert-large" data-uk-alert>
+            <a href="" class="uk-alert-close uk-close"></a>
+            <h2>Today's headline</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;div class="uk-alert uk-alert-large"&gt;...&lt;/div&gt;</code></pre>
+
+    </article>
+  <!-- @endextend -->

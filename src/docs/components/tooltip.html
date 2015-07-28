@@ -1,0 +1,154 @@
+<!-- @set page_title "Tooltip"-->
+<!-- @set page_section_components "components" -->
+<!-- @extend components.template.html -->
+  <script src="../src/js/components/tooltip.js"></script>
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Tooltip</h1>
+
+      <p class="uk-article-lead">Easily create a nicely looking tooltip.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To apply this component, add the <code>data-uk-tooltip</code> attribute to an element. You also need to add a title attribute, whose value will represent your tooltip's text.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <p>
+          <button class="uk-button" data-uk-tooltip title="Bazinga!">Hover me</button>
+          <span data-uk-tooltip title="Bazinga!">Hover me</span>
+      </p>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;button class="uk-button" data-uk-tooltip title=""&gt;...&lt;/button&gt;
+&lt;span data-uk-tooltip title=""&gt;...&lt;/span&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="alignment"><a href="#alignment" class="uk-link-reset">Alignment</a></h2>
+
+      <p>Add one of the following options to the <code>data-uk-tooltip</code> attribute to adjust the tooltip's alignment.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Attribute</th>
+                      <th>Description</th>
+                      <th>Example</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>pos:'top'</code></td>
+                      <td>Aligns the tooltip to the top.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'top'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+                  <tr>
+                      <td><code>pos:'top-left'</code></td>
+                      <td>Aligns the tooltip to the top left.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'top-left'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+                  <tr>
+                      <td><code>pos:'top-right'</code></td>
+                      <td>Aligns the tooltip to the top right.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'top-right'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+                  <tr>
+                      <td><code>pos:'bottom'</code></td>
+                      <td>Aligns the tooltip to the bottom.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'bottom'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+                  <tr>
+                      <td><code>pos:'bottom-left'</code></td>
+                      <td>Aligns the tooltip to the bottom left.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'bottom-left'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+                  <tr>
+                      <td><code>pos:'bottom-right'</code></td>
+                      <td>Aligns the tooltip to the bottom right.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'bottom-right'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+                  <tr>
+                      <td><code>pos:'left'</code></td>
+                      <td>Aligns the tooltip to the left.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'left'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+                  <tr>
+                      <td><code>pos:'right'</code></td>
+                      <td>Aligns the tooltip to the right.</td>
+                      <td><button class="uk-button" data-uk-tooltip="{pos:'right'}" title="Bazinga!">Hover me</button></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;button class="uk-button" data-uk-tooltip="{pos:'bottom-left'}" title=""&gt;...&lt;/button&gt;</code></pre>
+
+
+
+      <hr class="uk-article-divider">
+
+      <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+      <p>This is an example of how to set options via attribute:</p>
+
+      <pre><code>data-uk-tooltip=&quot;{pos:'bottom-left'}&quot;</code></pre>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped">
+              <thead>
+                  <tr>
+                      <th>Option</th>
+                      <th>Possible value</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>offset</code></td>
+                      <td>integer</td>
+                      <td>5</td>
+                      <td>Offset to the source element</td>
+                  </tr>
+                  <tr>
+                      <td><code>pos</code></td>
+                      <td>string</td>
+                      <td>'top'</td>
+                      <td>Tooltip position</td>
+                  </tr>
+                  <tr>
+                      <td><code>animation</code></td>
+                      <td>boolean</td>
+                      <td>false</td>
+                      <td>Fade in tooltip</td>
+                  </tr>
+                  <tr>
+                      <td><code>delay</code></td>
+                      <td>integer</td>
+                      <td>0</td>
+                      <td>Delay tooltip show in ms</td>
+                  </tr>
+                  <tr>
+                      <td><code>cls</code></td>
+                      <td>string</td>
+                      <td>''</td>
+                      <td>Custom class to add on show</td>
+                  </tr>
+                  <tr>
+                      <td><code>activeClass</code></td>
+                      <td>string</td>
+                      <td>'uk-active'</td>
+                      <td>Toggled active class</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+  </article>
+<!-- @endextend -->

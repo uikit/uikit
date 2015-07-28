@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Search component - UIkit documentation</title>
+        <title>UIkit - Search</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +16,6 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../src/js/components/autocomplete.js"></script>
-        <script src="../src/js/components/search.js"></script>
     </head>
 
     <body class="tm-background">
@@ -27,9 +27,13 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li class="uk-active"><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -40,243 +44,242 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                  <div class="uk-grid" data-uk-grid-margin>
+      <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Layout</li>
+          <li><a href="grid-js.html">Dynamic Grid</a></li>
+          <li class="uk-nav-header">Navigations</li>
+          <li><a href="dotnav.html">Dotnav</a></li>
+          <li><a href="slidenav.html">Slidenav</a></li>
+          <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+          <li class="uk-nav-header">Common</li>
+          <li><a href="form-advanced.html">Form advanced</a></li>
+          <li><a href="form-file.html">Form file</a></li>
+          <li><a href="form-password.html">Form password</a></li>
+          <li><a href="form-select.html">Form select</a></li>
+          <li><a href="placeholder.html">Placeholder</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li class="uk-nav-header">JavaScript</li>
+          <li><a href="lightbox.html">Lightbox</a></li>
+          <li><a href="autocomplete.html">Autocomplete</a></li>
+          <li><a href="datepicker.html">Datepicker</a></li>
+          <li><a href="htmleditor.html">HTML editor</a></li>
+          <li><a href="slider.html">Slider</a></li>
+          <li><a href="slideset.html">Slideset</a></li>
+          <li><a href="slideshow.html">Slideshow</a></li>
+          <li><a href="parallax.html">Parallax</a></li>
+          <li><a href="accordion.html">Accordion</a></li>
+          <li><a href="notify.html">Notify</a></li>
+          <li class="uk-active"><a href="search.html">Search</a></li>
+          <li><a href="nestable.html">Nestable</a></li>
+          <li><a href="sortable.html">Sortable</a></li>
+          <li><a href="sticky.html">Sticky</a></li>
+          <li><a href="timepicker.html">Timepicker</a></li>
+          <li><a href="tooltip.html">Tooltip</a></li>
+          <li><a href="upload.html">Upload</a></li>
+      </ul>
+    </div>
+    <div class="tm-main uk-width-medium-3-4">
+        <script src="../src/js/components/autocomplete.js"></script>
+  <script src="../src/js/components/search.js"></script>
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+  <article class="uk-article">
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
-                            <li class="uk-nav-header">Layout</li>
-                            <li><a href="grid-js.html">Dynamic Grid</a></li>
-                            <li class="uk-nav-header">Navigations</li>
-                            <li><a href="dotnav.html">Dotnav</a></li>
-                            <li><a href="slidenav.html">Slidenav</a></li>
-                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
-                            <li class="uk-nav-header">Common</li>
-                            <li><a href="form-advanced.html">Form advanced</a></li>
-                            <li><a href="form-file.html">Form file</a></li>
-                            <li><a href="form-password.html">Form password</a></li>
-                            <li><a href="form-select.html">Form select</a></li>
-                            <li><a href="placeholder.html">Placeholder</a></li>
-                            <li><a href="progress.html">Progress</a></li>
-                            <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="lightbox.html">Lightbox</a></li>
-                            <li><a href="autocomplete.html">Autocomplete</a></li>
-                            <li><a href="datepicker.html">Datepicker</a></li>
-                            <li><a href="htmleditor.html">HTML editor</a></li>
-                            <li><a href="slider.html">Slider</a></li>
-                            <li><a href="slideset.html">Slideset</a></li>
-                            <li><a href="slideshow.html">Slideshow</a></li>
-                            <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
-                            <li><a href="notify.html">Notify</a></li>
-                            <li class="uk-active"><a href="search.html">Search</a></li>
-                            <li><a href="nestable.html">Nestable</a></li>
-                            <li><a href="sortable.html">Sortable</a></li>
-                            <li><a href="sticky.html">Sticky</a></li>
-                            <li><a href="timepicker.html">Timepicker</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
-                            <li><a href="upload.html">Upload</a></li>
-                        </ul>
+      <h1 class="uk-article-title">Search</h1>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <p class="uk-article-lead"></p>
 
-                        <article class="uk-article">
+      <p class="uk-article-lead">Easily create a nicely looking search.</p>
 
-                            <h1 class="uk-article-title">Search</h1>
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                            <p class="uk-article-lead"></p>
+      <p>The Search component consists of a search form and the search field itself.</p>
 
-                            <p class="uk-article-lead">Easily create a nicely looking search.</p>
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-search</code></td>
+                      <td>Add this class to a <code>&lt;form&gt;</code> element to define the Search component.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-search-field</code></td>
+                      <td>Add this class to an <code>&lt;input&gt;</code> element to create the search field.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
 
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+      <p>To enable the necessary JavaScript for the search, just add the <code>data-uk-search</code> attribute.</p>
 
-                            <p>The Search component consists of a search form and the search field itself.</p>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Class</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>.uk-search</code></td>
-                                            <td>Add this class to a <code>&lt;form&gt;</code> element to define the Search component.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>.uk-search-field</code></td>
-                                            <td>Add this class to an <code>&lt;input&gt;</code> element to create the search field.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+      <form class="uk-search" data-uk-search>
+          <input class="uk-search-field" type="search" placeholder="search...">
+      </form>
 
-                            <p>To enable the necessary JavaScript for the search, just add the <code>data-uk-search</code> attribute.</p>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <pre><code>&lt;form class="uk-search" data-uk-search&gt;
+      &lt;input class="uk-search-field" type="search" placeholder=""&gt;
+      &lt;/form&gt;</code></pre>
 
-                            <form class="uk-search" data-uk-search>
-                                <input class="uk-search-field" type="search" placeholder="search...">
-                            </form>
+      <hr class="uk-article-divider">
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <h2 id="json-search-results"><a href="#json-search-results" class="uk-link-reset">JSON search results</a></h2>
 
-<pre><code>&lt;form class="uk-search" data-uk-search&gt;
-    &lt;input class="uk-search-field" type="search" placeholder=""&gt;
-&lt;/form&gt;</code></pre>
+      <p>Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your search results, which need to be formatted in JSON (<a href="../tests/components/_searchautocomplete.json">Example</a>). You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display search results. A dropdown from the <a href="dropdown.html">Dropdown component</a> is injected to display the search results. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
 
-                            <hr class="uk-article-divider">
+      <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> The search requires the <a href="autocomplete.html">autocomplete</a> component to work. Please make sure that you include them always together.</p>
 
-                            <h2 id="json-search-results"><a href="#json-search-results" class="uk-link-reset">JSON search results</a></h2>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p>Just add <code>{source:'PATH/TO/RESULTS'}</code> to the data attribute and set the path to your search results, which need to be formatted in JSON (<a href="../tests/components/_searchautocomplete.json">Example</a>). You can use a dropdown from the <a href="dropdown.html">Dropdown component</a> to display search results. A dropdown from the <a href="dropdown.html">Dropdown component</a> is injected to display the search results. You can even navigate through the dropdown with the up and down keys of your keyboard.</p>
+      <form class="uk-search" data-uk-search="{source:'../tests/components/_searchautocomplete.json'}">
+          <input class="uk-search-field" type="search" placeholder="search...">
+      </form>
 
-                            <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> The search requires the <a href="autocomplete.html">autocomplete</a> component to work. Please make sure that you include them always together.</p>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <pre><code>&lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
 
-                            <form class="uk-search" data-uk-search="{source:'../tests/components/_searchautocomplete.json'}">
-                                <input class="uk-search-field" type="search" placeholder="search...">
-                            </form>
+      &lt;input class="uk-search-field" type="search" placeholder=""&gt;
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      &lt;!-- This is the dropdown, which is injected through JavaScript --&gt;
+      &lt;div class="uk-dropdown uk-dropdown-search"&gt;
+      &lt;ul class="uk-nav uk-nav-search"&gt;...&lt;/ul&gt;
+      &lt;/div&gt;
 
-<pre><code>&lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
+      &lt;/form&gt;</code></pre>
 
-    &lt;input class="uk-search-field" type="search" placeholder=""&gt;
+      <hr class="uk-article-divider">
 
-    &lt;!-- This is the dropdown, which is injected through JavaScript --&gt;
-    &lt;div class="uk-dropdown uk-dropdown-search"&gt;
-        &lt;ul class="uk-nav uk-nav-search"&gt;...&lt;/ul&gt;
-    &lt;/div&gt;
+      <h2 id="search-in-navbars"><a href="#search-in-navbars" class="uk-link-reset">Search in navbars</a></h2>
 
-&lt;/form&gt;</code></pre>
+      <p>A search can be used inside a Navbar from the <a href="navbar.html">Navbar component</a>.</p>
 
-                            <hr class="uk-article-divider">
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <h2 id="search-in-navbars"><a href="#search-in-navbars" class="uk-link-reset">Search in navbars</a></h2>
+      <nav class="uk-navbar">
 
-                            <p>A search can be used inside a Navbar from the <a href="navbar.html">Navbar component</a>.</p>
+          <div class="uk-navbar-flip">
+              <div class="uk-navbar-content">
+                  <form class="uk-search" data-uk-search="{flipDropdown:true, source:'../tests/components/_searchautocomplete.json'}">
+                      <input class="uk-search-field" type="search" placeholder="search...">
+                  </form>
+              </div>
+          </div>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      </nav>
 
-                            <nav class="uk-navbar">
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                                <div class="uk-navbar-flip">
-                                    <div class="uk-navbar-content">
-                                        <form class="uk-search" data-uk-search="{flipDropdown:true, source:'../tests/components/_searchautocomplete.json'}">
-                                            <input class="uk-search-field" type="search" placeholder="search...">
-                                        </form>
-                                    </div>
-                                </div>
+      <pre><code>&lt;nav class="uk-navbar"&gt;
+      &lt;div class="uk-navbar-flip"&gt;
+      &lt;div class="uk-navbar-content"&gt;
+      &lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
+      ...
+      &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/nav&gt;</code></pre>
 
-                            </nav>
+      <hr class="uk-article-divider">
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <h2 id="search-in-off-canvas"><a href="#search-in-off-canvas" class="uk-link-reset">Search in off-canvas</a></h2>
 
-<pre><code>&lt;nav class="uk-navbar"&gt;
-    &lt;div class="uk-navbar-flip"&gt;
-        &lt;div class="uk-navbar-content"&gt;
-            &lt;form class="uk-search" data-uk-search="{source:'my-results.json'}"&gt;
-            ...
-            &lt;/form&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/nav&gt;</code></pre>
+      <p>A search can also be placed inside the off-canvas bar.</p>
 
-                            <hr class="uk-article-divider">
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <h2 id="search-in-off-canvas"><a href="#search-in-off-canvas" class="uk-link-reset">Search in off-canvas</a></h2>
+      <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-6'}">Open</button>
+      <div id="offcanvas-6" class="uk-offcanvas">
+          <div class="uk-offcanvas-bar">
+              <form class="uk-search">
+                  <input class="uk-search-field" type="search" placeholder="search...">
+              </form>
+          </div>
+      </div>
 
-                            <p>A search can also be placed inside the off-canvas bar.</p>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <pre><code>&lt;!-- This is the button toggling the off-canvas sidebar --&gt;
+      &lt;button class="uk-button" data-uk-offcanvas="{target:'#my-id'}"&gt;...&lt;/button&gt;
 
-                            <button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-6'}">Open</button>
-                            <div id="offcanvas-6" class="uk-offcanvas">
-                                <div class="uk-offcanvas-bar">
-                                    <form class="uk-search">
-                                        <input class="uk-search-field" type="search" placeholder="search...">
-                                    </form>
-                                </div>
-                            </div>
+      &lt;!-- This is the off-canvas sidebar --&gt;
+      &lt;div id="my-id" class="uk-offcanvas"&gt;
+      &lt;div class="uk-offcanvas-bar"&gt;
+      &lt;form class="uk-search"&gt;
+      ...
+      &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;</code></pre>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;!-- This is the button toggling the off-canvas sidebar --&gt;
-&lt;button class="uk-button" data-uk-offcanvas="{target:'#my-id'}"&gt;...&lt;/button&gt;
-
-&lt;!-- This is the off-canvas sidebar --&gt;
-&lt;div id="my-id" class="uk-offcanvas"&gt;
-    &lt;div class="uk-offcanvas-bar"&gt;
-        &lt;form class="uk-search"&gt;
-        ...
-        &lt;/form&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-
-                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+      <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Option</th>
-                                            <th>Possible value</th>
-                                            <th>Default</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>source</code></td>
-                                            <td>string</td>
-                                            <td>''</td>
-                                            <td>Data source url</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>minLength</code></td>
-                                            <td>integer</td>
-                                            <td>3</td>
-                                            <td>Min. input length before triggering autocomplete</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>param</code></td>
-                                            <td>string</td>
-                                            <td>search</td>
-                                            <td>Query name when sending ajax request</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>delay</code></td>
-                                            <td>integer</td>
-                                            <td>300</td>
-                                            <td>Delay time after stop typing</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Option</th>
+                      <th>Possible value</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>source</code></td>
+                      <td>string</td>
+                      <td>''</td>
+                      <td>Data source url</td>
+                  </tr>
+                  <tr>
+                      <td><code>minLength</code></td>
+                      <td>integer</td>
+                      <td>3</td>
+                      <td>Min. input length before triggering autocomplete</td>
+                  </tr>
+                  <tr>
+                      <td><code>param</code></td>
+                      <td>string</td>
+                      <td>search</td>
+                      <td>Query name when sending ajax request</td>
+                  </tr>
+                  <tr>
+                      <td><code>delay</code></td>
+                      <td>integer</td>
+                      <td>300</td>
+                      <td>Delay time after stop typing</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
 
-                            <h3 class="tm-article-subtitle">Init element manually</h3>
+      <h3 class="tm-article-subtitle">Init element manually</h3>
 
-                            <pre><code>var search = UIkit.search(element, { /* options */ });</code></pre>
+      <pre><code>var search = UIkit.search(element, { /* options */ });</code></pre>
 
-                            <h3>Events</h3>
+      <h3>Events</h3>
 
-                            Same as the <a href="autocomplete.html">Autocomplete component</a>.
+      Same as the <a href="autocomplete.html">Autocomplete component</a>.
 
-                        </article>
-
-                    </div>
-                </div>
-
+  </article>
+    </div>
+  </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -301,7 +304,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent"><a href="#">Documentation</a>
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -403,7 +406,7 @@
                             <li><a href="progress.html">Progress</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
                             <li><a href="lightbox.html">Lightbox</a></li>
                             <li><a href="autocomplete.html">Autocomplete</a></li>
@@ -413,9 +416,9 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
-                            <li><a href="search.html">Search</a></li>
+                            <li class="uk-active"><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>
                             <li><a href="sortable.html">Sortable</a></li>
                             <li><a href="sticky.html">Sticky</a></li>

@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Table component - UIkit documentation</title>
+        <title>UIkit - Table</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -25,9 +27,13 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li class="uk-active"><a href="core.html">Core</a></li>
+
                     <li><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,431 +44,425 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                  <div class="uk-grid" data-uk-grid-margin>
+     <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Defaults</li>
+          <li><a href="base.html">Base</a></li>
+          <li><a href="print.html">Print</a></li>
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+          <li class="uk-nav-header">Layout</li>
+          <li><a href="grid.html">Grid</a></li>
+          <li><a href="panel.html">Panel</a></li>
+          <li><a href="block.html">Block</a></li>
+          <li><a href="article.html">Article</a></li>
+          <li><a href="comment.html">Comment</a></li>
+          <li><a href="utility.html">Utility</a></li>
+          <li><a href="flex.html">Flex</a></li>
+          <li><a href="cover.html">Cover</a></li>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Navigations</li>
+          <li><a href="nav.html">Nav</a></li>
+          <li><a href="navbar.html">Navbar</a></li>
+          <li><a href="subnav.html">Subnav</a></li>
+          <li><a href="breadcrumb.html">Breadcrumb</a></li>
+          <li><a href="pagination.html">Pagination</a></li>
+          <li><a href="tab.html">Tab</a></li>
+          <li><a href="thumbnav.html">Thumbnav</a></li>
 
-                            <li class="uk-nav-header">Defaults</li>
-                            <li><a href="base.html">Base</a></li>
-                            <li><a href="print.html">Print</a></li>
+          <li class="uk-nav-header">Elements</li>
+          <li><a href="list.html">List</a></li>
+          <li><a href="description-list.html">Description list</a></li>
+          <li class="uk-active"><a href="table.html">Table</a></li>
+          <li><a href="form.html">Form</a></li>
 
-                            <li class="uk-nav-header">Layout</li>
-                            <li><a href="grid.html">Grid</a></li>
-                            <li><a href="panel.html">Panel</a></li>
-                            <li><a href="block.html">Block</a></li>
-                            <li><a href="article.html">Article</a></li>
-                            <li><a href="comment.html">Comment</a></li>
-                            <li><a href="utility.html">Utility</a></li>
-                            <li><a href="flex.html">Flex</a></li>
-                            <li><a href="cover.html">Cover</a></li>
+          <li class="uk-nav-header">Common</li>
+          <li><a href="button.html">Button</a></li>
+          <li><a href="icon.html">Icon</a></li>
+          <li><a href="close.html">Close</a></li>
+          <li><a href="badge.html">Badge</a></li>
+          <li><a href="alert.html">Alert</a></li>
+          <li><a href="thumbnail.html">Thumbnail</a></li>
+          <li><a href="overlay.html">Overlay</a></li>
+          <li><a href="text.html">Text</a></li>
+          <li><a href="animation.html">Animation</a></li>
+          <li><a href="contrast.html">Contrast</a></li>
 
-                            <li class="uk-nav-header">Navigations</li>
-                            <li><a href="nav.html">Nav</a></li>
-                            <li><a href="navbar.html">Navbar</a></li>
-                            <li><a href="subnav.html">Subnav</a></li>
-                            <li><a href="breadcrumb.html">Breadcrumb</a></li>
-                            <li><a href="pagination.html">Pagination</a></li>
-                            <li><a href="tab.html">Tab</a></li>
-                            <li><a href="thumbnav.html">Thumbnav</a></li>
+          <li class="uk-nav-header">JavaScript</li>
+          <li><a href="dropdown.html">Dropdown</a></li>
+          <li><a href="modal.html">Modal</a></li>
+          <li><a href="offcanvas.html">Off-canvas</a></li>
+          <li><a href="switcher.html">Switcher</a></li>
+          <li><a href="toggle.html">Toggle</a></li>
+          <li><a href="scrollspy.html">Scrollspy</a></li>
+          <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+      </ul>
+    </div>
+    <div class="tm-main uk-width-medium-3-4">
+          <article class="uk-article">
 
-                            <li class="uk-nav-header">Elements</li>
-                            <li><a href="list.html">List</a></li>
-                            <li><a href="description-list.html">Description list</a></li>
-                            <li class="uk-active"><a href="table.html">Table</a></li>
-                            <li><a href="form.html">Form</a></li>
+        <h1 class="uk-article-title">Table</h1>
 
-                            <li class="uk-nav-header">Common</li>
-                            <li><a href="button.html">Button</a></li>
-                            <li><a href="icon.html">Icon</a></li>
-                            <li><a href="close.html">Close</a></li>
-                            <li><a href="badge.html">Badge</a></li>
-                            <li><a href="alert.html">Alert</a></li>
-                            <li><a href="thumbnail.html">Thumbnail</a></li>
-                            <li><a href="overlay.html">Overlay</a></li>
-                            <li><a href="text.html">Text</a></li>
-                            <li><a href="animation.html">Animation</a></li>
-                            <li><a href="contrast.html">Contrast</a></li>
+        <p class="uk-article-lead">Easily create nicely looking tables, which come in different styles.</p>
 
-                            <li class="uk-nav-header">JavaScript</li>
-                            <li><a href="dropdown.html">Dropdown</a></li>
-                            <li><a href="modal.html">Modal</a></li>
-                            <li><a href="offcanvas.html">Off-canvas</a></li>
-                            <li><a href="switcher.html">Switcher</a></li>
-                            <li><a href="toggle.html">Toggle</a></li>
-                            <li><a href="scrollspy.html">Scrollspy</a></li>
-                            <li><a href="smooth-scroll.html">Smooth scroll</a></li>
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                        </ul>
+        <p>To apply this component, add the <code>.uk-table</code> class to a <code>&lt;table&gt;</code> element.</p>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+        <h3 class="tm-article-subtitle">Example</h3>
 
-                        <article class="uk-article">
+        <div class="uk-overflow-container">
+            <table class="uk-table">
+                <caption>Table caption</caption>
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                            <h1 class="uk-article-title">Table</h1>
+        <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p class="uk-article-lead">Easily create nicely looking tables, which come in different styles.</p>
-
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
-
-                            <p>To apply this component, add the <code>.uk-table</code> class to a <code>&lt;table&gt;</code> element.</p>
-
-                            <h3 class="tm-article-subtitle">Example</h3>
-
-                            <div class="uk-overflow-container">
-                                <table class="uk-table">
-                                    <caption>Table caption</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <h3 class="tm-article-subtitle">Markup</h3>
-
-<pre><code>&lt;table class="uk-table"&gt;
-    &lt;caption&gt;...&lt;/caption&gt;
-    &lt;thead&gt;
+        <pre><code>&lt;table class="uk-table"&gt;
+        &lt;caption&gt;...&lt;/caption&gt;
+        &lt;thead&gt;
         &lt;tr&gt;
-            &lt;th&gt;...&lt;/th&gt;
+        &lt;th&gt;...&lt;/th&gt;
         &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tfoot&gt;
+        &lt;/thead&gt;
+        &lt;tfoot&gt;
         &lt;tr&gt;
-            &lt;td&gt;...&lt;/td&gt;
+        &lt;td&gt;...&lt;/td&gt;
         &lt;/tr&gt;
-    &lt;/tfoot&gt;
-    &lt;tbody&gt;
+        &lt;/tfoot&gt;
+        &lt;tbody&gt;
         &lt;tr&gt;
-            &lt;td&gt;...&lt;/td&gt;
+        &lt;td&gt;...&lt;/td&gt;
         &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
+        &lt;/tbody&gt;
+        &lt;/table&gt;</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h3>Columns</h3>
+        <h3>Columns</h3>
 
-                            <p>To modify the column width or content, you can use other components. Here are some useful examples:</p>
+        <p>To modify the column width or content, you can use other components. Here are some useful examples:</p>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Style</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><em>Column width</em></td>
-                                            <td>Add one of the <code>.uk-width-*</code> classes from the <a href="grid.html">Grid component</a>.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><em>Text alignment</em></td>
-                                            <td>Add the <code>.uk-text-left</code>, <code>.uk-text-right</code> or <code>.uk-text-center</code> class from the <a href="text.html">Text component</a>.</td>
-                                        </tr>
-                                        <tr>
-                                            <td><em>Text style</em></td>
-                                            <td>Take a look at the <a href="text.html">Text component</a>. For example add the <code>.uk-text-bold</code> class.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div class="uk-overflow-container">
+            <table class="uk-table">
+                <thead>
+                    <tr>
+                        <th>Style</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><em>Column width</em></td>
+                        <td>Add one of the <code>.uk-width-*</code> classes from the <a href="grid.html">Grid component</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><em>Text alignment</em></td>
+                        <td>Add the <code>.uk-text-left</code>, <code>.uk-text-right</code> or <code>.uk-text-center</code> class from the <a href="text.html">Text component</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><em>Text style</em></td>
+                        <td>Take a look at the <a href="text.html">Text component</a>. For example add the <code>.uk-text-bold</code> class.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                            <h4 class="tm-article-subtitle">Markup</h4>
+        <h4 class="tm-article-subtitle">Markup</h4>
 
-<pre><code>&lt;td class="uk-width-1-10 uk-text-right"&gt;...&lt;/td&gt;
-&lt;td class="uk-width-9-10 uk-text-bold"&gt;...&lt;/td&gt;</code></pre>
+        <pre><code>&lt;td class="uk-width-1-10 uk-text-right"&gt;...&lt;/td&gt;
+        &lt;td class="uk-width-9-10 uk-text-bold"&gt;...&lt;/td&gt;</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h3>Vertical modifier</h3>
+        <h3>Vertical modifier</h3>
 
-                            <p>To vertically center table content, just add the <code>.uk-table-middle</code> class to the <code>&lt;tr&gt;</code> or <code>&lt;td&gt;</code> elements.</p>
+        <p>To vertically center table content, just add the <code>.uk-table-middle</code> class to the <code>&lt;tr&gt;</code> or <code>&lt;td&gt;</code> elements.</p>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h2 id="modifiers"><a href="#modifiers" class="uk-link-reset">Modifiers</a></h2>
+        <h2 id="modifiers"><a href="#modifiers" class="uk-link-reset">Modifiers</a></h2>
 
-                            <p>To display the table in a different style, just add a modifier to the the <code>.uk-table</code> class.</p>
+        <p>To display the table in a different style, just add a modifier to the the <code>.uk-table</code> class.</p>
 
-                            <h3>Table hover</h3>
+        <h3>Table hover</h3>
 
-                            <p>Add the <code>.uk-table-hover</code> class to display a hover state on table rows.</p>
+        <p>Add the <code>.uk-table-hover</code> class to display a hover state on table rows.</p>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
+        <h4 class="tm-article-subtitle">Example</h4>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-hover">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                            <h4 class="tm-article-subtitle">Markup</h4>
+        <h4 class="tm-article-subtitle">Markup</h4>
 
 <pre><code>&lt;table class="uk-table uk-table-hover"&gt;...&lt;/table&gt;</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h3>Table striped</h3>
+        <h3>Table striped</h3>
 
-                            <p>Add zebra-striping to a table by adding the <code>.uk-table-striped</code> class.</p>
+        <p>Add zebra-striping to a table by adding the <code>.uk-table-striped</code> class.</p>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
+        <h4 class="tm-article-subtitle">Example</h4>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                            <h4 class="tm-article-subtitle">Markup</h4>
+        <h4 class="tm-article-subtitle">Markup</h4>
 
-<pre><code>&lt;table class="uk-table uk-table-striped"&gt;...&lt;/table&gt;</code></pre>
+        <pre><code>&lt;table class="uk-table uk-table-striped"&gt;...&lt;/table&gt;</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h3>Table condensed</h3>
+        <h3>Table condensed</h3>
 
-                            <p>Add the <code>.uk-table-condensed</code> class to make table cells more compact.</p>
+        <p>Add the <code>.uk-table-condensed</code> class to make table cells more compact.</p>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
+        <h4 class="tm-article-subtitle">Example</h4>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-condensed">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                            <h4 class="tm-article-subtitle">Markup</h4>
+        <h4 class="tm-article-subtitle">Markup</h4>
 
-<pre><code>&lt;table class="uk-table uk-table-condensed"&gt;...&lt;/table&gt;</code></pre>
+        <pre><code>&lt;table class="uk-table uk-table-condensed"&gt;...&lt;/table&gt;</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h3>Combine modifiers</h3>
+        <h3>Combine modifiers</h3>
 
-                            <p>The modifiers of the Table component are combinable with each other.</p>
+        <p>The modifiers of the Table component are combinable with each other.</p>
 
-                            <h4 class="tm-article-subtitle">Example</h4>
+        <h4 class="tm-article-subtitle">Example</h4>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                            <h4 class="tm-article-subtitle">Markup</h4>
+        <h4 class="tm-article-subtitle">Markup</h4>
 
-<pre><code>&lt;table class="uk-table uk-table-hover uk-table-striped uk-table-condensed"&gt;...&lt;/table&gt;</code></pre>
+        <pre><code>&lt;table class="uk-table uk-table-hover uk-table-striped uk-table-condensed"&gt;...&lt;/table&gt;</code></pre>
 
-                            <hr class="uk-article-divider">
+        <hr class="uk-article-divider">
 
-                            <h2 id="overflow-container"><a href="#overflow-container" class="uk-link-reset">Responsive Table</a></h2>
+        <h2 id="overflow-container"><a href="#overflow-container" class="uk-link-reset">Responsive Table</a></h2>
 
-                            <p>If your table happens to be wider than its container element or would eventually get too big on a specific viewport width, just wrap it inside a <code>&lt;div&gt;</code> element and add the <code>.uk-overflow-container</code> class. This creates a container that provides a horizontal scrollbar whenever the elements inside it are wider than the container itself.</p>
+        <p>If your table happens to be wider than its container element or would eventually get too big on a specific viewport width, just wrap it inside a <code>&lt;div&gt;</code> element and add the <code>.uk-overflow-container</code> class. This creates a container that provides a horizontal scrollbar whenever the elements inside it are wider than the container itself.</p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+        <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                            <th>Table Heading</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                            <td>Table Footer</td>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                            <td>Table Data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                        <th>Table Heading</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                        <td>Table Footer</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                    <tr>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                        <td>Table Data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                            <h4 class="tm-article-subtitle">Markup</h4>
+        <h4 class="tm-article-subtitle">Markup</h4>
 
-<pre><code>&lt;div class="uk-overflow-container"&gt;
-    &lt;table&gt;...&lt;/table&gt;
-&lt;/div&gt;</code></pre>
+        <pre><code>&lt;div class="uk-overflow-container"&gt;
+        &lt;table&gt;...&lt;/table&gt;
+        &lt;/div&gt;</code></pre>
 
-                        </article>
-
-                    </div>
-                </div>
-
+    </article>
+    </div>
+  </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -487,7 +487,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent"><a href="#">Documentation</a>
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -533,11 +533,11 @@
                             <li><a href="thumbnav.html">Thumbnav</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
                         <ul class="uk-nav-sub">
                             <li><a href="list.html">List</a></li>
                             <li><a href="description-list.html">Description list</a></li>
-                            <li><a href="table.html">Table</a></li>
+                            <li class="uk-active"><a href="table.html">Table</a></li>
                             <li><a href="form.html">Form</a></li>
                         </ul>
                     </li>
@@ -599,7 +599,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

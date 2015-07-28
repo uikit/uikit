@@ -1,0 +1,37 @@
+<!-- @set page_title "Custom Prefix"-->
+<!-- @set page_section_gettingstarted "gettingstarted" -->
+<!-- @extend gettingstarted.template.html -->
+  <article class="uk-article" style="min-height:50vh;">
+
+      <h1 class="uk-article-title">Custom prefix</h1>
+
+      <p class="uk-article-lead">Create a custom prefixed UIkit builds to avoid issues when using multiple UIkit versions side by side.</p>
+
+      <p>As we keep releasing newer versions of UIkit, some components or classes will be altered or dismissed, while more and more themes and extensions are built with UIkit and loaded on the same page. This might cause conflicts when classes that occur in both versions are working differently.</p>
+
+      <p>That's why you can custom prefix your UIkit version. Basically this will replace the usual <code>uk-</code> with whatever prefix you set.</p>
+
+      <hr class="uk-article-divider">
+
+      <h2>Prefix via Less</h2>
+
+      <p>If you are not familiar with the usage of <code>gulp</code>, check out our doc on <a href="documentation_project-structure.html#automate-preprocessing">automating preprocessing</a> to find out how to create a UIkit build. To create a custom prefixed UIkit release just run gulp with your own prefix parameter <code>-p</code> to have all classes and JavaScript files custom prefixed.</p>
+
+      <pre><code>gulp -p myprefix</code></pre>
+
+      <p>After running gulp you'll find your custom prefixed build in the dist folder. e.g.:</p>
+      <pre><code>
+      .myprefix-grid { ... }
+      ...
+      </code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2>JavaScript noConflict mode</h2>
+
+      <p>To prevent conflicts with multiple custom prefixed UIkit versions, just call the <code>noConflict</code> method <strong>after</strong> including UIkit:</p>
+
+      <pre><code>var myUIkit = UIkit.noConflict();</code></pre>
+
+  </article>
+<!-- @endextend -->

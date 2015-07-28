@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Working with Less &amp; Sass sources - UIkit documentation</title>
+        <title>UIkit - LESS / SASS</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -25,9 +27,13 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -38,100 +44,97 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                    <div class="uk-grid" data-uk-grid-margin>
+        <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+            <ul class="tm-nav uk-nav" data-uk-nav>
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+                <li class="uk-nav-header">Beginners</li>
+                <li><a href="documentation_get-started.html">Get started</a></li>
+                <li><a href="documentation_how-to-customize.html">How to customize</a></li>
+                <li><a href="documentation_layouts.html">Layout examples</a></li>
+                <li class="uk-nav-header">Developers</li>
+                <li><a href="documentation_project-structure.html">Project structure</a></li>
+                <li class="uk-active"><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
+                <li><a href="documentation_create-a-style.html">Create a style</a></li>
+                <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
+                <li><a href="documentation_javascript.html">JavaScript</a></li>
+                <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
+            </ul>
 
-                            <li class="uk-nav-header">Beginners</li>
-                            <li><a href="documentation_get-started.html">Get started</a></li>
-                            <li><a href="documentation_how-to-customize.html">How to customize</a></li>
-                            <li><a href="documentation_layouts.html">Layout examples</a></li>
-                            <li class="uk-nav-header">Developers</li>
-                            <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li class="uk-active"><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
-                            <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
-                            <li><a href="documentation_create-a-style.html">Create a style</a></li>
-                            <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
-                            <li><a href="documentation_javascript.html">JavaScript</a></li>
-                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
+        </div>
+        <div class="tm-main uk-width-medium-3-4">
+              <article class="uk-article">
 
-                        </ul>
+        <h1>Less &amp; Sass files</h1>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+        <p class="uk-article-lead">A separate Bower UIkit repository contains all distribution files including Less and Sass.</p>
 
-                        <article class="uk-article">
+        <p>The great thing about UIkit is that you can easily integrate its source files in your project to keep your custom project workflow for building assets and stay with your preferred CSS preprocessor.</p>
 
-                            <h1>Less &amp; Sass files</h1>
+        <p>UIkit uses the package manager <a href="http://bower.io/">Bower</a> to load assets. Therefore UIkit automatically generates the distributions into a separate <a href="https://github.com/uikit/bower-uikit">Bower UIkit repository</a>. It contains all CSS, Less, SCSS and JavaScript files from UIkit and its components.</p>
 
-                            <p class="uk-article-lead">A separate Bower UIkit repository contains all distribution files including Less and Sass.</p>
+        <h3>Get the latest UIkit distribution</h3>
 
-                            <p>The great thing about UIkit is that you can easily integrate its source files in your project to keep your custom project workflow for building assets and stay with your preferred CSS preprocessor.</p>
+        <ol>
+            <li>Install with <a href="http://bower.io/">Bower</a> <code>bower install uikit</code></li>
+            <li>Or get the Package from <a href="https://github.com/uikit/bower-uikit/">Github</a></li>
+        </ol>
 
-                            <p>UIkit uses the package manager <a href="http://bower.io/">Bower</a> to load assets. Therefore UIkit automatically generates the distributions into a separate <a href="https://github.com/uikit/bower-uikit">Bower UIkit repository</a>. It contains all CSS, Less, SCSS and JavaScript files from UIkit and its components.</p>
+        <p>
+            You'll find both, Less files and Sass files side by side seperated in their own folders:
+        </p>
 
-                            <h3>Get the latest UIkit distribution</h3>
-
-                            <ol>
-                                <li>Install with <a href="http://bower.io/">Bower</a> <code>bower install uikit</code></li>
-                                <li>Or get the Package from <a href="https://github.com/uikit/bower-uikit/">Github</a></li>
-                            </ol>
-
-                            <p>
-                                You'll find both, Less files and Sass files side by side seperated in their own folders:
-                            </p>
-
-<pre><code>/uikit
-    less/
+        <pre><code>/uikit
+        less/
         uikit.less
         ...
-    scss/
+        scss/
         uikit-mixins.scss
         uikit.scss
         ...
 
-</code></pre>
+        </code></pre>
 
-                            <h2>Embedding Less in your project</h2>
+        <h2>Embedding Less in your project</h2>
 
-                            <p>
-                                Using Less is pretty straightforward. Just include UIkit and additional components at the top of your main Less file and start customizing by utilizing UIkits hooks and override its variables.
-                            </p>
+        <p>
+            Using Less is pretty straightforward. Just include UIkit and additional components at the top of your main Less file and start customizing by utilizing UIkits hooks and override its variables.
+        </p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+        <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>@import "uikit/less/uikit.less";
-@import "uikit/less/components/autocomplete.less";
+        <pre><code>@import "uikit/less/uikit.less";
+        @import "uikit/less/components/autocomplete.less";
 
-// your custom code goes here, e.g. mixins, variables
-</code></pre>
+        // your custom code goes here, e.g. mixins, variables
+        </code></pre>
 
-                            <h2>Embedding Sass in your project</h2>
+        <h2>Embedding Sass in your project</h2>
 
-                            <p>
-                                Due to the way Sass is parsing code, it is needed that you include <code>uikit-mixins.scss</code> first then add your customizations (hooks, variables) and finally UIkit and additional components.
-                            </p>
+        <p>
+            Due to the way Sass is parsing code, it is needed that you include <code>uikit-mixins.scss</code> first then add your customizations (hooks, variables) and finally UIkit and additional components.
+        </p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+        <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>@import "uikit/scss/uikit-mixins.scss";
+        <pre><code>@import "uikit/scss/uikit-mixins.scss";
 
-// your custom code goes here, e.g. mixins, variables
+        // your custom code goes here, e.g. mixins, variables
 
-@import "uikit/scss/uikit.scss";
-@import "uikit/scss/components/autocomplete.scss";
-</code></pre>
-                        </article>
-
-                    </div>
-                </div>
-
+        @import "uikit/scss/uikit.scss";
+        @import "uikit/scss/components/autocomplete.scss";
+        </code></pre>
+            </article>
+        </div>
+    </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -164,7 +167,7 @@
                             <li><a href="core.html">Core</a></li>
                             <li><a href="components.html">Components</a></li>
                             <li><a href="documentation_project-structure.html">Project structure</a></li>
-                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li class="uk-active"><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
                             <li><a href="documentation_create-a-theme.html">Create a theme</a></li>
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
@@ -268,7 +271,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

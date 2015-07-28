@@ -1,10 +1,12 @@
+
+
 <!DOCTYPE html>
 <html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Lightbox component - UIkit documentation</title>
+        <title>UIkit - Lightbox</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -14,8 +16,6 @@
         <script src="js/uikit.min.js"></script>
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
-        <script src="../src/js/core/modal.js"></script>
-        <script src="../src/js/components/lightbox.js"></script>
     </head>
 
     <body class="tm-background">
@@ -27,9 +27,13 @@
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
+
                     <li><a href="core.html">Core</a></li>
+
                     <li class="uk-active"><a href="components.html">Components</a></li>
+
                     <li><a href="customizer.html">Customizer</a></li>
+
                     <li><a href="../showcase/index.html">Showcase</a></li>
                 </ul>
 
@@ -40,213 +44,211 @@
             </div>
         </nav>
 
+
         <div class="tm-middle">
             <div class="uk-container uk-container-center">
+                  <div class="uk-grid" data-uk-grid-margin>
+      <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+        <ul class="tm-nav uk-nav" data-uk-nav>
+          <li class="uk-nav-header">Layout</li>
+          <li><a href="grid-js.html">Dynamic Grid</a></li>
+          <li class="uk-nav-header">Navigations</li>
+          <li><a href="dotnav.html">Dotnav</a></li>
+          <li><a href="slidenav.html">Slidenav</a></li>
+          <li><a href="pagination-js.html">Dynamic Pagination</a></li>
+          <li class="uk-nav-header">Common</li>
+          <li><a href="form-advanced.html">Form advanced</a></li>
+          <li><a href="form-file.html">Form file</a></li>
+          <li><a href="form-password.html">Form password</a></li>
+          <li><a href="form-select.html">Form select</a></li>
+          <li><a href="placeholder.html">Placeholder</a></li>
+          <li><a href="progress.html">Progress</a></li>
+          <li class="uk-nav-header">JavaScript</li>
+          <li class="uk-active"><a href="lightbox.html">Lightbox</a></li>
+          <li><a href="autocomplete.html">Autocomplete</a></li>
+          <li><a href="datepicker.html">Datepicker</a></li>
+          <li><a href="htmleditor.html">HTML editor</a></li>
+          <li><a href="slider.html">Slider</a></li>
+          <li><a href="slideset.html">Slideset</a></li>
+          <li><a href="slideshow.html">Slideshow</a></li>
+          <li><a href="parallax.html">Parallax</a></li>
+          <li><a href="accordion.html">Accordion</a></li>
+          <li><a href="notify.html">Notify</a></li>
+          <li><a href="search.html">Search</a></li>
+          <li><a href="nestable.html">Nestable</a></li>
+          <li><a href="sortable.html">Sortable</a></li>
+          <li><a href="sticky.html">Sticky</a></li>
+          <li><a href="timepicker.html">Timepicker</a></li>
+          <li><a href="tooltip.html">Tooltip</a></li>
+          <li><a href="upload.html">Upload</a></li>
+      </ul>
+    </div>
+    <div class="tm-main uk-width-medium-3-4">
+        <script src="../src/js/core/modal.js"></script>
+  <script src="../src/js/components/lightbox.js"></script>
+  
+  <article class="uk-article">
 
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
+      <h1>Lightbox</h1>
 
-                        <ul class="tm-nav uk-nav" data-uk-nav>
-                            <li class="uk-nav-header">Layout</li>
-                            <li><a href="grid-js.html">Dynamic Grid</a></li>
-                            <li class="uk-nav-header">Navigations</li>
-                            <li><a href="dotnav.html">Dotnav</a></li>
-                            <li><a href="slidenav.html">Slidenav</a></li>
-                            <li><a href="pagination-js.html">Dynamic Pagination</a></li>
-                            <li class="uk-nav-header">Common</li>
-                            <li><a href="form-advanced.html">Form advanced</a></li>
-                            <li><a href="form-file.html">Form file</a></li>
-                            <li><a href="form-password.html">Form password</a></li>
-                            <li><a href="form-select.html">Form select</a></li>
-                            <li><a href="placeholder.html">Placeholder</a></li>
-                            <li><a href="progress.html">Progress</a></li>
-                            <li class="uk-nav-header">JavaScript</li>
-                            <li class="uk-active"><a href="lightbox.html">Lightbox</a></li>
-                            <li><a href="autocomplete.html">Autocomplete</a></li>
-                            <li><a href="datepicker.html">Datepicker</a></li>
-                            <li><a href="htmleditor.html">HTML editor</a></li>
-                            <li><a href="slider.html">Slider</a></li>
-                            <li><a href="slideset.html">Slideset</a></li>
-                            <li><a href="slideshow.html">Slideshow</a></li>
-                            <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
-                            <li><a href="notify.html">Notify</a></li>
-                            <li><a href="search.html">Search</a></li>
-                            <li><a href="nestable.html">Nestable</a></li>
-                            <li><a href="sortable.html">Sortable</a></li>
-                            <li><a href="sticky.html">Sticky</a></li>
-                            <li><a href="timepicker.html">Timepicker</a></li>
-                            <li><a href="tooltip.html">Tooltip</a></li>
-                            <li><a href="upload.html">Upload</a></li>
-                        </ul>
+      <p class="uk-article-lead">Create a fancy lightbox for images and videos utilizing the <a href="modal.html">Modal component</a>.</p>
 
-                    </div>
-                    <div class="tm-main uk-width-medium-3-4">
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
-                        <article class="uk-article">
+      <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. If a title attribute exists it will be displayed as a caption for the lightbox.</p>
 
-                            <h1>Lightbox</h1>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <p class="uk-article-lead">Create a fancy lightbox for images and videos utilizing the <a href="modal.html">Modal component</a>.</p>
+      <a class="uk-button" href="images/placeholder_800x400_1.jpg" data-uk-lightbox title="Title">Open lightbox</a>
 
-                            <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                            <p>To apply this component, add the <code>data-uk-lightbox</code> attribute to an anchor linking to the image you wish to display. If a title attribute exists it will be displayed as a caption for the lightbox.</p>
+      <pre><code>&lt;a href="my-image.jpg" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <hr class="uk-article-divider">
 
-                            <a class="uk-button" href="images/placeholder_800x400_1.jpg" data-uk-lightbox title="Title">Open lightbox</a>
+      <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>You can link multiple images to the same lightbox and switch between them from within the lightbox, thus creating a gallery. Just add the <code>{group:'my-group'}</code> option to the data attribute of each item using the same name on all items that you want to group. Make sure to include the CSS from the <a href="slidenav.html">Slidenav component</a>, so you can navigate between the items.</p>
 
-<pre><code>&lt;a href="my-image.jpg" data-uk-lightbox title=""&gt;...&lt;/a&gt;</code></pre>
+      <h3 class="tm-article-subtitle">Example</h3>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
+          <div>
 
-                            <h2 id="groups"><a href="#groups" class="uk-link-reset">Groups</a></h2>
+              <a href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group1'}" title="Title">
+                  <img src="images/placeholder_800x600_1.jpg" width="800" height="600" alt="">
+              </a>
 
-                            <p>You can link multiple images to the same lightbox and switch between them from within the lightbox, thus creating a gallery. Just add the <code>{group:'my-group'}</code> option to the data attribute of each item using the same name on all items that you want to group. Make sure to include the CSS from the <a href="slidenav.html">Slidenav component</a>, so you can navigate between the items.</p>
+          </div>
+          <div>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+              <a href="images/placeholder_800x600_2.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                  <img src="images/placeholder_800x600_2.jpg" width="800" height="600" alt="">
+              </a>
 
-                            <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
-                                <div>
+          </div>
+          <div>
 
-                                    <a href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_1.jpg" width="800" height="600" alt="">
-                                    </a>
+              <a href="images/placeholder_800x600_3.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                  <img src="images/placeholder_800x600_3.jpg" width="800" height="600" alt="">
+              </a>
 
-                                </div>
-                                <div>
+          </div>
+          <div>
 
-                                    <a href="images/placeholder_800x600_2.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_2.jpg" width="800" height="600" alt="">
-                                    </a>
+              <a href="images/placeholder_800x600_4.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
+                  <img src="images/placeholder_800x600_4.jpg" width="800" height="600" alt="">
+              </a>
 
-                                </div>
-                                <div>
+          </div>
 
-                                    <a href="images/placeholder_800x600_3.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_3.jpg" width="800" height="600" alt="">
-                                    </a>
+      </div>
 
-                                </div>
-                                <div>
+      <h3 class="tm-article-subtitle">Markup</h3>
 
-                                    <a href="images/placeholder_800x600_4.jpg" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Title">
-                                        <img src="images/placeholder_800x600_4.jpg" width="800" height="600" alt="">
-                                    </a>
+      <pre><code>&lt;a href="" data-uk-lightbox="{group:'my-group'}"&gt;...&lt;/a&gt;</code></pre>
 
-                                </div>
+      <hr class="uk-article-divider">
 
-                            </div>
+      <h2 id="different-content-sources"><a href="#different-content-sources" class="uk-link-reset">Different content sources</a></h2>
 
-                            <h3 class="tm-article-subtitle">Markup</h3>
+      <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
 
+      <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>&lt;a href="" data-uk-lightbox="{group:'my-group'}"&gt;...&lt;/a&gt;</code></pre>
+      <p>
+          <a class="uk-button" href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group2'}" title="Title">Image</a>
+          <a class="uk-button" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">MP4</a>
+          <a class="uk-button" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">Vimeo</a>
+          <a class="uk-button" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">YouTube</a>
+      </p>
 
-                            <hr class="uk-article-divider">
+      <hr class="uk-article-divider">
 
-                            <h2 id="different-content-sources"><a href="#different-content-sources" class="uk-link-reset">Different content sources</a></h2>
+      <h3 id="content-types"><a href="#different-content-sources" class="uk-link-reset">Content types</a></h3>
 
-                            <p>A lightbox is not restricted to images. Other media, like videos, can be displayed inside a lightbox and it will automatically generate the correct output by evaluating your path.</p>
+      <p>If no filename extension is defined in the image path, just add the <code>data-lightbox-type="image"</code> attribute. This works for videos as well.</p>
 
-                            <h3 class="tm-article-subtitle">Example</h3>
+      <hr class="uk-article-divider">
 
-                            <p>
-                                <a class="uk-button" href="images/placeholder_800x600_1.jpg" data-uk-lightbox="{group:'group2'}" title="Title">Image</a>
-                                <a class="uk-button" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">MP4</a>
-                                <a class="uk-button" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">Vimeo</a>
-                                <a class="uk-button" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">YouTube</a>
-                            </p>
+      <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
 
-                            <hr class="uk-article-divider">
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Option</th>
+                      <th>Possible value</th>
+                      <th>Default</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>group</code></td>
+                      <td>string</td>
+                      <td>false</td>
+                      <td>Group name to group elements as a gallery to show</td>
+                  </tr>
+                  <tr>
+                      <td><code>duration</code></td>
+                      <td>integer</td>
+                      <td>400</td>
+                      <td>Animation duration between gallery item change</td>
+                  </tr>
+                  <tr>
+                      <td><code>keyboard</code></td>
+                      <td>boolean</td>
+                      <td>true</td>
+                      <td>Allow keyboard navigation</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
 
-                            <h3 id="content-types"><a href="#different-content-sources" class="uk-link-reset">Content types</a></h3>
+      <h3 class="tm-article-subtitle">Init element manually</h3>
 
-                            <p>If no filename extension is defined in the image path, just add the <code>data-lightbox-type="image"</code> attribute. This works for videos as well.</p>
+      <pre><code>var lightbox = UIkit.lightbox(element, { /* options */ });</code></pre>
 
-                            <hr class="uk-article-divider">
+      <h3 class="tm-article-subtitle">Create dynamic lightbox</h3>
 
-                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+      <pre><code>
+          var lightbox = UIkit.lightbox.create([
+              {'source': 'http://url/to/video.mp4', 'type':'video'},
+              {'source': 'http://url/to/image.jpg', 'type':'image'}
+          ]);
 
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Option</th>
-                                            <th>Possible value</th>
-                                            <th>Default</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>group</code></td>
-                                            <td>string</td>
-                                            <td>false</td>
-                                            <td>Group name to group elements as a gallery to show</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>duration</code></td>
-                                            <td>integer</td>
-                                            <td>400</td>
-                                            <td>Animation duration between gallery item change</td>
-                                        </tr>
-                                        <tr>
-                                            <td><code>keyboard</code></td>
-                                            <td>boolean</td>
-                                            <td>true</td>
-                                            <td>Allow keyboard navigation</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+          lightbox.show();
+      </code></pre>
 
-                            <h3 class="tm-article-subtitle">Init element manually</h3>
+      <h3>Events</h3>
 
-                            <pre><code>var lightbox = UIkit.lightbox(element, { /* options */ });</code></pre>
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>showitem.uk.lightbox</code></td>
+                      <td>event, data</td>
+                      <td>On lightbox show</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
 
-                            <h3 class="tm-article-subtitle">Create dynamic lightbox</h3>
-
-                            <pre><code>
-                                var lightbox = UIkit.lightbox.create([
-                                    {'source': 'http://url/to/video.mp4', 'type':'video'},
-                                    {'source': 'http://url/to/image.jpg', 'type':'image'}
-                                ]);
-
-                                lightbox.show();
-                            </code></pre>
-
-                            <h3>Events</h3>
-
-                            <div class="uk-overflow-container">
-                                <table class="uk-table uk-table-striped uk-text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Parameter</th>
-                                            <th>Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><code>showitem.uk.lightbox</code></td>
-                                            <td>event, data</td>
-                                            <td>On lightbox show</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </article>
-
-                    </div>
-                </div>
-
+  </article>
+    </div>
+  </div>
             </div>
         </div>
+
 
         <div class="tm-footer">
             <div class="uk-container uk-container-center uk-text-center">
@@ -271,7 +273,7 @@
             <div class="uk-offcanvas-bar">
 
                 <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-                    <li class="uk-parent"><a href="#">Documentation</a>
+                    <li class="uk-parent uk-active"><a href="#">Documentation</a>
                         <ul class="uk-nav-sub">
                             <li><a href="documentation_get-started.html">Get started</a></li>
                             <li><a href="documentation_how-to-customize.html">How to customize</a></li>
@@ -373,9 +375,9 @@
                             <li><a href="progress.html">Progress</a></li>
                         </ul>
                     </li>
-                    <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
-                            <li><a href="lightbox.html">Lightbox</a></li>
+                            <li class="uk-active"><a href="lightbox.html">Lightbox</a></li>
                             <li><a href="autocomplete.html">Autocomplete</a></li>
                             <li><a href="datepicker.html">Datepicker</a></li>
                             <li><a href="htmleditor.html">HTML editor</a></li>
@@ -383,7 +385,7 @@
                             <li><a href="slideset.html">Slideset</a></li>
                             <li><a href="slideshow.html">Slideshow</a></li>
                             <li><a href="parallax.html">Parallax</a></li>
-                            <li><a href="accordion.html">Accordion</a></li>
+                            <li class="uk-active"><a href="accordion.html">Accordion</a></li>
                             <li><a href="notify.html">Notify</a></li>
                             <li><a href="search.html">Search</a></li>
                             <li><a href="nestable.html">Nestable</a></li>

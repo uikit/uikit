@@ -1,0 +1,98 @@
+<!-- @set page_title "Form Select"-->
+<!-- @set page_section_components "components" -->
+<!-- @extend components.template.html -->
+  <script src="../src/js/components/form-select.js"></script>
+
+  <article class="uk-article">
+
+      <h1>Form select</h1>
+
+      <p class="uk-article-lead">Replace the default select form with your own HTML content, like a button or text.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>To apply this component, just add the <code>.uk-form-select</code> class and the <code>data-uk-form-select</code> attribute to a container element around a span and a <code>&lt;select&gt;</code> element. Basically, this will overlay the default select element with a custom UIkit form.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-margin">
+
+          <div class="uk-form-select" data-uk-form-select>
+              <span></span>
+              <select>
+                  <option value="1">Option 01</option>
+                  <option value="2">Option 02</option>
+                  <option value="3">Option 03</option>
+                  <option value="4">Option 04</option>
+              </select>
+          </div>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;div class="uk-form-select" data-uk-form-select&gt;
+      &lt;span&gt;&lt;/span&gt;
+      &lt;select&gt;
+      &lt;option value=""&gt;...&lt;/option&gt;
+      &lt;option value=""&gt;...&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h3>As a button</h3>
+
+      <p>Add the <code>.uk-button</code> class to the container element to style it as a button.</p>
+
+      <div class="uk-margin">
+
+          <div class="uk-button uk-form-select" data-uk-form-select>
+              <span></span>
+              <i class="uk-icon-caret-down"></i>
+              <select>
+                  <option value="1">Option 01</option>
+                  <option value="2">Option 02</option>
+                  <option value="3">Option 03</option>
+                  <option value="4">Option 04</option>
+              </select>
+          </div>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-button uk-form-select" data-uk-form-select&gt;...&lt;/div&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h3>As an anchor</h3>
+
+      <p>You can use any element, like an <code>&lt;a&gt;</code> as a select form. Just add the <code>{target:'a'}</code> option to the <code>data-uk-form-select</code> attribute and use an <code>&lt;a&gt;</code> instead of a <code>&lt;span&gt;</code> element.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-margin">
+
+          <div class="uk-form-select" data-uk-form-select="{target:'a'}">
+              <a></a>
+              <select>
+                  <option value="1">Option 01</option>
+                  <option value="2">Option 02</option>
+                  <option value="3">Option 03</option>
+                  <option value="4">Option 04</option>
+              </select>
+          </div>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>
+      &lt;div class="uk-form-select" data-uk-form-select="{target:'a'}"&gt;
+      &lt;a&gt;&lt;/a&gt;
+      &lt;select&gt;...&lt;/select&gt;
+      &lt;/div&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

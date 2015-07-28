@@ -1,0 +1,443 @@
+<!-- @set page_title "Nestable"-->
+<!-- @set page_section_components "components" -->
+<!-- @extend components.template.html -->
+
+  <script src="../src/js/components/nestable.js"></script>
+
+  <article class="uk-article">
+
+      <h1>Nestable</h1>
+
+      <p class="uk-article-lead">Create nestable lists that can be sorted by drag and drop.</p>
+
+      <p>The Nestable allows you to sort items through drag and drop. This is great, if you want to organize different categories or menu items in administration areas, for example.</p>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>A nestable list consists of the list itself, its items and the nestable panel.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Class/Data attribute</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-nestable</code></td>
+                      <td>Add this class to a <code>&lt;ul&gt;</code> element to define the component.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-nestable-item</code></td>
+                      <td>Add this class to each <code>&lt;li&gt;</code> element the list item.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-nestable-panel</code></td>
+                      <td>Add this class to a <code>&lt;div&gt;</code> element inside the <code>&lt;li&gt;</code> element to style the item.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <p><span class="uk-badge">NOTE</span> To enable the necessary JavaScript, just add the <code>data-uk-nestable</code> attribute.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-nestable" data-uk-nestable>
+          <li class="uk-nestable-item">
+              <div class="uk-nestable-panel">
+                  Item 1
+              </div>
+          </li>
+          <li class="uk-nestable-item">
+              <div class="uk-nestable-panel">
+                  Item 2
+              </div>
+          </li>
+          <li class="uk-nestable-item">
+              <div class="uk-nestable-panel">
+                  Item 3
+              </div>
+          </li>
+          <li class="uk-nestable-item">
+              <div class="uk-nestable-panel">
+                  Item 4
+              </div>
+          </li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable&gt;
+&lt;li class="uk-nestable-item"&gt;
+&lt;div class="uk-nestable-panel"&gt; ... &lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h2 id="nestable-handle"><a href="#nestable-handle" class="uk-link-reset">Nestable handle</a></h2>
+
+  <p>By default, the entire nestable element can be used for drag and drop sorting. To create a handle which will be used instead, just add the <code>{handleClass:'uk-nestable-handle'}</code> option to the data attribute and add the handle class to the element that you want to use as a handle.</p>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <ul class="uk-nestable" data-uk-nestable="{handleClass:'uk-nestable-handle'}">
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+              Item 1
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+              Item 2
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+              Item 3
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <i class="uk-nestable-handle uk-icon uk-icon-bars uk-margin-small-right"></i>
+              Item 4
+          </div>
+      </li>
+  </ul>
+
+  <p><span class="uk-badge">NOTE</span> In this example we used the <code>.uk-icon-bars</code> class from the <a href="icon.html">Icon component</a> to style the handle.</p>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable="{handleClass:'uk-nestable-handle'}"&gt;
+&lt;li class="uk-nestable-item"&gt;
+&lt;div class="uk-nestable-panel"&gt;
+&lt;div class="uk-nestable-handle"&gt;&lt;/div&gt;
+...
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h2 id="nestable-toggle"><a href="#nestable-toggle" class="uk-link-reset">Nestable toggle</a></h2>
+
+  <p>By default, the entire nestable element can be used for drag and drop sorting. To create a handle which will be used instead, just add the <code>.uk-nestable-toggle</code> class and the <code>data-nestable-action="toggle"</code> attribute to a <code>&lt;div&gt;</code> element inside the nestable panel.</p>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <ul class="uk-nestable" data-uk-nestable>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+              Item 1
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+              Item 2
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+              Item 3
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              <div class="uk-nestable-toggle" data-nestable-action="toggle"></div>
+              Item 4
+          </div>
+      </li>
+  </ul>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable"&gt;
+&lt;li class="uk-nestable-item"&gt;
+&lt;div class="uk-nestable-panel"&gt;
+&lt;div class="uk-nestable-toggle" data-nestable-action="toggle"&gt;&lt;/div&gt;
+...
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h2 id ="multiple-lists"><a href="#multiple-lists" class="uk-link-reset">Multiple lists</a></h2>
+
+  <p>To be able to sort items from one list to another, you can group them by adding the <code>data-uk-nestable="{group:'GROUP-NAME'}"</code> attribute to each list.</p>
+
+  <h3 class="tm-article-subtitle">Example</h3>
+
+  <div class="uk-grid uk-grid-width-1-2">
+
+      <div>
+
+          <h3>First list</h3>
+
+          <ul class="uk-nestable" data-uk-nestable="{group:'my-group'}">
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 1
+                  </div>
+              </li>
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 2
+                  </div>
+              </li>
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 3
+                  </div>
+              </li>
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 4
+                  </div>
+              </li>
+          </ul>
+
+      </div>
+      <div>
+
+          <h3>Second list</h3>
+
+          <ul class="uk-nestable" data-uk-nestable="{group:'my-group'}">
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 1
+                  </div>
+              </li>
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 2
+                  </div>
+              </li>
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 3
+                  </div>
+              </li>
+              <li class="uk-nestable-item">
+                  <div class="uk-nestable-panel">
+                      Item 4
+                  </div>
+              </li>
+          </ul>
+
+      </div>
+
+  </div>
+
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable="{group:'my-group'}"&gt;...&lt;/ul&gt;
+&lt;ul class="uk-nestable" data-uk-nestable="{group:'my-group'}"&gt;...&lt;/ul&gt;</code></pre>
+
+  <hr class="uk-article-divider">
+
+  <h2 id="disable-nesting"><a href="#disable-nesting" class="uk-link-reset">Disable nesting</a></h2>
+
+  <p>To disable nesting of list items, just add the <code>data-uk-nestable="{maxDepth:1}"</code> attribute. You can also use this data attribute to determine to what depth nesting is possible.</p>
+
+  <ul class="uk-nestable" data-uk-nestable="{maxDepth:1}">
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              Item 1
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              Item 2
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              Item 3
+          </div>
+      </li>
+      <li class="uk-nestable-item">
+          <div class="uk-nestable-panel">
+              Item 4
+          </div>
+      </li>
+  </ul>
+
+  <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;ul class="uk-nestable" data-uk-nestable="{maxDepth:1}"&gt;...&lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+      <p>This is an example of how to set options via attribute:</p>
+
+      <pre><code>data-uk-nestable=&quot;{maxDepth:0, group:'widgets'}&quot;</code></pre>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped">
+              <thead>
+                  <tr>
+                      <th>Option</th>
+                      <th>Possible value</th>
+                      <th class="uk-width-1-5">Default</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>group</code></td>
+                      <td>string</td>
+                      <td>false</td>
+                      <td>List group</td>
+                  </tr>
+                  <tr>
+                      <td><code>maxDepth</code></td>
+                      <td>integer</td>
+                      <td>10</td>
+                      <td>Max nesting level</td>
+                  </tr>
+                  <tr>
+                      <td><code>threshold</code></td>
+                      <td>integer</td>
+                      <td>20</td>
+                      <td>Pixel threshold before starting to drag</td>
+                  </tr>
+                  <tr>
+                      <td><code>listNodeName</code></td>
+                      <td>string</td>
+                      <td>ul</td>
+                      <td>List node name</td>
+                  </tr>
+                  <tr>
+                      <td><code>itemNodeName</code></td>
+                      <td>string</td>
+                      <td>li</td>
+                      <td>Item node name</td>
+                  </tr>
+                  <tr>
+                      <td><code>listBaseClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable</td>
+                      <td>List base class</td>
+                  </tr>
+                  <tr>
+                      <td><code>listClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-list</td>
+                      <td>List class</td>
+                  </tr>
+                  <tr>
+                      <td><code>listitemClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-list-item</td>
+                      <td>List item class</td>
+                  </tr>
+                  <tr>
+                      <td><code>itemClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-item</td>
+                      <td>Item class</td>
+                  </tr>
+                  <tr>
+                      <td><code>dragClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-list-dragged</td>
+                      <td>Class added to dragged list</td>
+                  </tr>
+                  <tr>
+                      <td><code>movingClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-moving</td>
+                      <td>Class added to <code>&lt;html&gt;</code> when moving</td>
+                  </tr>
+                  <tr>
+                      <td><code>handleClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-handle</td>
+                      <td>Class for drag handle</td>
+                  </tr>
+                  <tr>
+                      <td><code>collapsedClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-collapsed</td>
+                      <td>Class for collapsed items</td>
+                  </tr>
+                  <tr>
+                      <td><code>placeClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-placeholder</td>
+                      <td>Class for placeholder of currently dragged element</td>
+                  </tr>
+                  <tr>
+                      <td><code>noDragClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-nodrag</td>
+                      <td>Elements with this class will not trigger dragging. Useful when having the complete item draggable and not just the handle.</td>
+                  </tr>
+                  <tr>
+                      <td><code>emptyClass</code></td>
+                      <td>string</td>
+                      <td>uk-nestable-empty</td>
+                      <td>Class for empty lists</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Init element manually</h3>
+
+      <pre><code>var nestable = UIkit.nestable(element, { /* options */ });</code></pre>
+
+      <h3>Events</h3>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table uk-table-striped uk-text-nowrap">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>start.uk.nestable</code></td>
+                      <td>event, nestable object</td>
+                      <td>On nestable drag start</td>
+                  </tr>
+                  <tr>
+                      <td><code>move.uk.nestable</code></td>
+                      <td>event, nestable object</td>
+                      <td>On nestable move item</td>
+                  </tr>
+                  <tr>
+                      <td><code>stop.uk.nestable</code></td>
+                      <td>event, nestable object</td>
+                      <td>On nestable stop dragging</td>
+                  </tr>
+                  <tr>
+                      <td><code>change.uk.nestable</code></td>
+                      <td>event, nestable item, action</td>
+                      <td>On nestable change item</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+  </article>
+<!-- @endextend -->

@@ -1,0 +1,77 @@
+<!-- @set page_title "Article"-->
+<!-- @set page_section_core "core"-->
+<!-- @extend core.template.html -->
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Article</h1>
+
+      <p class="uk-article-lead">Create articles within your page.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>The article component constists of the article itself, a title, meta data, an opening paragraph and dividers.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-article</code></td>
+                      <td>Add this class to define the Article component. Typically you would use an <code>&lt;article&gt;</code> element for this.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-article-title</code></td>
+                      <td>Add this class to a heading to create an article title. Typically you would use a <code>&lt;h1&gt;</code> element for this.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-article-meta</code></td>
+                      <td>Add this class to a paragraph which contains meta data about your article.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-article-lead</code></td>
+                      <td>Add this class to the opening paragraph of your article to highlight it.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-article-divider</code></td>
+                      <td>Add this class to a <code>&lt;hr&gt;</code> element to create a divider seperating different sections of your article.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <div class="uk-article">
+
+          <h1 class="uk-article-title">Article title</h1>
+
+          <p class="uk-article-meta">Written by Super User on 12 April 2012. Posted in Blog</p>
+
+          <p class="uk-article-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <hr class="uk-article-divider">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <a href="#">Read more</a>
+
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;article class="uk-article"&gt;
+      &lt;h1 class="uk-article-title"&gt;...&lt;/h1&gt;
+      &lt;p class="uk-article-meta"&gt;...&lt;/p&gt;
+      &lt;p class="uk-article-lead"&gt;...&lt;/p&gt;
+      ...
+      &lt;hr class="uk-article-divider"&gt;
+      ...
+      &lt;/article&gt;</code></pre>
+
+  </article>
+<!-- @endextend -->

@@ -1,0 +1,96 @@
+<!-- @set page_title "Time Picker"-->
+<!-- @set page_section_components "components" -->
+<!-- @extend components.template.html -->
+
+    <script src="../src/js/components/autocomplete.js"></script>
+    <script src="../src/js/components/timepicker.js"></script>
+
+    <article class="uk-article">
+
+        <h1>Timepicker</h1>
+
+        <p class="uk-article-lead">Create a timepicker which can easily be used by selecting a time value from a pre filled dropdown.</p>
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>To apply the timepicker, just add the <code>data-uk-timepicker</code> attribute to an <code>&lt;input&gt;</code> element. The timepicker will automatically display a pre filled dropdown on focus, which can be navigated by pressing the up or down button on the keyboard or by scrolling with the mouse.</p>
+
+        <p><span class="uk-badge uk-badge-danger">IMPORTANT</span> The timepicker component requires the <a href="autocomplete.html">Autocomplete component</a> in order to work. Please make sure that you always include them together.</p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <form class="uk-form">
+            <input type="text" id="form-time" data-uk-timepicker>
+        </form>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;form class="uk-form"&gt;
+        &lt;input type="text" data-uk-timepicker&gt;
+        &lt;/form&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="display-meridian-time"><a href="#display-meridian-time" class="uk-link-reset">Display meridian time</a></h2>
+
+        <p>To display meridian time, just define the <em>format</em> option and set it to <code>12h</code></p>
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <form class="uk-form">
+            <input type="text" id="form-time-meridian" data-uk-timepicker="{format:'12h'}">
+        </form>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;form class="uk-form"&gt;
+        &lt;input type="text" data-uk-timepicker="{format:'12h'}"&gt;
+        &lt;/form&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+        <p>This is an example of how to set options via data attribute:</p>
+
+        <pre><code>data-uk-timepicker=&quot;{format:'12h'}&quot;</code></pre>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped uk-text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Possible value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>format</code></td>
+                        <td>'24h' or '12h'</td>
+                        <td>'24h'</td>
+                        <td>Defines the preferred time notation</td>
+                    </tr>
+                    <tr>
+                        <td><code>start</code></td>
+                        <td>Integer between 0 and 24</td>
+                        <td>0</td>
+                        <td>Start time</td>
+                    </tr>
+                    <tr>
+                        <td><code>end</code></td>
+                        <td>Integer between 0 and 24</td>
+                        <td>24</td>
+                        <td>End time</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="tm-article-subtitle">Init element manually</h3>
+
+        <pre><code>var timepicker = UIkit.timepicker(element, { /* options */ });</code></pre>
+
+    </article>
+  <!-- @endextend -->

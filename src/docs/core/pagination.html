@@ -1,0 +1,168 @@
+<!-- @set page_title "Pagination"-->
+<!-- @set page_section_core "core" -->
+<!-- @extend core.template.html -->
+
+  <article class="uk-article">
+
+      <h1 class="uk-article-title">Pagination</h1>
+
+      <p class="uk-article-lead">Easlily create a nicely looking pagination to navigate through pages.</p>
+
+      <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+      <p>The Pagination component consists of button-like styled links, that are aligned side by side.</p>
+
+      <div class="uk-overflow-container">
+          <table class="uk-table">
+              <thead>
+                  <tr>
+                      <th>Class</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><code>.uk-pagination</code></td>
+                      <td>Add this class to a <code>&lt;ul&gt;</code> element to define the Pagination component. Use <code>&lt;a&gt;</code> elements as pagination items within the list.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-active</code></td>
+                      <td>Add this class to a list item to apply an active state and use a <code>&lt;span&gt;</code> instead of an <code>&lt;a&gt;</code> element.</td>
+                  </tr>
+                  <tr>
+                      <td><code>.uk-disabled</code></td>
+                      <td>Add this class to a list item to apply a disabled state and use a <code>&lt;span&gt;</code> instead of an <code>&lt;a&gt;</code> element.</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <p>To apply an ellipsis without any styling, just use a <code>&lt;span&gt;</code> element instead of an <code>&lt;a&gt;</code> element.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-pagination">
+          <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+          <li class="uk-active"><span>1</span></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><span>...</span></li>
+          <li><a href="#">20</a></li>
+          <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;ul class="uk-pagination"&gt;
+      &lt;li&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="uk-active"&gt;&lt;span&gt;...&lt;/span>&lt;/li&gt;
+      &lt;li class="uk-disabled">&lt;span&gt;...&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;span&gt;...&lt;/span>&lt;/li&gt;
+      &lt;/ul&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="alignment-modifiers"><a href="#alignment-modifiers" class="uk-link-reset">Alignment modifiers</a></h2>
+
+      <p>Add the <code>.uk-pagination-left</code> or <code>.uk-pagination-right</code> class to the pagination to align it left or right.</p>
+
+      <h4 class="tm-article-subtitle">Example</h4>
+
+      <div class="uk-grid" data-uk-grid-margin>
+          <div class="uk-width-medium-1-2">
+
+              <ul class="uk-pagination uk-pagination-left">
+                  <li><a href="#">1</a></li>
+                  <li><span>...</span></li>
+                  <li><a href="#">8</a></li>
+                  <li><a href="#">9</a></li>
+                  <li class="uk-active"><span>10</span></li>
+                  <li><a href="#">11</a></li>
+                  <li><a href="#">12</a></li>
+                  <li><span>...</span></li>
+                  <li><a href="#">20</a></li>
+              </ul>
+
+          </div>
+          <div class="uk-width-medium-1-2">
+
+              <ul class="uk-pagination uk-pagination-right">
+                  <li><a href="#">1</a></li>
+                  <li><span>...</span></li>
+                  <li><a href="#">8</a></li>
+                  <li><a href="#">9</a></li>
+                  <li class="uk-active"><span>10</span></li>
+                  <li><a href="#">11</a></li>
+                  <li><a href="#">12</a></li>
+                  <li><span>...</span></li>
+                  <li><a href="#">20</a></li>
+              </ul>
+
+          </div>
+      </div>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <div class="uk-grid" data-uk-grid-margin>
+          <div class="uk-width-medium-1-2">
+            <pre><code>&lt;ul class="uk-pagination uk-pagination-left"&gt;
+            &lt;li&gt;...&lt;/li&gt;
+            &lt;/ul&gt;</code></pre>
+          </div>
+          <div class="uk-width-medium-1-2">
+            <pre><code>&lt;ul class="uk-pagination uk-pagination-right"&gt;
+            &lt;li&gt;...&lt;/li&gt;
+            &lt;/ul&gt;</code></pre>
+          </div>
+      </div>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="previous-and-next"><a href="#previous-and-next" class="uk-link-reset">Previous and next</a></h2>
+
+      <p>Creating a simple previous and next pagination is very easy. Just add the <code>.uk-pagination-previous</code> or <code>.uk-pagination-next</code> class to a <code>&lt;li&gt;</code> element to align previous and next buttons left or right.</p>
+
+      <h4 class="tm-article-subtitle">Example</h4>
+
+      <ul class="uk-pagination">
+          <li class="uk-pagination-previous"><a href="#"><i class="uk-icon-angle-double-left"></i> Previous</a></li>
+          <li class="uk-pagination-next"><a href="#">Next <i class="uk-icon-angle-double-right"></i></a></li>
+      </ul>
+
+      <h4 class="tm-article-subtitle">Markup</h4>
+
+      <pre><code>&lt;li class="uk-pagination-previous"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="uk-pagination-next"&gt;&lt;a href=""&gt;...&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="pagination-with-icons"><a href="#pagination-with-icons" class="uk-link-reset">Pagination with icons</a></h2>
+
+      <p>Enhance your pagination with icons from the <a href="icon.html">Icon component</a> by adding one of the <code>.uk-icon-*</code> classes to an <code>&lt;i&gt;</code> or <code>&lt;span&gt;</code> element within a pagination link.</p>
+
+      <h3 class="tm-article-subtitle">Example</h3>
+
+      <ul class="uk-pagination">
+          <li><a href="#"><i class="uk-icon-angle-double-left"></i></a></li>
+          <li class="uk-active"><span><i class="uk-icon-angle-double-left"></i></span></li>
+          <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+          <li><span>...</span></li>
+          <li class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>
+          <li class="uk-active"><span><i class="uk-icon-angle-double-right"></i></span></li>
+          <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
+      </ul>
+
+      <h3 class="tm-article-subtitle">Markup</h3>
+
+      <pre><code>&lt;li&gt;&lt;a href=""&gt;&lt;i class="uk-icon-angle-double-left">&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=""&gt;&lt;i class="uk-icon-angle-double-right">&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</code></pre>
+
+      <hr class="uk-article-divider">
+
+      <h2 id="javascript"><a href="#javascript" class="uk-link-reset">JavaScript</a></h2>
+
+      <p>You can apply the additional <a href="pagination-js.html">Dynamic Pagination component</a> to automatically calculate the pages, for example to trigger an event to load new items dynamically in Ajax powered list views.</p>
+
+  </article>
+<!-- @endextend -->

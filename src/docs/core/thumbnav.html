@@ -1,0 +1,57 @@
+<!-- @set page_title "Thumbnail"-->
+<!-- @set page_section_core "core" -->
+<!-- @extend core.template.html -->
+
+    <article class="uk-article">
+
+        <h1 class="uk-article-title">Thumbnav</h1>
+
+        <p class="uk-article-lead">Create a flexible thumbnail navigation that can be aligned with the <a href="flex.html">Flex component</a>.</p>
+
+        <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
+
+        <p>To apply this component, add the <code>.uk-thumbnav</code> class to an <code>&lt;ul&gt;</code> element and nest your thumbnail images inside <code>&lt;a&gt;</code> elements within the list items. The thumbnav will wrap into several rows, if it is wider than its container and automatically applies a gutter. Add the <code>.uk-active</code> class to create an active state.</p>
+        <p>To align a subnav, for example to horizontally center it, you can use the <a href="flex.html">Flex component</a>.</p>
+
+
+        <h3 class="tm-article-subtitle">Example</h3>
+
+        <ul class="uk-thumbnav">
+            <li class="uk-active"><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+        </ul>
+
+        <h3 class="tm-article-subtitle">Markup</h3>
+
+        <pre><code>&lt;ul class="uk-thumbnav"&gt;
+        &lt;li class="uk-active"&gt;&lt;a href=""&gt;&lt;img src="" alt=""&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=""&gt;&lt;img src="" alt=""&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+        <hr class="uk-article-divider">
+
+        <h3>Thumbnav and grid</h3>
+
+        <p>You can use one of the <code>.uk-grid-width-*</code> classes from the <a href="grid.html">Grid component</a> to evenly accomodate all thumbnav items within one row.</p>
+
+        <h4 class="tm-article-subtitle">Example</h4>
+
+        <ul class="uk-thumbnav uk-grid-width-1-5">
+            <li class="uk-active"><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+            <li><a href="#"><img src="images/placeholder_200x100.svg" alt=""></a></li>
+        </ul>
+
+        <h4 class="tm-article-subtitle">Markup</h4>
+
+        <pre><code>&lt;ul class="uk-thumbnav uk-grid-width-1-5"&gt;
+        &lt;li&gt;...&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+
+    </article>
+  <!-- @endextend -->
