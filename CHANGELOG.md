@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Updated FontAwesome to 4.4
   - Added autoplay to slider component
   - Added animation duration variables to sticky
   - Added showup + clsinactive option to sticky component
