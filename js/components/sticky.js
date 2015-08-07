@@ -191,8 +191,17 @@
                         etse           = elementTop - this.top - extra,
                         active         = (scrollTop  >= etse);
 
-                    if (active && this.options.showup && direction == 1) {
-                        active = false;
+                    if (active && this.options.showup) {
+
+                        // set inactiv if scrolling down
+                        if (direction == 1) {
+                            active = false;
+                        }
+
+                        // set inactive when wrapper is still in view
+                        if (direction == -1 && !this.element.hasClass(this.options.clsactive) && UI.Utils.isInView(this.wrapper)) {
+                            active = false;
+                        }
                     }
 
                     return active;

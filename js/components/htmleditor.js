@@ -161,7 +161,7 @@
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
             this.on('init.uk.component', function() {
-                $this.redraw();
+                $this.debouncedRedraw();
             });
 
             this.element.attr('data-uk-check-display', 1).on('display.uk.check', function(e) {
