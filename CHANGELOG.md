@@ -20,6 +20,7 @@
   - Fixed timpicker flickering on blur after time picking
   - Fixed pagination "currentPage" option
   - Fixed initial focus on confirm dialog
+  - Fixed missing debounced redraw in htmleditor
 
 ### 2.21.0 (June 01, 2015)
 
