@@ -22,7 +22,7 @@
   - Fixed initial focus on confirm dialog
   - Fixed missing debounced redraw in htmleditor
   - Fixed body width calculation on active offcanvas
-  - Set Http-Accept-Header if JSON is requested
+  - Set Http-Accept-Header if JSON is requested (upload)
 
 ### 2.21.0 (June 01, 2015)
 
