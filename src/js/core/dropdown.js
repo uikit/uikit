@@ -92,6 +92,8 @@
 
                 this.on("mouseenter", function(e) {
 
+                    $this.trigger('pointerenter.uk.dropdown', [$this]);
+
                     if ($this.remainIdle) {
                         clearTimeout($this.remainIdle);
                     }
@@ -115,8 +117,6 @@
 
                         hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
                     }
-
-                    $this.trigger('pointerenter.uk.dropdown', [$this]);
 
                 }).on("mouseleave", function() {
 
@@ -349,25 +349,34 @@
 
                        UI.Utils.checkDisplay($this.dropdown.dropdown, true);
                     });
+
+                    $this.pointerleave = false;
                 },
 
                 'hide.uk.dropdown': function() {
                     $this.overlay.stop().animate({height: 0}, $this.options.duration);
                 },
 
-                'pointerleave.uk.dropdown': function(e, dropdown) {
-                    $this.pointerleave = true;
-                    clearTimeout(dropdown.remainIdle);
+                'pointerenter.uk.dropdown': function(e, dropdown) {
+                    clearTimeout($this.remainIdle);
                 },
 
-                'mouseenter': function() {
+                'pointerleave.uk.dropdown': function(e, dropdown) {
+                    $this.pointerleave = true;
+                }
+            });
 
+
+            this.overlay.on({
+
+                'mouseenter': function() {
                     if ($this.remainIdle) {
+                        clearTimeout($this.dropdown.remainIdle);
                         clearTimeout($this.remainIdle);
                     }
                 },
 
-                'mouseleave': function() {
+                'mouseleave': function(){
 
                     if ($this.pointerleave && active) {
 
@@ -376,7 +385,7 @@
                         }, active.options.remaintime);
                     }
                 }
-            });
+            })
         }
 
     });
