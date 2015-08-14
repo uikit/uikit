@@ -2,15 +2,18 @@
 
 ### WIP
 
-  - Updated FontAwesome to 4.4
+
   - Added autoplay to slider component
   - Added animation duration variables to sticky
   - Added showup + clsinactive option to sticky component
   - Updated placeholder default variables for all themes
+  - Updated position utility classes
   - Updated sortable and nestable empty selectors
+  - Updated icon component to FontAwesome to 4.4.0
+  - Updated top parameter to support vh values + elements (sticky component)
   - Moved block padding adjustment into themes
   - Unified sortable and nestable change event parameters
-  - Updated top parameter to support vh values + elements (sticky component)
+  - Set Http-Accept-Header if JSON is requested (upload)
   - Fixed element swapping between grouped lists
   - Fixed grid match items to wrap onto multiple lines
   - Fixed dropdown hide behavior
@@ -22,7 +25,6 @@
   - Fixed initial focus on confirm dialog
   - Fixed missing debounced redraw in htmleditor
   - Fixed body width calculation on active offcanvas
-  - Set Http-Accept-Header if JSON is requested (upload)
 
 ### 2.21.0 (June 01, 2015)
 
