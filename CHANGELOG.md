@@ -11,6 +11,7 @@
   - Updated sortable and nestable empty selectors
   - Updated icon component to FontAwesome to 4.4.0
   - Updated top parameter to support vh values + elements (sticky component)
+  - Updated adjust document scrolling while dragging (sortable component)
   - Moved block padding adjustment into themes
   - Unified sortable and nestable change event parameters
   - Set Http-Accept-Header if JSON is requested (upload)
