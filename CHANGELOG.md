@@ -27,6 +27,11 @@
   - Fixed missing debounced redraw in htmleditor
   - Fixed body width calculation on active offcanvas
 
+  **Docs and Repo**
+
+  - Added new video tutorial section
+  - Updated some test and docs
+
 ### 2.21.0 (June 01, 2015)
 
   - IMPORTANT: Reworked nestable component
