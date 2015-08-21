@@ -303,11 +303,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-dropdownoverlay]", context).each(function() {
+                UI.$("[data-uk-dropdown-overlay]", context).each(function() {
                     var ele = UI.$(this);
 
                     if (!ele.data("dropdownOverlay")) {
-                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr("data-uk-dropdownoverlay")));
+                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr("data-uk-dropdown-overlay")));
                     }
                 });
             });
@@ -318,10 +318,10 @@
             var $this = this;
 
             this.justified = this.options.justify ? UI.$(this.options.justify) : false;
-            this.overlay   = this.element.find('uk-dropdownoverlay');
+            this.overlay   = this.element.find('uk-dropdown-overlay');
 
             if (!this.overlay.length) {
-                this.overlay = UI.$('<div class="uk-dropdownoverlay"></div>').appendTo(this.element);
+                this.overlay = UI.$('<div class="uk-dropdown-overlay"></div>').appendTo(this.element);
             }
 
             this.overlay.addClass(this.options.cls);

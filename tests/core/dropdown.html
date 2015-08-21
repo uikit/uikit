@@ -21,6 +21,12 @@
                 width: 100%;
             }
 
+            .test-overlay {
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+            }
+
         </style>
     </head>
 
@@ -780,6 +786,124 @@
 
             </div>
 
+            <h3>Overlay Mode</h3>
+
+            <div class="uk-margin uk-position-relative" data-uk-dropdown-overlay="{cls: 'uk-block-primary'}">
+
+                <nav class="uk-navbar">
+
+                    <ul class="uk-navbar-nav">
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Expand</a>
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Center</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-center">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <div class="uk-navbar-flip">
+
+                        <ul class="uk-navbar-nav">
+                            <li class="uk-parent" data-uk-dropdown>
+                                <a href="">Flip</a>
+
+                                <div class="uk-dropdown uk-dropdown-flip uk-dropdown-navbar">
+                                    <ul class="uk-nav uk-nav-navbar">
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#">Item</a></li>
+                                </div>
+
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </nav>
+
+            </div>
+
+            <div class="uk-margin uk-position-relative" data-uk-dropdown-overlay="{cls: 'uk-block-primary test-overlay'}">
+
+                <nav class="uk-navbar">
+
+                    <ul class="uk-navbar-nav">
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Hover</a>
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Separated item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="uk-parent" data-uk-dropdown>
+                            <a href="">Center</a>
+                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-center">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Another item</a></li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <div class="uk-navbar-flip">
+
+                        <ul class="uk-navbar-nav">
+                            <li class="uk-parent" data-uk-dropdown>
+                                <a href="">Flip</a>
+
+                                <div class="uk-dropdown uk-dropdown-flip uk-dropdown-navbar">
+                                    <ul class="uk-nav uk-nav-navbar">
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#">Item</a></li>
+                                </div>
+
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </nav>
+
+            </div>
+
             <h2>Subnav</h2>
 
             <div class="uk-grid" data-uk-grid-margin>
@@ -876,70 +1000,6 @@
                 </ul>
 
             </div>
-
-            <h2>Dropdown Overlay</h2>
-
-            <div class="uk-margin" data-uk-dropdownoverlay="{cls: 'uk-block-primary'}">
-
-                <nav class="uk-navbar">
-
-                    <ul class="uk-navbar-nav">
-
-                        <li class="uk-parent" data-uk-dropdown>
-                            <a href="">Hover</a>
-                            <div class="uk-dropdown uk-dropdown-navbar">
-                                <ul class="uk-nav uk-nav-navbar">
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Another item</a></li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Another item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#">Separated item</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="uk-parent" data-uk-dropdown>
-                            <a href="">Center</a>
-                            <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-center">
-                                <ul class="uk-nav uk-nav-navbar">
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Another item</a></li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Another item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#">Separated item</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                    <div class="uk-navbar-flip">
-
-                        <ul class="uk-navbar-nav">
-                            <li class="uk-parent" data-uk-dropdown>
-                                <a href="">Flip</a>
-
-                                <div class="uk-dropdown uk-dropdown-flip uk-dropdown-navbar">
-                                    <ul class="uk-nav uk-nav-navbar">
-                                        <li><a href="#">Item</a></li>
-                                        <li><a href="#">Another item</a></li>
-                                        <li class="uk-nav-header">Header</li>
-                                        <li><a href="#">Item</a></li>
-                                </div>
-
-                            </li>
-                        </ul>
-
-                    </div>
-
-                </nav>
-
-            </div>
-
 
         </div>
 

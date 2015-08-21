@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added dropdown overlay mode
   - Added autoplay to slider component
   - Added animation duration variables to sticky
   - Added showup + clsinactive option to sticky component
