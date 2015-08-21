@@ -6,6 +6,7 @@
   - Added autoplay to slider component
   - Added animation duration variables to sticky
   - Added showup + clsinactive option to sticky component
+  - Added swiping option to switcher component
   - Updated icon component to FontAwesome to 4.4.0
   - Updated placeholder default variables for all themes
   - Updated position utility classes
