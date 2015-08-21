@@ -206,7 +206,7 @@
                 'transform': ''
             });
 
-            this.updateFocus(0);
+            if (focus) this.updateFocus(this.focus);
         },
 
         updatePos: function(pos) {
