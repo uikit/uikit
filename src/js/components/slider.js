@@ -78,7 +78,7 @@
                         $this[item=='next' ? 'next':'previous']();
                         break;
                     default:
-                        $this.updateFocus(parseInt(slide, 10));
+                        $this.updateFocus(parseInt(item, 10));
                 }
             });
 
