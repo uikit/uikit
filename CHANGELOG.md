@@ -2,16 +2,16 @@
 
 ### WIP
 
-
   - Added autoplay to slider component
   - Added animation duration variables to sticky
   - Added showup + clsinactive option to sticky component
+  - Updated icon component to FontAwesome to 4.4.0
   - Updated placeholder default variables for all themes
   - Updated position utility classes
   - Updated sortable and nestable empty selectors
-  - Updated icon component to FontAwesome to 4.4.0
-  - Updated top parameter to support vh values + elements (sticky component)
-  - Updated adjust document scrolling while dragging (sortable component)
+  - Updated panel teaser selector
+  - Updated top parameter to support vh values + elements in sticky component
+  - Updated adjust document scrolling while dragging in sortable component
   - Moved block padding adjustment into themes
   - Unified sortable and nestable change event parameters
   - Set Http-Accept-Header if JSON is requested (upload)
