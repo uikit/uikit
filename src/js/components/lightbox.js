@@ -354,6 +354,11 @@
 
                         var img = new Image(), lowres = false;
 
+                        img.onerror = function(){
+                            cache[id] = {width:640, height:320};
+                            resolve(id, cache[id].width, cache[id].height);
+                        };
+
                         img.onload = function(){
                             //youtube default 404 thumb, fall back to lowres
                             if (img.width == 120 && img.height == 90) {
