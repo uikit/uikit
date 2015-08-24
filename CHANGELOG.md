@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.22.0 (August 24, 2015)
 
   - Added dropdown overlay mode
   - Added autoplay to slider component
