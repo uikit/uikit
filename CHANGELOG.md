@@ -14,6 +14,7 @@
   - Updated panel teaser selector
   - Updated top parameter to support vh values + elements in sticky component
   - Updated adjust document scrolling while dragging in sortable component
+  - Updated Youtube lighbox plugin to load maxres image
   - Moved block padding adjustment into themes
   - Unified sortable and nestable change event parameters
   - Set Http-Accept-Header if JSON is requested (upload)
