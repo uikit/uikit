@@ -19,6 +19,7 @@
                 <button class="uk-button" data-uk-modal="{target:'#modal'}">Open</button>
                 <a class="uk-button" href="#modal-spinner" data-uk-modal>Spinner</a>
                 <a class="uk-button" href="#modal-lightbox" data-uk-modal="{center:true}">Centered Lightbox</a>
+                <button class="uk-button js-modal-confirm">Confirm</button>
             </p>
 
             <h2>Trigger new modal inside current modal</h2>
@@ -144,6 +145,21 @@
             </div>
 
         </div>
+
+        <script>
+
+            (function () {
+
+                $("button.js-modal-confirm").on("click", function () {
+
+                    UIkit.modal.confirm("Please confirm", function () {
+                        alert("Confirmed!");
+                    });
+
+                });
+
+            })();
+        </script>
 
     </body>
 </html>

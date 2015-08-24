@@ -33,7 +33,7 @@
 
                     e.preventDefault();
 
-                    var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
+                    UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
                     ele.trigger("click");
                 }
             });
@@ -50,12 +50,13 @@
                 if($this.input.length) {
                     var type = $this.input.attr("type");
                     $this.input.attr("type", type=="text" ? "password":"text");
-                    $this.element.text($this.options[type=="text" ? "lblShow":"lblHide"]);
+                    $this.element.html($this.options[type=="text" ? "lblShow":"lblHide"]);
                 }
             });
 
             this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
-            this.element.text(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
+            this.element.html(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
+
 
             this.element.data("formPassword", this);
         }

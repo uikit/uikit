@@ -127,7 +127,6 @@
 .uk-form select,
 .uk-form textarea {
     /* 1 */
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     /* 2 */
     margin: 0;
@@ -592,7 +591,7 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     position: absolute;
     top: 50%;
     width: @form-icon-width;
-    margin-top: round(@form-icon-font-size / -2);
+    margin-top: round((@form-height - @form-icon-font-size) / -2);
     font-size: @form-icon-font-size;
     color: @form-icon-color;
     text-align: center;

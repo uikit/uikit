@@ -41,10 +41,10 @@
 
                 UI.$('textarea[data-uk-htmleditor]', context).each(function() {
 
-                    var editor = UI.$(this), obj;
+                    var editor = UI.$(this);
 
                     if (!editor.data('htmleditor')) {
-                        obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
+                        UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
                     }
                 });
             });
@@ -57,8 +57,8 @@
             this.CodeMirror = this.options.CodeMirror || CodeMirror;
             this.buttons    = {};
 
-            tpl = tpl.replace(/\{:lblPreview\}/g, this.options.lblPreview);
-            tpl = tpl.replace(/\{:lblCodeview\}/g, this.options.lblCodeview);
+            tpl = tpl.replace(/\{:lblPreview}/g, this.options.lblPreview);
+            tpl = tpl.replace(/\{:lblCodeview}/g, this.options.lblCodeview);
 
             this.htmleditor = UI.$(tpl);
             this.content    = this.htmleditor.find('.uk-htmleditor-content');
@@ -90,7 +90,7 @@
 
                 // append custom stylesheet
                 if (typeof(this.options.iframe) === 'string') {
-                   this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
+                    this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
                 }
 
             } else {
@@ -106,13 +106,13 @@
                     if ($this.htmleditor.attr('data-mode') == 'tab') return;
 
                     // calc position
-                    var codeHeight       = codeContent.height() - codeScroll.height(),
-                        previewHeight    = previewContainer[0].scrollHeight - ($this.iframe ? $this.iframe.height() : previewContainer.height()),
-                        ratio            = previewHeight / codeHeight,
-                        previewPostition = codeScroll.scrollTop() * ratio;
+                    var codeHeight      = codeContent.height() - codeScroll.height(),
+                        previewHeight   = previewContainer[0].scrollHeight - ($this.iframe ? $this.iframe.height() : previewContainer.height()),
+                        ratio           = previewHeight / codeHeight,
+                        previewPosition = codeScroll.scrollTop() * ratio;
 
                     // apply new scroll
-                    previewContainer.scrollTop(previewPostition);
+                    previewContainer.scrollTop(previewPosition);
 
                 }, 10));
 
@@ -160,7 +160,7 @@
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
             this.on('init.uk.component', function() {
-                $this.redraw();
+                $this.debouncedRedraw();
             });
 
             this.element.attr('data-uk-check-display', 1).on('display.uk.check', function(e) {
@@ -180,7 +180,7 @@
 
         replaceInPreview: function(regexp, callback) {
 
-            var editor = this.editor, results = [], value = editor.getValue(), offset = -1;
+            var editor = this.editor, results = [], value = editor.getValue(), offset = -1, index = 0;
 
             this.currentvalue = this.currentvalue.replace(regexp, function() {
 
@@ -205,11 +205,13 @@
                     }
                 };
 
-                var result = callback(match);
+                var result = callback(match, index);
 
                 if (!result) {
                     return arguments[0];
                 }
+
+                index++;
 
                 results.push(match);
                 return result;
@@ -454,7 +456,7 @@
                     cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
                     cm.focus();
                 }
-            }
+            };
 
             editor.on('action.listUl', function() {
                 listfn();
@@ -584,7 +586,7 @@
             UI.$.extend(editor, {
 
                 enableMarkdown: function() {
-                    enableMarkdown()
+                    enableMarkdown();
                     this.render();
                 },
                 disableMarkdown: function() {

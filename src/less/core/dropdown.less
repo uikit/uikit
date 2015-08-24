@@ -3,6 +3,8 @@
 //
 // Component:       `uk-dropdown`
 //
+// Sub-objects:     `uk-dropdown-overlay`
+//
 // Modifiers:       `uk-dropdown-flip`
 //                  `uk-dropdown-center`
 //                  `uk-dropdown-justify`
@@ -73,7 +75,6 @@
     left: 0;
     z-index: @dropdown-z-index;
     /* 3 */
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     /* 4 */
     width: @dropdown-width;
@@ -262,6 +263,15 @@
 }
 
 
+/* Sub-object: `uk-dropdown-overlay`
+ ========================================================================== */
+
+.uk-dropdown-overlay {
+    .hook-dropdown-overlay;
+}
+
+
+
 // Hooks
 // ========================================================================
 
@@ -269,4 +279,5 @@
 
 .hook-dropdown() {}
 .hook-dropdown-navbar() {}
+.hook-dropdown-overlay() {}
 .hook-dropdown-misc() {}

@@ -71,7 +71,6 @@
  ========================================================================== */
 
 .uk-container {
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     max-width: @utility-container-max-width;
     padding: 0 @utility-container-padding-horizontal;
@@ -248,10 +247,7 @@
  * More robust if padding and border are used
  */
 
-[class*='uk-height'] {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+[class*='uk-height'] { box-sizing: border-box; }
 
 /*
  * Useful to extend the `html` and `body` element to the full height of the page.
@@ -278,10 +274,7 @@
  */
 
 .uk-responsive-width,
-.uk-responsive-height {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+.uk-responsive-height { box-sizing: border-box; }
 
 /*
  * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
@@ -438,7 +431,6 @@
  */
 
 .uk-scrollable-box {
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     height: @utility-scrollable-box-height;
     padding: @utility-scrollable-box-padding;
@@ -476,14 +468,17 @@
 [class*='uk-position-top'],
 [class*='uk-position-bottom'] { position: absolute !important; }
 
+/* Don't use `width: 100%` because it is wrong if the parent has padding. */
 .uk-position-top {
     top: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 .uk-position-bottom {
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 .uk-position-top-left {

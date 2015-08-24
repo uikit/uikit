@@ -27,7 +27,7 @@
             pages          : 0,
             displayedPages : 3,
             edges          : 3,
-            currentPage    : 1,
+            currentPage    : 0,
             lblPrev        : false,
             lblNext        : false,
             onSelectPage   : function() {}
@@ -42,7 +42,7 @@
                     var ele = UI.$(this);
 
                     if (!ele.data("pagination")) {
-                        var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
+                        UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
                     }
                 });
             });
@@ -53,7 +53,7 @@
             var $this = this;
 
             this.pages         = this.options.pages ?  this.options.pages : Math.ceil(this.options.items / this.options.itemsOnPage) ? Math.ceil(this.options.items / this.options.itemsOnPage) : 1;
-            this.currentPage   = this.options.currentPage - 1;
+            this.currentPage   = this.options.currentPage;
             this.halfDisplayed = this.options.displayedPages / 2;
 
             this.on("click", "a[data-page]", function(e){
@@ -131,13 +131,12 @@
 
         _append: function(pageIndex, opts) {
 
-            var $this = this, item, link, options;
+            var item, options;
 
             pageIndex = pageIndex < 0 ? 0 : (pageIndex < this.pages ? pageIndex : this.pages - 1);
             options   = UI.$.extend({ text: pageIndex + 1 }, opts);
 
-            item = (pageIndex == this.currentPage) ? '<li class="uk-active"><span>' + (options.text) + '</span></li>'
-                                                   : '<li><a href="#page-'+(pageIndex+1)+'" data-page="'+pageIndex+'">'+options.text+'</a></li>';
+            item = (pageIndex == this.currentPage) ? '<li class="uk-active"><span>' + (options.text) + '</span></li>' : '<li><a href="#page-'+(pageIndex+1)+'" data-page="'+pageIndex+'">'+options.text+'</a></li>';
 
             this.element.append(item);
         }

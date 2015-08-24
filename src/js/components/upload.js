@@ -187,6 +187,10 @@
 
             xhr.open(settings.method, settings.action, true);
 
+            if (settings.type=="json") {
+                xhr.setRequestHeader("Accept", "application/json");
+            }
+
             xhr.onreadystatechange = function() {
 
                 settings.readystatechange(xhr);

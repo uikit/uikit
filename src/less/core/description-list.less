@@ -20,6 +20,8 @@
 @description-list-line-border:                  #ddd;
 @description-list-line-color:                   #999;
 
+@description-list-line-font-weight:             normal;
+
 
 /* ========================================================================
    Component: Description list
@@ -44,14 +46,13 @@
     }
 
     .uk-description-list-horizontal > dd { margin-left: @description-list-horizontal-margin-left; }
-
 }
 
 
 /* Modifier: `uk-description-list-line`
  ========================================================================== */
 
-.uk-description-list-line > dt { font-weight: normal; }
+.uk-description-list-line > dt { font-weight: @description-list-line-font-weight; }
 
 .uk-description-list-line > dt:nth-child(n+2) {
     margin-top: @description-list-line-margin-top;
