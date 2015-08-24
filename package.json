@@ -28,7 +28,7 @@
     "glob": "^4.0.5",
     "gulp": "^3.8.8",
     "gulp-concat": "^2.3.4",
-    "gulp-header": "^1.0.5",
+    "gulp-header": "1.0.5",
     "gulp-ignore": "^1.2.0",
     "gulp-less": "latest",
     "gulp-minify-css": "^1.1.1",
