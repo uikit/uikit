@@ -1,4 +1,4 @@
-/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -187,6 +187,10 @@
             xhr.addEventListener("abort",     function(e){ settings.abort(e);     }, false);
 
             xhr.open(settings.method, settings.action, true);
+
+            if (settings.type=="json") {
+                xhr.setRequestHeader("Accept", "application/json");
+            }
 
             xhr.onreadystatechange = function() {
 

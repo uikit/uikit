@@ -1,4 +1,4 @@
-/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -93,6 +93,8 @@
 
                 this.on("mouseenter", function(e) {
 
+                    $this.trigger('pointerenter.uk.dropdown', [$this]);
+
                     if ($this.remainIdle) {
                         clearTimeout($this.remainIdle);
                     }
@@ -116,8 +118,6 @@
 
                         hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
                     }
-
-                    $this.trigger('pointerenter.uk.dropdown', [$this]);
 
                 }).on("mouseleave", function() {
 
@@ -304,11 +304,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-dropdownoverlay]", context).each(function() {
+                UI.$("[data-uk-dropdown-overlay]", context).each(function() {
                     var ele = UI.$(this);
 
                     if (!ele.data("dropdownOverlay")) {
-                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr("data-uk-dropdownoverlay")));
+                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr("data-uk-dropdown-overlay")));
                     }
                 });
             });
@@ -319,10 +319,10 @@
             var $this = this;
 
             this.justified = this.options.justify ? UI.$(this.options.justify) : false;
-            this.overlay   = this.element.find('uk-dropdownoverlay');
+            this.overlay   = this.element.find('uk-dropdown-overlay');
 
             if (!this.overlay.length) {
-                this.overlay = UI.$('<div class="uk-dropdownoverlay"></div>').appendTo(this.element);
+                this.overlay = UI.$('<div class="uk-dropdown-overlay"></div>').appendTo(this.element);
             }
 
             this.overlay.addClass(this.options.cls);
@@ -350,25 +350,34 @@
 
                        UI.Utils.checkDisplay($this.dropdown.dropdown, true);
                     });
+
+                    $this.pointerleave = false;
                 },
 
                 'hide.uk.dropdown': function() {
                     $this.overlay.stop().animate({height: 0}, $this.options.duration);
                 },
 
-                'pointerleave.uk.dropdown': function(e, dropdown) {
-                    $this.pointerleave = true;
-                    clearTimeout(dropdown.remainIdle);
+                'pointerenter.uk.dropdown': function(e, dropdown) {
+                    clearTimeout($this.remainIdle);
                 },
 
-                'mouseenter': function() {
+                'pointerleave.uk.dropdown': function(e, dropdown) {
+                    $this.pointerleave = true;
+                }
+            });
 
+
+            this.overlay.on({
+
+                'mouseenter': function() {
                     if ($this.remainIdle) {
+                        clearTimeout($this.dropdown.remainIdle);
                         clearTimeout($this.remainIdle);
                     }
                 },
 
-                'mouseleave': function() {
+                'mouseleave': function(){
 
                     if ($this.pointerleave && active) {
 
@@ -377,7 +386,7 @@
                         }, active.options.remaintime);
                     }
                 }
-            });
+            })
         }
 
     });

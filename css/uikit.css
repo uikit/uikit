@@ -1,4 +1,4 @@
-/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -1206,7 +1206,7 @@ iframe {
   top: 10px;
   right: 10px;
 }
-.uk-panel-box .uk-panel-teaser {
+.uk-panel-box > .uk-panel-teaser {
   margin-top: -15px;
   margin-left: -15px;
   margin-right: -15px;
@@ -1257,7 +1257,7 @@ iframe {
   top: 10px;
   right: 10px;
 }
-.uk-panel-hover .uk-panel-teaser {
+.uk-panel-hover > .uk-panel-teaser {
   margin-top: -15px;
   margin-left: -15px;
   margin-right: -15px;
@@ -6844,6 +6844,8 @@ a.uk-thumbnail:focus {
   overflow-y: auto;
   max-height: 200px;
 }
+/* Sub-object: `uk-dropdown-overlay`
+ ========================================================================== */
 /* ========================================================================
    Component: Modal
  ========================================================================== */
@@ -7650,13 +7652,16 @@ a.uk-thumbnail:focus {
 [class*='uk-position-bottom'] {
   position: absolute !important;
 }
+/* Don't use `width: 100%` because it is wrong if the parent has padding. */
 .uk-position-top {
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
 }
 .uk-position-bottom {
   bottom: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
 }
 .uk-position-top-left {
   top: 0;

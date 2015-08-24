@@ -1,4 +1,4 @@
-/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -106,10 +106,15 @@
                     draggingPlaceholder.css({'left': left, 'top': top });
 
                     // adjust document scrolling
+                    
+                    if (top + (draggingPlaceholder.height()/3) > document.body.offsetHeight) {
+                        return;
+                    }
+
                     if (top < UI.$win.scrollTop()) {
-                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/2));
-                    } else if ( (top + draggingPlaceholder.height()) > (window.innerHeight + UI.$win.scrollTop()) ) {
-                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/2));
+                        UI.$win.scrollTop(UI.$win.scrollTop() - Math.ceil(draggingPlaceholder.height()/3));
+                    } else if ( (top + (draggingPlaceholder.height()/3)) > (window.innerHeight + UI.$win.scrollTop()) ) {
+                        UI.$win.scrollTop(UI.$win.scrollTop() + Math.ceil(draggingPlaceholder.height()/3));
                     }
                 }
             });

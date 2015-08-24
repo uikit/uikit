@@ -3,6 +3,8 @@
 //
 // Component:       `uk-dropdown`
 //
+// Sub-objects:     `uk-dropdown-overlay`
+//
 // Modifiers:       `uk-dropdown-flip`
 //                  `uk-dropdown-center`
 //                  `uk-dropdown-justify`
@@ -261,6 +263,15 @@ $dropdown-scrollable-height:                     200px !default;
 }
 
 
+/* Sub-object: `uk-dropdown-overlay`
+ ========================================================================== */
+
+.uk-dropdown-overlay {
+    @include hook-dropdown-overlay();
+}
+
+
+
 // Hooks
 // ========================================================================
 
@@ -268,4 +279,5 @@ $dropdown-scrollable-height:                     200px !default;
 
 // @mixin hook-dropdown(){}
 // @mixin hook-dropdown-navbar(){}
+// @mixin hook-dropdown-overlay(){}
 // @mixin hook-dropdown-misc(){}

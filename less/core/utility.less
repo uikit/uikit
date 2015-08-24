@@ -468,14 +468,17 @@
 [class*='uk-position-top'],
 [class*='uk-position-bottom'] { position: absolute !important; }
 
+/* Don't use `width: 100%` because it is wrong if the parent has padding. */
 .uk-position-top {
     top: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 .uk-position-bottom {
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 .uk-position-top-left {

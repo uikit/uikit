@@ -1,4 +1,4 @@
-/*! UIkit 2.21.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -79,7 +79,7 @@
                         $this[item=='next' ? 'next':'previous']();
                         break;
                     default:
-                        $this.updateFocus(parseInt(slide, 10));
+                        $this.updateFocus(parseInt(item, 10));
                 }
             });
 
@@ -207,7 +207,7 @@
                 'transform': ''
             });
 
-            this.updateFocus(0);
+            if (focus) this.updateFocus(this.focus);
         },
 
         updatePos: function(pos) {
