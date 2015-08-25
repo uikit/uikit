@@ -27,6 +27,7 @@
             start              : 0,
             autoplay           : false,
             autoplayInterval   : 7000,
+            autoResume         : false,
             videoautoplay      : true,
             videomute          : true,
             slices             : 15,
@@ -195,7 +196,7 @@
                         $this.show(parseInt(slide, 10));
                 }
 
-                $this.stop();
+                if ($this.options.autoResume) $this.stop();
             });
 
             // Set start slide
