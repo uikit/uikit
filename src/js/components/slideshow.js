@@ -27,7 +27,7 @@
             start              : 0,
             autoplay           : false,
             autoplayInterval   : 7000,
-            autoResume         : true,
+            autoResume         : false,
             videoautoplay      : true,
             videomute          : true,
             slices             : 15,
