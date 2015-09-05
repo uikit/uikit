@@ -31,6 +31,7 @@
     "gulp-header": "1.0.5",
     "gulp-ignore": "^1.2.0",
     "gulp-less": "latest",
+    "gulp-load-plugins": "^0.10.0",
     "gulp-minify-css": "^1.1.1",
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.4.0",

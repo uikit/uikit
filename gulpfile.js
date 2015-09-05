@@ -4,24 +4,13 @@ var pkg         = require('./package.json'),
     glob        = require('glob'),
     mkdirp      = require('mkdirp'),
     gulp        = require('gulp'),
-    gutil       = require('gulp-util'),
-    concat      = require('gulp-concat'),
-    ignore      = require('gulp-ignore'),
-    rename      = require('gulp-rename'),
-    rimraf      = require('gulp-rimraf'),
-    replace     = require('gulp-replace'),
-    header      = require('gulp-header'),
-    less        = require('gulp-less'),
-    minifycss   = require('gulp-minify-css'),
-    uglify      = require('gulp-uglify'),
-    watch       = require('gulp-watch'),
-    tap         = require('gulp-tap'),
-    zip         = require('gulp-zip'),
+    loadPlugins = require('gulp-load-plugins');
     runSequence = require('run-sequence'),
     browserSync = require('browser-sync'),
-    Promise     = require('promise');
+    Promise     = require('promise'),
+    $           = loadPlugins();
 
-var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
+var watchmode    = $.util.env._.length && $.util.env._[0] == 'watch',
     watchCache   = {},
     watchfolders = ['src/**/*', 'themes/**/*.less', 'custom/**/*.less'],
     getThemes    = function(theme, all) {
@@ -52,8 +41,8 @@ var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
 
     themes    = (function(){
 
-        var theme = gutil.env.t || gutil.env.theme || false,
-            all   = gutil.env.all || gutil.env.a || theme;
+        var theme = $.util.env.t || $.util.env.theme || false,
+            all   = $.util.env.all || $.util.env.a || theme;
 
         return getThemes(theme, all);
     })(),
@@ -80,7 +69,7 @@ var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
 
 gulp.task('default', ['dist', 'build-docs', 'indexthemes'], function(done) {
 
-    if(gutil.env.p || gutil.env.prefix) {
+    if($.util.env.p || $.util.env.prefix) {
         runSequence('prefix', function(){
             done();
         });
@@ -93,9 +82,9 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 
     runSequence('sass', 'dist-core-minify', 'dist-core-header', 'dist-bower-file', function(){
 
-        if (gutil.env.m || gutil.env.min) {
+        if ($.util.env.m || $.util.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
-            .pipe(rimraf()).on('end', function(){
+            .pipe($.rimraf()).on('end', function(){
                 done();
             });
         } else {
@@ -205,8 +194,8 @@ gulp.task('help', function(done) {
  * ---------------------------------------------------------*/
 gulp.task('dist-clean', function(done) {
 
-    if (gutil.env.c || gutil.env.clean) {
-        return gulp.src('dist', {read: false}).pipe(rimraf());
+    if ($.util.env.c || $.util.env.clean) {
+        return gulp.src('dist', {read: false}).pipe($.rimraf());
     } else {
         done();
     }
@@ -223,10 +212,10 @@ gulp.task('dist-core-minify', function(done) {
     }
 
     // minify css
-    gulp.src(['!./dist/css/**/*.min.css', './dist/css/**/*.css']).pipe(rename({ suffix: '.min' })).pipe(minifycss({advanced:false})).pipe(gulp.dest('./dist/css')).on('end', function(){
+    gulp.src(['!./dist/css/**/*.min.css', './dist/css/**/*.css']).pipe($.rename({ suffix: '.min' })).pipe($.minifyCss({advanced:false})).pipe(gulp.dest('./dist/css')).on('end', function(){
 
         // minify js
-        gulp.src(['!./dist/js/**/*.min.js', './dist/js/**/*.js']).pipe(rename({ suffix: '.min' })).pipe(uglify()).pipe(gulp.dest('./dist/js')).on('end', function(){
+        gulp.src(['!./dist/js/**/*.min.js', './dist/js/**/*.js']).pipe($.rename({ suffix: '.min' })).pipe($.uglify()).pipe(gulp.dest('./dist/js')).on('end', function(){
             done();
         });
     });
@@ -238,7 +227,7 @@ gulp.task('dist-core-header', function(done) {
         return done();
     }
 
-    return gulp.src(['./dist/**/*.css', './dist/**/*.js']).pipe(header("/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2014 YOOtheme | MIT License */\n", { 'pkg' : pkg } )).pipe(gulp.dest('./dist/'));
+    return gulp.src(['./dist/**/*.css', './dist/**/*.js']).pipe($.header("/*! <%= pkg.title %> <%= pkg.version %> | <%= pkg.homepage %> | (c) 2014 YOOtheme | MIT License */\n", { 'pkg' : pkg } )).pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('dist-bower-file', function(done) {
@@ -279,7 +268,7 @@ gulp.task('build', ['dist-clean'], function (done) {
 
     runSequence('dist', function(){
         gulp.src(['./dist/**/*.css', './dist/**/*.js', './dist/*/[Ff]ont*', '!./dist/bower.json'])
-            .pipe(zip('uikit-'+pkg.version+'.zip')).pipe(gulp.dest('dist')).on('end', done);
+            .pipe($.zip('uikit-'+pkg.version+'.zip')).pipe(gulp.dest('dist')).on('end', done);
     });
 });
 
@@ -290,7 +279,7 @@ gulp.task('build', ['dist-clean'], function (done) {
 
 gulp.task('sass-copy', function() {
 
-    return gulp.src('./dist/less/**/*.less').pipe(rename(function (path) {
+    return gulp.src('./dist/less/**/*.less').pipe($.rename(function (path) {
         path.extname = ".scss";
     })).pipe(gulp.dest('./dist/scss'));
 });
@@ -298,17 +287,17 @@ gulp.task('sass-copy', function() {
 gulp.task('sass-convert', ['sass-copy'], function() {
 
     return gulp.src('./dist/scss/**/*.scss')
-           .pipe(replace(/\/less\//g, '/scss/'))                              // change less/ dir to scss/ on imports
-           .pipe(replace(/\.less/g, '.scss'))                                 // change .less extensions to .scss on imports
-           .pipe(replace(/@/g, '$'))                                          // convert variables
-           .pipe(replace(/ e\(/g, ' unquote('))                               // convert escape function
-           .pipe(replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){'))   // hook -> mixins
-           .pipe(replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}'))   // comment empty mixins
-           .pipe(replace(/\.(hook[a-zA-Z\-\d]+);/g, '@include $1();'))        // hook calls
-           .pipe(replace(/\$(import|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1')) // replace valid '@' statements
-           .pipe(replace(/(\$[\w\-]*)\s*:(.*);\n/g, '$1: $2 !default;\n'))    // make variables optional
-           .pipe(replace(/\$\{/g, '#{$'))                                      // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
-           .pipe(replace(/~("[^"]+")/g, 'unquote($1)'))                       // string literals: for real
+           .pipe($.replace(/\/less\//g, '/scss/'))                              // change less/ dir to scss/ on imports
+           .pipe($.replace(/\.less/g, '.scss'))                                 // change .less extensions to .scss on imports
+           .pipe($.replace(/@/g, '$'))                                          // convert variables
+           .pipe($.replace(/ e\(/g, ' unquote('))                               // convert escape function
+           .pipe($.replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){'))   // hook -> mixins
+           .pipe($.replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}'))   // comment empty mixins
+           .pipe($.replace(/\.(hook[a-zA-Z\-\d]+);/g, '@include $1();'))        // hook calls
+           .pipe($.replace(/\$(import|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1')) // replace valid '@' statements
+           .pipe($.replace(/(\$[\w\-]*)\s*:(.*);\n/g, '$1: $2 !default;\n'))    // make variables optional
+           .pipe($.replace(/\$\{/g, '#{$'))                                      // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
+           .pipe($.replace(/~("[^"]+")/g, 'unquote($1)'))                       // string literals: for real
            .pipe(gulp.dest('./dist/scss'));
 });
 
@@ -438,7 +427,7 @@ gulp.task('dist-themes', ['dist-variables'], function(done) {
 
                         fs.writeFile(tplpath, content.join('\n'), function(){
 
-                            gulp.src(tplpath).pipe(less()).pipe(gulp.dest(path.dirname(csspath))).on('end', function(){
+                            gulp.src(tplpath).pipe($.less()).pipe(gulp.dest(path.dirname(csspath))).on('end', function(){
 
                                 fs.unlink(tplpath, function(){
 
@@ -473,12 +462,12 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
         promises.push(new Promise(function(resolve, reject){
 
-            gulp.src(theme.uikit).pipe(less({"modifyVars": modifyVars}).on('error', function(error) {
+            gulp.src(theme.uikit).pipe($.less({"modifyVars": modifyVars}).on('error', function(error) {
 
-                gutil.log(gutil.colors.red('Error in ') + '\'' + gutil.colors.cyan(theme.uikit) + '\'\n', error.toString());
+                $.util.log($.util.colors.red('Error in ') + '\'' + $.util.colors.cyan(theme.uikit) + '\'\n', error.toString());
                 resolve();
 
-            })).pipe(rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist/css')).on('end', function(){
+            })).pipe($.rename({ suffix: ('.'+theme.name) })).pipe(gulp.dest('./dist/css')).on('end', function(){
 
                 if (theme.name == 'default') {
                     fs.renameSync('./dist/css/uikit.default.css', './dist/css/uikit.css');
@@ -490,7 +479,7 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
     });
 
     Promise.all(promises).then(function(){
-        gulp.src(corejs).pipe(concat('uikit.js')).pipe(gulp.dest('./dist/js')).on('end', function(){
+        gulp.src(corejs).pipe($.concat('uikit.js')).pipe(gulp.dest('./dist/js')).on('end', function(){
             done();
         });
     });
@@ -502,9 +491,9 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 gulp.task('build-docs', function(done) {
 
     // minify css
-    gulp.src('./docs/less/uikit.less').pipe(less()).pipe(rename({ suffix: '.docs.min' })).pipe(minifycss({advanced:false})).pipe(gulp.dest('./docs/css')).on('end', function(){
+    gulp.src('./docs/less/uikit.less').pipe($.less()).pipe($.rename({ suffix: '.docs.min' })).pipe($.minifyCss({advanced:false})).pipe(gulp.dest('./docs/css')).on('end', function(){
 
-        gulp.src(corejs).pipe(concat('uikit.min.js')).pipe(uglify()).pipe(gulp.dest('./docs/js')).on('end', function(){
+        gulp.src(corejs).pipe($.concat('uikit.min.js')).pipe($.uglify()).pipe(gulp.dest('./docs/js')).on('end', function(){
             done();
         });
     });
@@ -550,16 +539,16 @@ gulp.task('indexthemes', function() {
 });
 
 gulp.task('prefix', function(done) {
-    var prefix = gutil.env.p || gutil.env.prefix || false;
+    var prefix = $.util.env.p || $.util.env.prefix || false;
 
     if(!prefix) {
         return done();
     }
 
-    gutil.log("Replacing prefix 'uk' with '"+prefix+"'");
+    $.util.log("Replacing prefix 'uk' with '"+prefix+"'");
 
     gulp.src(['./dist/**/*.css', './dist/**/*.less', './dist/**/*.scss', './dist/**/*.js'])
-        .pipe(replace(/(uk-([a-z\d\-]+))/g, prefix+'-$2'))
+        .pipe($.replace(/(uk-([a-z\d\-]+))/g, prefix+'-$2'))
         .pipe(gulp.dest('./dist'))
         .on('end', done);
 });
@@ -591,8 +580,8 @@ gulp.task('sublime-css', function(done) {
     mkdirp("dist/sublime", function () {
 
         gulp.src(['dist/**/*.min.css', 'dist/uikit.min.css'])
-            .pipe(concat('sublime_tmp_css.py'))
-            .pipe(tap(function(file) {
+            .pipe($.concat('sublime_tmp_css.py'))
+            .pipe($.tap(function(file) {
 
                 var css         = file.contents.toString(),
                     classesList = css.match(/\.(uk-[a-z\d\-]+)/g),
@@ -621,7 +610,7 @@ gulp.task('sublime-js', function(done) {
 
     mkdirp("dist/sublime", function(){
 
-        gulp.src(['dist/**/*.min.js', 'dist/uikit.min.js']).pipe(concat('sublime_tmp_js.py')).pipe(tap(function(file) {
+        gulp.src(['dist/**/*.min.js', 'dist/uikit.min.js']).pipe($.concat('sublime_tmp_js.py')).pipe($.tap(function(file) {
 
             var js       = file.contents.toString(),
                 dataList = js.match(/data-uk-[a-z\d\-]+/g),
@@ -648,7 +637,7 @@ gulp.task('sublime-snippets',  function(done) {
 
     mkdirp.sync("dist/sublime/snippets");
 
-    gulp.src("dist/**/*.less").pipe(tap(function(file) {
+    gulp.src("dist/**/*.less").pipe($.tap(function(file) {
 
         var less = file.contents.toString(),
             regex = /\/\/\s*<!--\s*(.+)\s*-->\s*\n((\/\/.+\n)+)/g,
@@ -687,9 +676,9 @@ gulp.task('sublime', ['sublime-css', 'sublime-js', 'sublime-snippets'], function
     var outfile = 'sublime_completions.py';
 
     gulp.src("dist/sublime/tmp_*.py")
-        .pipe(concat(outfile))
+        .pipe($.concat(outfile))
         .pipe(gulp.dest('dist/sublime/'))
         .on('end', function(){
-            gulp.src("dist/sublime/tmp_*.py", {read: false}).pipe(rimraf()).on('end', done);
+            gulp.src("dist/sublime/tmp_*.py", {read: false}).pipe($.rimraf()).on('end', done);
         });
 });
