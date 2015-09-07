@@ -1,4 +1,4 @@
-{
+
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
@@ -22,6 +22,7 @@
   "scripts": {
     "prepublish": "gulp"
   },
+  "main": "dist/js/uikit.js",
   "dependencies": {
     "node-promise": "^0.5.10"
   },
