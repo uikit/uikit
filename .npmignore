@@ -1,0 +1,14 @@
+/.idea
+/custom
+/docs/fonts/ProximaNova-Light-webfont.*
+/docs/fonts/ProximaNova-Reg-webfont.*
+/node_modules
+/showcase
+/tools
+*~
+*.diff
+*.patch
+.DS_Store
+.project
+.settings
+themes.json

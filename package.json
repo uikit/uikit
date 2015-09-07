@@ -19,6 +19,9 @@
       "url": "https://github.com/uikit/uikit/blob/master/LICENSE.md"
     }
   ],
+  "scripts": {
+    "prepublish": "gulp"
+  },
   "dependencies": {
     "node-promise": "^0.5.10"
   },
