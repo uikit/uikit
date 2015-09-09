@@ -42,6 +42,7 @@
 
             // should be more efficient than using $win.scroll(checkscrollposition):
             UI.$doc.on('scrolling.uk.document', function(e, data) {
+                if (!data || !data.dir) return;
                 direction = data.dir.y;
                 checkscrollposition();
             });
