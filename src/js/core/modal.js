@@ -153,7 +153,8 @@
         _hide: function() {
 
             this.active = false;
-            activeCount--;
+            if (activeCount > 0) activeCount--;
+            else activeCount = 0;
 
             this.element.hide().removeClass("uk-open");
 
