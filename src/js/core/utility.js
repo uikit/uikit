@@ -237,7 +237,7 @@
 
     (function(cacheSvgs){
 
-        UI.Utils.inlineSvgs = function(selector, root) {
+        UI.Utils.inlineSvg = function(selector, root) {
 
             var images = UI.$(selector || 'img[src$=".svg"]', root || document).each(function(){
 
@@ -279,7 +279,7 @@
 
         // init code
         UI.ready(function(context) {
-            UI.Utils.inlineSvgs('[data-uk-inlinesvg]', context);
+            UI.Utils.inlineSvg('[data-uk-inlinesvg]', context);
         });
 
     })({});

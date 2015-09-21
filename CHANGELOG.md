@@ -2,7 +2,7 @@
 
 ### W.I.P.
 
-  - Added inline svg helper - UIkit.Utils.inlineSvgs
+  - Added inline svg helper - UIkit.Utils.inlineSvg
 
 ### 2.22.0 (August 24, 2015)
 
