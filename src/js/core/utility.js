@@ -261,6 +261,7 @@
 
                     if (img.attr('id')) $svg.attr('id', img.attr('id'));
                     if (img.attr('class')) $svg.attr('class', img.attr('class'));
+                    if (img.attr('style')) $svg.attr('style', img.attr('style'));
 
                     if (img.attr('width')) {
                         $svg.attr('width', img.attr('width'));
@@ -279,7 +280,7 @@
 
         // init code
         UI.ready(function(context) {
-            UI.Utils.inlineSvg('[data-uk-inlinesvg]', context);
+            UI.Utils.inlineSvg('[data-uk-svg]', context);
         });
 
     })({});
