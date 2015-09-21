@@ -5,6 +5,7 @@
 //
 // Modifier:        `uk-dotnav-contrast`
 //                  `uk-dotnav-vertical`
+//                  `uk-dotnav-small`
 //
 // States:          `uk-active`
 //
@@ -27,6 +28,8 @@
 
 @dotnav-width:                                  20px;
 @dotnav-height:                                 @dotnav-width;
+@dotnav-width-small:                            10px;
+@dotnav-height-small:                           @dotnav-width-small;
 @dotnav-background:                             rgba(50,50,50,0.1);
 
 @dotnav-hover-background:                       rgba(50,50,50,0.4);
@@ -194,7 +197,13 @@
 
 .uk-dotnav-vertical > * { float: none; }
 
+/* Modifier: `uk-dotnav-small`
+ ========================================================================== */
 
+.uk-dotnav-small > * > * {
+    width: @dotnav-width-small;
+    height: @dotnav-height-small;
+}
 
 // Hooks
 // ========================================================================
