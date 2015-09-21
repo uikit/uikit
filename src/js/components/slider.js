@@ -268,13 +268,22 @@
 
                                 area += this.items.eq(i).data('width');
 
-                                if (area >= this.vp) {
+                                if (area == this.vp) {
                                     idx = i;
+                                    break;
+                                }
+
+                                if (area > this.vp) {
+                                    idx = (i < this.items.length-1) ? i+1 : i;
                                     break;
                                 }
                             }
 
-                            this.updatePos(this.items.eq(idx).data('left')*-1);
+                            if (area > this.vp) {
+                                this.updatePos((this.container.width() - this.vp) * -1);
+                            } else {
+                                this.updatePos(this.items.eq(idx).data('left')*-1);
+                            }
                         }
                     }
                 }
