@@ -3,6 +3,7 @@
 ### W.I.P.
 
   - Added inline svg helper - UIkit.Utils.inlineSvg
+  - Updated image background-size calculation (parallax component)
 
 ### 2.22.0 (August 24, 2015)
 
