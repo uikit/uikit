@@ -233,10 +233,10 @@
 
             var $this     = this,
                 dropdown  = this.dropdown.css("margin-" + UI.langdirection, ""),
-                offset    = dropdown.show().offset(),
+                offset    = dropdown.show().offset() || {left:0, top:0},
                 width     = dropdown.outerWidth(),
                 boundarywidth  = this.boundary.width(),
-                boundaryoffset = this.boundary.offset() ? this.boundary.offset().left:0;
+                boundaryoffset = this.boundary[0] !== UI.$win[0] && this.boundary.offset() ? this.boundary.offset().left:0;
 
             // centered dropdown
             if (this.centered) {
