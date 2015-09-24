@@ -71,14 +71,11 @@
     display: none;
     /* 2 */
     position: absolute;
-    top: 100%;
-    left: 0;
     z-index: @dropdown-z-index;
     /* 3 */
     box-sizing: border-box;
     /* 4 */
     width: @dropdown-width;
-    margin-top: @dropdown-margin-top;
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
@@ -109,24 +106,13 @@
  ========================================================================== */
 
 /*
- * Modifier `uk-dropdown-flip`
+ * Modifier
  */
 
-.uk-dropdown-flip {
-    left: auto;
-    right: 0;
-}
-
-/*
- * Modifier `uk-dropdown-up`
- */
-
-.uk-dropdown-up {
-    top: auto;
-    bottom: 100%;
-    margin-top: auto;
-    margin-bottom: @dropdown-margin-top;
-}
+.uk-dropdown-top { margin-top: (-1 * @dropdown-margin-top); }
+.uk-dropdown-bottom { margin-top: @dropdown-margin-top; }
+.uk-dropdown-left { margin-left: (-1 * @dropdown-margin-top); }
+.uk-dropdown-right { margin-left: @dropdown-margin-top; }
 
 
 /* Nav in dropdown
