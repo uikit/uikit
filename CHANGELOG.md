@@ -6,6 +6,7 @@
   - Added ```pos``` option to dropdown component
   - Added uk-columns component for text columns
   - Updated image background-size calculation (parallax component)
+  - Fixed scroll jumping for animated switchers on iOS
 
 ### 2.22.0 (August 24, 2015)
 
