@@ -42,6 +42,7 @@
 
             // should be more efficient than using $win.scroll(checkscrollposition):
             UI.$doc.on('scrolling.uk.document', function(e, data) {
+                if (!data || !data.dir) return;
                 direction = data.dir.y;
                 checkscrollposition();
             });
@@ -140,6 +141,7 @@
                         this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
                         this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
                         this.element.addClass(this.options.clsinactive);
+                        this.element.trigger('inactive.uk.sticky');
 
                         this.currentTop = null;
                         this.animate    = false;
@@ -330,6 +332,7 @@
                     }
 
                     sticky.element.addClass(sticky.options.clsactive).removeClass(sticky.options.clsinactive);
+                    sticky.element.trigger('active.uk.sticky');
                     sticky.element.css('margin', '');
 
                     if (sticky.options.animation && sticky.init && !UI.Utils.isInView(sticky.wrapper)) {

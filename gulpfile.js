@@ -249,7 +249,6 @@ gulp.task('dist-bower-file', function(done) {
         "main": [
             "css/uikit.min.css",
             "js/uikit.min.js",
-            "fonts/fontawesome-webfont.eot",
             "fonts/fontawesome-webfont.ttf",
             "fonts/fontawesome-webfont.woff",
             "fonts/fontawesome-webfont.woff2",

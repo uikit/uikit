@@ -1,5 +1,13 @@
 # Changelog
 
+### W.I.P.
+  - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center - use ```pos``` property instead
+  - Added inline svg helper - UIkit.Utils.inlineSvg
+  - Added ```pos``` option to dropdown component
+  - Added uk-columns component for text columns
+  - Updated image background-size calculation (parallax component)
+  - Fixed scroll jumping for animated switchers on iOS
+
 ### 2.22.0 (August 24, 2015)
 
   - Added dropdown overlay mode

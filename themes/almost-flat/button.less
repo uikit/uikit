@@ -56,6 +56,7 @@
 
 @button-border:                                 rgba(0,0,0,0.06);
 @button-hover-border:                           rgba(0,0,0,0.16);
+@button-group-border:                           rgba(0,0,0,0.1);
 @button-text-shadow:                            @global-text-shadow;
 @button-contrast-text-shadow:                   @global-contrast-text-shadow;
 @button-contrast-hover-border:                  rgba(0,0,0,0.21);
@@ -160,21 +161,21 @@
 
     .uk-button-group > .uk-button:not(:first-child):not(:last-child),
     .uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
-        border-left-color: rgba(0,0,0,0.1);
-        border-right-color: rgba(0,0,0,0.1);
+        border-left-color: @button-group-border;
+        border-right-color: @button-group-border;
         border-radius: 0;
     }
 
     .uk-button-group > .uk-button:first-child,
     .uk-button-group > div:first-child .uk-button {
-        border-right-color: rgba(0,0,0,0.1);
+        border-right-color: @button-group-border;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 
     .uk-button-group > .uk-button:last-child,
     .uk-button-group > div:last-child .uk-button {
-        border-left-color: rgba(0,0,0,0.1);
+        border-left-color: @button-group-border;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }

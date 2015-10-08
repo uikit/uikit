@@ -206,7 +206,7 @@
             var offset = this.element.offset(),
                 css    = {"left": offset.left, "right":""};
 
-            this.current  = initdate ? moment(initdate, this.options.format):moment();
+            this.current  = isNaN(initdate) ? moment(initdate, this.options.format):moment();
             this.initdate = this.current.format("YYYY-MM-DD");
 
             this.update();
