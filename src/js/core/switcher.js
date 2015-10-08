@@ -69,7 +69,7 @@
                             default:
                                 $this.show(parseInt(item, 10));
                         }
-                    })
+                    });
 
                     if (this.options.swiping) {
 
