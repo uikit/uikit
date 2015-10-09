@@ -10,6 +10,7 @@
   - Updated image background-size calculation in parallax component
   - Updated using requestAnimationFrame for document.scrolling event
   - Updated default pagination component values
+  - Fixed overlay transition-properties
   - Fixed scroll jumping for animated switchers on iOS
   - Fixed pass swiping option to switcher component
   - Fixed slider not showing the last element
