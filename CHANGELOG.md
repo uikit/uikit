@@ -3,6 +3,7 @@
 ### W.I.P.
 
   - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center (Use ```pos``` property instead)
+  - Reworked dropdown component to allow any kind of popovers
   - Added column component
   - Added data-uk-svg helper (UIkit.Utils.inlineSvg)
   - Added ```pos``` option to dropdown component

@@ -5,7 +5,8 @@
 //
 // Sub-objects:     `uk-dropdown-overlay`
 //
-// Modifiers:       `uk-dropdown-top`
+// Modifiers:       `uk-dropdown-blank`
+//                  `uk-dropdown-top`
 //                  `uk-dropdown-bottom`
 //                  `uk-dropdown-left`
 //                  `uk-dropdown-right`
@@ -63,11 +64,11 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Box-sizing is needed for `uk-dropdown-justify`
- * 4. Set style
- * 5. Reset button group whitespace hack
+ * 4. Set width
  */
 
-.uk-dropdown {
+.uk-dropdown,
+.uk-dropdown-blank {
     /* 1 */
     display: none;
     /* 2 */
@@ -77,10 +78,18 @@
     box-sizing: border-box;
     /* 4 */
     width: @dropdown-width;
+}
+
+/*
+ * Dropdown style
+ * 1. Reset button group whitespace hack
+ */
+
+.uk-dropdown {
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
-    /* 5 */
+    /* 1 */
     font-size: @dropdown-font-size;
     vertical-align: top;
     .hook-dropdown;
@@ -92,7 +101,8 @@
  * 3. Needed for scale animation
  */
 
-.uk-open > .uk-dropdown {
+.uk-open > .uk-dropdown,
+.uk-open > .uk-dropdown-blank {
     /* 1 */
     display: block;
     /* 2 */
