@@ -39,15 +39,15 @@
     UI.component('dropdown', {
 
         defaults: {
-           'mode'           : 'hover',
-           'pos'            : 'bottom',
-           'offset'         : 0,
-           'remaintime'     : 800,
-           'justify'        : false,
-           'boundary'       : UI.$win,
-           'delay'          : 0,
-           'dropdownClass'  : 'uk-dropdown',
-           'hoverDelayIdle' : 250
+           'mode'            : 'hover',
+           'pos'             : 'bottom',
+           'offset'          : 0,
+           'remaintime'      : 800,
+           'justify'         : false,
+           'boundary'        : UI.$win,
+           'delay'           : 0,
+           'dropdownSelector': '.uk-dropdown,.uk-dropdown-blank',
+           'hoverDelayIdle'  : 250
         },
 
         remainIdle: false,
@@ -69,7 +69,7 @@
                         dropdown.element.trigger(triggerevent);
                     }
 
-                    if (dropdown.element.find('.'+dropdown.options.dropdownClass).length) {
+                    if (dropdown.element.find(dropdown.options.dropdownSelector).length) {
                         e.preventDefault();
                     }
                 }
@@ -80,7 +80,7 @@
 
             var $this = this;
 
-            this.dropdown     = this.find('.'+this.options.dropdownClass);
+            this.dropdown     = this.find(this.options.dropdownSelector);
             this.offsetParent = this.dropdown.parents().filter(function() {
                 return UI.$.inArray(UI.$(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
             }).slice(0,1);
@@ -116,7 +116,7 @@
 
                     var $target = UI.$(e.target);
 
-                    if (!$target.parents('.'+$this.options.dropdownClass).length) {
+                    if (!$target.parents($this.options.dropdownSelector).length) {
 
                         if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
                             e.preventDefault();
