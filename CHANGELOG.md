@@ -1,12 +1,12 @@
 # Changelog
 
 ### W.I.P.
-  - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center - use ```pos``` property instead
-  - Added inline svg helper - UIkit.Utils.inlineSvg
+  - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center (Use ```pos``` property instead)
+  - Added column component
+  - Added data-uk-svg helper (UIkit.Utils.inlineSvg)
   - Added ```pos``` option to dropdown component
-  - Added uk-columns component for text columns
   - Added .npmignore
-  - Updated image background-size calculation (parallax component)
+  - Updated image background-size calculation in parallax component
   - Updated using requestAnimationFrame for document.scrolling event
   - Updated default pagination component values
   - Fixed scroll jumping for animated switchers on iOS
@@ -19,6 +19,7 @@
 
   **Docs and Repo**
 
+  - Added docs and tests for column component
   - Updated some tests and docs
 
 ### 2.22.0 (August 24, 2015)
