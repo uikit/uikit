@@ -17,6 +17,10 @@
   - Fixed error in sticky.js in combination with dynamic grid
   - Fixed touch.js error
 
+  **Docs and Repo**
+
+  - Updated some test and docs
+
 ### 2.22.0 (August 24, 2015)
 
   - Added dropdown overlay mode
