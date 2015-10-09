@@ -22,7 +22,7 @@
   **Docs and Repo**
 
   - Added docs and tests for column component
-  - Updated some tests and docs
+  - Added docs and tests for dropdown component
 
 ### 2.22.0 (August 24, 2015)
 
