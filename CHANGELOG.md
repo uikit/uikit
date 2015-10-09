@@ -1,6 +1,7 @@
 # Changelog
 
 ### W.I.P.
+
   - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center (Use ```pos``` property instead)
   - Added column component
   - Added data-uk-svg helper (UIkit.Utils.inlineSvg)
