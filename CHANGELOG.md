@@ -5,8 +5,17 @@
   - Added inline svg helper - UIkit.Utils.inlineSvg
   - Added ```pos``` option to dropdown component
   - Added uk-columns component for text columns
+  - Added .npmignore
   - Updated image background-size calculation (parallax component)
+  - Updated using requestAnimationFrame for document.scrolling event
+  - Updated default pagination component values
   - Fixed scroll jumping for animated switchers on iOS
+  - Fixed pass swiping option to switcher component
+  - Fixed slider not showing the last element
+  - Fixed ensure open transition has happened before listening to closing transition (modal component)
+  - Fixed initdate when mindate integer (datepicker component)
+  - Fixed error in sticky.js in combination with dynamic grid
+  - Fixed touch.js error
 
 ### 2.22.0 (August 24, 2015)
 
