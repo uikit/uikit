@@ -19,7 +19,7 @@
 
   **Docs and Repo**
 
-  - Updated some test and docs
+  - Updated some tests and docs
 
 ### 2.22.0 (August 24, 2015)
 
@@ -54,7 +54,7 @@
   **Docs and Repo**
 
   - Added new video tutorial section
-  - Updated some test and docs
+  - Updated some tests and docs
 
 ### 2.21.0 (June 01, 2015)
 
