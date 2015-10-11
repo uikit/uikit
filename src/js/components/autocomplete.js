@@ -89,7 +89,7 @@
             this.input.on({
                 "keydown": function(e) {
 
-                    if (e && e.which && !e.shiftKey) {
+                    if (e && e.which && !e.shiftKey && $this.visible) {
 
                         switch (e.which) {
                             case 13: // enter
