@@ -1,5 +1,30 @@
 # Changelog
 
+### 2.23.0 (October 12, 2015)
+
+  - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center (Use ```pos``` property instead)
+  - Reworked dropdown component to allow any kind of popovers
+  - Added column component
+  - Added data-uk-svg helper (UIkit.Utils.inlineSvg)
+  - Added ```pos``` option to dropdown component
+  - Added .npmignore
+  - Updated image background-size calculation in parallax component
+  - Updated using requestAnimationFrame for document.scrolling event
+  - Updated default pagination component values
+  - Fixed overlay transition-properties
+  - Fixed scroll jumping for animated switchers on iOS
+  - Fixed pass swiping option to switcher component
+  - Fixed slider not showing the last element
+  - Fixed ensure open transition has happened before listening to closing transition (modal component)
+  - Fixed initdate when mindate integer (datepicker component)
+  - Fixed error in sticky.js in combination with dynamic grid
+  - Fixed touch.js error
+
+  **Docs and Repo**
+
+  - Added docs and tests for column component
+  - Added docs and tests for dropdown component
+
 ### 2.22.0 (August 24, 2015)
 
   - Added dropdown overlay mode
@@ -33,7 +58,7 @@
   **Docs and Repo**
 
   - Added new video tutorial section
-  - Updated some test and docs
+  - Updated some tests and docs
 
 ### 2.21.0 (June 01, 2015)
 

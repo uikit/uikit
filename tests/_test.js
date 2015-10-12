@@ -81,6 +81,7 @@
             "core/breadcrumb",
             "core/button",
             "core/close",
+            "core/column",
             "core/comment",
             "core/contrast",
             "core/cover",

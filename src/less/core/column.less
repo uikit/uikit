@@ -1,0 +1,209 @@
+// Name:            Column
+// Description:     Provides a responsive, fluid and nestable columns for text and inline elements
+//
+// Component:       `uk-column`
+//
+// Modifiers:       `uk-column-small`
+//                  `uk-column-medium-*`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@column-gutter:                                   25px;
+
+
+/* ========================================================================
+   Component: Column
+ ========================================================================== */
+
+[class*='uk-column-'] {
+    -webkit-column-gap: @column-gutter;
+    -moz-column-gap: @column-gutter;
+    column-gap: @column-gutter;
+    .hook-column;
+}
+
+
+/* Width modifiers
+ ========================================================================== */
+
+.uk-column-1-2 {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+.uk-column-1-3 {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+.uk-column-1-4 {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+}
+
+.uk-column-1-5 {
+    -webkit-column-count: 5;
+    -moz-column-count: 5;
+    column-count: 5;
+}
+
+.uk-column-1-6 {
+    -webkit-column-count: 6;
+    -moz-column-count: 6;
+    column-count: 6;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-column-small-1-2 {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+
+    .uk-column-small-1-3 {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+
+    .uk-column-small-1-4 {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+
+    .uk-column-small-1-5 {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
+
+    .uk-column-small-1-6 {
+        -webkit-column-count: 6;
+        -moz-column-count: 6;
+        column-count: 6;
+    }
+
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-column-medium-1-2 {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+
+    .uk-column-medium-1-3 {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+
+    .uk-column-medium-1-4 {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+
+    .uk-column-medium-1-5 {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
+
+    .uk-column-medium-1-6 {
+        -webkit-column-count: 6;
+        -moz-column-count: 6;
+        column-count: 6;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-column-large-1-2 {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+
+    .uk-column-large-1-3 {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+
+    .uk-column-large-1-4 {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+
+    .uk-column-large-1-5 {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
+
+    .uk-column-large-1-6 {
+        -webkit-column-count: 6;
+        -moz-column-count: 6;
+        column-count: 6;
+    }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-column-xlarge-1-2 {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+
+    .uk-column-xlarge-1-3 {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+
+    .uk-column-xlarge-1-4 {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+
+    .uk-column-xlarge-1-5 {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
+
+    .uk-column-xlarge-1-6 {
+        -webkit-column-count: 6;
+        -moz-column-count: 6;
+        column-count: 6;
+    }
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-column-misc;
+
+.hook-column() {}
+.hook-column-misc() {}

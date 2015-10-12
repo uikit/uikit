@@ -233,6 +233,13 @@
             ]
         },
         {
+            "label": "Column",
+            "advanced": true,
+            "vars": [
+                "@column-*"
+            ]
+        },
+        {
             "label": "Description",
             "advanced": true,
             "vars": [
