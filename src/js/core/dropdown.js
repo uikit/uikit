@@ -99,10 +99,10 @@
                 this.options.pos = 'top-left';
             }
             if (this.dropdown.hasClass('uk-dropdown-flip')) {
-                this.options.pos += '-right';
+                this.options.pos = this.options.pos.replace('left','right');
             }
             if (this.dropdown.hasClass('uk-dropdown-center')) {
-                this.options.pos += '-center';
+                this.options.pos = this.options.pos.replace(/(left|right)/,'center');
             }
             //-- end legacy
 
