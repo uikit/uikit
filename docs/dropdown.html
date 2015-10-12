@@ -85,6 +85,7 @@
                             <li><a href="thumbnail.html">Thumbnail</a></li>
                             <li><a href="overlay.html">Overlay</a></li>
                             <li><a href="text.html">Text</a></li>
+                            <li><a href="column.html">Column</a></li>
                             <li><a href="animation.html">Animation</a></li>
                             <li><a href="contrast.html">Contrast</a></li>
 
@@ -240,28 +241,60 @@
 
                             <h2 id="alignment-modifiers"><a href="#alignment-modifiers" class="uk-link-reset">Alignment modifiers</a></h2>
 
-                            <p>Add one of the following classes to align the dropdown menu.</p>
+                            <p>To align the dropdown menu, just add the <code>pos:''</code> parameter to the data attribute.</p>
 
                             <div class="uk-overflow-container">
                                 <table class="uk-table uk-text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>Class</th>
+                                            <th>Parameter</th>
                                             <th>Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>.uk-dropdown-flip</code></td>
+                                            <td><code>'bottom-center'</code></td>
+                                            <td>Centers the dropdown.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>'bottom-right'</code></td>
+                                            <td>Aligns the dropdown to the right.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>'top'</code></td>
+                                            <td>Aligns the dropdown above the toggle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>'top-center'</code></td>
+                                            <td>Centers the dropdown above the toggle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>'top-right'</code></td>
+                                            <td>Aligns the dropdown to the right above the toggle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>pos:'left'</code></td>
+                                            <td>Aligns the dropdown to the left of the toggle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>pos:'left-center'</code></td>
+                                            <td>Centers the dropdown left of the toggle.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>pos:'left-top'</code></td>
+                                            <td>Aligns the dropdown menu to the top left.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>pos:'right'</code></td>
                                             <td>Aligns the dropdown menu to the right.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>.uk-dropdown-up</code></td>
-                                            <td>Aligns the dropdown menu above the toggle.</td>
+                                            <td><code>pos:'right-center'</code></td>
+                                            <td>Centers the dropdown menu on the right.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>.uk-dropdown-center</code></td>
-                                            <td>Centers the dropdown menu.</td>
+                                            <td><code>pos:'right-top'</code></td>
+                                            <td>Aligns the dropdown menu on the top right.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -269,9 +302,9 @@
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
-                            <div class="uk-button-dropdown" data-uk-dropdown>
-                                <button class="uk-button">Flip <i class="uk-icon-caret-down"></i></button>
-                                <div class="uk-dropdown uk-dropdown-flip">
+                            <div class="uk-button-dropdown" data-uk-dropdown="{pos:'bottom-center'}">
+                                <button class="uk-button">Bottom Center <i class="uk-icon-caret-down"></i></button>
+                                <div class="uk-dropdown">
                                     <ul class="uk-nav uk-nav-dropdown">
                                         <li><a href="#">Item</a></li>
                                         <li><a href="#">Another item</a></li>
@@ -284,9 +317,9 @@
                                 </div>
                             </div>
 
-                            <div class="uk-button-dropdown" data-uk-dropdown>
-                                <button class="uk-button">Up <i class="uk-icon-caret-up"></i></button>
-                                <div class="uk-dropdown uk-dropdown-up">
+                            <div class="uk-button-dropdown" data-uk-dropdown="{pos:'top-right'}">
+                                <button class="uk-button">Top Right <i class="uk-icon-caret-up"></i></button>
+                                <div class="uk-dropdown">
                                     <ul class="uk-nav uk-nav-dropdown">
                                         <li><a href="#">Item</a></li>
                                         <li><a href="#">Another item</a></li>
@@ -299,9 +332,24 @@
                                 </div>
                             </div>
 
-                            <div class="uk-button-dropdown" data-uk-dropdown>
-                                <button class="uk-button">Center <i class="uk-icon-caret-down"></i></button>
-                                <div class="uk-dropdown uk-dropdown-center">
+                            <div class="uk-button-dropdown" data-uk-dropdown="{pos:'left-center'}">
+                                <button class="uk-button"><i class="uk-icon-caret-left"></i> Left Center</button>
+                                <div class="uk-dropdown">
+                                    <ul class="uk-nav uk-nav-dropdown">
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-header">Header</li>
+                                        <li><a href="#">Item</a></li>
+                                        <li><a href="#">Another item</a></li>
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#">Separated item</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="uk-button-dropdown" data-uk-dropdown="{pos:'right-top'}">
+                                <button class="uk-button">Right Top <i class="uk-icon-caret-up"></i></button>
+                                <div class="uk-dropdown">
                                     <ul class="uk-nav uk-nav-dropdown">
                                         <li><a href="#">Item</a></li>
                                         <li><a href="#">Another item</a></li>
@@ -316,17 +364,13 @@
 
                             <h3 class="tm-article-subtitle">Markup</h3>
 
-<pre><code>&lt;div class="uk-dropdown uk-dropdown-flip"&gt;
-    ...
-&lt;/div&gt;
+<pre><code>&lt;div data-uk-dropdown="{pos:'bottom-center'}"&gt; ... &lt;/div&gt;
 
-&lt;div class="uk-dropdown uk-dropdown-up"&gt;
-    ...
-&lt;/div&gt;
+&lt;div data-uk-dropdown="{pos:'top-right'}"&gt; ... &lt;/div&gt;
 
-&lt;div class="uk-dropdown uk-dropdown-center"&gt;
-    ...
-&lt;/div&gt;</code></pre>
+&lt;div data-uk-dropdown="{pos:'left-center'}"&gt; ... &lt;/div&gt;
+
+&lt;div data-uk-dropdown="{pos:'right-top'}"&gt; ... &lt;/div&gt;</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -620,6 +664,30 @@
         &lt;/li&gt;
     &lt;/ul&gt;
 &lt;/nav&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="dropdown-blank"><a href="#dropdown-blank" class="uk-link-reset">Dropdown Blank</a></h2>
+
+                            <p>Sometimes you might want to have the functionality of the dropdown but not its styling. In that case just add the <code>.uk-dropdown-blank</code> class instead of <code>.uk-dropdown</code>.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <div class="uk-margin">
+
+                                <div class="uk-button-dropdown" data-uk-dropdown>
+                                    <button class="uk-button">Hover me <i class="uk-icon-caret-down"></i></button>
+                                    <div class="uk-dropdown-blank uk-panel uk-panel-box">
+                                        <h3 class="uk-panel-title">Title</h3>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                    </div>
+                                </div>
+
+                            <p><span class="uk-badge">NOTE</span> In this example we are using a panel from the <a href="panel.html">Panel component</a> to style the dropdown.</p>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code> &lt;div class="uk-dropdown-blank uk-panel uk-panel-box"&gt;...&lt;/div&gt; </code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -1137,6 +1205,7 @@
                             <li><a href="thumbnail.html">Thumbnail</a></li>
                             <li><a href="overlay.html">Overlay</a></li>
                             <li><a href="text.html">Text</a></li>
+                            <li><a href="column.html">Column</a></li>
                             <li><a href="animation.html">Animation</a></li>
                             <li><a href="contrast.html">Contrast</a></li>
                         </ul>
