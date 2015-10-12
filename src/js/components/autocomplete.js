@@ -204,6 +204,8 @@
                 this.input.val(data.value).trigger('change');
             }
 
+            this.value = this.input.val();
+
             this.hide();
         },
 
