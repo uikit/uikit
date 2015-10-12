@@ -323,6 +323,8 @@
                 this.show();
 
                 this.trigger('show.uk.autocomplete');
+            } else {
+                this.hide();
             }
 
             return this;
