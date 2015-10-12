@@ -1,6 +1,6 @@
 # Changelog
 
-### W.I.P.
+### 2.23.0 (October 12, 2015)
 
   - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center (Use ```pos``` property instead)
   - Reworked dropdown component to allow any kind of popovers
