@@ -1,4 +1,4 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.23.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -10,7 +10,8 @@
             'connect'   : false,
             'active'    : 0,
             'animation' : false,
-            'duration'  : 200
+            'duration'  : 200,
+            'swiping'   : true
         },
 
         boot: function() {
@@ -91,11 +92,12 @@
             // init UIkit components
             if (this.options.connect) {
                 this.switcher = UI.switcher(this.element, {
-                    "toggle"    : ">li:not(.uk-tab-responsive)",
-                    "connect"   : this.options.connect,
-                    "active"    : this.options.active,
-                    "animation" : this.options.animation,
-                    "duration"  : this.options.duration
+                    'toggle'    : '>li:not(.uk-tab-responsive)',
+                    'connect'   : this.options.connect,
+                    'active'    : this.options.active,
+                    'animation' : this.options.animation,
+                    'duration'  : this.options.duration,
+                    'swiping'   : this.options.swiping
                 });
             }
 

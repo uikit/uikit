@@ -1,4 +1,4 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.23.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.22.0';
+    UI.version = '2.23.0';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -110,27 +110,30 @@
     })();
 
     // requestAnimationFrame polyfill
-    // https://gist.github.com/paulirish/1579671
-    (function(){
+    //https://github.com/darius/requestAnimationFrame
+    (function() {
 
-        var lastTime = 0;
+        Date.now = Date.now || function() { return new Date().getTime(); };
 
-        global.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || function(callback, element) {
-            var currTime = new Date().getTime();
-            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = global.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
-            lastTime = currTime + timeToCall;
-            return id;
-        };
-
-        if (!global.cancelAnimationFrame) {
-
-            global.cancelAnimationFrame = function(id) {
-                clearTimeout(id);
-            };
+        var vendors = ['webkit', 'moz'];
+        for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+            var vp = vendors[i];
+            window.requestAnimationFrame = window[vp+'RequestAnimationFrame'];
+            window.cancelAnimationFrame = (window[vp+'CancelAnimationFrame']
+                                       || window[vp+'CancelRequestAnimationFrame']);
         }
-
-    })();
+        if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+            || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+            var lastTime = 0;
+            window.requestAnimationFrame = function(callback) {
+                var now = Date.now();
+                var nextTime = Math.max(lastTime + 16, now);
+                return setTimeout(function() { callback(lastTime = nextTime); },
+                                  nextTime - now);
+            };
+            window.cancelAnimationFrame = clearTimeout;
+        }
+    }());
 
     UI.support.touch = (
         ('ontouchstart' in document) ||
@@ -145,7 +148,7 @@
     UI.Utils = {};
 
     UI.Utils.isFullscreen = function() {
-        return document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.fullscreenElement || false;
+        return document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.fullscreenElement || false;
     };
 
     UI.Utils.str2json = function(str, notevil) {
@@ -633,7 +636,7 @@
         UI.component.bootComponents();
 
         // custom scroll observer
-        setInterval((function(){
+        requestAnimationFrame((function(){
 
             var memory = {x: window.pageXOffset, y:window.pageYOffset}, dir;
 
@@ -652,6 +655,8 @@
 
                     UI.$doc.trigger('scrolling.uk.document', [memory]);
                 }
+
+                requestAnimationFrame(fn);
             };
 
             if (UI.support.touch) {
@@ -662,7 +667,7 @@
 
             return fn;
 
-        })(), 15);
+        })());
 
         // run component init functions on dom
         UI.trigger('domready.uk.dom');

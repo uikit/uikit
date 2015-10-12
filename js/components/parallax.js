@@ -1,4 +1,4 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.23.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -25,11 +25,11 @@
 
             scrolltop = UI.$win.scrollTop();
 
-            window.requestAnimationFrame.apply(window, [function(){
+            window.requestAnimationFrame(function(){
                 for (var i=0; i < parallaxes.length; i++) {
                     parallaxes[i].process();
                 }
-            }]);
+            });
         };
 
 
@@ -294,6 +294,10 @@
             h += extra;
             w += Math.ceil(extra * ratio);
 
+            if (w > size.w && h < size.h) {
+                return obj.element.css({'background-size': ''});
+            }
+
             // if element height < parent height (gap underneath)
             if ((w / ratio) < h) {
                 width  = Math.ceil(h * ratio);
@@ -305,7 +309,7 @@
                 height = Math.ceil(w / ratio);
             }
 
-            obj.element.css({'background-size': (width+'px '+height+'px')});
+            element.css({'background-size': (width+'px '+height+'px')});
         };
 
         img.onerror = function(){
@@ -313,7 +317,7 @@
         };
 
         img.onload = function(){
-            size  = {w:img.width, height:img.height};
+            size  = {w:img.width, h:img.height};
             ratio = img.width / img.height;
 
             UI.$win.on("load resize orientationchange", UI.Utils.debounce(function(){
