@@ -4,32 +4,32 @@
 
     var active = false, hoverIdle, flips = {
         'x': {
-            "bottom"        : 'bottom-right',
-            "bottom-right"  : 'bottom',
+            "bottom-left"   : 'bottom-right',
+            "bottom-right"  : 'bottom-left',
             "bottom-center" : 'bottom-right',
-            "top"           : 'top-right',
-            "top-right"     : 'top',
+            "top-left"      : 'top-right',
+            "top-right"     : 'top-left',
             "top-center"    : 'top-right',
-            "left"          : 'right',
-            "left-top"      : 'right-top',
+            "left-top"      : 'right',
+            "left-bottom"   : 'right-bottom',
             "left-center"   : 'right-center',
-            "right"         : 'left',
-            "right-top"     : 'left-top',
+            "right-top"     : 'left',
+            "right-bottom"  : 'left-bottom',
             "right-center"  : 'left-center'
         },
         'y': {
-            "bottom"        : 'top',
+            "bottom-left"   : 'top-left',
             "bottom-right"  : 'top-right',
             "bottom-center" : 'top-center',
-            "top"           : 'bottom',
+            "top-left"      : 'bottom-left',
             "top-right"     : 'bottom-right',
             "top-center"    : 'bottom-center',
-            "left"          : 'top',
-            "left-top"      : 'left-bottom',
-            "left-center"   : 'top',
-            "right"         : 'top',
-            "right-top"     : 'bottom',
-            "right-center"  : 'top'
+            "left-top"      : 'top-left',
+            "left-bottom"   : 'left-bottom',
+            "left-center"   : 'top-left',
+            "right-top"     : 'top-left',
+            "right-bottom"  : 'bottom-left',
+            "right-center"  : 'top-left'
         },
         'xy': {
 
@@ -40,7 +40,7 @@
 
         defaults: {
            'mode'            : 'hover',
-           'pos'             : 'bottom',
+           'pos'             : 'bottom-left',
            'offset'          : 0,
            'remaintime'      : 800,
            'justify'         : false,
@@ -96,7 +96,7 @@
 
             // legacy DEPRECATED!
             if (this.dropdown.hasClass('uk-dropdown-up')) {
-                this.options.pos = 'top';
+                this.options.pos = 'top-left';
             }
             if (this.dropdown.hasClass('uk-dropdown-flip')) {
                 this.options.pos += '-right';
@@ -278,7 +278,7 @@
 
             // reset
             this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack').css({
-                'top':'',
+                'top-left':'',
                 'left':'',
                 'margin-left' :'',
                 'margin-right':''
@@ -300,24 +300,24 @@
                 dpos           = this.options.pos;
 
             var variants =  {
-                    "bottom"        : {top: 0 + pos.height + posoffset, left: 0},
+                    "bottom-left"   : {top: 0 + pos.height + posoffset, left: 0},
                     "bottom-right"  : {top: 0 + pos.height + posoffset, left: 0 + pos.width - width},
                     "bottom-center" : {top: 0 + pos.height + posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "top"           : {top: 0 - height - posoffset, left: 0},
+                    "top-left"      : {top: 0 - height - posoffset, left: 0},
                     "top-right"     : {top: 0 - height - posoffset, left: 0 + pos.width - width},
                     "top-center"    : {top: 0 - height - posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "left"          : {top: 0, left: 0 - width - posoffset},
-                    "left-top"      : {top: 0 + pos.height - height, left: 0 - width - posoffset},
+                    "left-top"          : {top: 0, left: 0 - width - posoffset},
+                    "left-bottom"      : {top: 0 + pos.height - height, left: 0 - width - posoffset},
                     "left-center"   : {top: 0 + pos.height / 2 - height / 2, left: 0 - width - posoffset},
-                    "right"         : {top: 0, left: 0 + pos.width + posoffset},
-                    "right-top"     : {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
+                    "right-top"         : {top: 0, left: 0 + pos.width + posoffset},
+                    "right-bottom"     : {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
                     "right-center"  : {top: 0 + pos.height / 2 - height / 2, left: 0 + pos.width + posoffset}
                 },
                 css = {},
                 pp;
 
             pp = dpos.split('-');
-            css = variants[dpos] ? variants[dpos] : variants['bottom'];
+            css = variants[dpos] ? variants[dpos] : variants['bottom-left'];
 
             // justify dropdown
             if (this.justified && this.justified.length) {
@@ -327,18 +327,18 @@
                 switch(this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
 
                     case "x":
-                        dpos = flips['x'][dpos] || 'right';
+                        dpos = flips['x'][dpos] || 'right-top';
                         break;
                     case "y":
-                        dpos = flips['y'][dpos] || 'top';
+                        dpos = flips['y'][dpos] || 'top-left';
                         break;
                     case "xy":
-                        dpos = flips['xy'][dpos] || 'right-top';
+                        dpos = flips['xy'][dpos] || 'right-bottom';
                         break;
                 }
 
                 pp = dpos.split('-');
-                css = variants[dpos] ? variants[dpos] : variants['bottom'];
+                css = variants[dpos] ? variants[dpos] : variants['bottom-left'];
             }
 
             if (width > boundarywidth) {
