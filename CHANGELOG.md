@@ -1,5 +1,10 @@
 # Changelog
 
+### WIP
+
+  - Added active class to accordion content container
+
+
 ### 2.23.0 (October 12, 2015)
 
   - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center (Use ```pos``` property instead)
