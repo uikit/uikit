@@ -231,6 +231,10 @@
                 filter = filter.split(/,/).map(function(item){ return item.trim(); });
             }
 
+            if (typeof(filter) === 'number') {
+                filter = [filter.toString()];
+            }
+
             var $this = this, children = this.element.children(), elements = {"visible": [], "hidden": []}, visible, hidden;
 
             children.each(function(index){

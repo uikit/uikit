@@ -3,6 +3,7 @@
 ### WIP
 
   - Added active class to accordion content container
+  - Fixed error in grid filter if type is number
 
 
 ### 2.23.0 (October 12, 2015)
