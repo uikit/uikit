@@ -118,6 +118,66 @@
     &lt;input type="checkbox"&gt;
 &lt;/form&gt;</code></pre>
 
+                          <hr class="uk-article-divider">
+
+                          <h2 id="usage"><a href="#usage" class="uk-link-reset">Toggle</a></h2>
+
+                          <p>The form toggle allows you to turn any radio or checkbox in to a interactive toggle switch.</p>
+
+                          <h3 class="tm-article-subtitle">Example</h3>
+
+                          <form class="uk-form uk-margin">
+                            <div class="uk-grid uk-grid-width-1-1 uk-grid-width-medium-1-2">
+                              <div>
+                                <h4>Radio</h4>
+                                <ul class="uk-list uk-list-space">
+                                    <li><label class="uk-input-toggle" for="form-t-r1"><input type="radio" id="form-t-r1" name="radio2" checked><span></span></label> Regular</li>
+                                    <li><label class="uk-input-toggle" for="form-t-r2"><input type="radio" id="form-t-r2" name="radio2" disabled><span></span></label> Disabled</li>
+                                    <li><label class="uk-input-toggle uk-input-toggle-success"><input type="radio" name="radio2"><span></span></label> Success</li>
+                                    <li><label class="uk-input-toggle uk-input-toggle-warning"><input type="radio" name="radio2"><span></span></label> Warning</li>
+                                    <li><label class="uk-input-toggle uk-input-toggle-danger"><input type="radio" name="radio2"><span></span></label> Danger</li>
+                                </ul>
+                              </div>
+                              <div>
+                                <h4>Checkbox</h4>
+                                <ul class="uk-list uk-list-space">
+                                    <li><label class="uk-input-toggle" for="form-t-c1"><input type="checkbox" id="form-t-c1" checked><span></span></label> Regular</li>
+                                    <li><label class="uk-input-toggle" for="form-t-c2"><input type="checkbox" id="form-t-c2" checked disabled><span></span></label> Disabled</li>
+                                    <li><label class="uk-input-toggle uk-input-toggle-success"><input type="checkbox"><span></span></label> Success</li>
+                                    <li><label class="uk-input-toggle uk-input-toggle-warning"><input type="checkbox"><span></span></label> Warning</li>
+                                    <li><label class="uk-input-toggle uk-input-toggle-danger"><input type="checkbox"><span></span></label> Danger</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </form>
+
+                          <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;label class="uk-input-toggle"&gt;
+    &lt;input type="checkbox"&gt;
+    &lt;span&gt;&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+                        <h3 class="tm-article-subtitle">Modifiers</h3>
+                        <p>You can modify the style of the toggle switch by adding a modifier class:</p>
+
+                        <h4>Style</h4>
+                        <ul class="uk-list">
+                          <li><code>.uk-input-toggle-success</code> - To indicate success or a positive state</li>
+                          <li><code>.uk-input-toggle-warning</code> - To indicate a warning or a potentially problematic state</li>
+                          <li><code>.uk-input-toggle-danger</code> - To indicate a dangerous or harmfull state.</li>
+                        </ul>
+
+                        <h4>Size</h4>
+                        <ul class="uk-list uk-list-space">
+                          <li><label class="uk-input-toggle uk-input-toggle-success uk-input-toggle-small"><input type="checkbox" checked><span></span></label> Small <code>.uk-input-toggle-small</code></li>
+                          <li><label class="uk-input-toggle uk-input-toggle-warning uk-input-toggle-medium"><input type="checkbox" checked><span></span></label> Default</li>
+                          <li><label class="uk-input-toggle uk-input-toggle-danger uk-input-toggle-large"><input type="checkbox" checked><span></span></label> Large <code>.uk-input-toggle-large</code></li>
+                        </ul>
+
+<pre><code>&lt;label class="uk-input-toggle uk-input-toggle-danger"&gt;
+  &lt;input type="checkbox"&gt;
+  &lt;span&gt;&lt;/span&gt;
+&lt;/label&gt;</code></pre>
                         </article>
 
                     </div>

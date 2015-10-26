@@ -26,6 +26,32 @@
 @form-advanced-disabled-border:               #ddd;
 @form-advanced-disabled-color:                #aaa;
 
+@form-advanced-toggle-primary-background:       @button-primary-background;
+@form-advanced-toggle-success-background:       @button-success-background;
+@form-advanced-toggle-danger-background:        @button-danger-background;
+@form-advanced-toggle-warning-background:       #faa732;
+@form-advanced-toggle-border-width:             2px;
+@form-advanced-toggle-border:                   solid @form-advanced-toggle-border-width #e6e6e6;
+@form-advanced-toggle-height:                   30px;
+@form-advanced-toggle-width:                    50px;
+@form-advanced-toggle-handle-size:              @form-advanced-toggle-height - (@form-advanced-toggle-border-width * 2);
+@form-advanced-toggle-handle-shift:             @form-advanced-toggle-width - (@form-advanced-toggle-handle-size + (@form-advanced-toggle-border-width * 2));
+@form-advanced-toggle-border-radius:            @form-advanced-toggle-height / 2;
+@form-advanced-toggle-handle-radius:            @form-advanced-toggle-border-radius - @form-advanced-toggle-border-width;
+
+@form-advanced-toggle-small-height:             25px;
+@form-advanced-toggle-small-width:              40px;
+@form-advanced-toggle-small-handle-size:        @form-advanced-toggle-small-height - (@form-advanced-toggle-border-width * 2);
+@form-advanced-toggle-small-handle-shift:       @form-advanced-toggle-small-width - (@form-advanced-toggle-small-handle-size + (@form-advanced-toggle-border-width * 2));
+@form-advanced-toggle-small-border-radius:      @form-advanced-toggle-small-height / 2;
+@form-advanced-toggle-small-handle-radius:      @form-advanced-toggle-small-border-radius - @form-advanced-toggle-border-width;
+
+@form-advanced-toggle-large-height:             40px;
+@form-advanced-toggle-large-width:              70px;
+@form-advanced-toggle-large-handle-size:        @form-advanced-toggle-large-height - (@form-advanced-toggle-border-width * 2);
+@form-advanced-toggle-large-handle-shift:       @form-advanced-toggle-large-width - (@form-advanced-toggle-large-handle-size + (@form-advanced-toggle-border-width * 2));
+@form-advanced-toggle-large-border-radius:      @form-advanced-toggle-large-height / 2;
+@form-advanced-toggle-large-handle-radius:      @form-advanced-toggle-large-border-radius - @form-advanced-toggle-border-width;
 
 /* ========================================================================
    Component: Form advanced
@@ -113,6 +139,137 @@
 .uk-form input[type=radio]:disabled:checked:before { background-color: @form-advanced-disabled-color; }
 .uk-form input[type=checkbox]:disabled:checked:before,
 .uk-form input[type=checkbox]:disabled:indeterminate:before { color: @form-advanced-disabled-color; }
+
+// Toggle switch
+// ========================================================================
+
+.uk-input-toggle {
+  &::selection,
+  ::selection {background:transparent;}
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  input[type=radio],
+  input[type=checkbox] {
+    display: none;
+    &[disabled] + * {opacity: 0.5;}
+  }
+
+  input + * {
+    display: block;
+    box-sizing: border-box;
+    width: @form-advanced-toggle-width;
+    height: @form-advanced-toggle-height;
+    border: @form-advanced-toggle-border;
+    border-radius: @form-advanced-toggle-border-radius;
+    background-color: #fff;
+    content: ' ';
+    cursor: pointer;
+    pointer-events: none;
+    .uk-input-toggle-transition;
+    &:before {
+      content: '';
+      -webkit-transition: 0.3s cubic-bezier(0, 1.1, 1, 1.1);
+      transition: 0.3s cubic-bezier(0, 1.1, 1, 1.1);
+      -webkit-transition-property: background-color, transform;
+      transition-property: background-color, transform;
+      position: absolute;
+      display: block;
+      width: @form-advanced-toggle-handle-size;
+      height: @form-advanced-toggle-handle-size;
+      border-radius: @form-advanced-toggle-handle-radius;
+      background-color: #fff;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  input:checked {
+    + * {
+      background-color: @form-advanced-toggle-primary-background;
+      border-color: @form-advanced-toggle-primary-background;
+      &:before {
+        -webkit-transform: translate3d(@form-advanced-toggle-handle-shift, 0, 0);
+        transform: translate3d(@form-advanced-toggle-handle-shift, 0, 0);
+      }
+    }
+  }
+
+/**
+ * Color styles
+ */
+  &.uk-input-toggle-success {
+    input:checked + * {
+      background-color: @form-advanced-toggle-success-background;
+      border-color: @form-advanced-toggle-success-background;
+    }
+  }
+  &.uk-input-toggle-danger {
+    input:checked + * {
+      background-color: @form-advanced-toggle-danger-background;
+      border-color: @form-advanced-toggle-danger-background;
+    }
+  }
+  &.uk-input-toggle-warning {
+    input:checked + * {
+      background-color: @form-advanced-toggle-warning-background;
+      border-color: @form-advanced-toggle-warning-background;
+    }
+  }
+
+/**
+ * Size styles
+ */
+  &.uk-input-toggle-small {
+    input + * {
+      width: @form-advanced-toggle-small-width;
+      height: @form-advanced-toggle-small-height;
+      border-radius: @form-advanced-toggle-small-border-radius;
+      &:before {
+        width: @form-advanced-toggle-small-handle-size;
+        height: @form-advanced-toggle-small-handle-size;
+        border-radius: @form-advanced-toggle-small-handle-radius;
+      }
+    }
+
+    input:checked {
+      + *:before {
+        -webkit-transform: translate3d(@form-advanced-toggle-small-handle-shift, 0, 0);
+        transform: translate3d(@form-advanced-toggle-small-handle-shift, 0, 0);
+      }
+    }
+  }
+
+  &.uk-input-toggle-large {
+    input + * {
+      width: @form-advanced-toggle-large-width;
+      height: @form-advanced-toggle-large-height;
+      border-radius: @form-advanced-toggle-large-border-radius;
+      &:before {
+        width: @form-advanced-toggle-large-handle-size;
+        height: @form-advanced-toggle-large-handle-size;
+        border-radius: @form-advanced-toggle-large-handle-radius;
+      }
+    }
+
+    input:checked {
+      + *:before {
+        -webkit-transform: translate3d(@form-advanced-toggle-large-handle-shift, 0, 0);
+        transform: translate3d(@form-advanced-toggle-large-handle-shift, 0, 0);
+      }
+    }
+  }
+}
+
+.uk-input-toggle-transition() {
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: background-color, border;
+  transition-property: background-color, border;
+}
+
 
 
 // Hooks
