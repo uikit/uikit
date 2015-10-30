@@ -5,6 +5,7 @@
   - Added active class to accordion content container
   - Added panel body class to panel component
   - Fixed error in grid filter if type is number
+  - Fixed uk-form-icon vertical alignment
 
 
 ### 2.23.0 (October 12, 2015)
