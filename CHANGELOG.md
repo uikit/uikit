@@ -4,6 +4,7 @@
 
   - Added active class to accordion content container
   - Added panel body class to panel component
+  - Added beforeshow.uk.slideshow event
   - Fixed error in grid filter if type is number
   - Fixed uk-form-icon vertical alignment
 

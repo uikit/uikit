@@ -304,7 +304,7 @@
 
                     UI.Utils.checkDisplay(next, '[class*="uk-animation-"]:not(.uk-cover-background.uk-position-cover)');
 
-                    $this.trigger('show.uk.slideshow', [next]);
+                    $this.trigger('show.uk.slideshow', [next, current, $this]);
                 };
 
             $this.applyKenBurns(next);
@@ -316,6 +316,8 @@
 
             current = UI.$(current);
             next    = UI.$(next);
+
+            $this.trigger('beforeshow.uk.slideshow', [next, current, $this]);
 
             Animations[animation].apply(this, [current, next, dir]).then(finalize);
 
