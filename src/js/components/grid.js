@@ -227,12 +227,12 @@
 
             filter = filter || [];
 
-            if (typeof(filter) === 'string') {
-                filter = filter.split(/,/).map(function(item){ return item.trim(); });
+            if (typeof(filter) === 'number') {
+                filter = filter.toString();
             }
 
-            if (typeof(filter) === 'number') {
-                filter = [filter.toString()];
+            if (typeof(filter) === 'string') {
+                filter = filter.split(/,/).map(function(item){ return item.trim(); });
             }
 
             var $this = this, children = this.element.children(), elements = {"visible": [], "hidden": []}, visible, hidden;
