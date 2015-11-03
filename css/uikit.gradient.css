@@ -1197,6 +1197,11 @@ iframe {
 .uk-panel-teaser {
   margin-bottom: 15px;
 }
+/* Sub-object: `uk-panel-body`
+ ========================================================================== */
+.uk-panel-body {
+  padding: 15px;
+}
 /* Modifier: `uk-panel-box`
  ========================================================================== */
 .uk-panel-box {
@@ -3461,7 +3466,7 @@ select.uk-form-width-mini {
   position: absolute;
   top: 50%;
   width: 30px;
-  margin-top: -8px;
+  margin-top: -7px;
   font-size: 14px;
   color: #999999;
   text-align: center;

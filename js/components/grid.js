@@ -228,6 +228,10 @@
 
             filter = filter || [];
 
+            if (typeof(filter) === 'number') {
+                filter = filter.toString();
+            }
+
             if (typeof(filter) === 'string') {
                 filter = filter.split(/,/).map(function(item){ return item.trim(); });
             }

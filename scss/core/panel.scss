@@ -87,6 +87,8 @@ $panel-divider-gutter-large:                     35px !default;
 $panel-divider-border:                           #ddd !default;
 $panel-divider-border-width:                     1px !default;
 
+$panel-body-padding:                             $panel-box-padding !default;
+
 
 /* ========================================================================
    Component: Panel
@@ -160,6 +162,12 @@ $panel-divider-border-width:                     1px !default;
  ========================================================================== */
 
 .uk-panel-teaser { margin-bottom: $panel-teaser-margin-bottom; }
+
+
+/* Sub-object: `uk-panel-body`
+ ========================================================================== */
+
+.uk-panel-body { padding: $panel-body-padding; }
 
 
 /* Modifier: `uk-panel-box`
