@@ -503,6 +503,14 @@
 
             next.css('opacity', 1);
 
+            // for plain text content slides - looks smoother
+            if (!(next.data('cover') || next.data('placeholder'))) {
+
+                next.css('opacity', 1).one(UI.support.animation.end, function() {
+                    next.removeClass('uk-slideshow-fade-in');
+                }).addClass('uk-slideshow-fade-in');
+            }
+
             current.one(UI.support.animation.end, function() {
 
                 current.removeClass('uk-slideshow-fade-out');
