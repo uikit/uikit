@@ -4,6 +4,7 @@
 
   - Added active class to accordion content container
   - Added panel body class to panel component
+  - Added modal blank class to modal component
   - Added beforeshow.uk.slideshow event
   - Added uk-slideshow-fade-in class
   - Fixed error in grid filter if type is number
