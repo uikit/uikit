@@ -8,6 +8,7 @@
   - Added beforeshow.uk.slideshow event
   - Added uk-slideshow-fade-in class
   - Added uk-contrast support for tabs component
+  - Updated parallax background-image behaviour
   - Fixed error in grid filter if type is number
   - Fixed uk-form-icon vertical alignment
 
