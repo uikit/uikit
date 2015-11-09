@@ -342,14 +342,15 @@
                     }
 
                     if (fdpos) {
+
                         pp  = fdpos.split('-');
                         css = variants[fdpos] ? variants[fdpos] : variants['bottom-left'];
-                    }
 
-                    // check flipped
-                    if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
-                        pp  = dpos.split('-');
-                        css = variants[dpos] ? variants[dpos] : variants['bottom-left'];
+                        // check flipped
+                        if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
+                            pp  = dpos.split('-');
+                            css = variants[dpos] ? variants[dpos] : variants['bottom-left'];
+                        }
                     }
                 }
             }
