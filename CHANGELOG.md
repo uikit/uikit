@@ -10,6 +10,7 @@
   - Added uk-slideshow-fade-in class
   - Added uk-contrast support for tabs component
   - Updated parallax background-image behaviour
+  - Updated sticky behaviour on resize
   - Fixed error in grid filter if type is number
   - Fixed uk-form-icon vertical alignment
 
