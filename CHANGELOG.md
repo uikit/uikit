@@ -6,6 +6,7 @@
   - Added panel body class to panel component
   - Added modal blank class to modal component
   - Added beforeshow.uk.slideshow event
+  - Added preventflip option to dropdown component
   - Added uk-slideshow-fade-in class
   - Added uk-contrast support for tabs component
   - Updated parallax background-image behaviour
