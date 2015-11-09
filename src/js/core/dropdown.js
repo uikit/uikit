@@ -327,20 +327,30 @@
 
                 if (this.options.preventflip !== true) {
 
+                    var fdpos;
+
                     switch(this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
                         case "x":
-                            if(this.options.preventflip !=='x') dpos = flips['x'][dpos] || 'right-top';
+                            if(this.options.preventflip !=='x') fdpos = flips['x'][dpos] || 'right-top';
                             break;
                         case "y":
-                            if(this.options.preventflip !=='y') dpos = flips['y'][dpos] || 'top-left';
+                            if(this.options.preventflip !=='y') fdpos = flips['y'][dpos] || 'top-left';
                             break;
                         case "xy":
-                            if(!this.options.preventflip) dpos = flips['xy'][dpos] || 'right-bottom';
+                            if(!this.options.preventflip) fdpos = flips['xy'][dpos] || 'right-bottom';
                             break;
                     }
 
-                    pp = dpos.split('-');
-                    css = variants[dpos] ? variants[dpos] : variants['bottom-left'];
+                    if (fdpos) {
+                        pp  = fdpos.split('-');
+                        css = variants[fdpos] ? variants[fdpos] : variants['bottom-left'];
+                    }
+
+                    // check flipped
+                    if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
+                        pp  = dpos.split('-');
+                        css = variants[dpos] ? variants[dpos] : variants['bottom-left'];
+                    }
                 }
             }
 
@@ -360,7 +370,7 @@
                axis += "x";
             }
 
-            if (top < 0 || ((top - UI.$win.scrollTop())+height) > window.innerHeight) {
+            if ((top - UI.$win.scrollTop()) < 0 || ((top - UI.$win.scrollTop())+height) > window.innerHeight) {
                axis += "y";
             }
 
