@@ -185,7 +185,8 @@
 
         update: function(percent) {
 
-            var css        = {'transform':''},
+            var $this      = this,
+                css        = {'transform':''},
                 compercent = percent * (1 - (this.velocity - (this.velocity * percent))),
                 opts, val;
 
@@ -236,6 +237,12 @@
 
                     // bg image
                     case "bg":
+
+                        // don't move if image height is too small
+                        if ($this.element.data('bgsize') && ($this.element.data('bgsize').h + val - window.innerHeight) < 0) {
+                            break;
+                        }
+
                         css['background-position'] = '50% '+val+'px';
                         break;
                     case "bgp":
@@ -300,16 +307,23 @@
 
             // if element height < parent height (gap underneath)
             if ((w / ratio) < h) {
+
                 width  = Math.ceil(h * ratio);
                 height = h;
 
+                if (h > window.innerHeight) {
+                    width  = width * 1.2;
+                    height = height * 1.2;
+                }
+
             // element width < parent width (gap to right)
             } else {
+
                 width  = w;
                 height = Math.ceil(w / ratio);
             }
 
-            element.css({'background-size': (width+'px '+height+'px')});
+            element.css({'background-size': (width+'px '+height+'px')}).data('bgsize', {w:width,h:height});
         };
 
         img.onerror = function(){

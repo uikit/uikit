@@ -53,7 +53,7 @@
                 if (!sticked.length) return;
 
                 for (var i = 0; i < sticked.length; i++) {
-                    sticked[i].reset(true);
+                    //sticked[i].reset(true);
                     sticked[i].self.computeWrapper();
                 }
 
@@ -134,7 +134,8 @@
 
                     this.top = top;
                 },
-                reset         : function(force) {
+
+                reset: function(force) {
 
                     this.calcTop();
 

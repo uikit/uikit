@@ -52,6 +52,15 @@ $contrast-subnav-pill-hover-color:               $contrast-inverted-color !defau
 $contrast-subnav-pill-active-background:         $contrast-color !default;
 $contrast-subnav-pill-active-color:              $contrast-inverted-color !default;
 
+$contrast-tab-border:                            fade($contrast-color, 20%) !default;
+$contrast-tab-color:                             fade($contrast-color, 70%) !default;
+$contrast-tab-hover-border:                      fade($contrast-color, 70%) !default;
+$contrast-tab-hover-background:                  fade($contrast-color, 70%) !default;
+$contrast-tab-hover-color:                       $contrast-inverted-color !default;
+$contrast-tab-active-border:                     fade($contrast-color, 20%) !default;
+$contrast-tab-active-background:                 $contrast-color !default;
+$contrast-tab-active-color:                      $contrast-inverted-color !default;
+
 $contrast-list-line-border:                      fade($contrast-color, 20%) !default;
 
 $contrast-form-border:                           fade($contrast-color, 80%) !default;
@@ -242,6 +251,49 @@ $contrast-text-primary-color:                    #2d7091 !default;
     }
 
 
+    // Tab
+    // ========================================================================
+
+    .uk-tab { border-bottom-color: $contrast-tab-border; }
+
+    .uk-tab > li > a {
+        border-color: transparent;
+        color: $contrast-tab-color;
+        @include hook-contrast-tab();
+    }
+
+    .uk-tab > li > a:hover,
+    .uk-tab > li > a:focus,
+    .uk-tab > li.uk-open > a {
+        border-color: $contrast-tab-hover-border;
+        background: $contrast-tab-hover-background;
+        color: $contrast-tab-hover-color;
+        text-decoration: none;
+        @include hook-contrast-tab-hover();
+    }
+
+    /* Active */
+    .uk-tab > li.uk-active > a {
+        border-color: $contrast-tab-active-border;
+        border-bottom-color: transparent;
+        background: $contrast-tab-active-background;
+        color: $contrast-tab-active-color;
+        @include hook-contrast-tab-active();
+    }
+
+    //
+    // Tab center
+    //
+
+    .uk-tab-center { border-bottom-color: $contrast-tab-border; }
+
+    //
+    // Tab grid
+    //
+
+    .uk-tab-grid:before { border-top-color: $contrast-tab-border; }
+
+
     // List
     // ========================================================================
 
@@ -415,6 +467,10 @@ $contrast-text-primary-color:                    #2d7091 !default;
 // @mixin hook-contrast-subnav-line-divider(){}
 // @mixin hook-contrast-subnav-pill-hover(){}
 // @mixin hook-contrast-subnav-pill-active(){}
+
+// @mixin hook-contrast-tab(){}
+// @mixin hook-contrast-tab-hover(){}
+// @mixin hook-contrast-tab-active(){}
 
 // @mixin hook-contrast-list-line(){}
 

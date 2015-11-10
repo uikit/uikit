@@ -52,6 +52,15 @@
 @contrast-subnav-pill-active-background:        @contrast-color;
 @contrast-subnav-pill-active-color:             @contrast-inverted-color;
 
+@contrast-tab-border:                           fade(@contrast-color, 20%);
+@contrast-tab-color:                            fade(@contrast-color, 70%);
+@contrast-tab-hover-border:                     fade(@contrast-color, 70%);
+@contrast-tab-hover-background:                 fade(@contrast-color, 70%);
+@contrast-tab-hover-color:                      @contrast-inverted-color;
+@contrast-tab-active-border:                    fade(@contrast-color, 20%);
+@contrast-tab-active-background:                @contrast-color;
+@contrast-tab-active-color:                     @contrast-inverted-color;
+
 @contrast-list-line-border:                     fade(@contrast-color, 20%);
 
 @contrast-form-border:                          fade(@contrast-color, 80%);
@@ -242,6 +251,49 @@
     }
 
 
+    // Tab
+    // ========================================================================
+
+    .uk-tab { border-bottom-color: @contrast-tab-border; }
+
+    .uk-tab > li > a {
+        border-color: transparent;
+        color: @contrast-tab-color;
+        .hook-contrast-tab;
+    }
+
+    .uk-tab > li > a:hover,
+    .uk-tab > li > a:focus,
+    .uk-tab > li.uk-open > a {
+        border-color: @contrast-tab-hover-border;
+        background: @contrast-tab-hover-background;
+        color: @contrast-tab-hover-color;
+        text-decoration: none;
+        .hook-contrast-tab-hover;
+    }
+
+    /* Active */
+    .uk-tab > li.uk-active > a {
+        border-color: @contrast-tab-active-border;
+        border-bottom-color: transparent;
+        background: @contrast-tab-active-background;
+        color: @contrast-tab-active-color;
+        .hook-contrast-tab-active;
+    }
+
+    //
+    // Tab center
+    //
+
+    .uk-tab-center { border-bottom-color: @contrast-tab-border; }
+
+    //
+    // Tab grid
+    //
+
+    .uk-tab-grid:before { border-top-color: @contrast-tab-border; }
+
+
     // List
     // ========================================================================
 
@@ -415,6 +467,10 @@
 .hook-contrast-subnav-line-divider() {}
 .hook-contrast-subnav-pill-hover() {}
 .hook-contrast-subnav-pill-active() {}
+
+.hook-contrast-tab() {}
+.hook-contrast-tab-hover() {}
+.hook-contrast-tab-active() {}
 
 .hook-contrast-list-line() {}
 
