@@ -19,21 +19,23 @@
                 color: #444;
             }
 
+            body { padding-bottom 20px; }
+
         </style>
         <script type="text/javascript">
 
             jQuery(function($){
-
-                $("body").on('start.uk.sortable', function (e, sortable, el) {
-                    console.log('start.uk.sortable', sortable, el);
-                }).on('move.uk.sortable', function(e, sortable) {
-                    console.log('move.uk.sortable', sortable);
-                }).on('change.uk.sortable', function(e, sortable, el, mode) {
-                    console.log('change.uk.sortable', sortable, el, mode);
-                }).on('stop.uk.sortable', function(e, sortable) {
-                    console.log('stop.uk.sortable', sortable);
-                    console.log( sortable.serialize() );
-                });
+                //
+                // $("body").on('start.uk.sortable', function (e, sortable, el) {
+                //     console.log('start.uk.sortable', sortable, el);
+                // }).on('move.uk.sortable', function(e, sortable) {
+                //     console.log('move.uk.sortable', sortable);
+                // }).on('change.uk.sortable', function(e, sortable, el, mode) {
+                //     console.log('change.uk.sortable', sortable, el, mode);
+                // }).on('stop.uk.sortable', function(e, sortable) {
+                //     console.log('stop.uk.sortable', sortable);
+                //     console.log( sortable.serialize() );
+                // });
             });
 
         </script>
@@ -135,6 +137,80 @@
                     <li><a href="#">Item</a></li>
                     <li><a href="#">Item</a></li>
                     <li><a href="#">Item</a></li>
+                </ul>
+
+            </div>
+
+            <h2>Nested Lists</h2>
+
+            <div>
+
+                <ul class="uk-grid uk-grid-width-1-3 uk-sortable" data-uk-sortable="{group:'main'}" test="1">
+                    <li>
+                        <div class="uk-panel uk-panel-box">
+                            <ul class="uk-sortable" data-uk-sortable="{group:'inner'}" test="2">
+                                <li>List 1.1</li>
+                                <li>List 1.2</li>
+                                <li>List 1.3</li>
+                                <li>List 1.4</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="uk-panel uk-panel-box">
+                            <ul class="uk-sortable" data-uk-sortable="{group:'inner'}" test="2">
+                                <li>List 1.1</li>
+                                <li>List 1.2</li>
+                                <li>List 1.3</li>
+                                <li>List 1.4</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="uk-grid uk-grid-width-1-3 uk-sortable" data-uk-sortable="{group:'main'}" test="1">
+                    <li>
+                        <div class="uk-panel uk-panel-box">
+                            <ul class="uk-sortable" data-uk-sortable="{group:'inner'}">
+                                <li>List 2.1</li>
+                                <li>List 2.2</li>
+                                <li>List 2.3</li>
+                                <li>List 2.4</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="uk-panel uk-panel-box">
+                            <ul class="uk-sortable" data-uk-sortable="{group:'inner'}">
+                                <li>List 2.1</li>
+                                <li>List 2.2</li>
+                                <li>List 2.3</li>
+                                <li>List 2.4</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="uk-grid uk-grid-width-1-3 uk-sortable" data-uk-sortable="{group:'main'}" test="1">
+
+                    <li>
+                        <div class="uk-panel uk-panel-box">
+                            <ul class="uk-sortable" data-uk-sortable="{group:'inner'}">
+                                <li>List 3.1</li>
+                                <li>List 3.2</li>
+                                <li>List 3.3</li>
+                                <li>List 3.4</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="uk-panel uk-panel-box">
+                            <ul class="uk-sortable" data-uk-sortable="{group:'inner'}">
+                                <li>List 3.1</li>
+                                <li>List 3.2</li>
+                                <li>List 3.3</li>
+                                <li>List 3.4</li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
 
             </div>
