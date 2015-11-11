@@ -11,6 +11,7 @@
   - Added uk-contrast support for tabs component
   - Updated parallax background-image behaviour
   - Updated sticky behaviour on resize
+  - Updated sortable js improved to allow nested groups
   - Fixed error in grid filter if type is number
   - Fixed uk-form-icon vertical alignment
 
