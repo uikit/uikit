@@ -7,7 +7,7 @@
     }
 
     if (typeof define == "function" && define.amd) {
-        define("uikit-timepicker", ["uikit"], function(){
+        define("uikit-search", ["uikit"], function(){
             return component || addon(UIkit);
         });
     }
