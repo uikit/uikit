@@ -81,6 +81,10 @@
 @form-danger-background:                        #fff7f8;
 @form-danger-color:                             #d85030;
 
+@form-warning-border:                           #f2be58;
+@form-warning-background:                       #fff7f8;
+@form-warning-color:                            #d89b27;
+
 @form-success-border:                           #8ec73b;
 @form-success-background:                       #fafff2;
 @form-success-color:                            #659f13;
@@ -429,6 +433,17 @@ input:not([type]).uk-form-large {
 }
 
 /*
+ * Warning state
+ */
+
+.uk-form-warning {
+    border-color: @form-warning-border !important;
+    background: @form-warning-background !important;
+    color: @form-warning-color !important;
+    .hook-form-warning;
+}
+
+/*
  * Success state
  */
 
@@ -631,6 +646,7 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .hook-form-disabled() {}
 .hook-form-legend() {}
 .hook-form-danger() {}
+.hook-form-warning() {}
 .hook-form-success() {}
 .hook-form-blank() {}
 .hook-form-blank-focus() {}

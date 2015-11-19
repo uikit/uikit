@@ -57,7 +57,6 @@
             this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
             this.element.html(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
 
-
             this.element.data("formPassword", this);
         }
     });

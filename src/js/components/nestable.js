@@ -47,7 +47,7 @@
             group           : false,
             maxDepth        : 10,
             threshold       : 20,
-            idlethreshold   : 10,
+            idlethreshold   : 10
         },
 
         boot: function() {

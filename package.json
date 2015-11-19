@@ -1,6 +1,6 @@
 {
-  "name": "uikit-extended",
-  "title": "UIkit Extended",
+  "name": "uikit",
+  "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "2.23.0",
   "homepage": "http://www.getuikit.com",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/JeremiahGeronimo/uikit-extended"
+    "url": "git://github.com/uikit/uikit"
   },
   "licenses": [
     {

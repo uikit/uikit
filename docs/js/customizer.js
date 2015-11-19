@@ -36,7 +36,7 @@ jQuery(function($) {
             for (var i = 0; i < data.length; i++) {
 
                 data[i].url    = "../"+data[i].url;
-                data[i].config = "../"+data[i].config
+                data[i].config = "../"+data[i].config;
 
                 coptions.styles.push(data[i]);
 
