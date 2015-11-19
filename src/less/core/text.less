@@ -17,6 +17,7 @@
 
 @text-muted-color:                              #999;
 @text-primary-color:                            #2d7091;
+@text-secondary-color:                          #3ea6cd;
 @text-success-color:                            #659f13;
 @text-warning-color:                            #e28327;
 @text-danger-color:                             #d85030;
@@ -45,7 +46,12 @@
 /* Weight modifiers
  ========================================================================== */
 
-.uk-text-bold { font-weight: bold; }
+.uk-text-thin { font-weight: 100; }
+.uk-text-light { font-weight: 300; }
+.uk-text-regular { font-weight: 400; }
+.uk-text-medium { font-weight: 500; }
+.uk-text-semibold { font-weight: 600; }
+.uk-text-bold { font-weight: 700; }
 
 
 /* Color modifiers
@@ -53,6 +59,7 @@
 
 .uk-text-muted { color: @text-muted-color !important; }
 .uk-text-primary { color: @text-primary-color !important; }
+.uk-text-secondary { color: @text-secondary-color !important; }
 .uk-text-success { color: @text-success-color !important; }
 .uk-text-warning { color: @text-warning-color !important; }
 .uk-text-danger { color: @text-danger-color !important; }
@@ -74,16 +81,27 @@
 /* Only tablets portrait and smaller */
 @media (max-width: @breakpoint-medium-max) {
 
-    .uk-text-center-medium { text-align: center !important; }
-    .uk-text-left-medium { text-align: left !important; }
+  .uk-text-left-medium { text-align: left !important; }
+  .uk-text-right-medium { text-align: right !important; }
+  .uk-text-center-medium { text-align: center !important; }
 
 }
 
 /* Phone landscape and smaller */
 @media (max-width: @breakpoint-small-max) {
 
-    .uk-text-center-small { text-align: center !important; }
-    .uk-text-left-small { text-align: left !important; }
+  .uk-text-left-small { text-align: left !important; }
+  .uk-text-right-small { text-align: right !important; }
+  .uk-text-center-small { text-align: center !important; }
+
+}
+
+/* Phone portrait and smaller */
+@media (max-width: @breakpoint-mini-max) {
+
+  .uk-text-left-mini { text-align: left !important; }
+  .uk-text-right-mini { text-align: right !important; }
+  .uk-text-center-mini { text-align: center !important; }
 
 }
 

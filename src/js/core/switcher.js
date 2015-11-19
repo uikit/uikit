@@ -185,7 +185,6 @@
                             UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;
-
                         });
                 });
             }

@@ -41,7 +41,7 @@
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-block {
+    .uk-block:not(.uk-block-preserve) {
         padding-top: @block-padding-vertical-large;
         padding-bottom: @block-padding-vertical-large;
     }
@@ -108,7 +108,7 @@
  */
 
 .uk-block-default {
-    background: @block-default-background;
+    background-color: @block-default-background;
     .hook-block-default;
 }
 
@@ -117,7 +117,7 @@
  */
 
 .uk-block-muted {
-    background: @block-muted-background;
+    background-color: @block-muted-background;
     .hook-block-muted;
 }
 
@@ -126,7 +126,7 @@
  */
 
 .uk-block-primary {
-    background: @block-primary-background;
+    background-color: @block-primary-background;
     .hook-block-primary;
 }
 
@@ -135,7 +135,7 @@
  */
 
 .uk-block-secondary {
-    background: @block-secondary-background;
+    background-color: @block-secondary-background;
     .hook-block-secondary;
 }
 

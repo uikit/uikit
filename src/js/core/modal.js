@@ -307,7 +307,7 @@
 
         var modal = UI.modal.dialog(([
             text ? '<div class="uk-modal-content uk-form">'+String(text)+'</div>':'',
-            '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
+            '<div class="uk-margin-top-small uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
             '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-ok">'+options.labels.Ok+'</button></div>'
         ]).join(""), options),
 

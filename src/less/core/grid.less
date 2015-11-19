@@ -49,8 +49,11 @@
 @grid-gutter-large-horizontal:                  35px;
 @grid-gutter-large-vertical:                    35px;
 
-@grid-gutter-small-horizontal:                  10px;
-@grid-gutter-small-vertical:                    10px;
+@grid-gutter-small-horizontal:                  15px;
+@grid-gutter-small-vertical:                    15px;
+
+@grid-gutter-mini-horizontal:                   5px;
+@grid-gutter-mini-vertical:                     5px;
 
 @grid-divider-border:                           #ddd;
 @grid-divider-border-width:                     1px;
@@ -161,6 +164,19 @@
 .uk-grid-collapse > * > .uk-panel + .uk-panel { margin-top: 0; }
 
 /*
+ * Mini gutter
+ */
+
+/* Horizontal */
+.uk-grid-mini { margin-left: -@grid-gutter-mini-horizontal; }
+.uk-grid-mini > * { padding-left: @grid-gutter-mini-horizontal; }
+
+/* Vertical */
+.uk-grid-mini + .uk-grid-mini,
+.uk-grid-mini > .uk-grid-margin,
+.uk-grid-mini > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-mini-vertical; }
+
+/*
  * Small gutter
  */
 
@@ -185,6 +201,19 @@
 .uk-grid-medium + .uk-grid-medium,
 .uk-grid-medium > .uk-grid-margin,
 .uk-grid-medium > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
+
+/*
+ * Large gutter
+ */
+
+/* Horizontal */
+.uk-grid-large { margin-left: -@grid-gutter-large-horizontal; }
+.uk-grid-large > * { padding-left: @grid-gutter-large-horizontal; }
+
+/* Vertical */
+.uk-grid-large + .uk-grid-large,
+.uk-grid-large > .uk-grid-margin,
+.uk-grid-large > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
 
 
 /* Modifier: `uk-grid-divider`
@@ -304,6 +333,9 @@
 .uk-grid-width-1-4 > * { width: 25%; }
 .uk-grid-width-1-5 > * { width: 20%; }
 .uk-grid-width-1-6 > * { width: 16.666%; }
+.uk-grid-width-1-7 > * { width: 14.2857%; }
+.uk-grid-width-1-8 > * { width: 12.5%; }
+.uk-grid-width-1-9 > * { width: 11.111%; }
 .uk-grid-width-1-10 > * { width: 10%; }
 
 /* Phone landscape and bigger */
@@ -314,6 +346,9 @@
     .uk-grid-width-small-1-4 > * { width: 25%; }
     .uk-grid-width-small-1-5 > * { width: 20%; }
     .uk-grid-width-small-1-6 > * { width: 16.666%; }
+    .uk-grid-width-small-1-7 > * { width: 14.2857%; }
+    .uk-grid-width-small-1-8 > * { width: 12.5%; }
+    .uk-grid-width-small-1-9 > * { width: 11.111%; }
     .uk-grid-width-small-1-10 > * { width: 10%; }
 
 }
@@ -326,6 +361,9 @@
     .uk-grid-width-medium-1-4 > * { width: 25%; }
     .uk-grid-width-medium-1-5 > * { width: 20%; }
     .uk-grid-width-medium-1-6 > * { width: 16.666%; }
+    .uk-grid-width-medium-1-7 > * { width: 14.2857%; }
+    .uk-grid-width-medium-1-8 > * { width: 12.5%; }
+    .uk-grid-width-medium-1-9 > * { width: 11.111%; }
     .uk-grid-width-medium-1-10 > * { width: 10%; }
 
 }
@@ -338,6 +376,9 @@
     .uk-grid-width-large-1-4 > * { width: 25%; }
     .uk-grid-width-large-1-5 > * { width: 20%; }
     .uk-grid-width-large-1-6 > * { width: 16.666%; }
+    .uk-grid-width-large-1-7 > * { width: 14.2857%; }
+    .uk-grid-width-large-1-8 > * { width: 12.5%; }
+    .uk-grid-width-large-1-9 > * { width: 11.111%; }
     .uk-grid-width-large-1-10 > * { width: 10%; }
 
 }
@@ -350,6 +391,9 @@
     .uk-grid-width-xlarge-1-4 > * { width: 25%; }
     .uk-grid-width-xlarge-1-5 > * { width: 20%; }
     .uk-grid-width-xlarge-1-6 > * { width: 16.666%; }
+    .uk-grid-width-xlarge-1-7 > * { width: 14.2857%; }
+    .uk-grid-width-xlarge-1-8 > * { width: 12.5%; }
+    .uk-grid-width-xlarge-1-9 > * { width: 11.111%; }
     .uk-grid-width-xlarge-1-10 > * { width: 10%; }
 
 }
@@ -374,17 +418,22 @@
 .uk-width-1-2,
 .uk-width-2-4,
 .uk-width-3-6,
+.uk-width-4-8,
 .uk-width-5-10 { width: 50%; }
 
 /* Thirds */
 .uk-width-1-3,
-.uk-width-2-6 { width: 33.333%; }
+.uk-width-2-6,
+.uk-width-3-9 { width: 33.333%; }
 .uk-width-2-3,
-.uk-width-4-6 { width: 66.666%; }
+.uk-width-4-6,
+.uk-width-6-9 { width: 66.666%; }
 
 /* Quarters */
-.uk-width-1-4 { width: 25%; }
-.uk-width-3-4 { width: 75%; }
+.uk-width-1-4,
+.uk-width-2-8 { width: 25%; }
+.uk-width-3-4,
+.uk-width-6-8 { width: 75%; }
 
 /* Fifths */
 .uk-width-1-5,
@@ -399,6 +448,28 @@
 /* Sixths */
 .uk-width-1-6 { width: 16.666%; }
 .uk-width-5-6 { width: 83.333%; }
+
+/* Sevenths */
+.uk-width-1-7 { width: 14.2857%; }
+.uk-width-2-7 { width: 28.5714%; }
+.uk-width-3-7 { width: 42.8571%; }
+.uk-width-4-7 { width: 57.1428%; }
+.uk-width-5-7 { width: 71.4285%; }
+.uk-width-6-7 { width: 85.7142%; }
+
+/* Eighths */
+.uk-width-1-8 { width: 12.5%; }
+.uk-width-3-8 { width: 37.5%; }
+.uk-width-5-8 { width: 62.5%; }
+.uk-width-7-8 { width: 87.5%; }
+
+/* Ninths */
+.uk-width-1-9 { width: 11.111%; }
+.uk-width-2-9 { width: 22.222%; }
+.uk-width-4-9 { width: 44.444%; }
+.uk-width-5-9 { width: 55.555%; }
+.uk-width-7-9 { width: 77.777%; }
+.uk-width-8-9 { width: 88.888%; }
 
 /* Tenths */
 .uk-width-1-10 { width: 10%; }
@@ -416,17 +487,22 @@
     .uk-width-small-1-2,
     .uk-width-small-2-4,
     .uk-width-small-3-6,
+    .uk-width-small-4-8,
     .uk-width-small-5-10 { width: 50%; }
 
     /* Thirds */
     .uk-width-small-1-3,
-    .uk-width-small-2-6 { width: 33.333%; }
+    .uk-width-small-2-6,
+    .uk-width-small-3-9 { width: 33.333%; }
     .uk-width-small-2-3,
-    .uk-width-small-4-6 { width: 66.666%; }
+    .uk-width-small-4-6,
+    .uk-width-small-6-9 { width: 66.666%; }
 
     /* Quarters */
-    .uk-width-small-1-4 { width: 25%; }
-    .uk-width-small-3-4 { width: 75%; }
+    .uk-width-small-1-4,
+    .uk-width-small-2-8 { width: 25%; }
+    .uk-width-small-3-4,
+    .uk-width-small-6-8 { width: 75%; }
 
     /* Fifths */
     .uk-width-small-1-5,
@@ -442,6 +518,28 @@
     .uk-width-small-1-6 { width: 16.666%; }
     .uk-width-small-5-6 { width: 83.333%; }
 
+    /* Sevenths */
+    .uk-width-small-1-7 { width: 14.2857%; }
+    .uk-width-small-2-7 { width: 28.5714%; }
+    .uk-width-small-3-7 { width: 42.8571%; }
+    .uk-width-small-4-7 { width: 57.1428%; }
+    .uk-width-small-5-7 { width: 71.4285%; }
+    .uk-width-small-6-7 { width: 85.7142%; }
+
+    /* Eighths */
+    .uk-width-small-1-8 { width: 12.5%; }
+    .uk-width-small-3-8 { width: 37.5%; }
+    .uk-width-small-5-8 { width: 62.5%; }
+    .uk-width-small-7-8 { width: 87.5%; }
+
+    /* Ninths */
+    .uk-width-small-1-9 { width: 11.111%; }
+    .uk-width-small-2-9 { width: 22.222%; }
+    .uk-width-small-4-9 { width: 44.444%; }
+    .uk-width-small-5-9 { width: 55.555%; }
+    .uk-width-small-7-9 { width: 77.777%; }
+    .uk-width-small-8-9 { width: 88.888%; }
+    
     /* Tenths */
     .uk-width-small-1-10 { width: 10%; }
     .uk-width-small-3-10 { width: 30%; }
@@ -460,17 +558,22 @@
     .uk-width-medium-1-2,
     .uk-width-medium-2-4,
     .uk-width-medium-3-6,
+    .uk-width-medium-4-8,
     .uk-width-medium-5-10 { width: 50%; }
 
     /* Thirds */
     .uk-width-medium-1-3,
-    .uk-width-medium-2-6 { width: 33.333%; }
+    .uk-width-medium-2-6,
+    .uk-width-medium-3-9 { width: 33.333%; }
     .uk-width-medium-2-3,
-    .uk-width-medium-4-6 { width: 66.666%; }
+    .uk-width-medium-4-6,
+    .uk-width-medium-6-9 { width: 66.666%; }
 
     /* Quarters */
-    .uk-width-medium-1-4 { width: 25%; }
-    .uk-width-medium-3-4 { width: 75%; }
+    .uk-width-medium-1-4,
+    .uk-width-medium-2-8 { width: 25%; }
+    .uk-width-medium-3-4,
+    .uk-width-medium-6-8 { width: 75%; }
 
     /* Fifths */
     .uk-width-medium-1-5,
@@ -485,6 +588,28 @@
     /* Sixths */
     .uk-width-medium-1-6 { width: 16.666%; }
     .uk-width-medium-5-6 { width: 83.333%; }
+
+    /* Sevenths */
+    .uk-width-medium-1-7 { width: 14.2857%; }
+    .uk-width-medium-2-7 { width: 28.5714%; }
+    .uk-width-medium-3-7 { width: 42.8571%; }
+    .uk-width-medium-4-7 { width: 57.1428%; }
+    .uk-width-medium-5-7 { width: 71.4285%; }
+    .uk-width-medium-6-7 { width: 85.7142%; }
+
+    /* Eighths */
+    .uk-width-medium-1-8 { width: 12.5%; }
+    .uk-width-medium-3-8 { width: 37.5%; }
+    .uk-width-medium-5-8 { width: 62.5%; }
+    .uk-width-medium-7-8 { width: 87.5%; }
+
+    /* Ninths */
+    .uk-width-medium-1-9 { width: 11.111%; }
+    .uk-width-medium-2-9 { width: 22.222%; }
+    .uk-width-medium-4-9 { width: 44.444%; }
+    .uk-width-medium-5-9 { width: 55.555%; }
+    .uk-width-medium-7-9 { width: 77.777%; }
+    .uk-width-medium-8-9 { width: 88.888%; }
 
     /* Tenths */
     .uk-width-medium-1-10 { width: 10%; }
@@ -504,17 +629,22 @@
     .uk-width-large-1-2,
     .uk-width-large-2-4,
     .uk-width-large-3-6,
+    .uk-width-large-4-8,
     .uk-width-large-5-10 { width: 50%; }
 
     /* Thirds */
     .uk-width-large-1-3,
-    .uk-width-large-2-6 { width: 33.333%; }
+    .uk-width-large-2-6,
+    .uk-width-large-3-9 { width: 33.333%; }
     .uk-width-large-2-3,
-    .uk-width-large-4-6 { width: 66.666%; }
+    .uk-width-large-4-6,
+    .uk-width-large-6-9 { width: 66.666%; }
 
     /* Quarters */
-    .uk-width-large-1-4 { width: 25%; }
-    .uk-width-large-3-4 { width: 75%; }
+    .uk-width-large-1-4,
+    .uk-width-large-2-8 { width: 25%; }
+    .uk-width-large-3-4,
+    .uk-width-large-6-8 { width: 75%; }
 
     /* Fifths */
     .uk-width-large-1-5,
@@ -530,11 +660,104 @@
     .uk-width-large-1-6 { width: 16.666%; }
     .uk-width-large-5-6 { width: 83.333%; }
 
+    /* Sevenths */
+    .uk-width-large-1-7 { width: 14.2857%; }
+    .uk-width-large-2-7 { width: 28.5714%; }
+    .uk-width-large-3-7 { width: 42.8571%; }
+    .uk-width-large-4-7 { width: 57.1428%; }
+    .uk-width-large-5-7 { width: 71.4285%; }
+    .uk-width-large-6-7 { width: 85.7142%; }
+
+    /* Eighths */
+    .uk-width-large-1-8 { width: 12.5%; }
+    .uk-width-large-3-8 { width: 37.5%; }
+    .uk-width-large-5-8 { width: 62.5%; }
+    .uk-width-large-7-8 { width: 87.5%; }
+
+    /* Ninths */
+    .uk-width-large-1-9 { width: 11.111%; }
+    .uk-width-large-2-9 { width: 22.222%; }
+    .uk-width-large-4-9 { width: 44.444%; }
+    .uk-width-large-5-9 { width: 55.555%; }
+    .uk-width-large-7-9 { width: 77.777%; }
+    .uk-width-large-8-9 { width: 88.888%; }
+
     /* Tenths */
     .uk-width-large-1-10 { width: 10%; }
     .uk-width-large-3-10 { width: 30%; }
     .uk-width-large-7-10 { width: 70%; }
     .uk-width-large-9-10 { width: 90%; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    /* Whole */
+    .uk-width-xlarge-1-1 { width: 100%; }
+
+    /* Halves */
+    .uk-width-xlarge-1-2,
+    .uk-width-xlarge-2-4,
+    .uk-width-xlarge-3-6,
+    .uk-width-xlarge-4-8,
+    .uk-width-xlarge-5-10 { width: 50%; }
+
+    /* Thirds */
+    .uk-width-xlarge-1-3,
+    .uk-width-xlarge-2-6,
+    .uk-width-xlarge-3-9 { width: 33.333%; }
+    .uk-width-xlarge-2-3,
+    .uk-width-xlarge-4-6,
+    .uk-width-xlarge-6-9 { width: 66.666%; }
+
+    /* Quarters */
+    .uk-width-xlarge-1-4,
+    .uk-width-xlarge-2-8 { width: 25%; }
+    .uk-width-xlarge-3-4,
+    .uk-width-xlarge-6-8 { width: 75%; }
+
+    /* Fifths */
+    .uk-width-xlarge-1-5,
+    .uk-width-xlarge-2-10 { width: 20%; }
+    .uk-width-xlarge-2-5,
+    .uk-width-xlarge-4-10 { width: 40%; }
+    .uk-width-xlarge-3-5,
+    .uk-width-xlarge-6-10 { width: 60%; }
+    .uk-width-xlarge-4-5,
+    .uk-width-xlarge-8-10 { width: 80%; }
+
+  /* Sixths */
+  .uk-width-xlarge-1-6 { width: 16.666%; }
+  .uk-width-xlarge-5-6 { width: 83.333%; }
+
+    /* Sevenths */
+    .uk-width-xlarge-1-7 { width: 14.2857%; }
+    .uk-width-xlarge-2-7 { width: 28.5714%; }
+    .uk-width-xlarge-3-7 { width: 42.8571%; }
+    .uk-width-xlarge-4-7 { width: 57.1428%; }
+    .uk-width-xlarge-5-7 { width: 71.4285%; }
+    .uk-width-xlarge-6-7 { width: 85.7142%; }
+
+    /* Eighths */
+    .uk-width-xlarge-1-8 { width: 12.5%; }
+    .uk-width-xlarge-3-8 { width: 37.5%; }
+    .uk-width-xlarge-5-8 { width: 62.5%; }
+    .uk-width-xlarge-7-8 { width: 87.5%; }
+
+    /* Ninths */
+    .uk-width-xlarge-1-9 { width: 11.111%; }
+    .uk-width-xlarge-2-9 { width: 22.222%; }
+    .uk-width-xlarge-4-9 { width: 44.444%; }
+    .uk-width-xlarge-5-9 { width: 55.555%; }
+    .uk-width-xlarge-7-9 { width: 77.777%; }
+    .uk-width-xlarge-8-9 { width: 88.888%; }
+
+    /* Tenths */
+    .uk-width-xlarge-1-10 { width: 10%; }
+    .uk-width-xlarge-3-10 { width: 30%; }
+    .uk-width-xlarge-7-10 { width: 70%; }
+    .uk-width-xlarge-9-10 { width: 90%; }
 
 }
 
@@ -561,17 +784,22 @@
     .uk-push-1-2,
     .uk-push-2-4,
     .uk-push-3-6,
+    .uk-push-4-8,
     .uk-push-5-10 { left: 50%; }
 
     /* Thirds */
     .uk-push-1-3,
-    .uk-push-2-6 { left: 33.333%; }
+    .uk-push-2-6,
+    .uk-push-3-9 { left: 33.333%; }
     .uk-push-2-3,
-    .uk-push-4-6 { left: 66.666%; }
+    .uk-push-4-6,
+    .uk-push-6-9 { left: 66.666%; }
 
     /* Quarters */
-    .uk-push-1-4 { left: 25%; }
-    .uk-push-3-4 { left: 75%; }
+    .uk-push-1-4,
+    .uk-push-2-8 { left: 25%; }
+    .uk-push-3-4,
+    .uk-push-6-8 { left: 75%; }
 
     /* Fifths */
     .uk-push-1-5,
@@ -587,6 +815,28 @@
     .uk-push-1-6 { left: 16.666%; }
     .uk-push-5-6 { left: 83.333%; }
 
+    /* Sevenths */
+    .uk-push-1-7 { left: 14.2857%; }
+    .uk-push-2-7 { left: 28.5714%; }
+    .uk-push-3-7 { left: 42.8571%; }
+    .uk-push-4-7 { left: 57.1428%; }
+    .uk-push-5-7 { left: 71.4285%; }
+    .uk-push-6-7 { left: 85.7142%; }
+
+    /* Eighths */
+    .uk-push-1-8 { left: 12.5%; }
+    .uk-push-3-8 { left: 37.5%; }
+    .uk-push-5-8 { left: 62.5%; }
+    .uk-push-7-8 { left: 87.5%; }
+
+    /* Ninths */
+    .uk-push-1-9 { left: 11.111%; }
+    .uk-push-2-9 { left: 22.222%; }
+    .uk-push-4-9 { left: 44.444%; }
+    .uk-push-5-9 { left: 55.555%; }
+    .uk-push-7-9 { left: 77.777%; }
+    .uk-push-8-9 { left: 88.888%; }
+
     /* Tenths */
     .uk-push-1-10 { left: 10%; }
     .uk-push-3-10 { left: 30%; }
@@ -597,41 +847,353 @@
      * Pull
      */
 
-     /* Halves */
-     .uk-pull-1-2,
-     .uk-pull-2-4,
-     .uk-pull-3-6,
-     .uk-pull-5-10 { left: -50%; }
+    /* Halves */
+    .uk-pull-1-2,
+    .uk-pull-2-4,
+    .uk-pull-3-6,
+    .uk-pull-4-8,
+    .uk-pull-5-10 { left: -50%; }
 
-     /* Thirds */
-     .uk-pull-1-3,
-     .uk-pull-2-6 { left: -33.333%; }
-     .uk-pull-2-3,
-     .uk-pull-4-6 { left: -66.666%; }
+    /* Thirds */
+    .uk-pull-1-3,
+    .uk-pull-2-6,
+    .uk-pull-3-9 { left: -33.333%; }
+    .uk-pull-2-3,
+    .uk-pull-4-6,
+    .uk-pull-6-9 { left: -66.666%; }
 
-     /* Quarters */
-     .uk-pull-1-4 { left: -25%; }
-     .uk-pull-3-4 { left: -75%; }
+    /* Quarters */
+    .uk-pull-1-4,
+    .uk-pull-2-8 { left: -25%; }
+    .uk-pull-3-4,
+    .uk-pull-6-8 { left: -75%; }
 
-     /* Fifths */
-     .uk-pull-1-5,
-     .uk-pull-2-10 { left: -20%; }
-     .uk-pull-2-5,
-     .uk-pull-4-10 { left: -40%; }
-     .uk-pull-3-5,
-     .uk-pull-6-10 { left: -60%; }
-     .uk-pull-4-5,
-     .uk-pull-8-10 { left: -80%; }
+    /* Fifths */
+    .uk-pull-1-5,
+    .uk-pull-2-10 { left: -20%; }
+    .uk-pull-2-5,
+    .uk-pull-4-10 { left: -40%; }
+    .uk-pull-3-5,
+    .uk-pull-6-10 { left: -60%; }
+    .uk-pull-4-5,
+    .uk-pull-8-10 { left: -80%; }
 
-     /* Sixths */
-     .uk-pull-1-6 { left: -16.666%; }
-     .uk-pull-5-6 { left: -83.333%; }
+    /* Sixths */
+    .uk-pull-1-6 { left: -16.666%; }
+    .uk-pull-5-6 { left: -83.333%; }
 
-     /* Tenths */
-     .uk-pull-1-10 { left: -10%; }
-     .uk-pull-3-10 { left: -30%; }
-     .uk-pull-7-10 { left: -70%; }
-     .uk-pull-9-10 { left: -90%; }
+  /* Sevenths */
+  .uk-pull-1-7 { left: -14.2857%; }
+  .uk-pull-2-7 { left: -28.5714%; }
+  .uk-pull-3-7 { left: -42.8571%; }
+  .uk-pull-4-7 { left: -57.1428%; }
+  .uk-pull-5-7 { left: -71.4285%; }
+  .uk-pull-6-7 { left: -85.7142%; }
+
+  /* Eighths */
+  .uk-pull-1-8 { left: -12.5%; }
+  .uk-pull-3-8 { left: -37.5%; }
+  .uk-pull-5-8 { left: -62.5%; }
+  .uk-pull-7-8 { left: -87.5%; }
+
+  /* Ninths */
+  .uk-pull-1-9 { left: -11.111%; }
+  .uk-pull-2-9 { left: -22.222%; }
+  .uk-pull-4-9 { left: -44.444%; }
+  .uk-pull-5-9 { left: -55.555%; }
+  .uk-pull-7-9 { left: -77.777%; }
+  .uk-pull-8-9 { left: -88.888%; }
+
+  /* Tenths */
+  .uk-pull-1-10 { left: -10%; }
+  .uk-pull-3-10 { left: -30%; }
+  .uk-pull-7-10 { left: -70%; }
+  .uk-pull-9-10 { left: -90%; }
+
+}
+
+/* 
+ * Works only with `uk-width-large-*`
+ */
+ 
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+  /*
+   * Push
+   */
+
+  /* Halves */
+  .uk-push-large-1-2,
+  .uk-push-large-2-4,
+  .uk-push-large-3-6,
+  .uk-push-large-4-8,
+  .uk-push-large-5-10 { left: 50%; }
+
+  /* Thirds */
+  .uk-push-large-1-3,
+  .uk-push-large-2-6,
+  .uk-push-large-3-9 { left: 33.333%; }
+  .uk-push-large-2-3,
+  .uk-push-large-4-6,
+  .uk-push-large-6-9 { left: 66.666%; }
+
+  /* Quarters */
+  .uk-push-large-1-4,
+  .uk-push-large-2-8 { left: 25%; }
+  .uk-push-large-3-4,
+  .uk-push-large-6-8 { left: 75%; }
+
+  /* Fifths */
+  .uk-push-large-1-5,
+  .uk-push-large-2-10 { left: 20%; }
+  .uk-push-large-2-5,
+  .uk-push-large-4-10 { left: 40%; }
+  .uk-push-large-3-5,
+  .uk-push-large-6-10 { left: 60%; }
+  .uk-push-large-4-5,
+  .uk-push-large-8-10 { left: 80%; }
+
+  /* Sixths */
+  .uk-push-large-1-6 { left: 16.666%; }
+  .uk-push-large-5-6 { left: 83.333%; }
+
+  /* Sevenths */
+  .uk-push-large-1-7 { left: 14.2857%; }
+  .uk-push-large-2-7 { left: 28.5714%; }
+  .uk-push-large-3-7 { left: 42.8571%; }
+  .uk-push-large-4-7 { left: 57.1428%; }
+  .uk-push-large-5-7 { left: 71.4285%; }
+  .uk-push-large-6-7 { left: 85.7142%; }
+
+  /* Eighths */
+  .uk-push-large-1-8 { left: 12.5%; }
+  .uk-push-large-3-8 { left: 37.5%; }
+  .uk-push-large-5-8 { left: 62.5%; }
+  .uk-push-large-7-8 { left: 87.5%; }
+
+  /* Ninths */
+  .uk-push-large-1-9 { left: 11.111%; }
+  .uk-push-large-2-9 { left: 22.222%; }
+  .uk-push-large-4-9 { left: 44.444%; }
+  .uk-push-large-5-9 { left: 55.555%; }
+  .uk-push-large-7-9 { left: 77.777%; }
+  .uk-push-large-8-9 { left: 88.888%; }
+
+  /* Tenths */
+  .uk-push-large-1-10 { left: 10%; }
+  .uk-push-large-3-10 { left: 30%; }
+  .uk-push-large-7-10 { left: 70%; }
+  .uk-push-large-9-10 { left: 90%; }
+
+  /*
+   * Pull
+   */
+
+  /* Halves */
+  .uk-pull-large-1-2,
+  .uk-pull-large-2-4,
+  .uk-pull-large-3-6,
+  .uk-pull-large-4-8,
+  .uk-pull-large-5-10 { left: -50%; }
+
+  /* Thirds */
+  .uk-pull-large-1-3,
+  .uk-pull-large-2-6,
+  .uk-pull-large-3-9 { left: -33.333%; }
+  .uk-pull-large-2-3,
+  .uk-pull-large-4-6,
+  .uk-pull-large-6-9 { left: -66.666%; }
+
+  /* Quarters */
+  .uk-pull-large-1-4,
+  .uk-pull-large-2-8 { left: -25%; }
+  .uk-pull-large-3-4,
+  .uk-pull-large-6-8 { left: -75%; }
+
+  /* Fifths */
+  .uk-pull-large-1-5,
+  .uk-pull-large-2-10 { left: -20%; }
+  .uk-pull-large-2-5,
+  .uk-pull-large-4-10 { left: -40%; }
+  .uk-pull-large-3-5,
+  .uk-pull-large-6-10 { left: -60%; }
+  .uk-pull-large-4-5,
+  .uk-pull-large-8-10 { left: -80%; }
+
+  /* Sixths */
+  .uk-pull-large-1-6 { left: -16.666%; }
+  .uk-pull-large-5-6 { left: -83.333%; }
+
+  /* Sevenths */
+  .uk-pull-large-1-7 { left: -14.2857%; }
+  .uk-pull-large-2-7 { left: -28.5714%; }
+  .uk-pull-large-3-7 { left: -42.8571%; }
+  .uk-pull-large-4-7 { left: -57.1428%; }
+  .uk-pull-large-5-7 { left: -71.4285%; }
+  .uk-pull-large-6-7 { left: -85.7142%; }
+
+  /* Eighths */
+  .uk-pull-large-1-8 { left: -12.5%; }
+  .uk-pull-large-3-8 { left: -37.5%; }
+  .uk-pull-large-5-8 { left: -62.5%; }
+  .uk-pull-large-7-8 { left: -87.5%; }
+
+  /* Ninths */
+  .uk-pull-large-1-9 { left: -11.111%; }
+  .uk-pull-large-2-9 { left: -22.222%; }
+  .uk-pull-large-4-9 { left: -44.444%; }
+  .uk-pull-large-5-9 { left: -55.555%; }
+  .uk-pull-large-7-9 { left: -77.777%; }
+  .uk-pull-large-8-9 { left: -88.888%; }
+
+  /* Tenths */
+  .uk-pull-large-1-10 { left: -10%; }
+  .uk-pull-large-3-10 { left: -30%; }
+  .uk-pull-large-7-10 { left: -70%; }
+  .uk-pull-large-9-10 { left: -90%; }
+
+}
+
+/* 
+ * Large screen and bigger
+ * Works only with `uk-width-xlarge-*`
+ */
+@media (min-width: @breakpoint-xlarge) {
+
+  /*
+   * Push
+   */
+
+  /* Halves */
+  .uk-push-xlarge-1-2,
+  .uk-push-xlarge-2-4,
+  .uk-push-xlarge-3-6,
+  .uk-push-xlarge-4-8,
+  .uk-push-xlarge-5-10 { left: 50%; }
+
+  /* Thirds */
+  .uk-push-xlarge-1-3,
+  .uk-push-xlarge-2-6,
+  .uk-push-xlarge-3-9 { left: 33.333%; }
+  .uk-push-xlarge-2-3,
+  .uk-push-xlarge-4-6,
+  .uk-push-xlarge-6-9 { left: 66.666%; }
+
+  /* Quarters */
+  .uk-push-xlarge-1-4,
+  .uk-push-xlarge-2-8 { left: 25%; }
+  .uk-push-xlarge-3-4,
+  .uk-push-xlarge-6-8 { left: 75%; }
+
+  /* Fifths */
+  .uk-push-xlarge-1-5,
+  .uk-push-xlarge-2-10 { left: 20%; }
+  .uk-push-xlarge-2-5,
+  .uk-push-xlarge-4-10 { left: 40%; }
+  .uk-push-xlarge-3-5,
+  .uk-push-xlarge-6-10 { left: 60%; }
+  .uk-push-xlarge-4-5,
+  .uk-push-xlarge-8-10 { left: 80%; }
+
+  /* Sixths */
+  .uk-push-xlarge-1-6 { left: 16.666%; }
+  .uk-push-xlarge-5-6 { left: 83.333%; }
+
+  /* Sevenths */
+  .uk-push-xlarge-1-7 { left: 14.2857%; }
+  .uk-push-xlarge-2-7 { left: 28.5714%; }
+  .uk-push-xlarge-3-7 { left: 42.8571%; }
+  .uk-push-xlarge-4-7 { left: 57.1428%; }
+  .uk-push-xlarge-5-7 { left: 71.4285%; }
+  .uk-push-xlarge-6-7 { left: 85.7142%; }
+
+  /* Eighths */
+  .uk-push-xlarge-1-8 { left: 12.5%; }
+  .uk-push-xlarge-3-8 { left: 37.5%; }
+  .uk-push-xlarge-5-8 { left: 62.5%; }
+  .uk-push-xlarge-7-8 { left: 87.5%; }
+
+  /* Ninths */
+  .uk-push-xlarge-1-9 { left: 11.111%; }
+  .uk-push-xlarge-2-9 { left: 22.222%; }
+  .uk-push-xlarge-4-9 { left: 44.444%; }
+  .uk-push-xlarge-5-9 { left: 55.555%; }
+  .uk-push-xlarge-7-9 { left: 77.777%; }
+  .uk-push-xlarge-8-9 { left: 88.888%; }
+
+  /* Tenths */
+  .uk-push-xlarge-1-10 { left: 10%; }
+  .uk-push-xlarge-3-10 { left: 30%; }
+  .uk-push-xlarge-7-10 { left: 70%; }
+  .uk-push-xlarge-9-10 { left: 90%; }
+
+  /*
+   * Pull
+   */
+
+  /* Halves */
+  .uk-pull-xlarge-1-2,
+  .uk-pull-xlarge-2-4,
+  .uk-pull-xlarge-3-6,
+  .uk-pull-xlarge-4-8,
+  .uk-pull-xlarge-5-10 { left: -50%; }
+
+  /* Thirds */
+  .uk-pull-xlarge-1-3,
+  .uk-pull-xlarge-2-6,
+  .uk-pull-xlarge-3-9 { left: -33.333%; }
+  .uk-pull-xlarge-2-3,
+  .uk-pull-xlarge-4-6,
+  .uk-pull-xlarge-6-9 { left: -66.666%; }
+
+  /* Quarters */
+  .uk-pull-xlarge-1-4,
+  .uk-pull-xlarge-2-8 { left: -25%; }
+  .uk-pull-xlarge-3-4,
+  .uk-pull-xlarge-6-8 { left: -75%; }
+
+  /* Fifths */
+  .uk-pull-xlarge-1-5,
+  .uk-pull-xlarge-2-10 { left: -20%; }
+  .uk-pull-xlarge-2-5,
+  .uk-pull-xlarge-4-10 { left: -40%; }
+  .uk-pull-xlarge-3-5,
+  .uk-pull-xlarge-6-10 { left: -60%; }
+  .uk-pull-xlarge-4-5,
+  .uk-pull-xlarge-8-10 { left: -80%; }
+
+  /* Sixths */
+  .uk-pull-xlarge-1-6 { left: -16.666%; }
+  .uk-pull-xlarge-5-6 { left: -83.333%; }
+
+  /* Sevenths */
+  .uk-pull-xlarge-1-7 { left: -14.2857%; }
+  .uk-pull-xlarge-2-7 { left: -28.5714%; }
+  .uk-pull-xlarge-3-7 { left: -42.8571%; }
+  .uk-pull-xlarge-4-7 { left: -57.1428%; }
+  .uk-pull-xlarge-5-7 { left: -71.4285%; }
+  .uk-pull-xlarge-6-7 { left: -85.7142%; }
+
+  /* Eighths */
+  .uk-pull-xlarge-1-8 { left: -12.5%; }
+  .uk-pull-xlarge-3-8 { left: -37.5%; }
+  .uk-pull-xlarge-5-8 { left: -62.5%; }
+  .uk-pull-xlarge-7-8 { left: -87.5%; }
+
+  /* Ninths */
+  .uk-pull-xlarge-1-9 { left: -11.111%; }
+  .uk-pull-xlarge-2-9 { left: -22.222%; }
+  .uk-pull-xlarge-4-9 { left: -44.444%; }
+  .uk-pull-xlarge-5-9 { left: -55.555%; }
+  .uk-pull-xlarge-7-9 { left: -77.777%; }
+  .uk-pull-xlarge-8-9 { left: -88.888%; }
+
+  /* Tenths */
+  .uk-pull-xlarge-1-10 { left: -10%; }
+  .uk-pull-xlarge-3-10 { left: -30%; }
+  .uk-pull-xlarge-7-10 { left: -70%; }
+  .uk-pull-xlarge-9-10 { left: -90%; }
 
 }
 

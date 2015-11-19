@@ -7,7 +7,7 @@
     UI.component('stackMargin', {
 
         defaults: {
-            'cls': 'uk-margin-small-top'
+            'cls': 'uk-margin-top-small'
         },
 
         boot: function() {
@@ -148,7 +148,7 @@
     UI.Utils.stackMargin = function(elements, options) {
 
         options = UI.$.extend({
-            'cls': 'uk-margin-small-top'
+            'cls': 'uk-margin-top-small'
         }, options);
 
         options.cls = options.cls;

@@ -68,14 +68,14 @@
  * Checked
  */
 
-.uk-form input[type=radio]:before,
-.uk-form input[type=checkbox]:before {
+.uk-form input[type="radio"]:before,
+.uk-form input[type="checkbox"]:before {
     display: block;
     .hook-form-advanced-checked;
 }
 
 /* Radio */
-.uk-form input[type=radio]:checked:before {
+.uk-form input[type="radio"]:checked:before {
     content: '';
     width: @form-advanced-radio-size;
     height: @form-advanced-radio-size;
@@ -86,8 +86,8 @@
 }
 
 /* Checkbox */
-.uk-form input[type=checkbox]:checked:before,
-.uk-form input[type=checkbox]:indeterminate:before {
+.uk-form input[type="checkbox"]:checked:before,
+.uk-form input[type="checkbox"]:indeterminate:before {
     content: @form-advanced-checkbox-icon;
     font-family: FontAwesome;
     font-size: @form-advanced-checkbox-font-size;
@@ -98,21 +98,21 @@
     .hook-form-advanced-checkbox;
 }
 
-.uk-form input[type=checkbox]:indeterminate:before { content: @form-advanced-checkbox-indeterminate-icon; }
+.uk-form input[type="checkbox"]:indeterminate:before { content: @form-advanced-checkbox-indeterminate-icon; }
 
 /*
  * Disabled
  */
 
-.uk-form input[type=radio]:disabled,
-.uk-form input[type=checkbox]:disabled {
+.uk-form input[type="radio"]:disabled,
+.uk-form input[type="checkbox"]:disabled {
     border-color: @form-advanced-disabled-border;
     .hook-form-advanced-disabled;
 }
 
-.uk-form input[type=radio]:disabled:checked:before { background-color: @form-advanced-disabled-color; }
-.uk-form input[type=checkbox]:disabled:checked:before,
-.uk-form input[type=checkbox]:disabled:indeterminate:before { color: @form-advanced-disabled-color; }
+.uk-form input[type="radio"]:disabled:checked:before { background-color: @form-advanced-disabled-color; }
+.uk-form input[type="checkbox"]:disabled:checked:before,
+.uk-form input[type="checkbox"]:disabled:indeterminate:before { color: @form-advanced-disabled-color; }
 
 
 // Hooks

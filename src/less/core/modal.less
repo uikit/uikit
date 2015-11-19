@@ -46,6 +46,8 @@
 @modal-dialog-large-width-large:                1130px;
 
 @modal-header-margin-bottom:                    15px;
+@modal-header-font-size:                        24px;
+@modal-header-line-height:                      30px;
 
 @modal-footer-margin-top:                       15px;
 
@@ -147,9 +149,9 @@
      * Fit in small screen
      */
 
-    .uk-modal-dialog {
+    .uk-modal-dialog:not(.uk-modal-dialog-small) {
         width: auto;
-        margin: 10px auto;
+        margin: 10px;
     }
 
 }
@@ -244,6 +246,8 @@
 
 .uk-modal-header {
     margin-bottom: @modal-header-margin-bottom;
+    font-size: @modal-header-font-size;
+    line-height: @modal-header-line-height;
     .hook-modal-header;
 }
 

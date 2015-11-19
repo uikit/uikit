@@ -191,6 +191,12 @@
                 xhr.setRequestHeader("Accept", "application/json");
             }
 
+            if (settings.params.headers && Object.keys(settings.params.headers).length) {
+                UI.$.each(settings.params.headers, function (key, value) {
+                    xhr.setRequestHeader(key, value);
+                })
+            }
+
             xhr.onreadystatechange = function() {
 
                 settings.readystatechange(xhr);

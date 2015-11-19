@@ -124,9 +124,12 @@
 /* Modifier: `uk-alert-large`
  ========================================================================== */
 
-.uk-alert-large { padding: @alert-large-padding; }
+.uk-alert-large {
+    padding: @alert-large-padding;
+    .hook-alert-large;
+}
 
-.uk-alert-large > .uk-close:first-child { margin: -10px -10px 0 0; }
+.uk-alert-large > .uk-close:first-child { margin: -(@alert-large-padding - @alert-padding) -(@alert-large-padding - @alert-padding) 0 0; }
 
 
 // Hooks
@@ -138,4 +141,5 @@
 .hook-alert-success() {}
 .hook-alert-warning() {}
 .hook-alert-danger() {}
+.hook-alert-large() {}
 .hook-alert-misc() {}

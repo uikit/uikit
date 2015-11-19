@@ -43,20 +43,24 @@
 @button-height:                                 30px;
 @button-mini-height:                            20px;
 @button-small-height:                           25px;
+@button-medium-height:                          35px;
 @button-large-height:                           40px;
 
 @button-line-height:                            30px;
 @button-mini-line-height:                       20px;
 @button-small-line-height:                      25px;
+@button-medium-line-height:                     35px;
 @button-large-line-height:                      40px;
 
 @button-mini-font-size:                         11px;
 @button-small-font-size:                        12px;
+@button-medium-font-size:                       15px;
 @button-large-font-size:                        16px;
 
 @button-padding-horizontal:                     12px;
 @button-mini-padding-horizontal:                6px;
 @button-small-padding-horizontal:               10px;
+@button-medium-padding-horizontal:              13px;
 @button-large-padding-horizontal:               15px;
 
 @button-font-size:                              1rem;
@@ -80,6 +84,13 @@
 @button-success-hover-color:                    #fff;
 @button-success-active-background:              #72ae41;
 @button-success-active-color:                   #fff;
+
+@button-warning-background:                     #faa732;
+@button-warning-color:                          #fff;
+@button-warning-hover-background:               #ffb52a;
+@button-warning-hover-color:                    #fff;
+@button-warning-active-background:              #f3a231;
+@button-warning-active-color:                   #fff;
 
 @button-danger-background:                      #da314b;
 @button-danger-color:                           #fff;
@@ -241,6 +252,32 @@
 }
 
 /*
+ * Modifier: `uk-button-warning`
+ */
+
+.uk-button-warning {
+  background-color: @button-warning-background;
+  color: @button-warning-color;
+  .hook-button-warning;
+}
+
+/* Hover */
+.uk-button-warning:hover,
+.uk-button-warning:focus {
+  background-color: @button-warning-hover-background;
+  color: @button-warning-hover-color;
+  .hook-button-warning-hover;
+}
+
+/* Active */
+.uk-button-warning:active,
+.uk-button-warning.uk-active {
+  background-color: @button-warning-active-background;
+  color: @button-warning-active-color;
+  .hook-button-warning-active;
+}
+
+/*
  * Modifier: `uk-button-danger`
  */
 
@@ -328,6 +365,13 @@
     font-size: @button-small-font-size;
 }
 
+.uk-button-medium {
+  min-height: @button-medium-height;
+  padding: 0 @button-medium-padding-horizontal;
+  line-height: @button-medium-line-height;
+  font-size: @button-medium-font-size;
+}
+
 .uk-button-large {
     min-height: @button-large-height;
     padding: 0 @button-large-padding-horizontal;
@@ -397,6 +441,9 @@
 .hook-button-success() {}
 .hook-button-success-hover() {}
 .hook-button-success-active() {}
+.hook-button-warning() {}
+.hook-button-warning-hover() {}
+.hook-button-warning-active() {}
 .hook-button-danger() {}
 .hook-button-danger-hover() {}
 .hook-button-danger-active() {}

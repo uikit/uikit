@@ -68,10 +68,13 @@
 @form-legend-line-height:                       30px;
 
 @form-small-height:                             25px;
+@form-medium-height:                            35px;
 @form-large-height:                             40px;
 @form-small-padding:                            3px 3px;
+@form-medium-padding:                           5px 4px;
 @form-large-padding:                            8px 6px;
 @form-small-font-size:                          12px;
+@form-medium-font-size:                         15px;
 @form-large-font-size:                          16px;
 
 @form-danger-border:                            #dc8d99;
@@ -382,10 +385,19 @@ input:not([type]).uk-form-small {
     font-size: @form-small-font-size;
 }
 
+select.uk-form-medium,
+textarea.uk-form-medium,
+input[type].uk-form-medium,
+input:not([type]).uk-form-medium {
+    height: @form-medium-height;
+    padding: @form-medium-padding;
+    font-size: @form-medium-font-size;
+}
+
 select.uk-form-large,
 textarea.uk-form-large,
 input[type].uk-form-large,
-input:not([type]).uk-form-large  {
+input:not([type]).uk-form-large {
     height: @form-large-height;
     padding: @form-large-padding;
     font-size: @form-large-font-size;
