@@ -158,22 +158,22 @@
      * Reset border-radius
      */
 
-    .uk-button-group > .uk-button:not(:first-child):not(:last-child),
-    .uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
+    .uk-button-group > .uk-button:not(:first-of-type):not(:last-of-type),
+    .uk-button-group > div:not(:first-of-type):not(:last-of-type) .uk-button {
         border-left-color: rgba(0,0,0,0.1);
         border-right-color: rgba(0,0,0,0.1);
         border-radius: 0;
     }
 
-    .uk-button-group > .uk-button:first-child,
-    .uk-button-group > div:first-child .uk-button {
+    .uk-button-group > .uk-button:first-of-type,
+    .uk-button-group > div:first-of-type .uk-button {
         border-right-color: rgba(0,0,0,0.1);
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    .uk-button-group > .uk-button:last-child,
-    .uk-button-group > div:last-child .uk-button {
+    .uk-button-group > .uk-button:last-of-type,
+    .uk-button-group > div:last-of-type .uk-button {
         border-left-color: rgba(0,0,0,0.1);
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -183,8 +183,8 @@
      * Collapse border
      */
 
-    .uk-button-group > .uk-button:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -1px; }
+    .uk-button-group > .uk-button:nth-of-type(n+2),
+    .uk-button-group > div:nth-of-type(n+2) .uk-button { margin-left: -1px; }
 
     /*
      * Create position context to superimpose the successor elements border
