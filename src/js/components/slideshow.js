@@ -24,6 +24,7 @@
             animation          : "fade",
             duration           : 500,
             height             : "auto",
+            maxHeight          : false,
             start              : 0,
             autoplay           : false,
             autoplayInterval   : 7000,
@@ -265,6 +266,10 @@
                 this.slides.css('height', '').each(function() {
                     height = Math.max(height, UI.$(this).height());
                 });
+            }
+
+            if (height > this.options.maxHeight && this.options.maxHeight !== false) {
+                height = this.options.maxHeight;
             }
 
             this.container.css('height', height);
