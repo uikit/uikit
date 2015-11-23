@@ -108,8 +108,7 @@
                                 e.preventDefault();
                                 $this.pick('next', true);
                                 break;
-                            case 27:
-                            case 9: // esc, tab
+                            case 27: // esc
                                 $this.hide();
                                 break;
                             default:
@@ -118,7 +117,10 @@
                     }
 
                 },
-                "keyup": trigger
+                "keyup": trigger,
+                "blur": function () {
+                    $this.hide();
+                }
             });
 
             this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
