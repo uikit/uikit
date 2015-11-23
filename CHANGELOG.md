@@ -9,6 +9,7 @@
   - Added preventflip option to dropdown component
   - Added uk-slideshow-fade-in class
   - Added uk-contrast support for tabs component
+  - Updated icon component to FontAwesome to 4.5.0
   - Updated parallax background-image behaviour
   - Updated sticky behaviour on resize
   - Updated default format setting to YYYY-MM-DD (datepicker)
