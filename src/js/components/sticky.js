@@ -88,9 +88,9 @@
 
             if (boundary) {
 
-                if (boundary === true) {
+                if (boundary === true || boundary[0] === '!') {
 
-                    boundary      = this.wrapper.parent();
+                    boundary      = boundary === true ? this.wrapper.parent() : this.wrapper.closest(boundary.substr(1));
                     boundtoparent = true;
 
                 } else if (typeof boundary === "string") {
