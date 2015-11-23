@@ -29,7 +29,7 @@
                 months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
                 weekdays      : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
             },
-            format: "DD.MM.YYYY",
+            format: "YYYY-MM-DD",
             offsettop: 5,
             maxDate: false,
             minDate: false,
