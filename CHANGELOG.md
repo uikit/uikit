@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.24.0 (November 23, 2015)
 
   - Added active class to accordion content container
   - Added panel body class to panel component
