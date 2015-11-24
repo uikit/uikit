@@ -9,7 +9,7 @@
   - Added preventflip option to dropdown component
   - Added uk-slideshow-fade-in class
   - Added uk-contrast support for tabs component
-  - Updated icon component to FontAwesome 4.5.0
+  - Added new hooks to base component
   - Updated parallax background-image behaviour
   - Updated sticky behaviour on resize
   - Updated default format setting to YYYY-MM-DD (datepicker)
@@ -52,7 +52,7 @@
   - Added animation duration variables to sticky
   - Added showup + clsinactive option to sticky component
   - Added swiping option to switcher component
-  - Updated icon component to FontAwesome 4.4.0
+  - Updated icon component to FontAwesome to 4.4.0
   - Updated placeholder default variables for all themes
   - Updated position utility classes
   - Updated sortable and nestable empty selectors

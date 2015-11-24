@@ -131,12 +131,14 @@ a,
     color: @base-link-color;
     text-decoration: @base-link-text-decoration;
     cursor: pointer;
+    .hook-base-link;
 }
 
 a:hover,
 .uk-link:hover {
     color: @base-link-hover-color;
     text-decoration: @base-link-hover-text-decoration;
+    .hook-base-link-hover;
 }
 
 
@@ -308,6 +310,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: @base-heading-font-weight;
     color: @base-heading-color;
     text-transform: @base-heading-text-transform;
+    .hook-base-h;
 }
 
 /*
@@ -401,6 +404,7 @@ hr {
     margin: @base-hr-margin-vertical 0;
     border: 0;
     border-top: @base-hr-border-width solid @base-hr-border;
+    .hook-base-hr;
 }
 
 
@@ -419,6 +423,7 @@ blockquote {
     font-size: @base-blockquote-font-size;
     line-height: @base-blockquote-line-height;
     font-style: @base-blockquote-font-style;
+    .hook-base-blockquote;
 }
 
 
@@ -442,7 +447,7 @@ pre {
 }
 
 
-/* Selection pseudo-element 
+/* Selection pseudo-element
  ========================================================================== */
 
 ::-moz-selection {
@@ -520,12 +525,17 @@ iframe { border: 0; }
 .hook-base-misc;
 
 .hook-base-body() {}
+.hook-base-link() {}
+.hook-base-link-hover() {}
 .hook-base-code() {}
+.hook-base-h() {}
 .hook-base-h1() {}
 .hook-base-h2() {}
 .hook-base-h3() {}
 .hook-base-h4() {}
 .hook-base-h5() {}
 .hook-base-h6() {}
+.hook-base-hr() {}
+.hook-base-blockquote() {}
 .hook-base-pre() {}
 .hook-base-misc() {}
