@@ -428,18 +428,24 @@
                 return true;
             }
 
-            // Prevent dragenter on a child from allowing a dragleave on the container
             var previousCounter = this.dragenterData(elem);
 
             this.dragenterData(elem, previousCounter + 1);
 
+            // Prevent dragenter on a child from allowing a dragleave on the container
             if (previousCounter === 0) {
 
-                var groupOver    = UI.$(elem).parent().data('sortable-group'),
-                    groupCurrent = UI.$(currentlyDraggingElement).data("sortable-group")
+                var currentlist = UI.$(elem).parent(),
+                    startlist   = UI.$(currentlyDraggingElement).data("start-list");
 
-                if ((groupOver ||  groupCurrent) && (groupOver != groupCurrent)) {
-                    return false;
+                if (currentlist[0] !== startlist[0]) {
+
+                    var groupOver    = currentlist.data('sortable-group'),
+                        groupCurrent = UI.$(currentlyDraggingElement).data("sortable-group");
+
+                    if ((groupOver ||  groupCurrent) && (groupOver != groupCurrent)) {
+                        return false;
+                    }
                 }
 
                 UI.$(elem).addClass(this.options.overClass);
