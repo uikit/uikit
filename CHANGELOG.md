@@ -20,6 +20,7 @@
   - Fixed error in grid filter if type is number
   - Fixed uk-form-icon vertical alignment
   - Fixed hover effects on touch devices
+  - Fixed slideset animation on mobile
 
 
 ### 2.23.0 (October 12, 2015)
