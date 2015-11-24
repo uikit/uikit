@@ -10,6 +10,7 @@
   - Added uk-slideshow-fade-in class
   - Added uk-contrast support for tabs component
   - Added new hooks to base component
+  - Added base-noconflict
   - Updated icon component to FontAwesome 4.5.0
   - Updated parallax background-image behaviour
   - Updated sticky behaviour on resize
