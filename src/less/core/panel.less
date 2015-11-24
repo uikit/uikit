@@ -6,6 +6,7 @@
 // Sub-objects:     `uk-panel-title`
 //                  `uk-panel-badge`
 //                  `uk-panel-teaser`
+//                  `uk-panel-body`
 //
 // Modifiers:       `uk-panel-box`
 //                  `uk-panel-box-hover`
@@ -87,6 +88,8 @@
 @panel-divider-border:                          #ddd;
 @panel-divider-border-width:                    1px;
 
+@panel-body-padding:                            @panel-box-padding;
+
 
 /* ========================================================================
    Component: Panel
@@ -160,6 +163,12 @@
  ========================================================================== */
 
 .uk-panel-teaser { margin-bottom: @panel-teaser-margin-bottom; }
+
+
+/* Sub-object: `uk-panel-body`
+ ========================================================================== */
+
+.uk-panel-body { padding: @panel-body-padding; }
 
 
 /* Modifier: `uk-panel-box`

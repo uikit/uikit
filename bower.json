@@ -1,9 +1,14 @@
 {
   "name": "uikit",
-  "version": "2.23.0",
+  "version": "2.24.0",
   "homepage": "http://getuikit.com",
   "main": [
-    "./dist/**/*.*"
+      "./dist/css/uikit.min.css",
+      "./dist/js/uikit.min.js",
+      "./dist/fonts/fontawesome-webfont.ttf",
+      "./dist/fonts/fontawesome-webfont.woff",
+      "./dist/fonts/fontawesome-webfont.woff2",
+      "./dist/fonts/FontAwesome.otf"
   ],
   "dependencies": {
     "jquery": ">= 1.9.0"

@@ -1,9 +1,7 @@
-// Name:            Base
+// Name:            Base (No conflict)
 // Description:     Sets default values for HTML elements
 //
-// Component:       `uk-h1`, `uk-h2`, `uk-h3`, `uk-h4`, `uk-h5`, `uk-h6`
-//                  `uk-link`
-//                  `uk-img-preserve`
+// Component:       `uk-noconflict`
 //
 // ========================================================================
 
@@ -81,30 +79,16 @@
    Component: Base
  ========================================================================== */
 
-/*
- * 1. Normalizes default `font-family` and sets `font-size` here to support `rem` units
- * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
- * 3. Style
- */
+html { font-size: @base-body-font-size; }
 
-html {
-    /* 1 */
-    font: @base-body-font-weight @base-body-font-size e("/") @base-body-line-height @base-body-font-family;
-    /* 2 */
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    /* 3 */
+.uk-noconflict {
     background: @base-body-background;
+    font-family:  @base-body-font-family;
+    font-size: @base-body-font-size;
+    line-height: @base-body-line-height;
+    font-weight: @base-body-font-weight;
     color: @base-body-color;
-    .hook-base-body;
 }
-
-/*
- * Removes default margin.
- */
-
-body { margin: 0; }
-
 
 /* Links
  ========================================================================== */
@@ -113,20 +97,19 @@ body { margin: 0; }
  * Remove the gray background color from active links in IE 10.
  */
 
-a { background: transparent; }
+.uk-link { background: transparent; }
 
 /*
  * Improves readability when focused and also mouse hovered in all browsers.
  */
 
-a:active,
-a:hover { outline: 0; }
+.uk-link:active,
+.uk-link:hover { outline: 0; }
 
 /*
  * Style
  */
 
-a,
 .uk-link {
     color: @base-link-color;
     text-decoration: @base-link-text-decoration;
@@ -134,7 +117,6 @@ a,
     .hook-base-link;
 }
 
-a:hover,
 .uk-link:hover {
     color: @base-link-hover-color;
     text-decoration: @base-link-hover-text-decoration;
@@ -146,26 +128,13 @@ a:hover,
  ========================================================================== */
 
 /*
- * Addresses styling not present in Chrome, Safari, Opera and IE 8/9/10.
- */
-
-abbr[title] { border-bottom: 1px dotted; }
-
-/*
- * Addresses style set to `bolder` in Firefox
- */
-
-b,
-strong { font-weight: bold; }
-
-/*
  * 1. Address odd `em`-unit font size rendering in all browsers.
  * 2. Consolas has a better baseline in running text compared to `Courier`
  */
 
-:not(pre) > code,
-:not(pre) > kbd,
-:not(pre) > samp {
+.uk-noconflict :not(pre) > code,
+.uk-noconflict :not(pre) > kbd,
+.uk-noconflict :not(pre) > samp {
     /* 1 */
     font-size: @base-code-font-size;
     /* 2 */
@@ -175,60 +144,6 @@ strong { font-weight: bold; }
     white-space: nowrap;
     .hook-base-code;
 }
-
-/*
- * Emphasize
- */
-
-em { color: @base-em-color; }
-
-/*
- * Insert
- */
-
-ins {
-    background: @base-ins-background;
-    color: @base-ins-color;
-    text-decoration: none;
-}
-
-/*
- * Mark
- * Note: Addresses styling not present in IE 8/9.
- */
-
-mark {
-    background: @base-mark-background;
-    color: @base-mark-color;
-}
-
-/*
- * Quote
- */
-
-q { font-style: @base-quote-font-style; }
-
-/*
- * Addresses inconsistent and variable font size in all browsers.
- */
-
-small { font-size: 80%; }
-
-/*
- * Prevents `sub` and `sup` affecting `line-height` in all browsers.
- */
-
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-}
-
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
-
 
 /* Images
  ========================================================================== */
@@ -240,7 +155,7 @@ sub { bottom: -0.25em; }
  * 4. Remove the gap between images and the bottom of their containers
  */
 
-img {
+.uk-noconflict img {
     /* 1 */
     max-width: 100%;
     height: auto;
@@ -256,14 +171,14 @@ img {
  * Preserve original image dimensions
  */
 
-.uk-img-preserve,
+img.uk-img-preserve,
 .uk-img-preserve img { max-width: none; }
 
 /*
  * Correct overflow not hidden in IE 9/10/11.
  */
 
-svg:not(:root) { overflow: hidden; }
+.uk-noconflict svg:not(:root) { overflow: hidden; }
 
 
 /* Block elements
@@ -273,38 +188,38 @@ svg:not(:root) { overflow: hidden; }
  * Reset margin
  */
 
-blockquote,
-figure { margin: 0; }
+.uk-noconflict blockquote,
+.uk-noconflict figure { margin: 0; }
 
 /*
  * Margins
  */
 
-p,
-ul,
-ol,
-dl,
-blockquote,
-pre,
-address,
-fieldset,
-figure { margin: 0 0 @base-margin-vertical 0; }
+.uk-noconflict p,
+.uk-noconflict ul,
+.uk-noconflict ol,
+.uk-noconflict dl,
+.uk-noconflict blockquote,
+.uk-noconflict pre,
+.uk-noconflict address,
+.uk-noconflict fieldset,
+.uk-noconflict figure { margin: 0 0 @base-margin-vertical 0; }
 
-* + p,
-* + ul,
-* + ol,
-* + dl,
-* + blockquote,
-* + pre,
-* + address,
-* + fieldset,
-* + figure { margin-top: @base-margin-vertical; }
+.uk-noconflict * + p,
+.uk-noconflict * + ul,
+.uk-noconflict * + ol,
+.uk-noconflict * + dl,
+.uk-noconflict * + blockquote,
+.uk-noconflict * + pre,
+.uk-noconflict * + address,
+.uk-noconflict * + fieldset,
+.uk-noconflict * + figure { margin-top: @base-margin-vertical; }
 
 
 /* Headings
  ========================================================================== */
 
-h1, h2, h3, h4, h5, h6 {
+.uk-noconflict h1, .uk-noconflict h2, .uk-noconflict h3, .uk-noconflict h4, .uk-noconflict h5, .uk-noconflict h6 {
     margin: 0 0 @base-margin-vertical 0;
     font-family:  @base-heading-font-family;
     font-weight: @base-heading-font-weight;
@@ -317,48 +232,48 @@ h1, h2, h3, h4, h5, h6 {
  * Margins
  */
 
-* + h1,
-* + h2,
-* + h3,
-* + h4,
-* + h5,
-* + h6 { margin-top: @base-heading-margin-top; }
+.uk-noconflict * + h1,
+.uk-noconflict * + h2,
+.uk-noconflict * + h3,
+.uk-noconflict * + h4,
+.uk-noconflict * + h5,
+.uk-noconflict * + h6 { margin-top: @base-heading-margin-top; }
 
 /*
  * Sizes
  */
 
-h1, .uk-h1 {
+.uk-noconflict h1, .uk-h1 {
     font-size: @base-h1-font-size;
     line-height: @base-h1-line-height;
     .hook-base-h1;
 }
 
-h2, .uk-h2 {
+.uk-noconflict h2, .uk-h2 {
     font-size: @base-h2-font-size;
     line-height: @base-h2-line-height;
     .hook-base-h2;
 }
 
-h3, .uk-h3 {
+.uk-noconflict h3, .uk-h3 {
     font-size: @base-h3-font-size;
     line-height: @base-h3-line-height;
     .hook-base-h3;
 }
 
-h4, .uk-h4 {
+.uk-noconflict h4, .uk-h4 {
     font-size: @base-h4-font-size;
     line-height: @base-h4-line-height;
     .hook-base-h4;
 }
 
-h5, .uk-h5 {
+.uk-noconflict h5, .uk-h5 {
     font-size: @base-h5-font-size;
     line-height: @base-h5-line-height;
     .hook-base-h5;
 }
 
-h6, .uk-h6 {
+.uk-noconflict h6, .uk-h6 {
     font-size: @base-h6-font-size;
     line-height: @base-h6-line-height;
     .hook-base-h6;
@@ -368,24 +283,17 @@ h6, .uk-h6 {
 /* Lists
  ========================================================================== */
 
-ul,
-ol { padding-left: @base-list-padding-left; }
+.uk-noconflict ul,
+.uk-noconflict ol { padding-left: @base-list-padding-left; }
 
 /*
  * Reset margin for nested lists
  */
 
-ul > li > ul,
-ul > li > ol,
-ol > li > ol,
-ol > li > ul { margin: 0; }
-
-
-/* Description lists
- ========================================================================== */
-
-dt { font-weight: bold; }
-dd { margin-left: 0; }
+.uk-noconflict ul > li > ul,
+.uk-noconflict ul > li > ol,
+.uk-noconflict ol > li > ol,
+.uk-noconflict ol > li > ul { margin: 0; }
 
 
 /* Horizontal rules
@@ -396,7 +304,7 @@ dd { margin-left: 0; }
  * 2. Style
  */
 
-hr {
+.uk-noconflict hr {
     /* 1 */
     box-sizing: content-box;
     height: 0;
@@ -408,16 +316,10 @@ hr {
 }
 
 
-/* Address
- ========================================================================== */
-
-address { font-style: normal; }
-
-
 /* Blockquotes
  ========================================================================== */
 
-blockquote {
+.uk-noconflict blockquote {
     padding-left: @base-blockquote-padding-left;
     border-left: @base-blockquote-border-width solid @base-blockquote-border;
     font-size: @base-blockquote-font-size;
@@ -434,7 +336,7 @@ blockquote {
  * 1. Contain overflow in all browsers.
  */
 
-pre {
+.uk-noconflict pre {
     padding: @base-pre-padding;
     background: @base-pre-background;
     font: @base-pre-font-size e("/") @base-pre-line-height @base-pre-font-family;
@@ -447,76 +349,30 @@ pre {
 }
 
 
-/* Selection pseudo-element
- ========================================================================== */
-
-::-moz-selection {
-    background: @base-selection-background;
-    color: @base-selection-color;
-    text-shadow: none;
-}
-
-::selection {
-    background: @base-selection-background;
-    color: @base-selection-color;
-    text-shadow: none;
-}
-
-
-/* HTML5 elements
- ========================================================================== */
-
-/*
- * Corrects `block` display not defined in IE 8/9.
- */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-main,
-nav,
-section,
-summary { display: block; }
-
-/*
- * Addresses inconsistent vertical alignment of `progress` in Chrome, Firefox and Opera.
- */
-
-progress { vertical-align: baseline; }
-
-/*
- * Prevent displaying `audio` without controls in Chrome, Safari and Opera
- */
-
-audio:not([controls]) { display: none; }
-
-/*
- * Address `[hidden]` styling not present in IE 8/9.
- * Hide the `template` element in IE and Safari
- */
-
-[hidden],
-template { display: none; }
-
-
 /* Iframe
  ========================================================================== */
 
-iframe { border: 0; }
+.uk-noconflict iframe { border: 0; }
 
 
-/* Fix viewport for IE10 snap mode
+/* WordPress Fix
  ========================================================================== */
 
-@media screen and (max-width: 400px) {
-    @-ms-viewport{
-        width: device-width;
-    }
-}
+.uk-list > li { margin: 0; }
+
+
+/* Fix displacements caused by higher specificity
+ ========================================================================== */
+
+.uk-noconflict .uk-nav,
+.uk-noconflict .uk-nav ul,
+.uk-noconflict .uk-navbar-nav,
+.uk-noconflict .uk-subnav,
+.uk-noconflict .uk-breadcrumb,
+.uk-noconflict .uk-pagination,
+.uk-noconflict .uk-tab,
+.uk-noconflict .uk-thumbnav,
+.uk-noconflict .uk-list { padding-left: 0; }
 
 
 // Hooks

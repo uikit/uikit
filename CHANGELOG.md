@@ -1,5 +1,28 @@
 # Changelog
 
+### 2.24.0 (November 23, 2015)
+
+  - Added active class to accordion content container
+  - Added panel body class to panel component
+  - Added modal blank class to modal component
+  - Added beforeshow.uk.slideshow event
+  - Added preventflip option to dropdown component
+  - Added uk-slideshow-fade-in class
+  - Added uk-contrast support for tabs component
+  - Added new hooks to base component
+  - Added base-noconflict
+  - Updated icon component to FontAwesome 4.5.0
+  - Updated parallax background-image behaviour
+  - Updated sticky behaviour on resize
+  - Updated default format setting to YYYY-MM-DD (datepicker)
+  - Updated scrollspynav to ignore links only with '#' as href
+  - Updated sortable js improved to allow nested groups
+  - Fixed error in grid filter if type is number
+  - Fixed uk-form-icon vertical alignment
+  - Fixed hover effects on touch devices
+  - Fixed slideset animation on mobile
+
+
 ### 2.23.0 (October 12, 2015)
 
   - DEPRECATED: uk-dropdown-up, uk-dropdown-flip, uk-dropdown-center (Use ```pos``` property instead)
@@ -32,7 +55,7 @@
   - Added animation duration variables to sticky
   - Added showup + clsinactive option to sticky component
   - Added swiping option to switcher component
-  - Updated icon component to FontAwesome to 4.4.0
+  - Updated icon component to FontAwesome 4.4.0
   - Updated placeholder default variables for all themes
   - Updated position utility classes
   - Updated sortable and nestable empty selectors

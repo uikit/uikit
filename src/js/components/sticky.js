@@ -52,7 +52,7 @@
                 if (!sticked.length) return;
 
                 for (var i = 0; i < sticked.length; i++) {
-                    sticked[i].reset(true);
+                    //sticked[i].reset(true);
                     sticked[i].self.computeWrapper();
                 }
 
@@ -88,9 +88,9 @@
 
             if (boundary) {
 
-                if (boundary === true) {
+                if (boundary === true || boundary[0] === '!') {
 
-                    boundary      = this.wrapper.parent();
+                    boundary      = boundary === true ? this.wrapper.parent() : this.wrapper.closest(boundary.substr(1));
                     boundtoparent = true;
 
                 } else if (typeof boundary === "string") {
@@ -133,7 +133,8 @@
 
                     this.top = top;
                 },
-                reset         : function(force) {
+
+                reset: function(force) {
 
                     this.calcTop();
 

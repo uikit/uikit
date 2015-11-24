@@ -265,6 +265,39 @@
 
                         <hr class="uk-article-divider">
 
+
+                        <h2><a href="#modal-blank" class="uk-link-reset">Modal blank</a></h2>
+
+                        <p>To reset all styling, like padding and margin, add the <code>.uk-modal-dialog-blank</code> class. This can be useful, if you want to create a fullscreen modal. In that case you also need to add the <code>.uk-height-viewport</code> class from the <a href="utility.html">Utility component</a> so that the modal extends to full viewport height.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <a class="uk-button" href="#modal-blank" data-uk-modal>Open</a>
+                        <div id="modal-blank" class="uk-modal">
+                            <div class="uk-modal-dialog uk-modal-dialog-blank">
+                                <button class="uk-modal-close uk-close" type="button"></button>
+                                <div class="uk-grid uk-flex-middle" data-uk-grid-margin>
+                                    <div class="uk-width-medium-1-2 uk-height-viewport uk-cover-background" style="background-image: url('images/placeholder_120x255.svg');"></div>
+                                    <div class="uk-width-medium-1-2">
+                                    <h1>Headline</h1>
+                                        <div class="uk-width-medium-1-3">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+<pre><code>&lt;!-- This is the anchor toggling the modal --&gt;
+&lt;a href="#my-id" data-uk-modal&gt;...&lt;/a&gt;
+
+&lt;!-- This is the modal --&gt;
+&lt;div id="my-id" class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog uk-modal-dialog-blank"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <hr class="uk-article-divider">
+
                         <h2 id="modal-with-spinner"><a href="#modal-with-spinner" class="uk-link-reset">Modal spinner</a></h2>
 
                         <p>To place a spinning icon inside your modal, add the <code>.uk-modal-spinner</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>

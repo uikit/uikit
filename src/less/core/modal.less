@@ -11,6 +11,7 @@
 //                  `uk-modal-spinner`
 //
 // Modifiers:       `uk-modal-dialog-lightbox`
+//                  `uk-modal-dialog-blank`
 //                  `uk-modal-dialog-large`
 //
 // States:          `uk-open`
@@ -218,6 +219,31 @@
         right: -7px;
     }
 
+}
+
+/* Modifier: `uk-modal-dialog-blank`
+ ========================================================================== */
+
+.uk-modal-dialog-blank {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    -webkit-transition: opacity 0.3s linear;
+    transition: opacity 0.3s linear;
+}
+
+/*
+* Close button
+*/
+
+.uk-modal-dialog-blank > .uk-close:first-child {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+    margin: 0;
+    float: none;
 }
 
 

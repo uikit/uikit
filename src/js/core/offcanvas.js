@@ -113,7 +113,7 @@
                     try {
                         target = UI.$(href);
                     } catch (e){
-                        target = ""
+                        target = "";
                     }
 
                     if (!target.length) {
