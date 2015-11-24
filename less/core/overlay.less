@@ -266,6 +266,7 @@
 .uk-overlay-fade { opacity: @overlay-fade-out-opacity; }
 
 .uk-overlay-hover:hover .uk-overlay-fade,
+.uk-overlay-hover.uk-hover .uk-overlay-fade,
 .uk-overlay-active .uk-active > .uk-overlay-fade { opacity: @overlay-fade-in-opacity; }
 
 /*
@@ -278,6 +279,7 @@
 }
 
 .uk-overlay-hover:hover .uk-overlay-scale,
+.uk-overlay-hover.uk-hover .uk-overlay-scale,
 .uk-overlay-active .uk-active > .uk-overlay-scale {
     -webkit-transform: scale(@overlay-scale-in-scale);
     transform: scale(@overlay-scale-in-scale);
@@ -293,6 +295,7 @@
 }
 
 .uk-overlay-hover:hover .uk-overlay-spin,
+.uk-overlay-hover.uk-hover .uk-overlay-spin,
 .uk-overlay-active .uk-active > .uk-overlay-spin {
     -webkit-transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
     transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
@@ -308,6 +311,7 @@
 }
 
 .uk-overlay-hover:hover .uk-overlay-grayscale,
+.uk-overlay-hover.uk-hover .uk-overlay-grayscale,
 .uk-overlay-active .uk-active > .uk-overlay-grayscale {
     -webkit-filter: grayscale(0%);
     filter: grayscale(0%);
@@ -345,6 +349,7 @@
 
 /* Hover */
 .uk-overlay-hover:hover [class*='uk-overlay-slide'],
+.uk-overlay-hover.uk-hover [class*='uk-overlay-slide'],
 .uk-overlay-active .uk-active > [class*='uk-overlay-slide'] {
     opacity: 1;
     -webkit-transform: translateX(0) translateY(0);

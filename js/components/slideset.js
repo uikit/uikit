@@ -1,4 +1,4 @@
-/*! UIkit 2.23.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -396,7 +396,7 @@
 
     function coreAnimation(cls, current, next, dir) {
 
-        var d = UI.$.Deferred(),
+        var d     = UI.$.Deferred(),
             delay = (this.options.delay === false) ? Math.floor(this.options.duration/2) : this.options.delay,
             $this = this, clsIn, clsOut, release, i;
 
@@ -456,7 +456,11 @@
                 (function (index, ele){
 
                     setTimeout(function(){
-                        ele.css('display', 'none').css('display', '').css('opacity', 0).addClass(clsOut+' uk-animation-reverse');
+
+                        ele.css('display', 'none').css('display', '').css('opacity', 0).on(UI.support.animation.end, function(){
+                            ele.removeClass(clsOut);
+                        }).addClass(clsOut+' uk-animation-reverse');
+
                     }.bind(this), i * delay);
 
                 })(i, current.eq(dir == 1 ? i:(current.length - i)-1));

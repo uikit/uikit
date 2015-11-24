@@ -1,4 +1,4 @@
-/*! UIkit 2.23.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -323,7 +323,7 @@ pre {
   /* 1 */
   overflow: auto;
 }
-/* Selection pseudo-element 
+/* Selection pseudo-element
  ========================================================================== */
 ::-moz-selection {
   background: #3399ff;
@@ -5476,6 +5476,66 @@ select.uk-form-width-mini {
 .uk-icon-y-combinator-square:before {
   content: "\f1d4";
 }
+.uk-icon-bluetooth:before {
+  content: "\f293";
+}
+.uk-icon-bluetooth-b:before {
+  content: "\f294";
+}
+.uk-icon-codiepie:before {
+  content: "\f284";
+}
+.uk-icon-credit-card-alt:before {
+  content: "\f283";
+}
+.uk-icon-edge:before {
+  content: "\f282";
+}
+.uk-icon-fort-awesome:before {
+  content: "\f286";
+}
+.uk-icon-hashtag:before {
+  content: "\f292";
+}
+.uk-icon-mixcloud:before {
+  content: "\f289";
+}
+.uk-icon-modx:before {
+  content: "\f285";
+}
+.uk-icon-pause-circle:before {
+  content: "\f28b";
+}
+.uk-icon-pause-circle-o:before {
+  content: "\f28c";
+}
+.uk-icon-percent:before {
+  content: "\f295";
+}
+.uk-icon-product-hunt:before {
+  content: "\f288";
+}
+.uk-icon-reddit-alien:before {
+  content: "\f281";
+}
+.uk-icon-scribd:before {
+  content: "\f28a";
+}
+.uk-icon-shopping-bag:before {
+  content: "\f290";
+}
+.uk-icon-shopping-basket:before {
+  content: "\f291";
+}
+.uk-icon-stop-circle:before {
+  content: "\f28d";
+}
+.uk-icon-stop-circle-o:before {
+  content: "\f28e";
+}
+.uk-icon-usb:before {
+  content: "\f287";
+}
 /* ========================================================================
    Component: Close
  ========================================================================== */
@@ -5905,6 +5965,7 @@ a.uk-thumbnail:focus {
   opacity: 0.7;
 }
 .uk-overlay-hover:hover .uk-overlay-fade,
+.uk-overlay-hover.uk-hover .uk-overlay-fade,
 .uk-overlay-active .uk-active > .uk-overlay-fade {
   opacity: 1;
 }
@@ -5916,6 +5977,7 @@ a.uk-thumbnail:focus {
   transform: scale(1);
 }
 .uk-overlay-hover:hover .uk-overlay-scale,
+.uk-overlay-hover.uk-hover .uk-overlay-scale,
 .uk-overlay-active .uk-active > .uk-overlay-scale {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
@@ -5928,6 +5990,7 @@ a.uk-thumbnail:focus {
   transform: scale(1) rotate(0deg);
 }
 .uk-overlay-hover:hover .uk-overlay-spin,
+.uk-overlay-hover.uk-hover .uk-overlay-spin,
 .uk-overlay-active .uk-active > .uk-overlay-spin {
   -webkit-transform: scale(1.1) rotate(3deg);
   transform: scale(1.1) rotate(3deg);
@@ -5940,6 +6003,7 @@ a.uk-thumbnail:focus {
   filter: grayscale(100%);
 }
 .uk-overlay-hover:hover .uk-overlay-grayscale,
+.uk-overlay-hover.uk-hover .uk-overlay-grayscale,
 .uk-overlay-active .uk-active > .uk-overlay-grayscale {
   -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
@@ -5972,6 +6036,7 @@ a.uk-thumbnail:focus {
 }
 /* Hover */
 .uk-overlay-hover:hover [class*='uk-overlay-slide'],
+.uk-overlay-hover.uk-hover [class*='uk-overlay-slide'],
 .uk-overlay-active .uk-active > [class*='uk-overlay-slide'] {
   opacity: 1;
   -webkit-transform: translateX(0) translateY(0);
