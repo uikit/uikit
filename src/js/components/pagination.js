@@ -56,7 +56,7 @@
             this.currentPage   = this.options.currentPage;
             this.halfDisplayed = this.options.displayedPages / 2;
 
-            this.on("click", "a[data-page]", function(e){
+            this.off("click").on("click", "a[data-page]", function(e){
                 e.preventDefault();
                 $this.selectPage(UI.$(this).data("page"));
             });
@@ -76,7 +76,12 @@
             this.pages = pages ? pages : this.pages;
             this._render();
         },
+        reset: function(pageIndex, pages) {
+            this.currentPage = pageIndex;
+            this.render(pages);
 
+            this.options.onSelectPage.apply(this, [pageIndex]);
+        },
         selectPage: function(pageIndex, pages) {
             this.currentPage = pageIndex;
             this.render(pages);
