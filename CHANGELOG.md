@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed sortable if browser is in strict mode
+
 ### 2.24.0 (November 23, 2015)
 
   - Added active class to accordion content container
