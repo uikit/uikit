@@ -3,6 +3,7 @@
 ### WIP
 
   - Fixed sortable if browser is in strict mode
+  - Fixed sticked element width after resize.
 
 ### 2.24.0 (November 23, 2015)
 

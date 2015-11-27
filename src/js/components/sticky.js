@@ -105,7 +105,7 @@
                 currentTop    : null,
                 wrapper       : this.wrapper,
                 init          : false,
-                getWidthFrom  : this.options.getWidthFrom || this.wrapper,
+                getWidthFrom  : UI.$(this.options.getWidthFrom || this.wrapper),
                 boundary      : boundary,
                 boundtoparent : boundtoparent,
                 top           : 0,
@@ -236,6 +236,12 @@
                 'float'  : this.element.css('float') != 'none' ? this.element.css('float') : '',
                 'margin' : this.element.css('margin')
             });
+
+            if (this.element.css('position') == 'fixed') {
+                this.element.css({
+                    width: this.sticky.getWidthFrom.length ? this.sticky.getWidthFrom.width() : this.element.width()
+                });
+            }
         }
     });
 
@@ -293,10 +299,10 @@
                 if (sticky.currentTop != newTop) {
 
                     sticky.element.css({
-                        "position" : "fixed",
-                        "top"      : newTop,
-                        "width"    : (typeof sticky.getWidthFrom !== 'undefined') ? UI.$(sticky.getWidthFrom).width() : sticky.element.width(),
-                        "left"     : sticky.wrapper.offset().left
+                        position : "fixed",
+                        top      : newTop,
+                        width    : sticky.getWidthFrom.length ? sticky.getWidthFrom.width() : sticky.element.width(),
+                        left     : sticky.wrapper.offset().left
                     });
 
                     if (!sticky.init) {
