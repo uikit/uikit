@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Added uk-width-xlarge-* classes
   - Updated slideshow direction animation (swipe, scroll)
   - Updated scrollspynav to blur items first before activating
   - Fixed sortable if browser is in strict mode
