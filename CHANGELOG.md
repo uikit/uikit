@@ -5,7 +5,8 @@
   - Updated slideshow direction animation (swipe, scroll)
   - Updated scrollspynav to blur items first before activating
   - Fixed sortable if browser is in strict mode
-  - Fixed sticked element width after resize.
+  - Fixed sticked element width after resize
+  - Fixed parallax bg scrolling
 
 ### 2.24.0 (November 23, 2015)
 
