@@ -346,11 +346,11 @@
         },
 
         next: function() {
-            this.show(this.slides[this.current + 1] ? (this.current + 1) : 0);
+            this.show(this.slides[this.current + 1] ? (this.current + 1) : 0, 1);
         },
 
         previous: function() {
-            this.show(this.slides[this.current - 1] ? (this.current - 1) : (this.slides.length - 1));
+            this.show(this.slides[this.current - 1] ? (this.current - 1) : (this.slides.length - 1), -1);
         },
 
         start: function() {
