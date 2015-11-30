@@ -5,6 +5,7 @@
   - Added uk-width-xlarge-* classes
   - Updated slideshow direction animation (swipe, scroll)
   - Updated scrollspynav to blur items first before activating
+  - Updated uk-overflow-container behaviour in modals
   - Fixed sortable if browser is in strict mode
   - Fixed sticked element width after resize
   - Fixed parallax bg scrolling
