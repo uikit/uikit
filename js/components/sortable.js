@@ -1,4 +1,4 @@
-/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -386,7 +386,7 @@
 
         dragMove: function(e, elem) {
 
-            overElement = UI.$(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop));
+            overElement = UI.$(document.elementFromPoint(e.pageX - (document.body.scrollLeft || document.scrollLeft || 0), e.pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)));
 
             var overRoot     = overElement.closest('.'+this.options.baseClass),
                 groupOver    = overRoot.data("sortable-group"),

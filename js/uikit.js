@@ -1,4 +1,4 @@
-/*! UIkit 2.24.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.24.0';
+    UI.version = '2.24.1';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -1435,7 +1435,7 @@
                     if (!target) return;
 
                     if ($this.options.closest) {
-                        links.closest(clsClosest).removeClass(clsActive);
+                        links.blur().closest(clsClosest).removeClass(clsActive);
                         navitems = links.filter("a[href='#"+target.attr("id")+"']").closest(clsClosest).addClass(clsActive);
                     } else {
                         navitems = links.removeClass(clsActive).filter("a[href='#"+target.attr("id")+"']").addClass(clsActive);
@@ -2576,14 +2576,17 @@
 
             if (scrollable.length) {
 
-                scrollable.css("height", 0);
+                scrollable.css('height', 0);
 
-                var offset = Math.abs(parseInt(this.dialog.css("margin-top"), 10)),
+                var offset = Math.abs(parseInt(this.dialog.css('margin-top'), 10)),
                 dh     = this.dialog.outerHeight(),
                 wh     = window.innerHeight,
                 h      = wh - 2*(offset < 20 ? 20:offset) - dh;
 
-                scrollable.css("height", h < this.options.minScrollHeight ? "":h);
+                scrollable.css({
+                    'max-height': (h < this.options.minScrollHeight ? '':h),
+                    'height':''
+                });
 
                 return true;
             }
@@ -2597,19 +2600,19 @@
             if (activeCount > 0) activeCount--;
             else activeCount = 0;
 
-            this.element.hide().removeClass("uk-open");
+            this.element.hide().removeClass('uk-open');
 
             // Update ARIA
             this.element.attr('aria-hidden', 'true');
 
             if (!activeCount) {
-                $html.removeClass("uk-modal-page");
+                $html.removeClass('uk-modal-page');
                 body.css(this.paddingdir, "");
             }
 
             if(active===this) active = false;
 
-            this.trigger("hide.uk.modal");
+            this.trigger('hide.uk.modal');
         },
 
         isActive: function() {
