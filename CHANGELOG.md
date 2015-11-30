@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.24.1 (November 30, 2015)
 
   - Added uk-width-xlarge-* classes
   - Updated slideshow direction animation (swipe, scroll)
