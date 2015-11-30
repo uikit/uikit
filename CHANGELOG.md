@@ -1,5 +1,15 @@
 # Changelog
 
+### 2.24.1 (November 30, 2015)
+
+  - Added uk-width-xlarge-* classes
+  - Updated slideshow direction animation (swipe, scroll)
+  - Updated scrollspynav to blur items first before activating
+  - Updated uk-overflow-container behaviour in modals
+  - Fixed sortable if browser is in strict mode
+  - Fixed sticked element width after resize
+  - Fixed parallax bg scrolling
+
 ### 2.24.0 (November 23, 2015)
 
   - Added active class to accordion content container

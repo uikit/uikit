@@ -385,7 +385,7 @@
 
         dragMove: function(e, elem) {
 
-            overElement = UI.$(document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop));
+            overElement = UI.$(document.elementFromPoint(e.pageX - (document.body.scrollLeft || document.scrollLeft || 0), e.pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)));
 
             var overRoot     = overElement.closest('.'+this.options.baseClass),
                 groupOver    = overRoot.data("sortable-group"),
