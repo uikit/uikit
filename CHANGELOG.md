@@ -1,5 +1,10 @@
 # Changelog
 
+### 2.24.2 (December 01, 2015)
+
+  - Fixed UIkit.Utils.stackMargin apply on container with only one child element
+  - Fixed hiding dropdown on click with option `mode:'hover'` for dropdown or items with class `uk-dropdown-close`
+
 ### 2.24.1 (November 30, 2015)
 
   - Added uk-width-xlarge-* classes

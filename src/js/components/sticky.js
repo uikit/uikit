@@ -52,8 +52,8 @@
                 if (!sticked.length) return;
 
                 for (var i = 0; i < sticked.length; i++) {
-                    //sticked[i].reset(true);
-                    sticked[i].self.computeWrapper();
+                    sticked[i].reset(true);
+                    //sticked[i].self.computeWrapper();
                 }
 
                 checkscrollposition();
