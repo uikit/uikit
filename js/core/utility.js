@@ -1,4 +1,4 @@
-/*! UIkit 2.24.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -160,7 +160,7 @@
             firstvisible = elements.filter(":visible:first"),
             offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
-        if (offset === false) return;
+        if (offset === false || elements.length == 1) return;
 
         elements.each(function() {
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.24.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -53,8 +53,8 @@
                 if (!sticked.length) return;
 
                 for (var i = 0; i < sticked.length; i++) {
-                    //sticked[i].reset(true);
-                    sticked[i].self.computeWrapper();
+                    sticked[i].reset(true);
+                    //sticked[i].self.computeWrapper();
                 }
 
                 checkscrollposition();
