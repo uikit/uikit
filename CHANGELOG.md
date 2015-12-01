@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed UIkit.Utils.stackMargin apply on container with only one child element
+
 ### 2.24.1 (November 30, 2015)
 
   - Added uk-width-xlarge-* classes
