@@ -149,7 +149,7 @@
 
         $ = jQuery.noConflict();
 
-        var $body      = $("body").addClass('uk-noconflict').css("visibility", "hidden"),
+        var $body      = $("body").css("visibility", "hidden"),
             $scriptest = $(scriptest),
             controls   = $('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>');
 
