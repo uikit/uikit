@@ -3,6 +3,7 @@
 ### WIP
 
   - Fixed UIkit.Utils.stackMargin apply on container with only one child element
+  - Fixed hiding dropdown on click with option `mode:'hover'` for dropdown or items with class `uk-dropdown-close`
 
 ### 2.24.1 (November 30, 2015)
 
