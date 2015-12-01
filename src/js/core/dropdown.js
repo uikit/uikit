@@ -189,6 +189,9 @@
                     }
 
                     if (active && active == $this) {
+                        if (!$this.dropdown.find(e.target).length || $target.is(".uk-dropdown-close") || $target.parents(".uk-dropdown-close").length) {
+                            $this.hide();
+                        }
                         return;
                     }
 
