@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Added support for using data-title attribute as lightbox caption
+
 ### 2.24.2 (December 01, 2015)
 
   - Fixed UIkit.Utils.stackMargin apply on container with only one child element

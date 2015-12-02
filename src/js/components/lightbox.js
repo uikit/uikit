@@ -84,7 +84,7 @@
 
                     siblings.push({
                         'source': ele.attr('href'),
-                        'title' : ele.attr('title'),
+                        'title' : ele.attr('data-title') || ele.attr('title'),
                         'type'  : ele.attr("data-lightbox-type") || 'auto',
                         'link'  : ele
                     });
