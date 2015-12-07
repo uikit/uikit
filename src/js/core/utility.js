@@ -63,6 +63,13 @@
 
             UI.Utils.stackMargin(this.columns, this.options);
 
+            // Mark first column elements
+            var pos_cache = this.columns.removeClass('uk-column-first').filter(':visible').first().position().left;
+
+            this.columns.each(function() {
+                UI.$(this)[UI.$(this).position().left == pos_cache ? 'addClass':'removeClass']('uk-column-first');
+            });
+
             return this;
         },
 

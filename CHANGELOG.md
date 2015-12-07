@@ -3,6 +3,7 @@
 ### WIP
 
   - Added support for using data-title attribute as lightbox caption
+  - Added mark first grid column elements with ```uk-column-first``` when using data-uk-grid-margin
 
 ### 2.24.2 (December 01, 2015)
 
