@@ -980,11 +980,13 @@
             UI.Utils.stackMargin(this.columns, this.options);
 
             // Mark first column elements
-            var pos_cache = this.columns.removeClass('uk-row-first').filter(':visible').first().position().left;
+            var pos_cache = this.columns.removeClass('uk-row-first').filter(':visible').first().position();
 
-            this.columns.each(function() {
-                UI.$(this)[UI.$(this).position().left == pos_cache ? 'addClass':'removeClass']('uk-row-first');
-            });
+            if (pos_cache) {
+                this.columns.each(function() {
+                    UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass':'removeClass']('uk-row-first');
+                });
+            }
 
             return this;
         },
