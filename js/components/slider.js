@@ -292,6 +292,15 @@
                 }
             }
 
+            // mark elements
+            var left = this.items.eq(idx).data('left');
+
+            this.items.removeClass('uk-slide-before uk-slide-after').each(function(i){
+                if (i!==idx) {
+                    UI.$(this).addClass(UI.$(this).data('left') < left ? 'uk-slide-before':'uk-slide-after');
+                }
+            });
+
             this.focus = idx;
 
             this.trigger('focusitem.uk.slider', [idx,this.items.eq(idx),this]);
