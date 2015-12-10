@@ -618,7 +618,7 @@
         if (UI.domready) UI.Utils.checkDisplay();
     });
 
-    window.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('DOMContentLoaded', function(){
 
         var domReady = function() {
 
@@ -701,7 +701,7 @@
             UI.domready = true;
         };
 
-        if (['interactive','complete'].indexOf(document.readyState.toLowerCase()) > -1) {
+        if (['interactive','complete'].indexOf(document.readyState) > -1) {
             domReady();
         }
 

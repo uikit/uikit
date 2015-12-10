@@ -87,7 +87,8 @@
     UI.component('gridMargin', {
 
         defaults: {
-            "cls": "uk-grid-margin"
+            cls      : 'uk-grid-margin',
+            rowfirst : 'uk-row-first'
         },
 
         boot: function() {
