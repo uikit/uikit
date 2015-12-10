@@ -7,7 +7,8 @@
     UI.component('stackMargin', {
 
         defaults: {
-            'cls': 'uk-margin-small-top'
+            cls: 'uk-margin-small-top',
+            rowfirst: false
         },
 
         boot: function() {
@@ -59,16 +60,22 @@
 
         process: function() {
 
+            var $this = this;
+
             this.columns = this.element.children();
 
             UI.Utils.stackMargin(this.columns, this.options);
 
+            if (!this.options.rowfirst) {
+                return this;
+            }
+
             // Mark first column elements
-            var pos_cache = this.columns.removeClass('uk-row-first').filter(':visible').first().position();
+            var pos_cache = this.columns.removeClass(this.options.rowfirst).filter(':visible').first().position();
 
             if (pos_cache) {
                 this.columns.each(function() {
-                    UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass':'removeClass']('uk-row-first');
+                    UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass':'removeClass']($this.options.rowfirst);
                 });
             }
 
