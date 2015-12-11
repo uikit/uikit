@@ -51,7 +51,7 @@
             return this[this.isActive() ? "hide" : "show"]();
         },
 
-        show: function() {
+        show: function(duration) {
 
             if (!this.element.length) return;
 
@@ -63,7 +63,7 @@
                 active.hide(true);
             }
 
-            this.element.removeClass("uk-open").show();
+            this.element.removeClass("uk-open").show(duration);
             this.resize();
 
             if (this.options.modal) {
