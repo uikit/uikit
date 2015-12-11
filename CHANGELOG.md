@@ -5,6 +5,7 @@
   - Added support for using data-title attribute as lightbox caption
   - Added mark first item in a row with ```uk-row-first``` when using data-uk-margin / data-uk-grid-margin
   - Added uk-slide-before uk-slide-after classes to slider element after item focus
+  - Fixed .uk-display-inline-block with responsive child images (firefox)
 
 ### 2.24.2 (December 01, 2015)
 

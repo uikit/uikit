@@ -14,6 +14,13 @@
                 min-height: 400vh;
             }
 
+            .test-hero-bg {
+                height: 70vh;
+                background-image: url('http://unsplash.it/1000/1000');
+                background-size: cover;
+                background-color: red;
+            }
+
             .test-bg {
                 height: 400px;
                 background-image: url('http://unsplash.it/1200/800');
@@ -30,7 +37,10 @@
 
     <body>
 
-        <div class="uk-container uk-container-center">
+        <div class="test-hero-bg" data-uk-parallax="{bg:-200}"></div>
+
+
+        <div class="uk-container uk-container-center uk-margin-large-top">
 
             <h1>Parallax</h1>
 
