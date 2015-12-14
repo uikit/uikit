@@ -51,7 +51,7 @@
             return this[this.isActive() ? "hide" : "show"]();
         },
 
-        show: function(duration) {
+        show: function() {
 
             if (!this.element.length) return;
 
@@ -63,9 +63,6 @@
                 active.hide(true);
             }
 
-            this.element.removeClass("uk-open").show(duration);
-            this.resize();
-
             if (this.options.modal) {
                 active = this;
             }
@@ -74,13 +71,20 @@
 
             activeCount++;
 
-            if (UI.support.transition) {
-                this.hasTransitioned = false;
-                this.element.one(UI.support.transition.end, function(){
-                    $this.hasTransitioned = true;
-                }).addClass("uk-open");
-            } else {
-                this.element.addClass("uk-open");
+            if (this.options.fast){
+                this.element.addClass("uk-open").show();
+                this.resize();
+            }else{
+                this.element.removeClass("uk-open").show();
+                this.resize();
+                if (UI.support.transition) {
+                    this.hasTransitioned = false;
+                    this.element.one(UI.support.transition.end, function(){
+                        $this.hasTransitioned = true;
+                    }).addClass("uk-open");
+                } else {
+                    this.element.addClass("uk-open");
+                }
             }
 
             $html.addClass("uk-modal-page").height(); // force browser engine redraw
