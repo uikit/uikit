@@ -176,6 +176,13 @@
             ]
         },
         {
+            "label": "Avatar",
+            "advanced": true,
+            "vars": [
+                "@avatar-*"
+            ]
+        },
+        {
             "label": "Badge",
             "advanced": true,
             "vars": [

@@ -1,0 +1,105 @@
+// Name:            Avatar
+// Description:     Defines styles for a circular avatar
+//
+// Component:       `uk-avatar`
+//
+// Modifiers:       `uk-avatar-text`,
+//                  `uk-avatar-large`,
+//                  `uk-avatar-small`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+//
+
+@avatar-dimension:                              36px;
+@avatar-font-size:                              14px;
+@avatar-color:                                  #999;
+@avatar-line-height:                            32px;
+
+@avatar-small-dimension:                        24px;
+@avatar-small-font-size:                        11px;
+@avatar-small-line-height:                      21px;
+
+@avatar-large-dimension:                        72px;
+@avatar-large-font-size:                        32px;
+@avatar-large-line-height:                      64px;
+
+@avatar-text-line-height:                       34px;
+@avatar-text-small-line-height:                 22px;
+@avatar-text-large-line-height:                 68px;
+
+/* ========================================================================
+   Component: Avatar
+ ========================================================================== */
+
+.uk-avatar {
+    display: inline-block;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 50%;
+    width: @avatar-dimension;
+    height: @avatar-dimension;
+    font-size: @avatar-font-size;
+    line-height: @avatar-line-height;
+    color: @avatar-color;
+    text-align: center;
+    .hook-avatar;
+
+    > img {
+        max-height: 100%;
+    }
+}
+
+/* Modifier: `uk-avatar-small`
+ ========================================================================== */
+
+.uk-avatar-small {
+    width: @avatar-small-dimension;
+    height: @avatar-small-dimension;
+    font-size: @avatar-small-font-size;
+    line-height: @avatar-small-line-height;
+    .hook-avatar-small;
+}
+
+/* Modifier: `uk-avatar-large`
+ ========================================================================== */
+
+.uk-avatar-large {
+    width: @avatar-large-dimension;
+    height: @avatar-large-dimension;
+    font-size: @avatar-large-font-size;
+    line-height: @avatar-large-line-height;
+    .hook-avatar-large;
+}
+
+/* Modifier: `uk-avatar-text`
+========================================================================== */
+
+.uk-avatar-text {
+    border: 1px solid @avatar-color;
+    line-height: @avatar-text-line-height;
+    .hook-avatar-text;
+
+    &.uk-avatar-small {
+        line-height: @avatar-text-small-line-height;
+    }
+
+    &.uk-avatar-large {
+        line-height: @avatar-text-large-line-height;
+        border-width: 2px;
+    }
+}
+
+// Hooks
+// ========================================================================
+
+.hook-avatar-misc;
+
+.hook-avatar() {}
+.hook-avatar-small() {}
+.hook-avatar-large() {}
+.hook-avatar-text() {}
+.hook-avatar-misc() {}

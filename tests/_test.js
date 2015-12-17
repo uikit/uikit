@@ -13,6 +13,7 @@
         // components
         'dist/css/components/accordion{style}.css',
         'dist/css/components/autocomplete{style}.css',
+        'dist/css/components/avatar{style}.css',
         'dist/css/components/datepicker{style}.css',
         'dist/css/components/dotnav{style}.css',
         'dist/css/components/form-advanced{style}.css',
@@ -116,6 +117,7 @@
 
             "components/accordion",
             "components/autocomplete",
+            "components/avatar",
             "components/datepicker",
             "components/dotnav",
             "components/form-advanced",
