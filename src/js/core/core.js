@@ -261,7 +261,7 @@
 
         if ($.type(string)!='string') return string;
 
-        if (string && string.trim().substr(-1) != '}') {
+        if (string.indexOf(':') != -1 && string.trim().substr(-1) != '}') {
             string = '{'+string+'}';
         }
 
@@ -704,7 +704,7 @@
             UI.domready = true;
         };
 
-        if (document.readyState == 'complete') {
+        if (document.readyState == 'complete' || document.readyState == 'interactive') {
             setTimeout(domReady);
         }
 
