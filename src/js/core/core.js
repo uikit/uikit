@@ -704,8 +704,8 @@
             UI.domready = true;
         };
 
-        if (['interactive','complete'].indexOf(document.readyState) > -1) {
-            domReady();
+        if (document.readyState == 'complete') {
+            setTimeout(domReady);
         }
 
         return domReady;
