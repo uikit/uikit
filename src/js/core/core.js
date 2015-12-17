@@ -261,7 +261,7 @@
 
         if ($.type(string)!='string') return string;
 
-        if (string.indexOf("{") == -1) {
+        if (string && string.trim().substr(-1) != '}') {
             string = '{'+string+'}';
         }
 
