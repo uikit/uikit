@@ -9,6 +9,7 @@
   - Updated allow params in data-uk-* attributes without curly braces
   - Fixed .uk-display-inline-block with responsive child images (firefox)
   - Fixed hash urls in Offcanvas
+  - Fixed slideshow scroll, swipe direction 
 
 ### 2.24.2 (December 01, 2015)
 
