@@ -435,14 +435,16 @@
                 next.removeClass(''+clsIn+'').css({opacity:'', display:'', 'animation-delay':'', 'animation':''});
                 d.resolve();
                 $this.element.css('min-height', '');
-                finish = function() {};
+                finish = false;
             };
 
-            next.addClass(clsIn)[dir==1 ? 'last':'first']().one(UI.support.animation.end, finish).end().css('display', '');
+            next.addClass(clsIn)[dir==1 ? 'last':'first']().one(UI.support.animation.end, function(){
+                if(finish) finish();
+            }).end().css('display', '');
 
             // make sure everything resolves really
             setTimeout(function() {
-                finish();
+                if(finish) finish();
             },  next.length * delay * 2);
         };
 
