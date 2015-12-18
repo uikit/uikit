@@ -1,4 +1,4 @@
-/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.24.2';
+    UI.version = '2.24.3';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -260,7 +260,11 @@
 
     UI.Utils.options = function(string) {
 
-        if ($.isPlainObject(string)) return string;
+        if ($.type(string)!='string') return string;
+
+        if (string.indexOf(':') != -1 && string.trim().substr(-1) != '}') {
+            string = '{'+string+'}';
+        }
 
         var start = (string ? string.indexOf("{") : -1), options = {};
 
@@ -701,8 +705,8 @@
             UI.domready = true;
         };
 
-        if (['interactive','complete'].indexOf(document.readyState) > -1) {
-            domReady();
+        if (document.readyState == 'complete' || document.readyState == 'interactive') {
+            setTimeout(domReady);
         }
 
         return domReady;

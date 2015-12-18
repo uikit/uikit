@@ -1,4 +1,4 @@
-/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -301,7 +301,7 @@
             h += extra;
             w += Math.ceil(extra * ratio);
 
-            if (w > size.w && h < size.h) {
+            if (w-extra > size.w && h < size.h) {
                 return obj.element.css({'background-size': ''});
             }
 

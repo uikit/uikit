@@ -1,4 +1,4 @@
-/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -280,18 +280,21 @@
         return modal.show();
     };
 
-    UI.modal.confirm = function(content, onconfirm, options) {
+    UI.modal.confirm = function(content, onconfirm, oncancel) {
+
+        var options = arguments.length > 1 && arguments[arguments.length-1] ? arguments[arguments.length-1] : {};
 
         onconfirm = UI.$.isFunction(onconfirm) ? onconfirm : function(){};
-        options   = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
+        oncancel  = UI.$.isFunction(oncancel) ? oncancel : function(){};
+        options   = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, UI.$.isFunction(options) ? {}:options);
 
         var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-confirm-cancel">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button></div>'
         ]).join(""), options);
 
-        modal.element.find(".js-modal-confirm").on("click", function(){
-            onconfirm();
+        modal.element.find(".js-modal-confirm, .js-modal-confirm-cancel").on("click", function(){
+            UI.$(this).is('.js-modal-confirm') ? onconfirm() : oncancel();
             modal.hide();
         });
 

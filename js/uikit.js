@@ -1,4 +1,4 @@
-/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.24.2';
+    UI.version = '2.24.3';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -260,7 +260,11 @@
 
     UI.Utils.options = function(string) {
 
-        if ($.isPlainObject(string)) return string;
+        if ($.type(string)!='string') return string;
+
+        if (string.indexOf(':') != -1 && string.trim().substr(-1) != '}') {
+            string = '{'+string+'}';
+        }
 
         var start = (string ? string.indexOf("{") : -1), options = {};
 
@@ -701,8 +705,8 @@
             UI.domready = true;
         };
 
-        if (['interactive','complete'].indexOf(document.readyState) > -1) {
-            domReady();
+        if (document.readyState == 'complete' || document.readyState == 'interactive') {
+            setTimeout(domReady);
         }
 
         return domReady;
@@ -2742,18 +2746,21 @@
         return modal.show();
     };
 
-    UI.modal.confirm = function(content, onconfirm, options) {
+    UI.modal.confirm = function(content, onconfirm, oncancel) {
+
+        var options = arguments.length > 1 && arguments[arguments.length-1] ? arguments[arguments.length-1] : {};
 
         onconfirm = UI.$.isFunction(onconfirm) ? onconfirm : function(){};
-        options   = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
+        oncancel  = UI.$.isFunction(oncancel) ? oncancel : function(){};
+        options   = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, UI.$.isFunction(options) ? {}:options);
 
         var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-confirm-cancel">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button></div>'
         ]).join(""), options);
 
-        modal.element.find(".js-modal-confirm").on("click", function(){
-            onconfirm();
+        modal.element.find(".js-modal-confirm, .js-modal-confirm-cancel").on("click", function(){
+            UI.$(this).is('.js-modal-confirm') ? onconfirm() : oncancel();
             modal.hide();
         });
 
@@ -3080,7 +3087,7 @@
                 Offcanvas.hide();
             });
 
-            element.on("click", "a[href^='#']", function(e){
+            element.on("click", "a[href*='#']", function(e){
 
                 var link = UI.$(this),
                     href = link.attr("href");
@@ -3094,16 +3101,16 @@
                     var target;
 
                     try {
-                        target = UI.$(href);
+                        target = UI.$(link[0].hash);
                     } catch (e){
-                        target = "";
+                        target = '';
                     }
 
                     if (!target.length) {
-                        target = UI.$('[name="'+href.replace('#','')+'"]');
+                        target = UI.$('[name="'+link[0].hash.replace('#','')+'"]');
                     }
 
-                    if (target.length && link.attr('data-uk-smooth-scroll') && UI.Utils.scrollToElement) {
+                    if (target.length && UI.Utils.scrollToElement) {
                         UI.Utils.scrollToElement(target, UI.Utils.options(link.attr('data-uk-smooth-scroll') || '{}'));
                     } else {
                         window.location.href = href;

@@ -1,4 +1,4 @@
-/*! UIkit 2.24.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -8303,6 +8303,7 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 /*
  * Display
+ * 1. Required if child is a responsive image
  */
 .uk-display-block {
   display: block !important;
@@ -8312,6 +8313,8 @@ a.uk-thumbnail:focus {
 }
 .uk-display-inline-block {
   display: inline-block !important;
+  /* 1 */
+  max-width: 100%;
 }
 /*
  * Visibility
