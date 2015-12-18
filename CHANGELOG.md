@@ -3,13 +3,13 @@
 ### WIP
 
   - Added support for using data-title attribute as lightbox caption
-  - Added mark first item in a row with ```uk-row-first``` when using data-uk-margin / data-uk-grid-margin
+  - Added mark first item in a row with ```uk-row-first``` when data-uk-grid-margin
   - Added uk-slide-before uk-slide-after classes to slider element after item focus
   - Added oncancel callback to UIkit.modal.confirm
   - Updated allow params in data-uk-* attributes without curly braces
   - Fixed .uk-display-inline-block with responsive child images (firefox)
   - Fixed hash urls in Offcanvas
-  - Fixed slideshow scroll, swipe direction 
+  - Fixed slideshow scroll, swipe direction
 
 ### 2.24.2 (December 01, 2015)
 
