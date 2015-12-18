@@ -1,5 +1,10 @@
 # Changelog
 
+
+# WIP
+
+  - Fixed Animated slideset filter
+
 ### 2.24.3 (December 18, 2015)
 
   - Added support for using data-title attribute as lightbox caption

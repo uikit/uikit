@@ -431,13 +431,19 @@
                 next.eq(dir == 1 ? i:(next.length - i)-1).css('animation-delay', (i*delay)+'ms');
             }
 
-            next.addClass(clsIn)[dir==1 ? 'last':'first']().one(UI.support.animation.end, function() {
-
+            var finish = function() {
                 next.removeClass(''+clsIn+'').css({opacity:'', display:'', 'animation-delay':'', 'animation':''});
                 d.resolve();
                 $this.element.css('min-height', '');
+                finish = function() {};
+            };
 
-            }).end().css('display', '');
+            next.addClass(clsIn)[dir==1 ? 'last':'first']().one(UI.support.animation.end, finish).end().css('display', '');
+
+            // make sure everything resolves really
+            setTimeout(function() {
+                finish();
+            },  next.length * delay * 2);
         };
 
         if (next.length) {
