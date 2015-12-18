@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.24.3 (December 18, 2015)
 
   - Added support for using data-title attribute as lightbox caption
   - Added mark first item in a row with ```uk-row-first``` when data-uk-grid-margin
