@@ -97,7 +97,7 @@
                 Offcanvas.hide();
             });
 
-            element.on("click", "a[href^='#']", function(e){
+            element.on("click", "a[href*='#']", function(e){
 
                 var link = UI.$(this),
                     href = link.attr("href");
@@ -111,16 +111,16 @@
                     var target;
 
                     try {
-                        target = UI.$(href);
+                        target = UI.$(link[0].hash);
                     } catch (e){
-                        target = "";
+                        target = '';
                     }
 
                     if (!target.length) {
-                        target = UI.$('[name="'+href.replace('#','')+'"]');
+                        target = UI.$('[name="'+link[0].hash.replace('#','')+'"]');
                     }
 
-                    if (target.length && link.attr('data-uk-smooth-scroll') && UI.Utils.scrollToElement) {
+                    if (target.length && UI.Utils.scrollToElement) {
                         UI.Utils.scrollToElement(target, UI.Utils.options(link.attr('data-uk-smooth-scroll') || '{}'));
                     } else {
                         window.location.href = href;

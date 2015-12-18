@@ -184,7 +184,7 @@
 
             this.container.css({'min-width': pos, 'min-height': maxheight});
 
-            if (this.options.infinite && pos <= (2*this.vp) && !this.itemsResized) {
+            if (this.options.infinite && (pos <= (2*this.vp) || this.items.length < 5) && !this.itemsResized) {
 
                 // fill with cloned items
                 this.container.children().each(function(idx){
@@ -290,6 +290,15 @@
                     }
                 }
             }
+
+            // mark elements
+            var left = this.items.eq(idx).data('left');
+
+            this.items.removeClass('uk-slide-before uk-slide-after').each(function(i){
+                if (i!==idx) {
+                    UI.$(this).addClass(UI.$(this).data('left') < left ? 'uk-slide-before':'uk-slide-after');
+                }
+            });
 
             this.focus = idx;
 
