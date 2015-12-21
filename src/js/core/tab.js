@@ -100,7 +100,7 @@
                 });
             }
 
-            UI.dropdown(this.responsivetab, {"mode": "click"});
+            UI.dropdown(this.responsivetab, {"mode": "click", "preventflip": "y"});
 
             // init
             $this.trigger("change.uk.tab", [this.element.find(this.options.target).not('.uk-tab-responsive').filter('.uk-active')]);
