@@ -169,7 +169,7 @@
                         scrollTop = $win.scrollTop(),
                         target = (function(){
                             for(var i=0; i< inviews.length;i++){
-                                if(inviews[i].offset().top >= scrollTop){
+                                if(inviews[i].offset().top - $this.options.topoffset >= scrollTop){
                                     return inviews[i];
                                 }
                             }
