@@ -1,0 +1,69 @@
+// Name:            Container
+// Description:
+//
+// Component:       `uk-container-*`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@utility-container-max-width:                   980px;
+@utility-container-padding-horizontal:          25px;
+
+@utility-container-large-max-width:             1200px;
+@utility-container-large-padding-horizontal:    35px;
+
+
+/* ========================================================================
+   Component: Container
+ ========================================================================== */
+
+.uk-container {
+    box-sizing: border-box;
+    max-width: @utility-container-max-width;
+    padding: 0 @utility-container-padding-horizontal;
+    .hook-container;
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-container {
+        max-width: @utility-container-large-max-width;
+        padding: 0 @utility-container-large-padding-horizontal;
+    }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-container:before,
+.uk-container:after {
+    content: "";
+    display: table;
+}
+
+.uk-container:after { clear: both; }
+
+/*
+ * Center container
+ */
+
+.uk-container-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-utility-misc;
+
+.hook-container() {}
+.hook-scrollable-box() {}
+.hook-utility-misc() {}
