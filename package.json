@@ -1,0 +1,11 @@
+{
+  "name": "uikit",
+  "title": "UIkit",
+  "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
+  "version": "3.0.0",
+
+  "scripts": {
+      "compile": "lessc less/uikit.less > uikit.css",
+      "watch": "watch-run -i -p 'less/**/*.less' npm run compile"
+  }
+}
