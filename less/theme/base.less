@@ -7,9 +7,7 @@
 // Variables
 // ========================================================================
 
-@base-blockquote-padding-left:                  15px;
-@base-blockquote-border:                        @global-border;
-@base-blockquote-border-width:                  5px;
+@base-pre-background:                           @global-background;
 
 
 // Body
@@ -29,7 +27,11 @@
 // Text-level semantics
 // ========================================================================
 
-.hook-base-code() {}
+.hook-base-code() {
+    padding: 1px 6px 3px 6px;
+    border: 1px solid @global-border;
+    border-radius: 3px;
+}
 
 
 // Headings
@@ -60,15 +62,17 @@
 // ========================================================================
 
 .hook-base-blockquote() {
-    padding-left: @base-blockquote-padding-left;
-    border-left: @base-blockquote-border-width solid @base-blockquote-border;
+    text-align: center;
 }
 
 
 // Preformatted text
 // ========================================================================
 
-.hook-base-pre() {}
+.hook-base-pre() {
+    border: 1px solid @global-border;
+    border-radius: 3px;
+}
 
 
 // Miscellaneous
