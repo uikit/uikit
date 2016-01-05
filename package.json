@@ -5,7 +5,7 @@
   "version": "3.0.0",
 
   "scripts": {
-      "compile": "lessc less/uikit.less > uikit.css",
+      "compile": "lessc less/uikit.less > css/uikit.css",
       "watch": "watch-run -i -p 'less/**/*.less' npm run compile"
   }
 }
