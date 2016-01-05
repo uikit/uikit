@@ -1,0 +1,285 @@
+// Name:            Grid
+// Description:     Provides a responsive, fluid and nestable grid
+//
+// Component:       `uk-grid`
+//                  `uk-width-*`
+//                  `uk-push-*`
+//                  `uk-pull-*`
+//
+// Modifiers:       `uk-grid-collapse`
+//                  `uk-grid-small`
+//                  `uk-grid-medium`
+//                  `uk-grid-divider`
+//                  `uk-grid-margin`
+//                  `uk-grid-match`
+//                  `uk-grid-width-*`
+//
+// Uses:            Panel: `uk-panel`
+//
+// Used by:         Dropdown
+//
+// Markup:
+//
+// <!-- uk-grid -->
+// <div class="uk-grid">
+//     <div class="uk-width-1-2"></div>
+//     <div class="uk-width-1-2"></div>
+// </div>
+//
+// <!-- uk-grid-divider -->
+// <div class="uk-grid uk-grid-divider">
+//     <div class="uk-width-1-2"></div>
+//     <div class="uk-width-1-2"></div>
+// </div>
+// <hr class="uk-grid-divider">
+// <div class="uk-grid uk-grid-divider">
+//     <div class="uk-width-1-2"></div>
+//     <div class="uk-width-1-2"></div>
+// </div>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@grid-gutter-horizontal:                        25px;
+@grid-gutter-vertical:                          25px;
+
+@grid-gutter-large-horizontal:                  35px;
+@grid-gutter-large-vertical:                    35px;
+
+@grid-gutter-small-horizontal:                  10px;
+@grid-gutter-small-vertical:                    10px;
+
+@grid-divider-border:                           #ddd;
+@grid-divider-border-width:                     1px;
+
+
+/* ========================================================================
+   Component: Grid
+ ========================================================================== */
+
+/*
+ * 1. Makes grid more robust so that it can be used with other block elements like lists
+ */
+
+.uk-grid {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Grid cell
+ * 1. Space is allocated solely based on content dimensions
+ * 2. Makes grid more robust so that it can be used with other block elements
+ */
+
+.uk-grid > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    margin: 0;
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-grid > * > :last-child { margin-bottom: 0; }
+
+
+/* Gutter
+ ========================================================================== */
+
+
+
+/*
+ * Small gutter
+ */
+
+/* Horizontal */
+.uk-grid-small { margin-left: -@grid-gutter-small-horizontal; }
+.uk-grid-small > * { padding-left: @grid-gutter-small-horizontal; }
+
+/* Vertical */
+.uk-grid-small + .uk-grid-small,
+.uk-grid-small > .uk-grid-margin { margin-top: @grid-gutter-small-vertical; }
+
+/*
+ * Medium gutter
+ */
+
+/* Horizontal */
+.uk-grid-medium { margin-left: -@grid-gutter-horizontal; }
+.uk-grid-medium > * { padding-left: @grid-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid-medium + .uk-grid-medium,
+.uk-grid-medium > .uk-grid-margin { margin-top: @grid-gutter-vertical; }
+
+/*
+ * Large gutter
+ */
+
+/* Horizontal */
+.uk-grid-large { margin-left: -@grid-gutter-large-horizontal; }
+.uk-grid-large > * { padding-left: @grid-gutter-large-horizontal; }
+
+/* Vertical */
+.uk-grid-large + .uk-grid-large,
+.uk-grid-large > .uk-grid-margin { margin-top: @grid-gutter-large-vertical; }
+
+
+
+/*
+ * Default gutter
+ */
+
+/* Horizontal */
+.uk-grid { margin-left: -@grid-gutter-horizontal; }
+.uk-grid > * { padding-left: @grid-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid + .uk-grid,
+.uk-grid-margin,
+.uk-grid > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    /* Horizontal */
+    .uk-grid { margin-left: -@grid-gutter-large-horizontal; }
+    .uk-grid > * { padding-left: @grid-gutter-large-horizontal; }
+
+    /* Vertical */
+    .uk-grid + .uk-grid,
+    .uk-grid-margin,
+    .uk-grid > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
+
+}
+
+
+
+
+
+/* Modifier: `uk-grid-divider`
+ ========================================================================== */
+
+/*
+ * Horizontal divider
+ * Only works with the default gutter. Does not work with gutter collapse, small or large.
+ * Does not work with `uk-push-*`, `uk-pull-*` and not if the columns float into the next row.
+ */
+
+.uk-grid-divider:not(:empty) {
+    margin-left: -@grid-gutter-horizontal;
+    margin-right: -@grid-gutter-horizontal;
+}
+
+.uk-grid-divider > * {
+    padding-left: @grid-gutter-horizontal;
+    padding-right: @grid-gutter-horizontal;
+}
+
+.uk-grid-divider > [class*='uk-width-1-']:not(.uk-width-1-1):nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-2-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-3-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-4-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-5-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-6-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-7-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
+.uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    /*
+     * Large gutter
+     */
+
+    .uk-grid-divider:not(:empty) {
+        margin-left: -@grid-gutter-large-horizontal;
+        margin-right: -@grid-gutter-large-horizontal;
+    }
+
+    .uk-grid-divider > * {
+        padding-left: @grid-gutter-large-horizontal;
+        padding-right: @grid-gutter-large-horizontal;
+    }
+
+    .uk-grid-divider:empty {
+        margin-top: @grid-gutter-large-vertical;
+        margin-bottom: @grid-gutter-large-vertical;
+    }
+
+}
+
+/*
+ * Vertical divider
+ */
+
+.uk-grid-divider:empty {
+    margin-top: @grid-gutter-vertical;
+    margin-bottom: @grid-gutter-vertical;
+    border-top: @grid-divider-border-width solid @grid-divider-border;
+}
+
+/* Match panels in grids
+ ========================================================================== */
+
+/*
+ * 1. Behave like a block element
+ */
+
+.uk-grid-match > * {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.uk-grid-match > * > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-grid-misc;
+
+.hook-grid-misc() {}

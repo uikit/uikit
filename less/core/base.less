@@ -11,16 +11,16 @@
 // Variables
 // ========================================================================
 
-@base-body-background:                          #fff;
+@base-body-background:                          @global-background;
 @base-body-font-family:                         "Helvetica Neue", Helvetica, Arial, sans-serif;
 @base-body-font-weight:                         normal;
-@base-body-font-size:                           14px;
-@base-body-line-height:                         20px;
-@base-body-color:                               #444;
+@base-body-font-size:                           @global-font-size;
+@base-body-line-height:                         @global-line-height;
+@base-body-color:                               @global-color;
 
-@base-link-color:                               #07D;
+@base-link-color:                               @global-link-color;
 @base-link-text-decoration:                     none;
-@base-link-hover-color:                         #059;
+@base-link-hover-color:                         @global-link-hover-color;
 @base-link-hover-text-decoration:               underline;
 
 @base-code-color:                               #D05;
@@ -28,18 +28,18 @@
 @base-code-font-family:                         Consolas, monospace, serif;
 @base-em-color:                                 #D05;
 @base-ins-background:                           #ffa;
-@base-ins-color:                                #444;
+@base-ins-color:                                @global-color;
 @base-mark-background:                          #ffa;
-@base-mark-color:                               #444;
+@base-mark-color:                               @global-color;
 @base-quote-font-style:                         italic;
 
-@base-margin-vertical:                          15px;
+@base-margin-vertical:                          @global-margin;
 
 @base-heading-font-family:                      "Helvetica Neue", Helvetica, Arial, sans-serif;
 @base-heading-font-weight:                      normal;
-@base-heading-color:                            #444;
+@base-heading-color:                            @global-color;
 @base-heading-text-transform:                   none;
-@base-heading-margin-top:                       25px;
+@base-heading-margin-top:                       @global-margin-large;
 @base-h1-font-size:                             36px;
 @base-h1-line-height:                           42px;
 @base-h2-font-size:                             24px;
@@ -56,11 +56,9 @@
 @base-list-padding-left:                        30px;
 
 @base-hr-margin-vertical:                       @base-margin-vertical;
-@base-hr-border:                                #ddd;
+@base-hr-border:                                @global-border;
 @base-hr-border-width:                          1px;
 
-@base-blockquote-padding-left:                  15px;
-@base-blockquote-border:                        #ddd;
 @base-blockquote-border-width:                  5px;
 @base-blockquote-font-size:                     16px;
 @base-blockquote-line-height:                   22px;
@@ -68,7 +66,7 @@
 
 @base-pre-padding:                              10px;
 @base-pre-background:                           #f5f5f5;
-@base-pre-color:                                #444;
+@base-pre-color:                                @global-color;
 @base-pre-font-size:                            12px;
 @base-pre-line-height:                          18px;
 @base-pre-font-family:                          @base-code-font-family;
@@ -278,13 +276,6 @@ svg:not(:root) { overflow: hidden; }
  ========================================================================== */
 
 /*
- * Reset margin
- */
-
-blockquote,
-figure { margin: 0; }
-
-/*
  * Margins
  */
 
@@ -312,7 +303,12 @@ figure { margin: 0 0 @base-margin-vertical 0; }
 /* Headings
  ========================================================================== */
 
-h1, h2, h3, h4, h5, h6 {
+h1, .uk-h1,
+h2, .uk-h2,
+h3, .uk-h3,
+h4, .uk-h4,
+h5, .uk-h5,
+h6, .uk-h6 {
     margin: 0 0 @base-margin-vertical 0;
     font-family:  @base-heading-font-family;
     font-weight: @base-heading-font-weight;
@@ -325,12 +321,12 @@ h1, h2, h3, h4, h5, h6 {
  * Margins
  */
 
-* + h1,
-* + h2,
-* + h3,
-* + h4,
-* + h5,
-* + h6 { margin-top: @base-heading-margin-top; }
+* + h1, * + .uk-h1
+* + h2, * + .uk-h2
+* + h3, * + .uk-h3
+* + h4, * + .uk-h4
+* + h5, * + .uk-h5
+* + h6, * + .uk-h6 { margin-top: @base-heading-margin-top; }
 
 /*
  * Sizes
@@ -426,8 +422,6 @@ address { font-style: normal; }
  ========================================================================== */
 
 blockquote {
-    padding-left: @base-blockquote-padding-left;
-    border-left: @base-blockquote-border-width solid @base-blockquote-border;
     font-size: @base-blockquote-font-size;
     line-height: @base-blockquote-line-height;
     font-style: @base-blockquote-font-style;
