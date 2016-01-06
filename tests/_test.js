@@ -14,7 +14,12 @@
 
         // vendor
         '../vendor/holder.js',
-        '../vendor/less.js'
+        '../vendor/less.js',
+
+        // uikit
+        '../js/core.js',
+        '../js/dom.js',
+        '../js/util.js'
 
     ]).forEach(function(script) {
         d.writeln('<script src="'+script+'"></script>');
