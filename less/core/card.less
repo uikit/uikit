@@ -1,0 +1,332 @@
+// Name:            Panel
+// Description:     Defines styles for reusable content areas
+//
+// Component:       `uk-panel`
+//
+// Sub-objects:     `uk-panel-title`
+//                  `uk-panel-badge`
+//                  `uk-panel-teaser`
+//                  `uk-panel-body`
+//
+// Modifiers:       `uk-panel-box`
+//                  `uk-panel-box-hover`
+//                  `uk-panel-box-primary`
+//                  `uk-panel-box-primary-hover`
+//                  `uk-panel-box-secondary`
+//                  `uk-panel-box-secondary-hover`
+//                  `uk-panel-hover`
+//                  `uk-panel-header`
+//                  `uk-panel-space`
+//                  `uk-panel-divider`
+//
+// Uses:            Nav: `uk-nav-side`
+//
+// Used by:         Dropdown
+//                  Off-canvas
+//                  Grid
+//
+// Markup:
+//
+// <!-- uk-panel -->
+// <div class="uk-panel">
+//     <div class="uk-panel-badge uk-badge"></div>
+//     <h3 class="uk-panel-title"></h3>
+//     <p></p>
+// </div>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@panel-title-margin-bottom:                     15px;
+@panel-title-font-size:                         18px;
+@panel-title-line-height:                       24px;
+@panel-title-font-weight:                       normal;
+@panel-title-color:                             #444;
+@panel-title-text-transform:                    none;
+
+@panel-teaser-margin-bottom:                    @panel-title-margin-bottom;
+
+@panel-box-padding:                             15px;
+@panel-box-background:                          #f5f5f5;
+@panel-box-color:                               #444;
+@panel-box-hover-color:                         @panel-box-color;
+@panel-box-title-color:                         #444;
+@panel-box-badge-top:                           10px;
+@panel-box-badge-right:                         @panel-box-badge-top;
+@panel-box-teaser-margin:                       -@panel-box-padding;
+
+@panel-box-primary-background:                  #ebf7fd;
+@panel-box-primary-color:                       #2d7091;
+@panel-box-primary-hover-color:                 @panel-box-primary-color;
+@panel-box-primary-title-color:                 #2d7091;
+
+@panel-box-secondary-background:                #eee;
+@panel-box-secondary-color:                     #444;
+@panel-box-secondary-hover-color:               @panel-box-secondary-color;
+@panel-box-secondary-title-color:               #444;
+
+@panel-hover-padding:                           15px;
+@panel-hover-color:                             #444;
+@panel-hover-hover-background:                  #f5f5f5;
+@panel-hover-hover-color:                       #444;
+@panel-hover-badge-top:                         10px;
+@panel-hover-badge-right:                       @panel-hover-badge-top;
+@panel-hover-teaser-margin:                     -@panel-hover-padding;
+
+@panel-header-title-padding:                    10px;
+@panel-header-title-border:                     #ddd;
+@panel-header-title-border-width:               1px;
+@panel-header-title-color:                      #444;
+
+@panel-space-padding:                           30px;
+
+@panel-divider-gutter:                          25px;
+@panel-divider-gutter-large:                    35px;
+@panel-divider-border:                          #ddd;
+@panel-divider-border-width:                    1px;
+
+@panel-body-padding:                            @panel-box-padding;
+
+
+/* ========================================================================
+   Component: Panel
+ ========================================================================== */
+
+/*
+ * 1. Needed for `a` elements
+ * 2. Create position context for badges
+ */
+
+.uk-panel {
+    /* 1 */
+    display: block;
+    /* 2 */
+    position: relative;
+}
+
+/*
+ * Allow panels to be anchors
+ */
+
+.uk-panel,
+.uk-panel:hover { text-decoration: none; }
+
+/*
+ * Micro clearfix to make panels more robust
+ */
+
+.uk-panel:before,
+.uk-panel:after {
+    content: "";
+    display: table;
+}
+
+.uk-panel:after { clear: both; }
+
+/*
+ * Remove margin from the last-child if not `uk-widget-title`
+ */
+
+.uk-panel > :not(.uk-panel-title):last-child { margin-bottom: 0; }
+
+
+/* Sub-object: `uk-panel-title`
+ ========================================================================== */
+
+.uk-panel-title {
+    margin-top: 0;
+    margin-bottom: @panel-title-margin-bottom;
+    font-size: @panel-title-font-size;
+    line-height: @panel-title-line-height;
+    font-weight: @panel-title-font-weight;
+    text-transform: @panel-title-text-transform;
+    color: @panel-title-color;
+    .hook-panel-title;
+}
+
+
+/* Sub-object: `uk-panel-badge`
+ ========================================================================== */
+
+.uk-panel-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    .hook-panel-badge;
+}
+
+/* Sub-object: `uk-panel-teaser`
+ ========================================================================== */
+
+.uk-panel-teaser { margin-bottom: @panel-teaser-margin-bottom; }
+
+
+/* Sub-object: `uk-panel-body`
+ ========================================================================== */
+
+.uk-panel-body { padding: @panel-body-padding; }
+
+
+/* Modifier: `uk-panel-box`
+ ========================================================================== */
+
+.uk-panel-box {
+    padding: @panel-box-padding;
+    background: @panel-box-background;
+    color: @panel-box-color;
+    .hook-panel-box;
+}
+
+.uk-panel-box-hover:hover {
+    color: @panel-box-hover-color;
+    .hook-panel-box-hover;
+}
+
+.uk-panel-box .uk-panel-title { color: @panel-box-title-color; }
+
+.uk-panel-box .uk-panel-badge {
+    top: @panel-box-badge-top;
+    right: @panel-box-badge-right;
+}
+
+.uk-panel-box > .uk-panel-teaser {
+    margin-top: @panel-box-teaser-margin;
+    margin-left: @panel-box-teaser-margin;
+    margin-right: @panel-box-teaser-margin;
+}
+
+/*
+ * Nav in panel
+ */
+
+.uk-panel-box > .uk-nav-side { margin: 0 (-@panel-box-padding); }
+
+/*
+ * Sub-modifier: `uk-panel-box-primary`
+ */
+
+.uk-panel-box-primary {
+    background-color: @panel-box-primary-background;
+    color: @panel-box-primary-color;
+    .hook-panel-box-primary;
+}
+
+.uk-panel-box-primary-hover:hover {
+    color: @panel-box-primary-hover-color;
+    .hook-panel-box-primary-hover;
+}
+
+.uk-panel-box-primary .uk-panel-title { color: @panel-box-primary-title-color; }
+
+/*
+ * Sub-modifier: `uk-panel-box-secondary`
+ */
+
+.uk-panel-box-secondary {
+    background-color: @panel-box-secondary-background;
+    color: @panel-box-secondary-color;
+    .hook-panel-box-secondary;
+}
+
+.uk-panel-box-secondary-hover:hover {
+    color: @panel-box-secondary-hover-color;
+    .hook-panel-box-secondary-hover;
+}
+
+.uk-panel-box-secondary .uk-panel-title { color: @panel-box-secondary-title-color; }
+
+
+/* Modifier: `uk-panel-hover`
+ ========================================================================== */
+
+.uk-panel-hover {
+    padding: @panel-hover-padding;
+    color: @panel-hover-color;
+    .hook-panel-hover;
+}
+
+.uk-panel-hover:hover {
+    background: @panel-hover-hover-background;
+    color: @panel-hover-hover-color;
+    .hook-panel-hover-hover;
+}
+
+.uk-panel-hover .uk-panel-badge {
+    top: @panel-hover-badge-top;
+    right: @panel-hover-badge-right;
+}
+
+.uk-panel-hover > .uk-panel-teaser {
+    margin-top: @panel-hover-teaser-margin;
+    margin-left: @panel-hover-teaser-margin;
+    margin-right: @panel-hover-teaser-margin;
+}
+
+
+/* Modifier: `uk-panel-header`
+ ========================================================================== */
+
+.uk-panel-header .uk-panel-title {
+    padding-bottom: @panel-header-title-padding;
+    border-bottom: @panel-header-title-border-width solid @panel-header-title-border;
+    color: @panel-header-title-color;
+    .hook-panel-header;
+}
+
+
+/* Modifier: `uk-panel-space`
+ ========================================================================== */
+
+.uk-panel-space { padding: @panel-space-padding; }
+
+.uk-panel-space .uk-panel-badge {
+    top: @panel-space-padding;
+    right: @panel-space-padding;
+}
+
+
+/* Modifier: `uk-panel-divider`
+ ========================================================================== */
+
+.uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter * 2) !important; }
+
+.uk-panel + .uk-panel-divider:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -(@panel-divider-gutter);
+    left: 0;
+    right: 0;
+    border-top: @panel-divider-border-width solid @panel-divider-border;
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter-large * 2) !important; }
+    .uk-panel + .uk-panel-divider:before { top: -(@panel-divider-gutter-large); }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-panel-misc;
+
+.hook-panel-title() {}
+.hook-panel-badge() {}
+.hook-panel-box() {}
+.hook-panel-box-hover() {}
+.hook-panel-box-primary() {}
+.hook-panel-box-primary-hover() {}
+.hook-panel-box-secondary() {}
+.hook-panel-box-secondary-hover() {}
+.hook-panel-hover() {}
+.hook-panel-hover-hover() {}
+.hook-panel-header() {}
+.hook-panel-misc() {}

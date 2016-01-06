@@ -1,0 +1,154 @@
+// Name:            Section
+// Description:     Defines styles to create horizontal layout section
+//
+// Component:       `uk-section`
+//
+// Modifiers:       `uk-section-large`
+//                  `uk-section-default`
+//                  `uk-section-muted`
+//                  `uk-section-primary`
+//                  `uk-section-secondary`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@section-padding-vertical:                        20px;
+@section-padding-vertical-large:                  50px;
+
+@section-large-padding-vertical:                  @section-padding-vertical;
+@section-large-padding-vertical-medium:           @section-padding-vertical-large;
+@section-large-padding-vertical-large:            100px;
+
+@section-default-background:                      #fff;
+@section-muted-background:                        #f9f9f9;
+@section-primary-background:                      #00a8e6;
+@section-secondary-background:                    #222;
+
+
+/* ========================================================================
+   Component: Section
+ ========================================================================== */
+
+.uk-section {
+    box-sizing: border-box;
+    padding-top: @section-padding-vertical;
+    padding-bottom: @section-padding-vertical;
+    .hook-block;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-section {
+        padding-top: @section-padding-vertical-large;
+        padding-bottom: @section-padding-vertical-large;
+    }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-section:before,
+.uk-section:after {
+    content: "";
+    display: table;
+}
+
+.uk-section:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-section > :last-child { margin-bottom: 0; }
+
+
+/* Padding Modifier
+ ========================================================================== */
+
+/*
+ * Large padding
+ */
+
+.uk-section-large {
+    padding-top: @section-large-padding-vertical;
+    padding-bottom: @section-large-padding-vertical;
+}
+
+/* Tablets and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-section-large {
+        padding-top: @section-large-padding-vertical-medium;
+        padding-bottom: @section-large-padding-vertical-medium;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-section-large {
+        padding-top: @section-large-padding-vertical-large;
+        padding-bottom: @section-large-padding-vertical-large;
+    }
+
+}
+
+
+/* Color Modifier
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-section-default {
+    background: @section-default-background;
+    .hook-block-default;
+}
+
+/*
+ * Muted
+ */
+
+.uk-section-muted {
+    background: @section-muted-background;
+    .hook-block-muted;
+}
+
+/*
+ * Primary
+ */
+
+.uk-section-primary {
+    background: @section-primary-background;
+    .hook-block-primary;
+}
+
+/*
+ * Secondary
+ */
+
+.uk-section-secondary {
+    background: @section-secondary-background;
+    .hook-block-secondary;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-block-misc;
+
+.hook-block() {}
+.hook-block-default() {}
+.hook-block-muted() {}
+.hook-block-secondary() {}
+.hook-block-primary() {}
+.hook-block-misc() {}

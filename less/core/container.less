@@ -1,7 +1,7 @@
 // Name:            Container
 // Description:
 //
-// Component:       `uk-container-*`
+// Component:       `uk-container`
 //
 // ========================================================================
 
@@ -9,11 +9,12 @@
 // Variables
 // ========================================================================
 
-@utility-container-max-width:                   980px;
-@utility-container-padding-horizontal:          25px;
+@container-max-width:                   1200px;
 
-@utility-container-large-max-width:             1200px;
-@utility-container-large-padding-horizontal:    35px;
+@container-padding-horizontal:          @global-margin-small;
+@container-padding-horizontal-m:        @global-margin;
+@container-padding-horizontal-l:        @global-margin-large;
+@container-padding-horizontal-xl:       @global-margin-xlarge;
 
 
 /* ========================================================================
@@ -22,18 +23,31 @@
 
 .uk-container {
     box-sizing: border-box;
-    max-width: @utility-container-max-width;
-    padding: 0 @utility-container-padding-horizontal;
+    max-width: @container-max-width;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 @container-padding-horizontal;
     .hook-container;
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-container { padding: 0 @container-padding-horizontal-m; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-container { padding: 0 @container-padding-horizontal-l; }
+
 }
 
 /* Large screen and bigger */
 @media (min-width: @breakpoint-xlarge) {
 
-    .uk-container {
-        max-width: @utility-container-large-max-width;
-        padding: 0 @utility-container-large-padding-horizontal;
-    }
+    .uk-container { padding: 0 @container-padding-horizontal-xl; }
 
 }
 
@@ -50,20 +64,16 @@
 .uk-container:after { clear: both; }
 
 /*
- * Center container
+ * Remove margin from the last-child
  */
 
-.uk-container-center {
-    margin-left: auto;
-    margin-right: auto;
-}
+.uk-container > :last-child { margin-bottom: 0; }
 
 
 // Hooks
 // ========================================================================
 
-.hook-utility-misc;
+.hook-container-misc;
 
 .hook-container() {}
-.hook-scrollable-box() {}
-.hook-utility-misc() {}
+.hook-container-misc() {}
