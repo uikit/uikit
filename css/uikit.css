@@ -190,6 +190,7 @@ fieldset,
 figure {
   margin: 0 0 25px 0;
 }
+/* Add margin if adjacent element */
 * + p,
 * + ul,
 * + ol,
@@ -221,9 +222,7 @@ h6,
   color: #444;
   text-transform: none;
 }
-/*
- * Margins
- */
+/* Add margin if adjacent element */
 * + h1,
 * + .uk-h1 * + h2,
 * + .uk-h2 * + h3,
@@ -603,8 +602,13 @@ iframe {
 /* ========================================================================
    Component: Container
  ========================================================================== */
+/*
+ * 1. Box sizing has to be `content-box` so the max-width is always the same and
+ *    unaffected by the padding on different breakpoints. It's important for the small modifier.
+ */
 .uk-container {
-  box-sizing: border-box;
+  box-sizing: content-box;
+  /* 1 */
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -644,6 +648,11 @@ iframe {
  */
 .uk-container > :last-child {
   margin-bottom: 0;
+}
+/* Size Modifier
+ ========================================================================== */
+.uk-container-small {
+  max-width: 960px;
 }
 /* ========================================================================
    Component: Section
@@ -1375,50 +1384,65 @@ iframe {
 /* Alignment
  ========================================================================== */
 /*
- * Vertical alignment
- * Default value is `stretch`
+ * Align items along the main axis of the current line of the flex container
+ * Row: Horizontal
  */
-.uk-flex-top {
-  -ms-flex-align: start;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
+.uk-flex-justify-start {
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
 }
-.uk-flex-middle {
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-.uk-flex-bottom {
-  -ms-flex-align: end;
-  -webkit-align-items: flex-end;
-  align-items: flex-end;
-}
-/*
- * Horizontal alignment
- * Default value is `flex-start`
- */
-.uk-flex-center {
+.uk-flex-justify-center {
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
 }
-.uk-flex-right {
+.uk-flex-justify-end {
   -ms-flex-pack: end;
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
 }
-.uk-flex-space-between {
+.uk-flex-justify-between {
   -ms-flex-pack: justify;
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-.uk-flex-space-around {
+.uk-flex-justify-around {
   -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
   justify-content: space-around;
 }
+/*
+ * Align items in the cross axis of the current line of the flex container
+ * Row: Vertical
+ */
+.uk-flex-align-stretch {
+  -ms-flex-align: stretch;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+}
+.uk-flex-align-start {
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+.uk-flex-align-center {
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.uk-flex-align-end {
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
 /* Direction
  ========================================================================== */
+.uk-flex-row {
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
 .uk-flex-row-reverse {
   -ms-flex-direction: row-reverse;
   -webkit-flex-direction: row-reverse;
@@ -1452,30 +1476,35 @@ iframe {
   flex-wrap: wrap-reverse;
 }
 /*
- * Horizontal alignment
- * Default value is `stretch`
+ * Aligns items within the flex container when there is extra space in the cross-axis
+ * Only works if there is more than one line of flex items
  */
-.uk-flex-wrap-top {
+.uk-flex-wrap-stretch {
+  -ms-flex-line-pack: stretch;
+  -webkit-align-content: stretch;
+  align-content: stretch;
+}
+.uk-flex-wrap-start {
   -ms-flex-line-pack: start;
   -webkit-align-content: flex-start;
   align-content: flex-start;
 }
-.uk-flex-wrap-middle {
+.uk-flex-wrap-center {
   -ms-flex-line-pack: center;
   -webkit-align-content: center;
   align-content: center;
 }
-.uk-flex-wrap-bottom {
+.uk-flex-wrap-end {
   -ms-flex-line-pack: end;
   -webkit-align-content: flex-end;
   align-content: flex-end;
 }
-.uk-flex-wrap-space-between {
+.uk-flex-wrap-between {
   -ms-flex-line-pack: justify;
   -webkit-align-content: space-between;
   align-content: space-between;
 }
-.uk-flex-wrap-space-around {
+.uk-flex-wrap-around {
   -ms-flex-line-pack: distribute;
   -webkit-align-content: space-around;
   align-content: space-around;
@@ -1485,24 +1514,24 @@ iframe {
 /*
  * Default is 0
  */
-.uk-flex-order-first {
+.uk-flex-first {
   -ms-flex-order: -1;
   -webkit-order: -1;
   order: -1;
 }
-.uk-flex-order-last {
+.uk-flex-last {
   -ms-flex-order: 99;
   -webkit-order: 99;
   order: 99;
 }
 /* Phone landscape and bigger */
 @media (min-width: 480px) {
-  .uk-flex-order-first-small {
+  .uk-flex-first\@s {
     -ms-flex-order: -1;
     -webkit-order: -1;
     order: -1;
   }
-  .uk-flex-order-last-small {
+  .uk-flex-last\@s {
     -ms-flex-order: 99;
     -webkit-order: 99;
     order: 99;
@@ -1510,12 +1539,12 @@ iframe {
 }
 /* Tablet and bigger */
 @media (min-width: 768px) {
-  .uk-flex-order-first-medium {
+  .uk-flex-first\@m {
     -ms-flex-order: -1;
     -webkit-order: -1;
     order: -1;
   }
-  .uk-flex-order-last-medium {
+  .uk-flex-last\@m {
     -ms-flex-order: 99;
     -webkit-order: 99;
     order: 99;
@@ -1523,12 +1552,12 @@ iframe {
 }
 /* Desktop and bigger */
 @media (min-width: 960px) {
-  .uk-flex-order-first-large {
+  .uk-flex-first\@l {
     -ms-flex-order: -1;
     -webkit-order: -1;
     order: -1;
   }
-  .uk-flex-order-last-large {
+  .uk-flex-last\@l {
     -ms-flex-order: 99;
     -webkit-order: 99;
     order: 99;
@@ -1536,12 +1565,12 @@ iframe {
 }
 /* Large screen and bigger */
 @media (min-width: 1220px) {
-  .uk-flex-order-first-xlarge {
+  .uk-flex-first\@xl {
     -ms-flex-order: -1;
     -webkit-order: -1;
     order: -1;
   }
-  .uk-flex-order-last-xlarge {
+  .uk-flex-last\@xl {
     -ms-flex-order: 99;
     -webkit-order: 99;
     order: 99;
@@ -1557,7 +1586,7 @@ iframe {
  * No Flex: 0 0 auto
  * Content dimensions
  */
-.uk-flex-item-none {
+.uk-flex-none {
   -ms-flex: none;
   -webkit-flex: none;
   flex: none;
@@ -1567,7 +1596,7 @@ iframe {
  * Space is allocated considering content
  * 1. Fixes flex-shrink value in IE10
  */
-.uk-flex-item-auto {
+.uk-flex-auto {
   -ms-flex: auto;
   -webkit-flex: auto;
   flex: auto;
@@ -1578,7 +1607,7 @@ iframe {
  * Absolute Flex: 1 1 0%
  * Space is allocated solely based on flex
  */
-.uk-flex-item-1 {
+.uk-flex-1 {
   -ms-flex: 1;
   -webkit-flex: 1;
   flex: 1;
@@ -1596,6 +1625,19 @@ iframe {
   font-size: 18px;
   line-height: 24px;
   font-weight: normal;
+}
+/* Headings
+ ========================================================================== */
+.uk-heading-large {
+  font-size: 36px;
+  line-height: 42px;
+}
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-heading-large {
+    font-size: 52px;
+    line-height: 64px;
+  }
 }
 /* Weight modifiers
  ========================================================================== */
@@ -1636,15 +1678,6 @@ iframe {
 .uk-text-justify {
   text-align: justify !important;
 }
-.uk-text-top {
-  vertical-align: top !important;
-}
-.uk-text-middle {
-  vertical-align: middle !important;
-}
-.uk-text-bottom {
-  vertical-align: bottom !important;
-}
 /* Only tablets portrait and smaller */
 @media (max-width: 959px) {
   .uk-text-center-medium {
@@ -1662,6 +1695,18 @@ iframe {
   .uk-text-left-small {
     text-align: left !important;
   }
+}
+/*
+ * Vertical
+ */
+.uk-text-top {
+  vertical-align: top !important;
+}
+.uk-text-middle {
+  vertical-align: middle !important;
+}
+.uk-text-bottom {
+  vertical-align: bottom !important;
 }
 /* Wrap modifiers
  ========================================================================== */
@@ -1743,16 +1788,95 @@ iframe {
 [class*='uk-float-'] {
   max-width: 100%;
 }
-/* Vertical align
+/* Alignment
  ========================================================================== */
-.uk-vertical-align-top {
-  vertical-align: top;
+[class*='uk-align'] {
+  display: block;
+  margin-bottom: 15px;
 }
-.uk-vertical-align-middle {
-  vertical-align: middle;
+[class*='uk-align-left'] {
+  margin-right: 15px;
 }
-.uk-vertical-align-bottom {
-  vertical-align: bottom;
+[class*='uk-align-right'] {
+  margin-left: 15px;
+}
+/* Default */
+.uk-align-left {
+  float: left;
+}
+.uk-align-right {
+  float: right;
+}
+.uk-align-none {
+  float: none;
+}
+.uk-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Phone landscape and bigger */
+@media (min-width: 480px) {
+  .uk-align-left\@s {
+    float: left;
+  }
+  .uk-align-right\@s {
+    float: right;
+  }
+  .uk-align-none\@s {
+    float: none;
+  }
+  .uk-align-center\@s {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-align-left\@m {
+    float: left;
+  }
+  .uk-align-right\@m {
+    float: right;
+  }
+  .uk-align-none\@m {
+    float: none;
+  }
+  .uk-align-center\@m {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-align-left\@l {
+    float: left;
+  }
+  .uk-align-right\@l {
+    float: right;
+  }
+  .uk-align-none\@l {
+    float: none;
+  }
+  .uk-align-center\@l {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-align-left\@xl {
+    float: left;
+  }
+  .uk-align-right\@xl {
+    float: right;
+  }
+  .uk-align-none\@xl {
+    float: none;
+  }
+  .uk-align-center\@xl {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 /* Height
  ========================================================================== */
@@ -1770,10 +1894,10 @@ iframe {
 }
 /*
  * Useful to create image teasers
+ * TODO Set Height via JS in IE11+IE10
  */
 .uk-height-viewport {
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
 }
 /* Responsive objects
  * Note: Images are already responsive by default, see Base component
@@ -1804,50 +1928,28 @@ iframe {
 /* Margin
  ========================================================================== */
 /*
- * Create a block with the same margin of a paragraph
- * Add margin if adjacent element
+ * Default (Medium)
  */
 .uk-margin {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 * + .uk-margin {
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .uk-margin-top {
-  margin-top: 15px !important;
+  margin-top: 25px !important;
 }
 .uk-margin-bottom {
-  margin-bottom: 15px !important;
+  margin-bottom: 25px !important;
 }
 .uk-margin-left {
-  margin-left: 15px !important;
+  margin-left: 25px !important;
 }
 .uk-margin-right {
-  margin-right: 15px !important;
+  margin-right: 25px !important;
 }
 /*
- * Larger margins
- */
-.uk-margin-large {
-  margin-bottom: 50px;
-}
-* + .uk-margin-large {
-  margin-top: 50px;
-}
-.uk-margin-large-top {
-  margin-top: 50px !important;
-}
-.uk-margin-large-bottom {
-  margin-bottom: 50px !important;
-}
-.uk-margin-large-left {
-  margin-left: 50px !important;
-}
-.uk-margin-large-right {
-  margin-right: 50px !important;
-}
-/*
- * Smaller margins
+ * Small
  */
 .uk-margin-small {
   margin-bottom: 5px;
@@ -1868,15 +1970,124 @@ iframe {
   margin-right: 5px !important;
 }
 /*
- * Remove margins
+ * Large
  */
-.uk-margin-remove {
+.uk-margin-large {
+  margin-bottom: 40px;
+}
+* + .uk-margin-large {
+  margin-top: 40px;
+}
+.uk-margin-large-top {
+  margin-top: 40px !important;
+}
+.uk-margin-large-bottom {
+  margin-bottom: 40px !important;
+}
+.uk-margin-large-left {
+  margin-left: 40px !important;
+}
+.uk-margin-large-right {
+  margin-right: 40px !important;
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-margin-large {
+    margin-bottom: 70px;
+  }
+  * + .uk-margin-large {
+    margin-top: 70px;
+  }
+  .uk-margin-large-top {
+    margin-top: 70px !important;
+  }
+  .uk-margin-large-bottom {
+    margin-bottom: 70px !important;
+  }
+  .uk-margin-large-left {
+    margin-left: 70px !important;
+  }
+  .uk-margin-large-right {
+    margin-right: 70px !important;
+  }
+}
+/*
+ * XLarge
+ */
+.uk-margin-xlarge {
+  margin-bottom: 40px;
+}
+* + .uk-margin-xlarge {
+  margin-top: 40px;
+}
+.uk-margin-xlarge-top {
+  margin-top: 40px !important;
+}
+.uk-margin-xlarge-bottom {
+  margin-bottom: 40px !important;
+}
+.uk-margin-xlarge-left {
+  margin-left: 40px !important;
+}
+.uk-margin-xlarge-right {
+  margin-right: 40px !important;
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-margin-xlarge {
+    margin-bottom: 70px;
+  }
+  * + .uk-margin-xlarge {
+    margin-top: 70px;
+  }
+  .uk-margin-xlarge-top {
+    margin-top: 70px !important;
+  }
+  .uk-margin-xlarge-bottom {
+    margin-bottom: 70px !important;
+  }
+  .uk-margin-xlarge-left {
+    margin-left: 70px !important;
+  }
+  .uk-margin-xlarge-right {
+    margin-right: 70px !important;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-margin-xlarge {
+    margin-bottom: 140px;
+  }
+  * + .uk-margin-xlarge {
+    margin-top: 140px;
+  }
+  .uk-margin-xlarge-top {
+    margin-top: 140px !important;
+  }
+  .uk-margin-xlarge-bottom {
+    margin-bottom: 140px !important;
+  }
+  .uk-margin-xlarge-left {
+    margin-left: 140px !important;
+  }
+  .uk-margin-xlarge-right {
+    margin-right: 140px !important;
+  }
+}
+/*
+ * Remove margin
+ */
+.uk-margin-0 {
   margin: 0 !important;
 }
-.uk-margin-top-remove {
+.uk-margin-top-0 {
   margin-top: 0 !important;
 }
-.uk-margin-bottom-remove {
+.uk-margin-bottom-0 {
+  margin-bottom: 0 !important;
+}
+.uk-margin-vertical-0 {
+  margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 /*
@@ -1888,19 +2099,48 @@ iframe {
 }
 /* Padding
  ========================================================================== */
-.uk-padding-remove {
+/*
+ * Default (Medium)
+ */
+.uk-padding {
+  padding: 20px;
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-padding {
+    padding: 40px;
+  }
+}
+/*
+ * Large
+ */
+.uk-padding {
+  padding: 40px;
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-padding {
+    padding: 80px;
+  }
+}
+/*
+ * Remove padding
+ */
+.uk-padding-0 {
   padding: 0 !important;
 }
-.uk-padding-top-remove {
+.uk-padding-top-0 {
   padding-top: 0 !important;
 }
-.uk-padding-bottom-remove {
+.uk-padding-bottom-0 {
   padding-bottom: 0 !important;
 }
-.uk-padding-vertical-remove {
+.uk-padding-vertical-0 {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
+/* Background
+ ========================================================================== */
 /* Border
  ========================================================================== */
 .uk-border-circle {
@@ -2032,117 +2272,82 @@ iframe {
   /* 1 */
   max-width: 100%;
 }
-/* Remove from the flow and screen readers on any device */
+/* Visibility
+ ========================================================================== */
+/*
+ * Hidden
+ */
 .uk-hidden {
   display: none !important;
+}
+/* Phone landscape and bigger */
+@media (min-width: 480px) {
+  .uk-hidden\@s {
+    display: none !important;
+  }
+}
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-hidden\@m {
+    display: none !important;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-hidden\@l {
+    display: none !important;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-hidden\@xl {
+    display: none !important;
+  }
+}
+/*
+ * Visible
+ */
+/* Phone landscape and smaller */
+@media (max-width: 479px) {
+  .uk-visible\@s {
+    display: none !important;
+  }
+}
+/* Tablet and smaller */
+@media (max-width: 767px) {
+  .uk-visible\@m {
+    display: none !important;
+  }
+}
+/* Desktop and smaller */
+@media (max-width: 959px) {
+  .uk-visible\@l {
+    display: none !important;
+  }
+}
+/* Large screen and smaller */
+@media (max-width: 1219px) {
+  .uk-visible\@xl {
+    display: none !important;
+  }
+}
+/*
+ * Hover
+ */
+/* Hidden */
+.uk-visible-hover:not(:hover) .uk-hidden-hover {
+  display: none !important;
+}
+/* Invisible */
+.uk-visible-hover:not(:hover) .uk-invisible-hover {
   visibility: hidden !important;
 }
 /*
- * Visibility
- * Avoids setting display to `block` so it works also with `inline-block` and `table`
+ * Touch
  */
-/* Desktop and bigger */
-@media (min-width: 960px) {
-  .uk-visible-small {
-    display: none !important;
-  }
-  .uk-visible-medium {
-    display: none !important;
-  }
-  .uk-hidden-large {
-    display: none !important;
-  }
-}
-/* Tablets portrait */
-@media (min-width: 768px) and (max-width: 959px) {
-  .uk-visible-small {
-    display: none !important;
-  }
-  .uk-visible-large {
-    display: none !important ;
-  }
-  .uk-hidden-medium {
-    display: none !important;
-  }
-}
-/* Phone landscape and smaller*/
-@media (max-width: 767px) {
-  .uk-visible-medium {
-    display: none !important;
-  }
-  .uk-visible-large {
-    display: none !important;
-  }
-  .uk-hidden-small {
-    display: none !important;
-  }
-}
-/* It's hidden, but still affects layout */
-.uk-invisible {
-  visibility: hidden !important;
-}
-/* Show on hover */
-.uk-visible-hover:hover .uk-hidden,
-.uk-visible-hover:hover .uk-invisible {
-  display: block !important;
-  visibility: visible !important;
-}
-.uk-visible-hover-inline:hover .uk-hidden,
-.uk-visible-hover-inline:hover .uk-invisible {
-  display: inline-block !important;
-  visibility: visible !important;
-}
-/* Hide on touch */
 .uk-touch .uk-hidden-touch,
 .uk-notouch .uk-hidden-notouch {
   display: none !important;
-}
-/* Headings
- ========================================================================== */
-.uk-heading-large {
-  font-size: 36px;
-  line-height: 42px;
-}
-/* Tablet and bigger */
-@media (min-width: 768px) {
-  .uk-heading-large {
-    font-size: 52px;
-    line-height: 64px;
-  }
-}
-/* Alignment of images and objects
- ========================================================================== */
-/*
- * Alignment
- */
-[class*='uk-align-'] {
-  display: block;
-  margin-bottom: 15px;
-}
-.uk-align-left {
-  margin-right: 15px;
-  float: left;
-}
-.uk-align-right {
-  margin-left: 15px;
-  float: right;
-}
-/* Tablet and bigger */
-@media (min-width: 768px) {
-  .uk-align-medium-left {
-    margin-right: 15px;
-    margin-bottom: 15px;
-    float: left;
-  }
-  .uk-align-medium-right {
-    margin-left: 15px;
-    margin-bottom: 15px;
-    float: right;
-  }
-}
-.uk-align-center {
-  margin-left: auto;
-  margin-right: auto;
 }
 /* ========================================================================
    Component: Print

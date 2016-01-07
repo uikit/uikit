@@ -288,6 +288,7 @@ address,
 fieldset,
 figure { margin: 0 0 @base-margin-vertical 0; }
 
+/* Add margin if adjacent element */
 * + p,
 * + ul,
 * + ol,
@@ -316,10 +317,7 @@ h6, .uk-h6 {
     .hook-base-h;
 }
 
-/*
- * Margins
- */
-
+/* Add margin if adjacent element */
 * + h1, * + .uk-h1
 * + h2, * + .uk-h2
 * + h3, * + .uk-h3

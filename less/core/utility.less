@@ -33,18 +33,24 @@
 @utility-align-horizontal:                      15px;
 @utility-align-vertical:                        15px;
 
-@utility-height-viewport-min-height:            600px;
-
-@utility-margin:                                15px;
+@utility-margin:                                25px;
 @utility-margin-small:                          5px;
-@utility-margin-large:                          50px;
+
+@utility-margin-large:                          40px;
+@utility-margin-large-xl:                       70px;
+
+@utility-margin-xlarge:                         40px;
+@utility-margin-xlarge-l:                       70px;
+@utility-margin-xlarge-xl:                      140px;
+
+@utility-padding:                               20px;
+@utility-padding-l:                             40px;
+@utility-padding-large:                         40px;
+@utility-padding-large-l:                       80px;
 
 @utility-border-rounded:                        5px;
 
-@utility-heading-large-small-font-size:         36px;
-@utility-heading-large-small-line-height:       42px;
-@utility-heading-large-font-size:               52px;
-@utility-heading-large-line-height:             64px;
+
 
 @utility-link-muted-color:                      #444;
 @utility-link-muted-hover-color:                #444;
@@ -116,14 +122,86 @@
 [class*='uk-float-'] { max-width: 100%; }
 
 
-
-
-/* Vertical align
+/* Alignment
  ========================================================================== */
 
-.uk-vertical-align-top { vertical-align: top; }
-.uk-vertical-align-middle { vertical-align: middle; }
-.uk-vertical-align-bottom { vertical-align: bottom; }
+[class*='uk-align'] {
+    display: block;
+    margin-bottom: @utility-align-vertical;
+}
+
+[class*='uk-align-left'] { margin-right: @utility-align-horizontal; }
+[class*='uk-align-right'] { margin-left: @utility-align-horizontal; }
+
+/* Default */
+.uk-align-left { float: left; }
+.uk-align-right { float: right; }
+.uk-align-none { float: none; }
+
+.uk-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-align-left\@s { float: left; }
+    .uk-align-right\@s { float: right; }
+    .uk-align-none\@s { float: none; }
+
+    .uk-align-center\@s {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-align-left\@m { float: left; }
+    .uk-align-right\@m { float: right; }
+    .uk-align-none\@m { float: none; }
+
+    .uk-align-center\@m {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-align-left\@l { float: left; }
+    .uk-align-right\@l { float: right; }
+    .uk-align-none\@l { float: none; }
+
+    .uk-align-center\@l {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-align-left\@xl { float: left; }
+    .uk-align-right\@xl { float: right; }
+    .uk-align-none\@xl { float: none; }
+
+    .uk-align-center\@xl {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+
+
+
 
 
 
@@ -148,12 +226,10 @@
 
 /*
  * Useful to create image teasers
+ * TODO Set Height via JS in IE11+IE10
  */
 
-.uk-height-viewport {
-    height: 100vh;
-    min-height: @utility-height-viewport-min-height;
-}
+.uk-height-viewport { min-height: 100vh; }
 
 
 /* Responsive objects
@@ -192,8 +268,7 @@
  ========================================================================== */
 
 /*
- * Create a block with the same margin of a paragraph
- * Add margin if adjacent element
+ * Default (Medium)
  */
 
 .uk-margin { margin-bottom: @utility-margin; }
@@ -205,19 +280,7 @@
 .uk-margin-right { margin-right: @utility-margin !important; }
 
 /*
- * Larger margins
- */
-
-.uk-margin-large { margin-bottom: @utility-margin-large; }
-* + .uk-margin-large { margin-top: @utility-margin-large; }
-
-.uk-margin-large-top { margin-top: @utility-margin-large !important; }
-.uk-margin-large-bottom { margin-bottom: @utility-margin-large !important; }
-.uk-margin-large-left { margin-left: @utility-margin-large !important; }
-.uk-margin-large-right { margin-right: @utility-margin-large !important; }
-
-/*
- * Smaller margins
+ * Small
  */
 
 .uk-margin-small { margin-bottom: @utility-margin-small; }
@@ -229,13 +292,80 @@
 .uk-margin-small-right { margin-right: @utility-margin-small !important; }
 
 /*
- * Remove margins
+ * Large
  */
 
-.uk-margin-remove { margin: 0 !important; }
-.uk-margin-top-remove { margin-top: 0 !important; }
-.uk-margin-bottom-remove { margin-bottom: 0 !important; }
+.uk-margin-large { margin-bottom: @utility-margin-large; }
+* + .uk-margin-large { margin-top: @utility-margin-large; }
 
+.uk-margin-large-top { margin-top: @utility-margin-large !important; }
+.uk-margin-large-bottom { margin-bottom: @utility-margin-large !important; }
+.uk-margin-large-left { margin-left: @utility-margin-large !important; }
+.uk-margin-large-right { margin-right: @utility-margin-large !important; }
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-margin-large { margin-bottom: @utility-margin-large-xl; }
+    * + .uk-margin-large { margin-top: @utility-margin-large-xl; }
+
+    .uk-margin-large-top { margin-top: @utility-margin-large-xl !important; }
+    .uk-margin-large-bottom { margin-bottom: @utility-margin-large-xl !important; }
+    .uk-margin-large-left { margin-left: @utility-margin-large-xl !important; }
+    .uk-margin-large-right { margin-right: @utility-margin-large-xl !important; }
+
+}
+
+/*
+ * XLarge
+ */
+
+.uk-margin-xlarge { margin-bottom: @utility-margin-xlarge; }
+* + .uk-margin-xlarge { margin-top: @utility-margin-xlarge; }
+
+.uk-margin-xlarge-top { margin-top: @utility-margin-xlarge !important; }
+.uk-margin-xlarge-bottom { margin-bottom: @utility-margin-xlarge !important; }
+.uk-margin-xlarge-left { margin-left: @utility-margin-xlarge !important; }
+.uk-margin-xlarge-right { margin-right: @utility-margin-xlarge !important; }
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-margin-xlarge { margin-bottom: @utility-margin-xlarge-l; }
+    * + .uk-margin-xlarge { margin-top: @utility-margin-xlarge-l; }
+
+    .uk-margin-xlarge-top { margin-top: @utility-margin-xlarge-l !important; }
+    .uk-margin-xlarge-bottom { margin-bottom: @utility-margin-xlarge-l !important; }
+    .uk-margin-xlarge-left { margin-left: @utility-margin-xlarge-l !important; }
+    .uk-margin-xlarge-right { margin-right: @utility-margin-xlarge-l !important; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-margin-xlarge { margin-bottom: @utility-margin-xlarge-xl; }
+    * + .uk-margin-xlarge { margin-top: @utility-margin-xlarge-xl; }
+
+    .uk-margin-xlarge-top { margin-top: @utility-margin-xlarge-xl !important; }
+    .uk-margin-xlarge-bottom { margin-bottom: @utility-margin-xlarge-xl !important; }
+    .uk-margin-xlarge-left { margin-left: @utility-margin-xlarge-xl !important; }
+    .uk-margin-xlarge-right { margin-right: @utility-margin-xlarge-xl !important; }
+
+}
+
+/*
+ * Remove margin
+ */
+
+.uk-margin-0 { margin: 0 !important; }
+.uk-margin-top-0 { margin-top: 0 !important; }
+.uk-margin-bottom-0 { margin-bottom: 0 !important; }
+
+.uk-margin-vertical-0 {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
 
 /*
  * Center block elements
@@ -246,17 +376,57 @@
     margin-right: auto;
 }
 
+
 /* Padding
  ========================================================================== */
 
-.uk-padding-remove { padding: 0 !important; }
-.uk-padding-top-remove { padding-top: 0 !important; }
-.uk-padding-bottom-remove { padding-bottom: 0 !important; }
+/*
+ * Default (Medium)
+ */
 
-.uk-padding-vertical-remove {
+.uk-padding { padding: @utility-padding; }
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-padding { padding: @utility-padding-l; }
+
+}
+
+/*
+ * Large
+ */
+
+.uk-padding { padding: @utility-padding-large; }
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-padding { padding: @utility-padding-large-l; }
+
+}
+
+
+/*
+ * Remove padding
+ */
+
+.uk-padding-0 { padding: 0 !important; }
+.uk-padding-top-0 { padding-top: 0 !important; }
+.uk-padding-bottom-0 { padding-bottom: 0 !important; }
+
+.uk-padding-vertical-0 {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
+
+
+
+/* Background
+ ========================================================================== */
+
+// TODO
+
 
 /* Border
  ========================================================================== */
@@ -414,144 +584,95 @@
     max-width: 100%;
 }
 
-/* Remove from the flow and screen readers on any device */
-.uk-hidden {
-    display: none !important;
-    visibility: hidden !important;
-}
 
 
+
+
+/* Visibility
+ ========================================================================== */
 
 /*
- * Visibility
- * Avoids setting display to `block` so it works also with `inline-block` and `table`
+ * Hidden
  */
+
+.uk-hidden { display: none !important; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-hidden\@s { display: none !important; }
+
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-hidden\@m { display: none !important; }
+
+}
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-visible-small { display: none !important; }
-    .uk-visible-medium { display: none !important; }
-    .uk-hidden-large { display: none !important; }
+    .uk-hidden\@l { display: none !important; }
 
 }
 
-/* Tablets portrait */
-@media (min-width: @breakpoint-medium) and (max-width: @breakpoint-medium-max) {
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
 
-    .uk-visible-small { display: none !important; }
-    .uk-visible-large { display: none !important ; }
-    .uk-hidden-medium { display: none !important; }
+    .uk-hidden\@xl { display: none !important; }
 
 }
-
-/* Phone landscape and smaller*/
-@media (max-width: @breakpoint-small-max) {
-
-    .uk-visible-medium { display: none !important; }
-    .uk-visible-large { display: none !important; }
-    .uk-hidden-small { display: none !important; }
-
-}
-
-
-
-/* It's hidden, but still affects layout */
-.uk-invisible { visibility: hidden !important; }
-
-/* Show on hover */
-.uk-visible-hover:hover .uk-hidden,
-.uk-visible-hover:hover .uk-invisible {
-    display: block !important;
-    visibility: visible !important;
-}
-
-.uk-visible-hover-inline:hover .uk-hidden,
-.uk-visible-hover-inline:hover .uk-invisible {
-    display: inline-block !important;
-    visibility: visible !important;
-}
-
-/* Hide on touch */
-.uk-touch .uk-hidden-touch,
-.uk-notouch .uk-hidden-notouch { display: none !important; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Headings
- ========================================================================== */
-
-.uk-heading-large {
-    font-size: @utility-heading-large-small-font-size;
-    line-height: @utility-heading-large-small-line-height;
-}
-
-/* Tablet and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-heading-large {
-        font-size: @utility-heading-large-font-size;
-        line-height: @utility-heading-large-line-height;
-    }
-
-}
-
-
-/* Alignment of images and objects
- ========================================================================== */
 
 /*
- * Alignment
+ * Visible
  */
 
-[class*='uk-align-'] {
-    display: block;
-    margin-bottom: @utility-align-vertical;
-}
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-mini-max) {
 
-.uk-align-left {
-    margin-right: @utility-align-horizontal;
-    float: left;
-}
-
-.uk-align-right {
-    margin-left: @utility-align-horizontal;
-    float: right;
-}
-
-/* Tablet and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-align-medium-left {
-        margin-right: @utility-align-horizontal;
-        margin-bottom: @utility-align-vertical;
-        float: left;
-    }
-
-    .uk-align-medium-right {
-        margin-left: @utility-align-horizontal;
-        margin-bottom: @utility-align-vertical;
-        float: right;
-    }
+    .uk-visible\@s { display: none !important; }
 
 }
 
-.uk-align-center {
-    margin-left: auto;
-    margin-right: auto;
+/* Tablet and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    .uk-visible\@m { display: none !important; }
+
 }
+
+/* Desktop and smaller */
+@media (max-width: @breakpoint-medium-max) {
+
+    .uk-visible\@l { display: none !important; }
+
+}
+
+/* Large screen and smaller */
+@media (max-width: @breakpoint-large-max) {
+
+    .uk-visible\@xl { display: none !important; }
+
+}
+
+/*
+ * Hover
+ */
+
+/* Hidden */
+.uk-visible-hover:not(:hover) .uk-hidden-hover { display: none !important; }
+
+/* Invisible */
+.uk-visible-hover:not(:hover) .uk-invisible-hover { visibility: hidden !important; }
+
+/*
+ * Touch
+ */
+
+.uk-touch .uk-hidden-touch,
+.uk-notouch .uk-hidden-notouch { display: none !important; }
 
 
 
