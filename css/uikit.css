@@ -1740,6 +1740,114 @@ iframe {
 /* ========================================================================
    Component: Utility
  ========================================================================== */
+/* Height
+ ========================================================================== */
+[class*='uk-height'] {
+  box-sizing: border-box;
+}
+/*
+ * Only works if parent element has a height set
+ */
+.uk-height-1-1 {
+  height: 100%;
+}
+/*
+ * Useful to create image teasers
+ * TODO Set Height via JS in IE11+IE10
+ */
+.uk-height-viewport {
+  min-height: 100vh;
+}
+/* Responsive objects
+ * Note: Images are already responsive by default, see Base component
+ ========================================================================== */
+/*
+ * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
+ */
+.uk-responsive-width,
+.uk-responsive-height {
+  box-sizing: border-box;
+}
+/*
+ * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * `important` needed to override `uk-img-preserve img`
+ */
+.uk-responsive-width {
+  max-width: 100% !important;
+  height: auto;
+}
+/*
+ * Responsiveness: Sets a maximum height relative to the parent and auto scales the width
+ * Only works if the parent element has a fixed height.
+ */
+.uk-responsive-height {
+  max-height: 100%;
+  width: auto;
+}
+/* Background
+ ========================================================================== */
+/* Border
+ ========================================================================== */
+.uk-border-circle {
+  border-radius: 50%;
+}
+.uk-border-rounded {
+  border-radius: 5px;
+}
+/* Link
+ ========================================================================== */
+/*
+ * Let links appear in default text color
+ */
+.uk-link-muted,
+.uk-link-muted a {
+  color: #444;
+}
+.uk-link-muted:hover,
+.uk-link-muted a:hover {
+  color: #444;
+}
+/*
+ * Reset link style
+ */
+.uk-link-reset,
+.uk-link-reset:hover,
+.uk-link-reset:focus,
+.uk-link-reset a,
+.uk-link-reset a:hover,
+.uk-link-reset a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+/* Scrollable
+ ========================================================================== */
+/*
+ * Enable scrolling for preformatted text
+ */
+.uk-scrollable-text {
+  height: 300px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  resize: both;
+}
+/*
+ * Box with scrolling enabled
+ */
+.uk-scrollable-box {
+  box-sizing: border-box;
+  height: 170px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  resize: both;
+}
+.uk-scrollable-box > :last-child {
+  margin-bottom: 0;
+}
+/* ========================================================================
+   Component: Layout
+ ========================================================================== */
 /* Cleafix
  ========================================================================== */
 /*
@@ -1758,21 +1866,6 @@ iframe {
   display: table;
   clear: both;
 }
-/* Overfow
- ========================================================================== */
-.uk-overflow-hidden {
-  overflow: hidden;
-}
-/*
- * Enable scrollbars if content is clipped
- */
-.uk-overflow-auto {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.uk-overflow-auto > :last-child {
-  margin-bottom: 0;
-}
 /* Float
  ========================================================================== */
 /*
@@ -1787,6 +1880,21 @@ iframe {
 /* 1 */
 [class*='uk-float-'] {
   max-width: 100%;
+}
+/* Overfow
+ ========================================================================== */
+.uk-overflow-hidden {
+  overflow: hidden;
+}
+/*
+ * Enable scrollbars if content is clipped
+ */
+.uk-overflow-auto {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.uk-overflow-auto > :last-child {
+  margin-bottom: 0;
 }
 /* Alignment
  ========================================================================== */
@@ -1878,54 +1986,24 @@ iframe {
     margin-right: auto;
   }
 }
-/* Height
+/* Display
  ========================================================================== */
 /*
- * More robust if padding and border are used
+ * 1. Prevent content overflow
  */
-[class*='uk-height'] {
-  box-sizing: border-box;
+.uk-display-block {
+  display: block !important;
 }
-/*
- * Only works if parent element has a height set
- */
-.uk-height-1-1 {
-  height: 100%;
+.uk-display-inline {
+  display: inline !important;
 }
-/*
- * Useful to create image teasers
- * TODO Set Height via JS in IE11+IE10
- */
-.uk-height-viewport {
-  min-height: 100vh;
+.uk-display-inline-block {
+  display: inline-block !important;
+  /* 1 */
+  max-width: 100%;
 }
-/* Responsive objects
- * Note: Images are already responsive by default, see Base component
- ========================================================================== */
-/*
- * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
- */
-.uk-responsive-width,
-.uk-responsive-height {
-  box-sizing: border-box;
-}
-/*
- * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
- * `important` needed to override `uk-img-preserve img`
- */
-.uk-responsive-width {
-  max-width: 100% !important;
-  height: auto;
-}
-/*
- * Responsiveness: Sets a maximum height relative to the parent and auto scales the width
- * Only works if the parent element has a fixed height.
- */
-.uk-responsive-height {
-  max-height: 100%;
-  width: auto;
-}
-/* Margin
+/* ========================================================================
+   Component: Margin
  ========================================================================== */
 /*
  * Default (Medium)
@@ -1948,9 +2026,8 @@ iframe {
 .uk-margin-right {
   margin-right: 25px !important;
 }
-/*
- * Small
- */
+/* Small
+ ========================================================================== */
 .uk-margin-small {
   margin-bottom: 5px;
 }
@@ -1969,9 +2046,8 @@ iframe {
 .uk-margin-small-right {
   margin-right: 5px !important;
 }
-/*
- * Large
- */
+/* Large
+ ========================================================================== */
 .uk-margin-large {
   margin-bottom: 40px;
 }
@@ -2011,9 +2087,8 @@ iframe {
     margin-right: 70px !important;
   }
 }
-/*
- * XLarge
- */
+/* XLarge
+ ========================================================================== */
 .uk-margin-xlarge {
   margin-bottom: 40px;
 }
@@ -2074,30 +2149,29 @@ iframe {
     margin-right: 140px !important;
   }
 }
-/*
- * Remove margin
- */
-.uk-margin-0 {
+/* Remove
+ ========================================================================== */
+.uk-margin-remove {
   margin: 0 !important;
 }
-.uk-margin-top-0 {
+.uk-margin-remove-top {
   margin-top: 0 !important;
 }
-.uk-margin-bottom-0 {
+.uk-margin-remove-bottom {
   margin-bottom: 0 !important;
 }
-.uk-margin-vertical-0 {
+.uk-margin-remove-vertical {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
-/*
- * Center block elements
- */
+/* Center
+ ========================================================================== */
 .uk-margin-auto {
   margin-left: auto;
   margin-right: auto;
 }
-/* Padding
+/* ========================================================================
+   Component: Padding
  ========================================================================== */
 /*
  * Default (Medium)
@@ -2111,98 +2185,46 @@ iframe {
     padding: 40px;
   }
 }
-/*
- * Large
- */
-.uk-padding {
+/* Large
+ ========================================================================== */
+.uk-padding-large {
   padding: 40px;
 }
 /* Desktop and bigger */
 @media (min-width: 960px) {
-  .uk-padding {
+  .uk-padding-large {
     padding: 80px;
   }
 }
-/*
- * Remove padding
- */
-.uk-padding-0 {
+/* Remove
+ ========================================================================== */
+.uk-padding-remove {
   padding: 0 !important;
 }
-.uk-padding-top-0 {
+.uk-padding-remove-top {
   padding-top: 0 !important;
 }
-.uk-padding-bottom-0 {
+.uk-padding-remove-bottom {
   padding-bottom: 0 !important;
 }
-.uk-padding-vertical-0 {
+.uk-padding-remove-vertical {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
-/* Background
+/* ========================================================================
+   Component: Position
  ========================================================================== */
-/* Border
+.uk-position-relative {
+  position: relative !important;
+}
+.uk-position-absolute {
+  position: absolute !important;
+}
+.uk-position-z-index {
+  z-index: 1;
+}
+/* Directions
  ========================================================================== */
-.uk-border-circle {
-  border-radius: 50%;
-}
-.uk-border-rounded {
-  border-radius: 5px;
-}
-/* Link
- ========================================================================== */
-/*
- * Let links appear in default text color
- */
-.uk-link-muted,
-.uk-link-muted a {
-  color: #444;
-}
-.uk-link-muted:hover,
-.uk-link-muted a:hover {
-  color: #444;
-}
-/*
- * Reset link style
- */
-.uk-link-reset,
-.uk-link-reset:hover,
-.uk-link-reset:focus,
-.uk-link-reset a,
-.uk-link-reset a:hover,
-.uk-link-reset a:focus {
-  color: inherit;
-  text-decoration: none;
-}
-/* Scrollable
- ========================================================================== */
-/*
- * Enable scrolling for preformatted text
- */
-.uk-scrollable-text {
-  height: 300px;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  resize: both;
-}
-/*
- * Box with scrolling enabled
- */
-.uk-scrollable-box {
-  box-sizing: border-box;
-  height: 170px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  resize: both;
-}
-.uk-scrollable-box > :last-child {
-  margin-bottom: 0;
-}
-/* Position
- ========================================================================== */
-.uk-position-absolute,
 [class*='uk-position-top'],
 [class*='uk-position-bottom'] {
   position: absolute !important;
@@ -2218,6 +2240,9 @@ iframe {
   left: 0;
   right: 0;
 }
+/*
+ * Corners
+ */
 .uk-position-top-left {
   top: 0;
   left: 0;
@@ -2234,9 +2259,8 @@ iframe {
   bottom: 0;
   right: 0;
 }
-/*
- * Cover
- */
+/* Cover
+ ========================================================================== */
 .uk-position-cover {
   position: absolute;
   top: 0;
@@ -2244,35 +2268,8 @@ iframe {
   left: 0;
   right: 0;
 }
-/*
- * Relative
- */
-.uk-position-relative {
-  position: relative !important;
-}
-/*
- * Z-index
- */
-.uk-position-z-index {
-  z-index: 1;
-}
-/* Display
- ========================================================================== */
-/*
- * 1. Prevent content overflow
- */
-.uk-display-block {
-  display: block !important;
-}
-.uk-display-inline {
-  display: inline !important;
-}
-.uk-display-inline-block {
-  display: inline-block !important;
-  /* 1 */
-  max-width: 100%;
-}
-/* Visibility
+/* ========================================================================
+   Component: Visibility
  ========================================================================== */
 /*
  * Hidden
@@ -2331,9 +2328,8 @@ iframe {
     display: none !important;
   }
 }
-/*
- * Hover
- */
+/* Hover
+ ========================================================================== */
 /* Hidden */
 .uk-visible-hover:not(:hover) .uk-hidden-hover {
   display: none !important;
@@ -2342,9 +2338,8 @@ iframe {
 .uk-visible-hover:not(:hover) .uk-invisible-hover {
   visibility: hidden !important;
 }
-/*
- * Touch
- */
+/* Touch
+ ========================================================================== */
 .uk-touch .uk-hidden-touch,
 .uk-notouch .uk-hidden-notouch {
   display: none !important;

@@ -1,0 +1,110 @@
+// Name:            Visibility
+// Description:     TODO
+//
+// Component:       `uk-hidden`
+//                  `uk-visible`
+//                  `uk-visible-hover`
+//                  `uk-hidden-hover`
+//                  `uk-invisible-hover`
+//                  `uk-hidden-touch`
+//
+// States:          `uk-touch`
+//                  `uk-notouch`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Visibility
+ ========================================================================== */
+
+/*
+ * Hidden
+ */
+
+.uk-hidden { display: none !important; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-hidden\@s { display: none !important; }
+
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-hidden\@m { display: none !important; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-hidden\@l { display: none !important; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-hidden\@xl { display: none !important; }
+
+}
+
+/*
+ * Visible
+ */
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-mini-max) {
+
+    .uk-visible\@s { display: none !important; }
+
+}
+
+/* Tablet and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    .uk-visible\@m { display: none !important; }
+
+}
+
+/* Desktop and smaller */
+@media (max-width: @breakpoint-medium-max) {
+
+    .uk-visible\@l { display: none !important; }
+
+}
+
+/* Large screen and smaller */
+@media (max-width: @breakpoint-large-max) {
+
+    .uk-visible\@xl { display: none !important; }
+
+}
+
+
+/* Hover
+ ========================================================================== */
+
+/* Hidden */
+.uk-visible-hover:not(:hover) .uk-hidden-hover { display: none !important; }
+
+/* Invisible */
+.uk-visible-hover:not(:hover) .uk-invisible-hover { visibility: hidden !important; }
+
+
+/* Touch
+ ========================================================================== */
+
+.uk-touch .uk-hidden-touch,
+.uk-notouch .uk-hidden-notouch { display: none !important; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-visibility-misc;
+
+.hook-visibility-misc() {}
