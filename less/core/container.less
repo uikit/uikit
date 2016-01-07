@@ -1,5 +1,5 @@
 // Name:            Container
-// Description:
+// Description:     center your site’s contents and help align your grid content.
 //
 // Component:       `uk-container`
 //
@@ -10,6 +10,7 @@
 // ========================================================================
 
 @container-max-width:                   1200px;
+@container-small-max-width:             960px;
 
 @container-padding-horizontal:          @global-margin-small;
 @container-padding-horizontal-m:        @global-margin;
@@ -21,8 +22,13 @@
    Component: Container
  ========================================================================== */
 
+/*
+ * 1. Box sizing has to be `content-box` so the max-width is always the same and
+ *    unaffected by the padding on different breakpoints. It's important for the small modifier.
+ */
+
 .uk-container {
-    box-sizing: border-box;
+    box-sizing: content-box; /* 1 */
     max-width: @container-max-width;
     margin-left: auto;
     margin-right: auto;
@@ -68,6 +74,12 @@
  */
 
 .uk-container > :last-child { margin-bottom: 0; }
+
+
+/* Size Modifier
+ ========================================================================== */
+
+.uk-container-small { max-width: @container-small-max-width; }
 
 
 // Hooks
