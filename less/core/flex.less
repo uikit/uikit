@@ -3,9 +3,6 @@
 //
 // Component:       `uk-flex-*`
 //
-// Used by:         Caption
-//
-//
 // ========================================================================
 
 
@@ -37,66 +34,81 @@
  ========================================================================== */
 
 /*
- * Vertical alignment
- * Default value is `stretch`
+ * Align items along the main axis of the current line of the flex container
+ * Row: Horizontal
  */
 
-// .uk-flex-stretch { align-items: stretch; }
-
-.uk-flex-top {
-    -ms-flex-align: start;
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
+// Default
+.uk-flex-justify-start {
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
 }
 
-.uk-flex-middle {
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-}
-
-.uk-flex-bottom {
-    -ms-flex-align: end;
-    -webkit-align-items: flex-end;
-    align-items: flex-end;
-}
-
-/*
- * Horizontal alignment
- * Default value is `flex-start`
- */
-
-// .uk-flex-left { justify-content: flex-start; }
-
-.uk-flex-center {
+.uk-flex-justify-center {
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     justify-content: center;
 }
 
-.uk-flex-right {
+.uk-flex-justify-end {
     -ms-flex-pack: end;
     -webkit-justify-content: flex-end;
     justify-content: flex-end;
 }
 
-.uk-flex-space-between {
+.uk-flex-justify-between {
     -ms-flex-pack: justify;
     -webkit-justify-content: space-between;
     justify-content: space-between;
 }
 
-.uk-flex-space-around {
+.uk-flex-justify-around {
     -ms-flex-pack: distribute;
     -webkit-justify-content: space-around;
     justify-content: space-around;
+}
+
+/*
+ * Align items in the cross axis of the current line of the flex container
+ * Row: Vertical
+ */
+
+// Default
+.uk-flex-align-stretch {
+    -ms-flex-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+}
+
+.uk-flex-align-start {
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+}
+
+.uk-flex-align-center {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.uk-flex-align-end {
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
 }
 
 
 /* Direction
  ========================================================================== */
 
-// .uk-flex-row { flex-direction: row; }
+// Default
+.uk-flex-row {
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
 
 .uk-flex-row-reverse {
     -ms-flex-direction: row-reverse;
@@ -140,37 +152,42 @@
 }
 
 /*
- * Horizontal alignment
- * Default value is `stretch`
+ * Aligns items within the flex container when there is extra space in the cross-axis
+ * Only works if there is more than one line of flex items
  */
 
-// .uk-flex-wrap-stretch { align-content: stretch; }
+// Default
+.uk-flex-wrap-stretch {
+    -ms-flex-line-pack: stretch;
+    -webkit-align-content: stretch;
+    align-content: stretch;
+}
 
-.uk-flex-wrap-top {
+.uk-flex-wrap-start {
     -ms-flex-line-pack: start;
     -webkit-align-content: flex-start;
     align-content: flex-start;
 }
 
-.uk-flex-wrap-middle {
+.uk-flex-wrap-center {
     -ms-flex-line-pack: center;
     -webkit-align-content: center;
     align-content: center;
 }
 
-.uk-flex-wrap-bottom {
+.uk-flex-wrap-end {
     -ms-flex-line-pack: end;
     -webkit-align-content: flex-end;
     align-content: flex-end;
 }
 
-.uk-flex-wrap-space-between {
+.uk-flex-wrap-between {
     -ms-flex-line-pack: justify;
     -webkit-align-content: space-between;
     align-content: space-between;
 }
 
-.uk-flex-wrap-space-around {
+.uk-flex-wrap-around {
     -ms-flex-line-pack: distribute;
     -webkit-align-content: space-around;
     align-content: space-around;
@@ -184,13 +201,13 @@
  * Default is 0
  */
 
-.uk-flex-order-first {
+.uk-flex-first {
     -ms-flex-order: -1;
     -webkit-order: -1;
     order: -1;
 }
 
-.uk-flex-order-last {
+.uk-flex-last {
     -ms-flex-order: 99;
     -webkit-order: 99;
     order: 99;
@@ -200,13 +217,13 @@
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-flex-order-first-small {
+    .uk-flex-first\@s {
         -ms-flex-order: -1;
         -webkit-order: -1;
         order: -1;
     }
 
-    .uk-flex-order-last-small {
+    .uk-flex-last\@s {
         -ms-flex-order: 99;
         -webkit-order: 99;
         order: 99;
@@ -217,13 +234,13 @@
 /* Tablet and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-flex-order-first-medium {
+    .uk-flex-first\@m {
         -ms-flex-order: -1;
         -webkit-order: -1;
         order: -1;
     }
 
-    .uk-flex-order-last-medium {
+    .uk-flex-last\@m {
         -ms-flex-order: 99;
         -webkit-order: 99;
         order: 99;
@@ -234,13 +251,13 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-flex-order-first-large {
+    .uk-flex-first\@l {
         -ms-flex-order: -1;
         -webkit-order: -1;
         order: -1;
     }
 
-    .uk-flex-order-last-large {
+    .uk-flex-last\@l {
         -ms-flex-order: 99;
         -webkit-order: 99;
         order: 99;
@@ -251,20 +268,19 @@
 /* Large screen and bigger */
 @media (min-width: @breakpoint-xlarge) {
 
-    .uk-flex-order-first-xlarge {
+    .uk-flex-first\@xl {
         -ms-flex-order: -1;
         -webkit-order: -1;
         order: -1;
     }
 
-    .uk-flex-order-last-xlarge {
+    .uk-flex-last\@xl {
         -ms-flex-order: 99;
         -webkit-order: 99;
         order: 99;
     }
 
 }
-
 
 
 /* Item dimensions
@@ -280,7 +296,7 @@
  * Content dimensions
  */
 
-.uk-flex-item-none {
+.uk-flex-none {
     -ms-flex: none;
     -webkit-flex: none;
     flex: none;
@@ -292,7 +308,7 @@
  * 1. Fixes flex-shrink value in IE10
  */
 
-.uk-flex-item-auto {
+.uk-flex-auto {
     -ms-flex: auto;
     -webkit-flex: auto;
     flex: auto;
@@ -305,7 +321,7 @@
  * Space is allocated solely based on flex
  */
 
-.uk-flex-item-1 {
+.uk-flex-1 {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
