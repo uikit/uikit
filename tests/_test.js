@@ -5,7 +5,7 @@
     ([
         '../less/uikit.less'
     ]).forEach(function(file) {
-        d.writeln('<link rel="stylesheet/less" type="text/css" href="'+file+'"/>');
+        //d.writeln('<link rel="stylesheet/less" type="text/css" href="'+file+'"/>');
     });
 
 
