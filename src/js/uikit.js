@@ -1,6 +1,6 @@
-import util from './core/util';
-import dom from './core/dom';
-import support from './core/support';
+import util from './lib/util';
+import dom from './lib/dom';
+import support from './lib/support';
 
 
 var UI = {};
