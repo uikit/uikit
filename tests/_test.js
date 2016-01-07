@@ -13,13 +13,12 @@
     ([
 
         // vendor
+        '../vendor/jquery.js',
         '../vendor/holder.js',
         '../vendor/less.js',
 
         // uikit
-        '../js/core.js',
-        '../js/dom.js',
-        '../js/util.js'
+        '../js/uikit.js'
 
     ]).forEach(function(script) {
         d.writeln('<script src="'+script+'"></script>');

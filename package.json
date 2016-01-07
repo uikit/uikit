@@ -3,9 +3,20 @@
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0",
-
   "scripts": {
-      "compile": "lessc less/uikit.less > css/uikit.css",
-      "watch": "watch-run -i -p 'less/**/*.less' npm run compile"
+    "compile-less": "lessc src/less/uikit.less > css/uikit.css",
+    "compile-js": "webpack -d --progress --colors",
+    "watch-less": "watch-run -i -p 'less/**/*.less' npm run compile-less",
+    "watch-js": "watch-run -i -p 'src/js/**/*.js' npm run compile-js",
+    "watch": "npm run watch-less & npm run watch-js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-preset-es2015": "^6.3.13",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
   }
 }
