@@ -1,8 +1,13 @@
+"use strict";
 
 // small DOM pimping
 NodeList.prototype.forEach = NodeList.prototype.forEach || Array.prototype.forEach;
 
 let $DOM = window.jQuery;
+
+$DOM.$doc  = $DOM(document);
+$DOM.$win  = $DOM(window);
+$DOM.$html = $DOM('html');
 
 $DOM.watch = function(el, fn, config) {
     let observer = new MutationObserver(fn);
