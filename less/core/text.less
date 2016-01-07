@@ -23,6 +23,12 @@
 @text-contrast-color:                           #fff;
 
 
+@utility-heading-large-small-font-size:         36px;
+@utility-heading-large-small-line-height:       42px;
+@utility-heading-large-font-size:               52px;
+@utility-heading-large-line-height:             64px;
+
+
 /* ========================================================================
    Component: Text
  ========================================================================== */
@@ -40,6 +46,27 @@
     line-height: @text-large-line-height;
     font-weight: @text-large-font-weight;
 }
+
+
+
+/* Headings
+ ========================================================================== */
+
+.uk-heading-large {
+    font-size: @utility-heading-large-small-font-size;
+    line-height: @utility-heading-large-small-line-height;
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-heading-large {
+        font-size: @utility-heading-large-font-size;
+        line-height: @utility-heading-large-line-height;
+    }
+
+}
+
 
 
 /* Weight modifiers
@@ -67,10 +94,6 @@
 .uk-text-center { text-align: center !important; }
 .uk-text-justify { text-align: justify !important; }
 
-.uk-text-top { vertical-align: top !important; }
-.uk-text-middle { vertical-align: middle !important; }
-.uk-text-bottom { vertical-align: bottom !important; }
-
 /* Only tablets portrait and smaller */
 @media (max-width: @breakpoint-medium-max) {
 
@@ -86,6 +109,14 @@
     .uk-text-left-small { text-align: left !important; }
 
 }
+
+/*
+ * Vertical
+ */
+
+.uk-text-top { vertical-align: top !important; }
+.uk-text-middle { vertical-align: middle !important; }
+.uk-text-bottom { vertical-align: bottom !important; }
 
 
 /* Wrap modifiers
