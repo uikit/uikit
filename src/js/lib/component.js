@@ -32,7 +32,7 @@ UIkit.component('alert', {
 import $ from './dom';
 import $support from './support';
 import $util from './util';
-import polyfill from './polyfill/dom-register-element';
+import polyfill from 'document-register-element';
 
 
 let collection = {};
