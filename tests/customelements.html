@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Base - UIkit tests</title>
+        <script src="_test.js"></script>
+        <link rel="stylesheet" href="../css/uikit.css">
+
+        <script>
+
+            UIkit.component('alert', {
+
+                webcomponent: true,
+
+                props: {
+                    close: false
+                },
+
+                created: function () {
+                    console.log('created');
+                },
+
+                attached: function () {
+                    console.log('attached');
+                    console.log(this.$el);
+                    console.log(this.close);
+                },
+
+                detached: function () {}
+
+            });
+
+        </script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Custom Elements</h1>
+
+            <uk-alert close="true">Huhu</uk-alert>
+
+        </div>
+    </body>
+</html>

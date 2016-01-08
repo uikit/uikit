@@ -76,6 +76,19 @@ export default {
         } else {
             return false;
         }
+    },
+
+    attributes(element) {
+
+        element = element[0] || element;
+
+        let attributes = {};
+
+        for (let i=0;i<element.attributes.length;i++) {
+            attributes[element.attributes[i].name] = this.str2json(element.attributes[i].value);
+        }
+
+        return attributes;
     }
 
 };
