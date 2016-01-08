@@ -193,8 +193,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        var attributes = {};
 	
-	        for (var i = 0; i < element.attributes.length; i++) {
-	            attributes[element.attributes[i].name] = this.str2json(element.attributes[i].value);
+	        for (var val, i = 0; i < element.attributes.length; i++) {
+	
+	            val = this.str2json(element.attributes[i].value);
+	            attributes[element.attributes[i].name] = val === false && element.attributes[i].value != 'false' ? element.attributes[i].value : val;
 	        }
 	
 	        return attributes;
