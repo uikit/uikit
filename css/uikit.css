@@ -13,8 +13,8 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   /* 3 */
-  background: #fff;
-  color: #444;
+  background: #ffffff;
+  color: #444444;
 }
 /*
  * Removes default margin.
@@ -42,13 +42,13 @@ a:hover {
  */
 a,
 .uk-link {
-  color: #07D;
+  color: #0077dd;
   text-decoration: none;
   cursor: pointer;
 }
 a:hover,
 .uk-link:hover {
-  color: #059;
+  color: #005599;
   text-decoration: underline;
 }
 /* Text-level semantics
@@ -79,7 +79,7 @@ strong {
   /* 2 */
   font-family: Consolas, monospace, serif;
   /* 3 */
-  color: #e66;
+  color: #ee6666;
   white-space: nowrap;
   padding: 1px 6px 3px 6px;
   border: 1px solid #e5e5e5;
@@ -89,14 +89,14 @@ strong {
  * Emphasize
  */
 em {
-  color: #e66;
+  color: #ee6666;
 }
 /*
  * Insert
  */
 ins {
-  background: #ffd;
-  color: #444;
+  background: #ffffdd;
+  color: #444444;
   text-decoration: none;
 }
 /*
@@ -104,8 +104,8 @@ ins {
  * Note: Addresses styling not present in IE 8/9.
  */
 mark {
-  background: #ffd;
-  color: #444;
+  background: #ffffdd;
+  color: #444444;
 }
 /*
  * Quote
@@ -220,7 +220,7 @@ h6,
   margin: 0 0 25px 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
-  color: #444;
+  color: #444444;
   text-transform: none;
 }
 /* Add margin if adjacent element */
@@ -329,26 +329,26 @@ blockquote {
  */
 pre {
   font: 0.75rem / 1.5 Consolas, monospace, serif;
-  color: #444;
+  color: #444444;
   -moz-tab-size: 4;
   tab-size: 4;
   /* 1 */
   overflow: auto;
   padding: 10px;
-  background: #fff;
+  background: #ffffff;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
 /* Selection pseudo-element
  ========================================================================== */
 ::-moz-selection {
-  background: #39f;
-  color: #fff;
+  background: #3399ff;
+  color: #ffffff;
   text-shadow: none;
 }
 ::selection {
-  background: #39f;
-  color: #fff;
+  background: #3399ff;
+  color: #ffffff;
   text-shadow: none;
 }
 /* HTML5 elements
@@ -413,11 +413,11 @@ iframe {
  */
 .uk-link-muted,
 .uk-link-muted a {
-  color: #999;
+  color: #999999;
 }
 .uk-link-muted:hover,
 .uk-link-muted a:hover {
-  color: #444;
+  color: #444444;
 }
 /*
  * Reset link style
@@ -460,7 +460,8 @@ iframe {
 /*
  * 1. Makes grid more robust so that it can be used with other block elements like lists
  */
-.uk-grid {
+.uk-grid,
+uk-grid {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -477,7 +478,8 @@ iframe {
  * 1. Space is allocated solely based on content dimensions
  * 2. Makes grid more robust so that it can be used with other block elements
  */
-.uk-grid > * {
+.uk-grid > *,
+uk-grid > * {
   /* 1 */
   -ms-flex: none;
   -webkit-flex: none;
@@ -488,7 +490,8 @@ iframe {
 /*
  * Remove margin from the last-child
  */
-.uk-grid > * > :last-child {
+.uk-grid > * > :last-child,
+uk-grid > * > :last-child {
   margin-bottom: 0;
 }
 /* Gutter
@@ -542,31 +545,39 @@ iframe {
  * Default gutter
  */
 /* Horizontal */
-.uk-grid {
+.uk-grid,
+uk-grid {
   margin-left: -25px;
 }
-.uk-grid > * {
+.uk-grid > *,
+uk-grid > * {
   padding-left: 25px;
 }
 /* Vertical */
 .uk-grid + .uk-grid,
 .uk-grid-margin,
-.uk-grid > * > .uk-panel + .uk-panel {
+.uk-grid > * > .uk-panel + .uk-panel,
+uk-grid + uk-grid,
+uk-grid > * > .uk-panel + .uk-panel {
   margin-top: 25px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  .uk-grid {
+  .uk-grid,
+  uk-grid {
     margin-left: -35px;
   }
-  .uk-grid > * {
+  .uk-grid > *,
+  uk-grid > * {
     padding-left: 35px;
   }
   /* Vertical */
   .uk-grid + .uk-grid,
   .uk-grid-margin,
-  .uk-grid > * > .uk-panel + .uk-panel {
+  .uk-grid > * > .uk-panel + .uk-panel,
+  uk-grid + uk-grid,
+  uk-grid > * > .uk-panel + .uk-panel {
     margin-top: 35px;
   }
 }
@@ -594,18 +605,18 @@ iframe {
 .uk-grid-divider > [class*='uk-width-7-']:nth-child(n+2),
 .uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
 .uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) {
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #dddddd;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #dddddd;
   }
 }
 /* Tablet landscape and bigger */
 @media (min-width: 960px) {
   .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #dddddd;
   }
 }
 /* Desktop and bigger */
@@ -632,7 +643,7 @@ iframe {
 .uk-grid-divider:empty {
   margin-top: 25px;
   margin-bottom: 25px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 /* Match panels in grids
  ========================================================================== */
@@ -656,6 +667,8 @@ iframe {
   box-sizing: border-box;
   width: 100%;
 }
+/* Webcomponent
+ ========================================================================== */
 /* ========================================================================
    Component: Container
  ========================================================================== */
@@ -772,7 +785,7 @@ iframe {
  * Default
  */
 .uk-section-default {
-  background: #fff;
+  background: #ffffff;
 }
 /*
  * Muted
@@ -790,7 +803,7 @@ iframe {
  * Secondary
  */
 .uk-section-secondary {
-  background: #222;
+  background: #222222;
 }
 /* ========================================================================
    Component: Panel
@@ -838,7 +851,7 @@ iframe {
   line-height: 24px;
   font-weight: normal;
   text-transform: none;
-  color: #444;
+  color: #444444;
 }
 /* Sub-object: `uk-panel-badge`
  ========================================================================== */
@@ -863,13 +876,13 @@ iframe {
 .uk-panel-box {
   padding: 15px;
   background: #f5f5f5;
-  color: #444;
+  color: #444444;
 }
 .uk-panel-box-hover:hover {
-  color: #444;
+  color: #444444;
 }
 .uk-panel-box .uk-panel-title {
-  color: #444;
+  color: #444444;
 }
 .uk-panel-box .uk-panel-badge {
   top: 10px;
@@ -903,24 +916,24 @@ iframe {
  * Sub-modifier: `uk-panel-box-secondary`
  */
 .uk-panel-box-secondary {
-  background-color: #eee;
-  color: #444;
+  background-color: #eeeeee;
+  color: #444444;
 }
 .uk-panel-box-secondary-hover:hover {
-  color: #444;
+  color: #444444;
 }
 .uk-panel-box-secondary .uk-panel-title {
-  color: #444;
+  color: #444444;
 }
 /* Modifier: `uk-panel-hover`
  ========================================================================== */
 .uk-panel-hover {
   padding: 15px;
-  color: #444;
+  color: #444444;
 }
 .uk-panel-hover:hover {
   background: #f5f5f5;
-  color: #444;
+  color: #444444;
 }
 .uk-panel-hover .uk-panel-badge {
   top: 10px;
@@ -935,8 +948,8 @@ iframe {
  ========================================================================== */
 .uk-panel-header .uk-panel-title {
   padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  color: #444;
+  border-bottom: 1px solid #dddddd;
+  color: #444444;
 }
 /* Modifier: `uk-panel-space`
  ========================================================================== */
@@ -959,7 +972,7 @@ iframe {
   top: -25px;
   left: 0;
   right: 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 /* Large screen and bigger */
 @media (min-width: 1600px) {
@@ -1677,18 +1690,18 @@ iframe {
 .uk-text-lead {
   font-size: 1.37rem;
   line-height: 1.5;
-  color: #444;
+  color: #444444;
 }
 .uk-text-meta {
   font-size: 0.87rem;
   line-height: 1.4;
-  color: #999;
+  color: #999999;
 }
 .uk-text-meta a {
-  color: #999;
+  color: #999999;
 }
 .uk-text-meta a:hover {
-  color: #444;
+  color: #444444;
   text-decoration: none;
 }
 /* Size modifiers
@@ -1709,7 +1722,7 @@ iframe {
 /* Color modifiers
  ========================================================================== */
 .uk-text-muted {
-  color: #999 !important;
+  color: #999999 !important;
 }
 .uk-text-primary {
   color: #2d7091 !important;
@@ -1802,10 +1815,10 @@ iframe {
 /* Backgrounds
  ========================================================================== */
 .uk-background {
-  background-color: #fff;
+  background-color: #ffffff;
 }
 .uk-background-muted {
-  background-color: #fff;
+  background-color: #ffffff;
 }
 /* Blend modes
  ========================================================================== */
@@ -1928,7 +1941,7 @@ iframe {
   box-sizing: border-box;
   height: 170px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   resize: both;
