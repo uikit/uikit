@@ -14,4 +14,8 @@ UI.component = component(UI);
 
 eventize(UI);
 
+// core components
+
+require('./core/grid')(UI);
+
 export default UI;

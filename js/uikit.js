@@ -94,6 +94,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	(0, _eventize2.default)(UI);
 	
+	// core components
+	
+	__webpack_require__(/*! ./core/grid */ 7)(UI);
+	
 	exports.default = UI;
 	module.exports = exports['default'];
 
@@ -145,6 +149,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    type: function type() {
 	        return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, "$1").toLowerCase();
 	    },
+	    uuid: function uuid() {
+	
+	        var rs = function rs() {
+	            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+	        };
+	
+	        return [rs(), rs(), rs(), rs(), rs(), rs(), rs(), rs()].join('-');
+	    },
 	    isFullscreen: function isFullscreen() {
 	        return document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.fullscreenElement || false;
 	    },
@@ -156,7 +168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    },
 	    debounce: function debounce(func, wait, immediate) {
-	        var timeout;
+	        var timeout = undefined;
 	        return function () {
 	            var context = this,
 	                args = arguments;
@@ -206,6 +218,94 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	
 	        return attributes;
+	    },
+	    matchHeights: function matchHeights(elements, options) {
+	
+	        elements = (0, _dom2.default)(elements).css('min-height', '');
+	        options = _dom2.default.extend({ row: true }, options);
+	
+	        var matchHeights = function matchHeights(group) {
+	
+	            if (group.length < 2) return;
+	
+	            var max = 0;
+	
+	            group.each(function () {
+	                max = Math.max(max, (0, _dom2.default)(this).outerHeight());
+	            }).each(function () {
+	
+	                var element = (0, _dom2.default)(this),
+	                    height = max - (element.css('box-sizing') == 'border-box' ? 0 : element.outerHeight() - element.height());
+	
+	                element.css('min-height', height + 'px');
+	            });
+	        };
+	
+	        if (options.row) {
+	
+	            elements.first().width(); // force redraw
+	
+	            setTimeout(function () {
+	
+	                var lastoffset = false,
+	                    group = [];
+	
+	                elements.each(function () {
+	
+	                    var ele = (0, _dom2.default)(this),
+	                        offset = ele.offset().top;
+	
+	                    if (offset != lastoffset && group.length) {
+	
+	                        matchHeights((0, _dom2.default)(group));
+	                        group = [];
+	                        offset = ele.offset().top;
+	                    }
+	
+	                    group.push(ele);
+	                    lastoffset = offset;
+	                });
+	
+	                if (group.length) {
+	                    matchHeights((0, _dom2.default)(group));
+	                }
+	            }, 0);
+	        } else {
+	            matchHeights(elements);
+	        }
+	    },
+	    stackMargin: function stackMargin(elements, options) {
+	
+	        options = _dom2.default.extend({
+	            'cls': 'uk-margin-small-top'
+	        }, options);
+	
+	        options.cls = options.cls;
+	
+	        elements = (0, _dom2.default)(elements).removeClass(options.cls);
+	
+	        var skip = false,
+	            firstvisible = elements.filter(":visible:first"),
+	            offset = firstvisible.length ? firstvisible.position().top + firstvisible.outerHeight() - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+	
+	        if (offset === false || elements.length == 1) return;
+	
+	        elements.each(function () {
+	
+	            var column = (0, _dom2.default)(this);
+	
+	            if (column.is(":visible")) {
+	
+	                if (skip) {
+	                    column.addClass(options.cls);
+	                } else {
+	
+	                    if (column.position().top >= offset) {
+	                        skip = column.addClass(options.cls);
+	                    }
+	                }
+	            }
+	        });
 	    }
 	};
 	module.exports = exports['default'];
@@ -232,9 +332,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	$.$win = $(window);
 	$.$html = $('html');
 	
-	$.watch = function (el, fn, config) {
+	$.observe = function (el, fn, config) {
 	    var observer = new MutationObserver(fn);
-	    observer.observe(el, config || { attributes: true, childList: true, characterData: true });
+	    observer.observe(el, config || { childList: true, subtree: true });
 	    return observer;
 	};
 	
@@ -271,32 +371,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	/*
-	
-	Example:
-	
-	UIkit.component('alert', {
-	
-	    props: {
-	        close: false
-	    },
-	
-	    created: function () {
-	        console.log('created');
-	    },
-	
-	    attached: function () {
-	        console.log('attached');
-	        console.log(this.$el);
-	        console.log(this.close);
-	    },
-	
-	    detached: function () {}
-	
-	});
-	
-	*/
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -312,6 +386,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return register;
 	};
 	
+	__webpack_require__(/*! document-register-element */ 5);
+	
 	var _dom = __webpack_require__(/*! ./dom */ 2);
 	
 	var _dom2 = _interopRequireDefault(_dom);
@@ -323,10 +399,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _util = __webpack_require__(/*! ./util */ 1);
 	
 	var _util2 = _interopRequireDefault(_util);
-	
-	var _documentRegisterElement = __webpack_require__(/*! document-register-element */ 5);
-	
-	var _documentRegisterElement2 = _interopRequireDefault(_documentRegisterElement);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -349,9 +421,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _util2.default.extend(webcomponent.prototype, {
 	
 	        createdCallback: function createdCallback() {
-	            collection[name](this).webcomponent.onCreated();
+	            collection[name](this, _util2.default.attributes(this)).webcomponent.onCreated();
 	        },
-	
 	        attachedCallback: function attachedCallback() {
 	            collection[name](this).webcomponent.onAttached();
 	        },
@@ -367,11 +438,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	var Component = function () {
-	    _createClass(Component, [{
-	        key: 'init',
-	        value: function init() {}
-	    }]);
-	
 	    function Component(element, options) {
 	        _classCallCheck(this, Component);
 	
@@ -379,6 +445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        this.props = this.props || {};
 	        this.name = this.name || false;
+	        this.uuid = _util2.default.uuid();
 	
 	        this.$el = (0, _dom2.default)(element).data(this.name, this);
 	        this.$opts = _dom2.default.extend(true, {}, this.props, options);
@@ -412,6 +479,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	        if (!this.webcomponent) {
 	            this.init();
+	        }
+	
+	        if (this.$observe) {
+	
+	            $this._observer = _dom2.default.observe(this.$el[0], _util2.default.debounce(function () {
+	                $this.$observe.apply($this, arguments);
+	            }, 10));
 	        }
 	
 	        this.$trigger('init.uk.component', [this.name, this]);
@@ -464,6 +538,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (!$this[method]) $this[method] = obj[method].bind($this);
 	            });
 	        }
+	    }, {
+	        key: 'init',
+	        value: function init() {}
 	    }]);
 	
 	    return Component;
@@ -608,6 +685,113 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	module.exports = exports['default'];
+
+/***/ },
+/* 7 */
+/*!*****************************!*\
+  !*** ./src/js/core/grid.js ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (UI) {
+	
+	    UI.component('grid', {
+	
+	        webcomponent: true,
+	
+	        props: {
+	            margin: false,
+	            match: false,
+	            rowfirst: 'uk-row-first'
+	        },
+	
+	        init: function init() {
+	            this.check();
+	            grids.push(this);
+	        },
+	        check: function check() {
+	            var _this = this;
+	
+	            this.columns = this.$el.children();
+	
+	            if (this.match) this.matcher();
+	            if (this.margin) this.margins();
+	
+	            if (!this.$opts.rowfirst) {
+	                return this;
+	            }
+	
+	            // Mark first column elements
+	            var pos_cache = this.columns.removeClass(this.$opts.rowfirst).filter(':visible').first().position();
+	
+	            if (pos_cache) {
+	                (function () {
+	
+	                    var $this = _this;
+	
+	                    _this.columns.each(function () {
+	                        (0, _dom2.default)(this)[(0, _dom2.default)(this).position().left == pos_cache.left ? 'addClass' : 'removeClass']($this.$opts.rowfirst);
+	                    });
+	                })();
+	            }
+	        },
+	        matcher: function matcher() {
+	
+	            if (this.match) {
+	
+	                var children = this.columns;
+	                var firstvisible = children.filter(":visible:first");
+	
+	                if (!firstvisible.length) return;
+	
+	                var elements = this.match === true ? children : this.$find(this.match);
+	                var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100;
+	
+	                if (stacked && !this.ignorestacked) {
+	                    elements.css('min-height', '');
+	                } else {
+	                    _util2.default.matchHeights(elements, this.options);
+	                }
+	            }
+	
+	            return this;
+	        },
+	        margins: function margins() {
+	
+	            if (this.margin) {
+	                _util2.default.stackMargin(this.columns, this.$opts);
+	            }
+	
+	            return this;
+	        }
+	    });
+	};
+	
+	var _dom = __webpack_require__(/*! ../lib/dom */ 2);
+	
+	var _dom2 = _interopRequireDefault(_dom);
+	
+	var _util = __webpack_require__(/*! ../lib/util */ 1);
+	
+	var _util2 = _interopRequireDefault(_util);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var grids = [];
+	
+	(0, _dom2.default)(window).on('load resize orientationchange', function (e) {
+	    grids.forEach(function (grid) {
+	        if (grid.match) grid.check();
+	    });
+	});
+	
 	module.exports = exports['default'];
 
 /***/ }

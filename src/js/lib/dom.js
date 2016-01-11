@@ -9,9 +9,9 @@ $.$doc  = $(document);
 $.$win  = $(window);
 $.$html = $('html');
 
-$.watch = function(el, fn, config) {
+$.observe = function(el, fn, config) {
     let observer = new MutationObserver(fn);
-    observer.observe(el, config || { attributes: true, childList: true, characterData: true });
+    observer.observe(el, config || { childList: true, subtree: true });
     return observer;
 };
 

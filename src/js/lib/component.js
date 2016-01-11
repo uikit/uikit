@@ -1,36 +1,10 @@
 "use strict";
 
-/*
 
-Example:
-
-UIkit.component('alert', {
-
-    props: {
-        close: false
-    },
-
-    created: function () {
-        console.log('created');
-    },
-
-    attached: function () {
-        console.log('attached');
-        console.log(this.$el);
-        console.log(this.close);
-    },
-
-    detached: function () {}
-
-});
-
-*/
-
-
+import 'document-register-element';
 import $ from './dom';
 import $support from './support';
 import $util from './util';
-import polyfill from 'document-register-element';
 
 
 let collection = {};
@@ -50,9 +24,8 @@ let registerElement = function(name, def) {
     $util.extend(webcomponent.prototype, {
 
         createdCallback: function(){
-            collection[name](this).webcomponent.onCreated();
+            collection[name](this, $util.attributes(this)).webcomponent.onCreated();
         },
-
         attachedCallback: function(){
             collection[name](this).webcomponent.onAttached();
         },
@@ -69,15 +42,13 @@ let registerElement = function(name, def) {
 
 class Component {
 
-    init(){}
-
-
     constructor(element, options) {
 
         let $this = this;
 
         this.props = this.props || {};
         this.name  = this.name || false;
+        this.uuid  = $util.uuid();
 
         this.$el   = $(element).data(this.name, this);
         this.$opts = $.extend(true, {}, this.props, options);
@@ -102,10 +73,9 @@ class Component {
                 },
                 detached(){},
                 attributeChanged(){}
-                
+
             }, this.webcomponent);
         }
-
 
         Object.keys(this.props).forEach(prop => {
             $this[prop] = $this.$opts[prop];
@@ -113,6 +83,13 @@ class Component {
 
         if (!this.webcomponent) {
             this.init();
+        }
+
+        if (this.$observe) {
+
+            $this._observer = $.observe(this.$el[0], $util.debounce(function() {
+                $this.$observe.apply($this, arguments);
+            }, 10));
         }
 
         this.$trigger('init.uk.component', [this.name, this]);
@@ -155,6 +132,8 @@ class Component {
             if (!$this[method]) $this[method] = obj[method].bind($this);
         });
     }
+
+    init(){}
 }
 
 function register(name, def) {
