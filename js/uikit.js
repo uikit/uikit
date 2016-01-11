@@ -348,14 +348,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	    _util2.default.extend(webcomponent.prototype, {
 	
+	        createdCallback: function createdCallback() {
+	            collection[name](this).webcomponent.onCreated();
+	        },
+	
 	        attachedCallback: function attachedCallback() {
-	            collection[name](this, _util2.default.attributes(this)); // attached is called in the constructor
+	            collection[name](this).webcomponent.onAttached();
 	        },
 	        detachedCallback: function detachedCallback() {
-	            collection[name](this).detached();
+	            collection[name](this).webcomponent.onDetached();
 	        },
 	        attributeChangedCallback: function attributeChangedCallback() {
-	            collection[name](this).attributeChanged.apply(this, arguments);
+	            collection[name](this).webcomponent.onAttributeChanged.apply(this, arguments);
 	        }
 	    });
 	
@@ -366,21 +370,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(Component, [{
 	        key: 'init',
 	        value: function init() {}
-	
-	        // triggerd as webcomponent
-	
-	    }, {
-	        key: 'attached',
-	        value: function attached() {}
-	    }, {
-	        key: 'created',
-	        value: function created() {}
-	    }, {
-	        key: 'detached',
-	        value: function detached() {}
-	    }, {
-	        key: 'attributeChanged',
-	        value: function attributeChanged() {}
 	    }]);
 	
 	    function Component(element, options) {
@@ -394,13 +383,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.$el = (0, _dom2.default)(element).data(this.name, this);
 	        this.$opts = _dom2.default.extend(true, {}, this.props, options);
 	
+	        if (this.webcomponent) {
+	            this.webcomponent = _dom2.default.extend({
+	                onCreated: function onCreated() {
+	                    this.created.apply($this, [_util2.default.attributes($this.$el[0])]);
+	                },
+	                onAttached: function onAttached() {
+	                    this.attached.apply($this, [_util2.default.attributes($this.$el[0])]);
+	                },
+	                onDetached: function onDetached() {
+	                    this.detached.apply($this);
+	                },
+	                onAttributeChanged: function onAttributeChanged() {
+	                    this.attributeChanged.apply($this, arguments);
+	                },
+	                created: function created() {},
+	                attached: function attached() {
+	                    $this.init();
+	                },
+	                detached: function detached() {},
+	                attributeChanged: function attributeChanged() {}
+	            }, this.webcomponent);
+	        }
+	
 	        Object.keys(this.props).forEach(function (prop) {
 	            $this[prop] = $this.$opts[prop];
 	        });
 	
-	        this.created();
-	        this.attached();
-	        this.init();
+	        if (!this.webcomponent) {
+	            this.init();
+	        }
 	
 	        this.$trigger('init.uk.component', [this.name, this]);
 	    }

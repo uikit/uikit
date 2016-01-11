@@ -12,23 +12,25 @@
 
             UIkit.component('alert', {
 
-                webcomponent: true,
-
                 props: {
                     close: false
                 },
 
-                created: function () {
-                    console.log('created');
-                },
+                webcomponent: {
+                    created: function () {
+                        console.log('created');
+                    },
 
-                attached: function () {
-                    console.log('attached');
-                    console.log(this.$el);
-                    console.log(this.close);
-                },
+                    attached: function () {
+                        console.log('attached');
+                        console.log(this.$el);
+                        console.log(this.close);
+                    },
 
-                detached: function () {}
+                    detached: function () {
+                        console.log('detached');
+                    }
+                }
 
             });
 

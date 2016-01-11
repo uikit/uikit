@@ -49,14 +49,18 @@ let registerElement = function(name, def) {
 
     $util.extend(webcomponent.prototype, {
 
+        createdCallback: function(){
+            collection[name](this).webcomponent.onCreated();
+        },
+
         attachedCallback: function(){
-            collection[name](this, $util.attributes(this)); // attached is called in the constructor
+            collection[name](this).webcomponent.onAttached();
         },
         detachedCallback(){
-            collection[name](this).detached();
+            collection[name](this).webcomponent.onDetached();
         },
         attributeChangedCallback(){
-            collection[name](this).attributeChanged.apply(this, arguments);
+            collection[name](this).webcomponent.onAttributeChanged.apply(this, arguments);
         }
     });
 
@@ -67,11 +71,6 @@ class Component {
 
     init(){}
 
-    // triggerd as webcomponent
-    attached(){}
-    created(){}
-    detached(){}
-    attributeChanged(){}
 
     constructor(element, options) {
 
@@ -83,13 +82,38 @@ class Component {
         this.$el   = $(element).data(this.name, this);
         this.$opts = $.extend(true, {}, this.props, options);
 
+        if (this.webcomponent) {
+            this.webcomponent = $.extend({
+                onCreated(){
+                    this.created.apply($this, [$util.attributes($this.$el[0])]);
+                },
+                onAttached(){
+                    this.attached.apply($this, [$util.attributes($this.$el[0])]);
+                },
+                onDetached(){
+                    this.detached.apply($this);
+                },
+                onAttributeChanged(){
+                    this.attributeChanged.apply($this, arguments);
+                },
+                created(){},
+                attached(){
+                    $this.init();
+                },
+                detached(){},
+                attributeChanged(){}
+                
+            }, this.webcomponent);
+        }
+
+
         Object.keys(this.props).forEach(prop => {
             $this[prop] = $this.$opts[prop];
         });
 
-        this.created();
-        this.attached();
-        this.init();
+        if (!this.webcomponent) {
+            this.init();
+        }
 
         this.$trigger('init.uk.component', [this.name, this]);
     }
