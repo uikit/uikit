@@ -155,8 +155,8 @@
 .uk-grid-margin,
 .uk-grid > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
 
-/* Large screen and bigger */
-@media (min-width: @breakpoint-xlarge) {
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
 
     /* Horizontal */
     .uk-grid { margin-left: -@grid-gutter-large-horizontal; }
@@ -202,22 +202,22 @@
 .uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
 .uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
 
-/* Tablet and bigger */
-@media (min-width: @breakpoint-medium) {
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
 
     .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
 
 }
 
-/* Desktop and bigger */
-@media (min-width: @breakpoint-large) {
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
 
     .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) { border-left: @grid-divider-border-width solid @grid-divider-border; }
 
 }
 
-/* Large screen and bigger */
-@media (min-width: @breakpoint-xlarge) {
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
 
     /*
      * Large gutter

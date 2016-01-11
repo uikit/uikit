@@ -13,9 +13,9 @@
 @container-small-max-width:             960px;
 
 @container-padding-horizontal:          @global-margin-small;
-@container-padding-horizontal-m:        @global-margin;
-@container-padding-horizontal-l:        @global-margin-large;
-@container-padding-horizontal-xl:       @global-margin-xlarge;
+@container-padding-horizontal-s:        @global-margin;
+@container-padding-horizontal-m:        @global-margin-large;
+@container-padding-horizontal-l:        @global-margin-xlarge;
 
 
 /* ========================================================================
@@ -35,7 +35,14 @@
     padding: 0 @container-padding-horizontal;
 }
 
-/* Tablet and bigger */
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-container { padding: 0 @container-padding-horizontal-s; }
+
+}
+
+/* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
     .uk-container { padding: 0 @container-padding-horizontal-m; }
@@ -46,13 +53,6 @@
 @media (min-width: @breakpoint-large) {
 
     .uk-container { padding: 0 @container-padding-horizontal-l; }
-
-}
-
-/* Large screen and bigger */
-@media (min-width: @breakpoint-xlarge) {
-
-    .uk-container { padding: 0 @container-padding-horizontal-xl; }
 
 }
 

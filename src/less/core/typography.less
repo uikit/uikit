@@ -17,11 +17,11 @@
 @utility-heading-primary-font-size:             @global-xxlarge-font-size;
 @utility-heading-primary-line-height:           1.2;
 
-@utility-heading-primary-font-size-m:           3.37rem; // 54px
-@utility-heading-primary-line-height-m:         1.2;
+@utility-heading-primary-font-size-s:           3.37rem; // 54px
+@utility-heading-primary-line-height-s:         1.2;
 
-@utility-heading-primary-font-size-xl:          5rem;    // 80px
-@utility-heading-primary-line-height-xl:        1.1;
+@utility-heading-primary-font-size-l:           5rem;    // 80px
+@utility-heading-primary-line-height-l:         1.1;
 
 
 /* ========================================================================
@@ -77,22 +77,22 @@
     .hook-typography-heading-primary;
 }
 
-/* Tablet and bigger */
-@media (min-width: @breakpoint-medium) {
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
 
     .uk-heading-primary {
-        font-size: @utility-heading-primary-font-size-m;
-        line-height: @utility-heading-primary-line-height-m;
+        font-size: @utility-heading-primary-font-size-s;
+        line-height: @utility-heading-primary-line-height-s;
     }
 
 }
 
-/* Large screen and bigger */
-@media (min-width: @breakpoint-xlarge) {
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
 
     .uk-heading-primary {
-        font-size: @utility-heading-primary-font-size-xl;
-        line-height: @utility-heading-primary-line-height-xl;
+        font-size: @utility-heading-primary-font-size-l;
+        line-height: @utility-heading-primary-line-height-l;
     }
 
 }
