@@ -6,8 +6,6 @@ Example:
 
 UIkit.component('alert', {
 
-    webcomponent: true,
-
     props: {
         close: false
     },
@@ -65,14 +63,24 @@ let registerElement = function(name, def) {
     document.registerElement('uk-'+webcomponent.tag, { prototype: webcomponent.prototype});
 };
 
+class Component {
 
-function register(name, def) {
+    init(){}
 
-    var fn = function(element, options) {
+    // triggerd as webcomponent
+    attached(){}
+    created(){}
+    detached(){}
+    attributeChanged(){}
+
+    constructor(element, options) {
 
         let $this = this;
 
-        this.$el   = $(element).data(name, this);
+        this.props = this.props || {};
+        this.name  = this.name || false;
+
+        this.$el   = $(element).data(this.name, this);
         this.$opts = $.extend(true, {}, this.props, options);
 
         Object.keys(this.props).forEach(prop => {
@@ -83,62 +91,59 @@ function register(name, def) {
         this.attached();
         this.init();
 
-        this.$trigger('init.uk.component', [name, this]);
+        this.$trigger('init.uk.component', [this.name, this]);
+    }
 
-        return this;
+    $on(a1,a2,a3) {
+        return $(this.$el || this).on(a1,a2,a3);
+    }
+
+    $one(a1,a2,a3) {
+        return $(this.$el || this).one(a1,a2,a3);
+    }
+
+    $off(evt) {
+        return $(this.$el || this).off(evt);
+    }
+
+    $trigger(evt, params) {
+        return $(this.$el || this).trigger(evt, params);
+    }
+
+    $find(selector) {
+        return $(this.$el ? this.$el: []).find(selector);
+    }
+
+    $proxy(obj, methods) {
+
+        let $this = this;
+
+        methods.split(' ').forEach(method => {
+            if (!$this[method]) $this[method] = function() { return obj[method].apply(obj, arguments); };
+        });
+    }
+
+    $mixin(obj, methods) {
+
+        let $this = this;
+
+        methods.split(' ').forEach(method => {
+            if (!$this[method]) $this[method] = obj[method].bind($this);
+        });
+    }
+}
+
+function register(name, def) {
+
+    let fn = function(element, options) {
+        Component.call(this, element, options);
     };
 
-    $.extend(true, fn.prototype, {
+    fn.prototype = Object.create(Component.prototype);
+    fn.prototype.constructor = Component;
+    fn.prototype.name = name;
 
-        props:{},
-
-        init(){},
-
-        // triggerd as webcomponent
-        attached(){},
-        created(){},
-        detached(){},
-        attributeChanged: function(){},
-
-        $on(a1,a2,a3) {
-            return $(this.$el || this).on(a1,a2,a3);
-        },
-
-        $one(a1,a2,a3) {
-            return $(this.$el || this).one(a1,a2,a3);
-        },
-
-        $off(evt) {
-            return $(this.$el || this).off(evt);
-        },
-
-        $trigger(evt, params) {
-            return $(this.$el || this).trigger(evt, params);
-        },
-
-        $find(selector) {
-            return $(this.$el ? this.$el: []).find(selector);
-        },
-
-        $proxy(obj, methods) {
-
-            let $this = this;
-
-            methods.split(' ').forEach(method => {
-                if (!$this[method]) $this[method] = function() { return obj[method].apply(obj, arguments); };
-            });
-        },
-
-        $mixin(obj, methods) {
-
-            let $this = this;
-
-            methods.split(' ').forEach(method => {
-                if (!$this[method]) $this[method] = obj[method].bind($this);
-            });
-        }
-
-    }, def);
+    $.extend(true, fn.prototype, def);
 
     components[name] = fn;
     collection[name] = function(element, options) {
@@ -157,9 +162,9 @@ function register(name, def) {
     if (def.webcomponent) {
         registerElement(name, def.webcomponent);
     }
-
-    return fn;
 };
+
+components.BaseComponent = Component;
 
 exports.components = components;
 

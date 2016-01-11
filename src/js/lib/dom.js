@@ -15,8 +15,4 @@ $.watch = function(el, fn, config) {
     return observer;
 };
 
-$.register = function(name, def) {
-    document.registerElement(name, { prototype: Object.assign(Object.create(HTMLElement.prototype), def || {}) });
-};
-
-module.exports = $;
+export default $;
