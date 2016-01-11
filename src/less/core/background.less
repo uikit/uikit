@@ -1,0 +1,64 @@
+// Name:            Background
+// Description:     TODO
+//
+// Component:       `uk-background`
+//                  `uk-background-muted`
+//                  `uk-blend-*`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@background-background:                         #fff;
+@background-muted-background:                   #fff;
+
+
+/* ========================================================================
+   Component: Background
+ ========================================================================== */
+
+
+/* Backgrounds
+ ========================================================================== */
+
+.uk-background {
+    background-color: @background-background;
+    .hook-background;
+}
+
+.uk-background-muted {
+    background-color: @background-muted-background;
+    .hook-background-muted;
+}
+
+
+/* Blend modes
+ ========================================================================== */
+
+.uk-blend-multiply { background-blend-mode: multiply; }
+.uk-blend-screen { background-blend-mode: screen; }
+.uk-blend-overlay { background-blend-mode: overlay; }
+.uk-blend-darken { background-blend-mode: darken; }
+.uk-blend-lighten { background-blend-mode: lighten; }
+.uk-blend-color-dodge { background-blend-mode: color-dodge; }
+.uk-blend-color-burn { background-blend-mode: color-burn; }
+.uk-blend-hard-light { background-blend-mode: hard-light; }
+.uk-blend-soft-light { background-blend-mode: soft-light; }
+.uk-blend-difference { background-blend-mode: difference; }
+.uk-blend-exclusion { background-blend-mode: exclusion; }
+.uk-blend-hue { background-blend-mode: hue; }
+.uk-blend-saturation { background-blend-mode: saturation; }
+.uk-blend-color { background-blend-mode: color; }
+.uk-blend-luminosity { background-blend-mode: luminosity; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-background-misc;
+
+.hook-background() {}
+.hook-background-muted() {}
+.hook-background-misc() {}

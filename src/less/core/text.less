@@ -1,5 +1,5 @@
 // Name:            Text
-// Description:     Collection of useful text utility classes to style your content
+// Description:     Utility classes for text
 //
 // Component:       `uk-text-*`
 //
@@ -9,29 +9,49 @@
 // Variables
 // ========================================================================
 
-@text-small-font-size:                          11px;
-@text-small-line-height:                        16px;
-@text-large-font-size:                          18px;
-@text-large-line-height:                        24px;
-@text-large-font-weight:                        normal;
+@text-meta-font-size:                           @global-small-font-size;
+@text-meta-line-height:                         1.4;
+@text-meta-color:                               @global-muted-color;
 
-@text-muted-color:                              #999;
+@text-lead-font-size:                           @global-large-font-size;
+@text-lead-line-height:                         1.5;
+@text-lead-color:                               @global-color;
+
+@text-small-font-size:                          @global-small-font-size;
+@text-small-line-height:                        1.5;
+
+@text-large-font-size:                          @global-large-font-size;
+@text-large-line-height:                        1.5;
+
+@text-muted-color:                              @global-muted-color;
 @text-primary-color:                            #2d7091;
 @text-success-color:                            #659f13;
 @text-warning-color:                            #e28327;
 @text-danger-color:                             #d85030;
-@text-contrast-color:                           #fff;
-
-
-@utility-heading-large-small-font-size:         36px;
-@utility-heading-large-small-line-height:       42px;
-@utility-heading-large-font-size:               52px;
-@utility-heading-large-line-height:             64px;
 
 
 /* ========================================================================
    Component: Text
  ========================================================================== */
+
+
+/* Style modifiers
+ ========================================================================== */
+
+.uk-text-lead {
+    font-size: @text-lead-font-size;
+    line-height: @text-lead-line-height;
+    color: @text-lead-color;
+    .hook-text-lead;
+}
+
+.uk-text-meta {
+    font-size: @text-meta-font-size;
+    line-height: @text-meta-line-height;
+    color: @text-meta-color;
+    .hook-text-meta;
+}
+
 
 /* Size modifiers
  ========================================================================== */
@@ -39,34 +59,14 @@
 .uk-text-small {
     font-size: @text-small-font-size;
     line-height: @text-small-line-height;
+    .hook-text-small;
 }
 
 .uk-text-large {
     font-size: @text-large-font-size;
     line-height: @text-large-line-height;
-    font-weight: @text-large-font-weight;
+    .hook-text-large;
 }
-
-
-
-/* Headings
- ========================================================================== */
-
-.uk-heading-large {
-    font-size: @utility-heading-large-small-font-size;
-    line-height: @utility-heading-large-small-line-height;
-}
-
-/* Tablet and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-heading-large {
-        font-size: @utility-heading-large-font-size;
-        line-height: @utility-heading-large-line-height;
-    }
-
-}
-
 
 
 /* Weight modifiers
@@ -83,7 +83,6 @@
 .uk-text-success { color: @text-success-color !important; }
 .uk-text-warning { color: @text-warning-color !important; }
 .uk-text-danger { color: @text-danger-color !important; }
-.uk-text-contrast { color: @text-contrast-color !important; }
 
 
 /* Alignment modifiers
@@ -97,16 +96,16 @@
 /* Only tablets portrait and smaller */
 @media (max-width: @breakpoint-medium-max) {
 
-    .uk-text-center-medium { text-align: center !important; }
-    .uk-text-left-medium { text-align: left !important; }
+    .uk-text-center\@m { text-align: center !important; }
+    .uk-text-left\@m { text-align: left !important; }
 
 }
 
 /* Phone landscape and smaller */
 @media (max-width: @breakpoint-small-max) {
 
-    .uk-text-center-small { text-align: center !important; }
-    .uk-text-left-small { text-align: left !important; }
+    .uk-text-center\@s { text-align: center !important; }
+    .uk-text-left\@s { text-align: left !important; }
 
 }
 
@@ -158,4 +157,8 @@
 
 .hook-text-misc;
 
+.hook-text-lead() {}
+.hook-text-meta() {}
+.hook-text-small() {}
+.hook-text-large() {}
 .hook-text-misc() {}

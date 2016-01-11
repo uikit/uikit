@@ -1,5 +1,5 @@
 // Name:            Base
-// Description:     Sets default values for HTML elements
+// Description:     Default values for HTML elements
 //
 // Component:       `uk-link`
 //                  `uk-img-preserve`
@@ -24,7 +24,7 @@
 @base-link-hover-text-decoration:               underline;
 
 @base-code-color:                               #e66;
-@base-code-font-size:                           0.87rem; // 14px
+@base-code-font-size:                           @global-small-font-size;
 @base-code-font-family:                         Consolas, monospace, serif;
 @base-em-color:                                 #e66;
 @base-ins-background:                           #ffd;
@@ -40,18 +40,18 @@
 @base-heading-color:                            @global-color;
 @base-heading-text-transform:                   none;
 @base-heading-margin-top:                       @global-margin-large;
-@base-h1-font-size:                             2.62rem; // 42px
-@base-h1-line-height:                           1.33;    // 56px
-@base-h2-font-size:                             1.75rem; // 28px
-@base-h2-line-height:                           1.29;    // 36px
-@base-h3-font-size:                             1.37rem; // 22px
-@base-h3-line-height:                           1.27;    // 28px
-@base-h4-font-size:                             1.12rem; // 18px
-@base-h4-line-height:                           1.33;    // 24px
-@base-h5-font-size:                             1rem;    // 16px
-@base-h5-line-height:                           1.37;    // 22px
-@base-h6-font-size:                             0.87rem; // 14px
-@base-h6-line-height:                           1.42;    // 20px
+@base-h1-font-size:                             @global-xxlarge-font-size;
+@base-h1-line-height:                           1.2;
+@base-h2-font-size:                             @global-xlarge-font-size;
+@base-h2-line-height:                           1.3;
+@base-h3-font-size:                             @global-large-font-size;
+@base-h3-line-height:                           1.4;
+@base-h4-font-size:                             @global-medium-font-size;
+@base-h4-line-height:                           1.4;
+@base-h5-font-size:                             @global-font-size;
+@base-h5-line-height:                           1.4;
+@base-h6-font-size:                             @global-small-font-size;
+@base-h6-line-height:                           1.4;
 
 @base-list-padding-left:                        30px;
 
@@ -59,15 +59,13 @@
 @base-hr-border:                                @global-border;
 @base-hr-border-width:                          1px;
 
-@base-blockquote-font-size:                     1.12rem; // 18px
+@base-blockquote-font-size:                     @global-medium-font-size;
 @base-blockquote-line-height:                   1.55;    // 28px
 @base-blockquote-font-style:                    italic;
 
-@base-pre-padding:                              10px;
-@base-pre-background:                           #f5f5f5;
 @base-pre-color:                                @global-color;
 @base-pre-font-size:                            0.75rem; // 12px
-@base-pre-line-height:                          1.5;    // 18px
+@base-pre-line-height:                          1.5;     // 18px
 @base-pre-font-family:                          @base-code-font-family;
 
 @base-selection-background:                     #39f;
@@ -158,6 +156,7 @@ strong { font-weight: bold; }
 /*
  * 1. Address odd `em`-unit font size rendering in all browsers.
  * 2. Consolas has a better baseline in running text compared to `Courier`
+ * 3. Style
  */
 
 :not(pre) > code,
@@ -314,15 +313,15 @@ h6, .uk-h6 {
     font-weight: @base-heading-font-weight;
     color: @base-heading-color;
     text-transform: @base-heading-text-transform;
-    .hook-base-h;
+    .hook-base-heading;
 }
 
 /* Add margin if adjacent element */
-* + h1, * + .uk-h1
-* + h2, * + .uk-h2
-* + h3, * + .uk-h3
-* + h4, * + .uk-h4
-* + h5, * + .uk-h5
+* + h1, * + .uk-h1,
+* + h2, * + .uk-h2,
+* + h3, * + .uk-h3,
+* + h4, * + .uk-h4,
+* + h5, * + .uk-h5,
 * + h6, * + .uk-h6 { margin-top: @base-heading-margin-top; }
 
 /*
@@ -434,8 +433,6 @@ blockquote {
  */
 
 pre {
-    padding: @base-pre-padding;
-    background: @base-pre-background;
     font: @base-pre-font-size e("/") @base-pre-line-height @base-pre-font-family;
     color: @base-pre-color;
     -moz-tab-size: 4;
@@ -529,7 +526,7 @@ iframe { border: 0; }
 .hook-base-link() {}
 .hook-base-link-hover() {}
 .hook-base-code() {}
-.hook-base-h() {}
+.hook-base-heading() {}
 .hook-base-h1() {}
 .hook-base-h2() {}
 .hook-base-h3() {}

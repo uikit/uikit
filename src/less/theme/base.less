@@ -7,6 +7,9 @@
 // Variables
 // ========================================================================
 
+// TODO: Commented
+
+@base-pre-padding:                              10px;
 @base-pre-background:                           @global-background;
 
 
@@ -37,7 +40,7 @@
 // Headings
 // ========================================================================
 
-.hook-base-h() {}
+.hook-base-heading() {}
 
 .hook-base-h1() {}
 
@@ -70,6 +73,8 @@
 // ========================================================================
 
 .hook-base-pre() {
+    padding: @base-pre-padding;
+    background: @base-pre-background;
     border: 1px solid @global-border;
     border-radius: 3px;
 }

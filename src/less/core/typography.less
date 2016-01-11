@@ -1,0 +1,110 @@
+// Name:            Typography
+// Description:     Utility classes for the typography
+//
+// Component:       `uk-link-muted`
+//                  `uk-link-reset`
+//                  `uk-heading-primary`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@utility-link-muted-color:                      @global-muted-color;
+@utility-link-muted-hover-color:                @global-color;
+
+@utility-heading-primary-font-size:             @global-xxlarge-font-size;
+@utility-heading-primary-line-height:           1.2;
+
+@utility-heading-primary-font-size-m:           3.37rem; // 54px
+@utility-heading-primary-line-height-m:         1.2;
+
+@utility-heading-primary-font-size-xl:          5rem;    // 80px
+@utility-heading-primary-line-height-xl:        1.1;
+
+
+/* ========================================================================
+   Component: Typography
+ ========================================================================== */
+
+
+/* Link
+ ========================================================================== */
+
+/*
+ * Let links appear in default text color
+ */
+
+.uk-link-muted,
+.uk-link-muted a {
+    color: @utility-link-muted-color;
+    .hook-typography-link-muted;
+}
+
+.uk-link-muted:hover,
+.uk-link-muted a:hover {
+    color: @utility-link-muted-hover-color;
+    .hook-typography-link-muted-hover;
+}
+
+/*
+ * Reset link style
+ */
+
+.uk-link-reset,
+.uk-link-reset:hover,
+.uk-link-reset:focus,
+.uk-link-reset a,
+.uk-link-reset a:hover,
+.uk-link-reset a:focus {
+    color: inherit;
+    text-decoration: none;
+    .hook-typography-link-reset;
+}
+
+
+/* Headings
+ ========================================================================== */
+
+/*
+ * Primary
+ */
+
+.uk-heading-primary {
+    font-size: @utility-heading-primary-font-size;
+    line-height: @utility-heading-primary-line-height;
+    .hook-typography-heading-primary;
+}
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-heading-primary {
+        font-size: @utility-heading-primary-font-size-m;
+        line-height: @utility-heading-primary-line-height-m;
+    }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-heading-primary {
+        font-size: @utility-heading-primary-font-size-xl;
+        line-height: @utility-heading-primary-line-height-xl;
+    }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-typography-misc;
+
+.hook-typography-link-muted() {}
+.hook-typography-link-muted-hover() {}
+.hook-typography-link-reset() {}
+.hook-typography-heading-primary() {}
+.hook-typography-misc() {}

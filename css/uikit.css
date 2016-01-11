@@ -13,8 +13,8 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   /* 3 */
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
 }
 /*
  * Removes default margin.
@@ -42,13 +42,13 @@ a:hover {
  */
 a,
 .uk-link {
-  color: #0077dd;
+  color: #07D;
   text-decoration: none;
   cursor: pointer;
 }
 a:hover,
 .uk-link:hover {
-  color: #005599;
+  color: #059;
   text-decoration: underline;
 }
 /* Text-level semantics
@@ -69,6 +69,7 @@ strong {
 /*
  * 1. Address odd `em`-unit font size rendering in all browsers.
  * 2. Consolas has a better baseline in running text compared to `Courier`
+ * 3. Style
  */
 :not(pre) > code,
 :not(pre) > kbd,
@@ -78,7 +79,7 @@ strong {
   /* 2 */
   font-family: Consolas, monospace, serif;
   /* 3 */
-  color: #ee6666;
+  color: #e66;
   white-space: nowrap;
   padding: 1px 6px 3px 6px;
   border: 1px solid #e5e5e5;
@@ -88,14 +89,14 @@ strong {
  * Emphasize
  */
 em {
-  color: #ee6666;
+  color: #e66;
 }
 /*
  * Insert
  */
 ins {
-  background: #ffffdd;
-  color: #444444;
+  background: #ffd;
+  color: #444;
   text-decoration: none;
 }
 /*
@@ -103,8 +104,8 @@ ins {
  * Note: Addresses styling not present in IE 8/9.
  */
 mark {
-  background: #ffffdd;
-  color: #444444;
+  background: #ffd;
+  color: #444;
 }
 /*
  * Quote
@@ -219,16 +220,21 @@ h6,
   margin: 0 0 25px 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
-  color: #444444;
+  color: #444;
   text-transform: none;
 }
 /* Add margin if adjacent element */
 * + h1,
-* + .uk-h1 * + h2,
-* + .uk-h2 * + h3,
-* + .uk-h3 * + h4,
-* + .uk-h4 * + h5,
-* + .uk-h5 * + h6,
+* + .uk-h1,
+* + h2,
+* + .uk-h2,
+* + h3,
+* + .uk-h3,
+* + h4,
+* + .uk-h4,
+* + h5,
+* + .uk-h5,
+* + h6,
 * + .uk-h6 {
   margin-top: 35px;
 }
@@ -238,32 +244,32 @@ h6,
 h1,
 .uk-h1 {
   font-size: 2.62rem;
-  line-height: 1.33;
+  line-height: 1.2;
 }
 h2,
 .uk-h2 {
   font-size: 1.75rem;
-  line-height: 1.29;
+  line-height: 1.3;
 }
 h3,
 .uk-h3 {
   font-size: 1.37rem;
-  line-height: 1.27;
+  line-height: 1.4;
 }
 h4,
 .uk-h4 {
   font-size: 1.12rem;
-  line-height: 1.33;
+  line-height: 1.4;
 }
 h5,
 .uk-h5 {
-  font-size: 1rem;
-  line-height: 1.37;
+  font-size: 16px;
+  line-height: 1.4;
 }
 h6,
 .uk-h6 {
   font-size: 0.87rem;
-  line-height: 1.42;
+  line-height: 1.4;
 }
 /* Lists
  ========================================================================== */
@@ -322,27 +328,27 @@ blockquote {
  * 1. Contain overflow in all browsers.
  */
 pre {
-  padding: 10px;
-  background: #ffffff;
   font: 0.75rem / 1.5 Consolas, monospace, serif;
-  color: #444444;
+  color: #444;
   -moz-tab-size: 4;
   tab-size: 4;
   /* 1 */
   overflow: auto;
+  padding: 10px;
+  background: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
 /* Selection pseudo-element
  ========================================================================== */
 ::-moz-selection {
-  background: #3399ff;
-  color: #ffffff;
+  background: #39f;
+  color: #fff;
   text-shadow: none;
 }
 ::selection {
-  background: #3399ff;
-  color: #ffffff;
+  background: #39f;
+  color: #fff;
   text-shadow: none;
 }
 /* HTML5 elements
@@ -395,6 +401,57 @@ iframe {
 @media screen and (max-width: 400px) {
   @-ms-viewport {
     width: device-width;
+  }
+}
+/* ========================================================================
+   Component: Typography
+ ========================================================================== */
+/* Link
+ ========================================================================== */
+/*
+ * Let links appear in default text color
+ */
+.uk-link-muted,
+.uk-link-muted a {
+  color: #999;
+}
+.uk-link-muted:hover,
+.uk-link-muted a:hover {
+  color: #444;
+}
+/*
+ * Reset link style
+ */
+.uk-link-reset,
+.uk-link-reset:hover,
+.uk-link-reset:focus,
+.uk-link-reset a,
+.uk-link-reset a:hover,
+.uk-link-reset a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+/* Headings
+ ========================================================================== */
+/*
+ * Primary
+ */
+.uk-heading-primary {
+  font-size: 2.62rem;
+  line-height: 1.2;
+}
+/* Tablet and bigger */
+@media (min-width: 768px) {
+  .uk-heading-primary {
+    font-size: 3.37rem;
+    line-height: 1.2;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1220px) {
+  .uk-heading-primary {
+    font-size: 5rem;
+    line-height: 1.1;
   }
 }
 /* ========================================================================
@@ -537,18 +594,18 @@ iframe {
 .uk-grid-divider > [class*='uk-width-7-']:nth-child(n+2),
 .uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
 .uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) {
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
 }
 /* Tablet and bigger */
 @media (min-width: 768px) {
   .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
-    border-left: 1px solid #dddddd;
+    border-left: 1px solid #ddd;
   }
 }
 /* Desktop and bigger */
 @media (min-width: 960px) {
   .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
-    border-left: 1px solid #dddddd;
+    border-left: 1px solid #ddd;
   }
 }
 /* Large screen and bigger */
@@ -575,7 +632,7 @@ iframe {
 .uk-grid-divider:empty {
   margin-top: 25px;
   margin-bottom: 25px;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 /* Match panels in grids
  ========================================================================== */
@@ -715,7 +772,7 @@ iframe {
  * Default
  */
 .uk-section-default {
-  background: #ffffff;
+  background: #fff;
 }
 /*
  * Muted
@@ -733,7 +790,7 @@ iframe {
  * Secondary
  */
 .uk-section-secondary {
-  background: #222222;
+  background: #222;
 }
 /* ========================================================================
    Component: Panel
@@ -781,7 +838,7 @@ iframe {
   line-height: 24px;
   font-weight: normal;
   text-transform: none;
-  color: #444444;
+  color: #444;
 }
 /* Sub-object: `uk-panel-badge`
  ========================================================================== */
@@ -806,13 +863,13 @@ iframe {
 .uk-panel-box {
   padding: 15px;
   background: #f5f5f5;
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box-hover:hover {
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box .uk-panel-title {
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box .uk-panel-badge {
   top: 10px;
@@ -846,24 +903,24 @@ iframe {
  * Sub-modifier: `uk-panel-box-secondary`
  */
 .uk-panel-box-secondary {
-  background-color: #eeeeee;
-  color: #444444;
+  background-color: #eee;
+  color: #444;
 }
 .uk-panel-box-secondary-hover:hover {
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box-secondary .uk-panel-title {
-  color: #444444;
+  color: #444;
 }
 /* Modifier: `uk-panel-hover`
  ========================================================================== */
 .uk-panel-hover {
   padding: 15px;
-  color: #444444;
+  color: #444;
 }
 .uk-panel-hover:hover {
   background: #f5f5f5;
-  color: #444444;
+  color: #444;
 }
 .uk-panel-hover .uk-panel-badge {
   top: 10px;
@@ -878,8 +935,8 @@ iframe {
  ========================================================================== */
 .uk-panel-header .uk-panel-title {
   padding-bottom: 10px;
-  border-bottom: 1px solid #dddddd;
-  color: #444444;
+  border-bottom: 1px solid #ddd;
+  color: #444;
 }
 /* Modifier: `uk-panel-space`
  ========================================================================== */
@@ -902,7 +959,7 @@ iframe {
   top: -25px;
   left: 0;
   right: 0;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 /* Large screen and bigger */
 @media (min-width: 1220px) {
@@ -1615,29 +1672,34 @@ iframe {
 /* ========================================================================
    Component: Text
  ========================================================================== */
+/* Style modifiers
+ ========================================================================== */
+.uk-text-lead {
+  font-size: 1.37rem;
+  line-height: 1.5;
+  color: #444;
+}
+.uk-text-meta {
+  font-size: 0.87rem;
+  line-height: 1.4;
+  color: #999;
+}
+.uk-text-meta a {
+  color: #999;
+}
+.uk-text-meta a:hover {
+  color: #444;
+  text-decoration: none;
+}
 /* Size modifiers
  ========================================================================== */
 .uk-text-small {
-  font-size: 11px;
-  line-height: 16px;
+  font-size: 0.87rem;
+  line-height: 1.5;
 }
 .uk-text-large {
-  font-size: 18px;
-  line-height: 24px;
-  font-weight: normal;
-}
-/* Headings
- ========================================================================== */
-.uk-heading-large {
-  font-size: 36px;
-  line-height: 42px;
-}
-/* Tablet and bigger */
-@media (min-width: 768px) {
-  .uk-heading-large {
-    font-size: 52px;
-    line-height: 64px;
-  }
+  font-size: 1.37rem;
+  line-height: 1.5;
 }
 /* Weight modifiers
  ========================================================================== */
@@ -1647,7 +1709,7 @@ iframe {
 /* Color modifiers
  ========================================================================== */
 .uk-text-muted {
-  color: #999999 !important;
+  color: #999 !important;
 }
 .uk-text-primary {
   color: #2d7091 !important;
@@ -1660,9 +1722,6 @@ iframe {
 }
 .uk-text-danger {
   color: #d85030 !important;
-}
-.uk-text-contrast {
-  color: #ffffff !important;
 }
 /* Alignment modifiers
  ========================================================================== */
@@ -1680,19 +1739,19 @@ iframe {
 }
 /* Only tablets portrait and smaller */
 @media (max-width: 959px) {
-  .uk-text-center-medium {
+  .uk-text-center\@m {
     text-align: center !important;
   }
-  .uk-text-left-medium {
+  .uk-text-left\@m {
     text-align: left !important;
   }
 }
 /* Phone landscape and smaller */
 @media (max-width: 767px) {
-  .uk-text-center-small {
+  .uk-text-center\@s {
     text-align: center !important;
   }
-  .uk-text-left-small {
+  .uk-text-left\@s {
     text-align: left !important;
   }
 }
@@ -1738,6 +1797,64 @@ iframe {
   hyphens: auto;
 }
 /* ========================================================================
+   Component: Background
+ ========================================================================== */
+/* Backgrounds
+ ========================================================================== */
+.uk-background {
+  background-color: #fff;
+}
+.uk-background-muted {
+  background-color: #fff;
+}
+/* Blend modes
+ ========================================================================== */
+.uk-blend-multiply {
+  background-blend-mode: multiply;
+}
+.uk-blend-screen {
+  background-blend-mode: screen;
+}
+.uk-blend-overlay {
+  background-blend-mode: overlay;
+}
+.uk-blend-darken {
+  background-blend-mode: darken;
+}
+.uk-blend-lighten {
+  background-blend-mode: lighten;
+}
+.uk-blend-color-dodge {
+  background-blend-mode: color-dodge;
+}
+.uk-blend-color-burn {
+  background-blend-mode: color-burn;
+}
+.uk-blend-hard-light {
+  background-blend-mode: hard-light;
+}
+.uk-blend-soft-light {
+  background-blend-mode: soft-light;
+}
+.uk-blend-difference {
+  background-blend-mode: difference;
+}
+.uk-blend-exclusion {
+  background-blend-mode: exclusion;
+}
+.uk-blend-hue {
+  background-blend-mode: hue;
+}
+.uk-blend-saturation {
+  background-blend-mode: saturation;
+}
+.uk-blend-color {
+  background-blend-mode: color;
+}
+.uk-blend-luminosity {
+  background-blend-mode: luminosity;
+}
+/* ========================================================================
    Component: Utility
  ========================================================================== */
 /* Height
@@ -1754,6 +1871,7 @@ iframe {
 /*
  * Useful to create image teasers
  * TODO Set Height via JS in IE11+IE10
+ * TODO Change height if sticky via JS
  */
 .uk-height-viewport {
   min-height: 100vh;
@@ -1784,8 +1902,6 @@ iframe {
   max-height: 100%;
   width: auto;
 }
-/* Background
- ========================================================================== */
 /* Border
  ========================================================================== */
 .uk-border-circle {
@@ -1793,31 +1909,6 @@ iframe {
 }
 .uk-border-rounded {
   border-radius: 5px;
-}
-/* Link
- ========================================================================== */
-/*
- * Let links appear in default text color
- */
-.uk-link-muted,
-.uk-link-muted a {
-  color: #444444;
-}
-.uk-link-muted:hover,
-.uk-link-muted a:hover {
-  color: #444444;
-}
-/*
- * Reset link style
- */
-.uk-link-reset,
-.uk-link-reset:hover,
-.uk-link-reset:focus,
-.uk-link-reset a,
-.uk-link-reset a:hover,
-.uk-link-reset a:focus {
-  color: inherit;
-  text-decoration: none;
 }
 /* Scrollable
  ========================================================================== */
@@ -1837,7 +1928,7 @@ iframe {
   box-sizing: border-box;
   height: 170px;
   padding: 10px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   resize: both;
@@ -1845,9 +1936,30 @@ iframe {
 .uk-scrollable-box > :last-child {
   margin-bottom: 0;
 }
+/* TODO: Media Object (Comment)
+ ========================================================================== */
 /* ========================================================================
    Component: Layout
  ========================================================================== */
+/* Panel
+ ========================================================================== */
+/*
+ * Micro clearfix to make articles more robust
+ */
+.uk-panel:before,
+.uk-panel:after {
+  content: "";
+  display: table;
+}
+.uk-panel:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-panel > :last-child {
+  margin-bottom: 0;
+}
 /* Cleafix
  ========================================================================== */
 /*
@@ -1900,6 +2012,7 @@ iframe {
  ========================================================================== */
 [class*='uk-align'] {
   display: block;
+  margin-top: 0;
   margin-bottom: 15px;
 }
 [class*='uk-align-left'] {

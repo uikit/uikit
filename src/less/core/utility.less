@@ -20,9 +20,6 @@
 
 @utility-border-rounded:                        5px;
 
-@utility-link-muted-color:                      #444;
-@utility-link-muted-hover-color:                #444;
-
 @utility-scrollable-text-height:                300px;
 
 @utility-scrollable-box-height:                 170px;
@@ -50,6 +47,7 @@
 /*
  * Useful to create image teasers
  * TODO Set Height via JS in IE11+IE10
+ * TODO Change height if sticky via JS
  */
 
 .uk-height-viewport { min-height: 100vh; }
@@ -87,45 +85,11 @@
 }
 
 
-/* Background
- ========================================================================== */
-
-// TODO
-
-
 /* Border
  ========================================================================== */
 
 .uk-border-circle { border-radius: 50%; }
 .uk-border-rounded { border-radius: @utility-border-rounded; }
-
-
-/* Link
- ========================================================================== */
-
-/*
- * Let links appear in default text color
- */
-
-.uk-link-muted,
-.uk-link-muted a { color: @utility-link-muted-color; }
-
-.uk-link-muted:hover,
-.uk-link-muted a:hover { color: @utility-link-muted-hover-color; }
-
-/*
- * Reset link style
- */
-
-.uk-link-reset,
-.uk-link-reset:hover,
-.uk-link-reset:focus,
-.uk-link-reset a,
-.uk-link-reset a:hover,
-.uk-link-reset a:focus {
-    color: inherit;
-    text-decoration: none;
-}
 
 
 /* Scrollable
@@ -158,6 +122,10 @@
 }
 
 .uk-scrollable-box > :last-child { margin-bottom: 0; }
+
+
+/* TODO: Media Object (Comment)
+ ========================================================================== */
 
 
 // Hooks

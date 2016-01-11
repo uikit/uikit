@@ -21,6 +21,28 @@
  ========================================================================== */
 
 
+/* Panel
+ ========================================================================== */
+
+/*
+ * Micro clearfix to make articles more robust
+ */
+
+.uk-panel:before,
+.uk-panel:after {
+    content: "";
+    display: table;
+}
+
+.uk-panel:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-panel > :last-child { margin-bottom: 0; }
+
+
 /* Cleafix
  ========================================================================== */
 
@@ -80,6 +102,7 @@
 
 [class*='uk-align'] {
     display: block;
+    margin-top: 0;
     margin-bottom: @utility-align-vertical;
 }
 
