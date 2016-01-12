@@ -277,12 +277,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    stackMargin: function stackMargin(elements, options) {
 	
 	        options = _dom2.default.extend({
-	            'cls': 'uk-margin-small-top'
+	            margin: 'uk-margin-small-top'
 	        }, options);
 	
-	        options.cls = options.cls;
+	        options.margin = options.margin;
 	
-	        elements = (0, _dom2.default)(elements).removeClass(options.cls);
+	        elements = (0, _dom2.default)(elements).removeClass(options.margin);
 	
 	        var skip = false,
 	            firstvisible = elements.filter(":visible:first"),
@@ -297,11 +297,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (column.is(":visible")) {
 	
 	                if (skip) {
-	                    column.addClass(options.cls);
+	                    column.addClass(options.margin);
 	                } else {
 	
 	                    if (column.position().top >= offset) {
-	                        skip = column.addClass(options.cls);
+	                        skip = column.addClass(options.margin);
 	                    }
 	                }
 	            }
@@ -707,9 +707,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        webcomponent: true,
 	
 	        props: {
-	            margin: false,
+	            margin: 'uk-grid-margin',
 	            match: false,
-	            rowfirst: 'uk-row-first'
+	            rowfirst: 'uk-grid-first'
 	        },
 	
 	        init: function init() {
@@ -788,7 +788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	(0, _dom2.default)(window).on('load resize orientationchange', function (e) {
 	    grids.forEach(function (grid) {
-	        if (grid.match) grid.check();
+	        grid.check();
 	    });
 	});
 	

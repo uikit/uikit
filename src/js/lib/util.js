@@ -161,12 +161,12 @@ export default {
     stackMargin(elements, options) {
 
         options = $.extend({
-            'cls': 'uk-margin-small-top'
+            margin: 'uk-margin-small-top'
         }, options);
 
-        options.cls = options.cls;
+        options.margin = options.margin;
 
-        elements = $(elements).removeClass(options.cls);
+        elements = $(elements).removeClass(options.margin);
 
         var skip         = false,
             firstvisible = elements.filter(":visible:first"),
@@ -181,11 +181,11 @@ export default {
             if (column.is(":visible")) {
 
                 if (skip) {
-                    column.addClass(options.cls);
+                    column.addClass(options.margin);
                 } else {
 
                     if (column.position().top >= offset) {
-                        skip = column.addClass(options.cls);
+                        skip = column.addClass(options.margin);
                     }
                 }
             }

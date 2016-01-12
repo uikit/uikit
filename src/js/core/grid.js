@@ -7,7 +7,7 @@ let grids = [];
 
 $(window).on('load resize orientationchange', e => {
     grids.forEach(grid => {
-        if(grid.match) grid.check();
+        grid.check();
     });
 });
 
@@ -19,9 +19,9 @@ export default function(UI) {
         webcomponent: true,
 
         props: {
-            margin  : false,
+            margin  : 'uk-grid-margin',
             match   : false,
-            rowfirst: 'uk-row-first'
+            rowfirst: 'uk-grid-first'
         },
 
         init() {
