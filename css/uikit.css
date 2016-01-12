@@ -617,127 +617,133 @@ uk-grid + .uk-grid-gutter-large {
 /*
  * Default
  */
-/* Gutter */
+/* Horizontal */
 .uk-grid-divider.uk-grid-gutter {
   margin-left: -50px;
 }
 .uk-grid-divider.uk-grid-gutter > * {
   padding-left: 50px;
 }
-.uk-grid-divider.uk-grid-gutter > .uk-grid-margin {
-  margin-top: 50px;
-}
-/* Divider */
 .uk-grid-divider.uk-grid-gutter > :not(.uk-grid-first):before {
   left: 25px;
 }
+/* Vertical */
+.uk-grid-divider.uk-grid-gutter > .uk-grid-first + .uk-grid-first {
+  margin-top: 50px;
+}
 .uk-grid-divider.uk-grid-gutter > .uk-grid-first + .uk-grid-first:before {
-  top: 25px;
+  top: -25px;
+  left: 50px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
-  /* Gutter */
+  /* Horizontal */
   .uk-grid-divider.uk-grid-gutter {
     margin-left: -80px;
   }
   .uk-grid-divider.uk-grid-gutter > * {
     padding-left: 80px;
   }
-  .uk-grid-divider.uk-grid-gutter > .uk-grid-margin {
-    margin-top: 80px;
-  }
-  /* Divider */
   .uk-grid-divider.uk-grid-gutter > :not(.uk-grid-first):before {
     left: 40px;
   }
+  /* Vertical */
+  .uk-grid-divider.uk-grid-gutter > .uk-grid-first + .uk-grid-first {
+    margin-top: 80px;
+  }
   .uk-grid-divider.uk-grid-gutter > .uk-grid-first + .uk-grid-first:before {
-    top: 40px;
+    top: -40px;
+    left: 80px;
   }
 }
 /*
  * Small
  */
-/* Gutter */
-.uk-grid-gutter-small {
+/* Horizontal */
+.uk-grid-divider.uk-grid-gutter-small {
   margin-left: -20px;
 }
-.uk-grid-gutter-small > * {
+.uk-grid-divider.uk-grid-gutter-small > * {
   padding-left: 20px;
 }
-.uk-grid-gutter-small > .uk-grid-margin {
-  margin-top: 20px;
-}
-/* Divider */
 .uk-grid-divider.uk-grid-gutter-small > :not(.uk-grid-first):before {
   left: 10px;
 }
+/* Vertical */
+.uk-grid-divider.uk-grid-gutter-small > .uk-grid-first + .uk-grid-first {
+  margin-top: 20px;
+}
 .uk-grid-divider.uk-grid-gutter-small > .uk-grid-first + .uk-grid-first:before {
-  top: 10px;
+  top: -10px;
+  left: 20px;
 }
 /*
  * Medium
  */
-/* Gutter */
-.uk-grid-gutter-medium {
+/* Horizontal */
+.uk-grid-divider.uk-grid-gutter-medium {
   margin-left: -50px;
 }
-.uk-grid-gutter-medium > * {
+.uk-grid-divider.uk-grid-gutter-medium > * {
   padding-left: 50px;
 }
-.uk-grid-gutter-medium > .uk-grid-margin {
-  margin-top: 50px;
-}
-/* Divider */
 .uk-grid-divider.uk-grid-gutter-medium > :not(.uk-grid-first):before {
   left: 25px;
 }
+/* Vertical */
+.uk-grid-divider.uk-grid-gutter-medium > .uk-grid-first + .uk-grid-first {
+  margin-top: 50px;
+}
 .uk-grid-divider.uk-grid-gutter-medium > .uk-grid-first + .uk-grid-first:before {
-  top: 25px;
+  top: -25px;
+  left: 50px;
 }
 /*
  * Large
  */
-/* Gutter */
-.uk-grid-gutter-large {
+/* Horizontal */
+.uk-grid-divider.uk-grid-gutter-large {
   margin-left: -80px;
 }
-.uk-grid-gutter-large > * {
+.uk-grid-divider.uk-grid-gutter-large > * {
   padding-left: 80px;
 }
-.uk-grid-gutter-large > .uk-grid-margin {
-  margin-top: 80px;
-}
-/* Divider */
 .uk-grid-divider.uk-grid-gutter-large > :not(.uk-grid-first):before {
   left: 40px;
 }
+/* Vertical */
+.uk-grid-divider.uk-grid-gutter-large > .uk-grid-first + .uk-grid-first {
+  margin-top: 80px;
+}
 .uk-grid-divider.uk-grid-gutter-large > .uk-grid-first + .uk-grid-first:before {
-  top: 40px;
+  top: -40px;
+  left: 80px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
-  /* Gutter */
-  .uk-grid-gutter-large {
+  /* Horizontal */
+  .uk-grid-divider.uk-grid-gutter-large {
     margin-left: -140px;
   }
-  .uk-grid-gutter-large > * {
+  .uk-grid-divider.uk-grid-gutter-large > * {
     padding-left: 140px;
   }
-  .uk-grid-gutter-large > .uk-grid-margin {
-    margin-top: 140px;
-  }
-  /* Divider */
   .uk-grid-divider.uk-grid-gutter-large > :not(.uk-grid-first):before {
     left: 70px;
   }
+  /* Vertical */
+  .uk-grid-divider.uk-grid-gutter-large > .uk-grid-first + .uk-grid-first {
+    margin-top: 140px;
+  }
   .uk-grid-divider.uk-grid-gutter-large > .uk-grid-first + .uk-grid-first:before {
-    top: 70px;
+    top: -70px;
+    left: 140px;
   }
 }
 /* Match panels in grids
  ========================================================================== */
 /*
- * 1. Behave like a block element
+ * 1. Take full width
  */
 .uk-grid-match > * {
   display: -ms-flexbox;
@@ -750,11 +756,10 @@ uk-grid + .uk-grid-gutter-large {
 }
 .uk-grid-match > * > * {
   /* 1 */
-  -ms-flex: none;
-  -webkit-flex: none;
-  flex: none;
+  -ms-flex: auto;
+  -webkit-flex: auto;
+  flex: auto;
   box-sizing: border-box;
-  width: 100%;
 }
 /* Webcomponent
  ========================================================================== */
