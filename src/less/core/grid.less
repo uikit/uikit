@@ -245,12 +245,11 @@
  * Small
  */
 
-
 /* Gutter */
-.uk-grid-gutter-small { margin-left: -@grid-gutter-small-horizontal; }
-.uk-grid-gutter-small > * { padding-left: @grid-gutter-small-horizontal; }
+.uk-grid-gutter-small { margin-left: -(@grid-gutter-small-horizontal * 2); }
+.uk-grid-gutter-small > * { padding-left: (@grid-gutter-small-horizontal * 2); }
 
-.uk-grid-gutter-small > .uk-grid-margin { margin-top: @grid-gutter-small-vertical; }
+.uk-grid-gutter-small > .uk-grid-margin { margin-top: (@grid-gutter-small-vertical * 2); }
 
 /* Divider */
 .uk-grid-divider.uk-grid-gutter-small > :not(.uk-column-first):before { left: (@grid-gutter-small-horizontal); }
@@ -261,6 +260,13 @@
  * Medium
  */
 
+/* Gutter */
+.uk-grid-gutter-medium { margin-left: -(@grid-gutter-medium-horizontal * 2); }
+.uk-grid-gutter-medium > * { padding-left: (@grid-gutter-medium-horizontal * 2); }
+
+.uk-grid-gutter-medium > .uk-grid-margin { margin-top: (@grid-gutter-medium-vertical * 2); }
+
+/* Divider */
 .uk-grid-divider.uk-grid-gutter-medium > :not(.uk-column-first):before { left: (@grid-gutter-medium-horizontal); }
 
 .uk-grid-divider.uk-grid-gutter-medium > .uk-column-first + .uk-column-first:before { top: (@grid-gutter-medium-vertical); }
@@ -269,6 +275,13 @@
  * Large
  */
 
+/* Gutter */
+.uk-grid-gutter-large { margin-left: -(@grid-gutter-large-horizontal * 2); }
+.uk-grid-gutter-large > * { padding-left: (@grid-gutter-large-horizontal * 2); }
+
+.uk-grid-gutter-large > .uk-grid-margin { margin-top: (@grid-gutter-large-vertical * 2); }
+
+/* Divider */
 .uk-grid-divider.uk-grid-gutter-large > :not(.uk-column-first):before { left: (@grid-gutter-large-horizontal); }
 
 .uk-grid-divider.uk-grid-gutter-large > .uk-column-first + .uk-column-first:before { top: (@grid-gutter-large-vertical); }
@@ -276,6 +289,13 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
+    /* Gutter */
+    .uk-grid-gutter-large { margin-left: -(@grid-gutter-large-horizontal-l * 2); }
+    .uk-grid-gutter-large > * { padding-left: (@grid-gutter-large-horizontal-l * 2); }
+
+    .uk-grid-gutter-large > .uk-grid-margin { margin-top: (@grid-gutter-large-vertical-l * 2); }
+
+    /* Divider */
     .uk-grid-divider.uk-grid-gutter-large > :not(.uk-column-first):before { left: (@grid-gutter-large-horizontal-l); }
 
     .uk-grid-divider.uk-grid-gutter-large > .uk-column-first + .uk-column-first:before { top: (@grid-gutter-large-vertical-l); }
