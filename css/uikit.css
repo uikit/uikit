@@ -13,8 +13,8 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   /* 3 */
-  background: #ffffff;
-  color: #444444;
+  background: #fff;
+  color: #444;
 }
 /*
  * Removes default margin.
@@ -42,13 +42,13 @@ a:hover {
  */
 a,
 .uk-link {
-  color: #0077dd;
+  color: #07D;
   text-decoration: none;
   cursor: pointer;
 }
 a:hover,
 .uk-link:hover {
-  color: #005599;
+  color: #059;
   text-decoration: underline;
 }
 /* Text-level semantics
@@ -79,7 +79,7 @@ strong {
   /* 2 */
   font-family: Consolas, monospace, serif;
   /* 3 */
-  color: #ee6666;
+  color: #e66;
   white-space: nowrap;
   padding: 1px 6px 3px 6px;
   border: 1px solid #e5e5e5;
@@ -89,14 +89,14 @@ strong {
  * Emphasize
  */
 em {
-  color: #ee6666;
+  color: #e66;
 }
 /*
  * Insert
  */
 ins {
-  background: #ffffdd;
-  color: #444444;
+  background: #ffd;
+  color: #444;
   text-decoration: none;
 }
 /*
@@ -104,8 +104,8 @@ ins {
  * Note: Addresses styling not present in IE 8/9.
  */
 mark {
-  background: #ffffdd;
-  color: #444444;
+  background: #ffd;
+  color: #444;
 }
 /*
  * Quote
@@ -220,7 +220,7 @@ h6,
   margin: 0 0 25px 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
-  color: #444444;
+  color: #444;
   text-transform: none;
 }
 /* Add margin if adjacent element */
@@ -329,26 +329,26 @@ blockquote {
  */
 pre {
   font: 0.75rem / 1.5 Consolas, monospace, serif;
-  color: #444444;
+  color: #444;
   -moz-tab-size: 4;
   tab-size: 4;
   /* 1 */
   overflow: auto;
   padding: 10px;
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
 /* Selection pseudo-element
  ========================================================================== */
 ::-moz-selection {
-  background: #3399ff;
-  color: #ffffff;
+  background: #39f;
+  color: #fff;
   text-shadow: none;
 }
 ::selection {
-  background: #3399ff;
-  color: #ffffff;
+  background: #39f;
+  color: #fff;
   text-shadow: none;
 }
 /* HTML5 elements
@@ -413,11 +413,11 @@ iframe {
  */
 .uk-link-muted,
 .uk-link-muted a {
-  color: #999999;
+  color: #999;
 }
 .uk-link-muted:hover,
 .uk-link-muted a:hover {
-  color: #444444;
+  color: #444;
 }
 /*
  * Reset link style
@@ -458,24 +458,26 @@ iframe {
    Component: Grid
  ========================================================================== */
 /*
- * 1. Makes grid more robust so that it can be used with other block elements like lists
+ * 1. Allow cells to wrap into the next line
+ * 2. Makes grid more robust so that it can be used with other block elements like lists
  */
 .uk-grid,
 uk-grid {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
+  /* 1 */
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  /* 1 */
+  /* 2 */
   margin: 0;
   padding: 0;
   list-style: none;
 }
 /*
  * Grid cell
- * 1. Space is allocated solely based on content dimensions
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
  * 2. Makes grid more robust so that it can be used with other block elements
  */
 .uk-grid > *,
@@ -496,154 +498,208 @@ uk-grid > * > :last-child {
 }
 /* Gutter
  ========================================================================== */
-/*
- * Small gutter
- */
 /* Horizontal */
-.uk-grid-small {
-  margin-left: -10px;
-}
-.uk-grid-small > * {
-  padding-left: 10px;
-}
-/* Vertical */
-.uk-grid-small + .uk-grid-small,
-.uk-grid-small > .uk-grid-margin {
-  margin-top: 10px;
-}
-/*
- * Medium gutter
- */
-/* Horizontal */
-.uk-grid-medium {
+.uk-grid-gutter {
   margin-left: -25px;
 }
-.uk-grid-medium > * {
+.uk-grid-gutter > * {
   padding-left: 25px;
 }
 /* Vertical */
-.uk-grid-medium + .uk-grid-medium,
-.uk-grid-medium > .uk-grid-margin {
-  margin-top: 25px;
-}
-/*
- * Large gutter
- */
-/* Horizontal */
-.uk-grid-large {
-  margin-left: -35px;
-}
-.uk-grid-large > * {
-  padding-left: 35px;
-}
-/* Vertical */
-.uk-grid-large + .uk-grid-large,
-.uk-grid-large > .uk-grid-margin {
-  margin-top: 35px;
-}
-/*
- * Default gutter
- */
-/* Horizontal */
-.uk-grid,
-uk-grid {
-  margin-left: -25px;
-}
-.uk-grid > *,
-uk-grid > * {
-  padding-left: 25px;
-}
-/* Vertical */
-.uk-grid + .uk-grid,
-.uk-grid-margin,
-.uk-grid > * > .uk-panel + .uk-panel,
-uk-grid + uk-grid,
-uk-grid > * > .uk-panel + .uk-panel {
+.uk-grid + .uk-grid-gutter,
+.uk-grid-gutter > .uk-grid-margin,
+uk-grid + .uk-grid-gutter {
   margin-top: 25px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  .uk-grid,
-  uk-grid {
-    margin-left: -35px;
+  .uk-grid-gutter {
+    margin-left: -40px;
   }
-  .uk-grid > *,
-  uk-grid > * {
-    padding-left: 35px;
+  .uk-grid-gutter > * {
+    padding-left: 40px;
   }
   /* Vertical */
-  .uk-grid + .uk-grid,
-  .uk-grid-margin,
-  .uk-grid > * > .uk-panel + .uk-panel,
-  uk-grid + uk-grid,
-  uk-grid > * > .uk-panel + .uk-panel {
-    margin-top: 35px;
+  .uk-grid + .uk-grid-gutter,
+  .uk-grid-gutter > .uk-grid-margin,
+  uk-grid + .uk-grid-gutter {
+    margin-top: 40px;
+  }
+}
+/*
+ * Small
+ */
+/* Horizontal */
+.uk-grid-gutter-small {
+  margin-left: -10px;
+}
+.uk-grid-gutter-small > * {
+  padding-left: 10px;
+}
+/* Vertical */
+.uk-grid + .uk-grid-gutter-small,
+.uk-grid-gutter-small > .uk-grid-margin,
+uk-grid + .uk-grid-gutter-small {
+  margin-top: 10px;
+}
+/*
+ * Medium
+ */
+/* Horizontal */
+.uk-grid-gutter-medium {
+  margin-left: -25px;
+}
+.uk-grid-gutter-medium > * {
+  padding-left: 25px;
+}
+/* Vertical */
+.uk-grid + .uk-grid-gutter-medium,
+.uk-grid-gutter-medium > .uk-grid-margin,
+uk-grid + .uk-grid-gutter-medium {
+  margin-top: 25px;
+}
+/*
+ * Large
+ */
+/* Horizontal */
+.uk-grid-gutter-large {
+  margin-left: -40px;
+}
+.uk-grid-gutter-large > * {
+  padding-left: 40px;
+}
+/* Vertical */
+.uk-grid + .uk-grid-gutter-large,
+.uk-grid-gutter-large > .uk-grid-margin,
+uk-grid + .uk-grid-gutter-large {
+  margin-top: 40px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  /* Horizontal */
+  .uk-grid-gutter-large {
+    margin-left: -70px;
+  }
+  .uk-grid-gutter-large > * {
+    padding-left: 70px;
+  }
+  /* Vertical */
+  .uk-grid + .uk-grid-gutter-large,
+  .uk-grid-gutter-large > .uk-grid-margin,
+  uk-grid + .uk-grid-gutter-large {
+    margin-top: 70px;
   }
 }
 /* Modifier: `uk-grid-divider`
  ========================================================================== */
 /*
- * Horizontal divider
- * Only works with the default gutter. Does not work with gutter collapse, small or large.
- * Does not work with `uk-push-*`, `uk-pull-*` and not if the columns float into the next row.
+ * Divider
  */
-.uk-grid-divider:not(:empty) {
-  margin-left: -25px;
-  margin-right: -25px;
-}
 .uk-grid-divider > * {
-  padding-left: 25px;
-  padding-right: 25px;
+  position: relative;
 }
-.uk-grid-divider > [class*='uk-width-1-']:not(.uk-width-1-1):nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-2-']:nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-3-']:nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-4-']:nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-5-']:nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-6-']:nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-7-']:nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
-.uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) {
-  border-left: 1px solid #dddddd;
+.uk-grid-divider > :not(.uk-column-first):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #ddd;
 }
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
-    border-left: 1px solid #dddddd;
-  }
+/* Vertical */
+.uk-grid-divider > .uk-column-first + .uk-column-first:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #ddd;
 }
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
-    border-left: 1px solid #dddddd;
-  }
+/*
+ * Default
+ */
+/* Gutter */
+.uk-grid-divider.uk-grid-gutter {
+  margin-left: -50px;
+}
+.uk-grid-divider.uk-grid-gutter > * {
+  padding-left: 50px;
+}
+.uk-grid-divider.uk-grid-gutter > .uk-grid-margin {
+  margin-top: 50px;
+}
+/* Divider */
+.uk-grid-divider.uk-grid-gutter > :not(.uk-column-first):before {
+  left: 25px;
+}
+.uk-grid-divider.uk-grid-gutter > .uk-column-first + .uk-column-first:before {
+  top: 25px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
-  /*
-     * Large gutter
-     */
-  .uk-grid-divider:not(:empty) {
-    margin-left: -35px;
-    margin-right: -35px;
+  /* Gutter */
+  .uk-grid-divider.uk-grid-gutter {
+    margin-left: -80px;
   }
-  .uk-grid-divider > * {
-    padding-left: 35px;
-    padding-right: 35px;
+  .uk-grid-divider.uk-grid-gutter > * {
+    padding-left: 80px;
   }
-  .uk-grid-divider:empty {
-    margin-top: 35px;
-    margin-bottom: 35px;
+  .uk-grid-divider.uk-grid-gutter > .uk-grid-margin {
+    margin-top: 80px;
+  }
+  /* Divider */
+  .uk-grid-divider.uk-grid-gutter > :not(.uk-column-first):before {
+    left: 40px;
+  }
+  .uk-grid-divider.uk-grid-gutter > .uk-column-first + .uk-column-first:before {
+    top: 40px;
   }
 }
 /*
- * Vertical divider
+ * Small
  */
-.uk-grid-divider:empty {
-  margin-top: 25px;
-  margin-bottom: 25px;
-  border-top: 1px solid #dddddd;
+/* Gutter */
+.uk-grid-gutter-small {
+  margin-left: -10px;
+}
+.uk-grid-gutter-small > * {
+  padding-left: 10px;
+}
+.uk-grid-gutter-small > .uk-grid-margin {
+  margin-top: 10px;
+}
+/* Divider */
+.uk-grid-divider.uk-grid-gutter-small > :not(.uk-column-first):before {
+  left: 10px;
+}
+.uk-grid-divider.uk-grid-gutter-small > .uk-column-first + .uk-column-first:before {
+  top: 10px;
+}
+/*
+ * Medium
+ */
+.uk-grid-divider.uk-grid-gutter-medium > :not(.uk-column-first):before {
+  left: 25px;
+}
+.uk-grid-divider.uk-grid-gutter-medium > .uk-column-first + .uk-column-first:before {
+  top: 25px;
+}
+/*
+ * Large
+ */
+.uk-grid-divider.uk-grid-gutter-large > :not(.uk-column-first):before {
+  left: 40px;
+}
+.uk-grid-divider.uk-grid-gutter-large > .uk-column-first + .uk-column-first:before {
+  top: 40px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-grid-divider.uk-grid-gutter-large > :not(.uk-column-first):before {
+    left: 70px;
+  }
+  .uk-grid-divider.uk-grid-gutter-large > .uk-column-first + .uk-column-first:before {
+    top: 70px;
+  }
 }
 /* Match panels in grids
  ========================================================================== */
@@ -785,7 +841,7 @@ uk-grid > * > .uk-panel + .uk-panel {
  * Default
  */
 .uk-section-default {
-  background: #ffffff;
+  background: #fff;
 }
 /*
  * Muted
@@ -803,7 +859,7 @@ uk-grid > * > .uk-panel + .uk-panel {
  * Secondary
  */
 .uk-section-secondary {
-  background: #222222;
+  background: #222;
 }
 /* ========================================================================
    Component: Panel
@@ -851,7 +907,7 @@ uk-grid > * > .uk-panel + .uk-panel {
   line-height: 24px;
   font-weight: normal;
   text-transform: none;
-  color: #444444;
+  color: #444;
 }
 /* Sub-object: `uk-panel-badge`
  ========================================================================== */
@@ -876,13 +932,13 @@ uk-grid > * > .uk-panel + .uk-panel {
 .uk-panel-box {
   padding: 15px;
   background: #f5f5f5;
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box-hover:hover {
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box .uk-panel-title {
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box .uk-panel-badge {
   top: 10px;
@@ -916,24 +972,24 @@ uk-grid > * > .uk-panel + .uk-panel {
  * Sub-modifier: `uk-panel-box-secondary`
  */
 .uk-panel-box-secondary {
-  background-color: #eeeeee;
-  color: #444444;
+  background-color: #eee;
+  color: #444;
 }
 .uk-panel-box-secondary-hover:hover {
-  color: #444444;
+  color: #444;
 }
 .uk-panel-box-secondary .uk-panel-title {
-  color: #444444;
+  color: #444;
 }
 /* Modifier: `uk-panel-hover`
  ========================================================================== */
 .uk-panel-hover {
   padding: 15px;
-  color: #444444;
+  color: #444;
 }
 .uk-panel-hover:hover {
   background: #f5f5f5;
-  color: #444444;
+  color: #444;
 }
 .uk-panel-hover .uk-panel-badge {
   top: 10px;
@@ -948,8 +1004,8 @@ uk-grid > * > .uk-panel + .uk-panel {
  ========================================================================== */
 .uk-panel-header .uk-panel-title {
   padding-bottom: 10px;
-  border-bottom: 1px solid #dddddd;
-  color: #444444;
+  border-bottom: 1px solid #ddd;
+  color: #444;
 }
 /* Modifier: `uk-panel-space`
  ========================================================================== */
@@ -972,7 +1028,7 @@ uk-grid > * > .uk-panel + .uk-panel {
   top: -25px;
   left: 0;
   right: 0;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 /* Large screen and bigger */
 @media (min-width: 1600px) {
@@ -1690,18 +1746,18 @@ uk-grid > * > .uk-panel + .uk-panel {
 .uk-text-lead {
   font-size: 1.37rem;
   line-height: 1.5;
-  color: #444444;
+  color: #444;
 }
 .uk-text-meta {
   font-size: 0.87rem;
   line-height: 1.4;
-  color: #999999;
+  color: #999;
 }
 .uk-text-meta a {
-  color: #999999;
+  color: #999;
 }
 .uk-text-meta a:hover {
-  color: #444444;
+  color: #444;
   text-decoration: none;
 }
 /* Size modifiers
@@ -1722,7 +1778,7 @@ uk-grid > * > .uk-panel + .uk-panel {
 /* Color modifiers
  ========================================================================== */
 .uk-text-muted {
-  color: #999999 !important;
+  color: #999 !important;
 }
 .uk-text-primary {
   color: #2d7091 !important;
@@ -1815,10 +1871,10 @@ uk-grid > * > .uk-panel + .uk-panel {
 /* Backgrounds
  ========================================================================== */
 .uk-background {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .uk-background-muted {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 /* Blend modes
  ========================================================================== */
@@ -1941,7 +1997,7 @@ uk-grid > * > .uk-panel + .uk-panel {
   box-sizing: border-box;
   height: 170px;
   padding: 10px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   resize: both;
