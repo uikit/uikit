@@ -801,7 +801,7 @@ uk-grid + .uk-grid-collapse,
     left: 140px;
   }
 }
-/* Match panels in grids
+/* Match child of a grid cell
  ========================================================================== */
 /*
  * Behave like a block element
