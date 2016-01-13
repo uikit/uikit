@@ -587,6 +587,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	// support <element is="uk-*"></element>
 	(function (MO) {
 	
+	    if (!MO) return;
+	
 	    function init(nodes) {
 	
 	        for (var i = 0, length = nodes.length, node, name, _init, obj; i < length; i++) {

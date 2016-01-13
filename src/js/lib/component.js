@@ -178,6 +178,8 @@ components.BaseComponent = Component;
 // support <element is="uk-*"></element>
 (function(MO) {
 
+    if (!MO) return;
+
     function init(nodes) {
 
         for (let i = 0, length = nodes.length, node, name, init, obj; i < length;i++) {
