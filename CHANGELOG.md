@@ -5,6 +5,7 @@
 
   - Fixed Animated slideset filter
   - Fixed noDragClass option (sortable)
+  - Fixed drop target detection (sortable)
 
 ### 2.24.3 (December 18, 2015)
 
