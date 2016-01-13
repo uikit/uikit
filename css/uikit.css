@@ -1167,6 +1167,16 @@ uk-grid + .uk-grid-collapse,
 .uk-child-width-1-10 > * {
   width: 10%;
 }
+.uk-child-width-custom > * {
+  width: auto;
+}
+.uk-child-width-auto > * {
+  width: auto;
+  -ms-flex: auto;
+  -webkit-flex: auto;
+  flex: auto;
+  -ms-flex-negative: 1;
+}
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-child-width-1-1\@s > * {
@@ -1189,6 +1199,16 @@ uk-grid + .uk-grid-collapse,
   }
   .uk-child-width-1-10\@s > * {
     width: 10%;
+  }
+  .uk-child-width-custom\@s > * {
+    width: auto;
+  }
+  .uk-child-width-auto\@s > * {
+    width: auto;
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
+    -ms-flex-negative: 1;
   }
 }
 /* Tablet landscape and bigger */
@@ -1214,6 +1234,16 @@ uk-grid + .uk-grid-collapse,
   .uk-child-width-1-10\@m > * {
     width: 10%;
   }
+  .uk-child-width-custom\@m > * {
+    width: auto;
+  }
+  .uk-child-width-auto\@m > * {
+    width: auto;
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
+    -ms-flex-negative: 1;
+  }
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
@@ -1238,6 +1268,16 @@ uk-grid + .uk-grid-collapse,
   .uk-child-width-1-10\@l > * {
     width: 10%;
   }
+  .uk-child-width-custom\@l > * {
+    width: auto;
+  }
+  .uk-child-width-auto\@l > * {
+    width: auto;
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
+    -ms-flex-negative: 1;
+  }
 }
 /* Large screen and bigger */
 @media (min-width: 1600px) {
@@ -1261,6 +1301,16 @@ uk-grid + .uk-grid-collapse,
   }
   .uk-child-width-1-10\@xl > * {
     width: 10%;
+  }
+  .uk-child-width-custom\@xl > * {
+    width: auto;
+  }
+  .uk-child-width-auto\@xl > * {
+    width: auto;
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
+    -ms-flex-negative: 1;
   }
 }
 /* Single Widths
