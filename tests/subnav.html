@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Subnav - UIkit tests</title>
+        <script src="_test.js"></script>
+        <link rel="stylesheet" href="../css/uikit.css">
+        <style type="text/css">
+
+            .test {
+                border: 1px solid #eee;
+            }
+
+            .uk-subnav { margin-bottom: 0; }
+
+            .uk-subnav > * > * {
+                display: inline-block;
+                box-sizing: border-box;
+                padding: 10px;
+                width: 100%;
+                background: #f0f0f0;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Subnav</h1>
+
+            <div class="test uk-margin">
+                <ul class="uk-subnav">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </div>
+
+            <div class="test uk-margin">
+                <ul class="uk-subnav uk-flex-justify-center">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </div>
+
+            <div class="test uk-margin">
+                <ul class="uk-subnav uk-flex-justify-between">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </div>
+
+            <div class="test uk-margin">
+                <ul class="uk-subnav uk-child-width-1-5 uk-text-center">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                    <li><a>Item 3</a></li>
+                    <li><a>Item 4</a></li>
+                    <li><a>Item 5</a></li>
+                </ul>
+            </div>
+
+            <div class="test uk-margin">
+                <ul class="uk-subnav uk-child-width-1-5 uk-text-center uk-grid-gutter">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                    <li><a>Item 3</a></li>
+                    <li><a>Item 4</a></li>
+                    <li><a>Item 5</a></li>
+                </ul>
+            </div>
+
+            <div class="test uk-margin">
+                <ul class="uk-subnav uk-child-width-1-5 uk-text-center uk-grid-gutter uk-grid-divider">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                    <li><a>Item 3</a></li>
+                    <li><a>Item 4</a></li>
+                    <li><a>Item 5</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </body>
+</html>
