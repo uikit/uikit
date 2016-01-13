@@ -409,16 +409,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var registerElement = function registerElement(name, def) {
 	
-	    var webcomponent = _dom2.default.extend({
-	        prototype: Object.create(HTMLElement.prototype),
-	        tag: name
+	    def = _dom2.default.extend({
+	        prototype: Object.create(HTMLElement.prototype)
 	    }, def);
 	
-	    if (typeof webcomponent.prototype == 'string') {
-	        webcomponent.prototype = Object.create(window[webcomponent.prototype]);
+	    if (typeof def.prototype == 'string') {
+	        def.prototype = Object.create(window[def.prototype]);
 	    }
 	
-	    _util2.default.extend(webcomponent.prototype, {
+	    _dom2.default.extend(true, def.prototype, {
 	
 	        createdCallback: function createdCallback() {
 	            collection[name](this, _util2.default.attributes(this)).webcomponent.onCreated();
@@ -434,7 +433,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    });
 	
-	    document.registerElement('uk-' + webcomponent.tag, { prototype: webcomponent.prototype });
+	    var opts = { prototype: def.prototype };
+	
+	    if (def.extends) {
+	        opts.extends = def.extends;
+	    }
+	
+	    document.registerElement('uk-' + name, opts);
 	};
 	
 	var Component = function () {
@@ -578,6 +583,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	components.BaseComponent = Component;
+	
+	// support <element is="uk-*"></element>
+	(function (MO) {
+	
+	    function init(nodes) {
+	
+	        for (var i = 0, length = nodes.length, node, name, _init, obj; i < length; i++) {
+	
+	            node = nodes[i];
+	            name = (node.getAttribute && node.getAttribute('is') || '').replace('uk-', '');
+	
+	            if (name && collection[name] && !(0, _dom2.default)(node).data(name)) {
+	
+	                _init = collection[name];
+	                obj = _init(node, _util2.default.attributes(node));
+	
+	                obj.webcomponent.onCreated();
+	                obj.webcomponent.onAttached();
+	            }
+	        }
+	    }
+	
+	    return new MO(function (records) {
+	
+	        for (var current, node, newValue, i = 0, length = records.length; i < length; i++) {
+	            current = records[i];
+	            if (current.type === 'childList') {
+	                init(current.addedNodes, 'created attached');
+	            }
+	        }
+	    });
+	})(window.MutationObserver || window.WebKitMutationObserver).observe(document, {
+	    childList: true,
+	    subtree: true
+	});
 	
 	exports.components = components;
 	

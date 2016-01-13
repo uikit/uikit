@@ -6,22 +6,20 @@ import $ from './dom';
 import $support from './support';
 import $util from './util';
 
-
 let collection = {};
 let components = {};
 
 let registerElement = function(name, def) {
 
-    var webcomponent = $.extend({
-        prototype: Object.create(HTMLElement.prototype),
-        tag: name
+    def = $.extend({
+        prototype: Object.create(HTMLElement.prototype)
     }, def);
 
-    if (typeof(webcomponent.prototype) == 'string') {
-        webcomponent.prototype = Object.create(window[webcomponent.prototype]);
+    if (typeof(def.prototype) == 'string') {
+        def.prototype = Object.create(window[def.prototype]);
     }
 
-    $util.extend(webcomponent.prototype, {
+    $.extend(true, def.prototype, {
 
         createdCallback: function(){
             collection[name](this, $util.attributes(this)).webcomponent.onCreated();
@@ -37,8 +35,15 @@ let registerElement = function(name, def) {
         }
     });
 
-    document.registerElement('uk-'+webcomponent.tag, { prototype: webcomponent.prototype});
+    let opts = { prototype: def.prototype};
+
+    if (def.extends) {
+        opts.extends = def.extends;
+    }
+
+    document.registerElement('uk-'+name, opts);
 };
+
 
 class Component {
 
@@ -168,6 +173,44 @@ function register(name, def) {
 };
 
 components.BaseComponent = Component;
+
+
+// support <element is="uk-*"></element>
+(function(MO) {
+
+    function init(nodes) {
+
+        for (let i = 0, length = nodes.length, node, name, init, obj; i < length;i++) {
+
+            node = nodes[i];
+            name = (node.getAttribute && node.getAttribute('is') || '').replace('uk-', '');
+
+            if (name && collection[name] && !$(node).data(name)) {
+
+                init = collection[name]
+                obj = init(node, $util.attributes(node));
+
+                obj.webcomponent.onCreated();
+                obj.webcomponent.onAttached();
+            }
+        }
+    }
+
+    return new MO(function(records) {
+
+        for (let current, node, newValue, i = 0, length = records.length; i < length; i++) {
+            current = records[i];
+            if (current.type === 'childList') {
+                init(current.addedNodes, 'created attached');
+            }
+        }
+    });
+
+})(window.MutationObserver || window.WebKitMutationObserver).observe(document, {
+    childList: true,
+    subtree: true
+});
+
 
 exports.components = components;
 
