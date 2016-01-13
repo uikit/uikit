@@ -38,33 +38,33 @@
 
             <h2>Grid</h2>
 
-            <uk-grid class="uk-grid uk-grid-gutter">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter">
+            <uk-grid>
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -73,7 +73,7 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter">
+            <uk-grid>
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
@@ -81,33 +81,33 @@
 
             <h3>Divider</h3>
 
-            <uk-grid class="uk-grid uk-grid-gutter uk-grid-divider">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-grid-divider uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter uk-grid-divider">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-grid-divider uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-divider uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-grid-divider uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter uk-grid-divider uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-grid-divider uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter uk-grid-divider">
+            <uk-grid class="uk-grid-divider">
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -116,7 +116,7 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter uk-grid-divider">
+            <uk-grid class="uk-grid-divider">
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
@@ -124,33 +124,33 @@
 
             <h2>Small</h2>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-grid-small uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-small">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-grid-small uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-small uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-grid-small uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-grid-small uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small">
+            <uk-grid class="uk-grid-small">
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -159,7 +159,7 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small">
+            <uk-grid class="uk-grid-small">
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
@@ -167,33 +167,33 @@
 
             <h3>Divider</h3>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-divider">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-grid-small uk-grid-divider uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-divider">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-grid-small uk-grid-divider uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-small uk-grid-divider uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-grid-small uk-grid-divider uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-divider uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-grid-small uk-grid-divider uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-divider">
+            <uk-grid class="uk-grid-small uk-grid-divider">
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -202,7 +202,7 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-small uk-grid-divider">
+            <uk-grid class="uk-grid-small uk-grid-divider">
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
@@ -210,33 +210,33 @@
 
             <h2>Medium</h2>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-grid-medium uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-medium">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-grid-medium uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-medium uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-grid-medium uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-grid-medium uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium">
+            <uk-grid class="uk-grid-medium">
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -245,7 +245,7 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium">
+            <uk-grid class="uk-grid-medium">
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
@@ -253,33 +253,33 @@
 
             <h3>Divider</h3>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-divider">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-grid-medium uk-grid-divider uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-divider">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-grid-medium uk-grid-divider uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-medium uk-grid-divider uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-grid-medium uk-grid-divider uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-divider uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-grid-medium uk-grid-divider uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-divider">
+            <uk-grid class="uk-grid-medium uk-grid-divider">
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -288,7 +288,7 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-medium uk-grid-divider">
+            <uk-grid class="uk-grid-medium uk-grid-divider">
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
@@ -296,33 +296,33 @@
 
             <h2>Large</h2>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-grid-large uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-large">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-grid-large uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-large uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-grid-large uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-grid-large uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large">
+            <uk-grid class="uk-grid-large">
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -331,7 +331,7 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large">
+            <uk-grid class="uk-grid-large">
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
@@ -339,33 +339,33 @@
 
             <h3>Divider</h3>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-divider">
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
-                <div class="uk-width-1-2"><div class="uk-panel">1-2</div></div>
+            <uk-grid class="uk-grid-large uk-grid-divider uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
-                <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-divider">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+            <uk-grid class="uk-grid-large uk-grid-divider uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-large uk-grid-divider uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-divider uk-grid-match">
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M<br>...<br>...</div></div>
-                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+            <uk-grid class="uk-grid-large uk-grid-divider uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-2@m">
-                    <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-divider uk-grid-match">
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L<br>...</div></div>
-                        <div class="uk-width-1-2@l"><div class="uk-panel">1-2-L</div></div>
+                    <uk-grid class="uk-grid-large uk-grid-divider uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
                     </uk-grid>
                 </div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-divider">
+            <uk-grid class="uk-grid-large uk-grid-divider">
                 <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
                 <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
@@ -374,7 +374,50 @@
                 <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
             </uk-grid>
 
-            <uk-grid class="uk-grid uk-grid-gutter-large uk-grid-divider">
+            <uk-grid class="uk-grid-large uk-grid-divider">
+                <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
+                <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
+                <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
+            </uk-grid>
+
+            <h2>Collapse</h2>
+
+            <uk-grid class="uk-grid-collapse uk-child-width-1-2">
+                <div><div class="uk-panel">1-2</div></div>
+                <div><div class="uk-panel">1-2</div></div>
+            </uk-grid>
+
+            <uk-grid class="uk-grid-collapse uk-child-width-1-2@m uk-grid-match">
+                <div><div class="uk-panel">1-2-M</div></div>
+                <div>
+                    <uk-grid class="uk-grid-collapse uk-child-width-1-2@l">
+                        <div><div class="uk-panel">1-2-L</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
+                    </uk-grid>
+                </div>
+            </uk-grid>
+
+            <uk-grid class="uk-grid-collapse uk-child-width-1-4@m uk-grid-match">
+                <div><div class="uk-panel">1-4-M<br>...<br>...</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div class="uk-width-1-2@m">
+                    <uk-grid class="uk-grid-collapse uk-child-width-1-2@l uk-grid-match">
+                        <div><div class="uk-panel">1-2-L<br>...</div></div>
+                        <div><div class="uk-panel">1-2-L</div></div>
+                    </uk-grid>
+                </div>
+            </uk-grid>
+
+            <uk-grid class="uk-grid-collapse">
+                <div class="uk-width-1-2@m"><div class="uk-panel">1-2-M</div></div>
+                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+                <div class="uk-width-1-4@m"><div class="uk-panel">1-4-M</div></div>
+                <div class="uk-width-1-5@m"><div class="uk-panel">1-5-M</div></div>
+                <div class="uk-width-1-5@m"><div class="uk-panel">1-5-M</div></div>
+                <div class="uk-width-3-5@m"><div class="uk-panel">3-5-M</div></div>
+            </uk-grid>
+
+            <uk-grid class="uk-grid-collapse">
                 <div class="uk-width-custom@m"><div class="uk-panel">Custom-M</div></div>
                 <div class="uk-width-1-3@m"><div class="uk-panel">1-3-M</div></div>
                 <div class="uk-width-auto@m"><div class="uk-panel">Auto-M</div></div>
