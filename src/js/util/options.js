@@ -42,6 +42,12 @@ export function mergeOptions (parent, child, thisArg) {
 
     var options = {}, key;
 
+    if (child.mixins) {
+        for (var i = 0, l = child.mixins.length; i < l; i++) {
+            parent = mergeOptions(parent, child.mixins[i], thisArg);
+        }
+    }
+
     for (key in parent) {
         mergeKey(key);
     }
