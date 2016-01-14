@@ -7,6 +7,7 @@
   - Fixed noDragClass option (sortable)
   - Fixed drop target detection (sortable)
   - Fixed parallax for images with smaller width
+  - Fixed parallax for elements with padding
 
 ### 2.24.3 (December 18, 2015)
 
