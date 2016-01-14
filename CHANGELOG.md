@@ -6,6 +6,7 @@
   - Fixed Animated slideset filter
   - Fixed noDragClass option (sortable)
   - Fixed drop target detection (sortable)
+  - Fixed parallax for images with smaller width
 
 ### 2.24.3 (December 18, 2015)
 
