@@ -300,7 +300,7 @@
             h += extra;
             w += Math.ceil(extra * ratio);
 
-            if (w-extra > size.w && h < size.h) {
+            if (w-extra < size.w && h < size.h) {
                 return obj.element.css({'background-size': ''});
             }
 
