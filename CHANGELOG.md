@@ -3,6 +3,7 @@
 
 # WIP
 
+  - Added :before and :after to print style sheet
   - Fixed Animated slideset filter
   - Fixed noDragClass option (sortable)
   - Fixed drop target detection (sortable)
