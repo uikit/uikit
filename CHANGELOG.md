@@ -2,6 +2,7 @@
 
 
 # WIP
+  - Added new grid-width classes to grid component
   - Added better vertical-align for embedded content to base component
   - Added :before and :after to print component
   - Fixed Animated slideset filter
