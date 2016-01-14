@@ -879,7 +879,7 @@ uk-grid + .uk-grid-collapse,
 /* Size Modifier
  ========================================================================== */
 .uk-container-small {
-  max-width: 960px;
+  max-width: 900px;
 }
 /* ========================================================================
    Component: Section

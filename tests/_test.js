@@ -31,10 +31,13 @@
         "::Core",
 
             "base",
+            "column",
+            "container",
             "grid",
             "subnav",
             "text",
             "typography"
+
     ];
     document.addEventListener("DOMContentLoaded", function(event) {
 
