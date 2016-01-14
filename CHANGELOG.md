@@ -2,8 +2,8 @@
 
 
 # WIP
-
-  - Added :before and :after to print style sheet
+  - Added better vertical-align for embedded content to base component
+  - Added :before and :after to print component
   - Fixed Animated slideset filter
   - Fixed noDragClass option (sortable)
   - Fixed drop target detection (sortable)
