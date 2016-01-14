@@ -1,6 +1,4 @@
-export {extend} from 'jquery';
-
-export const isArray = Array.isArray;
+export {each, extend, map, merge, type, isArray, isFunction} from 'jquery';
 
 export function bind (fn, thisArg) {
     return function (a) {
