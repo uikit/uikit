@@ -47,7 +47,7 @@ export default {
 
     str2json(str) {
         try {
-            return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
+            return (new Function("", "let json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
         } catch(e) { return false; }
     },
 
@@ -168,7 +168,7 @@ export default {
 
         elements = $(elements).removeClass(options.margin);
 
-        var skip         = false,
+        let skip         = false,
             firstvisible = elements.filter(":visible:first"),
             offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
@@ -176,7 +176,7 @@ export default {
 
         elements.each(function() {
 
-            var column = $(this);
+            let column = $(this);
 
             if (column.is(":visible")) {
 
@@ -190,6 +190,38 @@ export default {
                 }
             }
         });
+    },
+
+    checkDisplay(context, initanimation) {
+
+        let elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
+
+        if (context && !elements.length) {
+            elements = $(context);
+        }
+
+        elements.trigger('display.uk.check');
+
+        // fix firefox / IE animations
+        if (initanimation) {
+
+            if (typeof(initanimation)!='string') {
+                initanimation = '[class*="uk-animation-"]';
+            }
+
+            elements.find(initanimation).each(function(){
+
+                let ele  = $(this),
+                    cls  = ele.attr('class'),
+                    anim = cls.match(/uk\-animation\-(.+)/);
+
+                ele.removeClass(anim[0]).width();
+
+                ele.addClass(anim[0]);
+            });
+        }
+
+        return elements;
     }
 
 };
