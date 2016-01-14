@@ -60,7 +60,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _util = __webpack_require__(/*! ./lib/util */ 1);
@@ -87,15 +87,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var UI = {};
 	
+	// dom references
+	UI.$doc = (0, _dom2.default)(document);
+	UI.$win = (0, _dom2.default)(window);
+	UI.$html = (0, _dom2.default)('html');
+	
 	UI.util = _util2.default;
-	UI.dom = _dom2.default;
+	UI.$ = _dom2.default;
 	UI.support = _support2.default;
 	UI.component = (0, _component2.default)(UI);
 	
 	(0, _eventize2.default)(UI);
 	
-	// core components
+	UI.on('updated.uk.dom', function (e) {
+	    UI.Utils.checkDisplay(e.target);
+	});
 	
+	UI.one('beforeready.uk.dom', function () {
+	    UI.$body = (0, _dom2.default)('body');
+	});
+	
+	// add touch identifier class
+	UI.$html.addClass(UI.support.touch ? 'uk-touch' : 'uk-notouch');
+	
+	// core components
 	__webpack_require__(/*! ./core/grid */ 7)(UI);
 	
 	exports.default = UI;
@@ -162,7 +177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    str2json: function str2json(str) {
 	        try {
-	            return new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));")();
+	            return new Function("", "let json = " + str + "; return JSON.parse(JSON.stringify(json));")();
 	        } catch (e) {
 	            return false;
 	        }
@@ -306,6 +321,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	        });
+	    },
+	    checkDisplay: function checkDisplay(context, initanimation) {
+	
+	        var elements = (0, _dom2.default)('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document),
+	            animated = undefined;
+	
+	        if (context && !elements.length) {
+	            elements = (0, _dom2.default)(context);
+	        }
+	
+	        elements.trigger('display.uk.check');
+	
+	        // fix firefox / IE animations
+	        if (initanimation) {
+	
+	            if (typeof initanimation != 'string') {
+	                initanimation = '[class*="uk-animation-"]';
+	            }
+	
+	            elements.find(initanimation).each(function () {
+	
+	                var ele = (0, _dom2.default)(this),
+	                    cls = ele.attr('class'),
+	                    anim = cls.match(/uk\-animation\-(.+)/);
+	
+	                ele.removeClass(anim[0]).width();
+	
+	                ele.addClass(anim[0]);
+	            });
+	        }
+	
+	        return elements;
 	    }
 	};
 	module.exports = exports['default'];
@@ -327,10 +374,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	NodeList.prototype.forEach = NodeList.prototype.forEach || Array.prototype.forEach;
 	
 	var $ = window.jQuery;
-	
-	$.$doc = $(document);
-	$.$win = $(window);
-	$.$html = $('html');
 	
 	$.observe = function (el, fn, config) {
 	    var observer = new MutationObserver(fn);
