@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    uikit: "./src/js/uikit.js"
+    uikit: './src/js/uikit.js'
   },
 
   output: {
@@ -8,6 +8,10 @@ module.exports = {
     libraryTarget: 'umd',
     filename: '[name].js',
     path: './js'
+  },
+
+  externals: {
+      'jquery': 'jQuery'
   },
 
   module: {
