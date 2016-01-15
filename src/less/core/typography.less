@@ -17,11 +17,8 @@
 @utility-heading-primary-font-size:             @global-xxlarge-font-size;
 @utility-heading-primary-line-height:           1.2;
 
-@utility-heading-primary-font-size-s:           3.37rem; // 54px
-@utility-heading-primary-line-height-s:         1.2;
-
-@utility-heading-primary-font-size-l:           5rem; // 80px
-@utility-heading-primary-line-height-l:         1.1;
+@utility-heading-primary-font-size-m:           3.75rem; // 54px
+@utility-heading-primary-line-height-m:         1.1;
 
 
 /* ========================================================================
@@ -77,22 +74,12 @@
     .hook-typography-heading-primary;
 }
 
-/* Phone landscape and bigger */
-@media (min-width: @breakpoint-small) {
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
 
     .uk-heading-primary {
-        font-size: @utility-heading-primary-font-size-s;
-        line-height: @utility-heading-primary-line-height-s;
-    }
-
-}
-
-/* Desktop and bigger */
-@media (min-width: @breakpoint-large) {
-
-    .uk-heading-primary {
-        font-size: @utility-heading-primary-font-size-l;
-        line-height: @utility-heading-primary-line-height-l;
+        font-size: @utility-heading-primary-font-size-m;
+        line-height: @utility-heading-primary-line-height-m;
     }
 
 }
