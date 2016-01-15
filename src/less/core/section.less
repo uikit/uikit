@@ -1,5 +1,5 @@
 // Name:            Section
-// Description:     Defines styles to create horizontal layout section
+// Description:     Component to create horizontal layout section
 //
 // Component:       `uk-section`
 //
@@ -15,36 +15,45 @@
 // Variables
 // ========================================================================
 
-@section-padding-vertical:                        20px;
-@section-padding-vertical-large:                  50px;
+@section-padding-vertical:                        @global-margin-medium;
+@section-padding-vertical-m:                      @global-margin-large;
 
-@section-large-padding-vertical:                  @section-padding-vertical;
-@section-large-padding-vertical-medium:           @section-padding-vertical-large;
-@section-large-padding-vertical-large:            100px;
+@section-large-padding-vertical:                  @global-margin-medium;
+@section-large-padding-vertical-m:                @global-margin-large;
+@section-large-padding-vertical-l:                @global-margin-xlarge;
 
-@section-default-background:                      #fff;
+@section-default-background:                      @global-background;
 @section-muted-background:                        #f9f9f9;
 @section-primary-background:                      #00a8e6;
 @section-secondary-background:                    #222;
+
+
+
+// TODO Section small?
+// TODO Large breakpoint for section large? with even bigger margin?
 
 
 /* ========================================================================
    Component: Section
  ========================================================================== */
 
+/*
+ * 1. Make it work with `100vh` and height in general
+ */
+
 .uk-section {
-    box-sizing: border-box;
+    box-sizing: border-box; /* 1 */
     padding-top: @section-padding-vertical;
     padding-bottom: @section-padding-vertical;
-    .hook-block;
+    .hook-section;
 }
 
-/* Phone landscape and bigger */
-@media (min-width: @breakpoint-small) {
+/* Desktop and bigger */
+@media (min-width: @breakpoint-medium) {
 
     .uk-section {
-        padding-top: @section-padding-vertical-large;
-        padding-bottom: @section-padding-vertical-large;
+        padding-top: @section-padding-vertical-m;
+        padding-bottom: @section-padding-vertical-m;
     }
 
 }
@@ -68,11 +77,11 @@
 .uk-section > :last-child { margin-bottom: 0; }
 
 
-/* Padding Modifier
+/* Size Modifier
  ========================================================================== */
 
 /*
- * Large padding
+ * Large
  */
 
 .uk-section-large {
@@ -84,8 +93,8 @@
 @media (min-width: @breakpoint-small) {
 
     .uk-section-large {
-        padding-top: @section-large-padding-vertical-medium;
-        padding-bottom: @section-large-padding-vertical-medium;
+        padding-top: @section-large-padding-vertical-m;
+        padding-bottom: @section-large-padding-vertical-m;
     }
 
 }
@@ -94,8 +103,8 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-section-large {
-        padding-top: @section-large-padding-vertical-large;
-        padding-bottom: @section-large-padding-vertical-large;
+        padding-top: @section-large-padding-vertical-l;
+        padding-bottom: @section-large-padding-vertical-l;
     }
 
 }
@@ -110,7 +119,7 @@
 
 .uk-section-default {
     background: @section-default-background;
-    .hook-block-default;
+    .hook-section-default;
 }
 
 /*
@@ -119,7 +128,7 @@
 
 .uk-section-muted {
     background: @section-muted-background;
-    .hook-block-muted;
+    .hook-section-muted;
 }
 
 /*
@@ -128,7 +137,7 @@
 
 .uk-section-primary {
     background: @section-primary-background;
-    .hook-block-primary;
+    .hook-section-primary;
 }
 
 /*
@@ -137,18 +146,18 @@
 
 .uk-section-secondary {
     background: @section-secondary-background;
-    .hook-block-secondary;
+    .hook-section-secondary;
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-block-misc;
+.hook-section-misc;
 
-.hook-block() {}
-.hook-block-default() {}
-.hook-block-muted() {}
-.hook-block-secondary() {}
-.hook-block-primary() {}
-.hook-block-misc() {}
+.hook-section() {}
+.hook-section-default() {}
+.hook-section-muted() {}
+.hook-section-secondary() {}
+.hook-section-primary() {}
+.hook-section-misc() {}

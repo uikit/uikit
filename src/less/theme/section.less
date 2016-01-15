@@ -18,4 +18,15 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-section-misc() {}
+.hook-section-misc() {
+
+    /*
+     * Adjust padding between equal colored blocks
+     */
+
+    .uk-section-default + .uk-section-default,
+    .uk-section-muted + .uk-section-muted,
+    .uk-section-primary + .uk-section-primary,
+    .uk-section-secondary + .uk-section-secondary { padding-top: 0; }
+
+}

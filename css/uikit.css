@@ -189,7 +189,7 @@ pre,
 address,
 fieldset,
 figure {
-  margin: 0 0 25px 0;
+  margin: 0 0 20px 0;
 }
 /* Add margin if adjacent element */
 * + p,
@@ -201,7 +201,7 @@ figure {
 * + address,
 * + fieldset,
 * + figure {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 /* Headings
  ========================================================================== */
@@ -217,7 +217,7 @@ h5,
 .uk-h5,
 h6,
 .uk-h6 {
-  margin: 0 0 25px 0;
+  margin: 0 0 20px 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   color: #444;
@@ -236,7 +236,7 @@ h6,
 * + .uk-h5,
 * + h6,
 * + .uk-h6 {
-  margin-top: 35px;
+  margin-top: 40px;
 }
 /*
  * Sizes
@@ -305,7 +305,7 @@ hr {
   box-sizing: content-box;
   height: 0;
   /* 2 */
-  margin: 25px 0;
+  margin: 20px 0;
   border: 0;
   border-top: 1px solid #e5e5e5;
 }
@@ -440,17 +440,10 @@ iframe {
   font-size: 2.62rem;
   line-height: 1.2;
 }
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
   .uk-heading-primary {
-    font-size: 3.37rem;
-    line-height: 1.2;
-  }
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-heading-primary {
-    font-size: 5rem;
+    font-size: 3.75rem;
     line-height: 1.1;
   }
 }
@@ -844,19 +837,19 @@ uk-grid + .uk-grid-collapse,
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-container {
-    padding: 0 25px;
+    padding: 0 30px;
   }
 }
 /* Tablet landscape and bigger */
 @media (min-width: 960px) {
   .uk-container {
-    padding: 0 35px;
+    padding: 0 40px;
   }
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   .uk-container {
-    padding: 0 50px;
+    padding: 0 70px;
   }
 }
 /*
@@ -884,16 +877,20 @@ uk-grid + .uk-grid-collapse,
 /* ========================================================================
    Component: Section
  ========================================================================== */
+/*
+ * 1. Make it work with `100vh` and height in general
+ */
 .uk-section {
   box-sizing: border-box;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  /* 1 */
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
+/* Desktop and bigger */
+@media (min-width: 960px) {
   .uk-section {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 70px;
+    padding-bottom: 70px;
   }
 }
 /*
@@ -913,27 +910,27 @@ uk-grid + .uk-grid-collapse,
 .uk-section > :last-child {
   margin-bottom: 0;
 }
-/* Padding Modifier
+/* Size Modifier
  ========================================================================== */
 /*
- * Large padding
+ * Large
  */
 .uk-section-large {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-section-large {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 70px;
+    padding-bottom: 70px;
   }
 }
 /* Tablet landscape and bigger */
 @media (min-width: 960px) {
   .uk-section-large {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 140px;
+    padding-bottom: 140px;
   }
 }
 /* Color Modifier
@@ -961,6 +958,15 @@ uk-grid + .uk-grid-collapse,
  */
 .uk-section-secondary {
   background: #222;
+}
+/*
+     * Adjust padding between equal colored blocks
+     */
+.uk-section-default + .uk-section-default,
+.uk-section-muted + .uk-section-muted,
+.uk-section-primary + .uk-section-primary,
+.uk-section-secondary + .uk-section-secondary {
+  padding-top: 0;
 }
 /* ========================================================================
    Component: Panel
@@ -1167,10 +1173,10 @@ uk-grid + .uk-grid-collapse,
 .uk-child-width-1-10 > * {
   width: 10%;
 }
-.uk-child-width-custom > * {
+.uk-child-width-auto > * {
   width: auto;
 }
-.uk-child-width-auto > * {
+.uk-child-width-expand > * {
   width: auto;
   -ms-flex: auto;
   -webkit-flex: auto;
@@ -1200,10 +1206,10 @@ uk-grid + .uk-grid-collapse,
   .uk-child-width-1-10\@s > * {
     width: 10%;
   }
-  .uk-child-width-custom\@s > * {
+  .uk-child-width-auto\@s > * {
     width: auto;
   }
-  .uk-child-width-auto\@s > * {
+  .uk-child-width-expand\@s > * {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -1234,10 +1240,10 @@ uk-grid + .uk-grid-collapse,
   .uk-child-width-1-10\@m > * {
     width: 10%;
   }
-  .uk-child-width-custom\@m > * {
+  .uk-child-width-auto\@m > * {
     width: auto;
   }
-  .uk-child-width-auto\@m > * {
+  .uk-child-width-expand\@m > * {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -1268,10 +1274,10 @@ uk-grid + .uk-grid-collapse,
   .uk-child-width-1-10\@l > * {
     width: 10%;
   }
-  .uk-child-width-custom\@l > * {
+  .uk-child-width-auto\@l > * {
     width: auto;
   }
-  .uk-child-width-auto\@l > * {
+  .uk-child-width-expand\@l > * {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -1302,10 +1308,10 @@ uk-grid + .uk-grid-collapse,
   .uk-child-width-1-10\@xl > * {
     width: 10%;
   }
-  .uk-child-width-custom\@xl > * {
+  .uk-child-width-auto\@xl > * {
     width: auto;
   }
-  .uk-child-width-auto\@xl > * {
+  .uk-child-width-expand\@xl > * {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -1379,12 +1385,12 @@ uk-grid + .uk-grid-collapse,
 .uk-width-9-10 {
   width: 90%;
 }
-/* Custom */
-.uk-width-custom {
-  width: auto;
-}
 /* Auto */
 .uk-width-auto {
+  width: auto;
+}
+/* Expand */
+.uk-width-expand {
   width: auto;
   -ms-flex: auto;
   -webkit-flex: auto;
@@ -1457,12 +1463,12 @@ uk-grid + .uk-grid-collapse,
   .uk-width-9-10\@s {
     width: 90%;
   }
-  /* Custom */
-  .uk-width-custom\@s {
-    width: auto;
-  }
   /* Auto */
   .uk-width-auto\@s {
+    width: auto;
+  }
+  /* Expand */
+  .uk-width-expand\@s {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -1536,12 +1542,12 @@ uk-grid + .uk-grid-collapse,
   .uk-width-9-10\@m {
     width: 90%;
   }
-  /* Custom */
-  .uk-width-custom\@m {
-    width: auto;
-  }
   /* Auto */
   .uk-width-auto\@m {
+    width: auto;
+  }
+  /* Expand */
+  .uk-width-expand\@m {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -1615,12 +1621,12 @@ uk-grid + .uk-grid-collapse,
   .uk-width-9-10\@l {
     width: 90%;
   }
-  /* Custom */
-  .uk-width-custom\@l {
-    width: auto;
-  }
   /* Auto */
   .uk-width-auto\@l {
+    width: auto;
+  }
+  /* Expand */
+  .uk-width-expand\@l {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -1685,12 +1691,12 @@ uk-grid + .uk-grid-collapse,
   .uk-width-9-10\@xl {
     width: 90%;
   }
-  /* Custom */
-  .uk-width-custom\@xl {
-    width: auto;
-  }
   /* Auto */
   .uk-width-auto\@xl {
+    width: auto;
+  }
+  /* Expand */
+  .uk-width-expand\@xl {
     width: auto;
     -ms-flex: auto;
     -webkit-flex: auto;
@@ -2586,22 +2592,22 @@ uk-grid + .uk-grid-collapse,
  * Default (Medium)
  */
 .uk-margin {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 * + .uk-margin {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 .uk-margin-top {
-  margin-top: 25px !important;
+  margin-top: 20px !important;
 }
 .uk-margin-bottom {
-  margin-bottom: 25px !important;
+  margin-bottom: 20px !important;
 }
 .uk-margin-left {
-  margin-left: 25px !important;
+  margin-left: 20px !important;
 }
 .uk-margin-right {
-  margin-right: 25px !important;
+  margin-right: 20px !important;
 }
 /* Small
  ========================================================================== */
@@ -2667,43 +2673,22 @@ uk-grid + .uk-grid-collapse,
 /* XLarge
  ========================================================================== */
 .uk-margin-xlarge {
-  margin-bottom: 40px;
+  margin-bottom: 70px;
 }
 * + .uk-margin-xlarge {
-  margin-top: 40px;
+  margin-top: 70px;
 }
 .uk-margin-xlarge-top {
-  margin-top: 40px !important;
+  margin-top: 70px !important;
 }
 .uk-margin-xlarge-bottom {
-  margin-bottom: 40px !important;
+  margin-bottom: 70px !important;
 }
 .uk-margin-xlarge-left {
-  margin-left: 40px !important;
+  margin-left: 70px !important;
 }
 .uk-margin-xlarge-right {
-  margin-right: 40px !important;
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-margin-xlarge {
-    margin-bottom: 70px;
-  }
-  * + .uk-margin-xlarge {
-    margin-top: 70px;
-  }
-  .uk-margin-xlarge-top {
-    margin-top: 70px !important;
-  }
-  .uk-margin-xlarge-bottom {
-    margin-bottom: 70px !important;
-  }
-  .uk-margin-xlarge-left {
-    margin-left: 70px !important;
-  }
-  .uk-margin-xlarge-right {
-    margin-right: 70px !important;
-  }
+  margin-right: 70px !important;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
