@@ -13,7 +13,7 @@ UIkit.version = '3.0.0';
 UIkit.options = {};
 
 UIkit.supports = supports;
-UIkit.util     = supports;
+UIkit.util     = util;
 
 UIkit.$doc  = $(document);
 UIkit.$win  = $(window);

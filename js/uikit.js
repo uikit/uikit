@@ -105,7 +105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	_global2.default.options = {};
 	
 	_global2.default.supports = _index2.default;
-	_global2.default.util = _index2.default;
+	_global2.default.util = util;
 	
 	_global2.default.$doc = (0, _jquery2.default)(document);
 	_global2.default.$win = (0, _jquery2.default)(window);
