@@ -34,6 +34,8 @@
             "column",
             "container",
             "grid",
+            "margin",
+            "section",
             "subnav",
             "text",
             "typography"
