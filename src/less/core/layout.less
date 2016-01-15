@@ -12,8 +12,8 @@
 // Variables
 // ========================================================================
 
-@utility-align-horizontal:                      15px;
-@utility-align-vertical:                        15px;
+@align-margin-horizontal:                       15px;
+@align-margin-vertical:                         15px;
 
 
 /* ========================================================================
@@ -103,11 +103,11 @@
 [class*='uk-align'] {
     display: block;
     margin-top: 0;
-    margin-bottom: @utility-align-vertical;
+    margin-bottom: @align-margin-vertical;
 }
 
-[class*='uk-align-left'] { margin-right: @utility-align-horizontal; }
-[class*='uk-align-right'] { margin-left: @utility-align-horizontal; }
+[class*='uk-align-left'] { margin-right: @align-margin-horizontal; }
+[class*='uk-align-right'] { margin-left: @align-margin-horizontal; }
 
 /* Default */
 .uk-align-left { float: left; }

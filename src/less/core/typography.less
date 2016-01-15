@@ -11,14 +11,14 @@
 // Variables
 // ========================================================================
 
-@utility-link-muted-color:                      @global-muted-color;
-@utility-link-muted-hover-color:                @global-color;
+@link-muted-color:                              @global-muted-color;
+@link-muted-hover-color:                        @global-color;
 
-@utility-heading-primary-font-size:             @global-xxlarge-font-size;
-@utility-heading-primary-line-height:           1.2;
+@heading-primary-font-size:                     @global-xxlarge-font-size;
+@heading-primary-line-height:                   1.2;
 
-@utility-heading-primary-font-size-m:           3.75rem; // 54px
-@utility-heading-primary-line-height-m:         1.1;
+@heading-primary-font-size-m:                   3.75rem; // 54px
+@heading-primary-line-height-m:                 1.1;
 
 
 /* ========================================================================
@@ -35,13 +35,13 @@
 
 .uk-link-muted,
 .uk-link-muted a {
-    color: @utility-link-muted-color;
+    color: @link-muted-color;
     .hook-typography-link-muted;
 }
 
 .uk-link-muted:hover,
 .uk-link-muted a:hover {
-    color: @utility-link-muted-hover-color;
+    color: @link-muted-hover-color;
     .hook-typography-link-muted-hover;
 }
 
@@ -69,8 +69,8 @@
  */
 
 .uk-heading-primary {
-    font-size: @utility-heading-primary-font-size;
-    line-height: @utility-heading-primary-line-height;
+    font-size: @heading-primary-font-size;
+    line-height: @heading-primary-line-height;
     .hook-typography-heading-primary;
 }
 
@@ -78,8 +78,8 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-heading-primary {
-        font-size: @utility-heading-primary-font-size-m;
-        line-height: @utility-heading-primary-line-height-m;
+        font-size: @heading-primary-font-size-m;
+        line-height: @heading-primary-line-height-m;
     }
 
 }

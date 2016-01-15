@@ -18,14 +18,14 @@
 // Variables
 // ========================================================================
 
-@utility-border-rounded:                        5px;
+@border-rounded-border:                         5px;
 
-@utility-scrollable-text-height:                300px;
+@scrollable-text-height:                        300px;
 
-@utility-scrollable-box-height:                 170px;
-@utility-scrollable-box-padding:                10px;
-@utility-scrollable-box-border:                 #ddd;
-@utility-scrollable-box-border-width:           1px;
+@scrollable-box-height:                         170px;
+@scrollable-box-padding:                        10px;
+@scrollable-box-border:                         #ddd;
+@scrollable-box-border-width:                   1px;
 
 
 /* ========================================================================
@@ -89,7 +89,7 @@
  ========================================================================== */
 
 .uk-border-circle { border-radius: 50%; }
-.uk-border-rounded { border-radius: @utility-border-rounded; }
+.uk-border-rounded { border-radius: @border-rounded-border; }
 
 
 /* Scrollable
@@ -102,7 +102,7 @@
  */
 
 .uk-scrollable-text {
-    height: @utility-scrollable-text-height;
+    height: @scrollable-text-height;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     resize: both;
@@ -114,9 +114,9 @@
 
 .uk-scrollable-box {
     box-sizing: border-box;
-    height: @utility-scrollable-box-height;
-    padding: @utility-scrollable-box-padding;
-    border: @utility-scrollable-box-border-width solid @utility-scrollable-box-border;
+    height: @scrollable-box-height;
+    padding: @scrollable-box-padding;
+    border: @scrollable-box-border-width solid @scrollable-box-border;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     resize: both;

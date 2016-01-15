@@ -21,19 +21,19 @@
 
 @grid-gutter-horizontal:                        @global-gutter;
 @grid-gutter-vertical:                          @grid-gutter-horizontal;
-@grid-gutter-horizontal-l:                      @global-gutter-medium;
+@grid-gutter-horizontal-l:                      @global-medium-gutter;
 @grid-gutter-vertical-l:                        @grid-gutter-horizontal-l;
 
-@grid-gutter-small-horizontal:                  @global-gutter-small;
-@grid-gutter-small-vertical:                    @grid-gutter-small-horizontal;
+@grid-small-gutter-horizontal:                  @global-small-gutter;
+@grid-small-gutter-vertical:                    @grid-small-gutter-horizontal;
 
-@grid-gutter-medium-horizontal:                 @global-gutter;
-@grid-gutter-medium-vertical:                   @grid-gutter-medium-horizontal;
+@grid-medium-gutter-horizontal:                 @global-gutter;
+@grid-medium-gutter-vertical:                   @grid-medium-gutter-horizontal;
 
-@grid-gutter-large-horizontal:                  @global-gutter-medium;
-@grid-gutter-large-vertical:                    @grid-gutter-large-horizontal;
-@grid-gutter-large-horizontal-l:                @global-gutter-large;
-@grid-gutter-large-vertical-l:                  @grid-gutter-large-horizontal-l;
+@grid-large-gutter-horizontal:                  @global-medium-gutter;
+@grid-large-gutter-vertical:                    @grid-large-gutter-horizontal;
+@grid-large-gutter-horizontal-l:                @global-large-gutter;
+@grid-large-gutter-vertical-l:                  @grid-large-gutter-horizontal-l;
 
 @grid-divider-border:                           @global-border;
 @grid-divider-border-width:                     1px;
@@ -117,47 +117,47 @@ uk-grid > .uk-grid-margin { margin-top: @grid-gutter-vertical; }
  */
 
 /* Horizontal */
-.uk-grid-small { margin-left: -@grid-gutter-small-horizontal; }
-.uk-grid-small > * { padding-left: @grid-gutter-small-horizontal; }
+.uk-grid-small { margin-left: -@grid-small-gutter-horizontal; }
+.uk-grid-small > * { padding-left: @grid-small-gutter-horizontal; }
 
 /* Vertical */
 uk-grid + .uk-grid-small,
-.uk-grid-small > .uk-grid-margin { margin-top: @grid-gutter-small-vertical; }
+.uk-grid-small > .uk-grid-margin { margin-top: @grid-small-gutter-vertical; }
 
 /*
  * Medium
  */
 
 /* Horizontal */
-.uk-grid-medium { margin-left: -@grid-gutter-medium-horizontal; }
-.uk-grid-medium > * { padding-left: @grid-gutter-medium-horizontal; }
+.uk-grid-medium { margin-left: -@grid-medium-gutter-horizontal; }
+.uk-grid-medium > * { padding-left: @grid-medium-gutter-horizontal; }
 
 /* Vertical */
 uk-grid + .uk-grid-medium,
-.uk-grid-medium > .uk-grid-margin { margin-top: @grid-gutter-medium-vertical; }
+.uk-grid-medium > .uk-grid-margin { margin-top: @grid-medium-gutter-vertical; }
 
 /*
  * Large
  */
 
 /* Horizontal */
-.uk-grid-large { margin-left: -@grid-gutter-large-horizontal; }
-.uk-grid-large > * { padding-left: @grid-gutter-large-horizontal; }
+.uk-grid-large { margin-left: -@grid-large-gutter-horizontal; }
+.uk-grid-large > * { padding-left: @grid-large-gutter-horizontal; }
 
 /* Vertical */
 uk-grid + .uk-grid-large,
-.uk-grid-large > .uk-grid-margin { margin-top: @grid-gutter-large-vertical; }
+.uk-grid-large > .uk-grid-margin { margin-top: @grid-large-gutter-vertical; }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
     /* Horizontal */
-    .uk-grid-large { margin-left: -@grid-gutter-large-horizontal-l; }
-    .uk-grid-large > * { padding-left: @grid-gutter-large-horizontal-l; }
+    .uk-grid-large { margin-left: -@grid-large-gutter-horizontal-l; }
+    .uk-grid-large > * { padding-left: @grid-large-gutter-horizontal-l; }
 
     /* Vertical */
     uk-grid + .uk-grid-large,
-    .uk-grid-large > .uk-grid-margin { margin-top: @grid-gutter-large-vertical-l; }
+    .uk-grid-large > .uk-grid-margin { margin-top: @grid-large-gutter-vertical-l; }
 
 }
 
@@ -242,17 +242,17 @@ uk-grid + .uk-grid-collapse,
  */
 
 /* Horizontal */
-.uk-grid-divider.uk-grid-small { margin-left: -(@grid-gutter-small-horizontal * 2); }
-.uk-grid-divider.uk-grid-small > * { padding-left: (@grid-gutter-small-horizontal * 2); }
+.uk-grid-divider.uk-grid-small { margin-left: -(@grid-small-gutter-horizontal * 2); }
+.uk-grid-divider.uk-grid-small > * { padding-left: (@grid-small-gutter-horizontal * 2); }
 
-.uk-grid-divider.uk-grid-small > :not(.uk-grid-first):before { left: @grid-gutter-small-horizontal; }
+.uk-grid-divider.uk-grid-small > :not(.uk-grid-first):before { left: @grid-small-gutter-horizontal; }
 
 /* Vertical */
-.uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first { margin-top: (@grid-gutter-small-vertical * 2); }
+.uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first { margin-top: (@grid-small-gutter-vertical * 2); }
 
 .uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first:before {
-    top: -@grid-gutter-small-vertical;
-    left: (@grid-gutter-small-horizontal * 2);
+    top: -@grid-small-gutter-vertical;
+    left: (@grid-small-gutter-horizontal * 2);
 }
 
 /*
@@ -260,17 +260,17 @@ uk-grid + .uk-grid-collapse,
  */
 
 /* Horizontal */
-.uk-grid-divider.uk-grid-medium { margin-left: -(@grid-gutter-medium-horizontal * 2); }
-.uk-grid-divider.uk-grid-medium > * { padding-left: (@grid-gutter-medium-horizontal * 2); }
+.uk-grid-divider.uk-grid-medium { margin-left: -(@grid-medium-gutter-horizontal * 2); }
+.uk-grid-divider.uk-grid-medium > * { padding-left: (@grid-medium-gutter-horizontal * 2); }
 
-.uk-grid-divider.uk-grid-medium > :not(.uk-grid-first):before { left: @grid-gutter-medium-horizontal; }
+.uk-grid-divider.uk-grid-medium > :not(.uk-grid-first):before { left: @grid-medium-gutter-horizontal; }
 
 /* Vertical */
-.uk-grid-divider.uk-grid-medium > .uk-grid-first + .uk-grid-first { margin-top: (@grid-gutter-medium-vertical * 2); }
+.uk-grid-divider.uk-grid-medium > .uk-grid-first + .uk-grid-first { margin-top: (@grid-medium-gutter-vertical * 2); }
 
 .uk-grid-divider.uk-grid-medium > .uk-grid-first + .uk-grid-first:before {
-    top: -@grid-gutter-medium-vertical;
-    left: (@grid-gutter-medium-horizontal * 2);
+    top: -@grid-medium-gutter-vertical;
+    left: (@grid-medium-gutter-horizontal * 2);
 }
 
 /*
@@ -278,34 +278,34 @@ uk-grid + .uk-grid-collapse,
  */
 
 /* Horizontal */
-.uk-grid-divider.uk-grid-large { margin-left: -(@grid-gutter-large-horizontal * 2); }
-.uk-grid-divider.uk-grid-large > * { padding-left: (@grid-gutter-large-horizontal * 2); }
+.uk-grid-divider.uk-grid-large { margin-left: -(@grid-large-gutter-horizontal * 2); }
+.uk-grid-divider.uk-grid-large > * { padding-left: (@grid-large-gutter-horizontal * 2); }
 
-.uk-grid-divider.uk-grid-large > :not(.uk-grid-first):before { left: @grid-gutter-large-horizontal; }
+.uk-grid-divider.uk-grid-large > :not(.uk-grid-first):before { left: @grid-large-gutter-horizontal; }
 
 /* Vertical */
-.uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first { margin-top: (@grid-gutter-large-vertical * 2); }
+.uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first { margin-top: (@grid-large-gutter-vertical * 2); }
 
 .uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first:before {
-    top: -@grid-gutter-large-vertical;
-    left: (@grid-gutter-large-horizontal * 2);
+    top: -@grid-large-gutter-vertical;
+    left: (@grid-large-gutter-horizontal * 2);
 }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
     /* Horizontal */
-    .uk-grid-divider.uk-grid-large { margin-left: -(@grid-gutter-large-horizontal-l * 2); }
-    .uk-grid-divider.uk-grid-large > * { padding-left: (@grid-gutter-large-horizontal-l * 2); }
+    .uk-grid-divider.uk-grid-large { margin-left: -(@grid-large-gutter-horizontal-l * 2); }
+    .uk-grid-divider.uk-grid-large > * { padding-left: (@grid-large-gutter-horizontal-l * 2); }
 
-    .uk-grid-divider.uk-grid-large > :not(.uk-grid-first):before { left: @grid-gutter-large-horizontal-l; }
+    .uk-grid-divider.uk-grid-large > :not(.uk-grid-first):before { left: @grid-large-gutter-horizontal-l; }
 
     /* Vertical */
-    .uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first { margin-top: (@grid-gutter-large-vertical-l * 2); }
+    .uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first { margin-top: (@grid-large-gutter-vertical-l * 2); }
 
     .uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first:before {
-        top: -@grid-gutter-large-vertical-l;
-        left: (@grid-gutter-large-horizontal-l * 2);
+        top: -@grid-large-gutter-vertical-l;
+        left: (@grid-large-gutter-horizontal-l * 2);
     }
 
 }
