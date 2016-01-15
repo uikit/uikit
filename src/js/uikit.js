@@ -1,39 +1,33 @@
-import util from './lib/util';
-import $ from './lib/dom';
-import support from './lib/support';
-import component from './lib/component';
-import eventize from './lib/eventize';
+import $ from 'jquery';
+import UIkit from './api/global';
+import internalAPI from './api/internal';
+import eventAPI from './api/event';
+import componentAPI from './api/component';
+import webcomponentAPI from './api/webcomponent';
+import supports from './supports/index';
+import * as util from './util/index';
 
+window.UIkit3 = UIkit;
 
-let UI = {};
+UIkit.version = '3.0.0';
+UIkit.options = {};
 
-// dom references
-UI.$doc  = $(document);
-UI.$win  = $(window);
-UI.$html = $('html');
+UIkit.supports = supports;
+UIkit.util     = supports;
 
-UI.util      = util;
-UI.$         = $;
-UI.support   = support;
-UI.component = component(UI);
-
-eventize(UI);
-
-UI.on('updated.uk.dom', function(e) {
-    UI.Utils.checkDisplay(e.target);
-});
-
-UI.one('beforeready.uk.dom', function() {
-    UI.$body = $('body');
-});
+UIkit.$doc  = $(document);
+UIkit.$win  = $(window);
+UIkit.$html = $('html');
 
 // add touch identifier class
-UI.$html.addClass(UI.support.touch ? 'uk-touch' : 'uk-notouch');
+UIkit.$html.addClass(UIkit.supports.touch ? 'uk-touch' : 'uk-notouch');
+
+internalAPI(UIkit);
+eventAPI(UIkit);
+componentAPI(UIkit);
+webcomponentAPI(UIkit);
 
 // core components
-require('./core/grid')(UI);
+require('./core/grid')(UIkit);
 
-
-
-
-export default UI;
+export default UIkit;

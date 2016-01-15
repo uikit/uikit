@@ -10,24 +10,25 @@
 
         <script>
 
-            UIkit.component('alert', {
+            UIkit.webcomponent('alert', {
 
                 props: {
                     close: false
                 },
 
-                webcomponent: {
-                    created: function () {
+                methods: {
+
+                    $created: function () {
                         console.log('created');
                     },
 
-                    attached: function () {
+                    $attached: function () {
                         console.log('attached');
                         console.log(this.$el);
                         console.log(this.close);
                     },
 
-                    detached: function () {
+                    $detached: function () {
                         console.log('detached');
                     }
                 }

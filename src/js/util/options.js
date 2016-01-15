@@ -1,6 +1,6 @@
 import {extend, isArray, hasOwn} from './index';
 
-var strats = {};
+let strats = {};
 
 // hook strategy
 strats.init = function (parentVal, childVal) {
@@ -25,7 +25,7 @@ strats.methods = function (parentVal, childVal) {
         return childVal;
     }
 
-    var val = {};
+    let val = {};
 
     extend(val, parentVal);
     extend(val, childVal);
@@ -34,16 +34,16 @@ strats.methods = function (parentVal, childVal) {
 };
 
 // default strategy
-var defaultStrat = function (parentVal, childVal) {
+let defaultStrat = function (parentVal, childVal) {
     return childVal === undefined ? parentVal : childVal;
 };
 
 export function mergeOptions (parent, child, thisArg) {
 
-    var options = {}, key;
+    let options = {}, key;
 
     if (child.mixins) {
-        for (var i = 0, l = child.mixins.length; i < l; i++) {
+        for (let i = 0, l = child.mixins.length; i < l; i++) {
             parent = mergeOptions(parent, child.mixins[i], thisArg);
         }
     }

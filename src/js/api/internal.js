@@ -3,6 +3,8 @@ import {bind, extend, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
+    UIkit.prototype.props = {};
+
     UIkit.prototype._init = function (options) {
 
         options = options || {};
@@ -12,16 +14,21 @@ export default function (UIkit) {
 
         extend(this, options.props);
 
+        // 
+        // Object.keys(this.props).forEach(prop => {
+        //     if (this.$options[prop]) this[prop] = this.$options[prop];
+        // });
+
         this._initMethods();
         this._callHook('init');
     };
 
     UIkit.prototype._initMethods = function () {
 
-        var methods = this.$options.methods;
+        let methods = this.$options.methods;
 
         if (methods) {
-            for (var key in methods) {
+            for (let key in methods) {
                 this[key] = bind(methods[key], this);
             }
         }
@@ -29,10 +36,10 @@ export default function (UIkit) {
 
     UIkit.prototype._callHook = function (hook) {
 
-        var handlers = this.$options[hook];
+        let handlers = this.$options[hook];
 
         if (handlers) {
-            for (var i = 0, j = handlers.length; i < j; i++) {
+            for (let i = 0, j = handlers.length; i < j; i++) {
                 handlers[i].call(this);
             }
         }

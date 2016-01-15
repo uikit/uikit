@@ -1,4 +1,3 @@
-"use strict";
 
 export default {
     mutationobserver: (global.MutationObserver || global.WebKitMutationObserver || null),
