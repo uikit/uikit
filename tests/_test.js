@@ -71,10 +71,23 @@
 
         $testselect.on("change", function(){
             if ($testselect.val()) location.href = testfolder+$testselect.val();
+        }).val(function(){
+            return basename(location.pathname);
         });
 
         $controls.prepend($testselect);
         $body.prepend($controls).css("visibility", "");
     });
+
+    function basename(path) {
+
+        var b = path, lastChar = b.charAt(b.length - 1);
+
+        if (lastChar === '/' || lastChar === '\\') b = b.slice(0, -1);
+
+        b = b.replace(/^.*[\/\\]/g, '');
+
+        return b;
+    }
 
 })(document, window);
