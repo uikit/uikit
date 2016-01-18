@@ -1,0 +1,70 @@
+// Name:            Padding
+// Description:     TODO
+//
+// Component:       `uk-padding`
+//                  `uk-padding-large`
+//                  `uk-padding-remove`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@padding-padding:                                       20px;
+@padding-padding-m:                                     40px;
+@padding-large-padding:                                 40px;
+@padding-large-padding-m:                               80px;
+
+
+/* ========================================================================
+   Component: Padding
+ ========================================================================== */
+
+
+/*
+ * Default (Medium)
+ */
+
+.uk-padding { padding: @padding-padding; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-padding { padding: @padding-padding-m; }
+
+}
+
+
+/* Large
+ ========================================================================== */
+
+.uk-padding-large { padding: @padding-large-padding; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-padding-large { padding: @padding-large-padding-m; }
+
+}
+
+
+/* Remove
+ ========================================================================== */
+
+.uk-padding-remove { padding: 0 !important; }
+.uk-padding-remove-top { padding-top: 0 !important; }
+.uk-padding-remove-bottom { padding-bottom: 0 !important; }
+
+.uk-padding-remove-vertical {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-padding-misc;
+
+.hook-padding-misc() {}

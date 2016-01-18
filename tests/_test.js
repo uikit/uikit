@@ -38,6 +38,7 @@
             "flex",
             "grid",
             "margin",
+            "padding",
             "section",
             "subnav",
             "text",

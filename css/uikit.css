@@ -2519,48 +2519,6 @@ uk-grid + .uk-grid-collapse,
 .uk-border-rounded {
   border-radius: 5px;
 }
-/* Padding
- ========================================================================== */
-/*
- * Default (Medium)
- */
-.uk-padding {
-  padding: 20px;
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-padding {
-    padding: 40px;
-  }
-}
-/*
- * Large
- */
-.uk-padding-large {
-  padding: 40px;
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-padding-large {
-    padding: 80px;
-  }
-}
-/*
- * Remove
- */
-.uk-padding-remove {
-  padding: 0 !important;
-}
-.uk-padding-remove-top {
-  padding-top: 0 !important;
-}
-.uk-padding-remove-bottom {
-  padding-bottom: 0 !important;
-}
-.uk-padding-remove-vertical {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-}
 /* ========================================================================
    Component: Margin
  ========================================================================== */
@@ -2707,6 +2665,47 @@ uk-grid + .uk-grid-collapse,
 .uk-margin-auto {
   margin-left: auto;
   margin-right: auto;
+}
+/* ========================================================================
+   Component: Padding
+ ========================================================================== */
+/*
+ * Default (Medium)
+ */
+.uk-padding {
+  padding: 20px;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-padding {
+    padding: 40px;
+  }
+}
+/* Large
+ ========================================================================== */
+.uk-padding-large {
+  padding: 40px;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-padding-large {
+    padding: 80px;
+  }
+}
+/* Remove
+ ========================================================================== */
+.uk-padding-remove {
+  padding: 0 !important;
+}
+.uk-padding-remove-top {
+  padding-top: 0 !important;
+}
+.uk-padding-remove-bottom {
+  padding-bottom: 0 !important;
+}
+.uk-padding-remove-vertical {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 /* ========================================================================
    Component: Position
