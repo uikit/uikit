@@ -13,6 +13,7 @@
 // Modifiers:       `uk-card-hover`
 //                  `uk-card-primary`
 //                  `uk-card-secondary`
+//                  `uk-card-blank`
 //
 // ========================================================================
 
@@ -209,6 +210,19 @@
     .hook-card-secondary-hover;
 }
 
+/*
+ * Blank
+ */
+
+.uk-card-blank {
+    background-color: none;
+    .hook-card-blank;
+}
+
+.uk-card-blank.uk-card-hover:hover {
+    .hook-card-blank-hover;
+}
+
 
 // Hooks
 // ========================================================================
@@ -231,4 +245,6 @@
 .hook-card-primary-hover() {}
 .hook-card-secondary() {}
 .hook-card-secondary-hover() {}
+.hook-card-blank() {}
+.hook-card-blank-hover() {}
 .hook-card-misc() {}

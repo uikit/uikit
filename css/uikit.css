@@ -1073,6 +1073,13 @@ uk-grid + .uk-grid-collapse,
 .uk-card-secondary {
   background-color: #eee;
 }
+/*
+ * Blank
+ */
+.uk-card-blank {
+  background-color: none;
+  box-shadow: none;
+}
 /* ========================================================================
    Component: Width
  ========================================================================== */
