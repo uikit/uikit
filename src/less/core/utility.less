@@ -9,12 +9,18 @@
 //                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-border-*`
+//                  `uk-padding-*`
 //
 // ========================================================================
 
 
 // Variables
 // ========================================================================
+
+@panel-medium-padding:                          20px;
+@panel-medium-padding-m:                        40px;
+@panel-large-padding:                           40px;
+@panel-large-padding-m:                         80px;
 
 @panel-scrollable-height:                       170px;
 @panel-scrollable-padding:                      10px;
@@ -50,6 +56,31 @@
 
 .uk-panel > :last-child { margin-bottom: 0; }
 
+/*
+ * Medium
+ */
+
+.uk-panel-medium { padding: @panel-medium-padding; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-panel-medium { padding: @panel-medium-padding-m; }
+
+}
+
+/*
+ * Large
+ */
+
+.uk-panel-large { padding: @panel-large-padding; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-panel-large { padding: @panel-large-padding-m; }
+
+}
 
 /*
  * Scrollable
@@ -195,6 +226,19 @@
 
 .uk-border-circle { border-radius: 50%; }
 .uk-border-rounded { border-radius: @border-rounded-border; }
+
+
+/* Padding
+ ========================================================================== */
+
+.uk-padding-remove { padding: 0 !important; }
+.uk-padding-remove-top { padding-top: 0 !important; }
+.uk-padding-remove-bottom { padding-bottom: 0 !important; }
+
+.uk-padding-remove-vertical {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
 
 
 // Hooks

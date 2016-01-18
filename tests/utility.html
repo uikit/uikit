@@ -7,36 +7,67 @@
         <title>Utility - UIkit tests</title>
         <script src="_test.js"></script>
         <link rel="stylesheet" href="../css/uikit.css">
+        <style type="text/css">
+
+            .uk-panel-medium,
+            .uk-panel-large { background: #f0f0f0; }
+
+        </style>
     </head>
 
     <body>
 
         <div class="uk-container">
 
-            <h1>Panel scrollable</h1>
+            <h1>Panel</h1>
 
-            <div class="uk-panel-scrollable uk-width-1-2@m">
-                <ul class="uk-list">
-                    <li><label><input type="checkbox"> Category 1</label></li>
-                    <li>
-                        <label><input type="checkbox"> Category 2</label>
-                        <ul>
-                            <li><label><input type="checkbox"> Category 2.1</label></li>
-                            <li><label><input type="checkbox"> Category 2.2</label></li>
+            <uk-grid class="uk-child-width-1-2@m">
+                <div>
+
+                    <div class="uk-panel uk-panel-medium">
+                        <h3>Medium</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-panel uk-panel-large">
+                        <h3>Large</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Scrollable</h3>
+                    <div class="uk-panel uk-panel-scrollable">
+                        <ul class="uk-list">
+                            <li><label><input type="checkbox"> Category 1</label></li>
                             <li>
-                                <label><input type="checkbox"> Category 2.3</label>
+                                <label><input type="checkbox"> Category 2</label>
                                 <ul>
-                                    <li><label><input type="checkbox"> Category 2.3.1</label></li>
-                                    <li><label><input type="checkbox"> Category 2.3.2</label></li>
+                                    <li><label><input type="checkbox"> Category 2.1</label></li>
+                                    <li><label><input type="checkbox"> Category 2.2</label></li>
+                                    <li>
+                                        <label><input type="checkbox"> Category 2.3</label>
+                                        <ul>
+                                            <li><label><input type="checkbox"> Category 2.3.1</label></li>
+                                            <li><label><input type="checkbox"> Category 2.3.2</label></li>
+                                        </ul>
+                                    </li>
+                                    <li><label><input type="checkbox"> Category 2.4</label></li>
                                 </ul>
                             </li>
-                            <li><label><input type="checkbox"> Category 2.4</label></li>
+                            <li><label><input type="checkbox"> Category 3</label></li>
+                            <li><label><input type="checkbox"> Category 4</label></li>
                         </ul>
-                    </li>
-                    <li><label><input type="checkbox"> Category 3</label></li>
-                    <li><label><input type="checkbox"> Category 4</label></li>
-                </ul>
-            </div>
+                    </div>
+
+                </div>
+            </uk-grid>
+
+
 
             <h1>Overflow auto</h1>
 
@@ -131,15 +162,15 @@
 
             <uk-grid class="uk-child-width-1-3">
                 <div>
-                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                 </div>
 
                 <div>
-                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                 </div>
 
                 <div>
-                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                 </div>
             </uk-grid>
 
