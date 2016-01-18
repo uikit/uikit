@@ -39,7 +39,8 @@
             "section",
             "subnav",
             "text",
-            "typography"
+            "typography",
+            "width"
 
     ];
     document.addEventListener("DOMContentLoaded", function(event) {
