@@ -30,6 +30,7 @@
 
         "::Core",
 
+            "Javascript",
             "align",
             "base",
             "card",
