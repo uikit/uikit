@@ -972,179 +972,110 @@ uk-grid + .uk-grid-collapse,
    Component: Panel
  ========================================================================== */
 /*
- * 1. Needed for `a` elements
- * 2. Create position context for badges
+ * 1. Style
  */
-.uk-panel {
-  /* 1 */
-  display: block;
-  /* 2 */
+.uk-card {
   position: relative;
+  box-sizing: content-box;
+  /* 1 */
+  background: #fff;
+  color: #444;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 /*
- * Allow panels to be anchors
+ * Micro clearfix
  */
-.uk-panel,
-.uk-panel:hover {
-  text-decoration: none;
-}
-/*
- * Micro clearfix to make panels more robust
- */
-.uk-panel:before,
-.uk-panel:after {
+.uk-card:before,
+.uk-card:after {
   content: "";
   display: table;
 }
-.uk-panel:after {
+.uk-card:after {
   clear: both;
 }
 /*
- * Remove margin from the last-child if not `uk-widget-title`
+ * Remove margin from the last-child
  */
-.uk-panel > :not(.uk-panel-title):last-child {
+.uk-card > :last-child {
   margin-bottom: 0;
 }
-/* Sub-object: `uk-panel-title`
+/* Section sub-objects
  ========================================================================== */
-.uk-panel-title {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 18px;
-  line-height: 24px;
+.uk-card-body {
+  padding: 30px 30px;
+}
+.uk-card-header {
+  padding: 15px 30px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.uk-card-footer {
+  padding: 15px 30px;
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Micro clearfix
+ */
+.uk-card-body:before,
+.uk-card-body:after,
+.uk-card-header:before,
+.uk-card-header:after,
+.uk-card-footer:before,
+.uk-card-footer:after {
+  content: "";
+  display: table;
+}
+.uk-card-body:after,
+.uk-card-header:after,
+.uk-card-footer:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-card-body > :last-child,
+.uk-card-header > :last-child,
+.uk-card-footer > :last-child {
+  margin-bottom: 0;
+}
+/* Media sub-object
+ ========================================================================== */
+/* Title sub-object
+ ========================================================================== */
+.uk-card-title {
+  font-size: 1.37rem;
+  line-height: 1.4;
+  color: #444;
   font-weight: normal;
   text-transform: none;
-  color: #444;
 }
-/* Sub-object: `uk-panel-badge`
+/* Badge sub-object
  ========================================================================== */
-.uk-panel-badge {
+.uk-card-badge {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 30px;
+  right: 30px;
   z-index: 1;
 }
-/* Sub-object: `uk-panel-teaser`
+/* Hover modifier
  ========================================================================== */
-.uk-panel-teaser {
-  margin-bottom: 15px;
+.uk-card-hover:hover {
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
 }
-/* Sub-object: `uk-panel-body`
+/* Style modifier
  ========================================================================== */
-.uk-panel-body {
-  padding: 15px;
-}
-/* Modifier: `uk-panel-box`
- ========================================================================== */
-.uk-panel-box {
-  padding: 15px;
-  background: #f5f5f5;
-  color: #444;
-}
-.uk-panel-box-hover:hover {
-  color: #444;
-}
-.uk-panel-box .uk-panel-title {
-  color: #444;
-}
-.uk-panel-box .uk-panel-badge {
-  top: 10px;
-  right: 10px;
-}
-.uk-panel-box > .uk-panel-teaser {
-  margin-top: -15px;
-  margin-left: -15px;
-  margin-right: -15px;
-}
 /*
- * Nav in panel
+ * Primary
  */
-.uk-panel-box > .uk-nav-side {
-  margin: 0 -15px;
-}
-/*
- * Sub-modifier: `uk-panel-box-primary`
- */
-.uk-panel-box-primary {
+.uk-card-primary {
   background-color: #ebf7fd;
   color: #2d7091;
 }
-.uk-panel-box-primary-hover:hover {
-  color: #2d7091;
-}
-.uk-panel-box-primary .uk-panel-title {
-  color: #2d7091;
-}
 /*
- * Sub-modifier: `uk-panel-box-secondary`
+ * Secondary
  */
-.uk-panel-box-secondary {
+.uk-card-secondary {
   background-color: #eee;
   color: #444;
-}
-.uk-panel-box-secondary-hover:hover {
-  color: #444;
-}
-.uk-panel-box-secondary .uk-panel-title {
-  color: #444;
-}
-/* Modifier: `uk-panel-hover`
- ========================================================================== */
-.uk-panel-hover {
-  padding: 15px;
-  color: #444;
-}
-.uk-panel-hover:hover {
-  background: #f5f5f5;
-  color: #444;
-}
-.uk-panel-hover .uk-panel-badge {
-  top: 10px;
-  right: 10px;
-}
-.uk-panel-hover > .uk-panel-teaser {
-  margin-top: -15px;
-  margin-left: -15px;
-  margin-right: -15px;
-}
-/* Modifier: `uk-panel-header`
- ========================================================================== */
-.uk-panel-header .uk-panel-title {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  color: #444;
-}
-/* Modifier: `uk-panel-space`
- ========================================================================== */
-.uk-panel-space {
-  padding: 30px;
-}
-.uk-panel-space .uk-panel-badge {
-  top: 30px;
-  right: 30px;
-}
-/* Modifier: `uk-panel-divider`
- ========================================================================== */
-.uk-panel + .uk-panel-divider {
-  margin-top: 50px !important;
-}
-.uk-panel + .uk-panel-divider:before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: -25px;
-  left: 0;
-  right: 0;
-  border-top: 1px solid #ddd;
-}
-/* Large screen and bigger */
-@media (min-width: 1600px) {
-  .uk-panel + .uk-panel-divider {
-    margin-top: 70px !important;
-  }
-  .uk-panel + .uk-panel-divider:before {
-    top: -35px;
-  }
 }
 /* ========================================================================
    Component: Width

@@ -31,6 +31,7 @@
         "::Core",
 
             "base",
+            "card",
             "column",
             "container",
             "grid",

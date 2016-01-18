@@ -1,38 +1,18 @@
-// Name:            Panel
-// Description:     Defines styles for reusable content areas
+// Name:            Card
+// Description:     Component to create boxed content containers
 //
-// Component:       `uk-panel`
+// Component:       `uk-card`
 //
-// Sub-objects:     `uk-panel-title`
-//                  `uk-panel-badge`
-//                  `uk-panel-teaser`
-//                  `uk-panel-body`
+// Sub-objects:     `uk-card-body`
+//                  `uk-card-header`
+//                  `uk-card-footer`
+//                  `uk-card-media-*`
+//                  `uk-card-title`
+//                  `uk-card-badge`
 //
-// Modifiers:       `uk-panel-box`
-//                  `uk-panel-box-hover`
-//                  `uk-panel-box-primary`
-//                  `uk-panel-box-primary-hover`
-//                  `uk-panel-box-secondary`
-//                  `uk-panel-box-secondary-hover`
-//                  `uk-panel-hover`
-//                  `uk-panel-header`
-//                  `uk-panel-space`
-//                  `uk-panel-divider`
-//
-// Uses:            Nav: `uk-nav-side`
-//
-// Used by:         Dropdown
-//                  Off-canvas
-//                  Grid
-//
-// Markup:
-//
-// <!-- uk-panel -->
-// <div class="uk-panel">
-//     <div class="uk-panel-badge uk-badge"></div>
-//     <h3 class="uk-panel-title"></h3>
-//     <p></p>
-// </div>
+// Modifiers:       `uk-card-hover`
+//                  `uk-card-primary`
+//                  `uk-card-secondary`
 //
 // ========================================================================
 
@@ -40,55 +20,32 @@
 // Variables
 // ========================================================================
 
-@panel-title-margin-bottom:                     15px;
-@panel-title-font-size:                         18px;
-@panel-title-line-height:                       24px;
-@panel-title-font-weight:                       normal;
-@panel-title-color:                             #444;
-@panel-title-text-transform:                    none;
+@card-background:                              @global-background;
+@card-color:                                   @global-color;
 
-@panel-teaser-margin-bottom:                    @panel-title-margin-bottom;
+@card-body-padding-horizontal:                 @global-gutter;
+@card-body-padding-vertical:                   @global-gutter;
 
-@panel-box-padding:                             15px;
-@panel-box-background:                          #f5f5f5;
-@panel-box-color:                               #444;
-@panel-box-hover-color:                         @panel-box-color;
-@panel-box-title-color:                         #444;
-@panel-box-badge-top:                           10px;
-@panel-box-badge-right:                         @panel-box-badge-top;
-@panel-box-teaser-margin:                       -@panel-box-padding;
+@card-header-padding-horizontal:               @global-gutter;
+@card-header-padding-vertical:                 (@global-gutter / 2);
 
-@panel-box-primary-background:                  #ebf7fd;
-@panel-box-primary-color:                       #2d7091;
-@panel-box-primary-hover-color:                 @panel-box-primary-color;
-@panel-box-primary-title-color:                 #2d7091;
+@card-footer-padding-horizontal:               @global-gutter;
+@card-footer-padding-vertical:                 (@global-gutter / 2);
 
-@panel-box-secondary-background:                #eee;
-@panel-box-secondary-color:                     #444;
-@panel-box-secondary-hover-color:               @panel-box-secondary-color;
-@panel-box-secondary-title-color:               #444;
+@card-title-font-size:                         @global-large-font-size;
+@card-title-line-height:                       1.4;
+@card-title-color:                             @global-color;
+@card-title-font-weight:                       normal;
+@card-title-text-transform:                    none;
 
-@panel-hover-padding:                           15px;
-@panel-hover-color:                             #444;
-@panel-hover-hover-background:                  #f5f5f5;
-@panel-hover-hover-color:                       #444;
-@panel-hover-badge-top:                         10px;
-@panel-hover-badge-right:                       @panel-hover-badge-top;
-@panel-hover-teaser-margin:                     -@panel-hover-padding;
+@card-badge-top:                               @global-gutter;
+@card-badge-right:                             @card-badge-top;
 
-@panel-header-title-padding:                    10px;
-@panel-header-title-border:                     #ddd;
-@panel-header-title-border-width:               1px;
-@panel-header-title-color:                      #444;
+@card-primary-background:                      #ebf7fd;
+@card-primary-color:                           #2d7091;
 
-@panel-space-padding:                           30px;
-
-@panel-divider-gutter:                          25px;
-@panel-divider-gutter-large:                    35px;
-@panel-divider-border:                          #ddd;
-@panel-divider-border-width:                    1px;
-
-@panel-body-padding:                            @panel-box-padding;
+@card-secondary-background:                    #eee;
+@card-secondary-color:                         #444;
 
 
 /* ========================================================================
@@ -96,237 +53,191 @@
  ========================================================================== */
 
 /*
- * 1. Needed for `a` elements
- * 2. Create position context for badges
+ * 1. Style
  */
 
-.uk-panel {
-    /* 1 */
-    display: block;
-    /* 2 */
+
+.uk-card {
     position: relative;
+    box-sizing: content-box;
+    /* 1 */
+    background: @card-background;
+    color: @card-color;
+    .hook-card;
 }
 
 /*
- * Allow panels to be anchors
+ * Micro clearfix
  */
 
-.uk-panel,
-.uk-panel:hover { text-decoration: none; }
-
-/*
- * Micro clearfix to make panels more robust
- */
-
-.uk-panel:before,
-.uk-panel:after {
+.uk-card:before,
+.uk-card:after {
     content: "";
     display: table;
 }
 
-.uk-panel:after { clear: both; }
+.uk-card:after { clear: both; }
 
 /*
- * Remove margin from the last-child if not `uk-widget-title`
+ * Remove margin from the last-child
  */
 
-.uk-panel > :not(.uk-panel-title):last-child { margin-bottom: 0; }
+.uk-card > :last-child { margin-bottom: 0; }
 
 
-/* Sub-object: `uk-panel-title`
+/* Section sub-objects
  ========================================================================== */
 
-.uk-panel-title {
-    margin-top: 0;
-    margin-bottom: @panel-title-margin-bottom;
-    font-size: @panel-title-font-size;
-    line-height: @panel-title-line-height;
-    font-weight: @panel-title-font-weight;
-    text-transform: @panel-title-text-transform;
-    color: @panel-title-color;
-    .hook-panel-title;
+.uk-card-body {
+    padding: @card-body-padding-vertical @card-body-padding-horizontal;
+    .hook-card-body;
 }
 
-
-/* Sub-object: `uk-panel-badge`
- ========================================================================== */
-
-.uk-panel-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    .hook-panel-badge;
+.uk-card-header {
+    padding: @card-header-padding-vertical @card-header-padding-horizontal;
+    .hook-card-header;
 }
 
-/* Sub-object: `uk-panel-teaser`
- ========================================================================== */
-
-.uk-panel-teaser { margin-bottom: @panel-teaser-margin-bottom; }
-
-
-/* Sub-object: `uk-panel-body`
- ========================================================================== */
-
-.uk-panel-body { padding: @panel-body-padding; }
-
-
-/* Modifier: `uk-panel-box`
- ========================================================================== */
-
-.uk-panel-box {
-    padding: @panel-box-padding;
-    background: @panel-box-background;
-    color: @panel-box-color;
-    .hook-panel-box;
-}
-
-.uk-panel-box-hover:hover {
-    color: @panel-box-hover-color;
-    .hook-panel-box-hover;
-}
-
-.uk-panel-box .uk-panel-title { color: @panel-box-title-color; }
-
-.uk-panel-box .uk-panel-badge {
-    top: @panel-box-badge-top;
-    right: @panel-box-badge-right;
-}
-
-.uk-panel-box > .uk-panel-teaser {
-    margin-top: @panel-box-teaser-margin;
-    margin-left: @panel-box-teaser-margin;
-    margin-right: @panel-box-teaser-margin;
+.uk-card-footer {
+    padding: @card-footer-padding-vertical @card-footer-padding-horizontal;
+    .hook-card-footer;
 }
 
 /*
- * Nav in panel
+ * Micro clearfix
  */
 
-.uk-panel-box > .uk-nav-side { margin: 0 (-@panel-box-padding); }
-
-/*
- * Sub-modifier: `uk-panel-box-primary`
- */
-
-.uk-panel-box-primary {
-    background-color: @panel-box-primary-background;
-    color: @panel-box-primary-color;
-    .hook-panel-box-primary;
-}
-
-.uk-panel-box-primary-hover:hover {
-    color: @panel-box-primary-hover-color;
-    .hook-panel-box-primary-hover;
-}
-
-.uk-panel-box-primary .uk-panel-title { color: @panel-box-primary-title-color; }
-
-/*
- * Sub-modifier: `uk-panel-box-secondary`
- */
-
-.uk-panel-box-secondary {
-    background-color: @panel-box-secondary-background;
-    color: @panel-box-secondary-color;
-    .hook-panel-box-secondary;
-}
-
-.uk-panel-box-secondary-hover:hover {
-    color: @panel-box-secondary-hover-color;
-    .hook-panel-box-secondary-hover;
-}
-
-.uk-panel-box-secondary .uk-panel-title { color: @panel-box-secondary-title-color; }
-
-
-/* Modifier: `uk-panel-hover`
- ========================================================================== */
-
-.uk-panel-hover {
-    padding: @panel-hover-padding;
-    color: @panel-hover-color;
-    .hook-panel-hover;
-}
-
-.uk-panel-hover:hover {
-    background: @panel-hover-hover-background;
-    color: @panel-hover-hover-color;
-    .hook-panel-hover-hover;
-}
-
-.uk-panel-hover .uk-panel-badge {
-    top: @panel-hover-badge-top;
-    right: @panel-hover-badge-right;
-}
-
-.uk-panel-hover > .uk-panel-teaser {
-    margin-top: @panel-hover-teaser-margin;
-    margin-left: @panel-hover-teaser-margin;
-    margin-right: @panel-hover-teaser-margin;
-}
-
-
-/* Modifier: `uk-panel-header`
- ========================================================================== */
-
-.uk-panel-header .uk-panel-title {
-    padding-bottom: @panel-header-title-padding;
-    border-bottom: @panel-header-title-border-width solid @panel-header-title-border;
-    color: @panel-header-title-color;
-    .hook-panel-header;
-}
-
-
-/* Modifier: `uk-panel-space`
- ========================================================================== */
-
-.uk-panel-space { padding: @panel-space-padding; }
-
-.uk-panel-space .uk-panel-badge {
-    top: @panel-space-padding;
-    right: @panel-space-padding;
-}
-
-
-/* Modifier: `uk-panel-divider`
- ========================================================================== */
-
-.uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter * 2) !important; }
-
-.uk-panel + .uk-panel-divider:before {
+.uk-card-body:before,
+.uk-card-body:after,
+.uk-card-header:before,
+.uk-card-header:after,
+.uk-card-footer:before,
+.uk-card-footer:after {
     content: "";
-    display: block;
-    position: absolute;
-    top: -(@panel-divider-gutter);
-    left: 0;
-    right: 0;
-    border-top: @panel-divider-border-width solid @panel-divider-border;
+    display: table;
 }
 
-/* Large screen and bigger */
-@media (min-width: @breakpoint-xlarge) {
+.uk-card-body:after,
+.uk-card-header:after,
+.uk-card-footer:after { clear: both; }
 
-    .uk-panel + .uk-panel-divider { margin-top: (@panel-divider-gutter-large * 2) !important; }
-    .uk-panel + .uk-panel-divider:before { top: -(@panel-divider-gutter-large); }
+/*
+ * Remove margin from the last-child
+ */
 
+.uk-card-body > :last-child,
+.uk-card-header > :last-child,
+.uk-card-footer > :last-child { margin-bottom: 0; }
+
+
+/* Media sub-object
+ ========================================================================== */
+
+[class*='uk-card-media'] {
+    .hook-card-media;
+}
+
+.uk-card-media-top {
+    .hook-card-media-top;
+}
+
+.uk-card-media-bottom {
+    .hook-card-media-bottom;
+}
+
+.uk-card-media-left {
+    .hook-card-media-left;
+}
+
+.uk-card-media-right {
+    .hook-card-media-right;
+}
+
+
+/* Title sub-object
+ ========================================================================== */
+
+.uk-card-title {
+    font-size: @card-title-font-size;
+    line-height: @card-title-line-height;
+    color: @card-title-color;
+    font-weight: @card-title-font-weight;
+    text-transform: @card-title-text-transform;
+    .hook-card-title;
+}
+
+
+/* Badge sub-object
+ ========================================================================== */
+
+.uk-card-badge {
+    position: absolute;
+    top: @card-badge-top;
+    right: @card-badge-right;
+    z-index: 1;
+    .hook-card-badge;
+}
+
+
+/* Hover modifier
+ ========================================================================== */
+
+.uk-card-hover:hover {
+    .hook-card-hover;
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+/*
+ * Primary
+ */
+
+.uk-card-primary {
+    background-color: @card-primary-background;
+    color: @card-primary-color;
+    .hook-card-primary;
+}
+
+.uk-card-primary.uk-card-hover:hover {
+    .hook-card-primary-hover;
+}
+
+/*
+ * Secondary
+ */
+
+.uk-card-secondary {
+    background-color: @card-secondary-background;
+    color: @card-secondary-color;
+    .hook-card-secondary;
+}
+
+.uk-card-secondary.uk-card-hover:hover {
+    .hook-card-secondary-hover;
 }
 
 
 // Hooks
 // ========================================================================
 
-.hook-panel-misc;
+.hook-card-misc;
 
-.hook-panel-title() {}
-.hook-panel-badge() {}
-.hook-panel-box() {}
-.hook-panel-box-hover() {}
-.hook-panel-box-primary() {}
-.hook-panel-box-primary-hover() {}
-.hook-panel-box-secondary() {}
-.hook-panel-box-secondary-hover() {}
-.hook-panel-hover() {}
-.hook-panel-hover-hover() {}
-.hook-panel-header() {}
-.hook-panel-misc() {}
+.hook-card() {}
+.hook-card-body() {}
+.hook-card-header() {}
+.hook-card-footer() {}
+.hook-card-media() {}
+.hook-card-media-top() {}
+.hook-card-media-bottom() {}
+.hook-card-media-left() {}
+.hook-card-media-right() {}
+.hook-card-title() {}
+.hook-card-badge() {}
+.hook-card-hover() {}
+.hook-card-primary() {}
+.hook-card-primary-hover() {}
+.hook-card-secondary() {}
+.hook-card-secondary-hover() {}
+.hook-card-misc() {}
