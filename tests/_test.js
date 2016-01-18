@@ -34,6 +34,7 @@
             "card",
             "column",
             "container",
+            "flex",
             "grid",
             "margin",
             "section",
