@@ -42,6 +42,7 @@
             "subnav",
             "text",
             "typography",
+            "utility",
             "width"
 
     ];
