@@ -19,7 +19,7 @@
             }
 
             .uk-alert[class*='uk-hidden'],
-            .uk-alert-success {
+            .uk-alert-success[class*='uk-visible'] {
                 position: absolute;
                 left: 0;
                 right: 0;
@@ -119,6 +119,23 @@
                     <div class="uk-visible-hover">
                         <div class="uk-alert">Invisible Hover</div>
                         <div class="uk-alert uk-alert-success uk-invisible-hover">✔ Invisible Hover</div>
+                    </div>
+                </div>
+            </uk-grid>
+
+            <h2>Touch</h2>
+
+            <uk-grid class="uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center">
+                <div>
+                    <div>
+                        <div class="uk-alert uk-alert-success">✔ Hidden Touch</div>
+                        <div class="uk-alert uk-hidden-touch">Hidden Touch</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="uk-alert uk-alert-success">✔ Hidden Notouch</div>
+                        <div class="uk-alert uk-hidden-notouch">Hidden Notouch</div>
                     </div>
                 </div>
             </uk-grid>
