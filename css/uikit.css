@@ -1045,8 +1045,6 @@ uk-grid + .uk-grid-collapse,
   font-size: 1.37rem;
   line-height: 1.4;
   color: #444;
-  font-weight: normal;
-  text-transform: none;
 }
 /* Badge sub-object
  ========================================================================== */
@@ -1068,14 +1066,12 @@ uk-grid + .uk-grid-collapse,
  */
 .uk-card-primary {
   background-color: #ebf7fd;
-  color: #2d7091;
 }
 /*
  * Secondary
  */
 .uk-card-secondary {
   background-color: #eee;
-  color: #444;
 }
 /* ========================================================================
    Component: Width
