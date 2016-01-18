@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="../css/uikit.css">
         <style type="text/css">
 
-            .uk-panel-medium,
-            .uk-panel-large { background: #f0f0f0; }
+            .uk-padding,
+            .uk-padding-large { background: #f0f0f0; }
 
         </style>
     </head>
@@ -19,59 +19,34 @@
 
         <div class="uk-container">
 
-            <h1>Panel</h1>
+            <h1>Panel scrollable</h1>
 
-            <uk-grid class="uk-child-width-1-2@m">
-                <div>
-
-                    <div class="uk-panel uk-panel-medium">
-                        <h3>Medium</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                </div>
-                <div>
-
-                    <div class="uk-panel uk-panel-large">
-                        <h3>Large</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                    </div>
-
-                </div>
-                <div>
-
-                    <h3>Scrollable</h3>
-                    <div class="uk-panel uk-panel-scrollable">
-                        <ul class="uk-list">
-                            <li><label><input type="checkbox"> Category 1</label></li>
+            <div class="uk-panel uk-panel-scrollable uk-width-1-2@s">
+                <ul class="uk-list">
+                    <li><label><input type="checkbox"> Category 1</label></li>
+                    <li>
+                        <label><input type="checkbox"> Category 2</label>
+                        <ul>
+                            <li><label><input type="checkbox"> Category 2.1</label></li>
+                            <li><label><input type="checkbox"> Category 2.2</label></li>
                             <li>
-                                <label><input type="checkbox"> Category 2</label>
+                                <label><input type="checkbox"> Category 2.3</label>
                                 <ul>
-                                    <li><label><input type="checkbox"> Category 2.1</label></li>
-                                    <li><label><input type="checkbox"> Category 2.2</label></li>
-                                    <li>
-                                        <label><input type="checkbox"> Category 2.3</label>
-                                        <ul>
-                                            <li><label><input type="checkbox"> Category 2.3.1</label></li>
-                                            <li><label><input type="checkbox"> Category 2.3.2</label></li>
-                                        </ul>
-                                    </li>
-                                    <li><label><input type="checkbox"> Category 2.4</label></li>
+                                    <li><label><input type="checkbox"> Category 2.3.1</label></li>
+                                    <li><label><input type="checkbox"> Category 2.3.2</label></li>
                                 </ul>
                             </li>
-                            <li><label><input type="checkbox"> Category 3</label></li>
-                            <li><label><input type="checkbox"> Category 4</label></li>
+                            <li><label><input type="checkbox"> Category 2.4</label></li>
                         </ul>
-                    </div>
-
-                </div>
-            </uk-grid>
-
-
+                    </li>
+                    <li><label><input type="checkbox"> Category 3</label></li>
+                    <li><label><input type="checkbox"> Category 4</label></li>
+                </ul>
+            </div>
 
             <h1>Overflow auto</h1>
 
-            <div class="uk-overflow-auto uk-width-1-2">
+            <div class="uk-overflow-auto uk-width-1-2@s">
                 <table class="uk-table uk-table-striped uk-table-condensed uk-text-nowrap">
                     <thead>
                         <tr>
@@ -124,7 +99,7 @@
 
             <h1>Respsonsive width and height</h1>
 
-            <uk-grid class="uk-child-width-1-4">
+            <uk-grid class="uk-child-width-1-4@s">
                 <div>
                     <video class="uk-responsive-width" width="600" height="400" controls>
                         <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
@@ -133,6 +108,27 @@
                 </div>
                 <div>
                     <p style="height: 50px; "><img class="uk-responsive-height" src="http://unsplash.it/800/600" alt=""></p>
+                </div>
+            </uk-grid>
+
+            <h1>Padding</h1>
+
+            <uk-grid class="uk-child-width-1-2@s">
+                <div>
+
+                    <div class="uk-panel uk-padding">
+                        <h3>Medium</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-panel uk-padding-large">
+                        <h3>Large</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
                 </div>
             </uk-grid>
 
@@ -160,7 +156,7 @@
 
             <h1>Responsive Iframes</h1>
 
-            <uk-grid class="uk-child-width-1-3">
+            <uk-grid class="uk-child-width-1-3@s">
                 <div>
                     <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                 </div>
