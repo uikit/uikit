@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Visibility - UIkit tests</title>
+        <script src="_test.js"></script>
+        <link rel="stylesheet" href="../css/uikit.css">
+        <style type="text/css">
+
+            uk-grid > * > * { position: relative; }
+
+            .uk-alert {
+                padding: 10px;
+                border: 1px solid #ddd;
+                background: #f0f0f0;
+                text-align: center;
+            }
+
+            .uk-alert[class*='uk-hidden'],
+            .uk-alert-success {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+
+            .uk-alert-success {
+                border: 1px solid #D6E9C6;
+                background: #DFF0D8;
+                color: #468847;
+            }
+
+            .uk-alert-danger {
+                border: 1px solid #F1C1B6;
+                background: #F7CFCC;
+                color: #d85030;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Visibility</h1>
+
+            <h2>Hidden</h2>
+
+            <uk-grid class="uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center">
+                <div>
+                    <div>
+                        <div class="uk-alert uk-alert-danger">✔ Small<br>(Phone Landscape)</div>
+                        <div class="uk-alert uk-hidden@s">Small<br>(Phone Landscape)</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="uk-alert uk-alert-danger">✔ Medium<br>(Tablet Landscape)</div>
+                        <div class="uk-alert uk-hidden@m">Medium<br>(Tablet Landscape)</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="uk-alert uk-alert-danger">✔ Large<br>(Desktop)</div>
+                        <div class="uk-alert uk-hidden@l">Large<br>(Desktop)</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="uk-alert uk-alert-danger">✔ XLarge<br>(Large Screens)</div>
+                        <div class="uk-alert uk-hidden@xl">XLarge<br>(Large Screens)</div>
+                    </div>
+                </div>
+            </uk-grid>
+
+            <h2>Visible</h2>
+
+            <uk-grid class="uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center">
+                <div>
+                    <div>
+                        <div class="uk-alert">Small<br>(Phone Landscape)</div>
+                        <div class="uk-alert uk-alert-success uk-visible@s">✔ Small<br>(Phone Landscape)</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="uk-alert">Medium<br>(Tablet Landscape)</div>
+                        <div class="uk-alert uk-alert-success uk-visible@m">✔ Medium<br>(Tablet Landscape)</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="uk-alert">Large<br>(Desktop)</div>
+                        <div class="uk-alert uk-alert-success uk-visible@l">✔ Large<br>(Desktop)</div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="uk-alert">XLarge<br>(Large Screens)</div>
+                        <div class="uk-alert uk-alert-success uk-visible@xl">✔ XLarge<br>(Large Screens)</div>
+                    </div>
+                </div>
+            </uk-grid>
+
+            <h2>Hover</h2>
+
+            <uk-grid class="uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center">
+                <div>
+                    <div class="uk-visible-hover">
+                        <div class="uk-alert">Hidden Hover</div>
+                        <div class="uk-alert uk-alert-success uk-hidden-hover">✔ Hidden Hover</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-visible-hover">
+                        <div class="uk-alert">Invisible Hover</div>
+                        <div class="uk-alert uk-alert-success uk-invisible-hover">✔ Invisible Hover</div>
+                    </div>
+                </div>
+            </uk-grid>
+
+        </div>
+
+    </body>
+</html>

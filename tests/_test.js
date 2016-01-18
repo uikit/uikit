@@ -30,7 +30,7 @@
 
         "::Core",
 
-            "Javascript",
+            "javascript",
             "align",
             "base",
             "card",
@@ -45,6 +45,7 @@
             "text",
             "typography",
             "utility",
+            "visibility",
             "width"
 
     ];
