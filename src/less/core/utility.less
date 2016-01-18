@@ -1,16 +1,14 @@
 // Name:            Utility
-// Description:     Collection of useful utility classes to style your content
+// Description:     Utilities collection
 //
-// Component:       `uk-height-1-1`
-//                  `uk-height-viewport`
-//                  `uk-responsive-width`
-//                  `uk-responsive-height`
-//                  `uk-border-circle`
-//                  `uk-border-rounded`
-//                  `uk-link-muted`
-//                  `uk-link-reset`
-//                  `uk-scrollable-text`
-//                  `uk-scrollable-box`
+// Component:       `uk-panel-*`
+//                  `uk-clearfix`
+//                  `uk-float-*`
+//                  `uk-overflow-*`
+//                  `uk-display-*`
+//                  `uk-height-*`
+//                  `uk-responsive-*`
+//                  `uk-border-*`
 //
 // ========================================================================
 
@@ -18,19 +16,126 @@
 // Variables
 // ========================================================================
 
+@panel-scrollable-height:                       170px;
+@panel-scrollable-padding:                      10px;
+@panel-scrollable-border:                       #ddd;
+@panel-scrollable-border-width:                 1px;
+
 @border-rounded-border:                         5px;
-
-@scrollable-text-height:                        300px;
-
-@scrollable-box-height:                         170px;
-@scrollable-box-padding:                        10px;
-@scrollable-box-border:                         #ddd;
-@scrollable-box-border-width:                   1px;
 
 
 /* ========================================================================
    Component: Utility
  ========================================================================== */
+
+
+/* Panel
+ ========================================================================== */
+
+/*
+ * Micro clearfix
+ */
+
+.uk-panel:before,
+.uk-panel:after {
+    content: "";
+    display: table;
+}
+
+.uk-panel:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-panel > :last-child { margin-bottom: 0; }
+
+
+/*
+ * Scrollable
+ */
+
+.uk-panel-scrollable {
+    box-sizing: border-box;
+    height: @panel-scrollable-height;
+    padding: @panel-scrollable-padding;
+    border: @panel-scrollable-border-width solid @panel-scrollable-border;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    resize: both;
+    .hook-panel-scrollable;
+}
+
+
+/* Cleafix
+ ========================================================================== */
+
+/*
+ * 1. `table-cell` is used with `:before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
+ * 2. `table` is used again with `:after` because `clear` only works with block elements.
+ * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
+ */
+
+/* 1 */
+.uk-clearfix:before {
+    content: "";
+    display: table-cell;
+}
+
+/* 2 */
+.uk-clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* Float
+ ========================================================================== */
+
+/*
+ * 1. Prevent content overflow
+ */
+
+.uk-float-left { float: left; }
+.uk-float-right { float: right; }
+
+/* 1 */
+[class*='uk-float-'] { max-width: 100%; }
+
+
+/* Overfow
+ ========================================================================== */
+
+.uk-overflow-hidden { overflow: hidden; }
+
+/*
+ * Enable scrollbars if content is clipped
+ */
+
+.uk-overflow-auto {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.uk-overflow-auto > :last-child { margin-bottom: 0; }
+
+
+/* Display
+ ========================================================================== */
+
+/*
+ * 1. Prevent content overflow
+ */
+
+.uk-display-block { display: block !important; }
+.uk-display-inline { display: inline !important; }
+
+.uk-display-inline-block {
+    display: inline-block !important;
+    /* 1 */
+    max-width: 100%;
+}
 
 
 /* Height
@@ -92,48 +197,10 @@
 .uk-border-rounded { border-radius: @border-rounded-border; }
 
 
-/* Scrollable
- ========================================================================== */
-
-// TODO
-
-/*
- * Enable scrolling for preformatted text
- */
-
-.uk-scrollable-text {
-    height: @scrollable-text-height;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    resize: both;
-}
-
-/*
- * Box with scrolling enabled
- */
-
-.uk-scrollable-box {
-    box-sizing: border-box;
-    height: @scrollable-box-height;
-    padding: @scrollable-box-padding;
-    border: @scrollable-box-border-width solid @scrollable-box-border;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    resize: both;
-    .hook-scrollable-box;
-}
-
-.uk-scrollable-box > :last-child { margin-bottom: 0; }
-
-
-/* TODO: Media Object (Comment)
- ========================================================================== */
-
-
 // Hooks
 // ========================================================================
 
 .hook-utility-misc;
 
-.hook-scrollable-box() {}
+.hook-panel-scrollable() {}
 .hook-utility-misc() {}

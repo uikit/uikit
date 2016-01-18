@@ -30,6 +30,7 @@
 
         "::Core",
 
+            "align",
             "base",
             "card",
             "column",

@@ -447,6 +447,17 @@ iframe {
     line-height: 1.1;
   }
 }
+/* Preformatted text
+ ========================================================================== */
+/*
+ * Enable scrolling for preformatted text
+ */
+.uk-pre-scrollable {
+  height: 300px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  resize: both;
+}
 /* ========================================================================
    Component: Subnav
  ========================================================================== */
@@ -2259,8 +2270,202 @@ uk-grid + .uk-grid-collapse,
   background-blend-mode: luminosity;
 }
 /* ========================================================================
+   Component: Align
+ ========================================================================== */
+/*
+ * Default
+ */
+[class*='uk-align'] {
+  display: block;
+  margin-bottom: 30px;
+}
+* + [class*='uk-align'] {
+  margin-top: 30px;
+}
+/*
+ * Center
+ */
+.uk-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+/*
+ * Left/Right
+ */
+.uk-align-left {
+  margin-top: 0;
+  margin-right: 30px;
+  float: left;
+}
+.uk-align-right {
+  margin-top: 0;
+  margin-left: 30px;
+  float: right;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-align-left\@s {
+    margin-top: 0;
+    margin-right: 30px;
+    float: left;
+  }
+  .uk-align-right\@s {
+    margin-top: 0;
+    margin-left: 30px;
+    float: right;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-align-left\@m {
+    margin-top: 0;
+    margin-right: 30px;
+    float: left;
+  }
+  .uk-align-right\@m {
+    margin-top: 0;
+    margin-left: 30px;
+    float: right;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-align-left\@l {
+    margin-top: 0;
+    float: left;
+  }
+  .uk-align-right\@l {
+    margin-top: 0;
+    float: right;
+  }
+  .uk-align-left,
+  .uk-align-left\@s,
+  .uk-align-left\@m,
+  .uk-align-left\@l {
+    margin-right: 40px;
+  }
+  .uk-align-right,
+  .uk-align-right\@s,
+  .uk-align-right\@m,
+  .uk-align-right\@l {
+    margin-left: 40px;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1600px) {
+  .uk-align-left\@xl {
+    margin-top: 0;
+    float: left;
+  }
+  .uk-align-right\@xl {
+    margin-top: 0;
+    float: right;
+  }
+  [class*='uk-align-left'] {
+    margin-right: 40px;
+  }
+  [class*='uk-align-right'] {
+    margin-left: 40px;
+  }
+}
+/* ========================================================================
    Component: Utility
  ========================================================================== */
+/* Panel
+ ========================================================================== */
+/*
+ * Micro clearfix
+ */
+.uk-panel:before,
+.uk-panel:after {
+  content: "";
+  display: table;
+}
+.uk-panel:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-panel > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Scrollable
+ */
+.uk-panel-scrollable {
+  box-sizing: border-box;
+  height: 170px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  resize: both;
+}
+/* Cleafix
+ ========================================================================== */
+/*
+ * 1. `table-cell` is used with `:before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
+ * 2. `table` is used again with `:after` because `clear` only works with block elements.
+ * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
+ */
+/* 1 */
+.uk-clearfix:before {
+  content: "";
+  display: table-cell;
+}
+/* 2 */
+.uk-clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Float
+ ========================================================================== */
+/*
+ * 1. Prevent content overflow
+ */
+.uk-float-left {
+  float: left;
+}
+.uk-float-right {
+  float: right;
+}
+/* 1 */
+[class*='uk-float-'] {
+  max-width: 100%;
+}
+/* Overfow
+ ========================================================================== */
+.uk-overflow-hidden {
+  overflow: hidden;
+}
+/*
+ * Enable scrollbars if content is clipped
+ */
+.uk-overflow-auto {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.uk-overflow-auto > :last-child {
+  margin-bottom: 0;
+}
+/* Display
+ ========================================================================== */
+/*
+ * 1. Prevent content overflow
+ */
+.uk-display-block {
+  display: block !important;
+}
+.uk-display-inline {
+  display: inline !important;
+}
+.uk-display-inline-block {
+  display: inline-block !important;
+  /* 1 */
+  max-width: 100%;
+}
 /* Height
  ========================================================================== */
 [class*='uk-height'] {
@@ -2313,211 +2518,6 @@ uk-grid + .uk-grid-collapse,
 }
 .uk-border-rounded {
   border-radius: 5px;
-}
-/* Scrollable
- ========================================================================== */
-/*
- * Enable scrolling for preformatted text
- */
-.uk-scrollable-text {
-  height: 300px;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  resize: both;
-}
-/*
- * Box with scrolling enabled
- */
-.uk-scrollable-box {
-  box-sizing: border-box;
-  height: 170px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  resize: both;
-}
-.uk-scrollable-box > :last-child {
-  margin-bottom: 0;
-}
-/* TODO: Media Object (Comment)
- ========================================================================== */
-/* ========================================================================
-   Component: Layout
- ========================================================================== */
-/* Panel
- ========================================================================== */
-/*
- * Micro clearfix to make articles more robust
- */
-.uk-panel:before,
-.uk-panel:after {
-  content: "";
-  display: table;
-}
-.uk-panel:after {
-  clear: both;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-panel > :last-child {
-  margin-bottom: 0;
-}
-/* Cleafix
- ========================================================================== */
-/*
- * 1. `table-cell` is used with `:before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
- * 2. `table` is used again with `:after` because `clear` only works with block elements.
- * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
- */
-/* 1 */
-.uk-clearfix:before {
-  content: "";
-  display: table-cell;
-}
-/* 2 */
-.uk-clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* Float
- ========================================================================== */
-/*
- * 1. Prevent content overflow
- */
-.uk-float-left {
-  float: left;
-}
-.uk-float-right {
-  float: right;
-}
-/* 1 */
-[class*='uk-float-'] {
-  max-width: 100%;
-}
-/* Overfow
- ========================================================================== */
-.uk-overflow-hidden {
-  overflow: hidden;
-}
-/*
- * Enable scrollbars if content is clipped
- */
-.uk-overflow-auto {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.uk-overflow-auto > :last-child {
-  margin-bottom: 0;
-}
-/* Alignment
- ========================================================================== */
-[class*='uk-align'] {
-  display: block;
-  margin-top: 0;
-  margin-bottom: 15px;
-}
-[class*='uk-align-left'] {
-  margin-right: 15px;
-}
-[class*='uk-align-right'] {
-  margin-left: 15px;
-}
-/* Default */
-.uk-align-left {
-  float: left;
-}
-.uk-align-right {
-  float: right;
-}
-.uk-align-none {
-  float: none;
-}
-.uk-align-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-align-left\@s {
-    float: left;
-  }
-  .uk-align-right\@s {
-    float: right;
-  }
-  .uk-align-none\@s {
-    float: none;
-  }
-  .uk-align-center\@s {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-align-left\@m {
-    float: left;
-  }
-  .uk-align-right\@m {
-    float: right;
-  }
-  .uk-align-none\@m {
-    float: none;
-  }
-  .uk-align-center\@m {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-align-left\@l {
-    float: left;
-  }
-  .uk-align-right\@l {
-    float: right;
-  }
-  .uk-align-none\@l {
-    float: none;
-  }
-  .uk-align-center\@l {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-/* Large screen and bigger */
-@media (min-width: 1600px) {
-  .uk-align-left\@xl {
-    float: left;
-  }
-  .uk-align-right\@xl {
-    float: right;
-  }
-  .uk-align-none\@xl {
-    float: none;
-  }
-  .uk-align-center\@xl {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-/* Display
- ========================================================================== */
-/*
- * 1. Prevent content overflow
- */
-.uk-display-block {
-  display: block !important;
-}
-.uk-display-inline {
-  display: inline !important;
-}
-.uk-display-inline-block {
-  display: inline-block !important;
-  /* 1 */
-  max-width: 100%;
 }
 /* ========================================================================
    Component: Margin

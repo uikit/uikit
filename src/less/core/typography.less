@@ -1,5 +1,5 @@
 // Name:            Typography
-// Description:     Utility classes for the typography
+// Description:     Utilities the typography
 //
 // Component:       `uk-link-muted`
 //                  `uk-link-reset`
@@ -19,6 +19,8 @@
 
 @heading-primary-font-size-m:                   3.75rem; // 54px
 @heading-primary-line-height-m:                 1.1;
+
+@pre-scrollable-height:                         300px;
 
 
 /* ========================================================================
@@ -83,6 +85,22 @@
     }
 
 }
+
+
+/* Preformatted text
+ ========================================================================== */
+
+/*
+ * Enable scrolling for preformatted text
+ */
+
+.uk-pre-scrollable {
+    height: @pre-scrollable-height;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    resize: both;
+}
+
 
 
 // Hooks
