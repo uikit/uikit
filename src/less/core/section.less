@@ -18,14 +18,16 @@
 @section-padding-vertical:                        @global-medium-margin;
 @section-padding-vertical-m:                      @global-large-margin;
 
+@section-small-padding-vertical:                  @global-medium-margin;
+
 @section-large-padding-vertical:                  @global-medium-margin;
 @section-large-padding-vertical-s:                @global-large-margin;
 @section-large-padding-vertical-m:                @global-xlarge-margin;
 
 @section-default-background:                      @global-background;
-@section-muted-background:                        #f9f9f9;
-@section-primary-background:                      #00a8e6;
-@section-secondary-background:                    #222;
+@section-muted-background:                        @global-muted-background;
+@section-primary-background:                      @global-primary-background;
+@section-secondary-background:                    @global-secondary-background;
 
 
 
@@ -79,6 +81,15 @@
 
 /* Size Modifier
  ========================================================================== */
+
+/*
+ * Small
+ */
+
+.uk-section-small {
+    padding-top: @section-small-padding-vertical;
+    padding-bottom: @section-small-padding-vertical;
+}
 
 /*
  * Large
