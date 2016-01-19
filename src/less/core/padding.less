@@ -11,40 +11,31 @@
 // Variables
 // ========================================================================
 
-@padding-padding:                                       20px;
-@padding-padding-m:                                     40px;
-@padding-large-padding:                                 40px;
-@padding-large-padding-m:                               80px;
+@padding-padding:                                       @global-gutter;
+@padding-padding-l:                                     @global-medium-gutter;
+
+@padding-large-padding-l:                               @global-large-gutter;
 
 
 /* ========================================================================
    Component: Padding
  ========================================================================== */
 
+.uk-padding,
+.uk-padding-large { padding: @padding-padding; }
 
-/*
- * Default (Medium)
- */
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
 
-.uk-padding { padding: @padding-padding; }
-
-/* Tablet landscape and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-padding { padding: @padding-padding-m; }
+    .uk-padding,
+    .uk-padding-large { padding: @padding-padding-l; }
 
 }
 
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
 
-/* Large
- ========================================================================== */
-
-.uk-padding-large { padding: @padding-large-padding; }
-
-/* Tablet landscape and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-padding-large { padding: @padding-large-padding-m; }
+    .uk-padding-large { padding: @padding-large-padding-l; }
 
 }
 
