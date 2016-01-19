@@ -1,0 +1,166 @@
+// Name:            List
+// Description:     Styles for lists
+//
+// Component:       `uk-list`
+//
+// Modifiers:       `uk-list-line`
+//                  `uk-list-striped`
+//                  `uk-list-bullet`
+//                  `uk-list-large`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@list-margin-top:                               @global-small-margin;
+
+@list-nested-padding-left:                      @global-gutter;
+
+@list-line-margin-top:                          @global-small-margin;
+@list-line-border:                              @global-border;
+@list-line-border-width:                        1px;
+
+@list-striped-padding-vertical:                 @global-small-margin;
+@list-striped-padding-horizontal:               @global-small-margin;
+@list-striped-background:                       @global-muted-background;
+
+@list-bullet-margin-right:                      @global-small-margin;
+
+@list-large-margin-top:                         @global-margin;
+@list-large-line-margin-top:                    @global-margin;
+@list-large-striped-padding-vertical:           @global-margin;
+@list-large-striped-padding-horizontal:         @global-small-margin;
+
+
+/* ========================================================================
+   Component: List
+ ========================================================================== */
+
+.uk-list {
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-list > li:before,
+.uk-list > li:after {
+    content: "";
+    display: table;
+}
+
+.uk-list > li:after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-list > li > :last-child { margin-bottom: 0; }
+
+/*
+ * Nested lists
+ */
+
+.uk-list ul {
+    margin: 0;
+    padding-left: @list-nested-padding-left;
+    list-style: none;
+}
+
+/*
+ * Style
+ */
+
+.uk-list > li:nth-child(n+2) {
+    margin-top: @list-margin-top;
+    .hook-list-line;
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+/*
+ * Line
+ */
+
+.uk-list-line > li:nth-child(n+2) {
+    margin-top: @list-line-margin-top;
+    padding-top: @list-line-margin-top;
+    border-top: @list-line-border-width solid @list-line-border;
+    .hook-list-line;
+}
+
+/*
+ * Striped
+ */
+
+.uk-list-striped > li {
+    padding: @list-striped-padding-vertical @list-striped-padding-horizontal;
+    .hook-list-striped;
+}
+
+.uk-list-striped > li:nth-of-type(odd) { background: @list-striped-background; }
+
+.uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
+
+/*
+ * Bullet
+ */
+
+.uk-list-bullet > li {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.uk-list-bullet > li:before {
+    content: "";
+    height: 24px;
+    width: 24px;
+    margin-right: @list-bullet-margin-right;
+    background: url("@{global-image-path}/list-bullet.svg") 0 0 no-repeat;
+    vertical-align: middle;
+    .hook-list-bullet;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-list-large > li:nth-child(n+2) { margin-top: @list-large-margin-top; }
+
+/*
+ * Line
+ */
+
+.uk-list-large.uk-list-line > li:nth-child(n+2) {
+    margin-top: @list-large-line-margin-top;
+    padding-top: @list-large-line-margin-top;
+}
+
+/*
+ * Striped
+ */
+
+.uk-list-large.uk-list-striped > li {
+    padding: @list-large-striped-padding-vertical @list-large-striped-padding-horizontal;
+    .hook-list-striped;
+}
+
+.uk-list-large.uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-list-misc;
+
+.hook-list-line() {}
+.hook-list-striped() {}
+.hook-list-bullet() {}
+.hook-list-misc() {}
