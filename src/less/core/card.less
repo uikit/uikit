@@ -50,8 +50,8 @@
 @card-badge-top:                               @global-gutter;
 @card-badge-right:                             @card-badge-top;
 
-@card-primary-background:                      #ebf7fd;
-@card-secondary-background:                    #eee;
+@card-primary-background:                      @global-primary-background;
+@card-secondary-background:                    @global-secondary-background;
 
 @card-large-body-padding-horizontal-l:         @global-large-gutter;
 @card-large-body-padding-vertical-l:           @global-large-gutter;
@@ -74,26 +74,8 @@
     .hook-card;
 }
 
-/*
- * Micro clearfix
- */
 
-.uk-card:before,
-.uk-card:after {
-    content: "";
-    display: table;
-}
-
-.uk-card:after { clear: both; }
-
-/*
- * Remove margin from the last-child
- */
-
-.uk-card > :last-child { margin-bottom: 0; }
-
-
-/* Section sub-objects
+/* Sections
  ========================================================================== */
 
 .uk-card-body {
@@ -155,7 +137,7 @@
 .uk-card-footer > :last-child { margin-bottom: 0; }
 
 
-/* Media sub-object
+/* Media
  ========================================================================== */
 
 [class*='uk-card-media'] {
@@ -179,7 +161,7 @@
 }
 
 
-/* Title sub-object
+/* Title
  ========================================================================== */
 
 .uk-card-title {
@@ -190,7 +172,7 @@
 }
 
 
-/* Badge sub-object
+/* Badge
  ========================================================================== */
 
 .uk-card-badge {
