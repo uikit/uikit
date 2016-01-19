@@ -1023,6 +1023,18 @@ uk-grid + .uk-grid-collapse,
   padding: 15px 30px;
   border-top: 1px solid #e5e5e5;
 }
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-card-body {
+    padding: 40px 40px;
+  }
+  .uk-card-header {
+    padding: 20px 40px;
+  }
+  .uk-card-footer {
+    padding: 20px 40px;
+  }
+}
 /*
  * Micro clearfix
  */
