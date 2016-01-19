@@ -459,42 +459,6 @@ iframe {
   resize: both;
 }
 /* ========================================================================
-   Component: Subnav
- ========================================================================== */
-/*
- * 1. Allow cells to wrap into the next line
- * 2. Gutter
- * 3. Makes it more robust so that it can be used with other block elements like lists
- */
-.uk-subnav {
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  /* 1 */
-  -ms-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  /* 2 */
-  margin-left: -10px;
-  /* 3 */
-  padding: 0;
-  list-style: none;
-}
-/*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 3. Create position context for dropdowns
- */
-.uk-subnav > * {
-  /* 1 */
-  -ms-flex: none;
-  -webkit-flex: none;
-  flex: none;
-  /* 2 */
-  padding-left: 10px;
-  /* 3 */
-  position: relative;
-}
-/* ========================================================================
    Component: Grid
  ========================================================================== */
 /*
@@ -924,6 +888,13 @@ uk-grid + .uk-grid-collapse,
 /* Size Modifier
  ========================================================================== */
 /*
+ * Small
+ */
+.uk-section-small {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/*
  * Large
  */
 .uk-section-large {
@@ -993,24 +964,7 @@ uk-grid + .uk-grid-collapse,
   color: #444;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
-/*
- * Micro clearfix
- */
-.uk-card:before,
-.uk-card:after {
-  content: "";
-  display: table;
-}
-.uk-card:after {
-  clear: both;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-card > :last-child {
-  margin-bottom: 0;
-}
-/* Section sub-objects
+/* Sections
  ========================================================================== */
 .uk-card-body {
   padding: 30px 30px;
@@ -1060,16 +1014,16 @@ uk-grid + .uk-grid-collapse,
 .uk-card-footer > :last-child {
   margin-bottom: 0;
 }
-/* Media sub-object
+/* Media
  ========================================================================== */
-/* Title sub-object
+/* Title
  ========================================================================== */
 .uk-card-title {
   font-size: 1.37rem;
   line-height: 1.4;
   color: #444;
 }
-/* Badge sub-object
+/* Badge
  ========================================================================== */
 .uk-card-badge {
   position: absolute;
@@ -1088,13 +1042,13 @@ uk-grid + .uk-grid-collapse,
  * Primary
  */
 .uk-card-primary {
-  background-color: #ebf7fd;
+  background-color: #00a8e6;
 }
 /*
  * Secondary
  */
 .uk-card-secondary {
-  background-color: #eee;
+  background-color: #222;
 }
 /*
  * Blank
@@ -1144,10 +1098,9 @@ uk-grid + .uk-grid-collapse,
 }
 .uk-child-width-expand > * {
   width: auto;
-  -ms-flex: auto;
-  -webkit-flex: auto;
-  flex: auto;
-  -ms-flex-negative: 1;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -1177,10 +1130,9 @@ uk-grid + .uk-grid-collapse,
   }
   .uk-child-width-expand\@s > * {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* Tablet landscape and bigger */
@@ -1211,10 +1163,9 @@ uk-grid + .uk-grid-collapse,
   }
   .uk-child-width-expand\@m > * {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* Desktop and bigger */
@@ -1245,10 +1196,9 @@ uk-grid + .uk-grid-collapse,
   }
   .uk-child-width-expand\@l > * {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* Large screen and bigger */
@@ -1279,10 +1229,9 @@ uk-grid + .uk-grid-collapse,
   }
   .uk-child-width-expand\@xl > * {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* Single Widths
@@ -1358,10 +1307,9 @@ uk-grid + .uk-grid-collapse,
 /* Expand */
 .uk-width-expand {
   width: auto;
-  -ms-flex: auto;
-  -webkit-flex: auto;
-  flex: auto;
-  -ms-flex-negative: 1;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -1436,10 +1384,9 @@ uk-grid + .uk-grid-collapse,
   /* Expand */
   .uk-width-expand\@s {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* Tablet landscape and bigger */
@@ -1515,10 +1462,9 @@ uk-grid + .uk-grid-collapse,
   /* Expand */
   .uk-width-expand\@m {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* Desktop and bigger */
@@ -1594,10 +1540,9 @@ uk-grid + .uk-grid-collapse,
   /* Expand */
   .uk-width-expand\@l {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* Large screen and bigger */
@@ -1664,10 +1609,9 @@ uk-grid + .uk-grid-collapse,
   /* Expand */
   .uk-width-expand\@xl {
     width: auto;
-    -ms-flex: auto;
-    -webkit-flex: auto;
-    flex: auto;
-    -ms-flex-negative: 1;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
   }
 }
 /* ========================================================================
@@ -2632,27 +2576,21 @@ uk-grid + .uk-grid-collapse,
 /* ========================================================================
    Component: Padding
  ========================================================================== */
-/*
- * Default (Medium)
- */
-.uk-padding {
-  padding: 20px;
+.uk-padding,
+.uk-padding-large {
+  padding: 30px;
 }
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-padding {
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-padding,
+  .uk-padding-large {
     padding: 40px;
   }
 }
-/* Large
- ========================================================================== */
-.uk-padding-large {
-  padding: 40px;
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
+/* Desktop and bigger */
+@media (min-width: 1200px) {
   .uk-padding-large {
-    padding: 80px;
+    padding: 70px;
   }
 }
 /* Remove
