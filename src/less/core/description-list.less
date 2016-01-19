@@ -1,0 +1,67 @@
+// Name:            Description list
+// Description:     Styles for description lists
+//
+// Component:       `uk-description-list`
+//
+// Modifiers:       `uk-description-list-line`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@description-list-margin-vertical:              @global-margin;
+
+@description-list-line-border-width:            1px;
+@description-list-line-border:                  #ddd;
+
+
+/* ========================================================================
+   Component: Description list
+ ========================================================================== */
+
+/*
+ * Term
+ */
+
+.uk-description-list > dt {
+    .hook-description-list-term;
+}
+
+/*
+ * Description
+ */
+
+.uk-description-list > dd {
+    .hook-description-list-description;
+}
+
+.uk-description-list > dd:nth-last-child(n+2) {
+    margin-bottom: @description-list-margin-vertical;
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+/*
+ * Line
+ */
+
+.uk-description-list-line > dd:nth-last-child(n+2) {
+    padding-bottom: @description-list-margin-vertical;
+    border-bottom: @description-list-line-border-width solid @description-list-line-border;
+    .hook-description-list-line;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-description-list-misc;
+
+.hook-description-list-term() {}
+.hook-description-list-description() {}
+.hook-description-list-line() {}
+.hook-description-list-misc() {}
