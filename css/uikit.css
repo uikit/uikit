@@ -459,6 +459,380 @@ iframe {
   resize: both;
 }
 /* ========================================================================
+   Component: List
+ ========================================================================== */
+.uk-list {
+  padding: 0;
+  list-style: none;
+}
+/*
+ * Micro clearfix
+ */
+.uk-list > li:before,
+.uk-list > li:after {
+  content: "";
+  display: table;
+}
+.uk-list > li:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-list > li > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Nested lists
+ */
+.uk-list ul {
+  margin: 0;
+  padding-left: 30px;
+  list-style: none;
+}
+/*
+ * Style
+ */
+.uk-list > li:nth-child(n+2) {
+  margin-top: 10px;
+}
+/* Style modifier
+ ========================================================================== */
+/*
+ * Line
+ */
+.uk-list-line > li:nth-child(n+2) {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Striped
+ */
+.uk-list-striped > li {
+  padding: 10px 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.uk-list-striped > li:nth-of-type(odd) {
+  background: #f9f9f9;
+}
+.uk-list-striped > li:nth-child(n+2) {
+  margin-top: 0;
+}
+/*
+ * Bullet
+ */
+.uk-list-bullet > li {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.uk-list-bullet > li:before {
+  content: "";
+  height: 24px;
+  width: 24px;
+  margin-right: 10px;
+  background: url("../src/images/list-bullet.svg") 0 0 no-repeat;
+  vertical-align: middle;
+}
+/* Size modifier
+ ========================================================================== */
+.uk-list-large > li:nth-child(n+2) {
+  margin-top: 20px;
+}
+/*
+ * Line
+ */
+.uk-list-large.uk-list-line > li:nth-child(n+2) {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+/*
+ * Striped
+ */
+.uk-list-large.uk-list-striped > li {
+  padding: 20px 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.uk-list-large.uk-list-striped > li:nth-child(n+2) {
+  margin-top: 0;
+}
+.uk-list-striped > li:first-child {
+  border-top: 1px solid #e5e5e5;
+}
+/* ========================================================================
+   Component: Description list
+ ========================================================================== */
+/*
+ * Term
+ */
+/*
+ * Description
+ */
+.uk-description-list > dd:nth-last-child(n+2) {
+  margin-bottom: 20px;
+}
+/* Style modifier
+ ========================================================================== */
+/*
+ * Line
+ */
+.uk-description-list-line > dd:nth-last-child(n+2) {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+/* ========================================================================
+   Component: Table
+ ========================================================================== */
+/*
+ * 1. Remove most spacing between table cells.
+ * 2. Behave like block elements
+ * 3. Style
+ * 4. Add margin if adjacent element
+ */
+.uk-table {
+  /* 1 */
+  border-collapse: collapse;
+  border-spacing: 0;
+  /* 2 */
+  width: 100%;
+  /* 3 */
+  margin-bottom: 20px;
+}
+/* 4 */
+* + .uk-table {
+  margin-top: 20px;
+}
+/* Header cell
+ ========================================================================== */
+/*
+ * 1. Style
+ */
+.uk-table th {
+  padding: 16px 12px;
+  text-align: left;
+  vertical-align: bottom;
+  /* 1 */
+  font-size: 0.87rem;
+  font-weight: normal;
+  color: #999;
+  border-bottom: 1px solid #e5e5e5;
+  text-transform: uppercase;
+}
+/* Cell
+ ========================================================================== */
+.uk-table td {
+  padding: 16px 12px;
+  vertical-align: top;
+}
+/* Footer
+ ========================================================================== */
+.uk-table tfoot {
+  font-size: 0.87rem;
+  border-top: 1px solid #e5e5e5;
+}
+/* Caption
+ ========================================================================== */
+.uk-table caption {
+  font-size: 0.87rem;
+  text-align: left;
+  color: #999;
+}
+/* Row
+ ========================================================================== */
+.uk-table tbody tr.uk-active {
+  background: #ffffdd;
+}
+/* Alignment modifier
+ ========================================================================== */
+.uk-table-middle,
+.uk-table-middle td {
+  vertical-align: middle !important;
+}
+/* Style modifier
+ ========================================================================== */
+/*
+ * Striped
+ */
+.uk-table-striped tbody tr:nth-of-type(odd) {
+  background: #fafafa;
+}
+/*
+ * Hover
+ */
+.uk-table-hover tbody tr:hover {
+  background: #ffffdd;
+}
+/* Size modifier
+ ========================================================================== */
+.uk-table-small th,
+.uk-table-small td {
+  padding: 10px 12px;
+}
+.uk-table :not(:last-child) > td {
+  border-bottom: 1px solid #e5e5e5;
+}
+.uk-table tbody tr {
+  -webkit-transition: background-color 0.1s linear;
+  transition: background-color 0.1s linear;
+}
+/* ========================================================================
+   Component: Section
+ ========================================================================== */
+/*
+ * 1. Make it work with `100vh` and height in general
+ */
+.uk-section {
+  box-sizing: border-box;
+  /* 1 */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+/*
+ * Micro clearfix
+ */
+.uk-section:before,
+.uk-section:after {
+  content: "";
+  display: table;
+}
+.uk-section:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-section > :last-child {
+  margin-bottom: 0;
+}
+/* Size Modifier
+ ========================================================================== */
+/*
+ * Small
+ */
+.uk-section-small {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/*
+ * Large
+ */
+.uk-section-large {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-section-large {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-section-large {
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
+}
+/* Color Modifier
+ ========================================================================== */
+/*
+ * Default
+ */
+.uk-section-default {
+  background: #fff;
+}
+/*
+ * Muted
+ */
+.uk-section-muted {
+  background: #f9f9f9;
+}
+/*
+ * Primary
+ */
+.uk-section-primary {
+  background: #00a8e6;
+}
+/*
+ * Secondary
+ */
+.uk-section-secondary {
+  background: #222;
+}
+/*
+     * Adjust padding between equal colored blocks
+     */
+.uk-section-default + .uk-section-default,
+.uk-section-muted + .uk-section-muted,
+.uk-section-primary + .uk-section-primary,
+.uk-section-secondary + .uk-section-secondary {
+  padding-top: 0;
+}
+/* ========================================================================
+   Component: Container
+ ========================================================================== */
+/*
+ * 1. Box sizing has to be `content-box` so the max-width is always the same and
+ *    unaffected by the padding on different breakpoints. It's important for the small modifier.
+ */
+.uk-container {
+  box-sizing: content-box;
+  /* 1 */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-container {
+    padding: 0 30px;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-container {
+    padding: 0 40px;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-container {
+    padding: 0 70px;
+  }
+}
+/*
+ * Micro clearfix
+ */
+.uk-container:before,
+.uk-container:after {
+  content: "";
+  display: table;
+}
+.uk-container:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-container > :last-child {
+  margin-bottom: 0;
+}
+/* Size Modifier
+ ========================================================================== */
+.uk-container-small {
+  max-width: 900px;
+}
+/* ========================================================================
    Component: Grid
  ========================================================================== */
 /*
@@ -794,162 +1168,6 @@ uk-grid + .uk-grid-collapse,
 }
 /* Web Component
  ========================================================================== */
-/* ========================================================================
-   Component: Container
- ========================================================================== */
-/*
- * 1. Box sizing has to be `content-box` so the max-width is always the same and
- *    unaffected by the padding on different breakpoints. It's important for the small modifier.
- */
-.uk-container {
-  box-sizing: content-box;
-  /* 1 */
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 15px;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-container {
-    padding: 0 30px;
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-container {
-    padding: 0 40px;
-  }
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-container {
-    padding: 0 70px;
-  }
-}
-/*
- * Micro clearfix
- */
-.uk-container:before,
-.uk-container:after {
-  content: "";
-  display: table;
-}
-.uk-container:after {
-  clear: both;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-container > :last-child {
-  margin-bottom: 0;
-}
-/* Size Modifier
- ========================================================================== */
-.uk-container-small {
-  max-width: 900px;
-}
-/* ========================================================================
-   Component: Section
- ========================================================================== */
-/*
- * 1. Make it work with `100vh` and height in general
- */
-.uk-section {
-  box-sizing: border-box;
-  /* 1 */
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-/* Desktop and bigger */
-@media (min-width: 960px) {
-  .uk-section {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-}
-/*
- * Micro clearfix
- */
-.uk-section:before,
-.uk-section:after {
-  content: "";
-  display: table;
-}
-.uk-section:after {
-  clear: both;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-section > :last-child {
-  margin-bottom: 0;
-}
-/* Size Modifier
- ========================================================================== */
-/*
- * Small
- */
-.uk-section-small {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-/*
- * Large
- */
-.uk-section-large {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-section-large {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-section-large {
-    padding-top: 140px;
-    padding-bottom: 140px;
-  }
-}
-/* Color Modifier
- ========================================================================== */
-/*
- * Default
- */
-.uk-section-default {
-  background: #fff;
-}
-/*
- * Muted
- */
-.uk-section-muted {
-  background: #f9f9f9;
-}
-/*
- * Primary
- */
-.uk-section-primary {
-  background: #00a8e6;
-}
-/*
- * Secondary
- */
-.uk-section-secondary {
-  background: #222;
-}
-/*
-     * Adjust padding between equal colored blocks
-     */
-.uk-section-default + .uk-section-default,
-.uk-section-muted + .uk-section-muted,
-.uk-section-primary + .uk-section-primary,
-.uk-section-secondary + .uk-section-secondary {
-  padding-top: 0;
-}
 /* ========================================================================
    Component: Card
  ========================================================================== */
@@ -2453,22 +2671,22 @@ uk-grid + .uk-grid-collapse,
 /* Small
  ========================================================================== */
 .uk-margin-small {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 * + .uk-margin-small {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .uk-margin-small-top {
-  margin-top: 5px !important;
+  margin-top: 10px !important;
 }
 .uk-margin-small-bottom {
-  margin-bottom: 5px !important;
+  margin-bottom: 10px !important;
 }
 .uk-margin-small-left {
-  margin-left: 5px !important;
+  margin-left: 10px !important;
 }
 .uk-margin-small-right {
-  margin-right: 5px !important;
+  margin-right: 10px !important;
 }
 /* Large
  ========================================================================== */

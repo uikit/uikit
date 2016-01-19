@@ -28,25 +28,42 @@
 
     var tests = [
 
-        "::Core",
+        "::Base",
 
             "javascript",
-            "align",
             "base",
-            "card",
-            "column",
+
+        "::Elements",
+
+            "typography",
+            "list",
+            "description-list",
+            "table",
+            "form",
+
+        "::Navigation",
+
+            "subnav",
+
+        "::Layout",
+
+            "section",
             "container",
-            "flex",
             "grid",
+            "card",
+
+        "::Utilities",
+
+            "width",
+            "flex",
+            "text",
+            "column",
+            "align",
+            "utility",
             "margin",
             "padding",
-            "section",
-            "subnav",
-            "text",
-            "typography",
-            "utility",
-            "visibility",
-            "width"
+            "visibility"
+
 
     ];
     document.addEventListener("DOMContentLoaded", function(event) {
