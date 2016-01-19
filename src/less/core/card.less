@@ -14,6 +14,7 @@
 //                  `uk-card-primary`
 //                  `uk-card-secondary`
 //                  `uk-card-blank`
+//                  `uk-card-large`
 //
 // ========================================================================
 
@@ -43,9 +44,12 @@
 @card-primary-background:                      #ebf7fd;
 @card-secondary-background:                    #eee;
 
+@card-large-body-padding-horizontal-l:         @global-large-gutter;
+@card-large-body-padding-vertical-l:           @global-large-gutter;
+
 
 /* ========================================================================
-   Component: Panel
+   Component: Card
  ========================================================================== */
 
 /*
@@ -223,6 +227,21 @@
 }
 
 
+/* Size modifier
+ ========================================================================== */
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-card-large.uk-card-body,
+    .uk-card-large .uk-card-body {
+        padding: @card-large-body-padding-vertical-l @card-large-body-padding-horizontal-l;
+        .hook-card-large-body;
+    }
+
+}
+
+
 // Hooks
 // ========================================================================
 
@@ -246,4 +265,5 @@
 .hook-card-secondary-hover() {}
 .hook-card-blank() {}
 .hook-card-blank-hover() {}
+.hook-card-large-body() {}
 .hook-card-misc() {}

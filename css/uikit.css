@@ -980,7 +980,7 @@ uk-grid + .uk-grid-collapse,
   padding-top: 0;
 }
 /* ========================================================================
-   Component: Panel
+   Component: Card
  ========================================================================== */
 /*
  * 1. Style
@@ -1090,6 +1090,15 @@ uk-grid + .uk-grid-collapse,
 .uk-card-blank {
   background-color: none;
   box-shadow: none;
+}
+/* Size modifier
+ ========================================================================== */
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-card-large.uk-card-body,
+  .uk-card-large .uk-card-body {
+    padding: 70px 70px;
+  }
 }
 /* ========================================================================
    Component: Width
