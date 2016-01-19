@@ -1,0 +1,58 @@
+//
+// Component: Table
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@table-header-cell-font-size:                   @global-small-font-size;
+@table-header-cell-font-weight:                 normal;
+@table-header-cell-color:                       @global-muted-color;
+
+
+// Table
+// ========================================================================
+
+.hook-table-header-cell() {
+    border-bottom: 1px solid @global-border;
+    text-transform: uppercase;
+}
+
+.hook-table-cell() {}
+
+.hook-table-footer() { border-top: 1px solid @global-border; }
+
+.hook-table-caption() {}
+
+.hook-table-row-active() {}
+
+
+// Style modifier
+// ========================================================================
+
+.hook-table-striped() {}
+
+.hook-table-hover() {}
+
+
+// Size modifier
+// ========================================================================
+
+.hook-table-small() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-table-misc() {
+
+    .uk-table :not(:last-child) > td { border-bottom: 1px solid @global-border; }
+
+    .uk-table tbody tr {
+        -webkit-transition: background-color 0.1s linear;
+        transition: background-color 0.1s linear;
+    }
+
+}

@@ -1,0 +1,178 @@
+// Name:            Table
+// Description:     Styles for tables
+//
+// Component:       `uk-table`
+//
+// Modifiers:       `uk-table-middle`
+//                  `uk-table-striped`
+//                  `uk-table-small`
+//                  `uk-table-hover`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@table-padding-vertical:                        16px;
+@table-padding-horizontal:                      12px;
+
+@table-header-cell-font-size:                   @global-font-size;
+@table-header-cell-font-weight:                 bold;
+@table-header-cell-color:                       @global-color;
+
+@table-footer-font-size:                        @global-small-font-size;
+
+@table-caption-font-size:                       @global-small-font-size;
+@table-caption-color:                           @global-muted-color;
+
+@table-row-active-background:                   #ffffdd;
+
+@table-striped-background:                      #fafafa;
+
+@table-hover-background:                        @table-row-active-background;
+
+@table-small-padding-vertical:                  10px;
+@table-small-padding-horizontal:                12px;
+
+
+/* ========================================================================
+   Component: Table
+ ========================================================================== */
+
+/*
+ * 1. Remove most spacing between table cells.
+ * 2. Behave like block elements
+ * 3. Style
+ * 4. Add margin if adjacent element
+ */
+
+.uk-table {
+    /* 1 */
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* 2 */
+    width: 100%;
+    /* 3 */
+    margin-bottom: @global-margin;
+}
+
+/* 4 */
+* + .uk-table { margin-top: @global-margin; }
+
+
+/* Header cell
+ ========================================================================== */
+
+/*
+ * 1. Style
+ */
+
+.uk-table th {
+    padding: @table-padding-vertical @table-padding-horizontal;
+    text-align: left;
+    vertical-align: bottom;
+    /* 1 */
+    font-size: @table-header-cell-font-size;
+    font-weight: @table-header-cell-font-weight;
+    color: @table-header-cell-color;
+    .hook-table-header-cell;
+}
+
+
+/* Cell
+ ========================================================================== */
+
+.uk-table td {
+    padding: @table-padding-vertical @table-padding-horizontal;
+    vertical-align: top;
+    .hook-table-cell;
+}
+
+
+/* Footer
+ ========================================================================== */
+
+.uk-table tfoot {
+    font-size: @table-footer-font-size;
+    .hook-table-footer;
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.uk-table caption {
+    font-size: @table-caption-font-size;
+    text-align: left;
+    color: @table-caption-color;
+    .hook-table-caption;
+}
+
+
+/* Row
+ ========================================================================== */
+
+.uk-table tbody tr.uk-active {
+    background: @table-row-active-background;
+    .hook-table-row-active;
+}
+
+
+/* Alignment modifier
+ ========================================================================== */
+
+.uk-table-middle,
+.uk-table-middle td { vertical-align: middle !important; }
+
+
+/* Style modifier
+ ========================================================================== */
+
+/*
+ * Striped
+ */
+
+.uk-table-striped tbody tr:nth-of-type(odd) {
+    background: @table-striped-background;
+    .hook-table-striped;
+}
+
+/*
+ * Hover
+ */
+
+.uk-table-hover tbody tr:hover {
+    background: @table-hover-background;
+    .hook-table-hover;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-table-small th,
+.uk-table-small td {
+    padding: @table-small-padding-vertical @table-small-padding-horizontal;
+    .hook-table-small;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-table-misc;
+
+.hook-table() {}
+.hook-table-header-cell() {}
+.hook-table-cell() {}
+.hook-table-footer() {}
+.hook-table-caption() {}
+.hook-table-row-active() {}
+.hook-table-striped() {}
+.hook-table-small() {}
+.hook-table-hover() {}
+.hook-table-small() {}
+.hook-table-misc() {}
