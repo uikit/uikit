@@ -184,7 +184,7 @@
 
                     if (ele.is('[data-date]')) {
                         active.current = moment(ele.data("date"));
-                        active.element.val(active.current.format(active.options.format)).trigger("change");
+                        active.element.val(active.current.isValid() ? active.current.format(active.options.format) : null).trigger("change");
                         active.hide();
                     } else {
                        active.add((ele.hasClass("uk-datepicker-next") ? 1:-1), "months");
