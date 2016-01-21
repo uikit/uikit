@@ -677,6 +677,414 @@ iframe {
   transition: background-color 0.1s linear;
 }
 /* ========================================================================
+   Component: Form
+ ========================================================================== */
+/*
+ * 1. Define consistent box sizing.
+ *    Default is `content-box` with following exceptions set to `border-box`
+ *    `select`, `input[type="checkbox"]` and `input[type="radio"]`
+ *    `input[type="search"]` in Chrome, Safari and Opera
+ *    `input[type="color"]` in Firefox
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Correct `font` properties and `color` not being inherited.
+ */
+.uk-form input,
+.uk-form select,
+.uk-form textarea {
+  /* 1 */
+  box-sizing: border-box;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+  border-radius: 0;
+  /* 4 */
+  font: inherit;
+  color: inherit;
+}
+/*
+ * Address inconsistent `text-transform` inheritance which is only inherit in Firefox
+ */
+.uk-form select {
+  text-transform: none;
+}
+/*
+ * 1. Correct `font` properties not being inherited.
+ * 2. Don't inherit the `font-weight` and use `bold` instead.
+ * NOTE: Both declarations don't work in Chrome, Safari and Opera.
+ */
+.uk-form optgroup {
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  font-weight: bold;
+}
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+.uk-form input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/*
+ * Removes excess padding in IE 8/9/10.
+ */
+.uk-form input[type="checkbox"],
+.uk-form input[type="radio"] {
+  padding: 0;
+}
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+.uk-form input[type="checkbox"]:not(:disabled),
+.uk-form input[type="radio"]:not(:disabled) {
+  cursor: pointer;
+}
+/*
+ * Remove default style in iOS.
+ */
+.uk-form textarea,
+.uk-form input:not([type]),
+.uk-form input[type="text"],
+.uk-form input[type="password"],
+.uk-form input[type="email"],
+.uk-form input[type="url"],
+.uk-form input[type="search"],
+.uk-form input[type="tel"],
+.uk-form input[type="number"],
+.uk-form input[type="datetime"] {
+  -webkit-appearance: none;
+}
+/*
+ * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ */
+.uk-form input[type="search"]::-webkit-search-cancel-button,
+.uk-form input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/*
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+.uk-form input[type="number"]::-webkit-inner-spin-button,
+.uk-form input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+/*
+ * Define consistent border, margin, and padding.
+ */
+.uk-form fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+/*
+ * 1. Remove default vertical scrollbar in IE 8/9/10/11.
+ * 2. Improve readability and alignment in all browsers.
+ */
+.uk-form textarea {
+  /* 1 */
+  overflow: auto;
+  /* 2 */
+  vertical-align: top;
+}
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+.uk-form ::-moz-placeholder {
+  opacity: 1;
+}
+/*
+ * Removes `box-shadow` for invalid controls in Firefox.
+ */
+.uk-form :invalid {
+  box-shadow: none;
+}
+/*
+ * Vertical alignment
+ */
+.uk-form input:not([type="radio"]):not([type="checkbox"]),
+.uk-form select {
+  vertical-align: middle;
+}
+/* Text inputs, select and textarea
+ ========================================================================== */
+/*
+ * Remove margin from the last-child
+ */
+.uk-form > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Controls
+ * Except for `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
+ * 1. Must be `height` because `min-height` is not working in OSX
+ * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
+ * 3. Vertical `padding` needed for `select` elements in Firefox
+ * 4. Style
+ */
+.uk-form select,
+.uk-form textarea,
+.uk-form input:not([type]),
+.uk-form input[type="text"],
+.uk-form input[type="password"],
+.uk-form input[type="datetime"],
+.uk-form input[type="datetime-local"],
+.uk-form input[type="date"],
+.uk-form input[type="month"],
+.uk-form input[type="time"],
+.uk-form input[type="week"],
+.uk-form input[type="number"],
+.uk-form input[type="email"],
+.uk-form input[type="url"],
+.uk-form input[type="search"],
+.uk-form input[type="tel"],
+.uk-form input[type="color"] {
+  /* 1 */
+  height: 40px;
+  /* 2 */
+  max-width: 100%;
+  /* 3 */
+  padding: 4px 6px;
+  /* 4 */
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #444;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+.uk-form select:focus,
+.uk-form textarea:focus,
+.uk-form input:not([type]):focus,
+.uk-form input[type="text"]:focus,
+.uk-form input[type="password"]:focus,
+.uk-form input[type="datetime"]:focus,
+.uk-form input[type="datetime-local"]:focus,
+.uk-form input[type="date"]:focus,
+.uk-form input[type="month"]:focus,
+.uk-form input[type="time"]:focus,
+.uk-form input[type="week"]:focus,
+.uk-form input[type="number"]:focus,
+.uk-form input[type="email"]:focus,
+.uk-form input[type="url"]:focus,
+.uk-form input[type="search"]:focus,
+.uk-form input[type="tel"]:focus,
+.uk-form input[type="color"]:focus {
+  border-color: #00a8e6;
+  outline: 0;
+  background: #fff;
+  color: #444;
+}
+.uk-form select:disabled,
+.uk-form textarea:disabled,
+.uk-form input:not([type]):disabled,
+.uk-form input[type="text"]:disabled,
+.uk-form input[type="password"]:disabled,
+.uk-form input[type="datetime"]:disabled,
+.uk-form input[type="datetime-local"]:disabled,
+.uk-form input[type="date"]:disabled,
+.uk-form input[type="month"]:disabled,
+.uk-form input[type="time"]:disabled,
+.uk-form input[type="week"]:disabled,
+.uk-form input[type="number"]:disabled,
+.uk-form input[type="email"]:disabled,
+.uk-form input[type="url"]:disabled,
+.uk-form input[type="search"]:disabled,
+.uk-form input[type="tel"]:disabled,
+.uk-form input[type="color"]:disabled {
+  border-color: #e5e5e5;
+  background-color: #f9f9f9;
+  color: #999;
+}
+/*
+ * Placeholder
+ */
+.uk-form :-ms-input-placeholder {
+  color: #999 !important;
+}
+.uk-form ::-moz-placeholder {
+  color: #999;
+}
+.uk-form ::-webkit-input-placeholder {
+  color: #999;
+}
+.uk-form :disabled:-ms-input-placeholder {
+  color: #999 !important;
+}
+.uk-form :disabled::-moz-placeholder {
+  color: #999;
+}
+.uk-form :disabled::-webkit-input-placeholder {
+  color: #999;
+}
+/* Legend
+ ========================================================================== */
+/*
+ * Legend
+ * 1. Behave like block element
+ * 2. Correct `color` not being inherited in IE 8/9/10/11.
+ * 3. Remove padding so people aren't caught out if they zero out fieldsets.
+ * 4. Style
+ */
+.uk-form legend {
+  /* 1 */
+  width: 100%;
+  /* 2 */
+  border: 0;
+  /* 3 */
+  padding: 0;
+  /* 4 */
+  font-size: 1.37rem;
+  line-height: 1.4;
+}
+/* Size modifiers
+ ========================================================================== */
+.uk-form-small {
+  height: 30px !important;
+  font-size: 0.87rem !important;
+}
+.uk-form-large {
+  height: 55px !important;
+  font-size: 1.12rem !important;
+}
+/*
+ * Reset height
+ */
+.uk-form textarea,
+.uk-form select[multiple],
+.uk-form select[size] {
+  height: auto !important;
+}
+/* Style modifier
+ ========================================================================== */
+/*
+ * Error
+ */
+.uk-form-danger {
+  border-color: #da314b !important;
+  background: #fff !important;
+  color: #da314b !important;
+}
+/*
+ * Success
+ */
+.uk-form-success {
+  border-color: #8cc14c !important;
+  background: #fff !important;
+  color: #444 !important;
+}
+/*
+ * Blank
+ */
+.uk-form-blank {
+  border-color: transparent !important;
+  border-style: dashed !important;
+  background: none !important;
+}
+.uk-form-blank:focus {
+  border-color: #e5e5e5 !important;
+}
+/* Width modifiers
+ ========================================================================== */
+/*
+ * Fixed widths
+ * Different widths for mini sized `input` and `select` elements
+ */
+input.uk-form-width-mini {
+  width: 40px;
+}
+select.uk-form-width-mini {
+  width: 65px;
+}
+.uk-form-width-small {
+  width: 130px;
+}
+.uk-form-width-medium {
+  width: 200px;
+}
+.uk-form-width-large {
+  width: 500px;
+}
+/* Layout modifier
+ ========================================================================== */
+/*
+ * Stacked
+ */
+.uk-form-stacked .uk-form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.87rem;
+}
+/*
+ * Horizontal
+ */
+/* Tablet portrait and smaller */
+@media (max-width: 959px) {
+  /* Behave like `uk-form-stacked` */
+  .uk-form-horizontal .uk-form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.87rem;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-form-horizontal .uk-form-label {
+    width: 200px;
+    margin-top: 7px;
+    float: left;
+  }
+  .uk-form-horizontal .uk-form-controls {
+    margin-left: 215px;
+  }
+  /* Better vertical alignment if controls are checkboxes and radio buttons with text */
+  .uk-form-horizontal .uk-form-controls-text {
+    padding-top: 7px;
+  }
+}
+/* Icons
+ ========================================================================== */
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow because of `inline-block`
+ */
+.uk-form-icon {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  position: relative;
+  /* 3 */
+  max-width: 100%;
+}
+/*
+ * 1. Make form element clickable through icon
+ */
+.uk-form-icon > [class*='uk-icon-'] {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  margin-top: -8px;
+  font-size: 16px;
+  color: #999;
+  text-align: center;
+  /* 1 */
+  pointer-events: none;
+}
+.uk-form-icon:not(.uk-form-icon-flip) > input {
+  padding-left: 30px !important;
+}
+/*
+ * Position modifier
+ */
+.uk-form-icon-flip > [class*='uk-icon-'] {
+  right: 0;
+}
+.uk-form-icon-flip > input {
+  padding-right: 30px !important;
+}
+/* ========================================================================
    Component: Section
  ========================================================================== */
 /*
@@ -2651,10 +3059,10 @@ uk-grid + .uk-grid-collapse,
  * Default (Medium)
  */
 .uk-margin {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 }
 * + .uk-margin {
-  margin-top: 20px;
+  margin-top: 20px !important;
 }
 .uk-margin-top {
   margin-top: 20px !important;
@@ -2671,10 +3079,10 @@ uk-grid + .uk-grid-collapse,
 /* Small
  ========================================================================== */
 .uk-margin-small {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 * + .uk-margin-small {
-  margin-top: 10px;
+  margin-top: 10px !important;
 }
 .uk-margin-small-top {
   margin-top: 10px !important;
@@ -2691,10 +3099,10 @@ uk-grid + .uk-grid-collapse,
 /* Large
  ========================================================================== */
 .uk-margin-large {
-  margin-bottom: 40px;
+  margin-bottom: 40px !important;
 }
 * + .uk-margin-large {
-  margin-top: 40px;
+  margin-top: 40px !important;
 }
 .uk-margin-large-top {
   margin-top: 40px !important;
@@ -2711,10 +3119,10 @@ uk-grid + .uk-grid-collapse,
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   .uk-margin-large {
-    margin-bottom: 70px;
+    margin-bottom: 70px !important;
   }
   * + .uk-margin-large {
-    margin-top: 70px;
+    margin-top: 70px !important;
   }
   .uk-margin-large-top {
     margin-top: 70px !important;
@@ -2732,10 +3140,10 @@ uk-grid + .uk-grid-collapse,
 /* XLarge
  ========================================================================== */
 .uk-margin-xlarge {
-  margin-bottom: 70px;
+  margin-bottom: 70px !important;
 }
 * + .uk-margin-xlarge {
-  margin-top: 70px;
+  margin-top: 70px !important;
 }
 .uk-margin-xlarge-top {
   margin-top: 70px !important;
@@ -2752,10 +3160,10 @@ uk-grid + .uk-grid-collapse,
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   .uk-margin-xlarge {
-    margin-bottom: 140px;
+    margin-bottom: 140px !important;
   }
   * + .uk-margin-xlarge {
-    margin-top: 140px;
+    margin-top: 140px !important;
   }
   .uk-margin-xlarge-top {
     margin-top: 140px !important;
