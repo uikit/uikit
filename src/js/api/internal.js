@@ -81,6 +81,9 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$destroy = function () {
+        if (this.$options.el) {
+            delete this.$options.el.__uikit__[this.$options.name];
+        }
         this._callHook('destroy');
     };
 
