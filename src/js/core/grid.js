@@ -1,16 +1,15 @@
 import $ from 'jquery';
 import {extend, matchHeights, stackMargin, debounce} from '../util/index';
 
-let grids = [];
-
-$(window).on('load resize orientationchange', e => {
-    grids.forEach(grid => {
-        grid.check();
-    });
-});
-
-
 export default function(UI) {
+
+    let grids = [];
+
+    $(window).on('load resize orientationchange', e => {
+        grids.forEach(grid => {
+            grid.check();
+        });
+    });
 
     UI.webcomponent('grid', {
 

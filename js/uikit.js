@@ -1059,6 +1059,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.default = function (UI) {
 	
+	    var grids = [];
+	
+	    (0, _jquery2.default)(window).on('load resize orientationchange', function (e) {
+	        grids.forEach(function (grid) {
+	            grid.check();
+	        });
+	    });
+	
 	    UI.webcomponent('grid', {
 	
 	        props: {
@@ -1133,21 +1141,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	var _jquery = __webpack_require__(/*! jquery */ 1);
-	
+
 	var _jquery2 = _interopRequireDefault(_jquery);
-	
+
 	var _index = __webpack_require__(/*! ../util/index */ 3);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var grids = [];
-	
-	(0, _jquery2.default)(window).on('load resize orientationchange', function (e) {
-	    grids.forEach(function (grid) {
-	        grid.check();
-	    });
-	});
-	
+
 	module.exports = exports['default'];
 
 /***/ }
