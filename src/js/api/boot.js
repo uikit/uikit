@@ -14,7 +14,6 @@ export default function (UIkit) {
         });
 
         return;
-
     }
 
     (new Observer(mutations => {

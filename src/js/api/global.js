@@ -8,7 +8,7 @@ export default function (UIkit) {
             return;
         }
 
-        plugin.apply(null, this);
+        plugin.call(null, this);
         plugin.installed = true;
 
         return this;
