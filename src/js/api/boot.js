@@ -8,7 +8,7 @@ export default function (UIkit) {
     if (!Observer) {
 
         ready(() => {
-            $(Object.keys(UIkit.components).map(name => { return 'uk-'+name; }).join(',') + ',[is*="uk-"]').each((i, node) => {
+            $(Object.keys(UIkit.components).map(name => { return 'uk-' + name; }).join(',') + ',[is*="uk-"]').each((i, node) => {
                 getComponents(node).forEach(component => {
                     UIkit[component](node);
                 });
@@ -76,7 +76,7 @@ export default function (UIkit) {
 
 }
 
-function getComponents (node) {
+function getComponents(node) {
 
     var components = [],
         name = node.nodeName.toLowerCase().replace(/^uk\-/, '');
