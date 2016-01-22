@@ -1,6 +1,7 @@
 import bootAPI from './boot';
 import globalAPI from './global';
 import internalAPI from './internal';
+import instanceAPI from './instance';
 import componentAPI from './component';
 import * as util from '../util/index';
 
@@ -13,6 +14,7 @@ UIkit.options = {};
 
 globalAPI(UIkit);
 internalAPI(UIkit);
+instanceAPI(UIkit);
 componentAPI(UIkit);
 bootAPI(UIkit);
 
