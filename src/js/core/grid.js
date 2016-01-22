@@ -5,7 +5,7 @@ export default function (UIkit) {
 
     var grids = [];
 
-    $(window).on('load resize orientationchange', e => {
+    $(window).on('resize orientationchange', e => {
         grids.forEach(grid => {
             grid.check();
         });

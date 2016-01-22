@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 export default function (UIkit) {
 
     UIkit.prototype.$on = function (a1, a2, a3) {
