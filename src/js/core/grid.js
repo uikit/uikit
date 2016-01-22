@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import {extend, matchHeights, stackMargin, debounce} from '../util/index';
+import domMixin from '../mixin/dom';
 
 export default function (UIkit) {
 
-    let grids = [];
+    var grids = [];
 
     $(window).on('load resize orientationchange', e => {
         grids.forEach(grid => {
@@ -12,6 +12,8 @@ export default function (UIkit) {
     });
 
     UIkit.component('grid', {
+
+        mixins: [domMixin],
 
         props: ['margin', 'match', 'rowfirst'],
 
@@ -69,7 +71,7 @@ export default function (UIkit) {
                     if (stacked && !this.ignorestacked) {
                         elements.css('min-height', '');
                     } else {
-                        matchHeights(elements, this.options);
+                        this.matchHeights(elements, this.options);
                     }
                 }
 
@@ -79,7 +81,7 @@ export default function (UIkit) {
             margins() {
 
                 if (this.margin) {
-                    stackMargin(this.columns, {margin: this.margin});
+                    this.stackMargin(this.columns, {margin: this.margin});
                 }
 
                 return this;

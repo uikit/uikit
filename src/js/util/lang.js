@@ -1,5 +1,7 @@
 export {each, extend, map, merge, type, isArray, isFunction, unique} from 'jquery';
 
+export const Observer = window.MutationObserver || window.WebKitMutationObserver;
+
 export function bind (fn, thisArg) {
     return function (a) {
         let l = arguments.length;

@@ -12,10 +12,10 @@ var UIkit = function (options) {
 UIkit.util = util;
 UIkit.options = {};
 
-bootAPI(UIkit);
 globalAPI(UIkit);
 internalAPI(UIkit);
 componentAPI(UIkit);
 eventAPI(UIkit);
+bootAPI(UIkit);
 
 export default UIkit;

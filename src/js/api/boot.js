@@ -1,9 +1,7 @@
 import $ from 'jquery';
-import {ready} from '../util/index';
+import {Observer, ready} from '../util/index';
 
 export default function (UIkit) {
-
-    var Observer = window.MutationObserver || window.WebKitMutationObserver;
 
     if (!Observer) {
 
