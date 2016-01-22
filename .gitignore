@@ -1,6 +1,7 @@
 /.idea
 /custom
 /dist
+/js
 /node_modules
 /showcase
 /tools
