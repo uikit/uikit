@@ -5,64 +5,7 @@ export default function (UIkit) {
 
     var Observer = window.MutationObserver || window.WebKitMutationObserver;
 
-    if (Observer) {
-
-        (new Observer(mutations => {
-
-            mutations.forEach(mutation => {
-
-                if (mutation.type === 'childList') {
-
-                    for (let i = 0; i < mutation.addedNodes.length; ++i) {
-
-                        let node = mutation.addedNodes[i];
-
-                        getComponents(node).forEach(component => {
-                            UIkit[component](node);
-                        })
-                    }
-
-                    for (let i = 0; i < mutation.removedNodes.length; ++i) {
-
-                        let node = mutation.removedNodes[i];
-
-                        if (node.__uikit__) {
-                            for (let key in node.__uikit__) {
-                                node.__uikit__[key].$destroy();
-                            }
-                        }
-                    }
-
-                }
-
-                if (mutation.type === 'attributes') {
-
-                    let node = mutation.target, components = getComponents(node);
-
-                    if (node.__uikit__) {
-                        for (let key in node.__uikit__) {
-                            if (components.indexOf(key) === -1) {
-                                node.__uikit__[key].$destroy();
-                            }
-                        }
-                    }
-
-                    components.forEach(name => {
-                        UIkit[name](node);
-                    });
-
-                }
-
-            });
-
-        })).observe(document, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['is']
-        });
-
-    } else {
+    if (!Observer) {
 
         ready(() => {
             $(Object.keys(UIkit.components).map(name => { return 'uk-'+name; }).join(',') + ',[is*="uk-"]').each((i, node) => {
@@ -72,7 +15,64 @@ export default function (UIkit) {
             });
         });
 
+        return;
+
     }
+
+    (new Observer(mutations => {
+
+        mutations.forEach(mutation => {
+
+            if (mutation.type === 'childList') {
+
+                for (let i = 0; i < mutation.addedNodes.length; ++i) {
+
+                    let node = mutation.addedNodes[i];
+
+                    getComponents(node).forEach(component => {
+                        UIkit[component](node);
+                    })
+                }
+
+                for (let i = 0; i < mutation.removedNodes.length; ++i) {
+
+                    let node = mutation.removedNodes[i];
+
+                    if (node.__uikit__) {
+                        for (let key in node.__uikit__) {
+                            node.__uikit__[key].$destroy();
+                        }
+                    }
+                }
+
+            }
+
+            if (mutation.type === 'attributes') {
+
+                let node = mutation.target, components = getComponents(node);
+
+                if (node.__uikit__) {
+                    for (let key in node.__uikit__) {
+                        if (components.indexOf(key) === -1) {
+                            node.__uikit__[key].$destroy();
+                        }
+                    }
+                }
+
+                components.forEach(name => {
+                    UIkit[name](node);
+                });
+
+            }
+
+        });
+
+    })).observe(document, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['is']
+    });
 
 }
 
