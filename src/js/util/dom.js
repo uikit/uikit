@@ -8,10 +8,10 @@ export function attributes(element) {
 
     let attributes = {};
 
-    for (let val,i=0;i<element.attributes.length;i++) {
+    for (let val, i = 0; i < element.attributes.length; i++) {
 
         val = str2json(element.attributes[i].value);
-        attributes[element.attributes[i].name] = val===false && element.attributes[i].value!='false' ? element.attributes[i].value:val;
+        attributes[element.attributes[i].name] = val === false && element.attributes[i].value != 'false' ? element.attributes[i].value : val;
     }
 
     return attributes;
@@ -32,7 +32,7 @@ export function isInView(element, options) {
 
     let window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
 
-    options = extend({topoffset:0, leftoffset:0}, options);
+    options = extend({topoffset: 0, leftoffset: 0}, options);
 
     return !!(top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
     left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width());
@@ -41,20 +41,20 @@ export function isInView(element, options) {
 export function matchHeights(elements, options) {
 
     elements = $(elements).css('min-height', '');
-    options  = extend({ row : true }, options);
+    options = extend({row: true}, options);
 
-    let matchHeights = function(group){
+    let matchHeights = function (group) {
 
         if (group.length < 2) return;
 
         let max = 0;
 
-        group.each(function() {
+        group.each(function () {
             max = Math.max(max, $(this).outerHeight());
-        }).each(function() {
+        }).each(function () {
 
             let element = $(this),
-                height  = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
+                height = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
 
             element.css('min-height', height + 'px');
         });
@@ -64,18 +64,18 @@ export function matchHeights(elements, options) {
 
         elements.first().width(); // force redraw
 
-        setTimeout(function(){
+        setTimeout(function () {
 
             let lastoffset = false, group = [];
 
-            elements.each(function() {
+            elements.each(function () {
 
                 let ele = $(this), offset = ele.offset().top;
 
                 if (offset != lastoffset && group.length) {
 
                     matchHeights($(group));
-                    group  = [];
+                    group = [];
                     offset = ele.offset().top;
                 }
 
@@ -104,13 +104,13 @@ export function stackMargin(elements, options) {
 
     elements = $(elements).removeClass(options.margin);
 
-    let skip         = false,
+    let skip = false,
         firstvisible = elements.filter(":visible:first"),
-        offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+        offset = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
     if (offset === false || elements.length == 1) return;
 
-    elements.each(function() {
+    elements.each(function () {
 
         let column = $(this);
 
@@ -141,14 +141,14 @@ export function checkDisplay(context, initanimation) {
     // fix firefox / IE animations
     if (initanimation) {
 
-        if (typeof(initanimation)!='string') {
+        if (typeof(initanimation) != 'string') {
             initanimation = '[class*="uk-animation-"]';
         }
 
-        elements.find(initanimation).each(function(){
+        elements.find(initanimation).each(function () {
 
-            let ele  = $(this),
-                cls  = ele.attr('class'),
+            let ele = $(this),
+                cls = ele.attr('class'),
                 anim = cls.match(/uk\-animation\-(.+)/);
 
             ele.removeClass(anim[0]).width();
@@ -158,4 +158,21 @@ export function checkDisplay(context, initanimation) {
     }
 
     return elements;
+}
+
+export function ready(fn) {
+
+    var handle = function () {
+        document.removeEventListener('DOMContentLoaded', handle);
+        window.removeEventListener('load', handle);
+        fn();
+    };
+
+    if (document.readyState === 'complete') {
+        fn();
+    } else {
+        document.addEventListener('DOMContentLoaded', handle);
+        window.addEventListener('load', handle);
+    }
+
 }
