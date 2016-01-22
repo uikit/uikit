@@ -3,7 +3,7 @@ import UIkit from './api/global';
 import internalAPI from './api/internal';
 import eventAPI from './api/event';
 import componentAPI from './api/component';
-import webcomponentAPI from './api/webcomponent';
+import bootAPI from './api/boot';
 import supports from './supports/index';
 import * as util from './util/index';
 
@@ -25,7 +25,7 @@ UIkit.$html.addClass(UIkit.supports.touch ? 'uk-touch' : 'uk-notouch');
 internalAPI(UIkit);
 eventAPI(UIkit);
 componentAPI(UIkit);
-webcomponentAPI(UIkit);
+bootAPI(UIkit);
 
 // core components
 require('./core/grid')(UIkit);

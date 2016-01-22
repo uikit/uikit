@@ -1,4 +1,4 @@
-export {each, extend, map, merge, type, isArray, isFunction} from 'jquery';
+export {each, extend, map, merge, type, isArray, isFunction, unique} from 'jquery';
 
 export function bind (fn, thisArg) {
     return function (a) {
@@ -10,7 +10,7 @@ export function bind (fn, thisArg) {
 let hasOwnProperty = Object.prototype.hasOwnProperty;
 export function hasOwn (obj, key) {
     return hasOwnProperty.call(obj, key);
-};
+}
 
 let classifyRE = /(?:^|[-_\/])(\w)/g
 export function classify (str) {

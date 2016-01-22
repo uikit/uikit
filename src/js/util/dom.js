@@ -34,12 +34,8 @@ export function isInView(element, options) {
 
     options = extend({topoffset:0, leftoffset:0}, options);
 
-    if (top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
-        left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width()) {
-        return true;
-    } else {
-        return false;
-    }
+    return !!(top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
+    left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width());
 }
 
 export function matchHeights(elements, options) {

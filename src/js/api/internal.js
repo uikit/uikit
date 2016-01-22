@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {bind, extend, mergeOptions} from '../util/index';
+import {bind, extend, mergeOptions, uuid} from '../util/index';
 
 export default function (UIkit) {
 
@@ -10,17 +10,47 @@ export default function (UIkit) {
         options = options || {};
         options = this.$options = mergeOptions(this.constructor.options, options, this);
 
-        this.$el = options.el ? $(options.el) : null;
+        this.$uuid = uuid();
 
-        extend(this, options.props);
+        this._initData();
 
-        // 
-        // Object.keys(this.props).forEach(prop => {
-        //     if (this.$options[prop]) this[prop] = this.$options[prop];
-        // });
+        if (options.el) {
+
+            options.el.__uikit__ = options.el.__uikit__ || {};
+            options.el.__uikit__[options.name] = this;
+
+            this.$el = options.el ? $(options.el) : null;
+            this._initProps();
+        }
 
         this._initMethods();
-        this._callHook('init');
+        this._callHook('ready');
+    };
+
+    UIkit.prototype._initData = function () {
+
+        var defaults = this.$options.defaults,
+            data = this.$options.data || {};
+
+        if (defaults) {
+            for (let key in defaults) {
+                this[key] = data[key] || defaults[key];
+            }
+        }
+    };
+
+    UIkit.prototype._initProps = function () {
+
+        var props = this.$options.props,
+            el = this.$options.el;
+
+        if (props) {
+            props.forEach(key => {
+                if (el.hasAttribute(key)) {
+                    this[key] = el.getAttribute(key);
+                }
+            });
+        }
     };
 
     UIkit.prototype._initMethods = function () {
@@ -43,6 +73,10 @@ export default function (UIkit) {
                 handlers[i].call(this);
             }
         }
+    };
+
+    UIkit.prototype.$destroy = function () {
+        this._callHook('destroy');
     };
 
 };

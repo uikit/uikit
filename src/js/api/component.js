@@ -1,28 +1,17 @@
 import $ from 'jquery';
-import {uuid} from '../util/index';
 
-export default function(UIkit) {
+export default function (UIkit) {
 
     let Component = UIkit.extend({
 
-        init() {
-
-            this.uuid      = uuid();
-            this.component = this.constructor.name;
-
-            if (this.$el && this.$el.length) {
-                this.$el[0]['$'+this.component] = this;
-            }
-        },
-
         methods: {
 
-            $on(a1,a2,a3) {
-                return $(this.$el || this).on(a1,a2,a3);
+            $on(a1, a2, a3) {
+                return $(this.$el || this).on(a1, a2, a3);
             },
 
-            $one(a1,a2,a3) {
-                return $(this.$el || this).one(a1,a2,a3);
+            $one(a1, a2, a3) {
+                return $(this.$el || this).one(a1, a2, a3);
             },
 
             $off(evt) {
@@ -34,36 +23,32 @@ export default function(UIkit) {
             },
 
             $find(selector) {
-                return $(this.$el ? this.$el: []).find(selector);
+                return $(this.$el ? this.$el : []).find(selector);
             }
         }
+
     });
 
     UIkit.components = {
         base: Component
     };
 
-    UIkit.component  = function(name, def) {
+    UIkit.component = function (name, options) {
 
-        def.name = name;
+        options.name = name;
 
-        UIkit.components[name] = Component.extend(def);
+        UIkit.components[name] = Component.extend(options);
 
-        UIkit[name] = function(element, options) {
+        UIkit[name] = function (element, data) {
 
-            let key = '$'+name;
+            var result = [];
 
-            element = $(element);
-            options = options || {};
-
-            element.each(function(){
-                if (!this[key]) {
-                    return (new UIkit.components[name]({el:this, props:options}));
-                }
+            $(element).each(function () {
+                result.push(this.__uikit__ && this.__uikit__[name] || new UIkit.components[name]({el: this, data: data || {}}));
             });
 
-            return element[0][key];
-        }
+            return typeof element === 'string' ? result : result[0];
+        };
 
         return UIkit.components[name];
     }

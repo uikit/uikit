@@ -1,36 +1,38 @@
-import {extend, isArray, hasOwn} from './index';
+import {extend, isArray, hasOwn, unique} from './index';
 
 let strats = {};
 
-// hook strategy
-strats.init = function (parentVal, childVal) {
-  return childVal
-    ? parentVal
-      ? parentVal.concat(childVal)
-      : isArray(childVal)
-        ? childVal
-        : [childVal]
-    : parentVal;
+// concat strategy
+strats.ready =
+strats.destroy = function (parentVal, childVal) {
+    return childVal
+        ? parentVal
+            ? parentVal.concat(childVal)
+            : isArray(childVal)
+                ? childVal
+                : [childVal]
+        : parentVal;
+};
+
+// unique concat strategy
+strats.props = function (parentVal, childVal) {
+    return childVal
+        ? parentVal
+            ? unique(parentVal.concat(childVal))
+            : isArray(childVal)
+                ? childVal
+                : [childVal]
+        : parentVal;
 };
 
 // extend strategy
-strats.props =
+strats.defaults =
 strats.methods = function (parentVal, childVal) {
-
-    if (!childVal) {
-        return parentVal;
-    }
-
-    if (!parentVal) {
-        return childVal;
-    }
-
-    let val = {};
-
-    extend(val, parentVal);
-    extend(val, childVal);
-
-    return val;
+    return childVal
+        ? parentVal
+            ? extend({}, parentVal, childVal)
+            : childVal
+        : parentVal;
 };
 
 // default strategy
