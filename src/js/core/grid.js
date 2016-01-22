@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {extend, matchHeights, stackMargin, debounce} from '../util/index';
 
-export default function (UI) {
+export default function (UIkit) {
 
     let grids = [];
 
@@ -11,7 +11,7 @@ export default function (UI) {
         });
     });
 
-    UI.component('grid', {
+    UIkit.component('grid', {
 
         props: ['margin', 'match', 'rowfirst'],
 

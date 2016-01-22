@@ -88,4 +88,4 @@ export default function (UIkit) {
         this._callHook('destroy');
     };
 
-};
+}
