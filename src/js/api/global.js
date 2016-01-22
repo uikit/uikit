@@ -1,20 +1,31 @@
-import $ from 'jquery';
 import {classify, mergeOptions} from '../util/index';
 
-function createClass(name) {
-    return new Function('return function ' + name + ' (options) { this._init(options); }')();
-}
-
-let UIkit = function (options) {
+var UIkit = function (options) {
     this._init(options);
+};
+
+UIkit.use = function (plugin) {
+
+    if (plugin.installed) {
+        return;
+    }
+
+    plugin.apply(null, this);
+    plugin.installed = true;
+
+    return this;
+};
+
+UIkit.mixin = function (mixin) {
+    this.options = mergeOptions(this.options, mixin);
 };
 
 UIkit.extend = function (options) {
 
     options = options || {};
 
-    let Super = this, name = options.name || Super.options.name;
-    let Sub = createClass(name || 'UIkitComponent');
+    var Super = this, name = options.name || Super.options.name;
+    var Sub = createClass(name || 'UIkitComponent');
 
     Sub.prototype = Object.create(Super.prototype);
     Sub.prototype.constructor = Sub;
@@ -25,5 +36,9 @@ UIkit.extend = function (options) {
 
     return Sub;
 };
+
+function createClass(name) {
+    return new Function('return function ' + classify(name) + ' (options) { this._init(options); }')();
+}
 
 export default UIkit;
