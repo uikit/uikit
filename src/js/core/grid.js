@@ -71,7 +71,7 @@ export default function (UIkit) {
                     if (stacked && !this.ignorestacked) {
                         elements.css('min-height', '');
                     } else {
-                        this.matchHeights(elements, this.options);
+                        this.matchHeights(elements);
                     }
                 }
 
