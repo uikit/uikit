@@ -27,6 +27,7 @@
 @list-striped-background:                       @global-muted-background;
 
 @list-bullet-margin-right:                      @global-small-margin;
+@list-bullet-icon-color:                        @global-color;
 
 @list-large-margin-top:                         @global-margin;
 @list-large-line-margin-top:                    @global-margin;
@@ -120,7 +121,9 @@
     height: 24px;
     width: 24px;
     margin-right: @list-bullet-margin-right;
-    background: url("@{global-image-path}/list-bullet.svg") 0 0 no-repeat;
+    .svg-fill("../images/list-bullet.svg", "#000", @list-bullet-icon-color);
+    background-repeat: no-repeat;
+    background-position: 0 0;
     vertical-align: middle;
     .hook-list-bullet;
 }
