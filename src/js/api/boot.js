@@ -33,11 +33,11 @@ export default function (UIkit) {
 
                 for (let i = 0; i < mutation.removedNodes.length; ++i) {
 
-                    let node = mutation.removedNodes[i];
+                    let components = mutation.removedNodes[i].__uikit__;
 
-                    if (node.__uikit__) {
-                        for (let key in node.__uikit__) {
-                            node.__uikit__[key].$destroy();
+                    if (components) {
+                        for (let name in components) {
+                            components[name].$destroy();
                         }
                     }
                 }
@@ -46,18 +46,18 @@ export default function (UIkit) {
 
             if (mutation.type === 'attributes') {
 
-                let node = mutation.target, components = getComponents(node);
+                let components = mutation.target.__uikit__, current = getComponents(components);
 
-                if (node.__uikit__) {
-                    for (let key in node.__uikit__) {
-                        if (components.indexOf(key) === -1) {
-                            node.__uikit__[key].$destroy();
+                if (components) {
+                    for (let name in components) {
+                        if (current.indexOf(name) === -1) {
+                            components[name].$destroy();
                         }
                     }
                 }
 
-                components.forEach(name => {
-                    UIkit[name](node);
+                current.forEach(name => {
+                    UIkit[name](components);
                 });
 
             }
