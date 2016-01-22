@@ -1,5 +1,7 @@
 import $ from 'jquery';
-import {bind, extend, mergeOptions, uuid} from '../util/index';
+import {bind, extend, mergeOptions} from '../util/index';
+
+var uid = 0;
 
 export default function (UIkit) {
 
@@ -10,8 +12,7 @@ export default function (UIkit) {
         options = options || {};
         options = this.$options = mergeOptions(this.constructor.options, options, this);
 
-        this.$uuid = uuid();
-
+        this._uid = uid++;
         this._initData();
 
         if (options.el) {

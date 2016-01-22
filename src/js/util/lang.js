@@ -17,15 +17,6 @@ export function classify (str) {
     return str.replace(classifyRE, (_, c) => c ? c.toUpperCase() : '');
 }
 
-export function uuid() {
-
-    let rs = function() {
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    };
-
-    return [rs(),rs(),rs(),rs(),rs(),rs(),rs(),rs()].join('-');
-}
-
 export function str2json(str) {
     try {
         return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
