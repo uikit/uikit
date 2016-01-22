@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Form advanced - UIkit tests</title>
+        <script src="_test.js"></script>
+        <link rel="stylesheet" href="../css/uikit.css">
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Form advanced</h1>
+
+            <form class="uk-form uk-form-stacked">
+
+                <div class="uk-margin">
+                    <span class="uk-form-label">Radio</span>
+                    <label><input type="radio" name="radio1" checked> Checked</label><br>
+                    <label><input type="radio" name="radio1"> Unchecked</label><br>
+                    <label><input type="radio" name="radio2" disabled> Disabled</label><br>
+                    <label><input type="radio" name="radio2" disabled checked> Disabled Checked</label>
+                    <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
+                        <label><input type="radio" name="radio3" checked> A</label>
+                        <label><input type="radio" name="radio3"> B</label>
+                        <label><input type="radio" name="radio4" disabled> C</label>
+                        <label><input type="radio" name="radio4" disabled checked> D</label>
+                    </uk-grid>
+                </div>
+
+                <div class="uk-margin">
+                    <span class="uk-form-label">Checkbox</span>
+                    <label><input type="checkbox" checked> Checked</label><br>
+                    <label><input type="checkbox"> Unchecked</label><br>
+                    <label><input type="checkbox" disabled> Disabled</label><br>
+                    <label><input type="checkbox" disabled checked> Disabled Checked</label><br>
+                    <label><input class="test-indeterminate" type="checkbox"> Indeterminate</label><br>
+                    <label><input class="test-indeterminate" type="checkbox" disabled> Disabled Indeterminate</label>
+                    <script>$('.test-indeterminate').prop("indeterminate", true);</script>
+                    <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
+                        <label><input type="checkbox" checked> A</label>
+                        <label><input type="checkbox"> B</label>
+                        <label><input type="checkbox" disabled> C</label>
+                        <label><input type="checkbox" disabled checked> D</label>
+                    </uk-grid>
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+</html>

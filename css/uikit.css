@@ -532,7 +532,9 @@ iframe {
   height: 24px;
   width: 24px;
   margin-right: 10px;
-  background: url("../src/images/list-bullet.svg") 0 0 no-repeat;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 0;
   vertical-align: middle;
 }
 /* Size modifier
@@ -3646,4 +3648,78 @@ uk-grid + .uk-grid-collapse,
   h3 {
     page-break-after: avoid;
   }
+}
+/* ========================================================================
+   Component: Form advanced
+   Note: Only works in Webkit at the moment
+ ========================================================================== */
+/*
+ * 1. Style
+ * 2. Makes box more robust so it clips the child element
+ * 3. Vertical alignment
+ * 4. Remove default style
+ * 5. Fix black background on iOS
+ * 6. Center icons
+ */
+.uk-form input[type="radio"],
+.uk-form input[type="checkbox"] {
+  /* 1 */
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border: 1px solid #cccccc;
+  /* 2 */
+  overflow: hidden;
+  /* 3 */
+  margin-top: -4px;
+  vertical-align: middle;
+  /* 4 */
+  -webkit-appearance: none;
+  outline: 0;
+  /* 5 */
+  background-color: transparent;
+  /* 6 */
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.uk-form input[type="radio"] {
+  border-radius: 50%;
+}
+/*
+ * Checked
+ */
+.uk-form input[type=radio]:checked,
+.uk-form input[type=checkbox]:checked,
+.uk-form input[type=checkbox]:indeterminate {
+  border-color: transparent;
+  background-color: #00a8e6;
+}
+/*
+ * Icons
+ */
+.uk-form input[type=radio]:checked {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E%0A");
+}
+.uk-form input[type=checkbox]:checked {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M13.318%2C3.354%20L6.104%2C10.569%20L3.039%2C7.503%20L2%2C8.542%20L6.104%2C12.646%20L14.355%2C4.394%20L13.318%2C3.354%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E%0A");
+}
+.uk-form input[type=checkbox]:indeterminate {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%223%22%20y%3D%228%22%20width%3D%2210%22%20height%3D%221%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E%0A");
+}
+/*
+ * Disabled
+ */
+.uk-form input[type=radio]:disabled,
+.uk-form input[type=checkbox]:disabled {
+  border-color: #e5e5e5;
+  background-color: transparent;
+}
+.uk-form input[type=radio]:disabled:checked {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23999%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E%0A");
+}
+.uk-form input[type=checkbox]:disabled:checked {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M13.318%2C3.354%20L6.104%2C10.569%20L3.039%2C7.503%20L2%2C8.542%20L6.104%2C12.646%20L14.355%2C4.394%20L13.318%2C3.354%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E%0A");
+}
+.uk-form input[type=checkbox]:disabled:indeterminate {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20x%3D%223%22%20y%3D%228%22%20width%3D%2210%22%20height%3D%221%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E%0A");
 }

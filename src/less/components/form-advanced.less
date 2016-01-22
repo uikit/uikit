@@ -1,0 +1,112 @@
+// Name:            Form advanced
+// Description:     Custom appearance of radio and checkbox buttons
+//
+// Component:       `uk-form`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@form-advanced-size:                          @global-font-size;
+@form-advanced-margin-top:                    -4px;
+
+@form-advanced-border:                        darken(@global-border, 10%);
+@form-advanced-border-width:                  1px;
+@form-advanced-background:                    transparent;
+
+@form-advanced-checked-background:            @global-primary-background;
+@form-advanced-checked-color:                 @global-light-color;
+
+@form-advanced-disabled-border:               @global-border;
+@form-advanced-disabled-background:           transparent;
+@form-advanced-disabled-color:                @global-muted-color;
+
+
+/* ========================================================================
+   Component: Form advanced
+   Note: Only works in Webkit at the moment
+ ========================================================================== */
+
+/*
+ * 1. Style
+ * 2. Makes box more robust so it clips the child element
+ * 3. Vertical alignment
+ * 4. Remove default style
+ * 5. Fix black background on iOS
+ * 6. Center icons
+ */
+
+
+.uk-form input[type="radio"],
+.uk-form input[type="checkbox"] {
+    /* 1 */
+    display: inline-block;
+    height: @form-advanced-size;
+    width: @form-advanced-size;
+    border: @form-advanced-border-width solid @form-advanced-border;
+    /* 2 */
+    overflow: hidden;
+    /* 3 */
+    margin-top: @form-advanced-margin-top;
+    vertical-align: middle;
+    /* 4 */
+    -webkit-appearance: none;
+    outline: 0;
+    /* 5 */
+    background-color: @form-advanced-background;
+    /* 6 */
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .hook-form-advanced;
+}
+
+.uk-form input[type="radio"] { border-radius: 50%; }
+
+/*
+ * Checked
+ */
+
+.uk-form input[type=radio]:checked,
+.uk-form input[type=checkbox]:checked,
+.uk-form input[type=checkbox]:indeterminate {
+    border-color: transparent;
+    background-color: @form-advanced-checked-background;
+    .hook-form-advanced-checked;
+}
+
+
+/*
+ * Icons
+ */
+
+.uk-form input[type=radio]:checked { .svg-fill("../images/form-radio.svg", "#000", @form-advanced-checked-color); }
+.uk-form input[type=checkbox]:checked { .svg-fill("../images/form-checkbox.svg", "#000", @form-advanced-checked-color); }
+.uk-form input[type=checkbox]:indeterminate { .svg-fill("../images/form-checkbox-indeterminate.svg", "#000", @form-advanced-checked-color); }
+
+/*
+ * Disabled
+ */
+
+.uk-form input[type=radio]:disabled,
+.uk-form input[type=checkbox]:disabled {
+    border-color: @form-advanced-disabled-border;
+    background-color: @form-advanced-disabled-background;
+    .hook-form-advanced-disabled;
+}
+
+.uk-form input[type=radio]:disabled:checked { .svg-fill("../images/form-radio.svg", "#000", @form-advanced-disabled-color); }
+.uk-form input[type=checkbox]:disabled:checked { .svg-fill("../images/form-checkbox.svg", "#000", @form-advanced-disabled-color); }
+.uk-form input[type=checkbox]:disabled:indeterminate { .svg-fill("../images/form-checkbox-indeterminate.svg", "#000", @form-advanced-disabled-color); }
+
+
+// Hooks
+// ========================================================================
+
+.hook-form-advanced-misc;
+
+.hook-form-advanced() {}
+.hook-form-advanced-checked() {}
+.hook-form-advanced-disabled() {}
+.hook-form-advanced-misc() {}

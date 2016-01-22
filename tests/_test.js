@@ -63,7 +63,12 @@
             "utility",
             "margin",
             "padding",
-            "visibility"
+            "visibility",
+
+
+        "::Components",
+
+            "form-advanced"
 
 
     ];
