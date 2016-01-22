@@ -1,0 +1,20 @@
+//
+// Component:       Mixin
+// Description:     Defines mixins which are used across all components
+//
+// ========================================================================
+
+
+// SVG
+// ========================================================================
+
+.svg-fill(@src, @fill-default, @fill-new) {
+
+    @escape-fill-default: escape(@fill-default);
+    @escape-fill-new: escape(@fill-new);
+
+    @data-uri: data-uri('image/svg+xml;charset=UTF-8', "@{src}");
+    @replace-src: replace("@{data-uri}", "@{escape-fill-default}", "@{escape-fill-new}");
+
+    background-image: e(@replace-src);
+}
