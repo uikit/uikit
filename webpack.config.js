@@ -1,4 +1,20 @@
+var path = require("path");
 var webpack = require("webpack");
+var source = path.resolve(__dirname, 'src');
+
+var loaders = {
+    loaders: [
+        {
+            test: source,
+            loader: "babel",
+            query: { presets: ["es2015"] },
+        }
+    ]
+};
+
+var externals = {
+    jquery: "jQuery"
+};
 
 module.exports = [
 
@@ -10,14 +26,8 @@ module.exports = [
             library: "UIkit",
             libraryTarget: "umd"
         },
-        module: {
-            loaders: [
-                { test: /\.js$/, exclude: /node_modules/, loader: "babel" }
-            ]
-        },
-        externals: {
-            "jquery": "jQuery"
-        }
+        module: loaders,
+        externals: externals
     },
 
     {
@@ -28,17 +38,9 @@ module.exports = [
             library: "UIkit",
             libraryTarget: "umd"
         },
-        module: {
-            loaders: [
-                { test: /\.js$/, exclude: /node_modules/, loader: "babel" }
-            ]
-        },
-        externals: {
-            "jquery": "jQuery"
-        },
-        plugins: [
-            new webpack.optimize.UglifyJsPlugin
-        ]
+        module: loaders,
+        externals: externals,
+        plugins: [ new webpack.optimize.UglifyJsPlugin ]
     }
 
 ];

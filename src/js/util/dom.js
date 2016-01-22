@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import {str2json, extend} from './lang';
 
-
 export function attributes(element) {
 
     element = element[0] || element;

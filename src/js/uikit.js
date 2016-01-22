@@ -6,3 +6,4 @@ UIkit.version = '3.0.0';
 coreComponents(UIkit, UIkit.util);
 
 export default UIkit;
+module.exports = UIkit;
