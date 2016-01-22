@@ -1,22 +1,44 @@
-module.exports = {
-  entry: {
-    uikit: './src/js/uikit.js'
-  },
+var webpack = require("webpack");
 
-  output: {
-    library: 'UIkit',
-    libraryTarget: 'umd',
-    filename: '[name].js',
-    path: './js'
-  },
+module.exports = [
 
-  externals: {
-      'jquery': 'jQuery'
-  },
+    {
+        entry: "./src/js/uikit.js",
+        output: {
+            path: "./js",
+            filename: "uikit.js",
+            library: "UIkit",
+            libraryTarget: "umd"
+        },
+        module: {
+            loaders: [
+                { test: /\.js$/, exclude: /node_modules/, loader: "babel" }
+            ]
+        },
+        externals: {
+            "jquery": "jQuery"
+        }
+    },
 
-  module: {
-    loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' }
-    ]
-  }
-}
+    {
+        entry: "./src/js/uikit.js",
+        output: {
+            path: "./js",
+            filename: "uikit.min.js",
+            library: "UIkit",
+            libraryTarget: "umd"
+        },
+        module: {
+            loaders: [
+                { test: /\.js$/, exclude: /node_modules/, loader: "babel" }
+            ]
+        },
+        externals: {
+            "jquery": "jQuery"
+        },
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin
+        ]
+    }
+
+];
