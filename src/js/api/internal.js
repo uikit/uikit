@@ -17,6 +17,11 @@ export default function (UIkit) {
         if (options.el) {
 
             options.el.__uikit__ = options.el.__uikit__ || {};
+
+            if (options.el.__uikit__[options.name]) {
+                console.warn('Component ' + options.name + ' already attached.');
+            }
+
             options.el.__uikit__[options.name] = this;
 
             this.$el = options.el ? $(options.el) : null;
