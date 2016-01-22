@@ -1,0 +1,75 @@
+//
+// Component: Button
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@button-default-background:                     transparent;
+@button-default-hover-background:               transparent;
+@button-default-active-background:              transparent;
+
+@button-disabled-background:                    transparent;
+
+
+// Component
+// ========================================================================
+
+.hook-button() {
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.hook-button-hover() {}
+
+.hook-button-focus() {}
+
+.hook-button-active() {}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-button-default() { border: 1px solid @global-border; }
+
+.hook-button-default-hover() {  border-color: darken(@global-border, 20%); }
+
+.hook-button-default-active() { border-color: darken(@global-border, 30%); }
+
+.hook-button-primary() {}
+
+.hook-button-primary-hover() {}
+
+.hook-button-primary-active() {}
+
+.hook-button-success() {}
+
+.hook-button-success-hover() {}
+
+.hook-button-success-active() {}
+
+.hook-button-danger() {}
+
+.hook-button-danger-hover() {}
+
+.hook-button-danger-active() {}
+
+
+// Disabled state
+// ========================================================================
+
+.hook-button-disabled() { border: 1px solid @global-border; }
+
+
+// Link modifier
+// ========================================================================
+
+.hook-button-link() { border: none; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-button-misc() {}

@@ -40,6 +40,7 @@
             "description-list",
             "table",
             "form",
+            "button",
 
         "::Navigation",
 
