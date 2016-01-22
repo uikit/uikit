@@ -6,7 +6,29 @@ export default function (UIkit) {
             return;
         }
 
-        var observer = new Observer(mutations => {
+        let getComponents = function (node) {
+
+            var components = [],
+                name = node.nodeName.toLowerCase().replace(/^uk\-/, '');
+
+            if (UIkit[name]) {
+                components.push(name);
+            }
+
+            if (node.attributes && node.hasAttribute('is')) {
+
+                node.getAttribute('is').replace(/uk\-/g, '').split(' ').forEach(name => {
+                    if (UIkit[name]) {
+                        components.push(name)
+                    }
+                });
+
+            }
+
+            return components;
+        };
+
+        let observer = new Observer(mutations => {
 
             mutations.forEach(mutation => {
 
@@ -14,23 +36,11 @@ export default function (UIkit) {
 
                     for (let i = 0; i < mutation.addedNodes.length; ++i) {
 
-                        let node = mutation.addedNodes[i],
-                            component = UIkit[node.nodeName.toLowerCase().replace(/^uk\-/, '')];
+                        let node = mutation.addedNodes[i];
 
-                        if (component) {
-                            component(node);
-                        }
-
-                        if (node.attributes && node.hasAttribute('is')) {
-
-                            node.getAttribute('is').replace(/uk\-/g, '').split(' ').forEach(name => {
-                                if (UIkit[name]) {
-                                    UIkit[name](node);
-                                }
-                            });
-
-                        }
-
+                        getComponents(node).forEach(component => {
+                            UIkit[component](node);
+                        })
                     }
 
                     for (let i = 0; i < mutation.removedNodes.length; ++i) {
@@ -47,8 +57,7 @@ export default function (UIkit) {
 
                 if (mutation.type === 'attributes') {
 
-                    let node = mutation.target,
-                        components = node.getAttribute('is').replace(/uk\-/g, '').split(' ');
+                    let node = mutation.target, components = getComponents(node);
 
                     if (node.__uikit__) {
                         for (let key in node.__uikit__) {
@@ -59,9 +68,7 @@ export default function (UIkit) {
                     }
 
                     components.forEach(name => {
-                        if (UIkit[name]) {
-                            UIkit[name](node);
-                        }
+                        UIkit[name](node);
                     });
 
                 }
