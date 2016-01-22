@@ -3,39 +3,22 @@
 //
 // Component:       `uk-form`
 //
-// Sub-objects:     `uk-form-row`
-//                  `uk-form-help-inline`
-//                  `uk-form-help-block`
-//                  `uk-form-label`
+// Sub-objects:     `uk-form-label`
 //                  `uk-form-controls`
-//                  `uk-form-controls-condensed`
 //                  `uk-form-icon`
 //
-// Modifiers:       `uk-form-stacked`
-//                  `uk-form-horizontal`
-//
-// Sub-modifiers:   `uk-form-danger`
-//                  `uk-form-success`
-//                  `uk-form-small`
+// Modifiers:       `uk-form-small`
 //                  `uk-form-large`
+//                  `uk-form-danger`
+//                  `uk-form-success`
 //                  `uk-form-blank`
 //                  `uk-form-width-mini`
 //                  `uk-form-width-small`
 //                  `uk-form-width-medium`
 //                  `uk-form-width-large`
-//                  `uk-form-align-text`
-//
-// Markup:
-//
-// <!-- uk-form -->
-// <form class="uk-form">
-//     <div class="uk-form-row">
-//         <label class="uk-form-label" for="form-input-1"></label>
-//         <div class="uk-form-controls">
-//             <input type="text" id="form-input-1" placeholder="Text">
-//         </div>
-//     </div>
-// </form>
+//                  `uk-form-stacked`
+//                  `uk-form-horizontal`
+//                  `uk-form-controls-text`
 //
 // ========================================================================
 
@@ -92,7 +75,6 @@
 @form-horizontal-label-margin-top:              7px;
 @form-horizontal-controls-margin-left:          215px;
 @form-horizontal-controls-text-padding-top:     7px;
-
 
 @form-icon-width:                               30px;
 @form-icon-font-size:                           @global-font-size;
@@ -256,9 +238,8 @@
  * Controls
  * Except for `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
  * 1. Must be `height` because `min-height` is not working in OSX
- * 2. Responsiveness: Sets a maximum width relative to the parent to scale on narrower viewports
- * 3. Vertical `padding` needed for `select` elements in Firefox
- * 4. Style
+ * 2. Prevent content overflow
+ * 3. Style
  */
 
 .uk-form select,
@@ -284,7 +265,6 @@
     max-width: 100%;
     /* 3 */
     padding: @form-padding-vertical @form-padding-horizontal;
-    /* 4 */
     border: @form-border-width solid @form-border;
     background: @form-background;
     color: @form-color;
@@ -425,7 +405,7 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .uk-form-width-large { width: @form-large-width; }
 
 
-/* Layout modifier
+/* Layout modifiers
  ========================================================================== */
 
 /*
