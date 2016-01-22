@@ -10,6 +10,7 @@ var UIkit = function (options) {
 };
 
 UIkit.util = util;
+UIkit.data = '__uikit__';
 UIkit.options = {};
 
 globalAPI(UIkit);

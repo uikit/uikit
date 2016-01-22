@@ -2,6 +2,8 @@ import $ from 'jquery';
 
 export default function (UIkit) {
 
+    const DATA = UIkit.data;
+
     UIkit.components = {};
 
     UIkit.component = function (name, options) {
@@ -15,7 +17,7 @@ export default function (UIkit) {
             var result = [];
 
             $(element).each(function () {
-                result.push(this.__uikit__ && this.__uikit__[name] || new UIkit.components[name]({el: this, data: data || {}}));
+                result.push(this[DATA] && this[DATA][name] || new UIkit.components[name]({el: this, data: data || {}}));
             });
 
             return typeof element === 'string' ? result : result[0];

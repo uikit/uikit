@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import {bind, extend, mergeOptions} from '../util/index';
+import {bind, mergeOptions} from '../util/index';
 
 var uid = 0;
 
@@ -12,25 +11,15 @@ export default function (UIkit) {
         options = options || {};
         options = this.$options = mergeOptions(this.constructor.options, options, this);
 
+        this.$el = null;
+
         this._uid = uid++;
         this._initData();
+        this._initMethods();
 
         if (options.el) {
-
-            options.el.__uikit__ = options.el.__uikit__ || {};
-
-            if (options.el.__uikit__[options.name]) {
-                console.warn('Component ' + options.name + ' already attached.');
-            }
-
-            options.el.__uikit__[options.name] = this;
-
-            this.$el = options.el ? $(options.el) : null;
-            this._initProps();
+            this.$mount(options.el);
         }
-
-        this._initMethods();
-        this._callHook('ready');
     };
 
     UIkit.prototype._initData = function () {
@@ -39,7 +28,7 @@ export default function (UIkit) {
             data = this.$options.data || {};
 
         if (defaults) {
-            for (let key in defaults) {
+            for (var key in defaults) {
                 this[key] = data[key] || defaults[key];
             }
         }
@@ -47,8 +36,8 @@ export default function (UIkit) {
 
     UIkit.prototype._initProps = function () {
 
-        var props = this.$options.props,
-            el = this.$options.el;
+        var el = this.$options.el,
+            props = this.$options.props;
 
         if (props) {
             props.forEach(key => {
@@ -61,10 +50,10 @@ export default function (UIkit) {
 
     UIkit.prototype._initMethods = function () {
 
-        let methods = this.$options.methods;
+        var methods = this.$options.methods;
 
         if (methods) {
-            for (let key in methods) {
+            for (var key in methods) {
                 this[key] = bind(methods[key], this);
             }
         }
@@ -72,10 +61,10 @@ export default function (UIkit) {
 
     UIkit.prototype._callHook = function (hook) {
 
-        let handlers = this.$options[hook];
+        var handlers = this.$options[hook];
 
         if (handlers) {
-            for (let i = 0, j = handlers.length; i < j; i++) {
+            for (var i = 0, j = handlers.length; i < j; i++) {
                 handlers[i].call(this);
             }
         }

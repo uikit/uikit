@@ -3,6 +3,8 @@ import {Observer, ready} from '../util/index';
 
 export default function (UIkit) {
 
+    const DATA = UIkit.data;
+
     if (!Observer) {
 
         ready(() => {
@@ -33,7 +35,7 @@ export default function (UIkit) {
 
                 for (let i = 0; i < mutation.removedNodes.length; ++i) {
 
-                    let components = mutation.removedNodes[i].__uikit__;
+                    let components = mutation.removedNodes[i][DATA];
 
                     if (components) {
                         for (let name in components) {
@@ -46,7 +48,7 @@ export default function (UIkit) {
 
             if (mutation.type === 'attributes') {
 
-                let components = mutation.target.__uikit__, current = getComponents(components);
+                let components = mutation.target[DATA], current = getComponents(components);
 
                 if (components) {
                     for (let name in components) {

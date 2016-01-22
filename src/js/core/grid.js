@@ -44,14 +44,11 @@ export default function (UIkit) {
                 }
 
                 // Mark first column elements
-                let pos_cache = this.columns.removeClass(this.rowfirst).filter(':visible').first().position();
+                var pos_cache = this.columns.removeClass(this.rowfirst).filter(':visible').first().position();
 
                 if (pos_cache) {
-
-                    let $this = this;
-
-                    this.columns.each(function () {
-                        $(this)[$(this).position().left == pos_cache.left ? 'addClass' : 'removeClass']($this.rowfirst);
+                    this.columns.each((i, column) => {
+                        $(column)[$(column).position().left == pos_cache.left ? 'addClass' : 'removeClass'](this.rowfirst);
                     });
                 }
             },
@@ -60,13 +57,13 @@ export default function (UIkit) {
 
                 if (this.match) {
 
-                    let children = this.columns;
-                    let firstvisible = children.filter(":visible:first");
+                    var children = this.columns;
+                    var firstvisible = children.filter(":visible:first");
 
                     if (!firstvisible.length) return;
 
-                    let elements = this.match === true ? children : this.$find(this.match);
-                    let stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100;
+                    var elements = this.match === true ? children : this.$find(this.match);
+                    var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100;
 
                     if (stacked && !this.ignorestacked) {
                         elements.css('min-height', '');
