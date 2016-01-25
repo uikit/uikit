@@ -3651,7 +3651,7 @@ uk-grid + .uk-grid-collapse,
 }
 /* ========================================================================
    Component: Form advanced
-   Note: Only works in Webkit at the moment
+   Note: Only works in Chrome, Safari, Opera and Edge
  ========================================================================== */
 /* Radio and checkbox
  ========================================================================== */
