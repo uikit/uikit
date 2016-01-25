@@ -9,24 +9,33 @@
 // Variables
 // ========================================================================
 
-@form-advanced-size:                          @global-font-size;
-@form-advanced-margin-top:                    -4px;
+@form-radio-size:                             @global-font-size;
+@form-radio-margin-top:                       -4px;
 
-@form-advanced-border:                        darken(@global-border, 10%);
-@form-advanced-border-width:                  1px;
-@form-advanced-background:                    transparent;
+@form-radio-border:                           darken(@global-border, 10%);
+@form-radio-border-width:                     1px;
+@form-radio-background:                       transparent;
 
-@form-advanced-checked-background:            @global-primary-background;
-@form-advanced-checked-color:                 @global-light-color;
+@form-radio-focus-color:                      #9cf;
 
-@form-advanced-disabled-border:               @global-border;
-@form-advanced-disabled-background:           transparent;
-@form-advanced-disabled-color:                @global-muted-color;
+@form-radio-checked-background:               @global-primary-background;
+@form-radio-checked-icon-color:               @global-light-color;
+
+@form-radio-disabled-border:                  @global-border;
+@form-radio-disabled-background:              @global-muted-background;
+@form-radio-disabled-icon-color:              @global-muted-color;
+
+@form-select-icon-color:                      @global-color;
+@form-select-disabled-icon-color:             @global-muted-color;
 
 
 /* ========================================================================
    Component: Form advanced
    Note: Only works in Webkit at the moment
+ ========================================================================== */
+
+
+/* Radio and checkbox
  ========================================================================== */
 
 /*
@@ -43,19 +52,18 @@
 .uk-form input[type="checkbox"] {
     /* 1 */
     display: inline-block;
-    height: @form-advanced-size;
-    width: @form-advanced-size;
-    border: @form-advanced-border-width solid @form-advanced-border;
+    height: @form-radio-size;
+    width: @form-radio-size;
+    border: @form-radio-border-width solid @form-radio-border;
     /* 2 */
     overflow: hidden;
     /* 3 */
-    margin-top: @form-advanced-margin-top;
+    margin-top: @form-radio-margin-top;
     vertical-align: middle;
     /* 4 */
     -webkit-appearance: none;
-    outline: 0;
     /* 5 */
-    background-color: @form-advanced-background;
+    background-color: @form-radio-background;
     /* 6 */
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -63,6 +71,13 @@
 }
 
 .uk-form input[type="radio"] { border-radius: 50%; }
+
+
+.uk-form input[type="radio"]:focus,
+.uk-form input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px @form-radio-focus-color;
+}
 
 /*
  * Checked
@@ -72,7 +87,7 @@
 .uk-form input[type=checkbox]:checked,
 .uk-form input[type=checkbox]:indeterminate {
     border-color: transparent;
-    background-color: @form-advanced-checked-background;
+    background-color: @form-radio-checked-background;
     .hook-form-advanced-checked;
 }
 
@@ -81,9 +96,9 @@
  * Icons
  */
 
-.uk-form input[type=radio]:checked { .svg-fill("../images/form-radio.svg", "#000", @form-advanced-checked-color); }
-.uk-form input[type=checkbox]:checked { .svg-fill("../images/form-checkbox.svg", "#000", @form-advanced-checked-color); }
-.uk-form input[type=checkbox]:indeterminate { .svg-fill("../images/form-checkbox-indeterminate.svg", "#000", @form-advanced-checked-color); }
+.uk-form input[type=radio]:checked { .svg-fill("../images/form-radio.svg", "#000", @form-radio-checked-icon-color); }
+.uk-form input[type=checkbox]:checked { .svg-fill("../images/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
+.uk-form input[type=checkbox]:indeterminate { .svg-fill("../images/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
 
 /*
  * Disabled
@@ -91,14 +106,43 @@
 
 .uk-form input[type=radio]:disabled,
 .uk-form input[type=checkbox]:disabled {
-    border-color: @form-advanced-disabled-border;
-    background-color: @form-advanced-disabled-background;
+    border-color: @form-radio-disabled-border;
+    background-color: @form-radio-disabled-background;
     .hook-form-advanced-disabled;
 }
 
-.uk-form input[type=radio]:disabled:checked { .svg-fill("../images/form-radio.svg", "#000", @form-advanced-disabled-color); }
-.uk-form input[type=checkbox]:disabled:checked { .svg-fill("../images/form-checkbox.svg", "#000", @form-advanced-disabled-color); }
-.uk-form input[type=checkbox]:disabled:indeterminate { .svg-fill("../images/form-checkbox-indeterminate.svg", "#000", @form-advanced-disabled-color); }
+.uk-form input[type=radio]:disabled:checked { .svg-fill("../images/form-radio.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-form input[type=checkbox]:disabled:checked { .svg-fill("../images/form-checkbox.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-form input[type=checkbox]:disabled:indeterminate { .svg-fill("../images/form-checkbox-indeterminate.svg", "#000", @form-radio-disabled-icon-color); }
+
+
+/* Select
+ ========================================================================== */
+
+/*
+ * 1. Remove default style
+ * 2. Style
+ * 3. Remove default style in IE 10/11
+ */
+
+.uk-form select:not([multiple]):not([size]) {
+    /* 1 */
+    -webkit-appearance: none;
+    /* 2 */
+    padding-right: 20px;
+    .svg-fill("../images/form-select.svg", "#000", @form-select-icon-color);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+}
+
+/* 3 */
+.uk-form select:not([multiple]):not([size])::-ms-expand { display: none; }
+
+/*
+ * Disabled
+ */
+
+.uk-form select:not([multiple]):not([size]):disabled { .svg-fill("../images/form-select.svg", "#000", @form-select-disabled-icon-color); }
 
 
 // Hooks

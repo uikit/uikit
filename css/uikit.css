@@ -3653,6 +3653,8 @@ uk-grid + .uk-grid-collapse,
    Component: Form advanced
    Note: Only works in Webkit at the moment
  ========================================================================== */
+/* Radio and checkbox
+ ========================================================================== */
 /*
  * 1. Style
  * 2. Makes box more robust so it clips the child element
@@ -3675,7 +3677,6 @@ uk-grid + .uk-grid-collapse,
   vertical-align: middle;
   /* 4 */
   -webkit-appearance: none;
-  outline: 0;
   /* 5 */
   background-color: transparent;
   /* 6 */
@@ -3684,6 +3685,11 @@ uk-grid + .uk-grid-collapse,
 }
 .uk-form input[type="radio"] {
   border-radius: 50%;
+}
+.uk-form input[type="radio"]:focus,
+.uk-form input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #9cf;
 }
 /*
  * Checked
@@ -3712,7 +3718,7 @@ uk-grid + .uk-grid-collapse,
 .uk-form input[type=radio]:disabled,
 .uk-form input[type=checkbox]:disabled {
   border-color: #e5e5e5;
-  background-color: transparent;
+  background-color: #f5f5f5;
 }
 .uk-form input[type=radio]:disabled:checked {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23999%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E%0A");
@@ -3722,4 +3728,30 @@ uk-grid + .uk-grid-collapse,
 }
 .uk-form input[type=checkbox]:disabled:indeterminate {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20x%3D%223%22%20y%3D%228%22%20width%3D%2210%22%20height%3D%221%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E%0A");
+}
+/* Select
+ ========================================================================== */
+/*
+ * 1. Remove default style
+ * 2. Style
+ * 3. Remove default style in IE 10/11
+ */
+.uk-form select:not([multiple]):not([size]) {
+  /* 1 */
+  -webkit-appearance: none;
+  /* 2 */
+  padding-right: 20px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444%22%20d%3D%22M3%2C10%20L11%2C10%20L7%2C16%20L3%2C10%20L3%2C10%20Z%22%3E%3C%2Fpath%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444%22%20d%3D%22M7%2C0%20L11%2C6%20L3%2C6%20L7%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+}
+/* 3 */
+.uk-form select:not([multiple]):not([size])::-ms-expand {
+  display: none;
+}
+/*
+ * Disabled
+ */
+.uk-form select:not([multiple]):not([size]):disabled {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M3%2C10%20L11%2C10%20L7%2C16%20L3%2C10%20L3%2C10%20Z%22%3E%3C%2Fpath%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M7%2C0%20L11%2C6%20L3%2C6%20L7%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }

@@ -15,11 +15,12 @@
 
             <h1>Form advanced</h1>
 
-            <form class="uk-form uk-form-stacked">
+            <form is="uk-grid" class="uk-form uk-form-stacked uk-child-width-1-4@m">
+                <div>
 
-                <div class="uk-margin">
                     <span class="uk-form-label">Radio</span>
                     <label><input type="radio" name="radio1" checked> Checked</label><br>
+                    <label><input type="radio" name="radio1"> Unchecked</label><br>
                     <label><input type="radio" name="radio1"> Unchecked</label><br>
                     <label><input type="radio" name="radio2" disabled> Disabled</label><br>
                     <label><input type="radio" name="radio2" disabled checked> Disabled Checked</label>
@@ -29,23 +30,65 @@
                         <label><input type="radio" name="radio4" disabled> C</label>
                         <label><input type="radio" name="radio4" disabled checked> D</label>
                     </uk-grid>
-                </div>
 
-                <div class="uk-margin">
+                </div>
+                <div>
+
                     <span class="uk-form-label">Checkbox</span>
                     <label><input type="checkbox" checked> Checked</label><br>
                     <label><input type="checkbox"> Unchecked</label><br>
+                    <label><input type="checkbox"> Unchecked</label><br>
                     <label><input type="checkbox" disabled> Disabled</label><br>
                     <label><input type="checkbox" disabled checked> Disabled Checked</label><br>
-                    <label><input class="test-indeterminate" type="checkbox"> Indeterminate</label><br>
-                    <label><input class="test-indeterminate" type="checkbox" disabled> Disabled Indeterminate</label>
-                    <script>$('.test-indeterminate').prop("indeterminate", true);</script>
                     <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
                         <label><input type="checkbox" checked> A</label>
                         <label><input type="checkbox"> B</label>
                         <label><input type="checkbox" disabled> C</label>
                         <label><input type="checkbox" disabled checked> D</label>
                     </uk-grid>
+
+                </div>
+                <div>
+
+                    <span class="uk-form-label">Checkbox</span>
+                    <label><input class="test-indeterminate" type="checkbox"> Indeterminate</label><br>
+                    <label><input type="checkbox"> Unchecked</label><br>
+                    <label><input type="checkbox"> Unchecked</label><br>
+                    <label><input type="checkbox" disabled> Disabled</label><br>
+                    <label><input class="test-indeterminate" type="checkbox" disabled> Disabled Indeterminate</label>
+                    <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
+                        <label><input class="test-indeterminate" type="checkbox"> A</label>
+                        <label><input type="checkbox"> B</label>
+                        <label><input type="checkbox" disabled> C</label>
+                        <label><input class="test-indeterminate" type="checkbox" disabled> D</label>
+                    </uk-grid>
+                    <script>$('.test-indeterminate').prop("indeterminate", true);</script>
+
+                </div>
+                <div>
+
+                    <label class="uk-form-label" for="form-s-select">Select</label>
+                    <select class="uk-width-1-1" id="form-s-select">
+                        <option>Option 01</option>
+                        <option>Option 02</option>
+                    </select>
+
+                    <p class="uk-margin-small">
+                        <select class="uk-width-1-1" disabled>
+                            <option>Option 01</option>
+                            <option>Option 02</option>
+                        </select>
+                    </p>
+
+                    <p class="uk-margin-small">
+                        <select class="uk-width-1-1" multiple="multiple">
+                            <option>Option 01</option>
+                            <option>Option 02</option>
+                            <option>Option 03</option>
+                            <option>Option 04</option>
+                        </select>
+                    </p>
+
                 </div>
 
             </form>

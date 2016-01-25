@@ -8,13 +8,13 @@
 // SVG
 // ========================================================================
 
-.svg-fill(@src, @fill-default, @fill-new) {
+.svg-fill(@src, @color-default, @color-new) {
 
-    @escape-fill-default: escape(@fill-default);
-    @escape-fill-new: escape(@fill-new);
+    @escape-color-default: escape(@color-default);
+    @escape-color-new: escape(@color-new);
 
     @data-uri: data-uri('image/svg+xml;charset=UTF-8', "@{src}");
-    @replace-src: replace("@{data-uri}", "@{escape-fill-default}", "@{escape-fill-new}");
+    @replace-src: replace("@{data-uri}", "@{escape-color-default}", "@{escape-color-new}", "g");
 
     background-image: e(@replace-src);
 }
