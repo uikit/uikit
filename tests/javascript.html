@@ -16,31 +16,6 @@
         </style>
         <script>
 
-            UIkit.webcomponent('alert', {
-
-                props: {
-                    close: false
-                },
-
-                methods: {
-
-                    $created: function () {
-                        console.log('created');
-                    },
-
-                    $attached: function () {
-                        console.log('attached');
-                        console.log(this.$el);
-                        console.log(this.close);
-                    },
-
-                    $detached: function () {
-                        console.log('detached');
-                    }
-                }
-
-            });
-
             jQuery(window).bind('swipeRight swipeLeft tap', 'body', function(e) {
                 jQuery('#output').prepend('<li>' + e.type + '</li>');
             });
@@ -53,11 +28,6 @@
         <div class="uk-container">
 
             <h1>Javascript</h1>
-
-            <h2>Custom Elements</h2>
-
-            <uk-alert close="true">Huhu</uk-alert>
-            <div is="uk-alert" close="false">Haha</uk-alert>
 
             <h2>Auto margin</h2>
 
@@ -85,22 +55,22 @@
 
             <uk-grid class="uk-child-width-1-3@s">
                 <div>
-                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    <iframe is="uk-responsive" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                 </div>
 
                 <div>
-                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    <iframe is="uk-responsive" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                 </div>
 
                 <div>
-                    <iframe class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    <iframe is="uk-responsive" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                 </div>
             </uk-grid>
 
             <h2>Inline SVG</h2>
 
-            <img id="svg1" class="svg-1" src="../../docs/images/placeholder_200x200.svg" data-uk-svg>
-            <img id="svg2" class="svg-2" src="../../docs/images/placeholder_200x200.svg" width="200" data-uk-svg>
+            <img id="svg1" class="svg-1" src="images/test.svg" is="uk-svg">
+            <img id="svg2" class="svg-2" src="images/test.svg" width="200" is="uk-svg">
 
             <h1>Touch</h1>
 
@@ -112,42 +82,6 @@
             </div>
 
             <p class="uk-text-muted">In IE11, swipe-gestures are only detected on the grey panel.</p>
-
-
-
-
-
-
-
-
-
-            <h1>Responsive Iframes</h1>
-
-            <div class="uk-grid uk-grid-width-1-3">
-                <div>
-                    <iframe is="uk-responsive" class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-                </div>
-
-                <div>
-                    <iframe is="uk-responsive" class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-                </div>
-
-                <div>
-                    <iframe is="uk-responsive" class="uk-responsive-width" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-
-            <h1>Inline Svg</h1>
-
-            <img id="svg1" class="svg-1" src="images/test.svg" is="uk-svg">
-            <img id="svg2" class="svg-2" src="images/test.svg" width="200" is="uk-svg">
-
-
-
-
-
-
-
 
         </div>
     </body>
