@@ -43,8 +43,8 @@
 
         "::Common",
 
-            "alert",
             "icon",
+            "alert",
 
         "::Navigation",
 

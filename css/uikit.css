@@ -3494,14 +3494,16 @@ select.uk-form-width-mini {
  * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
  */
 .uk-responsive-width,
-.uk-responsive-height {
+.uk-responsive-height,
+[is*="uk-responsive"] {
   box-sizing: border-box;
 }
 /*
  * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
  * `important` needed to override `uk-img-preserve img`
  */
-.uk-responsive-width {
+.uk-responsive-width,
+[is*="uk-responsive"] {
   max-width: 100% !important;
   height: auto;
 }
@@ -3850,225 +3852,6 @@ select.uk-form-width-mini {
 .uk-touch .uk-hidden-touch,
 .uk-notouch .uk-hidden-notouch {
   display: none !important;
-}
-/* ========================================================================
-   Mixin: Inverse
- ========================================================================== */
-.uk-light {
-  color: #fff;
-}
-.uk-light a:not([class]),
-.uk-light .uk-link {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-}
-.uk-light a:not([class]):hover,
-.uk-light .uk-link:hover {
-  color: #fff;
-  text-decoration: underline;
-}
-.uk-light :not(pre) > code,
-.uk-light :not(pre) > kbd,
-.uk-light :not(pre) > samp {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-}
-.uk-light em {
-  color: #fff;
-}
-.uk-light h1,
-.uk-light .uk-h1,
-.uk-light h2,
-.uk-light .uk-h2,
-.uk-light h3,
-.uk-light .uk-h3,
-.uk-light h4,
-.uk-light .uk-h4,
-.uk-light h5,
-.uk-light .uk-h5,
-.uk-light h6,
-.uk-light .uk-h6 {
-  color: #fff;
-}
-.uk-light hr {
-  border-top-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-list-line > li:nth-child(n+2) {
-  border-top-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-list-bullet > li:before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
-}
-.uk-light .uk-form select,
-.uk-light .uk-form textarea,
-.uk-light .uk-form input:not([type]),
-.uk-light .uk-form input[type="text"],
-.uk-light .uk-form input[type="password"],
-.uk-light .uk-form input[type="datetime"],
-.uk-light .uk-form input[type="datetime-local"],
-.uk-light .uk-form input[type="date"],
-.uk-light .uk-form input[type="month"],
-.uk-light .uk-form input[type="time"],
-.uk-light .uk-form input[type="week"],
-.uk-light .uk-form input[type="number"],
-.uk-light .uk-form input[type="email"],
-.uk-light .uk-form input[type="url"],
-.uk-light .uk-form input[type="search"],
-.uk-light .uk-form input[type="tel"],
-.uk-light .uk-form input[type="color"] {
-  border-color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.8);
-  color: #444;
-  background-clip: padding-box;
-}
-.uk-light .uk-form select:focus,
-.uk-light .uk-form textarea:focus,
-.uk-light .uk-form input:not([type]):focus,
-.uk-light .uk-form input[type="text"]:focus,
-.uk-light .uk-form input[type="password"]:focus,
-.uk-light .uk-form input[type="datetime"]:focus,
-.uk-light .uk-form input[type="datetime-local"]:focus,
-.uk-light .uk-form input[type="date"]:focus,
-.uk-light .uk-form input[type="month"]:focus,
-.uk-light .uk-form input[type="time"]:focus,
-.uk-light .uk-form input[type="week"]:focus,
-.uk-light .uk-form input[type="number"]:focus,
-.uk-light .uk-form input[type="email"]:focus,
-.uk-light .uk-form input[type="url"]:focus,
-.uk-light .uk-form input[type="search"]:focus,
-.uk-light .uk-form input[type="tel"]:focus,
-.uk-light .uk-form input[type="color"]:focus {
-  border-color: #fff;
-  background: #fff;
-  color: #444;
-}
-.uk-light .uk-form :-ms-input-placeholder {
-  color: rgba(68, 68, 68, 0.7) !important;
-}
-.uk-light .uk-form ::-moz-placeholder {
-  color: rgba(68, 68, 68, 0.7);
-}
-.uk-light .uk-form ::-webkit-input-placeholder {
-  color: rgba(68, 68, 68, 0.7);
-}
-.uk-light .uk-button-default {
-  color: rgba(255, 255, 255, 0.6);
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.6);
-}
-.uk-light .uk-button-default:hover,
-.uk-light .uk-button-default:focus {
-  background-color: transparent;
-  color: #fff;
-  border-color: #fff;
-}
-.uk-light .uk-button-default:active,
-.uk-light .uk-button-default.uk-active {
-  background-color: transparent;
-  color: #fff;
-  border-color: #fff;
-}
-.uk-light .uk-button-primary {
-  background-color: #fff;
-  color: #444;
-}
-.uk-light .uk-button-primary:hover,
-.uk-light .uk-button-primary:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #444;
-}
-.uk-light .uk-button-primary:active,
-.uk-light .uk-button-primary.uk-active {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: #444;
-}
-.uk-light .uk-icon-hover {
-  color: rgba(255, 255, 255, 0.7);
-}
-.uk-light .uk-icon-hover:hover {
-  color: #fff;
-}
-.uk-light .uk-icon-button {
-  background: #fff;
-  color: #444;
-}
-.uk-light .uk-icon-button:hover,
-.uk-light .uk-icon-button:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #444;
-}
-.uk-light .uk-icon-button:active {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: #444;
-}
-.uk-light .uk-grid-divider > :not(.uk-grid-first):before {
-  border-left-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
-  border-top-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-text-lead {
-  color: #fff;
-}
-.uk-light .uk-text-meta {
-  color: rgba(255, 255, 255, 0.6);
-}
-.uk-light .uk-text-muted {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-.uk-light .uk-text-primary {
-  color: #fff !important;
-}
-.uk-light .uk-column-divider {
-  -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
-  -moz-column-rule-color: rgba(255, 255, 255, 0.2);
-  column-rule-color: rgba(255, 255, 255, 0.2);
-}
-/* ========================================================================
-   Component: Print
- ========================================================================== */
-@media print {
-  *,
-  *:before,
-  *:after {
-    background: transparent !important;
-    color: black !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-  thead {
-    display: table-header-group;
-  }
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-  img {
-    max-width: 100% !important;
-  }
-  @page {
-    margin: 0.5cm;
-  }
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
 }
 /* ========================================================================
    Component: Animation
@@ -4620,6 +4403,225 @@ select.uk-form-width-mini {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+/* ========================================================================
+   Mixin: Inverse
+ ========================================================================== */
+.uk-light {
+  color: #fff;
+}
+.uk-light a:not([class]),
+.uk-light .uk-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+.uk-light a:not([class]):hover,
+.uk-light .uk-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.uk-light :not(pre) > code,
+.uk-light :not(pre) > kbd,
+.uk-light :not(pre) > samp {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+.uk-light em {
+  color: #fff;
+}
+.uk-light h1,
+.uk-light .uk-h1,
+.uk-light h2,
+.uk-light .uk-h2,
+.uk-light h3,
+.uk-light .uk-h3,
+.uk-light h4,
+.uk-light .uk-h4,
+.uk-light h5,
+.uk-light .uk-h5,
+.uk-light h6,
+.uk-light .uk-h6 {
+  color: #fff;
+}
+.uk-light hr {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-list-line > li:nth-child(n+2) {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-list-bullet > li:before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+}
+.uk-light .uk-form select,
+.uk-light .uk-form textarea,
+.uk-light .uk-form input:not([type]),
+.uk-light .uk-form input[type="text"],
+.uk-light .uk-form input[type="password"],
+.uk-light .uk-form input[type="datetime"],
+.uk-light .uk-form input[type="datetime-local"],
+.uk-light .uk-form input[type="date"],
+.uk-light .uk-form input[type="month"],
+.uk-light .uk-form input[type="time"],
+.uk-light .uk-form input[type="week"],
+.uk-light .uk-form input[type="number"],
+.uk-light .uk-form input[type="email"],
+.uk-light .uk-form input[type="url"],
+.uk-light .uk-form input[type="search"],
+.uk-light .uk-form input[type="tel"],
+.uk-light .uk-form input[type="color"] {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
+  color: #444;
+  background-clip: padding-box;
+}
+.uk-light .uk-form select:focus,
+.uk-light .uk-form textarea:focus,
+.uk-light .uk-form input:not([type]):focus,
+.uk-light .uk-form input[type="text"]:focus,
+.uk-light .uk-form input[type="password"]:focus,
+.uk-light .uk-form input[type="datetime"]:focus,
+.uk-light .uk-form input[type="datetime-local"]:focus,
+.uk-light .uk-form input[type="date"]:focus,
+.uk-light .uk-form input[type="month"]:focus,
+.uk-light .uk-form input[type="time"]:focus,
+.uk-light .uk-form input[type="week"]:focus,
+.uk-light .uk-form input[type="number"]:focus,
+.uk-light .uk-form input[type="email"]:focus,
+.uk-light .uk-form input[type="url"]:focus,
+.uk-light .uk-form input[type="search"]:focus,
+.uk-light .uk-form input[type="tel"]:focus,
+.uk-light .uk-form input[type="color"]:focus {
+  border-color: #fff;
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-form :-ms-input-placeholder {
+  color: rgba(68, 68, 68, 0.7) !important;
+}
+.uk-light .uk-form ::-moz-placeholder {
+  color: rgba(68, 68, 68, 0.7);
+}
+.uk-light .uk-form ::-webkit-input-placeholder {
+  color: rgba(68, 68, 68, 0.7);
+}
+.uk-light .uk-button-default {
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.uk-light .uk-button-default:hover,
+.uk-light .uk-button-default:focus {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.uk-light .uk-button-default:active,
+.uk-light .uk-button-default.uk-active {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.uk-light .uk-button-primary {
+  background-color: #fff;
+  color: #444;
+}
+.uk-light .uk-button-primary:hover,
+.uk-light .uk-button-primary:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-button-primary:active,
+.uk-light .uk-button-primary.uk-active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
+}
+.uk-light .uk-icon-hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-icon-hover:hover {
+  color: #fff;
+}
+.uk-light .uk-icon-button {
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-icon-button:hover,
+.uk-light .uk-icon-button:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-icon-button:active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
+}
+.uk-light .uk-grid-divider > :not(.uk-grid-first):before {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-text-lead {
+  color: #fff;
+}
+.uk-light .uk-text-meta {
+  color: rgba(255, 255, 255, 0.6);
+}
+.uk-light .uk-text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.uk-light .uk-text-primary {
+  color: #fff !important;
+}
+.uk-light .uk-column-divider {
+  -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
+  -moz-column-rule-color: rgba(255, 255, 255, 0.2);
+  column-rule-color: rgba(255, 255, 255, 0.2);
+}
+/* ========================================================================
+   Component: Print
+ ========================================================================== */
+@media print {
+  *,
+  *:before,
+  *:after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page {
+    margin: 0.5cm;
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2,
+  h3 {
+    page-break-after: avoid;
   }
 }
 /* ========================================================================
