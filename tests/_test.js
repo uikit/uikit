@@ -45,6 +45,7 @@
         "::Common",
 
             "icon",
+            "alert",
 
         "::Navigation",
 
@@ -73,7 +74,6 @@
 
         "::Components",
 
-            "alert",
             "form-advanced"
 
 

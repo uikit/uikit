@@ -1414,6 +1414,164 @@ select.uk-form-width-mini {
   color: #444;
 }
 /* ========================================================================
+   Component: Alert
+ ========================================================================== */
+.uk-alert {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #ebf7fd;
+  color: #2d7091;
+}
+/*
+ * Add margin if adjacent element
+ */
+* + .uk-alert {
+  margin-top: 15px;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-alert > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Keep color for headings if the default heading color is changed
+ */
+.uk-alert h1,
+.uk-alert h2,
+.uk-alert h3,
+.uk-alert h4,
+.uk-alert h5,
+.uk-alert h6 {
+  color: inherit;
+}
+/* Close in alert
+ ========================================================================== */
+.uk-alert > .uk-close:first-child {
+  float: right;
+}
+/*
+ * Remove margin from adjacent element
+ */
+.uk-alert > .uk-close:first-child + * {
+  margin-top: 0;
+}
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+.uk-alert-success {
+  background: #f2fae3;
+  color: #659f13;
+}
+/* Modifier: `uk-alert-warning`
+ ========================================================================== */
+.uk-alert-warning {
+  background: #fffceb;
+  color: #e28327;
+}
+/* Modifier: `uk-alert-danger`
+ ========================================================================== */
+.uk-alert-danger {
+  background: #fff1f0;
+  color: #d85030;
+}
+/* Modifier: `uk-alert-large`
+ ========================================================================== */
+.uk-alert-large {
+  padding: 20px;
+}
+.uk-alert-large > .uk-close:first-child {
+  margin: -10px -10px 0 0;
+}
+/* ========================================================================
+   Component: Close
+ ========================================================================== */
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+.uk-close::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/*
+ * 1. Correct inability to style clickable `input` types in iOS.
+ * 2. Remove margins in Chrome, Safari and Opera.
+ * 3. Remove borders for `button`.
+ * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
+ * 7. Remove default `button` padding and background color
+ * 8. Style
+ */
+.uk-close {
+  /* 1 */
+  -webkit-appearance: none;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+  border: none;
+  /* 4 */
+  overflow: visible;
+  /* 5 */
+  font: inherit;
+  color: inherit;
+  /* 6 */
+  text-transform: none;
+  /* 7. */
+  padding: 0;
+  background: transparent;
+  /* 8 */
+  display: inline-block;
+  box-sizing: content-box;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  opacity: 0.3;
+}
+/* Icon */
+.uk-close:after {
+  display: block;
+  content: "\f00d";
+  font-family: FontAwesome;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ * 3. Required for `a` elements
+ */
+.uk-close:hover,
+.uk-close:focus {
+  opacity: 0.5;
+  /* 2 */
+  outline: none;
+  /* 3 */
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Modifier
+ ========================================================================== */
+.uk-close-alt {
+  padding: 2px;
+  border-radius: 50%;
+  background: #eee;
+  opacity: 1;
+}
+/* Hover */
+.uk-close-alt:hover,
+.uk-close-alt:focus {
+  opacity: 1;
+}
+/* Icon */
+.uk-close-alt:after {
+  opacity: 0.5;
+}
+.uk-close-alt:hover:after,
+.uk-close-alt:focus:after {
+  opacity: 0.8;
+}
+/* ========================================================================
    Component: Section
  ========================================================================== */
 /*
@@ -3381,6 +3539,16 @@ uk-grid + .uk-grid-collapse,
 .uk-border-rounded {
   border-radius: 5px;
 }
+/* Background
+ ========================================================================== */
+/*
+ * Cover
+ */
+.uk-background-cover {
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 /* ========================================================================
    Component: Margin
  ========================================================================== */
@@ -3680,6 +3848,11 @@ uk-grid + .uk-grid-collapse,
     display: none !important;
   }
 }
+/* Visibility
+ ========================================================================== */
+.uk-invisible {
+  visibility: hidden !important;
+}
 /* Hover
  ========================================================================== */
 /* Hidden */
@@ -3914,164 +4087,6 @@ uk-grid + .uk-grid-collapse,
   h3 {
     page-break-after: avoid;
   }
-}
-/* ========================================================================
-   Component: Alert
- ========================================================================== */
-.uk-alert {
-  margin-bottom: 15px;
-  padding: 10px;
-  background: #ebf7fd;
-  color: #2d7091;
-}
-/*
- * Add margin if adjacent element
- */
-* + .uk-alert {
-  margin-top: 15px;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-alert > :last-child {
-  margin-bottom: 0;
-}
-/*
- * Keep color for headings if the default heading color is changed
- */
-.uk-alert h1,
-.uk-alert h2,
-.uk-alert h3,
-.uk-alert h4,
-.uk-alert h5,
-.uk-alert h6 {
-  color: inherit;
-}
-/* Close in alert
- ========================================================================== */
-.uk-alert > .uk-close:first-child {
-  float: right;
-}
-/*
- * Remove margin from adjacent element
- */
-.uk-alert > .uk-close:first-child + * {
-  margin-top: 0;
-}
-/* Modifier: `uk-alert-success`
- ========================================================================== */
-.uk-alert-success {
-  background: #f2fae3;
-  color: #659f13;
-}
-/* Modifier: `uk-alert-warning`
- ========================================================================== */
-.uk-alert-warning {
-  background: #fffceb;
-  color: #e28327;
-}
-/* Modifier: `uk-alert-danger`
- ========================================================================== */
-.uk-alert-danger {
-  background: #fff1f0;
-  color: #d85030;
-}
-/* Modifier: `uk-alert-large`
- ========================================================================== */
-.uk-alert-large {
-  padding: 20px;
-}
-.uk-alert-large > .uk-close:first-child {
-  margin: -10px -10px 0 0;
-}
-/* ========================================================================
-   Component: Close
- ========================================================================== */
-/*
- * Removes inner padding and border in Firefox 4+.
- */
-.uk-close::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-/*
- * 1. Correct inability to style clickable `input` types in iOS.
- * 2. Remove margins in Chrome, Safari and Opera.
- * 3. Remove borders for `button`.
- * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
- * 5. Correct `font` properties and `color` not being inherited for `button`.
- * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
- * 7. Remove default `button` padding and background color
- * 8. Style
- */
-.uk-close {
-  /* 1 */
-  -webkit-appearance: none;
-  /* 2 */
-  margin: 0;
-  /* 3 */
-  border: none;
-  /* 4 */
-  overflow: visible;
-  /* 5 */
-  font: inherit;
-  color: inherit;
-  /* 6 */
-  text-transform: none;
-  /* 7. */
-  padding: 0;
-  background: transparent;
-  /* 8 */
-  display: inline-block;
-  box-sizing: content-box;
-  width: 20px;
-  line-height: 20px;
-  text-align: center;
-  vertical-align: middle;
-  opacity: 0.3;
-}
-/* Icon */
-.uk-close:after {
-  display: block;
-  content: "\f00d";
-  font-family: FontAwesome;
-}
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- * 3. Required for `a` elements
- */
-.uk-close:hover,
-.uk-close:focus {
-  opacity: 0.5;
-  /* 2 */
-  outline: none;
-  /* 3 */
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-/* Modifier
- ========================================================================== */
-.uk-close-alt {
-  padding: 2px;
-  border-radius: 50%;
-  background: #eee;
-  opacity: 1;
-}
-/* Hover */
-.uk-close-alt:hover,
-.uk-close-alt:focus {
-  opacity: 1;
-}
-/* Icon */
-.uk-close-alt:after {
-  opacity: 0.5;
-}
-.uk-close-alt:hover:after,
-.uk-close-alt:focus:after {
-  opacity: 0.8;
 }
 /* ========================================================================
    Component: Form advanced
