@@ -1,0 +1,187 @@
+// Name:            Icon
+// Description:     Defines styles for icons
+//
+// Adapted from http://fortawesome.github.com/Font-Awesome (Version 4.2.0)
+//
+// Component:       `uk-icon-*`
+//
+// Sub-objects:     `uk-icon-hover`
+//                  `uk-icon-button`
+//
+// Modifiers:       `uk-icon-small`
+//                  `uk-icon-medium`
+//                  `uk-icon-large`
+//                  `uk-icon-justify`
+//                  `uk-icon-spin`
+//
+// Uses:            Animation
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@icon-size:                                     20px;
+@icon-small-size:                               13px;
+
+@icon-hover-color:                              @global-muted-color;
+@icon-hover-hover-color:                        @global-color;
+
+@icon-button-size:                              35px;
+@icon-button-border-radius:                     100%;
+@icon-button-background:                        @global-muted-background;
+@icon-button-color:                             @global-muted-color;
+
+@icon-button-hover-background:                  darken(@global-muted-background, 5%);
+@icon-button-hover-color:                       @global-color;
+
+@icon-button-active-background:                 darken(@global-muted-background, 10%);
+@icon-button-active-color:                      @global-color;
+
+
+/* ========================================================================
+   Component: Icon
+ ========================================================================== */
+
+/*
+ * 1. Size
+ * 2. Color
+ * 3. Alignment
+ */
+
+[class*='uk-icon-'] {
+    width: @icon-size;
+    height: @icon-size;
+    fill: currentcolor;
+    vertical-align: middle;
+
+}
+
+/*
+ * Remove `text-decoration` for anchors
+ */
+
+[class*='uk-icon-'],
+[class*='uk-icon-']:hover,
+[class*='uk-icon-']:focus { text-decoration: none; }
+
+
+/* Hover modifier
+ ========================================================================== */
+
+.uk-icon-hover {
+    color: @icon-hover-color;
+    .hook-icon-hover;
+}
+
+.uk-icon-hover:hover,
+.uk-icon-hover:focus {
+    color: @icon-hover-hover-color;
+    .hook-icon-hover-hover;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+[class*='uk-icon-small'] {
+    width: @icon-small-size;
+    height: @icon-small-size;
+}
+
+
+/* Contain modifier
+ ========================================================================== */
+
+/*
+ * Used to display images in icon dimensions
+ */
+
+.uk-icon-contain {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Modifier: `uk-icon-justify`
+ ========================================================================== */
+
+.uk-icon-justify {
+    width: 1em;
+    text-align: center;
+}
+
+
+
+
+
+/* Modifier: `uk-icon-button`
+ ========================================================================== */
+
+/*
+ * 1. Center icon vertically and horizontal
+ */
+
+.uk-icon-button {
+    box-sizing: border-box;
+    width: @icon-button-size;
+    height: @icon-button-size;
+    border-radius: @icon-button-border-radius;
+    background: @icon-button-background;
+    color: @icon-button-color;
+    /* 1 */
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    .hook-icon-button;
+}
+
+/* Hover + Focus */
+.uk-icon-button:hover,
+.uk-icon-button:focus { // 1
+    background-color: @icon-button-hover-background;
+    color: @icon-button-hover-color;
+    /* 2 */
+    outline: none;
+    .hook-icon-button-hover;
+}
+
+/* Active */
+.uk-icon-button:active {
+    background-color: @icon-button-active-background;
+    color: @icon-button-active-color;
+    .hook-icon-button-active;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-icon-misc;
+
+.hook-icon-hover() {}
+.hook-icon-hover-hover() {}
+.hook-icon-button() {}
+.hook-icon-button-hover() {}
+.hook-icon-button-active() {}
+.hook-icon-misc() {}

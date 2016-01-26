@@ -1322,6 +1322,96 @@ select.uk-form-width-mini {
   position: relative;
 }
 /* ========================================================================
+   Component: Icon
+ ========================================================================== */
+/*
+ * 1. Size
+ * 2. Color
+ * 3. Alignment
+ */
+[class*='uk-icon-'] {
+  width: 20px;
+  height: 20px;
+  fill: currentcolor;
+  vertical-align: middle;
+}
+/*
+ * Remove `text-decoration` for anchors
+ */
+[class*='uk-icon-'],
+[class*='uk-icon-']:hover,
+[class*='uk-icon-']:focus {
+  text-decoration: none;
+}
+/* Hover modifier
+ ========================================================================== */
+.uk-icon-hover {
+  color: #999;
+}
+.uk-icon-hover:hover,
+.uk-icon-hover:focus {
+  color: #444;
+}
+/* Size modifier
+ ========================================================================== */
+[class*='uk-icon-small'] {
+  width: 13px;
+  height: 13px;
+}
+/* Contain modifier
+ ========================================================================== */
+/*
+ * Used to display images in icon dimensions
+ */
+.uk-icon-contain {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+}
+/* Modifier: `uk-icon-justify`
+ ========================================================================== */
+.uk-icon-justify {
+  width: 1em;
+  text-align: center;
+}
+/* Modifier: `uk-icon-button`
+ ========================================================================== */
+/*
+ * 1. Center icon vertically and horizontal
+ */
+.uk-icon-button {
+  box-sizing: border-box;
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  background: #f5f5f5;
+  color: #999;
+  /* 1 */
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* Hover + Focus */
+.uk-icon-button:hover,
+.uk-icon-button:focus {
+  background-color: #e8e8e8;
+  color: #444;
+  /* 2 */
+  outline: none;
+}
+/* Active */
+.uk-icon-button:active {
+  background-color: #dcdcdc;
+  color: #444;
+}
+/* ========================================================================
    Component: Section
  ========================================================================== */
 /*

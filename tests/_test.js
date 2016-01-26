@@ -42,6 +42,10 @@
             "form",
             "button",
 
+        "::Common",
+
+            "icon",
+
         "::Navigation",
 
             "subnav",

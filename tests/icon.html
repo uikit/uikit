@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Icon - UIkit tests</title>
+        <script src="_test.js"></script>
+        <link rel="stylesheet" href="../css/uikit.css">
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Icon</h1>
+
+            <uk-grid class="uk-child-width-1-4">
+                <div>
+
+                    <h3>Default</h3>
+
+                    <ul class="uk-list">
+                        <li>
+                            <svg class="uk-icon-trash uk-margin-small-right">
+                                <use xlink:href="../src/images/icons.svg#trash"></use>
+                            </svg>
+                            List item 1
+                        </li>
+                        <li>
+                            <svg class="uk-icon-table uk-margin-small-right">
+                                <use xlink:href="../src/images/icons.svg#table"></use>
+                            </svg>
+                            List item 2
+                        </li>
+                        <li>
+                            <svg class="uk-icon-thumbnails uk-margin-small-right">
+                                <use xlink:href="../src/images/icons.svg#thumbnails"></use>
+                            </svg>
+                            List item 2
+                        </li>
+                        <li>
+                            <div class="uk-icon-contain uk-margin-small-right" style="background-image: url('http://unsplash.it/800/600');"></div>
+                            Image
+                        </li>
+                    </ul>
+
+                    <h3>Hover</h3>
+
+                    <ul class="uk-list">
+                        <li>
+                            <a class="uk-icon-hover" href="#">
+                                <svg class="uk-icon-trash uk-margin-small-right">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                a element
+                            </a>
+                        </li>
+                        <li>
+                            <svg class="uk-icon-thumbnails uk-icon-hover uk-margin-small-right">
+                                <use xlink:href="../src/images/icons.svg#thumbnails"></use>
+                            </svg>
+                            SVG only
+                        </li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h3>Small</h3>
+
+                    <ul class="uk-list">
+                        <li>
+                            <svg class="uk-icon-small-trash uk-margin-small-right">
+                                <use xlink:href="../src/images/icons.svg#small-trash"></use>
+                            </svg>
+                            List item 1
+                        </li>
+                        <li>
+                            <svg class="uk-icon-small-edit uk-margin-small-right">
+                                <use xlink:href="../src/images/icons.svg#small-edit"></use>
+                            </svg>
+                            List item 2
+                        </li>
+                        <li>
+                            <svg class="uk-icon-small-copy uk-margin-small-right">
+                                <use xlink:href="../src/images/icons.svg#small-copy"></use>
+                            </svg>
+                            List item 2
+                        </li>
+                        <li>
+                            <div class="uk-icon-small uk-icon-contain uk-margin-small-right" style="background-image: url('http://unsplash.it/800/600');"></div>
+                            Image
+                        </li>
+                    </ul>
+
+                    <h3>Button</h3>
+
+                    <uk-grid class="uk-grid-small uk-child-width-auto">
+                        <div>
+                            <a class="uk-icon-button" href="#">
+                                <svg class="uk-icon-trash">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="uk-icon-button" href="#">
+                                <svg class="uk-icon-trash">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </uk-grid>
+
+                </div>
+                <div>
+
+                    <h3>Text-level semantics</h3>
+
+                    <ul class="uk-list">
+                        <li>The
+                            <a href="#">
+                                <svg class="uk-icon-trash">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                a element
+                            </a>
+                            example
+                        </li>
+                        <li>The
+                            <a class="uk-link-muted" href="#">
+                                <svg class="uk-icon-trash">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                link-muted
+                            </a>
+                            example
+                        </li>
+                        <li>The
+                            <a class="uk-link-reset" href="#">
+                                <svg class="uk-icon-trash">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                link-reset
+                            </a>
+                            example
+                        </li>
+                        <li>The
+                            <code>
+                                <svg class="uk-icon-small-trash">
+                                    <use xlink:href="../src/images/icons.svg#small-trash"></use>
+                                </svg>
+                                code element
+                            </code>
+                            example
+                        </li>
+                        <li>The
+                            <em>
+                                <svg class="uk-icon-trash">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                em element
+                            </em>
+                            example
+                        </li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h3>Buttons</h3>
+
+                    <ul class="uk-list">
+                        <li>
+                            <button class="uk-button uk-button-default">
+                                <svg class="uk-icon-trash uk-margin-small-right">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                Button
+                            </button>
+                        </li>
+                        <li>
+                            <button class="uk-button uk-button-primary">
+                                <svg class="uk-icon-trash uk-margin-small-right">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                Button
+                            </button>
+                        </li>
+                        <li>
+                            <button class="uk-button uk-button-danger">
+                                <svg class="uk-icon-trash uk-margin-small-right">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                Button
+                            </button>
+                        </li>
+                        <li>
+                            <button class="uk-button uk-button-success">
+                                <svg class="uk-icon-trash uk-margin-small-right">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                Button
+                            </button>
+                        </li>
+                        <li>
+                            <button class="uk-button uk-button-default" disabled>
+                                <svg class="uk-icon-trash uk-margin-small-right">
+                                    <use xlink:href="../src/images/icons.svg#trash"></use>
+                                </svg>
+                                Button
+                            </button>
+                        </li>
+                    </ul>
+
+                </div>
+            <div>
+
+        </div>
+
+    </body>
+</html>
