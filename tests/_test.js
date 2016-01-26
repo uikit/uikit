@@ -30,7 +30,6 @@
 
         "::Base",
 
-            "javascript",
             "base",
 
         "::Elements",
