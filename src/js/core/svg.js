@@ -10,13 +10,13 @@ export default function (UIkit) {
 
             $.get(this.src, doc => {
 
-                var $svg = $('svg', doc);
+                var $svg = $(doc.documentElement);
 
-                this.$options.props.forEach(prop => {
+                for (var prop in this.$options.props) {
                     if (prop !== 'src' && this[prop]) {
                         $svg.attr(prop, this[prop]);
                     }
-                });
+                }
 
                 if (this.width && !this.height) {
                     $svg.removeAttr('height');

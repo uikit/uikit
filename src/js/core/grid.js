@@ -60,7 +60,7 @@ export default function (UIkit) {
 
                     if (!firstvisible.length) return;
 
-                    var elements = this.match === true ? children : this.$find(this.match);
+                    var elements = this.match === true ? children : this.$el.find(this.match);
                     var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100;
 
                     if (stacked && !this.ignorestacked) {
