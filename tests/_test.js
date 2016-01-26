@@ -66,6 +66,7 @@
             "flex",
             "text",
             "column",
+            "cover",
             "align",
             "utility",
             "margin",

@@ -1,0 +1,70 @@
+// Name:            Cover
+// Description:     Utilities to let embedded content cover their container in a centered position
+//
+// Component:       `uk-cover`
+//
+// Sub-object:      `uk-cover-container`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Cover
+ ========================================================================== */
+
+/*
+ * Works with `video` and `img` elements
+ * 1. Resizes the object to always covers its container
+ * 2. Reset the responsive image CSS
+ * 3. Center object
+ */
+
+.uk-cover {
+    /* 1 */
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    /* 2 */
+    max-width: none;
+    /* 3 */
+    position: relative;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+/*
+ * To center iframes use `data-uk-cover` JavaScript
+ */
+
+[is*="uk-cover"] {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+/*
+ * Container
+ * 1. Parent container which clips resized object
+ * 2. Create position context (Not needed but useful)
+ * Note: A height needs to be set to the container to make it work (because of the top percent value)
+ */
+
+.uk-cover-container {
+    /* 1 */
+    overflow: hidden;
+    /* 2 */
+    position: relative;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-cover-misc;
+
+.hook-cover-misc() {}
