@@ -37,8 +37,12 @@ export default function (UIkit) {
             e = ev;
         }
 
-        UIkit.getComponents.forEach(component => {
-            component._callUpdate(e);
+        $(UIkit.elements, this.$el).each(function () {
+            if (this[DATA]) {
+                for (var name in this[DATA]) {
+                    this[DATA][name]._callUpdate(e);
+                }
+            }
         });
     };
 

@@ -37,20 +37,6 @@ export default function (UIkit) {
         return Sub;
     };
 
-    UIkit.getComponents = function (element, children) {
-        var components = ((element instanceof jQuery ? element[0] : element)[DATA]) || [];
-
-        if (children) {
-            $(UIkit.elements, element).each(function () {
-                if (this[DATA]) {
-                    components.concat(this[DATA]);
-                }
-            });
-        }
-
-        return components;
-    }
-
 }
 
 function createClass(name) {
