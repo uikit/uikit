@@ -1,0 +1,386 @@
+// Name:            Inverse
+// Description:     Utilities to adjust colors in general for light or dark backgrounds
+//
+// Component:       `uk-inverse`
+//                  `uk-light`
+//                  `uk-dark`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@inverse-color:                                #fff;
+@inverse-contrast-color:                       #444;
+
+//
+// Components
+//
+
+@inverse-base-color:                           @inverse-color;
+@inverse-base-link-color:                      fade(@inverse-color, 70%);
+@inverse-base-link-text-decoration:            none;
+@inverse-base-link-hover-color:                @inverse-color;
+@inverse-base-link-hover-text-decoration:      underline;
+@inverse-base-code-color:                      @inverse-color;
+@inverse-base-em-color:                        @inverse-color;
+@inverse-base-heading-color:                   @inverse-color;
+@inverse-base-hr-border:                       fade(@inverse-color, 20%);
+
+@inverse-list-line-border:                     fade(@inverse-color, 20%);
+@inverse-list-bullet-icon-color:               @inverse-color;
+
+@inverse-form-border:                          fade(@inverse-color, 80%);
+@inverse-form-background:                      fade(@inverse-color, 80%);
+@inverse-form-color:                           @inverse-contrast-color;
+@inverse-form-focus-border:                    @inverse-color;
+@inverse-form-focus-background:                @inverse-color;
+@inverse-form-focus-color:                     @inverse-contrast-color;
+@inverse-form-placeholder-color:               fade(@inverse-contrast-color, 70%);
+
+@inverse-button-default-background:            @inverse-color;
+@inverse-button-default-color:                 @inverse-contrast-color;
+@inverse-button-default-hover-background:      fade(@inverse-color, 80%);
+@inverse-button-default-hover-color:           @inverse-contrast-color;
+@inverse-button-default-active-background:     fade(@inverse-color, 70%);
+@inverse-button-default-active-color:          @inverse-contrast-color;
+@inverse-button-primary-background:            @inverse-color;
+@inverse-button-primary-color:                 @inverse-contrast-color;
+@inverse-button-primary-hover-background:      fade(@inverse-color, 80%);
+@inverse-button-primary-hover-color:           @inverse-contrast-color;
+@inverse-button-primary-active-background:     fade(@inverse-color, 70%);
+@inverse-button-primary-active-color:          @inverse-contrast-color;
+
+@inverse-icon-hover-color:                     fade(@inverse-color, 70%);
+@inverse-icon-hover-hover-color:               @inverse-color;
+@inverse-icon-button-background:               @inverse-color;
+@inverse-icon-button-color:                    @inverse-contrast-color;
+@inverse-icon-button-hover-background:         fade(@inverse-color, 80%);
+@inverse-icon-button-hover-color:              @inverse-contrast-color;
+@inverse-icon-button-active-background:        fade(@inverse-color, 70%);
+@inverse-icon-button-active-color:             @inverse-contrast-color;
+
+@inverse-grid-divider-border:                  fade(@inverse-color, 20%);
+
+@inverse-text-lead-color:                      @inverse-color;
+@inverse-text-meta-color:                      fade(@inverse-color, 60%);
+@inverse-text-muted-color:                     fade(@inverse-color, 60%);
+@inverse-text-primary-color:                   @inverse-color;
+
+@inverse-column-rule-color:                    fade(@inverse-color, 20%);
+
+
+
+
+/* ========================================================================
+   Mixin: Inverse
+ ========================================================================== */
+
+.inverse() {
+
+    color: @inverse-base-color;
+
+    // Base
+    // ========================================================================
+
+    //
+    // Link
+    //
+
+    a:not([class]),
+    .uk-link  {
+        color: @inverse-base-link-color;
+        text-decoration: @inverse-base-link-text-decoration;
+        .hook-inverse-base-link;
+    }
+
+    a:not([class]):hover,
+    .uk-link:hover {
+        color: @inverse-base-link-hover-color;
+        text-decoration: @inverse-base-link-hover-text-decoration;
+        .hook-inverse-base-link-hover;
+    }
+
+    //
+    // Code
+    //
+
+    :not(pre) > code,
+    :not(pre) > kbd,
+    :not(pre) > samp {
+        color: @inverse-base-code-color;
+        .hook-inverse-base-code;
+    }
+
+    //
+    // Emphasize
+    //
+
+    em { color: @inverse-base-em-color; }
+
+    //
+    // Headings
+    //
+
+    h1, .uk-h1,
+    h2, .uk-h2,
+    h3, .uk-h3,
+    h4, .uk-h4,
+    h5, .uk-h5,
+    h6, .uk-h6 {
+        color: @inverse-base-heading-color;
+        .hook-inverse-base-heading;
+    }
+
+    //
+    // Horizontal rules
+    //
+
+    hr {
+        border-top-color: @inverse-base-hr-border;
+        .hook-inverse-base-hr;
+    }
+
+
+    // List
+    // ========================================================================
+
+    .uk-list-line > li:nth-child(n+2) {
+        border-top-color: @inverse-list-line-border;
+        .hook-inverse-list-line;
+    }
+
+    .uk-list-bullet > li:before {
+        .svg-fill("../images/list-bullet.svg", "#000", @inverse-list-bullet-icon-color);
+        .hook-inverse-list-bullet;
+    }
+
+
+    // Form
+    // ========================================================================
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+        border-color: @inverse-form-border;
+        background: @inverse-form-background;
+        color: @inverse-form-color;
+        background-clip: padding-box;
+        .hook-inverse-form;
+
+        &:focus {
+            border-color: @inverse-form-focus-border;
+            background: @inverse-form-focus-background;
+            color: @inverse-form-focus-color;
+            .hook-inverse-form-focus;
+        }
+    }
+
+    //
+    // Placeholder
+    //
+
+    .uk-form :-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
+    .uk-form ::-moz-placeholder { color: @inverse-form-placeholder-color; }
+    .uk-form ::-webkit-input-placeholder { color: @inverse-form-placeholder-color; }
+
+
+    // Button
+    // ========================================================================
+
+    //
+    // Default
+    //
+
+    .uk-button-default {
+        color: @inverse-button-default-color;
+        background: @inverse-button-default-background;
+        .hook-inverse-button-default;
+    }
+
+    .uk-button-default:hover,
+    .uk-button-default:focus {
+        background-color: @inverse-button-default-hover-background;
+        color: @inverse-button-default-hover-color;
+        .hook-inverse-button-default-hover;
+    }
+
+    .uk-button-default:active,
+    .uk-button-default.uk-active {
+        background-color: @inverse-button-default-active-background;
+        color: @inverse-button-default-active-color;
+        .hook-inverse-button-default-active;
+    }
+
+    //
+    // Primary
+    //
+
+    .uk-button-primary {
+        background-color: @inverse-button-primary-background;
+        color: @inverse-button-primary-color;
+        .hook-inverse-button-primary;
+    }
+
+    .uk-button-primary:hover,
+    .uk-button-primary:focus {
+        background-color: @inverse-button-primary-hover-background;
+        color: @inverse-button-primary-hover-color;
+        .hook-inverse-button-primary-hover;
+    }
+
+    .uk-button-primary:active,
+    .uk-button-primary.uk-active {
+        background-color: @inverse-button-primary-active-background;
+        color: @inverse-button-primary-active-color;
+        .hook-inverse-button-primary-active;
+    }
+
+
+    // Icon
+    // ========================================================================
+
+    //
+    // Hover
+    //
+
+    .uk-icon-hover {
+        color: @inverse-icon-hover-color;
+        .hook-inverse-icon-hover;
+    }
+
+    .uk-icon-hover:hover {
+        color: @inverse-icon-hover-hover-color;
+        .hook-inverse-icon-hover-hover;
+    }
+
+    //
+    // Button
+    //
+
+    .uk-icon-button {
+        background: @inverse-icon-button-background;
+        color: @inverse-icon-button-color;
+        .hook-inverse-icon-button;
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: @inverse-icon-button-hover-background;
+        color: @inverse-icon-button-hover-color;
+        .hook-inverse-icon-button-hover;
+    }
+
+    .uk-icon-button:active {
+        background-color: @inverse-icon-button-active-background;
+        color: @inverse-icon-button-active-color;
+        .hook-inverse-icon-button-active;
+    }
+
+
+    // Grid
+    // ========================================================================
+
+    .uk-grid-divider > :not(.uk-grid-first):before { border-left-color: @inverse-grid-divider-border; }
+    .uk-grid-divider > .uk-grid-first + .uk-grid-first:before { border-top-color: @inverse-grid-divider-border; }
+
+
+    // Text
+    // ========================================================================
+
+    .uk-text-lead {
+        color: @inverse-text-lead-color;
+        .hook-inverse-text-lead;
+    }
+
+    .uk-text-meta {
+        color: @inverse-text-meta-color;
+        .hook-inverse-text-meta;
+    }
+
+    .uk-text-muted { color: @inverse-text-muted-color !important; }
+    .uk-text-primary { color: @inverse-text-primary-color !important; }
+
+
+    // Column
+    // ========================================================================
+
+    .uk-column-divider {
+        -webkit-column-rule-color: @inverse-column-rule-color;
+        -moz-column-rule-color: @inverse-column-rule-color;
+        column-rule-color: @inverse-column-rule-color;
+    }
+
+
+    // Misc hook
+    // ========================================================================
+
+    .hook-inverse-misc;
+
+}
+
+
+// The theme decides which class it implements, depending on its default color
+// ========================================================================
+
+// Light colors for dark backgrounds
+.uk-light {
+    .inverse;
+}
+
+// Dark colors for light backgrounds
+.uk-dark {
+    .hook-dark;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-inverse-base-link() {}
+.hook-inverse-base-link-hover() {}
+.hook-inverse-base-code() {}
+.hook-inverse-base-heading() {}
+.hook-inverse-base-hr() {}
+
+.hook-inverse-list-line() {}
+.hook-inverse-list-bullet() {}
+
+.hook-inverse-form() {}
+.hook-inverse-form-focus() {}
+
+.hook-inverse-button-default() {}
+.hook-inverse-button-default-hover() {}
+.hook-inverse-button-default-active() {}
+.hook-inverse-button-primary() {}
+.hook-inverse-button-primary-hover() {}
+.hook-inverse-button-primary-active() {}
+
+.hook-inverse-icon-hover() {}
+.hook-inverse-icon-hover-hover() {}
+.hook-inverse-icon-button() {}
+.hook-inverse-icon-button-hover() {}
+.hook-inverse-icon-button-active() {}
+
+.hook-inverse-text-lead() {}
+.hook-inverse-text-meta() {}
+
+.hook-inverse-misc() {}
+
+.hook-light() {}
+.hook-dark() {}

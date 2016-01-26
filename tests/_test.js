@@ -68,6 +68,7 @@
             "margin",
             "padding",
             "visibility",
+            "inverse",
 
 
         "::Components",

@@ -409,7 +409,7 @@ iframe {
 /* Link
  ========================================================================== */
 /*
- * Let links appear in default text color
+ * Muted
  */
 .uk-link-muted,
 .uk-link-muted a {
@@ -420,7 +420,7 @@ iframe {
   color: #444;
 }
 /*
- * Reset link style
+ * Reset
  */
 .uk-link-reset,
 .uk-link-reset:hover,
@@ -581,7 +581,7 @@ iframe {
  */
 .uk-description-list-line > dd:nth-last-child(n+2) {
   padding-bottom: 20px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e5e5e5;
 }
 /* ========================================================================
    Component: Table
@@ -1127,12 +1127,14 @@ select.uk-form-width-mini {
   display: -ms-inline-flexbox;
   display: -webkit-inline-flex;
   display: inline-flex;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
   /* 8 */
   text-decoration: none;
-  text-align: center;
   -webkit-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
@@ -1343,15 +1345,6 @@ select.uk-form-width-mini {
 [class*='uk-icon-']:focus {
   text-decoration: none;
 }
-/* Hover modifier
- ========================================================================== */
-.uk-icon-hover {
-  color: #999;
-}
-.uk-icon-hover:hover,
-.uk-icon-hover:focus {
-  color: #444;
-}
 /* Size modifier
  ========================================================================== */
 [class*='uk-icon-small'] {
@@ -1369,13 +1362,22 @@ select.uk-form-width-mini {
   background-position: 50% 50%;
   background-size: contain;
 }
-/* Modifier: `uk-icon-justify`
+/* TODO: Alignment modifier
  ========================================================================== */
 .uk-icon-justify {
   width: 1em;
   text-align: center;
 }
-/* Modifier: `uk-icon-button`
+/* Hover modifier
+ ========================================================================== */
+.uk-icon-hover {
+  color: #999;
+}
+.uk-icon-hover:hover,
+.uk-icon-hover:focus {
+  color: #444;
+}
+/* Button modifier
  ========================================================================== */
 /*
  * 1. Center icon vertically and horizontal
@@ -3693,6 +3695,180 @@ uk-grid + .uk-grid-collapse,
 .uk-touch .uk-hidden-touch,
 .uk-notouch .uk-hidden-notouch {
   display: none !important;
+}
+/* ========================================================================
+   Mixin: Inverse
+ ========================================================================== */
+.uk-light {
+  color: #fff;
+}
+.uk-light a:not([class]),
+.uk-light .uk-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+.uk-light a:not([class]):hover,
+.uk-light .uk-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.uk-light :not(pre) > code,
+.uk-light :not(pre) > kbd,
+.uk-light :not(pre) > samp {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+.uk-light em {
+  color: #fff;
+}
+.uk-light h1,
+.uk-light .uk-h1,
+.uk-light h2,
+.uk-light .uk-h2,
+.uk-light h3,
+.uk-light .uk-h3,
+.uk-light h4,
+.uk-light .uk-h4,
+.uk-light h5,
+.uk-light .uk-h5,
+.uk-light h6,
+.uk-light .uk-h6 {
+  color: #fff;
+}
+.uk-light hr {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-list-line > li:nth-child(n+2) {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-list-bullet > li:before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+}
+.uk-light .uk-form select,
+.uk-light .uk-form textarea,
+.uk-light .uk-form input:not([type]),
+.uk-light .uk-form input[type="text"],
+.uk-light .uk-form input[type="password"],
+.uk-light .uk-form input[type="datetime"],
+.uk-light .uk-form input[type="datetime-local"],
+.uk-light .uk-form input[type="date"],
+.uk-light .uk-form input[type="month"],
+.uk-light .uk-form input[type="time"],
+.uk-light .uk-form input[type="week"],
+.uk-light .uk-form input[type="number"],
+.uk-light .uk-form input[type="email"],
+.uk-light .uk-form input[type="url"],
+.uk-light .uk-form input[type="search"],
+.uk-light .uk-form input[type="tel"],
+.uk-light .uk-form input[type="color"] {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
+  color: #444;
+  background-clip: padding-box;
+}
+.uk-light .uk-form select:focus,
+.uk-light .uk-form textarea:focus,
+.uk-light .uk-form input:not([type]):focus,
+.uk-light .uk-form input[type="text"]:focus,
+.uk-light .uk-form input[type="password"]:focus,
+.uk-light .uk-form input[type="datetime"]:focus,
+.uk-light .uk-form input[type="datetime-local"]:focus,
+.uk-light .uk-form input[type="date"]:focus,
+.uk-light .uk-form input[type="month"]:focus,
+.uk-light .uk-form input[type="time"]:focus,
+.uk-light .uk-form input[type="week"]:focus,
+.uk-light .uk-form input[type="number"]:focus,
+.uk-light .uk-form input[type="email"]:focus,
+.uk-light .uk-form input[type="url"]:focus,
+.uk-light .uk-form input[type="search"]:focus,
+.uk-light .uk-form input[type="tel"]:focus,
+.uk-light .uk-form input[type="color"]:focus {
+  border-color: #fff;
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-form :-ms-input-placeholder {
+  color: rgba(68, 68, 68, 0.7) !important;
+}
+.uk-light .uk-form ::-moz-placeholder {
+  color: rgba(68, 68, 68, 0.7);
+}
+.uk-light .uk-form ::-webkit-input-placeholder {
+  color: rgba(68, 68, 68, 0.7);
+}
+.uk-light .uk-button-default {
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.uk-light .uk-button-default:hover,
+.uk-light .uk-button-default:focus {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.uk-light .uk-button-default:active,
+.uk-light .uk-button-default.uk-active {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.uk-light .uk-button-primary {
+  background-color: #fff;
+  color: #444;
+}
+.uk-light .uk-button-primary:hover,
+.uk-light .uk-button-primary:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-button-primary:active,
+.uk-light .uk-button-primary.uk-active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
+}
+.uk-light .uk-icon-hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-icon-hover:hover {
+  color: #fff;
+}
+.uk-light .uk-icon-button {
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-icon-button:hover,
+.uk-light .uk-icon-button:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-icon-button:active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
+}
+.uk-light .uk-grid-divider > :not(.uk-grid-first):before {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-text-lead {
+  color: #fff;
+}
+.uk-light .uk-text-meta {
+  color: rgba(255, 255, 255, 0.6);
+}
+.uk-light .uk-text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.uk-light .uk-text-primary {
+  color: #fff !important;
+}
+.uk-light .uk-column-divider {
+  -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
+  -moz-column-rule-color: rgba(255, 255, 255, 0.2);
+  column-rule-color: rgba(255, 255, 255, 0.2);
 }
 /* ========================================================================
    Component: Print

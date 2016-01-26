@@ -1,0 +1,91 @@
+//
+// Component: Inverse
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@inverse-button-default-background:            transparent;
+@inverse-button-default-color:                 fade(@inverse-color, 60%);
+@inverse-button-default-hover-background:      transparent;
+@inverse-button-default-hover-color:           @inverse-color;
+@inverse-button-default-active-background:     transparent;
+@inverse-button-default-active-color:          @inverse-color;
+
+
+// Base
+// ========================================================================
+
+.hook-inverse-base-link() {}
+.hook-inverse-base-link-hover() {}
+
+.hook-inverse-base-code() {
+    border-color: fade(@inverse-color, 20%);
+    background: fade(@inverse-color, 10%);
+}
+
+.hook-inverse-base-heading() {}
+
+.hook-inverse-base-hr() {}
+
+
+// List
+// ========================================================================
+
+.hook-inverse-list-line() {}
+.hook-inverse-list-bullet() {}
+
+
+// Form
+// ========================================================================
+
+.hook-inverse-form() {}
+.hook-inverse-form-focus() {}
+
+
+// Button
+// ========================================================================
+
+.hook-inverse-button-default() { border-color: fade(@inverse-color, 60%); }
+.hook-inverse-button-default-hover() { border-color: @inverse-color; }
+.hook-inverse-button-default-active() { border-color: @inverse-color; }
+
+.hook-inverse-button-default-primary() {}
+.hook-inverse-button-primary-hover() {}
+.hook-inverse-button-primary-active() {}
+
+
+// Icon
+// ========================================================================
+
+.hook-inverse-icon-hover() {}
+.hook-inverse-icon-hover-hover() {}
+
+.hook-inverse-icon-button() {}
+.hook-inverse-icon-button-hover() {}
+.hook-inverse-icon-button-active() {}
+
+
+// Text
+// ========================================================================
+
+.hook-inverse-text-lead() {}
+.hook-inverse-text-meta() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-inverse-misc() {}
+
+
+// Implementation
+// ========================================================================
+
+// Light colors for dark backgrounds
+.hook-light() { .inverse; }
+
+// Dark colors for light backgrounds
+.hook-dark() {}

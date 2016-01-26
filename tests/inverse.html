@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Align - UIkit tests</title>
+        <script src="_test.js"></script>
+        <link rel="stylesheet" href="../css/uikit.css">
+        <style type="text/css">
+
+            .uk-light { background: #222; }
+            .uk-dark { background: #fff; }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Inverse</h1>
+
+            <uk-grid class="uk-child-width-1-2@m">
+                <div>
+                    <div class="uk-panel uk-padding uk-light">
+
+                        <h2>Light</h2>
+
+                        <uk-grid class="uk-child-width-1-2@s">
+                            <div>
+
+                                <h3>Base</h3>
+
+                                <ul class="uk-list">
+                                    <li>The <a href="#">a element</a> example<br></li>
+                                    <li>The <code>code element</code> example<br></li>
+                                    <li>The <em>em element</em> example<br></li>
+                                </ul>
+
+                                <hr>
+
+                            </div>
+                            <div>
+
+                                <h3>Text</h3>
+
+                                <ul class="uk-list">
+                                    <li class="uk-text-muted">text-muted</li>
+                                    <li class="uk-text-primary">text-primary</li>
+                                    <li class="uk-text-meta">text-meta</li>
+                                    <li class="uk-text-lead">text-lead</li>
+                                </ul>
+
+                            </div>
+                        </uk-grid>
+
+                        <uk-grid class="uk-child-width-1-2@s">
+                            <div>
+
+                                <h3>List</h3>
+
+                                <ul class="uk-list uk-list-bullet">
+                                    <li>List item 1</li>
+                                    <li>List item 2</li>
+                                    <li>List item 3</li>
+                                </ul>
+
+                                <ul class="uk-list uk-list-line">
+                                    <li>List item 1</li>
+                                    <li>List item 2</li>
+                                    <li>List item 3</li>
+                                </ul>
+
+                            </div>
+                            <div>
+
+                                <h3>Form</h3>
+
+                                <form class="uk-form uk-panel uk-margin">
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-text">Text</label>
+                                        <input class="uk-width-1-1" id="form-text" type="text" placeholder="Some text...">
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-select">Select</label>
+                                        <select class="uk-width-1-1" id="form-select">
+                                            <option>Option 01</option>
+                                            <option>Option 02</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-textarea">Textarea</label>
+                                        <textarea class="uk-width-1-1" id="form-textarea" rows="2" placeholder="Some text..."></textarea>
+                                    </div>
+
+                                    <uk-grid class="uk-grid-small uk-child-width-auto">
+                                        <div>
+                                            <label><input type="radio" name="radio"> Radio</label>
+                                        </div>
+                                        <div>
+                                            <label><input type="checkbox"> Checkbox</label>
+                                        </div>
+                                    </uk-grid>
+
+                                </form>
+
+                            </div>
+                        </uk-grid>
+
+                        <uk-grid class="uk-child-width-1-2@s">
+                            <div>
+
+                                <h3>Button</h3>
+
+                                <p>
+                                    <button class="uk-button uk-button-default">Button</button>
+                                    <button class="uk-button uk-button-primary">Button</button>
+                                </p>
+
+                            </div>
+                            <div>
+
+                                <h3>Icon</h3>
+
+                                <uk-grid class="uk-grid-small uk-child-width-auto">
+                                    <div>
+                                        <a class="uk-icon-hover" href="#">
+                                            <svg class="uk-icon-trash">
+                                                <use xlink:href="../src/images/icons.svg#trash"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <svg class="uk-icon-thumbnails uk-icon-hover">
+                                            <use xlink:href="../src/images/icons.svg#thumbnails"></use>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <a class="uk-icon-button" href="#">
+                                            <svg class="uk-icon-trash">
+                                                <use xlink:href="../src/images/icons.svg#trash"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a class="uk-icon-button" href="#">
+                                            <svg class="uk-icon-trash">
+                                                <use xlink:href="../src/images/icons.svg#trash"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </uk-grid>
+
+                            </div>
+                        </uk-grid>
+
+                        <h3>Grid</h3>
+
+                        <div is="uk-grid" class="uk-grid-divider uk-child-width-1-3">
+                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                        </div>
+
+                        <h3>Column</h3>
+
+                        <div class="uk-margin uk-column-divider uk-column-1-3">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-panel uk-padding uk-dark">
+
+                        <h2>Dark</h2>
+
+                        <uk-grid class="uk-child-width-1-2@s">
+                            <div>
+
+                                <h3>Base</h3>
+
+                                <ul class="uk-list">
+                                    <li>The <a href="#">a element</a> example<br></li>
+                                    <li>The <code>code element</code> example<br></li>
+                                    <li>The <em>em element</em> example<br></li>
+                                </ul>
+
+                                <hr>
+
+                            </div>
+                            <div>
+
+                                <h3>Text</h3>
+
+                                <ul class="uk-list">
+                                    <li class="uk-text-muted">text-muted</li>
+                                    <li class="uk-text-primary">text-primary</li>
+                                    <li class="uk-text-meta">text-meta</li>
+                                    <li class="uk-text-lead">text-lead</li>
+                                </ul>
+
+                            </div>
+                        </uk-grid>
+
+                        <uk-grid class="uk-child-width-1-2@s">
+                            <div>
+
+                                <h3>List</h3>
+
+                                <ul class="uk-list uk-list-bullet">
+                                    <li>List item 1</li>
+                                    <li>List item 2</li>
+                                    <li>List item 3</li>
+                                </ul>
+
+                                <ul class="uk-list uk-list-line">
+                                    <li>List item 1</li>
+                                    <li>List item 2</li>
+                                    <li>List item 3</li>
+                                </ul>
+
+                            </div>
+                            <div>
+
+                                <h3>Form</h3>
+
+                                <form class="uk-form uk-panel uk-margin">
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-text">Text</label>
+                                        <input class="uk-width-1-1" id="form-text" type="text" placeholder="Some text...">
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-select">Select</label>
+                                        <select class="uk-width-1-1" id="form-select">
+                                            <option>Option 01</option>
+                                            <option>Option 02</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-textarea">Textarea</label>
+                                        <textarea class="uk-width-1-1" id="form-textarea" rows="2" placeholder="Some text..."></textarea>
+                                    </div>
+
+                                    <uk-grid class="uk-grid-small uk-child-width-auto">
+                                        <div>
+                                            <label><input type="radio" name="radio"> Radio</label>
+                                        </div>
+                                        <div>
+                                            <label><input type="checkbox"> Checkbox</label>
+                                        </div>
+                                    </uk-grid>
+
+                                </form>
+
+                            </div>
+                        </uk-grid>
+
+                        <uk-grid class="uk-child-width-1-2@s">
+                            <div>
+
+                                <h3>Button</h3>
+
+                                <p>
+                                    <button class="uk-button uk-button-default">Button</button>
+                                    <button class="uk-button uk-button-primary">Button</button>
+                                </p>
+
+                            </div>
+                            <div>
+
+                                <h3>Icon</h3>
+
+                                <uk-grid class="uk-grid-small uk-child-width-auto">
+                                    <div>
+                                        <a class="uk-icon-hover" href="#">
+                                            <svg class="uk-icon-trash">
+                                                <use xlink:href="../src/images/icons.svg#trash"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <svg class="uk-icon-thumbnails uk-icon-hover">
+                                            <use xlink:href="../src/images/icons.svg#thumbnails"></use>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <a class="uk-icon-button" href="#">
+                                            <svg class="uk-icon-trash">
+                                                <use xlink:href="../src/images/icons.svg#trash"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a class="uk-icon-button" href="#">
+                                            <svg class="uk-icon-trash">
+                                                <use xlink:href="../src/images/icons.svg#trash"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </uk-grid>
+
+                            </div>
+                        </uk-grid>
+
+                        <h3>Grid</h3>
+
+                        <div is="uk-grid" class="uk-grid-divider uk-child-width-1-3">
+                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
+                        </div>
+
+                        <h3>Column</h3>
+
+                        <div class="uk-margin uk-column-divider uk-column-1-3">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </uk-grid>
+
+        </div>
+
+    </body>
+</html>
