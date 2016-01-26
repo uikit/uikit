@@ -1734,8 +1734,7 @@ select.uk-form-width-mini {
  * 1. Allow cells to wrap into the next line
  * 2. Makes it more robust so that it can be used with other block elements like lists
  */
-uk-grid,
-[is="uk-grid"] {
+[is*="uk-grid"] {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -1753,8 +1752,7 @@ uk-grid,
  * 1. Space is allocated solely based on content dimensions: 0 0 auto
  * 2. Makes it more robust so that it can be used with other block elements
  */
-uk-grid > *,
-[is="uk-grid"] > * {
+[is*="uk-grid"] > * {
   /* 1 */
   -ms-flex: none;
   -webkit-flex: none;
@@ -1765,8 +1763,7 @@ uk-grid > *,
 /*
  * Remove margin from the last-child
  */
-uk-grid > * > :last-child,
-[is="uk-grid"] > * > :last-child {
+[is*="uk-grid"] > * > :last-child {
   margin-bottom: 0;
 }
 /* Gutter
@@ -1775,37 +1772,29 @@ uk-grid > * > :last-child,
  * Default
  */
 /* Horizontal */
-uk-grid,
-[is="uk-grid"] {
+[is*="uk-grid"] {
   margin-left: -30px;
 }
-uk-grid > *,
-[is="uk-grid"] > * {
+[is*="uk-grid"] > * {
   padding-left: 30px;
 }
 /* Vertical */
-uk-grid + uk-grid,
-uk-grid > .uk-grid-margin,
-[is="uk-grid"] + [is="uk-grid"],
-[is="uk-grid"] > .uk-grid-margin {
+[is*="uk-grid"] + [is*="uk-grid"],
+[is*="uk-grid"] > .uk-grid-margin {
   margin-top: 30px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  uk-grid,
-  [is="uk-grid"] {
+  [is*="uk-grid"] {
     margin-left: -40px;
   }
-  uk-grid > *,
-  [is="uk-grid"] > * {
+  [is*="uk-grid"] > * {
     padding-left: 40px;
   }
   /* Vertical */
-  uk-grid + uk-grid,
-  uk-grid > .uk-grid-margin,
-  [is="uk-grid"] + [is="uk-grid"],
-  [is="uk-grid"] > .uk-grid-margin {
+  [is*="uk-grid"] + [is*="uk-grid"],
+  [is*="uk-grid"] > .uk-grid-margin {
     margin-top: 40px;
   }
 }
@@ -1820,9 +1809,8 @@ uk-grid > .uk-grid-margin,
   padding-left: 10px;
 }
 /* Vertical */
-uk-grid + .uk-grid-small,
-.uk-grid-small > .uk-grid-margin,
-[is="uk-grid"] + .uk-grid-small {
+[is*="uk-grid"] + .uk-grid-small,
+.uk-grid-small > .uk-grid-margin {
   margin-top: 10px;
 }
 /*
@@ -1836,9 +1824,8 @@ uk-grid + .uk-grid-small,
   padding-left: 30px;
 }
 /* Vertical */
-uk-grid + .uk-grid-medium,
-.uk-grid-medium > .uk-grid-margin,
-[is="uk-grid"] + .uk-grid-medium {
+[is*="uk-grid"] + .uk-grid-medium,
+.uk-grid-medium > .uk-grid-margin {
   margin-top: 30px;
 }
 /*
@@ -1852,9 +1839,8 @@ uk-grid + .uk-grid-medium,
   padding-left: 40px;
 }
 /* Vertical */
-uk-grid + .uk-grid-large,
-.uk-grid-large > .uk-grid-margin,
-[is="uk-grid"] + .uk-grid-large {
+[is*="uk-grid"] + .uk-grid-large,
+.uk-grid-large > .uk-grid-margin {
   margin-top: 40px;
 }
 /* Desktop and bigger */
@@ -1867,9 +1853,8 @@ uk-grid + .uk-grid-large,
     padding-left: 70px;
   }
   /* Vertical */
-  uk-grid + .uk-grid-large,
-  .uk-grid-large > .uk-grid-margin,
-  [is="uk-grid"] + .uk-grid-large {
+  [is*="uk-grid"] + .uk-grid-large,
+  .uk-grid-large > .uk-grid-margin {
     margin-top: 70px;
   }
 }
@@ -1884,9 +1869,8 @@ uk-grid + .uk-grid-large,
   padding-left: 0;
 }
 /* Vertical */
-uk-grid + .uk-grid-collapse,
-.uk-grid-collapse > .uk-grid-margin,
-[is="uk-grid"] + .uk-grid-collapse {
+[is*="uk-grid"] + .uk-grid-collapse,
+.uk-grid-collapse > .uk-grid-margin {
   margin-top: 0;
 }
 /* Divider
@@ -2058,8 +2042,6 @@ uk-grid + .uk-grid-collapse,
   flex: auto;
   box-sizing: border-box;
 }
-/* Web Component
- ========================================================================== */
 /* ========================================================================
    Component: Card
  ========================================================================== */
