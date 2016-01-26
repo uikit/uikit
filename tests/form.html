@@ -15,7 +15,7 @@
 
             <h1>Form</h1>
 
-            <uk-grid>
+            <div is="uk-grid">
                 <div class="uk-width-2-3@s">
 
                     <h2>Horizontal</h2>
@@ -51,12 +51,12 @@
                             <div class="uk-form-controls uk-form-controls-text">
                                 <label><input type="radio" name="radio1"> Option 01</label><br>
                                 <label><input type="radio" name="radio1"> Option 02</label>
-                                <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
+                                <div is="uk-grid" class="uk-margin uk-grid-small uk-child-width-auto">
                                     <label><input type="radio" name="radio2"> A</label>
                                     <label><input type="radio" name="radio2"> B</label>
                                     <label><input type="radio" name="radio2"> C</label>
                                     <label><input type="radio" name="radio2"> D</label>
-                                </uk-grid>
+                                </div>
                             </div>
                         </div>
 
@@ -65,12 +65,12 @@
                             <div class="uk-form-controls uk-form-controls-text">
                                 <label><input type="checkbox"> Option 01</label><br>
                                 <label><input type="checkbox"> Option 02</label>
-                                <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
+                                <div is="uk-grid" class="uk-margin uk-grid-small uk-child-width-auto">
                                     <label><input type="checkbox"> A</label>
                                     <label><input type="checkbox"> B</label>
                                     <label><input type="checkbox"> C</label>
                                     <label><input type="checkbox"> D</label>
-                                </uk-grid>
+                                </div>
                             </div>
                         </div>
 
@@ -180,7 +180,7 @@
                         <div class="uk-margin-small">
                             <input class="uk-width-1-1" type="text" placeholder=":disabled" disabled>
                         </div>
-                        <uk-grid class="uk-margin-small uk-grid-small">
+                        <div is="uk-grid" class="uk-margin-small uk-grid-small">
                             <div class="uk-width-expand">
                                 <input class="test-focus uk-width-1-1" type="text" placeholder=":focus" required>
                                 <script>$('.test-focus')[0].focus();</script>
@@ -188,7 +188,7 @@
                             <div class="uk-width-auto">
                                 <button class="uk-button uk-button-default uk-width-1-1">Required</button>
                             </div>
-                        </uk-grid>
+                        </div>
                         <div class="uk-margin-small">
                             <input class="uk-form-danger uk-width-1-1" type="text" placeholder="form-danger" value="form-danger">
                         </div>
@@ -226,24 +226,24 @@
                             <span class="uk-form-label">Radio</span>
                             <label><input type="radio" name="radio1"> Option 01</label><br>
                             <label><input type="radio" name="radio1"> Option 02</label>
-                            <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
+                            <div is="uk-grid" class="uk-margin uk-grid-small uk-child-width-auto">
                                 <label><input type="radio" name="radio2"> A</label>
                                 <label><input type="radio" name="radio2"> B</label>
                                 <label><input type="radio" name="radio2"> C</label>
                                 <label><input type="radio" name="radio2"> D</label>
-                            </uk-grid>
+                            </div>
                         </div>
 
                         <div class="uk-margin">
                             <span class="uk-form-label">Checkbox</span>
                             <label><input type="checkbox"> Option 01</label><br>
                             <label><input type="checkbox"> Option 02</label>
-                            <uk-grid class="uk-margin uk-grid-small uk-child-width-auto">
+                            <div is="uk-grid" class="uk-margin uk-grid-small uk-child-width-auto">
                                 <label><input type="checkbox"> A</label>
                                 <label><input type="checkbox"> B</label>
                                 <label><input type="checkbox"> C</label>
                                 <label><input type="checkbox"> D</label>
-                            </uk-grid>
+                            </div>
                         </div>
 
                         <div class="uk-margin">
@@ -334,7 +334,7 @@
                     </fieldset>
 
                 </form>
-            </uk-grid>
+            </div>
 
         </div>
 
