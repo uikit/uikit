@@ -44,8 +44,8 @@
 
         "::Common",
 
-            "icon",
             "alert",
+            "icon",
 
         "::Navigation",
 
@@ -57,6 +57,9 @@
             "container",
             "grid",
             "card",
+
+        "::JavaScript",
+            "toggle",
 
         "::Utilities",
 

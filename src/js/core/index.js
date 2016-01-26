@@ -3,6 +3,7 @@ import Alert from './alert';
 import Grid from './grid';
 import Responsive from './responsive';
 import Svg from './svg';
+import Toggle from './toggle';
 
 export default function (UIkit, _) {
 
@@ -20,5 +21,6 @@ export default function (UIkit, _) {
     UIkit.use(Grid);
     UIkit.use(Responsive);
     UIkit.use(Svg);
+    UIkit.use(Toggle);
 
 }

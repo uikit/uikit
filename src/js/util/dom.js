@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import {str2json, extend} from './lang';
+import {hasAnimation} from './env';
 
 export function attributes(element) {
 
@@ -35,6 +36,27 @@ export function isInView(element, options) {
 
     return !!(top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
     left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width());
+}
+
+export function animate(element, cls) {
+
+    var d = $.Deferred();
+
+    element = $(element);
+
+    if (hasAnimation) {
+
+        element.css('display', 'none').addClass(cls).one(hasAnimation.end, function () {
+            element.removeClass(cls);
+            d.resolve();
+        });
+
+        element.css('display', '');
+    } else {
+        d.resolve();
+    }
+
+    return d.promise();
 }
 
 export function ready(fn) {
