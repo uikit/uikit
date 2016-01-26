@@ -2,6 +2,8 @@ import {classify, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
+    const DATA = UIkit.data;
+
     UIkit.use = function (plugin) {
 
         if (plugin.installed) {
@@ -34,6 +36,20 @@ export default function (UIkit) {
 
         return Sub;
     };
+
+    UIkit.getComponents = function (element, children) {
+        var components = ((element instanceof jQuery ? element[0] : element)[DATA]) || [];
+
+        if (children) {
+            $(UIkit.elements, element).each(function () {
+                if (this[DATA]) {
+                    components.concat(this[DATA]);
+                }
+            });
+        }
+
+        return components;
+    }
 
 }
 

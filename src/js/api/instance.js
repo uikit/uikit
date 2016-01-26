@@ -4,34 +4,17 @@ export default function (UIkit) {
 
     const DATA = UIkit.data;
 
-    UIkit.prototype.$on = function (a1, a2, a3) {
-        return this.$el.on(a1, a2, a3);
-    };
-
-    UIkit.prototype.$one = function (a1, a2, a3) {
-        return this.$el.one(a1, a2, a3);
-    };
-
-    UIkit.prototype.$off = function (e) {
-        return this.$el.off(e);
-    };
-
-    UIkit.prototype.$trigger = function (e, params) {
-        return this.$el.trigger(e, params);
-    };
-
-    UIkit.prototype.$find = function (selector) {
-        return this.$el.find(selector);
-    };
-
     UIkit.prototype.$mount = function (el) {
 
         var name = this.$options.name;
 
-        el[DATA] = el[DATA] || {};
+        if (!el[DATA]) {
+            el[DATA] = {};
+            UIkit.elements.push(el);
+        }
 
         if (el[DATA][name]) {
-            console.warn('Component ' + name + ' already attached.');
+            console.warn('Component "' + name + '" is already mounted on element: ' + el);
         }
 
         el[DATA][name] = this;
@@ -42,13 +25,42 @@ export default function (UIkit) {
         this._callHook('ready');
     };
 
-    UIkit.prototype.$destroy = function () {
+    UIkit.prototype.$update = function (e) {
 
-        if (this.$options.el) {
-            delete this.$options.el[DATA][this.$options.name];
+        if (!e) {
+            e = 'update';
         }
 
+        if (typeof e === 'string') {
+            var ev = document.createEvent('Event');
+            ev.initEvent(e, true, false);
+            e = ev;
+        }
+
+        UIkit.getComponents.forEach(component => {
+            component._callUpdate(e);
+        });
+    };
+
+    UIkit.prototype.$destroy = function () {
+
         this._callHook('destroy');
+
+        delete UIkit.instances[this._uid];
+
+        if (!this.$options.el) {
+            return;
+        }
+
+        var el = this.$options.el;
+        delete el[DATA][this.$options.name];
+
+        if (!Object.keys(el[DATA]).length) {
+            delete el[DATA];
+            delete UIkit.elements[UIkit.elements.indexOf(el)];
+        }
+
+        this.$el.remove();
     };
 
 }

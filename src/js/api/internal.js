@@ -1,4 +1,4 @@
-import {bind, mergeOptions} from '../util/index';
+import {bind, mergeOptions, isPlainObject} from '../util/index';
 
 var uid = 0;
 
@@ -14,8 +14,13 @@ export default function (UIkit) {
         this.$el = null;
 
         this._uid = uid++;
+
+        UIkit.instances[this._uid] = this;
+
         this._initData();
         this._initMethods();
+
+        this._callHook('init');
 
         if (options.el) {
             this.$mount(options.el);
@@ -37,14 +42,21 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function () {
 
         var el = this.$options.el,
-            props = this.$options.props;
+            props = this.$options.props, val, type;
 
         if (props) {
-            props.forEach(key => {
+            for (var key in props) {
                 if (el.hasAttribute(key)) {
-                    this[key] = el.getAttribute(key);
+                    type = props[key];
+                    val = el.getAttribute(key);
+
+                    if (type === Boolean && val.toLowerCase() === 'false') {
+                        val = false;
+                    }
+
+                    this[key] = type(val);
                 }
-            });
+            }
         }
     };
 
@@ -69,5 +81,26 @@ export default function (UIkit) {
             }
         }
     };
+
+    UIkit.prototype._callUpdate = function (e) {
+
+        var handlers = this.$options['update'];
+
+        if (handlers) {
+            handlers.forEach(handler => {
+                if (isPlainObject(handler)) {
+
+                    if (handler.on && handler.on.indexOf(e.type) === -1) {
+                        return;
+                    }
+
+                    handler = handler.handler;
+                }
+
+                handler.call(this, e);
+            });
+        }
+
+    }
 
 }

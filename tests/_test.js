@@ -73,6 +73,7 @@
 
         "::Components",
 
+            "alert",
             "form-advanced"
 
 

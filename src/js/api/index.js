@@ -12,6 +12,8 @@ var UIkit = function (options) {
 UIkit.util = util;
 UIkit.data = '__uikit__';
 UIkit.options = {};
+UIkit.instances = {};
+UIkit.elements = [];
 
 globalAPI(UIkit);
 internalAPI(UIkit);

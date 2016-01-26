@@ -3,14 +3,6 @@ import domMixin from '../mixin/dom';
 
 export default function (UIkit) {
 
-    var grids = [];
-
-    $(window).on('resize orientationchange', e => {
-        grids.forEach(grid => {
-            grid.check();
-        });
-    });
-
     UIkit.component('grid', {
 
         mixins: [domMixin],
@@ -24,10 +16,14 @@ export default function (UIkit) {
         },
 
         ready() {
-
             this.check();
-            grids.push(this);
+        },
 
+        update: {
+            handler() {
+                this.check();
+            },
+            on: ['resize', 'orientationchange']
         },
 
         methods: {
@@ -51,6 +47,8 @@ export default function (UIkit) {
                         $(column)[$(column).position().left == pos_cache.left ? 'addClass' : 'removeClass'](this.rowfirst);
                     });
                 }
+
+                return this;
             },
 
             matcher() {

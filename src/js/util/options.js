@@ -1,9 +1,11 @@
-import {extend, isArray, hasOwn, unique} from './index';
+import {extend, isArray, hasOwn} from './index';
 
-let strats = {};
+var strats = {};
 
 // concat strategy
+strats.init =
 strats.ready =
+strats.update =
 strats.destroy = function (parentVal, childVal) {
     return childVal
         ? parentVal
@@ -14,15 +16,18 @@ strats.destroy = function (parentVal, childVal) {
         : parentVal;
 };
 
-// unique concat strategy
+// property strategy
 strats.props = function (parentVal, childVal) {
-    return childVal
-        ? parentVal
-            ? unique(parentVal.concat(childVal))
-            : isArray(childVal)
-                ? childVal
-                : [childVal]
-        : parentVal;
+
+    if (isArray(childVal)) {
+        var ret = {};
+        childVal.forEach(val => {
+            ret[val] = String;
+        });
+        childVal = ret;
+    }
+
+    return strats.methods(parentVal, childVal);
 };
 
 // extend strategy
@@ -36,13 +41,13 @@ strats.methods = function (parentVal, childVal) {
 };
 
 // default strategy
-let defaultStrat = function (parentVal, childVal) {
+var defaultStrat = function (parentVal, childVal) {
     return childVal === undefined ? parentVal : childVal;
 };
 
 export function mergeOptions (parent, child, thisArg) {
 
-    let options = {}, key;
+    var options = {}, key;
 
     if (child.mixins) {
         for (let i = 0, l = child.mixins.length; i < l; i++) {
@@ -65,4 +70,4 @@ export function mergeOptions (parent, child, thisArg) {
     }
 
     return options;
-};
+}

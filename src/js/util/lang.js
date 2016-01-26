@@ -1,4 +1,4 @@
-export {each, extend, map, merge, type, isArray, isFunction, unique} from 'jquery';
+export {each, extend, map, merge, type, isArray, isFunction, isPlainObject} from 'jquery';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 
