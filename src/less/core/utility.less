@@ -166,14 +166,16 @@
  */
 
 .uk-responsive-width,
-.uk-responsive-height { box-sizing: border-box; }
+.uk-responsive-height,
+[is*="uk-responsive"] { box-sizing: border-box; }
 
 /*
  * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
  * `important` needed to override `uk-img-preserve img`
  */
 
-.uk-responsive-width {
+.uk-responsive-width,
+[is*="uk-responsive"] {
     max-width: 100% !important;
     height: auto;
 }
