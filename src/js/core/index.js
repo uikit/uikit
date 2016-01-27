@@ -3,6 +3,7 @@ import Alert from './alert';
 import Cover from './cover';
 import Grid from './grid';
 import MarginWrap from './margin-wrap';
+import MatchHeight from './match-height';
 import Responsive from './responsive';
 import Svg from './svg';
 import Toggle from './toggle';
@@ -24,6 +25,7 @@ export default function (UIkit, _) {
     UIkit.use(Cover);
     UIkit.use(Grid);
     UIkit.use(MarginWrap);
+    UIkit.use(MatchHeight);
     UIkit.use(Responsive);
     UIkit.use(Svg);
     UIkit.use(Toggle);
