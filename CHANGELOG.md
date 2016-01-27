@@ -10,6 +10,7 @@
   - Fixed drop target detection (sortable)
   - Fixed parallax for images with smaller width
   - Fixed parallax for elements with padding
+  - Fixed responsiveElement initialization
 
 ### 2.24.3 (December 18, 2015)
 

@@ -281,12 +281,11 @@
         var d = $.Deferred();
 
         element = UI.$(element);
-        cls     = cls;
 
         element.css('display', 'none').addClass(cls).one(UI.support.animation.end, function() {
             element.removeClass(cls);
             d.resolve();
-        }).width();
+        });
 
         element.css('display', '');
 

@@ -118,7 +118,7 @@
 
                         var ele = UI.$(this), obj;
 
-                        if (!ele.data("responsiveIframe")) {
+                        if (!ele.data("responsiveElement")) {
                             obj = UI.responsiveElement(ele, {});
                         }
                     });
