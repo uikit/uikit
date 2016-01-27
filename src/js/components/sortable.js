@@ -515,7 +515,9 @@
             }
 
             triggers.forEach(function (trigger, i) {
-                trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
+                if (trigger.sortable) {
+                    trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
+                }
             });
         },
 
