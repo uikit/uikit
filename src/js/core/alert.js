@@ -4,7 +4,7 @@ export default function (UIkit) {
 
         props: {
             fade: Boolean,
-            duration: Number,
+            duration: String,
             trigger: String
         },
 
@@ -18,7 +18,9 @@ export default function (UIkit) {
             this.$el.on('click', this.trigger, e => {
                 e.preventDefault();
                 this.close();
-            })
+            });
+
+            this.duration = Number(this.duration) || this.duration;
         },
 
         methods: {
