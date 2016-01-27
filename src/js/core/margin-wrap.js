@@ -2,13 +2,13 @@ import marginMixin from '../mixin/margin';
 
 export default function (UIkit) {
 
-    UIkit.component('grid', {
+    UIkit.component('margin-wrap', {
 
         mixins: [marginMixin],
 
         defaults: {
-            margin: 'uk-grid-margin',
-            rowfirst: 'uk-grid-first'
+            margin: 'uk-margin-small-top',
+            rowfirst: false
         }
 
     });

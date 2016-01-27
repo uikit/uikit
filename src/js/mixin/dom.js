@@ -61,40 +61,7 @@ export default {
             }
         },
 
-        stackMargin(elements, options) {
-
-            options = extend({
-                margin: 'uk-margin-small-top'
-            }, options);
-
-            options.margin = options.margin;
-
-            elements = $(elements).removeClass(options.margin);
-
-            let skip = false,
-                firstvisible = elements.filter(":visible:first"),
-                offset = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
-
-            if (offset === false || elements.length == 1) return;
-
-            elements.each(function () {
-
-                let column = $(this);
-
-                if (column.is(":visible")) {
-
-                    if (skip) {
-                        column.addClass(options.margin);
-                    } else {
-
-                        if (column.position().top >= offset) {
-                            skip = column.addClass(options.margin);
-                        }
-                    }
-                }
-            });
-        },
-
+        // TODO remove
         checkDisplay(context, initanimation) {
 
             let elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
