@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Alert from './alert';
+import Cover from './cover';
 import Grid from './grid';
 import MarginWrap from './margin-wrap';
 import Responsive from './responsive';
@@ -20,6 +21,7 @@ export default function (UIkit, _) {
 
     // core components
     UIkit.use(Alert);
+    UIkit.use(Cover);
     UIkit.use(Grid);
     UIkit.use(MarginWrap);
     UIkit.use(Responsive);
