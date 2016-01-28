@@ -4,8 +4,8 @@ export default function (UIkit) {
 
         props: {
             automute: Boolean,
-            width: String,
-            height: String
+            width: Number,
+            height: Number
         },
 
         defaults: {automute: true},
