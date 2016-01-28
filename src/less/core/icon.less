@@ -14,8 +14,7 @@
 // Variables
 // ========================================================================
 
-
-@icon-small-size:                               13px;
+@icon-image-size:                               20px;
 
 @icon-hover-color:                              @global-muted-color;
 @icon-hover-hover-color:                        @global-color;
@@ -37,16 +36,18 @@
  ========================================================================== */
 
 /*
- * 1. Size
- * 2. Color
- * 3. Alignment
+ * 1. Let the SVG color use the current text color
+ * 2. Alignment
+ * 3. `background-image` is used to pass the image path to JS
  */
 
 .uk-icon,
 [is*='uk-icon'] {
     display: inline-block;
+    /* 1 */
     fill: currentcolor;
     vertical-align: middle;
+    /* 3 */
     background: url("@{global-image-path}/icons.svg") 50% 50% no-repeat;
 }
 
@@ -59,17 +60,16 @@
 }
 
 
-/* Contain modifier
+/* Image modifier
  ========================================================================== */
 
 /*
- * Used to display images in icon dimensions
+ * Display images in icon dimensions
  */
 
-.uk-icon-contain {
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+.uk-icon-image {
+    width: @icon-image-size;
+    height: @icon-image-size;
     background-size: contain;
 }
 
@@ -106,12 +106,14 @@
  */
 
 .uk-icon-button {
+    display: inline-block;
     box-sizing: border-box;
     width: @icon-button-size;
     height: @icon-button-size;
     border-radius: @icon-button-border-radius;
     background: @icon-button-background;
     color: @icon-button-color;
+    vertical-align: middle;
     /* 1 */
     display: -ms-inline-flexbox;
     display: -webkit-inline-flex;
