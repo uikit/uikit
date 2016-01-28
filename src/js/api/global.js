@@ -40,5 +40,5 @@ export default function (UIkit) {
 }
 
 function createClass(name) {
-    return new Function('return function ' + classify(name) + ' (options) { this._init(options); }')();
+    return new Function(`return function ${classify(name)} (options) { this._init(options); }`)();
 }

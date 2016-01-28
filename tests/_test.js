@@ -70,6 +70,7 @@
             "align",
             "utility",
             "margin",
+            "match-height",
             "padding",
             "visibility",
             "inverse",

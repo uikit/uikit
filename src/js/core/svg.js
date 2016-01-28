@@ -1,34 +1,32 @@
 import $ from 'jquery';
+import svgMixin from '../mixin/svg';
 
 export default function (UIkit) {
 
     UIkit.component('svg', {
 
-        props: ['id', 'class', 'style', 'width', 'height', 'src'],
+        mixins: [svgMixin],
+
+        props: ['src'],
 
         ready() {
 
-            $.get(this.src, doc => {
+            if (this.src.indexOf('#') !== -1) {
 
-                var $svg = $(doc.documentElement);
+                this.insert(`<svg><use xlink:href="${this.src}"/></svg>`);
 
-                for (var prop in this.$options.props) {
-                    if (prop !== 'src' && this[prop]) {
-                        $svg.attr(prop, this[prop]);
+            } else {
+
+                this.get(this.src).then(doc => {
+
+                    if (!doc.documentElement || doc.documentElement.tagName.toLowerCase() !== 'svg') {
+                        return;
                     }
-                }
 
-                if (this.width && !this.height) {
-                    $svg.removeAttr('height');
-                }
+                    this.insert(doc.documentElement);
+                });
 
-                if (this.height && !this.width) {
-                    $svg.removeAttr('width');
-                }
-
-                this.$el.replaceWith($svg);
-
-            });
+            }
 
         }
 
