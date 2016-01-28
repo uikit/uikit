@@ -42,27 +42,28 @@
  * 3. Alignment
  */
 
-[class*='uk-icon-'] {
+[is*='uk-icon-'] {
+    display: inline-block;
     width: @icon-size;
     height: @icon-size;
     fill: currentcolor;
     vertical-align: middle;
-
+    background: url("@{global-image-path}/icons.svg") 50% 50% no-repeat;
 }
 
 /*
  * Remove `text-decoration` for anchors
  */
 
-[class*='uk-icon-'],
-[class*='uk-icon-']:hover,
-[class*='uk-icon-']:focus { text-decoration: none; }
+[is*='uk-icon-'],
+[is*='uk-icon-']:hover,
+[is*='uk-icon-']:focus { text-decoration: none; }
 
 
 /* Size modifier
  ========================================================================== */
 
-[class*='uk-icon-small'] {
+[is*='uk-icon-small'] {
     width: @icon-small-size;
     height: @icon-small-size;
 }
