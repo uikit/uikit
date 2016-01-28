@@ -6,6 +6,7 @@
   "scripts": {
     "compile-less": "lessc src/less/uikit.less > css/uikit.css",
     "compile-js": "webpack -d --progress --colors",
+    "compile": "npm run compile-less & npm run compile-js",
     "watch-less": "watch-run -i -p 'src/less/**/*.less' npm run compile-less",
     "watch-js": "watch-run -i -p 'src/js/**/*.js' npm run compile-js",
     "watch": "npm run watch-less & npm run watch-js"
