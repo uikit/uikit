@@ -14,7 +14,7 @@
 // Variables
 // ========================================================================
 
-@icon-size:                                     20px;
+
 @icon-small-size:                               13px;
 
 @icon-hover-color:                              @global-muted-color;
@@ -42,30 +42,20 @@
  * 3. Alignment
  */
 
-[is*='uk-icon-'] {
+.uk-icon,
+[is*='uk-icon'] {
     display: inline-block;
-    width: @icon-size;
-    height: @icon-size;
     fill: currentcolor;
     vertical-align: middle;
     background: url("@{global-image-path}/icons.svg") 50% 50% no-repeat;
 }
 
-/*
- * Remove `text-decoration` for anchors
- */
-
-[is*='uk-icon-'],
-[is*='uk-icon-']:hover,
-[is*='uk-icon-']:focus { text-decoration: none; }
-
 
 /* Size modifier
  ========================================================================== */
 
-[is*='uk-icon-small'] {
-    width: @icon-small-size;
-    height: @icon-small-size;
+.uk-icon-small {
+
 }
 
 

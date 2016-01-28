@@ -1331,28 +1331,15 @@ select.uk-form-width-mini {
  * 2. Color
  * 3. Alignment
  */
-[is*='uk-icon-'] {
+.uk-icon,
+[is*='uk-icon'] {
   display: inline-block;
-  width: 20px;
-  height: 20px;
   fill: currentcolor;
   vertical-align: middle;
   background: url("../src/images/icons.svg") 50% 50% no-repeat;
 }
-/*
- * Remove `text-decoration` for anchors
- */
-[is*='uk-icon-'],
-[is*='uk-icon-']:hover,
-[is*='uk-icon-']:focus {
-  text-decoration: none;
-}
 /* Size modifier
  ========================================================================== */
-[is*='uk-icon-small'] {
-  width: 13px;
-  height: 13px;
-}
 /* Contain modifier
  ========================================================================== */
 /*
