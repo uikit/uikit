@@ -49,7 +49,6 @@ export default function (UIkit) {
                         var offset = el.offset().top;
 
                         if (offset != lastOffset && group.length) {
-                            console.log(group)
                             this.match($(group));
                             group = [];
                             offset = el.offset().top;

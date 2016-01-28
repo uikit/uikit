@@ -8,19 +8,18 @@ import MatchHeight from './match-height';
 import Responsive from './responsive';
 import Svg from './svg';
 import Toggle from './toggle';
-import {debounce} from '../util/lang';
+import {throttle} from '../util/index';
 
 export default function (UIkit, _) {
 
     // add touch identifier class
     $('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');
 
-    // TODO debounce
-    $(window).on('resize orientationchange', debounce(e => {
+    $(window).on('resize orientationchange', throttle(e => {
         for (var id in UIkit.instances) {
             UIkit.instances[id]._callUpdate(e);
         }
-    }, 15));
+    }, 150));
 
     // core components
     UIkit.use(Alert);
