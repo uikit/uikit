@@ -1,4 +1,4 @@
-export {each, extend, map, merge, type, isArray, isFunction, isPlainObject} from 'jquery';
+export {each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
 
 export const debounce = require('lodash.debounce');
 export const throttle = require('lodash.throttle');
@@ -22,10 +22,21 @@ export function classify(str) {
     return str.replace(classifyRE, (_, c) => c ? c.toUpperCase() : '');
 }
 
-export function str2json(str) {
-    try {
-        return (new Function("", "var json = " + str + "; return JSON.parse(JSON.stringify(json));"))();
-    } catch (e) {
-        return {};
+export function toBoolean(value) {
+    return typeof value === 'boolean'
+        ? value
+        : value === 'true' || value == '1'
+            ? true
+            : value === 'false' || value == '0'
+                ? false
+                : value;
+}
+
+export function coerce(type, value) {
+
+    if (type === Boolean) {
+        value = toBoolean(value);
     }
+
+    return type ? type(value) : value;
 }

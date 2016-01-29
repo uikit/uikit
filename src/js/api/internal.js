@@ -1,4 +1,4 @@
-import {bind, mergeOptions, isPlainObject} from '../util/index';
+import {bind, mergeOptions, isPlainObject, coerce} from '../util/index';
 
 var uid = 0;
 
@@ -42,19 +42,12 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function () {
 
         var el = this.$options.el,
-            props = this.$options.props, val, type;
+            props = this.$options.props;
 
         if (props) {
             for (var key in props) {
                 if (el.hasAttribute(key)) {
-                    type = props[key];
-                    val = el.getAttribute(key);
-
-                    if (type === Boolean && val.toLowerCase() === 'false') {
-                        val = false;
-                    }
-
-                    this[key] = type(val);
+                    this[key] = coerce(props[key], el.getAttribute(key))
                 }
             }
         }

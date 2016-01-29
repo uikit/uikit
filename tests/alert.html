@@ -61,6 +61,20 @@
                 <p>This is a danger alert using an button element as close button. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
             </div>
 
+            <h2>Alert large with animations</h2>
+
+            <div class="uk-alert uk-alert-large" is="uk-alert" animation="uk-animation-scale-up" duration="1000">
+                <button type="button" class="uk-alert-close uk-close"></button>
+                <h2>Today's headline</h2>
+                <p>This is an alert using an button element as close button. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+            </div>
+
+            <div class="uk-alert uk-alert-large" is="uk-alert" animation="uk-animation-scale-down">
+                <button type="button" class="uk-alert-close uk-close"></button>
+                <h2>Today's headline</h2>
+                <p>This is a success alert using an button element as close button. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+            </div>
+
             <table class="uk-table uk-table-striped">
                 <thead>
                     <tr>
@@ -72,10 +86,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><code>fade</code></td>
-                        <td>Boolean</td>
+                        <td><code>animation</code></td>
+                        <td>Boolean|String</td>
                         <td>true</td>
-                        <td>Fade out on close.</td>
+                        <td>On close fade out or use given animation.</td>
                     </tr>
                     <tr>
                         <td><code>duration</code></td>

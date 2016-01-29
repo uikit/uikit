@@ -1,26 +1,30 @@
+import {Animation} from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('alert', {
 
         props: {
-            fade: Boolean,
-            duration: String,
+            animation: null,
+            duration: Number,
             trigger: String
         },
 
         defaults: {
-            fade: true,
+            animation: true,
             duration: 200,
             trigger: '.uk-alert-close'
         },
 
         ready() {
+
+            this.duration = Number(this.duration) || this.duration;
+
             this.$el.on('click', this.trigger, e => {
                 e.preventDefault();
                 this.close();
             });
 
-            this.duration = Number(this.duration) || this.duration;
         },
 
         methods: {
@@ -29,20 +33,24 @@ export default function (UIkit) {
 
                 this.$el.trigger('close');
 
-                if (this.fade) {
-                    this.$el
-                        .css('overflow', 'hidden')
-                        .css('max-height', this.$el.height())
-                        .animate({
-                            'height': 0,
-                            'opacity': 0,
-                            'padding-top': 0,
-                            'padding-bottom': 0,
-                            'margin-top': 0,
-                            'margin-bottom': 0
-                        }, this.duration, this.$destroy.bind(this));
+                if (String(this.animation) === 'true') {
+
+                    Animation.transition(this.$el, {
+                        'overflow': 'hidden',
+                        'height': 0,
+                        'opacity': 0,
+                        'padding-top': 0,
+                        'padding-bottom': 0,
+                        'margin-top': 0,
+                        'margin-bottom': 0
+                    }, this.duration).then(this.$destroy.bind(this));
+
+                } else if (typeof this.animation === 'string' && this.animation !== 'false') {
+
+                    Animation.out(this.$el, this.animation, this.duration).then(this.$destroy.bind(this));
+
                 } else {
-                    this.$destroy();
+                    this.handler = this.$destroy;
                 }
 
             }

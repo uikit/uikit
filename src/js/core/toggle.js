@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {animate, hasAnimation} from '../util/index';
+import {Animation, toBoolean} from '../util/index';
 
 export default function (UIkit) {
 
@@ -9,17 +9,17 @@ export default function (UIkit) {
 
         defaults: {
             target: false,
-            cls: 'uk-hidden',
+            cls: false,
             animation: false,
             duration: 200
         },
 
         ready() {
 
-            this.aria = (this.cls.indexOf('uk-hidden') !== -1);
+            this.cls = toBoolean(this.cls);
+            this.aria = this.cls === false;
             this.targets = $(this.target);
-
-            this.animations = hasAnimation && this.animation && this.animation.split(',');
+            this.animations = this.animation && this.animation.split(' ');
 
             if (this.animations) {
 
@@ -50,55 +50,68 @@ export default function (UIkit) {
                     return;
                 }
 
+                Animation.cancel(this.targets);
+
                 if (this.animations) {
 
-                    this.targets
-                        .css('animation-duration', this.duration + 'ms')
-                        .each((i, target) => {
+                    this.targets.each((i, target) => {
 
-                            var el = $(target);
+                        var el = $(target);
 
-                            if (el.hasClass(this.cls)) {
+                        if (this.isToggled(el)) {
 
-                                el.toggleClass(this.cls);
+                            this.doToggle(el);
+                            Animation.in(el, this.animations[0], this.duration).then(this.update.bind(this));
 
-                                animate(el, this.animations[0]).then(() => {
-                                    el.css('animation-duration', '');
-                                    this.$update();
-                                });
+                        } else {
 
-                            } else {
+                            Animation.out(el, this.animations[1], this.duration).then(() => {
+                                this.doToggle(el);
+                                this.update();
+                            });
 
-                                animate(el, this.animations[1] + ' uk-animation-reverse').then(() => {
-                                    el.toggleClass(this.cls).css('animation-duration', '');
-                                    this.$update();
-                                });
+                        }
 
-                            }
-
-                        });
+                    });
 
                 } else {
-                    this.targets.toggleClass(this.cls);
-                    this.$update();
+                    this.doToggle(this.targets);
+                    this.update();
                 }
 
-                this.updateAria();
+            },
 
+            doToggle(targets) {
+                if (this.cls) {
+                    targets.toggleClass(this.cls);
+                } else {
+                    targets.each((i, el) => {
+                        $(el).attr('hidden', !this.isToggled(el));
+                    });
+                }
+            },
+
+            isToggled(el) {
+                el = $(el);
+
+                console.log(this.cls ? el.hasClass(this.cls) : !!el.attr('hidden'))
+
+                return this.cls ? el.hasClass(this.cls) : !!el.attr('hidden');
+            },
+
+            update() {
+                this.$update();
+                this.updateAria();
             },
 
             updateAria: function () {
                 if (this.aria) {
                     this.targets.each(function () {
-                        $(this).attr('aria-hidden', $(this).hasClass('uk-hidden'));
+                        $(this).attr('aria-hidden', !!$(this).attr('hidden'));
                     });
                 }
             }
 
-        },
-
-        destroy() {
-            this.$el.off('click');
         }
 
     });

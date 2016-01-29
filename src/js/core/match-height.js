@@ -1,5 +1,3 @@
-import {nextTick} from '../util/index';
-
 export default function (UIkit) {
 
     UIkit.component('match-height', {
@@ -36,9 +34,7 @@ export default function (UIkit) {
                     return this;
                 }
 
-                elements.first().width(); // force redraw
-
-                nextTick(() => {
+                requestAnimationFrame(() => {
 
                     var lastOffset = false, group = [];
 
@@ -57,8 +53,6 @@ export default function (UIkit) {
                         group.push(el);
                         lastOffset = offset;
                     });
-
-
 
                     if (group.length) {
                         this.match($(group));

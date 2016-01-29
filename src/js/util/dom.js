@@ -1,63 +1,5 @@
 import $ from 'jquery';
-import {str2json, extend} from './lang';
-import {hasAnimation} from './env';
-
-export function attributes(element) {
-
-    element = element[0] || element;
-
-    let attributes = {};
-
-    for (let val, i = 0; i < element.attributes.length; i++) {
-
-        val = str2json(element.attributes[i].value);
-        attributes[element.attributes[i].name] = val === false && element.attributes[i].value != 'false' ? element.attributes[i].value : val;
-    }
-
-    return attributes;
-}
-
-export function isFullscreen() {
-    return document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.fullscreenElement || false;
-}
-
-export function isInView(element, options) {
-
-    let $element = $(element),
-        $win = $(window);
-
-    if (!$element.is(':visible')) {
-        return false;
-    }
-
-    let window_left = $win.scrollLeft(), window_top = $win.scrollTop(), offset = $element.offset(), left = offset.left, top = offset.top;
-
-    options = extend({topoffset: 0, leftoffset: 0}, options);
-
-    return !!(top + $element.height() >= window_top && top - options.topoffset <= window_top + $win.height() &&
-    left + $element.width() >= window_left && left - options.leftoffset <= window_left + $win.width());
-}
-
-export function animate(element, cls) {
-
-    var d = $.Deferred();
-
-    element = $(element);
-
-    if (hasAnimation) {
-
-        element.css('display', 'none').addClass(cls).one(hasAnimation.end, function () {
-            element.removeClass(cls);
-            d.resolve();
-        });
-
-        element.css('display', '');
-    } else {
-        d.resolve();
-    }
-
-    return d.promise();
-}
+import {animationend, transitionend} from './env';
 
 export function ready(fn) {
 
@@ -75,3 +17,82 @@ export function ready(fn) {
     }
 
 }
+
+export function transition(element, props, duration, transition) {
+
+    var d = $.Deferred();
+
+    element = $(element);
+
+    for (var name in props) {
+        element.css(name, element.css(name));
+    }
+
+    requestAnimationFrame(function () {
+        element
+            .on(transitionend, function () {
+                d.resolve();
+                element.css('transition', '');
+            })
+            .css('transition', `all ${duration}ms ${transition || 'linear'}`)
+            .css(props);
+    });
+
+    return d.promise();
+}
+
+export function animate(element, animation, duration, out) {
+
+    var d = $.Deferred(), cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
+
+    element = $(element);
+
+    if (out && animation.indexOf('uk-animation-') === 0) {
+        animation += ' uk-animation-reverse';
+    }
+
+    reset();
+
+    element.css('animation-duration', duration + 'ms').addClass(animation);
+
+    requestAnimationFrame(function () {
+        element.addClass(cls);
+    });
+
+    element.one(animationend, function () {
+        reset();
+        d.resolve();
+    });
+
+    return d.promise();
+
+    function reset() {
+        element.css('animation-duration', '').removeClass(cls + ' ' + animation);
+    }
+}
+
+export const Animation = {
+
+    in: function (element, animation, duration) {
+        return animate(element, animation, duration, false);
+    },
+
+    out: function (element, animation, duration) {
+        return animate(element, animation, duration, true);
+    },
+
+    inProgress: function (element) {
+        return $(element).hasClass('uk-animation-enter') || $(element).hasClass('uk-animation-leave');
+    },
+
+    cancel: function(element) {
+        $(element).trigger(animationend);
+    },
+
+    transition: transition
+
+};
+
+
+
+

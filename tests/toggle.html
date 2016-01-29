@@ -15,7 +15,7 @@
 
             <h1>Toggle</h1>
 
-            <p><button class="uk-button" is="uk-toggle" target="#toggle1" animation="uk-animation-fade">Toggle</button> <a href="#" is="uk-toggle" target="#toggle1">Link</a></p>
+            <p><button class="uk-button" is="uk-toggle" target="#toggle1">Toggle</button> <a href="#" is="uk-toggle" target="#toggle1">Link</a></p>
 
             <div id="toggle1" class="uk-panel uk-panel-box">What's up?</div>
 
@@ -56,7 +56,7 @@
 
             <div id="toggle5" class="uk-panel uk-panel-box">Animation...</div>
 
-            <p><button class="uk-button" is="uk-toggle" target="#toggle6" animation="uk-animation-slide-left, uk-animation-slide-top">Toggle</button></p>
+            <p><button class="uk-button" is="uk-toggle" target="#toggle6" animation="uk-animation-slide-left uk-animation-slide-top">Toggle</button></p>
 
             <div id="toggle6" class="uk-panel uk-panel-box">Two different animations...</div>
 
@@ -66,6 +66,10 @@
                 <span>Toggle</span>
             </button></p>
             <div id="toggle7" class="uk-panel uk-panel-box">Multiple elements with different starting states</div>
+
+            <p><button class="uk-button" is="uk-toggle" target="#toggle8" animation="uk-animation-fade" duration="2000">Toggle with animation</button> <button class="uk-button" is="uk-toggle" target="#toggle8">Toggle without animation</button></p>
+
+            <div id="toggle8" class="uk-panel uk-panel-box">What's up?</div>
 
             <table class="uk-table uk-table-striped">
                 <thead>
@@ -86,8 +90,8 @@
                     <tr>
                         <td><code>cls</code></td>
                         <td>String</td>
-                        <td>uk-hidden</td>
-                        <td>The class that is being toggled.</td>
+                        <td>false</td>
+                        <td>The class that is being toggled. Defaults to the "hidden" attribute.</td>
                     </tr>
                     <tr>
                         <td><code>animation</code></td>
