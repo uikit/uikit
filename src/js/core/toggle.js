@@ -93,9 +93,6 @@ export default function (UIkit) {
 
             isToggled(el) {
                 el = $(el);
-
-                console.log(this.cls ? el.hasClass(this.cls) : !!el.attr('hidden'))
-
                 return this.cls ? el.hasClass(this.cls) : !!el.attr('hidden');
             },
 
