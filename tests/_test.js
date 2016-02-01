@@ -48,15 +48,12 @@
             if ($select.val()) {
                 location.href = base + 'tests/' + $select.val();
             }
-        }).val(function () {
-            var parts = location.pathname.split('/');
-            return parts[parts.length-1];
-        });
+        }).val(location.pathname.split('/').pop());
 
-        $('body')
-            .css('visibility', 'hidden')
-            .prepend($('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>').prepend($select))
-            .css('visibility', '');
+        var body = $('body').attr('visibility', 'hidden');
+        requestAnimationFrame(function () {
+            body.prepend($('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>').prepend($select)).css('visibility', '');
+        });
     });
 
 })(document);

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import svgMixin from '../mixin/svg';
 
 export default function (UIkit) {

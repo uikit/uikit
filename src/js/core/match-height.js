@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export default function (UIkit) {
 
     UIkit.component('match-height', {
