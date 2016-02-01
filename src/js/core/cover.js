@@ -14,6 +14,9 @@ export default function (UIkit) {
 
             this.parent = this.$el.parent();
 
+            this.width = this.width && !isNaN(this.width) ? this.width : false;
+            this.height = this.height && !isNaN(this.height) ? this.height : false;
+
             this.check();
 
             if (this.$el.is('iframe') && this.automute) {
@@ -22,7 +25,9 @@ export default function (UIkit) {
 
                 this.$el.attr('src', '').on('load', function () {
 
-                    this.contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
+                    // TODO automute broken
+
+                    this.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
 
                 }).attr('src', [src, (src.indexOf('?') > -1 ? '&' : '?'), 'enablejsapi=1&api=1'].join(''));
             }
@@ -44,42 +49,28 @@ export default function (UIkit) {
                     return this;
                 }
 
-                this.$el.css({
-                    width: '',
-                    height: ''
-                });
+                this.$el.css({width: '', height: ''});
 
-                var dimension = {w: this.$el.width(), h: this.$el.height()};
-
-                if (this.width && !isNaN(this.width)) {
-                    dimension.w = this.width;
-                }
-
-                if (this.height && !isNaN(this.height)) {
-                    dimension.h = this.height;
-                }
-
-                this.ratio = dimension.w / dimension.h;
-
-                var w = this.parent.width(), h = this.parent.height(), width, height;
+                var width, height,
+                    parentWidth = this.parent.width(),
+                    parentHeight = this.parent.height(),
+                    ratio = (this.width || this.$el.width()) / (this.height || this.$el.height());
 
                 // if element height < parent height (gap underneath)
-                if ((w / this.ratio) < h) {
+                if ((parentWidth / ratio) < parentHeight) {
 
-                    width = Math.ceil(h * this.ratio);
-                    height = h;
+                    width = Math.ceil(parentHeight * ratio);
+                    height = parentHeight;
 
                     // element width < parent width (gap to right)
                 } else {
 
-                    width = w;
-                    height = Math.ceil(w / this.ratio);
+                    width = parentWidth;
+                    height = Math.ceil(parentWidth / ratio);
+
                 }
 
-                this.$el.css({
-                    width: width,
-                    height: height
-                });
+                this.$el.css({width: width, height: height});
             }
 
         }

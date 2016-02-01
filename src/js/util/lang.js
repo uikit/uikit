@@ -25,7 +25,7 @@ export function classify(str) {
 export function toBoolean(value) {
     return typeof value === 'boolean'
         ? value
-        : value === 'true' || value == '1'
+        : value === 'true' || value == '1' || value === ''
             ? true
             : value === 'false' || value == '0'
                 ? false
