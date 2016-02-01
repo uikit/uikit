@@ -49,28 +49,29 @@ export default function (UIkit) {
                     return this;
                 }
 
-                this.$el.css({width: '', height: ''});
+                var dimensions = {width: '', height: ''};
 
-                var width, height,
-                    parentWidth = this.parent.width(),
-                    parentHeight = this.parent.height(),
+                this.$el.css(dimensions);
+
+                var width = this.parent.width(),
+                    height = this.parent.height(),
                     ratio = (this.width || this.$el.width()) / (this.height || this.$el.height());
 
                 // if element height < parent height (gap underneath)
-                if ((parentWidth / ratio) < parentHeight) {
+                if ((width / ratio) < height) {
 
-                    width = Math.ceil(parentHeight * ratio);
-                    height = parentHeight;
+                    dimensions.width = Math.ceil(height * ratio);
+                    dimensions.height = height;
 
                     // element width < parent width (gap to right)
                 } else {
 
-                    width = parentWidth;
-                    height = Math.ceil(parentWidth / ratio);
+                    dimensions.width = width;
+                    dimensions.height = Math.ceil(width / ratio);
 
                 }
 
-                this.$el.css({width: width, height: height});
+                this.$el.css(dimensions);
             }
 
         }
