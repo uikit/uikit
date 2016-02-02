@@ -1403,164 +1403,6 @@ select.uk-form-width-mini {
   color: #444;
 }
 /* ========================================================================
-   Component: Alert
- ========================================================================== */
-.uk-alert {
-  margin-bottom: 15px;
-  padding: 10px;
-  background: #ebf7fd;
-  color: #2d7091;
-}
-/*
- * Add margin if adjacent element
- */
-* + .uk-alert {
-  margin-top: 15px;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-alert > :last-child {
-  margin-bottom: 0;
-}
-/*
- * Keep color for headings if the default heading color is changed
- */
-.uk-alert h1,
-.uk-alert h2,
-.uk-alert h3,
-.uk-alert h4,
-.uk-alert h5,
-.uk-alert h6 {
-  color: inherit;
-}
-/* Close in alert
- ========================================================================== */
-.uk-alert > .uk-close:first-child {
-  float: right;
-}
-/*
- * Remove margin from adjacent element
- */
-.uk-alert > .uk-close:first-child + * {
-  margin-top: 0;
-}
-/* Modifier: `uk-alert-success`
- ========================================================================== */
-.uk-alert-success {
-  background: #f2fae3;
-  color: #659f13;
-}
-/* Modifier: `uk-alert-warning`
- ========================================================================== */
-.uk-alert-warning {
-  background: #fffceb;
-  color: #e28327;
-}
-/* Modifier: `uk-alert-danger`
- ========================================================================== */
-.uk-alert-danger {
-  background: #fff1f0;
-  color: #d85030;
-}
-/* Modifier: `uk-alert-large`
- ========================================================================== */
-.uk-alert-large {
-  padding: 20px;
-}
-.uk-alert-large > .uk-close:first-child {
-  margin: -10px -10px 0 0;
-}
-/* ========================================================================
-   Component: Close
- ========================================================================== */
-/*
- * Removes inner padding and border in Firefox 4+.
- */
-.uk-close::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-/*
- * 1. Correct inability to style clickable `input` types in iOS.
- * 2. Remove margins in Chrome, Safari and Opera.
- * 3. Remove borders for `button`.
- * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
- * 5. Correct `font` properties and `color` not being inherited for `button`.
- * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
- * 7. Remove default `button` padding and background color
- * 8. Style
- */
-.uk-close {
-  /* 1 */
-  -webkit-appearance: none;
-  /* 2 */
-  margin: 0;
-  /* 3 */
-  border: none;
-  /* 4 */
-  overflow: visible;
-  /* 5 */
-  font: inherit;
-  color: inherit;
-  /* 6 */
-  text-transform: none;
-  /* 7. */
-  padding: 0;
-  background: transparent;
-  /* 8 */
-  display: inline-block;
-  box-sizing: content-box;
-  width: 20px;
-  line-height: 20px;
-  text-align: center;
-  vertical-align: middle;
-  opacity: 0.3;
-}
-/* Icon */
-.uk-close:after {
-  display: block;
-  content: "\f00d";
-  font-family: FontAwesome;
-}
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- * 3. Required for `a` elements
- */
-.uk-close:hover,
-.uk-close:focus {
-  opacity: 0.5;
-  /* 2 */
-  outline: none;
-  /* 3 */
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-/* Modifier
- ========================================================================== */
-.uk-close-alt {
-  padding: 2px;
-  border-radius: 50%;
-  background: #eee;
-  opacity: 1;
-}
-/* Hover */
-.uk-close-alt:hover,
-.uk-close-alt:focus {
-  opacity: 1;
-}
-/* Icon */
-.uk-close-alt:after {
-  opacity: 0.5;
-}
-.uk-close-alt:hover:after,
-.uk-close-alt:focus:after {
-  opacity: 0.8;
-}
-/* ========================================================================
    Component: Section
  ========================================================================== */
 /*
@@ -3889,6 +3731,338 @@ select.uk-form-width-mini {
   display: none !important;
 }
 /* ========================================================================
+   Mixin: Inverse
+ ========================================================================== */
+.uk-light {
+  color: #fff;
+}
+.uk-light a:not([class]),
+.uk-light .uk-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+.uk-light a:not([class]):hover,
+.uk-light .uk-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.uk-light :not(pre) > code,
+.uk-light :not(pre) > kbd,
+.uk-light :not(pre) > samp {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+.uk-light em {
+  color: #fff;
+}
+.uk-light h1,
+.uk-light .uk-h1,
+.uk-light h2,
+.uk-light .uk-h2,
+.uk-light h3,
+.uk-light .uk-h3,
+.uk-light h4,
+.uk-light .uk-h4,
+.uk-light h5,
+.uk-light .uk-h5,
+.uk-light h6,
+.uk-light .uk-h6 {
+  color: #fff;
+}
+.uk-light hr {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-list-line > li:nth-child(n+2) {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-list-bullet > li:before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+}
+.uk-light .uk-form select,
+.uk-light .uk-form textarea,
+.uk-light .uk-form input:not([type]),
+.uk-light .uk-form input[type="text"],
+.uk-light .uk-form input[type="password"],
+.uk-light .uk-form input[type="datetime"],
+.uk-light .uk-form input[type="datetime-local"],
+.uk-light .uk-form input[type="date"],
+.uk-light .uk-form input[type="month"],
+.uk-light .uk-form input[type="time"],
+.uk-light .uk-form input[type="week"],
+.uk-light .uk-form input[type="number"],
+.uk-light .uk-form input[type="email"],
+.uk-light .uk-form input[type="url"],
+.uk-light .uk-form input[type="search"],
+.uk-light .uk-form input[type="tel"],
+.uk-light .uk-form input[type="color"] {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
+  color: #444;
+  background-clip: padding-box;
+}
+.uk-light .uk-form select:focus,
+.uk-light .uk-form textarea:focus,
+.uk-light .uk-form input:not([type]):focus,
+.uk-light .uk-form input[type="text"]:focus,
+.uk-light .uk-form input[type="password"]:focus,
+.uk-light .uk-form input[type="datetime"]:focus,
+.uk-light .uk-form input[type="datetime-local"]:focus,
+.uk-light .uk-form input[type="date"]:focus,
+.uk-light .uk-form input[type="month"]:focus,
+.uk-light .uk-form input[type="time"]:focus,
+.uk-light .uk-form input[type="week"]:focus,
+.uk-light .uk-form input[type="number"]:focus,
+.uk-light .uk-form input[type="email"]:focus,
+.uk-light .uk-form input[type="url"]:focus,
+.uk-light .uk-form input[type="search"]:focus,
+.uk-light .uk-form input[type="tel"]:focus,
+.uk-light .uk-form input[type="color"]:focus {
+  border-color: #fff;
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-form :-ms-input-placeholder {
+  color: rgba(68, 68, 68, 0.7) !important;
+}
+.uk-light .uk-form ::-moz-placeholder {
+  color: rgba(68, 68, 68, 0.7);
+}
+.uk-light .uk-form ::-webkit-input-placeholder {
+  color: rgba(68, 68, 68, 0.7);
+}
+.uk-light .uk-button-default {
+  color: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.uk-light .uk-button-default:hover,
+.uk-light .uk-button-default:focus {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.uk-light .uk-button-default:active,
+.uk-light .uk-button-default.uk-active {
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.uk-light .uk-button-primary {
+  background-color: #fff;
+  color: #444;
+}
+.uk-light .uk-button-primary:hover,
+.uk-light .uk-button-primary:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-button-primary:active,
+.uk-light .uk-button-primary.uk-active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
+}
+.uk-light .uk-icon-hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-icon-hover:hover {
+  color: #fff;
+}
+.uk-light .uk-icon-button {
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-icon-button:hover,
+.uk-light .uk-icon-button:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-icon-button:active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
+}
+.uk-light .uk-grid-divider > :not(.uk-grid-first):before {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-text-lead {
+  color: #fff;
+}
+.uk-light .uk-text-meta {
+  color: rgba(255, 255, 255, 0.6);
+}
+.uk-light .uk-text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.uk-light .uk-text-primary {
+  color: #fff !important;
+}
+.uk-light .uk-column-divider {
+  -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
+  -moz-column-rule-color: rgba(255, 255, 255, 0.2);
+  column-rule-color: rgba(255, 255, 255, 0.2);
+}
+/* ========================================================================
+   Component: Alert
+ ========================================================================== */
+.uk-alert {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #ebf7fd;
+  color: #2d7091;
+}
+/*
+ * Add margin if adjacent element
+ */
+* + .uk-alert {
+  margin-top: 15px;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-alert > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Keep color for headings if the default heading color is changed
+ */
+.uk-alert h1,
+.uk-alert h2,
+.uk-alert h3,
+.uk-alert h4,
+.uk-alert h5,
+.uk-alert h6 {
+  color: inherit;
+}
+/* Close in alert
+ ========================================================================== */
+.uk-alert > .uk-close:first-child {
+  float: right;
+}
+/*
+ * Remove margin from adjacent element
+ */
+.uk-alert > .uk-close:first-child + * {
+  margin-top: 0;
+}
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+.uk-alert-success {
+  background: #f2fae3;
+  color: #659f13;
+}
+/* Modifier: `uk-alert-warning`
+ ========================================================================== */
+.uk-alert-warning {
+  background: #fffceb;
+  color: #e28327;
+}
+/* Modifier: `uk-alert-danger`
+ ========================================================================== */
+.uk-alert-danger {
+  background: #fff1f0;
+  color: #d85030;
+}
+/* Modifier: `uk-alert-large`
+ ========================================================================== */
+.uk-alert-large {
+  padding: 20px;
+}
+.uk-alert-large > .uk-close:first-child {
+  margin: -10px -10px 0 0;
+}
+/* ========================================================================
+   Component: Close
+ ========================================================================== */
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+.uk-close::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/*
+ * 1. Correct inability to style clickable `input` types in iOS.
+ * 2. Remove margins in Chrome, Safari and Opera.
+ * 3. Remove borders for `button`.
+ * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
+ * 7. Remove default `button` padding and background color
+ * 8. Style
+ */
+.uk-close {
+  /* 1 */
+  -webkit-appearance: none;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+  border: none;
+  /* 4 */
+  overflow: visible;
+  /* 5 */
+  font: inherit;
+  color: inherit;
+  /* 6 */
+  text-transform: none;
+  /* 7. */
+  padding: 0;
+  background: transparent;
+  /* 8 */
+  display: inline-block;
+  box-sizing: content-box;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  opacity: 0.3;
+}
+/* Icon */
+.uk-close:after {
+  display: block;
+  content: "\f00d";
+  font-family: FontAwesome;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ * 3. Required for `a` elements
+ */
+.uk-close:hover,
+.uk-close:focus {
+  opacity: 0.5;
+  /* 2 */
+  outline: none;
+  /* 3 */
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Modifier
+ ========================================================================== */
+.uk-close-alt {
+  padding: 2px;
+  border-radius: 50%;
+  background: #eee;
+  opacity: 1;
+}
+/* Hover */
+.uk-close-alt:hover,
+.uk-close-alt:focus {
+  opacity: 1;
+}
+/* Icon */
+.uk-close-alt:after {
+  opacity: 0.5;
+}
+.uk-close-alt:hover:after,
+.uk-close-alt:focus:after {
+  opacity: 0.8;
+}
+/* ========================================================================
    Component: Animation
  ========================================================================== */
 [class*='uk-animation-'] {
@@ -4439,180 +4613,6 @@ select.uk-form-width-mini {
     opacity: 1;
     transform: translateY(0);
   }
-}
-/* ========================================================================
-   Mixin: Inverse
- ========================================================================== */
-.uk-light {
-  color: #fff;
-}
-.uk-light a:not([class]),
-.uk-light .uk-link {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-}
-.uk-light a:not([class]):hover,
-.uk-light .uk-link:hover {
-  color: #fff;
-  text-decoration: underline;
-}
-.uk-light :not(pre) > code,
-.uk-light :not(pre) > kbd,
-.uk-light :not(pre) > samp {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-}
-.uk-light em {
-  color: #fff;
-}
-.uk-light h1,
-.uk-light .uk-h1,
-.uk-light h2,
-.uk-light .uk-h2,
-.uk-light h3,
-.uk-light .uk-h3,
-.uk-light h4,
-.uk-light .uk-h4,
-.uk-light h5,
-.uk-light .uk-h5,
-.uk-light h6,
-.uk-light .uk-h6 {
-  color: #fff;
-}
-.uk-light hr {
-  border-top-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-list-line > li:nth-child(n+2) {
-  border-top-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-list-bullet > li:before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
-}
-.uk-light .uk-form select,
-.uk-light .uk-form textarea,
-.uk-light .uk-form input:not([type]),
-.uk-light .uk-form input[type="text"],
-.uk-light .uk-form input[type="password"],
-.uk-light .uk-form input[type="datetime"],
-.uk-light .uk-form input[type="datetime-local"],
-.uk-light .uk-form input[type="date"],
-.uk-light .uk-form input[type="month"],
-.uk-light .uk-form input[type="time"],
-.uk-light .uk-form input[type="week"],
-.uk-light .uk-form input[type="number"],
-.uk-light .uk-form input[type="email"],
-.uk-light .uk-form input[type="url"],
-.uk-light .uk-form input[type="search"],
-.uk-light .uk-form input[type="tel"],
-.uk-light .uk-form input[type="color"] {
-  border-color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.8);
-  color: #444;
-  background-clip: padding-box;
-}
-.uk-light .uk-form select:focus,
-.uk-light .uk-form textarea:focus,
-.uk-light .uk-form input:not([type]):focus,
-.uk-light .uk-form input[type="text"]:focus,
-.uk-light .uk-form input[type="password"]:focus,
-.uk-light .uk-form input[type="datetime"]:focus,
-.uk-light .uk-form input[type="datetime-local"]:focus,
-.uk-light .uk-form input[type="date"]:focus,
-.uk-light .uk-form input[type="month"]:focus,
-.uk-light .uk-form input[type="time"]:focus,
-.uk-light .uk-form input[type="week"]:focus,
-.uk-light .uk-form input[type="number"]:focus,
-.uk-light .uk-form input[type="email"]:focus,
-.uk-light .uk-form input[type="url"]:focus,
-.uk-light .uk-form input[type="search"]:focus,
-.uk-light .uk-form input[type="tel"]:focus,
-.uk-light .uk-form input[type="color"]:focus {
-  border-color: #fff;
-  background: #fff;
-  color: #444;
-}
-.uk-light .uk-form :-ms-input-placeholder {
-  color: rgba(68, 68, 68, 0.7) !important;
-}
-.uk-light .uk-form ::-moz-placeholder {
-  color: rgba(68, 68, 68, 0.7);
-}
-.uk-light .uk-form ::-webkit-input-placeholder {
-  color: rgba(68, 68, 68, 0.7);
-}
-.uk-light .uk-button-default {
-  color: rgba(255, 255, 255, 0.6);
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.6);
-}
-.uk-light .uk-button-default:hover,
-.uk-light .uk-button-default:focus {
-  background-color: transparent;
-  color: #fff;
-  border-color: #fff;
-}
-.uk-light .uk-button-default:active,
-.uk-light .uk-button-default.uk-active {
-  background-color: transparent;
-  color: #fff;
-  border-color: #fff;
-}
-.uk-light .uk-button-primary {
-  background-color: #fff;
-  color: #444;
-}
-.uk-light .uk-button-primary:hover,
-.uk-light .uk-button-primary:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #444;
-}
-.uk-light .uk-button-primary:active,
-.uk-light .uk-button-primary.uk-active {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: #444;
-}
-.uk-light .uk-icon-hover {
-  color: rgba(255, 255, 255, 0.7);
-}
-.uk-light .uk-icon-hover:hover {
-  color: #fff;
-}
-.uk-light .uk-icon-button {
-  background: #fff;
-  color: #444;
-}
-.uk-light .uk-icon-button:hover,
-.uk-light .uk-icon-button:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #444;
-}
-.uk-light .uk-icon-button:active {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: #444;
-}
-.uk-light .uk-grid-divider > :not(.uk-grid-first):before {
-  border-left-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
-  border-top-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-text-lead {
-  color: #fff;
-}
-.uk-light .uk-text-meta {
-  color: rgba(255, 255, 255, 0.6);
-}
-.uk-light .uk-text-muted {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-.uk-light .uk-text-primary {
-  color: #fff !important;
-}
-.uk-light .uk-column-divider {
-  -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
-  -moz-column-rule-color: rgba(255, 255, 255, 0.2);
-  column-rule-color: rgba(255, 255, 255, 0.2);
 }
 /* ========================================================================
    Component: Dropdown
