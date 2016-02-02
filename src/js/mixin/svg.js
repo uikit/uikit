@@ -4,7 +4,9 @@ var svgs = {};
 
 export default {
 
-    props: ['id', 'class', 'style', 'width', 'height'],
+    props: {id: String, class: String, style: String, width: Number, height: Number, ratio: Number},
+
+    defaults: {ratio: 1},
 
     methods: {
 
@@ -20,6 +22,9 @@ export default {
 
             svg = $(svg);
 
+            this.width *= this.ratio;
+            this.height *= this.ratio;
+
             for (var prop in this.$options.props) {
                 if (prop !== 'src' && this[prop]) {
                     svg.attr(prop, this[prop]);
@@ -34,7 +39,7 @@ export default {
                 svg.removeAttr('width');
             }
 
-            this.$el.replaceWith(svg[0].outerHTML);
+            return $(svg[0].outerHTML).replaceAll(this.$el);
 
         }
 

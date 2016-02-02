@@ -32,10 +32,11 @@ export default function (UIkit) {
                 var dimensions = el.attr('viewBox');
                 if (dimensions) {
                     dimensions = dimensions.split(' ');
-                    dimensions = ` width="${dimensions[2]}" height="${dimensions[3]}"`;
+                    this.width = this.width || dimensions[2];
+                    this.height = this.height || dimensions[3];
                 }
 
-                this.insert(`<svg${dimensions} class="${this.cls}"><use xlink:href="${src}#${this.icon}"/></svg>`);
+                this.insert(`<svg class="${this.cls}"><use xlink:href="${src}#${this.icon}"/></svg>`)[0].classList.add('uk-icon');
             });
 
         }
