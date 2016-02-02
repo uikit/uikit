@@ -18,8 +18,6 @@ export default function (UIkit) {
 
         ready() {
 
-            this.duration = Number(this.duration) || this.duration;
-
             this.$el.on('click', this.trigger, e => {
                 e.preventDefault();
                 this.close();

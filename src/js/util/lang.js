@@ -22,6 +22,13 @@ export function classify(str) {
     return str.replace(classifyRE, (_, c) => c ? c.toUpperCase() : '');
 }
 
+var hyphenateRE = /([a-z\d])([A-Z])/g
+export function hyphenate (str) {
+    return str
+        .replace(hyphenateRE, '$1-$2')
+        .toLowerCase()
+}
+
 export function toBoolean(value) {
     return typeof value === 'boolean'
         ? value
@@ -32,10 +39,17 @@ export function toBoolean(value) {
                 : value;
 }
 
+export function toNumber(value) {
+    var number = Number(value);
+    return !isNaN(number) ? number : false;
+}
+
 export function coerce(type, value) {
 
     if (type === Boolean) {
-        value = toBoolean(value);
+        return toBoolean(value);
+    } else if (type === Number) {
+        return toNumber(value);
     }
 
     return type ? type(value) : value;

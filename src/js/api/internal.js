@@ -1,4 +1,4 @@
-import {bind, mergeOptions, isPlainObject, coerce} from '../util/index';
+import {bind, coerce, hyphenate, mergeOptions, isPlainObject} from '../util/index';
 
 var uid = 0;
 
@@ -46,8 +46,9 @@ export default function (UIkit) {
 
         if (props) {
             for (var key in props) {
-                if (el.hasAttribute(key)) {
-                    this[key] = coerce(props[key], el.getAttribute(key))
+                var prop = hyphenate(key);
+                if (el.hasAttribute(prop)) {
+                    this[key] = coerce(props[key], el.getAttribute(prop))
                 }
             }
         }

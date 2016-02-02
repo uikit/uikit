@@ -5,6 +5,7 @@ import Grid from './grid';
 import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
+import Popover from './popover';
 import Responsive from './responsive';
 import Svg from './svg';
 import Toggle from './toggle';
@@ -28,6 +29,7 @@ export default function (UIkit, _) {
     UIkit.use(Icon);
     UIkit.use(MarginWrap);
     UIkit.use(MatchHeight);
+    UIkit.use(Popover);
     UIkit.use(Responsive);
     UIkit.use(Svg);
     UIkit.use(Toggle);

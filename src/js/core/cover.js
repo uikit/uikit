@@ -14,9 +14,6 @@ export default function (UIkit) {
 
             this.parent = this.$el.parent();
 
-            this.width = this.width && !isNaN(this.width) ? this.width : false;
-            this.height = this.height && !isNaN(this.height) ? this.height : false;
-
             this.check();
 
             if (this.$el.is('iframe') && this.automute) {

@@ -1,97 +1,36 @@
 import $ from 'jquery';
-import {extend} from '../util/index';
+import {langDirection} from '../util/index';
 
 export default {
 
     methods: {
 
-        matchHeights(elements, options) {
+        justifyElement: function (el, justify, boundaryWidth, offset) {
 
-            elements = $(elements).css('min-height', '');
-            options = extend({row: true}, options);
+            el = $(el);
+            justify = $(justify);
 
-            let matchHeights = function (group) {
+            if (!justify.length) {
+                return;
+            }
 
-                if (group.length < 2) return;
+            var width = justify.outerWidth();
 
-                let max = 0;
+            el.css('min-width', width);
 
-                group.each(function () {
-                    max = Math.max(max, $(this).outerHeight());
-                }).each(function () {
+            if (langDirection === 'right') {
 
-                    let element = $(this),
-                        height = max - (element.css('box-sizing') == 'border-box' ? 0 : (element.outerHeight() - element.height()));
+                boundaryWidth = boundaryWidth || window.innerWidth;
 
-                    element.css('min-height', height + 'px');
-                });
-            };
-
-            if (options.row) {
-
-                elements.first().width(); // force redraw
-
-                setTimeout(function () {
-
-                    let lastoffset = false, group = [];
-
-                    elements.each(function () {
-
-                        let ele = $(this), offset = ele.offset().top;
-
-                        if (offset != lastoffset && group.length) {
-
-                            matchHeights($(group));
-                            group = [];
-                            offset = ele.offset().top;
-                        }
-
-                        group.push(ele);
-                        lastoffset = offset;
-                    });
-
-                    if (group.length) {
-                        matchHeights($(group));
-                    }
-
-                }, 0);
+                el.css('margin-right', (boundaryWidth - (justify.offset().left + width)) - (boundaryWidth - (el.offset().left + el.outerWidth())));
 
             } else {
-                matchHeights(elements);
+
+                offset = offset || el.offset();
+
+                el.css('margin-left', justify.offset().left - offset.left);
+
             }
-        },
-
-        // TODO remove
-        checkDisplay(context, initanimation) {
-
-            let elements = $('[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]', context || document), animated;
-
-            if (context && !elements.length) {
-                elements = $(context);
-            }
-
-            elements.trigger('display.uk.check');
-
-            // fix firefox / IE animations
-            if (initanimation) {
-
-                if (typeof(initanimation) != 'string') {
-                    initanimation = '[class*="uk-animation-"]';
-                }
-
-                elements.find(initanimation).each(function () {
-
-                    let ele = $(this),
-                        cls = ele.attr('class'),
-                        anim = cls.match(/uk\-animation\-(.+)/);
-
-                    ele.removeClass(anim[0]).width();
-
-                    ele.addClass(anim[0]);
-                });
-            }
-
-            return elements;
         }
 
     }

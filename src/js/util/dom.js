@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import {animationend, transitionend} from './env';
 
+export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
+
 export function ready(fn) {
 
     var handle = function () {
@@ -93,6 +95,13 @@ export const Animation = {
 
 };
 
+export function offsetParent(element) {
+    return $(element).parents().filter(function () {
+        return $.inArray($(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
+    }).first();
+}
 
-
-
+export function isWithin(element, selector) {
+    element = $(element);
+    return element.is(selector) || !!(typeof selector === 'string' ? element.parents(selector).length : $.contains(selector instanceof $ ? selector[0] : selector, element[0]));
+}
