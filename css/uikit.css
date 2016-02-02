@@ -1330,7 +1330,7 @@ select.uk-form-width-mini {
  * `background-image` is used to pass the image path to JS
  */
 [is*='uk-icon'] {
-  background: url("../src/images/icons.svg") 50% 50% no-repeat;
+  background-image: url("../src/images/icons.svg");
 }
 /*
  * 1. Let the SVG color use the current text color
