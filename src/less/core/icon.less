@@ -36,19 +36,24 @@
  ========================================================================== */
 
 /*
- * 1. Let the SVG color use the current text color
- * 2. Alignment
- * 3. `background-image` is used to pass the image path to JS
+ * `background-image` is used to pass the image path to JS
  */
 
-.uk-icon,
 [is*='uk-icon'] {
+    background: url("@{global-image-path}/icons.svg") 50% 50% no-repeat;
+}
+
+/*
+ * 1. Let the SVG color use the current text color
+ * 2. Alignment
+ */
+
+.uk-icon {
     display: inline-block;
     /* 1 */
     fill: currentcolor;
+    /* 2 */
     vertical-align: middle;
-    /* 3 */
-    background: url("@{global-image-path}/icons.svg") 50% 50% no-repeat;
 }
 
 
@@ -62,16 +67,9 @@
 .uk-icon-image {
     width: @icon-image-size;
     height: @icon-image-size;
+    background-position: 50 %50%;
+    background-repeat: no-repeat;
     background-size: contain;
-}
-
-
-/* TODO: Alignment modifier
- ========================================================================== */
-
-.uk-icon-justify {
-    width: 1em;
-    text-align: center;
 }
 
 

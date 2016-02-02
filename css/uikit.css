@@ -1327,18 +1327,21 @@ select.uk-form-width-mini {
    Component: Icon
  ========================================================================== */
 /*
+ * `background-image` is used to pass the image path to JS
+ */
+[is*='uk-icon'] {
+  background: url("../src/images/icons.svg") 50% 50% no-repeat;
+}
+/*
  * 1. Let the SVG color use the current text color
  * 2. Alignment
- * 3. `background-image` is used to pass the image path to JS
  */
-.uk-icon,
-[is*='uk-icon'] {
+.uk-icon {
   display: inline-block;
   /* 1 */
   fill: currentcolor;
+  /* 2 */
   vertical-align: middle;
-  /* 3 */
-  background: url("../src/images/icons.svg") 50% 50% no-repeat;
 }
 /* Image modifier
  ========================================================================== */
@@ -1348,13 +1351,9 @@ select.uk-form-width-mini {
 .uk-icon-image {
   width: 20px;
   height: 20px;
+  background-position: 50 %50%;
+  background-repeat: no-repeat;
   background-size: contain;
-}
-/* TODO: Alignment modifier
- ========================================================================== */
-.uk-icon-justify {
-  width: 1em;
-  text-align: center;
 }
 /* Hover modifier
  ========================================================================== */
