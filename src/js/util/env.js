@@ -1,3 +1,7 @@
+export const debounce = require('lodash.debounce');
+export const throttle = require('lodash.throttle');
+export const Observer = window.MutationObserver || window.WebKitMutationObserver;
+
 export const hasTouch =
     ('ontouchstart' in window) ||
     (window.DocumentTouch && document instanceof DocumentTouch) ||

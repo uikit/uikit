@@ -1,10 +1,5 @@
 export {each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
 
-export const debounce = require('lodash.debounce');
-export const throttle = require('lodash.throttle');
-
-export const Observer = window.MutationObserver || window.WebKitMutationObserver;
-
 export function bind(fn, context) {
     return function (a) {
         var l = arguments.length;
