@@ -1,44 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 
-    <symbol id="trash" viewBox="0 0 20 20">
+    <symbol id="trash" viewBox="0 0 16 18">
         <rect x="8" y="7" width="1" height="9"></rect>
         <rect x="11" y="7" width="1" height="9"></rect>
         <path d="M16,2 L12,2 L12,0 L4,0 L4,2 L0,2 L0,3 L2,3 L2,18 L14,18 L14,3 L16,3 L16,2 L16,2 L16,2 Z M5,1 L11,1 L11,2 L5,2 L5,1 L5,1 L5,1 Z M13,17 L3,17 L3,3 L13,3 L13,17 L13,17 L13,17 Z"></path>
     </symbol>
 
-    <symbol id="table" viewBox="0 0 20 20">
-        <rect x="3" y="3" width="14" height="1"></rect>
-        <rect x="3" y="7" width="14" height="1"></rect>
-        <rect x="3" y="11" width="14" height="1"></rect>
-        <rect x="3" y="15" width="14" height="1"></rect>
+    <symbol id="table" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
     </symbol>
 
-    <symbol id="thumbnails" viewBox="0 0 20 20">
-        <path d="M8,4 L8,8 L4,8 L4,4 L8,4 L8,4 Z M9,3 L3,3 L3,9 L9,9 L9,3 L9,3 L9,3 Z"></path>
-        <path d="M16,4 L16,8 L12,8 L12,4 L16,4 L16,4 Z M17,3 L11,3 L11,9 L17,9 L17,3 L17,3 L17,3 Z"></path>
-        <path d="M8,12 L8,16 L4,16 L4,12 L8,12 L8,12 Z M9,11 L3,11 L3,17 L9,17 L9,11 L9,11 L9,11 Z"></path>
-        <path d="M16,12 L16,16 L12,16 L12,12 L16,12 L16,12 Z M17,11 L11,11 L11,17 L17,17 L17,11 L17,11 L17,11 Z"></path>
+    <symbol id="thumbnails" viewBox="0 0 14 14">
+        <path d="M5,1 L5,5 L1,5 L1,1 L5,1 L5,1 L5,1 Z M6,0 L0,0 L0,6 L6,6 L6,0 L6,0 L6,0 L6,0 Z"></path>
+        <path d="M13,1 L13,5 L9,5 L9,1 L13,1 L13,1 L13,1 Z M14,0 L8,0 L8,6 L14,6 L14,0 L14,0 L14,0 L14,0 Z"></path>
+        <path d="M5,9 L5,13 L1,13 L1,9 L5,9 L5,9 L5,9 Z M6,8 L0,8 L0,14 L6,14 L6,8 L6,8 L6,8 L6,8 Z"></path>
+        <path d="M13,9 L13,13 L9,13 L9,9 L13,9 L13,9 L13,9 Z M14,8 L8,8 L8,14 L14,14 L14,8 L14,8 L14,8 L14,8 Z"></path>
     </symbol>
 
-    <symbol id="small-edit" viewBox="0 0 13 13">
-        <path d="M8.787,0.382 L3,6.188 L3,8 L4.776,8 L10.617,2.193 C11.127,1.684 11.127,0.893 10.617,0.382 C10.0877686,-0.04577637 9.32269287,-0.169982916 8.787,0.382 Z M4.415,7 L4,7 L4,6.548 L9.469,0.997 C9.579,0.887 9.667,0.87 9.735,0.87 C9.803,0.87 9.913,0.887 10.022,0.998 C10.133,1.107 10.141,1.187 10.141,1.255 C10.141,1.323 10.111,1.4 10.001,1.514 L4.415,7 Z"></path>
-        <path d="M8,6 L8,11 L1,11 L1,1 L7,1 L7,0 L0,0 L0,12 L9,12 L9,6 L8,6 Z"></path>
+    <symbol id="small-edit" viewBox="0 0 11 12">
+        <path d="M8.787,0.382 L3,6.188 L3,8 L4.776,8 L10.617,2.193 C11.127,1.684 11.127,0.893 10.617,0.382 C10.0877686,-0.04577637 9.32269287,-0.169982916 8.787,0.382 L8.787,0.382 Z M4.415,7 L4,7 L4,6.548 L9.469,0.997 C9.579,0.887 9.667,0.87 9.735,0.87 C9.803,0.87 9.913,0.887 10.022,0.998 C10.133,1.107 10.141,1.187 10.141,1.255 C10.141,1.323 10.111,1.4 10.001,1.514 L4.415,7 L4.415,7 Z"></path>
+        <path d="M8,6 L8,11 L1,11 L1,1 L7,1 L7,0 L0,0 L0,12 L9,12 L9,6 L8,6 L8,6 Z"></path>
     </symbol>
 
     <symbol id="small-trash" viewBox="0 0 13 13">
         <rect x="6" y="7" width="1" height="4"></rect>
         <rect x="8" y="7" width="1" height="4"></rect>
-        <path d="M13,2 L10,2 L10,0 L3,0 L3,2 L1.73472348e-18,2 L1.73472348e-18,2.99597168 L2,2.99597168 L2,13 L10.9962158,13 L10.9962158,2.99597168 L12.9962158,2.99597168 L13,2 Z M4.01452637,1 L9.01452637,1 L9.01452637,2 L4.01452637,2 L4.01452637,1 L4.01452637,1 L4.01452637,1 L4.01452637,1 Z M3,12 L3,3 L10,3 L10,12 L3,12 Z"></path>
+        <path d="M13,2 L10,2 L10,0 L3,0 L3,2 L1.73472348e-18,2 L1.73472348e-18,2.99597168 L2,2.99597168 L2,13 L10.9962158,13 L10.9962158,2.99597168 L12.9962158,2.99597168 L13,2 L13,2 Z M4.01452637,1 L9.01452637,1 L9.01452637,2 L4.01452637,2 L4.01452637,1 L4.01452637,1 L4.01452637,1 L4.01452637,1 L4.01452637,1 Z M3,12 L3,3 L10,3 L10,12 L3,12 L3,12 Z"></path>
     </symbol>
 
-    <symbol id="small-copy" viewBox="0 0 13 13">
-        <path d="M0,2 L0,13 L8,13 L8,2 L0,2 Z M1,12 L1,3 L7,3 L7,12 L1,12 Z"></path>
-        <path d="M2,0 L2,1 L9,1 L9,11 L10,11 L10,0 L2,0 Z"></path>
+    <symbol id="small-copy" viewBox="0 0 10 13">
+        <path d="M0,2 L0,13 L8,13 L8,2 L0,2 L0,2 Z M1,12 L1,3 L7,3 L7,12 L1,12 L1,12 Z"></path>
+        <path d="M2,0 L2,1 L9,1 L9,11 L10,11 L10,0 L2,0 L2,0 Z"></path>
     </symbol>
 
-    <symbol id="small-plus" viewBox="0 0 13 13">
-        <rect x="2" y="6" width="9" height="1"></rect>
-        <rect x="6" y="2" width="1" height="9"></rect>
+    <symbol id="small-plus" viewBox="0 0 9 9">
+        <rect x="0" y="4" width="9" height="1"></rect>
+        <rect x="4" y="0" width="1" height="9"></rect>
     </symbol>
 
 </svg>
