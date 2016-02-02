@@ -3,7 +3,7 @@ import {extend} from '../util/index';
 
 export default {
 
-    props: ['margin', 'rowfirst'],
+    props: ['margin', 'rowFirst'],
 
     ready() {
         this.check();
@@ -47,16 +47,16 @@ export default {
                 });
             }
 
-            if (this.rowfirst) {
+            if (this.rowFirst) {
 
                 // Mark first column elements
-                columns.removeClass(this.rowfirst);
+                columns.removeClass(this.rowFirst);
 
                 var pos = first.position();
 
                 if (pos) {
                     columns.each((i, el) => {
-                        $(el).toggleClass(this.rowfirst, $(el).position().left == pos.left);
+                        $(el).toggleClass(this.rowFirst, $(el).position().left == pos.left);
                     });
                 }
             }

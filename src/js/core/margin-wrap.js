@@ -8,7 +8,7 @@ export default function (UIkit) {
 
         defaults: {
             margin: 'uk-margin-small-top',
-            rowfirst: false
+            rowFirst: false
         }
 
     });

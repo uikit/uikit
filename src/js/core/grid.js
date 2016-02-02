@@ -8,7 +8,7 @@ export default function (UIkit) {
 
         defaults: {
             margin: 'uk-grid-margin',
-            rowfirst: 'uk-grid-first'
+            rowFirst: 'uk-grid-first'
         }
 
     });
