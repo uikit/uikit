@@ -25,7 +25,7 @@ export default {
             }
 
             var skip = false, columns = this.$el.children(':visible').removeClass(this.margin),
-                offset = columns.length ? columns.position().top + columns.outerHeight() : false;
+                offset = columns.length ? columns.position().top + columns.outerHeight() - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
             if (offset !== false && columns.length > 1) {
                 columns.slice(1).each((i, column) => {
@@ -34,7 +34,7 @@ export default {
 
                     if (skip) {
                         column.addClass(this.margin);
-                    } else if (column.position().top > offset) {
+                    } else if (column.position().top >= offset) {
                         skip = column.addClass(this.margin);
                     }
 
