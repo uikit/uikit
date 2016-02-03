@@ -12,7 +12,7 @@ export default function (UIkit) {
             handler() {
                 this.check();
             },
-            on: ['resize', 'orientationchange', 'update']
+            on: ['load', 'resize', 'orientationchange', 'update']
         },
 
         methods: {
