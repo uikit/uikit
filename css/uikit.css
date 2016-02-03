@@ -1059,18 +1059,32 @@ select.uk-form-width-mini {
   max-width: 100%;
 }
 /*
- * 1. Make form element clickable through icon
+ * 1. Set container position and width
+ * 2. Center icon vertically and horizontal
+ * 3. Make form element clickable through icon
+ * 4. Style
  */
-.uk-form-icon > [class*='uk-icon-'] {
+.uk-form-icon > span {
   position: absolute;
-  top: 50%;
-  width: 30px;
-  margin-top: -8px;
-  font-size: 16px;
-  color: #999;
-  text-align: center;
   /* 1 */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  /* 2 */
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  /* 3 */
   pointer-events: none;
+  /* 4 */
+  color: #999;
 }
 .uk-form-icon:not(.uk-form-icon-flip) > input {
   padding-left: 30px !important;
@@ -1078,8 +1092,9 @@ select.uk-form-width-mini {
 /*
  * Position modifier
  */
-.uk-form-icon-flip > [class*='uk-icon-'] {
+.uk-form-icon-flip > span {
   right: 0;
+  left: auto;
 }
 .uk-form-icon-flip > input {
   padding-right: 30px !important;
