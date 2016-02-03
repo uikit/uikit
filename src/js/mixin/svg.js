@@ -6,7 +6,7 @@ export default {
 
     props: {id: String, class: String, style: String, width: Number, height: Number, ratio: Number},
 
-    defaults: {ratio: 1, class: ''},
+    defaults: {ratio: 1, id: false, class: ''},
 
     methods: {
 
@@ -31,6 +31,10 @@ export default {
                 }
             }
 
+            if (!this.id) {
+                svg.removeAttr('id');
+            }
+
             if (this.width && !this.height) {
                 svg.removeAttr('height');
             }
@@ -39,7 +43,31 @@ export default {
                 svg.removeAttr('width');
             }
 
-            this.$replace($('<div>').append(svg).html());
+            this.$replace(svg);
+        },
+
+        replaceIcon(src, icon) {
+
+            this.get(src).then(doc => {
+
+                var el = $('#' + icon, doc);
+
+                if (!el) {
+                    return;
+                }
+
+                el = el.clone();
+
+                var dimensions = el.attr('viewBox');
+                if (dimensions) {
+                    dimensions = dimensions.split(' ');
+                    this.width = this.width || dimensions[2];
+                    this.height = this.height || dimensions[3];
+                }
+
+                this.replace($('<div>').append(el).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
+            });
+
         }
 
     }

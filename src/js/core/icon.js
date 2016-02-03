@@ -19,28 +19,9 @@ export default function (UIkit) {
                 return;
             }
 
-            var src = this.$el.css('background-image').slice(4, -1).replace(/"/g, '');
+            this.class += (this.class ? ' ' : '') + this.cls;
 
-            this.get(src).then(doc => {
-
-                var el = $('#' + this.icon, doc);
-
-                if (!el) {
-                    return;
-                }
-
-                var dimensions = el.attr('viewBox');
-                if (dimensions) {
-                    dimensions = dimensions.split(' ');
-                    this.width = this.width || dimensions[2];
-                    this.height = this.height || dimensions[3];
-                }
-
-                this.class += (this.class ? ' ' : '') + this.cls;
-
-                this.replace(`<svg><use xlink:href="${src}#${this.icon}"/></svg>`);
-            });
-
+            this.replaceIcon(this.$el.css('background-image').slice(4, -1).replace(/"/g, ''), this.icon);
         }
 
     });

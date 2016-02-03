@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import svgMixin from '../mixin/svg';
 
 export default function (UIkit) {
@@ -12,7 +13,13 @@ export default function (UIkit) {
 
             if (this.src.indexOf('#') !== -1) {
 
-                this.insert(`<svg><use xlink:href="${this.src}"/></svg>`);
+                var parts = this.src.split('#');
+
+                if (parts.length < 2) {
+                    return;
+                }
+
+                this.replaceIcon(parts[0], parts[1]);
 
             } else {
 
@@ -22,7 +29,7 @@ export default function (UIkit) {
                         return;
                     }
 
-                    this.replace(doc.documentElement);
+                    this.replace($(doc.documentElement).clone());
                 });
 
             }
