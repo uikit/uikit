@@ -13,7 +13,7 @@ export default {
         handler() {
             this.check();
         },
-        on: ['load', 'resize', 'orientationchange', 'update']
+        on: ['load', 'ready', 'resize', 'orientationchange', 'update']
     },
 
     methods: {
@@ -24,24 +24,18 @@ export default {
                 return this;
             }
 
-            var columns = this.$el.children().removeClass(this.margin),
-                skip = false,
-                first = columns.filter(':visible:first'),
-                offset = first.length ? (first.position().top + first.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+            var skip = false, columns = this.$el.children(':visible').removeClass(this.margin),
+                offset = columns.length ? columns.position().top + columns.outerHeight() : false;
 
             if (offset !== false && columns.length > 1) {
-                columns.each((i, column) => {
+                columns.slice(1).each((i, column) => {
 
                     column = $(column);
 
-                    if (column.is(':visible')) {
-
-                        if (skip) {
-                            column.addClass(this.margin);
-                        } else if (column.position().top >= offset) {
-                            skip = column.addClass(this.margin);
-                        }
-
+                    if (skip) {
+                        column.addClass(this.margin);
+                    } else if (column.position().top > offset) {
+                        skip = column.addClass(this.margin);
                     }
 
                 });
@@ -52,7 +46,7 @@ export default {
                 // Mark first column elements
                 columns.removeClass(this.rowFirst);
 
-                var pos = first.position();
+                var pos = columns.first().position();
 
                 if (pos) {
                     columns.each((i, el) => {

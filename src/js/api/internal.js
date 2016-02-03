@@ -65,26 +65,16 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype._callHook = function (hook) {
+    UIkit.prototype._callHook = function (hook, e) {
 
         var handlers = this.$options[hook];
 
         if (handlers) {
-            for (var i = 0, j = handlers.length; i < j; i++) {
-                handlers[i].call(this);
-            }
-        }
-    };
-
-    UIkit.prototype._callUpdate = function (e) {
-
-        var handlers = this.$options['update'];
-
-        if (handlers) {
             handlers.forEach(handler => {
+
                 if (isPlainObject(handler)) {
 
-                    if (handler.on && handler.on.indexOf(e.type) === -1) {
+                    if (e && handler.on && handler.on.indexOf(e.type) === -1) {
                         return;
                     }
 
@@ -94,7 +84,6 @@ export default function (UIkit) {
                 handler.call(this, e);
             });
         }
-
-    }
+    };
 
 }

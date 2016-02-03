@@ -26,27 +26,54 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$update = function (e) {
+        this.$broadcast('update', getUpdateEvent(e));
+    };
 
-        if (!e) {
-            e = 'update';
-        }
+    UIkit.prototype.$updateParents = function (e) {
+        this.$dispatch('update', getUpdateEvent(e));
+    };
 
-        if (typeof e === 'string') {
-            var ev = document.createEvent('Event');
-            ev.initEvent(e, true, false);
-            e = ev;
-        }
-
+    UIkit.prototype.$broadcast = function (hook, e) {
         $(UIkit.elements, this.$el).each(function () {
             if (this[DATA]) {
                 for (var name in this[DATA]) {
-                    this[DATA][name]._callUpdate(e);
+                    this[DATA][name]._callHook(hook, e);
                 }
             }
         });
     };
 
+    UIkit.prototype.$dispatch = function (hook, e) {
+        $(UIkit.elements).each((i, el) => {
+            if (el[DATA] && $.contains(el, this.$el[0])) {
+                for (var name in el[DATA]) {
+                    el[DATA][name]._callHook(hook, e);
+                }
+            }
+        });
+    };
+
+    UIkit.prototype.$replace = function (el) {
+
+        el = $(el);
+
+        UIkit.elements.splice(UIkit.elements.indexOf(this.$options.el), 1, el[0]);
+        this.$el.replaceWith(el);
+        this.$options.el = el[0];
+        this.$el = el;
+
+        this.__preventDestroy = true;
+
+        this.$updateParents();
+
+    };
+
     UIkit.prototype.$destroy = function () {
+
+        if (this.__preventDestroy) {
+            this.__preventDestroy = false;
+            return;
+        }
 
         this._callHook('destroy');
 
@@ -67,4 +94,18 @@ export default function (UIkit) {
         this.$el.remove();
     };
 
+    function getUpdateEvent(e) {
+
+        if (!e) {
+            e = 'update';
+        }
+
+        if (typeof e === 'string') {
+            var ev = document.createEvent('Event');
+            ev.initEvent(e, true, false);
+            e = ev;
+        }
+
+        return e;
+    }
 }

@@ -17,8 +17,11 @@ export default function (UIkit, _) {
     $('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');
 
     $(window)
-        .on('resize orientationchange', throttle(UIkit.update, 150))
-        .on('load', UIkit.update);
+        .on('DOMContentLoaded', function() {
+            UIkit.update('ready')}
+        )
+        .on('load', UIkit.update)
+        .on('resize orientationchange', throttle(UIkit.update, 150));
 
     // core components
     UIkit.use(Alert);
