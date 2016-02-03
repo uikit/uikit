@@ -22,7 +22,7 @@ export default function (UIkit) {
                         return;
                     }
 
-                    this.insert(doc.documentElement);
+                    this.replace(doc.documentElement);
                 });
 
             }

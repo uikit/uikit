@@ -6,7 +6,7 @@ export default {
 
     props: {id: String, class: String, style: String, width: Number, height: Number, ratio: Number},
 
-    defaults: {ratio: 1},
+    defaults: {ratio: 1, class: ''},
 
     methods: {
 
@@ -18,7 +18,7 @@ export default {
             return svgs[src];
         },
 
-        insert(svg) {
+        replace(svg) {
 
             svg = $(svg);
 
@@ -39,8 +39,7 @@ export default {
                 svg.removeAttr('width');
             }
 
-            return $(svg[0].outerHTML).replaceAll(this.$el);
-
+            this.$replace($('<div>').append(svg).html());
         }
 
     }

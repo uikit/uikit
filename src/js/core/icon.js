@@ -23,7 +23,7 @@ export default function (UIkit) {
 
             this.get(src).then(doc => {
 
-                var el = $('#'+this.icon, doc);
+                var el = $('#' + this.icon, doc);
 
                 if (!el) {
                     return;
@@ -36,7 +36,9 @@ export default function (UIkit) {
                     this.height = this.height || dimensions[3];
                 }
 
-                this.insert(`<svg class="${this.cls}"><use xlink:href="${src}#${this.icon}"/></svg>`)[0].classList.add('uk-icon');
+                this.class += (this.class ? ' ' : '') + this.cls;
+
+                this.replace(`<svg><use xlink:href="${src}#${this.icon}"/></svg>`);
             });
 
         }
