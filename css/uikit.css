@@ -1891,16 +1891,9 @@ select.uk-form-width-mini {
 /* ========================================================================
    Component: Card
  ========================================================================== */
-/*
- * 1. Style
- */
 .uk-card {
   position: relative;
   box-sizing: content-box;
-  /* 1 */
-  background: #fff;
-  color: #444;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 /* Sections
  ========================================================================== */
@@ -1977,23 +1970,25 @@ select.uk-form-width-mini {
 /* Style modifiers
  ========================================================================== */
 /*
+ * Default
+ */
+.uk-card-default {
+  background-color: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+/*
  * Primary
  */
 .uk-card-primary {
   background-color: #00a8e6;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 /*
  * Secondary
  */
 .uk-card-secondary {
   background-color: #222;
-}
-/*
- * Blank
- */
-.uk-card-blank {
-  background-color: none;
-  box-shadow: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 /* Size modifier
  ========================================================================== */

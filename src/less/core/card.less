@@ -11,9 +11,9 @@
 //                  `uk-card-badge`
 //
 // Modifiers:       `uk-card-hover`
+//                  `uk-card-default`
 //                  `uk-card-primary`
 //                  `uk-card-secondary`
-//                  `uk-card-blank`
 //                  `uk-card-large`
 //
 // ========================================================================
@@ -21,9 +21,6 @@
 
 // Variables
 // ========================================================================
-
-@card-background:                              @global-background;
-@card-color:                                   @global-color;
 
 @card-body-padding-horizontal:                 @global-gutter;
 @card-body-padding-vertical:                   @global-gutter;
@@ -50,6 +47,7 @@
 @card-badge-top:                               @global-gutter;
 @card-badge-right:                             @card-badge-top;
 
+@card-default-background:                      @global-background;
 @card-primary-background:                      @global-primary-background;
 @card-secondary-background:                    @global-secondary-background;
 
@@ -61,16 +59,9 @@
    Component: Card
  ========================================================================== */
 
-/*
- * 1. Style
- */
-
 .uk-card {
     position: relative;
     box-sizing: content-box;
-    /* 1 */
-    background: @card-background;
-    color: @card-color;
     .hook-card;
 }
 
@@ -196,6 +187,19 @@
  ========================================================================== */
 
 /*
+ * Default
+ */
+
+.uk-card-default {
+    background-color: @card-default-background;
+    .hook-card-default;
+}
+
+.uk-card-default.uk-card-hover:hover {
+    .hook-card-default-hover;
+}
+
+/*
  * Primary
  */
 
@@ -219,19 +223,6 @@
 
 .uk-card-secondary.uk-card-hover:hover {
     .hook-card-secondary-hover;
-}
-
-/*
- * Blank
- */
-
-.uk-card-blank {
-    background-color: none;
-    .hook-card-blank;
-}
-
-.uk-card-blank.uk-card-hover:hover {
-    .hook-card-blank-hover;
 }
 
 
@@ -267,11 +258,11 @@
 .hook-card-title() {}
 .hook-card-badge() {}
 .hook-card-hover() {}
+.hook-card-default() {}
+.hook-card-default-hover() {}
 .hook-card-primary() {}
 .hook-card-primary-hover() {}
 .hook-card-secondary() {}
 .hook-card-secondary-hover() {}
-.hook-card-blank() {}
-.hook-card-blank-hover() {}
 .hook-card-large-body() {}
 .hook-card-misc() {}
