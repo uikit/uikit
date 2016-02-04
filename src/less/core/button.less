@@ -36,30 +36,30 @@
 
 @button-default-background:                     @global-muted-background;
 @button-default-color:                          @global-color;
-@button-default-hover-background:               darken(@global-muted-background, 5%);
+@button-default-hover-background:               darken(@button-default-background, 5%);
 @button-default-hover-color:                    @global-color;
-@button-default-active-background:              darken(@global-muted-background, 10%);
+@button-default-active-background:              darken(@button-default-background, 10%);
 @button-default-active-color:                   @global-color;
 
 @button-primary-background:                     @global-primary-background;
 @button-primary-color:                          @global-light-color;
-@button-primary-hover-background:               darken(@global-primary-background, 5%);
+@button-primary-hover-background:               darken(@button-primary-background, 5%);
 @button-primary-hover-color:                    @global-light-color;
-@button-primary-active-background:              darken(@global-primary-background, 10%);
+@button-primary-active-background:              darken(@button-primary-background, 10%);
 @button-primary-active-color:                   @global-light-color;
 
 @button-success-background:                     @global-success-background;
 @button-success-color:                          @global-light-color;
-@button-success-hover-background:               darken(@global-success-background, 5%);
+@button-success-hover-background:               darken(@button-success-background, 5%);
 @button-success-hover-color:                    @global-light-color;
-@button-success-active-background:              darken(@global-success-background, 10%);
+@button-success-active-background:              darken(@button-success-background, 10%);
 @button-success-active-color:                   @global-light-color;
 
 @button-danger-background:                      @global-danger-background;
 @button-danger-color:                           @global-light-color;
-@button-danger-hover-background:                darken(@global-danger-background, 5%);
+@button-danger-hover-background:                darken(@button-danger-background, 5%);
 @button-danger-hover-color:                     @global-light-color;
-@button-danger-active-background:               darken(@global-danger-background, 10%);
+@button-danger-active-background:               darken(@button-danger-background, 10%);
 @button-danger-active-color:                    @global-light-color;
 
 @button-disabled-background:                    @global-muted-background;
@@ -281,6 +281,7 @@
 .uk-button-link.uk-active,
 .uk-button-link:disabled {
     padding: 0;
+    height: auto;
     line-height: @global-line-height;
     background: none;
     .hook-button-link;
