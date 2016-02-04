@@ -65,13 +65,19 @@
 
 .hook-card-default() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
 
+.hook-card-default-title() {}
+
 .hook-card-default-hover() {}
 
 .hook-card-primary() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
 
+.hook-card-primary-title() {}
+
 .hook-card-primary-hover() {}
 
 .hook-card-secondary() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+
+.hook-card-secondary-title() {}
 
 .hook-card-secondary-hover() {}
 
@@ -85,4 +91,17 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-card-misc() {}
+.hook-card-misc() {
+
+    .uk-card-primary .uk-card-header,
+    .uk-card-secondary .uk-card-header {
+        border-bottom: 1px solid fade(@global-light-color, 20%);;
+    }
+
+    .uk-card-primary .uk-card-footer,
+    .uk-card-secondary .uk-card-footer {
+        border-top: 1px solid fade(@global-light-color, 20%);;
+    }
+
+
+}

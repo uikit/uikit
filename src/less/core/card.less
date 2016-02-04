@@ -42,14 +42,21 @@
 
 @card-title-font-size:                         @global-large-font-size;
 @card-title-line-height:                       1.4;
-@card-title-color:                             @global-color;
 
 @card-badge-top:                               @global-gutter;
 @card-badge-right:                             @card-badge-top;
 
-@card-default-background:                      @global-background;
+@card-default-background:                      @global-muted-background;
+@card-default-color:                           @global-color;
+@card-default-title-color:                     @global-color;
+
 @card-primary-background:                      @global-primary-background;
+@card-primary-color:                           @global-light-color;
+@card-primary-title-color:                     @card-primary-color;
+
 @card-secondary-background:                    @global-secondary-background;
+@card-secondary-color:                         @global-light-color;
+@card-secondary-title-color:                   @card-secondary-color;
 
 @card-large-body-padding-horizontal-l:         @global-large-gutter;
 @card-large-body-padding-vertical-l:           @global-large-gutter;
@@ -131,24 +138,19 @@
 /* Media
  ========================================================================== */
 
-[class*='uk-card-media'] {
-    .hook-card-media;
-}
+[class*='uk-card-media'] { .hook-card-media; }
 
-.uk-card-media-top {
-    .hook-card-media-top;
-}
+.uk-card-media-top,
+.uk-card-media-left,
+.uk-card-media-right { .hook-card-media-top; }
+.uk-card-media-bottom { .hook-card-media-bottom; }
 
-.uk-card-media-bottom {
-    .hook-card-media-bottom;
-}
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
 
-.uk-card-media-left {
-    .hook-card-media-left;
-}
+    .uk-card-media-left { .hook-card-media-left; }
+    .uk-card-media-right { .hook-card-media-right; }
 
-.uk-card-media-right {
-    .hook-card-media-right;
 }
 
 
@@ -158,7 +160,6 @@
 .uk-card-title {
     font-size: @card-title-font-size;
     line-height: @card-title-line-height;
-    color: @card-title-color;
     .hook-card-title;
 }
 
@@ -192,12 +193,28 @@
 
 .uk-card-default {
     background-color: @card-default-background;
+    color: @card-default-color;
     .hook-card-default;
+}
+
+.uk-card-default .uk-card-header {
+    background-color: darken(@card-default-background, 3%);
+}
+
+.uk-card-default .uk-card-footer {
+    background-color: darken(@card-default-background, 3%);
+}
+
+.uk-card-default .uk-card-title {
+    color: @card-default-title-color;
+    .hook-card-default-title;
 }
 
 .uk-card-default.uk-card-hover:hover {
     .hook-card-default-hover;
 }
+
+
 
 /*
  * Primary
@@ -205,7 +222,13 @@
 
 .uk-card-primary {
     background-color: @card-primary-background;
+    color: @card-primary-color;
     .hook-card-primary;
+}
+
+.uk-card-primary .uk-card-title {
+    color: @card-primary-title-color;
+    .hook-card-primary-title;
 }
 
 .uk-card-primary.uk-card-hover:hover {
@@ -218,7 +241,13 @@
 
 .uk-card-secondary {
     background-color: @card-secondary-background;
+    color: @card-secondary-color;
     .hook-card-secondary;
+}
+
+.uk-card-secondary .uk-card-title {
+    color: @card-secondary-title-color;
+    .hook-card-secondary-title;
 }
 
 .uk-card-secondary.uk-card-hover:hover {
@@ -259,10 +288,13 @@
 .hook-card-badge() {}
 .hook-card-hover() {}
 .hook-card-default() {}
+.hook-card-default-title() {}
 .hook-card-default-hover() {}
 .hook-card-primary() {}
+.hook-card-primary-title() {}
 .hook-card-primary-hover() {}
 .hook-card-secondary() {}
+.hook-card-secondary-title() {}
 .hook-card-secondary-hover() {}
 .hook-card-large-body() {}
 .hook-card-misc() {}
