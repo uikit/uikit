@@ -46,17 +46,27 @@
 @card-badge-top:                               @global-gutter;
 @card-badge-right:                             @card-badge-top;
 
+@card-hover-background:                        @global-muted-background;
+
 @card-default-background:                      @global-muted-background;
 @card-default-color:                           @global-color;
 @card-default-title-color:                     @global-color;
+@card-default-hover-background:                darken(@card-default-background, 5%);
+@card-default-header-background:               darken(@card-default-background, 5%);
+@card-default-footer-background:               darken(@card-default-background, 5%);
 
 @card-primary-background:                      @global-primary-background;
 @card-primary-color:                           @global-light-color;
 @card-primary-title-color:                     @card-primary-color;
+@card-primary-hover-background:                darken(@card-primary-background, 5%);
 
 @card-secondary-background:                    @global-secondary-background;
 @card-secondary-color:                         @global-light-color;
 @card-secondary-title-color:                   @card-secondary-color;
+@card-secondary-hover-background:              darken(@card-secondary-background, 5%);
+
+@card-small-body-padding-horizontal:           @global-small-gutter;
+@card-small-body-padding-vertical:             @global-small-gutter;
 
 @card-large-body-padding-horizontal-l:         @global-large-gutter;
 @card-large-body-padding-vertical-l:           @global-large-gutter;
@@ -94,17 +104,11 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-card-body {
-        padding: @card-body-padding-vertical-l @card-body-padding-horizontal-l;
-    }
+    .uk-card-body { padding: @card-body-padding-vertical-l @card-body-padding-horizontal-l; }
 
-    .uk-card-header {
-        padding: @card-header-padding-vertical-l @card-header-padding-horizontal-l;
-    }
+    .uk-card-header { padding: @card-header-padding-vertical-l @card-header-padding-horizontal-l; }
 
-    .uk-card-footer {
-        padding: @card-footer-padding-vertical-l @card-footer-padding-horizontal-l;
-    }
+    .uk-card-footer { padding: @card-footer-padding-vertical-l @card-footer-padding-horizontal-l; }
 
 }
 
@@ -180,6 +184,7 @@
  ========================================================================== */
 
 .uk-card-hover:hover {
+    background-color: @card-hover-background;
     .hook-card-hover;
 }
 
@@ -189,6 +194,7 @@
 
 /*
  * Default
+ * Note: Header and Footer are only implemented for the default style
  */
 
 .uk-card-default {
@@ -197,24 +203,25 @@
     .hook-card-default;
 }
 
-.uk-card-default .uk-card-header {
-    background-color: darken(@card-default-background, 3%);
-}
-
-.uk-card-default .uk-card-footer {
-    background-color: darken(@card-default-background, 3%);
-}
-
 .uk-card-default .uk-card-title {
     color: @card-default-title-color;
     .hook-card-default-title;
 }
 
 .uk-card-default.uk-card-hover:hover {
+    background-color: @card-default-hover-background;
     .hook-card-default-hover;
 }
 
+.uk-card-default .uk-card-header {
+    background-color: @card-default-header-background;
+    .hook-card-default-header;
+}
 
+.uk-card-default .uk-card-footer {
+    background-color: @card-default-header-background;
+    .hook-card-default-footer;
+}
 
 /*
  * Primary
@@ -232,6 +239,7 @@
 }
 
 .uk-card-primary.uk-card-hover:hover {
+    background-color: @card-primary-hover-background;
     .hook-card-primary-hover;
 }
 
@@ -251,6 +259,7 @@
 }
 
 .uk-card-secondary.uk-card-hover:hover {
+    background-color: @card-secondary-hover-background;
     .hook-card-secondary-hover;
 }
 
@@ -258,14 +267,14 @@
 /* Size modifier
  ========================================================================== */
 
+.uk-card-small.uk-card-body,
+.uk-card-small .uk-card-body { padding: @card-small-body-padding-vertical @card-small-body-padding-horizontal; }
+
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
     .uk-card-large.uk-card-body,
-    .uk-card-large .uk-card-body {
-        padding: @card-large-body-padding-vertical-l @card-large-body-padding-horizontal-l;
-        .hook-card-large-body;
-    }
+    .uk-card-large .uk-card-body { padding: @card-large-body-padding-vertical-l @card-large-body-padding-horizontal-l; }
 
 }
 
@@ -290,11 +299,12 @@
 .hook-card-default() {}
 .hook-card-default-title() {}
 .hook-card-default-hover() {}
+.hook-card-default-header() {}
+.hook-card-default-footer() {}
 .hook-card-primary() {}
 .hook-card-primary-title() {}
 .hook-card-primary-hover() {}
 .hook-card-secondary() {}
 .hook-card-secondary-title() {}
 .hook-card-secondary-hover() {}
-.hook-card-large-body() {}
 .hook-card-misc() {}

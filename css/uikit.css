@@ -1265,6 +1265,7 @@ select.uk-form-width-mini {
 .uk-button-link.uk-active,
 .uk-button-link:disabled {
   padding: 0;
+  height: auto;
   line-height: 1.5;
   background: none;
   border: none;
@@ -1298,7 +1299,7 @@ select.uk-form-width-mini {
  ========================================================================== */
 .uk-button-small {
   height: 30px;
-  padding: 0 10px;
+  padding: 0 15px;
   font-size: 0.87rem;
 }
 .uk-button-large {
@@ -1510,6 +1511,9 @@ select.uk-form-width-mini {
   background: #222;
 }
 /*
+ * Indicate that an image or video is used as background
+ */
+/*
      * Adjust padding between equal colored blocks
      */
 .uk-section-default + .uk-section-default,
@@ -1649,15 +1653,15 @@ select.uk-form-width-mini {
  */
 /* Horizontal */
 .uk-grid-small {
-  margin-left: -10px;
+  margin-left: -15px;
 }
 .uk-grid-small > * {
-  padding-left: 10px;
+  padding-left: 15px;
 }
 /* Vertical */
 [is*="uk-grid"] + .uk-grid-small,
 .uk-grid-small > .uk-grid-margin {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 /*
  * Medium
@@ -1786,21 +1790,21 @@ select.uk-form-width-mini {
  */
 /* Horizontal */
 .uk-grid-divider.uk-grid-small {
-  margin-left: -20px;
+  margin-left: -30px;
 }
 .uk-grid-divider.uk-grid-small > * {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 .uk-grid-divider.uk-grid-small > :not(.uk-grid-first):before {
-  left: 10px;
+  left: 15px;
 }
 /* Vertical */
 .uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first:before {
-  top: -10px;
-  left: 20px;
+  top: -15px;
+  left: 30px;
 }
 /*
  * Medium
@@ -1902,11 +1906,9 @@ select.uk-form-width-mini {
 }
 .uk-card-header {
   padding: 15px 30px;
-  border-bottom: 1px solid #e5e5e5;
 }
 .uk-card-footer {
   padding: 15px 30px;
-  border-top: 1px solid #e5e5e5;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
@@ -1947,12 +1949,12 @@ select.uk-form-width-mini {
 }
 /* Media
  ========================================================================== */
+/* Phone landscape and bigger */
 /* Title
  ========================================================================== */
 .uk-card-title {
   font-size: 1.37rem;
   line-height: 1.4;
-  color: #444;
 }
 /* Badge
  ========================================================================== */
@@ -1965,33 +1967,68 @@ select.uk-form-width-mini {
 /* Hover modifier
  ========================================================================== */
 .uk-card-hover:hover {
+  background-color: #fff;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
 }
 /* Style modifiers
  ========================================================================== */
 /*
  * Default
+ * Note: Header and Footer are only implemented for the default style
  */
 .uk-card-default {
   background-color: #fff;
+  color: #444;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+.uk-card-default .uk-card-title {
+  color: #444;
+}
+.uk-card-default.uk-card-hover:hover {
+  background-color: #fff;
+}
+.uk-card-default .uk-card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+.uk-card-default .uk-card-footer {
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
 }
 /*
  * Primary
  */
 .uk-card-primary {
   background-color: #00a8e6;
+  color: #fff;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+.uk-card-primary .uk-card-title {
+  color: #fff;
+}
+.uk-card-primary.uk-card-hover:hover {
+  background-color: #00a8e6;
 }
 /*
  * Secondary
  */
 .uk-card-secondary {
   background-color: #222;
+  color: #fff;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+.uk-card-secondary .uk-card-title {
+  color: #fff;
+}
+.uk-card-secondary.uk-card-hover:hover {
+  background-color: #222;
 }
 /* Size modifier
  ========================================================================== */
+.uk-card-small.uk-card-body,
+.uk-card-small .uk-card-body {
+  padding: 15px 15px;
+}
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   .uk-card-large.uk-card-body,
@@ -3743,27 +3780,45 @@ select.uk-form-width-mini {
 /* ========================================================================
    Mixin: Inverse
  ========================================================================== */
-.uk-light {
+.uk-light,
+.uk-card-primary,
+.uk-card-secondary {
   color: #fff;
 }
 .uk-light a:not([class]),
-.uk-light .uk-link {
+.uk-light .uk-link,
+.uk-card-primary a:not([class]),
+.uk-card-primary .uk-link,
+.uk-card-secondary a:not([class]),
+.uk-card-secondary .uk-link {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
 }
 .uk-light a:not([class]):hover,
-.uk-light .uk-link:hover {
+.uk-light .uk-link:hover,
+.uk-card-primary a:not([class]):hover,
+.uk-card-primary .uk-link:hover,
+.uk-card-secondary a:not([class]):hover,
+.uk-card-secondary .uk-link:hover {
   color: #fff;
   text-decoration: underline;
 }
 .uk-light :not(pre) > code,
 .uk-light :not(pre) > kbd,
-.uk-light :not(pre) > samp {
+.uk-light :not(pre) > samp,
+.uk-card-primary :not(pre) > code,
+.uk-card-primary :not(pre) > kbd,
+.uk-card-primary :not(pre) > samp,
+.uk-card-secondary :not(pre) > code,
+.uk-card-secondary :not(pre) > kbd,
+.uk-card-secondary :not(pre) > samp {
   color: #fff;
   border-color: rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.1);
 }
-.uk-light em {
+.uk-light em,
+.uk-card-primary em,
+.uk-card-secondary em {
   color: #fff;
 }
 .uk-light h1,
@@ -3777,16 +3832,46 @@ select.uk-form-width-mini {
 .uk-light h5,
 .uk-light .uk-h5,
 .uk-light h6,
-.uk-light .uk-h6 {
+.uk-light .uk-h6,
+.uk-card-primary h1,
+.uk-card-primary .uk-h1,
+.uk-card-primary h2,
+.uk-card-primary .uk-h2,
+.uk-card-primary h3,
+.uk-card-primary .uk-h3,
+.uk-card-primary h4,
+.uk-card-primary .uk-h4,
+.uk-card-primary h5,
+.uk-card-primary .uk-h5,
+.uk-card-primary h6,
+.uk-card-primary .uk-h6,
+.uk-card-secondary h1,
+.uk-card-secondary .uk-h1,
+.uk-card-secondary h2,
+.uk-card-secondary .uk-h2,
+.uk-card-secondary h3,
+.uk-card-secondary .uk-h3,
+.uk-card-secondary h4,
+.uk-card-secondary .uk-h4,
+.uk-card-secondary h5,
+.uk-card-secondary .uk-h5,
+.uk-card-secondary h6,
+.uk-card-secondary .uk-h6 {
   color: #fff;
 }
-.uk-light hr {
+.uk-light hr,
+.uk-card-primary hr,
+.uk-card-secondary hr {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-list-line > li:nth-child(n+2) {
+.uk-light .uk-list-line > li:nth-child(n+2),
+.uk-card-primary .uk-list-line > li:nth-child(n+2),
+.uk-card-secondary .uk-list-line > li:nth-child(n+2) {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-list-bullet > li:before {
+.uk-light .uk-list-bullet > li:before,
+.uk-card-primary .uk-list-bullet > li:before,
+.uk-card-secondary .uk-list-bullet > li:before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
 }
 .uk-light .uk-form select,
@@ -3805,7 +3890,41 @@ select.uk-form-width-mini {
 .uk-light .uk-form input[type="url"],
 .uk-light .uk-form input[type="search"],
 .uk-light .uk-form input[type="tel"],
-.uk-light .uk-form input[type="color"] {
+.uk-light .uk-form input[type="color"],
+.uk-card-primary .uk-form select,
+.uk-card-primary .uk-form textarea,
+.uk-card-primary .uk-form input:not([type]),
+.uk-card-primary .uk-form input[type="text"],
+.uk-card-primary .uk-form input[type="password"],
+.uk-card-primary .uk-form input[type="datetime"],
+.uk-card-primary .uk-form input[type="datetime-local"],
+.uk-card-primary .uk-form input[type="date"],
+.uk-card-primary .uk-form input[type="month"],
+.uk-card-primary .uk-form input[type="time"],
+.uk-card-primary .uk-form input[type="week"],
+.uk-card-primary .uk-form input[type="number"],
+.uk-card-primary .uk-form input[type="email"],
+.uk-card-primary .uk-form input[type="url"],
+.uk-card-primary .uk-form input[type="search"],
+.uk-card-primary .uk-form input[type="tel"],
+.uk-card-primary .uk-form input[type="color"],
+.uk-card-secondary .uk-form select,
+.uk-card-secondary .uk-form textarea,
+.uk-card-secondary .uk-form input:not([type]),
+.uk-card-secondary .uk-form input[type="text"],
+.uk-card-secondary .uk-form input[type="password"],
+.uk-card-secondary .uk-form input[type="datetime"],
+.uk-card-secondary .uk-form input[type="datetime-local"],
+.uk-card-secondary .uk-form input[type="date"],
+.uk-card-secondary .uk-form input[type="month"],
+.uk-card-secondary .uk-form input[type="time"],
+.uk-card-secondary .uk-form input[type="week"],
+.uk-card-secondary .uk-form input[type="number"],
+.uk-card-secondary .uk-form input[type="email"],
+.uk-card-secondary .uk-form input[type="url"],
+.uk-card-secondary .uk-form input[type="search"],
+.uk-card-secondary .uk-form input[type="tel"],
+.uk-card-secondary .uk-form input[type="color"] {
   border-color: rgba(255, 255, 255, 0.8);
   background: rgba(255, 255, 255, 0.8);
   color: #444;
@@ -3827,89 +3946,175 @@ select.uk-form-width-mini {
 .uk-light .uk-form input[type="url"]:focus,
 .uk-light .uk-form input[type="search"]:focus,
 .uk-light .uk-form input[type="tel"]:focus,
-.uk-light .uk-form input[type="color"]:focus {
+.uk-light .uk-form input[type="color"]:focus,
+.uk-card-primary .uk-form select:focus,
+.uk-card-primary .uk-form textarea:focus,
+.uk-card-primary .uk-form input:not([type]):focus,
+.uk-card-primary .uk-form input[type="text"]:focus,
+.uk-card-primary .uk-form input[type="password"]:focus,
+.uk-card-primary .uk-form input[type="datetime"]:focus,
+.uk-card-primary .uk-form input[type="datetime-local"]:focus,
+.uk-card-primary .uk-form input[type="date"]:focus,
+.uk-card-primary .uk-form input[type="month"]:focus,
+.uk-card-primary .uk-form input[type="time"]:focus,
+.uk-card-primary .uk-form input[type="week"]:focus,
+.uk-card-primary .uk-form input[type="number"]:focus,
+.uk-card-primary .uk-form input[type="email"]:focus,
+.uk-card-primary .uk-form input[type="url"]:focus,
+.uk-card-primary .uk-form input[type="search"]:focus,
+.uk-card-primary .uk-form input[type="tel"]:focus,
+.uk-card-primary .uk-form input[type="color"]:focus,
+.uk-card-secondary .uk-form select:focus,
+.uk-card-secondary .uk-form textarea:focus,
+.uk-card-secondary .uk-form input:not([type]):focus,
+.uk-card-secondary .uk-form input[type="text"]:focus,
+.uk-card-secondary .uk-form input[type="password"]:focus,
+.uk-card-secondary .uk-form input[type="datetime"]:focus,
+.uk-card-secondary .uk-form input[type="datetime-local"]:focus,
+.uk-card-secondary .uk-form input[type="date"]:focus,
+.uk-card-secondary .uk-form input[type="month"]:focus,
+.uk-card-secondary .uk-form input[type="time"]:focus,
+.uk-card-secondary .uk-form input[type="week"]:focus,
+.uk-card-secondary .uk-form input[type="number"]:focus,
+.uk-card-secondary .uk-form input[type="email"]:focus,
+.uk-card-secondary .uk-form input[type="url"]:focus,
+.uk-card-secondary .uk-form input[type="search"]:focus,
+.uk-card-secondary .uk-form input[type="tel"]:focus,
+.uk-card-secondary .uk-form input[type="color"]:focus {
   border-color: #fff;
   background: #fff;
   color: #444;
 }
-.uk-light .uk-form :-ms-input-placeholder {
+.uk-light .uk-form :-ms-input-placeholder,
+.uk-card-primary .uk-form :-ms-input-placeholder,
+.uk-card-secondary .uk-form :-ms-input-placeholder {
   color: rgba(68, 68, 68, 0.7) !important;
 }
-.uk-light .uk-form ::-moz-placeholder {
+.uk-light .uk-form ::-moz-placeholder,
+.uk-card-primary .uk-form ::-moz-placeholder,
+.uk-card-secondary .uk-form ::-moz-placeholder {
   color: rgba(68, 68, 68, 0.7);
 }
-.uk-light .uk-form ::-webkit-input-placeholder {
+.uk-light .uk-form ::-webkit-input-placeholder,
+.uk-card-primary .uk-form ::-webkit-input-placeholder,
+.uk-card-secondary .uk-form ::-webkit-input-placeholder {
   color: rgba(68, 68, 68, 0.7);
 }
-.uk-light .uk-button-default {
+.uk-light .uk-button-default,
+.uk-card-primary .uk-button-default,
+.uk-card-secondary .uk-button-default {
   color: rgba(255, 255, 255, 0.6);
   background: transparent;
   border-color: rgba(255, 255, 255, 0.6);
 }
 .uk-light .uk-button-default:hover,
-.uk-light .uk-button-default:focus {
+.uk-light .uk-button-default:focus,
+.uk-card-primary .uk-button-default:hover,
+.uk-card-primary .uk-button-default:focus,
+.uk-card-secondary .uk-button-default:hover,
+.uk-card-secondary .uk-button-default:focus {
   background-color: transparent;
   color: #fff;
   border-color: #fff;
 }
 .uk-light .uk-button-default:active,
-.uk-light .uk-button-default.uk-active {
+.uk-light .uk-button-default.uk-active,
+.uk-card-primary .uk-button-default:active,
+.uk-card-primary .uk-button-default.uk-active,
+.uk-card-secondary .uk-button-default:active,
+.uk-card-secondary .uk-button-default.uk-active {
   background-color: transparent;
   color: #fff;
   border-color: #fff;
 }
-.uk-light .uk-button-primary {
+.uk-light .uk-button-primary,
+.uk-card-primary .uk-button-primary,
+.uk-card-secondary .uk-button-primary {
   background-color: #fff;
   color: #444;
 }
 .uk-light .uk-button-primary:hover,
-.uk-light .uk-button-primary:focus {
+.uk-light .uk-button-primary:focus,
+.uk-card-primary .uk-button-primary:hover,
+.uk-card-primary .uk-button-primary:focus,
+.uk-card-secondary .uk-button-primary:hover,
+.uk-card-secondary .uk-button-primary:focus {
   background-color: rgba(255, 255, 255, 0.8);
   color: #444;
 }
 .uk-light .uk-button-primary:active,
-.uk-light .uk-button-primary.uk-active {
+.uk-light .uk-button-primary.uk-active,
+.uk-card-primary .uk-button-primary:active,
+.uk-card-primary .uk-button-primary.uk-active,
+.uk-card-secondary .uk-button-primary:active,
+.uk-card-secondary .uk-button-primary.uk-active {
   background-color: rgba(255, 255, 255, 0.7);
   color: #444;
 }
-.uk-light .uk-icon-hover {
+.uk-light .uk-icon-hover,
+.uk-card-primary .uk-icon-hover,
+.uk-card-secondary .uk-icon-hover {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-icon-hover:hover {
+.uk-light .uk-icon-hover:hover,
+.uk-card-primary .uk-icon-hover:hover,
+.uk-card-secondary .uk-icon-hover:hover {
   color: #fff;
 }
-.uk-light .uk-icon-button {
+.uk-light .uk-icon-button,
+.uk-card-primary .uk-icon-button,
+.uk-card-secondary .uk-icon-button {
   background: #fff;
   color: #444;
 }
 .uk-light .uk-icon-button:hover,
-.uk-light .uk-icon-button:focus {
+.uk-light .uk-icon-button:focus,
+.uk-card-primary .uk-icon-button:hover,
+.uk-card-primary .uk-icon-button:focus,
+.uk-card-secondary .uk-icon-button:hover,
+.uk-card-secondary .uk-icon-button:focus {
   background-color: rgba(255, 255, 255, 0.8);
   color: #444;
 }
-.uk-light .uk-icon-button:active {
+.uk-light .uk-icon-button:active,
+.uk-card-primary .uk-icon-button:active,
+.uk-card-secondary .uk-icon-button:active {
   background-color: rgba(255, 255, 255, 0.7);
   color: #444;
 }
-.uk-light .uk-grid-divider > :not(.uk-grid-first):before {
+.uk-light .uk-grid-divider > :not(.uk-grid-first):before,
+.uk-card-primary .uk-grid-divider > :not(.uk-grid-first):before,
+.uk-card-secondary .uk-grid-divider > :not(.uk-grid-first):before {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
+.uk-card-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
+.uk-card-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-text-lead {
+.uk-light .uk-text-lead,
+.uk-card-primary .uk-text-lead,
+.uk-card-secondary .uk-text-lead {
   color: #fff;
 }
-.uk-light .uk-text-meta {
+.uk-light .uk-text-meta,
+.uk-card-primary .uk-text-meta,
+.uk-card-secondary .uk-text-meta {
   color: rgba(255, 255, 255, 0.6);
 }
-.uk-light .uk-text-muted {
+.uk-light .uk-text-muted,
+.uk-card-primary .uk-text-muted,
+.uk-card-secondary .uk-text-muted {
   color: rgba(255, 255, 255, 0.6) !important;
 }
-.uk-light .uk-text-primary {
+.uk-light .uk-text-primary,
+.uk-card-primary .uk-text-primary,
+.uk-card-secondary .uk-text-primary {
   color: #fff !important;
 }
-.uk-light .uk-column-divider {
+.uk-light .uk-column-divider,
+.uk-card-primary .uk-column-divider,
+.uk-card-secondary .uk-column-divider {
   -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
   -moz-column-rule-color: rgba(255, 255, 255, 0.2);
   column-rule-color: rgba(255, 255, 255, 0.2);
