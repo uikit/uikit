@@ -1357,6 +1357,86 @@ select.uk-form-width-mini {
   position: relative;
 }
 /* ========================================================================
+   Component: Alert
+ ========================================================================== */
+.uk-alert {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #ebf7fd;
+  color: #00a8e6;
+}
+/* Add margin if adjacent element */
+* + .uk-alert {
+  margin-top: 20px;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-alert > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Content
+ */
+.uk-alert h1,
+.uk-alert h2,
+.uk-alert h3,
+.uk-alert h4,
+.uk-alert h5,
+.uk-alert h6 {
+  color: inherit;
+}
+.uk-alert a:not([class]) {
+  color: inherit;
+  text-decoration: underline;
+}
+.uk-alert a:not([class]):hover {
+  color: inherit;
+  text-decoration: underline;
+}
+/* Close
+ ========================================================================== */
+.uk-alert-close {
+  float: right;
+}
+/*
+ * Remove margin from adjacent element
+ */
+.uk-alert-close:first-child + * {
+  margin-top: 0;
+}
+/* Style modifiers
+ ========================================================================== */
+/*
+ * Success
+ */
+.uk-alert-success {
+  background: #f2fae3;
+  color: #8cc14c;
+}
+/*
+ * Warning
+ */
+.uk-alert-warning {
+  background: #fffceb;
+  color: #faa732;
+}
+/*
+ * Danger
+ */
+.uk-alert-danger {
+  background: #fff1f0;
+  color: #da314b;
+}
+/* Size modifiers
+ ========================================================================== */
+.uk-alert-large {
+  padding: 30px;
+}
+.uk-alert-large > .uk-alert-close {
+  margin: -10px -10px 0 0;
+}
+/* ========================================================================
    Component: Icon
  ========================================================================== */
 /*
@@ -1397,7 +1477,7 @@ select.uk-form-width-mini {
 .uk-icon-hover:focus {
   color: #444;
 }
-/* Button modifier
+/* Button
  ========================================================================== */
 /*
  * 1. Center icon vertically and horizontal
@@ -4155,75 +4235,6 @@ select.uk-form-width-mini {
   -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
   -moz-column-rule-color: rgba(255, 255, 255, 0.2);
   column-rule-color: rgba(255, 255, 255, 0.2);
-}
-/* ========================================================================
-   Component: Alert
- ========================================================================== */
-.uk-alert {
-  margin-bottom: 15px;
-  padding: 10px;
-  background: #ebf7fd;
-  color: #2d7091;
-}
-/*
- * Add margin if adjacent element
- */
-* + .uk-alert {
-  margin-top: 15px;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-alert > :last-child {
-  margin-bottom: 0;
-}
-/*
- * Keep color for headings if the default heading color is changed
- */
-.uk-alert h1,
-.uk-alert h2,
-.uk-alert h3,
-.uk-alert h4,
-.uk-alert h5,
-.uk-alert h6 {
-  color: inherit;
-}
-/* Close in alert
- ========================================================================== */
-.uk-alert > .uk-close:first-child {
-  float: right;
-}
-/*
- * Remove margin from adjacent element
- */
-.uk-alert > .uk-close:first-child + * {
-  margin-top: 0;
-}
-/* Modifier: `uk-alert-success`
- ========================================================================== */
-.uk-alert-success {
-  background: #f2fae3;
-  color: #659f13;
-}
-/* Modifier: `uk-alert-warning`
- ========================================================================== */
-.uk-alert-warning {
-  background: #fffceb;
-  color: #e28327;
-}
-/* Modifier: `uk-alert-danger`
- ========================================================================== */
-.uk-alert-danger {
-  background: #fff1f0;
-  color: #d85030;
-}
-/* Modifier: `uk-alert-large`
- ========================================================================== */
-.uk-alert-large {
-  padding: 20px;
-}
-.uk-alert-large > .uk-close:first-child {
-  margin: -10px -10px 0 0;
 }
 /* ========================================================================
    Component: Close

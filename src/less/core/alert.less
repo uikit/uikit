@@ -1,5 +1,5 @@
 // Name:            Alert
-// Description:     Defines styles for alert messages
+// Description:     Component to create alert messages
 //
 // Component:       `uk-alert`
 //
@@ -10,37 +10,27 @@
 //                  `uk-alert-danger`
 //                  `uk-alert-large`
 //
-// Uses:            Close: `uk-close`
-//
-// Markup:
-//
-// <!-- uk-alert -->
-// <div class="uk-alert" data-uk-alert>
-//     <a href="#" class="uk-alert-close uk-close"></a>
-//     <p></p>
-// </div>
-//
 // ========================================================================
 
 
 // Variables
 // ========================================================================
 
-@alert-margin-vertical:                         15px;
-@alert-padding:                                 10px;
+@alert-margin-vertical:                         @global-margin;
+@alert-padding:                                 @global-small-gutter;
 @alert-background:                              #ebf7fd;
-@alert-color:                                   #2d7091;
+@alert-color:                                   @global-primary-background;
 
 @alert-success-background:                      #f2fae3;
-@alert-success-color:                           #659f13;
+@alert-success-color:                           @global-success-background;
 
 @alert-warning-background:                      #fffceb;
-@alert-warning-color:                           #e28327;
+@alert-warning-color:                           @global-warning-background;
 
 @alert-danger-background:                       #fff1f0;
-@alert-danger-color:                            #d85030;
+@alert-danger-color:                            @global-danger-background;
 
-@alert-large-padding:                           20px;
+@alert-large-padding:                           @global-gutter;
 
 
 /* ========================================================================
@@ -55,10 +45,7 @@
     .hook-alert;
 }
 
-/*
- * Add margin if adjacent element
- */
-
+/* Add margin if adjacent element */
 * + .uk-alert { margin-top: @alert-margin-vertical; }
 
 /*
@@ -68,7 +55,7 @@
 .uk-alert > :last-child { margin-bottom: 0; }
 
 /*
- * Keep color for headings if the default heading color is changed
+ * Content
  */
 
 .uk-alert h1,
@@ -78,21 +65,35 @@
 .uk-alert h5,
 .uk-alert h6 { color: inherit; }
 
+.uk-alert a:not([class]) {
+    color: inherit;
+    text-decoration: underline;
+}
 
-/* Close in alert
+.uk-alert a:not([class]):hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+
+/* Close
  ========================================================================== */
 
-.uk-alert > .uk-close:first-child { float: right; }
+.uk-alert-close { float: right; }
 
 /*
  * Remove margin from adjacent element
  */
 
-.uk-alert > .uk-close:first-child + * { margin-top: 0; }
+.uk-alert-close:first-child + * { margin-top: 0; }
 
 
-/* Modifier: `uk-alert-success`
+/* Style modifiers
  ========================================================================== */
+
+/*
+ * Success
+ */
 
 .uk-alert-success {
     background: @alert-success-background;
@@ -100,9 +101,9 @@
     .hook-alert-success;
 }
 
-
-/* Modifier: `uk-alert-warning`
- ========================================================================== */
+/*
+ * Warning
+ */
 
 .uk-alert-warning {
     background: @alert-warning-background;
@@ -110,9 +111,9 @@
     .hook-alert-warning;
 }
 
-
-/* Modifier: `uk-alert-danger`
- ========================================================================== */
+/*
+ * Danger
+ */
 
 .uk-alert-danger {
     background: @alert-danger-background;
@@ -121,12 +122,12 @@
 }
 
 
-/* Modifier: `uk-alert-large`
+/* Size modifiers
  ========================================================================== */
 
 .uk-alert-large { padding: @alert-large-padding; }
 
-.uk-alert-large > .uk-close:first-child { margin: -10px -10px 0 0; }
+.uk-alert-large > .uk-alert-close { margin: -10px -10px 0 0; }
 
 
 // Hooks
