@@ -51,6 +51,9 @@
 @inverse-button-primary-hover-color:           @inverse-contrast-color;
 @inverse-button-primary-active-background:     fade(@inverse-color, 70%);
 @inverse-button-primary-active-color:          @inverse-contrast-color;
+@inverse-button-text-color:                    fade(@inverse-color, 70%);
+@inverse-button-text-hover-color:              @inverse-color;
+@inverse-button-text-disabled-color:           fade(@inverse-color, 70%);
 
 @inverse-icon-hover-color:                     fade(@inverse-color, 70%);
 @inverse-icon-hover-hover-color:               @inverse-color;
@@ -251,6 +254,28 @@
         .hook-inverse-button-primary-active;
     }
 
+    //
+    // Text
+    //
+
+    .uk-button-text {
+        color: @inverse-button-text-color;
+        .hook-inverse-button-text;
+    }
+
+    /* Hover + Focus */
+    .uk-button-text:hover,
+    .uk-button-text:focus {
+        color: @inverse-button-text-hover-color;
+        .hook-inverse-button-text-hover;
+    }
+
+    /* Disabled */
+    .uk-button-text:disabled {
+        color: @inverse-button-text-disabled-color;
+        .hook-inverse-button-text-disabled;
+    }
+
 
     // Icon
     // ========================================================================
@@ -370,6 +395,9 @@
 .hook-inverse-button-primary() {}
 .hook-inverse-button-primary-hover() {}
 .hook-inverse-button-primary-active() {}
+.hook-inverse-button-text() {}
+.hook-inverse-button-text-hover() {}
+.hook-inverse-button-text-disabled() {}
 
 .hook-inverse-icon-hover() {}
 .hook-inverse-icon-hover-hover() {}

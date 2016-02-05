@@ -10,6 +10,7 @@
 //                  `uk-button-primary`
 //                  `uk-button-success`
 //                  `uk-button-danger`
+//                  `uk-button-text`
 //                  `uk-button-link`
 //                  `uk-button-small`
 //                  `uk-button-large`
@@ -65,6 +66,12 @@
 @button-disabled-background:                    @global-muted-background;
 @button-disabled-color:                         @global-muted-color;
 
+@button-text-line-height:                       @global-line-height;
+@button-text-color:                             @global-muted-color;
+@button-text-hover-color:                       @global-color;
+@button-text-disabled-color:                    @global-muted-color;
+
+@button-link-line-height:                       @global-line-height;
 @button-link-color:                             @global-link-color;
 @button-link-hover-color:                       @global-link-hover-color;
 @button-link-hover-text-decoration:             underline;
@@ -258,61 +265,82 @@
     .hook-button-danger-active;
 }
 
+/*
+ * Disabled state
+ * The same for all style modifiers
+ */
 
-/* Disabled state
- * The same for all button modifiers
- ========================================================================== */
-
-.uk-button:disabled {
+.uk-button-default:disabled,
+.uk-button-primary:disabled,
+.uk-button-success:disabled,
+.uk-button-danger:disabled {
     background-color: @button-disabled-background;
     color: @button-disabled-color;
     .hook-button-disabled;
 }
 
 
-/* Link modifier
+/* Text modifiers
  ========================================================================== */
 
- /* Reset */
-.uk-button-link,
-.uk-button-link:hover,
-.uk-button-link:focus,
-.uk-button-link:active,
-.uk-button-link.uk-active,
-.uk-button-link:disabled {
+/*
+ * Text
+ * 1. Reset
+ * 2. Style
+ */
+
+.uk-button-text {
+    /* 1 */
     padding: 0;
     height: auto;
-    line-height: @global-line-height;
+    line-height: @button-text-line-height;
     background: none;
+    /* 2 */
+    color: @button-text-color;
+    .hook-button-text;
+}
+
+/* Hover + Focus */
+.uk-button-text:hover,
+.uk-button-text:focus {
+    color: @button-text-hover-color;
+    .hook-button-text-hover;
+}
+
+/* Disabled */
+.uk-button-text:disabled {
+    color: @button-text-disabled-color;
+    .hook-button-text-disabled;
+}
+
+/*
+ * Link
+ * 1. Reset
+ * 2. Style
+ */
+
+.uk-button-link {
+    /* 1 */
+    padding: 0;
+    height: auto;
+    line-height: @button-link-line-height;
+    background: none;
+    /* 2 */
+    color: @button-link-color;
     .hook-button-link;
 }
 
-/* Color */
-.uk-button-link { color: @button-link-color; }
-
+/* Hover + Focus */
 .uk-button-link:hover,
-.uk-button-link:focus,
-.uk-button-link:active,
-.uk-button-link.uk-active {
+.uk-button-link:focus {
     color: @button-link-hover-color;
     text-decoration: @button-link-hover-text-decoration;
 }
 
+/* Disabled */
 .uk-button-link:disabled {
     color: @button-link-disabled-color;
     text-decoration: none;
-}
-
-/*
- * Focus
- * 1. Webkit
- */
-
-.uk-button-link:focus {
-  outline: thin dotted;
-  /* 1 */
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
 }
 
 
@@ -394,5 +422,8 @@
 .hook-button-danger-hover() {}
 .hook-button-danger-active() {}
 .hook-button-disabled() {}
+.hook-button-text() {}
+.hook-button-text-hover() {}
+.hook-button-text-disabled() {}
 .hook-button-link() {}
 .hook-button-misc() {}

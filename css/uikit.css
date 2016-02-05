@@ -1247,53 +1247,70 @@ select.uk-form-width-mini {
   background-color: #b72138;
   color: #fff;
 }
-/* Disabled state
- * The same for all button modifiers
- ========================================================================== */
-.uk-button:disabled {
+/*
+ * Disabled state
+ * The same for all style modifiers
+ */
+.uk-button-default:disabled,
+.uk-button-primary:disabled,
+.uk-button-success:disabled,
+.uk-button-danger:disabled {
   background-color: transparent;
   color: #999;
   border: 1px solid #e5e5e5;
 }
-/* Link modifier
+/* Text modifiers
  ========================================================================== */
-/* Reset */
-.uk-button-link,
-.uk-button-link:hover,
-.uk-button-link:focus,
-.uk-button-link:active,
-.uk-button-link.uk-active,
-.uk-button-link:disabled {
+/*
+ * Text
+ * 1. Reset
+ * 2. Style
+ */
+.uk-button-text {
+  /* 1 */
   padding: 0;
   height: auto;
   line-height: 1.5;
   background: none;
-  border: none;
-}
-/* Color */
-.uk-button-link {
-  color: #07D;
-}
-.uk-button-link:hover,
-.uk-button-link:focus,
-.uk-button-link:active,
-.uk-button-link.uk-active {
-  color: #059;
+  /* 2 */
+  color: #999;
   text-decoration: underline;
 }
-.uk-button-link:disabled {
+/* Hover + Focus */
+.uk-button-text:hover,
+.uk-button-text:focus {
+  color: #444;
+  text-decoration: underline;
+}
+/* Disabled */
+.uk-button-text:disabled {
   color: #999;
   text-decoration: none;
 }
 /*
- * Focus
- * 1. Webkit
+ * Link
+ * 1. Reset
+ * 2. Style
  */
-.uk-button-link:focus {
-  outline: thin dotted;
+.uk-button-link {
   /* 1 */
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+  padding: 0;
+  height: auto;
+  line-height: 1.5;
+  background: none;
+  /* 2 */
+  color: #07D;
+}
+/* Hover + Focus */
+.uk-button-link:hover,
+.uk-button-link:focus {
+  color: #059;
+  text-decoration: underline;
+}
+/* Disabled */
+.uk-button-link:disabled {
+  color: #999;
+  text-decoration: none;
 }
 /* Size modifiers
  ========================================================================== */
@@ -3784,6 +3801,8 @@ select.uk-form-width-mini {
 .uk-card-primary,
 .uk-card-secondary {
   color: #fff;
+  /* Hover + Focus */
+  /* Disabled */
 }
 .uk-light a:not([class]),
 .uk-light .uk-link,
@@ -4050,6 +4069,24 @@ select.uk-form-width-mini {
 .uk-card-secondary .uk-button-primary.uk-active {
   background-color: rgba(255, 255, 255, 0.7);
   color: #444;
+}
+.uk-light .uk-button-text,
+.uk-card-primary .uk-button-text,
+.uk-card-secondary .uk-button-text {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-button-text:hover,
+.uk-light .uk-button-text:focus,
+.uk-card-primary .uk-button-text:hover,
+.uk-card-primary .uk-button-text:focus,
+.uk-card-secondary .uk-button-text:hover,
+.uk-card-secondary .uk-button-text:focus {
+  color: #fff;
+}
+.uk-light .uk-button-text:disabled,
+.uk-card-primary .uk-button-text:disabled,
+.uk-card-secondary .uk-button-text:disabled {
+  color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-icon-hover,
 .uk-card-primary .uk-icon-hover,
