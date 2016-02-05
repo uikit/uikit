@@ -7,7 +7,7 @@ export default function (UIkit) {
         mixins: [marginMixin],
 
         defaults: {
-            margin: 'uk-margin-small-top',
+            cls: 'uk-margin-small-top',
             rowFirst: false
         }
 

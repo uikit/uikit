@@ -3,7 +3,7 @@ import {extend} from '../util/index';
 
 export default {
 
-    props: ['margin', 'rowFirst'],
+    props: ['cls', 'rowFirst'],
 
     ready() {
         this.check();
@@ -24,7 +24,7 @@ export default {
                 return this;
             }
 
-            var skip = false, columns = this.$el.children(':visible').removeClass(this.margin),
+            var skip = false, columns = this.$el.children(':visible').removeClass(this.cls),
                 offset = columns.length ? columns.position().top + columns.outerHeight() - 1 : false; // (-1): weird firefox bug when parent container is display:flex
 
             if (offset !== false && columns.length > 1) {
@@ -33,9 +33,9 @@ export default {
                     column = $(column);
 
                     if (skip) {
-                        column.addClass(this.margin);
+                        column.addClass(this.cls);
                     } else if (column.position().top >= offset) {
-                        skip = column.addClass(this.margin);
+                        skip = column.addClass(this.cls);
                     }
 
                 });
