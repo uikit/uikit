@@ -75,19 +75,19 @@ export function animate(element, animation, duration, out) {
 
 export const Animation = {
 
-    in: function (element, animation, duration) {
+    in(element, animation, duration) {
         return animate(element, animation, duration, false);
     },
 
-    out: function (element, animation, duration) {
+    out(element, animation, duration) {
         return animate(element, animation, duration, true);
     },
 
-    inProgress: function (element) {
+    inProgress(element) {
         return $(element).hasClass('uk-animation-enter') || $(element).hasClass('uk-animation-leave');
     },
 
-    cancel: function(element) {
+    cancel(element) {
         $(element).trigger(animationend);
     },
 
@@ -104,4 +104,16 @@ export function offsetParent(element) {
 export function isWithin(element, selector) {
     element = $(element);
     return element.is(selector) || !!(typeof selector === 'string' ? element.parents(selector).length : $.contains(selector instanceof $ ? selector[0] : selector, element[0]));
+}
+
+export function attrFilter(element, attr, pattern, replacement) {
+    element = $(element);
+    element.attr(attr, function (i, value) {
+        return value ? value.replace(pattern, replacement) : value;
+    });
+    return element;
+}
+
+export function removeClass(element, cls) {
+    return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}($|\\s)`, 'g'), '');
 }

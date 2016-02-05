@@ -44,7 +44,7 @@ export default function (UIkit) {
 
         methods: {
 
-            toggle: function () {
+            toggle() {
 
                 if (!this.targets.length) {
                     return;
@@ -101,7 +101,7 @@ export default function (UIkit) {
                 this.updateAria();
             },
 
-            updateAria: function () {
+            updateAria() {
                 if (this.aria) {
                     this.targets.each(function () {
                         $(this).attr('aria-hidden', !!$(this).attr('hidden'));

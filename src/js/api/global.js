@@ -2,8 +2,6 @@ import {classify, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
-    const DATA = UIkit.data;
-
     UIkit.use = function (plugin) {
 
         if (plugin.installed) {

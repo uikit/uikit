@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {isPlainObject} from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,9 +9,12 @@ export default function (UIkit) {
 
     UIkit.component = function (name, options) {
 
-        options.name = name;
+        if (isPlainObject(options)) {
+            options.name = name;
+            options = UIkit.extend(options);
+        }
 
-        UIkit.components[name] = UIkit.extend(options);
+        UIkit.components[name] = options;
 
         UIkit[name] = function (element, data) {
 

@@ -5,7 +5,7 @@ export default {
 
     methods: {
 
-        justifyElement: function (el, justify, boundaryWidth, offset) {
+        justifyElement(el, justify, boundaryWidth, offset) {
 
             el = $(el);
             justify = $(justify);

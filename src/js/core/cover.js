@@ -35,12 +35,12 @@ export default function (UIkit) {
             handler() {
                 this.check();
             },
-            on: ['load' ,'resize', 'orientationchange', 'update']
+            on: ['load', 'resize', 'orientationchange', 'update']
         },
 
         methods: {
 
-            check: function () {
+            check() {
 
                 if (!this.$el.is(':visible')) {
                     return this;
