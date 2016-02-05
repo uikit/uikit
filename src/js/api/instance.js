@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {createEvent} from '../util/index';
 
 export default function (UIkit) {
 
@@ -26,11 +27,11 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$update = function (e) {
-        this.$broadcast('update', getUpdateEvent(e));
+        this.$broadcast('update', createEvent(e || 'update'));
     };
 
     UIkit.prototype.$updateParents = function (e) {
-        this.$dispatch('update', getUpdateEvent(e));
+        this.$dispatch('update', createEvent(e || 'update'));
     };
 
     UIkit.prototype.$broadcast = function (hook, e) {
@@ -94,18 +95,4 @@ export default function (UIkit) {
         this.$el.remove();
     };
 
-    function getUpdateEvent(e) {
-
-        if (!e) {
-            e = 'update';
-        }
-
-        if (typeof e === 'string') {
-            var ev = document.createEvent('Event');
-            ev.initEvent(e, true, false);
-            e = ev;
-        }
-
-        return e;
-    }
 }

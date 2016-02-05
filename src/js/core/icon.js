@@ -9,9 +9,7 @@ export default function (UIkit) {
 
         props: ['icon'],
 
-        defaults: {
-            cls: 'uk-icon'
-        },
+        defaults: {cls: 'uk-icon'},
 
         ready() {
 

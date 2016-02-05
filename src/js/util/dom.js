@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import {animationend, transitionend} from './env';
+import {isString} from './lang';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
@@ -116,4 +117,13 @@ export function attrFilter(element, attr, pattern, replacement) {
 
 export function removeClass(element, cls) {
     return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}($|\\s)`, 'g'), '');
+}
+
+export function createEvent(e) {
+    if (isString(e)) {
+        var ev = document.createEvent('Event');
+        ev.initEvent(e, true, false);
+        return ev;
+    }
+    return e;
 }
