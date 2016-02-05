@@ -1,11 +1,12 @@
 import $ from 'jquery';
 import Alert from './alert';
 import Cover from './cover';
+import Drop from './drop';
+import Dropdown from './dropdown';
 import Grid from './grid';
 import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
-import Popover from './popover';
 import Responsive from './responsive';
 import Svg from './svg';
 import Toggle from './toggle';
@@ -26,11 +27,12 @@ export default function (UIkit, _) {
     // core components
     UIkit.use(Alert);
     UIkit.use(Cover);
+    UIkit.use(Drop);
+    UIkit.use(Dropdown);
     UIkit.use(Grid);
     UIkit.use(Icon);
     UIkit.use(MarginWrap);
     UIkit.use(MatchHeight);
-    UIkit.use(Popover);
     UIkit.use(Responsive);
     UIkit.use(Svg);
     UIkit.use(Toggle);

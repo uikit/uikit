@@ -1,12 +1,12 @@
 import $ from 'jquery';
-import {hasTouch, offsetParent, isWithin} from '../util/index';
+import {hasTouch, offsetParent, isWithin, removeClass} from '../util/index';
 import domMixin from '../mixin/dom';
 
 export default function (UIkit) {
 
     var active, handler;
 
-    UIkit.component('popover', {
+    UIkit.component('drop', {
 
         mixins: [domMixin],
 
@@ -16,10 +16,12 @@ export default function (UIkit) {
             offset: Number,
             justify: String,
             boundary: String,
-            selector: String,
+            target: String,
+            cls: String,
             preventFlip: String,
-            delayIn: Number,
-            delayOut: Number
+            delayShow: Number,
+            delayHide: Number,
+            hoverIdle: Number
         },
 
         defaults: {
@@ -28,10 +30,12 @@ export default function (UIkit) {
             offset: 0,
             justify: false,
             boundary: window,
-            selector: '.uk-dropdown,.uk-dropdown-blank',
+            target: '.uk-drop',
+            cls: 'uk-drop',
             preventFlip: false,
-            delayIn: 0,
-            delayOut: 800,
+            delayShow: 0,
+            delayHide: 800,
+            hoverIdle: 100,
             flips: {
                 x: {
                     'bottom-left': 'bottom-right',
@@ -67,7 +71,7 @@ export default function (UIkit) {
 
         ready() {
 
-            this.dropdown = this.$el.find(this.selector);
+            this.drop = this.$el.find(this.target);
             this.justify = (this.justify = $(this.justify)).length ? this.justify : false;
             this.boundary = $(this.boundary);
             this.mode = hasTouch ? 'click' : this.mode;
@@ -89,13 +93,13 @@ export default function (UIkit) {
             this.$el.on('click', e => {
                 if (!this.$el.hasClass('uk-open')) {
                     this.show(true);
-                } else if (!isWithin(e.target, this.dropdown) || isWithin(e.target, '.uk-dropdown-close')) {
+                } else if (!isWithin(e.target, this.drop) || isWithin(e.target, `.${this.cls}-close`)) {
                     this.hide(true);
                 }
             });
 
             if (this.mode === 'click') {
-                this.$el.on('click', `:not(${this.selector}) a[href="#"]`, e => {
+                this.$el.on('click', `:not(${this.target}) a[href="#"]`, e => {
                     e.preventDefault();
                 });
             } else {
@@ -114,15 +118,16 @@ export default function (UIkit) {
 
         methods: {
 
-            show: function (force) {
+            show(force) {
 
-                if (this.delayOutHandler) {
-                    clearTimeout(this.delayOutHandler);
-                }
+                this.clearTimers();
 
-                if (force && this.delayInHandler) {
-                    clearTimeout(this.delayInHandler);
-                } else if (active === this) {
+                if (active === this) {
+                    return;
+                } else if (!force && active && active !== this) {
+                    this.hoverIdleTimer = setTimeout(() => {
+                        this.show(true);
+                    }, Math.max(this.hoverIdle, this.delayShow));
                     return;
                 } else if (active) {
                     active.hide(true);
@@ -130,7 +135,7 @@ export default function (UIkit) {
 
                 this.$el.trigger('beforeshow', [this]);
 
-                this.checkDimensions();
+                this.updatePosition();
 
                 var show = () => {
                     this.$el
@@ -141,8 +146,8 @@ export default function (UIkit) {
                     this.$update();
                 };
 
-                if (!force && this.delayIn) {
-                    this.delayInHandler = setTimeout(show, this.delayIn);
+                if (!force && this.delayShow) {
+                    this.delayShowTimer = setTimeout(show, this.delayShow);
                 } else {
                     show();
                 }
@@ -150,11 +155,9 @@ export default function (UIkit) {
                 active = this;
             },
 
-            hide: function (force) {
+            hide(force) {
 
-                if (this.delayInHandler) {
-                    clearTimeout(this.delayInHandler);
-                }
+                this.clearTimers();
 
                 var hide = () => {
                     this.$el
@@ -166,17 +169,33 @@ export default function (UIkit) {
                     active = active === this ? null : active;
                 };
 
-                if (!force && this.delayOut) {
-                    this.delayOutHandler = setTimeout(hide, this.delayOut);
+                if (!force && this.delayHide) {
+                    this.delayHideTimer = setTimeout(hide, this.delayHide);
                 } else {
                     hide();
                 }
             },
 
-            checkDimensions: function () {
+            clearTimers() {
+
+                if (this.delayShowTimer) {
+                    clearTimeout(this.delayShowTimer);
+                }
+
+                if (this.delayHideTimer) {
+                    clearTimeout(this.delayHideTimer);
+                }
+
+                if (this.hoverIdleTimer) {
+                    clearTimeout(this.hoverIdleTimer);
+                }
+
+            },
+
+            updatePosition() {
 
                 // reset
-                this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack').css({
+                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)').css({
                     'top-left': '',
                     'left': '',
                     'margin-left': '',
@@ -184,37 +203,37 @@ export default function (UIkit) {
                 });
 
                 if (this.justify) {
-                    this.dropdown.css('min-width', '');
+                    this.drop.css('min-width', '');
                 }
 
-                this.dropdown.show();
+                this.drop.show();
 
-                var offset = offsetParent(this.dropdown),
+                var offset = offsetParent(this.drop),
                     pos = $.extend({}, offset.offset(), {width: offset[0].offsetWidth, height: offset[0].offsetHeight}),
-                    width = this.dropdown.outerWidth(),
-                    height = this.dropdown.outerHeight(),
+                    width = this.drop.outerWidth(),
+                    height = this.drop.outerHeight(),
                     boundaryWidth = this.boundary.width(),
                     variants = {
-                        'bottom-left': {top: 0 + pos.height + this.offset, left: 0},
-                        'bottom-right': {top: 0 + pos.height + this.offset, left: 0 + pos.width - width},
-                        'bottom-center': {top: 0 + pos.height + this.offset, left: pos.width / 2 - width / 2},
-                        'top-left': {top: 0 - height - this.offset, left: 0},
-                        'top-right': {top: 0 - height - this.offset, left: 0 + pos.width - width},
-                        'top-center': {top: 0 - height - this.offset, left: pos.width / 2 - width / 2},
-                        'left-top': {top: 0, left: 0 - width - this.offset},
-                        'left-bottom': {top: 0 + pos.height - height, left: 0 - width - this.offset},
-                        'left-center': {top: pos.height / 2 - height / 2, left: 0 - width - this.offset},
-                        'right-top': {top: 0, left: 0 + pos.width + this.offset},
-                        'right-bottom': {top: 0 + pos.height - height, left: 0 + pos.width + this.offset},
-                        'right-center': {top: pos.height / 2 - height / 2, left: 0 + pos.width + this.offset}
+                        'bottom-left': {top: pos.height + this.offset, left: 0},
+                        'bottom-right': {top: pos.height + this.offset, left: pos.width - width},
+                        'bottom-center': {top: pos.height + this.offset, left: (pos.width - width) / 2},
+                        'top-left': {top: -height - this.offset, left: 0},
+                        'top-right': {top: -height - this.offset, left: pos.width - width},
+                        'top-center': {top: -height - this.offset, left: (pos.width - width) / 2},
+                        'left-top': {top: 0, left: -width - this.offset},
+                        'left-bottom': {top: pos.height - height, left: -width - this.offset},
+                        'left-center': {top: (pos.height - height) / 2, left: -width - this.offset},
+                        'right-top': {top: 0, left: pos.width + this.offset},
+                        'right-bottom': {top: pos.height - height, left: pos.width + this.offset},
+                        'right-center': {top: (pos.height - height) / 2, left: pos.width + this.offset}
                     },
                     pp = this.pos.split('-'),
                     css = variants[this.pos] ? variants[this.pos] : variants['bottom-left'];
 
-                // justify dropdown
+                // justify popover
                 if (this.justify) {
 
-                    this.justifyElement(this.dropdown.css({left: 0}), this.justify, boundaryWidth);
+                    this.justifyElement(this.drop.css({left: 0}), this.justify, boundaryWidth);
 
                 } else if (this.preventFlip !== true) {
 
@@ -244,14 +263,14 @@ export default function (UIkit) {
 
                 // TODO ?
                 if (width > boundaryWidth) {
-                    this.dropdown.addClass('uk-dropdown-stack');
+                    this.drop.addClass(this.cls + '-stack');
                     this.$el.trigger('stack', [this]);
                 }
 
-                this.dropdown.css(css).css('display', '').addClass('uk-dropdown-' + pp[0]);
+                this.drop.css(css).css('display', '').addClass(`${this.cls}-${pp[0]}`);
             },
 
-            checkBoundary: function (left, top, width, height, boundaryWidth) {
+            checkBoundary(left, top, width, height, boundaryWidth) {
 
                 var axis = '';
 

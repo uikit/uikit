@@ -1,0 +1,280 @@
+// Name:            Drop
+// Description:     Defines styles for a toggleable drop
+//
+// Component:       `uk-drop`
+//
+// Sub-objects:     `uk-drop-overlay`
+//
+// Modifiers:       `uk-drop-blank`
+//                  `uk-drop-top`
+//                  `uk-drop-bottom`
+//                  `uk-drop-left`
+//                  `uk-drop-right`
+//                  `uk-drop-justify`
+//                  `uk-drop-grid`
+//                  `uk-drop-width-2`
+//                  `uk-drop-width-3`
+//                  `uk-drop-width-4`
+//                  `uk-drop-width-5`
+//                  `uk-drop-stack`
+//                  `uk-drop-small`
+//                  `uk-drop-navbar`
+//                  `uk-drop-scrollable`
+//
+// States:          `uk-open`
+//
+// Uses:            Animation
+//                  Grid: `uk-width-*`
+//                  Panel: `uk-panel`
+//                  Nav: `uk-nav`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@drop-z-index:                              970;
+@drop-width:                                200px;
+@drop-margin-top:                           5px;
+@drop-padding:                              15px;
+@drop-background:                           #f5f5f5;
+@drop-color:                                #444;
+@drop-font-size:                            1rem;
+@drop-animation:                            uk-fade;
+
+@drop-divider-border-width:                 1px;
+@drop-divider-border:                       #ddd;
+
+@drop-small-padding:                        5px;
+
+@drop-navbar-margin:                        0;
+@drop-navbar-background:                    #f5f5f5;
+@drop-navbar-color:                         #444;
+@drop-navbar-animation:                     uk-slide-top-fixed;
+
+@drop-scrollable-height:                    200px;
+
+
+/* ========================================================================
+   Component: Drop
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-drop-justify`
+ * 4. Set width
+ */
+
+.uk-drop,
+.uk-drop-blank {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: @drop-z-index;
+    /* 3 */
+    box-sizing: border-box;
+    /* 4 */
+    width: @drop-width;
+}
+
+/*
+ * Drop style
+ * 1. Reset button group whitespace hack
+ */
+
+.uk-drop {
+    padding: @drop-padding;
+    background: @drop-background;
+    color: @drop-color;
+    /* 1 */
+    font-size: @drop-font-size;
+    vertical-align: top;
+    .hook-drop;
+}
+
+/*
+ * 1. Show drop
+ * 2. Set animation
+ * 3. Needed for scale animation
+ */
+
+.uk-open > .uk-drop,
+.uk-open > .uk-drop-blank {
+    /* 1 */
+    display: block;
+    /* 2 */
+    -webkit-animation: @drop-animation 0.2s ease-in-out;
+    animation: @drop-animation 0.2s ease-in-out;
+    /* 3 */
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+/* Alignment modifiers
+ ========================================================================== */
+
+/*
+ * Modifier
+ */
+
+.uk-drop-top { margin-top: (-1 * @drop-margin-top); }
+.uk-drop-bottom { margin-top: @drop-margin-top; }
+.uk-drop-left { margin-left: (-1 * @drop-margin-top); }
+.uk-drop-right { margin-left: @drop-margin-top; }
+
+
+/* Nav in drop
+ ========================================================================== */
+
+.uk-drop .uk-nav { margin: 0 (-@drop-padding); }
+
+
+/* Grid and panel in drop
+ ========================================================================== */
+
+/*
+* Vertical gutter
+*/
+
+/*
+ * Grid
+ * Higher specificity to override large gutter
+ */
+
+.uk-grid .uk-drop-grid + .uk-drop-grid { margin-top: @drop-padding; }
+
+/* Panels */
+.uk-drop-grid > [class*='uk-width-'] > .uk-panel + .uk-panel { margin-top: @drop-padding; }
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    /*
+     * Horizontal gutter
+     */
+
+    .uk-drop:not(.uk-drop-stack) > .uk-drop-grid {
+        margin-left: -@drop-padding ;
+        margin-right: -@drop-padding;
+    }
+
+    .uk-drop:not(.uk-drop-stack) > .uk-drop-grid > [class*='uk-width-'] {
+        padding-left: @drop-padding;
+        padding-right: @drop-padding;
+    }
+
+    /*
+     * Column divider
+     */
+
+    .uk-drop:not(.uk-drop-stack) > .uk-drop-grid > [class*='uk-width-']:nth-child(n+2) { border-left: @drop-divider-border-width solid @drop-divider-border; }
+
+    /*
+     * Width multiplier for drop columns
+     */
+
+    .uk-drop-width-2:not(.uk-drop-stack) { width: (@drop-width * 2); }
+    .uk-drop-width-3:not(.uk-drop-stack) { width: (@drop-width * 3); }
+    .uk-drop-width-4:not(.uk-drop-stack) { width: (@drop-width * 4); }
+    .uk-drop-width-5:not(.uk-drop-stack) { width: (@drop-width * 5); }
+
+}
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    /*
+     * Stack columns and take full width
+     */
+
+    .uk-drop-grid > [class*='uk-width-'] { width: 100%; }
+
+    /*
+     * Vertical gutter
+     */
+
+    .uk-drop-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @drop-padding; }
+
+}
+
+/*
+* Stack grid columns
+*/
+
+.uk-drop-stack > .uk-drop-grid > [class*='uk-width-'] { width: 100%; }
+
+.uk-drop-stack > .uk-drop-grid > [class*='uk-width-']:nth-child(n+2) { margin-top: @drop-padding; }
+
+
+
+/* Modifier `uk-drop-small`
+ ========================================================================== */
+
+/*
+ * Set min-width and text expands drop if needed
+ */
+
+.uk-drop-small {
+    min-width: 150px;
+    width: auto;
+    padding: @drop-small-padding;
+    white-space: nowrap;
+}
+
+/*
+ * Nav in drop
+ */
+
+.uk-drop-small .uk-nav { margin: 0 (-@drop-small-padding); }
+
+
+/* Modifier: `uk-drop-navbar`
+ ========================================================================== */
+
+.uk-drop-navbar {
+    margin-top: @drop-navbar-margin;
+    background: @drop-navbar-background;
+    color: @drop-navbar-color;
+    .hook-drop-navbar;
+}
+
+.uk-open > .uk-drop-navbar {
+    -webkit-animation: @drop-navbar-animation 0.2s ease-in-out;
+    animation: @drop-navbar-animation 0.2s ease-in-out;
+}
+
+
+/* Modifier `uk-drop-scrollable`
+ ========================================================================== */
+
+/*
+ * Usefull for long lists
+ */
+
+.uk-drop-scrollable {
+    overflow-y: auto;
+    max-height: @drop-scrollable-height;
+}
+
+
+/* Sub-object: `uk-drop-overlay`
+ ========================================================================== */
+
+.uk-drop-overlay {
+    .hook-drop-overlay;
+}
+
+
+
+// Hooks
+// ========================================================================
+
+.hook-drop-misc;
+
+.hook-drop() {}
+.hook-drop-navbar() {}
+.hook-drop-overlay() {}
+.hook-drop-misc() {}

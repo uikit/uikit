@@ -4,33 +4,22 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Popover - UIkit tests</title>
+        <title>Dropdown - UIkit tests</title>
         <script src="_test.js"></script>
         <link rel="stylesheet" href="../css/uikit.css">
-        <style type="text/css">
-
-            body .uk-container:last-child { padding-bottom: 250px; }
-
-            .test-overlay {
-                position: absolute;
-                z-index: 1;
-                width: 100%;
-            }
-
-        </style>
     </head>
 
     <body>
 
         <div class="uk-container uk-container-center">
 
-            <h1>Popover</h1>
+            <h1>Dropdown</h1>
 
             <div class="uk-margin" id="justify1" is="uk-margin-wrap">
 
-                <div class="uk-button-dropdown" is="uk-popover">
+                <div class="uk-button-dropdown" is="uk-dropdown">
                     <button class="uk-button">Hover</button>
-                    <div class="uk-dropdown uk-dropdown-small">
+                    <div class="uk-dropdown uk-dropdown-small uk-dropdown-top">
                         <ul class="uk-nav uk-nav-dropdown">
                             <li><a href="#">Item</a></li>
                             <li><a href="#">Another item</a></li>
@@ -43,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" justify="#justify1">
+                <div class="uk-button-dropdown" is="uk-dropdown" justify="#justify1">
                     <button class="uk-button">Justify</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -58,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover">
+                <div class="uk-button-dropdown" is="uk-dropdown">
                     <button class="uk-button">Scrollable</button>
                     <div class="uk-dropdown uk-dropdown-small uk-dropdown-scrollable">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -79,7 +68,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover">
+                <div class="uk-button-dropdown" is="uk-dropdown">
                     <button class="uk-button">2 Columns</button>
                     <div class="uk-dropdown uk-dropdown-width-2">
 
@@ -115,7 +104,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover">
+                <div class="uk-button-dropdown" is="uk-dropdown">
                     <button class="uk-button">3 Columns</button>
                     <div class="uk-dropdown uk-dropdown-width-3">
 
@@ -161,7 +150,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" mode="click">
+                <div class="uk-button-dropdown" is="uk-dropdown" mode="click">
                     <button class="uk-button">Click</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -176,7 +165,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover">
+                <div class="uk-button-dropdown" is="uk-dropdown">
                     <button class="uk-button" disabled>Disabled</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -194,7 +183,7 @@
                 <!--TODO-->
                 <div class="uk-button-group">
                     <button class="uk-button">Button</button>
-                    <div is="uk-popover">
+                    <div is="uk-dropdown">
                         <a href="#" class="uk-button"><i class="uk-icon-caret-down"></i></a>
                         <div class="uk-dropdown uk-dropdown-small">
                             <ul class="uk-nav uk-nav-dropdown">
@@ -214,7 +203,7 @@
 
             <div class="uk-margin" is="uk-margin-wrap">
 
-                <div class="uk-button-dropdown" is="uk-popover">
+                <div class="uk-button-dropdown" is="uk-dropdown">
                     <button class="uk-button">Bottom Left</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -229,7 +218,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="bottom-center">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="bottom-center">
                     <button class="uk-button">Bottom Center</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -244,7 +233,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="bottom-right">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="bottom-right">
                     <button class="uk-button">Bottom Right</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -259,7 +248,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="top-left">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="top-left">
                     <button class="uk-button">Top Left</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -274,7 +263,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="top-center">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="top-center">
                     <button class="uk-button">Top Center</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -289,7 +278,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="top-right">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="top-right">
                     <button class="uk-button">Top Right</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -304,7 +293,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="left-top">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="left-top">
                     <button class="uk-button">Left Top</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -319,7 +308,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="left-center">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="left-center">
                     <button class="uk-button">Left Center</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -334,7 +323,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="left-bottom">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="left-bottom">
                     <button class="uk-button">Left Bottom</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -349,7 +338,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="right-top">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="right-top">
                     <button class="uk-button">Right Top</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -364,7 +353,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="right-center">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="right-center">
                     <button class="uk-button">Right Center</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -379,7 +368,7 @@
                     </div>
                 </div>
 
-                <div class="uk-button-dropdown" is="uk-popover" pos="right-bottom">
+                <div class="uk-button-dropdown" is="uk-dropdown" pos="right-bottom">
                     <button class="uk-button">Right Bottom</button>
                     <div class="uk-dropdown uk-dropdown-small">
                         <ul class="uk-nav uk-nav-dropdown">
@@ -396,13 +385,13 @@
 
             </div>
 
-            <h2>Popover blank with panels</h2>
+            <h2>Dropdown blank with panels</h2>
 
             <div class="uk-margin">
 
-                <div class="uk-position-relative uk-display-inline-block" is="uk-popover">
+                <div class="uk-position-relative uk-display-inline-block" is="uk-dropdown">
                     <a href="" class="uk-button">Hover</a>
-                    <div class="uk-dropdown-blank uk-panel uk-panel-box uk-panel-box-hover">
+                    <div class="uk-dropdown uk-panel uk-panel-box uk-panel-box-hover">
                         <div class="uk-panel-teaser">
                             <img src="holder.js/800x280/lava/auto" alt="">
                         </div>
@@ -412,9 +401,9 @@
                     </div>
                 </div>
 
-                <div class="uk-position-relative uk-display-inline-block" is="uk-popover" mode="click" pos="right-center">
+                <div class="uk-position-relative uk-display-inline-block" is="uk-dropdown" mode="click" pos="right-center">
                     <a href="#" class="uk-button">Click</a>
-                    <div class="uk-dropdown-blank uk-panel uk-panel-box uk-panel-box-hover">
+                    <div class="uk-dropdown uk-panel uk-panel-box uk-panel-box-hover">
                         <div class="uk-panel-teaser">
                             <img src="holder.js/800x280/lava/auto" alt="">
                         </div>
@@ -440,55 +429,67 @@
                         <td><code>pos</code></td>
                         <td>String</td>
                         <td>'bottom-left'</td>
-                        <td>Popover position.</td>
+                        <td>Dropdown position.</td>
                     </tr>
                     <tr>
                         <td><code>mode</code></td>
                         <td>hover | click</td>
                         <td>hover</td>
-                        <td>Popover trigger behaviour.</td>
+                        <td>Dropdown trigger behaviour.</td>
                     </tr>
                     <tr>
-                        <td><code>delay-in</code></td>
+                        <td><code>delay-show</code></td>
                         <td>Integer</td>
                         <td>0</td>
-                        <td>Delay time in hover mode before a popover is shown in ms.</td>
+                        <td>Delay time in hover mode before a dropdown is shown in ms.</td>
                     </tr>
                     <tr>
-                        <td><code>delay-out</code></td>
+                        <td><code>delay-hide</code></td>
                         <td>Integer</td>
                         <td>800</td>
-                        <td>Delay time in hover mode before a popover is hidden in ms.</td>
+                        <td>Delay time in hover mode before a dropdown is hidden in ms.</td>
+                    </tr>
+                    <tr>
+                        <td><code>hover-idle</code></td>
+                        <td>Integer</td>
+                        <td>100</td>
+                        <td>Threshold before previously active dropdown is hidden in ms.</td>
                     </tr>
                     <tr>
                         <td><code>justify</code></td>
                         <td>CSS selector</td>
                         <td>false</td>
-                        <td>Stretch popover width to a specified element.</td>
+                        <td>Stretch dropdown width to a specified element.</td>
                     </tr>
                     <tr>
                         <td><code>boundary</code></td>
                         <td>CSS selector</td>
                         <td>window</td>
-                        <td>Referenced element to keep popovers visibilty.</td>
+                        <td>Referenced element to keep dropdowns visibilty.</td>
                     </tr>
                     <tr>
                         <td><code>prevent-flip</code></td>
                         <td>false|true|'x'|'y'</td>
                         <td>false</td>
-                        <td>Prevent automatic popover flip.</td>
+                        <td>Prevent automatic dropdown flip.</td>
                     </tr>
                     <tr>
-                        <td><code>selector</code></td>
+                        <td><code>target</code></td>
                         <td>CSS selector</td>
-                        <td>'.uk-dropdown,.uk-dropdown-blank'</td>
-                        <td>The popover container selector.</td>
+                        <td>'.uk-dropdown'</td>
+                        <td>The dropdown container selector.</td>
+                    </tr>
+                    <tr>
+                        <td><code>cls</code></td>
+                        <td>String</td>
+                        <td>'uk-dropdown'</td>
+                        <td>The dropdown container class.</td>
                     </tr>
                     <tr>
                         <td><code>offset</code></td>
                         <td>Number</td>
                         <td>0</td>
-                        <td>The offset of the popover container.</td>
+                        <td>The offset of the dropdown container.</td>
                     </tr>
                 </tbody>
             </table>
