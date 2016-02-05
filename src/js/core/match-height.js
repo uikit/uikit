@@ -19,9 +19,7 @@ export default function (UIkit) {
         },
 
         update: {
-            handler() {
-                this.check();
-            },
+            handler: 'check',
             on: ['resize', 'orientationchange', 'update']
         },
 

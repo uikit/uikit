@@ -24,6 +24,10 @@ export function hyphenate (str) {
         .toLowerCase()
 }
 
+export function isString(value) {
+    return typeof value === 'string';
+}
+
 export function toBoolean(value) {
     return typeof value === 'boolean'
         ? value

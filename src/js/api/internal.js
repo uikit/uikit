@@ -1,8 +1,8 @@
-import {bind, coerce, hyphenate, mergeOptions, isPlainObject} from '../util/index';
-
-var uid = 0;
+import {bind, coerce, hyphenate, mergeOptions, isString, isPlainObject} from '../util/index';
 
 export default function (UIkit) {
+
+    var uid = 0;
 
     UIkit.prototype.props = {};
 
@@ -79,6 +79,11 @@ export default function (UIkit) {
                     }
 
                     handler = handler.handler;
+
+                    if (isString(handler)) {
+                        handler = this[handler];
+                    }
+
                 }
 
                 handler.call(this, e);

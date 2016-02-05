@@ -32,9 +32,7 @@ export default function (UIkit) {
         },
 
         update: {
-            handler() {
-                this.check();
-            },
+            handler: 'check',
             on: ['load', 'resize', 'orientationchange', 'update']
         },
 

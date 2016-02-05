@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isPlainObject} from '../util/index';
+import {isString, isPlainObject} from '../util/index';
 
 export default function (UIkit) {
 
@@ -24,7 +24,7 @@ export default function (UIkit) {
                 result.push(this[DATA] && this[DATA][name] || new UIkit.components[name]({el: this, data: data || {}}));
             });
 
-            return typeof element === 'string' ? result : result[0];
+            return isString(element) ? result : result[0];
         };
 
         return UIkit.components[name];
