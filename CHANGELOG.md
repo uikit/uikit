@@ -11,6 +11,7 @@
   - Fixed parallax for images with smaller width
   - Fixed parallax for elements with padding
   - Fixed responsiveElement initialization
+  - Fixed scrollspy in view check
 
 ### 2.24.3 (December 18, 2015)
 
