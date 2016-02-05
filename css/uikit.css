@@ -1375,25 +1375,6 @@ select.uk-form-width-mini {
 .uk-alert > :last-child {
   margin-bottom: 0;
 }
-/*
- * Content
- */
-.uk-alert h1,
-.uk-alert h2,
-.uk-alert h3,
-.uk-alert h4,
-.uk-alert h5,
-.uk-alert h6 {
-  color: inherit;
-}
-.uk-alert a:not([class]) {
-  color: inherit;
-  text-decoration: underline;
-}
-.uk-alert a:not([class]):hover {
-  color: inherit;
-  text-decoration: underline;
-}
 /* Close
  ========================================================================== */
 .uk-alert-close {
@@ -1435,6 +1416,25 @@ select.uk-form-width-mini {
 }
 .uk-alert-large > .uk-alert-close {
   margin: -10px -10px 0 0;
+}
+/*
+     * Content
+     */
+.uk-alert h1,
+.uk-alert h2,
+.uk-alert h3,
+.uk-alert h4,
+.uk-alert h5,
+.uk-alert h6 {
+  color: inherit;
+}
+.uk-alert a:not([class]) {
+  color: inherit;
+  text-decoration: underline;
+}
+.uk-alert a:not([class]):hover {
+  color: inherit;
+  text-decoration: underline;
 }
 /* ========================================================================
    Component: Icon
