@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isString, isPlainObject} from '../util/index';
+import {isString, isPlainObject, camelize} from '../util/index';
 
 export default function (UIkit) {
 
@@ -13,6 +13,8 @@ export default function (UIkit) {
             options.name = name;
             options = UIkit.extend(options);
         }
+
+        name = camelize(name);
 
         UIkit.components[name] = options;
 

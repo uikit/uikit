@@ -3,8 +3,7 @@
     var base = '../' + document.querySelector('script[src*="_test.js"]').attributes.src.value.replace('_test.js', '');
 
     // include needed scripts
-    ([
-
+    [
         // vendor
         '../vendor/jquery.js',
         '../vendor/holder.js',
@@ -13,7 +12,7 @@
         // uikit
         '../js/uikit.js'
 
-    ]).forEach(function (script) {
+    ].forEach(function (script) {
         d.writeln('<script src="' + script + '"></script>');
     });
 
@@ -25,7 +24,7 @@
         Navigation: ['subnav'],
         Layout: ['section', 'container', 'grid', 'card'],
         JavaScript: ['toggle'],
-        Utilities: ['width', 'flex', 'text', 'column', 'cover', 'align', 'utility', 'margin', 'padding', 'visibility', 'inverse', 'drop', 'dropdown'],
+        Utilities: ['align', 'column', 'cover', 'drop', 'dropdown', 'flex', 'inverse', 'margin', 'padding', 'scrollspy', 'smooth-scroll', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced']
 
     };

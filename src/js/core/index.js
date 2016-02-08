@@ -8,6 +8,9 @@ import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
 import Responsive from './responsive';
+import Scrollspy from './scrollspy';
+import ScrollspyNav from './scrollspy-nav';
+import SmoothScroll from './smooth-scroll';
 import Svg from './svg';
 import Toggle from './toggle';
 import {throttle} from '../util/index';
@@ -18,11 +21,10 @@ export default function (UIkit, _) {
     $('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');
 
     $(window)
-        .on('DOMContentLoaded', function() {
-            UIkit.update('ready')}
-        )
+        .on('DOMContentLoaded', () => UIkit.update('ready'))
         .on('load', UIkit.update)
-        .on('resize orientationchange', throttle(UIkit.update, 150));
+        .on('resize orientationchange', throttle(UIkit.update, 50))
+        .on('scroll', throttle(() => UIkit.update('scrolling'), 15));
 
     // core components
     UIkit.use(Alert);
@@ -34,6 +36,9 @@ export default function (UIkit, _) {
     UIkit.use(MarginWrap);
     UIkit.use(MatchHeight);
     UIkit.use(Responsive);
+    UIkit.use(Scrollspy);
+    UIkit.use(ScrollspyNav);
+    UIkit.use(SmoothScroll);
     UIkit.use(Svg);
     UIkit.use(Toggle);
 

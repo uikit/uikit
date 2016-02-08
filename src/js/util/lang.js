@@ -24,6 +24,15 @@ export function hyphenate (str) {
         .toLowerCase()
 }
 
+var camelizeRE = /-(\w)/g
+export function camelize (str) {
+    return str.replace(camelizeRE, toUpper)
+}
+
+function toUpper (_, c) {
+    return c ? c.toUpperCase() : ''
+}
+
 export function isString(value) {
     return typeof value === 'string';
 }

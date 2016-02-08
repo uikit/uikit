@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Smooth scroll - UIkit tests</title>
+        <script src="_test.js"></script>
+        <link rel="stylesheet" href="../css/uikit.css">
+
+        <style type="text/css">
+            .uk-container { padding-bottom: 20px; }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Smooth scroll</h1>
+
+            <a href="#bottom" class="uk-button" is="uk-smooth-scroll">Go Down!</a>
+            <a id="top-callback" href="#bottom" class="uk-button">Go Down with callback!</a>
+
+            <div style="height: 2000px;"></div>
+
+            <a id="bottom" href="#top" class="uk-button" is="uk-smooth-scroll">Go Up!</a>
+
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+
+                UIkit.smoothScroll($('#top-callback'), {complete: function () {
+                    alert('I\'m down!');
+                }});
+
+            });
+        </script>
+
+        <div class="uk-overflow-container">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>duration</code></td>
+                        <td>Number</td>
+                        <td>1000</td>
+                        <td>The animation duration.</td>
+                    </tr>
+                    <tr>
+                        <td><code>transition</code></td>
+                        <td>String</td>
+                        <td>easeOutExpo</td>
+                        <td>The animation transition.</td>
+                    </tr>
+                    <tr>
+                        <td><code>offset</code></td>
+                        <td>Number</td>
+                        <td>0</td>
+                        <td>Offset added to scroll top.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+</html>

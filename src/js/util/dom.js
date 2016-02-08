@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import {animationend, transitionend} from './env';
-import {isString} from './lang';
+import {isString, extend} from './lang';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
@@ -126,4 +126,20 @@ export function createEvent(e) {
         return ev;
     }
     return e;
+}
+
+export function isInView(element, offsetTop, offsetLeft) {
+
+    element = $(element);
+
+    if (!element.is(':visible')) {
+        return false;
+    }
+
+    var win = $(window), scrollLeft = win.scrollLeft(), scrollTop = win.scrollTop(), offset = element.offset();
+
+    return offset.top + element.height() >= scrollTop
+        && offset.top - offsetTop <= scrollTop + win.height()
+        && offset.left + element.width() >= scrollLeft
+        && offset.left - offsetLeft <= scrollLeft + win.width();
 }

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Observer, ready} from '../util/index';
+import {Observer, ready, camelize} from '../util/index';
 
 export default function (UIkit) {
 
@@ -82,9 +82,13 @@ function getComponents(node) {
     if (node.attributes && node.hasAttribute('is')) {
 
         node.getAttribute('is').replace(/uk\-/g, '').split(' ').forEach(name => {
+
+            name = camelize(name);
+
             if (UIkit[name]) {
                 components.push(name)
             }
+
         });
 
     }

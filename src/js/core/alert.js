@@ -7,18 +7,18 @@ export default function (UIkit) {
         props: {
             animation: null,
             duration: Number,
-            trigger: String
+            close: String
         },
 
         defaults: {
             animation: true,
             duration: 200,
-            trigger: '.uk-alert-close'
+            close: '.uk-alert-close'
         },
 
         ready() {
 
-            this.$el.on('click', this.trigger, e => {
+            this.$el.on('click', this.close, e => {
                 e.preventDefault();
                 this.close();
             });
