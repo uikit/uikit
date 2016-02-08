@@ -20,7 +20,7 @@
 
         Base: ['base'],
         Elements: ['typography', 'list', 'description-list', 'table', 'form', 'button'],
-        Common: ['alert', 'badge', 'icon'],
+        Common: ['alert', 'badge', 'close', 'icon'],
         Navigation: ['subnav'],
         Layout: ['section', 'container', 'grid', 'card'],
         JavaScript: ['toggle'],

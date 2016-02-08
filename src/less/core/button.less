@@ -83,15 +83,6 @@
  ========================================================================== */
 
 /*
- * Removes inner padding and border in Firefox 4+.
- */
-
-.uk-button::-moz-focus-inner {
-    border: 0;
-    padding: 0;
-}
-
-/*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
  * 3. Address `overflow` set to `hidden` in IE 8/9/10/11.
@@ -137,6 +128,15 @@
 }
 
 .uk-button:not(:disabled) { cursor: pointer; }
+
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
 
 /* Hover */
 .uk-button:hover {

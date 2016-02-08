@@ -1,14 +1,9 @@
 // Name:            Close
-// Description:     Defines styles for a close button
+// Description:     Component to create a close button
 //
 // Component:       `uk-close`
 //
-// Modifiers:       `uk-close-alt`
-//
-// Uses:            Icon: FontAwesome
-//
-// Used by:         Alert
-//                  Modal
+// Modifiers:       `uk-close-button`
 //
 // ========================================================================
 
@@ -16,15 +11,62 @@
 // Variables
 // ========================================================================
 
-@close-size:                                    20px;
+@close-opacity:                                 0.3;
+@close-hover-opacity:                           0.5;
 
-@close-alt-padding:                             2px;
-@close-alt-background:                          #eee;
+@close-button-padding:                          10px;
+@close-button-border-radius:                    100%;
+@close-button-background:                       @global-muted-background;
+
+@close-button-hover-background:                 darken(@icon-button-background, 5%);
+@close-button-hover-color:                      @global-color;
 
 
 /* ========================================================================
    Component: Close
  ========================================================================== */
+
+/*
+ * `background-image` is used to pass the image path to JS
+ */
+
+[is*='uk-close'] { background-image: url("@{global-image-path}/icons.svg"); }
+
+/*
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE 8/9/10/11
+ * 6. Remove default `button` padding and background color
+ * 7. Style
+ * 8. Required for `a`.
+ */
+
+.uk-close {
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    border: none;
+    /* 3 */
+    overflow: visible;
+    /* 4 */
+    font: inherit;
+    color: inherit;
+    /* 5 */
+    text-transform: none;
+    /* 6. */
+    padding: 0;
+    background: transparent;
+    /* 7 */
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    opacity: @close-opacity;
+    /* 8 */
+    text-decoration: none;
+    .hook-close;
+}
 
 /*
  * Removes inner padding and border in Firefox 4+.
@@ -36,90 +78,69 @@
 }
 
 /*
- * 1. Correct inability to style clickable `input` types in iOS.
- * 2. Remove margins in Chrome, Safari and Opera.
- * 3. Remove borders for `button`.
- * 4. Address `overflow` set to `hidden` in IE 8/9/10/11.
- * 5. Correct `font` properties and `color` not being inherited for `button`.
- * 6. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE
- * 7. Remove default `button` padding and background color
- * 8. Style
- */
-
-.uk-close {
-    /* 1 */
-    -webkit-appearance: none;
-    /* 2 */
-    margin: 0;
-    /* 3 */
-    border: none;
-    /* 4 */
-    overflow: visible;
-    /* 5 */
-    font: inherit;
-    color: inherit;
-    /* 6 */
-    text-transform: none;
-    /* 7. */
-    padding: 0;
-    background: transparent;
-    /* 8 */
-    display: inline-block;
-    box-sizing: content-box;
-    width: @close-size;
-    line-height: @close-size;
-    text-align: center;
-    vertical-align: middle;
-    opacity: 0.3;
-    .hook-close;
-}
-
-/* Icon */
-.uk-close:after {
-    display: block;
-    content: "\f00d";
-    font-family: FontAwesome;
-}
-
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- * 3. Required for `a` elements
+ * Hover + Focus
+ * 1. Remove default focus style
+ * 2. Required for `a` elements
  */
 
 .uk-close:hover,
-.uk-close:focus { // 1
-    opacity: 0.5;
-    /* 2 */
+.uk-close:focus {
+    opacity: @close-hover-opacity;
+    /* 1 */
     outline: none;
-    /* 3 */
+    /* 2 */
     color: inherit;
     text-decoration: none;
-    cursor: pointer;
+    .hook-close-hover;
+}
+
+/*
+ * 1. Needed embedded content
+ * 2. Needed for SVG icons
+ */
+
+.uk-close > * {
+    /* 1 */
+    display: block !important;
+    /* 2 */
+    fill: currentColor;
 }
 
 
-/* Modifier
+/* Style modifier
  ========================================================================== */
 
-.uk-close-alt {
-    padding: @close-alt-padding;
-    border-radius: 50%;
-    background: @close-alt-background;
+/*
+ * 1. Reset
+ */
+
+.uk-close-button {
+    padding: @close-button-padding;
+    border-radius: @close-button-border-radius;
+    background: @close-button-background;
+    color: @icon-button-color;
+    /* 1 */
     opacity: 1;
-    .hook-close-alt;
+    .hook-close-button;
 }
 
-/* Hover */
-.uk-close-alt:hover,
-.uk-close-alt:focus { opacity: 1; }
+/*
+ * Hover + Focus
+ * 1. Reset
+ * 2. Remove default focus style
+ */
 
-/* Icon */
-.uk-close-alt:after { opacity: 0.5; }
+.uk-close-button:hover,
+.uk-close-button:focus {
+    background-color: @close-button-hover-background;
+    color: @close-button-hover-color;
+    /* 1 */
+    opacity: 1;
+    /* 2 */
+    outline: none;
+    .hook-close-button-hover;
+}
 
-.uk-close-alt:hover:after,
-.uk-close-alt:focus:after { opacity: 0.8; }
 
 
 // Hooks
@@ -128,5 +149,7 @@
 .hook-close-misc;
 
 .hook-close() {}
-.hook-close-alt() {}
+.hook-close-hover() {}
+.hook-close-button() {}
+.hook-close-button-hover() {}
 .hook-close-misc() {}
