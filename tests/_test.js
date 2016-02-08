@@ -21,7 +21,7 @@
 
         Base: ['base'],
         Elements: ['typography', 'list', 'description-list', 'table', 'form', 'button'],
-        Common: ['icon', 'alert'],
+        Common: ['alert', 'badge', 'icon'],
         Navigation: ['subnav'],
         Layout: ['section', 'container', 'grid', 'card'],
         JavaScript: ['toggle'],
