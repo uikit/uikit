@@ -1356,6 +1356,27 @@ select.uk-form-width-mini {
   /* 3 */
   position: relative;
 }
+/* Group
+     ========================================================================== */
+/*
+     * Collapse border
+     */
+.uk-button-group > .uk-button-default:nth-child(n+2),
+.uk-button-group > div:nth-child(n+2) .uk-button-default {
+  margin-left: -1px;
+}
+/*
+     * Create position context to superimpose the successor elements border
+     * Known issue: If you use an `a` element as button and an icon inside,
+     * the active state will not work if you click the icon inside the button
+     * Workaround: Just use a `button` or `input` element as button
+     */
+.uk-button-group .uk-button-default:hover,
+.uk-button-group .uk-button-default:active,
+.uk-button-group .uk-button-default.uk-active {
+  position: relative;
+  z-index: 1;
+}
 /* ========================================================================
    Component: Alert
  ========================================================================== */
@@ -1498,6 +1519,85 @@ select.uk-form-width-mini {
  */
 .uk-badge-danger {
   background-color: #e44e56;
+}
+/* ========================================================================
+   Component: Drop
+ ========================================================================== */
+/*
+ * 1. Container fits its content
+ * 2. Behave like button
+ * 3. Create position context
+ */
+.uk-drop-container {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  vertical-align: middle;
+  /* 3 */
+  position: relative;
+}
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-drop-justify`
+ * 4. Set a default width
+ */
+.uk-drop {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 970;
+  /* 3 */
+  box-sizing: border-box;
+  /* 4 */
+  width: 300px;
+}
+/*
+ * 1. Show drop
+ * 2. Set animation
+ * 3. Needed for scale animation
+ */
+.uk-open > .uk-drop {
+  /* 1 */
+  display: block;
+  /* 2 */
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
+  /* 3 */
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+/* Alignment modifiers
+ ========================================================================== */
+.uk-drop-top {
+  margin-top: -10px;
+}
+.uk-drop-bottom {
+  margin-top: 10px;
+}
+.uk-drop-left {
+  margin-left: -10px;
+}
+.uk-drop-right {
+  margin-left: 10px;
+}
+/* Grid modifiers
+ ========================================================================== */
+.uk-drop-stack .uk-drop-grid > * {
+  width: 100% !important;
+}
+.uk-drop-width-2:not(.uk-drop-stack) {
+  width: 600px;
+}
+.uk-drop-width-3:not(.uk-drop-stack) {
+  width: 900px;
+}
+.uk-drop-width-4:not(.uk-drop-stack) {
+  width: 1200px;
+}
+.uk-drop-width-5:not(.uk-drop-stack) {
+  width: 1500px;
 }
 /* ========================================================================
    Component: Close
@@ -2149,11 +2249,6 @@ select.uk-form-width-mini {
   -webkit-flex: auto;
   flex: auto;
   box-sizing: border-box;
-}
-/* Stack all grid cells
- ========================================================================== */
-.uk-grid-stack > * {
-  width: 100% !important;
 }
 /* ========================================================================
    Component: Card
@@ -4954,191 +5049,6 @@ select.uk-form-width-mini {
     transform: translateY(0);
   }
 }
-/* ========================================================================
-   Component: Drop
- ========================================================================== */
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Box-sizing is needed for `uk-drop-justify`
- * 4. Set width
- */
-.uk-drop,
-.uk-drop-blank {
-  /* 1 */
-  display: none;
-  /* 2 */
-  position: absolute;
-  z-index: 970;
-  /* 3 */
-  box-sizing: border-box;
-  /* 4 */
-  width: 200px;
-}
-/*
- * Drop style
- * 1. Reset button group whitespace hack
- */
-.uk-drop {
-  padding: 15px;
-  background: #f5f5f5;
-  color: #444;
-  /* 1 */
-  font-size: 1rem;
-  vertical-align: top;
-}
-/*
- * 1. Show drop
- * 2. Set animation
- * 3. Needed for scale animation
- */
-.uk-open > .uk-drop,
-.uk-open > .uk-drop-blank {
-  /* 1 */
-  display: block;
-  /* 2 */
-  -webkit-animation: uk-fade 0.2s ease-in-out;
-  animation: uk-fade 0.2s ease-in-out;
-  /* 3 */
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-/* Alignment modifiers
- ========================================================================== */
-/*
- * Modifier
- */
-.uk-drop-top {
-  margin-top: -5px;
-}
-.uk-drop-bottom {
-  margin-top: 5px;
-}
-.uk-drop-left {
-  margin-left: -5px;
-}
-.uk-drop-right {
-  margin-left: 5px;
-}
-/* Nav in drop
- ========================================================================== */
-.uk-drop .uk-nav {
-  margin: 0 -15px;
-}
-/* Grid and panel in drop
- ========================================================================== */
-/*
-* Vertical gutter
-*/
-/*
- * Grid
- * Higher specificity to override large gutter
- */
-.uk-grid .uk-drop-grid + .uk-drop-grid {
-  margin-top: 15px;
-}
-/* Panels */
-.uk-drop-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
-  margin-top: 15px;
-}
-/* Tablet and bigger */
-@media (min-width: 960px) {
-  /*
-     * Horizontal gutter
-     */
-  .uk-drop:not(.uk-drop-stack) > .uk-drop-grid {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  .uk-drop:not(.uk-drop-stack) > .uk-drop-grid > [class*='uk-width-'] {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  /*
-     * Column divider
-     */
-  .uk-drop:not(.uk-drop-stack) > .uk-drop-grid > [class*='uk-width-']:nth-child(n+2) {
-    border-left: 1px solid #ddd;
-  }
-  /*
-     * Width multiplier for drop columns
-     */
-  .uk-drop-width-2:not(.uk-drop-stack) {
-    width: 400px;
-  }
-  .uk-drop-width-3:not(.uk-drop-stack) {
-    width: 600px;
-  }
-  .uk-drop-width-4:not(.uk-drop-stack) {
-    width: 800px;
-  }
-  .uk-drop-width-5:not(.uk-drop-stack) {
-    width: 1000px;
-  }
-}
-/* Phone landscape and smaller */
-@media (max-width: 959px) {
-  /*
-     * Stack columns and take full width
-     */
-  .uk-drop-grid > [class*='uk-width-'] {
-    width: 100%;
-  }
-  /*
-     * Vertical gutter
-     */
-  .uk-drop-grid > [class*='uk-width-']:nth-child(n+2) {
-    margin-top: 15px;
-  }
-}
-/*
-* Stack grid columns
-*/
-.uk-drop-stack > .uk-drop-grid > [class*='uk-width-'] {
-  width: 100%;
-}
-.uk-drop-stack > .uk-drop-grid > [class*='uk-width-']:nth-child(n+2) {
-  margin-top: 15px;
-}
-/* Modifier `uk-drop-small`
- ========================================================================== */
-/*
- * Set min-width and text expands drop if needed
- */
-.uk-drop-small {
-  min-width: 150px;
-  width: auto;
-  padding: 5px;
-  white-space: nowrap;
-}
-/*
- * Nav in drop
- */
-.uk-drop-small .uk-nav {
-  margin: 0 -5px;
-}
-/* Modifier: `uk-drop-navbar`
- ========================================================================== */
-.uk-drop-navbar {
-  margin-top: 0;
-  background: #f5f5f5;
-  color: #444;
-}
-.uk-open > .uk-drop-navbar {
-  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
-  animation: uk-slide-top-fixed 0.2s ease-in-out;
-}
-/* Modifier `uk-drop-scrollable`
- ========================================================================== */
-/*
- * Usefull for long lists
- */
-.uk-drop-scrollable {
-  overflow-y: auto;
-  max-height: 200px;
-}
-/* Sub-object: `uk-drop-overlay`
- ========================================================================== */
 /* ========================================================================
    Component: Dropdown
  ========================================================================== */

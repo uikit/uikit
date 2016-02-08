@@ -23,7 +23,7 @@
         Common: ['alert', 'badge', 'close', 'icon'],
         Navigation: ['subnav'],
         Layout: ['section', 'container', 'grid', 'card'],
-        JavaScript: ['toggle'],
+        JavaScript: ['drop', 'toggle'],
         Utilities: ['align', 'column', 'cover', 'drop', 'dropdown', 'flex', 'inverse', 'margin', 'padding', 'scrollspy', 'smooth-scroll', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced']
 

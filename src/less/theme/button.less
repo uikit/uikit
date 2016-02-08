@@ -94,4 +94,30 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-button-misc() {}
+.hook-button-misc() {
+
+    /* Group
+     ========================================================================== */
+
+    /*
+     * Collapse border
+     */
+
+    .uk-button-group > .uk-button-default:nth-child(n+2),
+    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -1px; }
+
+    /*
+     * Create position context to superimpose the successor elements border
+     * Known issue: If you use an `a` element as button and an icon inside,
+     * the active state will not work if you click the icon inside the button
+     * Workaround: Just use a `button` or `input` element as button
+     */
+
+    .uk-button-group .uk-button-default:hover,
+    .uk-button-group .uk-button-default:active,
+    .uk-button-group .uk-button-default.uk-active {
+        position: relative;
+        z-index: 1;
+    }
+
+}
