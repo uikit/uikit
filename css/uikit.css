@@ -8,7 +8,7 @@
  */
 html {
   /* 1 */
-  font: normal 16px / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 16px / 1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
   /* 2 */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -218,7 +218,7 @@ h5,
 h6,
 .uk-h6 {
   margin: 0 0 20px 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
   font-weight: normal;
   color: #444;
   text-transform: none;
