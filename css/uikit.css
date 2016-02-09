@@ -1841,7 +1841,7 @@ ul.uk-nav-sub {
 /*
  * `background-image` is used to pass the image path to JS
  */
-[is*='uk-close'] {
+[uk-close] {
   background-image: url("../src/images/icons.svg");
 }
 /*
@@ -1941,7 +1941,7 @@ ul.uk-nav-sub {
 /*
  * `background-image` is used to pass the image path to JS
  */
-[is*='uk-icon'] {
+[uk-icon] {
   background-image: url("../src/images/icons.svg");
 }
 /*
@@ -2178,7 +2178,7 @@ ul.uk-nav-sub {
  * 1. Allow cells to wrap into the next line
  * 2. Makes it more robust so that it can be used with other block elements like lists
  */
-[is*="uk-grid"] {
+.uk-grid {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -2196,7 +2196,7 @@ ul.uk-nav-sub {
  * 1. Space is allocated solely based on content dimensions: 0 0 auto
  * 2. Makes it more robust so that it can be used with other block elements
  */
-[is*="uk-grid"] > * {
+.uk-grid > * {
   /* 1 */
   -ms-flex: none;
   -webkit-flex: none;
@@ -2207,7 +2207,7 @@ ul.uk-nav-sub {
 /*
  * Remove margin from the last-child
  */
-[is*="uk-grid"] > * > :last-child {
+.uk-grid > * > :last-child {
   margin-bottom: 0;
 }
 /* Gutter
@@ -2216,29 +2216,29 @@ ul.uk-nav-sub {
  * Default
  */
 /* Horizontal */
-[is*="uk-grid"] {
+.uk-grid {
   margin-left: -30px;
 }
-[is*="uk-grid"] > * {
+.uk-grid > * {
   padding-left: 30px;
 }
 /* Vertical */
-[is*="uk-grid"] + [is*="uk-grid"],
-[is*="uk-grid"] > .uk-grid-margin {
+.uk-grid + uk-grid,
+.uk-grid > .uk-grid-margin {
   margin-top: 30px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  [is*="uk-grid"] {
+  .uk-grid {
     margin-left: -40px;
   }
-  [is*="uk-grid"] > * {
+  .uk-grid > * {
     padding-left: 40px;
   }
   /* Vertical */
-  [is*="uk-grid"] + [is*="uk-grid"],
-  [is*="uk-grid"] > .uk-grid-margin {
+  .uk-grid + uk-grid,
+  .uk-grid > .uk-grid-margin {
     margin-top: 40px;
   }
 }
@@ -2253,7 +2253,7 @@ ul.uk-nav-sub {
   padding-left: 15px;
 }
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-small,
+.uk-grid + .uk-grid-small,
 .uk-grid-small > .uk-grid-margin {
   margin-top: 15px;
 }
@@ -2268,7 +2268,7 @@ ul.uk-nav-sub {
   padding-left: 30px;
 }
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-medium,
+.uk-grid + .uk-grid-medium,
 .uk-grid-medium > .uk-grid-margin {
   margin-top: 30px;
 }
@@ -2283,7 +2283,7 @@ ul.uk-nav-sub {
   padding-left: 40px;
 }
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-large,
+.uk-grid + .uk-grid-large,
 .uk-grid-large > .uk-grid-margin {
   margin-top: 40px;
 }
@@ -2297,7 +2297,7 @@ ul.uk-nav-sub {
     padding-left: 70px;
   }
   /* Vertical */
-  [is*="uk-grid"] + .uk-grid-large,
+  .uk-grid + .uk-grid-large,
   .uk-grid-large > .uk-grid-margin {
     margin-top: 70px;
   }
@@ -2313,7 +2313,7 @@ ul.uk-nav-sub {
   padding-left: 0;
 }
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-collapse,
+.uk-grid + .uk-grid-collapse,
 .uk-grid-collapse > .uk-grid-margin {
   margin-top: 0;
 }
@@ -4322,7 +4322,7 @@ ul.uk-nav-sub {
 /*
  * To center iframes use `data-uk-cover` JavaScript
  */
-[is*="uk-cover"] {
+[uk-cover] {
   position: relative;
   left: 50%;
   top: 50%;
@@ -4565,7 +4565,7 @@ ul.uk-nav-sub {
  */
 .uk-responsive-width,
 .uk-responsive-height,
-[is*="uk-responsive"] {
+[uk-responsive] {
   box-sizing: border-box;
 }
 /*
@@ -4573,7 +4573,7 @@ ul.uk-nav-sub {
  * `important` needed to override `uk-img-preserve img`
  */
 .uk-responsive-width,
-[is*="uk-responsive"] {
+[uk-responsive] {
   max-width: 100% !important;
   height: auto;
 }

@@ -48,7 +48,7 @@
  * 2. Makes it more robust so that it can be used with other block elements like lists
  */
 
-[is*="uk-grid"] {
+.uk-grid {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -68,7 +68,7 @@
  * 2. Makes it more robust so that it can be used with other block elements
  */
 
-[is*="uk-grid"] > * {
+.uk-grid > * {
     /* 1 */
     -ms-flex: none;
     -webkit-flex: none;
@@ -81,7 +81,7 @@
  * Remove margin from the last-child
  */
 
-[is*="uk-grid"] > * > :last-child { margin-bottom: 0; }
+.uk-grid > * > :last-child { margin-bottom: 0; }
 
 
 /* Gutter
@@ -92,23 +92,23 @@
  */
 
 /* Horizontal */
-[is*="uk-grid"] { margin-left: -@grid-gutter-horizontal; }
-[is*="uk-grid"] > * { padding-left: @grid-gutter-horizontal; }
+.uk-grid { margin-left: -@grid-gutter-horizontal; }
+.uk-grid > * { padding-left: @grid-gutter-horizontal; }
 
 /* Vertical */
-[is*="uk-grid"] + [is*="uk-grid"],
-[is*="uk-grid"] > .uk-grid-margin { margin-top: @grid-gutter-vertical; }
+.uk-grid + uk-grid,
+.uk-grid > .uk-grid-margin { margin-top: @grid-gutter-vertical; }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
     /* Horizontal */
-    [is*="uk-grid"] { margin-left: -@grid-gutter-horizontal-l; }
-    [is*="uk-grid"] > * { padding-left: @grid-gutter-horizontal-l; }
+    .uk-grid { margin-left: -@grid-gutter-horizontal-l; }
+    .uk-grid > * { padding-left: @grid-gutter-horizontal-l; }
 
     /* Vertical */
-    [is*="uk-grid"] + [is*="uk-grid"],
-    [is*="uk-grid"] > .uk-grid-margin { margin-top: @grid-gutter-vertical-l; }
+    .uk-grid + uk-grid,
+    .uk-grid > .uk-grid-margin { margin-top: @grid-gutter-vertical-l; }
 
 }
 
@@ -121,7 +121,7 @@
 .uk-grid-small > * { padding-left: @grid-small-gutter-horizontal; }
 
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-small,
+.uk-grid + .uk-grid-small,
 .uk-grid-small > .uk-grid-margin { margin-top: @grid-small-gutter-vertical; }
 
 /*
@@ -133,7 +133,7 @@
 .uk-grid-medium > * { padding-left: @grid-medium-gutter-horizontal; }
 
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-medium,
+.uk-grid + .uk-grid-medium,
 .uk-grid-medium > .uk-grid-margin { margin-top: @grid-medium-gutter-vertical; }
 
 /*
@@ -145,7 +145,7 @@
 .uk-grid-large > * { padding-left: @grid-large-gutter-horizontal; }
 
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-large,
+.uk-grid + .uk-grid-large,
 .uk-grid-large > .uk-grid-margin { margin-top: @grid-large-gutter-vertical; }
 
 /* Desktop and bigger */
@@ -156,7 +156,7 @@
     .uk-grid-large > * { padding-left: @grid-large-gutter-horizontal-l; }
 
     /* Vertical */
-    [is*="uk-grid"] + .uk-grid-large,
+    .uk-grid + .uk-grid-large,
     .uk-grid-large > .uk-grid-margin { margin-top: @grid-large-gutter-vertical-l; }
 
 }
@@ -170,7 +170,7 @@
 .uk-grid-collapse > * { padding-left: 0; }
 
 /* Vertical */
-[is*="uk-grid"] + .uk-grid-collapse,
+.uk-grid + .uk-grid-collapse,
 .uk-grid-collapse > .uk-grid-margin { margin-top: 0; }
 
 
