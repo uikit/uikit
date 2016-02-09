@@ -14,6 +14,7 @@
   - Fixed responsiveElement initialization
   - Fixed scrollspy in view check
   - Fixed sticky positioning
+  - Fixed dropdown flip positions
 
 ### 2.24.3 (December 18, 2015)
 
