@@ -529,8 +529,8 @@ iframe {
 }
 .uk-list-bullet > li:before {
   content: "";
-  width: 24px;
-  height: 24px;
+  width: 1.5em;
+  height: 1.5em;
   margin-right: 10px;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
   background-repeat: no-repeat;
@@ -1378,6 +1378,125 @@ select.uk-form-width-mini {
   z-index: 1;
 }
 /* ========================================================================
+   Component: Nav
+ ========================================================================== */
+/*
+ * Reset
+ * 1. Prepare lists
+ * 2. Prepare links
+ */
+/* 1 */
+.uk-nav,
+.uk-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* 2 */
+.uk-nav li > a {
+  display: block;
+  text-decoration: none;
+}
+/*
+ * Items
+ */
+.uk-nav > li > a {
+  padding: 8px 16px;
+}
+/*
+ * Nested lists
+ */
+.uk-nav ul {
+  padding-left: 16px;
+}
+.uk-nav ul a {
+  padding: 2px 0;
+}
+/* Header
+ ========================================================================== */
+.uk-nav-header {
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+}
+.uk-nav-header:not(:first-child) {
+  margin-top: 20px;
+}
+/* Divider
+ ========================================================================== */
+.uk-nav-divider {
+  margin: 15px 0;
+}
+/* Nav-sub
+ ========================================================================== */
+/*
+ * `ul` needed for higher specificity to override padding
+ */
+ul.uk-nav-sub {
+  padding: 5px 0 5px 16px;
+}
+/* Parent icon modifier
+ ========================================================================== */
+.uk-nav-parent-icon > .uk-parent > a:after {
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: -10px;
+  float: right;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226px%22%20height%3D%2212px%22%20viewBox%3D%220%200%206%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444%22%20d%3D%22M6%2C2%20L6%2C-1.11022302e-16%20L0%2C6%20L6%2C12%20L6%2C10%20L2%2C6%20L6%2C2%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.uk-nav-parent-icon > .uk-parent.uk-open > a:after {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444000%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+}
+/* Style modifier
+ ========================================================================== */
+/*
+ * Items
+ */
+.uk-nav-default > li > a {
+  color: #444;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-nav-default > li > a:hover,
+.uk-nav-default > li > a:focus {
+  background: #f5f5f5;
+  color: #444;
+  /* 2 */
+  outline: none;
+}
+/* Active */
+.uk-nav-default > li.uk-active > a {
+  background: #489be0;
+  color: #fff;
+}
+/*
+ * Header
+ */
+.uk-nav-default .uk-nav-header {
+  color: #444;
+}
+/*
+ * Divider
+ */
+.uk-nav-default .uk-nav-divider {
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Nested items
+ */
+.uk-nav-default ul a {
+  color: #999;
+}
+.uk-nav-default ul a:hover {
+  color: #444;
+}
+/* ========================================================================
    Component: Alert
  ========================================================================== */
 .uk-alert {
@@ -1524,6 +1643,36 @@ select.uk-form-width-mini {
    Component: Drop
  ========================================================================== */
 /*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-drop-justify`
+ * 4. Set a default width
+ */
+.uk-drop {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 1020;
+  /* 3 */
+  box-sizing: border-box;
+  /* 4 */
+  width: 300px;
+}
+/*
+ * 1. Show drop
+ * 2. Set animation
+ */
+.uk-open > .uk-drop {
+  /* 1 */
+  display: block;
+  /* 2 */
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
+}
+/* Container
+ ========================================================================== */
+/*
  * 1. Container fits its content
  * 2. Behave like button
  * 3. Create position context
@@ -1535,38 +1684,6 @@ select.uk-form-width-mini {
   vertical-align: middle;
   /* 3 */
   position: relative;
-}
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Box-sizing is needed for `uk-drop-justify`
- * 4. Set a default width
- */
-.uk-drop {
-  /* 1 */
-  display: none;
-  /* 2 */
-  position: absolute;
-  z-index: 970;
-  /* 3 */
-  box-sizing: border-box;
-  /* 4 */
-  width: 300px;
-}
-/*
- * 1. Show drop
- * 2. Set animation
- * 3. Needed for scale animation
- */
-.uk-open > .uk-drop {
-  /* 1 */
-  display: block;
-  /* 2 */
-  -webkit-animation: uk-fade 0.2s ease-in-out;
-  animation: uk-fade 0.2s ease-in-out;
-  /* 3 */
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
 }
 /* Alignment modifiers
  ========================================================================== */
@@ -1598,6 +1715,125 @@ select.uk-form-width-mini {
 }
 .uk-drop-width-5:not(.uk-drop-stack) {
   width: 1500px;
+}
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-dropdown-justify`
+ * 4. Set a default width
+ * 5. Style
+ */
+.uk-dropdown {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 1020;
+  /* 3 */
+  box-sizing: border-box;
+  /* 4 */
+  min-width: 200px;
+  /* 5 */
+  padding: 15px;
+  background: #f5f5f5;
+  color: #444;
+}
+/*
+ * 1. Show drop
+ * 2. Set animation
+ */
+.uk-open > .uk-dropdown {
+  /* 1 */
+  display: block;
+  /* 2 */
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
+}
+/* Container
+ ========================================================================== */
+/*
+ * 1. Container fits its content
+ * 2. Behave like button
+ * 3. Create position context
+ */
+.uk-dropdown-container {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  vertical-align: middle;
+  /* 3 */
+  position: relative;
+}
+/* Nav
+ ========================================================================== */
+.uk-dropdown-nav {
+  margin: 0 -15px;
+  white-space: nowrap;
+}
+/*
+ * Items
+ */
+.uk-dropdown-nav > li > a {
+  color: #444;
+}
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-dropdown-nav > li > a:hover,
+.uk-dropdown-nav > li > a:focus {
+  background: #489be0;
+  color: #fff;
+  /* 2 */
+  outline: none;
+}
+/*
+ * Header
+ */
+.uk-dropdown-nav .uk-nav-header {
+  color: #444;
+}
+/*
+ * Divider
+ */
+.uk-dropdown-nav .uk-nav-divider {
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Nested items
+ */
+.uk-dropdown-nav ul a {
+  color: #999;
+}
+.uk-dropdown-nav ul a:hover {
+  color: #444;
+}
+/* Alignment modifiers
+ ========================================================================== */
+.uk-dropdown-top {
+  margin-top: -10px;
+}
+.uk-dropdown-bottom {
+  margin-top: 10px;
+}
+.uk-dropdown-left {
+  margin-left: -10px;
+}
+.uk-dropdown-right {
+  margin-left: 10px;
+}
+/* Overflow modifier
+ ========================================================================== */
+/*
+ * Usefull for long lists
+ */
+.uk-dropdown-scrollable {
+  overflow-y: auto;
+  max-height: 200px;
 }
 /* ========================================================================
    Component: Close
@@ -2392,6 +2628,558 @@ select.uk-form-width-mini {
   .uk-card-large.uk-card-body,
   .uk-card-large .uk-card-body {
     padding: 70px 70px;
+  }
+}
+/* ========================================================================
+   Component: Animation
+ ========================================================================== */
+[class*='uk-animation-'] {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+/* Hide animated element if scrollspy is used */
+@media screen {
+  [data-uk-scrollspy*='uk-animation-']:not([data-uk-scrollspy*='target']) {
+    opacity: 0;
+  }
+}
+/*
+ * Fade
+ * Higher specificity (!important) needed because of reverse modifier
+ */
+.uk-animation-fade {
+  -webkit-animation-name: uk-fade;
+  animation-name: uk-fade;
+  -webkit-animation-duration: 0.8s;
+  animation-duration: 0.8s;
+  -webkit-animation-timing-function: linear !important;
+  animation-timing-function: linear !important;
+}
+/*
+ * Fade with scale
+ */
+.uk-animation-scale-up {
+  -webkit-animation-name: uk-fade-scale-02;
+  animation-name: uk-fade-scale-02;
+}
+.uk-animation-scale-down {
+  -webkit-animation-name: uk-fade-scale-18;
+  animation-name: uk-fade-scale-18;
+}
+/*
+ * Fade with slide
+ */
+.uk-animation-slide-top {
+  -webkit-animation-name: uk-fade-top;
+  animation-name: uk-fade-top;
+}
+.uk-animation-slide-bottom {
+  -webkit-animation-name: uk-fade-bottom;
+  animation-name: uk-fade-bottom;
+}
+.uk-animation-slide-left {
+  -webkit-animation-name: uk-fade-left;
+  animation-name: uk-fade-left;
+}
+.uk-animation-slide-right {
+  -webkit-animation-name: uk-fade-right;
+  animation-name: uk-fade-right;
+}
+/*
+ * Scale
+ */
+.uk-animation-scale {
+  -webkit-animation-name: uk-scale-12;
+  animation-name: uk-scale-12;
+}
+/*
+ * Shake
+ */
+.uk-animation-shake {
+  -webkit-animation-name: uk-shake;
+  animation-name: uk-shake;
+}
+/* Direction modifiers
+ ========================================================================== */
+.uk-animation-reverse {
+  -webkit-animation-direction: reverse;
+  animation-direction: reverse;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+}
+/* Duration modifiers
+========================================================================== */
+.uk-animation-15 {
+  -webkit-animation-duration: 15s;
+  animation-duration: 15s;
+}
+/* Origin modifiers
+========================================================================== */
+.uk-animation-top-left {
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+.uk-animation-top-center {
+  -webkit-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+}
+.uk-animation-top-right {
+  -webkit-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+}
+.uk-animation-middle-left {
+  -webkit-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+}
+.uk-animation-middle-right {
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+}
+.uk-animation-bottom-left {
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+}
+.uk-animation-bottom-center {
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
+.uk-animation-bottom-right {
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+/* Sub-object: `uk-animation-hover`
+========================================================================== */
+/*
+ * Enable animation only on hover
+ * Note: Firefox also needs this because animations are not triggered when switching between display `hidden` and `block`
+ */
+.uk-animation-hover:not(:hover),
+.uk-animation-hover:not(:hover) [class*='uk-animation-'],
+.uk-touch .uk-animation-hover:not(.uk-hover),
+.uk-touch .uk-animation-hover:not(.uk-hover) [class*='uk-animation-'] {
+  -webkit-animation-name: none;
+  animation-name: none;
+}
+/* Keyframes: Fade
+ * Used by dropdown, datepicker and slideshow component
+ ========================================================================== */
+@-webkit-keyframes uk-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes uk-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Keyframes: Fade with slide
+ ========================================================================== */
+/*
+ * Top
+ */
+@-webkit-keyframes uk-fade-top {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-fade-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*
+ * Bottom
+ */
+@-webkit-keyframes uk-fade-bottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-fade-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*
+ * Left
+ */
+@-webkit-keyframes uk-fade-left {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-fade-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/*
+ * Right
+ */
+@-webkit-keyframes uk-fade-right {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-fade-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* Keyframes: Fade with scale
+ ========================================================================== */
+/*
+ * Scale by 0.2
+ */
+@-webkit-keyframes uk-fade-scale-02 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-fade-scale-02 {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*
+ * Scale by 1.5
+ * Used by slideshow component
+ */
+@-webkit-keyframes uk-fade-scale-15 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-fade-scale-15 {
+  0% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*
+ * Scale by 1.8
+ */
+@-webkit-keyframes uk-fade-scale-18 {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1.8);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-fade-scale-18 {
+  0% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Keyframes: Slide
+ * Used by slideshow component
+ ========================================================================== */
+/*
+ * Left
+ */
+@-webkit-keyframes uk-slide-left {
+  0% {
+    -webkit-transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/*
+ * Right
+ */
+@-webkit-keyframes uk-slide-right {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/*
+ * Left third
+ */
+@-webkit-keyframes uk-slide-left-33 {
+  0% {
+    -webkit-transform: translateX(33%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-left-33 {
+  0% {
+    transform: translateX(33%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/*
+ * Right third
+ */
+@-webkit-keyframes uk-slide-right-33 {
+  0% {
+    -webkit-transform: translateX(-33%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}
+@keyframes uk-slide-right-33 {
+  0% {
+    transform: translateX(-33%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/* Keyframes: Scale
+ ========================================================================== */
+@-webkit-keyframes uk-scale-12 {
+  0% {
+    -webkit-transform: scale(1.2);
+  }
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes uk-scale-12 {
+  0% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Keyframes: Rotate
+ * Used by icon component
+ ========================================================================== */
+@-webkit-keyframes uk-rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@keyframes uk-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+/* Keyframes: Shake
+ ========================================================================== */
+@-webkit-keyframes uk-shake {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+  }
+  10% {
+    -webkit-transform: translateX(-9px);
+  }
+  20% {
+    -webkit-transform: translateX(8px);
+  }
+  30% {
+    -webkit-transform: translateX(-7px);
+  }
+  40% {
+    -webkit-transform: translateX(6px);
+  }
+  50% {
+    -webkit-transform: translateX(-5px);
+  }
+  60% {
+    -webkit-transform: translateX(4px);
+  }
+  70% {
+    -webkit-transform: translateX(-3px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+  }
+  90% {
+    -webkit-transform: translateX(-1px);
+  }
+}
+@keyframes uk-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-9px);
+  }
+  20% {
+    transform: translateX(8px);
+  }
+  30% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  60% {
+    transform: translateX(4px);
+  }
+  70% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+  90% {
+    transform: translateX(-1px);
+  }
+}
+/* Keyframes: Fade with slide fixed
+ * Used by dropdown and search component
+ ========================================================================== */
+/*
+ * Top fixed
+ */
+@-webkit-keyframes uk-slide-top-fixed {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-slide-top-fixed {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*
+ * Bottom fixed
+ */
+@-webkit-keyframes uk-slide-bottom-fixed {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes uk-slide-bottom-fixed {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 /* ========================================================================
@@ -4497,743 +5285,6 @@ select.uk-form-width-mini {
   -moz-column-rule-color: rgba(255, 255, 255, 0.2);
   column-rule-color: rgba(255, 255, 255, 0.2);
 }
-/* ========================================================================
-   Component: Animation
- ========================================================================== */
-[class*='uk-animation-'] {
-  -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
-  -webkit-animation-timing-function: ease-out;
-  animation-timing-function: ease-out;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-/* Hide animated element if scrollspy is used */
-@media screen {
-  [data-uk-scrollspy*='uk-animation-']:not([data-uk-scrollspy*='target']) {
-    opacity: 0;
-  }
-}
-/*
- * Fade
- * Higher specificity (!important) needed because of reverse modifier
- */
-.uk-animation-fade {
-  -webkit-animation-name: uk-fade;
-  animation-name: uk-fade;
-  -webkit-animation-duration: 0.8s;
-  animation-duration: 0.8s;
-  -webkit-animation-timing-function: linear !important;
-  animation-timing-function: linear !important;
-}
-/*
- * Fade with scale
- */
-.uk-animation-scale-up {
-  -webkit-animation-name: uk-fade-scale-02;
-  animation-name: uk-fade-scale-02;
-}
-.uk-animation-scale-down {
-  -webkit-animation-name: uk-fade-scale-18;
-  animation-name: uk-fade-scale-18;
-}
-/*
- * Fade with slide
- */
-.uk-animation-slide-top {
-  -webkit-animation-name: uk-fade-top;
-  animation-name: uk-fade-top;
-}
-.uk-animation-slide-bottom {
-  -webkit-animation-name: uk-fade-bottom;
-  animation-name: uk-fade-bottom;
-}
-.uk-animation-slide-left {
-  -webkit-animation-name: uk-fade-left;
-  animation-name: uk-fade-left;
-}
-.uk-animation-slide-right {
-  -webkit-animation-name: uk-fade-right;
-  animation-name: uk-fade-right;
-}
-/*
- * Scale
- */
-.uk-animation-scale {
-  -webkit-animation-name: uk-scale-12;
-  animation-name: uk-scale-12;
-}
-/*
- * Shake
- */
-.uk-animation-shake {
-  -webkit-animation-name: uk-shake;
-  animation-name: uk-shake;
-}
-/* Direction modifiers
- ========================================================================== */
-.uk-animation-reverse {
-  -webkit-animation-direction: reverse;
-  animation-direction: reverse;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-}
-/* Duration modifiers
-========================================================================== */
-.uk-animation-15 {
-  -webkit-animation-duration: 15s;
-  animation-duration: 15s;
-}
-/* Origin modifiers
-========================================================================== */
-.uk-animation-top-left {
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-.uk-animation-top-center {
-  -webkit-transform-origin: 50% 0;
-  transform-origin: 50% 0;
-}
-.uk-animation-top-right {
-  -webkit-transform-origin: 100% 0;
-  transform-origin: 100% 0;
-}
-.uk-animation-middle-left {
-  -webkit-transform-origin: 0 50%;
-  transform-origin: 0 50%;
-}
-.uk-animation-middle-right {
-  -webkit-transform-origin: 100% 50%;
-  transform-origin: 100% 50%;
-}
-.uk-animation-bottom-left {
-  -webkit-transform-origin: 0 100%;
-  transform-origin: 0 100%;
-}
-.uk-animation-bottom-center {
-  -webkit-transform-origin: 50% 100%;
-  transform-origin: 50% 100%;
-}
-.uk-animation-bottom-right {
-  -webkit-transform-origin: 100% 100%;
-  transform-origin: 100% 100%;
-}
-/* Sub-object: `uk-animation-hover`
-========================================================================== */
-/*
- * Enable animation only on hover
- * Note: Firefox also needs this because animations are not triggered when switching between display `hidden` and `block`
- */
-.uk-animation-hover:not(:hover),
-.uk-animation-hover:not(:hover) [class*='uk-animation-'],
-.uk-touch .uk-animation-hover:not(.uk-hover),
-.uk-touch .uk-animation-hover:not(.uk-hover) [class*='uk-animation-'] {
-  -webkit-animation-name: none;
-  animation-name: none;
-}
-/* Keyframes: Fade
- * Used by dropdown, datepicker and slideshow component
- ========================================================================== */
-@-webkit-keyframes uk-fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes uk-fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-/* Keyframes: Fade with slide
- ========================================================================== */
-/*
- * Top
- */
-@-webkit-keyframes uk-fade-top {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(-100%);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-  }
-}
-@keyframes uk-fade-top {
-  0% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/*
- * Bottom
- */
-@-webkit-keyframes uk-fade-bottom {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-  }
-}
-@keyframes uk-fade-bottom {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/*
- * Left
- */
-@-webkit-keyframes uk-fade-left {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(-100%);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-  }
-}
-@keyframes uk-fade-left {
-  0% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-/*
- * Right
- */
-@-webkit-keyframes uk-fade-right {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0);
-  }
-}
-@keyframes uk-fade-right {
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-/* Keyframes: Fade with scale
- ========================================================================== */
-/*
- * Scale by 0.2
- */
-@-webkit-keyframes uk-fade-scale-02 {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.2);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes uk-fade-scale-02 {
-  0% {
-    opacity: 0;
-    transform: scale(0.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/*
- * Scale by 1.5
- * Used by slideshow component
- */
-@-webkit-keyframes uk-fade-scale-15 {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(1.5);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes uk-fade-scale-15 {
-  0% {
-    opacity: 0;
-    transform: scale(1.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/*
- * Scale by 1.8
- */
-@-webkit-keyframes uk-fade-scale-18 {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(1.8);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes uk-fade-scale-18 {
-  0% {
-    opacity: 0;
-    transform: scale(1.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-/* Keyframes: Slide
- * Used by slideshow component
- ========================================================================== */
-/*
- * Left
- */
-@-webkit-keyframes uk-slide-left {
-  0% {
-    -webkit-transform: translateX(-100%);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-  }
-}
-@keyframes uk-slide-left {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-/*
- * Right
- */
-@-webkit-keyframes uk-slide-right {
-  0% {
-    -webkit-transform: translateX(100%);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-  }
-}
-@keyframes uk-slide-right {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-/*
- * Left third
- */
-@-webkit-keyframes uk-slide-left-33 {
-  0% {
-    -webkit-transform: translateX(33%);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-  }
-}
-@keyframes uk-slide-left-33 {
-  0% {
-    transform: translateX(33%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-/*
- * Right third
- */
-@-webkit-keyframes uk-slide-right-33 {
-  0% {
-    -webkit-transform: translateX(-33%);
-  }
-  100% {
-    -webkit-transform: translateX(0);
-  }
-}
-@keyframes uk-slide-right-33 {
-  0% {
-    transform: translateX(-33%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-/* Keyframes: Scale
- ========================================================================== */
-@-webkit-keyframes uk-scale-12 {
-  0% {
-    -webkit-transform: scale(1.2);
-  }
-  100% {
-    -webkit-transform: scale(1);
-  }
-}
-@keyframes uk-scale-12 {
-  0% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-/* Keyframes: Rotate
- * Used by icon component
- ========================================================================== */
-@-webkit-keyframes uk-rotate {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-  }
-}
-@keyframes uk-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(359deg);
-  }
-}
-/* Keyframes: Shake
- ========================================================================== */
-@-webkit-keyframes uk-shake {
-  0%,
-  100% {
-    -webkit-transform: translateX(0);
-  }
-  10% {
-    -webkit-transform: translateX(-9px);
-  }
-  20% {
-    -webkit-transform: translateX(8px);
-  }
-  30% {
-    -webkit-transform: translateX(-7px);
-  }
-  40% {
-    -webkit-transform: translateX(6px);
-  }
-  50% {
-    -webkit-transform: translateX(-5px);
-  }
-  60% {
-    -webkit-transform: translateX(4px);
-  }
-  70% {
-    -webkit-transform: translateX(-3px);
-  }
-  80% {
-    -webkit-transform: translateX(2px);
-  }
-  90% {
-    -webkit-transform: translateX(-1px);
-  }
-}
-@keyframes uk-shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  10% {
-    transform: translateX(-9px);
-  }
-  20% {
-    transform: translateX(8px);
-  }
-  30% {
-    transform: translateX(-7px);
-  }
-  40% {
-    transform: translateX(6px);
-  }
-  50% {
-    transform: translateX(-5px);
-  }
-  60% {
-    transform: translateX(4px);
-  }
-  70% {
-    transform: translateX(-3px);
-  }
-  80% {
-    transform: translateX(2px);
-  }
-  90% {
-    transform: translateX(-1px);
-  }
-}
-/* Keyframes: Fade with slide fixed
- * Used by dropdown and search component
- ========================================================================== */
-/*
- * Top fixed
- */
-@-webkit-keyframes uk-slide-top-fixed {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-  }
-}
-@keyframes uk-slide-top-fixed {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/*
- * Bottom fixed
- */
-@-webkit-keyframes uk-slide-bottom-fixed {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0);
-  }
-}
-@keyframes uk-slide-bottom-fixed {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-/* ========================================================================
-   Component: Dropdown
- ========================================================================== */
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Box-sizing is needed for `uk-dropdown-justify`
- * 4. Set width
- */
-.uk-dropdown,
-.uk-dropdown-blank {
-  /* 1 */
-  display: none;
-  /* 2 */
-  position: absolute;
-  z-index: 970;
-  /* 3 */
-  box-sizing: border-box;
-  /* 4 */
-  width: 200px;
-}
-/*
- * Dropdown style
- * 1. Reset button group whitespace hack
- */
-.uk-dropdown {
-  padding: 15px;
-  background: #f5f5f5;
-  color: #444;
-  /* 1 */
-  font-size: 1rem;
-  vertical-align: top;
-}
-/*
- * 1. Show dropdown
- * 2. Set animation
- * 3. Needed for scale animation
- */
-.uk-open > .uk-dropdown,
-.uk-open > .uk-dropdown-blank {
-  /* 1 */
-  display: block;
-  /* 2 */
-  -webkit-animation: uk-fade 0.2s ease-in-out;
-  animation: uk-fade 0.2s ease-in-out;
-  /* 3 */
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-}
-/* Alignment modifiers
- ========================================================================== */
-/*
- * Modifier
- */
-.uk-dropdown-top {
-  margin-top: -5px;
-}
-.uk-dropdown-bottom {
-  margin-top: 5px;
-}
-.uk-dropdown-left {
-  margin-left: -5px;
-}
-.uk-dropdown-right {
-  margin-left: 5px;
-}
-/* Nav in dropdown
- ========================================================================== */
-.uk-dropdown .uk-nav {
-  margin: 0 -15px;
-}
-/* Grid and panel in dropdown
- ========================================================================== */
-/*
-* Vertical gutter
-*/
-/*
- * Grid
- * Higher specificity to override large gutter
- */
-.uk-grid .uk-dropdown-grid + .uk-dropdown-grid {
-  margin-top: 15px;
-}
-/* Panels */
-.uk-dropdown-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
-  margin-top: 15px;
-}
-/* Tablet and bigger */
-@media (min-width: 960px) {
-  /*
-     * Horizontal gutter
-     */
-  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-'] {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  /*
-     * Column divider
-     */
-  .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
-    border-left: 1px solid #ddd;
-  }
-  /*
-     * Width multiplier for dropdown columns
-     */
-  .uk-dropdown-width-2:not(.uk-dropdown-stack) {
-    width: 400px;
-  }
-  .uk-dropdown-width-3:not(.uk-dropdown-stack) {
-    width: 600px;
-  }
-  .uk-dropdown-width-4:not(.uk-dropdown-stack) {
-    width: 800px;
-  }
-  .uk-dropdown-width-5:not(.uk-dropdown-stack) {
-    width: 1000px;
-  }
-}
-/* Phone landscape and smaller */
-@media (max-width: 959px) {
-  /*
-     * Stack columns and take full width
-     */
-  .uk-dropdown-grid > [class*='uk-width-'] {
-    width: 100%;
-  }
-  /*
-     * Vertical gutter
-     */
-  .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
-    margin-top: 15px;
-  }
-}
-/*
-* Stack grid columns
-*/
-.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-'] {
-  width: 100%;
-}
-.uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
-  margin-top: 15px;
-}
-/* Modifier `uk-dropdown-small`
- ========================================================================== */
-/*
- * Set min-width and text expands dropdown if needed
- */
-.uk-dropdown-small {
-  min-width: 150px;
-  width: auto;
-  padding: 5px;
-  white-space: nowrap;
-}
-/*
- * Nav in dropdown
- */
-.uk-dropdown-small .uk-nav {
-  margin: 0 -5px;
-}
-/* Modifier: `uk-dropdown-navbar`
- ========================================================================== */
-.uk-dropdown-navbar {
-  margin-top: 0;
-  background: #f5f5f5;
-  color: #444;
-}
-.uk-open > .uk-dropdown-navbar {
-  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
-  animation: uk-slide-top-fixed 0.2s ease-in-out;
-}
-/* Modifier `uk-dropdown-scrollable`
- ========================================================================== */
-/*
- * Usefull for long lists
- */
-.uk-dropdown-scrollable {
-  overflow-y: auto;
-  max-height: 200px;
-}
-/* Sub-object: `uk-dropdown-overlay`
- ========================================================================== */
 /* ========================================================================
    Component: Print
  ========================================================================== */

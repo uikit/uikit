@@ -3,6 +3,8 @@
 //
 // Component:       `uk-drop`
 //
+// Sub-objects:     `uk-drop-container`
+//
 // Modifiers:       `uk-drop-top`
 //                  `uk-drop-bottom`
 //                  `uk-drop-left`
@@ -35,21 +37,6 @@
  ========================================================================== */
 
 /*
- * 1. Container fits its content
- * 2. Behave like button
- * 3. Create position context
- */
-
-.uk-drop-container {
-    /* 1 */
-    display: inline-block;
-    /* 2 */
-    vertical-align: middle;
-    /* 3 */
-    position: relative;
-}
-
-/*
  * 1. Hide by default
  * 2. Set position
  * 3. Box-sizing is needed for `uk-drop-justify`
@@ -79,6 +66,25 @@
     /* 2 */
     -webkit-animation: @drop-animation 0.2s ease-in-out;
     animation: @drop-animation 0.2s ease-in-out;
+}
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Behave like button
+ * 3. Create position context
+ */
+
+.uk-drop-container {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    vertical-align: middle;
+    /* 3 */
+    position: relative;
 }
 
 
