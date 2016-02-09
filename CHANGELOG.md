@@ -13,6 +13,7 @@
   - Fixed parallax for elements with padding
   - Fixed responsiveElement initialization
   - Fixed scrollspy in view check
+  - Fixed sticky positioning
 
 ### 2.24.3 (December 18, 2015)
 
