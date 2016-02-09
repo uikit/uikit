@@ -24,10 +24,10 @@
 // Variables
 // ========================================================================
 
-@drop-z-index:                              970;
+@drop-z-index:                              @global-z-index + 20;
 @drop-width:                                300px;
 @drop-animation:                            uk-fade;
-@drop-margin:                               10px;
+@drop-margin:                               @global-small-margin;
 
 
 /* ========================================================================
@@ -71,7 +71,6 @@
 /*
  * 1. Show drop
  * 2. Set animation
- * 3. Needed for scale animation
  */
 
 .uk-open > .uk-drop {
@@ -80,9 +79,6 @@
     /* 2 */
     -webkit-animation: @drop-animation 0.2s ease-in-out;
     animation: @drop-animation 0.2s ease-in-out;
-    /* 3 */
-    -webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
 }
 
 
