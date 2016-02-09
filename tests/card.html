@@ -216,56 +216,6 @@
 
         <div class="uk-container uk-margin-large-top">
 
-        <h2>Nav</h2>
-
-            <div class="uk-grid uk-child-width-1-3@m" uk-grid>
-                <div>
-
-                    <div class="uk-card uk-card-default">
-                        <ul class="uk-nav">
-                            <li><a href="#">Item 1</a></li>
-                            <li><a href="#">Item 2</a></li>
-                            <li><a href="#">Item 3</a></li>
-                            <li><a href="#">Item 4</a></li>
-                            <li><a href="#">Item 5</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-                <div>
-
-                    <div class="uk-card uk-card-default">
-                        <div class="uk-card-body">
-                            <h3 class="uk-card-title">Title</h3>
-                        </div>
-                        <ul class="uk-nav">
-                            <li><a href="#">Item 1</a></li>
-                            <li><a href="#">Item 2</a></li>
-                            <li><a href="#">Item 3</a></li>
-                            <li><a href="#">Item 4</a></li>
-                            <li><a href="#">Item 5</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-                <div>
-
-                    <div class="uk-card uk-card-default">
-                        <ul class="uk-nav">
-                            <li><a href="#">Item 1</a></li>
-                            <li><a href="#">Item 2</a></li>
-                            <li><a href="#">Item 3</a></li>
-                            <li><a href="#">Item 4</a></li>
-                            <li><a href="#">Item 5</a></li>
-                        </ul>
-                        <div class="uk-card-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
             <h2>Media</h2>
 
             <div class="uk-grid uk-child-width-1-4@m" uk-grid>
@@ -403,7 +353,118 @@
                 </div>
             </div>
 
+            <h2>Nav</h2>
 
+            <div class="uk-grid uk-child-width-1-4@m" uk-grid>
+                <div>
+
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <ul class="uk-nav uk-nav-default">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a>
+                                        <ul>
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title">Title</h3>
+                        <ul class="uk-nav uk-nav-default">
+                            <li class="uk-active"><a href="#">Active</a></li>
+                             <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a></li>
+                                </ul>
+                            </li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-card uk-card-default">
+                        <div class="uk-card-header">
+                            <h3 class="uk-card-title">Title</h3>
+                        </div>
+                        <div class="uk-card-body">
+                            <ul class="uk-nav uk-nav-default">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                 <li class="uk-parent">
+                                    <a href="#">Parent</a>
+                                    <ul class="uk-nav-sub">
+                                        <li><a href="#">Sub item</a></li>
+                                        <li><a href="#">Sub item</a></li>
+                                    </ul>
+                                </li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                            </ul>
+                        </div>
+                        <div class="uk-card-footer">
+                            <p class="uk-text-meta">Written by <a href="#">Super User</a> on <time datetime="2016-04-01T19:00">April 01, 2016</time>.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-card uk-card-secondary">
+                        <div class="uk-card-media-top">
+                            <img src="http://unsplash.it/900/300" alt="">
+                        </div>
+                        <div class="uk-card-body">
+                            <ul class="uk-nav uk-nav-default">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                 <li class="uk-parent">
+                                    <a href="#">Parent</a>
+                                    <ul class="uk-nav-sub">
+                                        <li><a href="#">Sub item</a></li>
+                                        <li><a href="#">Sub item</a></li>
+                                    </ul>
+                                </li>
+                                <li class="uk-nav-header">Header</li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                <li class="uk-nav-divider"></li>
+                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                            </ul>
+                        </div>
+                        <div class="uk-card-media-bottom">
+                            <img src="http://unsplash.it/900/300" alt="">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
             <h2>Size</h2>
 

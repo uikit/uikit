@@ -20,10 +20,10 @@
 
         Base: ['base'],
         Elements: ['typography', 'list', 'description-list', 'table', 'form', 'button'],
-        Common: ['alert', 'badge', 'close', 'dropdown', 'icon'],
+        Common: ['alert', 'badge', 'close', 'icon'],
         Navigation: ['nav', 'subnav'],
         Layout: ['section', 'container', 'grid', 'card'],
-        JavaScript: ['drop', 'toggle', 'scrollspy', 'smooth-scroll'],
+        JavaScript: ['drop', 'dropdown', 'toggle', 'scrollspy', 'smooth-scroll'],
         Utilities: ['align', 'column', 'cover', 'flex', 'inverse', 'margin', 'padding', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced']
 

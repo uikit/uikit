@@ -9,12 +9,6 @@
 //                  `uk-drop-bottom`
 //                  `uk-drop-left`
 //                  `uk-drop-right`
-//                  `uk-drop-stack`
-//                  `uk-drop-grid`
-//                  `uk-drop-width-2`
-//                  `uk-drop-width-3`
-//                  `uk-drop-width-4`
-//                  `uk-drop-width-5`
 //
 // States:          `uk-open`
 //
@@ -39,8 +33,7 @@
 /*
  * 1. Hide by default
  * 2. Set position
- * 3. Box-sizing is needed for `uk-drop-justify`
- * 4. Set a default width
+ * 3. Set a default width
  */
 
 .uk-drop {
@@ -51,7 +44,6 @@
     z-index: @drop-z-index;
     /* 3 */
     box-sizing: border-box;
-    /* 4 */
     width: @drop-width;
 }
 
@@ -95,17 +87,6 @@
 .uk-drop-bottom { margin-top: @drop-margin; }
 .uk-drop-left { margin-left: (-1 * @drop-margin); }
 .uk-drop-right { margin-left: @drop-margin; }
-
-
-/* Grid modifiers
- ========================================================================== */
-
-.uk-drop-stack .uk-drop-grid > * { width: 100% !important; }
-
-.uk-drop-width-2:not(.uk-drop-stack) { width: (@drop-width * 2); }
-.uk-drop-width-3:not(.uk-drop-stack) { width: (@drop-width * 3); }
-.uk-drop-width-4:not(.uk-drop-stack) { width: (@drop-width * 4); }
-.uk-drop-width-5:not(.uk-drop-stack) { width: (@drop-width * 5); }
 
 
 // Hooks

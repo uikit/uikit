@@ -3,9 +3,13 @@
 //
 // Component:       `uk-dropdown`
 //
-// Sub-object:      `uk-dropdown-nav`
+// Sub-object:      `uk-dropdown-container`
+//                  `uk-dropdown-nav`
 //
-// Modifiers:       `uk-dropdown-small`
+// Modifiers:       `uk-dropdown-top`
+//                  `uk-dropdown-bottom`
+//                  `uk-dropdown-left`
+//                  `uk-dropdown-right`
 //                  `uk-dropdown-scrollable`
 //
 // ========================================================================
@@ -43,9 +47,8 @@
 /*
  * 1. Hide by default
  * 2. Set position
- * 3. Box-sizing is needed for `uk-dropdown-justify`
- * 4. Set a default width
- * 5. Style
+ * 3. Set a default width
+ * 4. Style
  */
 
 .uk-dropdown {
@@ -56,9 +59,8 @@
     z-index: @dropdown-z-index;
     /* 3 */
     box-sizing: border-box;
-    /* 4 */
     min-width: @dropdown-min-width;
-    /* 5 */
+    /* 4 */
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
