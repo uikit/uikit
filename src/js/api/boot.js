@@ -1,17 +1,17 @@
 import $ from 'jquery';
-import {Observer, ready, camelize} from '../util/index';
+import {Observer, ready, camelize, hyphenate} from '../util/index';
 
 export default function (UIkit) {
 
     const DATA = UIkit.data;
 
+    var selector;
+
     if (!Observer) {
 
         ready(() => {
-            $('[is^="uk-"]').each((i, node) => {
-                getComponents(node).forEach(component => {
-                    UIkit[component](node);
-                });
+            $(getSelector()).each((i, node) => {
+                attachComponents(node);
             });
         });
 
@@ -28,9 +28,9 @@ export default function (UIkit) {
 
                     let node = mutation.addedNodes[i];
 
-                    getComponents(node).forEach(component => {
-                        UIkit[component](node);
-                    })
+                    if (node.matches && node.matches(getSelector())) {
+                        attachComponents(node);
+                    }
                 }
 
                 for (let i = 0; i < mutation.removedNodes.length; ++i) {
@@ -46,52 +46,34 @@ export default function (UIkit) {
 
             }
 
-            if (mutation.type === 'attributes') {
-
-                let components = mutation.target[DATA], current = getComponents(components);
-
-                if (components) {
-                    for (let name in components) {
-                        if (current.indexOf(name) === -1) {
-                            components[name].$destroy();
-                        }
-                    }
-                }
-
-                current.forEach(name => {
-                    UIkit[name](components);
-                });
-
-            }
-
         });
 
-    })).observe(document, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['is']
-    });
+    })).observe(document, {childList: true, subtree: true});
 
-}
+    function getSelector() {
 
-function getComponents(node) {
+        if (!selector) {
+            var components = Object.keys(UIkit.components).map(hyphenate);
+            selector = components.length ? '[uk-' + components.join('],[uk-') + ']' : false;
+        }
 
-    var components = [];
-
-    if (node.attributes && node.hasAttribute('is')) {
-
-        node.getAttribute('is').replace(/uk\-/g, '').split(' ').forEach(name => {
-
-            name = camelize(name);
-
-            if (UIkit[name]) {
-                components.push(name)
-            }
-
-        });
-
+        return selector;
     }
 
-    return components;
+    function attachComponents(node) {
+
+        for (var i = 0; i < node.attributes.length; i++) {
+
+            var name = node.attributes[i].name;
+
+            if (name.lastIndexOf('uk-', 0) === 0) {
+                name = camelize(name.replace('uk-', ''));
+
+                if (UIkit[name]) {
+                    UIkit[name](node);
+                }
+            }
+        }
+    }
+
 }

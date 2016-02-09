@@ -117,7 +117,7 @@
 
             <h2>Responsive objects</h2>
 
-            <div class="uk-child-width-1-3@s" is="uk-grid">
+            <div class="uk-grid uk-child-width-1-3@s" uk-grid>
                 <div>
                     <p>Responsive width (Video)</p>
                     <video class="uk-responsive-width" width="600" height="400" controls>
@@ -127,7 +127,7 @@
                 </div>
                 <div>
                     <p>JS responsive width (Iframe)</p>
-                    <iframe is="uk-responsive" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    <iframe src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-responsive></iframe>
                 </div>
                 <div>
                     <p>Responsive height (Image)</p>
@@ -152,13 +152,13 @@
 
             <h2>Inline SVG</h2>
 
-            <img id="svg1" class="svg-1" src="images/test.svg" is="uk-svg">
-            <img id="svg2" class="svg-2" src="images/test.svg" width="200" is="uk-svg">
+            <img id="svg1" class="svg-1" src="images/test.svg" uk-svg>
+            <img id="svg2" class="svg-2" src="images/test.svg" width="200" uk-svg>
 
             <h2>Inline SVG with id</h2>
 
-            <img width="20" height="20" src="../src/images/icons.svg#table" is="uk-svg">
-            <img width="20" height="20" src="../src/images/icons.svg#trash" is="uk-svg">
+            <img width="20" height="20" src="../src/images/icons.svg#table" uk-svg>
+            <img width="20" height="20" src="../src/images/icons.svg#trash" uk-svg>
 
             <table class="uk-table uk-table-striped">
                 <thead>
@@ -181,12 +181,12 @@
 
             <h2>Match Height</h2>
 
-            <div class="uk-child-width-1-2@s" is="uk-grid">
+            <div class="uk-grid uk-child-width-1-2@s">
                 <div>
 
                     <h3>Each Row</h3>
 
-                    <div class="uk-child-width-1-2@m" is="uk-grid uk-match-height" target="> div > .uk-panel">
+                    <div class="uk-grid uk-child-width-1-2@m" uk-grid uk-match-height="target: > div > .uk-panel">
                         <div><div class="uk-panel">1-2-M<br>...<br>...</div></div>
                         <div><div class="uk-panel">1-2-M</div></div>
                         <div><div class="uk-panel">1-2-M<br>...</div></div>
@@ -198,7 +198,7 @@
 
                     <h3>All Rows</h3>
 
-                    <div class="uk-child-width-1-2@m" is="uk-grid uk-match-height" target="> div > .uk-panel" row="false">
+                    <div class="uk-grid uk-child-width-1-2@m" uk-grid uk-match-height="target: > div > .uk-panel; row: false">
                         <div><div class="uk-panel">1-2-M<br>...<br>...</div></div>
                         <div><div class="uk-panel">1-2-M</div></div>
                         <div><div class="uk-panel">1-2-M<br>...</div></div>

@@ -31,9 +31,9 @@ export default function (UIkit, _) {
     UIkit.use(Cover);
     UIkit.use(Drop);
     UIkit.use(Dropdown);
+    UIkit.use(MarginWrap);
     UIkit.use(Grid);
     UIkit.use(Icon);
-    UIkit.use(MarginWrap);
     UIkit.use(MatchHeight);
     UIkit.use(Responsive);
     UIkit.use(Scrollspy);

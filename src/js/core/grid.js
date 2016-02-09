@@ -1,16 +1,12 @@
-import marginMixin from '../mixin/margin';
-
 export default function (UIkit) {
 
-    UIkit.component('grid', {
-
-        mixins: [marginMixin],
+    UIkit.component('grid', UIkit.components.marginWrap.extend({
 
         defaults: {
             margin: 'uk-grid-margin',
             rowFirst: 'uk-grid-first'
         }
 
-    });
+    }));
 
 }

@@ -42,7 +42,8 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function () {
 
         var el = this.$options.el,
-            props = this.$options.props;
+            props = this.$options.props,
+            options = el.getAttribute('uk-' + hyphenate(this.$options.name));
 
         if (props) {
             for (var key in props) {
@@ -50,6 +51,15 @@ export default function (UIkit) {
                 if (el.hasAttribute(prop)) {
                     this[key] = coerce(props[key], el.getAttribute(prop))
                 }
+            }
+
+            if (options) {
+                options.split(';').forEach((option) => {
+                    var opt = option.split(/:(.+)/).map((value) => { return value.trim(); });
+                    if (props[opt[0]]) {
+                        this[opt[0]] = coerce(props[opt[0]], opt[1]);
+                    }
+                });
             }
         }
     };

@@ -15,7 +15,7 @@
 
             <h1>Form</h1>
 
-            <div is="uk-grid">
+            <div class="uk-grid" uk-grid>
                 <div class="uk-width-2-3@s">
 
                     <h2>Horizontal</h2>
@@ -51,7 +51,7 @@
                             <div class="uk-form-controls uk-form-controls-text">
                                 <label><input type="radio" name="radio1"> Option 01</label><br>
                                 <label><input type="radio" name="radio1"> Option 02</label>
-                                <div class="uk-margin uk-grid-small uk-child-width-auto" is="uk-grid">
+                                <div class="uk-grid uk-margin uk-grid-small uk-child-width-auto" uk-grid>
                                     <label><input type="radio" name="radio2"> A</label>
                                     <label><input type="radio" name="radio2"> B</label>
                                     <label><input type="radio" name="radio2"> C</label>
@@ -65,7 +65,7 @@
                             <div class="uk-form-controls uk-form-controls-text">
                                 <label><input type="checkbox"> Option 01</label><br>
                                 <label><input type="checkbox"> Option 02</label>
-                                <div class="uk-margin uk-grid-small uk-child-width-auto" is="uk-grid">
+                                <div class="uk-grid uk-margin uk-grid-small uk-child-width-auto" uk-grid>
                                     <label><input type="checkbox"> A</label>
                                     <label><input type="checkbox"> B</label>
                                     <label><input type="checkbox"> C</label>
@@ -92,7 +92,7 @@
 
                     <form>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <input class="uk-form-large" type="text" placeholder="Some text...">
                             <select class="uk-form-large">
                                 <option>Option 01</option>
@@ -103,7 +103,7 @@
                             <label><input type="checkbox"> Checkbox</label>
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <input type="text" placeholder="Some text...">
                             <select>
                                 <option>Option 01</option>
@@ -114,7 +114,7 @@
                             <label><input type="checkbox"> Checkbox</label>
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <input class="uk-form-small" type="text" placeholder="Some text...">
                             <select class="uk-form-small">
                                 <option>Option 01</option>
@@ -131,27 +131,27 @@
 
                     <form>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <input class="uk-form-width-large" type="text" placeholder="form-width-large">
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <select class="uk-form-width-large">
                                 <option>form-width-large</option>
                             </select>
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <textarea class="uk-form-width-large" rows="1" placeholder="form-width-large"></textarea>
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <input class="uk-form-width-medium" type="text" placeholder="form-width-medium">
                             <input class="uk-form-width-small" type="text" placeholder="form-width-small">
                             <input class="uk-form-width-mini" type="text" placeholder="form-width-mini">
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <select class="uk-form-width-medium">
                                 <option>form-width-medium</option>
                             </select>
@@ -163,7 +163,7 @@
                             </select>
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
                             <textarea class="uk-form-width-medium" rows="1" placeholder="form-width-medium"></textarea>
                             <textarea class="uk-form-width-small" rows="1" placeholder="form-width-small"></textarea>
                         </div>
@@ -174,36 +174,36 @@
 
                     <form>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
 
                             <div class="uk-form-icon">
                                 <span>
-                                    <span is="uk-icon" icon="trash"></span>
+                                    <span uk-icon="icon: trash"></span>
                                 </span>
                                 <input type="text">
                             </div>
 
                             <div class="uk-form-icon uk-form-icon-flip">
                                 <span>
-                                    <span is="uk-icon" icon="table"></span>
+                                    <span uk-icon="icon: table"></span>
                                 </span>
                                 <input type="text">
                             </div>
 
                         </div>
 
-                        <div class="uk-margin" is="uk-margin-wrap">
+                        <div class="uk-margin" uk-margin-wrap>
 
                             <div class="uk-form-icon">
                                 <span>
-                                    <span is="uk-icon" icon="small-trash"></span>
+                                    <span uk-icon="icon: small-trash"></span>
                                 </span>
                                 <input type="text">
                             </div>
 
                             <div class="uk-form-icon uk-form-icon-flip">
                                 <span>
-                                    <span is="uk-icon" icon="small-edit"></span>
+                                    <span uk-icon="icon: small-edit"></span>
                                 </span>
                                 <input type="text">
                             </div>
@@ -222,7 +222,7 @@
                         <div class="uk-margin-small">
                             <input class="uk-width-1-1" type="text" placeholder=":disabled" disabled>
                         </div>
-                        <div class="uk-margin-small uk-grid-small" is="uk-grid">
+                        <div class="uk-griduk-margin-small uk-grid-small" uk-grid>
                             <div class="uk-width-expand">
                                 <input class="test-focus uk-width-1-1" type="text" placeholder=":focus" required>
                                 <script>$('.test-focus')[0].focus();</script>
@@ -268,7 +268,7 @@
                             <span class="uk-form-label">Radio</span>
                             <label><input type="radio" name="radio1"> Option 01</label><br>
                             <label><input type="radio" name="radio1"> Option 02</label>
-                            <div class="uk-margin uk-grid-small uk-child-width-auto" is="uk-grid">
+                            <div class="uk-grid uk-margin uk-grid-small uk-child-width-auto" uk-grid>
                                 <label><input type="radio" name="radio2"> A</label>
                                 <label><input type="radio" name="radio2"> B</label>
                                 <label><input type="radio" name="radio2"> C</label>
@@ -280,7 +280,7 @@
                             <span class="uk-form-label">Checkbox</span>
                             <label><input type="checkbox"> Option 01</label><br>
                             <label><input type="checkbox"> Option 02</label>
-                            <div class="uk-margin uk-grid-small uk-child-width-auto" is="uk-grid">
+                            <div class="uk-grid uk-margin uk-grid-small uk-child-width-auto" uk-grid>
                                 <label><input type="checkbox"> A</label>
                                 <label><input type="checkbox"> B</label>
                                 <label><input type="checkbox"> C</label>

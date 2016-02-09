@@ -16,7 +16,7 @@
 
     <body>
 
-        <ul class="uk-nav uk-nav-side" is="uk-scrollspy-nav" closest="li" smooth-scroll="true">
+        <ul class="uk-nav uk-nav-side" uk-scrollspy-nav="closest: li; smoothScroll: true">
             <li><a href="#animation-repeat">Single</a></li>
             <li><a href="#animation-delay">Group</a></li>
             <li><a href="#animation-fade">Fade</a></li>
@@ -35,19 +35,19 @@
 
             <h2 id="animation-repeat">Single, Repeat, Delay</h2>
 
-            <div class="uk-child-width-1-4@m" is="uk-grid uk-match-height" target="> div > .uk-panel">
+            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-match-height="target: > div > .uk-panel">
                 <div>
-                    <div class="uk-panel uk-panel-box" is="uk-scrollspy" cls="uk-animation-fade">
+                    <div class="uk-panel uk-panel-box" uk-scrollspy="cls: uk-animation-fade">
                         <p>The element is animated only the first time it appears in the viewport.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box" is="uk-scrollspy" cls="uk-animation-slide-right" repeat="true">
+                    <div class="uk-panel uk-panel-box" uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
                         <p>The element is animated every time it appears in the viewport.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box" is="uk-scrollspy" cls="uk-animation-slide-right" delay="1500" repeat="true">
+                    <div class="uk-panel uk-panel-box" uk-scrollspy="cls: uk-animation-slide-right; delay: 1500; repeat: true">
                         <p>The element is animated every time it appears in the viewport but delayed by 1.5s.</p>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
 
             <h2 id="animation-delay">Group, Repeat, Delay</h2>
 
-            <div class="uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-fade uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <p>The animation of this element is delayed by some milliseconds.</p>
@@ -82,7 +82,7 @@
 
             <h2 id="animation-fade">Group Fade</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-fade uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Fade</h3>
@@ -111,7 +111,7 @@
 
             <h2 id="animation-scale-up">Large Group Scale up</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-scale-up uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-up uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Scale up</h3>
@@ -237,7 +237,7 @@
 
             <h2 id="animation-scale-down">Group Scale down</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-scale-down uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-down uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Scale down</h3>
@@ -266,7 +266,7 @@
 
             <h2 id="animation-slide-left">Group Slide left</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-slide-left uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-left uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide left</h3>
@@ -295,7 +295,7 @@
 
             <h2 id="animation-slide-right">Group Slide right</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-slide-right uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-right uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide right</h3>
@@ -324,7 +324,7 @@
 
             <h2 id="animation-slide-top">Group Slide top</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-slide-top uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-top uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide top</h3>
@@ -353,7 +353,7 @@
 
             <h2 id="animation-slide-bottom">Group Slide bottom</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-slide-bottom uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide bottom</h3>
@@ -382,7 +382,7 @@
 
             <h2 id="animation-different">Different animations</h2>
 
-            <div class="test-margin-bottom uk-child-width-1-4@m" is="uk-scrollspy uk-grid" cls="uk-animation-slide-bottom uk-invisible" target="> div > .uk-panel" delay="300" repeat="true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
                 <div>
                     <div class="uk-panel uk-panel-box uk-invisible">
                         <h3 class="uk-panel-title">Slide bottom</h3>
@@ -427,19 +427,19 @@
                             <td>Class to add when the element is in view. If two, comma separated classes are provided those will be toggled.</td>
                         </tr>
                         <tr>
-                            <td><code>init-cls</code></td>
+                            <td><code>initCls</code></td>
                             <td>String</td>
                             <td>uk-scrollspy-init-inview</td>
                             <td>Class to add when the element is in view for the first time.</td>
                         </tr>
                         <tr>
-                            <td><code>offset-top</code></td>
+                            <td><code>offsetTop</code></td>
                             <td>Number</td>
                             <td>0</td>
                             <td>Top offset before triggering in view.</td>
                         </tr>
                         <tr>
-                            <td><code>offset-left</code></td>
+                            <td><code>offsetLeft</code></td>
                             <td>Number</td>
                             <td>0</td>
                             <td>Left offset before triggering in view.</td>
@@ -484,13 +484,13 @@
                             <td>Target to apply the class to.</td>
                         </tr>
                         <tr>
-                            <td><code>offset-top</code></td>
+                            <td><code>offsetTop</code></td>
                             <td>Number</td>
                             <td>0</td>
                             <td>Top offset before triggering in view.</td>
                         </tr>
                         <tr>
-                            <td><code>offset-left</code></td>
+                            <td><code>offsetLeft</code></td>
                             <td>Number</td>
                             <td>0</td>
                             <td>Left offset before triggering in view.</td>
