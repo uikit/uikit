@@ -20,11 +20,11 @@
 
         Base: ['base'],
         Elements: ['typography', 'list', 'description-list', 'table', 'form', 'button'],
-        Common: ['alert', 'badge', 'close', 'icon'],
-        Navigation: ['subnav'],
+        Common: ['alert', 'badge', 'close', 'dropdown', 'icon'],
+        Navigation: ['nav', 'subnav'],
         Layout: ['section', 'container', 'grid', 'card'],
-        JavaScript: ['drop', 'toggle'],
-        Utilities: ['align', 'column', 'cover', 'drop', 'dropdown', 'flex', 'inverse', 'margin', 'padding', 'scrollspy', 'smooth-scroll', 'text', 'utility', 'visibility', 'width'],
+        JavaScript: ['drop', 'toggle', 'scrollspy', 'smooth-scroll'],
+        Utilities: ['align', 'column', 'cover', 'flex', 'inverse', 'margin', 'padding', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced']
 
     };
