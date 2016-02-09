@@ -2223,7 +2223,7 @@ ul.uk-nav-sub {
   padding-left: 30px;
 }
 /* Vertical */
-.uk-grid + uk-grid,
+.uk-grid + .uk-grid,
 .uk-grid > .uk-grid-margin {
   margin-top: 30px;
 }
@@ -2237,7 +2237,7 @@ ul.uk-nav-sub {
     padding-left: 40px;
   }
   /* Vertical */
-  .uk-grid + uk-grid,
+  .uk-grid + .uk-grid,
   .uk-grid > .uk-grid-margin {
     margin-top: 40px;
   }
