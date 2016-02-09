@@ -208,26 +208,19 @@ export default function (UIkit) {
 
                 } else if (this.flip !== 'false') {
 
-                    var flipTo, flip = checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth);
+                    var flipTo = this.pos, flip = checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth);
 
-                    if (flip === 'x' && (this.flip === 'true' || this.flip === 'x')) {
-                        flipTo = flipPosition(this.pos, 'x');
-                    } else if (flip === 'y' && (this.flip === 'true' || this.flip === 'y')) {
-                        flipTo = flipPosition(this.pos, 'y');
-                    } else if (flip === 'xy') {
-                        flipTo = flipPosition(this.pos, 'xy');
+                    if (flip.indexOf('x') !== -1 && (this.flip === 'true' || this.flip === 'x')) {
+                        flipTo = flipPosition(flipTo, 'x');
                     }
 
-                    if (flipTo) {
+                    if (flip.indexOf('y') !== -1  && (this.flip === 'true' || this.flip === 'y')) {
+                        flipTo = flipPosition(flipTo, 'y');
+                    }
 
+                    if (flipTo !== this.pos && checkBoundary(flipTo.left + variants[flipTo].left, flipTo.top + variants[flipTo].top, width, height, boundaryWidth)) {
                         pp = flipTo.split('-');
-                        css = variants[flipTo] ? variants[flipTo] : variants['bottom-left'];
-
-                        // check flipped
-                        if (checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth)) {
-                            pp = this.pos.split('-');
-                            css = variants[this.pos] ? variants[this.pos] : variants['bottom-left'];
-                        }
+                        css = variants[flipTo];
                     }
 
                 }
@@ -266,7 +259,7 @@ export default function (UIkit) {
                     topLeft = {x: offset.left, y: offset.top},
                     topRight = {x: offset.left + this.drop.outerWidth(), y: topLeft.y},
                     bottomLeft = {x: offset.left, y: offset.top + this.drop.outerHeight()},
-                    bottomRight = {x: offset.left + this.drop.outerWidth(), y: bottomLeft.y};
+                    bottomRight = {x: topRight.x, y: bottomLeft.y};
 
                 if (this.direction == 'left') {
                     this.increasingCorner = topRight;
