@@ -27,28 +27,26 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$update = function (e) {
-        this.$broadcast('update', createEvent(e || 'update'));
-    };
 
-    UIkit.prototype.$updateParents = function (e) {
-        this.$dispatch('update', createEvent(e || 'update'));
-    };
+        e = createEvent(e || 'update');
 
-    UIkit.prototype.$broadcast = function (hook, e) {
         $(UIkit.elements, this.$el).each(function () {
             if (this[DATA]) {
                 for (var name in this[DATA]) {
-                    this[DATA][name]._callHook(hook, e);
+                    this[DATA][name]._callHook('update', e);
                 }
             }
         });
     };
 
-    UIkit.prototype.$dispatch = function (hook, e) {
+    UIkit.prototype.$updateParents = function (e) {
+
+        e = createEvent(e || 'update');
+
         $(UIkit.elements).each((i, el) => {
             if (el[DATA] && $.contains(el, this.$el[0])) {
                 for (var name in el[DATA]) {
-                    el[DATA][name]._callHook(hook, e);
+                    el[DATA][name]._callHook('update', e);
                 }
             }
         });
