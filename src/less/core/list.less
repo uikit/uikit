@@ -26,6 +26,8 @@
 @list-striped-padding-horizontal:               @global-small-margin;
 @list-striped-background:                       @global-muted-background;
 
+@list-bullet-width:                             (@global-line-height * 1em);
+@list-bullet-height:                            @list-bullet-width;
 @list-bullet-margin-right:                      @global-small-margin;
 @list-bullet-icon-color:                        @global-color;
 
@@ -118,8 +120,8 @@
 
 .uk-list-bullet > li:before {
     content: "";
-    width: 24px;
-    height: 24px;
+    width: @list-bullet-width;
+    height: @list-bullet-height;
     margin-right: @list-bullet-margin-right;
     .svg-fill("../images/list-bullet.svg", "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
