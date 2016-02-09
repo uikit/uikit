@@ -34,7 +34,7 @@ export default function (UIkit) {
             preventFlip: false,
             delayShow: 0,
             delayHide: 800,
-            hoverIdle: 250,
+            hoverIdle: 200,
             flips: {
                 x: {
                     'bottom-left': 'bottom-right',
@@ -103,17 +103,13 @@ export default function (UIkit) {
                     e.preventDefault();
                 });
             } else {
-
                 this.$el.on('mouseenter', () => {
                     this.$el.trigger('pointerenter', [this]);
-                    this.initMouseTracker();
                     this.show();
                 }).on('mouseleave', () => {
                     this.$el.trigger('pointerleave', [this]);
                     this.hide();
-                    this.cancelMouseTracker();
                 });
-
             }
 
         },
@@ -126,10 +122,8 @@ export default function (UIkit) {
 
                 if (active === this) {
                     return;
-                } else if (!force && active && active !== this && active.hoverTimer) {
-                    this.delayShowTimer = setTimeout(() => {
-                        this.show(active && !active.hoverTimer);
-                    }, this.hoverIdle);
+                } else if (!force && active && active !== this && active.isDelaying()) {
+                    this.delayShowTimer = setTimeout(this.show.bind(this), 75);
                     return;
                 } else if (active) {
                     active.hide(true);
@@ -137,13 +131,16 @@ export default function (UIkit) {
 
                 this.$el.trigger('beforeshow', [this]);
 
-                this.updatePosition();
-
                 var show = () => {
+
+                    this.updatePosition();
+
                     this.$el
                         .addClass('uk-open')
                         .attr('aria-expanded', 'true')
                         .trigger('show', [this]);
+
+                    this.initMouseTracker();
 
                     this.$update();
                 };
@@ -159,10 +156,6 @@ export default function (UIkit) {
 
             hide(force) {
 
-                if (this.hoverTimer) {
-                    return;
-                }
-
                 this.clearTimers();
 
                 var hide = () => {
@@ -173,14 +166,11 @@ export default function (UIkit) {
                         .trigger('hide', [this, force]);
 
                     active = active === this ? null : active;
+                    this.cancelMouseTracker();
                 };
 
-                if (!force && this.delayDeactivation()) {
-
-                    this.hoverTimer = setTimeout(() => {
-                        delete this.hoverTimer;
-                        this.hide();
-                    }, this.hoverIdle);
+                if (!force && this.isDelaying()) {
+                    this.hoverTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
                 } else if (!force && this.delayHide) {
                     this.delayHideTimer = setTimeout(hide, this.delayHide);
                 } else {
@@ -201,80 +191,6 @@ export default function (UIkit) {
                 if (this.hoverTimer) {
                     clearTimeout(this.hoverTimer);
                     delete this.hoverTimer;
-                }
-            },
-
-            initMouseTracker() {
-                this.positions = [];
-                this.position = null;
-
-                this.mouseHandler = (e) => {
-                    this.positions.push({x: e.pageX, y: e.pageY});
-
-                    if (this.positions.length > 3) {
-                        this.positions.shift();
-                    }
-                };
-
-                $(document).on('mousemove', this.mouseHandler);
-            },
-
-            cancelMouseTracker() {
-                if (this.mouseHandler) {
-                    $(document).off('mousemove', this.mouseHandler);
-                }
-            },
-
-            delayDeactivation() {
-
-                var position = this.positions[this.positions.length - 1], prevPos = this.positions[0];
-
-                if (!position
-                    || this.mode !== 'hover'
-                    || this.position && position.x === this.position.x && position.y === this.position.y
-                ) {
-                    return false;
-                }
-
-                if (!prevPos) {
-                    prevPos = position;
-                }
-
-                var offset = this.drop.offset(),
-                    topLeft = {x: offset.left, y: offset.top},
-                    topRight = {x: offset.left + this.drop.outerWidth(), y: topLeft.y},
-                    bottomLeft = {x: offset.left, y: offset.top + this.drop.outerHeight()},
-                    bottomRight = {x: offset.left + this.drop.outerWidth(), y: bottomLeft.y},
-                    decreasingCorner, increasingCorner;
-
-                if (this.direction == 'left') {
-                    increasingCorner = topRight;
-                    decreasingCorner = bottomRight;
-                } else if (this.direction == 'right') {
-                    increasingCorner = bottomLeft;
-                    decreasingCorner = topLeft;
-                } else if (this.direction == 'bottom') {
-                    increasingCorner = topLeft;
-                    decreasingCorner = topRight;
-                } else if (this.direction == 'top') {
-                    increasingCorner = bottomRight;
-                    decreasingCorner = bottomLeft;
-                } else {
-                    return false;
-                }
-
-                if (slope(position, decreasingCorner) < slope(prevPos, decreasingCorner)
-                    && slope(position, increasingCorner) > slope(prevPos, increasingCorner)
-                ) {
-                    this.position = position;
-                    return true;
-                }
-
-                this.position = null;
-                return false;
-
-                function slope(a, b) {
-                    return (b.y - a.y) / (b.x - a.x);
                 }
             },
 
@@ -347,8 +263,6 @@ export default function (UIkit) {
 
                 }
 
-                this.direction = pp[0];
-
                 // TODO ?
                 if (width > boundaryWidth) {
                     this.drop.addClass(this.cls + '-stack');
@@ -356,6 +270,80 @@ export default function (UIkit) {
                 }
 
                 this.drop.css(css).css('display', '').addClass(`${this.cls}-${pp[0]}`);
+
+                this.direction = pp[0];
+
+            },
+
+            initMouseTracker() {
+
+                this.positions = [];
+                this.position = null;
+
+                if (this.mode !== 'hover') {
+                    return;
+                }
+
+                this.mouseHandler = (e) => {
+                    this.positions.push({x: e.pageX, y: e.pageY});
+
+                    if (this.positions.length > 3) {
+                        this.positions.shift();
+                    }
+                };
+
+                $(document).on('mousemove', this.mouseHandler);
+
+                var offset = this.drop.offset(),
+                    topLeft = {x: offset.left, y: offset.top},
+                    topRight = {x: offset.left + this.drop.outerWidth(), y: topLeft.y},
+                    bottomLeft = {x: offset.left, y: offset.top + this.drop.outerHeight()},
+                    bottomRight = {x: offset.left + this.drop.outerWidth(), y: bottomLeft.y};
+
+                if (this.direction == 'left') {
+                    this.increasingCorner = topRight;
+                    this.decreasingCorner = bottomRight;
+                } else if (this.direction == 'right') {
+                    this.increasingCorner = bottomLeft;
+                    this.decreasingCorner = topLeft;
+                } else if (this.direction == 'bottom') {
+                    this.increasingCorner = topLeft;
+                    this.decreasingCorner = topRight;
+                } else if (this.direction == 'top') {
+                    this.increasingCorner = bottomRight;
+                    this.decreasingCorner = bottomLeft;
+                } else {
+                    this.increasingCorner = 0;
+                    this.decreasingCorner = 0;
+                }
+
+            },
+
+            cancelMouseTracker() {
+                if (this.mouseHandler) {
+                    $(document).off('mousemove', this.mouseHandler);
+                }
+            },
+
+            isDelaying() {
+
+                if (this.hoverTimer) {
+                    return true;
+                }
+
+                var position = this.positions[this.positions.length - 1],
+                    prevPos = this.positions[0] || position,
+                    delay = !(
+                        !position
+                        || this.mode !== 'hover'
+                        || !this.decreasingCorner
+                        || (this.position && position.x === this.position.x && position.y === this.position.y)
+                        || slope(position, this.decreasingCorner) > slope(prevPos, this.decreasingCorner)
+                        || slope(position, this.increasingCorner) < slope(prevPos, this.increasingCorner)
+                    );
+
+                this.position = delay ? position : null;
+                return delay;
             },
 
             checkBoundary(left, top, width, height, boundaryWidth) {
@@ -377,4 +365,7 @@ export default function (UIkit) {
 
     });
 
+    function slope(a, b) {
+        return (b.y - a.y) / (b.x - a.x);
+    }
 }
