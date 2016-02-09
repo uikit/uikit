@@ -18,7 +18,7 @@ export default function (UIkit) {
             boundary: String,
             target: String,
             cls: String,
-            preventFlip: String,
+            flip: String,
             delayShow: Number,
             delayHide: Number
         },
@@ -31,41 +31,10 @@ export default function (UIkit) {
             boundary: window,
             target: '.uk-drop',
             cls: 'uk-drop',
-            preventFlip: false,
+            flip: 'true',
             delayShow: 0,
             delayHide: 800,
-            hoverIdle: 200,
-            flips: {
-                x: {
-                    'bottom-left': 'bottom-right',
-                    'bottom-right': 'bottom-left',
-                    'bottom-center': 'bottom-right',
-                    'top-left': 'top-right',
-                    'top-right': 'top-left',
-                    'top-center': 'top-right',
-                    'left-top': 'right',
-                    'left-bottom': 'right-bottom',
-                    'left-center': 'right-center',
-                    'right-top': 'left',
-                    'right-bottom': 'left-bottom',
-                    'right-center': 'left-center'
-                },
-                y: {
-                    'bottom-left': 'top-left',
-                    'bottom-right': 'top-right',
-                    'bottom-center': 'top-center',
-                    'top-left': 'bottom-left',
-                    'top-right': 'bottom-right',
-                    'top-center': 'bottom-center',
-                    'left-top': 'top-left',
-                    'left-bottom': 'left-bottom',
-                    'left-center': 'top-left',
-                    'right-top': 'top-left',
-                    'right-bottom': 'bottom-left',
-                    'right-center': 'top-left'
-                },
-                xy: {}
-            }
+            hoverIdle: 200
         },
 
         ready() {
@@ -237,16 +206,16 @@ export default function (UIkit) {
 
                     this.justifyElement(this.drop.css({left: 0}), this.justify, boundaryWidth);
 
-                } else if (this.preventFlip !== true) {
+                } else if (this.flip !== 'false') {
 
-                    var flipTo, flip = this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth);
+                    var flipTo, flip = checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth);
 
-                    if (flip === 'x' && this.preventFlip !== 'x') {
-                        flipTo = this.flips['x'][this.pos] || 'right-top';
-                    } else if (flip === 'y' && this.preventFlip !== 'y') {
-                        flipTo = this.flips['y'][this.pos] || 'top-left';
-                    } else if (flip === 'xy' && !this.preventFlip) {
-                        flipTo = this.flips['xy'][this.pos] || 'right-bottom';
+                    if (flip === 'x' && (this.flip === 'true' || this.flip === 'x')) {
+                        flipTo = flipPosition(this.pos, 'x');
+                    } else if (flip === 'y' && (this.flip === 'true' || this.flip === 'y')) {
+                        flipTo = flipPosition(this.pos, 'y');
+                    } else if (flip === 'xy') {
+                        flipTo = flipPosition(this.pos, 'xy');
                     }
 
                     if (flipTo) {
@@ -255,7 +224,7 @@ export default function (UIkit) {
                         css = variants[flipTo] ? variants[flipTo] : variants['bottom-left'];
 
                         // check flipped
-                        if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth)) {
+                        if (checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth)) {
                             pp = this.pos.split('-');
                             css = variants[this.pos] ? variants[this.pos] : variants['bottom-left'];
                         }
@@ -272,7 +241,6 @@ export default function (UIkit) {
                 this.drop.css(css).css('display', '').addClass(`${this.cls}-${pp[0]}`);
 
                 this.direction = pp[0];
-
             },
 
             initMouseTracker() {
@@ -344,26 +312,39 @@ export default function (UIkit) {
 
                 this.position = delay ? position : null;
                 return delay;
-            },
-
-            checkBoundary(left, top, width, height, boundaryWidth) {
-
-                var axis = '';
-
-                if (left < 0 || ((left - $(window).scrollLeft()) + width) > boundaryWidth) {
-                    axis += 'x';
-                }
-
-                if ((top - $(window).scrollTop()) < 0 || ((top - $(window).scrollTop()) + height) > window.innerHeight) {
-                    axis += 'y';
-                }
-
-                return axis;
             }
 
         }
 
     });
+
+    function flipPosition(pos, dir) {
+
+        if (dir.indexOf('x') !== -1) {
+            pos = pos.replace(/left|right/, (match) => { return match === 'right' ? 'left' : 'right'; });
+        }
+
+        if (dir.indexOf('y') !== -1) {
+            pos = pos.replace(/bottom|top/, (match) => { return match === 'bottom' ? 'top' : 'bottom'; });
+        }
+
+        return pos;
+    }
+
+    function checkBoundary(left, top, width, height, boundaryWidth) {
+
+        var axis = '';
+
+        if (left < 0 || ((left - $(window).scrollLeft()) + width) > boundaryWidth) {
+            axis += 'x';
+        }
+
+        if ((top - $(window).scrollTop()) < 0 || ((top - $(window).scrollTop()) + height) > window.innerHeight) {
+            axis += 'y';
+        }
+
+        return axis;
+    }
 
     function slope(a, b) {
         return (b.y - a.y) / (b.x - a.x);
