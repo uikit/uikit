@@ -208,17 +208,17 @@ export default function (UIkit) {
 
                 } else if (this.flip !== 'false') {
 
-                    var flipTo = this.pos, flip = checkBoundary(pos, position, dim, boundaryWidth);
+                    var flipTo = this.pos, flip = flipDirection(pos, position, dim, boundaryWidth);
 
-                    if (flip.indexOf('x') !== -1 && (this.flip === 'true' || this.flip === 'x')) {
+                    if (flip[0] === 'x' && (this.flip === 'true' || this.flip === 'x')) {
                         flipTo = flipPosition(flipTo, 'x');
                     }
 
-                    if (flip.indexOf('y') !== -1 && (this.flip === 'true' || this.flip === 'y')) {
+                    if (flip.lastIndexOf('y') !== -1 && (this.flip === 'true' || this.flip === 'y')) {
                         flipTo = flipPosition(flipTo, 'y');
                     }
 
-                    if (flipTo !== this.pos && checkBoundary(flipTo, positions[flipTo], dim, boundaryWidth)) {
+                    if (flipTo !== this.pos && !flipDirection(flipTo, positions[flipTo], dim, boundaryWidth)) {
                         this.direction = flipTo.split('-')[0];
                         position = positions[flipTo];
                     }
@@ -326,11 +326,11 @@ export default function (UIkit) {
         return pos;
     }
 
-    function checkBoundary(pos, offset, dim, boundaryWidth) {
+    function flipDirection(pos, offset, dim, boundaryWidth) {
 
         var axis = '', left = pos.left + offset.left, top = pos.top + offset.top - $(window).scrollTop();
 
-        if (left < 0 || ((left - $(window).scrollLeft()) + dim.width) > boundaryWidth) {
+        if (left < 0 || left - $(window).scrollLeft() + dim.width > boundaryWidth) {
             axis += 'x';
         }
 
