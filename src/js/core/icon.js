@@ -25,7 +25,7 @@ export default function (UIkit) {
         methods: {
 
             handleIcon(icon) {
-                this.replace(icon);
+                this.$replace(icon);
             }
 
         }

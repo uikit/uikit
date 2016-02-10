@@ -9,6 +9,8 @@ export default function (UIkit) {
 
         props: ['src'],
 
+        defaults: {exclude: ['src']},
+
         ready() {
 
             if (this.src.indexOf('#') !== -1) {
@@ -19,7 +21,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.getIcon(parts[0], parts[1]).then((icon) => { this.replace(icon); });
+                this.getIcon(parts[0], parts[1]).then(this.$replace.bind(this));
 
             } else {
 
@@ -29,7 +31,7 @@ export default function (UIkit) {
                         return;
                     }
 
-                    this.replace($(doc.documentElement).clone());
+                    this.$replace($(doc.documentElement).clone());
                 });
 
             }

@@ -2,12 +2,18 @@ export default function (UIkit) {
 
     UIkit.component('close', UIkit.components.icon.extend({
 
-        defaults: {icon: 'close'},
+        name: 'close',
+
+        defaults: {icon: 'close', exclude: ['id', 'style']},
+
+        ready() {
+            this.class = this.cls;
+        },
 
         methods: {
 
             handleIcon(icon) {
-                this.insert(icon);
+                this.$el.append(icon);
             }
 
         }

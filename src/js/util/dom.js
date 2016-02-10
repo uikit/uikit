@@ -33,7 +33,7 @@ export function transition(element, props, duration, transition) {
 
     requestAnimationFrame(function () {
         element
-            .on(transitionend, function () {
+            .one(transitionend, function () {
                 d.resolve();
                 element.css('transition', '');
             })

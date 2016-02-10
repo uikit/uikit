@@ -17,17 +17,15 @@ export default function (UIkit) {
         },
 
         ready() {
-
             this.$el.on('click', this.close, e => {
                 e.preventDefault();
-                this.close();
+                this.closeAlert();
             });
-
         },
 
         methods: {
 
-            close() {
+            closeAlert() {
 
                 this.$el.trigger('close');
 
@@ -48,7 +46,7 @@ export default function (UIkit) {
                     Animation.out(this.$el, this.animation, this.duration).then(this.$destroy.bind(this));
 
                 } else {
-                    this.handler = this.$destroy;
+                    this.$destroy();
                 }
 
             }
