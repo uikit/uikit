@@ -14,18 +14,11 @@ export default function (UIkit) {
             row: true
         },
 
-        ready() {
-            this.check();
-        },
+        ready: 'update',
 
         update: {
-            handler: 'check',
-            on: ['resize', 'orientationchange', 'update']
-        },
 
-        methods: {
-
-            check() {
+            handler() {
 
                 let elements = (this.target ? $(this.target, this.$el) : this.$el.children()).css('min-height', '');
 
@@ -62,6 +55,12 @@ export default function (UIkit) {
 
                 return this;
             },
+
+            events: ['resize', 'orientationchange', 'update']
+
+        },
+
+        methods: {
 
             match(elements) {
 

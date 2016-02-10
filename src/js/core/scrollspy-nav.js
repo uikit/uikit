@@ -31,19 +31,12 @@ export default function (UIkit) {
                 });
             }
 
-            this.check();
+            this.update();
         },
 
         update: {
 
-            handler: 'check',
-            on: ['scrolling', 'load', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            check() {
+            handler() {
 
                 var scrollTop = $(window).scrollTop(), target, links,
                     visible = this.targets.filter((i, el) => {
@@ -70,7 +63,9 @@ export default function (UIkit) {
                     this.$el.trigger('inview', [target, links]);
 
                 });
-            }
+            },
+
+            events: ['scrolling', 'load', 'resize', 'orientationchange']
 
         }
 

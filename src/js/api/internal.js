@@ -66,39 +66,45 @@ export default function (UIkit) {
 
     UIkit.prototype._initMethods = function () {
 
-        var methods = this.$options.methods;
+        var methods = this.$options.methods,
+            update = this.$options.update;;
 
         if (methods) {
             for (var key in methods) {
                 this[key] = bind(methods[key], this);
             }
         }
+
+        if (update) {
+            this['update'] = bind(isPlainObject(update) ? update.handler : update, this);
+        }
+
     };
 
-    UIkit.prototype._callHook = function (hook, e) {
+    UIkit.prototype._callHook = function (hook) {
 
         var handlers = this.$options[hook];
 
         if (handlers) {
             handlers.forEach(handler => {
 
-                if (isPlainObject(handler)) {
-
-                    if (e && handler.on && handler.on.indexOf(e.type) === -1) {
-                        return;
-                    }
-
-                    handler = handler.handler;
-
-                    if (isString(handler)) {
-                        handler = this[handler];
-                    }
-
+                if (isString(handler)) {
+                    handler = this[handler];
                 }
 
-                handler.call(this, e);
+                handler.call(this);
             });
         }
+    };
+
+    UIkit.prototype._callUpdate = function (e) {
+
+        var update = this.$options.update;
+
+        if (this.update && !(isPlainObject(update) && update.events && update.events.indexOf(e.type) === -1)) {
+            this.update(e);
+        }
+
     };
 
 }

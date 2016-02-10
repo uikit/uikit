@@ -40,7 +40,7 @@ export default function (UIkit) {
         e = createEvent(e);
 
         for (var id in UIkit.instances) {
-            UIkit.instances[id]._callHook('update', e);
+            UIkit.instances[id]._callUpdate(e);
         }
     }
 

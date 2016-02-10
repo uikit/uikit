@@ -33,7 +33,7 @@ export default function (UIkit) {
         $(UIkit.elements, this.$el).each(function () {
             if (this[DATA]) {
                 for (var name in this[DATA]) {
-                    this[DATA][name]._callHook('update', e);
+                    this[DATA][name]._callUpdate(e);
                 }
             }
         });
@@ -46,7 +46,7 @@ export default function (UIkit) {
         $(UIkit.elements).each((i, el) => {
             if (el[DATA] && $.contains(el, this.$el[0])) {
                 for (var name in el[DATA]) {
-                    el[DATA][name]._callHook('update', e);
+                    el[DATA][name]._callUpdate(e);
                 }
             }
         });

@@ -14,8 +14,6 @@ export default function (UIkit) {
 
             this.parent = this.$el.parent();
 
-            this.check();
-
             if (this.$el.is('iframe') && this.automute) {
 
                 var src = this.$el.attr('src');
@@ -29,16 +27,12 @@ export default function (UIkit) {
                 }).attr('src', [src, (src.indexOf('?') > -1 ? '&' : '?'), 'enablejsapi=1&api=1'].join(''));
             }
 
+            this.update();
         },
 
         update: {
-            handler: 'check',
-            on: ['load', 'resize', 'orientationchange', 'update']
-        },
 
-        methods: {
-
-            check() {
+            handler() {
 
                 if (!this.$el.is(':visible')) {
                     return this;
@@ -67,7 +61,9 @@ export default function (UIkit) {
                 }
 
                 this.$el.css(dimensions);
-            }
+            },
+
+            events: ['load', 'resize', 'orientationchange', 'update']
 
         }
 

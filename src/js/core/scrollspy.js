@@ -28,19 +28,12 @@ export default function (UIkit) {
 
         ready() {
             this.elements = this.target ? this.$el.find(this.target) : this.$el;
-            this.check();
+            this.update();
         },
 
         update: {
 
-            handler: 'check',
-            on: ['scrolling', 'load', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            check() {
+            handler() {
 
                 var index = this.elements.length === 1 ? 1 : 0;
 
@@ -92,7 +85,9 @@ export default function (UIkit) {
                     data.toggles.reverse();
                 });
 
-            }
+            },
+
+            events: ['scrolling', 'load', 'resize', 'orientationchange']
 
         }
 

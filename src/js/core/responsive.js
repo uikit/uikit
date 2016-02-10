@@ -4,18 +4,11 @@ export default function (UIkit) {
 
         props: ['width', 'height'],
 
-        ready() {
-            this.check();
-        },
+        ready: 'update',
 
         update: {
-            handler: 'check',
-            on: ['load', 'resize', 'orientationchange', 'update']
-        },
 
-        methods: {
-
-            check() {
+            handler() {
 
                 if (!this.$el.is(':visible') || !this.width || !this.height) {
                     return;
@@ -25,7 +18,9 @@ export default function (UIkit) {
 
                 this.$el.css({height: (width < this.width) ? Math.floor((width / this.width) * this.height) : this.height});
 
-            }
+            },
+
+            events: ['load', 'resize', 'orientationchange', 'update']
 
         }
 

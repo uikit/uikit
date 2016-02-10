@@ -12,20 +12,11 @@ export default function (UIkit) {
             rowFirst: false
         },
 
-        ready() {
-            this.check();
-        },
+        ready: 'update',
 
         update: {
+
             handler() {
-                this.check();
-            },
-            on: ['load', 'ready', 'resize', 'orientationchange', 'update']
-        },
-
-        methods: {
-
-            check() {
 
                 if (!this.$el.is(':visible')) {
                     return this;
@@ -63,7 +54,9 @@ export default function (UIkit) {
                 }
 
                 return this;
-            }
+            },
+
+            events: ['load', 'ready', 'resize', 'orientationchange', 'update']
 
         }
 
