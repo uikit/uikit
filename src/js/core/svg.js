@@ -19,7 +19,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.replaceIcon(parts[0], parts[1]);
+                this.getIcon(parts[0], parts[1]).then((icon) => { this.replace(icon); });
 
             } else {
 

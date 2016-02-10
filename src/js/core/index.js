@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Alert from './alert';
+import Close from './close';
 import Cover from './cover';
 import Drop from './drop';
 import Dropdown from './dropdown';
@@ -34,6 +35,7 @@ export default function (UIkit, _) {
     UIkit.use(MarginWrap);
     UIkit.use(Grid);
     UIkit.use(Icon);
+    UIkit.use(Close);
     UIkit.use(MatchHeight);
     UIkit.use(Responsive);
     UIkit.use(Scrollspy);

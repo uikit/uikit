@@ -18,7 +18,39 @@ export default {
             return svgs[src];
         },
 
+        getIcon(src, icon) {
+
+            return this.get(src).then(doc => {
+
+                var el = $('#' + icon, doc);
+
+                if (!el) {
+                    return;
+                }
+
+                el = el.clone();
+
+                var dimensions = el.attr('viewBox');
+                if (dimensions) {
+                    dimensions = dimensions.split(' ');
+                    this.width = this.width || dimensions[2];
+                    this.height = this.height || dimensions[3];
+                }
+
+                return $('<div>').append(el).html().replace(/symbol/g, 'svg'); // IE workaround, el[0].outerHTML
+            });
+
+        },
+
         replace(svg) {
+            this.$replace(this.setProperties(svg));
+        },
+
+        insert(svg) {
+            this.$el.append(this.setProperties(svg));
+        },
+
+        setProperties(svg) {
 
             svg = $(svg);
 
@@ -43,31 +75,7 @@ export default {
                 svg.removeAttr('width');
             }
 
-            this.$replace(svg);
-        },
-
-        replaceIcon(src, icon) {
-
-            this.get(src).then(doc => {
-
-                var el = $('#' + icon, doc);
-
-                if (!el) {
-                    return;
-                }
-
-                el = el.clone();
-
-                var dimensions = el.attr('viewBox');
-                if (dimensions) {
-                    dimensions = dimensions.split(' ');
-                    this.width = this.width || dimensions[2];
-                    this.height = this.height || dimensions[3];
-                }
-
-                this.replace($('<div>').append(el).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
-            });
-
+            return svg;
         }
 
     }

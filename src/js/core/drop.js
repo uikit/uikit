@@ -181,25 +181,25 @@ export default function (UIkit) {
 
                 var offset = offsetParent(this.drop),
                     pos = $.extend({}, offset.offset(), {width: offset[0].offsetWidth, height: offset[0].offsetHeight}),
-                    width = this.drop.outerWidth(),
-                    height = this.drop.outerHeight(),
+                    dim = {width: this.drop.outerWidth(), height: this.drop.outerHeight()},
                     boundaryWidth = this.boundary.width(),
-                    variants = {
+                    positions = {
                         'bottom-left': {top: pos.height + this.offset, left: 0},
-                        'bottom-right': {top: pos.height + this.offset, left: pos.width - width},
-                        'bottom-center': {top: pos.height + this.offset, left: (pos.width - width) / 2},
-                        'top-left': {top: -height - this.offset, left: 0},
-                        'top-right': {top: -height - this.offset, left: pos.width - width},
-                        'top-center': {top: -height - this.offset, left: (pos.width - width) / 2},
-                        'left-top': {top: 0, left: -width - this.offset},
-                        'left-bottom': {top: pos.height - height, left: -width - this.offset},
-                        'left-center': {top: (pos.height - height) / 2, left: -width - this.offset},
+                        'bottom-right': {top: pos.height + this.offset, left: pos.width - dim.width},
+                        'bottom-center': {top: pos.height + this.offset, left: (pos.width - dim.width) / 2},
+                        'top-left': {top: -dim.height - this.offset, left: 0},
+                        'top-right': {top: -dim.height - this.offset, left: pos.width - dim.width},
+                        'top-center': {top: -dim.height - this.offset, left: (pos.width - dim.width) / 2},
+                        'left-top': {top: 0, left: -dim.width - this.offset},
+                        'left-bottom': {top: pos.height - dim.height, left: -dim.width - this.offset},
+                        'left-center': {top: (pos.height - dim.height) / 2, left: -dim.width - this.offset},
                         'right-top': {top: 0, left: pos.width + this.offset},
-                        'right-bottom': {top: pos.height - height, left: pos.width + this.offset},
-                        'right-center': {top: (pos.height - height) / 2, left: pos.width + this.offset}
+                        'right-bottom': {top: pos.height - dim.height, left: pos.width + this.offset},
+                        'right-center': {top: (pos.height - dim.height) / 2, left: pos.width + this.offset}
                     },
-                    pp = this.pos.split('-'),
-                    css = variants[this.pos] ? variants[this.pos] : variants['bottom-left'];
+                    position = positions[this.pos];
+
+                this.direction = this.pos.split('-')[0];
 
                 // justify popover
                 if (this.justify) {
@@ -208,32 +208,30 @@ export default function (UIkit) {
 
                 } else if (this.flip !== 'false') {
 
-                    var flipTo = this.pos, flip = checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundaryWidth);
+                    var flipTo = this.pos, flip = checkBoundary(pos, position, dim, boundaryWidth);
 
                     if (flip.indexOf('x') !== -1 && (this.flip === 'true' || this.flip === 'x')) {
                         flipTo = flipPosition(flipTo, 'x');
                     }
 
-                    if (flip.indexOf('y') !== -1  && (this.flip === 'true' || this.flip === 'y')) {
+                    if (flip.indexOf('y') !== -1 && (this.flip === 'true' || this.flip === 'y')) {
                         flipTo = flipPosition(flipTo, 'y');
                     }
 
-                    if (flipTo !== this.pos && checkBoundary(flipTo.left + variants[flipTo].left, flipTo.top + variants[flipTo].top, width, height, boundaryWidth)) {
-                        pp = flipTo.split('-');
-                        css = variants[flipTo];
+                    if (flipTo !== this.pos && checkBoundary(flipTo, positions[flipTo], dim, boundaryWidth)) {
+                        this.direction = flipTo.split('-')[0];
+                        position = positions[flipTo];
                     }
 
                 }
 
                 // TODO ?
-                if (width > boundaryWidth) {
+                if (dim.width > boundaryWidth) {
                     this.drop.addClass(this.cls + '-stack');
                     this.$el.trigger('stack', [this]);
                 }
 
-                this.drop.css(css).css('display', '').addClass(`${this.cls}-${pp[0]}`);
-
-                this.direction = pp[0];
+                this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.direction}`);
             },
 
             initMouseTracker() {
@@ -261,21 +259,21 @@ export default function (UIkit) {
                     bottomLeft = {x: offset.left, y: offset.top + this.drop.outerHeight()},
                     bottomRight = {x: topRight.x, y: bottomLeft.y};
 
-                if (this.direction == 'left') {
-                    this.increasingCorner = topRight;
-                    this.decreasingCorner = bottomRight;
-                } else if (this.direction == 'right') {
-                    this.increasingCorner = bottomLeft;
-                    this.decreasingCorner = topLeft;
-                } else if (this.direction == 'bottom') {
-                    this.increasingCorner = topLeft;
-                    this.decreasingCorner = topRight;
-                } else if (this.direction == 'top') {
-                    this.increasingCorner = bottomRight;
-                    this.decreasingCorner = bottomLeft;
+                if (this.direction === 'left') {
+                    this.incPoint = topRight;
+                    this.decPoint = bottomRight;
+                } else if (this.direction === 'right') {
+                    this.incPoint = bottomLeft;
+                    this.decPoint = topLeft;
+                } else if (this.direction === 'bottom') {
+                    this.incPoint = topLeft;
+                    this.decPoint = topRight;
+                } else if (this.direction === 'top') {
+                    this.incPoint = bottomRight;
+                    this.decPoint = bottomLeft;
                 } else {
-                    this.increasingCorner = 0;
-                    this.decreasingCorner = 0;
+                    this.incPoint = 0;
+                    this.decPoint = 0;
                 }
 
             },
@@ -297,10 +295,10 @@ export default function (UIkit) {
                     delay = !(
                         !position
                         || this.mode !== 'hover'
-                        || !this.decreasingCorner
+                        || !this.decPoint
                         || (this.position && position.x === this.position.x && position.y === this.position.y)
-                        || slope(position, this.decreasingCorner) > slope(prevPos, this.decreasingCorner)
-                        || slope(position, this.increasingCorner) < slope(prevPos, this.increasingCorner)
+                        || slope(position, this.decPoint) > slope(prevPos, this.decPoint)
+                        || slope(position, this.incPoint) < slope(prevPos, this.incPoint)
                     );
 
                 this.position = delay ? position : null;
@@ -314,25 +312,29 @@ export default function (UIkit) {
     function flipPosition(pos, dir) {
 
         if (dir.indexOf('x') !== -1) {
-            pos = pos.replace(/left|right/, (match) => { return match === 'right' ? 'left' : 'right'; });
+            pos = pos.replace(/left|right/, (match) => {
+                return match === 'right' ? 'left' : 'right';
+            });
         }
 
         if (dir.indexOf('y') !== -1) {
-            pos = pos.replace(/bottom|top/, (match) => { return match === 'bottom' ? 'top' : 'bottom'; });
+            pos = pos.replace(/bottom|top/, (match) => {
+                return match === 'bottom' ? 'top' : 'bottom';
+            });
         }
 
         return pos;
     }
 
-    function checkBoundary(left, top, width, height, boundaryWidth) {
+    function checkBoundary(pos, offset, dim, boundaryWidth) {
 
-        var axis = '';
+        var axis = '', left = pos.left + offset.left, top = pos.top + offset.top - $(window).scrollTop();
 
-        if (left < 0 || ((left - $(window).scrollLeft()) + width) > boundaryWidth) {
+        if (left < 0 || ((left - $(window).scrollLeft()) + dim.width) > boundaryWidth) {
             axis += 'x';
         }
 
-        if ((top - $(window).scrollTop()) < 0 || ((top - $(window).scrollTop()) + height) > window.innerHeight) {
+        if (top < 0 || top + dim.height > window.innerHeight) {
             axis += 'y';
         }
 

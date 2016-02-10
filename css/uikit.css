@@ -1672,7 +1672,7 @@ ul.uk-nav-sub {
   text-transform: none;
   /* 6. */
   padding: 0;
-  background: transparent;
+  background-color: transparent;
   /* 7 */
   display: inline-block;
   vertical-align: middle;
@@ -1720,7 +1720,7 @@ ul.uk-nav-sub {
 .uk-close-button {
   padding: 10px;
   border-radius: 100%;
-  background: #f5f5f5;
+  background-color: #f5f5f5;
   color: #999;
   /* 1 */
   opacity: 1;
@@ -2540,7 +2540,8 @@ ul.uk-nav-sub {
 /* Hover modifier
  ========================================================================== */
 .uk-card-hover:hover {
-  background-color: #f5f5f5;
+  background-color: #fff;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
 }
 /* Style modifiers
  ========================================================================== */
@@ -2549,20 +2550,23 @@ ul.uk-nav-sub {
  * Note: Header and Footer are only implemented for the default style
  */
 .uk-card-default {
-  background-color: #f5f5f5;
+  background-color: #fff;
   color: #444;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 .uk-card-default .uk-card-title {
   color: #444;
 }
 .uk-card-default.uk-card-hover:hover {
-  background-color: #e8e8e8;
+  background-color: #fff;
 }
 .uk-card-default .uk-card-header {
-  background-color: #e8e8e8;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
 }
 .uk-card-default .uk-card-footer {
-  background-color: #e8e8e8;
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
 }
 /*
  * Primary
@@ -2570,12 +2574,13 @@ ul.uk-nav-sub {
 .uk-card-primary {
   background-color: #489be0;
   color: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 .uk-card-primary .uk-card-title {
   color: #fff;
 }
 .uk-card-primary.uk-card-hover:hover {
-  background-color: #328fdc;
+  background-color: #489be0;
 }
 /*
  * Secondary
@@ -2583,12 +2588,13 @@ ul.uk-nav-sub {
 .uk-card-secondary {
   background-color: #222;
   color: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 .uk-card-secondary .uk-card-title {
   color: #fff;
 }
 .uk-card-secondary.uk-card-hover:hover {
-  background-color: #151515;
+  background-color: #222;
 }
 /* Size modifier
  ========================================================================== */
@@ -4899,29 +4905,47 @@ ul.uk-nav-sub {
 /* ========================================================================
    Mixin: Inverse
  ========================================================================== */
-.uk-light {
+.uk-light,
+.uk-card-primary,
+.uk-card-secondary {
   color: #fff;
   /* Hover + Focus */
   /* Disabled */
 }
 .uk-light a:not([class]),
-.uk-light .uk-link {
+.uk-light .uk-link,
+.uk-card-primary a:not([class]),
+.uk-card-primary .uk-link,
+.uk-card-secondary a:not([class]),
+.uk-card-secondary .uk-link {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
 }
 .uk-light a:not([class]):hover,
-.uk-light .uk-link:hover {
+.uk-light .uk-link:hover,
+.uk-card-primary a:not([class]):hover,
+.uk-card-primary .uk-link:hover,
+.uk-card-secondary a:not([class]):hover,
+.uk-card-secondary .uk-link:hover {
   color: #fff;
   text-decoration: underline;
 }
 .uk-light :not(pre) > code,
 .uk-light :not(pre) > kbd,
-.uk-light :not(pre) > samp {
+.uk-light :not(pre) > samp,
+.uk-card-primary :not(pre) > code,
+.uk-card-primary :not(pre) > kbd,
+.uk-card-primary :not(pre) > samp,
+.uk-card-secondary :not(pre) > code,
+.uk-card-secondary :not(pre) > kbd,
+.uk-card-secondary :not(pre) > samp {
   color: #fff;
   border-color: rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.1);
 }
-.uk-light em {
+.uk-light em,
+.uk-card-primary em,
+.uk-card-secondary em {
   color: #fff;
 }
 .uk-light h1,
@@ -4935,16 +4959,46 @@ ul.uk-nav-sub {
 .uk-light h5,
 .uk-light .uk-h5,
 .uk-light h6,
-.uk-light .uk-h6 {
+.uk-light .uk-h6,
+.uk-card-primary h1,
+.uk-card-primary .uk-h1,
+.uk-card-primary h2,
+.uk-card-primary .uk-h2,
+.uk-card-primary h3,
+.uk-card-primary .uk-h3,
+.uk-card-primary h4,
+.uk-card-primary .uk-h4,
+.uk-card-primary h5,
+.uk-card-primary .uk-h5,
+.uk-card-primary h6,
+.uk-card-primary .uk-h6,
+.uk-card-secondary h1,
+.uk-card-secondary .uk-h1,
+.uk-card-secondary h2,
+.uk-card-secondary .uk-h2,
+.uk-card-secondary h3,
+.uk-card-secondary .uk-h3,
+.uk-card-secondary h4,
+.uk-card-secondary .uk-h4,
+.uk-card-secondary h5,
+.uk-card-secondary .uk-h5,
+.uk-card-secondary h6,
+.uk-card-secondary .uk-h6 {
   color: #fff;
 }
-.uk-light hr {
+.uk-light hr,
+.uk-card-primary hr,
+.uk-card-secondary hr {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-list-line > li:nth-child(n+2) {
+.uk-light .uk-list-line > li:nth-child(n+2),
+.uk-card-primary .uk-list-line > li:nth-child(n+2),
+.uk-card-secondary .uk-list-line > li:nth-child(n+2) {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-list-bullet > li:before {
+.uk-light .uk-list-bullet > li:before,
+.uk-card-primary .uk-list-bullet > li:before,
+.uk-card-secondary .uk-list-bullet > li:before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
 }
 .uk-light .uk-form select,
@@ -4963,7 +5017,41 @@ ul.uk-nav-sub {
 .uk-light .uk-form input[type="url"],
 .uk-light .uk-form input[type="search"],
 .uk-light .uk-form input[type="tel"],
-.uk-light .uk-form input[type="color"] {
+.uk-light .uk-form input[type="color"],
+.uk-card-primary .uk-form select,
+.uk-card-primary .uk-form textarea,
+.uk-card-primary .uk-form input:not([type]),
+.uk-card-primary .uk-form input[type="text"],
+.uk-card-primary .uk-form input[type="password"],
+.uk-card-primary .uk-form input[type="datetime"],
+.uk-card-primary .uk-form input[type="datetime-local"],
+.uk-card-primary .uk-form input[type="date"],
+.uk-card-primary .uk-form input[type="month"],
+.uk-card-primary .uk-form input[type="time"],
+.uk-card-primary .uk-form input[type="week"],
+.uk-card-primary .uk-form input[type="number"],
+.uk-card-primary .uk-form input[type="email"],
+.uk-card-primary .uk-form input[type="url"],
+.uk-card-primary .uk-form input[type="search"],
+.uk-card-primary .uk-form input[type="tel"],
+.uk-card-primary .uk-form input[type="color"],
+.uk-card-secondary .uk-form select,
+.uk-card-secondary .uk-form textarea,
+.uk-card-secondary .uk-form input:not([type]),
+.uk-card-secondary .uk-form input[type="text"],
+.uk-card-secondary .uk-form input[type="password"],
+.uk-card-secondary .uk-form input[type="datetime"],
+.uk-card-secondary .uk-form input[type="datetime-local"],
+.uk-card-secondary .uk-form input[type="date"],
+.uk-card-secondary .uk-form input[type="month"],
+.uk-card-secondary .uk-form input[type="time"],
+.uk-card-secondary .uk-form input[type="week"],
+.uk-card-secondary .uk-form input[type="number"],
+.uk-card-secondary .uk-form input[type="email"],
+.uk-card-secondary .uk-form input[type="url"],
+.uk-card-secondary .uk-form input[type="search"],
+.uk-card-secondary .uk-form input[type="tel"],
+.uk-card-secondary .uk-form input[type="color"] {
   border-color: rgba(255, 255, 255, 0.8);
   background: rgba(255, 255, 255, 0.8);
   color: #444;
@@ -4985,99 +5073,193 @@ ul.uk-nav-sub {
 .uk-light .uk-form input[type="url"]:focus,
 .uk-light .uk-form input[type="search"]:focus,
 .uk-light .uk-form input[type="tel"]:focus,
-.uk-light .uk-form input[type="color"]:focus {
+.uk-light .uk-form input[type="color"]:focus,
+.uk-card-primary .uk-form select:focus,
+.uk-card-primary .uk-form textarea:focus,
+.uk-card-primary .uk-form input:not([type]):focus,
+.uk-card-primary .uk-form input[type="text"]:focus,
+.uk-card-primary .uk-form input[type="password"]:focus,
+.uk-card-primary .uk-form input[type="datetime"]:focus,
+.uk-card-primary .uk-form input[type="datetime-local"]:focus,
+.uk-card-primary .uk-form input[type="date"]:focus,
+.uk-card-primary .uk-form input[type="month"]:focus,
+.uk-card-primary .uk-form input[type="time"]:focus,
+.uk-card-primary .uk-form input[type="week"]:focus,
+.uk-card-primary .uk-form input[type="number"]:focus,
+.uk-card-primary .uk-form input[type="email"]:focus,
+.uk-card-primary .uk-form input[type="url"]:focus,
+.uk-card-primary .uk-form input[type="search"]:focus,
+.uk-card-primary .uk-form input[type="tel"]:focus,
+.uk-card-primary .uk-form input[type="color"]:focus,
+.uk-card-secondary .uk-form select:focus,
+.uk-card-secondary .uk-form textarea:focus,
+.uk-card-secondary .uk-form input:not([type]):focus,
+.uk-card-secondary .uk-form input[type="text"]:focus,
+.uk-card-secondary .uk-form input[type="password"]:focus,
+.uk-card-secondary .uk-form input[type="datetime"]:focus,
+.uk-card-secondary .uk-form input[type="datetime-local"]:focus,
+.uk-card-secondary .uk-form input[type="date"]:focus,
+.uk-card-secondary .uk-form input[type="month"]:focus,
+.uk-card-secondary .uk-form input[type="time"]:focus,
+.uk-card-secondary .uk-form input[type="week"]:focus,
+.uk-card-secondary .uk-form input[type="number"]:focus,
+.uk-card-secondary .uk-form input[type="email"]:focus,
+.uk-card-secondary .uk-form input[type="url"]:focus,
+.uk-card-secondary .uk-form input[type="search"]:focus,
+.uk-card-secondary .uk-form input[type="tel"]:focus,
+.uk-card-secondary .uk-form input[type="color"]:focus {
   border-color: #fff;
   background: #fff;
   color: #444;
 }
-.uk-light .uk-form :-ms-input-placeholder {
+.uk-light .uk-form :-ms-input-placeholder,
+.uk-card-primary .uk-form :-ms-input-placeholder,
+.uk-card-secondary .uk-form :-ms-input-placeholder {
   color: rgba(68, 68, 68, 0.7) !important;
 }
-.uk-light .uk-form ::-moz-placeholder {
+.uk-light .uk-form ::-moz-placeholder,
+.uk-card-primary .uk-form ::-moz-placeholder,
+.uk-card-secondary .uk-form ::-moz-placeholder {
   color: rgba(68, 68, 68, 0.7);
 }
-.uk-light .uk-form ::-webkit-input-placeholder {
+.uk-light .uk-form ::-webkit-input-placeholder,
+.uk-card-primary .uk-form ::-webkit-input-placeholder,
+.uk-card-secondary .uk-form ::-webkit-input-placeholder {
   color: rgba(68, 68, 68, 0.7);
 }
-.uk-light .uk-button-default {
+.uk-light .uk-button-default,
+.uk-card-primary .uk-button-default,
+.uk-card-secondary .uk-button-default {
   color: rgba(255, 255, 255, 0.6);
   background: transparent;
   border-color: rgba(255, 255, 255, 0.6);
 }
 .uk-light .uk-button-default:hover,
-.uk-light .uk-button-default:focus {
+.uk-light .uk-button-default:focus,
+.uk-card-primary .uk-button-default:hover,
+.uk-card-primary .uk-button-default:focus,
+.uk-card-secondary .uk-button-default:hover,
+.uk-card-secondary .uk-button-default:focus {
   background-color: transparent;
   color: #fff;
   border-color: #fff;
 }
 .uk-light .uk-button-default:active,
-.uk-light .uk-button-default.uk-active {
+.uk-light .uk-button-default.uk-active,
+.uk-card-primary .uk-button-default:active,
+.uk-card-primary .uk-button-default.uk-active,
+.uk-card-secondary .uk-button-default:active,
+.uk-card-secondary .uk-button-default.uk-active {
   background-color: transparent;
   color: #fff;
   border-color: #fff;
 }
-.uk-light .uk-button-primary {
+.uk-light .uk-button-primary,
+.uk-card-primary .uk-button-primary,
+.uk-card-secondary .uk-button-primary {
   background-color: #fff;
   color: #444;
 }
 .uk-light .uk-button-primary:hover,
-.uk-light .uk-button-primary:focus {
+.uk-light .uk-button-primary:focus,
+.uk-card-primary .uk-button-primary:hover,
+.uk-card-primary .uk-button-primary:focus,
+.uk-card-secondary .uk-button-primary:hover,
+.uk-card-secondary .uk-button-primary:focus {
   background-color: rgba(255, 255, 255, 0.8);
   color: #444;
 }
 .uk-light .uk-button-primary:active,
-.uk-light .uk-button-primary.uk-active {
+.uk-light .uk-button-primary.uk-active,
+.uk-card-primary .uk-button-primary:active,
+.uk-card-primary .uk-button-primary.uk-active,
+.uk-card-secondary .uk-button-primary:active,
+.uk-card-secondary .uk-button-primary.uk-active {
   background-color: rgba(255, 255, 255, 0.7);
   color: #444;
 }
-.uk-light .uk-button-text {
+.uk-light .uk-button-text,
+.uk-card-primary .uk-button-text,
+.uk-card-secondary .uk-button-text {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-button-text:hover,
-.uk-light .uk-button-text:focus {
+.uk-light .uk-button-text:focus,
+.uk-card-primary .uk-button-text:hover,
+.uk-card-primary .uk-button-text:focus,
+.uk-card-secondary .uk-button-text:hover,
+.uk-card-secondary .uk-button-text:focus {
   color: #fff;
 }
-.uk-light .uk-button-text:disabled {
+.uk-light .uk-button-text:disabled,
+.uk-card-primary .uk-button-text:disabled,
+.uk-card-secondary .uk-button-text:disabled {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-icon-hover {
+.uk-light .uk-icon-hover,
+.uk-card-primary .uk-icon-hover,
+.uk-card-secondary .uk-icon-hover {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-icon-hover:hover {
+.uk-light .uk-icon-hover:hover,
+.uk-card-primary .uk-icon-hover:hover,
+.uk-card-secondary .uk-icon-hover:hover {
   color: #fff;
 }
-.uk-light .uk-icon-button {
+.uk-light .uk-icon-button,
+.uk-card-primary .uk-icon-button,
+.uk-card-secondary .uk-icon-button {
   background: #fff;
   color: #444;
 }
 .uk-light .uk-icon-button:hover,
-.uk-light .uk-icon-button:focus {
+.uk-light .uk-icon-button:focus,
+.uk-card-primary .uk-icon-button:hover,
+.uk-card-primary .uk-icon-button:focus,
+.uk-card-secondary .uk-icon-button:hover,
+.uk-card-secondary .uk-icon-button:focus {
   background-color: rgba(255, 255, 255, 0.8);
   color: #444;
 }
-.uk-light .uk-icon-button:active {
+.uk-light .uk-icon-button:active,
+.uk-card-primary .uk-icon-button:active,
+.uk-card-secondary .uk-icon-button:active {
   background-color: rgba(255, 255, 255, 0.7);
   color: #444;
 }
-.uk-light .uk-grid-divider > :not(.uk-grid-first):before {
+.uk-light .uk-grid-divider > :not(.uk-grid-first):before,
+.uk-card-primary .uk-grid-divider > :not(.uk-grid-first):before,
+.uk-card-secondary .uk-grid-divider > :not(.uk-grid-first):before {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
+.uk-card-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
+.uk-card-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-text-lead {
+.uk-light .uk-text-lead,
+.uk-card-primary .uk-text-lead,
+.uk-card-secondary .uk-text-lead {
   color: #fff;
 }
-.uk-light .uk-text-meta {
+.uk-light .uk-text-meta,
+.uk-card-primary .uk-text-meta,
+.uk-card-secondary .uk-text-meta {
   color: rgba(255, 255, 255, 0.6);
 }
-.uk-light .uk-text-muted {
+.uk-light .uk-text-muted,
+.uk-card-primary .uk-text-muted,
+.uk-card-secondary .uk-text-muted {
   color: rgba(255, 255, 255, 0.6) !important;
 }
-.uk-light .uk-text-primary {
+.uk-light .uk-text-primary,
+.uk-card-primary .uk-text-primary,
+.uk-card-secondary .uk-text-primary {
   color: #fff !important;
 }
-.uk-light .uk-column-divider {
+.uk-light .uk-column-divider,
+.uk-card-primary .uk-column-divider,
+.uk-card-secondary .uk-column-divider {
   -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
   -moz-column-rule-color: rgba(255, 255, 255, 0.2);
   column-rule-color: rgba(255, 255, 255, 0.2);
