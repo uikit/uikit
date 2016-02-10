@@ -1,8 +1,5 @@
 import $ from 'jquery';
 import Alert from './alert';
-import Button from './button';
-import ButtonCheckbox from './button-checkbox';
-import ButtonRadio from './button-radio';
 import Close from './close';
 import Cover from './cover';
 import Drop from './drop';
@@ -32,9 +29,6 @@ export default function (UIkit, _) {
 
     // core components
     UIkit.use(Alert);
-    UIkit.use(Button);
-    UIkit.use(ButtonCheckbox);
-    UIkit.use(ButtonRadio);
     UIkit.use(Cover);
     UIkit.use(Drop);
     UIkit.use(Dropdown);
