@@ -1,0 +1,63 @@
+//
+// Component: Nav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@nav-item-padding-vertical:                     8px;
+@nav-item-padding-horizontal:                   16px;
+
+@nav-sublist-padding-left:                      (@nav-item-padding-horizontal + 16px);
+@nav-sublist-deeper-padding-left:               16px;
+
+@nav-divider-margin-vertical:                   15px;
+
+@nav-default-item-color:                        @global-color;
+@nav-default-item-active-color:                 @global-light-color;
+
+
+// Sublists
+// ========================================================================
+
+.hook-nav-sub() {}
+
+
+// Parent icon modifier
+// ========================================================================
+
+.hook-nav-parent-icon() {}
+
+
+// Header
+// ========================================================================
+
+.hook-nav-header() {}
+
+
+// Divider
+// ========================================================================
+
+.hook-nav-divider() {}
+
+
+// Style modifier
+// ========================================================================
+
+.hook-nav-default-item() {}
+
+.hook-nav-default-item-hover() { background: @global-muted-background; }
+
+.hook-nav-default-item-active() { background: @global-primary-background; }
+
+.hook-nav-default-header() {}
+
+.hook-nav-default-divider() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-nav-misc() {}

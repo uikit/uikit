@@ -21,40 +21,36 @@
 // Variables
 // ========================================================================
 
-@nav-padding-vertical:                          8px;
-@nav-padding-horizontal:                        16px;
+@nav-item-padding-vertical:                     5px;
+@nav-item-padding-horizontal:                   0;
 
-@nav-header-padding-vertical:                   @nav-padding-vertical;
-@nav-header-padding-horizontal:                 @nav-padding-horizontal;
-@nav-header-font-size:                          @global-small-font-size;
-@nav-header-text-transform:                     uppercase;
-@nav-header-margin-top:                         @global-margin;
-
-@nav-divider-margin-vertical:                   15px;
-@nav-divider-margin-horizontal:                 0;
-
-@nav-nested-padding-left:                       @nav-padding-horizontal;
-@nav-nested-padding-vertical:                   2px;
-@nav-nested-padding-horizontal:                 0;
-
-@nav-sub-padding-vertical:                      5px;
-@nav-sub-padding-left:                          @nav-padding-horizontal;
+@nav-sublist-padding-vertical:                  5px;
+@nav-sublist-padding-left:                      15px;
+@nav-sublist-deeper-padding-left:               15px;
+@nav-sublist-item-padding-vertical:             2px;
 
 @nav-parent-icon-width:                         (@global-line-height * 1em);
 @nav-parent-icon-height:                        @nav-parent-icon-width;
 @nav-parent-icon-margin-right:                  -10px;
 @nav-parent-icon-color:                         @global-color;
 
-@nav-default-color:                             @global-color;
-@nav-default-hover-background:                  @global-muted-background;
-@nav-default-hover-color:                       @global-color;
-@nav-default-active-background:                 @global-primary-background;
-@nav-default-active-color:                      @global-light-color;
+@nav-header-padding-vertical:                   @nav-item-padding-vertical;
+@nav-header-padding-horizontal:                 @nav-item-padding-horizontal;
+@nav-header-font-size:                          @global-small-font-size;
+@nav-header-text-transform:                     uppercase;
+@nav-header-margin-top:                         @global-margin;
+
+@nav-divider-margin-vertical:                   5px;
+@nav-divider-margin-horizontal:                 0;
+
+@nav-default-item-color:                        @global-muted-color;
+@nav-default-item-hover-color:                  @global-color;
+@nav-default-item-active-color:                 @global-color;
 @nav-default-header-color:                      @global-color;
 @nav-default-divider-border:                    @global-border;
 @nav-default-divider-border-width:              1px;
-@nav-default-nested-color:                      @global-muted-color;
-@nav-default-nested-hover-color:                @global-color;
+@nav-default-sublist-item-color:                @global-muted-color;
+@nav-default-sublist-item-hover-color:          @global-color;
 
 
 /* ========================================================================
@@ -65,6 +61,7 @@
  * Reset
  * 1. Prepare lists
  * 2. Prepare links
+ * 3. Remove default focus style
  */
 
 /* 1 */
@@ -81,20 +78,58 @@
     text-decoration: none;
 }
 
+/* 3 */
+.uk-nav li > a:focus { outline: none; }
+
 /*
  * Items
  */
 
-.uk-nav > li > a { padding: @nav-padding-vertical @nav-padding-horizontal; }
+.uk-nav > li > a { padding: @nav-item-padding-vertical @nav-item-padding-horizontal; }
+
+
+/* Sublists
+ ========================================================================== */
 
 /*
- * Nested lists
+ * Level 2
+ * `ul` needed for higher specificity to override padding
  */
 
-.uk-nav ul { padding-left: @nav-nested-padding-left; }
+ul.uk-nav-sub {
+    padding: @nav-sublist-padding-vertical 0 @nav-sublist-padding-vertical @nav-sublist-padding-left;
+    .hook-nav-sub;
+}
 
-.uk-nav ul a { padding: @nav-nested-padding-vertical @nav-nested-padding-horizontal; }
+/*
+ * Level 3 and deeper
+ */
 
+.uk-nav-sub ul { padding-left: @nav-sublist-deeper-padding-left; }
+
+/*
+ * Items
+ */
+
+.uk-nav-sub a { padding: @nav-sublist-item-padding-vertical 0; }
+
+
+/* Parent icon modifier
+ ========================================================================== */
+
+.uk-nav-parent-icon > .uk-parent > a:after {
+    content: "";
+    width: @nav-parent-icon-width;
+    height: @nav-parent-icon-height;
+    margin-right: @nav-parent-icon-margin-right;
+    float: right;
+    .svg-fill("../images/nav-parent-close.svg", "#000", @nav-parent-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .hook-nav-parent-icon;
+}
+
+.uk-nav-parent-icon > .uk-parent.uk-open > a:after { .svg-fill("../images/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
 
 
 /* Header
@@ -119,37 +154,6 @@
 }
 
 
-/* Nav-sub
- ========================================================================== */
-
-/*
- * `ul` needed for higher specificity to override padding
- */
-
-ul.uk-nav-sub {
-    padding: @nav-sub-padding-vertical 0 @nav-sub-padding-vertical @nav-sub-padding-left;
-    .hook-nav-sub;
-}
-
-
-/* Parent icon modifier
- ========================================================================== */
-
-.uk-nav-parent-icon > .uk-parent > a:after {
-    content: "";
-    width: @nav-parent-icon-width;
-    height: @nav-parent-icon-height;
-    margin-right: @nav-parent-icon-margin-right;
-    float: right;
-    .svg-fill("../images/nav-parent-close.svg", "#000", @nav-parent-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    .hook-nav-parent-icon;
-}
-
-.uk-nav-parent-icon > .uk-parent.uk-open > a:after { .svg-fill("../images/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
-
-
 /* Style modifier
  ========================================================================== */
 
@@ -158,29 +162,20 @@ ul.uk-nav-sub {
  */
 
 .uk-nav-default > li > a {
-    color: @nav-default-color;
+    color: @nav-default-item-color;
     .hook-nav-default-item;
 }
 
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
-
+/* Hover + Focus */
 .uk-nav-default > li > a:hover,
-.uk-nav-default > li > a:focus { // 1
-    background: @nav-default-hover-background;
-    color: @nav-default-hover-color;
-    /* 2 */
-    outline: none;
+.uk-nav-default > li > a:focus {
+    color: @nav-default-item-hover-color;
     .hook-nav-default-item-hover;
 }
 
 /* Active */
 .uk-nav-default > li.uk-active > a {
-    background: @nav-default-active-background;
-    color: @nav-default-active-color;
+    color: @nav-default-item-active-color;
     .hook-nav-default-item-active;
 }
 
@@ -203,12 +198,13 @@ ul.uk-nav-sub {
 }
 
 /*
- * Nested items
+ * Sublists
  */
 
-.uk-nav-default ul a { color: @nav-default-nested-color; }
-.uk-nav-default ul a:hover { color: @nav-default-nested-hover-color; }
+.uk-nav-default .uk-nav-sub a { color: @nav-default-sublist-item-color; }
 
+.uk-nav-default .uk-nav-sub a:hover,
+.uk-nav-default .uk-nav-sub a:focus { color: @nav-default-sublist-item-hover-color; }
 
 
 // Hooks
@@ -216,15 +212,13 @@ ul.uk-nav-sub {
 
 .hook-nav-misc;
 
-.hook-nav-header() {}
-.hook-nav-divider() {}
 .hook-nav-sub() {}
 .hook-nav-parent-icon() {}
-
+.hook-nav-header() {}
+.hook-nav-divider() {}
 .hook-nav-default-item() {}
 .hook-nav-default-item-hover() {}
 .hook-nav-default-item-active() {}
 .hook-nav-default-header() {}
 .hook-nav-default-divider() {}
-
 .hook-nav-misc() {}

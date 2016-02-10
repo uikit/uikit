@@ -102,9 +102,42 @@
                             </div>
                         </div>
 
-                        <div class="uk-dropdown-container" uk-drop="mode: click">
+                        <div class="uk-dropdown-container" uk-dropdown="mode: click">
                             <button class="uk-button uk-button-default" disabled>Disabled</button>
                             <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                        <div class="uk-drop-container" uk-dropdown>
+                            <button class="uk-button uk-button-default">Scrollable</button>
+                            <div class="uk-dropdown uk-dropdown-scrollable">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a>
+                                                <ul>
+                                                    <li><a href="#">Sub item</a></li>
+                                                    <li><a href="#">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                </ul>
+                            </div>
                         </div>
 
                     </div>
@@ -113,21 +146,21 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-drop-container" uk-drop>
+                        <div class="uk-drop-container" uk-dropdown>
                             <button class="uk-button uk-button-default">Bottom Left</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: bottom-center">
+                        <div class="uk-drop-container" uk-dropdown="pos: bottom-center">
                             <button class="uk-button uk-button-default">Bottom Center</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: bottom-right">
+                        <div class="uk-drop-container" uk-dropdown="pos: bottom-right">
                             <button class="uk-button uk-button-default">Bottom Right</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
@@ -138,21 +171,21 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-drop-container" uk-drop="pos: top-left">
+                        <div class="uk-drop-container" uk-dropdown="pos: top-left">
                             <button class="uk-button uk-button-default">Top Left</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: top-center">
+                        <div class="uk-drop-container" uk-dropdown="pos: top-center">
                             <button class="uk-button uk-button-default">Top Center</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: top-right">
+                        <div class="uk-drop-container" uk-dropdown="pos: top-right">
                             <button class="uk-button uk-button-default">Top Right</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
@@ -163,21 +196,21 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-drop-container" uk-drop="pos: left-top">
+                        <div class="uk-drop-container" uk-dropdown="pos: left-top">
                             <button class="uk-button uk-button-default">Left Top</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: left-center">
+                        <div class="uk-drop-container" uk-dropdown="pos: left-center">
                             <button class="uk-button uk-button-default">Left Center</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: left-bottom">
+                        <div class="uk-drop-container" uk-dropdown="pos: left-bottom">
                             <button class="uk-button uk-button-default">Left Bottom</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
@@ -188,21 +221,21 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-drop-container" uk-drop="pos: right-top">
+                        <div class="uk-drop-container" uk-dropdown="pos: right-top">
                             <button class="uk-button uk-button-default">Right Top</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: right-center">
+                        <div class="uk-drop-container" uk-dropdown="pos: right-center">
                             <button class="uk-button uk-button-default">Right Center</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                             </div>
                         </div>
 
-                        <div class="uk-drop-container" uk-drop="pos: right-bottom">
+                        <div class="uk-drop-container" uk-dropdown="pos: right-bottom">
                             <button class="uk-button uk-button-default">Right Bottom</button>
                             <div class="uk-drop">
                                 <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>

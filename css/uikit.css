@@ -1384,6 +1384,7 @@ select.uk-form-width-mini {
  * Reset
  * 1. Prepare lists
  * 2. Prepare links
+ * 3. Remove default focus style
  */
 /* 1 */
 .uk-nav,
@@ -1397,43 +1398,36 @@ select.uk-form-width-mini {
   display: block;
   text-decoration: none;
 }
+/* 3 */
+.uk-nav li > a:focus {
+  outline: none;
+}
 /*
  * Items
  */
 .uk-nav > li > a {
   padding: 8px 16px;
 }
-/*
- * Nested lists
- */
-.uk-nav ul {
-  padding-left: 16px;
-}
-.uk-nav ul a {
-  padding: 2px 0;
-}
-/* Header
- ========================================================================== */
-.uk-nav-header {
-  padding: 8px 16px;
-  text-transform: uppercase;
-  font-size: 0.88rem;
-}
-.uk-nav-header:not(:first-child) {
-  margin-top: 20px;
-}
-/* Divider
- ========================================================================== */
-.uk-nav-divider {
-  margin: 15px 0;
-}
-/* Nav-sub
+/* Sublists
  ========================================================================== */
 /*
+ * Level 2
  * `ul` needed for higher specificity to override padding
  */
 ul.uk-nav-sub {
-  padding: 5px 0 5px 16px;
+  padding: 5px 0 5px 32px;
+}
+/*
+ * Level 3 and deeper
+ */
+.uk-nav-sub ul {
+  padding-left: 16px;
+}
+/*
+ * Items
+ */
+.uk-nav-sub a {
+  padding: 2px 0;
 }
 /* Parent icon modifier
  ========================================================================== */
@@ -1450,6 +1444,21 @@ ul.uk-nav-sub {
 .uk-nav-parent-icon > .uk-parent.uk-open > a:after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444000%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }
+/* Header
+ ========================================================================== */
+.uk-nav-header {
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+}
+.uk-nav-header:not(:first-child) {
+  margin-top: 20px;
+}
+/* Divider
+ ========================================================================== */
+.uk-nav-divider {
+  margin: 15px 0;
+}
 /* Style modifier
  ========================================================================== */
 /*
@@ -1458,22 +1467,16 @@ ul.uk-nav-sub {
 .uk-nav-default > li > a {
   color: #444;
 }
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
+/* Hover + Focus */
 .uk-nav-default > li > a:hover,
 .uk-nav-default > li > a:focus {
-  background: #f5f5f5;
   color: #444;
-  /* 2 */
-  outline: none;
+  background: #f5f5f5;
 }
 /* Active */
 .uk-nav-default > li.uk-active > a {
-  background: #489be0;
   color: #fff;
+  background: #489be0;
 }
 /*
  * Header
@@ -1488,12 +1491,13 @@ ul.uk-nav-sub {
   border-top: 1px solid #e5e5e5;
 }
 /*
- * Nested items
+ * Sublists
  */
-.uk-nav-default ul a {
+.uk-nav-default .uk-nav-sub a {
   color: #999;
 }
-.uk-nav-default ul a:hover {
+.uk-nav-default .uk-nav-sub a:hover,
+.uk-nav-default .uk-nav-sub a:focus {
   color: #444;
 }
 /* ========================================================================
@@ -1863,16 +1867,16 @@ ul.uk-nav-sub {
 /* Alignment modifiers
  ========================================================================== */
 .uk-drop-top {
-  margin-top: -10px;
+  margin-top: -20px;
 }
 .uk-drop-bottom {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .uk-drop-left {
-  margin-left: -10px;
+  margin-left: -20px;
 }
 .uk-drop-right {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 /* ========================================================================
    Component: Dropdown
@@ -1894,8 +1898,9 @@ ul.uk-nav-sub {
   min-width: 200px;
   /* 4 */
   padding: 15px;
-  background: #f5f5f5;
+  background: #fff;
   color: #444;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 /*
  * 1. Show drop
@@ -1926,26 +1931,21 @@ ul.uk-nav-sub {
 /* Nav
  ========================================================================== */
 .uk-dropdown-nav {
-  margin: 0 -15px;
   white-space: nowrap;
+  margin: 0 -15px;
 }
 /*
  * Items
  */
 .uk-dropdown-nav > li > a {
   color: #444;
+  padding: 6px 25px;
 }
-/*
- * Hover
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
+/* Hover + Focus */
 .uk-dropdown-nav > li > a:hover,
 .uk-dropdown-nav > li > a:focus {
-  background: #489be0;
-  color: #fff;
-  /* 2 */
-  outline: none;
+  color: #444;
+  background: #f5f5f5;
 }
 /*
  * Header
@@ -1960,12 +1960,13 @@ ul.uk-nav-sub {
   border-top: 1px solid #e5e5e5;
 }
 /*
- * Nested items
+ * Sublists
  */
-.uk-dropdown-nav ul a {
+.uk-dropdown-nav .uk-nav-sub a {
   color: #999;
 }
-.uk-dropdown-nav ul a:hover {
+.uk-dropdown-nav .uk-nav-sub a:hover,
+.uk-dropdown-nav .uk-nav-sub a:focus {
   color: #444;
 }
 /* Alignment modifiers
@@ -1989,7 +1990,10 @@ ul.uk-nav-sub {
  */
 .uk-dropdown-scrollable {
   overflow-y: auto;
-  max-height: 200px;
+  max-height: 300px;
+}
+.uk-dropdown-nav .uk-nav-sub {
+  padding-left: 40px;
 }
 /* ========================================================================
    Component: Section
