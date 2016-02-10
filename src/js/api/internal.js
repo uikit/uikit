@@ -56,7 +56,7 @@ export default function (UIkit) {
             if (options) {
                 options.split(';').forEach((option) => {
                     var opt = option.split(/:(.+)/).map((value) => { return value.trim(); });
-                    if (props[opt[0]]) {
+                    if (props[opt[0]] !== undefined) {
                         this[opt[0]] = coerce(props[opt[0]], opt[1]);
                     }
                 });
