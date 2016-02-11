@@ -14,8 +14,6 @@ export default function (UIkit) {
             row: true
         },
 
-        ready: 'update',
-
         update: {
 
             handler() {

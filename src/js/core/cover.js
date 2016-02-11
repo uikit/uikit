@@ -26,8 +26,6 @@ export default function (UIkit) {
 
                 }).attr('src', [src, (src.indexOf('?') > -1 ? '&' : '?'), 'enablejsapi=1&api=1'].join(''));
             }
-
-            this.update();
         },
 
         update: {

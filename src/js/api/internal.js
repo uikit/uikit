@@ -1,4 +1,4 @@
-import {bind, coerce, hyphenate, mergeOptions, isString, isPlainObject} from '../util/index';
+import {bind, coerce, hyphenate, mergeOptions, isString, isPlainObject, createEvent} from '../util/index';
 
 export default function (UIkit) {
 
@@ -84,17 +84,14 @@ export default function (UIkit) {
 
         if (handlers) {
             handlers.forEach(handler => {
-
-                if (isString(handler)) {
-                    handler = this[handler];
-                }
-
                 handler.call(this);
             });
         }
     };
 
     UIkit.prototype._callUpdate = function (e) {
+
+        e = createEvent(e || 'update');
 
         var update = this.$options.update;
 

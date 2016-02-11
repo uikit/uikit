@@ -30,8 +30,6 @@ export default function (UIkit) {
                     UIkit.smoothScroll(this);
                 });
             }
-
-            this.update();
         },
 
         update: {

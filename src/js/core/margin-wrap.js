@@ -12,8 +12,6 @@ export default function (UIkit) {
             rowFirst: false
         },
 
-        ready: 'update',
-
         update: {
 
             handler() {

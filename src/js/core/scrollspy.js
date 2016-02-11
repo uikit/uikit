@@ -28,7 +28,6 @@ export default function (UIkit) {
 
         ready() {
             this.elements = this.target ? this.$el.find(this.target) : this.$el;
-            this.update();
         },
 
         update: {

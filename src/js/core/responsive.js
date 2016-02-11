@@ -4,8 +4,6 @@ export default function (UIkit) {
 
         props: ['width', 'height'],
 
-        ready: 'update',
-
         update: {
 
             handler() {

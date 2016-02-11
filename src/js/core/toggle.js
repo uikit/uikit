@@ -61,13 +61,13 @@ export default function (UIkit) {
                         if (this.isToggled(el)) {
 
                             this.doToggle(el);
-                            Animation.in(el, this.animations[0], this.duration).then(this.update.bind(this));
+                            Animation.in(el, this.animations[0], this.duration).then(this.doUpdate.bind(this));
 
                         } else {
 
                             Animation.out(el, this.animations[1], this.duration).then(() => {
                                 this.doToggle(el);
-                                this.update();
+                                this.doUpdate();
                             });
 
                         }
@@ -76,7 +76,7 @@ export default function (UIkit) {
 
                 } else {
                     this.doToggle(this.targets);
-                    this.update();
+                    this.doUpdate();
                 }
 
             },
@@ -96,7 +96,7 @@ export default function (UIkit) {
                 return this.cls ? el.hasClass(this.cls) : !!el.attr('hidden');
             },
 
-            update() {
+            doUpdate() {
                 this.$update();
                 this.updateAria();
             },

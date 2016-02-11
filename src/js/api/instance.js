@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import {createEvent} from '../util/index';
 
 export default function (UIkit) {
 
@@ -24,12 +23,10 @@ export default function (UIkit) {
 
         this._initProps();
         this._callHook('ready');
+        this._callUpdate();
     };
 
     UIkit.prototype.$update = function (e) {
-
-        e = createEvent(e || 'update');
-
         $(UIkit.elements, this.$el).each(function () {
             if (this[DATA]) {
                 for (var name in this[DATA]) {
@@ -40,9 +37,6 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$updateParents = function (e) {
-
-        e = createEvent(e || 'update');
-
         $(UIkit.elements).each((i, el) => {
             if (el[DATA] && $.contains(el, this.$el[0])) {
                 for (var name in el[DATA]) {

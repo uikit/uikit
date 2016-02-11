@@ -1,4 +1,4 @@
-import {classify, mergeOptions, createEvent} from '../util/index';
+import {classify, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
@@ -36,9 +36,6 @@ export default function (UIkit) {
     };
 
     UIkit.update = function (e) {
-
-        e = createEvent(e);
-
         for (var id in UIkit.instances) {
             UIkit.instances[id]._callUpdate(e);
         }
