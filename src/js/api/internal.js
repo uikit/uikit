@@ -11,15 +11,12 @@ export default function (UIkit) {
         options = options || {};
         options = this.$options = mergeOptions(this.constructor.options, options, this);
 
+        UIkit.instances[uid] = this;
+
         this.$el = null;
-
         this._uid = uid++;
-
-        UIkit.instances[this._uid] = this;
-
         this._initData();
         this._initMethods();
-
         this._callHook('init');
 
         if (options.el) {
@@ -67,7 +64,7 @@ export default function (UIkit) {
     UIkit.prototype._initMethods = function () {
 
         var methods = this.$options.methods,
-            update = this.$options.update;;
+            update = this.$options.update;
 
         if (methods) {
             for (var key in methods) {
