@@ -9,6 +9,8 @@
 //                  `uk-drop-bottom`
 //                  `uk-drop-left`
 //                  `uk-drop-right`
+//                  `uk-drop-stack`
+//                  `uk-drop-grid`
 //
 // States:          `uk-open`
 //
@@ -87,6 +89,12 @@
 .uk-drop-bottom { margin-top: @drop-margin; }
 .uk-drop-left { margin-left: (-1 * @drop-margin); }
 .uk-drop-right { margin-left: @drop-margin; }
+
+
+/* Grid modifiers
+ ========================================================================== */
+
+.uk-drop-stack .uk-drop-grid > * { width: 100% !important; }
 
 
 // Hooks
