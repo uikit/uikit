@@ -1,0 +1,431 @@
+// Name:            Navbar
+// Description:     Defines styles for the navigation bar
+//
+// Component:       `uk-navbar`
+//
+// Sub-objects:     `uk-navbar-nav`
+//                  `uk-navbar-nav-subtitle`
+//                  `uk-navbar-content`
+//                  `uk-navbar-brand`
+//                  `uk-navbar-toggle`
+//                  `uk-navbar-toggle-alt`
+//                  `uk-navbar-center`
+//                  `uk-navbar-flip`
+//
+// Modifiers:       `uk-navbar-attached`
+//
+// States:          `uk-active`
+//                  `uk-parent`
+//                  `uk-open`
+//
+// Used by:         Dropdown
+//
+// Markup:
+//
+// <!-- uk-navbar -->
+// <nav class="uk-navbar">
+//     <ul class="uk-navbar-nav">
+//         <li class="uk-active"><a href=""></a></li>
+//         <li><a href=""></a></li>
+//     </ul>
+// </nav>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@navbar-background:                             #eee;
+
+@navbar-nav-item-height:                        80px;
+@navbar-nav-item-padding-vertical:              5px;
+@navbar-nav-item-padding-horizontal:            15px;
+@navbar-nav-item-color:                         @global-muted-color;
+@navbar-nav-item-font-size:                     @global-font-size;
+@navbar-nav-item-font-family:                   @global-font-family;
+@navbar-nav-item-hover-color:                   @global-color;
+@navbar-nav-item-onclick-color:                 @global-color;
+@navbar-nav-item-active-color:                  @global-color;
+
+@navbar-item-color:                             @global-color;
+@navbar-item-link-color:                        @global-muted-color;
+@navbar-item-link-hover-color:                  @global-color;
+
+@navbar-subtitle-font-size:                     @global-small-font-size;
+
+@logo-font-size:                                @global-large-font-size;
+@logo-font-family:                              @global-font-family;
+@logo-color:                                    @global-color;
+@logo-hover-color:                              @global-color;
+
+
+
+
+@navbar-toggle-font-size:                       18px;
+@navbar-toggle-color:                           #444;
+@navbar-toggle-hover-color:                     #444;
+@navbar-toggle-icon:                            "\f0c9";
+@navbar-toggle-icon-alt:                        "\f002";
+
+
+/* ========================================================================
+   Component: Navbar
+ ========================================================================== */
+
+.uk-navbar {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    background: @navbar-background;
+    .hook-navbar;
+}
+
+
+/* Nav
+ ========================================================================== */
+
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset lists
+ */
+
+.uk-navbar-nav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * 1. Create position context for dropdowns
+ */
+
+.uk-navbar-nav > li { position: relative; }
+
+/*
+ * Items (Nav and content)
+ * 1. Center content vertically and horizontally
+ * 2. Dimensions
+ * 3. Style
+ * 4. Required for `a`
+ */
+
+.uk-navbar-nav > li > a,
+.uk-navbar-item {
+    /* 1 */
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    /* 2 */
+    box-sizing: border-box;
+    height: @navbar-nav-item-height;
+    padding: @navbar-nav-item-padding-vertical @navbar-nav-item-padding-horizontal;
+    /* 3 */
+    font-size: @navbar-nav-item-font-size;
+    font-family: @navbar-nav-item-font-family;
+    /* 4 */
+    text-decoration: none;
+}
+
+/*
+ * Nav items
+ */
+
+.uk-navbar-nav > li > a {
+    color: @navbar-nav-item-color;
+    .hook-navbar-nav-item;
+}
+
+/*
+ * Hover
+ * Apply hover style also to focus state and if dropdown is opened
+ */
+
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li.uk-open > a {
+    color: @navbar-nav-item-hover-color;
+    outline: none;
+    .hook-navbar-nav-item-hover;
+}
+
+/* OnClick */
+.uk-navbar-nav > li > a:active {
+    color: @navbar-nav-item-onclick-color;
+    .hook-navbar-nav-item-onclick;
+}
+
+/* Active */
+.uk-navbar-nav > li.uk-active > a {
+    color: @navbar-nav-item-active-color;
+    .hook-navbar-nav-item-active;
+}
+
+
+/* Item
+ ========================================================================== */
+
+.uk-navbar-item {
+    color: @navbar-item-color;
+    .hook-navbar-item;
+}
+
+.uk-navbar-item a:not([class]) { color: @navbar-item-link-color; }
+.uk-navbar-item a:not([class]):hover { color: @navbar-item-link-hover-color; }
+
+
+/* Subtitle
+ ========================================================================== */
+
+.uk-navbar-subtitle {
+    font-size: @navbar-subtitle-font-size;
+    .hook-navbar-subtitle;
+}
+
+
+/* Toggle
+ ========================================================================== */
+
+.uk-navbar-toggle {}
+
+
+
+
+/* Style modifier
+ ========================================================================== */
+
+.uk-navbar-transparent {
+    background: none;
+    .hook-navbar-transparent;
+}
+
+
+/* Logo
+ ========================================================================== */
+
+/*
+ * 1. Required for `a`
+ */
+
+.uk-logo {
+    font-size: @logo-font-size;
+    font-family: @logo-font-family;
+    color: @logo-color;
+    /* 1 */
+    text-decoration: none;
+    .hook-logo;
+}
+
+.uk-logo:hover,
+.uk-logo:focus {
+    color: @logo-hover-color;
+    /* 1 */
+    text-decoration: none;
+    .hook-logo-hover;
+}
+
+
+/* Header
+ ========================================================================== */
+
+.uk-header {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Sub-object: `uk-navbar-toggle`
+ ========================================================================== */
+
+.uk-navbar-toggle {
+    font-size: @navbar-toggle-font-size;
+    color: @navbar-toggle-color;
+    text-decoration: none;
+}
+
+/*
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+
+.uk-navbar-toggle:hover,
+.uk-navbar-toggle:focus { // 1
+    color: @navbar-toggle-hover-color;
+    text-decoration: none;
+    /* 2 */
+    outline: none;
+}
+
+/*
+ * 1. Center icon vertically
+ */
+
+.uk-navbar-toggle:after {
+    content: @navbar-toggle-icon;
+    font-family: FontAwesome;
+    /* 1 */
+    vertical-align: middle;
+}
+
+.uk-navbar-toggle-alt:after { content: @navbar-toggle-icon-alt; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@navbar-dropdown-z-index:                              @global-z-index + 20;
+@navbar-dropdown-width:                                300px;
+@navbar-dropdown-animation:                            uk-fade;
+@navbar-dropdown-margin:                               @global-small-margin;
+
+
+/* ========================================================================
+   Component: Drop
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-drop-justify`
+ * 4. Set a default width
+ */
+
+.uk-navbar-dropdown {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: @navbar-dropdown-z-index;
+    /* 3 */
+    box-sizing: border-box;
+    /* 4 */
+    width: @navbar-dropdown-width;
+}
+
+/*
+ * 1. Show drop
+ * 2. Set animation
+ */
+
+.uk-open > .uk-navbar-dropdown {
+    /* 1 */
+    display: block;
+    /* 2 */
+    -webkit-animation: @navbar-dropdown-animation 0.2s ease-in-out;
+    animation: @navbar-dropdown-animation 0.2s ease-in-out;
+}
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Behave like button
+ * 3. Create position context
+ */
+
+.uk-navbar-dropdown-container {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    vertical-align: middle;
+    /* 3 */
+    position: relative;
+}
+
+
+/* Alignment modifiers
+ ========================================================================== */
+
+.uk-navbar-dropdown-top { margin-top: (-1 * @navbar-dropdown-margin); }
+.uk-navbar-dropdown-bottom { margin-top: @navbar-dropdown-margin; }
+.uk-navbar-dropdown-left { margin-left: (-1 * @navbar-dropdown-margin); }
+.uk-navbar-dropdown-right { margin-left: @navbar-dropdown-margin; }
+
+
+/* Grid modifiers
+ ========================================================================== */
+
+.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * { width: 100% !important; }
+
+/*
+ * Width modifier
+ */
+
+.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 2); }
+.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 3); }
+.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 4); }
+.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Hooks
+// ========================================================================
+
+.hook-navbar-misc;
+
+.hook-navbar() {}
+.hook-navbar-nav-item() {}
+.hook-navbar-nav-item-hover() {}
+.hook-navbar-nav-item-onclick() {}
+.hook-navbar-nav-item-active() {}
+.hook-navbar-item() {}
+.hook-navbar-subtitle() {}
+.hook-navbar-transparent(){}
+.hook-navbar-misc() {}
+
+
+.hook-logo() {}
+.hook-logo-hover() {}

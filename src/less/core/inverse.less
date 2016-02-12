@@ -55,6 +55,13 @@
 @inverse-button-text-hover-color:              @inverse-color;
 @inverse-button-text-disabled-color:           fade(@inverse-color, 70%);
 
+@inverse-navbar-nav-item-color:                fade(@inverse-color, 70%);
+@inverse-navbar-nav-item-text-decoration:      none;
+@inverse-navbar-nav-item-hover-color:          @inverse-color;
+@inverse-navbar-nav-item-onclick-color:        @inverse-color;
+@inverse-navbar-nav-item-active-color:         @inverse-color;
+@inverse-navbar-item-color:                    @inverse-color;
+
 @inverse-icon-hover-color:                     fade(@inverse-color, 70%);
 @inverse-icon-hover-hover-color:               @inverse-color;
 @inverse-icon-button-background:               @inverse-color;
@@ -318,6 +325,45 @@
     }
 
 
+    // Nav
+    // ========================================================================
+
+    // Navbar
+    // ========================================================================
+
+
+    .uk-navbar-nav > li > a {
+        color: @inverse-navbar-nav-item-color;
+        .hook-inverse-navbar-nav-item;
+    }
+
+    /* Hover + Focus + Open */
+    .uk-navbar-nav > li:hover > a,
+    .uk-navbar-nav > li > a:focus,
+    .uk-navbar-nav > li.uk-open > a {
+        color: @inverse-navbar-nav-item-hover-color;
+        text-decoration: @inverse-navbar-nav-item-text-decoration;
+        .hook-inverse-navbar-nav-item-hover;
+    }
+
+    /* OnClick */
+    .uk-navbar-nav > li > a:active {
+        color: @inverse-navbar-nav-item-onclick-color;
+        .hook-inverse-navbar-nav-item-onclick;
+    }
+
+    /* Active */
+    .uk-navbar-nav > li.uk-active > a {
+        color: @inverse-navbar-nav-item-active-color;
+        .hook-inverse-navbar-nav-item-active;
+    }
+
+    .uk-navbar-item {
+        color: @inverse-navbar-item-color;
+        .hook-inverse-navbar-item;
+    }
+
+
     // Grid
     // ========================================================================
 
@@ -398,6 +444,12 @@
 .hook-inverse-button-text() {}
 .hook-inverse-button-text-hover() {}
 .hook-inverse-button-text-disabled() {}
+
+.hook-inverse-navbar-nav-item() {}
+.hook-inverse-navbar-nav-item-hover() {}
+.hook-inverse-navbar-nav-item-onclick() {}
+.hook-inverse-navbar-nav-item-active() {}
+.hook-inverse-navbar-item() {}
 
 .hook-inverse-icon-hover() {}
 .hook-inverse-icon-hover-hover() {}

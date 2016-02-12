@@ -1060,7 +1060,7 @@ select.uk-form-width-mini {
 }
 /*
  * 1. Set container position and width
- * 2. Center icon vertically and horizontal
+ * 2. Center icon vertically and horizontally
  * 3. Make form element clickable through icon
  * 4. Style
  */
@@ -1165,7 +1165,7 @@ select.uk-form-width-mini {
 .uk-button:focus {
   outline: none;
 }
-/* Active */
+/* OnClick + Active */
 /* Style modifiers
  ========================================================================== */
 /*
@@ -1183,7 +1183,7 @@ select.uk-form-width-mini {
   color: #444;
   border-color: #b2b2b2;
 }
-/* Active */
+/* OnClick + Active */
 .uk-button-default:active,
 .uk-button-default.uk-active {
   background-color: transparent;
@@ -1203,7 +1203,7 @@ select.uk-form-width-mini {
   background-color: #328fdc;
   color: #fff;
 }
-/* Active */
+/* OnClick + Active */
 .uk-button-primary:active,
 .uk-button-primary.uk-active {
   background-color: #2383d2;
@@ -1222,7 +1222,7 @@ select.uk-form-width-mini {
   background-color: #36b067;
   color: #fff;
 }
-/* Active */
+/* OnClick + Active */
 .uk-button-success:active,
 .uk-button-success.uk-active {
   background-color: #309d5b;
@@ -1241,7 +1241,7 @@ select.uk-form-width-mini {
   background-color: #e13841;
   color: #fff;
 }
-/* Active */
+/* OnClick + Active */
 .uk-button-danger:active,
 .uk-button-danger.uk-active {
   background-color: #dd222c;
@@ -1316,7 +1316,7 @@ select.uk-form-width-mini {
  ========================================================================== */
 .uk-button-small {
   height: 30px;
-  padding: 0 15px;
+  padding: 0 10px;
   font-size: 0.88rem;
 }
 .uk-button-large {
@@ -1501,11 +1501,251 @@ ul.uk-nav-sub {
   color: #444;
 }
 /* ========================================================================
+   Component: Navbar
+ ========================================================================== */
+.uk-navbar {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  background: #eee;
+}
+/* Nav
+ ========================================================================== */
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset lists
+ */
+.uk-navbar-nav {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* 1 */
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* 2 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/*
+ * 1. Create position context for dropdowns
+ */
+.uk-navbar-nav > li {
+  position: relative;
+}
+/*
+ * Items (Nav and content)
+ * 1. Center content vertically and horizontally
+ * 2. Dimensions
+ * 3. Style
+ * 4. Required for `a`
+ */
+.uk-navbar-nav > li > a,
+.uk-navbar-item {
+  /* 1 */
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  /* 2 */
+  box-sizing: border-box;
+  height: 80px;
+  padding: 5px 15px;
+  /* 3 */
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  /* 4 */
+  text-decoration: none;
+}
+/*
+ * Nav items
+ */
+.uk-navbar-nav > li > a {
+  color: #999;
+}
+/*
+ * Hover
+ * Apply hover style also to focus state and if dropdown is opened
+ */
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li.uk-open > a {
+  color: #444;
+  outline: none;
+}
+/* OnClick */
+.uk-navbar-nav > li > a:active {
+  color: #444;
+}
+/* Active */
+.uk-navbar-nav > li.uk-active > a {
+  color: #444;
+}
+/* Item
+ ========================================================================== */
+.uk-navbar-item {
+  color: #444;
+}
+.uk-navbar-item a:not([class]) {
+  color: #999;
+}
+.uk-navbar-item a:not([class]):hover {
+  color: #444;
+}
+/* Subtitle
+ ========================================================================== */
+.uk-navbar-subtitle {
+  font-size: 0.88rem;
+}
+/* Toggle
+ ========================================================================== */
+/* Style modifier
+ ========================================================================== */
+.uk-navbar-transparent {
+  background: none;
+}
+/* Logo
+ ========================================================================== */
+/*
+ * 1. Required for `a`
+ */
+.uk-logo {
+  font-size: 1.37rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  color: #444;
+  /* 1 */
+  text-decoration: none;
+}
+.uk-logo:hover,
+.uk-logo:focus {
+  color: #444;
+  /* 1 */
+  text-decoration: none;
+}
+/* Header
+ ========================================================================== */
+/* Sub-object: `uk-navbar-toggle`
+ ========================================================================== */
+.uk-navbar-toggle {
+  font-size: 18px;
+  color: #444;
+  text-decoration: none;
+}
+/*
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ */
+.uk-navbar-toggle:hover,
+.uk-navbar-toggle:focus {
+  color: #444;
+  text-decoration: none;
+  /* 2 */
+  outline: none;
+}
+/*
+ * 1. Center icon vertically
+ */
+.uk-navbar-toggle:after {
+  content: "\f0c9";
+  font-family: FontAwesome;
+  /* 1 */
+  vertical-align: middle;
+}
+.uk-navbar-toggle-alt:after {
+  content: "\f002";
+}
+/* ========================================================================
+   Component: Drop
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Box-sizing is needed for `uk-drop-justify`
+ * 4. Set a default width
+ */
+.uk-navbar-dropdown {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 1020;
+  /* 3 */
+  box-sizing: border-box;
+  /* 4 */
+  width: 300px;
+}
+/*
+ * 1. Show drop
+ * 2. Set animation
+ */
+.uk-open > .uk-navbar-dropdown {
+  /* 1 */
+  display: block;
+  /* 2 */
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
+}
+/* Container
+ ========================================================================== */
+/*
+ * 1. Container fits its content
+ * 2. Behave like button
+ * 3. Create position context
+ */
+.uk-navbar-dropdown-container {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  vertical-align: middle;
+  /* 3 */
+  position: relative;
+}
+/* Alignment modifiers
+ ========================================================================== */
+.uk-navbar-dropdown-top {
+  margin-top: -10px;
+}
+.uk-navbar-dropdown-bottom {
+  margin-top: 10px;
+}
+.uk-navbar-dropdown-left {
+  margin-left: -10px;
+}
+.uk-navbar-dropdown-right {
+  margin-left: 10px;
+}
+/* Grid modifiers
+ ========================================================================== */
+.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * {
+  width: 100% !important;
+}
+/*
+ * Width modifier
+ */
+.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) {
+  width: 600px;
+}
+.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) {
+  width: 900px;
+}
+.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) {
+  width: 1200px;
+}
+.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) {
+  width: 1500px;
+}
+/* ========================================================================
    Component: Alert
  ========================================================================== */
 .uk-alert {
   margin-bottom: 20px;
-  padding: 15px;
+  padding: 10px;
   background: #ebf7fd;
   color: #489be0;
 }
@@ -1603,7 +1843,7 @@ ul.uk-nav-sub {
 /* Style modifier
  ========================================================================== */
 /*
- * 1. Center icon vertically and horizontal
+ * 1. Center icon vertically and horizontally
  */
 .uk-badge-pill {
   box-sizing: border-box;
@@ -1787,7 +2027,7 @@ ul.uk-nav-sub {
 /* Button
  ========================================================================== */
 /*
- * 1. Center icon vertically and horizontal
+ * 1. Center icon vertically and horizontally
  */
 .uk-icon-button {
   box-sizing: border-box;
@@ -1877,6 +2117,11 @@ ul.uk-nav-sub {
 }
 .uk-drop-right {
   margin-left: 20px;
+}
+/* Grid modifiers
+ ========================================================================== */
+.uk-drop-stack .uk-drop-grid > * {
+  width: 100% !important;
 }
 /* ========================================================================
    Component: Dropdown
@@ -1982,6 +2227,11 @@ ul.uk-nav-sub {
 }
 .uk-dropdown-right {
   margin-left: 10px;
+}
+/* Grid modifiers
+ ========================================================================== */
+.uk-dropdown-stack .uk-dropdown-grid > * {
+  width: 100% !important;
 }
 /* Overflow modifier
  ========================================================================== */
@@ -2230,15 +2480,15 @@ ul.uk-nav-sub {
  */
 /* Horizontal */
 .uk-grid-small {
-  margin-left: -15px;
+  margin-left: -10px;
 }
 .uk-grid-small > * {
-  padding-left: 15px;
+  padding-left: 10px;
 }
 /* Vertical */
 .uk-grid + .uk-grid-small,
 .uk-grid-small > .uk-grid-margin {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 /*
  * Medium
@@ -2367,21 +2617,21 @@ ul.uk-nav-sub {
  */
 /* Horizontal */
 .uk-grid-divider.uk-grid-small {
-  margin-left: -30px;
+  margin-left: -20px;
 }
 .uk-grid-divider.uk-grid-small > * {
-  padding-left: 30px;
+  padding-left: 20px;
 }
 .uk-grid-divider.uk-grid-small > :not(.uk-grid-first):before {
-  left: 15px;
+  left: 10px;
 }
 /* Vertical */
 .uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first:before {
-  top: -15px;
-  left: 30px;
+  top: -10px;
+  left: 20px;
 }
 /*
  * Medium
@@ -2604,7 +2854,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-card-small.uk-card-body,
 .uk-card-small .uk-card-body {
-  padding: 15px 15px;
+  padding: 10px 10px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
@@ -4915,6 +5165,9 @@ ul.uk-nav-sub {
   color: #fff;
   /* Hover + Focus */
   /* Disabled */
+  /* Hover + Focus + Open */
+  /* OnClick */
+  /* Active */
 }
 .uk-light a:not([class]),
 .uk-light .uk-link,
@@ -5230,6 +5483,38 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-icon-button:active {
   background-color: rgba(255, 255, 255, 0.7);
   color: #444;
+}
+.uk-light .uk-navbar-nav > li > a,
+.uk-card-primary .uk-navbar-nav > li > a,
+.uk-card-secondary .uk-navbar-nav > li > a {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-navbar-nav > li:hover > a,
+.uk-light .uk-navbar-nav > li > a:focus,
+.uk-light .uk-navbar-nav > li.uk-open > a,
+.uk-card-primary .uk-navbar-nav > li:hover > a,
+.uk-card-primary .uk-navbar-nav > li > a:focus,
+.uk-card-primary .uk-navbar-nav > li.uk-open > a,
+.uk-card-secondary .uk-navbar-nav > li:hover > a,
+.uk-card-secondary .uk-navbar-nav > li > a:focus,
+.uk-card-secondary .uk-navbar-nav > li.uk-open > a {
+  color: #fff;
+  text-decoration: none;
+}
+.uk-light .uk-navbar-nav > li > a:active,
+.uk-card-primary .uk-navbar-nav > li > a:active,
+.uk-card-secondary .uk-navbar-nav > li > a:active {
+  color: #fff;
+}
+.uk-light .uk-navbar-nav > li.uk-active > a,
+.uk-card-primary .uk-navbar-nav > li.uk-active > a,
+.uk-card-secondary .uk-navbar-nav > li.uk-active > a {
+  color: #fff;
+}
+.uk-light .uk-navbar-item,
+.uk-card-primary .uk-navbar-item,
+.uk-card-secondary .uk-navbar-item {
+  color: #fff;
 }
 .uk-light .uk-grid-divider > :not(.uk-grid-first):before,
 .uk-card-primary .uk-grid-divider > :not(.uk-grid-first):before,
