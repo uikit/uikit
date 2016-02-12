@@ -135,6 +135,164 @@
 
             </div>
 
+            <h2>Drop with Boundary</h2>
+
+            <div id="boundary" class="uk-width-1-2 uk-margin" style="border-style: dashed;">
+
+                <div class="uk-drop-container" uk-drop="pos: bottom-right; boundary: #boundary">
+                    <button class="uk-button uk-button-default">Bottom Right</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should flip to bottom-left.</div>
+                    </div>
+                </div>
+
+                <div class="uk-drop-container uk-float-right" uk-drop="pos: bottom-left; boundary: #boundary">
+                    <button class="uk-button uk-button-default">Bottom Left</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should flip to bottom-right.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="boundary2" class="uk-position-relative uk-margin uk-flex-column" style="border-style: dashed; width: 165px; height: 160px;">
+
+                <div class="uk-drop-container uk-position-top" uk-drop="pos: right-top; boundary: #boundary2">
+                    <button class="uk-button uk-button-default uk-width">Right Bottom</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should flip to right-top.</div>
+                    </div>
+                </div>
+
+                <div class="uk-drop-container uk-position-bottom" uk-drop="pos: right-bottom; boundary: #boundary2">
+                    <button class="uk-button uk-button-default uk-width">Right Top</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should flip to right-bottom.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="boundary3" class="uk-position-relative uk-margin" style="border-style: dashed; width: 400px; min-height: 250px;">
+
+                <div class="uk-drop-container" uk-drop="pos: top-right; boundary: #boundary3">
+                    <button class="uk-button uk-button-default">Top Right</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should flip to bottom-left.</div>
+                    </div>
+                </div>
+
+                <div class="uk-drop-container" uk-drop="pos: bottom-left; boundary: #boundary3" style="position: absolute; bottom:0; right:0;">
+                    <button class="uk-button uk-button-default">Bottom Left</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should flip to top-right.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h2>Drop with Justify</h2>
+
+            <div id="justify" class="uk-margin uk-flex uk-flex-between" style="border-style: dashed;">
+
+                <div class="uk-drop-container" uk-drop="pos: bottom-right; justify: #justify">
+                    <button class="uk-button uk-button-default">Bottom Right</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should justify.</div>
+                    </div>
+                </div>
+
+                <div class="uk-drop-container" uk-drop="pos: bottom-center; justify: #justify">
+                    <button class="uk-button uk-button-default">Bottom Center</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should justify.</div>
+                    </div>
+                </div>
+
+                <div class="uk-drop-container" uk-drop="pos: top-left; justify: #justify">
+                    <button class="uk-button uk-button-default">Top Left</button>
+                    <div class="uk-drop">
+                        <div class="uk-card uk-card-body uk-card-default">Should justify.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="justify2" class="uk-position-relative uk-margin uk-flex-column" style="border-style: dashed; width: 165px; height: 160px;">
+
+                <div class="uk-drop-container uk-position-top" uk-drop="pos: right-top; justify: #justify2">
+                    <button class="uk-button uk-button-default uk-width">Right Bottom</button>
+                    <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
+                        Should flip to right-bottom.
+                    </div>
+                </div>
+
+                <div class="uk-drop-container uk-position-bottom" uk-drop="pos: right-bottom; justify: #justify2">
+                    <button class="uk-button uk-button-default uk-width">Right Top</button>
+                    <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
+                        Should flip to right-bottom.
+                    </div>
+                </div>
+
+            </div>
+
+            <h2>Drop with Stacked Grid</h2>
+
+            <div id="stacked" class="uk-margin uk-flex uk-flex-between uk-width-2-3" style="border-style: dashed">
+
+                <div class="uk-drop-container" uk-drop="pos: bottom-right; boundary: #stacked">
+                    <button class="uk-button uk-button-default">Bottom Right</button>
+                    <div class="uk-drop" style="width: 600px">
+                        <div class="uk-grid uk-dropdown-grid uk-card uk-card-body uk-card-default">
+                            <div class="uk-width-1-3">
+                                <div class="">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                            <div class="uk-width-1-3">
+                                <div>Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                            <div class="uk-width-1-3">
+                                <div>Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-drop-container" uk-drop="pos: bottom-right; boundary: #stacked">
+                    <button class="uk-button uk-button-default">Bottom Right</button>
+                    <div class="uk-drop" style="width: 600px">
+                        <div class="uk-grid uk-dropdown-grid uk-card uk-card-body uk-card-default">
+                            <div class="uk-width-1-3">
+                                <div class="">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                            <div class="uk-width-1-3">
+                                <div>Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                            <div class="uk-width-1-3">
+                                <div>Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-drop-container" uk-drop="pos: bottom-right; boundary: #stacked">
+                    <button class="uk-button uk-button-default">Bottom Right</button>
+                    <div class="uk-drop" style="width: 600px">
+                        <div class="uk-grid uk-dropdown-grid uk-card uk-card-body uk-card-default">
+                            <div class="uk-width-1-3">
+                                <div class="">Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                            <div class="uk-width-1-3">
+                                <div>Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                            <div class="uk-width-1-3">
+                                <div>Lorem ipsum dolor sit amet, consectetur <a href="">adipisicing</a> elit, sed do eiusmod tempor incididunt.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <h2>Javascript Options</h2>
 
             <table class="uk-table uk-table-striped">

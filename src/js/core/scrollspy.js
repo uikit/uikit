@@ -86,7 +86,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['scrolling', 'load', 'resize', 'orientationchange']
+            events: ['scrolling', 'load', 'resize', 'orientationchange', 'update']
 
         }
 

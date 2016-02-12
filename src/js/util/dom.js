@@ -96,6 +96,7 @@ export const Animation = {
 
 };
 
+// TODO still needed?
 export function offsetParent(element) {
     return $(element).parents().filter(function () {
         return $.inArray($(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
@@ -116,7 +117,7 @@ export function attrFilter(element, attr, pattern, replacement) {
 }
 
 export function removeClass(element, cls) {
-    return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}($|\\s)`, 'g'), '');
+    return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}(?!\\S)`, 'g'), '');
 }
 
 export function createEvent(e) {

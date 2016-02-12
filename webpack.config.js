@@ -7,7 +7,7 @@ var loaders = {
         {
             test: source,
             loader: "babel",
-            query: { presets: ["es2015"] },
+            query: { presets: ["es2015"] }
         }
     ]
 };

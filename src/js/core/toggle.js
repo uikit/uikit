@@ -98,10 +98,7 @@ export default function (UIkit) {
 
             doUpdate() {
                 this.$update();
-                this.updateAria();
-            },
 
-            updateAria() {
                 if (this.aria) {
                     this.targets.each(function () {
                         $(this).attr('aria-hidden', !!$(this).attr('hidden'));
