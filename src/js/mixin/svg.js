@@ -24,8 +24,8 @@ export default {
 
                 var el = $('#' + icon, doc), svg, dimensions;
 
-                if (!el) {
-                    return;
+                if (!el || !el.length) {
+                    return $.Deferred().reject();
                 }
 
                 el = el.clone();
@@ -64,6 +64,7 @@ export default {
             });
 
         }
+
     }
 
 };
