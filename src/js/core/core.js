@@ -642,24 +642,30 @@
             // custom scroll observer
             requestAnimationFrame((function(){
 
-                var memory = {x: window.pageXOffset, y:window.pageYOffset}, dir;
-
+                var memory = {dir: {x:0, y:0}, x: window.pageXOffset, y:window.pageYOffset};
+    
                 var fn = function(){
-
-                    if (memory.x != window.pageXOffset || memory.y != window.pageYOffset) {
-
-                        dir = {x: 0 , y: 0};
-
-                        if (window.pageXOffset != memory.x) dir.x = window.pageXOffset > memory.x ? 1:-1;
-                        if (window.pageYOffset != memory.y) dir.y = window.pageYOffset > memory.y ? 1:-1;
-
-                        memory = {
-                            "dir": dir, "x": window.pageXOffset, "y": window.pageYOffset
-                        };
-
-                        UI.$doc.trigger('scrolling.uk.document', [memory]);
+                    // reading this (window.page[X|Y]Offset) causes a full page recalc of the layout in Chrome, 
+                    // so we only want to do this once
+                    var wpxo = window.pageXOffset;
+                    var wpyo = window.pageYOffset;
+                    
+                    // Did the scroll position change since the last time we were here?
+                    if (memory.x != wpxo || memory.y != wpyo) {
+                        
+                        // Set the direction of the scroll and store the new position
+                        if (wpxo != memory.x) memory.dir.x = wpxo > memory.x ? 1:-1 else memory.dir.x = 0;
+                        if (wpyo != memory.y) memory.dir.y = wpyo > memory.y ? 1:-1 else memory.dir.y = 0;
+                        memory.x = wpxo;
+                        memory.y = wpyo;
+                        
+                        // Trigger the scroll event, this could probably be sent using memory.clone() but this is
+                        // more explicit and easier to see exactly what is being sent in the event.
+                        UI.$doc.trigger('scrolling.uk.document', {
+                            "dir": {"x": memory.dir.x, "y": memory.dir.y}, "x": wpxo, "y": wpyo
+                        });
                     }
-
+    
                     requestAnimationFrame(fn);
                 };
 
