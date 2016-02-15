@@ -5,11 +5,16 @@
 //                  `uk-position-relative`
 //                  `uk-position-z-index`
 //                  `uk-position-top`
+//                  `uk-position-bottom`
+//                  `uk-position-left`
+//                  `uk-position-right`
 //                  `uk-position-top-left`
 //                  `uk-position-top-right`
-//                  `uk-position-bottom`
 //                  `uk-position-bottom-left`
 //                  `uk-position-bottom-right`
+//                  `uk-position-center`
+//                  `uk-position-center-left`
+//                  `uk-position-center-right`
 //                  `uk-position-cover`
 //
 // ========================================================================
@@ -30,7 +35,10 @@
  ========================================================================== */
 
 [class*='uk-position-top'],
-[class*='uk-position-bottom'] { position: absolute !important; }
+[class*='uk-position-bottom'],
+[class*='uk-position-left'],
+[class*='uk-position-right'],
+[class*='uk-position-center'] { position: absolute !important; }
 
 /* Don't use `width: 100%` because it is wrong if the parent has padding. */
 .uk-position-top {
@@ -42,6 +50,18 @@
 .uk-position-bottom {
     bottom: 0;
     left: 0;
+    right: 0;
+}
+
+.uk-position-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.uk-position-right {
+    top: 0;
+    bottom: 0;
     right: 0;
 }
 
@@ -68,6 +88,27 @@
     bottom: 0;
     right: 0;
 }
+
+/*
+ * Center
+ */
+
+.uk-position-center {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.uk-position-center-left,
+.uk-position-center-right {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.uk-position-center-left { left: 0; }
+.uk-position-center-right { right: 0; }
 
 
 /* Cover
