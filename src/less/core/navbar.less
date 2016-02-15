@@ -39,7 +39,6 @@
 @navbar-background:                             #eee;
 
 @navbar-nav-item-height:                        80px;
-@navbar-nav-item-padding-vertical:              5px;
 @navbar-nav-item-padding-horizontal:            15px;
 @navbar-nav-item-color:                         @global-muted-color;
 @navbar-nav-item-font-size:                     @global-font-size;
@@ -73,12 +72,42 @@
    Component: Navbar
  ========================================================================== */
 
+/*
+ * 1. Create space between all navbar groups (left, right)
+ * 2. Style
+ */
+
 .uk-navbar {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+    /* 1 */
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    /* 2 */
     background: @navbar-background;
     .hook-navbar;
+}
+
+
+/* Groups
+ ========================================================================== */
+
+/*
+ * 1. Align navs and items vertically if they have a different height
+ */
+
+.uk-navbar-left,
+.uk-navbar-right,
+.uk-navbar-center {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
 }
 
 
@@ -86,8 +115,7 @@
  ========================================================================== */
 
 /*
- * 1. Allow cells to wrap into the next line
- * 2. Reset lists
+ * 1. Reset lists
  */
 
 .uk-navbar-nav {
@@ -95,10 +123,6 @@
     display: -webkit-flex;
     display: flex;
     /* 1 */
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    /* 2 */
     margin: 0;
     padding: 0;
     list-style: none;
@@ -111,7 +135,7 @@
 .uk-navbar-nav > li { position: relative; }
 
 /*
- * Items (Nav and content)
+ * Items (Nav and navbar)
  * 1. Center content vertically and horizontally
  * 2. Dimensions
  * 3. Style
@@ -133,7 +157,7 @@
     /* 2 */
     box-sizing: border-box;
     height: @navbar-nav-item-height;
-    padding: @navbar-nav-item-padding-vertical @navbar-nav-item-padding-horizontal;
+    padding: 0 @navbar-nav-item-padding-horizontal;
     /* 3 */
     font-size: @navbar-nav-item-font-size;
     font-family: @navbar-nav-item-font-family;
@@ -203,6 +227,32 @@
 .uk-navbar-toggle {}
 
 
+/* Container
+ ========================================================================== */
+
+/*
+ * Use this class if a container wraps the navbar groups inside the navbar.
+ * 1. Create space between all navbar groups (left, right)
+ * 2. Take the full width
+ * 3. Reset pseudo elements if clearing method is used
+ */
+
+.uk-navbar-container > * {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    /* 2 */
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.uk-navbar-container > :before,
+.uk-navbar-container > :after { display: none !important; }
 
 
 /* Style modifier
@@ -212,6 +262,9 @@
     background: none;
     .hook-navbar-transparent;
 }
+
+
+
 
 
 /* Logo
