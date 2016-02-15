@@ -1,0 +1,69 @@
+//
+// Component: Navbar
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+
+// Component
+// ========================================================================
+
+.hook-navbar() {}
+
+
+// Nav
+// ========================================================================
+
+
+.hook-navbar-nav-item() {}
+
+.hook-navbar-nav-item-hover() {}
+
+.hook-navbar-nav-item-onclick() {}
+
+.hook-navbar-nav-item-active() {}
+
+
+// Item
+// ========================================================================
+
+.hook-navbar-item() {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+// Subtitle
+// ========================================================================
+
+.hook-navbar-subtitle() {}
+
+
+// Style modifier
+// ========================================================================
+
+.hook-navbar-transparent(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-navbar-misc() {
+
+    /* Phone landscape and bigger */
+    @media (min-width: @breakpoint-small) {
+
+        .uk-navbar:not(.uk-navbar-container) {
+            padding-left: @navbar-nav-item-padding-horizontal;
+            padding-right: @navbar-nav-item-padding-horizontal;
+        }
+
+    }
+
+    .uk-navbar-container .uk-navbar-left { margin-left: -@navbar-nav-item-padding-horizontal; }
+    .uk-navbar-container .uk-navbar-right { margin-right: -@navbar-nav-item-padding-horizontal; }
+
+}
