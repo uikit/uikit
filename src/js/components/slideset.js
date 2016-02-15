@@ -74,7 +74,7 @@
                 $this.list.addClass('uk-grid-width-'+bp+'-1-'+$this.options[bp]);
             });
 
-            this.on("click.uikit.slideset", '[data-uk-slideset-item]', function(e) {
+            this.on("click.uk.slideset", '[data-uk-slideset-item]', function(e) {
 
                 e.preventDefault();
 
@@ -97,7 +97,7 @@
 
             });
 
-            this.controls.on('click.uikit.slideset', '[data-uk-filter]', function(e) {
+            this.controls.on('click.uk.slideset', '[data-uk-filter]', function(e) {
 
                 var ele = UI.$(this);
 

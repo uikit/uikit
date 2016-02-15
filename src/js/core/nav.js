@@ -29,7 +29,7 @@
 
             var $this = this;
 
-            this.on("click.uikit.nav", this.options.toggle, function(e) {
+            this.on("click.uk.nav", this.options.toggle, function(e) {
                 e.preventDefault();
                 var ele = UI.$(this);
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));

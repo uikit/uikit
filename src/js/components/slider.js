@@ -61,7 +61,7 @@
                 $this.resize(true);
             }, 100));
 
-            this.on('click.uikit.slider', '[data-uk-slider-item]', function(e) {
+            this.on('click.uk.slider', '[data-uk-slider-item]', function(e) {
 
                 e.preventDefault();
 
@@ -410,7 +410,7 @@
     });
 
     // handle dragging
-    UI.$doc.on('mousemove.uikit.slider touchmove.uikit.slider', function(e) {
+    UI.$doc.on('mousemove.uk.slider touchmove.uk.slider', function(e) {
 
         if (e.originalEvent && e.originalEvent.touches) {
             e = e.originalEvent.touches[0];
@@ -488,7 +488,7 @@
         store.diff    = diff;
     });
 
-    UI.$doc.on('mouseup.uikit.slider touchend.uikit.slider', function(e) {
+    UI.$doc.on('mouseup.uk.slider touchend.uk.slider', function(e) {
 
         if (dragging) {
 
