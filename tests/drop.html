@@ -139,17 +139,17 @@
 
             <div id="boundary" class="uk-width-1-2 uk-margin" style="border-style: dashed;">
 
-                <div class="uk-drop-container" uk-drop="pos: bottom-right; boundary: #boundary">
-                    <button class="uk-button uk-button-default">Bottom Right</button>
+                <div class="uk-drop-container" uk-drop="pos: top-center; boundary: #boundary">
+                    <button class="uk-button uk-button-default">Top Center</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should flip to bottom-left.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Top Left</div>
                     </div>
                 </div>
 
-                <div class="uk-drop-container uk-float-right" uk-drop="pos: bottom-left; boundary: #boundary">
-                    <button class="uk-button uk-button-default">Bottom Left</button>
+                <div class="uk-drop-container uk-float-right" uk-drop="pos: bottom-center; boundary: #boundary">
+                    <button class="uk-button uk-button-default">Bottom Center</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should flip to bottom-right.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Bottom Right</div>
                     </div>
                 </div>
 
@@ -157,17 +157,17 @@
 
             <div id="boundary2" class="uk-position-relative uk-margin uk-flex-column" style="border-style: dashed; width: 165px; height: 160px;">
 
-                <div class="uk-drop-container uk-position-top" uk-drop="pos: right-top; boundary: #boundary2">
+                <div class="uk-drop-container uk-position-top" uk-drop="pos: right-bottom; boundary: #boundary2">
                     <button class="uk-button uk-button-default uk-width">Right Bottom</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should flip to right-top.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Right Top</div>
                     </div>
                 </div>
 
-                <div class="uk-drop-container uk-position-bottom" uk-drop="pos: right-bottom; boundary: #boundary2">
+                <div class="uk-drop-container uk-position-bottom" uk-drop="pos: right-top; boundary: #boundary2">
                     <button class="uk-button uk-button-default uk-width">Right Top</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should flip to right-bottom.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Right Bottom</div>
                     </div>
                 </div>
 
@@ -178,14 +178,14 @@
                 <div class="uk-drop-container" uk-drop="pos: top-right; boundary: #boundary3">
                     <button class="uk-button uk-button-default">Top Right</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should flip to bottom-left.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Bottom Left</div>
                     </div>
                 </div>
 
                 <div class="uk-drop-container" uk-drop="pos: bottom-left; boundary: #boundary3" style="position: absolute; bottom:0; right:0;">
                     <button class="uk-button uk-button-default">Bottom Left</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should flip to top-right.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Top Right</div>
                     </div>
                 </div>
 
@@ -198,40 +198,93 @@
                 <div class="uk-drop-container" uk-drop="pos: bottom-right; justify: #justify">
                     <button class="uk-button uk-button-default">Bottom Right</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should justify.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Bottom justified</div>
                     </div>
                 </div>
 
                 <div class="uk-drop-container" uk-drop="pos: bottom-center; justify: #justify">
                     <button class="uk-button uk-button-default">Bottom Center</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should justify.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Bottom justified</div>
                     </div>
                 </div>
 
                 <div class="uk-drop-container" uk-drop="pos: top-left; justify: #justify">
                     <button class="uk-button uk-button-default">Top Left</button>
                     <div class="uk-drop">
-                        <div class="uk-card uk-card-body uk-card-default">Should justify.</div>
+                        <div class="uk-card uk-card-body uk-card-default">Top justified</div>
                     </div>
                 </div>
 
             </div>
 
-            <div id="justify2" class="uk-position-relative uk-margin uk-flex-column" style="border-style: dashed; width: 165px; height: 160px;">
+            <div class="uk-position-relative">
 
-                <div class="uk-drop-container uk-position-top" uk-drop="pos: right-top; justify: #justify2">
-                    <button class="uk-button uk-button-default uk-width">Right Bottom</button>
-                    <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
-                        Should flip to right-bottom.
+                <div id="justify2" class="uk-position-relative uk-margin uk-flex-column" style="border-style: dashed; width: 165px; height: 160px;">
+
+                    <div class="uk-drop-container uk-position-top" uk-drop="pos: right-top; justify: #justify2">
+                        <button class="uk-button uk-button-default uk-width">Right Bottom</button>
+                        <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
+                            Right justified
+                        </div>
                     </div>
+
+                    <div class="uk-drop-container uk-position-bottom" uk-drop="pos: right-bottom; justify: #justify2">
+                        <button class="uk-button uk-button-default uk-width">Right Top</button>
+                        <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
+                            Right justified
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="uk-drop-container uk-position-bottom" uk-drop="pos: right-bottom; justify: #justify2">
-                    <button class="uk-button uk-button-default uk-width">Right Top</button>
-                    <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
-                        Should flip to right-bottom.
+                <div id="justify3" class="uk-position-relative uk-flex-column uk-position-top-right" style="border-style: dashed; width: 165px; height: 160px;">
+
+                    <div class="uk-drop-container uk-position-top" uk-drop="pos: right-top; justify: #justify3">
+                        <button class="uk-button uk-button-default uk-width">Right Bottom</button>
+                        <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
+                            Left justified
+                        </div>
                     </div>
+
+                    <div class="uk-drop-container uk-position-bottom" uk-drop="pos: right-bottom; justify: #justify3">
+                        <button class="uk-button uk-button-default uk-width">Right Top</button>
+                        <div class="uk-drop uk-card uk-card-body uk-card-default uk-position-absolute">
+                            Left justified
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <h2>Drop with Overflow and Boundary</h2>
+
+            <div id="overflow" class="uk-margin" style="border-style: dashed; overflow: scroll; height:220px; width: 50vw;">
+
+                <div class="uk-flex uk-flex-between" style="width: 1200px;">
+
+                    <div class="uk-drop-container" uk-drop="pos: bottom-right; boundary: #overflow">
+                        <button class="uk-button uk-button-default">Bottom Right</button>
+                        <div class="uk-drop">
+                            <div class="uk-card uk-card-body uk-card-default">Bottom Left</div>
+                        </div>
+                    </div>
+
+                    <div class="uk-drop-container" uk-drop="pos: bottom-left; boundary: #overflow">
+                        <button class="uk-button uk-button-default">Bottom Left</button>
+                        <div class="uk-drop">
+                            <div class="uk-card uk-card-body uk-card-default">Depending on Scroll Position.</div>
+                        </div>
+                    </div>
+
+                    <div class="uk-drop-container" uk-drop="pos: top-left; boundary: #overflow">
+                        <button class="uk-button uk-button-default">Top Left</button>
+                        <div class="uk-drop">
+                            <div class="uk-card uk-card-body uk-card-default">Bottom Right</div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

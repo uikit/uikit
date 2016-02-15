@@ -183,7 +183,11 @@ export default function (UIkit) {
 
                 var pos = getBoundary(this.$el),
                     dim = getBoundary(this.drop),
-                    boundary = getBoundary(this.boundary);
+                    boundary = getBoundary(this.boundary),
+                    dirAlign = this.pos.split('-');
+
+                this.dir = dirAlign[0];
+                this.align = dirAlign[1];
 
                 if (dim.width > Math.max(boundary.right - pos.left, pos.right - boundary.left)) {
 
@@ -209,33 +213,29 @@ export default function (UIkit) {
                     },
                     position = positions[this.pos];
 
-                this.direction = this.pos.split('-')[0];
-
                 if (this.flip) {
 
-                    var flipTo = this.pos, flip;
+                    var axis = this.getAxis(),
+                        dir = flipAxis(pos, position, dim, boundary, axis);
 
-                    flipAxis(pos, position, dim, boundary).forEach((dir) => {
-                        if (this.flip === true || this.flip === dir) {
-                            flip = flipPosition(flipTo, dir);
-                            if (flipAxis(pos, positions[flip], dim, boundary).indexOf(dir) === -1) {
-                                flipTo = flip;
-                            }
-                        }
-                    });
-
-                    if (flipTo !== this.pos) {
-                        this.direction = flipTo.split('-')[0];
-                        position = positions[flipTo];
+                    if (dir && !flipAxis(pos, positions[`${dir}-${this.align}`], dim, boundary, axis)) {
+                        this.dir = dir;
                     }
 
+                    axis = axis === 'x' ? 'y' : 'x';
+                    dir = flipPosition(flipAxis(pos, position, dim, boundary, axis));
+                    if (dir && !flipAxis(pos, positions[`${this.dir}-${dir}`], dim, boundary, axis)) {
+                        this.align = dir;
+                    }
+
+                    position = positions[`${this.dir}-${this.align}`]
                 }
 
                 if (this.justify) {
 
                     var justify = getBoundary(this.justify);
 
-                    if (this.direction === 'top' || this.direction === 'bottom') {
+                    if (this.getAxis() === 'y') {
                         position.left = 0;
                         position['min-width'] = justify.width - (dim.width - this.drop.width());
                         position['margin-left'] = justify.left - pos.left;
@@ -246,7 +246,7 @@ export default function (UIkit) {
                     }
                 }
 
-                this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.direction}`);
+                this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.dir}`);
             },
 
             initMouseTracker() {
@@ -274,16 +274,16 @@ export default function (UIkit) {
                     bottomLeft = {x: offset.left, y: offset.top + this.drop.outerHeight()},
                     bottomRight = {x: topRight.x, y: bottomLeft.y};
 
-                if (this.direction === 'left') {
+                if (this.dir === 'left') {
                     this.incPoint = topRight;
                     this.decPoint = bottomRight;
-                } else if (this.direction === 'right') {
+                } else if (this.dir === 'right') {
                     this.incPoint = bottomLeft;
                     this.decPoint = topLeft;
-                } else if (this.direction === 'bottom') {
+                } else if (this.dir === 'bottom') {
                     this.incPoint = topLeft;
                     this.decPoint = topRight;
-                } else if (this.direction === 'top') {
+                } else if (this.dir === 'top') {
                     this.incPoint = bottomRight;
                     this.decPoint = bottomLeft;
                 } else {
@@ -318,42 +318,44 @@ export default function (UIkit) {
 
                 this.position = delay ? position : null;
                 return delay;
+            },
+
+            getAxis() {
+                return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
             }
 
         }
 
     });
 
-    function flipPosition(pos, dir) {
-
-        if (dir === 'x') {
-            return pos.replace(/left|right/, (match) => {
-                return match === 'right' ? 'left' : 'right';
-            });
+    function flipPosition(pos) {
+        switch(pos) {
+            case 'left':
+                return 'right';
+            case 'right':
+                return 'left';
+            case 'top':
+                return 'bottom';
+            case 'bottom':
+                return 'top';
+            default:
+                return pos;
         }
-
-        if (dir === 'y') {
-            return pos.replace(/bottom|top/, (match) => {
-                return match === 'bottom' ? 'top' : 'bottom';
-            });
-        }
-
-        return pos;
     }
 
-    function flipAxis(pos, offset, dim, boundary) {
+    function flipAxis(pos, offset, dim, boundary, axis) {
 
-        var axis = [], left = pos.left + offset.left, top = pos.top + offset.top;
+        var left = pos.left + offset.left, top = pos.top + offset.top;
 
-        if (left < boundary.left || left + dim.width > boundary.right) {
-            axis.push('x');
-        }
-
-        if (top < boundary.top || top + dim.height > boundary.bottom) {
-            axis.push('y');
-        }
-
-        return axis;
+        return axis === 'x' && left < boundary.left
+            ? 'right'
+            : axis === 'x' && left + dim.width > boundary.right
+                ? 'left'
+                : axis === 'y' && top < boundary.top
+                    ? 'bottom'
+                    : axis === 'y' && top + dim.height > boundary.bottom
+                        ? 'top'
+                        : false;
     }
 
     function getBoundary(boundary) {

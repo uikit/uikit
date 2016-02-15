@@ -25,7 +25,7 @@ export default {
                 var el = $('#' + icon, doc), svg, dimensions;
 
                 if (!el || !el.length) {
-                    return $.Deferred().reject();
+                    return $.Deferred().reject('Icon not found.');
                 }
 
                 el = el.clone();
