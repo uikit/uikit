@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Grid Parallax component - UIkit documentation</title>
+        <title>Parallax Grid component - UIkit documentation</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
         <link id="data-uikit-theme" rel="stylesheet" href="css/uikit.docs.min.css">
@@ -61,6 +61,7 @@
                             <ul class="tm-nav uk-nav" data-uk-nav>
                                 <li class="uk-nav-header">Layout</li>
                                 <li><a href="grid-js.html">Dynamic Grid</a></li>
+                                <li class="uk-active"><a href="gridparallax.html">Parallax Grid</a></li>
                                 <li class="uk-nav-header">Navigations</li>
                                 <li><a href="dotnav.html">Dotnav</a></li>
                                 <li><a href="slidenav.html">Slidenav</a></li>
@@ -81,7 +82,6 @@
                                 <li><a href="slideset.html">Slideset</a></li>
                                 <li><a href="slideshow.html">Slideshow</a></li>
                                 <li><a href="parallax.html">Parallax</a></li>
-                                <li><a href="gridparallax.html">Grid Parallax</a></li>
                                 <li><a href="accordion.html">Accordion</a></li>
                                 <li><a href="notify.html">Notify</a></li>
                                 <li><a href="search.html">Search</a></li>
@@ -98,7 +98,7 @@
 
                             <article class="uk-article">
 
-                                <h1>Grid Parallax</h1>
+                                <h1>Parallax Grid</h1>
 
                                 <p class="uk-article-lead">Create a scrolling effect where the single rows of the grid scroll in different speed.</p>
                                 <p>With this component you can add the scrolling parallax effect to rows within your grid component.</p>
@@ -134,7 +134,7 @@
                                 <hr class="uk-article-divider">
 
                                 <h2>Javascript Arguments</h2>
-                                
+
                                 <p>To change the scroll speed you can change the arguments of the <code>data-uk-gridparallax</code> like this: <code>data-uk-gridparallax="{diff:200}"</code> </p>
 
                                 <div class="uk-grid uk-grid-match uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-5" data-uk-grid-margin data-uk-gridparallax="{diff:200}">
@@ -160,6 +160,41 @@
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni earum, provident expedita nihil accusamus dolorum odio, laborum debitis atque ipsam cumque adipisci amet eius doloremque vel, modi delectus iusto nobis.
                                 </p>
+
+
+                                <hr class="uk-article-divider">
+
+                            <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                            <p>This is an example of how to set options via attribute:</p>
+
+                            <pre><code>data-uk-grid-parallax=&quot;{diff:200}&quot;</code></pre>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Possible value</th>
+                                            <th>Default</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>diff</code></td>
+                                            <td>integer</td>
+                                            <td>400</td>
+                                            <td>Translate value</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Init element manually</h3>
+
+                            <pre><code>var gp = UIkit.gridparallax(element, { /* options */ });</code></pre>
+
 
 
                             </article>
@@ -306,7 +341,7 @@
                                 <li><a href="slideset.html">Slideset</a></li>
                                 <li><a href="slideshow.html">Slideshow</a></li>
                                 <li><a href="parallax.html">Parallax</a></li>
-                                <li><a href="gridparallax.html">Grid Parallax</a></li>
+                                <li><a href="gridparallax.html">Parallax Grid</a></li>
                                 <li><a href="accordion.html">Accordion</a></li>
                                 <li><a href="notify.html">Notify</a></li>
                                 <li><a href="search.html">Search</a></li>

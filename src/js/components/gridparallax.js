@@ -43,12 +43,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$('[data-uk-gridparallax]', context).each(function() {
+                UI.$('[data-uk-grid-parallax]', context).each(function() {
 
                     var parallax = UI.$(this);
 
                     if (!parallax.data("gridparallax")) {
-                        UI.gridparallax(parallax, UI.Utils.options(parallax.attr("data-uk-gridparallax")));
+                        UI.gridparallax(parallax, UI.Utils.options(parallax.attr("data-uk-grid-parallax")));
                     }
                 });
             });
@@ -57,6 +57,7 @@
         init: function() {
 
             this.initItems().process();
+            this.element.css('margin-bottom', this.options.diff + parseInt(this.element.css('margin-bottom')));
             parallaxes.push(this);
 
         },
@@ -82,7 +83,7 @@
                 items    = this.items,
                 mods     = [(columns-1)];
 
-            if (columns == 1 || !percent || !UIkit.$win.scrollTop()) {
+            if (columns == 1 || !percent) {
                 items.css('transform', '');
                 return;
             }
@@ -97,7 +98,7 @@
 
             items.each(function(idx, ele, translate){
                 translate = mods.indexOf((idx+1) % columns) != -1 ? percentdiff : percentdiff / 4;
-                UI.$(this).css('transform', 'translate3d(0,'+(-1 * translate)+'px, 0)');
+                UI.$(this).css('transform', 'translate3d(0,'+(translate)+'px, 0)');
             });
         }
 
