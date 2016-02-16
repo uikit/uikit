@@ -7,29 +7,46 @@ export default function (UIkit) {
 
         props: {
             dropdown: String,
+            mode: String,
             pos: String,
             offset: Number,
             justify: String,
             target: String,
             cls: String,
+            delayShow: Number,
+            delayHide: Number,
             overlay: Boolean,
             duration: Number
         },
 
         defaults: {
             dropdown: '.uk-navbar-nav > li:not([uk-drop], [uk-dropdown])',
+            mode: 'hover',
             pos: 'bottom-left',
             offset: 0,
             justify: false,
             target: '.uk-navbar-dropdown',
             cls: 'uk-navbar-dropdown',
+            delayHide: 800,
+            hoverIdle: 200,
             overlay: false,
             duration: 200
         },
 
         ready() {
 
-            UIkit.drop(this.$el.find(this.dropdown), {pos: this.pos, offset: this.offset, justify: this.justify, target: this.target, cls: this.cls, flip: 'x', boundary: this.$el});
+            UIkit.drop(this.$el.find(this.dropdown), {
+                mode: this.mode,
+                pos: this.pos,
+                offset: this.offset,
+                justify: this.justify,
+                target: this.target,
+                cls: this.cls,
+                flip: 'x',
+                boundary: this.$el,
+                delayShow: this.delayShow,
+                delayHide: this.delayHide
+            });
 
             if (!this.overlay) {
                 return;
