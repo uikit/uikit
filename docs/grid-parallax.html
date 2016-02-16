@@ -14,18 +14,6 @@
         <script src="../vendor/highlight/highlight.js"></script>
         <script src="js/docs.js"></script>
         <script src="../src/js/components/grid-parallax.js"></script>
-
-        <style>
-
-            .uk-panel {
-                height: 250px;
-            }
-
-            .uk-grid > div:nth-child(2n) > .uk-panel {
-                background: #ecda53;
-            }
-
-        </style>
     </head>
 
     <body>
@@ -100,8 +88,8 @@
 
                                 <h1>Parallax Grid</h1>
 
-                                <p class="uk-article-lead">Create a scrolling effect where the single columns of the grid scroll in different speed.</p>
-                                <p>With this component you can add the scrolling parallax effect to columns within your grid component.</p>
+                                <p class="uk-article-lead">Create an effect which scrolls the single columns of a grid with different speeds.</p>
+                                <p>This component allows you to add a scrolling parallax effect to columns within a Grid from the <a href="grid.html">Grid component</a>.</p>
 
                                 <hr class="uk-article-divider">
 
@@ -111,7 +99,7 @@
 
                                 <h3 class="tm-article-subtitle">Example</h3>
 
-                                <div class="uk-grid uk-grid-match uk-grid-width-1-1 uk-grid-width-medium-1-3" data-uk-grid data-uk-grid-parallax>
+                                <div class="uk-grid uk-grid-match uk-grid-width-1-1 uk-grid-width-medium-1-3 tm-grid-height-250 uk-margin-large" data-uk-grid data-uk-grid-margin data-uk-grid-parallax>
 
                                     <div>
                                         <div class="uk-panel uk-panel-box">1</div>
@@ -119,9 +107,9 @@
                                         <div class="uk-panel uk-panel-box">3</div>
                                     </div>
                                     <div>
-                                        <div class="uk-panel uk-panel-box">4</div>
-                                        <div class="uk-panel uk-panel-box">5</div>
-                                        <div class="uk-panel uk-panel-box">6</div>
+                                        <div class="uk-panel uk-panel-box uk-panel-box-primary">4</div>
+                                        <div class="uk-panel uk-panel-box uk-panel-box-primary">5</div>
+                                        <div class="uk-panel uk-panel-box uk-panel-box-primary">6</div>
                                     </div>
                                     <div>
                                         <div class="uk-panel uk-panel-box">7</div>
@@ -135,32 +123,27 @@
 
                                 <h2>Javascript Arguments</h2>
 
-                                <p>To change the scroll speed you can change the arguments of the <code>data-uk-grid-parallax</code> like this: <code>data-uk-grid-parallax="{diff:200}"</code> </p>
+                                <p>To adjust the scroll speed, just change the arguments of the <code>data-uk-grid-parallax</code> attribute, for example like this: <code>data-uk-grid-parallax="{diff:200}"</code></p>
 
-                                <div class="uk-grid uk-grid-match uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-5" data-uk-grid-margin data-uk-grid-parallax="{diff:200}">
+                                <div class="uk-grid uk-grid-match uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-5 tm-grid-height-250 uk-margin-large" data-uk-grid-margin data-uk-grid-parallax="{diff:200}">
 
                                     <div><div class="uk-panel uk-panel-box">1</div></div>
-                                    <div><div class="uk-panel uk-panel-box">2</div></div>
+                                    <div><div class="uk-panel uk-panel-box uk-panel-box-primary">2</div></div>
                                     <div><div class="uk-panel uk-panel-box">3</div></div>
-                                    <div><div class="uk-panel uk-panel-box">4</div></div>
+                                    <div><div class="uk-panel uk-panel-box uk-panel-box-primary">4</div></div>
                                     <div><div class="uk-panel uk-panel-box">5</div></div>
-                                    <div><div class="uk-panel uk-panel-box">6</div></div>
+                                    <div><div class="uk-panel uk-panel-box uk-panel-box-primary">6</div></div>
                                     <div><div class="uk-panel uk-panel-box">7</div></div>
-                                    <div><div class="uk-panel uk-panel-box">8</div></div>
+                                    <div><div class="uk-panel uk-panel-box uk-panel-box-primary">8</div></div>
                                     <div><div class="uk-panel uk-panel-box">9</div></div>
-                                    <div><div class="uk-panel uk-panel-box">10</div></div>
+                                    <div><div class="uk-panel uk-panel-box uk-panel-box-primary">10</div></div>
                                     <div><div class="uk-panel uk-panel-box">11</div></div>
-                                    <div><div class="uk-panel uk-panel-box">12</div></div>
+                                    <div><div class="uk-panel uk-panel-box uk-panel-box-primary">12</div></div>
                                     <div><div class="uk-panel uk-panel-box">13</div></div>
-                                    <div><div class="uk-panel uk-panel-box">14</div></div>
+                                    <div><div class="uk-panel uk-panel-box uk-panel-box-primary">14</div></div>
                                     <div><div class="uk-panel uk-panel-box">15</div></div>
 
                                 </div>
-
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni earum, provident expedita nihil accusamus dolorum odio, laborum debitis atque ipsam cumque adipisci amet eius doloremque vel, modi delectus iusto nobis.
-                                </p>
-
 
                                 <hr class="uk-article-divider">
 
