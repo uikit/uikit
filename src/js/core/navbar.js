@@ -71,6 +71,7 @@ export default function (UIkit) {
                     requestAnimationFrame(() => {
                         if (!UIkit.drop.getActive()) {
                             Transition.stop(this.overlay).start(this.overlay, {height: 0}, this.duration);
+                            height = 0;
                         }
                     });
                 }
