@@ -26,7 +26,7 @@ export default function (UIkit) {
                 result.push(this[DATA] && this[DATA][name] || new UIkit.components[name]({el: this, data: data || {}}));
             });
 
-            return isString(element) ? result : result[0];
+            return result;
         };
 
         return UIkit.components[name];

@@ -8,6 +8,7 @@ import Grid from './grid';
 import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
+import Navbar from './navbar';
 import Responsive from './responsive';
 import Scrollspy from './scrollspy';
 import ScrollspyNav from './scrollspy-nav';
@@ -37,6 +38,7 @@ export default function (UIkit, _) {
     UIkit.use(Icon);
     UIkit.use(Close);
     UIkit.use(MatchHeight);
+    UIkit.use(Navbar);
     UIkit.use(Responsive);
     UIkit.use(Scrollspy);
     UIkit.use(ScrollspyNav);

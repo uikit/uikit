@@ -31,18 +31,44 @@ export function transition(element, props, duration, transition) {
         element.css(name, element.css(name));
     }
 
-    requestAnimationFrame(function () {
+    cancelAnimationFrame(element[0].__uk_transition);
+
+    element[0].__uk_transition = requestAnimationFrame(() => {
+
+        var timer = setTimeout(() => {
+            element.trigger(transitionend);
+        }, duration);
+
         element
-            .one(transitionend, function () {
+            .one(transitionend, () => {
                 d.resolve();
                 element.css('transition', '');
+                clearTimeout(timer);
             })
             .css('transition', `all ${duration}ms ${transition || 'linear'}`)
             .css(props);
+
+        delete element[0].__uk_transition;
     });
 
     return d.promise();
 }
+
+export const Transition = {
+
+    start: transition,
+
+    stop(element) {
+
+        element = $(element);
+
+        cancelAnimationFrame(element[0].__uk_transition);
+        $(element).trigger(transitionend);
+
+        return this;
+    }
+
+};
 
 export function animate(element, animation, duration, out) {
 
@@ -90,9 +116,8 @@ export const Animation = {
 
     cancel(element) {
         $(element).trigger(animationend);
-    },
-
-    transition: transition
+        return this;
+    }
 
 };
 

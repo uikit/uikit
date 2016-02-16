@@ -37,6 +37,11 @@ export default function (UIkit) {
         ready() {
 
             this.drop = this.$el.find(this.target);
+
+            if (!this.drop.length) {
+                return;
+            }
+
             this.justify = this.justify && $(this.justify);
 
             if (this.justify) {
@@ -91,7 +96,7 @@ export default function (UIkit) {
 
                 this.clearTimers();
 
-                if (active === this) {
+                if (this.isActive()) {
                     return;
                 } else if (!force && active && active !== this && active.isDelaying()) {
                     this.delayShowTimer = setTimeout(this.show.bind(this), 75);
@@ -100,9 +105,9 @@ export default function (UIkit) {
                     active.hide(true);
                 }
 
-                this.$el.trigger('beforeshow', [this]);
-
                 var show = () => {
+
+                    this.$el.trigger('beforeshow', [this]);
 
                     this.updatePosition();
 
@@ -130,13 +135,15 @@ export default function (UIkit) {
                 this.clearTimers();
 
                 var hide = () => {
+
+                    active = active === this ? null : active;
+
                     this.$el
                         .trigger('beforehide', [this, force])
                         .removeClass('uk-open')
                         .attr('aria-expanded', 'false')
                         .trigger('hide', [this, force]);
 
-                    active = active === this ? null : active;
                     this.cancelMouseTracker();
                 };
 
@@ -215,17 +222,23 @@ export default function (UIkit) {
 
                 if (this.flip) {
 
-                    var axis = this.getAxis(),
+                    var axis = this.getAxis(), dir, align;
+
+                    if (this.flip === true || this.flip === axis) {
                         dir = flipAxis(pos, position, dim, boundary, axis);
 
-                    if (dir && !flipAxis(pos, positions[`${dir}-${this.align}`], dim, boundary, axis)) {
-                        this.dir = dir;
+                        if (dir && !flipAxis(pos, positions[`${dir}-${this.align}`], dim, boundary, axis)) {
+                            this.dir = dir;
+                        }
                     }
 
                     axis = axis === 'x' ? 'y' : 'x';
-                    dir = flipPosition(flipAxis(pos, position, dim, boundary, axis));
-                    if (dir && !flipAxis(pos, positions[`${this.dir}-${dir}`], dim, boundary, axis)) {
-                        this.align = dir;
+                    if (this.flip === true || this.flip === axis) {
+                        align = flipPosition(flipAxis(pos, position, dim, boundary, axis));
+
+                        if (align && !flipAxis(pos, positions[`${this.dir}-${align}`], dim, boundary, axis)) {
+                            this.align = align;
+                        }
                     }
 
                     position = positions[`${this.dir}-${this.align}`]
@@ -322,14 +335,22 @@ export default function (UIkit) {
 
             getAxis() {
                 return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
+            },
+
+            isActive() {
+                return active === this;
             }
 
         }
 
     });
 
+    UIkit.drop.getActive = function () {
+        return active;
+    };
+
     function flipPosition(pos) {
-        switch(pos) {
+        switch (pos) {
             case 'left':
                 return 'right';
             case 'right':

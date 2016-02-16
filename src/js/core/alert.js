@@ -1,4 +1,4 @@
-import {Animation} from '../util/index';
+import {Animation, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -31,7 +31,7 @@ export default function (UIkit) {
 
                 if (String(this.animation) === 'true') {
 
-                    Animation.transition(this.$el, {
+                    Transition.start(this.$el, {
                         'overflow': 'hidden',
                         'height': 0,
                         'opacity': 0,
