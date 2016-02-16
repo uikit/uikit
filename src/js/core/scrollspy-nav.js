@@ -63,7 +63,7 @@ export default function (UIkit) {
                 });
             },
 
-            events: ['scrolling', 'load', 'resize', 'orientationchange', 'update']
+            events: ['scrolling', 'load', 'resize', 'orientationchange']
 
         }
 

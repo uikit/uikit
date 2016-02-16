@@ -18,7 +18,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['load', 'resize', 'orientationchange', 'update']
+            events: ['load', 'resize', 'orientationchange']
 
         }
 

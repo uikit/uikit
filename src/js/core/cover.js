@@ -61,7 +61,7 @@ export default function (UIkit) {
                 this.$el.css(dimensions);
             },
 
-            events: ['load', 'resize', 'orientationchange', 'update']
+            events: ['load', 'resize', 'orientationchange']
 
         }
 

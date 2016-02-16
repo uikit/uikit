@@ -95,7 +95,7 @@ export default function (UIkit) {
 
         var update = this.$options.update;
 
-        if (this.update && !(isPlainObject(update) && update.events && update.events.indexOf(e.type) === -1)) {
+        if (this.update && (e.type === 'update' || !(isPlainObject(update) && update.events && update.events.indexOf(e.type) === -1))) {
             this.update(e);
         }
 

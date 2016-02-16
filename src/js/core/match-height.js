@@ -54,7 +54,7 @@ export default function (UIkit) {
                 return this;
             },
 
-            events: ['resize', 'orientationchange', 'update']
+            events: ['resize', 'orientationchange']
 
         },
 
