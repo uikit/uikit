@@ -56,9 +56,27 @@
 
         init: function() {
 
+            var $this = this;
+
             this.initItems().process();
             parallaxes.push(this);
 
+            UI.$win.on('load resize orientationchange', (function() {
+
+                var fn = function() {
+                    var columns  = getcolumns($this.element);
+
+                    $this.element.css('margin-bottom', '');
+
+                    if (columns > 1) {
+                        $this.element.css('margin-bottom', $this.options.diff + parseInt($this.element.css('margin-bottom')));
+                    }
+                };
+
+                UI.$(function() { fn(); });
+
+                return UI.Utils.debounce(fn, 50);
+            })());
         },
 
         initItems: function() {
@@ -82,14 +100,10 @@
                 items    = this.items,
                 mods     = [(columns-1)];
 
-            this.element.css('margin-bottom', '');
-
             if (columns == 1 || !percent) {
                 items.css('transform', '');
                 return;
             }
-
-            this.element.css('margin-bottom', this.options.diff + parseInt(this.element.css('margin-bottom')));
 
             while(mods.length < columns) {
                if(!(mods[mods.length-1] - 2)) break;
