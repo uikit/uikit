@@ -28,8 +28,8 @@
 
         defaults: {
             target   : false,
-            smooth   : 300,
-            diff     : 400
+            smooth   : 50,
+            diff     : 150
         },
 
         boot: function() {
@@ -100,7 +100,7 @@
                 percentdiff = percent*diff;
 
             items.each(function(idx, ele, translate){
-                translate = mods.indexOf((idx+1) % columns) != -1 ? percentdiff : percentdiff / 4;
+                translate = mods.indexOf((idx+1) % columns) != -1 ? percentdiff : percentdiff / 8 * -1;
                 UI.$(this).css('transform', 'translate3d(0,'+(translate)+'px, 0)');
             });
         }
@@ -143,8 +143,12 @@
                 percentage = Math.round(distance / ((wh + height) / 100));
                 percent    = percentage/100;
             }
+
+            if (top < wh) {
+                percent = percent * scrolltop / ((top + height) - wh);
+            }
         }
 
-        return percent;
+        return percent > 1 ? 1:percent;
     }
 });
