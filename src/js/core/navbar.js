@@ -38,25 +38,41 @@ export default function (UIkit) {
                 this.overlay = $('<div class="uk-dropdown-overlay"></div>').insertAfter(this.$el);
             }
 
+            var height, transition;
+
             this.$el.on({
 
                 show: (e, drop) => {
 
                     drop.$el.removeClass('uk-open');
 
-                    Transition.stop(this.overlay).start(this.overlay, {height: drop.drop.outerHeight(true)}, this.duration).then(() => {
-                        if (drop.isActive()) {
+                    var newHeight = drop.drop.outerHeight(true);
+                    if (height === newHeight) {
+
+                        if (transition && transition.state() !== 'pending') {
                             drop.$el.addClass('uk-open');
-                            drop.$update();
+                        }
+
+                        return;
+                    }
+                    height = newHeight;
+
+                    transition = Transition.start(this.overlay, {height: drop.drop.outerHeight(true)}, this.duration).then(() => {
+                        var active = UIkit.drop.getActive();
+                        if (active) {
+                            active.$el.addClass('uk-open');
+                            active.$update();
                         }
                     });
 
                 },
 
                 hide: () => {
-                    if (!UIkit.drop.getActive()) {
-                        Transition.stop(this.overlay).start(this.overlay, {height: 0}, this.duration);
-                    }
+                    requestAnimationFrame(() => {
+                        if (!UIkit.drop.getActive()) {
+                            Transition.stop(this.overlay).start(this.overlay, {height: 0}, this.duration);
+                        }
+                    });
                 }
 
             });
@@ -65,7 +81,7 @@ export default function (UIkit) {
 
                 mouseenter: () => {
                     var active = UIkit.drop.getActive();
-                    if (UIkit.drop.getActive()) {
+                    if (active) {
                         active.clearTimers();
                     }
                 },
