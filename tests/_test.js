@@ -123,7 +123,7 @@
             "components/form-password",
             "components/form-select",
             "components/grid-js",
-            "components/gridparallax",
+            "components/grid-parallax",
             "components/htmleditor",
             "components/lightbox",
             "components/nestable",
