@@ -28,7 +28,7 @@
 
         defaults: {
             target   : false,
-            smooth   : 50,
+            smooth   : 150,
             diff     : 150
         },
 
@@ -114,7 +114,7 @@
                 percentdiff = percent*diff;
 
             items.each(function(idx, ele, translate){
-                translate = mods.indexOf((idx+1) % columns) != -1 ? percentdiff : percentdiff / 8 * -1;
+                translate = mods.indexOf((idx+1) % columns) != -1 ? percentdiff : percentdiff / 8;
                 UI.$(this).css('transform', 'translate3d(0,'+(translate)+'px, 0)');
             });
         }
