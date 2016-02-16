@@ -6,27 +6,30 @@ export default function (UIkit) {
     UIkit.component('navbar', {
 
         props: {
-            overlay: Boolean,
-            duration: Number,
-            justify: String,
             dropdown: String,
+            pos: String,
+            offset: Number,
+            justify: String,
             target: String,
-            cls: String
+            cls: String,
+            overlay: Boolean,
+            duration: Number
         },
 
         defaults: {
-            overlay: false,
-            duration: 200,
-            justify: false,
             dropdown: '.uk-navbar-nav > li:not([uk-drop], [uk-dropdown])',
+            pos: 'bottom-left',
+            offset: 0,
+            justify: false,
             target: '.uk-navbar-dropdown',
-            cls: 'uk-navbar-dropdown'
-
+            cls: 'uk-navbar-dropdown',
+            overlay: false,
+            duration: 200
         },
 
         ready() {
 
-            UIkit.drop(this.$el.find(this.dropdown), {target: this.target, cls: this.cls, justify: this.justify, flip: 'x'});
+            UIkit.drop(this.$el.find(this.dropdown), {pos: this.pos, offset: this.offset, justify: this.justify, target: this.target, cls: this.cls, flip: 'x', boundary: this.$el});
 
             if (!this.overlay) {
                 return;
@@ -58,7 +61,7 @@ export default function (UIkit) {
                     height = newHeight;
 
                     transition = Transition.start(this.overlay, {height: drop.drop.outerHeight(true)}, this.duration).then(() => {
-                        var active = UIkit.drop.getActive();
+                        var active = this.getActive();
                         if (active) {
                             active.$el.addClass('uk-open');
                             active.$update();
@@ -69,7 +72,7 @@ export default function (UIkit) {
 
                 hide: () => {
                     requestAnimationFrame(() => {
-                        if (!UIkit.drop.getActive()) {
+                        if (!this.getActive()) {
                             Transition.stop(this.overlay).start(this.overlay, {height: 0}, this.duration);
                             height = 0;
                         }
@@ -81,20 +84,31 @@ export default function (UIkit) {
             this.overlay.on({
 
                 mouseenter: () => {
-                    var active = UIkit.drop.getActive();
+                    var active = this.getActive();
                     if (active) {
                         active.clearTimers();
                     }
                 },
 
                 mouseleave: (e) => {
-                    var active = UIkit.drop.getActive();
+                    var active = this.getActive();
                     if (active && !isWithin(e.relatedTarget, active.$el)) {
                         active.hide();
                     }
                 }
 
             });
+
+        },
+
+        methods: {
+
+            getActive() {
+                var active = UIkit.drop.getActive();
+                if (active && isWithin(active.$el, this.$el)) {
+                    return active;
+                }
+            }
 
         }
 
