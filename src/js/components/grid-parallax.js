@@ -29,7 +29,7 @@
         defaults: {
             target   : false,
             smooth   : 150,
-            diff     : 150
+            translate     : 150
         },
 
         boot: function() {
@@ -69,7 +69,7 @@
                     $this.element.css('margin-bottom', '');
 
                     if (columns > 1) {
-                        $this.element.css('margin-bottom', $this.options.diff + parseInt($this.element.css('margin-bottom')));
+                        $this.element.css('margin-bottom', $this.options.translate + parseInt($this.element.css('margin-bottom')));
                     }
                 };
 
@@ -110,11 +110,10 @@
                mods.push(mods[mods.length-1] - 2);
             }
 
-            var diff  = this.options.diff,
-                percentdiff = percent*diff;
+            var translate  = this.options.translate, percenttranslate = percent * translate;
 
             items.each(function(idx, ele, translate){
-                translate = mods.indexOf((idx+1) % columns) != -1 ? percentdiff : percentdiff / 8;
+                translate = mods.indexOf((idx+1) % columns) != -1 ? percenttranslate : percenttranslate / 8;
                 UI.$(this).css('transform', 'translate3d(0,'+(translate)+'px, 0)');
             });
         }
