@@ -80,11 +80,11 @@
 
         init: function() {
 
-            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>'), boundary = this.options.boundary, boundtoparent;
+            var boundary = this.options.boundary, boundtoparent;
 
-            this.wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
-
+            this.wrapper = this.element.wrap('<div class="uk-sticky-placeholder"></div>').parent();
             this.computeWrapper();
+            this.element.css('margin', 0);
 
             if (boundary) {
 
