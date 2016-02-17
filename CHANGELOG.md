@@ -1,7 +1,7 @@
 # Changelog
 
 
-# WIP
+### 2.25.0 (February 17, 2016)
   - Added grid parallax component
   - Added new grid-width classes to grid component
   - Added better vertical-align for embedded content to base component
