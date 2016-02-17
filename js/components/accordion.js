@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
     var component;
 
@@ -52,7 +52,7 @@
 
             var $this = this;
 
-            this.element.on('click.uikit.accordion', this.options.toggle, function(e) {
+            this.element.on('click.uk.accordion', this.options.toggle, function(e) {
 
                 e.preventDefault();
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
@@ -40,6 +40,7 @@
             listItemClass   : 'uk-nestable-item',
             dragClass       : 'uk-nestable-dragged',
             movingClass     : 'uk-nestable-moving',
+            noChildrenClass : 'uk-nestable-nochildren',
             emptyClass      : 'uk-nestable-empty',
             handleClass     : '',
             collapsedClass  : 'uk-collapsed',
@@ -491,8 +492,8 @@
                 mouse.distAxX = 0;
                 prev = this.placeEl.prev('li');
 
-                // increase horizontal level if previous sibling exists and is not collapsed
-                if (mouse.distX > 0 && prev.length && !prev.hasClass(opt.collapsedClass)) {
+                // increase horizontal level if previous sibling exists, is not collapsed, and does not have a 'no children' class
+                if (mouse.distX > 0 && prev.length && !prev.hasClass(opt.collapsedClass) && !prev.hasClass(opt.noChildrenClass)) {
 
                     // cannot increase level when item above is collapsed
                     list = prev.find(opt._listClass).last();

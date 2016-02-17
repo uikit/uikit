@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -296,13 +296,13 @@
         url     = element.css('background-image').replace(/^url\(/g, '').replace(/\)$/g, '').replace(/("|')/g, '');
         check   = function() {
 
-            var w = element.width(), h = element.height(), extra = (prop=='bg') ? opts.diff : (opts.diff/100) * h;
+            var w = element.innerWidth(), h = element.innerHeight(), extra = (prop=='bg') ? opts.diff : (opts.diff/100) * h;
 
             h += extra;
             w += Math.ceil(extra * ratio);
 
-            if (w-extra > size.w && h < size.h) {
-                return obj.element.css({'background-size': ''});
+            if (w-extra < size.w && h < size.h) {
+                return obj.element.css({'background-size': 'auto'});
             }
 
             // if element height < parent height (gap underneath)

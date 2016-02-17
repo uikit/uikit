@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -19,10 +19,10 @@
 
                 UI.$("[data-uk-margin]", context).each(function() {
 
-                    var ele = UI.$(this), obj;
+                    var ele = UI.$(this);
 
                     if (!ele.data("stackMargin")) {
-                        obj = UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+                        UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
                     }
                 });
             });
@@ -31,8 +31,6 @@
         init: function() {
 
             var $this = this;
-
-            this.columns = [];
 
             UI.$win.on('resize orientationchange', (function() {
 
@@ -61,32 +59,26 @@
 
         process: function() {
 
-            var $this = this;
+            var $this = this, columns = this.element.children();
 
-            this.columns = this.element.children();
-
-            UI.Utils.stackMargin(this.columns, this.options);
+            UI.Utils.stackMargin(columns, this.options);
 
             if (!this.options.rowfirst) {
                 return this;
             }
 
             // Mark first column elements
-            var pos_cache = this.columns.removeClass(this.options.rowfirst).filter(':visible').first().position();
+            var pos_cache = columns.removeClass(this.options.rowfirst).filter(':visible').first().position();
 
             if (pos_cache) {
-                this.columns.each(function() {
+                columns.each(function() {
                     UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass':'removeClass']($this.options.rowfirst);
                 });
             }
 
             return this;
-        },
-
-        revert: function() {
-            this.columns.removeClass(this.options.cls);
-            return this;
         }
+
     });
 
 
@@ -119,7 +111,7 @@
 
                         var ele = UI.$(this), obj;
 
-                        if (!ele.data("responsiveIframe")) {
+                        if (!ele.data("responsiveElement")) {
                             obj = UI.responsiveElement(ele, {});
                         }
                     });

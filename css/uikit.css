@@ -1,9 +1,9 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
 /*
- * 1. Normalizes default `font-family` and sets `font-size` here to support `rem` units
+ * 1. Normalize default `font-family` and set `font-size` to support `rem` units
  * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
  * 3. Style
  */
@@ -32,7 +32,7 @@ a {
   background: transparent;
 }
 /*
- * Improves readability when focused and also mouse hovered in all browsers.
+ * Improve readability of focused elements when they are also in an active/hover state.
  */
 a:active,
 a:hover {
@@ -55,13 +55,13 @@ a:hover,
 /* Text-level semantics
  ========================================================================== */
 /*
- * Addresses styling not present in Chrome, Safari, Opera and IE 8/9/10.
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
  */
 abbr[title] {
   border-bottom: 1px dotted;
 }
 /*
- * Addresses style set to `bolder` in Firefox
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
  */
 b,
 strong {
@@ -132,13 +132,23 @@ sup {
 sub {
   bottom: -0.25em;
 }
-/* Images
+/* Embedded content
  ========================================================================== */
+/*
+ * Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers.
+ */
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
 /*
  * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
  * 2. Corrects `max-width` behavior if padding and border are used
  * 3. Remove border when inside `a` element in IE 8/9/10.
- * 4. Remove the gap between images and the bottom of their containers
  */
 img {
   /* 1 */
@@ -148,8 +158,6 @@ img {
   box-sizing: border-box;
   /* 3 */
   border: 0;
-  /* 4 */
-  vertical-align: middle;
 }
 /*
  * Preserve original image dimensions
@@ -338,7 +346,9 @@ pre {
 /* HTML5 elements
  ========================================================================== */
 /*
- * Corrects `block` display not defined in IE 8/9.
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
  */
 article,
 aside,
@@ -354,7 +364,7 @@ summary {
   display: block;
 }
 /*
- * Addresses inconsistent vertical alignment of `progress` in Chrome, Firefox and Opera.
+ * Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
 progress {
   vertical-align: baseline;
@@ -366,8 +376,8 @@ audio:not([controls]) {
   display: none;
 }
 /*
- * Address `[hidden]` styling not present in IE 8/9.
- * Hide the `template` element in IE and Safari
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
  */
 [hidden],
 template {
@@ -631,8 +641,14 @@ iframe {
 .uk-grid-width-1-10 > * {
   width: 10%;
 }
+.uk-grid-width-auto > * {
+  width: auto;
+}
 /* Phone landscape and bigger */
 @media (min-width: 480px) {
+  .uk-grid-width-small-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-small-1-2 > * {
     width: 50%;
   }
@@ -654,6 +670,9 @@ iframe {
 }
 /* Tablet and bigger */
 @media (min-width: 768px) {
+  .uk-grid-width-medium-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-medium-1-2 > * {
     width: 50%;
   }
@@ -675,6 +694,9 @@ iframe {
 }
 /* Desktop and bigger */
 @media (min-width: 960px) {
+  .uk-grid-width-large-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-large-1-2 > * {
     width: 50%;
   }
@@ -696,6 +718,9 @@ iframe {
 }
 /* Large screen and bigger */
 @media (min-width: 1220px) {
+  .uk-grid-width-xlarge-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-xlarge-1-2 > * {
     width: 50%;
   }
@@ -7678,12 +7703,10 @@ a.uk-thumbnail:focus {
 @media (min-width: 768px) {
   .uk-align-medium-left {
     margin-right: 15px;
-    margin-bottom: 15px;
     float: left;
   }
   .uk-align-medium-right {
     margin-left: 15px;
-    margin-bottom: 15px;
     float: right;
   }
 }
@@ -8549,7 +8572,9 @@ a.uk-thumbnail:focus {
    Component: Print
  ========================================================================== */
 @media print {
-  * {
+  *,
+  *:before,
+  *:after {
     background: transparent !important;
     color: black !important;
     box-shadow: none !important;

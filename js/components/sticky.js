@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -81,11 +81,11 @@
 
         init: function() {
 
-            var wrapper  = UI.$('<div class="uk-sticky-placeholder"></div>'), boundary = this.options.boundary, boundtoparent;
+            var boundary = this.options.boundary, boundtoparent;
 
-            this.wrapper = this.element.css('margin', 0).wrap(wrapper).parent();
-
+            this.wrapper = this.element.wrap('<div class="uk-sticky-placeholder"></div>').parent();
             this.computeWrapper();
+            this.element.css('margin', 0);
 
             if (boundary) {
 
@@ -302,8 +302,7 @@
                     sticky.element.css({
                         position : "fixed",
                         top      : newTop,
-                        width    : sticky.getWidthFrom.length ? sticky.getWidthFrom.width() : sticky.element.width(),
-                        left     : sticky.wrapper.offset().left
+                        width    : sticky.getWidthFrom.length ? sticky.getWidthFrom.width() : sticky.element.width()
                     });
 
                     if (!sticky.init) {

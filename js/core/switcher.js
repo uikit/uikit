@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -37,7 +37,7 @@
 
             var $this = this;
 
-            this.on("click.uikit.switcher", this.options.toggle, function(e) {
+            this.on("click.uk.switcher", this.options.toggle, function(e) {
                 e.preventDefault();
                 $this.show(this);
             });

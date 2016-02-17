@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -516,7 +516,9 @@
             }
 
             triggers.forEach(function (trigger, i) {
-                trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
+                if (trigger.sortable) {
+                    trigger.sortable.element.trigger('change.uk.sortable', [trigger.sortable, el, trigger.mode]);
+                }
             });
         },
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.24.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -30,7 +30,7 @@
 
             var $this = this;
 
-            this.on("click.uikit.nav", this.options.toggle, function(e) {
+            this.on("click.uk.nav", this.options.toggle, function(e) {
                 e.preventDefault();
                 var ele = UI.$(this);
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
