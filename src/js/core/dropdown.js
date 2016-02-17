@@ -6,14 +6,14 @@
         'x': {
             "bottom-left"   : 'bottom-right',
             "bottom-right"  : 'bottom-left',
-            "bottom-center" : 'bottom-right',
+            "bottom-center" : 'bottom-center',
             "top-left"      : 'top-right',
             "top-right"     : 'top-left',
-            "top-center"    : 'top-right',
-            "left-top"      : 'right',
+            "top-center"    : 'top-center',
+            "left-top"      : 'right-top',
             "left-bottom"   : 'right-bottom',
             "left-center"   : 'right-center',
-            "right-top"     : 'left',
+            "right-top"     : 'left-top',
             "right-bottom"  : 'left-bottom',
             "right-center"  : 'left-center'
         },
@@ -24,15 +24,26 @@
             "top-left"      : 'bottom-left',
             "top-right"     : 'bottom-right',
             "top-center"    : 'bottom-center',
-            "left-top"      : 'top-left',
-            "left-bottom"   : 'left-bottom',
-            "left-center"   : 'top-left',
-            "right-top"     : 'top-left',
-            "right-bottom"  : 'bottom-left',
-            "right-center"  : 'top-left'
+            "left-top"      : 'left-bottom',
+            "left-bottom"   : 'left-top',
+            "left-center"   : 'left-center',
+            "right-top"     : 'right-bottom',
+            "right-bottom"  : 'right-top',
+            "right-center"  : 'right-center'
         },
         'xy': {
-
+            "bottom-left"   : 'top-right',
+            "bottom-right"  : 'top-left',
+            "bottom-center" : 'top-center',
+            "top-left"      : 'bottom-right',
+            "top-right"     : 'bottom-left',
+            "top-center"    : 'bottom-center',
+            "left-top"      : 'right-bottom',
+            "left-bottom"   : 'right-top',
+            "left-center"   : 'right-center',
+            "right-top"     : 'left-bottom',
+            "right-bottom"  : 'left-top',
+            "right-center"  : 'left-center'
         }
     };
 
@@ -113,7 +124,7 @@
 
             if (this.options.mode == "click" || UI.support.touch) {
 
-                this.on("click.uikit.dropdown", function(e) {
+                this.on("click.uk.dropdown", function(e) {
 
                     var $target = UI.$(e.target);
 

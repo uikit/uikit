@@ -35,7 +35,7 @@
 
             this.current = false;
 
-            this.on("click.uikit.tab", this.options.target, function(e) {
+            this.on("click.uk.tab", this.options.target, function(e) {
 
                 e.preventDefault();
 
@@ -72,7 +72,7 @@
             if (this.element.hasClass("uk-tab-bottom")) this.responsivetab.dropdown.addClass("uk-dropdown-up");
 
             // handle click
-            this.responsivetab.lst.on('click.uikit.tab', 'a', function(e) {
+            this.responsivetab.lst.on('click.uk.tab', 'a', function(e) {
 
                 e.preventDefault();
                 e.stopPropagation();
@@ -100,7 +100,7 @@
                 });
             }
 
-            UI.dropdown(this.responsivetab, {"mode": "click"});
+            UI.dropdown(this.responsivetab, {"mode": "click", "preventflip": "y"});
 
             // init
             $this.trigger("change.uk.tab", [this.element.find(this.options.target).not('.uk-tab-responsive').filter('.uk-active')]);

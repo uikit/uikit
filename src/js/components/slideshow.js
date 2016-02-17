@@ -185,7 +185,7 @@
                 }
             });
 
-            this.on("click.uikit.slideshow", '[data-uk-slideshow-item]', function(e) {
+            this.on("click.uk.slideshow", '[data-uk-slideshow-item]', function(e) {
 
                 e.preventDefault();
 

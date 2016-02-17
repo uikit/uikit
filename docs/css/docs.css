@@ -409,6 +409,12 @@ html {
 .tm-grid-heights > :nth-child(8n-1) > * { height: 150px; }
 .tm-grid-heights > :nth-child(8n) > * { height: 110px; }
 
+/*
+ * Add a fixed height to grid items
+ */
+
+.tm-grid-height-250 > * > * { height: 250px; }
+
 
 /* Customizer
  ========================================================================== */

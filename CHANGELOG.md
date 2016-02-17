@@ -1,5 +1,22 @@
 # Changelog
 
+
+### 2.25.0 (February 17, 2016)
+  - Added grid parallax component
+  - Added new grid-width classes to grid component
+  - Added better vertical-align for embedded content to base component
+  - Added :before and :after to print component
+  - Fixed Animated slideset filter
+  - Fixed noDragClass option (sortable)
+  - Fixed drop target detection (sortable)
+  - Fixed parallax for images with smaller width
+  - Fixed parallax for elements with padding
+  - Fixed responsiveElement initialization
+  - Fixed scrollspy in view check
+  - Fixed sticky positioning
+  - Fixed dropdown flip positions
+  - Fixed margin on wrapper element (sticky)
+
 ### 2.24.3 (December 18, 2015)
 
   - Added support for using data-title attribute as lightbox caption
