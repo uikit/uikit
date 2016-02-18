@@ -1,0 +1,65 @@
+// Name:            Sticky
+// Description:     Make elements remain at the top of the viewport
+//
+// Component:       `data-uk-sticky`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@sticky-z-index:                                980;
+
+@sticky-animation-duration:                     0.2s;
+@sticky-reverse-animation-duration:             0.2s;
+
+
+/* ========================================================================
+   Component: Sticky
+ ========================================================================== */
+
+/*
+ * 1. More robust if padding and border are used
+ */
+
+[uk-sticky].uk-active {
+   z-index: @sticky-z-index;
+   /* 1 */
+   box-sizing: border-box;
+   margin: 0 !important;
+}
+
+/*
+ * 1. Resolve frame-rate issues on devices with lower frame-rates. Forces hardware acceleration
+ */
+
+.uk-sticky-placeholder > * {
+    /* 1 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/*
+ * Faster animations
+ */
+
+[uk-sticky][class*='uk-animation-'] {
+    -webkit-animation-duration: @sticky-animation-duration;
+    animation-duration: @sticky-animation-duration;
+}
+
+[uk-sticky].uk-animation-reverse {
+    -webkit-animation-duration: @sticky-reverse-animation-duration;
+    animation-duration: @sticky-reverse-animation-duration;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-sticky-misc;
+
+.hook-sticky-misc() {}

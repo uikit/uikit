@@ -24,7 +24,7 @@
         Navigation: ['nav', 'navbar', 'subnav'],
         Layout: ['section', 'container', 'grid', 'card'],
         JavaScript: ['drop', 'dropdown', 'toggle', 'scrollspy', 'smooth-scroll'],
-        Utilities: ['align', 'column', 'cover', 'flex', 'inverse', 'margin', 'padding', 'text', 'utility', 'visibility', 'width'],
+        Utilities: ['align', 'column', 'cover', 'flex', 'inverse', 'margin', 'padding', 'sticky', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced']
 
     };
