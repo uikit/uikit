@@ -1507,7 +1507,7 @@ ul.uk-nav-sub {
   -webkit-justify-content: space-between;
   justify-content: space-between;
   /* 2 */
-  background: #eee;
+  background: #f5f5f5;
 }
 /* Groups
  ========================================================================== */
@@ -1666,6 +1666,122 @@ ul.uk-nav-sub {
 .uk-navbar-transparent {
   background: none;
 }
+/* Dropdown
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+.uk-navbar-dropdown {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 1020;
+  /* 3 */
+  box-sizing: border-box;
+  width: 200px;
+  /* 4 */
+  padding: 15px;
+  background: #f5f5f5;
+  color: #444;
+}
+/*
+ * 1. Show drop
+ * 2. Set animation
+ */
+.uk-open > .uk-navbar-dropdown {
+  /* 1 */
+  display: block;
+  /* 2 */
+  -webkit-animation: uk-fade 0.2s ease-in-out;
+  animation: uk-fade 0.2s ease-in-out;
+}
+/*
+ * Alignment modifiers
+ */
+.uk-navbar-dropdown-top {
+  margin-top: -10px;
+}
+.uk-navbar-dropdown-bottom {
+  margin-top: 10px;
+}
+.uk-navbar-dropdown-left {
+  margin-left: -10px;
+}
+.uk-navbar-dropdown-right {
+  margin-left: 10px;
+}
+/*
+ * Grid modifiers
+ */
+.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * {
+  width: 100% !important;
+}
+/*
+ * Width modifier
+ */
+.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) {
+  width: 400px;
+}
+.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) {
+  width: 600px;
+}
+.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) {
+  width: 800px;
+}
+.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) {
+  width: 1000px;
+}
+/* Dropdown Nav
+ ========================================================================== */
+.uk-navbar-dropdown-nav {
+  white-space: nowrap;
+}
+/*
+ * Items
+ */
+.uk-navbar-dropdown-nav > li > a {
+  color: #999;
+}
+/* Hover + Focus */
+.uk-navbar-dropdown-nav > li > a:hover,
+.uk-navbar-dropdown-nav > li > a:focus {
+  color: #444;
+}
+/* Active */
+.uk-navbar-dropdown-nav > li.uk-active > a {
+  color: #444;
+}
+/*
+ * Header
+ */
+.uk-navbar-dropdown-nav .uk-nav-header {
+  color: #444;
+}
+/*
+ * Divider
+ */
+.uk-navbar-dropdown-nav .uk-nav-divider {
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Sublists
+ */
+.uk-navbar-dropdown-nav .uk-nav-sub a {
+  color: #999;
+}
+.uk-navbar-dropdown-nav .uk-nav-sub a:hover,
+.uk-navbar-dropdown-nav .uk-nav-sub a:focus {
+  color: #444;
+}
+/* Dropbar
+ ========================================================================== */
+.uk-navbar-dropbar {
+  background: #222;
+}
 /* Logo
  ========================================================================== */
 /*
@@ -1688,86 +1804,6 @@ ul.uk-nav-sub {
 }
 /* Header
  ========================================================================== */
-/* ========================================================================
-   Component: Drop
- ========================================================================== */
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Box-sizing is needed for `uk-drop-justify`
- * 4. Set a default width
- */
-.uk-navbar-dropdown {
-  /* 1 */
-  display: none;
-  /* 2 */
-  position: absolute;
-  z-index: 1020;
-  /* 3 */
-  box-sizing: border-box;
-  /* 4 */
-  width: 300px;
-}
-/*
- * 1. Show drop
- * 2. Set animation
- */
-.uk-open > .uk-navbar-dropdown {
-  /* 1 */
-  display: block;
-  /* 2 */
-  -webkit-animation: uk-fade 0.2s ease-in-out;
-  animation: uk-fade 0.2s ease-in-out;
-}
-/* Container
- ========================================================================== */
-/*
- * 1. Container fits its content
- * 2. Behave like button
- * 3. Create position context
- */
-.uk-navbar-dropdown-container {
-  /* 1 */
-  display: inline-block;
-  /* 2 */
-  vertical-align: middle;
-  /* 3 */
-  position: relative;
-}
-/* Alignment modifiers
- ========================================================================== */
-.uk-navbar-dropdown-top {
-  margin-top: -10px;
-}
-.uk-navbar-dropdown-bottom {
-  margin-top: 10px;
-}
-.uk-navbar-dropdown-left {
-  margin-left: -10px;
-}
-.uk-navbar-dropdown-right {
-  margin-left: 10px;
-}
-/* Grid modifiers
- ========================================================================== */
-.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * {
-  width: 100% !important;
-}
-/*
- * Width modifier
- */
-.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) {
-  width: 600px;
-}
-.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) {
-  width: 900px;
-}
-.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) {
-  width: 1200px;
-}
-.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) {
-  width: 1500px;
-}
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-navbar:not(.uk-navbar-container) {

@@ -66,7 +66,23 @@
 
                         <div class="uk-drop-container" uk-dropdown>
                             <button class="uk-button uk-button-default">Hover</button>
-                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                            <div class="uk-dropdown">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                     <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="uk-drop-container" uk-dropdown="mode: click">
@@ -74,19 +90,7 @@
                             <div class="uk-dropdown">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a>
-                                                <ul>
-                                                    <li><a href="#">Sub item</a></li>
-                                                    <li><a href="#">Sub item</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-parent">
+                                     <li class="uk-parent">
                                         <a href="#">Parent</a>
                                         <ul class="uk-nav-sub">
                                             <li><a href="#">Sub item</a></li>
@@ -110,21 +114,9 @@
                         <div class="uk-drop-container" uk-dropdown>
                             <button class="uk-button uk-button-default">Scrollable</button>
                             <div class="uk-dropdown uk-dropdown-scrollable">
-                                <ul class="uk-nav uk-dropdown-nav">
+                               <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a>
-                                                <ul>
-                                                    <li><a href="#">Sub item</a></li>
-                                                    <li><a href="#">Sub item</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-parent">
+                                     <li class="uk-parent">
                                         <a href="#">Parent</a>
                                         <ul class="uk-nav-sub">
                                             <li><a href="#">Sub item</a></li>

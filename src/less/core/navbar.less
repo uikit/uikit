@@ -36,7 +36,7 @@
 // Variables
 // ========================================================================
 
-@navbar-background:                             #eee;
+@navbar-background:                             @global-muted-background;
 
 @navbar-nav-item-height:                        80px;
 @navbar-nav-item-padding-horizontal:            15px;
@@ -57,6 +57,25 @@
 @navbar-toggle-hover-color:                     @global-color;
 
 @navbar-subtitle-font-size:                     @global-small-font-size;
+
+@navbar-dropdown-z-index:                       @global-z-index + 20;
+@navbar-dropdown-width:                         200px;
+@navbar-dropdown-animation:                     uk-fade;
+@navbar-dropdown-margin:                        @global-small-margin;
+@navbar-dropdown-padding:                       15px;
+@navbar-dropdown-background:                    @global-muted-background;
+@navbar-dropdown-color:                         @global-color;
+
+@navbar-dropdown-nav-item-color:                @global-muted-color;
+@navbar-dropdown-nav-item-hover-color:          @global-color;
+@navbar-dropdown-nav-item-active-color:         @global-color;
+@navbar-dropdown-nav-header-color:              @global-color;
+@navbar-dropdown-nav-divider-border:            @global-border;
+@navbar-dropdown-nav-divider-border-width:      1px;
+@navbar-dropdown-nav-sublist-item-color:        @global-muted-color;
+@navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
+
+@navbar-dropbar-background:                     @global-secondary-background;
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -244,9 +263,6 @@
 }
 
 
-
-
-
 /* Container
  ========================================================================== */
 
@@ -288,6 +304,152 @@
 
 
 
+
+
+
+
+
+
+
+
+/* Dropdown
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+
+.uk-navbar-dropdown {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: @navbar-dropdown-z-index;
+    /* 3 */
+    box-sizing: border-box;
+    width: @navbar-dropdown-width;
+    /* 4 */
+    padding: @navbar-dropdown-padding;
+    background: @navbar-dropdown-background;
+    color: @navbar-dropdown-color;
+    .hook-navbar-dropdown;
+}
+
+/*
+ * 1. Show drop
+ * 2. Set animation
+ */
+
+.uk-open > .uk-navbar-dropdown {
+    /* 1 */
+    display: block;
+    /* 2 */
+    -webkit-animation: @navbar-dropdown-animation 0.2s ease-in-out;
+    animation: @navbar-dropdown-animation 0.2s ease-in-out;
+}
+
+/*
+ * Alignment modifiers
+ */
+
+.uk-navbar-dropdown-top { margin-top: (-1 * @navbar-dropdown-margin); }
+.uk-navbar-dropdown-bottom { margin-top: @navbar-dropdown-margin; }
+.uk-navbar-dropdown-left { margin-left: (-1 * @navbar-dropdown-margin); }
+.uk-navbar-dropdown-right { margin-left: @navbar-dropdown-margin; }
+
+/*
+ * Grid modifiers
+ */
+
+.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * { width: 100% !important; }
+
+/*
+ * Width modifier
+ */
+
+.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 2); }
+.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 3); }
+.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 4); }
+.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
+
+
+/* Dropdown Nav
+ ========================================================================== */
+
+.uk-navbar-dropdown-nav {
+    white-space: nowrap;
+    .hook-navbar-dropdown-nav;
+}
+
+/*
+ * Items
+ */
+
+.uk-navbar-dropdown-nav > li > a {
+    color: @navbar-dropdown-nav-item-color;
+    .hook-navbar-dropdown-nav-item;
+}
+
+/* Hover + Focus */
+.uk-navbar-dropdown-nav > li > a:hover,
+.uk-navbar-dropdown-nav > li > a:focus {
+    color: @navbar-dropdown-nav-item-hover-color;
+    .hook-navbar-dropdown-nav-item-hover;
+}
+
+/* Active */
+.uk-navbar-dropdown-nav > li.uk-active > a {
+    color: @navbar-dropdown-nav-item-active-color;
+    .hook-navbar-dropdown-nav-item-active;
+}
+
+/*
+ * Header
+ */
+
+.uk-navbar-dropdown-nav .uk-nav-header {
+    color: @navbar-dropdown-nav-header-color;
+    .hook-navbar-dropdown-nav-header;
+}
+
+/*
+ * Divider
+ */
+
+.uk-navbar-dropdown-nav .uk-nav-divider {
+    border-top: @navbar-dropdown-nav-divider-border-width solid @navbar-dropdown-nav-divider-border;
+    .hook-navbar-dropdown-nav-divider;
+}
+
+/*
+ * Sublists
+ */
+
+.uk-navbar-dropdown-nav .uk-nav-sub a { color: @navbar-dropdown-nav-sublist-item-color; }
+
+.uk-navbar-dropdown-nav .uk-nav-sub a:hover,
+.uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: @navbar-dropdown-nav-sublist-item-hover-color; }
+
+
+
+/* Dropbar
+ ========================================================================== */
+
+.uk-navbar-dropbar {
+    background: @navbar-dropbar-background;
+    .hook-navbar-dropbar;
+}
+
+
+
+
+
+
+
+
 /* Logo
  ========================================================================== */
 
@@ -323,128 +485,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@navbar-dropdown-z-index:                              @global-z-index + 20;
-@navbar-dropdown-width:                                300px;
-@navbar-dropdown-animation:                            uk-fade;
-@navbar-dropdown-margin:                               @global-small-margin;
-
-
-/* ========================================================================
-   Component: Drop
- ========================================================================== */
-
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Box-sizing is needed for `uk-drop-justify`
- * 4. Set a default width
- */
-
-.uk-navbar-dropdown {
-    /* 1 */
-    display: none;
-    /* 2 */
-    position: absolute;
-    z-index: @navbar-dropdown-z-index;
-    /* 3 */
-    box-sizing: border-box;
-    /* 4 */
-    width: @navbar-dropdown-width;
-}
-
-/*
- * 1. Show drop
- * 2. Set animation
- */
-
-.uk-open > .uk-navbar-dropdown {
-    /* 1 */
-    display: block;
-    /* 2 */
-    -webkit-animation: @navbar-dropdown-animation 0.2s ease-in-out;
-    animation: @navbar-dropdown-animation 0.2s ease-in-out;
-}
-
-
-/* Container
- ========================================================================== */
-
-/*
- * 1. Container fits its content
- * 2. Behave like button
- * 3. Create position context
- */
-
-.uk-navbar-dropdown-container {
-    /* 1 */
-    display: inline-block;
-    /* 2 */
-    vertical-align: middle;
-    /* 3 */
-    position: relative;
-}
-
-
-/* Alignment modifiers
- ========================================================================== */
-
-.uk-navbar-dropdown-top { margin-top: (-1 * @navbar-dropdown-margin); }
-.uk-navbar-dropdown-bottom { margin-top: @navbar-dropdown-margin; }
-.uk-navbar-dropdown-left { margin-left: (-1 * @navbar-dropdown-margin); }
-.uk-navbar-dropdown-right { margin-left: @navbar-dropdown-margin; }
-
-
-/* Grid modifiers
- ========================================================================== */
-
-.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * { width: 100% !important; }
-
-/*
- * Width modifier
- */
-
-.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 2); }
-.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 3); }
-.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 4); }
-.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Hooks
 // ========================================================================
 
@@ -460,6 +500,14 @@
 .hook-navbar-toggle-hover(){}
 .hook-navbar-subtitle() {}
 .hook-navbar-transparent(){}
+.hook-navbar-dropdown(){}
+.hook-navbar-dropdown-nav(){}
+.hook-navbar-dropdown-nav-item() {}
+.hook-navbar-dropdown-nav-item-hover() {}
+.hook-navbar-dropdown-nav-item-active() {}
+.hook-navbar-dropdown-nav-header() {}
+.hook-navbar-dropdown-nav-divider() {}
+.hook-navbar-dropbar(){}
 .hook-navbar-misc() {}
 
 
