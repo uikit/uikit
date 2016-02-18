@@ -45,6 +45,7 @@
 /*
  * 1. Let the SVG color use the current text color
  * 2. Alignment
+ * 3. Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
  */
 
 .uk-icon {
@@ -53,6 +54,8 @@
     fill: currentcolor;
     /* 2 */
     vertical-align: middle;
+    /* 3 */
+    transform: translate(0,0);
 }
 
 
