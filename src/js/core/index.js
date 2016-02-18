@@ -16,19 +16,27 @@ import SmoothScroll from './smooth-scroll';
 import Sticky from './sticky';
 import Svg from './svg';
 import Toggle from './toggle';
-import {throttle, requestAnimationFrame} from '../util/index';
+import {requestAnimationFrame} from '../util/index';
 
 export default function (UIkit, _) {
 
     // add touch identifier class
     $('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');
 
-    var scroll = window.pageYOffset, dir, ticking;
+    var scroll = window.pageYOffset, dir, ticking, resizing;
 
     $(window)
         .on('DOMContentLoaded', () => UIkit.update('ready'))
         .on('load', UIkit.update)
-        .on('resize orientationchange', throttle(UIkit.update, 50))
+        .on('resize orientationchange', e => {
+            if (!resizing) {
+                requestAnimationFrame(() => {
+                    UIkit.update(e);
+                    resizing = false;
+                });
+                resizing = true;
+            }
+        })
         .on('scroll', e => {
             dir = scroll < window.pageYOffset;
             scroll = window.pageYOffset;

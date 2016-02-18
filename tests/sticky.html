@@ -27,8 +27,8 @@
 
             <div class="uk-margin uk-grid">
                 <div class="uk-width-1-3">
-                    <div class="uk-card uk-card-primary" uk-sticky="offset: 100; target: 50">
-                        <div class="uk-card-body">Stick 100px below the top and initially 50px above the location hash's target.</div>
+                    <div class="uk-card uk-card-primary" uk-sticky="offset: 150; target: 50">
+                        <div class="uk-card-body">Stick 150px below the top and initially 50px above the location hash's target.</div>
                     </div>
                 </div>
                 <div class="uk-width-1-3">
@@ -64,7 +64,7 @@
 
             <div class="uk-grid">
                 <div class="uk-width-1-2">
-                    <div class="uk-card uk-card-primary" uk-sticky="top: 300; topFromElement: true; animation: uk-animation-slide-top; media: 640">
+                    <div class="uk-card uk-card-primary" uk-sticky="offset: -300; top: 300; animation: uk-animation-slide-top; media: 640">
                         <div class="uk-card-body">Stick at the top but only after 300px scrolling and min. device width of 640px</div>
                     </div>
                 </div>
@@ -92,12 +92,6 @@
                             <td>Number|% View Port Height|CSS Selector</td>
                             <td>0</td>
                             <td>The top offset from where the element should be stick.</td>
-                        </tr>
-                        <tr>
-                            <td><code>topFromElement</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>The element offset will be added to the top offset.</td>
                         </tr>
                         <tr>
                             <td><code>bottom</code></td>

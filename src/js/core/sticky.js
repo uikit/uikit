@@ -7,7 +7,6 @@ export default function (UIkit) {
 
         props: {
             top: null,
-            topFromElement: Boolean,
             bottom: Boolean,
             offset: Number,
             animation: String,
@@ -23,7 +22,6 @@ export default function (UIkit) {
 
         defaults: {
             top: 0,
-            topFromElement: false,
             bottom: false,
             offset: 0,
             animation: '',
@@ -78,7 +76,11 @@ export default function (UIkit) {
 
             handler(e) {
 
+                var isActive = this.$el.hasClass(this.clsActive);
+
                 if (e.type !== 'scroll') {
+
+                    this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
 
                     this.top = this.topProp;
 
@@ -93,9 +95,7 @@ export default function (UIkit) {
                         }
                     }
 
-                    if (this.topFromElement) {
-                        this.top = parseInt(this.top, 10) + (this.$el.hasClass(this.clsActive) ? this.placeholder.offset() : this.$el.offset()).top;
-                    }
+                    this.top = Math.max(parseInt(this.top, 10), this.offsetTop);
 
                     var bottom = false;
 
@@ -111,19 +111,20 @@ export default function (UIkit) {
 
                     this.bottom = bottom ? bottom - this.$el.height() : bottom;
 
+                    this.mediaActive = !this.media
+                        || typeof(this.media) === 'number' && window.innerWidth >= this.media
+                        || typeof(this.media) === 'string' && window.matchMedia(this.media).matches;
                 }
 
                 if ($(window).scrollTop() < 0 || !this.$el.is(':visible') || this.disabled) {
                     return;
                 }
 
-                var isActive = this.$el.hasClass(this.clsActive),
-                    scroll = $(window).scrollTop(),
-                    offset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                var scroll = $(window).scrollTop();
 
-                if (!((!this.media || typeof(this.media) === 'number' && window.innerWidth >= this.media || typeof(this.media) === 'string' && window.matchMedia(this.media).matches)
-                    && (scroll >= Math.max(offset, this.top) - this.offset)
-                    && !(this.showOnUp && (e.dir === 'down' || e.dir === 'up' && !isActive && scroll <= offset + this.$el.height())))
+                if (!(this.mediaActive
+                    && scroll >= this.top - this.offset
+                    && !(this.showOnUp && (e.dir === 'down' || e.dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.height())))
                 ) {
                     if (isActive) {
                         this.reset();
@@ -134,7 +135,7 @@ export default function (UIkit) {
 
                 this.placeholder.attr('hidden', false);
 
-                var top = this.offset;
+                var top = Math.max(0, this.offset);
                 if (this.bottom && scroll > this.bottom) {
                     top = this.bottom - scroll;
                 }

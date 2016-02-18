@@ -1,5 +1,3 @@
-export const debounce = require('lodash.debounce');
-export const throttle = require('lodash.throttle');
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 export const cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
