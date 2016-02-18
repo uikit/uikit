@@ -1703,16 +1703,16 @@ ul.uk-nav-sub {
  * Alignment modifiers
  */
 .uk-navbar-dropdown-top {
-  margin-top: -10px;
+  margin-top: 0;
 }
 .uk-navbar-dropdown-bottom {
-  margin-top: 10px;
+  margin-top: 0;
 }
 .uk-navbar-dropdown-left {
-  margin-left: -10px;
+  margin-left: 0;
 }
 .uk-navbar-dropdown-right {
-  margin-left: 10px;
+  margin-left: 0;
 }
 /*
  * Grid modifiers
