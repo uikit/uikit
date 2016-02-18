@@ -643,7 +643,7 @@ iframe {
 /* Row
  ========================================================================== */
 .uk-table tbody tr.uk-active {
-  background: #ffffdd;
+  background: #ffd;
 }
 /* Alignment modifier
  ========================================================================== */
@@ -663,7 +663,7 @@ iframe {
  * Hover
  */
 .uk-table-hover tbody tr:hover {
-  background: #ffffdd;
+  background: #ffd;
 }
 /* Size modifier
  ========================================================================== */
@@ -1109,7 +1109,8 @@ select.uk-form-width-mini {
  * 4. Correct `font` properties and `color` not being inherited for `button`.
  * 5. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE 8/9/10/11
  * 6. Style
- * 7. Required for `a` elements to centers the text vertically.
+ * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
  * 8. Required for `a`.
  */
 .uk-button {
@@ -1127,22 +1128,14 @@ select.uk-form-width-mini {
   /* 6 */
   display: inline-block;
   box-sizing: border-box;
-  height: 40px;
   padding: 0 30px;
   vertical-align: middle;
   font-size: 16px;
   /* 7 */
-  display: -ms-inline-flexbox;
-  display: -webkit-inline-flex;
-  display: inline-flex;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
+  line-height: 38px;
   /* 8 */
   text-decoration: none;
+  border: 1px solid transparent;
   -webkit-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
@@ -1174,7 +1167,7 @@ select.uk-form-width-mini {
 .uk-button-default {
   background: transparent;
   color: #444;
-  border: 1px solid #e5e5e5;
+  border-color: #e5e5e5;
 }
 /* Hover + Focus */
 .uk-button-default:hover,
@@ -1269,7 +1262,6 @@ select.uk-form-width-mini {
 .uk-button-text {
   /* 1 */
   padding: 0;
-  height: auto;
   line-height: 1.5;
   background: none;
   /* 2 */
@@ -1295,7 +1287,6 @@ select.uk-form-width-mini {
 .uk-button-link {
   /* 1 */
   padding: 0;
-  height: auto;
   line-height: 1.5;
   background: none;
   /* 2 */
@@ -1315,13 +1306,13 @@ select.uk-form-width-mini {
 /* Size modifiers
  ========================================================================== */
 .uk-button-small {
-  height: 30px;
   padding: 0 10px;
+  line-height: 28px;
   font-size: 0.88rem;
 }
 .uk-button-large {
-  height: 55px;
   padding: 0 40px;
+  line-height: 53px;
   font-size: 1.12rem;
 }
 /* Group
@@ -1442,7 +1433,7 @@ ul.uk-nav-sub {
   background-position: 50% 50%;
 }
 .uk-nav-parent-icon > .uk-parent.uk-open > a:after {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444000%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }
 /* Header
  ========================================================================== */
@@ -1555,14 +1546,15 @@ ul.uk-nav-sub {
   position: relative;
 }
 /*
- * Items (Nav and navbar)
+ * Items (Nav item, item, toggle)
  * 1. Center content vertically and horizontally
  * 2. Dimensions
  * 3. Style
  * 4. Required for `a`
  */
 .uk-navbar-nav > li > a,
-.uk-navbar-item {
+.uk-navbar-item,
+.uk-navbar-toggle {
   /* 1 */
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -1620,13 +1612,29 @@ ul.uk-nav-sub {
 .uk-navbar-item a:not([class]):hover {
   color: #444;
 }
+/* Toggle
+ ========================================================================== */
+.uk-navbar-toggle:before {
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220px%22%20height%3D%2220px%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+/* Hover + Focus */
+.uk-navbar-toggle:hover:before,
+.uk-navbar-toggle:focus:before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220px%22%20height%3D%2220px%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+}
+.uk-navbar-toggle:focus {
+  outline: none;
+}
 /* Subtitle
  ========================================================================== */
 .uk-navbar-subtitle {
   font-size: 0.88rem;
 }
-/* Toggle
- ========================================================================== */
 /* Container
  ========================================================================== */
 /*
@@ -1648,6 +1656,7 @@ ul.uk-nav-sub {
   -webkit-flex: 1;
   flex: 1;
 }
+/* 3 */
 .uk-navbar-container > :before,
 .uk-navbar-container > :after {
   display: none !important;
@@ -1669,44 +1678,16 @@ ul.uk-nav-sub {
   /* 1 */
   text-decoration: none;
 }
+/* Hover + Focus */
 .uk-logo:hover,
 .uk-logo:focus {
   color: #444;
+  outline: none;
   /* 1 */
   text-decoration: none;
 }
 /* Header
  ========================================================================== */
-/* Sub-object: `uk-navbar-toggle`
- ========================================================================== */
-.uk-navbar-toggle {
-  font-size: 18px;
-  color: #444;
-  text-decoration: none;
-}
-/*
- * 1. Apply hover style also to focus state
- * 2. Remove default focus style
- */
-.uk-navbar-toggle:hover,
-.uk-navbar-toggle:focus {
-  color: #444;
-  text-decoration: none;
-  /* 2 */
-  outline: none;
-}
-/*
- * 1. Center icon vertically
- */
-.uk-navbar-toggle:after {
-  content: "\f0c9";
-  font-family: FontAwesome;
-  /* 1 */
-  vertical-align: middle;
-}
-.uk-navbar-toggle-alt:after {
-  content: "\f002";
-}
 /* ========================================================================
    Component: Drop
  ========================================================================== */
@@ -2055,6 +2036,7 @@ ul.uk-nav-sub {
 /*
  * 1. Let the SVG color use the current text color
  * 2. Alignment
+ * 3. Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
  */
 .uk-icon {
   display: inline-block;
@@ -2062,6 +2044,8 @@ ul.uk-nav-sub {
   fill: currentcolor;
   /* 2 */
   vertical-align: middle;
+  /* 3 */
+  transform: translate(0, 0);
 }
 /* Image modifier
  ========================================================================== */
