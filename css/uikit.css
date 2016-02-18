@@ -1623,8 +1623,6 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-navbar-item {
   color: #444;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 .uk-navbar-item a:not([class]) {
   color: #999;
@@ -1705,8 +1703,9 @@ ul.uk-nav-sub {
   width: 200px;
   /* 4 */
   padding: 15px;
-  background: #f5f5f5;
+  background: #fff;
   color: #444;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 /*
  * 1. Show drop
@@ -1723,16 +1722,16 @@ ul.uk-nav-sub {
  * Alignment modifiers
  */
 .uk-navbar-dropdown-top {
-  margin-top: 0;
+  margin-top: -15px;
 }
 .uk-navbar-dropdown-bottom {
-  margin-top: 0;
+  margin-top: 15px;
 }
 .uk-navbar-dropdown-left {
-  margin-left: 0;
+  margin-left: -15px;
 }
 .uk-navbar-dropdown-right {
-  margin-left: 0;
+  margin-left: 15px;
 }
 /*
  * Grid modifiers
@@ -1759,17 +1758,20 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-navbar-dropdown-nav {
   white-space: nowrap;
+  margin: 0 -15px;
 }
 /*
  * Items
  */
 .uk-navbar-dropdown-nav > li > a {
   color: #999;
+  padding: 6px 25px;
 }
 /* Hover + Focus */
 .uk-navbar-dropdown-nav > li > a:hover,
 .uk-navbar-dropdown-nav > li > a:focus {
   color: #444;
+  background: #f5f5f5;
 }
 /* Active */
 .uk-navbar-dropdown-nav > li.uk-active > a {
@@ -1814,6 +1816,10 @@ ul.uk-nav-sub {
 }
 .uk-navbar-container .uk-navbar-right {
   margin-right: -15px;
+}
+/* Dropdown nav sub */
+.uk-navbar-dropdown-nav .uk-nav-sub {
+  padding-left: 40px;
 }
 /* ========================================================================
    Component: Alert

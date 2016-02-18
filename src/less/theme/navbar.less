@@ -7,6 +7,9 @@
 // Variables
 // ========================================================================
 
+@navbar-dropdown-margin:                        15px;
+@navbar-dropdown-background:                    @global-background;
+
 
 // Component
 // ========================================================================
@@ -30,10 +33,15 @@
 // Item
 // ========================================================================
 
-.hook-navbar-item() {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
+.hook-navbar-item() {}
+
+
+// Toggle
+// ========================================================================
+
+.hook-navbar-toggle() {}
+
+.hook-navbar-toggle-hover() {}
 
 
 // Subtitle
@@ -45,7 +53,33 @@
 // Style modifier
 // ========================================================================
 
-.hook-navbar-transparent(){}
+.hook-navbar-transparent() {}
+
+
+// Dropdown
+// ========================================================================
+
+.hook-navbar-dropdown() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+
+
+// Dropdown nav
+// ========================================================================
+
+.hook-navbar-dropdown-nav() { margin: 0 (-@navbar-dropdown-padding); }
+
+.hook-navbar-dropdown-nav-item() { padding: 6px 25px; }
+
+.hook-navbar-dropdown-nav-item-hover() { background: @global-muted-background; }
+
+.hook-navbar-dropdown-nav-header() {}
+
+.hook-navbar-dropdown-nav-divider() {}
+
+
+// Dropbar
+// ========================================================================
+
+.hook-navbar-dropbar() {}
 
 
 // Miscellaneous
@@ -65,5 +99,9 @@
 
     .uk-navbar-container .uk-navbar-left { margin-left: -@navbar-nav-item-padding-horizontal; }
     .uk-navbar-container .uk-navbar-right { margin-right: -@navbar-nav-item-padding-horizontal; }
+
+
+    /* Dropdown nav sub */
+    .uk-navbar-dropdown-nav .uk-nav-sub { padding-left: 40px; }
 
 }
