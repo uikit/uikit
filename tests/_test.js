@@ -49,7 +49,7 @@
             }
         }).val(location.pathname.split('/').pop());
 
-        var body = $('body').attr('visibility', 'hidden');
+        var body = $('body').css('visibility', 'hidden');
         requestAnimationFrame(function () {
             body.prepend($('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>').prepend($select)).css('visibility', '');
         });
