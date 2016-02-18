@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {animationend, transitionend} from './env';
+import {animationend, transitionend, requestAnimationFrame, cancelAnimationFrame} from './env';
 import {isString, extend} from './lang';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
@@ -168,4 +168,9 @@ export function isInView(element, offsetTop, offsetLeft) {
         && offset.top - offsetTop <= scrollTop + win.height()
         && offset.left + element.width() >= scrollLeft
         && offset.left - offsetLeft <= scrollLeft + win.width();
+}
+
+export function toJQuery(element) {
+    element = $(element);
+    return element.length ? element : null;
 }

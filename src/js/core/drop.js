@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {hasTouch, isWithin, removeClass} from '../util/index';
+import {hasTouch, isWithin, removeClass, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -42,13 +42,13 @@ export default function (UIkit) {
                 return;
             }
 
-            this.justify = this.justify && $(this.justify);
+            this.justify = toJQuery(this.justify);
 
             if (this.justify) {
                 this.flip = this.flip === true || this.flip === 'y' ? 'y' : false;
             }
 
-            this.boundary = $(this.boundary);
+            this.boundary = toJQuery(this.boundary) || window;
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
 

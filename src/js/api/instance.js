@@ -48,17 +48,26 @@ export default function (UIkit) {
 
     UIkit.prototype.$replace = function (el) {
 
-        el = $(el);
+        var $el = $(el), prev = this.$options.el, name = this.$options.name;
 
-        UIkit.elements.splice(UIkit.elements.indexOf(this.$options.el), 1, el[0]);
-        this.$el.replaceWith(el);
-        this.$options.el = el[0];
-        this.$el = el;
+        el = $el[0];
+
+        delete prev[DATA][name];
+
+        if (!el[DATA]) {
+            el[DATA] = {};
+        }
+
+        el[DATA][name] = this;
+
+        UIkit.elements.splice(UIkit.elements.indexOf(prev), 1, el);
+        this.$el.replaceWith($el);
+        this.$options.el = el;
+        this.$el = $el;
 
         this.__preventDestroy = true;
 
         this.$updateParents();
-
     };
 
     UIkit.prototype.$destroy = function () {

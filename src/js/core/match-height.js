@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -51,7 +52,6 @@ export default function (UIkit) {
 
                 });
 
-                return this;
             },
 
             events: ['resize', 'orientationchange']

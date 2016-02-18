@@ -13,20 +13,34 @@ import Responsive from './responsive';
 import Scrollspy from './scrollspy';
 import ScrollspyNav from './scrollspy-nav';
 import SmoothScroll from './smooth-scroll';
+import Sticky from './sticky';
 import Svg from './svg';
 import Toggle from './toggle';
-import {throttle} from '../util/index';
+import {throttle, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit, _) {
 
     // add touch identifier class
     $('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');
 
+    var scroll = window.pageYOffset, dir, ticking;
+
     $(window)
         .on('DOMContentLoaded', () => UIkit.update('ready'))
         .on('load', UIkit.update)
         .on('resize orientationchange', throttle(UIkit.update, 50))
-        .on('scroll', throttle(() => UIkit.update('scrolling'), 15));
+        .on('scroll', e => {
+            dir = scroll < window.pageYOffset;
+            scroll = window.pageYOffset;
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    e.dir = dir ? 'down' : 'up';
+                    UIkit.update(e);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
 
     // core components
     UIkit.use(Alert);
@@ -43,6 +57,7 @@ export default function (UIkit, _) {
     UIkit.use(Scrollspy);
     UIkit.use(ScrollspyNav);
     UIkit.use(SmoothScroll);
+    UIkit.use(Sticky);
     UIkit.use(Svg);
     UIkit.use(Toggle);
 

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Transition, isWithin} from '../util/index';
+import {Transition, isWithin, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
