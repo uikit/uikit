@@ -1,34 +1,27 @@
 // Name:            Navbar
-// Description:     Defines styles for the navigation bar
+// Description:     Component to create an horizontal navigation bar
 //
 // Component:       `uk-navbar`
 //
-// Sub-objects:     `uk-navbar-nav`
-//                  `uk-navbar-nav-subtitle`
-//                  `uk-navbar-content`
-//                  `uk-navbar-brand`
-//                  `uk-navbar-toggle`
-//                  `uk-navbar-toggle-alt`
+// Sub-objects:     `uk-navbar-left`
+//                  `uk-navbar-right`
 //                  `uk-navbar-center`
-//                  `uk-navbar-flip`
+//                  `uk-navbar-nav`
+//                  `uk-navbar-item`
+//                  `uk-navbar-toggle`
+//                  `uk-navbar-subtitle`
+//                  `uk-navbar-dropbar`
 //
-// Modifiers:       `uk-navbar-attached`
+// Modifiers:       `uk-navbar-container`
+//                  `uk-navbar-transparent`
+//
+// Adopted:         `uk-navbar-dropdown` + Modifiers
+//                  `uk-navbar-dropdown-nav`
 //
 // States:          `uk-active`
 //                  `uk-parent`
 //                  `uk-open`
 //
-// Used by:         Dropdown
-//
-// Markup:
-//
-// <!-- uk-navbar -->
-// <nav class="uk-navbar">
-//     <ul class="uk-navbar-nav">
-//         <li class="uk-active"><a href=""></a></li>
-//         <li><a href=""></a></li>
-//     </ul>
-// </nav>
 //
 // ========================================================================
 
@@ -81,9 +74,6 @@
 @logo-font-family:                              @global-font-family;
 @logo-color:                                    @global-color;
 @logo-hover-color:                              @global-color;
-
-
-
 
 
 /* ========================================================================
@@ -301,17 +291,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 /* Dropdown
  ========================================================================== */
 
@@ -442,6 +421,7 @@
     background: @navbar-dropbar-background;
     .hook-navbar-dropbar;
 }
+
 
 
 
