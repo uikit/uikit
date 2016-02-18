@@ -7,6 +7,10 @@
 // Variables
 // ========================================================================
 
+@button-line-height:                            (@global-height - 2);
+@button-small-line-height:                      (@global-small-height - 2);
+@button-large-line-height:                      (@global-large-height - 2);
+
 @button-default-background:                     transparent;
 @button-default-hover-background:               transparent;
 @button-default-active-background:              transparent;
@@ -18,6 +22,7 @@
 // ========================================================================
 
 .hook-button() {
+    border: 1px solid transparent;
     -webkit-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
 }
@@ -32,7 +37,7 @@
 // Style modifiers
 // ========================================================================
 
-.hook-button-default() { border: 1px solid @global-border; }
+.hook-button-default() { border-color: @global-border; }
 
 .hook-button-default-hover() {  border-color: darken(@global-border, 20%); }
 
