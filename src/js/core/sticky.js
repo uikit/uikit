@@ -54,7 +54,6 @@ export default function (UIkit) {
                 var target = toJQuery(location.hash);
 
                 if (target) {
-
                     requestAnimationFrame(() => {
 
                         var top = target.offset().top,
@@ -95,25 +94,23 @@ export default function (UIkit) {
                         }
                     }
 
-                    this.top = Math.max(parseInt(this.top, 10), this.offsetTop);
-
-                    var bottom = false;
+                    this.top = Math.max(parseInt(this.top, 10), this.offsetTop) - this.offset;
 
                     if (this.bottomProp === true || this.bottomProp[0] === '!') {
-                        bottom = this.bottomProp === true ? this.$el.parent() : this.$el.closest(this.bottomProp.substr(1));
-                        bottom = bottom.offset().top + bottom.height() + parseInt(bottom.css('padding-top'), 10);
+                        this.bottom = this.bottomProp === true ? this.$el.parent() : this.$el.closest(this.bottomProp.substr(1));
+                        this.bottom = this.bottom.offset().top + this.bottom.height() + parseInt(this.bottom.css('padding-top'), 10);
                     } else if (typeof this.bottomProp === 'string') {
-                        bottom = toJQuery(this.bottomProp);
-                        if (bottom) {
-                            bottom = bottom.offset().top;
+                        this.bottom = toJQuery(this.bottomProp);
+                        if (this.bottom) {
+                            this.bottom = this.bottom.offset().top;
                         }
                     }
 
-                    this.bottom = bottom ? bottom - this.$el.height() : bottom;
+                    this.bottom = this.bottom ? this.bottom - this.$el.height() : this.bottom;
 
-                    this.mediaActive = !this.media
-                        || typeof(this.media) === 'number' && window.innerWidth >= this.media
-                        || typeof(this.media) === 'string' && window.matchMedia(this.media).matches;
+                    this.mediaInactive = this.media
+                        && !(typeof(this.media) === 'number' && window.innerWidth >= this.media
+                        || typeof(this.media) === 'string' && window.matchMedia(this.media).matches);
                 }
 
                 if ($(window).scrollTop() < 0 || !this.$el.is(':visible') || this.disabled) {
@@ -122,9 +119,10 @@ export default function (UIkit) {
 
                 var scroll = $(window).scrollTop();
 
-                if (!(this.mediaActive
-                    && scroll >= this.top - this.offset
-                    && !(this.showOnUp && (e.dir === 'down' || e.dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.height())))
+                if (this.disabled
+                    || this.mediaInactive
+                    || scroll < this.top
+                    || this.showOnUp && (e.dir === 'down' || e.dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.height())
                 ) {
                     if (isActive) {
                         this.reset();
@@ -183,7 +181,7 @@ export default function (UIkit) {
 
             enable: function () {
                 this.disabled = false;
-                this.update();
+                this.update({});
             },
 
             disable: function () {
