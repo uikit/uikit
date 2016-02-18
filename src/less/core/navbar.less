@@ -70,11 +70,6 @@
 
 @navbar-dropbar-background:                     @global-secondary-background;
 
-@logo-font-size:                                @global-large-font-size;
-@logo-font-family:                              @global-font-family;
-@logo-color:                                    @global-color;
-@logo-hover-color:                              @global-color;
-
 
 /* ========================================================================
    Component: Navbar
@@ -413,7 +408,6 @@
 .uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: @navbar-dropdown-nav-sublist-item-hover-color; }
 
 
-
 /* Dropbar
  ========================================================================== */
 
@@ -421,48 +415,6 @@
     background: @navbar-dropbar-background;
     .hook-navbar-dropbar;
 }
-
-
-
-
-
-
-
-
-
-/* Logo
- ========================================================================== */
-
-/*
- * 1. Required for `a`
- */
-
-.uk-logo {
-    font-size: @logo-font-size;
-    font-family: @logo-font-family;
-    color: @logo-color;
-    /* 1 */
-    text-decoration: none;
-    .hook-logo;
-}
-
-/* Hover + Focus */
-.uk-logo:hover,
-.uk-logo:focus {
-    color: @logo-hover-color;
-    outline: none;
-    /* 1 */
-    text-decoration: none;
-    .hook-logo-hover;
-}
-
-
-/* Header
- ========================================================================== */
-
-.uk-header {}
-
-
 
 
 // Hooks
@@ -489,7 +441,3 @@
 .hook-navbar-dropdown-nav-divider() {}
 .hook-navbar-dropbar(){}
 .hook-navbar-misc() {}
-
-
-.hook-logo() {}
-.hook-logo-hover() {}

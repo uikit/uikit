@@ -458,6 +458,26 @@ iframe {
   -webkit-overflow-scrolling: touch;
   resize: both;
 }
+/* Logo
+ ========================================================================== */
+/*
+ * 1. Required for `a`
+ */
+.uk-logo {
+  font-size: 1.37rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  color: #444;
+  /* 1 */
+  text-decoration: none;
+}
+/* Hover + Focus */
+.uk-logo:hover,
+.uk-logo:focus {
+  color: #444;
+  outline: none;
+  /* 1 */
+  text-decoration: none;
+}
 /* ========================================================================
    Component: List
  ========================================================================== */
@@ -1782,28 +1802,6 @@ ul.uk-nav-sub {
 .uk-navbar-dropbar {
   background: #222;
 }
-/* Logo
- ========================================================================== */
-/*
- * 1. Required for `a`
- */
-.uk-logo {
-  font-size: 1.37rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-  color: #444;
-  /* 1 */
-  text-decoration: none;
-}
-/* Hover + Focus */
-.uk-logo:hover,
-.uk-logo:focus {
-  color: #444;
-  outline: none;
-  /* 1 */
-  text-decoration: none;
-}
-/* Header
- ========================================================================== */
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-navbar:not(.uk-navbar-container) {

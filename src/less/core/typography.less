@@ -5,6 +5,7 @@
 //                  `uk-link-reset`
 //                  `uk-heading-primary`
 //                  `uk-pre-scrollable`
+//                  `uk-logo`
 //
 // ========================================================================
 
@@ -23,6 +24,11 @@
 
 @pre-scrollable-height:                         300px;
 
+@logo-font-size:                                @global-large-font-size;
+@logo-font-family:                              @global-font-family;
+@logo-color:                                    @global-color;
+@logo-hover-color:                              @global-color;
+
 
 /* ========================================================================
    Component: Typography
@@ -39,13 +45,13 @@
 .uk-link-muted,
 .uk-link-muted a {
     color: @link-muted-color;
-    .hook-typography-link-muted;
+    .hook-link-muted;
 }
 
 .uk-link-muted:hover,
 .uk-link-muted a:hover {
     color: @link-muted-hover-color;
-    .hook-typography-link-muted-hover;
+    .hook-link-muted-hover;
 }
 
 /*
@@ -60,7 +66,7 @@
 .uk-link-reset a:focus {
     color: inherit;
     text-decoration: none;
-    .hook-typography-link-reset;
+    .hook-link-reset;
 }
 
 
@@ -74,7 +80,7 @@
 .uk-heading-primary {
     font-size: @heading-primary-font-size;
     line-height: @heading-primary-line-height;
-    .hook-typography-heading-primary;
+    .hook-heading-primary;
 }
 
 /* Tablet landscape and bigger */
@@ -103,14 +109,42 @@
 }
 
 
+/* Logo
+ ========================================================================== */
+
+/*
+ * 1. Required for `a`
+ */
+
+.uk-logo {
+    font-size: @logo-font-size;
+    font-family: @logo-font-family;
+    color: @logo-color;
+    /* 1 */
+    text-decoration: none;
+    .hook-logo;
+}
+
+/* Hover + Focus */
+.uk-logo:hover,
+.uk-logo:focus {
+    color: @logo-hover-color;
+    outline: none;
+    /* 1 */
+    text-decoration: none;
+    .hook-logo-hover;
+}
+
 
 // Hooks
 // ========================================================================
 
 .hook-typography-misc;
 
-.hook-typography-link-muted() {}
-.hook-typography-link-muted-hover() {}
-.hook-typography-link-reset() {}
-.hook-typography-heading-primary() {}
+.hook-link-muted() {}
+.hook-link-muted-hover() {}
+.hook-link-reset() {}
+.hook-heading-primary() {}
+.hook-logo() {}
+.hook-logo-hover() {}
 .hook-typography-misc() {}
