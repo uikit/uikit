@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, isInView, toJQuery, requestAnimationFrame} from '../util/index';
+import {Animation, toJQuery, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
