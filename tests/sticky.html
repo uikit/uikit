@@ -97,13 +97,73 @@
                             <td><code>topFromElement</code></td>
                             <td>Boolean</td>
                             <td>false</td>
-                            <td>The </td>
+                            <td>The element offset will be added to the top offset.</td>
+                        </tr>
+                        <tr>
+                            <td><code>bottom</code></td>
+                            <td>Boolean|CSS Selector</td>
+                            <td>false</td>
+                            <td>The bottom offset until the element should stick. (true: parent element, prefixed with '!' a parent selector)</td>
                         </tr>
                         <tr>
                             <td><code>offset</code></td>
                             <td>Number</td>
                             <td>0</td>
                             <td>The offset the Sticky should be fixed to.</td>
+                        </tr>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The animation to use.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsInit</code></td>
+                            <td>String</td>
+                            <td>uk-sticky-init</td>
+                            <td>The initialization class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsActive</code></td>
+                            <td>String</td>
+                            <td>uk-active</td>
+                            <td>The active class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsActive</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The inactive class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>widthElement</code></td>
+                            <td>CSS Selector</td>
+                            <td>false</td>
+                            <td>The element the Sticky should get its with from in active mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>showOnUp</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Only show sticky element when scrolling up.</td>
+                        </tr>
+                        <tr>
+                            <td><code>media</code></td>
+                            <td>Integer|String</td>
+                            <td>false</td>
+                            <td>Condition for the active status with a width as integer (e.g. 640) or a css media query.</td>
+                        </tr>
+                        <tr>
+                            <td><code>target</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Initially make sure that the Sticky is not over a targeted element via location hash.</td>
+                        </tr>
+                        <tr>
+                            <td><code>disabled</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Disable the Sticky.</td>
                         </tr>
                     </tbody>
                 </table>
