@@ -16,8 +16,7 @@ export default function (UIkit) {
             widthElement: String,
             showOnUp: Boolean,
             media: Number,
-            target: Number,
-            disabled: Boolean
+            target: Number
         },
 
         defaults: {
@@ -31,8 +30,7 @@ export default function (UIkit) {
             widthElement: false,
             showOnUp: false,
             media: false,
-            target: false,
-            disabled: false
+            target: false
         },
 
         ready() {
@@ -119,13 +117,21 @@ export default function (UIkit) {
 
                 var scroll = $(window).scrollTop();
 
-                if (this.disabled
-                    || this.mediaInactive
+                if (this.mediaInactive
                     || scroll < this.top
                     || this.showOnUp && (e.dir === 'down' || e.dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.height())
                 ) {
                     if (isActive) {
-                        this.reset();
+
+                        Animation.cancel(this.$el);
+
+                        this.$el.css({position: '', top: '', width: '', left: '', margin: ''})
+                            .removeClass(this.clsActive)
+                            .addClass(this.clsInactive)
+                            .trigger('inactive');
+
+                        this.placeholder.attr('hidden', true);
+
                     }
 
                     return;
@@ -161,33 +167,6 @@ export default function (UIkit) {
             },
 
             events: ['scroll', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            reset() {
-
-                Animation.cancel(this.$el);
-
-                this.$el.css({position: '', top: '', width: '', left: '', margin: ''})
-                    .removeClass(this.clsActive)
-                    .addClass(this.clsInactive)
-                    .trigger('inactive');
-
-                this.placeholder.attr('hidden', true);
-
-            },
-
-            enable: function () {
-                this.disabled = false;
-                this.update({});
-            },
-
-            disable: function () {
-                this.disabled = true;
-                this.reset();
-            }
 
         }
 
