@@ -12,6 +12,7 @@ export default function (UIkit) {
             pos: String,
             offset: Number,
             justify: String,
+            center: String,
             boundary: String,
             cls: String,
             flip: Boolean,
@@ -24,6 +25,7 @@ export default function (UIkit) {
             pos: 'bottom-left',
             offset: 0,
             justify: false,
+            center: false,
             boundary: window,
             cls: 'uk-drop',
             flip: true,
@@ -37,6 +39,7 @@ export default function (UIkit) {
             this.drop = toJQuery(this.$el.find('.' + this.cls));
 
             this.justify = toJQuery(this.justify);
+            this.center = toJQuery(this.center);
 
             this.boundary = toJQuery(this.boundary) || window;
             this.mode = hasTouch ? 'click' : this.mode;
@@ -250,6 +253,18 @@ export default function (UIkit) {
                         position['min-height'] = justify.height;
                         position['margin-top'] = justify.top - pos.top;
                     }
+                }
+
+                if (this.center) {
+
+                    var center = getBoundary(this.center);
+
+                    if (this.getAxis() === 'y') {
+                        position.left = center.left - pos.left + center.width / 2 - dim.width / 2;
+                    } else {
+                        position.top = center.top - pos.top + center.height / 2 - dim.height / 2;
+                    }
+
                 }
 
                 this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.dir}`);
