@@ -26,7 +26,6 @@ export default function (UIkit, _) {
     var scroll = window.pageYOffset, dir, ticking, resizing;
 
     $(window)
-        .on('DOMContentLoaded', () => UIkit.update('ready'))
         .on('load', UIkit.update)
         .on('resize orientationchange', e => {
             if (!resizing) {

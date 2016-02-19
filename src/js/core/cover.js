@@ -1,5 +1,7 @@
 export default function (UIkit) {
 
+    // TODO cleanup component
+
     UIkit.component('cover', {
 
         props: {

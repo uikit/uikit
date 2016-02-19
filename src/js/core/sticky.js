@@ -83,7 +83,7 @@ export default function (UIkit) {
 
                     if (this.topProp && typeof(this.topProp) === 'string') {
                         if (this.topProp.match(/^-?\d+vh$/)) {
-                            this.top = window.innerHeight * parseInt(this.topProp, 10) / 100;
+                            this.top = window.innerHeight * parseFloat(this.topProp) / 100;
                         } else {
                             var el = toJQuery(this.topProp);
                             if (el) {
@@ -92,11 +92,11 @@ export default function (UIkit) {
                         }
                     }
 
-                    this.top = Math.max(parseInt(this.top, 10), this.offsetTop) - this.offset;
+                    this.top = Math.max(parseFloat(this.top), this.offsetTop) - this.offset;
 
                     if (this.bottomProp === true || this.bottomProp[0] === '!') {
                         this.bottom = this.bottomProp === true ? this.$el.parent() : this.$el.closest(this.bottomProp.substr(1));
-                        this.bottom = this.bottom.offset().top + this.bottom.height() + parseInt(this.bottom.css('padding-top'), 10);
+                        this.bottom = this.bottom.offset().top + this.bottom.height() + parseFloat(this.bottom.css('padding-top'));
                     } else if (typeof this.bottomProp === 'string') {
                         this.bottom = toJQuery(this.bottomProp);
                         if (this.bottom) {
@@ -166,7 +166,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['scroll', 'resize', 'orientationchange']
+            events: ['scroll', 'load', 'resize', 'orientationchange']
 
         }
 
