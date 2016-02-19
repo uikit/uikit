@@ -13,7 +13,6 @@ export default function (UIkit) {
             offset: Number,
             justify: String,
             boundary: String,
-            target: String,
             cls: String,
             flip: Boolean,
             delayShow: Number,
@@ -26,7 +25,6 @@ export default function (UIkit) {
             offset: 0,
             justify: false,
             boundary: window,
-            target: '.uk-drop',
             cls: 'uk-drop',
             flip: true,
             delayShow: 0,
@@ -36,17 +34,13 @@ export default function (UIkit) {
 
         ready() {
 
-            this.drop = this.$el.find(this.target);
+            this.drop = this.$el.find('.' + this.cls);
 
             if (!this.drop.length) {
                 return;
             }
 
             this.justify = toJQuery(this.justify);
-
-            if (this.justify) {
-                this.flip = this.flip === true || this.flip === 'y' ? 'y' : false;
-            }
 
             this.boundary = toJQuery(this.boundary) || window;
             this.mode = hasTouch ? 'click' : this.mode;
@@ -174,7 +168,6 @@ export default function (UIkit) {
 
             updatePosition() {
 
-                // reset
                 removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)').css({
                     'top-left': '',
                     'left': '',
@@ -183,7 +176,7 @@ export default function (UIkit) {
                 });
 
                 if (this.justify) {
-                    this.drop.css('min-width', '');
+                    this.drop.css({'min-width': '', 'min-height': ''});
                 }
 
                 this.drop.show();
@@ -250,11 +243,11 @@ export default function (UIkit) {
 
                     if (this.getAxis() === 'y') {
                         position.left = 0;
-                        position['min-width'] = justify.width - (dim.width - this.drop.width());
+                        position['min-width'] = justify.width;
                         position['margin-left'] = justify.left - pos.left;
                     } else {
                         position.top = 0;
-                        position['min-height'] = justify.height - (dim.height - this.drop.height());
+                        position['min-height'] = justify.height;
                         position['margin-top'] = justify.top - pos.top;
                     }
                 }

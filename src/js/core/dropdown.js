@@ -4,11 +4,7 @@ export default function (UIkit) {
 
         name: 'dropdown',
 
-        defaults: {
-
-            target: '.uk-dropdown',
-            cls: 'uk-dropdown'
-        }
+        defaults: {cls: 'uk-dropdown'}
 
     }));
 
