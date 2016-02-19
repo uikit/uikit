@@ -62,6 +62,16 @@
 @inverse-navbar-nav-item-active-color:         @inverse-color;
 @inverse-navbar-item-color:                    @inverse-color;
 
+@inverse-subnav-item-color:                    fade(@inverse-color, 70%);
+@inverse-subnav-item-hover-color:              @inverse-color;
+@inverse-subnav-item-active-color:             @inverse-color;
+@inverse-subnav-line-item-border:              fade(@inverse-color, 20%);
+@inverse-subnav-pill-item-hover-background:    fade(@inverse-color, 80%);
+@inverse-subnav-pill-item-hover-color:         @inverse-contrast-color;
+@inverse-subnav-pill-item-active-background:   @inverse-color;
+@inverse-subnav-pill-item-active-color:        @inverse-contrast-color;
+@inverse-subnav-item-disabled-color:           fade(@inverse-color, 70%);
+
 @inverse-icon-hover-color:                     fade(@inverse-color, 70%);
 @inverse-icon-hover-hover-color:               @inverse-color;
 @inverse-icon-button-background:               @inverse-color;
@@ -98,14 +108,14 @@
     // Link
     //
 
-    a:not([class]),
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
     .uk-link  {
         color: @inverse-base-link-color;
         text-decoration: @inverse-base-link-text-decoration;
         .hook-inverse-base-link;
     }
 
-    a:not([class]):hover,
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
     .uk-link:hover {
         color: @inverse-base-link-hover-color;
         text-decoration: @inverse-base-link-hover-text-decoration;
@@ -337,7 +347,6 @@
         .hook-inverse-navbar-nav-item;
     }
 
-    /* Hover + Focus + Open */
     .uk-navbar-nav > li:hover > a,
     .uk-navbar-nav > li > a:focus,
     .uk-navbar-nav > li.uk-open > a {
@@ -346,13 +355,11 @@
         .hook-inverse-navbar-nav-item-hover;
     }
 
-    /* OnClick */
     .uk-navbar-nav > li > a:active {
         color: @inverse-navbar-nav-item-onclick-color;
         .hook-inverse-navbar-nav-item-onclick;
     }
 
-    /* Active */
     .uk-navbar-nav > li.uk-active > a {
         color: @inverse-navbar-nav-item-active-color;
         .hook-inverse-navbar-nav-item-active;
@@ -361,6 +368,61 @@
     .uk-navbar-item {
         color: @inverse-navbar-item-color;
         .hook-inverse-navbar-item;
+    }
+
+
+    // Subnav
+    // ========================================================================
+
+    .uk-subnav > * > * {
+        color: @inverse-subnav-item-color;
+        .hook-inverse-subnav-item;
+    }
+
+    .uk-subnav > * > :hover,
+    .uk-subnav > * > :focus {
+        color: @inverse-subnav-item-hover-color;
+        .hook-inverse-subnav-item-hover;
+    }
+
+    .uk-subnav > .uk-active > * {
+        color: @inverse-subnav-item-active-color;
+        .hook-inverse-subnav-item-active;
+    }
+
+    //
+    // Line
+    //
+
+    .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+        border-left-color: @inverse-subnav-line-item-border;
+        .hook-inverse-subnav-line-divider;
+    }
+
+    //
+    // Pill
+    //
+
+    .uk-subnav-pill > * > :hover,
+    .uk-subnav-pill > * > :focus {
+        background: @inverse-subnav-pill-item-hover-background;
+        color: @inverse-subnav-pill-item-hover-color;
+        .hook-inverse-subnav-pill-item-hover;
+    }
+
+    .uk-subnav-pill > .uk-active > * {
+        background: @inverse-subnav-pill-item-active-background;
+        color: @inverse-subnav-pill-item-active-color;
+        .hook-inverse-subnav-pill-item-active;
+    }
+
+    //
+    // Disabled state
+    //
+
+    .uk-subnav > .uk-disabled > * {
+        color: @inverse-subnav-item-disabled-color;
+        .hook-inverse-subnav-item-disabled;
     }
 
 
@@ -450,6 +512,14 @@
 .hook-inverse-navbar-nav-item-onclick() {}
 .hook-inverse-navbar-nav-item-active() {}
 .hook-inverse-navbar-item() {}
+
+.hook-inverse-subnav-item() {}
+.hook-inverse-subnav-item-hover() {}
+.hook-inverse-subnav-item-active() {}
+.hook-inverse-subnav-line-divider() {}
+.hook-inverse-subnav-pill-item-hover() {}
+.hook-inverse-subnav-pill-item-active() {}
+.hook-inverse-subnav-item-disabled() {}
 
 .hook-inverse-icon-hover() {}
 .hook-inverse-icon-hover-hover() {}

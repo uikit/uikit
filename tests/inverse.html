@@ -117,7 +117,7 @@
                                 <h3>Button</h3>
 
                                 <p uk-margin-wrap>
-                                    <button class="uk-button uk-button-default">Default</button>
+                                    <a class="uk-button uk-button-default" href="#">Default</a>
                                     <button class="uk-button uk-button-primary">Primary</button>
                                     <button class="uk-button uk-button-text">Text</button>
                                 </p>
@@ -148,14 +148,58 @@
 
                         <h3>Navbar</h3>
 
-                        <nav class="uk-navbar uk-navbar-transparent">
-                            <ul class="uk-navbar-nav">
-                                <li class="uk-active"><a href="">Active</a></li>
-                                <li><a href="">Parent</a></li>
-                                <li><a href="">Item</a></li>
-                                <li><a href="">Item</a></li>
-                            </ul>
+                        <nav class="uk-navbar uk-navbar-transparent" uk-navbar>
+                            <div class="uk-navbar-left">
+                                <ul class="uk-navbar-nav">
+                                    <li class="uk-active"><a href="">Active</a></li>
+                                    <li>
+                                        <a href="">Parent</a>
+                                        <div class="uk-navbar-dropdown">
+                                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                                <li class="uk-active"><a href="#">Active</a></li>
+                                                 <li class="uk-parent">
+                                                    <a href="#">Parent</a>
+                                                    <ul class="uk-nav-sub">
+                                                        <li><a href="#">Sub item</a></li>
+                                                        <li><a href="#">Sub item</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="uk-nav-header">Header</li>
+                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                                <li class="uk-nav-divider"></li>
+                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="">Item</a></li>
+                                    <li><a href="">Item</a></li>
+                                </ul>
+                            </div>
                         </nav>
+
+                        <h3>Subnav</h3>
+
+                        <ul class="uk-subnav" uk-margin-wrap>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
+
+                        <ul class="uk-subnav uk-subnav-line" uk-margin-wrap>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
+
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin-wrap>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
 
                         <h3>Grid</h3>
 
@@ -268,7 +312,7 @@
                                 <h3>Button</h3>
 
                                 <p uk-margin-wrap>
-                                    <button class="uk-button uk-button-default">Default</button>
+                                    <a class="uk-button uk-button-default" href="#">Default</a>
                                     <button class="uk-button uk-button-primary">Primary</button>
                                     <button class="uk-button uk-button-text">Text</button>
                                 </p>
@@ -299,14 +343,58 @@
 
                         <h3>Navbar</h3>
 
-                        <nav class="uk-navbar uk-navbar-transparent">
-                            <ul class="uk-navbar-nav">
-                                <li class="uk-active"><a href="">Active</a></li>
-                                <li><a href="">Parent</a></li>
-                                <li><a href="">Item</a></li>
-                                <li><a href="">Item</a></li>
-                            </ul>
+                        <nav class="uk-navbar uk-navbar-transparent" uk-navbar>
+                            <div class="uk-navbar-left">
+                                <ul class="uk-navbar-nav">
+                                    <li class="uk-active"><a href="">Active</a></li>
+                                    <li>
+                                        <a href="">Parent</a>
+                                        <div class="uk-navbar-dropdown">
+                                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                                <li class="uk-active"><a href="#">Active</a></li>
+                                                 <li class="uk-parent">
+                                                    <a href="#">Parent</a>
+                                                    <ul class="uk-nav-sub">
+                                                        <li><a href="#">Sub item</a></li>
+                                                        <li><a href="#">Sub item</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="uk-nav-header">Header</li>
+                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                                <li class="uk-nav-divider"></li>
+                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><a href="">Item</a></li>
+                                    <li><a href="">Item</a></li>
+                                </ul>
+                            </div>
                         </nav>
+
+                        <h3>Subnav</h3>
+
+                        <ul class="uk-subnav" uk-margin-wrap>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
+
+                        <ul class="uk-subnav uk-subnav-line" uk-margin-wrap>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
+
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin-wrap>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
 
                         <h3>Grid</h3>
 

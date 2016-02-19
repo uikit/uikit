@@ -1928,10 +1928,7 @@ ul.uk-nav-sub {
  * The same for all style modifiers
  ========================================================================== */
 .uk-subnav > .uk-disabled > * {
-  background: none;
   color: #999;
-  text-decoration: none;
-  cursor: text;
 }
 /* ========================================================================
    Component: Alert
@@ -5032,6 +5029,11 @@ ul.uk-nav-sub {
   background-size: cover;
   background-repeat: no-repeat;
 }
+/* Disabled state
+ ========================================================================== */
+.uk-disabled {
+  pointer-events: none;
+}
 /* ========================================================================
    Component: Margin
  ========================================================================== */
@@ -5401,24 +5403,21 @@ ul.uk-nav-sub {
   color: #fff;
   /* Hover + Focus */
   /* Disabled */
-  /* Hover + Focus + Open */
-  /* OnClick */
-  /* Active */
 }
-.uk-light a:not([class]),
+.uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
 .uk-light .uk-link,
-.uk-card-primary a:not([class]),
+.uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
 .uk-card-primary .uk-link,
-.uk-card-secondary a:not([class]),
+.uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
 .uk-card-secondary .uk-link {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
 }
-.uk-light a:not([class]):hover,
+.uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
 .uk-light .uk-link:hover,
-.uk-card-primary a:not([class]):hover,
+.uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
 .uk-card-primary .uk-link:hover,
-.uk-card-secondary a:not([class]):hover,
+.uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
 .uk-card-secondary .uk-link:hover {
   color: #fff;
   text-decoration: underline;
@@ -5751,6 +5750,49 @@ ul.uk-nav-sub {
 .uk-card-primary .uk-navbar-item,
 .uk-card-secondary .uk-navbar-item {
   color: #fff;
+}
+.uk-light .uk-subnav > * > *,
+.uk-card-primary .uk-subnav > * > *,
+.uk-card-secondary .uk-subnav > * > * {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-subnav > * > :hover,
+.uk-light .uk-subnav > * > :focus,
+.uk-card-primary .uk-subnav > * > :hover,
+.uk-card-primary .uk-subnav > * > :focus,
+.uk-card-secondary .uk-subnav > * > :hover,
+.uk-card-secondary .uk-subnav > * > :focus {
+  color: #fff;
+}
+.uk-light .uk-subnav > .uk-active > *,
+.uk-card-primary .uk-subnav > .uk-active > *,
+.uk-card-secondary .uk-subnav > .uk-active > * {
+  color: #fff;
+}
+.uk-light .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before,
+.uk-card-primary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before,
+.uk-card-secondary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-subnav-pill > * > :hover,
+.uk-light .uk-subnav-pill > * > :focus,
+.uk-card-primary .uk-subnav-pill > * > :hover,
+.uk-card-primary .uk-subnav-pill > * > :focus,
+.uk-card-secondary .uk-subnav-pill > * > :hover,
+.uk-card-secondary .uk-subnav-pill > * > :focus {
+  background: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-subnav-pill > .uk-active > *,
+.uk-card-primary .uk-subnav-pill > .uk-active > *,
+.uk-card-secondary .uk-subnav-pill > .uk-active > * {
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-subnav > .uk-disabled > *,
+.uk-card-primary .uk-subnav > .uk-disabled > *,
+.uk-card-secondary .uk-subnav > .uk-disabled > * {
+  color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-grid-divider > :not(.uk-grid-first):before,
 .uk-card-primary .uk-grid-divider > :not(.uk-grid-first):before,
