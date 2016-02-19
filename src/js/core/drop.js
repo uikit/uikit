@@ -294,27 +294,20 @@ export default function (UIkit) {
 
                 $(document).on('mousemove', this.mouseHandler);
 
-                var offset = this.drop.offset(),
-                    topLeft = {x: offset.left, y: offset.top},
-                    topRight = {x: offset.left + this.drop.outerWidth(), y: topLeft.y},
-                    bottomLeft = {x: offset.left, y: offset.top + this.drop.outerHeight()},
+                var boundary = getBoundary(this.drop),
+                    topLeft = {x: boundary.left, y: boundary.top},
+                    topRight = {x: boundary.left + boundary.width, y: topLeft.y},
+                    bottomLeft = {x: boundary.left, y: boundary.top + boundary.height},
                     bottomRight = {x: topRight.x, y: bottomLeft.y};
 
                 if (this.dir === 'left') {
-                    this.incPoint = topRight;
-                    this.decPoint = bottomRight;
+                    this.points = [[topLeft, bottomRight], [topRight, bottomLeft]];
                 } else if (this.dir === 'right') {
-                    this.incPoint = bottomLeft;
-                    this.decPoint = topLeft;
+                    this.points = [[bottomRight, topLeft], [bottomLeft, topRight]];
                 } else if (this.dir === 'bottom') {
-                    this.incPoint = topLeft;
-                    this.decPoint = topRight;
+                    this.points = [[bottomLeft, topRight], [topLeft, bottomRight]];
                 } else if (this.dir === 'top') {
-                    this.incPoint = bottomRight;
-                    this.decPoint = bottomLeft;
-                } else {
-                    this.incPoint = 0;
-                    this.decPoint = 0;
+                    this.points = [[topRight, bottomLeft], [bottomRight, topLeft]];
                 }
 
             },
@@ -333,14 +326,13 @@ export default function (UIkit) {
 
                 var position = this.positions[this.positions.length - 1],
                     prevPos = this.positions[0] || position,
-                    delay = !(
-                        !position
-                        || this.mode !== 'hover'
-                        || !this.decPoint
-                        || (this.position && position.x === this.position.x && position.y === this.position.y)
-                        || slope(position, this.decPoint) > slope(prevPos, this.decPoint)
-                        || slope(position, this.incPoint) < slope(prevPos, this.incPoint)
-                    );
+                    delay = position && this.mode === 'hover' && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y);
+
+                if (delay) {
+                    delay = !!this.points.reduce((result, point) => {
+                        return result - (slope(position, point[0]) < slope(prevPos, point[0]) || slope(position, point[1]) > slope(prevPos, point[1]));
+                    }, 2);
+                }
 
                 this.position = delay ? position : null;
                 return delay;
