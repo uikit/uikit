@@ -10,8 +10,8 @@ export default function (UIkit) {
             mode: String,
             pos: String,
             offset: Number,
-            justify: String,
-            target: String,
+            justify: Boolean,
+            boundary: String,
             cls: String,
             delayShow: Number,
             delayHide: Number,
@@ -20,12 +20,12 @@ export default function (UIkit) {
         },
 
         defaults: {
-            dropdown: '.uk-navbar-nav > li:not([uk-drop], [uk-dropdown])',
+            dropdown: '.uk-navbar-nav > li',
             mode: 'hover',
             pos: 'bottom-left',
             offset: 0,
             justify: false,
-            target: '.uk-navbar-dropdown',
+            boundary: window,
             cls: 'uk-navbar-dropdown',
             delayHide: 800,
             hoverIdle: 200,
@@ -35,15 +35,14 @@ export default function (UIkit) {
 
         ready() {
 
-            UIkit.drop(this.$el.find(this.dropdown), {
+            UIkit.drop(this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])'), {
                 mode: this.mode,
                 pos: this.pos,
                 offset: this.offset,
-                justify: this.justify,
-                target: this.target,
+                justify: this.justify ? this.$el : false,
+                boundary: this.boundary,
                 cls: this.cls,
                 flip: 'x',
-                boundary: this.$el,
                 delayShow: this.delayShow,
                 delayHide: this.delayHide
             });

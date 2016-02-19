@@ -34,11 +34,7 @@ export default function (UIkit) {
 
         ready() {
 
-            this.drop = this.$el.find('.' + this.cls);
-
-            if (!this.drop.length) {
-                return;
-            }
+            this.drop = toJQuery(this.$el.find('.' + this.cls));
 
             this.justify = toJQuery(this.justify);
 
@@ -69,7 +65,7 @@ export default function (UIkit) {
             });
 
             if (this.mode === 'click') {
-                this.$el.on('click', `:not(${this.target}) a[href="#"]`, e => {
+                this.$el.on('click', `> a[href="#"], :not(.${this.cls}) a[href="#"]`, e => {
                     e.preventDefault();
                 });
             } else {
@@ -168,6 +164,10 @@ export default function (UIkit) {
 
             updatePosition() {
 
+                if (!this.drop) {
+                    return;
+                }
+
                 removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)').css({
                     'top-left': '',
                     'left': '',
@@ -256,6 +256,10 @@ export default function (UIkit) {
             },
 
             initMouseTracker() {
+
+                if (!this.drop) {
+                    return;
+                }
 
                 this.positions = [];
                 this.position = null;

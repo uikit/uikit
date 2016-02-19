@@ -61,12 +61,12 @@
 
                     <h2>Dropdown</h2>
 
-                    <nav class="uk-navbar uk-margin" uk-navbar>
+                    <nav id="nav-dropdown-hover" class="uk-navbar uk-margin" uk-navbar>
                         <div class="uk-navbar-left">
 
                             <ul class="uk-navbar-nav">
                                 <li>
-                                    <a href="">Hover</a>
+                                    <a href="#">Hover</a>
                                     <div class="uk-navbar-dropdown">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-active"><a href="#">Active</a></li>
@@ -86,7 +86,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="">2 Columns</a>
+                                    <a href="#">2 Columns</a>
                                     <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
                                         <div class="uk-navbar-dropdown-grid uk-grid uk-child-width-1-2@m">
                                             <div>
@@ -127,7 +127,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="">3 Columns</a>
+                                    <a href="#">3 Columns</a>
                                     <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
                                         <div class="uk-navbar-dropdown-grid uk-grid uk-grid-small uk-grid-divider uk-child-width-1-3@m" uk-grid>
                                             <div>
@@ -168,8 +168,8 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <a href="">Justify</a>
+                                <li uk-drop="cls: uk-navbar-dropdown; justify: #nav-dropdown-hover; flip: x">
+                                    <a href="#">Justify</a>
                                     <div class="uk-navbar-dropdown">
                                         <div class="uk-navbar-dropdown-grid uk-grid uk-grid-small uk-grid-divider uk-child-width-1-3@m" uk-grid>
                                             <div>
@@ -217,7 +217,7 @@
 
                             <ul class="uk-navbar-nav">
                                 <li>
-                                    <a href="">Right</a>
+                                    <a href="#">Right</a>
                                     <div class="uk-navbar-dropdown">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-active"><a href="#">Active</a></li>
@@ -246,7 +246,7 @@
 
                             <ul class="uk-navbar-nav">
                                 <li>
-                                    <a href="">Click</a>
+                                    <a href="#">Click</a>
                                     <div class="uk-navbar-dropdown">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-active"><a href="#">Active</a></li>
@@ -266,7 +266,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="">2 Columns</a>
+                                    <a href="#">2 Columns</a>
                                     <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
                                         <div class="uk-navbar-dropdown-grid uk-grid uk-child-width-1-2@m">
                                             <div>
@@ -307,7 +307,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="">3 Columns</a>
+                                    <a href="#">3 Columns</a>
                                     <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
                                         <div class="uk-navbar-dropdown-grid uk-grid uk-grid-small uk-grid-divider uk-child-width-1-3@m" uk-grid>
                                             <div>
@@ -348,8 +348,8 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <a href="">Justify</a>
+                                <li uk-drop="cls: uk-navbar-dropdown; justify: #nav-dropdown-hover; flip: x; mode: click">
+                                    <a href="#">Justify</a>
                                     <div class="uk-navbar-dropdown">
                                         <div class="uk-navbar-dropdown-grid uk-grid uk-grid-small uk-grid-divider uk-child-width-1-3@m" uk-grid>
                                             <div>
@@ -397,7 +397,7 @@
 
                             <ul class="uk-navbar-nav">
                                 <li>
-                                    <a href="">Right</a>
+                                    <a href="#">Right</a>
                                     <div class="uk-navbar-dropdown">
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-active"><a href="#">Active</a></li>
@@ -421,7 +421,7 @@
                         </div>
                     </nav>
 
-                    <nav class="uk-navbar uk-margin" uk-navbar>
+                    <nav class="uk-navbar uk-margin" uk-navbar="pos: bottom-center">
                         <div class="uk-navbar-left">
 
                             <ul class="uk-navbar-nav">
@@ -528,7 +528,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li>
+                                <li uk-drop="cls: uk-navbar-dropdown; justify: #nav-dropdown-hover; flip: x">
                                     <a href="">Justify</a>
                                     <div class="uk-navbar-dropdown">
                                         <div class="uk-navbar-dropdown-grid uk-grid uk-grid-small uk-grid-divider uk-child-width-1-3@m" uk-grid>
@@ -1310,9 +1310,15 @@
                     </tr>
                     <tr>
                         <td><code>justify</code></td>
-                        <td>CSS selector</td>
+                        <td>Boolean</td>
                         <td>false</td>
-                        <td>Stretch Drop width to a specified element.</td>
+                        <td>Stretch Drop width to the navbar.</td>
+                    </tr>
+                    <tr>
+                        <td><code>boundary</code></td>
+                        <td>CSS selector</td>
+                        <td>window</td>
+                        <td>Referenced element to keep Drop's visibility.</td>
                     </tr>
                     <tr>
                         <td><code>target</code></td>
