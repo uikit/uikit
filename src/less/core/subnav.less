@@ -1,5 +1,5 @@
 // Name:            Subnav
-// Description:     Defines styles for the sub navigation
+// Description:     Component to create a sub navigation
 //
 // Component:       `uk-subnav`
 //
@@ -7,13 +7,7 @@
 //                  `uk-subnav-pill`
 //
 // States:          `uk-active`
-//
-// Markup:
-//
-// <!-- uk-subnav -->
-// <ul class="uk-subnav">
-//     <li><a href=""></a></li>
-// </ul>
+//                  `uk-row-first`
 //
 // ========================================================================
 
@@ -21,8 +15,25 @@
 // Variables
 // ========================================================================
 
-@subnav-margin-horizontal:                      10px;
-@subnav-margin-vertical:                        @subnav-margin-horizontal;
+@subnav-margin-horizontal:                      20px;
+
+@subnav-item-color:                             @global-muted-color;
+@subnav-item-hover-color:                       @global-color;
+@subnav-item-hover-text-decoration:             none;
+@subnav-item-active-color:                      @global-color;
+
+@subnav-line-item-border-height:                @global-margin;
+@subnav-line-item-border:                       @global-border;
+@subnav-line-item-border-width:                 1px;
+
+@subnav-pill-item-padding-vertical:             5px;
+@subnav-pill-item-padding-horizontal:           10px;
+@subnav-pill-item-hover-background:             @global-muted-background;
+@subnav-pill-item-hover-color:                  @global-color;
+@subnav-pill-item-active-background:            @global-primary-background;
+@subnav-pill-item-active-color:                 @global-light-color;
+
+@subnav-item-disabled-color:                    @global-muted-color;
 
 
 /* ========================================================================
@@ -48,6 +59,7 @@
     /* 3 */
     padding: 0;
     list-style: none;
+    .hook-subnav;
 }
 
 /*
@@ -67,6 +79,101 @@
 }
 
 
+/* Items
+ ========================================================================== */
+
+.uk-subnav > * > * {
+    display: inline-block;
+    color: @subnav-item-color;
+    .hook-subnav-item;
+}
+
+/* Hover + Focus */
+.uk-subnav > * > :hover,
+.uk-subnav > * > :focus {
+    color: @subnav-item-hover-color;
+    text-decoration: @subnav-item-hover-text-decoration;
+    .hook-subnav-item-hover;
+}
+
+/* Active */
+.uk-subnav > .uk-active > * {
+    color: @subnav-item-active-color;
+    .hook-subnav-item-active;
+}
+
+
+/* Line modifier
+ ========================================================================== */
+
+/*
+ * 1. Align items and divider vertically
+ */
+
+.uk-subnav-line > * {
+    /* 1 */
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.uk-subnav-line > :before {
+    content: "";
+    height: @subnav-line-item-border-height;
+}
+
+/*
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+
+.uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+    margin-right: @subnav-margin-horizontal;
+    border-left: @subnav-line-item-border-width solid @subnav-line-item-border;
+    .hook-subnav-line-divider;
+}
+
+
+/* Pill modifier
+ ========================================================================== */
+
+.uk-subnav-pill > * > * {
+    padding: @subnav-pill-item-padding-vertical @subnav-pill-item-padding-horizontal;
+    .hook-subnav-pill-item;
+}
+
+/* Hover + Focus */
+.uk-subnav-pill > * > :hover,
+.uk-subnav-pill > * > :focus {
+    background: @subnav-pill-item-hover-background;
+    color: @subnav-pill-item-hover-color;
+    outline: none;
+    .hook-subnav-pill-item-hover;
+}
+
+/* Active */
+.uk-subnav-pill > .uk-active > * {
+    background: @subnav-pill-item-active-background;
+    color: @subnav-pill-item-active-color;
+    .hook-subnav-pill-item-active;
+}
+
+
+/* Disabled state
+ * The same for all style modifiers
+ ========================================================================== */
+
+.uk-subnav > .uk-disabled > * {
+    background: none;
+    color: @subnav-item-disabled-color;
+    text-decoration: none;
+    cursor: text;
+    .hook-subnav-item-disabled;
+}
+
+
 
 // Hooks
 // ========================================================================
@@ -74,4 +181,12 @@
 .hook-subnav-misc;
 
 .hook-subnav() {}
+.hook-subnav-item() {}
+.hook-subnav-item-hover() {}
+.hook-subnav-item-active() {}
+.hook-subnav-line-divider() {}
+.hook-subnav-pill-item() {}
+.hook-subnav-pill-item-hover() {}
+.hook-subnav-pill-item-active() {}
+.hook-subnav-item-disabled() {}
 .hook-subnav-misc() {}

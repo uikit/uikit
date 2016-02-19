@@ -1831,6 +1831,109 @@ ul.uk-nav-sub {
   padding-left: 40px;
 }
 /* ========================================================================
+   Component: Subnav
+ ========================================================================== */
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Gutter
+ * 3. Makes it more robust so that it can be used with other block elements like lists
+ */
+.uk-subnav {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* 1 */
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* 2 */
+  margin-left: -20px;
+  /* 3 */
+  padding: 0;
+  list-style: none;
+}
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 3. Create position context for dropdowns
+ */
+.uk-subnav > * {
+  /* 1 */
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+  /* 2 */
+  padding-left: 20px;
+  /* 3 */
+  position: relative;
+}
+/* Items
+ ========================================================================== */
+.uk-subnav > * > * {
+  display: inline-block;
+  color: #999;
+}
+/* Hover + Focus */
+.uk-subnav > * > :hover,
+.uk-subnav > * > :focus {
+  color: #444;
+  text-decoration: none;
+}
+/* Active */
+.uk-subnav > .uk-active > * {
+  color: #444;
+}
+/* Line modifier
+ ========================================================================== */
+/*
+ * 1. Align items and divider vertically
+ */
+.uk-subnav-line > * {
+  /* 1 */
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.uk-subnav-line > :before {
+  content: "";
+  height: 20px;
+}
+/*
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+.uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+  margin-right: 20px;
+  border-left: 1px solid #e5e5e5;
+}
+/* Pill modifier
+ ========================================================================== */
+.uk-subnav-pill > * > * {
+  padding: 5px 10px;
+}
+/* Hover + Focus */
+.uk-subnav-pill > * > :hover,
+.uk-subnav-pill > * > :focus {
+  background: #f5f5f5;
+  color: #444;
+  outline: none;
+}
+/* Active */
+.uk-subnav-pill > .uk-active > * {
+  background: #489be0;
+  color: #fff;
+}
+/* Disabled state
+ * The same for all style modifiers
+ ========================================================================== */
+.uk-subnav > .uk-disabled > * {
+  background: none;
+  color: #999;
+  text-decoration: none;
+  cursor: text;
+}
+/* ========================================================================
    Component: Alert
  ========================================================================== */
 .uk-alert {
@@ -2648,7 +2751,7 @@ ul.uk-nav-sub {
 .uk-grid-divider > * {
   position: relative;
 }
-.uk-grid-divider > :not(.uk-grid-first):before {
+.uk-grid-divider > :not(.uk-row-first):before {
   content: "";
   position: absolute;
   top: 0;
@@ -2656,7 +2759,7 @@ ul.uk-nav-sub {
   border-left: 1px solid #e5e5e5;
 }
 /* Vertical */
-.uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+.uk-grid-divider > .uk-row-first + .uk-row-first:before {
   content: "";
   position: absolute;
   left: 0;
@@ -2673,14 +2776,14 @@ ul.uk-nav-sub {
 .uk-grid-divider > * {
   padding-left: 60px;
 }
-.uk-grid-divider > :not(.uk-grid-first):before {
+.uk-grid-divider > :not(.uk-row-first):before {
   left: 30px;
 }
 /* Vertical */
-.uk-grid-divider > .uk-grid-first + .uk-grid-first {
+.uk-grid-divider > .uk-row-first + .uk-row-first {
   margin-top: 60px;
 }
-.uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+.uk-grid-divider > .uk-row-first + .uk-row-first:before {
   top: -30px;
   left: 60px;
 }
@@ -2693,14 +2796,14 @@ ul.uk-nav-sub {
   .uk-grid-divider > * {
     padding-left: 80px;
   }
-  .uk-grid-divider > :not(.uk-grid-first):before {
+  .uk-grid-divider > :not(.uk-row-first):before {
     left: 40px;
   }
   /* Vertical */
-  .uk-grid-divider > .uk-grid-first + .uk-grid-first {
+  .uk-grid-divider > .uk-row-first + .uk-row-first {
     margin-top: 80px;
   }
-  .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+  .uk-grid-divider > .uk-row-first + .uk-row-first:before {
     top: -40px;
     left: 80px;
   }
@@ -2715,14 +2818,14 @@ ul.uk-nav-sub {
 .uk-grid-divider.uk-grid-small > * {
   padding-left: 20px;
 }
-.uk-grid-divider.uk-grid-small > :not(.uk-grid-first):before {
+.uk-grid-divider.uk-grid-small > :not(.uk-row-first):before {
   left: 10px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first {
+.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first {
   margin-top: 20px;
 }
-.uk-grid-divider.uk-grid-small > .uk-grid-first + .uk-grid-first:before {
+.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first:before {
   top: -10px;
   left: 20px;
 }
@@ -2736,14 +2839,14 @@ ul.uk-nav-sub {
 .uk-grid-divider.uk-grid-medium > * {
   padding-left: 60px;
 }
-.uk-grid-divider.uk-grid-medium > :not(.uk-grid-first):before {
+.uk-grid-divider.uk-grid-medium > :not(.uk-row-first):before {
   left: 30px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-medium > .uk-grid-first + .uk-grid-first {
+.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first {
   margin-top: 60px;
 }
-.uk-grid-divider.uk-grid-medium > .uk-grid-first + .uk-grid-first:before {
+.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first:before {
   top: -30px;
   left: 60px;
 }
@@ -2757,14 +2860,14 @@ ul.uk-nav-sub {
 .uk-grid-divider.uk-grid-large > * {
   padding-left: 80px;
 }
-.uk-grid-divider.uk-grid-large > :not(.uk-grid-first):before {
+.uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
   left: 40px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first {
+.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
   margin-top: 80px;
 }
-.uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first:before {
+.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
   top: -40px;
   left: 80px;
 }
@@ -2777,14 +2880,14 @@ ul.uk-nav-sub {
   .uk-grid-divider.uk-grid-large > * {
     padding-left: 140px;
   }
-  .uk-grid-divider.uk-grid-large > :not(.uk-grid-first):before {
+  .uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
     left: 70px;
   }
   /* Vertical */
-  .uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first {
+  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
     margin-top: 140px;
   }
-  .uk-grid-divider.uk-grid-large > .uk-grid-first + .uk-grid-first:before {
+  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
     top: -70px;
     left: 140px;
   }
