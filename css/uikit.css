@@ -1804,6 +1804,15 @@ ul.uk-nav-sub {
 .uk-navbar-dropbar {
   background: #222;
 }
+/*
+ * Hover modifier
+ */
+.uk-navbar-dropbar-hover {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+}
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-navbar:not(.uk-navbar-container) {

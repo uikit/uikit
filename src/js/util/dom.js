@@ -171,6 +171,10 @@ export function isInView(element, offsetTop, offsetLeft) {
 }
 
 export function toJQuery(element) {
+    if (element === true) {
+        return null;
+    }
+
     element = $(element);
     return element.length ? element : null;
 }

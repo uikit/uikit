@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Transition, isWithin, requestAnimationFrame} from '../util/index';
+import {Transition, isWithin, requestAnimationFrame, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -15,8 +15,9 @@ export default function (UIkit) {
             cls: String,
             delayShow: Number,
             delayHide: Number,
-            overlay: Boolean,
-            duration: Number
+            dropbar: Boolean,
+            duration: Number,
+            dropbarMode: String
         },
 
         defaults: {
@@ -29,8 +30,9 @@ export default function (UIkit) {
             cls: 'uk-navbar-dropdown',
             delayHide: 800,
             hoverIdle: 200,
-            overlay: false,
-            duration: 200
+            dropbar: false,
+            duration: 200,
+            dropbarMode: 'hover'
         },
 
         ready() {
@@ -47,14 +49,18 @@ export default function (UIkit) {
                 delayHide: this.delayHide
             });
 
-            if (!this.overlay) {
+            if (!this.dropbar) {
                 return;
             }
 
-            this.overlay = typeof this.overlay === 'string' ? $(this.overlay) : this.overlay;
+            this.dropbar = toJQuery(this.dropbar);
 
-            if (!this.overlay.length) {
-                this.overlay = $('<div class="uk-dropdown-overlay"></div>').insertAfter(this.$el);
+            if (!this.dropbar) {
+                this.dropbar = $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.$el);
+            }
+
+            if (this.dropbarMode === 'hover') {
+                this.dropbar.addClass('uk-navbar-dropbar-hover');
             }
 
             var height, transition;
@@ -76,7 +82,7 @@ export default function (UIkit) {
                     }
                     height = newHeight;
 
-                    transition = Transition.start(this.overlay, {height: drop.drop.outerHeight(true)}, this.duration).then(() => {
+                    transition = Transition.start(this.dropbar, {height: drop.drop.outerHeight(true)}, this.duration).then(() => {
                         var active = this.getActive();
                         if (active) {
                             active.$el.addClass('uk-open');
@@ -89,7 +95,7 @@ export default function (UIkit) {
                 hide: () => {
                     requestAnimationFrame(() => {
                         if (!this.getActive()) {
-                            Transition.stop(this.overlay).start(this.overlay, {height: 0}, this.duration);
+                            Transition.stop(this.dropbar).start(this.dropbar, {height: 0}, this.duration);
                             height = 0;
                         }
                     });
@@ -97,7 +103,7 @@ export default function (UIkit) {
 
             });
 
-            this.overlay.on({
+            this.dropbar.on({
 
                 mouseenter: () => {
                     var active = this.getActive();

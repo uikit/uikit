@@ -71,11 +71,11 @@ export default function (UIkit) {
 
         update: {
 
-            handler(e) {
+            handler({type, dir}) {
 
                 var isActive = this.$el.hasClass(this.clsActive);
 
-                if (e.type !== 'scroll') {
+                if (type !== 'scroll') {
 
                     this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
 
@@ -119,7 +119,7 @@ export default function (UIkit) {
 
                 if (this.mediaInactive
                     || scroll < this.top
-                    || this.showOnUp && (e.dir === 'down' || e.dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.height())
+                    || this.showOnUp && (dir === 'down' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.height())
                 ) {
                     if (isActive) {
 
