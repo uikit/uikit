@@ -4,10 +4,7 @@ export default function (UIkit) {
 
         name: 'grid',
 
-        defaults: {
-            margin: 'uk-grid-margin',
-            rowFirst: 'uk-grid-first'
-        }
+        defaults: {margin: 'uk-grid-margin'}
 
     }));
 
