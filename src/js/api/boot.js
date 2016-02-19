@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Observer, ready, camelize, hyphenate, requestAnimationFrame} from '../util/index';
+import {Observer, ready, camelize, hyphenate, requestAnimationFrame, matches} from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,7 +28,7 @@ export default function (UIkit) {
 
                     let node = mutation.addedNodes[i];
 
-                    if (node.matches && node.matches(getSelector())) {
+                    if (matches(node, getSelector())) {
                         attachComponents(node);
                     }
                 }
@@ -70,6 +70,9 @@ export default function (UIkit) {
                 name = camelize(name.replace('uk-', ''));
 
                 if (UIkit[name]) {
+
+
+
                     requestAnimationFrame(() => {
                         UIkit[name](node);
                     });

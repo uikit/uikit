@@ -43,3 +43,14 @@ export const animationend = (function () {
     }
 
 })();
+
+var matchesFn = Element.prototype.matches
+    ? 'matches'
+    : Element.prototype.msMatchesSelector
+        ? 'msMatchesSelector'
+        : Element.prototype.webkitMatchesSelector
+            ? 'webkitMatchesSelector'
+            : false;
+export function matches(element, selector) {
+    return element[matchesFn] ? element[matchesFn](selector) : false;
+}
