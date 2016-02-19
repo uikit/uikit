@@ -44,6 +44,7 @@ export default function (UIkit) {
             this.boundary = toJQuery(this.boundary) || window;
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
+            this.pos += this.pos.indexOf('-') === -1 ? '-center' : '';
 
             // Init ARIA
             this.$el.attr({
