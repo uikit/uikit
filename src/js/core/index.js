@@ -5,6 +5,7 @@ import Cover from './cover';
 import Drop from './drop';
 import Dropdown from './dropdown';
 import Grid from './grid';
+import HeightExpand from './height-expand';
 import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
@@ -56,6 +57,7 @@ export default function (UIkit, _) {
     UIkit.use(Dropdown);
     UIkit.use(MarginWrap);
     UIkit.use(Grid);
+    UIkit.use(HeightExpand);
     UIkit.use(Icon);
     UIkit.use(Close);
     UIkit.use(MatchHeight);
