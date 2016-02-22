@@ -1,6 +1,7 @@
 import $ from 'jquery';
+import UIkit from '../core/index';
 
-var storage = window.localStorage || {}, svgs = {};
+var storage = window.sessionStorage || {}, svgs = {};
 
 export default {
 
@@ -16,11 +17,11 @@ export default {
                 return svgs[src];
             }
 
-            var key = 'uikit_' + src;
+            var key = 'uikit_' + UIkit.version + '_' + src;
             svgs[src] = $.Deferred();
 
             if (!storage[key]) {
-                $.get(src).then((doc,status,res) => {
+                $.get(src).then((doc, status, res) => {
                     storage[key] = res.responseText;
                     svgs[src].resolve(storage[key]);
                 });

@@ -43,10 +43,10 @@ module.exports = [
 
     {
         entry: {
-            index: "./tests/index"
+            index: "./tests/js/index"
         },
         output: {
-            filename: "./tests/test.js"
+            filename: "./tests/js/test.js"
         },
         module: loaders,
         externals: externals
