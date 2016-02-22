@@ -3,7 +3,7 @@ import $ from 'jquery';
 require('../../vendor/holder.js');
 require('../../src/js/uikit.js');
 
-var base = '../' + document.querySelector('script[src*="test.js"]').getAttribute('src').replace('test.js', ''),
+var base = '../' + document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', ''),
 
     tests = {
 
