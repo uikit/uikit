@@ -1,11 +1,9 @@
-var path = require("path");
 var webpack = require("webpack");
-var source = path.resolve(__dirname, 'src');
 
 var loaders = {
     loaders: [
         {
-            test: source,
+            test: /(src|tests)\/.*\.js$/,
             loader: "babel",
             query: { presets: ["es2015"] }
         }
@@ -19,7 +17,7 @@ var externals = {
 module.exports = [
 
     {
-        entry: "./src/js/uikit.js",
+        entry: "./src/js/uikit",
         output: {
             path: "./js",
             filename: "uikit.js",
@@ -41,6 +39,17 @@ module.exports = [
     //    module: loaders,
     //    externals: externals,
     //    plugins: [ new webpack.optimize.UglifyJsPlugin ]
-    //}
+    //},
+
+    {
+        entry: {
+            index: "./tests/index"
+        },
+        output: {
+            filename: "./tests/test.js"
+        },
+        module: loaders,
+        externals: externals
+    }
 
 ];

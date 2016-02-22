@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-var svgs = {};
+var storage = window.localStorage || {}, svgs = {};
 
 export default {
 
@@ -11,8 +11,21 @@ export default {
     methods: {
 
         get(src) {
-            if (!svgs[src]) {
-                svgs[src] = $.get(src);
+
+            if (svgs[src]) {
+                return svgs[src];
+            }
+
+            var key = 'uikit_' + src;
+            svgs[src] = $.Deferred();
+
+            if (!storage[key]) {
+                $.get(src).then((doc,status,res) => {
+                    storage[key] = res.responseText;
+                    svgs[src].resolve(storage[key]);
+                });
+            } else {
+                svgs[src].resolve(storage[key]);
             }
 
             return svgs[src];
@@ -22,45 +35,43 @@ export default {
 
             return this.get(src).then(doc => {
 
-                var el = $('#' + icon, doc), svg, dimensions;
+                var el = $('#' + icon, doc), dimensions;
 
                 if (!el || !el.length) {
                     return $.Deferred().reject('Icon not found.');
                 }
 
-                el = el.clone();
+                el = $($('<div>').append(el.clone()).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
 
-                dimensions = el.attr('viewBox');
+                dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
                 if (dimensions) {
                     dimensions = dimensions.split(' ');
                     this.width = this.width || dimensions[2];
                     this.height = this.height || dimensions[3];
                 }
 
-                svg = $($('<div>').append(el).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
-
                 this.width *= this.ratio;
                 this.height *= this.ratio;
 
                 for (var prop in this.$options.props) {
                     if (this[prop] && this.exclude.indexOf(prop) === -1) {
-                        svg.attr(prop, this[prop]);
+                        el.attr(prop, this[prop]);
                     }
                 }
 
                 if (!this.id) {
-                    svg.removeAttr('id');
+                    el.removeAttr('id');
                 }
 
                 if (this.width && !this.height) {
-                    svg.removeAttr('height');
+                    el.removeAttr('height');
                 }
 
                 if (this.height && !this.width) {
-                    svg.removeAttr('width');
+                    el.removeAttr('width');
                 }
 
-                return svg;
+                return el;
             });
 
         }
