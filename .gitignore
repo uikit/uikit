@@ -5,7 +5,7 @@
 /node_modules
 /showcase
 /tools
-/tests/test.js
+/tests/js/test.js
 *~
 *.diff
 *.patch
