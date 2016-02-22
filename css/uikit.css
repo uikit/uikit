@@ -1415,6 +1415,7 @@ select.uk-form-width-mini {
 }
 /*
  * Items
+ * Must target `a` elements to exclude other elements (e.g. lists)
  */
 .uk-nav > li > a {
   padding: 8px 16px;
@@ -1869,18 +1870,21 @@ ul.uk-nav-sub {
 }
 /* Items
  ========================================================================== */
-.uk-subnav > * > * {
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ */
+.uk-subnav > * > a {
   display: inline-block;
   color: #999;
 }
 /* Hover + Focus */
-.uk-subnav > * > :hover,
-.uk-subnav > * > :focus {
+.uk-subnav > * > a:hover,
+.uk-subnav > * > a:focus {
   color: #444;
   text-decoration: none;
 }
 /* Active */
-.uk-subnav > .uk-active > * {
+.uk-subnav > .uk-active > a {
   color: #444;
 }
 /* Line modifier
@@ -1909,25 +1913,25 @@ ul.uk-nav-sub {
 }
 /* Pill modifier
  ========================================================================== */
-.uk-subnav-pill > * > * {
+.uk-subnav-pill > * > a {
   padding: 5px 10px;
 }
 /* Hover + Focus */
-.uk-subnav-pill > * > :hover,
-.uk-subnav-pill > * > :focus {
+.uk-subnav-pill > * > a:hover,
+.uk-subnav-pill > * > a:focus {
   background: #f5f5f5;
   color: #444;
   outline: none;
 }
 /* Active */
-.uk-subnav-pill > .uk-active > * {
+.uk-subnav-pill > .uk-active > a {
   background: #489be0;
   color: #fff;
 }
 /* Disabled
  * The same for all style modifiers
  ========================================================================== */
-.uk-subnav > .uk-disabled > * {
+.uk-subnav > .uk-disabled > a {
   color: #999;
 }
 /* ========================================================================
@@ -2043,6 +2047,105 @@ ul.uk-nav-sub {
 /* Disabled */
 .uk-pagination > .uk-disabled > * {
   color: #999;
+}
+/* ========================================================================
+   Component: Tab
+ ========================================================================== */
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Gutter
+ * 3. Reset lists
+ */
+.uk-tab {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* 1 */
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* 2 */
+  margin-left: -20px;
+  /* 3 */
+  padding: 0;
+  list-style: none;
+}
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+.uk-tab > * {
+  /* 1 */
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+  /* 2 */
+  padding-left: 20px;
+  /* 3 */
+  position: relative;
+}
+/* Items
+ ========================================================================== */
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * 1. Center text if a width is set
+ * 2. Style
+ */
+.uk-tab > * > a {
+  /* 1 */
+  display: block;
+  text-align: center;
+  /* 2 */
+  padding: 5px 10px;
+  color: #999;
+  border-bottom: 1px solid transparent;
+}
+/* Hover + Focus */
+.uk-tab > * > a:hover,
+.uk-tab > * > a:focus {
+  color: #444;
+  text-decoration: none;
+}
+/* Active */
+.uk-tab > .uk-active > a {
+  color: #444;
+  border-color: #489be0;
+}
+/* Disabled */
+.uk-tab > .uk-disabled > a {
+  color: #999;
+}
+/* Position modifier
+ ========================================================================== */
+/*
+ * Bottom
+ */
+.uk-tab-bottom > * > a {
+  border-top: 1px solid transparent;
+  border-bottom: none;
+}
+/*
+ * Left + Right
+ */
+.uk-tab-left,
+.uk-tab-right {
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.uk-tab-left > * > a {
+  text-align: right;
+  border-right: 1px solid transparent;
+  border-bottom: none;
+}
+.uk-tab-right > * > a {
+  text-align: left;
+  border-left: 1px solid transparent;
+  border-bottom: none;
+}
+.uk-tab .uk-dropdown {
+  margin-left: 30px;
 }
 /* ========================================================================
    Component: Alert
@@ -5865,22 +5968,22 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-navbar-item {
   color: #fff;
 }
-.uk-light .uk-subnav > * > *,
-.uk-card-primary .uk-subnav > * > *,
-.uk-card-secondary .uk-subnav > * > * {
+.uk-light .uk-subnav > * > a,
+.uk-card-primary .uk-subnav > * > a,
+.uk-card-secondary .uk-subnav > * > a {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-subnav > * > :hover,
-.uk-light .uk-subnav > * > :focus,
-.uk-card-primary .uk-subnav > * > :hover,
-.uk-card-primary .uk-subnav > * > :focus,
-.uk-card-secondary .uk-subnav > * > :hover,
-.uk-card-secondary .uk-subnav > * > :focus {
+.uk-light .uk-subnav > * > a:hover,
+.uk-light .uk-subnav > * > a:focus,
+.uk-card-primary .uk-subnav > * > a:hover,
+.uk-card-primary .uk-subnav > * > a:focus,
+.uk-card-secondary .uk-subnav > * > a:hover,
+.uk-card-secondary .uk-subnav > * > a:focus {
   color: #fff;
 }
-.uk-light .uk-subnav > .uk-active > *,
-.uk-card-primary .uk-subnav > .uk-active > *,
-.uk-card-secondary .uk-subnav > .uk-active > * {
+.uk-light .uk-subnav > .uk-active > a,
+.uk-card-primary .uk-subnav > .uk-active > a,
+.uk-card-secondary .uk-subnav > .uk-active > a {
   color: #fff;
 }
 .uk-light .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before,
@@ -5888,24 +5991,24 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-subnav-pill > * > :hover,
-.uk-light .uk-subnav-pill > * > :focus,
-.uk-card-primary .uk-subnav-pill > * > :hover,
-.uk-card-primary .uk-subnav-pill > * > :focus,
-.uk-card-secondary .uk-subnav-pill > * > :hover,
-.uk-card-secondary .uk-subnav-pill > * > :focus {
+.uk-light .uk-subnav-pill > * > a:hover,
+.uk-light .uk-subnav-pill > * > a:focus,
+.uk-card-primary .uk-subnav-pill > * > a:hover,
+.uk-card-primary .uk-subnav-pill > * > a:focus,
+.uk-card-secondary .uk-subnav-pill > * > a:hover,
+.uk-card-secondary .uk-subnav-pill > * > a:focus {
   background: rgba(255, 255, 255, 0.8);
   color: #444;
 }
-.uk-light .uk-subnav-pill > .uk-active > *,
-.uk-card-primary .uk-subnav-pill > .uk-active > *,
-.uk-card-secondary .uk-subnav-pill > .uk-active > * {
+.uk-light .uk-subnav-pill > .uk-active > a,
+.uk-card-primary .uk-subnav-pill > .uk-active > a,
+.uk-card-secondary .uk-subnav-pill > .uk-active > a {
   background: #fff;
   color: #444;
 }
-.uk-light .uk-subnav > .uk-disabled > *,
-.uk-card-primary .uk-subnav > .uk-disabled > *,
-.uk-card-secondary .uk-subnav > .uk-disabled > * {
+.uk-light .uk-subnav > .uk-disabled > a,
+.uk-card-primary .uk-subnav > .uk-disabled > a,
+.uk-card-secondary .uk-subnav > .uk-disabled > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-grid-divider > :not(.uk-grid-first):before,

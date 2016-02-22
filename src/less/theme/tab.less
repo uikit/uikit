@@ -1,0 +1,59 @@
+//
+// Component: Tab
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+
+// Component
+// ========================================================================
+
+.hook-tab() {}
+
+
+// Items
+// ========================================================================
+
+.hook-tab-item() {
+    border-bottom: 1px solid transparent;
+}
+
+.hook-tab-item-hover() {}
+
+.hook-tab-item-active() {
+    border-color: @global-primary-background;
+}
+
+.hook-tab-item-disabled() {}
+
+
+// Position modifiers
+// ========================================================================
+
+.hook-tab-bottom-item() {
+    border-top: 1px solid transparent;
+    border-bottom: none;
+}
+
+.hook-tab-left-item() {
+    border-right: 1px solid transparent;
+    border-bottom: none;
+}
+
+.hook-tab-right-item() {
+    border-left: 1px solid transparent;
+    border-bottom: none;
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-tab-misc() {
+
+    .uk-tab .uk-dropdown { margin-left: (@tab-margin-horizontal + @tab-item-padding-horizontal) }
+
+}

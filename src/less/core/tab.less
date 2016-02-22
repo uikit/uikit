@@ -1,0 +1,163 @@
+// Name:            Tab
+// Description:     Component to create a tabbed navigation
+//
+// Component:       `uk-tab`
+//
+// Modifiers:       `uk-tab-bottom`
+//                  `uk-tab-left`
+//                  `uk-tab-right`
+//
+// States:          `uk-active`
+//                  `uk-disabled`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tab-margin-horizontal:                  20px;
+
+@tab-item-padding-horizontal:            10px;
+@tab-item-padding-vertical:              5px;
+@tab-item-border:                        @global-primary-background;
+@tab-item-border-width:                  1px;
+@tab-item-color:                         @global-muted-color;
+@tab-item-hover-color:                   @global-color;
+@tab-item-hover-text-decoration:         none;
+@tab-item-active-color:                  @global-color;
+@tab-item-disabled-color:                @global-muted-color;
+
+
+/* ========================================================================
+   Component: Tab
+ ========================================================================== */
+
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Gutter
+ * 3. Reset lists
+ */
+
+.uk-tab {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 2 */
+    margin-left: -@tab-margin-horizontal;
+    /* 3 */
+    padding: 0;
+    list-style: none;
+    .hook-tab;
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+
+.uk-tab > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: @tab-margin-horizontal;
+    /* 3 */
+    position: relative;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * 1. Center text if a width is set
+ * 2. Style
+ */
+
+.uk-tab > * > a {
+    /* 1 */
+    display: block;
+    text-align: center;
+    /* 2 */
+    padding: @tab-item-padding-vertical @tab-item-padding-horizontal;
+    color: @tab-item-color;
+    .hook-tab-item;
+}
+
+/* Hover + Focus */
+.uk-tab > * > a:hover,
+.uk-tab > * > a:focus{
+    color: @tab-item-hover-color;
+    text-decoration: @tab-item-hover-text-decoration;
+    .hook-tab-item-hover;
+}
+
+/* Active */
+.uk-tab > .uk-active > a {
+    color: @tab-item-active-color;
+    .hook-tab-item-active;
+}
+
+/* Disabled */
+.uk-tab > .uk-disabled > a {
+    color: @tab-item-disabled-color;
+    .hook-tab-item-disabled;
+}
+
+
+/* Position modifier
+ ========================================================================== */
+
+/*
+ * Bottom
+ */
+
+.uk-tab-bottom > * > a {
+    .hook-tab-bottom-item;
+}
+
+/*
+ * Left + Right
+ */
+
+.uk-tab-left,
+.uk-tab-right {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.uk-tab-left > * > a {
+    text-align: right;
+    .hook-tab-left-item;
+}
+
+.uk-tab-right > * > a {
+    text-align: left;
+    .hook-tab-right-item;
+}
+
+
+
+// Hooks
+// ========================================================================
+
+.hook-tab-misc;
+
+.hook-tab() {}
+.hook-tab-item() {}
+.hook-tab-item-hover() {}
+.hook-tab-item-active() {}
+.hook-tab-item-disabled() {}
+.hook-tab-bottom-item() {}
+.hook-tab-left-item() {}
+.hook-tab-right-item() {}
+.hook-tab-misc() {}
