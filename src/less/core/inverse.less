@@ -65,7 +65,7 @@
 @inverse-subnav-item-color:                    fade(@inverse-color, 70%);
 @inverse-subnav-item-hover-color:              @inverse-color;
 @inverse-subnav-item-active-color:             @inverse-color;
-@inverse-subnav-line-item-border:              fade(@inverse-color, 20%);
+@inverse-subnav-line-divider-border:           fade(@inverse-color, 20%);
 @inverse-subnav-pill-item-hover-background:    fade(@inverse-color, 80%);
 @inverse-subnav-pill-item-hover-color:         @inverse-contrast-color;
 @inverse-subnav-pill-item-active-background:   @inverse-color;
@@ -395,7 +395,7 @@
     //
 
     .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
-        border-left-color: @inverse-subnav-line-item-border;
+        border-left-color: @inverse-subnav-line-divider-border;
         .hook-inverse-subnav-line-divider;
     }
 
@@ -417,7 +417,7 @@
     }
 
     //
-    // Disabled state
+    // Disabled
     //
 
     .uk-subnav > .uk-disabled > * {

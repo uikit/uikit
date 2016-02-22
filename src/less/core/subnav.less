@@ -22,9 +22,9 @@
 @subnav-item-hover-text-decoration:             none;
 @subnav-item-active-color:                      @global-color;
 
-@subnav-line-item-border-height:                @global-margin;
-@subnav-line-item-border:                       @global-border;
-@subnav-line-item-border-width:                 1px;
+@subnav-line-divider-border-height:             @global-margin;
+@subnav-line-divider-border:                    @global-border;
+@subnav-line-divider-border-width:              1px;
 
 @subnav-pill-item-padding-vertical:             5px;
 @subnav-pill-item-padding-horizontal:           10px;
@@ -43,7 +43,7 @@
 /*
  * 1. Allow cells to wrap into the next line
  * 2. Gutter
- * 3. Makes it more robust so that it can be used with other block elements like lists
+ * 3. Reset lists
  */
 
 .uk-subnav {
@@ -64,6 +64,7 @@
 
 /*
  * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
  * 3. Create position context for dropdowns
  */
 
@@ -120,18 +121,16 @@
     align-items: center;
 }
 
-.uk-subnav-line > :before {
-    content: "";
-    height: @subnav-line-item-border-height;
-}
-
 /*
+ * Divider
  * `nth-child` makes it also work without JS if it's only one row
  */
 
 .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+    content: "";
+    height: @subnav-line-divider-border-height;
     margin-right: @subnav-margin-horizontal;
-    border-left: @subnav-line-item-border-width solid @subnav-line-item-border;
+    border-left: @subnav-line-divider-border-width solid @subnav-line-divider-border;
     .hook-subnav-line-divider;
 }
 
@@ -161,7 +160,7 @@
 }
 
 
-/* Disabled state
+/* Disabled
  * The same for all style modifiers
  ========================================================================== */
 
