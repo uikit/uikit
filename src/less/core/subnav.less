@@ -83,22 +83,26 @@
 /* Items
  ========================================================================== */
 
-.uk-subnav > * > * {
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ */
+
+.uk-subnav > * > a {
     display: inline-block;
     color: @subnav-item-color;
     .hook-subnav-item;
 }
 
 /* Hover + Focus */
-.uk-subnav > * > :hover,
-.uk-subnav > * > :focus {
+.uk-subnav > * > a:hover,
+.uk-subnav > * > a:focus {
     color: @subnav-item-hover-color;
     text-decoration: @subnav-item-hover-text-decoration;
     .hook-subnav-item-hover;
 }
 
 /* Active */
-.uk-subnav > .uk-active > * {
+.uk-subnav > .uk-active > a {
     color: @subnav-item-active-color;
     .hook-subnav-item-active;
 }
@@ -138,14 +142,14 @@
 /* Pill modifier
  ========================================================================== */
 
-.uk-subnav-pill > * > * {
+.uk-subnav-pill > * > a {
     padding: @subnav-pill-item-padding-vertical @subnav-pill-item-padding-horizontal;
     .hook-subnav-pill-item;
 }
 
 /* Hover + Focus */
-.uk-subnav-pill > * > :hover,
-.uk-subnav-pill > * > :focus {
+.uk-subnav-pill > * > a:hover,
+.uk-subnav-pill > * > a:focus {
     background: @subnav-pill-item-hover-background;
     color: @subnav-pill-item-hover-color;
     outline: none;
@@ -153,7 +157,7 @@
 }
 
 /* Active */
-.uk-subnav-pill > .uk-active > * {
+.uk-subnav-pill > .uk-active > a {
     background: @subnav-pill-item-active-background;
     color: @subnav-pill-item-active-color;
     .hook-subnav-pill-item-active;
@@ -164,7 +168,7 @@
  * The same for all style modifiers
  ========================================================================== */
 
-.uk-subnav > .uk-disabled > * {
+.uk-subnav > .uk-disabled > a {
     color: @subnav-item-disabled-color;
     .hook-subnav-item-disabled;
 }

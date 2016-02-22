@@ -374,18 +374,18 @@
     // Subnav
     // ========================================================================
 
-    .uk-subnav > * > * {
+    .uk-subnav > * > a {
         color: @inverse-subnav-item-color;
         .hook-inverse-subnav-item;
     }
 
-    .uk-subnav > * > :hover,
-    .uk-subnav > * > :focus {
+    .uk-subnav > * > a:hover,
+    .uk-subnav > * > a:focus {
         color: @inverse-subnav-item-hover-color;
         .hook-inverse-subnav-item-hover;
     }
 
-    .uk-subnav > .uk-active > * {
+    .uk-subnav > .uk-active > a {
         color: @inverse-subnav-item-active-color;
         .hook-inverse-subnav-item-active;
     }
@@ -403,14 +403,14 @@
     // Pill
     //
 
-    .uk-subnav-pill > * > :hover,
-    .uk-subnav-pill > * > :focus {
+    .uk-subnav-pill > * > a:hover,
+    .uk-subnav-pill > * > a:focus {
         background: @inverse-subnav-pill-item-hover-background;
         color: @inverse-subnav-pill-item-hover-color;
         .hook-inverse-subnav-pill-item-hover;
     }
 
-    .uk-subnav-pill > .uk-active > * {
+    .uk-subnav-pill > .uk-active > a {
         background: @inverse-subnav-pill-item-active-background;
         color: @inverse-subnav-pill-item-active-color;
         .hook-inverse-subnav-pill-item-active;
@@ -420,7 +420,7 @@
     // Disabled
     //
 
-    .uk-subnav > .uk-disabled > * {
+    .uk-subnav > .uk-disabled > a {
         color: @inverse-subnav-item-disabled-color;
         .hook-inverse-subnav-item-disabled;
     }
