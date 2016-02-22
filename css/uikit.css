@@ -1261,7 +1261,7 @@ select.uk-form-width-mini {
   color: #fff;
 }
 /*
- * Disabled state
+ * Disabled
  * The same for all style modifiers
  */
 .uk-button-default:disabled,
@@ -1836,7 +1836,7 @@ ul.uk-nav-sub {
 /*
  * 1. Allow cells to wrap into the next line
  * 2. Gutter
- * 3. Makes it more robust so that it can be used with other block elements like lists
+ * 3. Reset lists
  */
 .uk-subnav {
   display: -ms-flexbox;
@@ -1854,6 +1854,7 @@ ul.uk-nav-sub {
 }
 /*
  * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
  * 3. Create position context for dropdowns
  */
 .uk-subnav > * {
@@ -1896,14 +1897,13 @@ ul.uk-nav-sub {
   -webkit-align-items: center;
   align-items: center;
 }
-.uk-subnav-line > :before {
-  content: "";
-  height: 20px;
-}
 /*
+ * Divider
  * `nth-child` makes it also work without JS if it's only one row
  */
 .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+  content: "";
+  height: 20px;
   margin-right: 20px;
   border-left: 1px solid #e5e5e5;
 }
@@ -1924,10 +1924,124 @@ ul.uk-nav-sub {
   background: #489be0;
   color: #fff;
 }
-/* Disabled state
+/* Disabled
  * The same for all style modifiers
  ========================================================================== */
 .uk-subnav > .uk-disabled > * {
+  color: #999;
+}
+/* ========================================================================
+   Component: Breadcrumb
+ ========================================================================== */
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset lists
+ */
+.uk-breadcrumb {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* 1 */
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* 2 */
+  padding: 0;
+  list-style: none;
+}
+/*
+ * Space is allocated solely based on content dimensions: 0 0 auto
+ */
+.uk-breadcrumb > * {
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+}
+/* Items
+ ========================================================================== */
+.uk-breadcrumb > * > * {
+  display: inline-block;
+  color: #999;
+}
+/* Hover + Focus */
+.uk-breadcrumb > * > :hover,
+.uk-breadcrumb > * > :focus {
+  color: #444;
+  text-decoration: none;
+}
+/* Active */
+.uk-breadcrumb > :last-child > * {
+  color: #444;
+}
+/* Disabled */
+.uk-subnav > .uk-disabled > * {
+  color: #999;
+}
+/*
+ * Divider
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+.uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before {
+  content: "/";
+  display: inline-block;
+  margin: 0 20px;
+  color: #999;
+}
+/* ========================================================================
+   Component: Pagination
+ ========================================================================== */
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Gutter
+ * 3. Reset lists
+ */
+.uk-pagination {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* 1 */
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* 2 */
+  margin-left: -20px;
+  /* 3 */
+  padding: 0;
+  list-style: none;
+}
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+.uk-pagination > * {
+  /* 1 */
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+  /* 2 */
+  padding-left: 20px;
+  /* 3 */
+  position: relative;
+}
+/* Items
+ ========================================================================== */
+.uk-pagination > * > * {
+  display: inline-block;
+  color: #999;
+}
+/* Hover + Focus */
+.uk-pagination > * > :hover,
+.uk-pagination > * > :focus {
+  color: #444;
+  text-decoration: none;
+}
+/* Active */
+.uk-pagination > .uk-active > * {
+  color: #444;
+}
+/* Disabled */
+.uk-pagination > .uk-disabled > * {
   color: #999;
 }
 /* ========================================================================
@@ -2602,7 +2716,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Allow cells to wrap into the next line
- * 2. Makes it more robust so that it can be used with other block elements like lists
+ * 2. Reset lists
  */
 .uk-grid {
   display: -ms-flexbox;
@@ -2620,7 +2734,7 @@ ul.uk-nav-sub {
 /*
  * Grid cell
  * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Makes it more robust so that it can be used with other block elements
+ * 2. Reset margin for e.g. paragraphs
  */
 .uk-grid > * {
   /* 1 */
@@ -5029,7 +5143,7 @@ ul.uk-nav-sub {
   background-size: cover;
   background-repeat: no-repeat;
 }
-/* Disabled state
+/* Disabled
  ========================================================================== */
 .uk-disabled {
   pointer-events: none;
@@ -5915,7 +6029,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Style
- * 2. Makes box more robust so it clips the child element
+ * 2. Make box more robust so it clips the child element
  * 3. Vertical alignment
  * 4. Remove default style
  * 5. Fix black background on iOS
