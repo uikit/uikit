@@ -1,0 +1,117 @@
+// Name:            Breadcrumb
+// Description:     Component to create a breadcrumb navigation
+//
+// Component:       `uk-breadcrumb`
+//
+// States:          `uk-disabled`
+//
+// Markup:
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@breadcrumb-margin-horizontal:                      20px;
+
+@breadcrumb-item-color:                             @global-muted-color;
+@breadcrumb-item-hover-color:                       @global-color;
+@breadcrumb-item-hover-text-decoration:             none;
+@breadcrumb-item-active-color:                      @global-color;
+@breadcrumb-item-disabled-color:                    @global-muted-color;
+
+@breadcrumb-divider-color:                          @global-muted-color;
+
+@breadcrumb-divider:                                "/";
+
+
+/* ========================================================================
+   Component: Breadcrumb
+ ========================================================================== */
+
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset lists
+ */
+
+.uk-breadcrumb {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 2 */
+    padding: 0;
+    list-style: none;
+    .hook-breadcrumb;
+}
+
+/*
+ * Space is allocated solely based on content dimensions: 0 0 auto
+ */
+
+.uk-breadcrumb > * {
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+}
+
+
+/* Items
+ ========================================================================== */
+
+.uk-breadcrumb > * > * {
+    display: inline-block;
+    color: @breadcrumb-item-color;
+    .hook-breadcrumb-item;
+}
+
+/* Hover + Focus */
+.uk-breadcrumb > * > :hover,
+.uk-breadcrumb > * > :focus {
+    color: @breadcrumb-item-hover-color;
+    text-decoration: @breadcrumb-item-hover-text-decoration;
+    .hook-breadcrumb-item-hover;
+}
+
+/* Active */
+.uk-breadcrumb > :last-child > * {
+    color: @breadcrumb-item-active-color;
+    .hook-breadcrumb-item-active;
+}
+
+/* Disabled */
+.uk-subnav > .uk-disabled > * {
+    color: @subnav-item-disabled-color;
+    .hook-subnav-item-disabled;
+}
+
+/*
+ * Divider
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+
+.uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before {
+    content: @breadcrumb-divider;
+    display: inline-block;
+    margin: 0 @breadcrumb-margin-horizontal;
+    color: @breadcrumb-divider-color;
+    .hook-breadcrumb-divider;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-breadcrumb-misc;
+
+.hook-breadcrumb() {}
+.hook-breadcrumb-item() {}
+.hook-breadcrumb-item-hover() {}
+.hook-breadcrumb-item-active() {}
+.hook-breadcrumb-item-disabled() {}
+.hook-breadcrumb-divider() {}
+.hook-breadcrumb-misc() {}
