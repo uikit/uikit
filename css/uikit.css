@@ -2656,6 +2656,37 @@ ul.uk-nav-sub {
   padding-left: 40px;
 }
 /* ========================================================================
+   Component: Sticky
+ ========================================================================== */
+/*
+ * 1. More robust if padding and border are used
+ */
+[uk-sticky].uk-active {
+  z-index: 980;
+  /* 1 */
+  box-sizing: border-box;
+  margin: 0 !important;
+}
+/*
+ * 1. Resolve frame-rate issues on devices with lower frame-rates. Forces hardware acceleration
+ */
+.uk-sticky-placeholder > * {
+  /* 1 */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+/*
+ * Faster animations
+ */
+[uk-sticky][class*='uk-animation-'] {
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+}
+[uk-sticky].uk-animation-reverse {
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+}
+/* ========================================================================
    Component: Section
  ========================================================================== */
 /*
@@ -6092,37 +6123,6 @@ ul.uk-nav-sub {
   h3 {
     page-break-after: avoid;
   }
-}
-/* ========================================================================
-   Component: Sticky
- ========================================================================== */
-/*
- * 1. More robust if padding and border are used
- */
-[uk-sticky].uk-active {
-  z-index: 980;
-  /* 1 */
-  box-sizing: border-box;
-  margin: 0 !important;
-}
-/*
- * 1. Resolve frame-rate issues on devices with lower frame-rates. Forces hardware acceleration
- */
-.uk-sticky-placeholder > * {
-  /* 1 */
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-/*
- * Faster animations
- */
-[uk-sticky][class*='uk-animation-'] {
-  -webkit-animation-duration: 0.2s;
-  animation-duration: 0.2s;
-}
-[uk-sticky].uk-animation-reverse {
-  -webkit-animation-duration: 0.2s;
-  animation-duration: 0.2s;
 }
 /* ========================================================================
    Component: Form advanced
