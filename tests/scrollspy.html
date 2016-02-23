@@ -10,14 +10,22 @@
         <script src="js/test.js"></script>
 
         <style>
-            .test { margin-bottom: 200px; }
+
+            .test-nav {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+            }
+
+            .test-margin-bottom { margin-bottom: 200px; }
+
         </style>
 
     </head>
 
     <body>
 
-        <ul class="uk-nav uk-nav-side" uk-scrollspy-nav="closest: li; smoothScroll: true">
+        <ul class="uk-nav uk-nav-default test-nav" uk-scrollspy-nav="closest: li; smoothScroll: true">
             <li><a href="#animation-repeat">Single</a></li>
             <li><a href="#animation-delay">Group</a></li>
             <li><a href="#animation-fade">Fade</a></li>
@@ -36,19 +44,19 @@
 
             <h2 id="animation-repeat">Single, Repeat, Delay</h2>
 
-            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-match-height="target: > div > .uk-panel">
+            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-match-height="target: > div > .uk-card">
                 <div>
-                    <div class="uk-panel uk-panel-box" uk-scrollspy="cls: uk-animation-fade">
+                    <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-fade">
                         <p>The element is animated only the first time it appears in the viewport.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box" uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
+                    <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
                         <p>The element is animated every time it appears in the viewport.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box" uk-scrollspy="cls: uk-animation-slide-right; delay: 1500; repeat: true">
+                    <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-right; delay: 1500; repeat: true">
                         <p>The element is animated every time it appears in the viewport but delayed by 1.5s.</p>
                     </div>
                 </div>
@@ -56,24 +64,24 @@
 
             <h2 id="animation-delay">Group, Repeat, Delay</h2>
 
-            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <p>The animation of this element is delayed by some milliseconds.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <p>The animation of this element is delayed by some milliseconds.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <p>The animation of this element is delayed by some milliseconds.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <p>The animation of this element is delayed by some milliseconds.</p>
                     </div>
                 </div>
@@ -83,28 +91,28 @@
 
             <h2 id="animation-fade">Group Fade</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Fade</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Fade</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Fade</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Fade</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Fade</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Fade</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Fade</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Fade</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
@@ -112,124 +120,124 @@
 
             <h2 id="animation-scale-up">Large Group Scale up</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-up uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-up uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
 
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div><div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale up</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale up</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
@@ -238,28 +246,28 @@
 
             <h2 id="animation-scale-down">Group Scale down</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-down uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-down uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale down</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale down</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale down</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale down</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale down</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale down</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Scale down</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Scale down</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
@@ -267,28 +275,28 @@
 
             <h2 id="animation-slide-left">Group Slide left</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-left uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-left uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide left</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide left</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide left</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide left</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide left</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide left</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide left</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide left</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
@@ -296,28 +304,28 @@
 
             <h2 id="animation-slide-right">Group Slide right</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-right uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-right uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide right</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide right</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide right</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide right</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide right</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide right</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide right</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide right</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
@@ -325,28 +333,28 @@
 
             <h2 id="animation-slide-top">Group Slide top</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-top uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-top uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide top</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide top</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide top</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide top</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide top</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide top</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide top</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide top</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
@@ -354,28 +362,28 @@
 
             <h2 id="animation-slide-bottom">Group Slide bottom</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
@@ -383,28 +391,28 @@
 
             <h2 id="animation-different">Different animations</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-panel; delay: 300; repeat: true">
+            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible" cls="uk-animation-slide-top uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible" cls="uk-animation-slide-top uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-panel uk-panel-box uk-invisible" cls="uk-animation-slide-top uk-invisible">
-                        <h3 class="uk-panel-title">Slide bottom</h3>
+                    <div class="uk-card uk-card-default uk-card-body uk-invisible" cls="uk-animation-slide-top uk-invisible">
+                        <h3 class="uk-card-title">Slide bottom</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
