@@ -8,21 +8,20 @@ export default function (UIkit) {
         props: {
             cls: String,
             closest: String,
-            offsetTop: Number,
-            offsetLeft: Number,
-            smoothScroll: Boolean
+            smoothScroll: Boolean,
+            overflow: Boolean
         },
 
         defaults: {
             cls: 'uk-active',
             closest: false,
-            offsetTop: 0,
-            offsetLeft: 0,
-            smoothScroll: false
+            smoothScroll: false,
+            overflow: true
         },
 
         ready() {
             this.links = this.$el.find('a[href^="#"]').filter((i, el) => { return el.hash; });
+            this.elements = (this.closest ? this.links.closest(this.closest) : this.links);
             this.targets = $($.map(this.links, (el) => { return el.hash }).join(','));
 
             if (this.smoothScroll) {
@@ -36,36 +35,59 @@ export default function (UIkit) {
 
             handler() {
 
-                var scrollTop = $(window).scrollTop(), target, links,
-                    visible = this.targets.filter((i, el) => {
-                        return isInView(el, this.offsetTop, this.offsetLeft);
-                    });
+                var scrollTop = $(window).scrollTop();
 
-                visible.each((i, el) => {
+                this.targets.each((i, el) => {
 
                     el = $(el);
 
-                    if (target || el.offset().top + el.outerHeight() < scrollTop || target) {
+                    var offset = el.offset();
+                    if (offset.top > scrollTop) {
+
+                        this.clear();
+
+                        if (this.overflow) {
+                            this.activate(el);
+                        }
+
+                        return false;
+                    }
+
+                    if (!this.overflow && i + 1 === this.targets.length  && offset.top + el.outerHeight() < scrollTop) {
+                        this.clear();
+                        return false;
+                    }
+
+                    if (this.targets.eq(i + 1).length && this.targets.eq(i + 1).offset().top <= scrollTop) {
                         return;
                     }
 
-                    target = el;
-
-                    if (this.closest) {
-                        this.links.blur().closest(this.closest).removeClass(this.cls);
-                        links = this.links.filter(`a[href="#${target.attr('id')}"]`).closest(this.closest);
-                    } else {
-                        links = this.links.removeClass(this.cls).filter(`a[href="#${target.attr('id')}"]`);
-                    }
-
-                    links.addClass(this.cls);
-
-                    this.$el.trigger('inview', [target, links]);
-
+                    this.clear();
+                    this.activate(el);
+                    return false;
                 });
             },
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
+
+        },
+
+        methods: {
+
+            clear: function () {
+                this.links.blur();
+                this.elements.removeClass(this.cls);
+            },
+
+            activate: function (el) {
+
+                var active = this.links.filter(`[href="#${el.attr('id')}"]`);
+
+                if (active.length) {
+                    active = (this.closest ? active.closest(this.closest) : active).addClass(this.cls);
+                    this.$el.trigger('active', [el, active]);
+                }
+            }
 
         }
 
