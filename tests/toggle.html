@@ -12,65 +12,116 @@
 
     <body>
 
-        <div class="uk-container uk-container-center">
+        <div class="uk-container">
 
             <h1>Toggle</h1>
 
-            <p><button class="uk-button" uk-toggle="target: #toggle1">Toggle</button> <a href="#" uk-toggle="target: #toggle1">Link</a></p>
+            <div class="uk-grid uk-child-width-1-5@m" uk-grid>
+                <div>
 
-            <div id="toggle1" class="uk-panel uk-panel-box">What's up?</div>
+                    <h3>One item</h3>
 
-            <h2>Two items</h2>
+                    <p>
+                        <button class="uk-button uk-button-default" uk-toggle="target: #toggle1">Button</button>
+                        <a href="#" uk-toggle="target: #toggle1">Link</a>
+                    </p>
 
-            <p><button class="uk-button" uk-toggle="target: .toggle2">Toggle</button></p>
+                    <p id="toggle1">What's up?</p>
 
-            <div class="uk-panel uk-panel-box toggle2">Hello!</div>
+                </div>
+                <div>
 
-            <div class="uk-panel uk-panel-box toggle2 uk-hidden">Bazinga!</div>
+                    <h3>Two items</h3>
 
-            <h2>Two items with different toggles</h2>
+                    <button class="uk-button uk-button-default" uk-toggle="target: .toggle2">Toggle</button>
 
-            <div class="uk-panel uk-panel-box toggle3">
-                <button class="uk-button" uk-toggle="target: .toggle3">Next</button>
-                <p>Hello!</p>
+                    <p class="toggle2">Hello!</p>
+                    <p class="toggle2" hidden>Bazinga!</p>
+
+                </div>
+                <div>
+
+                    <h3>Multiple toggles</h3>
+
+                    <div class="toggle3">
+                        <button class="uk-button uk-button-default" uk-toggle="target: .toggle3">Next</button>
+                        <p>Hello!</p>
+                    </div>
+
+                    <div class="toggle3" hidden>
+                        <button class="uk-button uk-button-default" uk-toggle="target: .toggle3">Previous</button>
+                        <p>Bazinga!</p>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Multiple targets</h3>
+
+                    <p><button class="uk-button uk-button-default" uk-toggle="target: #toggle4-a, .toggle4-b, .toggle4-c">Go</button></p>
+
+                    <span id="toggle4-a">What's up?</span>
+                    <span class="toggle4-b">Hello!</span>
+                    <p class="toggle4-c" hidden>Bazinga!</p>
+
+                </div>
+                <div>
+
+                    <h3>Custom class</h3>
+
+                    <button class="uk-button uk-button-default" uk-toggle="target: #toggle5; cls: uk-alert-success">Toggle</button>
+
+                    <p class="uk-alert" id="toggle5">What's up?</p>
+
+                </div>
+                <div>
+
+                    <h3>Animation</h3>
+
+                    <button class="uk-button uk-button-default" uk-toggle="target: #toggle6; animation: uk-animation-fade">Toggle</button>
+
+                    <p id="toggle6">Animation<p>
+
+                </div>
+                <div>
+
+                    <h3>In/Out Animations</h3>
+
+                    <button class="uk-button uk-button-default" uk-toggle="target: #toggle7; animation: uk-animation-slide-left uk-animation-slide-top">Toggle</button>
+
+                    <p id="toggle7">Animation</p>
+
+                </div>
+                <div>
+
+                    <h3>Different states</h3>
+
+                    <p><button class="uk-button uk-button-default" uk-toggle="target: .toggle8-a; animation: uk-animation-fade">Toggle</button></p>
+
+                    <span class="toggle8-a">Animation</span>
+                    <br><span class="toggle8-a" hidden>Bazinga!</span>
+
+                </div>
+                <div class="uk-width-expand@m">
+
+                    <h3>With + Without Animation</h3>
+
+                    <p>
+                        <button class="uk-button uk-button-default" uk-toggle="target: #toggle9; animation: uk-animation-fade; duration: 2000">Animation</button>
+                        <button class="uk-button uk-button-default" uk-toggle="target: #toggle9">No Animation</button>
+                    </p>
+
+                    <div id="toggle9" class="uk-panel uk-panel-box">What's up?</div>
+
+                </div>
             </div>
 
-            <div class="uk-panel uk-panel-box uk-panel-box-primary toggle3 uk-hidden">
-                <button class="uk-button uk-button-primary" uk-toggle="target: .toggle3">Previous</button>
-                <p>Bazinga!</p>
-            </div>
-
-            <h2>Toggle all above</h2>
-
-            <button class="uk-button" uk-toggle="target: #toggle1, .toggle2, .toggle3">Go</button>
-
-            <h2>Custom class</h2>
-
-            <p><button class="uk-button" uk-toggle="target: #toggle4; cls: uk-panel-box-primary">Toggle</button></p>
-
-            <div id="toggle4" class="uk-panel uk-panel-box">What's up?</div>
 
 
-            <h2>Toggle with animation</h2>
 
-            <p><button class="uk-button" uk-toggle="target: #toggle5; animation: uk-animation-fade">Toggle</button></p>
 
-            <div id="toggle5" class="uk-panel uk-panel-box">Animation...</div>
 
-            <p><button class="uk-button" uk-toggle="target: #toggle6; animation: uk-animation-slide-left uk-animation-slide-top">Toggle</button></p>
 
-            <div id="toggle6" class="uk-panel uk-panel-box">Two different animations...</div>
-
-            <p><button class="uk-button" uk-toggle="target: .toggle6, #toggle7; animation: uk-animation-scale-up">
-                <i class="uk-icon-plus-square toggle6"></i>
-                <i class="uk-icon-minus-square toggle6 uk-hidden"></i>
-                <span>Toggle</span>
-            </button></p>
-            <div id="toggle7" class="uk-panel uk-panel-box">Multiple elements with different starting states</div>
-
-            <p><button class="uk-button" uk-toggle="target: #toggle8; animation: uk-animation-fade; duration: 2000">Toggle with animation</button> <button class="uk-button" uk-toggle="target: #toggle8">Toggle without animation</button></p>
-
-            <div id="toggle8" class="uk-panel uk-panel-box">What's up?</div>
 
             <h2>Javascript Options</h2>
 
