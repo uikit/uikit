@@ -53,26 +53,18 @@ export default function (UIkit) {
                         return;
                     }
 
-                    this.activate(el);
-                    return false;
+                    var active = this.links.filter(`[href="#${el.attr('id')}"]`);
+
+                    if (active.length) {
+                        active = (this.closest ? active.closest(this.closest) : active).addClass(this.cls);
+                        this.$el.trigger('active', [el, active]);
+
+                        return false;
+                    }
                 });
             },
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            activate: function (el) {
-
-                var active = this.links.filter(`[href="#${el.attr('id')}"]`);
-
-                if (active.length) {
-                    active = (this.closest ? active.closest(this.closest) : active).addClass(this.cls);
-                    this.$el.trigger('active', [el, active]);
-                }
-            }
 
         }
 
