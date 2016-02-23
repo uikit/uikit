@@ -1,5 +1,7 @@
 # Changelog
 
+### WIP
+  - Fixed scrollspynav active state
 
 ### 2.25.0 (February 17, 2016)
   - Added grid parallax component

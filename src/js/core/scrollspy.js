@@ -170,7 +170,7 @@
                         scrollTop = $win.scrollTop(),
                         target = (function(){
                             for(var i=0; i< inviews.length;i++){
-                                if(inviews[i].offset().top >= scrollTop){
+                                if(inviews[i].offset().top + inviews[i].outerHeight() >= scrollTop){
                                     return inviews[i];
                                 }
                             }
