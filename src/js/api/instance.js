@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -22,8 +23,13 @@ export default function (UIkit) {
         this.$el = $(el);
 
         this._initProps();
-        this._callHook('ready');
-        this._callUpdate();
+
+        this._callHook('init');
+
+        requestAnimationFrame(() => {
+            this._callHook('ready');
+            this._callUpdate();
+        });
     };
 
     UIkit.prototype.$update = function (e) {

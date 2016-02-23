@@ -6,6 +6,7 @@ import Drop from './drop';
 import Dropdown from './dropdown';
 import Grid from './grid';
 import HeightExpand from './height-expand';
+import HeightViewport from './height-viewport';
 import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
@@ -58,6 +59,7 @@ export default function (UIkit, _) {
     UIkit.use(MarginWrap);
     UIkit.use(Grid);
     UIkit.use(HeightExpand);
+    UIkit.use(HeightViewport);
     UIkit.use(Icon);
     UIkit.use(Close);
     UIkit.use(MatchHeight);

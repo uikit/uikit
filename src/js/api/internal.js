@@ -17,7 +17,6 @@ export default function (UIkit) {
         this._uid = uid++;
         this._initData();
         this._initMethods();
-        this._callHook('init');
 
         if (options.el) {
             this.$mount(options.el);
