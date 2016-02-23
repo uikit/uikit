@@ -1,0 +1,29 @@
+// Name:            Scrollspy
+// Description:     Trigger events and animations while scrolling your page
+//
+// Component:       `uk-scrollspy`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Scrollspy
+ ========================================================================== */
+
+/*
+ * Hide animated element if scrollspy is used
+ */
+
+@media screen {
+
+    [uk-scrollspy*='uk-animation-']:not([uk-scrollspy*='target']) { opacity: 0; }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-scrollspy-misc;
+
+.hook-scrollspy-misc() {}

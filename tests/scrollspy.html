@@ -8,37 +8,36 @@
         <link rel="stylesheet" href="../css/uikit.css">
         <script src="../vendor/jquery.js"></script>
         <script src="js/test.js"></script>
-
         <style>
 
-            .test-nav {
+            .test-fixed {
                 position: fixed;
                 top: 20px;
                 right: 20px;
+                z-index: 1;
             }
 
-            .test-margin-bottom { margin-bottom: 200px; }
-
         </style>
-
     </head>
 
     <body>
 
-        <ul class="uk-nav uk-nav-default test-nav" uk-scrollspy-nav="closest: li; smoothScroll: true">
-            <li><a href="#animation-repeat">Single</a></li>
-            <li><a href="#animation-delay">Group</a></li>
-            <li><a href="#animation-fade">Fade</a></li>
-            <li><a href="#animation-scale-up">Scale Up</a></li>
-            <li><a href="#animation-scale-down">Scale Down</a></li>
-            <li><a href="#animation-slide-left">Slide Left</a></li>
-            <li><a href="#animation-slide-right">Slide Right</a></li>
-            <li><a href="#animation-slide-top">Slide Top</a></li>
-            <li><a href="#animation-slide-bottom">Slide Bottom</a></li>
-            <li><a href="#animation-different">Different Animations</a></li>
-        </ul>
+        <div class="uk-card uk-card-default uk-card-body test-fixed">
+            <ul class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; smoothScroll: true">
+                <li><a href="#animation-repeat">Single</a></li>
+                <li><a href="#animation-delay">Group</a></li>
+                <li><a href="#animation-fade">Fade</a></li>
+                <li><a href="#animation-scale-up">Scale Up</a></li>
+                <li><a href="#animation-scale-down">Scale Down</a></li>
+                <li><a href="#animation-slide-left">Slide Left</a></li>
+                <li><a href="#animation-slide-right">Slide Right</a></li>
+                <li><a href="#animation-slide-top">Slide Top</a></li>
+                <li><a href="#animation-slide-bottom">Slide Bottom</a></li>
+                <li><a href="#animation-different">Different Animations</a></li>
+            </ul>
+        </div>
 
-        <div class="uk-container uk-container-center">
+        <div class="uk-container">
 
             <h1>ScrollSpy</h1>
 
@@ -87,11 +86,9 @@
                 </div>
             </div>
 
-            <h2 class="test-margin-bottom">Use nav to the right</h2>
-
             <h2 id="animation-fade">Group Fade</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-fade uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Fade</h3>
@@ -120,7 +117,7 @@
 
             <h2 id="animation-scale-up">Large Group Scale up</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-up uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-scale-up uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Scale up</h3>
@@ -246,7 +243,7 @@
 
             <h2 id="animation-scale-down">Group Scale down</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-scale-down uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-scale-down uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Scale down</h3>
@@ -275,7 +272,7 @@
 
             <h2 id="animation-slide-left">Group Slide left</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-left uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-left uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Slide left</h3>
@@ -304,7 +301,7 @@
 
             <h2 id="animation-slide-right">Group Slide right</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-right uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-right uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Slide right</h3>
@@ -333,7 +330,7 @@
 
             <h2 id="animation-slide-top">Group Slide top</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-top uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-top uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Slide top</h3>
@@ -362,7 +359,7 @@
 
             <h2 id="animation-slide-bottom">Group Slide bottom</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Slide bottom</h3>
@@ -391,7 +388,7 @@
 
             <h2 id="animation-different">Different animations</h2>
 
-            <div class="uk-grid test-margin-bottom uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-grid uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom uk-invisible; target: > div > .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body uk-invisible">
                         <h3 class="uk-card-title">Slide bottom</h3>
@@ -417,6 +414,8 @@
                     </div>
                 </div>
             </div>
+
+            <h2>Javascript Options</h2>
 
             <div class="uk-overflow-container">
                 <table class="uk-table uk-table-striped">
