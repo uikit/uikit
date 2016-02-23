@@ -37,32 +37,22 @@ export default function (UIkit) {
 
                 var scrollTop = $(window).scrollTop();
 
+                this.links.blur();
+                this.elements.removeClass(this.cls);
+
                 this.targets.each((i, el) => {
 
                     el = $(el);
 
-                    var offset = el.offset();
-                    if (offset.top > scrollTop) {
-
-                        this.clear();
-
-                        if (this.overflow) {
-                            this.activate(el);
-                        }
-
+                    var offset = el.offset(), last = i + 1 === this.targets.length;
+                    if (!this.overflow && (i === 0 && offset.top > scrollTop || last && offset.top + el.outerHeight() < scrollTop)) {
                         return false;
                     }
 
-                    if (!this.overflow && i + 1 === this.targets.length  && offset.top + el.outerHeight() < scrollTop) {
-                        this.clear();
-                        return false;
-                    }
-
-                    if (this.targets.eq(i + 1).length && this.targets.eq(i + 1).offset().top <= scrollTop) {
+                    if (!last && this.targets.eq(i + 1).offset().top <= scrollTop) {
                         return;
                     }
 
-                    this.clear();
                     this.activate(el);
                     return false;
                 });
@@ -73,11 +63,6 @@ export default function (UIkit) {
         },
 
         methods: {
-
-            clear: function () {
-                this.links.blur();
-                this.elements.removeClass(this.cls);
-            },
 
             activate: function (el) {
 
