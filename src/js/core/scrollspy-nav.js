@@ -43,11 +43,13 @@ export default function (UIkit) {
 
                 visible.each((i, el) => {
 
-                    if (!$(el).offset().top >= scrollTop || target) {
+                    el = $(el);
+
+                    if (target || el.offset().top + el.outerHeight() < scrollTop || target) {
                         return;
                     }
 
-                    target = $(el);
+                    target = el;
 
                     if (this.closest) {
                         this.links.blur().closest(this.closest).removeClass(this.cls);
