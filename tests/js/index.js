@@ -12,7 +12,7 @@ var base = '../' + document.querySelector('script[src*="test.js"]').getAttribute
         Common: ['alert', 'badge', 'close', 'icon'],
         Navigation: ['nav', 'navbar', 'subnav', 'breadcrumb', 'pagination', 'tab'],
         Layout: ['section', 'container', 'grid', 'card'],
-        JavaScript: ['drop', 'dropdown', 'sticky', 'toggle', 'scrollspy', 'smooth-scroll'],
+        JavaScript: ['drop', 'dropdown', 'scrollspy', 'smooth-scroll', 'sticky', 'toggle'],
         Utilities: ['align', 'column', 'cover', 'flex', 'height-expand', 'height-viewport', 'inverse', 'margin', 'padding', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced']
 
