@@ -46,7 +46,8 @@ module.exports = [
             index: "./tests/js/index"
         },
         output: {
-            filename: "./tests/js/test.js"
+            filename: "./tests/js/test.js",
+            library: "UIkit"
         },
         module: loaders,
         externals: externals
