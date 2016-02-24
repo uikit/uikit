@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import {isInView} from '../util/index';
 
 export default function (UIkit) {
 

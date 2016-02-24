@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import UIkit from '../core/index';
 
 var storage = window.sessionStorage || {}, svgs = {};
 

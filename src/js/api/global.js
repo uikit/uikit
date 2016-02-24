@@ -37,7 +37,9 @@ export default function (UIkit) {
 
     UIkit.update = function (e) {
         for (var id in UIkit.instances) {
-            UIkit.instances[id]._callUpdate(e);
+            if (UIkit.instances[id]._isReady) {
+                UIkit.instances[id]._callUpdate(e);
+            }
         }
     }
 
