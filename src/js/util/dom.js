@@ -36,11 +36,11 @@ export function transition(element, props, duration, transition) {
     element[0].__uk_transition = requestAnimationFrame(() => {
 
         var timer = setTimeout(() => {
-            element.trigger(transitionend);
+            element.trigger(transitionend || 'transitionend');
         }, duration);
 
         element
-            .one(transitionend, () => {
+            .one(transitionend || 'transitionend', () => {
                 d.resolve();
                 element.css('transition', '');
                 clearTimeout(timer);
@@ -63,7 +63,7 @@ export const Transition = {
         element = $(element);
 
         cancelAnimationFrame(element[0].__uk_transition);
-        $(element).trigger(transitionend);
+        $(element).trigger(transitionend || 'transitionend');
 
         return this;
     }
@@ -88,10 +88,16 @@ export function animate(element, animation, duration, out) {
         element.addClass(cls);
     });
 
-    element.one(animationend, function () {
+    element.one(animationend || 'animationend', function () {
         reset();
         d.resolve();
     });
+
+    if (!animationend) {
+        requestAnimationFrame(function () {
+            Animation.cancel(element);
+        });
+    }
 
     return d.promise();
 
@@ -115,7 +121,7 @@ export const Animation = {
     },
 
     cancel(element) {
-        $(element).trigger(animationend);
+        $(element).trigger(animationend || 'animationend');
         return this;
     }
 

@@ -88,11 +88,12 @@ export default function (UIkit) {
 
         delete UIkit.instances[this._uid];
 
-        if (!this.$options.el) {
+        var el = this.$options.el;
+
+        if (!el || !el[DATA]) {
             return;
         }
 
-        var el = this.$options.el;
         delete el[DATA][this.$options.name];
 
         if (!Object.keys(el[DATA]).length) {
