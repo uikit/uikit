@@ -76,8 +76,7 @@
  ========================================================================== */
 
 /*
- * 1. Create space between all navbar groups (left, right)
- * 2. Style
+ * 1. Style
  */
 
 .uk-navbar {
@@ -85,10 +84,6 @@
     display: -webkit-flex;
     display: flex;
     /* 1 */
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-    /* 2 */
     background: @navbar-background;
     .hook-navbar;
 }
@@ -111,6 +106,17 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
+
+/*
+ * Align groups
+ */
+
+.uk-navbar-right { margin-left: auto; }
+
+.uk-navbar-center {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
