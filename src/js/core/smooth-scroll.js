@@ -14,8 +14,7 @@ export default function (UIkit) {
             duration: 1000,
             transition: 'easeOutExpo',
             offset: 0,
-            complete: function () {
-            }
+            complete: null
         },
 
         ready() {
@@ -39,7 +38,7 @@ export default function (UIkit) {
                 }
 
                 // animate to target, fire callback when done
-                $('html,body').stop().animate({scrollTop: target}, this.duration, this.transition, this.complete);
+                $('body').stop().animate({scrollTop: target}, this.duration, this.transition, this.complete);
 
             }
 
