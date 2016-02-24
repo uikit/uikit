@@ -13,7 +13,7 @@ export default function (UIkit) {
             clsInit: String,
             clsActive: String,
             clsInactive: String,
-            widthElement: String,
+            widthElement: 'jQuery',
             showOnUp: Boolean,
             media: Number,
             target: Number
@@ -42,7 +42,7 @@ export default function (UIkit) {
                     margin: this.$el.css('margin')
                 }).attr('hidden', true);
 
-            this.widthElement = toJQuery(this.widthElement) || this.placeholder;
+            this.widthElement = this.widthElement || this.placeholder;
             this.topProp = this.top;
             this.bottomProp = this.bottom;
 

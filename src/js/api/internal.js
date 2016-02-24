@@ -1,4 +1,4 @@
-import {bind, coerce, hyphenate, mergeOptions, isString, isPlainObject, createEvent} from '../util/index';
+import {bind, coerce, hyphenate, mergeOptions, isString, isPlainObject, createEvent, hasOwn} from '../util/index';
 
 export default function (UIkit) {
 
@@ -26,11 +26,12 @@ export default function (UIkit) {
     UIkit.prototype._initData = function () {
 
         var defaults = this.$options.defaults,
-            data = this.$options.data || {};
+            data = this.$options.data || {},
+            props = this.$options.props;
 
         if (defaults) {
             for (var key in defaults) {
-                this[key] = data[key] || defaults[key];
+                this[key] = hasOwn(data, key) ? coerce(props[key], data[key]) : defaults[key];
             }
         }
     };

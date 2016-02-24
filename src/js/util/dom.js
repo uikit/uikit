@@ -175,12 +175,3 @@ export function isInView(element, offsetTop, offsetLeft) {
         && offset.left + element.width() >= scrollLeft
         && offset.left - offsetLeft <= scrollLeft + win.width();
 }
-
-export function toJQuery(element) {
-    if (element === true) {
-        return null;
-    }
-
-    element = $(element);
-    return element.length ? element : null;
-}

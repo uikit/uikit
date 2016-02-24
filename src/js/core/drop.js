@@ -11,9 +11,9 @@ export default function (UIkit) {
             mode: String,
             pos: String,
             offset: Number,
-            justify: String,
-            center: String,
-            boundary: String,
+            justify: 'jQuery',
+            center: 'jQuery',
+            boundary: 'jQuery',
             cls: String,
             flip: Boolean,
             delayShow: Number,
@@ -26,7 +26,7 @@ export default function (UIkit) {
             offset: 0,
             justify: false,
             center: false,
-            boundary: window,
+            boundary: $(window),
             cls: 'uk-drop',
             flip: true,
             delayShow: 0,
@@ -38,10 +38,6 @@ export default function (UIkit) {
 
             this.drop = toJQuery(this.$el.find('.' + this.cls));
 
-            this.justify = toJQuery(this.justify);
-            this.center = toJQuery(this.center);
-
-            this.boundary = toJQuery(this.boundary) || window;
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
             this.pos += this.pos.indexOf('-') === -1 ? '-center' : '';
@@ -105,13 +101,11 @@ export default function (UIkit) {
 
                     this.updatePosition();
 
-                    this.$el
-                        .addClass('uk-open')
-                        .attr('aria-expanded', 'true')
-                        .trigger('show', [this]);
+                    this.$el.addClass('uk-open').attr('aria-expanded', 'true');
 
                     this.initMouseTracker();
 
+                    this.$el.trigger('show', [this]);
                     this.$update();
                 };
 

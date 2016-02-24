@@ -1,11 +1,16 @@
 import $ from 'jquery';
-import {Animation, toBoolean} from '../util/index';
+import {Animation} from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('toggle', {
 
-        props: ['target', 'cls', 'animation', 'duration'],
+        props: {
+            target: 'jQuery',
+            cls: Boolean,
+            animation: String,
+            duration: Number
+        },
 
         defaults: {
             target: false,
@@ -16,9 +21,7 @@ export default function (UIkit) {
 
         ready() {
 
-            this.cls = toBoolean(this.cls);
             this.aria = this.cls === false;
-            this.targets = $(this.target);
             this.animations = this.animation && this.animation.split(' ');
 
             if (this.animations) {
@@ -46,15 +49,15 @@ export default function (UIkit) {
 
             toggle() {
 
-                if (!this.targets.length) {
+                if (!this.target) {
                     return;
                 }
 
-                Animation.cancel(this.targets);
+                Animation.cancel(this.target);
 
                 if (this.animations) {
 
-                    this.targets.each((i, target) => {
+                    this.target.each((i, target) => {
 
                         var el = $(target);
 
@@ -75,7 +78,7 @@ export default function (UIkit) {
                     });
 
                 } else {
-                    this.doToggle(this.targets);
+                    this.doToggle(this.target);
                     this.doUpdate();
                 }
 
@@ -100,7 +103,7 @@ export default function (UIkit) {
                 this.$update();
 
                 if (this.aria) {
-                    this.targets.each(function () {
+                    this.target.each(function () {
                         $(this).attr('aria-hidden', !!$(this).attr('hidden'));
                     });
                 }

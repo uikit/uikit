@@ -52,12 +52,23 @@ export function toNumber(value) {
     return !isNaN(number) ? number : false;
 }
 
+export function toJQuery(element) {
+    if (element === true) {
+        return null;
+    }
+
+    element = $(element);
+    return element.length ? element : null;
+}
+
 export function coerce(type, value) {
 
     if (type === Boolean) {
         return toBoolean(value);
     } else if (type === Number) {
         return toNumber(value);
+    } else if (type === 'jQuery') {
+        return toJQuery(value);
     }
 
     return type ? type(value) : value;
