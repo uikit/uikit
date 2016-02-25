@@ -16,6 +16,7 @@
 //                  `uk-position-center-left`
 //                  `uk-position-center-right`
 //                  `uk-position-cover`
+//                  `uk-dropdown-container`
 //
 // ========================================================================
 
@@ -120,6 +121,25 @@
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Behave like most inline-block elements
+ * 3. Create position context
+ */
+
+.uk-position-container {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    vertical-align: middle;
+    /* 3 */
+    position: relative;
 }
 
 

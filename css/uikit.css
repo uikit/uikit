@@ -1352,21 +1352,6 @@ select.uk-form-width-mini {
   /* 3 */
   position: relative;
 }
-/* Sub-object: `uk-button-dropdown`
- ========================================================================== */
-/*
- * 1. Container fits its content
- * 2. Behave like button
- * 3. Create position context
- */
-.uk-button-dropdown {
-  /* 1 */
-  display: inline-block;
-  /* 2 */
-  vertical-align: middle;
-  /* 3 */
-  position: relative;
-}
 /* Group
      ========================================================================== */
 /*
@@ -3180,21 +3165,6 @@ ul.uk-nav-sub {
   -webkit-animation: uk-fade 0.2s ease-in-out;
   animation: uk-fade 0.2s ease-in-out;
 }
-/* Container
- ========================================================================== */
-/*
- * 1. Container fits its content
- * 2. Behave like button
- * 3. Create position context
- */
-.uk-drop-container {
-  /* 1 */
-  display: inline-block;
-  /* 2 */
-  vertical-align: middle;
-  /* 3 */
-  position: relative;
-}
 /* Direction / Alignment modifiers
  ========================================================================== */
 /* Direction */
@@ -3249,21 +3219,6 @@ ul.uk-nav-sub {
   /* 2 */
   -webkit-animation: uk-fade 0.2s ease-in-out;
   animation: uk-fade 0.2s ease-in-out;
-}
-/* Container
- ========================================================================== */
-/*
- * 1. Container fits its content
- * 2. Behave like button
- * 3. Create position context
- */
-.uk-dropdown-container {
-  /* 1 */
-  display: inline-block;
-  /* 2 */
-  vertical-align: middle;
-  /* 3 */
-  position: relative;
 }
 /* Nav
  ========================================================================== */
@@ -5630,6 +5585,21 @@ ul.uk-nav-sub {
   bottom: 0;
   left: 0;
   right: 0;
+}
+/* Container
+ ========================================================================== */
+/*
+ * 1. Container fits its content
+ * 2. Behave like most inline-block elements
+ * 3. Create position context
+ */
+.uk-position-container {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  vertical-align: middle;
+  /* 3 */
+  position: relative;
 }
 /* ========================================================================
    Component: Visibility
