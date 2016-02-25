@@ -2442,7 +2442,7 @@ ul.uk-nav-sub {
 /* Dropbar
  ========================================================================== */
 .uk-navbar-dropbar {
-  background: #222;
+  background: #fff;
 }
 /*
  * Hover modifier
@@ -2505,6 +2505,12 @@ ul.uk-nav-sub {
   left: 30px;
   right: 0;
   border-top: 1px solid #e5e5e5;
+}
+/*
+     * Dropbar
+     */
+[uk-navbar*='dropbar'] .uk-navbar-dropdown {
+  box-shadow: none;
 }
 /* ========================================================================
    Component: Subnav
