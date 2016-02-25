@@ -39,6 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }).val(location.pathname.split('/').pop());
 
-    $('body').prepend($('<div class="uk-form uk-margin-top uk-margin-bottom uk-container uk-container-center"></div>').prepend($select));
+    $('body').prepend($('<div class="uk-form uk-margin-top uk-margin-bottom uk-container"></div>').prepend($select));
 
 });
