@@ -5,10 +5,10 @@
 //
 // Sub-objects:     `uk-drop-container`
 //
-// Modifiers:       `uk-drop-top`
-//                  `uk-drop-bottom`
-//                  `uk-drop-left`
-//                  `uk-drop-right`
+// Modifiers:       `uk-drop-top-*`
+//                  `uk-drop-bottom-*`
+//                  `uk-drop-left-*`
+//                  `uk-drop-right-*`
 //                  `uk-drop-stack`
 //                  `uk-drop-grid`
 //
@@ -82,13 +82,14 @@
 }
 
 
-/* Alignment modifiers
+/* Direction / Alignment modifiers
  ========================================================================== */
 
-.uk-drop-top { margin-top: (-1 * @drop-margin); }
-.uk-drop-bottom { margin-top: @drop-margin; }
-.uk-drop-left { margin-left: (-1 * @drop-margin); }
-.uk-drop-right { margin-left: @drop-margin; }
+/* Direction */
+[class*='uk-drop-top'] { margin-top: -@drop-margin; }
+[class*='uk-drop-bottom'] { margin-top: @drop-margin; }
+[class*='uk-drop-left'] { margin-left: -@drop-margin; }
+[class*='uk-drop-right'] { margin-left: @drop-margin; }
 
 
 /* Grid modifiers

@@ -5,10 +5,10 @@
 //
 // Sub-object:      `uk-dropdown-container`
 //
-// Modifiers:       `uk-dropdown-top`
-//                  `uk-dropdown-bottom`
-//                  `uk-dropdown-left`
-//                  `uk-dropdown-right`
+// Modifiers:       `uk-dropdown-top-*`
+//                  `uk-dropdown-bottom-*`
+//                  `uk-dropdown-left-*`
+//                  `uk-dropdown-right-*`
 //                  `uk-dropdown-stack`
 //                  `uk-dropdown-grid`
 //                  `uk-dropdown-scrollable`
@@ -152,13 +152,14 @@
 .uk-dropdown-nav .uk-nav-sub a:focus { color: @dropdown-nav-sublist-item-hover-color; }
 
 
-/* Alignment modifiers
+/* Direction / Alignment modifiers
  ========================================================================== */
 
-.uk-dropdown-top { margin-top: (-1 * @dropdown-margin); }
-.uk-dropdown-bottom { margin-top: @dropdown-margin; }
-.uk-dropdown-left { margin-left: (-1 * @dropdown-margin); }
-.uk-dropdown-right { margin-left: @dropdown-margin; }
+/* Direction */
+[class*='uk-dropdown-top'] { margin-top: -@dropdown-margin; }
+[class*='uk-dropdown-bottom'] { margin-top: @dropdown-margin; }
+[class*='uk-dropdown-left'] { margin-left: -@dropdown-margin; }
+[class*='uk-dropdown-right'] { margin-left: @dropdown-margin; }
 
 
 /* Grid modifiers

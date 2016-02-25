@@ -2343,7 +2343,7 @@ ul.uk-nav-sub {
   animation: uk-fade 0.2s ease-in-out;
 }
 /*
- * Direction/Alignment modifiers
+ * Direction / Alignment modifiers
  */
 /* Direction */
 [class*='uk-navbar-dropdown-top'] {
@@ -3189,18 +3189,19 @@ ul.uk-nav-sub {
   /* 3 */
   position: relative;
 }
-/* Alignment modifiers
+/* Direction / Alignment modifiers
  ========================================================================== */
-.uk-drop-top {
+/* Direction */
+[class*='uk-drop-top'] {
   margin-top: -20px;
 }
-.uk-drop-bottom {
+[class*='uk-drop-bottom'] {
   margin-top: 20px;
 }
-.uk-drop-left {
+[class*='uk-drop-left'] {
   margin-left: -20px;
 }
-.uk-drop-right {
+[class*='uk-drop-right'] {
   margin-left: 20px;
 }
 /* Grid modifiers
@@ -3299,18 +3300,19 @@ ul.uk-nav-sub {
 .uk-dropdown-nav .uk-nav-sub a:focus {
   color: #444;
 }
-/* Alignment modifiers
+/* Direction / Alignment modifiers
  ========================================================================== */
-.uk-dropdown-top {
+/* Direction */
+[class*='uk-dropdown-top'] {
   margin-top: -10px;
 }
-.uk-dropdown-bottom {
+[class*='uk-dropdown-bottom'] {
   margin-top: 10px;
 }
-.uk-dropdown-left {
+[class*='uk-dropdown-left'] {
   margin-left: -10px;
 }
-.uk-dropdown-right {
+[class*='uk-dropdown-right'] {
   margin-left: 10px;
 }
 /* Grid modifiers
