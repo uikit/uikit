@@ -8,26 +8,24 @@ export default function (UIkit) {
     UIkit.component('drop', {
 
         props: {
+            cls: String,
             mode: String,
             pos: String,
             offset: Number,
-            justify: 'jQuery',
-            center: 'jQuery',
             boundary: 'jQuery',
-            cls: String,
+            boundaryAlign: Boolean,
             flip: Boolean,
             delayShow: Number,
             delayHide: Number
         },
 
         defaults: {
+            cls: 'uk-drop',
             mode: 'hover',
             pos: 'bottom-left',
             offset: 0,
-            justify: false,
-            center: false,
             boundary: $(window),
-            cls: 'uk-drop',
+            boundaryAlign: false,
             flip: true,
             delayShow: 0,
             delayHide: 800,
@@ -40,7 +38,7 @@ export default function (UIkit) {
 
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
-            this.pos += this.pos.indexOf('-') === -1 ? '-center' : '';
+            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
 
             // Init ARIA
             this.$el.attr({
@@ -166,103 +164,99 @@ export default function (UIkit) {
                     return;
                 }
 
-                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)').css({
-                    'top-left': '',
-                    'left': '',
-                    'margin-left': '',
-                    'margin-right': ''
-                });
-
-                if (this.justify) {
-                    this.drop.css({'min-width': '', 'min-height': ''});
-                }
+                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)(-[a-z])?').css({top: '', left: ''});
 
                 this.drop.show();
 
-                var pos = getBoundary(this.$el),
-                    dim = getBoundary(this.drop),
-                    boundary = getBoundary(this.boundary),
-                    dirAlign = this.pos.split('-');
+                this.dir = this.pos[0];
+                this.align = this.pos[1];
 
-                this.dir = dirAlign[0];
-                this.align = dirAlign[1];
+                var drop = getBoundary(this.drop),
+                    el = getBoundary(this.$el),
+                    boundary = offsetBy(getBoundary(this.boundary), el),
+                    alignTo = this.boundaryAlign ? boundary : offsetBy(el, el),
+                    justify = this.align === 'justify';
 
-                if (dim.width > Math.max(boundary.right - pos.left, pos.right - boundary.left)) {
+                if (justify) {
+                    if (this.getAxis() === 'y') {
+                        this.drop.css('width', alignTo.width);
+                        this.align = 'left';
+                    } else {
+                        this.drop.css('height', alignTo.height);
+                        this.align = 'top';
+                    }
+
+                    drop = getBoundary(this.drop);
+                }
+
+                if (drop.width > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
 
                     this.drop.addClass(this.cls + '-stack');
                     this.$el.trigger('stack', [this]);
 
-                    dim = getBoundary(this.drop);
+                    drop = getBoundary(this.drop);
                 }
 
-                var positions = {
-                        'bottom-left': {top: pos.height + this.offset, left: 0},
-                        'bottom-right': {top: pos.height + this.offset, left: pos.width - dim.width},
-                        'bottom-center': {top: pos.height + this.offset, left: (pos.width - dim.width) / 2},
-                        'top-left': {top: -dim.height - this.offset, left: 0},
-                        'top-right': {top: -dim.height - this.offset, left: pos.width - dim.width},
-                        'top-center': {top: -dim.height - this.offset, left: (pos.width - dim.width) / 2},
-                        'left-top': {top: 0, left: -dim.width - this.offset},
-                        'left-bottom': {top: pos.height - dim.height, left: -dim.width - this.offset},
-                        'left-center': {top: (pos.height - dim.height) / 2, left: -dim.width - this.offset},
-                        'right-top': {top: 0, left: pos.width + this.offset},
-                        'right-bottom': {top: pos.height - dim.height, left: pos.width + this.offset},
-                        'right-center': {top: (pos.height - dim.height) / 2, left: pos.width + this.offset}
+                var dirs = {
+                        bottom: alignTo.height + this.offset,
+                        top: -drop.height - this.offset,
+                        left: -drop.width - this.offset,
+                        right: alignTo.width + this.offset,
+                        y: alignTo.width - drop.width,
+                        x: alignTo.height - drop.height
                     },
-                    position = positions[this.pos];
+                    positions = {
+                        bottom: {
+                            left: {top: dirs.bottom, left: 0},
+                            right: {top: dirs.bottom, left: dirs.y},
+                            center: {top: dirs.bottom, left: dirs.y / 2}
+                        },
+                        top: {
+                            left: {top: dirs.top, left: 0},
+                            right: {top: dirs.top, left: dirs.y},
+                            center: {top: dirs.top, left: dirs.y / 2}
+                        },
+                        left: {
+                            top: {top: 0, left: dirs.left},
+                            bottom: {top: dirs.x, left: dirs.left},
+                            center: {top: dirs.x / 2, left: dirs.left}
+                        },
+                        right: {
+                            top: {top: 0, left: dirs.right},
+                            bottom: {top: dirs.x, left: dirs.right},
+                            center: {top: dirs.x / 2, left: dirs.right}
+                        }
+                    };
+
+                var position = positions[this.dir][this.align];
 
                 if (this.flip) {
 
                     var axis = this.getAxis(), dir, align;
 
                     if (this.flip === true || this.flip === axis) {
-                        dir = flipAxis(pos, position, dim, boundary, axis);
+                        dir = flipAxis(position, drop, boundary, axis);
 
-                        if (dir && !flipAxis(pos, positions[`${dir}-${this.align}`], dim, boundary, axis)) {
+                        if (dir && !flipAxis(positions[dir][this.align], drop, boundary, axis)) {
                             this.dir = dir;
                         }
                     }
 
                     axis = axis === 'x' ? 'y' : 'x';
                     if (this.flip === true || this.flip === axis) {
-                        align = flipPosition(flipAxis(pos, position, dim, boundary, axis));
-
-                        if (align && !flipAxis(pos, positions[`${this.dir}-${align}`], dim, boundary, axis)) {
+                        align = flipPosition(flipAxis(position, drop, boundary, axis));
+                        if (align && !flipAxis(positions[this.dir][align], drop, boundary, axis)) {
                             this.align = align;
                         }
                     }
 
-                    position = positions[`${this.dir}-${this.align}`]
+                    position = positions[this.dir][this.align]
                 }
 
-                if (this.justify) {
+                position.top += alignTo.top;
+                position.left += alignTo.left;
 
-                    var justify = getBoundary(this.justify);
-
-                    if (this.getAxis() === 'y') {
-                        position.left = 0;
-                        position['min-width'] = justify.width;
-                        position['margin-left'] = justify.left - pos.left;
-                    } else {
-                        position.top = 0;
-                        position['min-height'] = justify.height;
-                        position['margin-top'] = justify.top - pos.top;
-                    }
-                }
-
-                if (this.center) {
-
-                    var center = getBoundary(this.center);
-
-                    if (this.getAxis() === 'y') {
-                        position.left = center.left - pos.left + center.width / 2 - dim.width / 2;
-                    } else {
-                        position.top = center.top - pos.top + center.height / 2 - dim.height / 2;
-                    }
-
-                }
-
-                this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.dir}`);
+                this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.dir}-${justify ? 'justify' : this.align}`);
             },
 
             initMouseTracker() {
@@ -363,19 +357,16 @@ export default function (UIkit) {
         }
     }
 
-    function flipAxis(pos, offset, dim, boundary, axis) {
-
-        var left = pos.left + offset.left, top = pos.top + offset.top;
-
-        return axis === 'x' && left < boundary.left
+    function flipAxis(offset, drop, boundary, axis) {
+        return axis === 'x' && offset.left < boundary.left
             ? 'right'
-            : axis === 'x' && left + dim.width > boundary.right
+                : axis === 'x' && offset.left + drop.width > boundary.right
                 ? 'left'
-                : axis === 'y' && top < boundary.top
+                    : axis === 'y' && offset.top < boundary.top
                     ? 'bottom'
-                    : axis === 'y' && top + dim.height > boundary.bottom
+                        : axis === 'y' && offset.top + drop.height > boundary.bottom
                         ? 'top'
-                        : false;
+                            : false;
     }
 
     function getBoundary(boundary) {
@@ -388,6 +379,14 @@ export default function (UIkit) {
         return {width: width, height: height, left: left, top: top, right: left + width, bottom: top + height};
     }
 
+    function offsetBy(boundary, offset) {
+        boundary.top = -offset.top + boundary.top;
+        boundary.bottom = boundary.top + boundary.height;
+        boundary.left = -offset.left + boundary.left;
+        boundary.right = boundary.left + boundary.width;
+
+        return boundary
+    }
 
     function slope(a, b) {
         return (b.y - a.y) / (b.x - a.x);
