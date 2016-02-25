@@ -174,16 +174,13 @@ export default function (UIkit) {
                 var drop = getBoundary(this.drop),
                     el = getBoundary(this.$el),
                     boundary = offsetBy(getBoundary(this.boundary), el),
-                    alignTo = this.boundaryAlign ? boundary : offsetBy(el, el),
-                    justify = this.align === 'justify';
+                    alignTo = this.boundaryAlign ? boundary : offsetBy(el, el);
 
-                if (justify) {
+                if (this.align === 'justify') {
                     if (this.getAxis() === 'y') {
                         this.drop.css('width', alignTo.width);
-                        this.align = 'left';
                     } else {
                         this.drop.css('height', alignTo.height);
-                        this.align = 'top';
                     }
 
                     drop = getBoundary(this.drop);
@@ -198,37 +195,26 @@ export default function (UIkit) {
                 }
 
                 var dirs = {
-                        bottom: alignTo.height + this.offset,
-                        top: -drop.height - this.offset,
-                        left: -drop.width - this.offset,
-                        right: alignTo.width + this.offset,
-                        y: alignTo.width - drop.width,
-                        x: alignTo.height - drop.height
+                        bottom: {top: alignTo.height + this.offset},
+                        top: {top: -drop.height - this.offset},
+                        left: {left: -drop.width - this.offset},
+                        right: {left: alignTo.width + this.offset}
                     },
-                    positions = {
-                        bottom: {
-                            left: {top: dirs.bottom, left: 0},
-                            right: {top: dirs.bottom, left: dirs.y},
-                            center: {top: dirs.bottom, left: dirs.y / 2}
-                        },
-                        top: {
-                            left: {top: dirs.top, left: 0},
-                            right: {top: dirs.top, left: dirs.y},
-                            center: {top: dirs.top, left: dirs.y / 2}
-                        },
-                        left: {
-                            top: {top: 0, left: dirs.left},
-                            bottom: {top: dirs.x, left: dirs.left},
-                            center: {top: dirs.x / 2, left: dirs.left}
-                        },
-                        right: {
-                            top: {top: 0, left: dirs.right},
-                            bottom: {top: dirs.x, left: dirs.right},
-                            center: {top: dirs.x / 2, left: dirs.right}
+                    pos = (dir, align) => {
+                        var pos = $.extend({top: 0, left: 0}, dirs[dir] || dirs['bottom']), diff;
+
+                        if (this.getAxis() === 'y') {
+                            diff = alignTo.width - drop.width;
+                            pos.left = align === 'right' ? diff : align === 'center' ? diff / 2 : 0;
+                        } else {
+                            diff = alignTo.height - drop.height;
+                            pos.top = align === 'bottom' ? diff : align === 'center' ? diff / 2 : 0;
                         }
+
+                        return pos;
                     };
 
-                var position = positions[this.dir][this.align];
+                var position = pos(this.dir, this.align);
 
                 if (this.flip) {
 
@@ -237,7 +223,7 @@ export default function (UIkit) {
                     if (this.flip === true || this.flip === axis) {
                         dir = flipAxis(position, drop, boundary, axis);
 
-                        if (dir && !flipAxis(positions[dir][this.align], drop, boundary, axis)) {
+                        if (dir && !flipAxis(pos(dir, this.align), drop, boundary, axis)) {
                             this.dir = dir;
                         }
                     }
@@ -245,18 +231,18 @@ export default function (UIkit) {
                     axis = axis === 'x' ? 'y' : 'x';
                     if (this.flip === true || this.flip === axis) {
                         align = flipPosition(flipAxis(position, drop, boundary, axis));
-                        if (align && !flipAxis(positions[this.dir][align], drop, boundary, axis)) {
+                        if (align && !flipAxis(pos(this.dir, align), drop, boundary, axis)) {
                             this.align = align;
                         }
                     }
 
-                    position = positions[this.dir][this.align]
+                    position = pos(this.dir, this.align);
                 }
 
                 position.top += alignTo.top;
                 position.left += alignTo.left;
 
-                this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.dir}-${justify ? 'justify' : this.align}`);
+                this.drop.css(position).css('display', '').addClass(`${this.cls}-${this.dir}-${this.align}`);
             },
 
             initMouseTracker() {
