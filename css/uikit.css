@@ -1389,6 +1389,624 @@ select.uk-form-width-mini {
   z-index: 1;
 }
 /* ========================================================================
+   Component: Section
+ ========================================================================== */
+/*
+ * 1. Make it work with `100vh` and height in general
+ */
+.uk-section {
+  box-sizing: border-box;
+  /* 1 */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* Desktop and bigger */
+@media (min-width: 960px) {
+  .uk-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+/*
+ * Micro clearfix
+ */
+.uk-section:before,
+.uk-section:after {
+  content: "";
+  display: table;
+}
+.uk-section:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-section > :last-child {
+  margin-bottom: 0;
+}
+/* Size modifiers
+ ========================================================================== */
+/*
+ * Small
+ */
+.uk-section-small {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/*
+ * Large
+ */
+.uk-section-large {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-section-large {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-section-large {
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
+}
+/* Style modifiers
+ ========================================================================== */
+/*
+ * Default
+ */
+.uk-section-default {
+  background: #fff;
+}
+/*
+ * Muted
+ */
+.uk-section-muted {
+  background: #f5f5f5;
+}
+/*
+ * Primary
+ */
+.uk-section-primary {
+  background: #489be0;
+}
+/*
+ * Secondary
+ */
+.uk-section-secondary {
+  background: #222;
+}
+/*
+ * Indicate that an image or video is used as background
+ */
+/*
+     * Adjust padding between equal colored blocks
+     */
+.uk-section-default + .uk-section-default,
+.uk-section-muted + .uk-section-muted,
+.uk-section-primary + .uk-section-primary,
+.uk-section-secondary + .uk-section-secondary {
+  padding-top: 0;
+}
+/* ========================================================================
+   Component: Container
+ ========================================================================== */
+/*
+ * 1. Box sizing has to be `content-box` so the max-width is always the same and
+ *    unaffected by the padding on different breakpoints. It's important for the small modifier.
+ */
+.uk-container {
+  box-sizing: content-box;
+  /* 1 */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-container {
+    padding: 0 30px;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-container {
+    padding: 0 40px;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-container {
+    padding: 0 70px;
+  }
+}
+/*
+ * Micro clearfix
+ */
+.uk-container:before,
+.uk-container:after {
+  content: "";
+  display: table;
+}
+.uk-container:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-container > :last-child {
+  margin-bottom: 0;
+}
+/* Size modifier
+ ========================================================================== */
+.uk-container-small {
+  max-width: 900px;
+}
+/* ========================================================================
+   Component: Grid
+ ========================================================================== */
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset lists
+ */
+.uk-grid {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* 1 */
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* 2 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/*
+ * Grid cell
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Reset margin for e.g. paragraphs
+ */
+.uk-grid > * {
+  /* 1 */
+  -ms-flex: none;
+  -webkit-flex: none;
+  flex: none;
+  /* 2 */
+  margin: 0;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-grid > * > :last-child {
+  margin-bottom: 0;
+}
+/* Gutter
+ ========================================================================== */
+/*
+ * Default
+ */
+/* Horizontal */
+.uk-grid {
+  margin-left: -30px;
+}
+.uk-grid > * {
+  padding-left: 30px;
+}
+/* Vertical */
+.uk-grid + .uk-grid,
+.uk-grid > .uk-grid-margin {
+  margin-top: 30px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  /* Horizontal */
+  .uk-grid {
+    margin-left: -40px;
+  }
+  .uk-grid > * {
+    padding-left: 40px;
+  }
+  /* Vertical */
+  .uk-grid + .uk-grid,
+  .uk-grid > .uk-grid-margin {
+    margin-top: 40px;
+  }
+}
+/*
+ * Small
+ */
+/* Horizontal */
+.uk-grid-small {
+  margin-left: -10px;
+}
+.uk-grid-small > * {
+  padding-left: 10px;
+}
+/* Vertical */
+.uk-grid + .uk-grid-small,
+.uk-grid-small > .uk-grid-margin {
+  margin-top: 10px;
+}
+/*
+ * Medium
+ */
+/* Horizontal */
+.uk-grid-medium {
+  margin-left: -30px;
+}
+.uk-grid-medium > * {
+  padding-left: 30px;
+}
+/* Vertical */
+.uk-grid + .uk-grid-medium,
+.uk-grid-medium > .uk-grid-margin {
+  margin-top: 30px;
+}
+/*
+ * Large
+ */
+/* Horizontal */
+.uk-grid-large {
+  margin-left: -40px;
+}
+.uk-grid-large > * {
+  padding-left: 40px;
+}
+/* Vertical */
+.uk-grid + .uk-grid-large,
+.uk-grid-large > .uk-grid-margin {
+  margin-top: 40px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  /* Horizontal */
+  .uk-grid-large {
+    margin-left: -70px;
+  }
+  .uk-grid-large > * {
+    padding-left: 70px;
+  }
+  /* Vertical */
+  .uk-grid + .uk-grid-large,
+  .uk-grid-large > .uk-grid-margin {
+    margin-top: 70px;
+  }
+}
+/*
+ * Collapse
+ */
+/* Horizontal */
+.uk-grid-collapse {
+  margin-left: 0;
+}
+.uk-grid-collapse > * {
+  padding-left: 0;
+}
+/* Vertical */
+.uk-grid + .uk-grid-collapse,
+.uk-grid-collapse > .uk-grid-margin {
+  margin-top: 0;
+}
+/* Divider
+ ========================================================================== */
+.uk-grid-divider > * {
+  position: relative;
+}
+.uk-grid-divider > :not(.uk-row-first):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #e5e5e5;
+}
+/* Vertical */
+.uk-grid-divider > .uk-row-first + .uk-row-first:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Default
+ */
+/* Horizontal */
+.uk-grid-divider {
+  margin-left: -60px;
+}
+.uk-grid-divider > * {
+  padding-left: 60px;
+}
+.uk-grid-divider > :not(.uk-row-first):before {
+  left: 30px;
+}
+/* Vertical */
+.uk-grid-divider > .uk-row-first + .uk-row-first {
+  margin-top: 60px;
+}
+.uk-grid-divider > .uk-row-first + .uk-row-first:before {
+  top: -30px;
+  left: 60px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  /* Horizontal */
+  .uk-grid-divider {
+    margin-left: -80px;
+  }
+  .uk-grid-divider > * {
+    padding-left: 80px;
+  }
+  .uk-grid-divider > :not(.uk-row-first):before {
+    left: 40px;
+  }
+  /* Vertical */
+  .uk-grid-divider > .uk-row-first + .uk-row-first {
+    margin-top: 80px;
+  }
+  .uk-grid-divider > .uk-row-first + .uk-row-first:before {
+    top: -40px;
+    left: 80px;
+  }
+}
+/*
+ * Small
+ */
+/* Horizontal */
+.uk-grid-divider.uk-grid-small {
+  margin-left: -20px;
+}
+.uk-grid-divider.uk-grid-small > * {
+  padding-left: 20px;
+}
+.uk-grid-divider.uk-grid-small > :not(.uk-row-first):before {
+  left: 10px;
+}
+/* Vertical */
+.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first {
+  margin-top: 20px;
+}
+.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first:before {
+  top: -10px;
+  left: 20px;
+}
+/*
+ * Medium
+ */
+/* Horizontal */
+.uk-grid-divider.uk-grid-medium {
+  margin-left: -60px;
+}
+.uk-grid-divider.uk-grid-medium > * {
+  padding-left: 60px;
+}
+.uk-grid-divider.uk-grid-medium > :not(.uk-row-first):before {
+  left: 30px;
+}
+/* Vertical */
+.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first {
+  margin-top: 60px;
+}
+.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first:before {
+  top: -30px;
+  left: 60px;
+}
+/*
+ * Large
+ */
+/* Horizontal */
+.uk-grid-divider.uk-grid-large {
+  margin-left: -80px;
+}
+.uk-grid-divider.uk-grid-large > * {
+  padding-left: 80px;
+}
+.uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
+  left: 40px;
+}
+/* Vertical */
+.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
+  margin-top: 80px;
+}
+.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
+  top: -40px;
+  left: 80px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  /* Horizontal */
+  .uk-grid-divider.uk-grid-large {
+    margin-left: -140px;
+  }
+  .uk-grid-divider.uk-grid-large > * {
+    padding-left: 140px;
+  }
+  .uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
+    left: 70px;
+  }
+  /* Vertical */
+  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
+    margin-top: 140px;
+  }
+  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
+    top: -70px;
+    left: 140px;
+  }
+}
+/* Match child of a grid cell
+ ========================================================================== */
+/*
+ * Behave like a block element
+ * 1. Wrap into the next line
+ * 2. Take the full width
+ */
+.uk-grid-match > * {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* 1 */
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.uk-grid-match > * > * {
+  /* 2 */
+  -ms-flex: auto;
+  -webkit-flex: auto;
+  flex: auto;
+  box-sizing: border-box;
+}
+/* ========================================================================
+   Component: Card
+ ========================================================================== */
+.uk-card {
+  position: relative;
+  box-sizing: border-box;
+}
+/* Sections
+ ========================================================================== */
+.uk-card-body {
+  padding: 30px 30px;
+}
+.uk-card-header {
+  padding: 15px 30px;
+}
+.uk-card-footer {
+  padding: 15px 30px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-card-body {
+    padding: 40px 40px;
+  }
+  .uk-card-header {
+    padding: 20px 40px;
+  }
+  .uk-card-footer {
+    padding: 20px 40px;
+  }
+}
+/*
+ * Micro clearfix
+ */
+.uk-card-body:before,
+.uk-card-body:after,
+.uk-card-header:before,
+.uk-card-header:after,
+.uk-card-footer:before,
+.uk-card-footer:after {
+  content: "";
+  display: table;
+}
+.uk-card-body:after,
+.uk-card-header:after,
+.uk-card-footer:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-card-body > :last-child,
+.uk-card-header > :last-child,
+.uk-card-footer > :last-child {
+  margin-bottom: 0;
+}
+/* Media
+ ========================================================================== */
+/* Phone landscape and bigger */
+/* Title
+ ========================================================================== */
+.uk-card-title {
+  font-size: 1.37rem;
+  line-height: 1.4;
+}
+/* Badge
+ ========================================================================== */
+.uk-card-badge {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 1;
+}
+/* Hover modifier
+ ========================================================================== */
+.uk-card-hover:hover {
+  background-color: #fff;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+}
+/* Style modifiers
+ ========================================================================== */
+/*
+ * Default
+ * Note: Header and Footer are only implemented for the default style
+ */
+.uk-card-default {
+  background-color: #fff;
+  color: #444;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+.uk-card-default .uk-card-title {
+  color: #444;
+}
+.uk-card-default.uk-card-hover:hover {
+  background-color: #fff;
+}
+.uk-card-default .uk-card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+}
+.uk-card-default .uk-card-footer {
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+}
+/*
+ * Primary
+ */
+.uk-card-primary {
+  background-color: #489be0;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+.uk-card-primary .uk-card-title {
+  color: #fff;
+}
+.uk-card-primary.uk-card-hover:hover {
+  background-color: #489be0;
+}
+/*
+ * Secondary
+ */
+.uk-card-secondary {
+  background-color: #222;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+.uk-card-secondary .uk-card-title {
+  color: #fff;
+}
+.uk-card-secondary.uk-card-hover:hover {
+  background-color: #222;
+}
+/* Size modifier
+ ========================================================================== */
+.uk-card-small.uk-card-body,
+.uk-card-small .uk-card-body {
+  padding: 10px 10px;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-card-large.uk-card-body,
+  .uk-card-large .uk-card-body {
+    padding: 70px 70px;
+  }
+}
+/* ========================================================================
    Component: Nav
  ========================================================================== */
 /*
@@ -1516,18 +2134,13 @@ ul.uk-nav-sub {
    Component: Navbar
  ========================================================================== */
 /*
- * 1. Create space between all navbar groups (left, right)
- * 2. Style
+ * 1. Style
  */
 .uk-navbar {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   /* 1 */
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  /* 2 */
   background: #f5f5f5;
 }
 /* Groups
@@ -1545,6 +2158,16 @@ ul.uk-nav-sub {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+}
+/*
+ * Align groups
+ */
+.uk-navbar-right {
+  margin-left: auto;
+}
+.uk-navbar-center {
+  margin-left: auto;
+  margin-right: auto;
 }
 /* Nav
  ========================================================================== */
@@ -1720,23 +2343,36 @@ ul.uk-nav-sub {
   animation: uk-fade 0.2s ease-in-out;
 }
 /*
- * Alignment modifiers
+ * Direction/Alignment modifiers
  */
-.uk-navbar-dropdown-top {
+/* Direction */
+[class*='uk-navbar-dropdown-top'] {
   margin-top: -15px;
 }
-.uk-navbar-dropdown-bottom {
+[class*='uk-navbar-dropdown-bottom'] {
   margin-top: 15px;
 }
-.uk-navbar-dropdown-left {
+[class*='uk-navbar-dropdown-left'] {
   margin-left: -15px;
 }
-.uk-navbar-dropdown-right {
+[class*='uk-navbar-dropdown-right'] {
   margin-left: 15px;
 }
 /*
- * Grid modifiers
+ * Grid
  */
+/* Gutter Horizontal */
+.uk-navbar-dropdown-grid {
+  margin-left: -30px;
+}
+.uk-navbar-dropdown-grid > * {
+  padding-left: 30px;
+}
+/* Gutter Vertical */
+.uk-navbar-dropdown-grid > .uk-grid-margin {
+  margin-top: 30px;
+}
+/* Stack */
 .uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * {
   width: 100% !important;
 }
@@ -1783,12 +2419,15 @@ ul.uk-nav-sub {
  */
 .uk-navbar-dropdown-nav .uk-nav-header {
   color: #444;
+  padding: 6px 25px;
 }
 /*
  * Divider
  */
 .uk-navbar-dropdown-nav .uk-nav-divider {
   border-top: 1px solid #e5e5e5;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 /*
  * Sublists
@@ -1814,6 +2453,9 @@ ul.uk-nav-sub {
   left: 0;
   right: 0;
 }
+/*
+     * Navbar
+     */
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-navbar:not(.uk-navbar-container) {
@@ -1827,9 +2469,42 @@ ul.uk-nav-sub {
 .uk-navbar-container .uk-navbar-right {
   margin-right: -15px;
 }
+/*
+     * Dropdown
+     */
+.uk-navbar-dropdown-top-left,
+.uk-navbar-dropdown-bottom-left {
+  margin-left: -10px;
+}
+/*
+     * Nav
+     */
 /* Dropdown nav sub */
 .uk-navbar-dropdown-nav .uk-nav-sub {
   padding-left: 40px;
+}
+/*
+     * Grid Divider
+     */
+.uk-navbar-dropdown-grid > * {
+  position: relative;
+}
+.uk-navbar-dropdown-grid > :not(.uk-row-first):before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px;
+  border-left: 1px solid #e5e5e5;
+}
+/* Vertical */
+.uk-navbar-dropdown-grid > .uk-row-first + .uk-row-first:before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 30px;
+  right: 0;
+  border-top: 1px solid #e5e5e5;
 }
 /* ========================================================================
    Component: Subnav
@@ -2695,624 +3370,6 @@ ul.uk-nav-sub {
 @media screen {
   [uk-scrollspy*='uk-animation-']:not([uk-scrollspy*='target']) {
     opacity: 0;
-  }
-}
-/* ========================================================================
-   Component: Section
- ========================================================================== */
-/*
- * 1. Make it work with `100vh` and height in general
- */
-.uk-section {
-  box-sizing: border-box;
-  /* 1 */
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-/* Desktop and bigger */
-@media (min-width: 960px) {
-  .uk-section {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-}
-/*
- * Micro clearfix
- */
-.uk-section:before,
-.uk-section:after {
-  content: "";
-  display: table;
-}
-.uk-section:after {
-  clear: both;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-section > :last-child {
-  margin-bottom: 0;
-}
-/* Size modifiers
- ========================================================================== */
-/*
- * Small
- */
-.uk-section-small {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-/*
- * Large
- */
-.uk-section-large {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-section-large {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-section-large {
-    padding-top: 140px;
-    padding-bottom: 140px;
-  }
-}
-/* Style modifiers
- ========================================================================== */
-/*
- * Default
- */
-.uk-section-default {
-  background: #fff;
-}
-/*
- * Muted
- */
-.uk-section-muted {
-  background: #f5f5f5;
-}
-/*
- * Primary
- */
-.uk-section-primary {
-  background: #489be0;
-}
-/*
- * Secondary
- */
-.uk-section-secondary {
-  background: #222;
-}
-/*
- * Indicate that an image or video is used as background
- */
-/*
-     * Adjust padding between equal colored blocks
-     */
-.uk-section-default + .uk-section-default,
-.uk-section-muted + .uk-section-muted,
-.uk-section-primary + .uk-section-primary,
-.uk-section-secondary + .uk-section-secondary {
-  padding-top: 0;
-}
-/* ========================================================================
-   Component: Container
- ========================================================================== */
-/*
- * 1. Box sizing has to be `content-box` so the max-width is always the same and
- *    unaffected by the padding on different breakpoints. It's important for the small modifier.
- */
-.uk-container {
-  box-sizing: content-box;
-  /* 1 */
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 15px;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-container {
-    padding: 0 30px;
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-container {
-    padding: 0 40px;
-  }
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-container {
-    padding: 0 70px;
-  }
-}
-/*
- * Micro clearfix
- */
-.uk-container:before,
-.uk-container:after {
-  content: "";
-  display: table;
-}
-.uk-container:after {
-  clear: both;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-container > :last-child {
-  margin-bottom: 0;
-}
-/* Size modifier
- ========================================================================== */
-.uk-container-small {
-  max-width: 900px;
-}
-/* ========================================================================
-   Component: Grid
- ========================================================================== */
-/*
- * 1. Allow cells to wrap into the next line
- * 2. Reset lists
- */
-.uk-grid {
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  /* 1 */
-  -ms-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  /* 2 */
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-/*
- * Grid cell
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Reset margin for e.g. paragraphs
- */
-.uk-grid > * {
-  /* 1 */
-  -ms-flex: none;
-  -webkit-flex: none;
-  flex: none;
-  /* 2 */
-  margin: 0;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-grid > * > :last-child {
-  margin-bottom: 0;
-}
-/* Gutter
- ========================================================================== */
-/*
- * Default
- */
-/* Horizontal */
-.uk-grid {
-  margin-left: -30px;
-}
-.uk-grid > * {
-  padding-left: 30px;
-}
-/* Vertical */
-.uk-grid + .uk-grid,
-.uk-grid > .uk-grid-margin {
-  margin-top: 30px;
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  /* Horizontal */
-  .uk-grid {
-    margin-left: -40px;
-  }
-  .uk-grid > * {
-    padding-left: 40px;
-  }
-  /* Vertical */
-  .uk-grid + .uk-grid,
-  .uk-grid > .uk-grid-margin {
-    margin-top: 40px;
-  }
-}
-/*
- * Small
- */
-/* Horizontal */
-.uk-grid-small {
-  margin-left: -10px;
-}
-.uk-grid-small > * {
-  padding-left: 10px;
-}
-/* Vertical */
-.uk-grid + .uk-grid-small,
-.uk-grid-small > .uk-grid-margin {
-  margin-top: 10px;
-}
-/*
- * Medium
- */
-/* Horizontal */
-.uk-grid-medium {
-  margin-left: -30px;
-}
-.uk-grid-medium > * {
-  padding-left: 30px;
-}
-/* Vertical */
-.uk-grid + .uk-grid-medium,
-.uk-grid-medium > .uk-grid-margin {
-  margin-top: 30px;
-}
-/*
- * Large
- */
-/* Horizontal */
-.uk-grid-large {
-  margin-left: -40px;
-}
-.uk-grid-large > * {
-  padding-left: 40px;
-}
-/* Vertical */
-.uk-grid + .uk-grid-large,
-.uk-grid-large > .uk-grid-margin {
-  margin-top: 40px;
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  /* Horizontal */
-  .uk-grid-large {
-    margin-left: -70px;
-  }
-  .uk-grid-large > * {
-    padding-left: 70px;
-  }
-  /* Vertical */
-  .uk-grid + .uk-grid-large,
-  .uk-grid-large > .uk-grid-margin {
-    margin-top: 70px;
-  }
-}
-/*
- * Collapse
- */
-/* Horizontal */
-.uk-grid-collapse {
-  margin-left: 0;
-}
-.uk-grid-collapse > * {
-  padding-left: 0;
-}
-/* Vertical */
-.uk-grid + .uk-grid-collapse,
-.uk-grid-collapse > .uk-grid-margin {
-  margin-top: 0;
-}
-/* Divider
- ========================================================================== */
-.uk-grid-divider > * {
-  position: relative;
-}
-.uk-grid-divider > :not(.uk-row-first):before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  border-left: 1px solid #e5e5e5;
-}
-/* Vertical */
-.uk-grid-divider > .uk-row-first + .uk-row-first:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-top: 1px solid #e5e5e5;
-}
-/*
- * Default
- */
-/* Horizontal */
-.uk-grid-divider {
-  margin-left: -60px;
-}
-.uk-grid-divider > * {
-  padding-left: 60px;
-}
-.uk-grid-divider > :not(.uk-row-first):before {
-  left: 30px;
-}
-/* Vertical */
-.uk-grid-divider > .uk-row-first + .uk-row-first {
-  margin-top: 60px;
-}
-.uk-grid-divider > .uk-row-first + .uk-row-first:before {
-  top: -30px;
-  left: 60px;
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  /* Horizontal */
-  .uk-grid-divider {
-    margin-left: -80px;
-  }
-  .uk-grid-divider > * {
-    padding-left: 80px;
-  }
-  .uk-grid-divider > :not(.uk-row-first):before {
-    left: 40px;
-  }
-  /* Vertical */
-  .uk-grid-divider > .uk-row-first + .uk-row-first {
-    margin-top: 80px;
-  }
-  .uk-grid-divider > .uk-row-first + .uk-row-first:before {
-    top: -40px;
-    left: 80px;
-  }
-}
-/*
- * Small
- */
-/* Horizontal */
-.uk-grid-divider.uk-grid-small {
-  margin-left: -20px;
-}
-.uk-grid-divider.uk-grid-small > * {
-  padding-left: 20px;
-}
-.uk-grid-divider.uk-grid-small > :not(.uk-row-first):before {
-  left: 10px;
-}
-/* Vertical */
-.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first {
-  margin-top: 20px;
-}
-.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first:before {
-  top: -10px;
-  left: 20px;
-}
-/*
- * Medium
- */
-/* Horizontal */
-.uk-grid-divider.uk-grid-medium {
-  margin-left: -60px;
-}
-.uk-grid-divider.uk-grid-medium > * {
-  padding-left: 60px;
-}
-.uk-grid-divider.uk-grid-medium > :not(.uk-row-first):before {
-  left: 30px;
-}
-/* Vertical */
-.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first {
-  margin-top: 60px;
-}
-.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first:before {
-  top: -30px;
-  left: 60px;
-}
-/*
- * Large
- */
-/* Horizontal */
-.uk-grid-divider.uk-grid-large {
-  margin-left: -80px;
-}
-.uk-grid-divider.uk-grid-large > * {
-  padding-left: 80px;
-}
-.uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
-  left: 40px;
-}
-/* Vertical */
-.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
-  margin-top: 80px;
-}
-.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
-  top: -40px;
-  left: 80px;
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  /* Horizontal */
-  .uk-grid-divider.uk-grid-large {
-    margin-left: -140px;
-  }
-  .uk-grid-divider.uk-grid-large > * {
-    padding-left: 140px;
-  }
-  .uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
-    left: 70px;
-  }
-  /* Vertical */
-  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
-    margin-top: 140px;
-  }
-  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
-    top: -70px;
-    left: 140px;
-  }
-}
-/* Match child of a grid cell
- ========================================================================== */
-/*
- * Behave like a block element
- * 1. Wrap into the next line
- * 2. Take the full width
- */
-.uk-grid-match > * {
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  /* 1 */
-  -ms-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-.uk-grid-match > * > * {
-  /* 2 */
-  -ms-flex: auto;
-  -webkit-flex: auto;
-  flex: auto;
-  box-sizing: border-box;
-}
-/* ========================================================================
-   Component: Card
- ========================================================================== */
-.uk-card {
-  position: relative;
-  box-sizing: border-box;
-}
-/* Sections
- ========================================================================== */
-.uk-card-body {
-  padding: 30px 30px;
-}
-.uk-card-header {
-  padding: 15px 30px;
-}
-.uk-card-footer {
-  padding: 15px 30px;
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-card-body {
-    padding: 40px 40px;
-  }
-  .uk-card-header {
-    padding: 20px 40px;
-  }
-  .uk-card-footer {
-    padding: 20px 40px;
-  }
-}
-/*
- * Micro clearfix
- */
-.uk-card-body:before,
-.uk-card-body:after,
-.uk-card-header:before,
-.uk-card-header:after,
-.uk-card-footer:before,
-.uk-card-footer:after {
-  content: "";
-  display: table;
-}
-.uk-card-body:after,
-.uk-card-header:after,
-.uk-card-footer:after {
-  clear: both;
-}
-/*
- * Remove margin from the last-child
- */
-.uk-card-body > :last-child,
-.uk-card-header > :last-child,
-.uk-card-footer > :last-child {
-  margin-bottom: 0;
-}
-/* Media
- ========================================================================== */
-/* Phone landscape and bigger */
-/* Title
- ========================================================================== */
-.uk-card-title {
-  font-size: 1.37rem;
-  line-height: 1.4;
-}
-/* Badge
- ========================================================================== */
-.uk-card-badge {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  z-index: 1;
-}
-/* Hover modifier
- ========================================================================== */
-.uk-card-hover:hover {
-  background-color: #fff;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-}
-/* Style modifiers
- ========================================================================== */
-/*
- * Default
- * Note: Header and Footer are only implemented for the default style
- */
-.uk-card-default {
-  background-color: #fff;
-  color: #444;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-}
-.uk-card-default .uk-card-title {
-  color: #444;
-}
-.uk-card-default.uk-card-hover:hover {
-  background-color: #fff;
-}
-.uk-card-default .uk-card-header {
-  background-color: #fff;
-  border-bottom: 1px solid #e5e5e5;
-}
-.uk-card-default .uk-card-footer {
-  background-color: #fff;
-  border-top: 1px solid #e5e5e5;
-}
-/*
- * Primary
- */
-.uk-card-primary {
-  background-color: #489be0;
-  color: #fff;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-}
-.uk-card-primary .uk-card-title {
-  color: #fff;
-}
-.uk-card-primary.uk-card-hover:hover {
-  background-color: #489be0;
-}
-/*
- * Secondary
- */
-.uk-card-secondary {
-  background-color: #222;
-  color: #fff;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-}
-.uk-card-secondary .uk-card-title {
-  color: #fff;
-}
-.uk-card-secondary.uk-card-hover:hover {
-  background-color: #222;
-}
-/* Size modifier
- ========================================================================== */
-.uk-card-small.uk-card-body,
-.uk-card-small .uk-card-body {
-  padding: 10px 10px;
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-card-large.uk-card-body,
-  .uk-card-large .uk-card-body {
-    padding: 70px 70px;
   }
 }
 /* ========================================================================
