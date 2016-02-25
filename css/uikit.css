@@ -5689,8 +5689,6 @@ ul.uk-nav-sub {
 .uk-card-primary,
 .uk-card-secondary {
   color: #fff;
-  /* Hover + Focus */
-  /* Disabled */
 }
 .uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
 .uk-light .uk-link,
@@ -5976,36 +5974,68 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-button-text:disabled {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-icon-hover,
-.uk-card-primary .uk-icon-hover,
-.uk-card-secondary .uk-icon-hover {
+.uk-light .uk-grid-divider > :not(.uk-grid-first):before,
+.uk-card-primary .uk-grid-divider > :not(.uk-grid-first):before,
+.uk-card-secondary .uk-grid-divider > :not(.uk-grid-first):before {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
+.uk-card-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
+.uk-card-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-nav-parent-icon > .uk-parent > a:after,
+.uk-card-primary .uk-nav-parent-icon > .uk-parent > a:after,
+.uk-card-secondary .uk-nav-parent-icon > .uk-parent > a:after {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226px%22%20height%3D%2212px%22%20viewBox%3D%220%200%206%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M6%2C2%20L6%2C-1.11022302e-16%20L0%2C6%20L6%2C12%20L6%2C10%20L2%2C6%20L6%2C2%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+}
+.uk-light .uk-nav-parent-icon > .uk-parent.uk-open > a:after,
+.uk-card-primary .uk-nav-parent-icon > .uk-parent.uk-open > a:after,
+.uk-card-secondary .uk-nav-parent-icon > .uk-parent.uk-open > a:after {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+}
+.uk-light .uk-nav-default > li > a,
+.uk-card-primary .uk-nav-default > li > a,
+.uk-card-secondary .uk-nav-default > li > a {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-icon-hover:hover,
-.uk-card-primary .uk-icon-hover:hover,
-.uk-card-secondary .uk-icon-hover:hover {
+.uk-light .uk-nav-default > li > a:hover,
+.uk-light .uk-nav-default > li > a:focus,
+.uk-card-primary .uk-nav-default > li > a:hover,
+.uk-card-primary .uk-nav-default > li > a:focus,
+.uk-card-secondary .uk-nav-default > li > a:hover,
+.uk-card-secondary .uk-nav-default > li > a:focus {
+  color: #fff;
+  background: transparent;
+}
+.uk-light .uk-nav-default > li.uk-active > a,
+.uk-card-primary .uk-nav-default > li.uk-active > a,
+.uk-card-secondary .uk-nav-default > li.uk-active > a {
+  color: #444;
+  background: #fff;
+}
+.uk-light .uk-nav-default .uk-nav-header,
+.uk-card-primary .uk-nav-default .uk-nav-header,
+.uk-card-secondary .uk-nav-default .uk-nav-header {
   color: #fff;
 }
-.uk-light .uk-icon-button,
-.uk-card-primary .uk-icon-button,
-.uk-card-secondary .uk-icon-button {
-  background: #fff;
-  color: #444;
+.uk-light .uk-nav-default .uk-nav-divider,
+.uk-card-primary .uk-nav-default .uk-nav-divider,
+.uk-card-secondary .uk-nav-default .uk-nav-divider {
+  border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-icon-button:hover,
-.uk-light .uk-icon-button:focus,
-.uk-card-primary .uk-icon-button:hover,
-.uk-card-primary .uk-icon-button:focus,
-.uk-card-secondary .uk-icon-button:hover,
-.uk-card-secondary .uk-icon-button:focus {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #444;
+.uk-light .uk-nav-default .uk-nav-sub a,
+.uk-card-primary .uk-nav-default .uk-nav-sub a,
+.uk-card-secondary .uk-nav-default .uk-nav-sub a {
+  color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-icon-button:active,
-.uk-card-primary .uk-icon-button:active,
-.uk-card-secondary .uk-icon-button:active {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: #444;
+.uk-light .uk-nav-default .uk-nav-sub a:hover,
+.uk-light .uk-nav-default .uk-nav-sub a:focus,
+.uk-card-primary .uk-nav-default .uk-nav-sub a:hover,
+.uk-card-primary .uk-nav-default .uk-nav-sub a:focus,
+.uk-card-secondary .uk-nav-default .uk-nav-sub a:hover,
+.uk-card-secondary .uk-nav-default .uk-nav-sub a:focus {
+  color: #fff;
 }
 .uk-light .uk-navbar-nav > li > a,
 .uk-card-primary .uk-navbar-nav > li > a,
@@ -6082,15 +6112,36 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-subnav > .uk-disabled > a {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-grid-divider > :not(.uk-grid-first):before,
-.uk-card-primary .uk-grid-divider > :not(.uk-grid-first):before,
-.uk-card-secondary .uk-grid-divider > :not(.uk-grid-first):before {
-  border-left-color: rgba(255, 255, 255, 0.2);
+.uk-light .uk-icon-hover,
+.uk-card-primary .uk-icon-hover,
+.uk-card-secondary .uk-icon-hover {
+  color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
-.uk-card-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
-.uk-card-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
-  border-top-color: rgba(255, 255, 255, 0.2);
+.uk-light .uk-icon-hover:hover,
+.uk-card-primary .uk-icon-hover:hover,
+.uk-card-secondary .uk-icon-hover:hover {
+  color: #fff;
+}
+.uk-light .uk-icon-button,
+.uk-card-primary .uk-icon-button,
+.uk-card-secondary .uk-icon-button {
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-icon-button:hover,
+.uk-light .uk-icon-button:focus,
+.uk-card-primary .uk-icon-button:hover,
+.uk-card-primary .uk-icon-button:focus,
+.uk-card-secondary .uk-icon-button:hover,
+.uk-card-secondary .uk-icon-button:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #444;
+}
+.uk-light .uk-icon-button:active,
+.uk-card-primary .uk-icon-button:active,
+.uk-card-secondary .uk-icon-button:active {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
 }
 .uk-light .uk-text-lead,
 .uk-card-primary .uk-text-lead,

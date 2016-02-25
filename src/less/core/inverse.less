@@ -55,6 +55,17 @@
 @inverse-button-text-hover-color:              @inverse-color;
 @inverse-button-text-disabled-color:           fade(@inverse-color, 70%);
 
+@inverse-grid-divider-border:                  fade(@inverse-color, 20%);
+
+@inverse-nav-parent-icon-color:                @inverse-color;
+@inverse-nav-default-item-color:               fade(@inverse-color, 70%);
+@inverse-nav-default-item-hover-color:         @inverse-color;
+@inverse-nav-default-item-active-color:        @inverse-color;
+@inverse-nav-default-header-color:             @inverse-color;
+@inverse-nav-default-divider-border:           fade(@inverse-color, 20%);
+@inverse-nav-default-sublist-item-color:       fade(@inverse-color, 70%);
+@inverse-nav-default-sublist-item-hover-color: @inverse-color;
+
 @inverse-navbar-nav-item-color:                fade(@inverse-color, 70%);
 @inverse-navbar-nav-item-text-decoration:      none;
 @inverse-navbar-nav-item-hover-color:          @inverse-color;
@@ -80,8 +91,6 @@
 @inverse-icon-button-hover-color:              @inverse-contrast-color;
 @inverse-icon-button-active-background:        fade(@inverse-color, 70%);
 @inverse-icon-button-active-color:             @inverse-contrast-color;
-
-@inverse-grid-divider-border:                  fade(@inverse-color, 20%);
 
 @inverse-text-lead-color:                      @inverse-color;
 @inverse-text-meta-color:                      fade(@inverse-color, 60%);
@@ -280,63 +289,87 @@
         .hook-inverse-button-text;
     }
 
-    /* Hover + Focus */
     .uk-button-text:hover,
     .uk-button-text:focus {
         color: @inverse-button-text-hover-color;
         .hook-inverse-button-text-hover;
     }
 
-    /* Disabled */
     .uk-button-text:disabled {
         color: @inverse-button-text-disabled-color;
         .hook-inverse-button-text-disabled;
     }
 
 
-    // Icon
+    // Grid
     // ========================================================================
 
-    //
-    // Hover
-    //
-
-    .uk-icon-hover {
-        color: @inverse-icon-hover-color;
-        .hook-inverse-icon-hover;
-    }
-
-    .uk-icon-hover:hover {
-        color: @inverse-icon-hover-hover-color;
-        .hook-inverse-icon-hover-hover;
-    }
-
-    //
-    // Button
-    //
-
-    .uk-icon-button {
-        background: @inverse-icon-button-background;
-        color: @inverse-icon-button-color;
-        .hook-inverse-icon-button;
-    }
-
-    .uk-icon-button:hover,
-    .uk-icon-button:focus {
-        background-color: @inverse-icon-button-hover-background;
-        color: @inverse-icon-button-hover-color;
-        .hook-inverse-icon-button-hover;
-    }
-
-    .uk-icon-button:active {
-        background-color: @inverse-icon-button-active-background;
-        color: @inverse-icon-button-active-color;
-        .hook-inverse-icon-button-active;
-    }
+    .uk-grid-divider > :not(.uk-grid-first):before { border-left-color: @inverse-grid-divider-border; }
+    .uk-grid-divider > .uk-grid-first + .uk-grid-first:before { border-top-color: @inverse-grid-divider-border; }
 
 
     // Nav
     // ========================================================================
+
+    //
+    // Parent icon modifier
+    //
+
+    .uk-nav-parent-icon > .uk-parent > a:after {
+        .svg-fill("../images/nav-parent-close.svg", "#000", @inverse-nav-parent-icon-color);
+        .hook-inverse-nav-parent-icon;
+    }
+
+    .uk-nav-parent-icon > .uk-parent.uk-open > a:after { .svg-fill("../images/nav-parent-open.svg", "#000", @inverse-nav-parent-icon-color); }
+
+    //
+    // Items
+    //
+
+    .uk-nav-default > li > a {
+        color: @inverse-nav-default-item-color;
+        .hook-inverse-nav-default-item;
+    }
+
+    .uk-nav-default > li > a:hover,
+    .uk-nav-default > li > a:focus {
+        color: @inverse-nav-default-item-hover-color;
+        .hook-inverse-nav-default-item-hover;
+    }
+
+    .uk-nav-default > li.uk-active > a {
+        color: @inverse-nav-default-item-active-color;
+        .hook-inverse-nav-default-item-active;
+    }
+
+    //
+    // Header
+    //
+
+    .uk-nav-default .uk-nav-header {
+        color: @inverse-nav-default-header-color;
+        .hook-inverse-nav-default-header;
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-nav-default .uk-nav-divider {
+        border-top-color: @inverse-nav-default-divider-border;
+        .hook-inverse-nav-default-divider;
+    }
+
+    //
+    // Sublists
+    //
+
+    .uk-nav-default .uk-nav-sub a { color: @inverse-nav-default-sublist-item-color; }
+
+    .uk-nav-default .uk-nav-sub a:hover,
+    .uk-nav-default .uk-nav-sub a:focus { color: @inverse-nav-default-sublist-item-hover-color; }
+
+
 
     // Navbar
     // ========================================================================
@@ -426,11 +459,45 @@
     }
 
 
-    // Grid
+    // Icon
     // ========================================================================
 
-    .uk-grid-divider > :not(.uk-grid-first):before { border-left-color: @inverse-grid-divider-border; }
-    .uk-grid-divider > .uk-grid-first + .uk-grid-first:before { border-top-color: @inverse-grid-divider-border; }
+    //
+    // Hover
+    //
+
+    .uk-icon-hover {
+        color: @inverse-icon-hover-color;
+        .hook-inverse-icon-hover;
+    }
+
+    .uk-icon-hover:hover {
+        color: @inverse-icon-hover-hover-color;
+        .hook-inverse-icon-hover-hover;
+    }
+
+    //
+    // Button
+    //
+
+    .uk-icon-button {
+        background: @inverse-icon-button-background;
+        color: @inverse-icon-button-color;
+        .hook-inverse-icon-button;
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: @inverse-icon-button-hover-background;
+        color: @inverse-icon-button-hover-color;
+        .hook-inverse-icon-button-hover;
+    }
+
+    .uk-icon-button:active {
+        background-color: @inverse-icon-button-active-background;
+        color: @inverse-icon-button-active-color;
+        .hook-inverse-icon-button-active;
+    }
 
 
     // Text
@@ -506,6 +573,13 @@
 .hook-inverse-button-text() {}
 .hook-inverse-button-text-hover() {}
 .hook-inverse-button-text-disabled() {}
+
+.hook-inverse-nav-parent-icon() {}
+.hook-inverse-nav-default-item() {}
+.hook-inverse-nav-default-item-hover() {}
+.hook-inverse-nav-default-item-active() {}
+.hook-inverse-nav-default-header() {}
+.hook-inverse-nav-default-divider() {}
 
 .hook-inverse-navbar-nav-item() {}
 .hook-inverse-navbar-nav-item-hover() {}

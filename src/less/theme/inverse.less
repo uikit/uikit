@@ -14,6 +14,8 @@
 @inverse-button-default-active-background:     transparent;
 @inverse-button-default-active-color:          @inverse-color;
 
+@inverse-nav-default-item-active-color:        @inverse-contrast-color;
+
 
 // Base
 // ========================================================================
@@ -59,6 +61,39 @@
 .hook-inverse-button-text() {}
 .hook-inverse-button-text-hover() {}
 .hook-inverse-button-text-disabled() {}
+
+
+// Nav
+// ========================================================================
+
+.hook-inverse-nav-parent-icon() {}
+.hook-inverse-nav-default-item() {}
+.hook-inverse-nav-default-item-hover() { background: transparent; }
+.hook-inverse-nav-default-item-active() { background: @inverse-color; }
+.hook-inverse-nav-default-header() {}
+.hook-inverse-nav-default-divider() {}
+
+
+// Navbar
+// ========================================================================
+
+.hook-inverse-navbar-nav-item() {}
+.hook-inverse-navbar-nav-item-hover() {}
+.hook-inverse-navbar-nav-item-onclick() {}
+.hook-inverse-navbar-nav-item-active() {}
+.hook-inverse-navbar-item() {}
+
+
+// Subnav
+// ========================================================================
+
+.hook-inverse-subnav-item() {}
+.hook-inverse-subnav-item-hover() {}
+.hook-inverse-subnav-item-active() {}
+.hook-inverse-subnav-line-divider() {}
+.hook-inverse-subnav-pill-item-hover() {}
+.hook-inverse-subnav-pill-item-active() {}
+.hook-inverse-subnav-item-disabled() {}
 
 
 // Icon
