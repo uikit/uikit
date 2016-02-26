@@ -79,16 +79,14 @@
 
 /*
  * Hover + Focus
- * 1. Remove default focus style
- * 2. Required for `a` elements
+ * 1. Required for `a` elements
  */
 
 .uk-close:hover,
 .uk-close:focus {
     opacity: @close-hover-opacity;
-    /* 1 */
     outline: none;
-    /* 2 */
+    /* 1 */
     color: inherit;
     text-decoration: none;
     .hook-close-hover;
