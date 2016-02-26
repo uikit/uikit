@@ -2643,10 +2643,6 @@ ul.uk-nav-sub {
 .uk-breadcrumb > :last-child > * {
   color: #444;
 }
-/* Disabled */
-.uk-subnav > .uk-disabled > * {
-  color: #999;
-}
 /*
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
@@ -5690,20 +5686,20 @@ ul.uk-nav-sub {
 .uk-card-secondary {
   color: #fff;
 }
-.uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
+.uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
 .uk-light .uk-link,
-.uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
+.uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
 .uk-card-primary .uk-link,
-.uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
+.uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
 .uk-card-secondary .uk-link {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
 }
-.uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
+.uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
 .uk-light .uk-link:hover,
-.uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
+.uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
 .uk-card-primary .uk-link:hover,
-.uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
+.uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
 .uk-card-secondary .uk-link:hover {
   color: #fff;
   text-decoration: underline;
@@ -6110,6 +6106,76 @@ ul.uk-nav-sub {
 .uk-light .uk-subnav > .uk-disabled > a,
 .uk-card-primary .uk-subnav > .uk-disabled > a,
 .uk-card-secondary .uk-subnav > .uk-disabled > a {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-breadcrumb > * > *,
+.uk-card-primary .uk-breadcrumb > * > *,
+.uk-card-secondary .uk-breadcrumb > * > * {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-breadcrumb > * > :hover,
+.uk-light .uk-breadcrumb > * > :focus,
+.uk-card-primary .uk-breadcrumb > * > :hover,
+.uk-card-primary .uk-breadcrumb > * > :focus,
+.uk-card-secondary .uk-breadcrumb > * > :hover,
+.uk-card-secondary .uk-breadcrumb > * > :focus {
+  color: #fff;
+}
+.uk-light .uk-breadcrumb > :last-child > *,
+.uk-card-primary .uk-breadcrumb > :last-child > *,
+.uk-card-secondary .uk-breadcrumb > :last-child > * {
+  color: #fff;
+}
+.uk-light .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before,
+.uk-card-primary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before,
+.uk-card-secondary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-pagination > * > *,
+.uk-card-primary .uk-pagination > * > *,
+.uk-card-secondary .uk-pagination > * > * {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-pagination > * > :hover,
+.uk-light .uk-pagination > * > :focus,
+.uk-card-primary .uk-pagination > * > :hover,
+.uk-card-primary .uk-pagination > * > :focus,
+.uk-card-secondary .uk-pagination > * > :hover,
+.uk-card-secondary .uk-pagination > * > :focus {
+  color: #fff;
+}
+.uk-light .uk-pagination > .uk-active > *,
+.uk-card-primary .uk-pagination > .uk-active > *,
+.uk-card-secondary .uk-pagination > .uk-active > * {
+  color: #fff;
+}
+.uk-light .uk-pagination > .uk-disabled > *,
+.uk-card-primary .uk-pagination > .uk-disabled > *,
+.uk-card-secondary .uk-pagination > .uk-disabled > * {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-tab > * > a,
+.uk-card-primary .uk-tab > * > a,
+.uk-card-secondary .uk-tab > * > a {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-tab > * > a:hover,
+.uk-light .uk-tab > * > a:focus,
+.uk-card-primary .uk-tab > * > a:hover,
+.uk-card-primary .uk-tab > * > a:focus,
+.uk-card-secondary .uk-tab > * > a:hover,
+.uk-card-secondary .uk-tab > * > a:focus {
+  color: #fff;
+}
+.uk-light .uk-tab > .uk-active > a,
+.uk-card-primary .uk-tab > .uk-active > a,
+.uk-card-secondary .uk-tab > .uk-active > a {
+  color: #fff;
+  border-color: #fff;
+}
+.uk-light .uk-tab > .uk-disabled > a,
+.uk-card-primary .uk-tab > .uk-disabled > a,
+.uk-card-secondary .uk-tab > .uk-disabled > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-icon-hover,

@@ -83,6 +83,21 @@
 @inverse-subnav-pill-item-active-color:        @inverse-contrast-color;
 @inverse-subnav-item-disabled-color:           fade(@inverse-color, 70%);
 
+@inverse-breadcrumb-item-color:                fade(@inverse-color, 70%);
+@inverse-breadcrumb-item-hover-color:          @inverse-color;
+@inverse-breadcrumb-item-active-color:         @inverse-color;
+@inverse-breadcrumb-divider-color:             fade(@inverse-color, 70%);
+
+@inverse-pagination-item-color:                fade(@inverse-color, 70%);
+@inverse-pagination-item-hover-color:          @inverse-color;
+@inverse-pagination-item-active-color:         @inverse-color;
+@inverse-pagination-item-disabled-color:       fade(@inverse-color, 70%);
+
+@inverse-tab-item-color:                       fade(@inverse-color, 70%);
+@inverse-tab-item-hover-color:                 @inverse-color;
+@inverse-tab-item-active-color:                @inverse-color;
+@inverse-tab-item-disabled-color:              fade(@inverse-color, 70%);
+
 @inverse-icon-hover-color:                     fade(@inverse-color, 70%);
 @inverse-icon-hover-hover-color:               @inverse-color;
 @inverse-icon-button-background:               @inverse-color;
@@ -117,14 +132,14 @@
     // Link
     //
 
-    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]),
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
     .uk-link  {
         color: @inverse-base-link-color;
         text-decoration: @inverse-base-link-text-decoration;
         .hook-inverse-base-link;
     }
 
-    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav) > * > a:not([class]):hover,
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
     .uk-link:hover {
         color: @inverse-base-link-hover-color;
         text-decoration: @inverse-base-link-hover-text-decoration;
@@ -370,7 +385,6 @@
     .uk-nav-default .uk-nav-sub a:focus { color: @inverse-nav-default-sublist-item-hover-color; }
 
 
-
     // Navbar
     // ========================================================================
 
@@ -456,6 +470,85 @@
     .uk-subnav > .uk-disabled > a {
         color: @inverse-subnav-item-disabled-color;
         .hook-inverse-subnav-item-disabled;
+    }
+
+
+    // Breadcrumb
+    // ========================================================================
+
+    .uk-breadcrumb > * > * {
+        color: @inverse-breadcrumb-item-color;
+        .hook-inverse-breadcrumb-item;
+    }
+
+    .uk-breadcrumb > * > :hover,
+    .uk-breadcrumb > * > :focus {
+        color: @inverse-breadcrumb-item-hover-color;
+        .hook-inverse-breadcrumb-item-hover;
+    }
+
+    .uk-breadcrumb > :last-child > * {
+        color: @inverse-breadcrumb-item-active-color;
+        .hook-inverse-breadcrumb-item-active;
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before {
+        color: @inverse-breadcrumb-divider-color;
+        .hook-inverse-breadcrumb-divider;
+    }
+
+
+    // Pagination
+    // ========================================================================
+
+    .uk-pagination > * > * {
+        color: @inverse-pagination-item-color;
+        .hook-inverse-pagination-item;
+    }
+
+    .uk-pagination > * > :hover,
+    .uk-pagination > * > :focus {
+        color: @inverse-pagination-item-hover-color;
+        .hook-inverse-pagination-item-hover;
+    }
+
+    .uk-pagination > .uk-active > * {
+        color: @inverse-pagination-item-active-color;
+        .hook-inverse-pagination-item-active;
+    }
+
+    .uk-pagination > .uk-disabled > * {
+        color: @inverse-pagination-item-disabled-color;
+        .hook-inverse-pagination-item-disabled;
+    }
+
+
+    // Tab
+    // ========================================================================
+
+    .uk-tab > * > a {
+        color: @inverse-tab-item-color;
+        .hook-inverse-tab-item;
+    }
+
+    .uk-tab > * > a:hover,
+    .uk-tab > * > a:focus{
+        color: @inverse-tab-item-hover-color;
+        .hook-inverse-tab-item-hover;
+    }
+
+    .uk-tab > .uk-active > a {
+        color: @inverse-tab-item-active-color;
+        .hook-inverse-tab-item-active;
+    }
+
+    .uk-tab > .uk-disabled > a {
+        color: @inverse-tab-item-disabled-color;
+        .hook-inverse-tab-item-disabled;
     }
 
 
@@ -594,6 +687,21 @@
 .hook-inverse-subnav-pill-item-hover() {}
 .hook-inverse-subnav-pill-item-active() {}
 .hook-inverse-subnav-item-disabled() {}
+
+.hook-inverse-breadcrumb-item() {}
+.hook-inverse-breadcrumb-item-hover() {}
+.hook-inverse-breadcrumb-item-active() {}
+.hook-inverse-breadcrumb-divider() {}
+
+.hook-inverse-pagination-item() {}
+.hook-inverse-pagination-item-hover() {}
+.hook-inverse-pagination-item-active() {}
+.hook-inverse-pagination-item-disabled() {}
+
+.hook-inverse-tab-item() {}
+.hook-inverse-tab-item-hover() {}
+.hook-inverse-tab-item-active() {}
+.hook-inverse-tab-item-disabled() {}
 
 .hook-inverse-icon-hover() {}
 .hook-inverse-icon-hover-hover() {}
