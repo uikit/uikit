@@ -19,11 +19,9 @@
 @breadcrumb-item-hover-color:                       @global-color;
 @breadcrumb-item-hover-text-decoration:             none;
 @breadcrumb-item-active-color:                      @global-color;
-@breadcrumb-item-disabled-color:                    @global-muted-color;
-
-@breadcrumb-divider-color:                          @global-muted-color;
 
 @breadcrumb-divider:                                "/";
+@breadcrumb-divider-color:                          @global-muted-color;
 
 
 /* ========================================================================
@@ -83,12 +81,6 @@
     .hook-breadcrumb-item-active;
 }
 
-/* Disabled */
-.uk-subnav > .uk-disabled > * {
-    color: @subnav-item-disabled-color;
-    .hook-subnav-item-disabled;
-}
-
 /*
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
@@ -112,6 +104,5 @@
 .hook-breadcrumb-item() {}
 .hook-breadcrumb-item-hover() {}
 .hook-breadcrumb-item-active() {}
-.hook-breadcrumb-item-disabled() {}
 .hook-breadcrumb-divider() {}
 .hook-breadcrumb-misc() {}
