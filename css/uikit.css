@@ -6048,7 +6048,6 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-navbar-nav > li > a:focus,
 .uk-card-secondary .uk-navbar-nav > li.uk-open > a {
   color: #fff;
-  text-decoration: none;
 }
 .uk-light .uk-navbar-nav > li > a:active,
 .uk-card-primary .uk-navbar-nav > li > a:active,
@@ -6217,12 +6216,12 @@ ul.uk-nav-sub {
 .uk-light .uk-text-meta,
 .uk-card-primary .uk-text-meta,
 .uk-card-secondary .uk-text-meta {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-text-muted,
 .uk-card-primary .uk-text-muted,
 .uk-card-secondary .uk-text-muted {
-  color: rgba(255, 255, 255, 0.6) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 .uk-light .uk-text-primary,
 .uk-card-primary .uk-text-primary,

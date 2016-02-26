@@ -13,22 +13,28 @@
 
 @inverse-color:                                @global-light-color;
 @inverse-contrast-color:                       @global-color;
+@inverse-muted-color:                          fade(@inverse-color, 70%);
+
+@inverse-primary-background:                   @inverse-color;
+@inverse-muted-background:                     fade(@inverse-color, 80%);
+
+@inverse-border:                               fade(@inverse-color, 20%);
 
 //
 // Components
 //
 
 @inverse-base-color:                           @inverse-color;
-@inverse-base-link-color:                      fade(@inverse-color, 70%);
+@inverse-base-link-color:                      @inverse-muted-color;
 @inverse-base-link-text-decoration:            none;
 @inverse-base-link-hover-color:                @inverse-color;
 @inverse-base-link-hover-text-decoration:      underline;
 @inverse-base-code-color:                      @inverse-color;
 @inverse-base-em-color:                        @inverse-color;
 @inverse-base-heading-color:                   @inverse-color;
-@inverse-base-hr-border:                       fade(@inverse-color, 20%);
+@inverse-base-hr-border:                       @inverse-border;
 
-@inverse-list-line-border:                     fade(@inverse-color, 20%);
+@inverse-list-line-border:                     @inverse-border;
 @inverse-list-bullet-icon-color:               @inverse-color;
 
 @inverse-form-border:                          fade(@inverse-color, 80%);
@@ -39,80 +45,79 @@
 @inverse-form-focus-color:                     @inverse-contrast-color;
 @inverse-form-placeholder-color:               fade(@inverse-contrast-color, 70%);
 
-@inverse-button-default-background:            @inverse-color;
+@inverse-button-default-background:            @inverse-primary-background;
 @inverse-button-default-color:                 @inverse-contrast-color;
-@inverse-button-default-hover-background:      fade(@inverse-color, 80%);
+@inverse-button-default-hover-background:      @inverse-muted-background;
 @inverse-button-default-hover-color:           @inverse-contrast-color;
-@inverse-button-default-active-background:     fade(@inverse-color, 70%);
+@inverse-button-default-active-background:     fade(@inverse-muted-background, 70%);
 @inverse-button-default-active-color:          @inverse-contrast-color;
-@inverse-button-primary-background:            @inverse-color;
+@inverse-button-primary-background:            @inverse-primary-background;
 @inverse-button-primary-color:                 @inverse-contrast-color;
-@inverse-button-primary-hover-background:      fade(@inverse-color, 80%);
+@inverse-button-primary-hover-background:      @inverse-muted-background;
 @inverse-button-primary-hover-color:           @inverse-contrast-color;
-@inverse-button-primary-active-background:     fade(@inverse-color, 70%);
+@inverse-button-primary-active-background:     fade(@inverse-muted-background, 70%);
 @inverse-button-primary-active-color:          @inverse-contrast-color;
-@inverse-button-text-color:                    fade(@inverse-color, 70%);
+@inverse-button-text-color:                    @inverse-muted-color;
 @inverse-button-text-hover-color:              @inverse-color;
-@inverse-button-text-disabled-color:           fade(@inverse-color, 70%);
+@inverse-button-text-disabled-color:           @inverse-muted-color;
 
-@inverse-grid-divider-border:                  fade(@inverse-color, 20%);
+@inverse-grid-divider-border:                  @inverse-border;
 
 @inverse-nav-parent-icon-color:                @inverse-color;
-@inverse-nav-default-item-color:               fade(@inverse-color, 70%);
+@inverse-nav-default-item-color:               @inverse-muted-color;
 @inverse-nav-default-item-hover-color:         @inverse-color;
 @inverse-nav-default-item-active-color:        @inverse-color;
 @inverse-nav-default-header-color:             @inverse-color;
-@inverse-nav-default-divider-border:           fade(@inverse-color, 20%);
-@inverse-nav-default-sublist-item-color:       fade(@inverse-color, 70%);
+@inverse-nav-default-divider-border:           @inverse-border;
+@inverse-nav-default-sublist-item-color:       @inverse-muted-color;
 @inverse-nav-default-sublist-item-hover-color: @inverse-color;
 
-@inverse-navbar-nav-item-color:                fade(@inverse-color, 70%);
-@inverse-navbar-nav-item-text-decoration:      none;
+@inverse-navbar-nav-item-color:                @inverse-muted-color;
 @inverse-navbar-nav-item-hover-color:          @inverse-color;
 @inverse-navbar-nav-item-onclick-color:        @inverse-color;
 @inverse-navbar-nav-item-active-color:         @inverse-color;
 @inverse-navbar-item-color:                    @inverse-color;
 
-@inverse-subnav-item-color:                    fade(@inverse-color, 70%);
+@inverse-subnav-item-color:                    @inverse-muted-color;
 @inverse-subnav-item-hover-color:              @inverse-color;
 @inverse-subnav-item-active-color:             @inverse-color;
-@inverse-subnav-line-divider-border:           fade(@inverse-color, 20%);
-@inverse-subnav-pill-item-hover-background:    fade(@inverse-color, 80%);
+@inverse-subnav-line-divider-border:           @inverse-border;
+@inverse-subnav-pill-item-hover-background:    @inverse-muted-background;
 @inverse-subnav-pill-item-hover-color:         @inverse-contrast-color;
-@inverse-subnav-pill-item-active-background:   @inverse-color;
+@inverse-subnav-pill-item-active-background:   @inverse-primary-background;
 @inverse-subnav-pill-item-active-color:        @inverse-contrast-color;
-@inverse-subnav-item-disabled-color:           fade(@inverse-color, 70%);
+@inverse-subnav-item-disabled-color:           @inverse-muted-color;
 
-@inverse-breadcrumb-item-color:                fade(@inverse-color, 70%);
+@inverse-breadcrumb-item-color:                @inverse-muted-color;
 @inverse-breadcrumb-item-hover-color:          @inverse-color;
 @inverse-breadcrumb-item-active-color:         @inverse-color;
-@inverse-breadcrumb-divider-color:             fade(@inverse-color, 70%);
+@inverse-breadcrumb-divider-color:             @inverse-muted-color;
 
-@inverse-pagination-item-color:                fade(@inverse-color, 70%);
+@inverse-pagination-item-color:                @inverse-muted-color;
 @inverse-pagination-item-hover-color:          @inverse-color;
 @inverse-pagination-item-active-color:         @inverse-color;
-@inverse-pagination-item-disabled-color:       fade(@inverse-color, 70%);
+@inverse-pagination-item-disabled-color:       @inverse-muted-color;
 
-@inverse-tab-item-color:                       fade(@inverse-color, 70%);
+@inverse-tab-item-color:                       @inverse-muted-color;
 @inverse-tab-item-hover-color:                 @inverse-color;
 @inverse-tab-item-active-color:                @inverse-color;
-@inverse-tab-item-disabled-color:              fade(@inverse-color, 70%);
+@inverse-tab-item-disabled-color:              @inverse-muted-color;
 
-@inverse-icon-hover-color:                     fade(@inverse-color, 70%);
+@inverse-icon-hover-color:                     @inverse-muted-color;
 @inverse-icon-hover-hover-color:               @inverse-color;
-@inverse-icon-button-background:               @inverse-color;
+@inverse-icon-button-background:               @inverse-primary-background;
 @inverse-icon-button-color:                    @inverse-contrast-color;
-@inverse-icon-button-hover-background:         fade(@inverse-color, 80%);
+@inverse-icon-button-hover-background:         @inverse-muted-background;
 @inverse-icon-button-hover-color:              @inverse-contrast-color;
-@inverse-icon-button-active-background:        fade(@inverse-color, 70%);
+@inverse-icon-button-active-background:        fade(@inverse-muted-background, 70%);
 @inverse-icon-button-active-color:             @inverse-contrast-color;
 
 @inverse-text-lead-color:                      @inverse-color;
-@inverse-text-meta-color:                      fade(@inverse-color, 60%);
-@inverse-text-muted-color:                     fade(@inverse-color, 60%);
+@inverse-text-meta-color:                      @inverse-muted-color;
+@inverse-text-muted-color:                     @inverse-muted-color;
 @inverse-text-primary-color:                   @inverse-color;
 
-@inverse-column-rule-color:                    fade(@inverse-color, 20%);
+@inverse-column-rule-color:                    @inverse-border;
 
 
 
@@ -398,7 +403,6 @@
     .uk-navbar-nav > li > a:focus,
     .uk-navbar-nav > li.uk-open > a {
         color: @inverse-navbar-nav-item-hover-color;
-        text-decoration: @inverse-navbar-nav-item-text-decoration;
         .hook-inverse-navbar-nav-item-hover;
     }
 
