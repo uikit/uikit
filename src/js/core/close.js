@@ -4,11 +4,7 @@ export default function (UIkit) {
 
         name: 'close',
 
-        defaults: {icon: 'close', exclude: ['id', 'style']},
-
-        ready() {
-            this.class = this.cls;
-        },
+        defaults: {icon: 'close', exclude: ['id', 'style', 'class']},
 
         methods: {
 
