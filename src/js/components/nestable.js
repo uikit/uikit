@@ -232,15 +232,8 @@
                     items.each(function() {
 
                         var li    = UI.$(this),
-                            item  = {}, attribute,
+                            item  = li.data(),
                             sub   = li.children(list.options._listClass);
-
-                        for (var i = 0; i < li[0].attributes.length; i++) {
-                            attribute = li[0].attributes[i];
-                            if (attribute.name.indexOf('data-') === 0) {
-                                item[attribute.name.substr(5)] = UI.Utils.str2json(attribute.value);
-                            }
-                        }
 
                         if (sub.length) {
                             item.children = step(sub, depth + 1);

@@ -20,6 +20,7 @@
                 'change.uk.nestable': function(event, nestable, element, action){
                     console.log('change', arguments);
                     console.log('nestable.list()', nestable.list());
+                    console.log('nestable.serialize()', nestable.serialize());
                 }
             });
         });
@@ -44,7 +45,7 @@
                                 <img src="holder.js/60x20/sky/auto/" width="60" height="20" alt="">
                             </div>
                         </li>
-                        <li  class="uk-nestable-item" data-id="1">
+                        <li  class="uk-nestable-item" data-id="testId">
                             <a class="uk-nestable-panel uk-display-block" href="http://www.getuikit.com">
                                 Item 2
                             </a>
