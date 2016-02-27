@@ -268,7 +268,7 @@
 
                     items.each(function(index) {
                         var li   = UI.$(this),
-                            item = UI.$.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
+                            item = UI.$.extend({parent_id: (parent != null ? parent : null), depth: depth, order: index}, li.data()),
                             sub  = li.children(options._listClass);
 
                         data.push(item);
