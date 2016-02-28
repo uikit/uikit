@@ -14,7 +14,7 @@ var base = '../' + document.querySelector('script[src*="test.js"]').getAttribute
         Navigation: ['nav', 'navbar', 'subnav', 'breadcrumb', 'pagination', 'tab'],
         Layout: ['section', 'container', 'grid', 'card'],
         JavaScript: ['drop', 'dropdown', 'scrollspy', 'smooth-scroll', 'sticky', 'toggle'],
-        Utilities: ['align', 'column', 'cover', 'flex', 'height-expand', 'height-viewport', 'inverse', 'margin', 'padding', 'text', 'utility', 'visibility', 'width'],
+        Utilities: ['align', 'animation', 'column', 'cover', 'flex', 'height-expand', 'height-viewport', 'inverse', 'margin', 'padding', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced']
 
     };

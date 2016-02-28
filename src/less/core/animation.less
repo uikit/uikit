@@ -1,19 +1,22 @@
 // Name:            Animation
-// Description:     Provides a useful set of keyframe animations
+// Description:     Utilities for keyframe animations
 //
 // Component:       `uk-animation-*`
 //
-// Modifiers:       `uk-animation-fade`
+// Modifiers:       `uk-animation-reverse`
+//                  `uk-animation-fade`
 //                  `uk-animation-scale-up`
 //                  `uk-animation-scale-down`
 //                  `uk-animation-slide-top`
 //                  `uk-animation-slide-bottom`
 //                  `uk-animation-slide-left`
 //                  `uk-animation-slide-right`
-//                  `uk-animation-scale`
+//                  `uk-animation-slide-top-small`
+//                  `uk-animation-slide-bottom-small`
+//                  `uk-animation-slide-left-small`
+//                  `uk-animation-slide-right-small`
+//                  `uk-animation-kenburns`
 //                  `uk-animation-shake`
-//                  `uk-animation-reverse`
-//                  `uk-animation-15`
 //                  `uk-animation-top-left`
 //                  `uk-animation-top-center`
 //                  `uk-animation-top-right`
@@ -25,13 +28,7 @@
 //
 // Sub-objects:     `uk-animation-hover`
 //
-// Uses:            Scrollspy
-//
-// Used by:         Dropdown
-//                  Icon
-//                  Search
-//                  Datepicker
-//                  Slideshow
+// States:          `uk-touch`
 //
 // ========================================================================
 
@@ -49,9 +46,23 @@
     animation-fill-mode: both;
 }
 
+
+/* Direction modifier
+ ========================================================================== */
+
+.uk-animation-reverse {
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+}
+
+
+/* Animations for scrollspy
+ ========================================================================== */
+
 /*
  * Fade
- * Higher specificity (!important) needed because of reverse modifier
  */
 
 .uk-animation-fade {
@@ -59,12 +70,12 @@
     animation-name: uk-fade;
     -webkit-animation-duration: 0.8s;
     animation-duration: 0.8s;
-    -webkit-animation-timing-function: linear !important;
-    animation-timing-function: linear !important;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
 }
 
 /*
- * Fade with scale
+ * Scale
  */
 
 .uk-animation-scale-up {
@@ -78,7 +89,7 @@
 }
 
 /*
- * Fade with slide
+ * Slide
  */
 
 .uk-animation-slide-top {
@@ -102,12 +113,38 @@
 }
 
 /*
- * Scale
+ * Slide Small
  */
 
-.uk-animation-scale {
-    -webkit-animation-name: uk-scale-12;
-    animation-name: uk-scale-12;
+.uk-animation-slide-top-small {
+    -webkit-animation-name: uk-fade-top-small;
+    animation-name: uk-fade-top-small;
+}
+
+.uk-animation-slide-bottom-small {
+    -webkit-animation-name: uk-fade-bottom-small;
+    animation-name: uk-fade-bottom-small;
+}
+
+.uk-animation-slide-left-small {
+    -webkit-animation-name: uk-fade-left-small;
+    animation-name: uk-fade-left-small;
+}
+
+.uk-animation-slide-right-small {
+    -webkit-animation-name: uk-fade-right-small;
+    animation-name: uk-fade-right-small;
+}
+
+/*
+ * Kenburns
+ */
+
+.uk-animation-kenburns {
+    -webkit-animation-name: uk-scale-kenburns;
+    animation-name: uk-scale-kenburns;
+    -webkit-animation-duration: 15s;
+    animation-duration: 15s;
 }
 
 /*
@@ -117,26 +154,6 @@
 .uk-animation-shake {
     -webkit-animation-name: uk-shake;
     animation-name: uk-shake;
-}
-
-
-/* Direction modifiers
- ========================================================================== */
-
-.uk-animation-reverse {
-    -webkit-animation-direction: reverse;
-    animation-direction: reverse;
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-}
-
-
-/* Duration modifiers
-========================================================================== */
-
-.uk-animation-15 {
-    -webkit-animation-duration: 15s;
-    animation-duration: 15s;
 }
 
 
@@ -201,9 +218,12 @@
 }
 
 
-/* Keyframes: Fade
- * Used by dropdown, datepicker and slideshow component
+/* Keyframes used by animation classes
  ========================================================================== */
+
+/*
+ * Fade
+ */
 
 @-webkit-keyframes uk-fade {
     0% { opacity: 0; }
@@ -215,12 +235,8 @@
     100% { opacity: 1; }
 }
 
-
-/* Keyframes: Fade with slide
- ========================================================================== */
-
 /*
- * Top
+ * Slide Top
  */
 
 @-webkit-keyframes uk-fade-top {
@@ -246,7 +262,7 @@
 }
 
 /*
- * Bottom
+ * Slide Bottom
  */
 
 @-webkit-keyframes uk-fade-bottom {
@@ -272,7 +288,7 @@
 }
 
 /*
- * Left
+ * Slide Left
  */
 
 @-webkit-keyframes uk-fade-left {
@@ -298,7 +314,7 @@
 }
 
 /*
- * Right
+ * Slide Right
  */
 
 @-webkit-keyframes uk-fade-right {
@@ -323,12 +339,112 @@
     }
 }
 
+/*
+ * Slide Top Small
+ */
 
-/* Keyframes: Fade with scale
- ========================================================================== */
+@-webkit-keyframes uk-fade-top-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-top-small {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /*
- * Scale by 0.2
+ * Slide Bottom Small
+ */
+
+@-webkit-keyframes uk-fade-bottom-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-bottom-small {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left Small
+ */
+
+@-webkit-keyframes uk-fade-left-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-left-small {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right Small
+ */
+
+@-webkit-keyframes uk-fade-right-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-right-small {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Scale Up
  */
 
 @-webkit-keyframes uk-fade-scale-02 {
@@ -354,34 +470,7 @@
 }
 
 /*
- * Scale by 1.5
- * Used by slideshow component
- */
-
-@-webkit-keyframes uk-fade-scale-15 {
-    0% {
-        opacity: 0;
-        -webkit-transform: scale(1.5);
-    }
-    100% {
-        opacity: 1;
-        -webkit-transform: scale(1);
-    }
-}
-
-@keyframes uk-fade-scale-15 {
-    0% {
-        opacity: 0;
-        transform: scale(1.5);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/*
- * Scale by 1.8
+ * Scale Down
  */
 
 @-webkit-keyframes uk-fade-scale-18 {
@@ -406,10 +495,135 @@
     }
 }
 
+/*
+ * Kenburns
+ */
 
-/* Keyframes: Slide
- * Used by slideshow component
+@-webkit-keyframes uk-scale-kenburns {
+    0% { -webkit-transform: scale(1); }
+    100% { -webkit-transform: scale(1.2); }
+}
+
+@keyframes uk-scale-kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}
+
+/*
+ * Shake
+ */
+
+@-webkit-keyframes uk-shake {
+    0%, 100% { -webkit-transform: translateX(0); }
+    10% { -webkit-transform: translateX(-9px); }
+    20% { -webkit-transform: translateX(8px); }
+    30% { -webkit-transform: translateX(-7px); }
+    40% { -webkit-transform: translateX(6px); }
+    50% { -webkit-transform: translateX(-5px); }
+    60% { -webkit-transform: translateX(4px); }
+    70% { -webkit-transform: translateX(-3px); }
+    80% { -webkit-transform: translateX(2px); }
+    90% { -webkit-transform: translateX(-1px); }
+}
+
+@keyframes uk-shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-9px); }
+    20% { transform: translateX(8px); }
+    30% { transform: translateX(-7px); }
+    40% { transform: translateX(6px); }
+    50% { transform: translateX(-5px); }
+    60% { transform: translateX(4px); }
+    70% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+    90% { transform: translateX(-1px); }
+}
+
+
+/* Keyframes used by all drop components
  ========================================================================== */
+
+/*
+ * Top
+ */
+
+@-webkit-keyframes uk-drop-fade-top {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-drop-fade-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Bottom
+ */
+
+@-webkit-keyframes uk-drop-fade-bottom {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-drop-fade-bottom {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Keyframes used by slideshow component
+ ========================================================================== */
+
+/*
+ * Scale Down
+ */
+
+@-webkit-keyframes uk-fade-scale-15 {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(1.5);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes uk-fade-scale-15 {
+    0% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 
 /*
  * Left
@@ -465,122 +679,6 @@
 @keyframes uk-slide-right-33 {
     0% { transform: translateX(-33%); }
     100% { transform: translateX(0); }
-}
-
-
-/* Keyframes: Scale
- ========================================================================== */
-
-@-webkit-keyframes uk-scale-12 {
-    0% { -webkit-transform: scale(1.2); }
-    100% { -webkit-transform: scale(1); }
-}
-
-@keyframes uk-scale-12 {
-    0% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-
-/* Keyframes: Rotate
- * Used by icon component
- ========================================================================== */
-
-@-webkit-keyframes uk-rotate {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(359deg); }
-}
-
-@keyframes uk-rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(359deg); }
-}
-
-
-/* Keyframes: Shake
- ========================================================================== */
-
-@-webkit-keyframes uk-shake {
-    0%, 100% { -webkit-transform: translateX(0); }
-    10% { -webkit-transform: translateX(-9px); }
-    20% { -webkit-transform: translateX(8px); }
-    30% { -webkit-transform: translateX(-7px); }
-    40% { -webkit-transform: translateX(6px); }
-    50% { -webkit-transform: translateX(-5px); }
-    60% { -webkit-transform: translateX(4px); }
-    70% { -webkit-transform: translateX(-3px); }
-    80% { -webkit-transform: translateX(2px); }
-    90% { -webkit-transform: translateX(-1px); }
-}
-
-@keyframes uk-shake {
-    0%, 100% { transform: translateX(0); }
-    10% { transform: translateX(-9px); }
-    20% { transform: translateX(8px); }
-    30% { transform: translateX(-7px); }
-    40% { transform: translateX(6px); }
-    50% { transform: translateX(-5px); }
-    60% { transform: translateX(4px); }
-    70% { transform: translateX(-3px); }
-    80% { transform: translateX(2px); }
-    90% { transform: translateX(-1px); }
-}
-
-
-/* Keyframes: Fade with slide fixed
- * Used by dropdown and search component
- ========================================================================== */
-
-/*
- * Top fixed
- */
-
-@-webkit-keyframes uk-slide-top-fixed {
-    0% {
-        opacity: 0;
-        -webkit-transform: translateY(-10px);
-    }
-    100% {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-    }
-}
-
-@keyframes uk-slide-top-fixed {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/*
- * Bottom fixed
- */
-
-@-webkit-keyframes uk-slide-bottom-fixed {
-    0% {
-        opacity: 0;
-        -webkit-transform: translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-    }
-}
-
-@keyframes uk-slide-bottom-fixed {
-    0% {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 
