@@ -3319,17 +3319,6 @@ ul.uk-nav-sub {
   animation-duration: 0.2s;
 }
 /* ========================================================================
-   Component: Scrollspy
- ========================================================================== */
-/*
- * Hide animated element if scrollspy is used
- */
-@media screen {
-  [uk-scrollspy*='uk-animation-']:not([uk-scrollspy*='target']) {
-    opacity: 0;
-  }
-}
-/* ========================================================================
    Component: Animation
  ========================================================================== */
 [class*='uk-animation-'] {
