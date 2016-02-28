@@ -8,40 +8,6 @@
         <link rel="stylesheet" href="../css/uikit.css">
         <script src="../vendor/jquery.js"></script>
         <script src="js/test.js"></script>
-        <style type="text/css">
-
-            uk-grid > * > * { position: relative; }
-
-            .uk-alert {
-                padding: 10px;
-                border: 1px solid #ddd;
-                background: #f0f0f0;
-                text-align: center;
-            }
-
-            .uk-alert[class*='uk-hidden'],
-            .uk-alert-success[class*='uk-visible'],
-            .uk-alert-success[class*='uk-invisible-hover'] {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-            }
-
-            .uk-alert-success {
-                border: 1px solid #D6E9C6;
-                background: #DFF0D8;
-                color: #468847;
-            }
-
-            .uk-alert-danger {
-                border: 1px solid #F1C1B6;
-                background: #F7CFCC;
-                color: #d85030;
-            }
-
-        </style>
     </head>
 
     <body>
@@ -54,27 +20,27 @@
 
             <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center" uk-grid>
                 <div>
-                    <div>
-                        <div class="uk-alert uk-alert-danger">✔ Small<br>(Phone Landscape)</div>
-                        <div class="uk-alert uk-hidden@s">Small<br>(Phone Landscape)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove uk-alert-success">✔ Small<br>(Phone Landscape)</div>
+                        <div class="uk-alert uk-position-cover uk-margin-remove uk-hidden@s">Small<br>(Phone Landscape)</div>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <div class="uk-alert uk-alert-danger">✔ Medium<br>(Tablet Landscape)</div>
-                        <div class="uk-alert uk-hidden@m">Medium<br>(Tablet Landscape)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove uk-alert-success">✔ Medium<br>(Tablet Landscape)</div>
+                        <div class="uk-alert uk-position-cover uk-margin-remove uk-hidden@m">Medium<br>(Tablet Landscape)</div>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <div class="uk-alert uk-alert-danger">✔ Large<br>(Desktop)</div>
-                        <div class="uk-alert uk-hidden@l">Large<br>(Desktop)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove uk-alert-success">✔ Large<br>(Desktop)</div>
+                        <div class="uk-alert uk-position-cover uk-margin-remove uk-hidden@l">Large<br>(Desktop)</div>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <div class="uk-alert uk-alert-danger">✔ XLarge<br>(Large Screens)</div>
-                        <div class="uk-alert uk-hidden@xl">XLarge<br>(Large Screens)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove uk-alert-success">✔ XLarge<br>(Large Screens)</div>
+                        <div class="uk-alert uk-position-cover uk-margin-remove uk-hidden@xl">XLarge<br>(Large Screens)</div>
                     </div>
                 </div>
             </div>
@@ -83,27 +49,27 @@
 
             <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center" uk-grid>
                 <div>
-                    <div>
-                        <div class="uk-alert">Small<br>(Phone Landscape)</div>
-                        <div class="uk-alert uk-alert-success uk-visible@s">✔ Small<br>(Phone Landscape)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove">Small<br>(Phone Landscape)</div>
+                        <div class="uk-alert uk-alert-success uk-position-cover uk-margin-remove uk-visible@s">✔ Small<br>(Phone Landscape)</div>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <div class="uk-alert">Medium<br>(Tablet Landscape)</div>
-                        <div class="uk-alert uk-alert-success uk-visible@m">✔ Medium<br>(Tablet Landscape)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove">Medium<br>(Tablet Landscape)</div>
+                        <div class="uk-alert uk-alert-success uk-position-cover uk-margin-remove uk-visible@m">✔ Medium<br>(Tablet Landscape)</div>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <div class="uk-alert">Large<br>(Desktop)</div>
-                        <div class="uk-alert uk-alert-success uk-visible@l">✔ Large<br>(Desktop)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove">Large<br>(Desktop)</div>
+                        <div class="uk-alert uk-alert-success uk-position-cover uk-margin-remove uk-visible@l">✔ Large<br>(Desktop)</div>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <div class="uk-alert">XLarge<br>(Large Screens)</div>
-                        <div class="uk-alert uk-alert-success uk-visible@xl">✔ XLarge<br>(Large Screens)</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove">XLarge<br>(Large Screens)</div>
+                        <div class="uk-alert uk-alert-success uk-position-cover uk-margin-remove uk-visible@xl">✔ XLarge<br>(Large Screens)</div>
                     </div>
                 </div>
             </div>
@@ -112,15 +78,15 @@
 
             <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center" uk-grid>
                 <div>
-                    <div class="uk-visible-hover">
-                        <div class="uk-alert">Hidden Hover</div>
-                        <div class="uk-alert uk-alert-success uk-hidden-hover">✔ Hidden Hover</div>
+                    <div class="uk-panel uk-visible-hover">
+                        <div class="uk-alert uk-margin-remove">Hidden Hover</div>
+                        <div class="uk-alert uk-alert-success uk-position-cover uk-margin-remove uk-hidden-hover">✔ Hidden Hover</div>
                     </div>
                 </div>
                 <div>
-                    <div class="uk-visible-hover">
-                        <div class="uk-alert">Invisible Hover</div>
-                        <div class="uk-alert uk-alert-success uk-invisible-hover">✔ Invisible Hover</div>
+                    <div class="uk-panel uk-visible-hover">
+                        <div class="uk-alert uk-margin-remove">Invisible Hover</div>
+                        <div class="uk-alert uk-alert-success uk-position-cover uk-margin-remove uk-invisible-hover">✔ Invisible Hover</div>
                     </div>
                 </div>
             </div>
@@ -129,15 +95,15 @@
 
             <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center" uk-grid>
                 <div>
-                    <div>
-                        <div class="uk-alert uk-alert-success">✔ Hidden Touch</div>
-                        <div class="uk-alert uk-hidden-touch">Hidden Touch</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove uk-alert-success">✔ Hidden Touch</div>
+                        <div class="uk-alert uk-position-cover uk-margin-remove uk-hidden-touch">Hidden Touch</div>
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <div class="uk-alert uk-alert-success">✔ Hidden Notouch</div>
-                        <div class="uk-alert uk-hidden-notouch">Hidden Notouch</div>
+                    <div class="uk-panel">
+                        <div class="uk-alert uk-margin-remove uk-alert-success">✔ Hidden Notouch</div>
+                        <div class="uk-alert uk-position-cover uk-margin-remove uk-hidden-notouch">Hidden Notouch</div>
                     </div>
                 </div>
             </div>

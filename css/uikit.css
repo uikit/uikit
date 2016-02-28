@@ -5220,6 +5220,10 @@ ul.uk-nav-sub {
  ========================================================================== */
 /* Panel
  ========================================================================== */
+.uk-panel {
+  position: relative;
+  box-sizing: border-box;
+}
 /*
  * Micro clearfix
  */
@@ -5241,7 +5245,6 @@ ul.uk-nav-sub {
  * Scrollable
  */
 .uk-panel-scrollable {
-  box-sizing: border-box;
   height: 170px;
   padding: 10px;
   border: 1px solid #ddd;
