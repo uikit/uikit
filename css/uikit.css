@@ -4895,6 +4895,12 @@ ul.uk-nav-sub {
     column-gap: 40px;
   }
 }
+/*
+ * Fix image 1px line wrapping into the next column in Chrome
+ */
+[class*='uk-column-'] img {
+  transform: translate3d(0, 0, 0);
+}
 /* Divider
  ========================================================================== */
 /*
@@ -5057,6 +5063,7 @@ ul.uk-nav-sub {
   }
 }
 /* Make element span across all columns
+ * Does not work in Firefox yet
  ========================================================================== */
 .uk-column-span {
   -webkit-column-span: all;

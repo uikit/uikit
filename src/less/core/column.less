@@ -41,6 +41,12 @@
 
 }
 
+/*
+ * Fix image 1px line wrapping into the next column in Chrome
+ */
+
+[class*='uk-column-'] img { transform: translate3d(0,0,0); }
+
 
 /* Divider
  ========================================================================== */
@@ -245,6 +251,7 @@
 
 
 /* Make element span across all columns
+ * Does not work in Firefox yet
  ========================================================================== */
 
 .uk-column-span {
