@@ -5332,7 +5332,8 @@ ul.uk-nav-sub {
 }
 /* Height
  ========================================================================== */
-[class*='uk-height'] {
+[class*='uk-height'],
+[uk-height-viewport] {
   box-sizing: border-box;
 }
 /*
