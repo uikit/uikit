@@ -1,6 +1,9 @@
 import $ from 'jquery';
 
-var dirs = {x: ['width', 'left', 'right'], y: ['height', 'top', 'bottom']};
+var dirs = {
+    x: ['width', 'left', 'right'],
+    y: ['height', 'top', 'bottom']
+};
 
 export function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
 
@@ -28,8 +31,9 @@ export function position(element, target, attach, targetAttach, offset, targetOf
 
     boundary = getDimensions(boundary || $(window));
 
-    if (flip) {
+    var flipped = {element: attach, target: targetAttach};
 
+    if (flip) {
         $.each(dirs, function (dir, props) {
 
             if (!(flip === true || flip.indexOf(dir) !== -1)) {
@@ -45,6 +49,9 @@ export function position(element, target, attach, targetAttach, offset, targetOf
 
                 if (newVal >= boundary[props[1]] && newVal + dim[props[0]] <= boundary[props[2]]) {
                     position[props[1]] = newVal;
+
+                    flipped.element[dir] = elemOffset ? flipped.element[dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1] : flipped.element[dir];
+                    flipped.target[dir] = elemOffset ? flipped.target[dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1] : flipped.target[dir];
                 }
             }
 
@@ -52,11 +59,13 @@ export function position(element, target, attach, targetAttach, offset, targetOf
     }
 
     element.offset({left: position.left, top: position.top});
+
+    return flipped;
 }
 
 function moveTo(position, attach, dim, factor) {
     $.each(dirs, function (dir, props) {
-        if (attach[dir] === [props[2]]) {
+        if (attach[dir] === props[2]) {
             position[props[1]] += dim[props[0]] * factor;
         } else if (attach[dir] === 'center') {
             position[props[1]] += dim[props[0]] * factor / 2;
@@ -94,7 +103,10 @@ function getOffsets(offsets, width, height) {
     };
 }
 
-function getDimensions(elem) {
+export function getDimensions(elem) {
+
+    elem = $(elem);
+
     var width = elem.outerWidth(),
         height = elem.outerHeight(),
         offset = elem.offset(),

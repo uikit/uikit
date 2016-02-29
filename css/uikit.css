@@ -3197,7 +3197,7 @@ ul.uk-nav-sub {
  * 1. Show drop
  * 2. Set animation
  */
-.uk-open > .uk-drop {
+.uk-open.uk-drop {
   /* 1 */
   display: block;
   /* 2 */
