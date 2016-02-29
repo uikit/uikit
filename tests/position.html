@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Position - UIkit tests</title>
+        <link rel="stylesheet" href="../css/uikit.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/test.js"></script>
+
+        <style>
+
+            #boundary {
+                height: 300px;
+                border: solid 1px;
+                position: relative;
+            }
+
+            #target {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            #target > * {
+                width: 200px;
+                height: 100px;
+            }
+
+            #element {
+                position: absolute;
+                display: none;
+            }
+
+            #element > * {
+                width: 75px;
+                height: 75px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center uk-position-relative">
+
+            <h1>Position</h1>
+
+            <div id="boundary" class="uk-margin">
+
+                <div id="target" class="uk-flex uk-flex-center" draggable="true">
+                    <div class="uk-card uk-card-primary uk-text-center">
+                        Drag me!
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="element">
+                <div class="uk-card uk-card-secondary"></div>
+            </div>
+
+            <div class="uk-form">
+                <fieldset data-uk-margin>
+                    <legend>Element</legend>
+                    <label>
+                        Horizontal
+                        <select id="element_x">
+                            <option value="left">left</option>
+                            <option value="center">center</option>
+                            <option value="right">right</option>
+                        </select>
+                    </label>
+                    <label>
+                        Vertical
+                        <select id="element_y">
+                            <option value="top">top</option>
+                            <option value="center">center</option>
+                            <option value="bottom">bottom</option>
+                        </select>
+                    </label>
+                </fieldset>
+                <fieldset data-uk-margin>
+                    <legend>Target</legend>
+                    <label>
+                        Horizontal
+                        <select id="target_x">
+                            <option value="left">left</option>
+                            <option value="center">center</option>
+                            <option value="right">right</option>
+                        </select>
+                    </label>
+                    <label>
+                        Vertical
+                        <select id="target_y">
+                            <option value="top">top</option>
+                            <option value="center">center</option>
+                            <option value="bottom">bottom</option>
+                        </select>
+                    </label>
+                </fieldset>
+                <fieldset data-uk-margin>
+                    <legend>Offset</legend>
+                    <label>
+                        Horizontal
+                        <input type="text" id="offset_x">
+                    </label>
+                    <label>
+                        Vertical
+                        <input type="text" id="offset_y">
+                    </label>
+                </fieldset>
+                <fieldset data-uk-margin>
+                    <legend>Flip</legend>
+                    <label>
+                        Horizontal
+                        <select id="flip_x">
+                            <option value="x">flip</option>
+                            <option value="">none</option>
+                        </select>
+                    </label>
+                    <label>
+                        Vertical
+                        <select id="flip_y">
+                            <option value="y">flip</option>
+                            <option value="">none</option>
+                        </select>
+                    </label>
+                </fieldset>
+            </div>
+
+        </div>
+
+        <script>
+            (function ($) {
+
+                var ticking, boundary = $('#boundary'), target = $('#target'), offsetX, offsetY;
+
+                function position() {
+                    UIkit.util.position(
+                            '#element',
+                            target,
+                            $('#element_x').val() + ' ' + $('#element_y').val(),
+                            $('#target_x').val() + ' ' + $('#target_y').val(),
+                            $('#offset_x').val() + ' ' + $('#offset_y').val(),
+                            null,
+                            $('#flip_x').val() + $('#flip_y').val(),
+                            boundary
+                    );
+                }
+
+                $(window).on('dragstart', function (e) {
+
+                    offsetX = Math.round(e.pageX - target.offset().left);
+                    offsetY = Math.round(e.pageY - target.offset().top);
+
+                }).on('dragover', function (e) {
+
+                    e.preventDefault();
+
+                    if (!ticking) {
+                        requestAnimationFrame(function () {
+                            UIkit.util.position(
+                                    target,
+                                    boundary,
+                                    'left top',
+                                    'left top',
+                                    (e.pageX - boundary.offset().left - offsetX) + ' ' + (e.pageY - boundary.offset().top - offsetY)
+                            );
+
+                            position();
+
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+
+                    return true;
+                });
+
+                $('select,input').bind('change', position);
+
+                $('#element').show();
+                position();
+
+            })(jQuery);
+        </script>
+
+    </body>
+</html>
