@@ -2,6 +2,7 @@
 
 ### WIP
   - Fixed scrollspynav active state
+  - Fixed uk-modal-spinner animation
 
 ### 2.25.0 (February 17, 2016)
   - Added grid parallax component
