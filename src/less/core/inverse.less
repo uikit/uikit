@@ -103,6 +103,10 @@
 @inverse-tab-item-active-color:                @inverse-color;
 @inverse-tab-item-disabled-color:              @inverse-muted-color;
 
+@inverse-badge-background:                     @inverse-primary-background;
+@inverse-badge-color:                          @inverse-contrast-color;
+@inverse-badge-hover-color:                    @inverse-contrast-color;
+
 @inverse-icon-hover-color:                     @inverse-muted-color;
 @inverse-icon-hover-hover-color:               @inverse-color;
 @inverse-icon-button-background:               @inverse-primary-background;
@@ -112,14 +116,16 @@
 @inverse-icon-button-active-background:        fade(@inverse-muted-background, 70%);
 @inverse-icon-button-active-color:             @inverse-contrast-color;
 
+@inverse-label-background:                     @inverse-primary-background;
+@inverse-label-color:                          @inverse-contrast-color;
+@inverse-label-hover-color:                    @inverse-contrast-color;
+
 @inverse-text-lead-color:                      @inverse-color;
 @inverse-text-meta-color:                      @inverse-muted-color;
 @inverse-text-muted-color:                     @inverse-muted-color;
 @inverse-text-primary-color:                   @inverse-color;
 
 @inverse-column-rule-color:                    @inverse-border;
-
-
 
 
 /* ========================================================================
@@ -556,6 +562,21 @@
     }
 
 
+    // Badge
+    // ========================================================================
+
+    .uk-badge {
+        background: @inverse-badge-background;
+        color: @inverse-badge-color;
+        .hook-inverse-badge;
+    }
+
+    .uk-badge:hover {
+        color: @inverse-badge-hover-color;
+        .hook-inverse-badge-hover;
+    }
+
+
     // Icon
     // ========================================================================
 
@@ -594,6 +615,21 @@
         background-color: @inverse-icon-button-active-background;
         color: @inverse-icon-button-active-color;
         .hook-inverse-icon-button-active;
+    }
+
+
+    // Label
+    // ========================================================================
+
+    .uk-label {
+        background: @inverse-label-background;
+        color: @inverse-label-color;
+        .hook-inverse-label;
+    }
+
+    .uk-label:hover {
+        color: @inverse-label-hover-color;
+        .hook-inverse-label-hover;
     }
 
 
@@ -707,11 +743,17 @@
 .hook-inverse-tab-item-active() {}
 .hook-inverse-tab-item-disabled() {}
 
+.hook-inverse-badge() {}
+.hook-inverse-badge-hover() {}
+
 .hook-inverse-icon-hover() {}
 .hook-inverse-icon-hover-hover() {}
 .hook-inverse-icon-button() {}
 .hook-inverse-icon-button-hover() {}
 .hook-inverse-icon-button-active() {}
+
+.hook-inverse-label() {}
+.hook-inverse-label-hover() {}
 
 .hook-inverse-text-lead() {}
 .hook-inverse-text-meta() {}

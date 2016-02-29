@@ -6309,6 +6309,17 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-tab > .uk-disabled > a {
   color: rgba(255, 255, 255, 0.7);
 }
+.uk-light .uk-badge,
+.uk-card-primary .uk-badge,
+.uk-card-secondary .uk-badge {
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-badge:hover,
+.uk-card-primary .uk-badge:hover,
+.uk-card-secondary .uk-badge:hover {
+  color: #444;
+}
 .uk-light .uk-icon-hover,
 .uk-card-primary .uk-icon-hover,
 .uk-card-secondary .uk-icon-hover {
@@ -6338,6 +6349,17 @@ ul.uk-nav-sub {
 .uk-card-primary .uk-icon-button:active,
 .uk-card-secondary .uk-icon-button:active {
   background-color: rgba(255, 255, 255, 0.7);
+  color: #444;
+}
+.uk-light .uk-label,
+.uk-card-primary .uk-label,
+.uk-card-secondary .uk-label {
+  background: #fff;
+  color: #444;
+}
+.uk-light .uk-label:hover,
+.uk-card-primary .uk-label:hover,
+.uk-card-secondary .uk-label:hover {
   color: #444;
 }
 .uk-light .uk-text-lead,
