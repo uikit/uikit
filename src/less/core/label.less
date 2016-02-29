@@ -1,0 +1,96 @@
+// Name:            Label
+// Description:     Component to indicate important notes
+//
+// Component:       `uk-label`
+//
+// Modifiers:       `uk-label-success`
+//                  `uk-label-warning`
+//                  `uk-label-danger`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@label-padding-vertical:                        0;
+@label-padding-horizontal:                      @global-small-margin;
+@label-background:                              @global-primary-background;
+@label-font-size:                               @global-small-font-size;
+@label-color:                                   @global-light-color;
+
+@label-hover-color:                             @global-light-color;
+
+@label-success-background:                      @global-success-background;
+@label-warning-background:                      @global-warning-background;
+@label-danger-background:                       @global-danger-background;
+
+
+/* ========================================================================
+   Component: Label
+ ========================================================================== */
+
+.uk-label {
+    display: inline-block;
+    padding: @label-padding-vertical @label-padding-horizontal;
+    background: @label-background;
+    font-size: @label-font-size;
+    color: @label-color;
+    vertical-align: middle;
+    white-space: nowrap;
+    .hook-label;
+}
+
+/*
+ * Required for `a`
+ */
+
+.uk-label:hover {
+    color: @label-hover-color;
+    text-decoration: none;
+    .hook-label-hover;
+}
+
+
+/* Color modifiers
+ ========================================================================== */
+
+/*
+ * Success
+ */
+
+.uk-label-success {
+    background-color: @label-success-background;
+    .hook-label-success;
+}
+
+/*
+ * Warning
+ */
+
+.uk-label-warning {
+    background-color: @label-warning-background;
+    .hook-label-warning;
+}
+
+/*
+ * Danger
+ */
+
+.uk-label-danger {
+    background-color: @label-danger-background;
+    .hook-label-danger;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-label-misc;
+
+.hook-label() {}
+.hook-label-hover() {}
+.hook-label-success() {}
+.hook-label-warning() {}
+.hook-label-danger() {}
+.hook-label-misc() {}

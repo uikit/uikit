@@ -10,7 +10,7 @@ requestAnimationFrame(function () {
 
         Base: ['base'],
         Elements: ['typography', 'list', 'description-list', 'table', 'form', 'button'],
-        Common: ['alert', 'badge', 'close', 'icon'],
+        Common: ['alert', 'badge', 'close', 'icon', 'label'],
         Navigation: ['nav', 'navbar', 'subnav', 'breadcrumb', 'pagination', 'tab'],
         Layout: ['section', 'container', 'grid', 'card'],
         JavaScript: ['drop', 'dropdown', 'scrollspy', 'smooth-scroll', 'sticky', 'switcher', 'toggle'],

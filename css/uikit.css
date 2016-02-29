@@ -396,6 +396,22 @@ template {
 iframe {
   border: 0;
 }
+/* Prevent the 300ms delay for touchscreen interactions
+ ========================================================================== */
+/*
+ * Most browsers prevent the 300ms delay automatically for sites that use the `width=device-width` property.
+ * For Safari on iOS 9.3+, IE 11 and Edge on desktops and IE 11 on Windows Phone 8.1 it must be applied manually.
+ */
+a,
+area,
+button,
+input,
+label,
+select,
+summary,
+textarea {
+  touch-action: manipulation;
+}
 /* Fix viewport for IE10 snap mode
  ========================================================================== */
 @media screen and (max-width: 400px) {
@@ -2907,36 +2923,23 @@ ul.uk-nav-sub {
 /* ========================================================================
    Component: Badge
  ========================================================================== */
+/*
+ * 1. Style
+ * 2. Center child vertically and horizontally
+ */
 .uk-badge {
-  display: inline-block;
-  padding: 0 10px;
-  background: #489be0;
-  font-size: 0.88rem;
-  color: #fff;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-transform: uppercase;
-}
-/*
- * Keep color when badge is `a` element
- */
-.uk-badge:hover {
-  color: #fff;
-  text-decoration: none;
-}
-/* Style modifier
- ========================================================================== */
-/*
- * 1. Center icon vertically and horizontally
- */
-.uk-badge-pill {
   box-sizing: border-box;
-  min-width: 20px;
-  height: 20px;
+  min-width: 22px;
+  height: 22px;
+  line-height: 22px;
   padding: 0 5px;
   border-radius: 500px;
-  text-align: center;
+  vertical-align: middle;
   /* 1 */
+  background: #489be0;
+  color: #fff;
+  font-size: 0.88rem;
+  /* 2 */
   display: -ms-inline-flexbox;
   display: -webkit-inline-flex;
   display: inline-flex;
@@ -2947,25 +2950,12 @@ ul.uk-nav-sub {
   -webkit-align-items: center;
   align-items: center;
 }
-/* Color modifiers
- ========================================================================== */
 /*
- * Success
+ * Required for `a`
  */
-.uk-badge-success {
-  background-color: #3DC372;
-}
-/*
- * Warning
- */
-.uk-badge-warning {
-  background-color: #FFB24E;
-}
-/*
- * Danger
- */
-.uk-badge-danger {
-  background-color: #e44e56;
+.uk-badge:hover {
+  color: #fff;
+  text-decoration: none;
 }
 /* ========================================================================
    Component: Close
@@ -3118,7 +3108,7 @@ ul.uk-nav-sub {
   box-sizing: border-box;
   width: 36px;
   height: 36px;
-  border-radius: 100%;
+  border-radius: 500px;
   background: #f5f5f5;
   color: #999;
   vertical-align: middle;
@@ -3144,6 +3134,46 @@ ul.uk-nav-sub {
 .uk-icon-button:active {
   background-color: #dcdcdc;
   color: #444;
+}
+/* ========================================================================
+   Component: Label
+ ========================================================================== */
+.uk-label {
+  display: inline-block;
+  padding: 0 10px;
+  background: #489be0;
+  font-size: 0.88rem;
+  color: #fff;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+/*
+ * Required for `a`
+ */
+.uk-label:hover {
+  color: #fff;
+  text-decoration: none;
+}
+/* Color modifiers
+ ========================================================================== */
+/*
+ * Success
+ */
+.uk-label-success {
+  background-color: #3DC372;
+}
+/*
+ * Warning
+ */
+.uk-label-warning {
+  background-color: #FFB24E;
+}
+/*
+ * Danger
+ */
+.uk-label-danger {
+  background-color: #e44e56;
 }
 /* ========================================================================
    Component: Drop
@@ -5702,7 +5732,9 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * Hidden
+ * `hidden` attribute also set here to make it stronger
  */
+[hidden],
 .uk-hidden {
   display: none !important;
 }
