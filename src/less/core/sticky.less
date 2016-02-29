@@ -1,7 +1,7 @@
 // Name:            Sticky
-// Description:     Make elements remain at the top of the viewport
+// Description:     Component to make elements sticky in the viewport
 //
-// Component:       `data-uk-sticky`
+// Component:       `uk-sticky`
 //
 // States:          `uk-active`
 //
@@ -22,21 +22,13 @@
  ========================================================================== */
 
 /*
- * 1. More robust if padding and border are used
+ * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
  */
 
 [uk-sticky].uk-active {
-   z-index: @sticky-z-index;
-   /* 1 */
-   box-sizing: border-box;
-   margin: 0 !important;
-}
-
-/*
- * 1. Resolve frame-rate issues on devices with lower frame-rates. Forces hardware acceleration
- */
-
-.uk-sticky-placeholder > * {
+    z-index: @sticky-z-index;
+    box-sizing: border-box;
+    margin: 0 !important;
     /* 1 */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
