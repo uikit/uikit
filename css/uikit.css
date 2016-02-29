@@ -1991,6 +1991,21 @@ select.uk-form-width-mini {
     padding: 70px 70px;
   }
 }
+.uk-card-body .uk-nav-default {
+  margin: -15px -30px;
+}
+.uk-card-title + .uk-nav-default {
+  margin-top: 0;
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-card-body .uk-nav-default {
+    margin: -25px -40px;
+  }
+  .uk-card-title + .uk-nav-default {
+    margin-top: 0;
+  }
+}
 /* ========================================================================
    Component: Nav
  ========================================================================== */
@@ -3449,11 +3464,10 @@ ul.uk-nav-sub {
   -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
 }
-/* Sub-object: `uk-animation-hover`
+/* Enable animation only on hover
 ========================================================================== */
 /*
- * Enable animation only on hover
- * Note: Firefox also needs this because animations are not triggered when switching between display `hidden` and `block`
+ * Note: Firefox and IE needs this because animations are not triggered when switching between display `none` and `block`
  */
 .uk-animation-hover:not(:hover),
 .uk-animation-hover:not(:hover) [class*='uk-animation-'],

@@ -108,4 +108,19 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-card-misc() {}
+.hook-card-misc() {
+
+    .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical + 15px) -@card-footer-padding-horizontal; }
+
+    .uk-card-title + .uk-nav-default { margin-top: 0; }
+
+    /* Desktop and bigger */
+    @media (min-width: @breakpoint-large) {
+
+        .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical-l + 15px) -@card-body-padding-horizontal-l; }
+
+        .uk-card-title + .uk-nav-default { margin-top: 0; }
+
+    }
+
+}
