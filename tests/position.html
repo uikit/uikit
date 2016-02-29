@@ -8,12 +8,11 @@
         <link rel="stylesheet" href="../css/uikit.css">
         <script src="../vendor/jquery.js"></script>
         <script src="js/test.js"></script>
-
         <style>
 
             #boundary {
                 height: 300px;
-                border: solid 1px;
+                outline: solid 1px rgba(0,0,0,0.1);
                 position: relative;
             }
 
@@ -21,114 +20,111 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-            }
-
-            #target > * {
                 width: 200px;
                 height: 100px;
+                background: rgba(0,0,0,0.1);
             }
 
             #element {
                 position: absolute;
                 display: none;
-            }
-
-            #element > * {
                 width: 75px;
                 height: 75px;
+                background: rgba(0,0,0,0.1);
             }
 
         </style>
-
     </head>
 
     <body>
 
-        <div class="uk-container uk-container-center uk-position-relative">
+        <div class="uk-container">
 
             <h1>Position</h1>
 
             <div id="boundary" class="uk-margin">
+                <div id="target" class="uk-flex uk-flex-center uk-flex-middle" draggable="true">Drag me!</div>
+            </div>
 
-                <div id="target" class="uk-flex uk-flex-center" draggable="true">
-                    <div class="uk-card uk-card-primary uk-text-center">
-                        Drag me!
+            <div id="element"></div>
+
+            <div class="uk-grid uk-child-width-auto uk-form uk-form-stacked">
+                <div>
+
+                    <div class="uk-margin">
+                        <span class="uk-form-label">Element</span>
+                        <label>
+                            Horizontal
+                            <select id="element_x" class="uk-form-small uk-form-width-mini">
+                                <option value="left">left</option>
+                                <option value="center">center</option>
+                                <option value="right">right</option>
+                            </select>
+                        </label>
+                        <label>
+                            Vertical
+                            <select id="element_y" class="uk-form-small uk-form-width-mini">
+                                <option value="top">top</option>
+                                <option value="center">center</option>
+                                <option value="bottom">bottom</option>
+                            </select>
+                        </label>
                     </div>
+
+                    <div class="uk-margin">
+                        <span class="uk-form-label">Target</span>
+                        <label>
+                            Horizontal
+                            <select id="target_x" class="uk-form-small uk-form-width-mini">
+                                <option value="left">left</option>
+                                <option value="center">center</option>
+                                <option value="right">right</option>
+                            </select>
+                        </label>
+                        <label>
+                            Vertical
+                            <select id="target_y" class="uk-form-small uk-form-width-mini">
+                                <option value="top">top</option>
+                                <option value="center">center</option>
+                                <option value="bottom">bottom</option>
+                            </select>
+                        </label>
+                    </div>
+
                 </div>
+                <div>
 
-            </div>
+                    <div class="uk-margin">
+                        <span class="uk-form-label">Offset</span>
+                        <label>
+                            Horizontal
+                            <input id="offset_x" class="uk-form-small uk-form-width-mini" type="text">
+                        </label>
+                        <label>
+                            Vertical
+                            <input id="offset_y" class="uk-form-small uk-form-width-mini" type="text">
+                        </label>
+                    </div>
 
-            <div id="element">
-                <div class="uk-card uk-card-secondary"></div>
-            </div>
+                    <div class="uk-margin">
+                        <span class="uk-form-label">Flip</span>
+                        <label>
+                            Horizontal
+                            <select id="flip_x" class="uk-form-small uk-form-width-mini">
+                                <option value="x">flip</option>
+                                <option value="">none</option>
+                            </select>
+                        </label>
+                        <label>
+                            Vertical
+                            <select id="flip_y" class="uk-form-small uk-form-width-mini">
+                                <option value="y">flip</option>
+                                <option value="">none</option>
+                            </select>
+                        </label>
+                    </div>
 
-            <div class="uk-form">
-                <fieldset data-uk-margin>
-                    <legend>Element</legend>
-                    <label>
-                        Horizontal
-                        <select id="element_x">
-                            <option value="left">left</option>
-                            <option value="center">center</option>
-                            <option value="right">right</option>
-                        </select>
-                    </label>
-                    <label>
-                        Vertical
-                        <select id="element_y">
-                            <option value="top">top</option>
-                            <option value="center">center</option>
-                            <option value="bottom">bottom</option>
-                        </select>
-                    </label>
-                </fieldset>
-                <fieldset data-uk-margin>
-                    <legend>Target</legend>
-                    <label>
-                        Horizontal
-                        <select id="target_x">
-                            <option value="left">left</option>
-                            <option value="center">center</option>
-                            <option value="right">right</option>
-                        </select>
-                    </label>
-                    <label>
-                        Vertical
-                        <select id="target_y">
-                            <option value="top">top</option>
-                            <option value="center">center</option>
-                            <option value="bottom">bottom</option>
-                        </select>
-                    </label>
-                </fieldset>
-                <fieldset data-uk-margin>
-                    <legend>Offset</legend>
-                    <label>
-                        Horizontal
-                        <input type="text" id="offset_x">
-                    </label>
-                    <label>
-                        Vertical
-                        <input type="text" id="offset_y">
-                    </label>
-                </fieldset>
-                <fieldset data-uk-margin>
-                    <legend>Flip</legend>
-                    <label>
-                        Horizontal
-                        <select id="flip_x">
-                            <option value="x">flip</option>
-                            <option value="">none</option>
-                        </select>
-                    </label>
-                    <label>
-                        Vertical
-                        <select id="flip_y">
-                            <option value="y">flip</option>
-                            <option value="">none</option>
-                        </select>
-                    </label>
-                </fieldset>
+                </div>
             </div>
 
         </div>
