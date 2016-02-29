@@ -5394,6 +5394,16 @@ ul.uk-nav-sub {
   background-size: cover;
   background-repeat: no-repeat;
 }
+/* Drop cap
+ ========================================================================== */
+.uk-dropcap::first-letter,
+.uk-dropcap p:first-of-type::first-letter {
+  display: block;
+  margin-right: 10px;
+  float: left;
+  font-size: 4.5em;
+  line-height: 1;
+}
 /* Disabled
  ========================================================================== */
 .uk-disabled {

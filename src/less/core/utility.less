@@ -9,6 +9,7 @@
 //                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-border-*`
+//                  `uk-dropcap`
 //
 // States:          `uk-disabled`
 //
@@ -24,6 +25,9 @@
 @panel-scrollable-border-width:                 1px;
 
 @border-rounded-border:                         5px;
+
+@dropcap-margin-right:                          10px;
+@dropcap-font-size:                             ((@global-line-height * 3) * 1em);
 
 
 /* ========================================================================
@@ -216,6 +220,19 @@
     background-repeat: no-repeat;
 }
 
+/* Drop cap
+ ========================================================================== */
+
+.uk-dropcap::first-letter,
+.uk-dropcap p:first-of-type::first-letter {
+    display: block;
+    margin-right: @dropcap-margin-right;
+    float: left;
+    font-size: @dropcap-font-size;
+    line-height: 1;
+    .hook-panel-scrollable;
+}
+
 
 /* Disabled
  ========================================================================== */
@@ -229,4 +246,5 @@
 .hook-utility-misc;
 
 .hook-panel-scrollable() {}
+.hook-dropcap() {}
 .hook-utility-misc() {}
