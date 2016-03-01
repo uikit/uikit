@@ -8,6 +8,11 @@
         <link rel="stylesheet" href="../css/uikit.css">
         <script src="../vendor/jquery.js"></script>
         <script src="js/test.js"></script>
+        <style type="text/css">
+
+            #viewport { border: 1px dashed rgba(0,0,0,0.2); }
+
+        </style>
     </head>
 
     <body>
@@ -16,32 +21,39 @@
 
             <h1>Sticky</h1>
 
-            <div id="viewport" class="uk-margin uk-child-width-1-6 uk-grid uk-padding" style="outline: dashed 1px" uk-height-viewport="offset: true">
+            <div id="viewport" class="uk-margin">
+                <div class="uk-grid uk-child-width-1-6" uk-height-viewport="offset: true">
+                    <div>
 
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: 50; bottom: !#viewport">Stick to container; 50px offset</div>
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: 50; bottom: !#viewport">Stick to container; 50px offset</div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 100vh; target: 10">Stick after 100vh; Scroll up if initially above paragraph below</div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: #viewport">Stick below container</div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: #hash">Stick until next paragraph</div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="showOnUp: true; animation: uk-animation-slide-top">Sticky on scroll up; animation</div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: -300; top: 300; animation: uk-animation-slide-top; media: 640">Stick after 300px scrolling and min. device width of 640px</div>
+
+                    </div>
                 </div>
-
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 100vh; target: 10">Stick after 100vh; Scroll up if initially above paragraph below</div>
-                </div>
-
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: #viewport">Stick below container</div>
-                </div>
-
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: #hash">Stick until next paragraph</div>
-                </div>
-
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="showOnUp: true; animation: uk-animation-slide-top">Sticky on scroll up; animation</div>
-                </div>
-
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: -300; top: 300; animation: uk-animation-slide-top; media: 640">Stick after 300px scrolling and min. device width of 640px</div>
-                </div>
-
             </div>
 
             <p id="hash" class="uk-margin-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
