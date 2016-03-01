@@ -2200,12 +2200,6 @@ ul.uk-nav-sub {
   list-style: none;
 }
 /*
- * 1. Create position context for dropdowns
- */
-.uk-navbar-nav > li {
-  position: relative;
-}
-/*
  * Items (Nav item, item, toggle)
  * 1. Center content vertically and horizontally
  * 2. Dimensions
