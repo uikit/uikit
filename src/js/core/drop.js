@@ -185,7 +185,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)(-[a-z]+)?').css({top: '', left: '', width: '', height: '', position: 'absolute'});
+                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)(-[a-z]+)?').css({top: '', left: '', width: '', height: ''});
 
                 this.drop.show();
 
