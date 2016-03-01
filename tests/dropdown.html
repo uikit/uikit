@@ -63,57 +63,68 @@
                 </div>
                 <div class="uk-width-2-3@m">
 
-                    <div class="uk-margin uk-flex">
+                    <div class="uk-margin" uk-margin-wrap>
+
+                        <div class="uk-inline-container" uk-dropdown>
+                            <button class="uk-button uk-button-default">Hover</button>
+                            <div class="uk-dropdown">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="uk-inline-container" uk-dropdown="mode: click">
+                            <button class="uk-button uk-button-default">Click</button>
+                            <div class="uk-dropdown">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
 
                         <div class="uk-inline-container">
-                            <button class="uk-button uk-button-default" uk-dropdown>Hover</button>
-                            <div class="uk-dropdown">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
+
+                            <button class="uk-button uk-button-default" uk-dropdown>Same Dropdown</button>
+                            <button class="uk-button uk-button-default" uk-dropdown>Same Dropdown</button>
+
+                            <div id="test" class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
                         </div>
 
-                        <div class="uk-inline-container uk-margin-left">
-                            <button class="uk-button uk-button-default" uk-dropdown="mode: click">Click</button>
-                            <div class="uk-dropdown">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <button class="uk-button uk-button-default" uk-dropdown="target: #test">Target</button>
 
-                        <div class="uk-dropdown-container uk-margin-left">
-                            <button class="uk-button uk-button-default"  uk-dropdown="mode: click" disabled>Disabled</button>
+                        <div class="uk-inline-container" uk-dropdown="mode: click">
+                            <button class="uk-button uk-button-default" disabled>Disabled</button>
                             <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                         </div>
 
-                        <div class="uk-inline-container uk-margin-left">
-                            <button class="uk-button uk-button-default" uk-dropdown>Scrollable</button>
+                        <div class="uk-inline-container" uk-dropdown>
+                            <button class="uk-button uk-button-default">Scrollable</button>
                             <div class="uk-dropdown uk-dropdown-scrollable">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
@@ -139,43 +150,87 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <button class="uk-button uk-button-default" uk-dropdown>Bottom Left</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: bottom-center">Bottom Center</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: bottom-right">Bottom Right</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: bottom-justify">Bottom Justify</button>
+                        <div class="uk-inline-container" uk-dropdown>
+                            <button class="uk-button uk-button-default">Bottom Left</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
 
-                        <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        <div class="uk-inline-container" uk-dropdown="pos: bottom-center">
+                            <button class="uk-button uk-button-default">Bottom Center</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
 
-                    </div>
+                        <div class="uk-inline-container" uk-dropdown="pos: bottom-right">
+                            <button class="uk-button uk-button-default">Bottom Right</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
 
-                    <div class="uk-margin" uk-margin-wrap>
-
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: top-left">Top Left</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: top-center">Top Center</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: top-right">Top Right</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: top-justify">Top Justify</button>
-
-                        <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-
-                    </div>
-
-                    <div class="uk-margin" uk-margin-wrap>
-
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: left-top">Left Top</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: left-center">Left Center</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: left-bottom">Left Bottom</button>
-
-                        <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        <div class="uk-inline-container" uk-dropdown="pos: bottom-justify">
+                            <button class="uk-button uk-button-default">Bottom Justify</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
 
                     </div>
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: right-top">Right Top</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: right-center">Right Center</button>
-                        <button class="uk-button uk-button-default" uk-dropdown="pos: right-bottom">Right Bottom</button>
+                        <div class="uk-inline-container" uk-dropdown="pos: top-left">
+                            <button class="uk-button uk-button-default">Top Left</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
 
-                        <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        <div class="uk-inline-container" uk-dropdown="pos: top-center">
+                            <button class="uk-button uk-button-default">Top Center</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: top-right">
+                            <button class="uk-button uk-button-default">Top Right</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: top-justify">
+                            <button class="uk-button uk-button-default">Top Justify</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                    </div>
+
+                    <div class="uk-margin" uk-margin-wrap>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: left-top">
+                            <button class="uk-button uk-button-default">Left Top</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: left-center">
+                            <button class="uk-button uk-button-default">Left Center</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: left-bottom">
+                            <button class="uk-button uk-button-default">Left Bottom</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                    </div>
+
+                    <div class="uk-margin" uk-margin-wrap>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: right-top">
+                            <button class="uk-button uk-button-default">Right Top</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: right-center">
+                            <button class="uk-button uk-button-default">Right Center</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
+
+                        <div class="uk-inline-container" uk-dropdown="pos: right-bottom">
+                            <button class="uk-button uk-button-default">Right Bottom</button>
+                            <div class="uk-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                        </div>
 
                     </div>
 
