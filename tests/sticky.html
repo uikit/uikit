@@ -16,67 +16,35 @@
 
             <h1>Sticky</h1>
 
-            <p>Margin before sticky</p>
+            <div id="viewport" class="uk-margin uk-child-width-1-6 uk-grid uk-padding" style="outline: dashed 1px" uk-height-viewport="offset: true">
 
-            <div class="uk-margin" uk-sticky>Stick at the top</div>
-
-            <p>Margin after sticky</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <div class="uk-margin uk-grid uk-child-width-1-5 uk-flex-between">
                 <div>
-
-                    <div class="uk-card uk-card-default uk-card-body" uk-sticky="offset: 150; target: 50">Stick 150px below the top and initially 50px above the location hash's target.</div>
-
+                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: 50; bottom: !#viewport">Stick to container; 50px offset</div>
                 </div>
+
                 <div>
-
-                    <div class="uk-card uk-card-default uk-card-body" uk-sticky="top: 100vh">Stick after 100vh</div>
-
+                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 100vh; target: 10">Stick after 100vh; Scroll up if initially above paragraph below</div>
                 </div>
+
                 <div>
-
-                    <div class="uk-card uk-card-default uk-card-body" uk-sticky="top: #stick">Stick after grid below</div>
-
+                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: #viewport">Stick below container</div>
                 </div>
+
+                <div>
+                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="bottom: #hash">Stick until next paragraph</div>
+                </div>
+
+                <div>
+                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="showOnUp: true; animation: uk-animation-slide-top">Sticky on scroll up; animation</div>
+                </div>
+
+                <div>
+                    <div class="uk-card uk-card-primary uk-card-body" uk-sticky="offset: -300; top: 300; animation: uk-animation-slide-top; media: 640">Stick after 300px scrolling and min. device width of 640px</div>
+                </div>
+
             </div>
 
-            <div class="uk-margin uk-grid uk-child-width-1-2" id="stick">
-                <div>
-
-                    <div style="height: 300px; background: #000; padding: 40px;">
-                        <div class="uk-card uk-card-primary uk-card-body uk-width-1-2 uk-margin-auto" uk-sticky="bottom: true">Sticky bound to parent container</div>
-                    </div>
-
-                </div>
-                <div>
-
-                    <div style="height: 300px; background: #000; padding: 40px;">
-                        <div class="uk-card uk-card-primary uk-card-body uk-width-1-2 uk-margin-auto" uk-sticky="bottom: #test">Sticky bound to next paragraph</div>
-                    </div>
-
-                </div>
-            </div>
-
-            <p id="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <div class="uk-grid uk-child-width-1-2">
-                <div>
-
-                    <div class="uk-card uk-card-secondary uk-card-body" uk-sticky="offset: -300; top: 300; animation: uk-animation-slide-top; media: 640">Stick at the top but only after 300px scrolling and min. device width of 640px</div>
-
-                </div>
-                <div>
-
-                    <div class="uk-card uk-card-secondary uk-card-body" uk-sticky="showOnUp: true; animation: uk-animation-slide-top">Show sticky only on scroll up</div>
-
-                </div>
-            </div>
+            <p id="hash" class="uk-margin-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
             <h2>Javascript Options</h2>
 

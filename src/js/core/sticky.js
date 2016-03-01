@@ -102,22 +102,22 @@ export default function (UIkit) {
                         }
                     }
 
-                    this.bottom = this.bottom ? this.bottom - this.$el.height() : this.bottom;
+                    this.bottom = this.bottom ? this.bottom - this.$el.outerHeight() : this.bottom;
 
                     this.mediaInactive = this.media
                         && !(typeof(this.media) === 'number' && window.innerWidth >= this.media
                         || typeof(this.media) === 'string' && window.matchMedia(this.media).matches);
                 }
 
-                if ($(window).scrollTop() < 0 || !this.$el.is(':visible') || this.disabled) {
+                var scroll = $(window).scrollTop();
+
+                if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                     return;
                 }
 
-                var scroll = $(window).scrollTop();
-
                 if (this.mediaInactive
                     || scroll < this.top
-                    || this.showOnUp && (dir === 'down' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.height())
+                    || this.showOnUp && (dir === 'down' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())
                 ) {
                     if (isActive) {
 
@@ -138,7 +138,7 @@ export default function (UIkit) {
                 this.placeholder.attr('hidden', false);
 
                 var top = Math.max(0, this.offset);
-                if (this.bottom && scroll > this.bottom) {
+                if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }
 
