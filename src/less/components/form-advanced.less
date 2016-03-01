@@ -119,7 +119,7 @@
  ========================================================================== */
 
 /*
- * 1. Remove default style
+ * 1. Remove default style. Also works in Firefox
  * 2. Style
  * 3. Remove default style in IE 10/11
  */
@@ -127,6 +127,7 @@
 .uk-form select:not([multiple]):not([size]) {
     /* 1 */
     -webkit-appearance: none;
+    -moz-appearance: none;
     /* 2 */
     padding-right: 20px;
     .svg-fill("../images/form-select.svg", "#000", @form-select-icon-color);

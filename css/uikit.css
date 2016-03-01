@@ -6517,13 +6517,14 @@ ul.uk-nav-sub {
 /* Select
  ========================================================================== */
 /*
- * 1. Remove default style
+ * 1. Remove default style. Also works in Firefox
  * 2. Style
  * 3. Remove default style in IE 10/11
  */
 .uk-form select:not([multiple]):not([size]) {
   /* 1 */
   -webkit-appearance: none;
+  -moz-appearance: none;
   /* 2 */
   padding-right: 20px;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444%22%20d%3D%22M3%2C10%20L11%2C10%20L7%2C16%20L3%2C10%20L3%2C10%20Z%22%3E%3C%2Fpath%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444%22%20d%3D%22M7%2C0%20L11%2C6%20L3%2C6%20L7%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
