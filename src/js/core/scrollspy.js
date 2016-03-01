@@ -8,6 +8,7 @@ export default function (UIkit) {
         props: {
             cls: String,
             target: String,
+            hidden: Boolean,
             offsetTop: Number,
             offsetLeft: Number,
             repeat: Boolean,
@@ -17,6 +18,7 @@ export default function (UIkit) {
         defaults: {
             cls: 'uk-scrollspy-inview',
             target: false,
+            hidden: true,
             offsetTop: 0,
             offsetLeft: 0,
             repeat: false,
@@ -26,6 +28,10 @@ export default function (UIkit) {
 
         ready() {
             this.elements = this.target && toJQuery(this.target, this.$el) || this.$el;
+
+            if (this.hidden) {
+                this.elements.css('visibility', 'hidden');
+            }
         },
 
         update: {
@@ -50,7 +56,7 @@ export default function (UIkit) {
 
                             data.timer = setTimeout(() => {
 
-                                $el.addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
+                                $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
 
                                 data.inview = true;
                                 delete data.timer;
@@ -69,7 +75,7 @@ export default function (UIkit) {
                                 delete data.timer;
                             }
 
-                            $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('outview'); // TODO rename event?
+                            $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
                             data.inview = false;
                         }
 
