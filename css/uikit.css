@@ -5354,6 +5354,21 @@ ul.uk-nav-sub {
   /* 1 */
   max-width: 100%;
 }
+/* Inline Container
+ ========================================================================== */
+/*
+ * 1. Container fits its content
+ * 2. Behave like most inline-block elements
+ * 3. Create position context
+ */
+.uk-inline-container {
+  /* 1 */
+  display: inline-block;
+  /* 2 */
+  vertical-align: middle;
+  /* 3 */
+  position: relative;
+}
 /* Height
  ========================================================================== */
 [class*='uk-height'],
@@ -5711,21 +5726,6 @@ ul.uk-nav-sub {
   bottom: 0;
   left: 0;
   right: 0;
-}
-/* Container
- ========================================================================== */
-/*
- * 1. Container fits its content
- * 2. Behave like most inline-block elements
- * 3. Create position context
- */
-.uk-position-container {
-  /* 1 */
-  display: inline-block;
-  /* 2 */
-  vertical-align: middle;
-  /* 3 */
-  position: relative;
 }
 /* ========================================================================
    Component: Visibility

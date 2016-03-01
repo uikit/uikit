@@ -6,6 +6,7 @@
 //                  `uk-float-*`
 //                  `uk-overflow-*`
 //                  `uk-display-*`
+//                  `uk-inline-container`
 //                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-border-*`
@@ -144,6 +145,25 @@
     display: inline-block !important;
     /* 1 */
     max-width: 100%;
+}
+
+
+/* Inline Container
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Behave like most inline-block elements
+ * 3. Create position context
+ */
+
+.uk-inline-container {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    vertical-align: middle;
+    /* 3 */
+    position: relative;
 }
 
 
