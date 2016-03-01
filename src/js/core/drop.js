@@ -38,6 +38,11 @@ export default function (UIkit) {
 
             this.cls = this.cls || 'uk-' + this.$options.name;
             this.drop = this.target || toJQuery(this.$el.find(`.${this.cls}:first`)) || toJQuery(this.$el.nextAll(`.${this.cls}:first`));
+
+            if (!this.drop) {
+                return;
+            }
+
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
             this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
