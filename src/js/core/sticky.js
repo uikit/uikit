@@ -10,7 +10,6 @@ export default function (UIkit) {
             bottom: Boolean,
             offset: Number,
             animation: String,
-            clsInit: String,
             clsActive: String,
             clsInactive: String,
             widthElement: 'jQuery',
@@ -24,7 +23,6 @@ export default function (UIkit) {
             bottom: false,
             offset: 0,
             animation: '',
-            clsInit: 'uk-sticky-init',
             clsActive: 'uk-active',
             clsInactive: '',
             widthElement: false,
@@ -159,7 +157,6 @@ export default function (UIkit) {
                 }
 
                 this.$el
-                    .addClass(this.clsInit)
                     .addClass(this.clsActive)
                     .removeClass(this.clsInactive)
                     .trigger('active');

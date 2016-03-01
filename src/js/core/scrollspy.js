@@ -6,7 +6,6 @@ export default function (UIkit) {
     UIkit.component('scrollspy', {
 
         props: {
-            initCls: String,
             cls: String,
             target: String,
             offsetTop: Number,
@@ -16,7 +15,6 @@ export default function (UIkit) {
         },
 
         defaults: {
-            initCls: 'uk-scrollspy-init-inview',
             cls: 'uk-scrollspy-inview',
             target: false,
             offsetTop: 0,
@@ -49,10 +47,6 @@ export default function (UIkit) {
                     if (isInView(el, this.offsetTop, this.offsetLeft)) {
 
                         if (!data.inview && !data.timer) {
-
-                            if (!$el.hasClass(this.initCls)) {
-                                $el.addClass(this.initCls).trigger('init'); // TODO rename event?
-                            }
 
                             data.timer = setTimeout(() => {
 
