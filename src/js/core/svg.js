@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import {toJQuery} from '../util/index';
 import svgMixin from '../mixin/svg';
 
 export default function (UIkit) {
@@ -27,11 +27,13 @@ export default function (UIkit) {
 
                 this.get(this.src).then(doc => {
 
-                    if (!doc.documentElement || doc.documentElement.tagName.toLowerCase() !== 'svg') {
+                    var svg = toJQuery(doc);
+
+                    if (!svg) {
                         return;
                     }
 
-                    this.$replace($(doc.documentElement).clone());
+                    this.$replace(this.addProps(svg));
                 });
 
             }

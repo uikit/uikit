@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isInView} from '../util/index';
+import {isInView, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,7 +25,7 @@ export default function (UIkit) {
         },
 
         ready() {
-            this.elements = this.target ? this.$el.find(this.target) : this.$el;
+            this.elements = this.target && toJQuery(this.target, this.$el) || this.$el;
         },
 
         update: {

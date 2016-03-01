@@ -37,7 +37,7 @@ export default function (UIkit) {
         ready() {
 
             this.cls = this.cls || 'uk-' + this.$options.name;
-            this.drop = this.target || toJQuery(this.$el.find(`.${this.cls}:first`)) || toJQuery(this.$el.nextAll(`.${this.cls}:first`));
+            this.drop = this.target || toJQuery(`.${this.cls}:first`, this.$el) || toJQuery(this.$el.nextAll(`.${this.cls}:first`));
 
             if (!this.drop) {
                 return;

@@ -52,12 +52,12 @@ export function toNumber(value) {
     return !isNaN(number) ? number : false;
 }
 
-export function toJQuery(element) {
+export function toJQuery(element, context) {
     if (element === true) {
         return null;
     }
 
-    element = $(element);
+    element = $(element, context);
     return element.length ? element : null;
 }
 
