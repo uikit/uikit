@@ -43,10 +43,10 @@ export default function (UIkit) {
             this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
 
             // Init ARIA
-            this.drop.attr('aria-expanded', this.drop.hasClass('uk-open'));
+            this.drop.attr('aria-expanded', false);
 
             if (!handler) {
-                $('html').on('click', e => {
+                $('html').on('click', () => {
                     if (active) {
                         active.hide(true);
                     }
@@ -65,11 +65,12 @@ export default function (UIkit) {
                 }
             });
 
-            this.drop.on('click', `.${this.cls}-close`, e => {
+            this.drop.on('click', `.${this.cls}-close`, () => {
                 this.hide(true);
-            })
+            });
 
             if (this.mode === 'hover') {
+
                 this.$el.on('mouseenter', () => {
                     this.$el.trigger('pointerenter', [this]);
                     this.show();
@@ -77,6 +78,17 @@ export default function (UIkit) {
                     this.$el.trigger('pointerleave', [this]);
                     this.hide();
                 });
+
+                this.drop.on('mouseenter', () => {
+                    if (this.isActive()) {
+                        this.show()
+                    }
+                }).on('mouseleave', () => {
+                    if (this.isActive()) {
+                        this.hide();
+                    }
+                });
+
             }
 
         },
@@ -123,7 +135,11 @@ export default function (UIkit) {
 
                 var hide = () => {
 
-                    active = active === this ? null : active;
+                    if (!this.isActive()) {
+                        return;
+                    }
+
+                    active = null;
 
                     this.cancelMouseTracker();
 
@@ -164,7 +180,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)(-[a-z]+)?').css({top: '', left: '', width: '', height: '', 'min-height': '', position: 'absolute'});
+                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)(-[a-z]+)?').css({top: '', left: '', width: '', height: '', position: 'absolute'});
 
                 this.drop.show();
 
@@ -178,7 +194,7 @@ export default function (UIkit) {
                     if (this.getAxis() === 'y') {
                         this.drop.css('width', alignTo.width);
                     } else {
-                        this.drop.css('min-height', alignTo.height);
+                        this.drop.css('height', alignTo.height);
                     }
                 }
 
