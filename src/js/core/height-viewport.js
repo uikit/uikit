@@ -36,12 +36,10 @@ export default function (UIkit) {
 
                 }
 
-                if (!this.offset) {
-                    // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-                    this.$el.css('height', '');
-                    if (this.getHeight() >= this.$el.height()) {
-                        this.$el.css('height', this.getHeight());
-                    }
+                // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
+                this.$el.css('height', '');
+                if (this.getHeight() >= this.$el.height()) {
+                    this.$el.css('height', this.getHeight());
                 }
 
                 this.$el.css('min-height', this.getHeight());
@@ -59,8 +57,7 @@ export default function (UIkit) {
                 var height = window.innerHeight;
 
                 if (this.offset && this.$el.offset().top < height) {
-                    height -= this.$el.offset().top;
-                    height -= this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height();
+                    height -= this.$el.offset().top + (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height());
                 }
 
                 return height;
