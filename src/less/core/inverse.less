@@ -206,7 +206,7 @@
         .hook-inverse-list-line;
     }
 
-    .uk-list-bullet > li:before {
+    .uk-list-bullet > li::before {
         .svg-fill("../images/list-bullet.svg", "#000", @inverse-list-bullet-icon-color);
         .hook-inverse-list-bullet;
     }
@@ -330,8 +330,8 @@
     // Grid
     // ========================================================================
 
-    .uk-grid-divider > :not(.uk-grid-first):before { border-left-color: @inverse-grid-divider-border; }
-    .uk-grid-divider > .uk-grid-first + .uk-grid-first:before { border-top-color: @inverse-grid-divider-border; }
+    .uk-grid-divider > :not(.uk-grid-first)::before { border-left-color: @inverse-grid-divider-border; }
+    .uk-grid-divider > .uk-grid-first + .uk-grid-first::before { border-top-color: @inverse-grid-divider-border; }
 
 
     // Nav
@@ -341,12 +341,12 @@
     // Parent icon modifier
     //
 
-    .uk-nav-parent-icon > .uk-parent > a:after {
+    .uk-nav-parent-icon > .uk-parent > a::after {
         .svg-fill("../images/nav-parent-close.svg", "#000", @inverse-nav-parent-icon-color);
         .hook-inverse-nav-parent-icon;
     }
 
-    .uk-nav-parent-icon > .uk-parent.uk-open > a:after { .svg-fill("../images/nav-parent-open.svg", "#000", @inverse-nav-parent-icon-color); }
+    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill("../images/nav-parent-open.svg", "#000", @inverse-nav-parent-icon-color); }
 
     //
     // Items
@@ -451,7 +451,7 @@
     // Line
     //
 
-    .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+    .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
         border-left-color: @inverse-subnav-line-divider-border;
         .hook-inverse-subnav-line-divider;
     }
@@ -506,7 +506,7 @@
     // Divider
     //
 
-    .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before {
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before {
         color: @inverse-breadcrumb-divider-color;
         .hook-inverse-breadcrumb-divider;
     }

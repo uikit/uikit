@@ -60,13 +60,13 @@
  * Micro clearfix
  */
 
-.uk-container:before,
-.uk-container:after {
+.uk-container::before,
+.uk-container::after {
     content: "";
     display: table;
 }
 
-.uk-container:after { clear: both; }
+.uk-container::after { clear: both; }
 
 /*
  * Remove margin from the last-child

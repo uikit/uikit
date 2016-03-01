@@ -116,19 +116,19 @@
  * Micro clearfix
  */
 
-.uk-card-body:before,
-.uk-card-body:after,
-.uk-card-header:before,
-.uk-card-header:after,
-.uk-card-footer:before,
-.uk-card-footer:after {
+.uk-card-body::before,
+.uk-card-body::after,
+.uk-card-header::before,
+.uk-card-header::after,
+.uk-card-footer::before,
+.uk-card-footer::after {
     content: "";
     display: table;
 }
 
-.uk-card-body:after,
-.uk-card-header:after,
-.uk-card-footer:after { clear: both; }
+.uk-card-body::after,
+.uk-card-header::after,
+.uk-card-footer::after { clear: both; }
 
 /*
  * Remove margin from the last-child

@@ -47,13 +47,13 @@
  * Micro clearfix
  */
 
-.uk-panel:before,
-.uk-panel:after {
+.uk-panel::before,
+.uk-panel::after {
     content: "";
     display: table;
 }
 
-.uk-panel:after { clear: both; }
+.uk-panel::after { clear: both; }
 
 /*
  * Remove margin from the last-child
@@ -80,19 +80,19 @@
  ========================================================================== */
 
 /*
- * 1. `table-cell` is used with `:before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
- * 2. `table` is used again with `:after` because `clear` only works with block elements.
+ * 1. `table-cell` is used with `::before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
+ * 2. `table` is used again with `::after` because `clear` only works with block elements.
  * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
  */
 
 /* 1 */
-.uk-clearfix:before {
+.uk-clearfix::before {
     content: "";
     display: table-cell;
 }
 
 /* 2 */
-.uk-clearfix:after {
+.uk-clearfix::after {
     content: "";
     display: table;
     clear: both;

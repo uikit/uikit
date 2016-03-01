@@ -129,7 +129,7 @@
 
     .uk-navbar-dropdown-grid > * { position: relative; }
 
-    .uk-navbar-dropdown-grid > :not(.uk-row-first):before {
+    .uk-navbar-dropdown-grid > :not(.uk-row-first)::before {
         content: "";
         position: absolute;
         top: 0;
@@ -139,7 +139,7 @@
     }
 
     /* Vertical */
-    .uk-navbar-dropdown-grid > .uk-row-first + .uk-row-first:before {
+    .uk-navbar-dropdown-grid > .uk-row-first + .uk-row-first::before {
         content: "";
         position: absolute;
         top: -(@grid-gutter-vertical / 2);

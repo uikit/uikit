@@ -504,12 +504,12 @@ textarea {
 /*
  * Micro clearfix
  */
-.uk-list > li:before,
-.uk-list > li:after {
+.uk-list > li::before,
+.uk-list > li::after {
   content: "";
   display: table;
 }
-.uk-list > li:after {
+.uk-list > li::after {
   clear: both;
 }
 /*
@@ -563,7 +563,7 @@ textarea {
   display: -webkit-flex;
   display: flex;
 }
-.uk-list-bullet > li:before {
+.uk-list-bullet > li::before {
   content: "";
   width: 1.5em;
   height: 1.5em;
@@ -1411,12 +1411,12 @@ select.uk-form-width-mini {
 /*
  * Micro clearfix
  */
-.uk-section:before,
-.uk-section:after {
+.uk-section::before,
+.uk-section::after {
   content: "";
   display: table;
 }
-.uk-section:after {
+.uk-section::after {
   clear: both;
 }
 /*
@@ -1529,12 +1529,12 @@ select.uk-form-width-mini {
 /*
  * Micro clearfix
  */
-.uk-container:before,
-.uk-container:after {
+.uk-container::before,
+.uk-container::after {
   content: "";
   display: table;
 }
-.uk-container:after {
+.uk-container::after {
   clear: both;
 }
 /*
@@ -1699,7 +1699,7 @@ select.uk-form-width-mini {
 .uk-grid-divider > * {
   position: relative;
 }
-.uk-grid-divider > :not(.uk-row-first):before {
+.uk-grid-divider > :not(.uk-row-first)::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1707,7 +1707,7 @@ select.uk-form-width-mini {
   border-left: 1px solid #e5e5e5;
 }
 /* Vertical */
-.uk-grid-divider > .uk-row-first + .uk-row-first:before {
+.uk-grid-divider > .uk-row-first + .uk-row-first::before {
   content: "";
   position: absolute;
   left: 0;
@@ -1724,14 +1724,14 @@ select.uk-form-width-mini {
 .uk-grid-divider > * {
   padding-left: 60px;
 }
-.uk-grid-divider > :not(.uk-row-first):before {
+.uk-grid-divider > :not(.uk-row-first)::before {
   left: 30px;
 }
 /* Vertical */
 .uk-grid-divider > .uk-row-first + .uk-row-first {
   margin-top: 60px;
 }
-.uk-grid-divider > .uk-row-first + .uk-row-first:before {
+.uk-grid-divider > .uk-row-first + .uk-row-first::before {
   top: -30px;
   left: 60px;
 }
@@ -1744,14 +1744,14 @@ select.uk-form-width-mini {
   .uk-grid-divider > * {
     padding-left: 80px;
   }
-  .uk-grid-divider > :not(.uk-row-first):before {
+  .uk-grid-divider > :not(.uk-row-first)::before {
     left: 40px;
   }
   /* Vertical */
   .uk-grid-divider > .uk-row-first + .uk-row-first {
     margin-top: 80px;
   }
-  .uk-grid-divider > .uk-row-first + .uk-row-first:before {
+  .uk-grid-divider > .uk-row-first + .uk-row-first::before {
     top: -40px;
     left: 80px;
   }
@@ -1766,14 +1766,14 @@ select.uk-form-width-mini {
 .uk-grid-divider.uk-grid-small > * {
   padding-left: 20px;
 }
-.uk-grid-divider.uk-grid-small > :not(.uk-row-first):before {
+.uk-grid-divider.uk-grid-small > :not(.uk-row-first)::before {
   left: 10px;
 }
 /* Vertical */
 .uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first {
   margin-top: 20px;
 }
-.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first:before {
+.uk-grid-divider.uk-grid-small > .uk-row-first + .uk-row-first::before {
   top: -10px;
   left: 20px;
 }
@@ -1787,14 +1787,14 @@ select.uk-form-width-mini {
 .uk-grid-divider.uk-grid-medium > * {
   padding-left: 60px;
 }
-.uk-grid-divider.uk-grid-medium > :not(.uk-row-first):before {
+.uk-grid-divider.uk-grid-medium > :not(.uk-row-first)::before {
   left: 30px;
 }
 /* Vertical */
 .uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first {
   margin-top: 60px;
 }
-.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first:before {
+.uk-grid-divider.uk-grid-medium > .uk-row-first + .uk-row-first::before {
   top: -30px;
   left: 60px;
 }
@@ -1808,14 +1808,14 @@ select.uk-form-width-mini {
 .uk-grid-divider.uk-grid-large > * {
   padding-left: 80px;
 }
-.uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
+.uk-grid-divider.uk-grid-large > :not(.uk-row-first)::before {
   left: 40px;
 }
 /* Vertical */
 .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
   margin-top: 80px;
 }
-.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
+.uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first::before {
   top: -40px;
   left: 80px;
 }
@@ -1828,14 +1828,14 @@ select.uk-form-width-mini {
   .uk-grid-divider.uk-grid-large > * {
     padding-left: 140px;
   }
-  .uk-grid-divider.uk-grid-large > :not(.uk-row-first):before {
+  .uk-grid-divider.uk-grid-large > :not(.uk-row-first)::before {
     left: 70px;
   }
   /* Vertical */
   .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first {
     margin-top: 140px;
   }
-  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first:before {
+  .uk-grid-divider.uk-grid-large > .uk-row-first + .uk-row-first::before {
     top: -70px;
     left: 140px;
   }
@@ -1896,18 +1896,18 @@ select.uk-form-width-mini {
 /*
  * Micro clearfix
  */
-.uk-card-body:before,
-.uk-card-body:after,
-.uk-card-header:before,
-.uk-card-header:after,
-.uk-card-footer:before,
-.uk-card-footer:after {
+.uk-card-body::before,
+.uk-card-body::after,
+.uk-card-header::before,
+.uk-card-header::after,
+.uk-card-footer::before,
+.uk-card-footer::after {
   content: "";
   display: table;
 }
-.uk-card-body:after,
-.uk-card-header:after,
-.uk-card-footer:after {
+.uk-card-body::after,
+.uk-card-header::after,
+.uk-card-footer::after {
   clear: both;
 }
 /*
@@ -2077,7 +2077,7 @@ ul.uk-nav-sub {
 }
 /* Parent icon modifier
  ========================================================================== */
-.uk-nav-parent-icon > .uk-parent > a:after {
+.uk-nav-parent-icon > .uk-parent > a::after {
   content: "";
   width: 1.5em;
   height: 1.5em;
@@ -2087,7 +2087,7 @@ ul.uk-nav-sub {
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
-.uk-nav-parent-icon > .uk-parent.uk-open > a:after {
+.uk-nav-parent-icon > .uk-parent.uk-open > a::after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23444%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }
 /* Header
@@ -2272,7 +2272,7 @@ ul.uk-nav-sub {
 }
 /* Toggle
  ========================================================================== */
-.uk-navbar-toggle:before {
+.uk-navbar-toggle::before {
   content: "";
   width: 1.5em;
   height: 1.5em;
@@ -2281,8 +2281,8 @@ ul.uk-nav-sub {
   background-position: 50% 50%;
 }
 /* Hover + Focus */
-.uk-navbar-toggle:hover:before,
-.uk-navbar-toggle:focus:before {
+.uk-navbar-toggle:hover::before,
+.uk-navbar-toggle:focus::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220px%22%20height%3D%2220px%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
 }
 .uk-navbar-toggle:focus {
@@ -2315,8 +2315,8 @@ ul.uk-nav-sub {
   flex: 1;
 }
 /* 3 */
-.uk-navbar-container > :before,
-.uk-navbar-container > :after {
+.uk-navbar-container > ::before,
+.uk-navbar-container > ::after {
   display: none !important;
 }
 /* Style modifier
@@ -2505,7 +2505,7 @@ ul.uk-nav-sub {
 .uk-navbar-dropdown-grid > * {
   position: relative;
 }
-.uk-navbar-dropdown-grid > :not(.uk-row-first):before {
+.uk-navbar-dropdown-grid > :not(.uk-row-first)::before {
   content: "";
   position: absolute;
   top: 0;
@@ -2514,7 +2514,7 @@ ul.uk-nav-sub {
   border-left: 1px solid #e5e5e5;
 }
 /* Vertical */
-.uk-navbar-dropdown-grid > .uk-row-first + .uk-row-first:before {
+.uk-navbar-dropdown-grid > .uk-row-first + .uk-row-first::before {
   content: "";
   position: absolute;
   top: -15px;
@@ -2602,7 +2602,7 @@ ul.uk-nav-sub {
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
  */
-.uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+.uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
   content: "";
   height: 20px;
   margin-right: 20px;
@@ -5265,12 +5265,12 @@ ul.uk-nav-sub {
 /*
  * Micro clearfix
  */
-.uk-panel:before,
-.uk-panel:after {
+.uk-panel::before,
+.uk-panel::after {
   content: "";
   display: table;
 }
-.uk-panel:after {
+.uk-panel::after {
   clear: both;
 }
 /*
@@ -5293,17 +5293,17 @@ ul.uk-nav-sub {
 /* Cleafix
  ========================================================================== */
 /*
- * 1. `table-cell` is used with `:before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
- * 2. `table` is used again with `:after` because `clear` only works with block elements.
+ * 1. `table-cell` is used with `::before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
+ * 2. `table` is used again with `::after` because `clear` only works with block elements.
  * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
  */
 /* 1 */
-.uk-clearfix:before {
+.uk-clearfix::before {
   content: "";
   display: table-cell;
 }
 /* 2 */
-.uk-clearfix:after {
+.uk-clearfix::after {
   content: "";
   display: table;
   clear: both;
@@ -5902,9 +5902,9 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-list-line > li:nth-child(n+2) {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-list-bullet > li:before,
-.uk-card-primary .uk-list-bullet > li:before,
-.uk-card-secondary .uk-list-bullet > li:before {
+.uk-light .uk-list-bullet > li::before,
+.uk-card-primary .uk-list-bullet > li::before,
+.uk-card-secondary .uk-list-bullet > li::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
 }
 .uk-light .uk-form select,
@@ -6102,24 +6102,24 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-button-text:disabled {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-grid-divider > :not(.uk-grid-first):before,
-.uk-card-primary .uk-grid-divider > :not(.uk-grid-first):before,
-.uk-card-secondary .uk-grid-divider > :not(.uk-grid-first):before {
+.uk-light .uk-grid-divider > :not(.uk-grid-first)::before,
+.uk-card-primary .uk-grid-divider > :not(.uk-grid-first)::before,
+.uk-card-secondary .uk-grid-divider > :not(.uk-grid-first)::before {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
-.uk-card-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before,
-.uk-card-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first:before {
+.uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first::before,
+.uk-card-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first::before,
+.uk-card-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first::before {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-nav-parent-icon > .uk-parent > a:after,
-.uk-card-primary .uk-nav-parent-icon > .uk-parent > a:after,
-.uk-card-secondary .uk-nav-parent-icon > .uk-parent > a:after {
+.uk-light .uk-nav-parent-icon > .uk-parent > a::after,
+.uk-card-primary .uk-nav-parent-icon > .uk-parent > a::after,
+.uk-card-secondary .uk-nav-parent-icon > .uk-parent > a::after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226px%22%20height%3D%2212px%22%20viewBox%3D%220%200%206%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M6%2C2%20L6%2C-1.11022302e-16%20L0%2C6%20L6%2C12%20L6%2C10%20L2%2C6%20L6%2C2%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }
-.uk-light .uk-nav-parent-icon > .uk-parent.uk-open > a:after,
-.uk-card-primary .uk-nav-parent-icon > .uk-parent.uk-open > a:after,
-.uk-card-secondary .uk-nav-parent-icon > .uk-parent.uk-open > a:after {
+.uk-light .uk-nav-parent-icon > .uk-parent.uk-open > a::after,
+.uk-card-primary .uk-nav-parent-icon > .uk-parent.uk-open > a::after,
+.uk-card-secondary .uk-nav-parent-icon > .uk-parent.uk-open > a::after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }
 .uk-light .uk-nav-default > li > a,
@@ -6214,9 +6214,9 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-subnav > .uk-active > a {
   color: #fff;
 }
-.uk-light .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before,
-.uk-card-primary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before,
-.uk-card-secondary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+.uk-light .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-card-primary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-card-secondary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-subnav-pill > * > a:hover,
@@ -6257,9 +6257,9 @@ ul.uk-nav-sub {
 .uk-card-secondary .uk-breadcrumb > :last-child > * {
   color: #fff;
 }
-.uk-light .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before,
-.uk-card-primary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before,
-.uk-card-secondary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before {
+.uk-light .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-card-primary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-card-secondary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-pagination > * > *,
@@ -6394,8 +6394,8 @@ ul.uk-nav-sub {
  ========================================================================== */
 @media print {
   *,
-  *:before,
-  *:after {
+  *::before,
+  *::after {
     background: transparent !important;
     color: black !important;
     box-shadow: none !important;

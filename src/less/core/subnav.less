@@ -130,7 +130,7 @@
  * `nth-child` makes it also work without JS if it's only one row
  */
 
-.uk-subnav-line > :nth-child(n+2):not(.uk-row-first):before {
+.uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
     content: "";
     height: @subnav-line-divider-border-height;
     margin-right: @subnav-margin-horizontal;

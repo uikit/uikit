@@ -229,7 +229,7 @@
 /* Toggle
  ========================================================================== */
 
-.uk-navbar-toggle:before {
+.uk-navbar-toggle::before {
     content: "";
     width: @navbar-toggle-width;
     height: @navbar-toggle-height;
@@ -240,8 +240,8 @@
 }
 
 /* Hover + Focus */
-.uk-navbar-toggle:hover:before,
-.uk-navbar-toggle:focus:before {
+.uk-navbar-toggle:hover::before,
+.uk-navbar-toggle:focus::before {
     .svg-fill("../images/navbar-toggle.svg", "#000", @navbar-toggle-hover-color);
     .hook-navbar-toggle-hover;
 }
@@ -283,8 +283,8 @@
 }
 
 /* 3 */
-.uk-navbar-container > :before,
-.uk-navbar-container > :after { display: none !important; }
+.uk-navbar-container > ::before,
+.uk-navbar-container > ::after { display: none !important; }
 
 
 /* Style modifier

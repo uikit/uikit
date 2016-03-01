@@ -50,13 +50,13 @@
  * Micro clearfix
  */
 
-.uk-list > li:before,
-.uk-list > li:after {
+.uk-list > li::before,
+.uk-list > li::after {
     content: "";
     display: table;
 }
 
-.uk-list > li:after { clear: both; }
+.uk-list > li::after { clear: both; }
 
 /*
  * Remove margin from the last-child
@@ -118,7 +118,7 @@
     display: flex;
 }
 
-.uk-list-bullet > li:before {
+.uk-list-bullet > li::before {
     content: "";
     width: @list-bullet-width;
     height: @list-bullet-height;
