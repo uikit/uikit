@@ -37,22 +37,16 @@ export default function (UIkit) {
 
         ready() {
 
-            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each((i, el) => {
-
-                el = $(el);
-
-                UIkit.drop(el, {
-                    mode: this.mode,
-                    target: el.find(`.${this.cls}:first`),
-                    pos: this.pos,
-                    offset: this.offset,
-                    boundary: (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary,
-                    boundaryAlign: this.boundaryAlign,
-                    cls: this.cls,
-                    flip: 'x',
-                    delayShow: this.delayShow,
-                    delayHide: this.delayHide
-                });
+            UIkit.drop(this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])'), {
+                mode: this.mode,
+                pos: this.pos,
+                offset: this.offset,
+                boundary: (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary,
+                boundaryAlign: this.boundaryAlign,
+                cls: this.cls,
+                flip: 'x',
+                delayShow: this.delayShow,
+                delayHide: this.delayHide
             });
 
             if (!this.dropbar) {

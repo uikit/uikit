@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {hasTouch, removeClass, position, getDimensions} from '../util/index';
+import {hasTouch, removeClass, position, getDimensions, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -37,7 +37,7 @@ export default function (UIkit) {
         ready() {
 
             this.cls = this.cls || 'uk-' + this.$options.name;
-            this.drop = this.target || this.$el.nextAll(`.${this.cls}:first`);
+            this.drop = this.target || toJQuery(this.$el.find(`.${this.cls}:first`)) || toJQuery(this.$el.nextAll(`.${this.cls}:first`));
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
             this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
@@ -112,7 +112,7 @@ export default function (UIkit) {
 
                     this.updatePosition();
 
-                    this.$el.trigger('beforeshow', [this]);
+                    this.$el.trigger('beforeshow', [this]).addClass('uk-open');
                     this.drop.addClass('uk-open').attr('aria-expanded', 'true');
                     this.$el.trigger('show', [this]);
 
@@ -143,7 +143,7 @@ export default function (UIkit) {
 
                     this.cancelMouseTracker();
 
-                    this.$el.trigger('beforehide', [this, force]).blur();
+                    this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').blur();
                     this.drop.removeClass('uk-open').attr('aria-expanded', 'false');
                     this.$el.trigger('hide', [this, force]);
 
