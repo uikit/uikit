@@ -52,9 +52,7 @@ export default {
 
                 Animation.cancel(el);
 
-                toggled = this.isToggled(el);
-
-                if (!toggled) {
+                if (!this.isToggled(el)) {
 
                     this.doToggle(el, true);
                     Animation.in(el, this.animations[0], this.duration).then(() => {
@@ -77,8 +75,6 @@ export default {
                 this.doUpdate(el);
                 deferred.resolve();
             }
-
-            el.trigger(!toggled ? 'show' : 'hide', [el]);
 
             return deferred;
         },

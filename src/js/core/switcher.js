@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {toJQuery} from '../util/index';
+import {Animation, toJQuery} from '../util/index';
 import toggleMixin from '../mixin/toggle';
 
 // TODO swipe
@@ -32,8 +32,6 @@ export default function (UIkit) {
                 return;
             }
 
-            this.items = this.connect.children();
-
             var self = this;
             this.$el.on('click', this.toggle + ':not(.uk-disabled)', function (e) {
                 e.preventDefault();
@@ -43,11 +41,9 @@ export default function (UIkit) {
             this.connect.on('click', '[uk-switcher-item]', function (e) {
                 e.preventDefault();
                 self.show($(this).attr('uk-switcher-item'));
-            }).on('show hide', function(e, el) {
-                self.toggles.eq(self.items.index(el)).toggleClass('uk-active', e.type === 'show');
             });
 
-            this.show(toJQuery(this.toggles.filter('.uk-active')) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first(), false);
+            this.show(toJQuery(this.toggles.filter(`.${this.cls}`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first(), false);
 
         },
 
@@ -55,9 +51,9 @@ export default function (UIkit) {
 
             show: function (item, animate) {
 
-                var active = this.items.filter((i, el) => { return this.isToggled(el); }),
-                    prev = this.items.index(active),
-                    index = Math.min(this.items.length - 1, Math.max(0, item === 'next'
+                var items = this.connect.first().children(),
+                    prev = items.index(items.filter(`.${this.cls}`)),
+                    index = Math.min(this.toggles.length - 1, Math.max(0, item === 'next'
                         ? prev + 1
                         : item === 'previous'
                             ? prev - 1
@@ -66,10 +62,22 @@ export default function (UIkit) {
                                 : this.toggles.index(item)
                     ));
 
+                this.toggles.removeClass(this.cls).eq(index).addClass(this.cls);
+
                 if (prev !== index) {
-                    this.toggleState(active, false, animate).then(() => {
-                        this.toggleState(this.items.eq(index), true, animate);
-                    });
+                    this.connect.each((i, connect) => {
+
+                        var children = $(connect).children(), deactivate = children.eq(prev);
+
+                        if (this.animation) {
+                            Animation.cancel(deactivate);
+                        }
+
+                        this.toggleState(deactivate, false, animate).then(() => {
+                            this.toggleState(children.eq(index), true, animate);
+                        });
+
+                    })
                 }
 
             }
