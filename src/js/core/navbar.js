@@ -67,6 +67,10 @@ export default function (UIkit) {
 
             this.$el.on({
 
+                beforeshow: (e, drop) => {
+                    drop.drop.addClass(`${this.cls}-dropbar`);
+                },
+
                 show: (e, drop) => {
 
                     drop.$el.removeClass('uk-open');

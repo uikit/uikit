@@ -185,7 +185,11 @@ export default function (UIkit) {
                     return;
                 }
 
-                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack)(-[a-z]+)?').css({top: '', left: '', width: '', height: ''});
+                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack|boundary)(-[a-z]+)?').css({top: '', left: '', width: '', height: ''});
+
+                if (this.boundaryAlign) {
+                    this.drop.addClass(`${this.cls}-boundary`);
+                }
 
                 this.drop.show();
 
