@@ -1,4 +1,4 @@
-import {bind, coerce, hyphenate, mergeOptions, isString, isPlainObject, createEvent, hasOwn} from '../util/index';
+import {bind, camelize, coerce, createEvent, hasOwn, hyphenate, isPlainObject, isString, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
@@ -52,9 +52,9 @@ export default function (UIkit) {
 
             if (options) {
                 options.split(';').forEach((option) => {
-                    var opt = option.split(/:(.+)/).map((value) => { return value.trim(); });
-                    if (props[opt[0]] !== undefined) {
-                        this[opt[0]] = coerce(props[opt[0]], opt[1]);
+                    var opt = option.split(/:(.+)/).map((value) => { return value.trim(); }), key = camelize(opt[0]);
+                    if (props[key] !== undefined) {
+                        this[key] = coerce(props[key], opt[1]);
                     }
                 });
             }
