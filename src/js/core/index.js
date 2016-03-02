@@ -16,6 +16,7 @@ import ScrollspyNav from './scrollspy-nav';
 import SmoothScroll from './smooth-scroll';
 import Sticky from './sticky';
 import Svg from './svg';
+import Switcher from './switcher';
 import Toggle from './toggle';
 import {requestAnimationFrame} from '../util/index';
 
@@ -68,6 +69,7 @@ export default function (UIkit, _) {
     UIkit.use(SmoothScroll);
     UIkit.use(Sticky);
     UIkit.use(Svg);
+    UIkit.use(Switcher);
     UIkit.use(Toggle);
 
 }

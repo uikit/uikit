@@ -1,0 +1,38 @@
+// Name:            Switcher
+// Description:     Defines styles for the switcher
+//
+// Component:       `uk-switcher`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Switcher
+ ========================================================================== */
+
+/*
+ * 1. Deactivate browser history navigation in IE11
+ */
+.uk-switcher {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 1 */
+    touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+}
+
+/*
+ * Items
+ */
+
+.uk-switcher > :not(.uk-active) { display: none; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-switcher-misc;
+
+.hook-switcher-misc() {}

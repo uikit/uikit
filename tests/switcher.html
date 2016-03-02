@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Switcher - UIkit tests</title>
+        <link rel="stylesheet" href="../css/uikit.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Switcher</h1>
+
+            <h2>Fully Featured</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-1">
+
+                    <ul class="uk-tab" uk-switcher="connect: #content-1, #content-2; animation: uk-animation-fade">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                    </ul>
+
+                    <ul id="content-1" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again! <a href="#" uk-switcher-item="next">Next tab</a></li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="previous">Previous tab</a></li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                    <ul id="content-2" class="uk-switcher uk-margin">
+                        <li>Hello! The first item.</li>
+                        <li>Hello again! The second item.</li>
+                        <li>Bazinga! The third item.</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Tab</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                    </ul>
+
+                    <ul id="tab-content" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <ul id="tab-bottom-content" class="uk-switcher uk-margin">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                    <ul class="uk-tab uk-tab-bottom" uk-switcher="connect: #tab-bottom-content">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li class="uk-disabled"><a href="#">Disabled</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-2">
+
+                            <ul class="uk-tab uk-tab-left" uk-switcher="connect: #tab-left-content">
+                                <li class="uk-active"><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li class="uk-disabled"><a href="#">Disabled</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-medium-1-2">
+
+                            <ul id="tab-left-content" class="uk-switcher">
+                                <li>Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                                <li>You will never see me!</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <div class="uk-grid" data-uk-grid-margin>
+                        <div class="uk-width-medium-1-2 uk-push-1-2">
+
+                            <ul class="uk-tab uk-tab-right" uk-switcher="connect: #tab-right-content">
+                                <li class="uk-active"><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li><a href="#">Tab</a></li>
+                                <li class="uk-disabled"><a href="#">Disabled</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-medium-1-2 uk-pull-1-2">
+
+                            <ul id="tab-right-content" class="uk-switcher">
+                                <li>Hello!</li>
+                                <li>Hello again!</li>
+                                <li>Bazinga!</li>
+                                <li>You will never see me!</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h2>Button</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <div uk-switcher="connect: #button-content">
+                        <a class="uk-button" href="#">Link</a>
+                        <button class="uk-button uk-active">Button</button>
+                        <button class="uk-button">Button</button>
+                        <button class="uk-button" disabled>Disabled</button>
+                    </div>
+
+                    <ul id="button-content" class="uk-switcher uk-margin">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <div class="uk-button-group" uk-switcher="connect: #button-group-content">
+                        <a class="uk-button" href="#">Link</a>
+                        <button class="uk-button">Button</button>
+                        <button class="uk-button uk-active">Button</button>
+                        <button class="uk-button" disabled>Disabled</button>
+                    </div>
+
+                    <ul id="button-group-content" class="uk-switcher uk-margin">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                        <li>You will never see me!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Subnav</h2>
+
+            <div class="uk-margin uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-1-2">
+
+                    <ul class="uk-subnav" uk-switcher="connect: #subnav-content">
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                    <ul id="subnav-content" class="uk-switcher">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-medium-1-2">
+
+                    <ul class="uk-subnav uk-subnav-pill" uk-switcher="connect: #subnav-pill-content">
+                        <li class="uk-active"><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                    <ul id="subnav-pill-content" class="uk-switcher">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Nav</h2>
+
+            <div class="uk-grid uk-margin" data-uk-grid-margin>
+                <div class="uk-width-1-4">
+
+                    <ul class="uk-nav uk-nav-side" uk-switcher="connect: #nav-content; toggle: > *:not(.uk-nav-header)">
+                        <li class="uk-active"><a href="">Item</a></li>
+                        <li><a href="">Item</a></li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="">Item</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-width-3-4">
+
+                    <ul id="nav-content" class="uk-switcher">
+                        <li>Hello!</li>
+                        <li>Hello again!</li>
+                        <li>Bazinga!</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Animation</h2>
+
+            <div class="uk-grid uk-grid-width-medium-1-4 uk-margin" data-uk-grid-margin>
+                <div>
+
+                    <h4>Fade</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-fade; animation: uk-animation-fade">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-fade" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Scale</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-scale; animation: uk-animation-scale-up">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-scale" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Slide top</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-slide-top; animation: uk-animation-slide-top">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-slide-top" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Slide right</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-slide-right; animation: uk-animation-slide-right">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-slide-right" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Slide bottom</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-slide-bottom; animation: uk-animation-slide-bottom">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-slide-bottom" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Slide left</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-slide-left; animation: uk-animation-slide-left">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-slide-left" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Slide horizontal</h4>
+
+                    <ul class="uk-tab uk-animation-slide" uk-switcher="connect: #tab-content-a-slide-horizontal; animation: uk-animation-slide-left uk-animation-slide-right">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-slide-horizontal" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Slide vertical</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-slide-vertical; animation: uk-animation-slide-top uk-animation-slide-bottom">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-slide-vertical" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+                <div>
+
+                    <h4>Custom</h4>
+
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-anim-custom; animation: uk-animation-fade uk-animation-slide-left">
+                        <li class="uk-active"><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                        <li><a href="#">Tab</a></li>
+                    </ul>
+
+                    <ul id="tab-content-a-anim-custom" class="uk-switcher uk-margin">
+                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                        <li>Hello again!</li>
+                        <li>Bazinga! <a href="#" uk-switcher-item="0">Switch to tab 1</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-container">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>connect</code></td>
+                            <td>CSS selector</td>
+                            <td>false</td>
+                            <td>Related items container.</td>
+                        </tr>
+                        <tr>
+                            <td><code>toggle</code></td>
+                            <td>CSS selector</td>
+                            <td>> *</td>
+                            <td>Toggle selector - triggers content switching on click.</td>
+                        </tr>
+                        <tr>
+                            <td><code>active</code></td>
+                            <td>integer</td>
+                            <td>0</td>
+                            <td>Active index on init.</td>
+                        </tr>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The comma separated names of animations to use. (Space separate for animation out)</td>
+                        </tr>
+                        <tr>
+                            <td><code>duration</code></td>
+                            <td>Number</td>
+                            <td>200</td>
+                            <td>The animation duration.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>
