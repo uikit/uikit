@@ -17,6 +17,8 @@
  * 1. Resizes the object to always covers its container
  * 2. Reset the responsive image CSS
  * 3. Center object
+ * Note: Percent values on the `top` property only works if this element
+ *       is absolute positioned or if the container has a height
  */
 
 .uk-cover {
@@ -36,7 +38,7 @@
 }
 
 /*
- * To center iframes use `data-uk-cover` JavaScript
+ * Works with `iframes`
  */
 
 [uk-cover] {
@@ -50,8 +52,7 @@
 /*
  * Container
  * 1. Parent container which clips resized object
- * 2. Create position context (Not needed but useful)
- * Note: A height needs to be set to the container to make it work (because of the top percent value)
+ * 2. Needed if the child is positioned absolute. See note above
  */
 
 .uk-cover-container {

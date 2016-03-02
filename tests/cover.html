@@ -22,82 +22,125 @@
 
             <h1>Cover</h1>
 
-            <h2>Image and videos</h2>
+            <h2>Fixed Height</h2>
 
-            <h3>Image Fixed Height</h3>
-            <div class="test-height uk-cover-container uk-light">
-                <img class="uk-cover" src="http://unsplash.it/600/400" alt="">
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
+            <div class="uk-grid uk-child-width-1-2" uk-grid>
+                <div>
+
+                    <h3>Image</h3>
+
+                    <div class="test-height uk-cover-container uk-light">
+                        <img class="uk-cover" src="http://unsplash.it/600/400" alt="">
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Video</h3>
+
+                    <div class="test-height uk-cover-container uk-light">
+                        <video class="uk-cover" autoplay loop muted controls>
+                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
+                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
+                        </video>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Iframe (Youtube)</h3>
+
+                    <div class="test-height uk-cover-container uk-light">
+                        <iframe src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Iframe (Vimeo)</h3>
+
+                    <div class="test-height uk-cover-container uk-light">
+                        <iframe src="http://player.vimeo.com/video/1084537?title=0&amp;byline=0&amp;autoplay=1&amp;loop=1&amp;setVolume=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen uk-cover></iframe>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <h3>Video Fixed Height</h3>
-            <div class="test-height uk-cover-container uk-light">
-                <video class="uk-cover" autoplay loop muted controls>
-                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
-                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
-                </video>
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
+            <h2>Responsive Height</h2>
+
+            <div class="uk-grid uk-child-width-1-2" uk-grid>
+                <div>
+
+                    <h3>Video</h3>
+
+                    <div class="uk-cover-container uk-light">
+                        <img class="uk-invisible" src="http://unsplash.it/600/400" alt="">
+                        <video class="uk-cover uk-position-absolute" autoplay loop muted controls>
+                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test2" type="video/mp4">
+                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test2" type="video/ogg">
+                        </video>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Iframe (Youtube)</h3>
+
+                    <div class="uk-cover-container uk-light">
+                        <img class="uk-invisible" src="http://unsplash.it/600/400" alt="">
+                        <iframe class="uk-position-absolute" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <h3>Responsive Height</h3>
-            <div class="uk-cover-container uk-light">
-                <img class="uk-invisible" src="http://unsplash.it/600/400" alt="">
-                <video class="uk-cover uk-position-absolute" autoplay loop muted controls>
-                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test2" type="video/mp4">
-                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test2" type="video/ogg">
-                </video>
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
+            <h2>Viewport Height</h2>
+
+            <div class="uk-grid uk-child-width-1-2" uk-grid>
+                <div>
+
+                    <h3>Video</h3>
+
+                    <div class="uk-cover-container uk-light" uk-height-viewport>
+                        <video class="uk-cover" autoplay loop muted controls>
+                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test3" type="video/mp4">
+                            <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test3" type="video/ogg">
+                        </video>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+                <div>
 
-            <h3>Viewport Height</h3>
-            <div class="uk-height-viewport uk-cover-container uk-light">
-                <video class="uk-cover" autoplay loop muted controls>
-                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test3" type="video/mp4">
-                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test3" type="video/ogg">
-                </video>
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
-                </div>
-            </div>
+                    <h3>Iframe (Youtube)</h3>
 
-            <h2>Iframes</h2>
+                    <div class="uk-cover-container uk-light" uk-height-viewport>
+                        <iframe src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Heading</h1>
+                        </div>
+                    </div>
 
-            <h3>Youtube Fixed Height</h3>
-            <div class="test-height uk-cover-container uk-light">
-                <iframe src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
-                </div>
-            </div>
-
-            <h3>Vimeo Fixed Height</h3>
-            <div class="test-height uk-cover-container uk-light">
-                <iframe src="http://player.vimeo.com/video/1084537?title=0&amp;byline=0&amp;autoplay=1&amp;loop=1&amp;setVolume=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen uk-cover></iframe>
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
-                </div>
-            </div>
-
-            <h3>Responsive Height</h3>
-            <div class="uk-cover-container uk-light">
-                <img class="uk-invisible" src="http://unsplash.it/600/400" alt="">
-                <iframe class="uk-position-absolute" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
-                </div>
-            </div>
-
-            <h3>Viewport Height</h3>
-            <div class="uk-height-viewport uk-cover-container uk-light">
-                <iframe src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
-                <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
-                    <h1 class="uk-heading-large">Heading</h1>
                 </div>
             </div>
 
