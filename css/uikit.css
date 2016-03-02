@@ -2672,7 +2672,7 @@ ul.uk-nav-sub {
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
  */
-.uk-breadcrumb > :nth-child(n+2):not(.uk-row-first):before {
+.uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before {
   content: "/";
   display: inline-block;
   margin: 0 20px;
