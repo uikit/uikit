@@ -43,16 +43,17 @@ export default function (UIkit) {
                 self.show($(this).attr('uk-switcher-item'));
             });
 
-            this.show(toJQuery(this.toggles.filter(`.${this.cls}`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first(), false);
+            this.show(toJQuery(this.toggles.filter(`.${this.cls}`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
 
         },
 
         methods: {
 
-            show: function (item, animate) {
+            show: function (item) {
 
                 var items = this.connect.first().children(),
                     prev = items.index(items.filter(`.${this.cls}`)),
+                    hasPrev = prev >= 0,
                     index = Math.min(this.toggles.length - 1, Math.max(0, item === 'next'
                         ? prev + 1
                         : item === 'previous'
@@ -60,25 +61,24 @@ export default function (UIkit) {
                             : typeof item === 'string'
                                 ? parseInt(item, 10)
                                 : this.toggles.index(item)
-                    ));
+                    )),
+                    toggle = this.toggles.eq(index);
 
-                this.toggles.removeClass(this.cls).eq(index).addClass(this.cls);
-
-                if (prev !== index) {
-                    this.connect.each((i, connect) => {
-
-                        var children = $(connect).children(), deactivate = children.eq(prev);
-
-                        if (this.animation) {
-                            Animation.cancel(deactivate);
-                        }
-
-                        this.toggleState(deactivate, false, animate).then(() => {
-                            this.toggleState(children.eq(index), true, animate);
-                        });
-
-                    })
+                if ((prev >= 0 && toggle.hasClass(this.cls)) || prev === index) {
+                    return;
                 }
+
+                this.toggles.removeClass(this.cls)
+                toggle.addClass(this.cls);
+
+                this.connect.each((i, connect) => {
+
+                    var children = $(connect).children();
+                    this.toggleState(hasPrev ? children.eq(prev) : undefined, hasPrev).then(() => {
+                        this.toggleState(children.eq(index), hasPrev);
+                    });
+
+                })
 
             }
 

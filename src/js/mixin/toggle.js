@@ -37,16 +37,11 @@ export default {
 
     methods: {
 
-        toggleState(el, show, animate) {
+        toggleState(el, animate) {
 
             el = $(el);
 
-            var toggled = this.isToggled(el), deferred = $.Deferred();
-
-            if (!el.length || (show === true && toggled) || (show === false && !toggled)) {
-                deferred.resolve();
-                return deferred;
-            }
+            var toggled = this.isToggled(el);
 
             if (this.animations && animate !== false) {
 
@@ -55,28 +50,22 @@ export default {
                 if (!this.isToggled(el)) {
 
                     this.doToggle(el, true);
-                    Animation.in(el, this.animations[0], this.duration).then(() => {
+                    return Animation.in(el, this.animations[0], this.duration).then(() => {
                         this.doUpdate(el);
-                        deferred.resolve();
-                    });
-
-                } else {
-
-                    Animation.out(el, this.animations[1], this.duration).then(() => {
-                        this.doToggle(el, false);
-                        this.doUpdate(el);
-                        deferred.resolve();
                     });
 
                 }
 
-            } else {
-                this.doToggle(el, !toggled);
-                this.doUpdate(el);
-                deferred.resolve();
+                return Animation.out(el, this.animations[1], this.duration).then(() => {
+                    this.doToggle(el, false);
+                    this.doUpdate(el);
+                });
+
             }
 
-            return deferred;
+            this.doToggle(el, !toggled);
+            this.doUpdate(el);
+            return $.Deferred().resolve().promise();
         },
 
         doToggle(el, toggled) {
