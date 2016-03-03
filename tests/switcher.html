@@ -12,43 +12,41 @@
 
     <body>
 
-        <div class="uk-container uk-container-center">
+        <div class="uk-container">
 
             <h1>Switcher</h1>
 
             <h2>Fully Featured</h2>
 
-            <div class="uk-margin uk-grid" data-uk-grid-margin>
-                <div class="uk-width-medium-1-1">
+            <div class="uk-margin">
 
-                    <ul class="uk-tab" uk-switcher="connect: #content-1, #content-2; animation: uk-animation-fade">
-                        <li class="uk-active"><a href="#">Tab</a></li>
-                        <li><a href="#">Tab</a></li>
-                        <li><a href="#">Tab</a></li>
-                        <li class="uk-disabled"><a href="#">Disabled</a></li>
-                    </ul>
+                <ul class="uk-tab" uk-switcher="connect: #content-1, #content-2; animation: uk-animation-fade">
+                    <li class="uk-active"><a href="#">Tab</a></li>
+                    <li><a href="#">Tab</a></li>
+                    <li><a href="#">Tab</a></li>
+                    <li class="uk-disabled"><a href="#">Disabled</a></li>
+                </ul>
 
-                    <ul id="content-1" class="uk-switcher uk-margin">
-                        <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
-                        <li>Hello again! <a href="#" uk-switcher-item="next">Next tab</a></li>
-                        <li>Bazinga! <a href="#" uk-switcher-item="previous">Previous tab</a></li>
-                        <li>You will never see me!</li>
-                    </ul>
+                <ul id="content-1" class="uk-switcher uk-margin">
+                    <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                    <li>Hello again! <a href="#" uk-switcher-item="next">Next tab</a></li>
+                    <li>Bazinga! <a href="#" uk-switcher-item="previous">Previous tab</a></li>
+                    <li>You will never see me!</li>
+                </ul>
 
-                    <ul id="content-2" class="uk-switcher uk-margin">
-                        <li>Hello! The first item.</li>
-                        <li>Hello again! The second item.</li>
-                        <li>Bazinga! The third item.</li>
-                        <li>You will never see me!</li>
-                    </ul>
+                <ul id="content-2" class="uk-switcher uk-margin">
+                    <li>Hello! The first item.</li>
+                    <li>Hello again! The second item.</li>
+                    <li>Bazinga! The third item.</li>
+                    <li>You will never see me!</li>
+                </ul>
 
-                </div>
             </div>
 
             <h2>Tab</h2>
 
-            <div class="uk-margin uk-grid" data-uk-grid-margin>
-                <div class="uk-width-medium-1-2">
+            <div class="uk-margin uk-grid">
+                <div class="uk-width-1-2">
 
                     <ul class="uk-tab" uk-switcher="connect: #tab-content">
                         <li class="uk-active"><a href="#">Tab</a></li>
@@ -65,7 +63,7 @@
                     </ul>
 
                 </div>
-                <div class="uk-width-medium-1-2">
+                <div class="uk-width-1-2">
 
                     <ul id="tab-bottom-content" class="uk-switcher uk-margin">
                         <li>Hello!</li>
@@ -84,11 +82,11 @@
                 </div>
             </div>
 
-            <div class="uk-margin uk-grid" data-uk-grid-margin>
-                <div class="uk-width-medium-1-2">
+            <div class="uk-margin uk-grid">
+                <div class="uk-width-1-2">
 
-                    <div class="uk-grid" data-uk-grid-margin>
-                        <div class="uk-width-medium-1-2">
+                    <div class="uk-grid">
+                        <div class="uk-width-1-2">
 
                             <ul class="uk-tab uk-tab-left" uk-switcher="connect: #tab-left-content">
                                 <li class="uk-active"><a href="#">Tab</a></li>
@@ -98,7 +96,7 @@
                             </ul>
 
                         </div>
-                        <div class="uk-width-medium-1-2">
+                        <div class="uk-width-1-2">
 
                             <ul id="tab-left-content" class="uk-switcher">
                                 <li>Hello!</li>
@@ -111,10 +109,10 @@
                     </div>
 
                 </div>
-                <div class="uk-width-medium-1-2">
+                <div class="uk-width-1-2">
 
-                    <div class="uk-grid" data-uk-grid-margin>
-                        <div class="uk-width-medium-1-2 uk-push-1-2">
+                    <div class="uk-grid uk-flex uk-flex-row-reverse">
+                        <div class="uk-width-1-2">
 
                             <ul class="uk-tab uk-tab-right" uk-switcher="connect: #tab-right-content">
                                 <li class="uk-active"><a href="#">Tab</a></li>
@@ -124,7 +122,7 @@
                             </ul>
 
                         </div>
-                        <div class="uk-width-medium-1-2 uk-pull-1-2">
+                        <div class="uk-width-1-2">
 
                             <ul id="tab-right-content" class="uk-switcher">
                                 <li>Hello!</li>
@@ -141,8 +139,8 @@
 
             <h2>Button</h2>
 
-            <div class="uk-margin uk-grid" data-uk-grid-margin>
-                <div class="uk-width-medium-1-2">
+            <div class="uk-margin uk-grid">
+                <div class="uk-width-1-2">
 
                     <div uk-switcher="connect: #button-content">
                         <a class="uk-button" href="#">Link</a>
@@ -159,7 +157,7 @@
                     </ul>
 
                 </div>
-                <div class="uk-width-medium-1-2">
+                <div class="uk-width-1-2">
 
                     <div class="uk-button-group" uk-switcher="connect: #button-group-content">
                         <a class="uk-button" href="#">Link</a>
@@ -180,8 +178,8 @@
 
             <h2>Subnav</h2>
 
-            <div class="uk-margin uk-grid" data-uk-grid-margin>
-                <div class="uk-width-medium-1-2">
+            <div class="uk-margin uk-grid">
+                <div class="uk-width-1-2">
 
                     <ul class="uk-subnav" uk-switcher="connect: #subnav-content">
                         <li><a href="#">Item</a></li>
@@ -196,7 +194,7 @@
                     </ul>
 
                 </div>
-                <div class="uk-width-medium-1-2">
+                <div class="uk-width-1-2">
 
                     <ul class="uk-subnav uk-subnav-pill" uk-switcher="connect: #subnav-pill-content">
                         <li class="uk-active"><a href="#">Item</a></li>
@@ -215,7 +213,7 @@
 
             <h2>Nav</h2>
 
-            <div class="uk-grid uk-margin" data-uk-grid-margin>
+            <div class="uk-grid uk-margin">
                 <div class="uk-width-1-4">
 
                     <ul class="uk-nav uk-nav-side" uk-switcher="connect: #nav-content; toggle: > *:not(.uk-nav-header)">
@@ -239,7 +237,7 @@
 
             <h2>Animation</h2>
 
-            <div class="uk-grid uk-grid-width-medium-1-4 uk-margin" data-uk-grid-margin>
+            <div class="uk-grid uk-grid-width-1-4 uk-margin">
                 <div>
 
                     <h4>Fade</h4>
