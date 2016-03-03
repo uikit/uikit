@@ -63,6 +63,19 @@ export function position(element, target, attach, targetAttach, offset, targetOf
     return flipped;
 }
 
+export function getDimensions(elem) {
+
+    elem = $(elem);
+
+    var width = elem.outerWidth(),
+        height = elem.outerHeight(),
+        offset = elem.offset(),
+        left = offset ? offset.left : elem.scrollLeft(),
+        top = offset ? offset.top : elem.scrollTop();
+
+    return {width: width, height: height, left: left, top: top, right: left + width, bottom: top + height};
+}
+
 function moveTo(position, attach, dim, factor) {
     $.each(dirs, function (dir, props) {
         if (attach[dir] === props[2]) {
@@ -101,17 +114,4 @@ function getOffsets(offsets, width, height) {
         x: offsets[0] ? parseFloat(offsets[0]) * (offsets[0][offsets[0].length - 1] === '%' ? width / 100 : 1) : 0,
         y: offsets[1] ? parseFloat(offsets[1]) * (offsets[1][offsets[1].length - 1] === '%' ? height / 100 : 1) : 0
     };
-}
-
-export function getDimensions(elem) {
-
-    elem = $(elem);
-
-    var width = elem.outerWidth(),
-        height = elem.outerHeight(),
-        offset = elem.offset(),
-        left = offset ? offset.left : elem.scrollLeft(),
-        top = offset ? offset.top : elem.scrollTop();
-
-    return {width: width, height: height, left: left, top: top, right: left + width, bottom: top + height};
 }

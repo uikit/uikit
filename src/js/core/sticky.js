@@ -65,6 +65,11 @@ export default function (UIkit) {
                 }
             }
 
+            this.$el.css({
+                'overflow-y': 'scroll',
+                '-webkit-overflow-scrolling': 'touch'
+            });
+
         },
 
         update: {
@@ -123,7 +128,7 @@ export default function (UIkit) {
 
                         Animation.cancel(this.$el);
 
-                        this.$el.css({position: '', top: '', width: '', left: '', margin: ''})
+                        this.$el.css({position: '', top: '', width: ''})
                             .removeClass(this.clsActive)
                             .addClass(this.clsInactive)
                             .trigger('inactive');

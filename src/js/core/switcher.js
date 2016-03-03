@@ -13,15 +13,16 @@ export default function (UIkit) {
         props: {
             connect: 'jQuery',
             toggle: String,
-            active: Number
+            active: Number,
+            swiping: Boolean
         },
 
         defaults: {
             connect: false,
             toggle: '> *',
             active: 0,
-            cls: 'uk-active'
-            //swiping   : true
+            cls: 'uk-active',
+            swiping: true
         },
 
         ready() {
@@ -42,6 +43,15 @@ export default function (UIkit) {
                 e.preventDefault();
                 self.show($(this).attr('uk-switcher-item'));
             });
+
+            if (this.swiping) {
+                this.connect.on('swipeRight swipeLeft', e => {
+                    e.preventDefault();
+                    if (!window.getSelection().toString()) {
+                        this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
+                    }
+                });
+            }
 
             this.show(toJQuery(this.toggles.filter(`.${this.cls}`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
 
