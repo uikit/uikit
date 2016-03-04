@@ -2,8 +2,6 @@ import $ from 'jquery';
 import {Animation, toJQuery} from '../util/index';
 import toggleMixin from '../mixin/toggle';
 
-// TODO swipe
-
 export default function (UIkit) {
 
     UIkit.component('switcher', {
