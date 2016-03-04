@@ -37,35 +37,45 @@ export default {
 
     methods: {
 
-        toggleState(el, animate) {
+        toggleState(targets, animate) {
 
-            el = $(el);
+            var deferreds = [];
 
-            var toggled = this.isToggled(el);
+            $(targets).each((i, el) => {
 
-            if (this.animations && animate !== false) {
+                el = $(el);
 
-                Animation.cancel(el);
+                var toggled = this.isToggled(el);
 
-                if (!this.isToggled(el)) {
+                if (this.animations && animate !== false) {
 
-                    this.doToggle(el, true);
-                    return Animation.in(el, this.animations[0], this.duration).then(() => {
-                        this.doUpdate(el);
-                    });
+                    Animation.cancel(el);
 
-                }
+                    if (!this.isToggled(el)) {
 
-                return Animation.out(el, this.animations[1], this.duration).then(() => {
-                    this.doToggle(el, false);
+                        this.doToggle(el, true);
+                        deferreds.push(Animation.in(el, this.animations[0], this.duration).then(() => {
+                            this.doUpdate(el);
+                        }));
+
+                    } else {
+
+                        deferreds.push(Animation.out(el, this.animations[1], this.duration).then(() => {
+                            this.doToggle(el, false);
+                            this.doUpdate(el);
+                        }));
+
+                    }
+
+                } else {
+
+                    this.doToggle(el, !toggled);
                     this.doUpdate(el);
-                });
+                    deferreds.push($.Deferred().resolve());
+                }
+            });
 
-            }
-
-            this.doToggle(el, !toggled);
-            this.doUpdate(el);
-            return $.Deferred().resolve().promise();
+            return $.when.apply(null, deferreds);
         },
 
         doToggle(el, toggled) {

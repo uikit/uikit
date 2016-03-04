@@ -22,9 +22,7 @@ export default function (UIkit) {
 
             this.$el.on('click', e => {
                 e.preventDefault();
-                this.target.each((i, el) => {
-                    this.toggleState(el);
-                });
+                this.toggleState(this.target);
             });
         }
 

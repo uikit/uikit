@@ -62,8 +62,7 @@ export default function (UIkit) {
             show: function (item) {
 
                 var length = this.toggles.length,
-                    items = this.connect.first().children(),
-                    prev = items.index(items.filter(`.${this.cls}`)),
+                    prev = this.connect.children(`.${this.cls}`).index(),
                     hasPrev = prev >= 0,
                     index = Math.max(0, item === 'next'
                         ? prev + 1
@@ -72,33 +71,28 @@ export default function (UIkit) {
                             : typeof item === 'string'
                                 ? parseInt(item, 10)
                                 : this.toggles.index(item)
-                    ) % length,
-                    toggle = this.toggles.eq(index);
+                        ) % length,
+                    toggle,
+                    dir = item === 'previous' ? -1 : 1;
 
-                if (this.toggles.length === this.toggles.filter('.uk-disabled, [disabled]').length) {
-                    return;
+                for (var i = 0, j = index; i < length; i++, j += dir, j %= length) {
+                    if (!this.toggles.eq(j).is('.uk-disabled, [disabled]')) {
+                        toggle = this.toggles.eq(j);
+                        index = j;
+                        break;
+                    }
                 }
 
-                while (toggle.is('.uk-disabled, [disabled]')) {
-                    this.show(index + 1);
-                    return;
-                }
-
-                if ((prev >= 0 && toggle.hasClass(this.cls)) || prev === index) {
+                if (!toggle || (prev >= 0 && toggle.hasClass(this.cls)) || prev === index) {
                     return;
                 }
 
                 this.toggles.removeClass(this.cls)
                 toggle.addClass(this.cls);
 
-                this.connect.each((i, connect) => {
-
-                    var children = $(connect).children();
-                    this.toggleState(hasPrev ? children.eq(prev) : undefined, hasPrev).then(() => {
-                        this.toggleState(children.eq(index), hasPrev);
-                    });
-
-                })
+                this.toggleState(hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : undefined, hasPrev).then(() => {
+                    this.toggleState(this.connect.children(`:nth-child(${index + 1})`), hasPrev);
+                });
 
             }
 
