@@ -61,18 +61,28 @@ export default function (UIkit) {
 
             show: function (item) {
 
-                var items = this.connect.first().children(),
+                var length = this.toggles.length,
+                    items = this.connect.first().children(),
                     prev = items.index(items.filter(`.${this.cls}`)),
                     hasPrev = prev >= 0,
-                    index = Math.min(this.toggles.length - 1, Math.max(0, item === 'next'
+                    index = Math.max(0, item === 'next'
                         ? prev + 1
                         : item === 'previous'
-                            ? prev - 1
+                            ? prev + length - 1
                             : typeof item === 'string'
                                 ? parseInt(item, 10)
                                 : this.toggles.index(item)
-                    )),
+                    ) % length,
                     toggle = this.toggles.eq(index);
+
+                if (this.toggles.length === this.toggles.filter('.uk-disabled, [disabled]').length) {
+                    return;
+                }
+
+                while (toggle.is('.uk-disabled, [disabled]')) {
+                    this.show(index + 1);
+                    return;
+                }
 
                 if ((prev >= 0 && toggle.hasClass(this.cls)) || prev === index) {
                     return;
