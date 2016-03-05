@@ -55,9 +55,7 @@
             };
 
             if (this.element.is('input')) {
-                if (this.element.parent('.uk-autocomplete').length === 0) {
-                    this.element.wrap('<div class="uk-autocomplete"></div>');
-                }
+                this.element.wrap('<div class="uk-autocomplete"></div>');
                 container = this.element.parent();
             } else {
                 container = this.element.addClass('uk-autocomplete');
