@@ -5806,8 +5806,12 @@ ul.uk-nav-sub {
   display: none !important;
 }
 /* ========================================================================
-   Mixin: Inverse
+   Component: Inverse
  ========================================================================== */
+/*
+ * The theme decides which class is implemented, depending on its default color
+ */
+/* Light colors for dark backgrounds */
 .uk-light,
 .uk-card-primary,
 .uk-card-secondary {
@@ -6384,6 +6388,7 @@ ul.uk-nav-sub {
   -moz-column-rule-color: rgba(255, 255, 255, 0.2);
   column-rule-color: rgba(255, 255, 255, 0.2);
 }
+/* Dark colors for light backgrounds  */
 /* ========================================================================
    Component: Print
  ========================================================================== */

@@ -82,3 +82,25 @@
 // ========================================================================
 
 .hook-base-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default-theme() {}
+
+.dye-hooks() {
+
+    .hook-dye-base-link() {}
+    .hook-dye-base-link-hover() {}
+
+    .hook-dye-base-code() {
+        border-color: fade(@dye-color, 20%);
+        background: fade(@dye-color, 10%);
+    }
+
+    .hook-dye-base-heading() {}
+
+    .hook-dye-base-hr() {}
+
+}

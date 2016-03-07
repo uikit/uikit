@@ -106,3 +106,53 @@
 .hook-breadcrumb-item-active() {}
 .hook-breadcrumb-divider() {}
 .hook-breadcrumb-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @breadcrumb-item-color:                @dye-muted-color;
+    @breadcrumb-item-hover-color:          @dye-color;
+    @breadcrumb-item-active-color:         @dye-color;
+    @breadcrumb-divider-color:             @dye-muted-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-breadcrumb > * > * {
+        color: @breadcrumb-item-color;
+        .hook-dye-breadcrumb-item;
+    }
+
+    .uk-breadcrumb > * > :hover,
+    .uk-breadcrumb > * > :focus {
+        color: @breadcrumb-item-hover-color;
+        .hook-dye-breadcrumb-item-hover;
+    }
+
+    .uk-breadcrumb > :last-child > * {
+        color: @breadcrumb-item-active-color;
+        .hook-dye-breadcrumb-item-active;
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before {
+        color: @breadcrumb-divider-color;
+        .hook-dye-breadcrumb-divider;
+    }
+
+}
+
+.hook-dye-breadcrumb-item() {}
+.hook-dye-breadcrumb-item-hover() {}
+.hook-dye-breadcrumb-item-active() {}
+.hook-dye-breadcrumb-divider() {}

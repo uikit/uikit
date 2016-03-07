@@ -189,3 +189,87 @@
 .hook-subnav-pill-item-active() {}
 .hook-subnav-item-disabled() {}
 .hook-subnav-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @subnav-item-color:                    @dye-muted-color;
+    @subnav-item-hover-color:              @dye-color;
+    @subnav-item-active-color:             @dye-color;
+    @subnav-line-divider-border:           @dye-border;
+    @subnav-pill-item-hover-background:    @dye-muted-background;
+    @subnav-pill-item-hover-color:         @dye-contrast-color;
+    @subnav-pill-item-active-background:   @dye-primary-background;
+    @subnav-pill-item-active-color:        @dye-contrast-color;
+    @subnav-item-disabled-color:           @dye-muted-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-subnav > * > a {
+        color: @subnav-item-color;
+        .hook-dye-subnav-item;
+    }
+
+    .uk-subnav > * > a:hover,
+    .uk-subnav > * > a:focus {
+        color: @subnav-item-hover-color;
+        .hook-dye-subnav-item-hover;
+    }
+
+    .uk-subnav > .uk-active > a {
+        color: @subnav-item-active-color;
+        .hook-dye-subnav-item-active;
+    }
+
+    //
+    // Line
+    //
+
+    .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
+        border-left-color: @subnav-line-divider-border;
+        .hook-dye-subnav-line-divider;
+    }
+
+    //
+    // Pill
+    //
+
+    .uk-subnav-pill > * > a:hover,
+    .uk-subnav-pill > * > a:focus {
+        background: @subnav-pill-item-hover-background;
+        color: @subnav-pill-item-hover-color;
+        .hook-dye-subnav-pill-item-hover;
+    }
+
+    .uk-subnav-pill > .uk-active > a {
+        background: @subnav-pill-item-active-background;
+        color: @subnav-pill-item-active-color;
+        .hook-dye-subnav-pill-item-active;
+    }
+
+    //
+    // Disabled
+    //
+
+    .uk-subnav > .uk-disabled > a {
+        color: @subnav-item-disabled-color;
+        .hook-dye-subnav-item-disabled;
+    }
+
+}
+
+.hook-dye-subnav-item() {}
+.hook-dye-subnav-item-hover() {}
+.hook-dye-subnav-item-active() {}
+.hook-dye-subnav-line-divider() {}
+.hook-dye-subnav-pill-item-hover() {}
+.hook-dye-subnav-pill-item-active() {}
+.hook-dye-subnav-item-disabled() {}

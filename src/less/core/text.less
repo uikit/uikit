@@ -163,3 +163,39 @@
 .hook-text-small() {}
 .hook-text-large() {}
 .hook-text-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @text-lead-color:                      @dye-color;
+    @text-meta-color:                      @dye-muted-color;
+    @text-muted-color:                     @dye-muted-color;
+    @text-primary-color:                   @dye-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-text-lead {
+        color: @text-lead-color;
+        .hook-dye-text-lead;
+    }
+
+    .uk-text-meta {
+        color: @text-meta-color;
+        .hook-dye-text-meta;
+    }
+
+    .uk-text-muted { color: @text-muted-color !important; }
+    .uk-text-primary { color: @text-primary-color !important; }
+
+}
+
+.hook-dye-text-lead() {}
+.hook-dye-text-meta() {}

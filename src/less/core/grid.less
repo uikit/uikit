@@ -343,3 +343,23 @@
 .hook-grid-misc;
 
 .hook-grid-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @grid-divider-border:                  @dye-border;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-grid-divider > :not(.uk-grid-first)::before { border-left-color: @grid-divider-border; }
+    .uk-grid-divider > .uk-grid-first + .uk-grid-first::before { border-top-color: @grid-divider-border; }
+
+}

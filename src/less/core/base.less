@@ -555,3 +555,97 @@ textarea { touch-action: manipulation; }
 .hook-base-blockquote() {}
 .hook-base-pre() {}
 .hook-base-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @base-color:                           @dye-color;
+    @base-link-color:                      @dye-muted-color;
+    @base-link-text-decoration:            none;
+    @base-link-hover-color:                @dye-color;
+    @base-link-hover-text-decoration:      underline;
+    @base-code-color:                      @dye-color;
+    @base-em-color:                        @dye-color;
+    @base-heading-color:                   @dye-color;
+    @base-hr-border:                       @dye-border;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    color: @base-color;
+
+    // Base
+    // ========================================================================
+
+    //
+    // Link
+    //
+
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
+    .uk-link  {
+        color: @base-link-color;
+        text-decoration: @base-link-text-decoration;
+        .hook-dye-base-link;
+    }
+
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
+    .uk-link:hover {
+        color: @base-link-hover-color;
+        text-decoration: @base-link-hover-text-decoration;
+        .hook-dye-base-link-hover;
+    }
+
+    //
+    // Code
+    //
+
+    :not(pre) > code,
+    :not(pre) > kbd,
+    :not(pre) > samp {
+        color: @base-code-color;
+        .hook-dye-base-code;
+    }
+
+    //
+    // Emphasize
+    //
+
+    em { color: @base-em-color; }
+
+    //
+    // Headings
+    //
+
+    h1, .uk-h1,
+    h2, .uk-h2,
+    h3, .uk-h3,
+    h4, .uk-h4,
+    h5, .uk-h5,
+    h6, .uk-h6 {
+        color: @base-heading-color;
+        .hook-dye-base-heading;
+    }
+
+    //
+    // Horizontal rules
+    //
+
+    hr {
+        border-top-color: @base-hr-border;
+        .hook-dye-base-hr;
+    }
+
+}
+
+.hook-dye-base-link() {}
+.hook-dye-base-link-hover() {}
+.hook-dye-base-code() {}
+.hook-dye-base-heading() {}
+.hook-dye-base-hr() {}

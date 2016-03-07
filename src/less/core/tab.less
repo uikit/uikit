@@ -92,7 +92,7 @@
 
 /* Hover + Focus */
 .uk-tab > * > a:hover,
-.uk-tab > * > a:focus{
+.uk-tab > * > a:focus {
     color: @tab-item-hover-color;
     text-decoration: @tab-item-hover-text-decoration;
     .hook-tab-item-hover;
@@ -159,3 +159,49 @@
 .hook-tab-left-item() {}
 .hook-tab-right-item() {}
 .hook-tab-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @tab-item-color:                       @dye-muted-color;
+    @tab-item-hover-color:                 @dye-color;
+    @tab-item-active-color:                @dye-color;
+    @tab-item-disabled-color:              @dye-muted-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-tab > * > a {
+        color: @tab-item-color;
+        .hook-dye-tab-item;
+    }
+
+    .uk-tab > * > a:hover,
+    .uk-tab > * > a:focus{
+        color: @tab-item-hover-color;
+        .hook-dye-tab-item-hover;
+    }
+
+    .uk-tab > .uk-active > a {
+        color: @tab-item-active-color;
+        .hook-dye-tab-item-active;
+    }
+
+    .uk-tab > .uk-disabled > a {
+        color: @tab-item-disabled-color;
+        .hook-dye-tab-item-disabled;
+    }
+
+}
+
+.hook-dye-tab-item() {}
+.hook-dye-tab-item-hover() {}
+.hook-dye-tab-item-active() {}
+.hook-dye-tab-item-disabled() {}

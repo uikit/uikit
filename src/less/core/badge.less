@@ -74,3 +74,36 @@
 .hook-badge() {}
 .hook-badge-hover() {}
 .hook-badge-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @badge-background:                     @dye-primary-background;
+    @badge-color:                          @dye-contrast-color;
+    @badge-hover-color:                    @dye-contrast-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-badge {
+        background: @badge-background;
+        color: @badge-color;
+        .hook-dye-badge;
+    }
+
+    .uk-badge:hover {
+        color: @badge-hover-color;
+        .hook-dye-badge-hover;
+    }
+
+}
+
+.hook-dye-badge() {}
+.hook-dye-badge-hover() {}

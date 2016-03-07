@@ -267,3 +267,26 @@
 .hook-column-misc;
 
 .hook-column-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @column-rule-color:                    @dye-border;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-column-divider {
+        -webkit-column-rule-color: @column-rule-color;
+        -moz-column-rule-color: @column-rule-color;
+        column-rule-color: @column-rule-color;
+    }
+
+}

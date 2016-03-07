@@ -223,3 +223,92 @@ ul.uk-nav-sub {
 .hook-nav-default-header() {}
 .hook-nav-default-divider() {}
 .hook-nav-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @nav-parent-icon-color:                @dye-color;
+    @nav-default-item-color:               @dye-muted-color;
+    @nav-default-item-hover-color:         @dye-color;
+    @nav-default-item-active-color:        @dye-color;
+    @nav-default-header-color:             @dye-color;
+    @nav-default-divider-border:           @dye-border;
+    @nav-default-sublist-item-color:       @dye-muted-color;
+    @nav-default-sublist-item-hover-color: @dye-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    //
+    // Parent icon modifier
+    //
+
+    .uk-nav-parent-icon > .uk-parent > a::after {
+        .svg-fill("../images/nav-parent-close.svg", "#000", @nav-parent-icon-color);
+        .hook-dye-nav-parent-icon;
+    }
+
+    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill("../images/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
+
+    //
+    // Items
+    //
+
+    .uk-nav-default > li > a {
+        color: @nav-default-item-color;
+        .hook-dye-nav-default-item;
+    }
+
+    .uk-nav-default > li > a:hover,
+    .uk-nav-default > li > a:focus {
+        color: @nav-default-item-hover-color;
+        .hook-dye-nav-default-item-hover;
+    }
+
+    .uk-nav-default > li.uk-active > a {
+        color: @nav-default-item-active-color;
+        .hook-dye-nav-default-item-active;
+    }
+
+    //
+    // Header
+    //
+
+    .uk-nav-default .uk-nav-header {
+        color: @nav-default-header-color;
+        .hook-dye-nav-default-header;
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-nav-default .uk-nav-divider {
+        border-top-color: @nav-default-divider-border;
+        .hook-dye-nav-default-divider;
+    }
+
+    //
+    // Sublists
+    //
+
+    .uk-nav-default .uk-nav-sub a { color: @nav-default-sublist-item-color; }
+
+    .uk-nav-default .uk-nav-sub a:hover,
+    .uk-nav-default .uk-nav-sub a:focus { color: @nav-default-sublist-item-hover-color; }
+
+}
+
+.hook-dye-nav-parent-icon() {}
+.hook-dye-nav-default-item() {}
+.hook-dye-nav-default-item-hover() {}
+.hook-dye-nav-default-item-active() {}
+.hook-dye-nav-default-header() {}
+.hook-dye-nav-default-divider() {}

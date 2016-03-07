@@ -531,3 +531,68 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .hook-form-stacked-label() {}
 .hook-form-horizontal-label() {}
 .hook-form-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @form-border:                          fade(@dye-color, 80%);
+    @form-background:                      fade(@dye-color, 80%);
+    @form-color:                           @dye-contrast-color;
+    @form-focus-border:                    @dye-color;
+    @form-focus-background:                @dye-color;
+    @form-focus-color:                     @dye-contrast-color;
+    @form-placeholder-color:               fade(@dye-contrast-color, 70%);
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-form select,
+    .uk-form textarea,
+    .uk-form input:not([type]),
+    .uk-form input[type="text"],
+    .uk-form input[type="password"],
+    .uk-form input[type="datetime"],
+    .uk-form input[type="datetime-local"],
+    .uk-form input[type="date"],
+    .uk-form input[type="month"],
+    .uk-form input[type="time"],
+    .uk-form input[type="week"],
+    .uk-form input[type="number"],
+    .uk-form input[type="email"],
+    .uk-form input[type="url"],
+    .uk-form input[type="search"],
+    .uk-form input[type="tel"],
+    .uk-form input[type="color"] {
+        border-color: @form-border;
+        background: @form-background;
+        color: @form-color;
+        background-clip: padding-box;
+        .hook-dye-form;
+
+        &:focus {
+            border-color: @form-focus-border;
+            background: @form-focus-background;
+            color: @form-focus-color;
+            .hook-dye-form-focus;
+        }
+    }
+
+    //
+    // Placeholder
+    //
+
+    .uk-form :-ms-input-placeholder { color: @form-placeholder-color !important; }
+    .uk-form ::-moz-placeholder { color: @form-placeholder-color; }
+    .uk-form ::-webkit-input-placeholder { color: @form-placeholder-color; }
+
+}
+
+.hook-dye-form() {}
+.hook-dye-form-focus() {}

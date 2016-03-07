@@ -94,3 +94,36 @@
 .hook-label-warning() {}
 .hook-label-danger() {}
 .hook-label-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @label-background:                     @dye-primary-background;
+    @label-color:                          @dye-contrast-color;
+    @label-hover-color:                    @dye-contrast-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-label {
+        background: @label-background;
+        color: @label-color;
+        .hook-dye-label;
+    }
+
+    .uk-label:hover {
+        color: @label-hover-color;
+        .hook-dye-label-hover;
+    }
+
+}
+
+.hook-dye-label() {}
+.hook-dye-label-hover() {}

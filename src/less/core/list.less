@@ -166,3 +166,34 @@
 .hook-list-striped() {}
 .hook-list-bullet() {}
 .hook-list-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @list-line-border:                     @dye-border;
+    @list-bullet-icon-color:               @dye-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-list-line > li:nth-child(n+2) {
+        border-top-color: @list-line-border;
+        .hook-dye-list-line;
+    }
+
+    .uk-list-bullet > li::before {
+        .svg-fill("../images/list-bullet.svg", "#000", @list-bullet-icon-color);
+        .hook-dye-list-bullet;
+    }
+
+}
+
+.hook-dye-list-line() {}
+.hook-dye-list-bullet() {}

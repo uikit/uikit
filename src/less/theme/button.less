@@ -126,3 +126,25 @@
     }
 
 }
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default-theme() {}
+
+.dye-hooks() {
+
+    .hook-dye-button-default() { border-color: fade(@dye-color, 60%); }
+    .hook-dye-button-default-hover() { border-color: @dye-color; }
+    .hook-dye-button-default-active() { border-color: @dye-color; }
+
+    .hook-dye-button-primary() {}
+    .hook-dye-button-primary-hover() {}
+    .hook-dye-button-primary-active() {}
+
+    .hook-dye-button-text() {}
+    .hook-dye-button-text-hover() {}
+    .hook-dye-button-text-disabled() {}
+
+}

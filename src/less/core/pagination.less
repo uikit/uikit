@@ -106,3 +106,49 @@
 .hook-pagination-item-active() {}
 .hook-pagination-item-disabled() {}
 .hook-pagination-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @pagination-item-color:                @dye-muted-color;
+    @pagination-item-hover-color:          @dye-color;
+    @pagination-item-active-color:         @dye-color;
+    @pagination-item-disabled-color:       @dye-muted-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-pagination > * > * {
+        color: @pagination-item-color;
+        .hook-dye-pagination-item;
+    }
+
+    .uk-pagination > * > :hover,
+    .uk-pagination > * > :focus {
+        color: @pagination-item-hover-color;
+        .hook-dye-pagination-item-hover;
+    }
+
+    .uk-pagination > .uk-active > * {
+        color: @pagination-item-active-color;
+        .hook-dye-pagination-item-active;
+    }
+
+    .uk-pagination > .uk-disabled > * {
+        color: @pagination-item-disabled-color;
+        .hook-dye-pagination-item-disabled;
+    }
+
+}
+
+.hook-dye-pagination-item() {}
+.hook-dye-pagination-item-hover() {}
+.hook-dye-pagination-item-active() {}
+.hook-dye-pagination-item-disabled() {}

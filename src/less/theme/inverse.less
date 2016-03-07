@@ -4,177 +4,54 @@
 // ========================================================================
 
 
-// Variables
+// Component
 // ========================================================================
 
-@inverse-button-default-background:            transparent;
-@inverse-button-default-color:                 fade(@inverse-color, 60%);
-@inverse-button-default-hover-background:      transparent;
-@inverse-button-default-hover-color:           @inverse-color;
-@inverse-button-default-active-background:     transparent;
-@inverse-button-default-active-color:          @inverse-color;
-
-@inverse-nav-default-item-active-color:        @inverse-contrast-color;
-
-
-// Base
-// ========================================================================
-
-.hook-inverse-base-link() {}
-.hook-inverse-base-link-hover() {}
-
-.hook-inverse-base-code() {
-    border-color: fade(@inverse-color, 20%);
-    background: fade(@inverse-color, 10%);
-}
-
-.hook-inverse-base-heading() {}
-
-.hook-inverse-base-hr() {}
-
-
-// List
-// ========================================================================
-
-.hook-inverse-list-line() {}
-
-.hook-inverse-list-bullet() {}
-
-
-// Form
-// ========================================================================
-
-.hook-inverse-form() {}
-.hook-inverse-form-focus() {}
-
-
-// Button
-// ========================================================================
-
-.hook-inverse-button-default() { border-color: fade(@inverse-color, 60%); }
-.hook-inverse-button-default-hover() { border-color: @inverse-color; }
-.hook-inverse-button-default-active() { border-color: @inverse-color; }
-
-.hook-inverse-button-primary() {}
-.hook-inverse-button-primary-hover() {}
-.hook-inverse-button-primary-active() {}
-
-.hook-inverse-button-text() {}
-.hook-inverse-button-text-hover() {}
-.hook-inverse-button-text-disabled() {}
-
-
-// Nav
-// ========================================================================
-
-.hook-inverse-nav-parent-icon() {}
-
-.hook-inverse-nav-default-item() {}
-.hook-inverse-nav-default-item-hover() { background: transparent; }
-.hook-inverse-nav-default-item-active() { background: @inverse-primary-background; }
-
-.hook-inverse-nav-default-header() {}
-
-.hook-inverse-nav-default-divider() {}
-
-
-// Navbar
-// ========================================================================
-
-.hook-inverse-navbar-nav-item() {}
-.hook-inverse-navbar-nav-item-hover() {}
-.hook-inverse-navbar-nav-item-onclick() {}
-.hook-inverse-navbar-nav-item-active() {}
-
-.hook-inverse-navbar-item() {}
-
-
-// Subnav
-// ========================================================================
-
-.hook-inverse-subnav-item() {}
-.hook-inverse-subnav-item-hover() {}
-.hook-inverse-subnav-item-active() {}
-
-.hook-inverse-subnav-line-divider() {}
-
-.hook-inverse-subnav-pill-item-hover() {}
-.hook-inverse-subnav-pill-item-active() {}
-
-.hook-inverse-subnav-item-disabled() {}
-
-
-// Breadcrumb
-// ========================================================================
-
-.hook-inverse-breadcrumb-item() {}
-.hook-inverse-breadcrumb-item-hover() {}
-.hook-inverse-breadcrumb-item-active() {}
-
-.hook-inverse-breadcrumb-divider() {}
-
-
-// Pagination
-// ========================================================================
-
-.hook-inverse-pagination-item() {}
-.hook-inverse-pagination-item-hover() {}
-.hook-inverse-pagination-item-active() {}
-.hook-inverse-pagination-item-disabled() {}
-
-
-// Tab
-// ========================================================================
-
-.hook-inverse-tab-item() {}
-.hook-inverse-tab-item-hover() {}
-.hook-inverse-tab-item-active() { border-color: @inverse-primary-background; }
-.hook-inverse-tab-item-disabled() {}
-
-
-// Badge
-// ========================================================================
-
-.hook-inverse-badge() {}
-.hook-inverse-badge-hover() {}
-
-
-// Icon
-// ========================================================================
-
-.hook-inverse-icon-hover() {}
-.hook-inverse-icon-hover-hover() {}
-
-.hook-inverse-icon-button() {}
-.hook-inverse-icon-button-hover() {}
-.hook-inverse-icon-button-active() {}
-
-
-// Label
-// ========================================================================
-
-.hook-inverse-label() {}
-.hook-inverse-label-hover() {}
-
-
-// Text
-// ========================================================================
-
-.hook-inverse-text-lead() {}
-.hook-inverse-text-meta() {}
-
-
-// Miscellaneous
-// ========================================================================
-
-.hook-inverse-misc() {}
-
-
-// Implementation
-// ========================================================================
 
 // Light colors for dark backgrounds
-.hook-light() { .inverse; }
+.hook-light() {
+
+    //
+    // Notes:
+    // The `dye-hooks` mixin is needed to initialize the theme hook mixins in the `dye` mixin scope.
+    // New theme variables can be defined in the `dye-vars-default-theme` mixin.
+    //
+
+    .dye();
+
+    .dye-vars() {
+
+        // Gobal variables must be defined in this scope otherwise they could not be overridden
+        @dye-color:                                    @global-light-color;
+        @dye-contrast-color:                           @global-color;
+        @dye-muted-color:                              fade(@dye-color, 70%);
+
+        @dye-primary-background:                       @dye-color;
+        @dye-muted-background:                         fade(@dye-color, 80%);
+
+        @dye-border:                                   fade(@dye-color, 20%);
+
+        // Override component variables
+        @button-default-background:            transparent;
+        @button-default-color:                 fade(@dye-color, 60%);
+        @button-default-hover-background:      transparent;
+        @button-default-hover-color:           @dye-color;
+        @button-default-active-background:     transparent;
+        @button-default-active-color:          @dye-color;
+
+        @nav-default-item-active-color:        @dye-contrast-color;
+
+        //
+        // Call default variables (Core and Theme)
+        // Note: Only not defined variables will get into this scope which makes overriding work
+        //
+
+        .dye-vars-default();
+        .dye-vars-default-theme();
+
+    }
+
+}
 
 // Dark colors for light backgrounds
 .hook-dark() {}

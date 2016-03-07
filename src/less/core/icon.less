@@ -146,3 +146,70 @@
 .hook-icon-button-hover() {}
 .hook-icon-button-active() {}
 .hook-icon-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @icon-hover-color:                     @dye-muted-color;
+    @icon-hover-hover-color:               @dye-color;
+    @icon-button-background:               @dye-primary-background;
+    @icon-button-color:                    @dye-contrast-color;
+    @icon-button-hover-background:         @dye-muted-background;
+    @icon-button-hover-color:              @dye-contrast-color;
+    @icon-button-active-background:        fade(@dye-muted-background, 70%);
+    @icon-button-active-color:             @dye-contrast-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    //
+    // Hover
+    //
+
+    .uk-icon-hover {
+        color: @icon-hover-color;
+        .hook-dye-icon-hover;
+    }
+
+    .uk-icon-hover:hover {
+        color: @icon-hover-hover-color;
+        .hook-dye-icon-hover-hover;
+    }
+
+    //
+    // Button
+    //
+
+    .uk-icon-button {
+        background: @icon-button-background;
+        color: @icon-button-color;
+        .hook-dye-icon-button;
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: @icon-button-hover-background;
+        color: @icon-button-hover-color;
+        .hook-dye-icon-button-hover;
+    }
+
+    .uk-icon-button:active {
+        background-color: @icon-button-active-background;
+        color: @icon-button-active-color;
+        .hook-dye-icon-button-active;
+    }
+
+}
+
+.hook-dye-icon-hover() {}
+.hook-dye-icon-hover-hover() {}
+.hook-dye-icon-button() {}
+.hook-dye-icon-button-hover() {}
+.hook-dye-icon-button-active() {}
