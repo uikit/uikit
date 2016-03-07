@@ -5813,12 +5813,18 @@ ul.uk-nav-sub {
  */
 /* Light colors for dark backgrounds */
 .uk-light,
+.uk-section-primary,
+.uk-section-secondary,
 .uk-card-primary,
 .uk-card-secondary {
   color: #fff;
 }
 .uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
 .uk-light .uk-link,
+.uk-section-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
+.uk-section-primary .uk-link,
+.uk-section-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
+.uk-section-secondary .uk-link,
 .uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
 .uk-card-primary .uk-link,
 .uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
@@ -5828,6 +5834,10 @@ ul.uk-nav-sub {
 }
 .uk-light :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
 .uk-light .uk-link:hover,
+.uk-section-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
+.uk-section-primary .uk-link:hover,
+.uk-section-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
+.uk-section-secondary .uk-link:hover,
 .uk-card-primary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
 .uk-card-primary .uk-link:hover,
 .uk-card-secondary :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
@@ -5838,6 +5848,12 @@ ul.uk-nav-sub {
 .uk-light :not(pre) > code,
 .uk-light :not(pre) > kbd,
 .uk-light :not(pre) > samp,
+.uk-section-primary :not(pre) > code,
+.uk-section-primary :not(pre) > kbd,
+.uk-section-primary :not(pre) > samp,
+.uk-section-secondary :not(pre) > code,
+.uk-section-secondary :not(pre) > kbd,
+.uk-section-secondary :not(pre) > samp,
 .uk-card-primary :not(pre) > code,
 .uk-card-primary :not(pre) > kbd,
 .uk-card-primary :not(pre) > samp,
@@ -5849,6 +5865,8 @@ ul.uk-nav-sub {
   background: rgba(255, 255, 255, 0.1);
 }
 .uk-light em,
+.uk-section-primary em,
+.uk-section-secondary em,
 .uk-card-primary em,
 .uk-card-secondary em {
   color: #fff;
@@ -5865,6 +5883,30 @@ ul.uk-nav-sub {
 .uk-light .uk-h5,
 .uk-light h6,
 .uk-light .uk-h6,
+.uk-section-primary h1,
+.uk-section-primary .uk-h1,
+.uk-section-primary h2,
+.uk-section-primary .uk-h2,
+.uk-section-primary h3,
+.uk-section-primary .uk-h3,
+.uk-section-primary h4,
+.uk-section-primary .uk-h4,
+.uk-section-primary h5,
+.uk-section-primary .uk-h5,
+.uk-section-primary h6,
+.uk-section-primary .uk-h6,
+.uk-section-secondary h1,
+.uk-section-secondary .uk-h1,
+.uk-section-secondary h2,
+.uk-section-secondary .uk-h2,
+.uk-section-secondary h3,
+.uk-section-secondary .uk-h3,
+.uk-section-secondary h4,
+.uk-section-secondary .uk-h4,
+.uk-section-secondary h5,
+.uk-section-secondary .uk-h5,
+.uk-section-secondary h6,
+.uk-section-secondary .uk-h6,
 .uk-card-primary h1,
 .uk-card-primary .uk-h1,
 .uk-card-primary h2,
@@ -5892,16 +5934,22 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light hr,
+.uk-section-primary hr,
+.uk-section-secondary hr,
 .uk-card-primary hr,
 .uk-card-secondary hr {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-list-line > li:nth-child(n+2),
+.uk-section-primary .uk-list-line > li:nth-child(n+2),
+.uk-section-secondary .uk-list-line > li:nth-child(n+2),
 .uk-card-primary .uk-list-line > li:nth-child(n+2),
 .uk-card-secondary .uk-list-line > li:nth-child(n+2) {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-list-bullet > li::before,
+.uk-section-primary .uk-list-bullet > li::before,
+.uk-section-secondary .uk-list-bullet > li::before,
 .uk-card-primary .uk-list-bullet > li::before,
 .uk-card-secondary .uk-list-bullet > li::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23fff%22%20x%3D%229%22%20y%3D%229%22%20width%3D%226%22%20height%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
@@ -5923,6 +5971,40 @@ ul.uk-nav-sub {
 .uk-light .uk-form input[type="search"],
 .uk-light .uk-form input[type="tel"],
 .uk-light .uk-form input[type="color"],
+.uk-section-primary .uk-form select,
+.uk-section-primary .uk-form textarea,
+.uk-section-primary .uk-form input:not([type]),
+.uk-section-primary .uk-form input[type="text"],
+.uk-section-primary .uk-form input[type="password"],
+.uk-section-primary .uk-form input[type="datetime"],
+.uk-section-primary .uk-form input[type="datetime-local"],
+.uk-section-primary .uk-form input[type="date"],
+.uk-section-primary .uk-form input[type="month"],
+.uk-section-primary .uk-form input[type="time"],
+.uk-section-primary .uk-form input[type="week"],
+.uk-section-primary .uk-form input[type="number"],
+.uk-section-primary .uk-form input[type="email"],
+.uk-section-primary .uk-form input[type="url"],
+.uk-section-primary .uk-form input[type="search"],
+.uk-section-primary .uk-form input[type="tel"],
+.uk-section-primary .uk-form input[type="color"],
+.uk-section-secondary .uk-form select,
+.uk-section-secondary .uk-form textarea,
+.uk-section-secondary .uk-form input:not([type]),
+.uk-section-secondary .uk-form input[type="text"],
+.uk-section-secondary .uk-form input[type="password"],
+.uk-section-secondary .uk-form input[type="datetime"],
+.uk-section-secondary .uk-form input[type="datetime-local"],
+.uk-section-secondary .uk-form input[type="date"],
+.uk-section-secondary .uk-form input[type="month"],
+.uk-section-secondary .uk-form input[type="time"],
+.uk-section-secondary .uk-form input[type="week"],
+.uk-section-secondary .uk-form input[type="number"],
+.uk-section-secondary .uk-form input[type="email"],
+.uk-section-secondary .uk-form input[type="url"],
+.uk-section-secondary .uk-form input[type="search"],
+.uk-section-secondary .uk-form input[type="tel"],
+.uk-section-secondary .uk-form input[type="color"],
 .uk-card-primary .uk-form select,
 .uk-card-primary .uk-form textarea,
 .uk-card-primary .uk-form input:not([type]),
@@ -5979,6 +6061,40 @@ ul.uk-nav-sub {
 .uk-light .uk-form input[type="search"]:focus,
 .uk-light .uk-form input[type="tel"]:focus,
 .uk-light .uk-form input[type="color"]:focus,
+.uk-section-primary .uk-form select:focus,
+.uk-section-primary .uk-form textarea:focus,
+.uk-section-primary .uk-form input:not([type]):focus,
+.uk-section-primary .uk-form input[type="text"]:focus,
+.uk-section-primary .uk-form input[type="password"]:focus,
+.uk-section-primary .uk-form input[type="datetime"]:focus,
+.uk-section-primary .uk-form input[type="datetime-local"]:focus,
+.uk-section-primary .uk-form input[type="date"]:focus,
+.uk-section-primary .uk-form input[type="month"]:focus,
+.uk-section-primary .uk-form input[type="time"]:focus,
+.uk-section-primary .uk-form input[type="week"]:focus,
+.uk-section-primary .uk-form input[type="number"]:focus,
+.uk-section-primary .uk-form input[type="email"]:focus,
+.uk-section-primary .uk-form input[type="url"]:focus,
+.uk-section-primary .uk-form input[type="search"]:focus,
+.uk-section-primary .uk-form input[type="tel"]:focus,
+.uk-section-primary .uk-form input[type="color"]:focus,
+.uk-section-secondary .uk-form select:focus,
+.uk-section-secondary .uk-form textarea:focus,
+.uk-section-secondary .uk-form input:not([type]):focus,
+.uk-section-secondary .uk-form input[type="text"]:focus,
+.uk-section-secondary .uk-form input[type="password"]:focus,
+.uk-section-secondary .uk-form input[type="datetime"]:focus,
+.uk-section-secondary .uk-form input[type="datetime-local"]:focus,
+.uk-section-secondary .uk-form input[type="date"]:focus,
+.uk-section-secondary .uk-form input[type="month"]:focus,
+.uk-section-secondary .uk-form input[type="time"]:focus,
+.uk-section-secondary .uk-form input[type="week"]:focus,
+.uk-section-secondary .uk-form input[type="number"]:focus,
+.uk-section-secondary .uk-form input[type="email"]:focus,
+.uk-section-secondary .uk-form input[type="url"]:focus,
+.uk-section-secondary .uk-form input[type="search"]:focus,
+.uk-section-secondary .uk-form input[type="tel"]:focus,
+.uk-section-secondary .uk-form input[type="color"]:focus,
 .uk-card-primary .uk-form select:focus,
 .uk-card-primary .uk-form textarea:focus,
 .uk-card-primary .uk-form input:not([type]):focus,
@@ -6018,21 +6134,29 @@ ul.uk-nav-sub {
   color: #444;
 }
 .uk-light .uk-form :-ms-input-placeholder,
+.uk-section-primary .uk-form :-ms-input-placeholder,
+.uk-section-secondary .uk-form :-ms-input-placeholder,
 .uk-card-primary .uk-form :-ms-input-placeholder,
 .uk-card-secondary .uk-form :-ms-input-placeholder {
   color: rgba(68, 68, 68, 0.7) !important;
 }
 .uk-light .uk-form ::-moz-placeholder,
+.uk-section-primary .uk-form ::-moz-placeholder,
+.uk-section-secondary .uk-form ::-moz-placeholder,
 .uk-card-primary .uk-form ::-moz-placeholder,
 .uk-card-secondary .uk-form ::-moz-placeholder {
   color: rgba(68, 68, 68, 0.7);
 }
 .uk-light .uk-form ::-webkit-input-placeholder,
+.uk-section-primary .uk-form ::-webkit-input-placeholder,
+.uk-section-secondary .uk-form ::-webkit-input-placeholder,
 .uk-card-primary .uk-form ::-webkit-input-placeholder,
 .uk-card-secondary .uk-form ::-webkit-input-placeholder {
   color: rgba(68, 68, 68, 0.7);
 }
 .uk-light .uk-button-default,
+.uk-section-primary .uk-button-default,
+.uk-section-secondary .uk-button-default,
 .uk-card-primary .uk-button-default,
 .uk-card-secondary .uk-button-default {
   color: rgba(255, 255, 255, 0.6);
@@ -6041,6 +6165,10 @@ ul.uk-nav-sub {
 }
 .uk-light .uk-button-default:hover,
 .uk-light .uk-button-default:focus,
+.uk-section-primary .uk-button-default:hover,
+.uk-section-primary .uk-button-default:focus,
+.uk-section-secondary .uk-button-default:hover,
+.uk-section-secondary .uk-button-default:focus,
 .uk-card-primary .uk-button-default:hover,
 .uk-card-primary .uk-button-default:focus,
 .uk-card-secondary .uk-button-default:hover,
@@ -6051,6 +6179,10 @@ ul.uk-nav-sub {
 }
 .uk-light .uk-button-default:active,
 .uk-light .uk-button-default.uk-active,
+.uk-section-primary .uk-button-default:active,
+.uk-section-primary .uk-button-default.uk-active,
+.uk-section-secondary .uk-button-default:active,
+.uk-section-secondary .uk-button-default.uk-active,
 .uk-card-primary .uk-button-default:active,
 .uk-card-primary .uk-button-default.uk-active,
 .uk-card-secondary .uk-button-default:active,
@@ -6060,6 +6192,8 @@ ul.uk-nav-sub {
   border-color: #fff;
 }
 .uk-light .uk-button-primary,
+.uk-section-primary .uk-button-primary,
+.uk-section-secondary .uk-button-primary,
 .uk-card-primary .uk-button-primary,
 .uk-card-secondary .uk-button-primary {
   background-color: #fff;
@@ -6067,6 +6201,10 @@ ul.uk-nav-sub {
 }
 .uk-light .uk-button-primary:hover,
 .uk-light .uk-button-primary:focus,
+.uk-section-primary .uk-button-primary:hover,
+.uk-section-primary .uk-button-primary:focus,
+.uk-section-secondary .uk-button-primary:hover,
+.uk-section-secondary .uk-button-primary:focus,
 .uk-card-primary .uk-button-primary:hover,
 .uk-card-primary .uk-button-primary:focus,
 .uk-card-secondary .uk-button-primary:hover,
@@ -6076,6 +6214,10 @@ ul.uk-nav-sub {
 }
 .uk-light .uk-button-primary:active,
 .uk-light .uk-button-primary.uk-active,
+.uk-section-primary .uk-button-primary:active,
+.uk-section-primary .uk-button-primary.uk-active,
+.uk-section-secondary .uk-button-primary:active,
+.uk-section-secondary .uk-button-primary.uk-active,
 .uk-card-primary .uk-button-primary:active,
 .uk-card-primary .uk-button-primary.uk-active,
 .uk-card-secondary .uk-button-primary:active,
@@ -6084,12 +6226,18 @@ ul.uk-nav-sub {
   color: #444;
 }
 .uk-light .uk-button-text,
+.uk-section-primary .uk-button-text,
+.uk-section-secondary .uk-button-text,
 .uk-card-primary .uk-button-text,
 .uk-card-secondary .uk-button-text {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-button-text:hover,
 .uk-light .uk-button-text:focus,
+.uk-section-primary .uk-button-text:hover,
+.uk-section-primary .uk-button-text:focus,
+.uk-section-secondary .uk-button-text:hover,
+.uk-section-secondary .uk-button-text:focus,
 .uk-card-primary .uk-button-text:hover,
 .uk-card-primary .uk-button-text:focus,
 .uk-card-secondary .uk-button-text:hover,
@@ -6097,37 +6245,53 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light .uk-button-text:disabled,
+.uk-section-primary .uk-button-text:disabled,
+.uk-section-secondary .uk-button-text:disabled,
 .uk-card-primary .uk-button-text:disabled,
 .uk-card-secondary .uk-button-text:disabled {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-grid-divider > :not(.uk-grid-first)::before,
+.uk-section-primary .uk-grid-divider > :not(.uk-grid-first)::before,
+.uk-section-secondary .uk-grid-divider > :not(.uk-grid-first)::before,
 .uk-card-primary .uk-grid-divider > :not(.uk-grid-first)::before,
 .uk-card-secondary .uk-grid-divider > :not(.uk-grid-first)::before {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-grid-divider > .uk-grid-first + .uk-grid-first::before,
+.uk-section-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first::before,
+.uk-section-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first::before,
 .uk-card-primary .uk-grid-divider > .uk-grid-first + .uk-grid-first::before,
 .uk-card-secondary .uk-grid-divider > .uk-grid-first + .uk-grid-first::before {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-nav-parent-icon > .uk-parent > a::after,
+.uk-section-primary .uk-nav-parent-icon > .uk-parent > a::after,
+.uk-section-secondary .uk-nav-parent-icon > .uk-parent > a::after,
 .uk-card-primary .uk-nav-parent-icon > .uk-parent > a::after,
 .uk-card-secondary .uk-nav-parent-icon > .uk-parent > a::after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226px%22%20height%3D%2212px%22%20viewBox%3D%220%200%206%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M6%2C2%20L6%2C-1.11022302e-16%20L0%2C6%20L6%2C12%20L6%2C10%20L2%2C6%20L6%2C2%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }
 .uk-light .uk-nav-parent-icon > .uk-parent.uk-open > a::after,
+.uk-section-primary .uk-nav-parent-icon > .uk-parent.uk-open > a::after,
+.uk-section-secondary .uk-nav-parent-icon > .uk-parent.uk-open > a::after,
 .uk-card-primary .uk-nav-parent-icon > .uk-parent.uk-open > a::after,
 .uk-card-secondary .uk-nav-parent-icon > .uk-parent.uk-open > a::after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2212px%22%20height%3D%226px%22%20viewBox%3D%220%200%2012%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M2%2C0%20L0%2C0%20L6%2C6%20L12%2C0%20L10%2C0%20L6%2C4%20L2%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
 }
 .uk-light .uk-nav-default > li > a,
+.uk-section-primary .uk-nav-default > li > a,
+.uk-section-secondary .uk-nav-default > li > a,
 .uk-card-primary .uk-nav-default > li > a,
 .uk-card-secondary .uk-nav-default > li > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-nav-default > li > a:hover,
 .uk-light .uk-nav-default > li > a:focus,
+.uk-section-primary .uk-nav-default > li > a:hover,
+.uk-section-primary .uk-nav-default > li > a:focus,
+.uk-section-secondary .uk-nav-default > li > a:hover,
+.uk-section-secondary .uk-nav-default > li > a:focus,
 .uk-card-primary .uk-nav-default > li > a:hover,
 .uk-card-primary .uk-nav-default > li > a:focus,
 .uk-card-secondary .uk-nav-default > li > a:hover,
@@ -6136,28 +6300,40 @@ ul.uk-nav-sub {
   background: transparent;
 }
 .uk-light .uk-nav-default > li.uk-active > a,
+.uk-section-primary .uk-nav-default > li.uk-active > a,
+.uk-section-secondary .uk-nav-default > li.uk-active > a,
 .uk-card-primary .uk-nav-default > li.uk-active > a,
 .uk-card-secondary .uk-nav-default > li.uk-active > a {
   color: #444;
   background: #fff;
 }
 .uk-light .uk-nav-default .uk-nav-header,
+.uk-section-primary .uk-nav-default .uk-nav-header,
+.uk-section-secondary .uk-nav-default .uk-nav-header,
 .uk-card-primary .uk-nav-default .uk-nav-header,
 .uk-card-secondary .uk-nav-default .uk-nav-header {
   color: #fff;
 }
 .uk-light .uk-nav-default .uk-nav-divider,
+.uk-section-primary .uk-nav-default .uk-nav-divider,
+.uk-section-secondary .uk-nav-default .uk-nav-divider,
 .uk-card-primary .uk-nav-default .uk-nav-divider,
 .uk-card-secondary .uk-nav-default .uk-nav-divider {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-nav-default .uk-nav-sub a,
+.uk-section-primary .uk-nav-default .uk-nav-sub a,
+.uk-section-secondary .uk-nav-default .uk-nav-sub a,
 .uk-card-primary .uk-nav-default .uk-nav-sub a,
 .uk-card-secondary .uk-nav-default .uk-nav-sub a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-nav-default .uk-nav-sub a:hover,
 .uk-light .uk-nav-default .uk-nav-sub a:focus,
+.uk-section-primary .uk-nav-default .uk-nav-sub a:hover,
+.uk-section-primary .uk-nav-default .uk-nav-sub a:focus,
+.uk-section-secondary .uk-nav-default .uk-nav-sub a:hover,
+.uk-section-secondary .uk-nav-default .uk-nav-sub a:focus,
 .uk-card-primary .uk-nav-default .uk-nav-sub a:hover,
 .uk-card-primary .uk-nav-default .uk-nav-sub a:focus,
 .uk-card-secondary .uk-nav-default .uk-nav-sub a:hover,
@@ -6165,6 +6341,8 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light .uk-navbar-nav > li > a,
+.uk-section-primary .uk-navbar-nav > li > a,
+.uk-section-secondary .uk-navbar-nav > li > a,
 .uk-card-primary .uk-navbar-nav > li > a,
 .uk-card-secondary .uk-navbar-nav > li > a {
   color: rgba(255, 255, 255, 0.7);
@@ -6172,6 +6350,12 @@ ul.uk-nav-sub {
 .uk-light .uk-navbar-nav > li:hover > a,
 .uk-light .uk-navbar-nav > li > a:focus,
 .uk-light .uk-navbar-nav > li.uk-open > a,
+.uk-section-primary .uk-navbar-nav > li:hover > a,
+.uk-section-primary .uk-navbar-nav > li > a:focus,
+.uk-section-primary .uk-navbar-nav > li.uk-open > a,
+.uk-section-secondary .uk-navbar-nav > li:hover > a,
+.uk-section-secondary .uk-navbar-nav > li > a:focus,
+.uk-section-secondary .uk-navbar-nav > li.uk-open > a,
 .uk-card-primary .uk-navbar-nav > li:hover > a,
 .uk-card-primary .uk-navbar-nav > li > a:focus,
 .uk-card-primary .uk-navbar-nav > li.uk-open > a,
@@ -6181,27 +6365,39 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light .uk-navbar-nav > li > a:active,
+.uk-section-primary .uk-navbar-nav > li > a:active,
+.uk-section-secondary .uk-navbar-nav > li > a:active,
 .uk-card-primary .uk-navbar-nav > li > a:active,
 .uk-card-secondary .uk-navbar-nav > li > a:active {
   color: #fff;
 }
 .uk-light .uk-navbar-nav > li.uk-active > a,
+.uk-section-primary .uk-navbar-nav > li.uk-active > a,
+.uk-section-secondary .uk-navbar-nav > li.uk-active > a,
 .uk-card-primary .uk-navbar-nav > li.uk-active > a,
 .uk-card-secondary .uk-navbar-nav > li.uk-active > a {
   color: #fff;
 }
 .uk-light .uk-navbar-item,
+.uk-section-primary .uk-navbar-item,
+.uk-section-secondary .uk-navbar-item,
 .uk-card-primary .uk-navbar-item,
 .uk-card-secondary .uk-navbar-item {
   color: #fff;
 }
 .uk-light .uk-subnav > * > a,
+.uk-section-primary .uk-subnav > * > a,
+.uk-section-secondary .uk-subnav > * > a,
 .uk-card-primary .uk-subnav > * > a,
 .uk-card-secondary .uk-subnav > * > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-subnav > * > a:hover,
 .uk-light .uk-subnav > * > a:focus,
+.uk-section-primary .uk-subnav > * > a:hover,
+.uk-section-primary .uk-subnav > * > a:focus,
+.uk-section-secondary .uk-subnav > * > a:hover,
+.uk-section-secondary .uk-subnav > * > a:focus,
 .uk-card-primary .uk-subnav > * > a:hover,
 .uk-card-primary .uk-subnav > * > a:focus,
 .uk-card-secondary .uk-subnav > * > a:hover,
@@ -6209,17 +6405,25 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light .uk-subnav > .uk-active > a,
+.uk-section-primary .uk-subnav > .uk-active > a,
+.uk-section-secondary .uk-subnav > .uk-active > a,
 .uk-card-primary .uk-subnav > .uk-active > a,
 .uk-card-secondary .uk-subnav > .uk-active > a {
   color: #fff;
 }
 .uk-light .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-section-primary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-section-secondary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before,
 .uk-card-primary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before,
 .uk-card-secondary .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-subnav-pill > * > a:hover,
 .uk-light .uk-subnav-pill > * > a:focus,
+.uk-section-primary .uk-subnav-pill > * > a:hover,
+.uk-section-primary .uk-subnav-pill > * > a:focus,
+.uk-section-secondary .uk-subnav-pill > * > a:hover,
+.uk-section-secondary .uk-subnav-pill > * > a:focus,
 .uk-card-primary .uk-subnav-pill > * > a:hover,
 .uk-card-primary .uk-subnav-pill > * > a:focus,
 .uk-card-secondary .uk-subnav-pill > * > a:hover,
@@ -6228,23 +6432,33 @@ ul.uk-nav-sub {
   color: #444;
 }
 .uk-light .uk-subnav-pill > .uk-active > a,
+.uk-section-primary .uk-subnav-pill > .uk-active > a,
+.uk-section-secondary .uk-subnav-pill > .uk-active > a,
 .uk-card-primary .uk-subnav-pill > .uk-active > a,
 .uk-card-secondary .uk-subnav-pill > .uk-active > a {
   background: #fff;
   color: #444;
 }
 .uk-light .uk-subnav > .uk-disabled > a,
+.uk-section-primary .uk-subnav > .uk-disabled > a,
+.uk-section-secondary .uk-subnav > .uk-disabled > a,
 .uk-card-primary .uk-subnav > .uk-disabled > a,
 .uk-card-secondary .uk-subnav > .uk-disabled > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-breadcrumb > * > *,
+.uk-section-primary .uk-breadcrumb > * > *,
+.uk-section-secondary .uk-breadcrumb > * > *,
 .uk-card-primary .uk-breadcrumb > * > *,
 .uk-card-secondary .uk-breadcrumb > * > * {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-breadcrumb > * > :hover,
 .uk-light .uk-breadcrumb > * > :focus,
+.uk-section-primary .uk-breadcrumb > * > :hover,
+.uk-section-primary .uk-breadcrumb > * > :focus,
+.uk-section-secondary .uk-breadcrumb > * > :hover,
+.uk-section-secondary .uk-breadcrumb > * > :focus,
 .uk-card-primary .uk-breadcrumb > * > :hover,
 .uk-card-primary .uk-breadcrumb > * > :focus,
 .uk-card-secondary .uk-breadcrumb > * > :hover,
@@ -6252,22 +6466,32 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light .uk-breadcrumb > :last-child > *,
+.uk-section-primary .uk-breadcrumb > :last-child > *,
+.uk-section-secondary .uk-breadcrumb > :last-child > *,
 .uk-card-primary .uk-breadcrumb > :last-child > *,
 .uk-card-secondary .uk-breadcrumb > :last-child > * {
   color: #fff;
 }
 .uk-light .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-section-primary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before,
+.uk-section-secondary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before,
 .uk-card-primary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before,
 .uk-card-secondary .uk-breadcrumb > :nth-child(n+2):not(.uk-row-first)::before {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-pagination > * > *,
+.uk-section-primary .uk-pagination > * > *,
+.uk-section-secondary .uk-pagination > * > *,
 .uk-card-primary .uk-pagination > * > *,
 .uk-card-secondary .uk-pagination > * > * {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-pagination > * > :hover,
 .uk-light .uk-pagination > * > :focus,
+.uk-section-primary .uk-pagination > * > :hover,
+.uk-section-primary .uk-pagination > * > :focus,
+.uk-section-secondary .uk-pagination > * > :hover,
+.uk-section-secondary .uk-pagination > * > :focus,
 .uk-card-primary .uk-pagination > * > :hover,
 .uk-card-primary .uk-pagination > * > :focus,
 .uk-card-secondary .uk-pagination > * > :hover,
@@ -6275,22 +6499,32 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light .uk-pagination > .uk-active > *,
+.uk-section-primary .uk-pagination > .uk-active > *,
+.uk-section-secondary .uk-pagination > .uk-active > *,
 .uk-card-primary .uk-pagination > .uk-active > *,
 .uk-card-secondary .uk-pagination > .uk-active > * {
   color: #fff;
 }
 .uk-light .uk-pagination > .uk-disabled > *,
+.uk-section-primary .uk-pagination > .uk-disabled > *,
+.uk-section-secondary .uk-pagination > .uk-disabled > *,
 .uk-card-primary .uk-pagination > .uk-disabled > *,
 .uk-card-secondary .uk-pagination > .uk-disabled > * {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-tab > * > a,
+.uk-section-primary .uk-tab > * > a,
+.uk-section-secondary .uk-tab > * > a,
 .uk-card-primary .uk-tab > * > a,
 .uk-card-secondary .uk-tab > * > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-tab > * > a:hover,
 .uk-light .uk-tab > * > a:focus,
+.uk-section-primary .uk-tab > * > a:hover,
+.uk-section-primary .uk-tab > * > a:focus,
+.uk-section-secondary .uk-tab > * > a:hover,
+.uk-section-secondary .uk-tab > * > a:focus,
 .uk-card-primary .uk-tab > * > a:hover,
 .uk-card-primary .uk-tab > * > a:focus,
 .uk-card-secondary .uk-tab > * > a:hover,
@@ -6298,38 +6532,52 @@ ul.uk-nav-sub {
   color: #fff;
 }
 .uk-light .uk-tab > .uk-active > a,
+.uk-section-primary .uk-tab > .uk-active > a,
+.uk-section-secondary .uk-tab > .uk-active > a,
 .uk-card-primary .uk-tab > .uk-active > a,
 .uk-card-secondary .uk-tab > .uk-active > a {
   color: #fff;
   border-color: #fff;
 }
 .uk-light .uk-tab > .uk-disabled > a,
+.uk-section-primary .uk-tab > .uk-disabled > a,
+.uk-section-secondary .uk-tab > .uk-disabled > a,
 .uk-card-primary .uk-tab > .uk-disabled > a,
 .uk-card-secondary .uk-tab > .uk-disabled > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-badge,
+.uk-section-primary .uk-badge,
+.uk-section-secondary .uk-badge,
 .uk-card-primary .uk-badge,
 .uk-card-secondary .uk-badge {
   background: #fff;
   color: #444;
 }
 .uk-light .uk-badge:hover,
+.uk-section-primary .uk-badge:hover,
+.uk-section-secondary .uk-badge:hover,
 .uk-card-primary .uk-badge:hover,
 .uk-card-secondary .uk-badge:hover {
   color: #444;
 }
 .uk-light .uk-icon-hover,
+.uk-section-primary .uk-icon-hover,
+.uk-section-secondary .uk-icon-hover,
 .uk-card-primary .uk-icon-hover,
 .uk-card-secondary .uk-icon-hover {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-icon-hover:hover,
+.uk-section-primary .uk-icon-hover:hover,
+.uk-section-secondary .uk-icon-hover:hover,
 .uk-card-primary .uk-icon-hover:hover,
 .uk-card-secondary .uk-icon-hover:hover {
   color: #fff;
 }
 .uk-light .uk-icon-button,
+.uk-section-primary .uk-icon-button,
+.uk-section-secondary .uk-icon-button,
 .uk-card-primary .uk-icon-button,
 .uk-card-secondary .uk-icon-button {
   background: #fff;
@@ -6337,6 +6585,10 @@ ul.uk-nav-sub {
 }
 .uk-light .uk-icon-button:hover,
 .uk-light .uk-icon-button:focus,
+.uk-section-primary .uk-icon-button:hover,
+.uk-section-primary .uk-icon-button:focus,
+.uk-section-secondary .uk-icon-button:hover,
+.uk-section-secondary .uk-icon-button:focus,
 .uk-card-primary .uk-icon-button:hover,
 .uk-card-primary .uk-icon-button:focus,
 .uk-card-secondary .uk-icon-button:hover,
@@ -6345,43 +6597,59 @@ ul.uk-nav-sub {
   color: #444;
 }
 .uk-light .uk-icon-button:active,
+.uk-section-primary .uk-icon-button:active,
+.uk-section-secondary .uk-icon-button:active,
 .uk-card-primary .uk-icon-button:active,
 .uk-card-secondary .uk-icon-button:active {
   background-color: rgba(255, 255, 255, 0.7);
   color: #444;
 }
 .uk-light .uk-label,
+.uk-section-primary .uk-label,
+.uk-section-secondary .uk-label,
 .uk-card-primary .uk-label,
 .uk-card-secondary .uk-label {
   background: #fff;
   color: #444;
 }
 .uk-light .uk-label:hover,
+.uk-section-primary .uk-label:hover,
+.uk-section-secondary .uk-label:hover,
 .uk-card-primary .uk-label:hover,
 .uk-card-secondary .uk-label:hover {
   color: #444;
 }
 .uk-light .uk-text-lead,
+.uk-section-primary .uk-text-lead,
+.uk-section-secondary .uk-text-lead,
 .uk-card-primary .uk-text-lead,
 .uk-card-secondary .uk-text-lead {
   color: #fff;
 }
 .uk-light .uk-text-meta,
+.uk-section-primary .uk-text-meta,
+.uk-section-secondary .uk-text-meta,
 .uk-card-primary .uk-text-meta,
 .uk-card-secondary .uk-text-meta {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-text-muted,
+.uk-section-primary .uk-text-muted,
+.uk-section-secondary .uk-text-muted,
 .uk-card-primary .uk-text-muted,
 .uk-card-secondary .uk-text-muted {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 .uk-light .uk-text-primary,
+.uk-section-primary .uk-text-primary,
+.uk-section-secondary .uk-text-primary,
 .uk-card-primary .uk-text-primary,
 .uk-card-secondary .uk-text-primary {
   color: #fff !important;
 }
 .uk-light .uk-column-divider,
+.uk-section-primary .uk-column-divider,
+.uk-section-secondary .uk-column-divider,
 .uk-card-primary .uk-column-divider,
 .uk-card-secondary .uk-column-divider {
   -webkit-column-rule-color: rgba(255, 255, 255, 0.2);
