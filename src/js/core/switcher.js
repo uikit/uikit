@@ -62,10 +62,10 @@ export default function (UIkit) {
                 var length = this.toggles.length,
                     prev = this.connect.children(`.${this.cls}`).index(),
                     hasPrev = prev >= 0,
-                    index = Math.max(0, item === 'next'
+                    index = (item === 'next'
                         ? prev + 1
                         : item === 'previous'
-                            ? prev + length - 1
+                            ? prev - 1
                             : typeof item === 'string'
                                 ? parseInt(item, 10)
                                 : this.toggles.index(item)
@@ -73,10 +73,11 @@ export default function (UIkit) {
                     toggle,
                     dir = item === 'previous' ? -1 : 1;
 
-                for (var i = 0, j = index; i < length; i++, j += dir, j %= length) {
-                    if (!this.toggles.eq(j).is('.uk-disabled, [disabled]')) {
-                        toggle = this.toggles.eq(j);
-                        index = j;
+                index = index < 0 ? index + length : index;
+
+                for (var i = 0; i < length; i++, index = (index + dir + length) % length) {
+                    if (!this.toggles.eq(index).is('.uk-disabled, [disabled]')) {
+                        toggle = this.toggles.eq(index);
                         break;
                     }
                 }
