@@ -1829,6 +1829,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.cls = this.cls || 'uk-' + this.$options.name;
 	            this.drop = this.target || (0, _index.toJQuery)('.' + this.cls + ':first', this.$el) || (0, _index.toJQuery)(this.$el.nextAll('.' + this.cls + ':first'));
+
+	            if (!this.drop) {
+	                return;
+	            }
+
 	            this.mode = _index.hasTouch ? 'click' : this.mode;
 	            this.positions = [];
 	            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
@@ -1853,21 +1858,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
-	            if (this.mode === 'hover') {
-
-	                this.$el.on('mouseenter', function () {
-	                    _this.$el.trigger('pointerenter', [_this]);
-	                    _this.show();
-	                }).on('mouseleave', function () {
-	                    _this.$el.trigger('pointerleave', [_this]);
-	                    _this.hide();
-	                });
-	            }
-
-	            if (!this.drop) {
-	                return;
-	            }
-
 	            this.drop.attr('aria-expanded', false);
 
 	            this.drop.on('click', '.' + this.cls + '-close', function () {
@@ -1875,6 +1865,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 
 	            if (this.mode === 'hover') {
+
+	                this.$el.on('mouseenter', function () {
+	                    _this.show();
+	                }).on('mouseleave', function () {
+	                    _this.hide();
+	                });
 
 	                this.drop.on('mouseenter', function () {
 	                    if (_this.isActive()) {
@@ -1898,17 +1894,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (this.isActive()) {
 	                    return;
 	                } else if (!force && active && active !== this && active.isDelaying()) {
-	                    this.delayShowTimer = setTimeout(this.show.bind(this), 75);
+	                    this.showTimer = setTimeout(this.show.bind(this), 75);
 	                    return;
 	                } else if (active) {
 	                    active.hide(true);
 	                }
 
 	                var show = function show() {
-
-	                    if (!_this2.drop) {
-	                        return;
-	                    }
 
 	                    _this2.updatePosition();
 
@@ -1921,7 +1913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                };
 
 	                if (!force && this.delayShow) {
-	                    this.delayShowTimer = setTimeout(show, this.delayShow);
+	                    this.showTimer = setTimeout(show, this.delayShow);
 	                } else {
 	                    show();
 	                }
@@ -1935,7 +1927,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var hide = function hide() {
 
-	                    if (!_this3.drop || !_this3.isActive()) {
+	                    if (!_this3.isActive()) {
 	                        return;
 	                    }
 
@@ -1949,27 +1941,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                };
 
 	                if (!force && this.isDelaying()) {
-	                    this.hoverTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
+	                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
 	                } else if (!force && this.delayHide) {
-	                    this.delayHideTimer = setTimeout(hide, this.delayHide);
+	                    this.hideTimer = setTimeout(hide, this.delayHide);
 	                } else {
 	                    hide();
 	                }
 	            },
 	            clearTimers: function clearTimers() {
-
-	                if (this.delayShowTimer) {
-	                    clearTimeout(this.delayShowTimer);
-	                }
-
-	                if (this.delayHideTimer) {
-	                    clearTimeout(this.delayHideTimer);
-	                }
-
-	                if (this.hoverTimer) {
-	                    clearTimeout(this.hoverTimer);
-	                    delete this.hoverTimer;
-	                }
+	                clearTimeout(this.showTimer);
+	                clearTimeout(this.hideTimer);
 	            },
 	            updatePosition: function updatePosition() {
 
@@ -2596,16 +2577,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ready: function ready() {
 	            var _this = this;
 
-	            UIkit.drop(this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])'), {
-	                mode: this.mode,
-	                pos: this.pos,
-	                offset: this.offset,
-	                boundary: this.boundary === true || this.boundaryAlign ? this.$el : this.boundary,
-	                boundaryAlign: this.boundaryAlign,
-	                cls: this.cls,
-	                flip: 'x',
-	                delayShow: this.delayShow,
-	                delayHide: this.delayHide
+	            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each(function (i, el) {
+
+	                if (!(0, _index.toJQuery)('.' + _this.cls, el)) {
+	                    return;
+	                }
+
+	                UIkit.drop(el, {
+	                    mode: _this.mode,
+	                    pos: _this.pos,
+	                    offset: _this.offset,
+	                    boundary: _this.boundary === true || _this.boundaryAlign ? _this.$el : _this.boundary,
+	                    boundaryAlign: _this.boundaryAlign,
+	                    cls: _this.cls,
+	                    flip: 'x',
+	                    delayShow: _this.delayShow,
+	                    delayHide: _this.delayHide
+	                });
+	            });
+
+	            this.$el.on('mouseenter', this.dropdown, function (e) {
+	                var active = _this.getActive();
+	                if (active && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying()) {
+	                    active.hide(true);
+	                }
 	            });
 
 	            if (!this.dropbar) {

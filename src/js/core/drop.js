@@ -38,6 +38,11 @@ export default function (UIkit) {
 
             this.cls = this.cls || 'uk-' + this.$options.name;
             this.drop = this.target || toJQuery(`.${this.cls}:first`, this.$el) || toJQuery(this.$el.nextAll(`.${this.cls}:first`));
+
+            if (!this.drop) {
+                return;
+            }
+
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
             this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
@@ -62,22 +67,6 @@ export default function (UIkit) {
                 }
             });
 
-            if (this.mode === 'hover') {
-
-                this.$el.on('mouseenter', () => {
-                    this.$el.trigger('pointerenter', [this]);
-                    this.show();
-                }).on('mouseleave', () => {
-                    this.$el.trigger('pointerleave', [this]);
-                    this.hide();
-                });
-
-            }
-
-            if (!this.drop) {
-                return;
-            }
-
             this.drop.attr('aria-expanded', false);
 
             this.drop.on('click', `.${this.cls}-close`, () => {
@@ -85,6 +74,12 @@ export default function (UIkit) {
             });
 
             if (this.mode === 'hover') {
+
+                this.$el.on('mouseenter', () => {
+                    this.show();
+                }).on('mouseleave', () => {
+                    this.hide();
+                });
 
                 this.drop.on('mouseenter', () => {
                     if (this.isActive()) {
@@ -109,17 +104,13 @@ export default function (UIkit) {
                 if (this.isActive()) {
                     return;
                 } else if (!force && active && active !== this && active.isDelaying()) {
-                    this.delayShowTimer = setTimeout(this.show.bind(this), 75);
+                    this.showTimer = setTimeout(this.show.bind(this), 75);
                     return;
                 } else if (active) {
                     active.hide(true);
                 }
 
                 var show = () => {
-
-                    if (!this.drop) {
-                        return;
-                    }
 
                     this.updatePosition();
 
@@ -132,7 +123,7 @@ export default function (UIkit) {
                 };
 
                 if (!force && this.delayShow) {
-                    this.delayShowTimer = setTimeout(show, this.delayShow);
+                    this.showTimer = setTimeout(show, this.delayShow);
                 } else {
                     show();
                 }
@@ -146,7 +137,7 @@ export default function (UIkit) {
 
                 var hide = () => {
 
-                    if (!this.drop || !this.isActive()) {
+                    if (!this.isActive()) {
                         return;
                     }
 
@@ -161,28 +152,17 @@ export default function (UIkit) {
                 };
 
                 if (!force && this.isDelaying()) {
-                    this.hoverTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
+                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
                 } else if (!force && this.delayHide) {
-                    this.delayHideTimer = setTimeout(hide, this.delayHide);
+                    this.hideTimer = setTimeout(hide, this.delayHide);
                 } else {
                     hide();
                 }
             },
 
             clearTimers() {
-
-                if (this.delayShowTimer) {
-                    clearTimeout(this.delayShowTimer);
-                }
-
-                if (this.delayHideTimer) {
-                    clearTimeout(this.delayHideTimer);
-                }
-
-                if (this.hoverTimer) {
-                    clearTimeout(this.hoverTimer);
-                    delete this.hoverTimer;
-                }
+                clearTimeout(this.showTimer);
+                clearTimeout(this.hideTimer);
             },
 
             updatePosition() {

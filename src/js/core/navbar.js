@@ -37,16 +37,31 @@ export default function (UIkit) {
 
         ready() {
 
-            UIkit.drop(this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])'), {
-                mode: this.mode,
-                pos: this.pos,
-                offset: this.offset,
-                boundary: (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary,
-                boundaryAlign: this.boundaryAlign,
-                cls: this.cls,
-                flip: 'x',
-                delayShow: this.delayShow,
-                delayHide: this.delayHide
+            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each((i, el) => {
+
+                if (!toJQuery('.'+this.cls, el)) {
+                    return;
+                }
+
+                UIkit.drop(el, {
+                    mode: this.mode,
+                    pos: this.pos,
+                    offset: this.offset,
+                    boundary: (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary,
+                    boundaryAlign: this.boundaryAlign,
+                    cls: this.cls,
+                    flip: 'x',
+                    delayShow: this.delayShow,
+                    delayHide: this.delayHide
+                });
+
+            });
+
+            this.$el.on('mouseenter', this.dropdown, (e) => {
+                var active = this.getActive();
+                if (active && !isWithin(e.target, active.$el) && !active.isDelaying()) {
+                    active.hide(true);
+                }
             });
 
             if (!this.dropbar) {
