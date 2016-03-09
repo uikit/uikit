@@ -3,7 +3,13 @@ import {isWithin, hasTouch, removeClass, position, getDimensions, toJQuery} from
 
 export default function (UIkit) {
 
-    var active, handler;
+    var active;
+
+    $(document).on('click', e => {
+        if (active && !isWithin(e.target, active.$el)) {
+            active.hide(true);
+        }
+    });
 
     UIkit.component('drop', {
 
@@ -46,14 +52,6 @@ export default function (UIkit) {
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
             this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
-
-            if (!handler) {
-                $('html').on('click', () => {
-                    if (active) {
-                        active.hide(true);
-                    }
-                });
-            }
 
             this.$el.on('click', e => {
 
@@ -146,7 +144,7 @@ export default function (UIkit) {
 
                     this.cancelMouseTracker();
 
-                    this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').blur();
+                    this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').find('a').blur();
                     this.drop.removeClass('uk-open').attr('aria-expanded', 'false');
                     this.$el.trigger('hide', [this, force]);
 

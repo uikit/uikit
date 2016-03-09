@@ -176,9 +176,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 
-	                for (var _i = 0; _i < mutation.removedNodes.length; ++_i) {
+	                for (var i = 0; i < mutation.removedNodes.length; ++i) {
 
-	                    var components = mutation.removedNodes[_i][DATA];
+	                    var components = mutation.removedNodes[i][DATA];
 
 	                    if (components) {
 	                        for (var name in components) {
@@ -243,75 +243,111 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _dom = __webpack_require__(5);
 
-	Object.keys(_dom).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop = function _loop(_key7) {
+	  if (_key7 === "default") return 'continue';
+	  Object.defineProperty(exports, _key7, {
 	    enumerable: true,
 	    get: function get() {
-	      return _dom[key];
+	      return _dom[_key7];
 	    }
 	  });
-	});
+	};
+
+	for (var _key7 in _dom) {
+	  var _ret = _loop(_key7);
+
+	  if (_ret === 'continue') continue;
+	}
 
 	var _env = __webpack_require__(6);
 
-	Object.keys(_env).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop2 = function _loop2(_key8) {
+	  if (_key8 === "default") return 'continue';
+	  Object.defineProperty(exports, _key8, {
 	    enumerable: true,
 	    get: function get() {
-	      return _env[key];
+	      return _env[_key8];
 	    }
 	  });
-	});
+	};
+
+	for (var _key8 in _env) {
+	  var _ret2 = _loop2(_key8);
+
+	  if (_ret2 === 'continue') continue;
+	}
 
 	var _lang = __webpack_require__(7);
 
-	Object.keys(_lang).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop3 = function _loop3(_key9) {
+	  if (_key9 === "default") return 'continue';
+	  Object.defineProperty(exports, _key9, {
 	    enumerable: true,
 	    get: function get() {
-	      return _lang[key];
+	      return _lang[_key9];
 	    }
 	  });
-	});
+	};
+
+	for (var _key9 in _lang) {
+	  var _ret3 = _loop3(_key9);
+
+	  if (_ret3 === 'continue') continue;
+	}
 
 	var _options = __webpack_require__(8);
 
-	Object.keys(_options).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop4 = function _loop4(_key10) {
+	  if (_key10 === "default") return 'continue';
+	  Object.defineProperty(exports, _key10, {
 	    enumerable: true,
 	    get: function get() {
-	      return _options[key];
+	      return _options[_key10];
 	    }
 	  });
-	});
+	};
+
+	for (var _key10 in _options) {
+	  var _ret4 = _loop4(_key10);
+
+	  if (_ret4 === 'continue') continue;
+	}
 
 	var _position = __webpack_require__(9);
 
-	Object.keys(_position).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop5 = function _loop5(_key11) {
+	  if (_key11 === "default") return 'continue';
+	  Object.defineProperty(exports, _key11, {
 	    enumerable: true,
 	    get: function get() {
-	      return _position[key];
+	      return _position[_key11];
 	    }
 	  });
-	});
+	};
+
+	for (var _key11 in _position) {
+	  var _ret5 = _loop5(_key11);
+
+	  if (_ret5 === 'continue') continue;
+	}
 
 	var _touch = __webpack_require__(10);
 
-	Object.keys(_touch).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop6 = function _loop6(_key12) {
+	  if (_key12 === "default") return 'continue';
+	  Object.defineProperty(exports, _key12, {
 	    enumerable: true,
 	    get: function get() {
-	      return _touch[key];
+	      return _touch[_key12];
 	    }
 	  });
-	});
+	};
+
+	for (var _key12 in _touch) {
+	  var _ret6 = _loop6(_key12);
+
+	  if (_ret6 === 'continue') continue;
+	}
 
 /***/ },
 /* 5 */
@@ -1793,7 +1829,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit) {
 
-	    var active, handler;
+	    var active;
+
+	    (0, _jquery2.default)(document).on('click', function (e) {
+	        if (active && !(0, _index.isWithin)(e.target, active.$el)) {
+	            active.hide(true);
+	        }
+	    });
 
 	    UIkit.component('drop', {
 
@@ -1837,14 +1879,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.mode = _index.hasTouch ? 'click' : this.mode;
 	            this.positions = [];
 	            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
-
-	            if (!handler) {
-	                (0, _jquery2.default)('html').on('click', function () {
-	                    if (active) {
-	                        active.hide(true);
-	                    }
-	                });
-	            }
 
 	            this.$el.on('click', function (e) {
 
@@ -1936,7 +1970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    _this3.cancelMouseTracker();
 
-	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').blur();
+	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a').blur();
 	                    _this3.drop.removeClass('uk-open').attr('aria-expanded', 'false');
 	                    _this3.$el.trigger('hide', [_this3, force]);
 	                };
@@ -2599,7 +2633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.$el.on('mouseenter', this.dropdown, function (e) {
 	                var active = _this.getActive();
-	                if (active && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying()) {
+	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying()) {
 	                    active.hide(true);
 	                }
 	            });
