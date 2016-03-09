@@ -38,17 +38,9 @@ export default function (UIkit) {
 
             this.cls = this.cls || 'uk-' + this.$options.name;
             this.drop = this.target || toJQuery(`.${this.cls}:first`, this.$el) || toJQuery(this.$el.nextAll(`.${this.cls}:first`));
-
-            if (!this.drop) {
-                return;
-            }
-
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
             this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
-
-            // Init ARIA
-            this.drop.attr('aria-expanded', false);
 
             if (!handler) {
                 $('html').on('click', () => {
@@ -70,10 +62,6 @@ export default function (UIkit) {
                 }
             });
 
-            this.drop.on('click', `.${this.cls}-close`, () => {
-                this.hide(true);
-            });
-
             if (this.mode === 'hover') {
 
                 this.$el.on('mouseenter', () => {
@@ -83,6 +71,20 @@ export default function (UIkit) {
                     this.$el.trigger('pointerleave', [this]);
                     this.hide();
                 });
+
+            }
+
+            if (!this.drop) {
+                return;
+            }
+
+            this.drop.attr('aria-expanded', false);
+
+            this.drop.on('click', `.${this.cls}-close`, () => {
+                this.hide(true);
+            });
+
+            if (this.mode === 'hover') {
 
                 this.drop.on('mouseenter', () => {
                     if (this.isActive()) {
@@ -115,6 +117,10 @@ export default function (UIkit) {
 
                 var show = () => {
 
+                    if (!this.drop) {
+                        return;
+                    }
+
                     this.updatePosition();
 
                     this.$el.trigger('beforeshow', [this]).addClass('uk-open');
@@ -140,7 +146,7 @@ export default function (UIkit) {
 
                 var hide = () => {
 
-                    if (!this.isActive()) {
+                    if (!this.drop || !this.isActive()) {
                         return;
                     }
 

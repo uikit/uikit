@@ -1829,17 +1829,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.cls = this.cls || 'uk-' + this.$options.name;
 	            this.drop = this.target || (0, _index.toJQuery)('.' + this.cls + ':first', this.$el) || (0, _index.toJQuery)(this.$el.nextAll('.' + this.cls + ':first'));
-
-	            if (!this.drop) {
-	                return;
-	            }
-
 	            this.mode = _index.hasTouch ? 'click' : this.mode;
 	            this.positions = [];
 	            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
-
-	            // Init ARIA
-	            this.drop.attr('aria-expanded', false);
 
 	            if (!handler) {
 	                (0, _jquery2.default)('html').on('click', function () {
@@ -1861,10 +1853,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
-	            this.drop.on('click', '.' + this.cls + '-close', function () {
-	                _this.hide(true);
-	            });
-
 	            if (this.mode === 'hover') {
 
 	                this.$el.on('mouseenter', function () {
@@ -1874,6 +1862,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this.$el.trigger('pointerleave', [_this]);
 	                    _this.hide();
 	                });
+	            }
+
+	            if (!this.drop) {
+	                return;
+	            }
+
+	            this.drop.attr('aria-expanded', false);
+
+	            this.drop.on('click', '.' + this.cls + '-close', function () {
+	                _this.hide(true);
+	            });
+
+	            if (this.mode === 'hover') {
 
 	                this.drop.on('mouseenter', function () {
 	                    if (_this.isActive()) {
@@ -1905,6 +1906,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var show = function show() {
 
+	                    if (!_this2.drop) {
+	                        return;
+	                    }
+
 	                    _this2.updatePosition();
 
 	                    _this2.$el.trigger('beforeshow', [_this2]).addClass('uk-open');
@@ -1930,7 +1935,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var hide = function hide() {
 
-	                    if (!_this3.isActive()) {
+	                    if (!_this3.drop || !_this3.isActive()) {
 	                        return;
 	                    }
 
