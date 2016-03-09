@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export {$, each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
 
 export function bind(fn, context) {
