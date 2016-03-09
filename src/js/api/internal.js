@@ -52,7 +52,12 @@ export default function (UIkit) {
 
             if (options) {
                 if (options[0] === '{') {
-                    options = JSON.parse(options);
+                    try {
+                        options = JSON.parse(options);
+                    } catch (e) {
+                        console.warn(`Invalid JSON.`);
+                        options = {};
+                    }
                 } else {
                     var tmp = {};
                     options.split(';').forEach((option) => {

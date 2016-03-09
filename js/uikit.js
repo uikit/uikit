@@ -176,9 +176,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 
-	                for (var i = 0; i < mutation.removedNodes.length; ++i) {
+	                for (var _i = 0; _i < mutation.removedNodes.length; ++_i) {
 
-	                    var components = mutation.removedNodes[i][DATA];
+	                    var components = mutation.removedNodes[_i][DATA];
 
 	                    if (components) {
 	                        for (var name in components) {
@@ -243,111 +243,75 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _dom = __webpack_require__(5);
 
-	var _loop = function _loop(_key7) {
-	  if (_key7 === "default") return 'continue';
-	  Object.defineProperty(exports, _key7, {
+	Object.keys(_dom).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _dom[_key7];
+	      return _dom[key];
 	    }
 	  });
-	};
-
-	for (var _key7 in _dom) {
-	  var _ret = _loop(_key7);
-
-	  if (_ret === 'continue') continue;
-	}
+	});
 
 	var _env = __webpack_require__(6);
 
-	var _loop2 = function _loop2(_key8) {
-	  if (_key8 === "default") return 'continue';
-	  Object.defineProperty(exports, _key8, {
+	Object.keys(_env).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _env[_key8];
+	      return _env[key];
 	    }
 	  });
-	};
-
-	for (var _key8 in _env) {
-	  var _ret2 = _loop2(_key8);
-
-	  if (_ret2 === 'continue') continue;
-	}
+	});
 
 	var _lang = __webpack_require__(7);
 
-	var _loop3 = function _loop3(_key9) {
-	  if (_key9 === "default") return 'continue';
-	  Object.defineProperty(exports, _key9, {
+	Object.keys(_lang).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _lang[_key9];
+	      return _lang[key];
 	    }
 	  });
-	};
-
-	for (var _key9 in _lang) {
-	  var _ret3 = _loop3(_key9);
-
-	  if (_ret3 === 'continue') continue;
-	}
+	});
 
 	var _options = __webpack_require__(8);
 
-	var _loop4 = function _loop4(_key10) {
-	  if (_key10 === "default") return 'continue';
-	  Object.defineProperty(exports, _key10, {
+	Object.keys(_options).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _options[_key10];
+	      return _options[key];
 	    }
 	  });
-	};
-
-	for (var _key10 in _options) {
-	  var _ret4 = _loop4(_key10);
-
-	  if (_ret4 === 'continue') continue;
-	}
+	});
 
 	var _position = __webpack_require__(9);
 
-	var _loop5 = function _loop5(_key11) {
-	  if (_key11 === "default") return 'continue';
-	  Object.defineProperty(exports, _key11, {
+	Object.keys(_position).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _position[_key11];
+	      return _position[key];
 	    }
 	  });
-	};
-
-	for (var _key11 in _position) {
-	  var _ret5 = _loop5(_key11);
-
-	  if (_ret5 === 'continue') continue;
-	}
+	});
 
 	var _touch = __webpack_require__(10);
 
-	var _loop6 = function _loop6(_key12) {
-	  if (_key12 === "default") return 'continue';
-	  Object.defineProperty(exports, _key12, {
+	Object.keys(_touch).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _touch[_key12];
+	      return _touch[key];
 	    }
 	  });
-	};
-
-	for (var _key12 in _touch) {
-	  var _ret6 = _loop6(_key12);
-
-	  if (_ret6 === 'continue') continue;
-	}
+	});
 
 /***/ },
 /* 5 */
@@ -1257,7 +1221,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            if (options) {
 	                if (options[0] === '{') {
-	                    options = JSON.parse(options);
+	                    try {
+	                        options = JSON.parse(options);
+	                    } catch (e) {
+	                        console.warn('Invalid JSON.');
+	                        options = {};
+	                    }
 	                } else {
 	                    var tmp = {};
 	                    options.split(';').forEach(function (option) {
