@@ -28,18 +28,18 @@ module.exports = [
         externals: externals
     },
 
-    //{
-    //    entry: "./src/js/uikit.js",
-    //    output: {
-    //        path: "./js",
-    //        filename: "uikit.min.js",
-    //        library: "UIkit",
-    //        libraryTarget: "umd"
-    //    },
-    //    module: loaders,
-    //    externals: externals,
-    //    plugins: [ new webpack.optimize.UglifyJsPlugin ]
-    //},
+    {
+        entry: "./src/js/uikit.js",
+        output: {
+            path: "./js",
+            filename: "uikit.min.js",
+            library: "UIkit",
+            libraryTarget: "umd"
+        },
+        module: loaders,
+        externals: externals,
+        plugins: [ new webpack.optimize.UglifyJsPlugin ]
+    },
 
     {
         entry: {
