@@ -51,12 +51,23 @@ export default function (UIkit) {
             }
 
             if (options) {
-                options.split(';').forEach((option) => {
-                    var opt = option.split(/:(.+)/).map((value) => { return value.trim(); }), key = camelize(opt[0]);
+                if (options[0] === '{') {
+                    options = JSON.parse(options);
+                } else {
+                    var tmp = {};
+                    options.split(';').forEach((option) => {
+                        var opt = option.split(/:(.+)/);
+                        tmp[opt[0].trim()] = opt[1].trim();
+                    });
+                    options = tmp;
+                }
+
+                for (var key in options || {}) {
+                    key = camelize(key);
                     if (props[key] !== undefined) {
-                        this[key] = coerce(props[key], opt[1]);
+                        this[key] = coerce(props[key], options[key]);
                     }
-                });
+                }
             }
         }
     };

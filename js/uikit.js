@@ -1242,7 +1242,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    UIkit.prototype._initProps = function () {
-	        var _this = this;
 
 	        var el = this.$options.el,
 	            props = this.$options.props,
@@ -1257,15 +1256,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            if (options) {
-	                options.split(';').forEach(function (option) {
-	                    var opt = option.split(/:(.+)/).map(function (value) {
-	                        return value.trim();
-	                    }),
-	                        key = (0, _index.camelize)(opt[0]);
+	                if (options[0] === '{') {
+	                    options = JSON.parse(options);
+	                } else {
+	                    var tmp = {};
+	                    options.split(';').forEach(function (option) {
+	                        var opt = option.split(/:(.+)/);
+	                        tmp[opt[0].trim()] = opt[1].trim();
+	                    });
+	                    options = tmp;
+	                }
+
+	                for (var key in options || {}) {
+	                    key = (0, _index.camelize)(key);
 	                    if (props[key] !== undefined) {
-	                        _this[key] = (0, _index.coerce)(props[key], opt[1]);
+	                        this[key] = (0, _index.coerce)(props[key], options[key]);
 	                    }
-	                });
+	                }
 	            }
 	        }
 	    };
@@ -1282,13 +1289,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    UIkit.prototype._callHook = function (hook) {
-	        var _this2 = this;
+	        var _this = this;
 
 	        var handlers = this.$options[hook];
 
 	        if (handlers) {
 	            handlers.forEach(function (handler) {
-	                handler.call(_this2);
+	                handler.call(_this);
 	            });
 	        }
 	    };
