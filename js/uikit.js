@@ -3146,7 +3146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return;
 	                }
 
-	                if (this.mediaInactive || scroll < this.top || this.showOnUp && (dir === 'down' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())) {
+	                if (this.mediaInactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())) {
 	                    if (isActive) {
 
 	                        _index.Animation.cancel(this.$el);

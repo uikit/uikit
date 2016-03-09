@@ -122,7 +122,7 @@ export default function (UIkit) {
 
                 if (this.mediaInactive
                     || scroll < this.top
-                    || this.showOnUp && (dir === 'down' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())
+                    || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())
                 ) {
                     if (isActive) {
 
