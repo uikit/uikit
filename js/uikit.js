@@ -1237,9 +1237,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 
 	                for (var key in options || {}) {
-	                    key = (0, _index.camelize)(key);
-	                    if (props[key] !== undefined) {
-	                        this[key] = (0, _index.coerce)(props[key], options[key]);
+	                    var prop = (0, _index.camelize)(key);
+	                    if (props[prop] !== undefined) {
+	                        this[prop] = (0, _index.coerce)(props[prop], options[key]);
 	                    }
 	                }
 	            }

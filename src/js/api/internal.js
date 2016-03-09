@@ -68,9 +68,9 @@ export default function (UIkit) {
                 }
 
                 for (var key in options || {}) {
-                    key = camelize(key);
-                    if (props[key] !== undefined) {
-                        this[key] = coerce(props[key], options[key]);
+                    var prop = camelize(key);
+                    if (props[prop] !== undefined) {
+                        this[prop] = coerce(props[prop], options[key]);
                     }
                 }
             }
