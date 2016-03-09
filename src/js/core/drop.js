@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {hasTouch, removeClass, position, getDimensions, toJQuery} from '../util/index';
+import {isWithin, hasTouch, removeClass, position, getDimensions, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -57,8 +57,9 @@ export default function (UIkit) {
 
             this.$el.on('click', e => {
 
-                e.preventDefault();
-                e.stopPropagation();
+                if (isWithin('a[href="#"]', e.target) && !isWithin(e.target, this.drop)) {
+                    e.preventDefault();
+                }
 
                 if (this.isActive()) {
                     this.hide(true);

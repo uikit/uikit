@@ -1848,8 +1848,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.$el.on('click', function (e) {
 
-	                e.preventDefault();
-	                e.stopPropagation();
+	                if ((0, _index.isWithin)('a[href="#"]', e.target) && !(0, _index.isWithin)(e.target, _this.drop)) {
+	                    e.preventDefault();
+	                }
 
 	                if (_this.isActive()) {
 	                    _this.hide(true);

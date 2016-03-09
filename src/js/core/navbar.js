@@ -39,7 +39,7 @@ export default function (UIkit) {
 
             this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each((i, el) => {
 
-                if (!toJQuery('.'+this.cls, el)) {
+                if (!toJQuery('.' + this.cls, el)) {
                     return;
                 }
 
