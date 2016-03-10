@@ -352,6 +352,15 @@
 .uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: (@navbar-dropdown-width * 5); }
 
 
+/*
+ * Dropbar modifier
+ */
+
+.uk-navbar-dropdown-dropbar {
+    .hook-navbar-dropdown-dropbar;
+}
+
+
 /* Dropdown Nav
  ========================================================================== */
 
@@ -446,6 +455,7 @@
 .hook-navbar-subtitle() {}
 .hook-navbar-transparent(){}
 .hook-navbar-dropdown(){}
+.hook-navbar-dropdown-dropbar(){}
 .hook-navbar-dropdown-nav(){}
 .hook-navbar-dropdown-nav-item() {}
 .hook-navbar-dropdown-nav-item-hover() {}

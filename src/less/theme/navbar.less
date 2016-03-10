@@ -63,6 +63,11 @@
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
+.hook-navbar-dropdown-dropbar() {
+    margin-bottom: 30px;
+    box-shadow: none;
+}
+
 
 // Dropdown nav
 // ========================================================================
@@ -111,10 +116,11 @@
 
     /*
      * Dropdown
+     * Note: Don't adjust if boundary-align is true
      */
 
-    .uk-navbar-dropdown-top-left,
-    .uk-navbar-dropdown-bottom-left { margin-left: @navbar-nav-item-padding-horizontal - 25px; }
+    .uk-navbar-dropdown-top-left:not(.uk-navbar-dropdown-boundary),
+    .uk-navbar-dropdown-bottom-left:not(.uk-navbar-dropdown-boundary) { margin-left: @navbar-nav-item-padding-horizontal - 25px; }
 
     /*
      * Nav
@@ -147,12 +153,6 @@
         right: 0;
         border-top: 1px solid @global-border;
     }
-
-    /*
-     * Dropbar
-     */
-
-    [uk-navbar*='dropbar'] .uk-navbar-dropdown { box-shadow: none; }
 
 }
 
