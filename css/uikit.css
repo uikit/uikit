@@ -1548,6 +1548,9 @@ select.uk-form-width-mini {
 .uk-container-small {
   max-width: 900px;
 }
+.uk-container-expand {
+  max-width: none;
+}
 /* ========================================================================
    Component: Grid
  ========================================================================== */
@@ -2293,7 +2296,7 @@ ul.uk-nav-sub {
  * Use this class if a container wraps the navbar groups inside the navbar.
  * 1. Create space between all navbar groups (left, right)
  * 2. Take the full width
- * 3. Reset pseudo elements if clearing method is used
+ * 3. Remove pseudo elements created by micro clearfix
  */
 .uk-navbar-container > * {
   display: -ms-flexbox;
@@ -4537,6 +4540,15 @@ ul.uk-nav-sub {
 .uk-flex > *,
 .uk-flex-inline > * {
   -ms-flex-negative: 1;
+}
+/*
+ * Remove pseudo elements created by micro clearfix by as precaution
+ */
+.uk-flex::before,
+.uk-flex::after,
+.uk-flex-inline::before,
+.uk-flex-inline::after {
+  display: none !important;
 }
 /* Alignment
  ========================================================================== */

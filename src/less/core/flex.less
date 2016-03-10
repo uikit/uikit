@@ -29,6 +29,15 @@
 .uk-flex > *,
 .uk-flex-inline > * { -ms-flex-negative: 1; }
 
+/*
+ * Remove pseudo elements created by micro clearfix by as precaution
+ */
+
+.uk-flex::before,
+.uk-flex::after,
+.uk-flex-inline::before,
+.uk-flex-inline::after { display: none !important; }
+
 
 /* Alignment
  ========================================================================== */
