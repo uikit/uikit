@@ -68,11 +68,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _index4 = _interopRequireDefault(_index3);
 
+	var _index5 = __webpack_require__(19);
+
+	var _index6 = _interopRequireDefault(_index5);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_index2.default.version = '3.0.0';
 
 	(0, _index4.default)(_index2.default, _index2.default.util);
+	(0, _index6.default)(_index2.default, _index2.default.util);
 
 	exports.default = _index2.default;
 
@@ -148,12 +153,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var DATA = UIkit.data;
 
-	    var selector;
-
 	    if (!_index.Observer) {
 
 	        (0, _index.ready)(function () {
-	            (0, _jquery2.default)(getSelector()).each(function (i, node) {
+	            (0, _jquery2.default)(UIkit.component.selector).each(function (i, node) {
 	                attachComponents(node);
 	            });
 	        });
@@ -171,14 +174,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    var node = mutation.addedNodes[i];
 
-	                    if ((0, _index.matches)(node, getSelector())) {
+	                    if ((0, _index.matches)(node, UIkit.component.selector)) {
 	                        attachComponents(node);
 	                    }
 	                }
 
-	                for (var _i = 0; _i < mutation.removedNodes.length; ++_i) {
+	                for (var i = 0; i < mutation.removedNodes.length; ++i) {
 
-	                    var components = mutation.removedNodes[_i][DATA];
+	                    var components = mutation.removedNodes[i][DATA];
 
 	                    if (components) {
 	                        for (var name in components) {
@@ -189,16 +192,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        });
 	    }).observe(document, { childList: true, subtree: true });
-
-	    function getSelector() {
-
-	        if (!selector) {
-	            var components = Object.keys(UIkit.components).map(_index.hyphenate);
-	            selector = components.length ? '[uk-' + components.join('],[uk-') + ']' : false;
-	        }
-
-	        return selector;
-	    }
 
 	    function attachComponents(node) {
 
@@ -243,75 +236,111 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _dom = __webpack_require__(5);
 
-	Object.keys(_dom).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop = function _loop(_key7) {
+	  if (_key7 === "default") return 'continue';
+	  Object.defineProperty(exports, _key7, {
 	    enumerable: true,
 	    get: function get() {
-	      return _dom[key];
+	      return _dom[_key7];
 	    }
 	  });
-	});
+	};
+
+	for (var _key7 in _dom) {
+	  var _ret = _loop(_key7);
+
+	  if (_ret === 'continue') continue;
+	}
 
 	var _env = __webpack_require__(6);
 
-	Object.keys(_env).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop2 = function _loop2(_key8) {
+	  if (_key8 === "default") return 'continue';
+	  Object.defineProperty(exports, _key8, {
 	    enumerable: true,
 	    get: function get() {
-	      return _env[key];
+	      return _env[_key8];
 	    }
 	  });
-	});
+	};
+
+	for (var _key8 in _env) {
+	  var _ret2 = _loop2(_key8);
+
+	  if (_ret2 === 'continue') continue;
+	}
 
 	var _lang = __webpack_require__(7);
 
-	Object.keys(_lang).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop3 = function _loop3(_key9) {
+	  if (_key9 === "default") return 'continue';
+	  Object.defineProperty(exports, _key9, {
 	    enumerable: true,
 	    get: function get() {
-	      return _lang[key];
+	      return _lang[_key9];
 	    }
 	  });
-	});
+	};
+
+	for (var _key9 in _lang) {
+	  var _ret3 = _loop3(_key9);
+
+	  if (_ret3 === 'continue') continue;
+	}
 
 	var _options = __webpack_require__(8);
 
-	Object.keys(_options).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop4 = function _loop4(_key10) {
+	  if (_key10 === "default") return 'continue';
+	  Object.defineProperty(exports, _key10, {
 	    enumerable: true,
 	    get: function get() {
-	      return _options[key];
+	      return _options[_key10];
 	    }
 	  });
-	});
+	};
+
+	for (var _key10 in _options) {
+	  var _ret4 = _loop4(_key10);
+
+	  if (_ret4 === 'continue') continue;
+	}
 
 	var _position = __webpack_require__(9);
 
-	Object.keys(_position).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop5 = function _loop5(_key11) {
+	  if (_key11 === "default") return 'continue';
+	  Object.defineProperty(exports, _key11, {
 	    enumerable: true,
 	    get: function get() {
-	      return _position[key];
+	      return _position[_key11];
 	    }
 	  });
-	});
+	};
+
+	for (var _key11 in _position) {
+	  var _ret5 = _loop5(_key11);
+
+	  if (_ret5 === 'continue') continue;
+	}
 
 	var _touch = __webpack_require__(10);
 
-	Object.keys(_touch).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
+	var _loop6 = function _loop6(_key12) {
+	  if (_key12 === "default") return 'continue';
+	  Object.defineProperty(exports, _key12, {
 	    enumerable: true,
 	    get: function get() {
-	      return _touch[key];
+	      return _touch[_key12];
 	    }
 	  });
-	});
+	};
+
+	for (var _key12 in _touch) {
+	  var _ret6 = _loop6(_key12);
+
+	  if (_ret6 === 'continue') continue;
+	}
 
 /***/ },
 /* 5 */
@@ -1337,8 +1366,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    };
 
-	    UIkit.prototype.$update = function (e) {
-	        (0, _jquery2.default)(UIkit.elements, this.$el).each(function () {
+	    UIkit.prototype.$update = function (e, element) {
+	        (0, _jquery2.default)(UIkit.elements, element || this.$el).each(function () {
 	            if (this[DATA]) {
 	                for (var name in this[DATA]) {
 	                    this[DATA][name]._callUpdate(e);
@@ -1444,6 +1473,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            options = UIkit.extend(options);
 	        }
 
+	        UIkit.component.selector = (UIkit.component.selector + ',' || '') + ('[uk-' + name + ']');
+
 	        name = (0, _index.camelize)(name);
 
 	        UIkit.components[name] = options;
@@ -1477,6 +1508,329 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit, _) {
+
+	    UIkit.use(_position2.default);
+	    UIkit.use(_svg2.default);
+	    UIkit.use(_toggle2.default);
+	};
+
+	var _position = __webpack_require__(16);
+
+	var _position2 = _interopRequireDefault(_position);
+
+	var _svg = __webpack_require__(17);
+
+	var _svg2 = _interopRequireDefault(_svg);
+
+	var _toggle = __webpack_require__(18);
+
+	var _toggle2 = _interopRequireDefault(_toggle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.position = {
+
+	        props: {
+	            pos: String,
+	            offset: Number,
+	            flip: Boolean,
+	            clsPos: String
+	        },
+
+	        defaults: {
+	            pos: 'bottom-left',
+	            flip: true,
+	            offset: 0,
+	            clsPos: ''
+	        },
+
+	        ready: function ready() {
+	            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
+	            this.dir = this.pos[0];
+	            this.align = this.pos[1];
+	        },
+
+
+	        methods: {
+	            positionAt: function positionAt(element, target, boundary) {
+
+	                (0, _index.removeClass)(element, this.clsPos + '-(top|bottom|left|right)(-[a-z]+)?').css({ top: '', left: '' });
+
+	                this.dir = this.pos[0];
+	                this.align = this.pos[1];
+
+	                var axis = this.getAxis(),
+	                    flipped = (0, _index.position)(element, target, axis === 'x' ? flipPosition(this.dir) + ' ' + this.align : this.align + ' ' + flipPosition(this.dir), axis === 'x' ? this.dir + ' ' + this.align : this.align + ' ' + this.dir, axis === 'x' ? '' + (this.dir === 'left' ? -1 * this.offset : this.offset) : ' ' + (this.dir === 'top' ? -1 * this.offset : this.offset), null, this.flip, boundary);
+
+	                this.dir = axis === 'x' ? flipped.target.x : flipped.target.y;
+	                this.align = axis === 'x' ? flipped.target.y : flipped.target.x;
+
+	                element.css('display', '').addClass(this.clsPos + '-' + this.dir + '-' + this.align);
+	            },
+	            getAxis: function getAxis() {
+	                return this.pos[0] === 'top' || this.pos[0] === 'bottom' ? 'y' : 'x';
+	            }
+	        }
+
+	    };
+	};
+
+	var _index = __webpack_require__(4);
+
+	;
+
+	function flipPosition(pos) {
+	    switch (pos) {
+	        case 'left':
+	            return 'right';
+	        case 'right':
+	            return 'left';
+	        case 'top':
+	            return 'bottom';
+	        case 'bottom':
+	            return 'top';
+	        default:
+	            return pos;
+	    }
+	}
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.svg = {
+
+	        props: { id: String, class: String, style: String, width: Number, height: Number, ratio: Number },
+
+	        defaults: { ratio: 1, id: false, class: '', exclude: [] },
+
+	        methods: {
+	            get: function get(src) {
+
+	                if (svgs[src]) {
+	                    return svgs[src];
+	                }
+
+	                var key = 'uikit_' + UIkit.version + '_' + src;
+	                svgs[src] = _jquery2.default.Deferred();
+
+	                if (!storage[key]) {
+	                    _jquery2.default.get(src, 'text').then(function (doc, status, res) {
+	                        storage[key] = res.responseText;
+	                        svgs[src].resolve(storage[key]);
+	                    });
+	                } else {
+	                    svgs[src].resolve(storage[key]);
+	                }
+
+	                return svgs[src];
+	            },
+	            getIcon: function getIcon(src, icon) {
+	                var _this = this;
+
+	                return this.get(src).then(function (doc) {
+
+	                    var el = (0, _jquery2.default)('#' + icon, doc);
+
+	                    if (!el || !el.length) {
+	                        return _jquery2.default.Deferred().reject('Icon not found.');
+	                    }
+
+	                    el = (0, _jquery2.default)((0, _jquery2.default)('<div>').append(el.clone()).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
+
+	                    return _this.addProps(el);
+	                });
+	            },
+	            addProps: function addProps(el) {
+	                var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+	                if (dimensions) {
+	                    dimensions = dimensions.split(' ');
+	                    this.width = this.width || dimensions[2];
+	                    this.height = this.height || dimensions[3];
+	                }
+
+	                this.width *= this.ratio;
+	                this.height *= this.ratio;
+
+	                for (var prop in this.$options.props) {
+	                    if (this[prop] && this.exclude.indexOf(prop) === -1) {
+	                        el.attr(prop, this[prop]);
+	                    }
+	                }
+
+	                if (!this.id) {
+	                    el.removeAttr('id');
+	                }
+
+	                if (this.width && !this.height) {
+	                    el.removeAttr('height');
+	                }
+
+	                if (this.height && !this.width) {
+	                    el.removeAttr('width');
+	                }
+
+	                return el;
+	            }
+	        }
+
+	    };
+	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var storage = window.sessionStorage || {},
+	    svgs = {};
+
+	;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.toggle = {
+
+	        props: {
+	            cls: Boolean,
+	            animation: String,
+	            duration: Number
+	        },
+
+	        defaults: {
+	            cls: false,
+	            animation: false,
+	            duration: 200
+	        },
+
+	        ready: function ready() {
+
+	            this.aria = this.cls === false;
+
+	            if (typeof this.animation === 'string') {
+
+	                this.animation = this.animation.split(',');
+
+	                if (this.animation.length == 1) {
+	                    this.animation[1] = this.animation[0];
+	                }
+
+	                this.animation[0] = this.animation[0].trim();
+	                this.animation[1] = this.animation[1].trim();
+	            }
+	        },
+
+
+	        methods: {
+	            toggleState: function toggleState(targets, animate) {
+	                var _this = this;
+
+	                var deferreds = [];
+
+	                (0, _jquery2.default)(targets).each(function (i, el) {
+
+	                    el = (0, _jquery2.default)(el);
+
+	                    var toggled = _this.isToggled(el);
+
+	                    if (_this.animation && animate !== false) {
+
+	                        _index.Animation.cancel(el);
+
+	                        if (!_this.isToggled(el)) {
+
+	                            _this.doToggle(el, true);
+	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration).then(function () {
+	                                _this.doUpdate(el);
+	                            }));
+	                        } else {
+
+	                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {
+	                                _this.doToggle(el, false);
+	                                _this.doUpdate(el);
+	                            }));
+	                        }
+	                    } else {
+
+	                        _this.doToggle(el, !toggled);
+	                        _this.doUpdate(el);
+	                        deferreds.push(_jquery2.default.Deferred().resolve());
+	                    }
+	                });
+
+	                return _jquery2.default.when.apply(null, deferreds);
+	            },
+	            doToggle: function doToggle(el, toggled) {
+	                el = (0, _jquery2.default)(el);
+	                el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
+	            },
+	            isToggled: function isToggled(el) {
+	                el = (0, _jquery2.default)(el);
+	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
+	            },
+	            doUpdate: function doUpdate(el) {
+	                this.$update(null, el);
+	                if (this.aria) {
+	                    el.attr('aria-hidden', !!el.attr('hidden'));
+	                }
+	            }
+	        }
+
+	    };
+	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _index = __webpack_require__(4);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	;
+
+/***/ },
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1542,79 +1896,79 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _alert = __webpack_require__(16);
+	var _alert = __webpack_require__(20);
 
 	var _alert2 = _interopRequireDefault(_alert);
 
-	var _close = __webpack_require__(17);
+	var _close = __webpack_require__(21);
 
 	var _close2 = _interopRequireDefault(_close);
 
-	var _cover = __webpack_require__(18);
+	var _cover = __webpack_require__(22);
 
 	var _cover2 = _interopRequireDefault(_cover);
 
-	var _drop = __webpack_require__(19);
+	var _drop = __webpack_require__(23);
 
 	var _drop2 = _interopRequireDefault(_drop);
 
-	var _dropdown = __webpack_require__(20);
+	var _dropdown = __webpack_require__(24);
 
 	var _dropdown2 = _interopRequireDefault(_dropdown);
 
-	var _grid = __webpack_require__(21);
+	var _grid = __webpack_require__(25);
 
 	var _grid2 = _interopRequireDefault(_grid);
 
-	var _heightViewport = __webpack_require__(22);
+	var _heightViewport = __webpack_require__(26);
 
 	var _heightViewport2 = _interopRequireDefault(_heightViewport);
 
-	var _icon = __webpack_require__(23);
+	var _icon = __webpack_require__(27);
 
 	var _icon2 = _interopRequireDefault(_icon);
 
-	var _marginWrap = __webpack_require__(25);
+	var _marginWrap = __webpack_require__(28);
 
 	var _marginWrap2 = _interopRequireDefault(_marginWrap);
 
-	var _matchHeight = __webpack_require__(26);
+	var _matchHeight = __webpack_require__(29);
 
 	var _matchHeight2 = _interopRequireDefault(_matchHeight);
 
-	var _navbar = __webpack_require__(27);
+	var _navbar = __webpack_require__(30);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _responsive = __webpack_require__(28);
+	var _responsive = __webpack_require__(31);
 
 	var _responsive2 = _interopRequireDefault(_responsive);
 
-	var _scrollspy = __webpack_require__(29);
+	var _scrollspy = __webpack_require__(32);
 
 	var _scrollspy2 = _interopRequireDefault(_scrollspy);
 
-	var _scrollspyNav = __webpack_require__(30);
+	var _scrollspyNav = __webpack_require__(33);
 
 	var _scrollspyNav2 = _interopRequireDefault(_scrollspyNav);
 
-	var _smoothScroll = __webpack_require__(31);
+	var _smoothScroll = __webpack_require__(34);
 
 	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
 
-	var _sticky = __webpack_require__(32);
+	var _sticky = __webpack_require__(35);
 
 	var _sticky2 = _interopRequireDefault(_sticky);
 
-	var _svg = __webpack_require__(33);
+	var _svg = __webpack_require__(36);
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _switcher = __webpack_require__(34);
+	var _switcher = __webpack_require__(37);
 
 	var _switcher2 = _interopRequireDefault(_switcher);
 
-	var _toggle = __webpack_require__(36);
+	var _toggle = __webpack_require__(38);
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
@@ -1623,7 +1977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 16 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1636,15 +1990,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('alert', {
 
+	        mixins: [UIkit.mixin.toggle],
+
 	        props: {
-	            animation: null,
-	            duration: Number,
+	            animation: Boolean,
 	            close: String
 	        },
 
 	        defaults: {
 	            animation: true,
-	            duration: 200,
 	            close: '.uk-alert-close'
 	        },
 
@@ -1663,23 +2017,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                this.$el.trigger('close');
 
-	                if (String(this.animation) === 'true') {
+	                var deferred;
 
-	                    _index.Transition.start(this.$el, {
+	                if (this.animation === true) {
+
+	                    deferred = _index.Transition.start(this.$el, {
 	                        'overflow': 'hidden',
 	                        'height': 0,
 	                        'opacity': 0,
 	                        'padding-top': 0,
 	                        'padding-bottom': 0,
 	                        'margin-top': 0,
-	                        'margin-bottom': 0
-	                    }, this.duration).then(this.$destroy.bind(this));
-	                } else if (typeof this.animation === 'string' && this.animation !== 'false') {
-
-	                    _index.Animation.out(this.$el, this.animation, this.duration).then(this.$destroy.bind(this));
+	                        'margin-bottom': '-' + this.$el.prev().css('margin-bottom')
+	                    }, this.duration);
 	                } else {
-	                    this.$destroy();
+	                    deferred = this.toggleState(this.$el);
 	                }
+
+	                deferred.then(this.$destroy.bind(this));
 	            }
 	        },
 
@@ -1693,7 +2048,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 /***/ },
-/* 17 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1720,7 +2075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 18 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1794,7 +2149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1815,38 +2170,37 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('drop', {
 
+	        mixins: [UIkit.mixin.position, UIkit.mixin.toggle],
+
 	        props: {
 	            mode: String,
-	            pos: String,
 	            target: 'jQuery',
 	            boundary: 'jQuery',
 	            boundaryAlign: Boolean,
-	            flip: Boolean,
-	            offset: Number,
 	            delayShow: Number,
 	            delayHide: Number,
-	            cls: String
+	            clsDrop: String
 	        },
 
 	        defaults: {
 	            mode: 'hover',
-	            pos: 'bottom-left',
 	            target: false,
 	            boundary: (0, _jquery2.default)(window),
 	            boundaryAlign: false,
-	            flip: true,
-	            offset: 0,
 	            delayShow: 0,
 	            delayHide: 800,
+	            clsDrop: false,
 	            hoverIdle: 200,
-	            cls: false
+	            animation: 'uk-animation-fade'
 	        },
 
 	        ready: function ready() {
 	            var _this = this;
 
-	            this.cls = this.cls || 'uk-' + this.$options.name;
-	            this.drop = this.target || (0, _index.toJQuery)('.' + this.cls + ':first', this.$el) || (0, _index.toJQuery)(this.$el.nextAll('.' + this.cls + ':first'));
+	            this.cls = 'uk-open';
+	            this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
+	            this.clsPos = this.clsDrop;
+	            this.drop = this.target || (0, _index.toJQuery)('.' + this.clsDrop + ':first', this.$el) || (0, _index.toJQuery)(this.$el.nextAll('.' + this.clsDrop + ':first'));
 
 	            if (!this.drop) {
 	                return;
@@ -1854,7 +2208,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.mode = _index.hasTouch ? 'click' : this.mode;
 	            this.positions = [];
-	            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
 
 	            this.$el.on('click', function (e) {
 
@@ -1871,7 +2224,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.drop.attr('aria-expanded', false);
 
-	            this.drop.on('click', '.' + this.cls + '-close', function () {
+	            this.drop.on('click', '.' + this.clsDrop + '-close', function () {
 	                _this.hide(true);
 	            });
 
@@ -1913,10 +2266,38 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var show = function show() {
 
-	                    _this2.updatePosition();
+	                    (0, _index.removeClass)(_this2.drop, _this2.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });
 
-	                    _this2.$el.trigger('beforeshow', [_this2]).addClass('uk-open');
-	                    _this2.drop.addClass('uk-open').attr('aria-expanded', 'true');
+	                    if (_this2.boundaryAlign) {
+	                        _this2.drop.addClass(_this2.clsDrop + '-boundary');
+	                    }
+
+	                    _this2.drop.show();
+
+	                    _this2.dir = _this2.pos[0];
+	                    _this2.align = _this2.pos[1];
+
+	                    var boundary = (0, _index.getDimensions)(_this2.boundary),
+	                        alignTo = _this2.boundaryAlign ? boundary : (0, _index.getDimensions)(_this2.$el);
+
+	                    if (_this2.align === 'justify') {
+	                        if (_this2.getAxis() === 'y') {
+	                            _this2.drop.css('width', alignTo.width);
+	                        } else {
+	                            _this2.drop.css('height', alignTo.height);
+	                        }
+	                    }
+
+	                    if (_this2.drop.outerWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+	                        _this2.drop.addClass(_this2.clsDrop + '-stack');
+	                        _this2.$el.trigger('stack', [_this2]);
+	                    }
+
+	                    _this2.positionAt(_this2.drop, _this2.boundaryAlign ? _this2.boundary : _this2.$el, _this2.boundary);
+
+	                    _this2.$el.trigger('beforeshow', [_this2]).addClass(_this2.cls);
+	                    _this2.toggleState(_this2.drop.css('display', ''));
+	                    _this2.drop.attr('aria-expanded', 'true');
 	                    _this2.$el.trigger('show', [_this2]);
 
 	                    _this2.initMouseTracker();
@@ -1947,7 +2328,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this3.cancelMouseTracker();
 
 	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a').blur();
-	                    _this3.drop.removeClass('uk-open').attr('aria-expanded', 'false');
+	                    _this3.toggleState(_this3.drop, false);
+	                    _this3.drop.attr('aria-expanded', 'false');
 	                    _this3.$el.trigger('hide', [_this3, force]);
 	                };
 
@@ -1963,52 +2345,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                clearTimeout(this.showTimer);
 	                clearTimeout(this.hideTimer);
 	            },
-	            updatePosition: function updatePosition() {
-
-	                if (!this.drop) {
-	                    return;
-	                }
-
-	                (0, _index.removeClass)(this.drop, this.cls + '-(top|bottom|left|right|stack|boundary)(-[a-z]+)?').css({ top: '', left: '', width: '', height: '' });
-
-	                if (this.boundaryAlign) {
-	                    this.drop.addClass(this.cls + '-boundary');
-	                }
-
-	                this.drop.show();
-
-	                this.dir = this.pos[0];
-	                this.align = this.pos[1];
-
-	                var boundary = (0, _index.getDimensions)(this.boundary),
-	                    alignTo = this.boundaryAlign ? boundary : (0, _index.getDimensions)(this.$el);
-
-	                if (this.align === 'justify') {
-	                    if (this.getAxis() === 'y') {
-	                        this.drop.css('width', alignTo.width);
-	                    } else {
-	                        this.drop.css('height', alignTo.height);
-	                    }
-	                }
-
-	                if (this.drop.outerWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-	                    this.drop.addClass(this.cls + '-stack');
-	                    this.$el.trigger('stack', [this]);
-	                }
-
-	                var flipped = (0, _index.position)(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.getAxis() === 'x' ? flipPosition(this.dir) + ' ' + this.align : this.align + ' ' + flipPosition(this.dir), this.getAxis() === 'x' ? this.dir + ' ' + this.align : this.align + ' ' + this.dir, this.getAxis() === 'x' ? '' + this.offset : ' ' + this.offset, null, this.flip, this.boundary);
-
-	                this.dir = this.getAxis() === 'x' ? flipped.target.x : flipped.target.y;
-	                this.align = this.getAxis() === 'x' ? flipped.target.y : flipped.target.x;
-
-	                this.drop.css('display', '').addClass(this.cls + '-' + this.dir + '-' + this.align);
-	            },
 	            initMouseTracker: function initMouseTracker() {
 	                var _this4 = this;
-
-	                if (!this.drop) {
-	                    return;
-	                }
 
 	                this.positions = [];
 	                this.position = null;
@@ -2064,9 +2402,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.position = delay ? position : null;
 	                return delay;
 	            },
-	            getAxis: function getAxis() {
-	                return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
-	            },
 	            isActive: function isActive() {
 	                return active === this;
 	            }
@@ -2077,21 +2412,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.drop.getActive = function () {
 	        return active;
 	    };
-
-	    function flipPosition(pos) {
-	        switch (pos) {
-	            case 'left':
-	                return 'right';
-	            case 'right':
-	                return 'left';
-	            case 'top':
-	                return 'bottom';
-	            case 'bottom':
-	                return 'top';
-	            default:
-	                return pos;
-	        }
-	    }
 
 	    function slope(a, b) {
 	        return (b.y - a.y) / (b.x - a.x);
@@ -2107,7 +2427,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 20 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2122,7 +2442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2143,7 +2463,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2219,8 +2539,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
+/* 27 */
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -2232,7 +2552,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('icon', {
 
-	        mixins: [_svg2.default],
+	        mixins: [UIkit.mixin.svg],
 
 	        props: ['icon'],
 
@@ -2259,115 +2579,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _svg = __webpack_require__(24);
-
-	var _svg2 = _interopRequireDefault(_svg);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 /***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var storage = window.sessionStorage || {},
-	    svgs = {};
-
-	exports.default = {
-
-	    props: { id: String, class: String, style: String, width: Number, height: Number, ratio: Number },
-
-	    defaults: { ratio: 1, id: false, class: '', exclude: [] },
-
-	    methods: {
-	        get: function get(src) {
-
-	            if (svgs[src]) {
-	                return svgs[src];
-	            }
-
-	            var key = 'uikit_' + UIkit.version + '_' + src;
-	            svgs[src] = _jquery2.default.Deferred();
-
-	            if (!storage[key]) {
-	                _jquery2.default.get(src, 'text').then(function (doc, status, res) {
-	                    storage[key] = res.responseText;
-	                    svgs[src].resolve(storage[key]);
-	                });
-	            } else {
-	                svgs[src].resolve(storage[key]);
-	            }
-
-	            return svgs[src];
-	        },
-	        getIcon: function getIcon(src, icon) {
-	            var _this = this;
-
-	            return this.get(src).then(function (doc) {
-
-	                var el = (0, _jquery2.default)('#' + icon, doc);
-
-	                if (!el || !el.length) {
-	                    return _jquery2.default.Deferred().reject('Icon not found.');
-	                }
-
-	                el = (0, _jquery2.default)((0, _jquery2.default)('<div>').append(el.clone()).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
-
-	                return _this.addProps(el);
-	            });
-	        },
-	        addProps: function addProps(el) {
-	            var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
-	            if (dimensions) {
-	                dimensions = dimensions.split(' ');
-	                this.width = this.width || dimensions[2];
-	                this.height = this.height || dimensions[3];
-	            }
-
-	            this.width *= this.ratio;
-	            this.height *= this.ratio;
-
-	            for (var prop in this.$options.props) {
-	                if (this[prop] && this.exclude.indexOf(prop) === -1) {
-	                    el.attr(prop, this[prop]);
-	                }
-	            }
-
-	            if (!this.id) {
-	                el.removeAttr('id');
-	            }
-
-	            if (this.width && !this.height) {
-	                el.removeAttr('height');
-	            }
-
-	            if (this.height && !this.width) {
-	                el.removeAttr('width');
-	            }
-
-	            return el;
-	        }
-	    }
-
-	};
-
-/***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2446,7 +2659,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 26 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2542,7 +2755,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 27 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2562,7 +2775,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            offset: Number,
 	            boundary: Boolean,
 	            boundaryAlign: Boolean,
-	            cls: String,
+	            clsDrop: String,
 	            delayShow: Number,
 	            delayHide: Number,
 	            dropbar: Boolean,
@@ -2577,7 +2790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            offset: 0,
 	            boundary: true,
 	            boundaryAlign: false,
-	            cls: 'uk-navbar-dropdown',
+	            clsDrop: 'uk-navbar-dropdown',
 	            delayHide: 800,
 	            hoverIdle: 200,
 	            dropbar: false,
@@ -2590,7 +2803,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each(function (i, el) {
 
-	                if (!(0, _index.toJQuery)('.' + _this.cls, el)) {
+	                if (!(0, _index.toJQuery)('.' + _this.clsDrop, el)) {
 	                    return;
 	                }
 
@@ -2600,7 +2813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    offset: _this.offset,
 	                    boundary: _this.boundary === true || _this.boundaryAlign ? _this.$el : _this.boundary,
 	                    boundaryAlign: _this.boundaryAlign,
-	                    cls: _this.cls,
+	                    clsDrop: _this.clsDrop,
 	                    flip: 'x',
 	                    delayShow: _this.delayShow,
 	                    delayHide: _this.delayHide
@@ -2633,7 +2846,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.$el.on({
 
 	                beforeshow: function beforeshow(e, drop) {
-	                    drop.drop.addClass(_this.cls + '-dropbar');
+	                    drop.drop.addClass(_this.clsDrop + '-dropbar');
 	                },
 
 	                show: function show(e, drop) {
@@ -2712,7 +2925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 28 */
+/* 31 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2748,7 +2961,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 29 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2856,7 +3069,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 30 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2949,7 +3162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 31 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3020,7 +3233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 32 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3200,7 +3413,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 33 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3213,7 +3426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('svg', {
 
-	        mixins: [_svg2.default],
+	        mixins: [UIkit.mixin.svg],
 
 	        props: ['src'],
 
@@ -3250,14 +3463,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _index = __webpack_require__(4);
 
-	var _svg = __webpack_require__(24);
-
-	var _svg2 = _interopRequireDefault(_svg);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 /***/ },
-/* 34 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3270,7 +3477,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('switcher', {
 
-	        mixins: [_toggle2.default],
+	        mixins: [UIkit.mixin.toggle],
 
 	        props: {
 	            connect: 'jQuery',
@@ -3364,132 +3571,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _index = __webpack_require__(4);
 
-	var _toggle = __webpack_require__(35);
-
-	var _toggle2 = _interopRequireDefault(_toggle);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var updating;
-
-	exports.default = {
-
-	    props: {
-	        cls: Boolean,
-	        animation: String,
-	        duration: Number
-	    },
-
-	    defaults: {
-	        cls: false,
-	        animation: false,
-	        duration: 200
-	    },
-
-	    ready: function ready() {
-
-	        this.aria = this.cls === false;
-	        this.animations = this.animation && this.animation.split(' ');
-
-	        if (this.animations) {
-
-	            if (this.animations.length == 1) {
-	                this.animations[1] = this.animations[0];
-	            }
-
-	            this.animations[0] = this.animations[0].trim();
-	            this.animations[1] = this.animations[1].trim();
-	        }
-	    },
-
-
-	    methods: {
-	        toggleState: function toggleState(targets, animate) {
-	            var _this = this;
-
-	            var deferreds = [];
-
-	            (0, _jquery2.default)(targets).each(function (i, el) {
-
-	                el = (0, _jquery2.default)(el);
-
-	                var toggled = _this.isToggled(el);
-
-	                if (_this.animations && animate !== false) {
-
-	                    _index.Animation.cancel(el);
-
-	                    if (!_this.isToggled(el)) {
-
-	                        _this.doToggle(el, true);
-	                        deferreds.push(_index.Animation.in(el, _this.animations[0], _this.duration).then(function () {
-	                            _this.doUpdate(el);
-	                        }));
-	                    } else {
-
-	                        deferreds.push(_index.Animation.out(el, _this.animations[1], _this.duration).then(function () {
-	                            _this.doToggle(el, false);
-	                            _this.doUpdate(el);
-	                        }));
-	                    }
-	                } else {
-
-	                    _this.doToggle(el, !toggled);
-	                    _this.doUpdate(el);
-	                    deferreds.push(_jquery2.default.Deferred().resolve());
-	                }
-	            });
-
-	            return _jquery2.default.when.apply(null, deferreds);
-	        },
-	        doToggle: function doToggle(el, toggled) {
-	            el = (0, _jquery2.default)(el);
-	            el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
-	        },
-	        isToggled: function isToggled(el) {
-	            el = (0, _jquery2.default)(el);
-	            return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
-	        },
-	        doUpdate: function doUpdate(el) {
-	            var _this2 = this;
-
-	            if (!updating) {
-	                requestAnimationFrame(function () {
-	                    _this2.$update();
-	                    updating = false;
-	                });
-	                updating = true;
-	            }
-
-	            if (this.aria) {
-	                el.attr('aria-hidden', !!el.attr('hidden'));
-	            }
-	        }
-	    }
-
-	};
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
+/* 38 */
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -3501,7 +3587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('toggle', {
 
-	        mixins: [_toggle2.default],
+	        mixins: [UIkit.mixin.toggle],
 
 	        props: {
 	            target: 'jQuery'
@@ -3525,12 +3611,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    });
 	};
-
-	var _toggle = __webpack_require__(35);
-
-	var _toggle2 = _interopRequireDefault(_toggle);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ])

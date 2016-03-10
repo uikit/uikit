@@ -2343,14 +2343,10 @@ ul.uk-nav-sub {
 }
 /*
  * 1. Show drop
- * 2. Set animation
  */
 .uk-navbar-dropdown.uk-open {
   /* 1 */
   display: block;
-  /* 2 */
-  -webkit-animation: uk-fade 0.2s ease-in-out;
-  animation: uk-fade 0.2s ease-in-out;
 }
 /*
  * Direction / Alignment modifiers
@@ -3189,14 +3185,10 @@ ul.uk-nav-sub {
 }
 /*
  * 1. Show drop
- * 2. Set animation
  */
 .uk-drop.uk-open {
   /* 1 */
   display: block;
-  /* 2 */
-  -webkit-animation: uk-fade 0.2s ease-in-out;
-  animation: uk-fade 0.2s ease-in-out;
 }
 /* Direction / Alignment modifiers
  ========================================================================== */
@@ -3244,14 +3236,10 @@ ul.uk-nav-sub {
 }
 /*
  * 1. Show drop
- * 2. Set animation
  */
 .uk-dropdown.uk-open {
   /* 1 */
   display: block;
-  /* 2 */
-  -webkit-animation: uk-fade 0.2s ease-in-out;
-  animation: uk-fade 0.2s ease-in-out;
 }
 /* Nav
  ========================================================================== */
@@ -6827,4 +6815,126 @@ ul.uk-nav-sub {
  */
 .uk-form select:not([multiple]):not([size]):disabled {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M3%2C10%20L11%2C10%20L7%2C16%20L3%2C10%20L3%2C10%20Z%22%3E%3C%2Fpath%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M7%2C0%20L11%2C6%20L3%2C6%20L7%2C0%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+}
+/* ========================================================================
+   Component: Tooltip
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set fixed position
+ * 3. Set dimensions
+ * 4. Set style
+ */
+.uk-tooltip {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: absolute;
+  z-index: 1030;
+  /* 3 */
+  box-sizing: border-box;
+  max-width: 200px;
+  padding: 5px 8px;
+  /* 4 */
+  background: #333;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  line-height: 18px;
+}
+/*
+ * 1. Show drop
+ */
+.uk-tooltip.uk-active {
+  /* 1 */
+  display: block;
+}
+/* Triangle
+ ========================================================================== */
+/*
+ * 1. Dashed is less antialised than solid
+ */
+.uk-tooltip:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  /* 1 */
+  border: 5px dashed #333;
+}
+/* Direction modifiers
+ ========================================================================== */
+/*
+ * Top
+ */
+.uk-tooltip-top:after,
+.uk-tooltip-top-left:after,
+.uk-tooltip-top-right:after {
+  bottom: -5px;
+  border-top-style: solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: #333;
+}
+/*
+ * Bottom
+ */
+.uk-tooltip-bottom:after,
+.uk-tooltip-bottom-left:after,
+.uk-tooltip-bottom-right:after {
+  top: -5px;
+  border-bottom-style: solid;
+  border-top: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: #333;
+}
+/*
+ * Top/Bottom center
+ */
+.uk-tooltip-top:after,
+.uk-tooltip-bottom:after {
+  left: 50%;
+  margin-left: -5px;
+}
+/*
+ * Top/Bottom left
+ */
+.uk-tooltip-top-left:after,
+.uk-tooltip-bottom-left:after {
+  left: 10px;
+}
+/*
+ * Top/Bottom right
+ */
+.uk-tooltip-top-right:after,
+.uk-tooltip-bottom-right:after {
+  right: 10px;
+}
+/*
+ * Left
+ */
+.uk-tooltip-left:after {
+  right: -5px;
+  top: 50%;
+  margin-top: -5px;
+  border-left-style: solid;
+  border-right: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: #333;
+}
+/*
+ * Right
+ */
+.uk-tooltip-right:after {
+  left: -5px;
+  top: 50%;
+  margin-top: -5px;
+  border-right-style: solid;
+  border-left: none;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: #333;
 }

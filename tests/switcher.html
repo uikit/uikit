@@ -344,7 +344,7 @@
 
                     <h4>Slide horizontal</h4>
 
-                    <ul class="uk-tab uk-animation-slide" uk-switcher="connect: #tab-content-a-slide-horizontal; animation: uk-animation-slide-left uk-animation-slide-right">
+                    <ul class="uk-tab uk-animation-slide" uk-switcher="connect: #tab-content-a-slide-horizontal; animation: uk-animation-slide-left,uk-animation-slide-right">
                         <li class="uk-active"><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
@@ -361,7 +361,7 @@
 
                     <h4>Slide vertical</h4>
 
-                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-slide-vertical; animation: uk-animation-slide-top uk-animation-slide-bottom">
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-slide-vertical; animation: uk-animation-slide-top,uk-animation-slide-bottom">
                         <li class="uk-active"><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
@@ -378,7 +378,7 @@
 
                     <h4>Custom</h4>
 
-                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-anim-custom; animation: uk-animation-fade uk-animation-slide-left">
+                    <ul class="uk-tab" uk-switcher="connect: #tab-content-a-anim-custom; animation: uk-animation-fade,uk-animation-slide-left">
                         <li class="uk-active"><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
                         <li><a href="#">Tab</a></li>
@@ -422,13 +422,13 @@
                             <td><code>active</code></td>
                             <td>Number</td>
                             <td>0</td>
-                            <td>Active index on init.</td>
+                            <td>Active index on init. (Providing a negative number indicates a position starting from the end of the set)</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
                             <td>String</td>
                             <td>false</td>
-                            <td>The comma separated names of animations to use. (Space separate for animation out)</td>
+                            <td>The space separated names of animations to use. (Comma separate for animation out)</td>
                         </tr>
                         <tr>
                             <td><code>duration</code></td>

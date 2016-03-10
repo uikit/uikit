@@ -1,11 +1,8 @@
-import $ from 'jquery';
-import svgMixin from '../mixin/svg';
-
 export default function (UIkit) {
 
     UIkit.component('icon', {
 
-        mixins: [svgMixin],
+        mixins: [UIkit.mixin.svg],
 
         props: ['icon'],
 

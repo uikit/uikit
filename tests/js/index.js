@@ -15,7 +15,7 @@ requestAnimationFrame(function () {
         Layout: ['section', 'container', 'grid', 'card'],
         JavaScript: ['drop', 'dropdown', 'scrollspy', 'smooth-scroll', 'sticky', 'switcher', 'toggle'],
         Utilities: ['align', 'animation', 'column', 'cover', 'flex', 'height-expand', 'height-viewport', 'inverse', 'margin', 'padding', 'position', 'text', 'utility', 'visibility', 'width'],
-        Components: ['form-advanced']
+        Components: ['form-advanced', 'tooltip']
 
     }, function (group, tests) {
 

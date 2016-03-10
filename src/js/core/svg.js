@@ -1,11 +1,10 @@
 import {toJQuery} from '../util/index';
-import svgMixin from '../mixin/svg';
 
 export default function (UIkit) {
 
     UIkit.component('svg', {
 
-        mixins: [svgMixin],
+        mixins: [UIkit.mixin.svg],
 
         props: ['src'],
 

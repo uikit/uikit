@@ -14,6 +14,8 @@ export default function (UIkit) {
             options = UIkit.extend(options);
         }
 
+        UIkit.component.selector = (UIkit.component.selector + ',' || '') + `[uk-${name}]`;
+
         name = camelize(name);
 
         UIkit.components[name] = options;

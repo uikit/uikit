@@ -13,37 +13,36 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
+        mixins: [UIkit.mixin.position, UIkit.mixin.toggle],
+
         props: {
             mode: String,
-            pos: String,
             target: 'jQuery',
             boundary: 'jQuery',
             boundaryAlign: Boolean,
-            flip: Boolean,
-            offset: Number,
             delayShow: Number,
             delayHide: Number,
-            cls: String
+            clsDrop: String
         },
 
         defaults: {
             mode: 'hover',
-            pos: 'bottom-left',
             target: false,
             boundary: $(window),
             boundaryAlign: false,
-            flip: true,
-            offset: 0,
             delayShow: 0,
             delayHide: 800,
+            clsDrop: false,
             hoverIdle: 200,
-            cls: false
+            animation: 'uk-animation-fade'
         },
 
         ready() {
 
-            this.cls = this.cls || 'uk-' + this.$options.name;
-            this.drop = this.target || toJQuery(`.${this.cls}:first`, this.$el) || toJQuery(this.$el.nextAll(`.${this.cls}:first`));
+            this.cls = 'uk-open';
+            this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
+            this.clsPos = this.clsDrop;
+            this.drop = this.target || toJQuery(`.${this.clsDrop}:first`, this.$el) || toJQuery(this.$el.nextAll(`.${this.clsDrop}:first`));
 
             if (!this.drop) {
                 return;
@@ -51,7 +50,6 @@ export default function (UIkit) {
 
             this.mode = hasTouch ? 'click' : this.mode;
             this.positions = [];
-            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
 
             this.$el.on('click', e => {
 
@@ -68,7 +66,7 @@ export default function (UIkit) {
 
             this.drop.attr('aria-expanded', false);
 
-            this.drop.on('click', `.${this.cls}-close`, () => {
+            this.drop.on('click', `.${this.clsDrop}-close`, () => {
                 this.hide(true);
             });
 
@@ -111,10 +109,38 @@ export default function (UIkit) {
 
                 var show = () => {
 
-                    this.updatePosition();
+                    removeClass(this.drop, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
 
-                    this.$el.trigger('beforeshow', [this]).addClass('uk-open');
-                    this.drop.addClass('uk-open').attr('aria-expanded', 'true');
+                    if (this.boundaryAlign) {
+                        this.drop.addClass(`${this.clsDrop}-boundary`);
+                    }
+
+                    this.drop.show();
+
+                    this.dir = this.pos[0];
+                    this.align = this.pos[1];
+
+                    var boundary = getDimensions(this.boundary),
+                        alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
+
+                    if (this.align === 'justify') {
+                        if (this.getAxis() === 'y') {
+                            this.drop.css('width', alignTo.width);
+                        } else {
+                            this.drop.css('height', alignTo.height);
+                        }
+                    }
+
+                    if (this.drop.outerWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+                        this.drop.addClass(this.clsDrop + '-stack');
+                        this.$el.trigger('stack', [this]);
+                    }
+
+                    this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
+
+                    this.$el.trigger('beforeshow', [this]).addClass(this.cls);
+                    this.toggleState(this.drop.css('display', ''));
+                    this.drop.attr('aria-expanded', 'true');
                     this.$el.trigger('show', [this]);
 
                     this.initMouseTracker();
@@ -145,7 +171,8 @@ export default function (UIkit) {
                     this.cancelMouseTracker();
 
                     this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').find('a').blur();
-                    this.drop.removeClass('uk-open').attr('aria-expanded', 'false');
+                    this.toggleState(this.drop, false);
+                    this.drop.attr('aria-expanded', 'false');
                     this.$el.trigger('hide', [this, force]);
 
                 };
@@ -164,61 +191,7 @@ export default function (UIkit) {
                 clearTimeout(this.hideTimer);
             },
 
-            updatePosition() {
-
-                if (!this.drop) {
-                    return;
-                }
-
-                removeClass(this.drop, this.cls + '-(top|bottom|left|right|stack|boundary)(-[a-z]+)?').css({top: '', left: '', width: '', height: ''});
-
-                if (this.boundaryAlign) {
-                    this.drop.addClass(`${this.cls}-boundary`);
-                }
-
-                this.drop.show();
-
-                this.dir = this.pos[0];
-                this.align = this.pos[1];
-
-                var boundary = getDimensions(this.boundary),
-                    alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
-
-                if (this.align === 'justify') {
-                    if (this.getAxis() === 'y') {
-                        this.drop.css('width', alignTo.width);
-                    } else {
-                        this.drop.css('height', alignTo.height);
-                    }
-                }
-
-                if (this.drop.outerWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                    this.drop.addClass(this.cls + '-stack');
-                    this.$el.trigger('stack', [this]);
-                }
-
-                var flipped = position(
-                    this.drop,
-                    this.boundaryAlign ? this.boundary : this.$el,
-                    this.getAxis() === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
-                    this.getAxis() === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                    this.getAxis() === 'x' ? `${this.offset}` : ` ${this.offset}`,
-                    null,
-                    this.flip,
-                    this.boundary
-                );
-
-                this.dir = this.getAxis() === 'x' ? flipped.target.x : flipped.target.y;
-                this.align = this.getAxis() === 'x' ? flipped.target.y : flipped.target.x;
-
-                this.drop.css('display', '').addClass(`${this.cls}-${this.dir}-${this.align}`);
-            },
-
             initMouseTracker() {
-
-                if (!this.drop) {
-                    return;
-                }
 
                 this.positions = [];
                 this.position = null;
@@ -281,10 +254,6 @@ export default function (UIkit) {
                 return delay;
             },
 
-            getAxis() {
-                return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
-            },
-
             isActive() {
                 return active === this;
             }
@@ -296,21 +265,6 @@ export default function (UIkit) {
     UIkit.drop.getActive = function () {
         return active;
     };
-
-    function flipPosition(pos) {
-        switch (pos) {
-            case 'left':
-                return 'right';
-            case 'right':
-                return 'left';
-            case 'top':
-                return 'bottom';
-            case 'bottom':
-                return 'top';
-            default:
-                return pos;
-        }
-    }
 
     function slope(a, b) {
         return (b.y - a.y) / (b.x - a.x);

@@ -12,7 +12,7 @@ export default function (UIkit) {
             offset: Number,
             boundary: Boolean,
             boundaryAlign: Boolean,
-            cls: String,
+            clsDrop: String,
             delayShow: Number,
             delayHide: Number,
             dropbar: Boolean,
@@ -27,7 +27,7 @@ export default function (UIkit) {
             offset: 0,
             boundary: true,
             boundaryAlign: false,
-            cls: 'uk-navbar-dropdown',
+            clsDrop: 'uk-navbar-dropdown',
             delayHide: 800,
             hoverIdle: 200,
             dropbar: false,
@@ -39,7 +39,7 @@ export default function (UIkit) {
 
             this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each((i, el) => {
 
-                if (!toJQuery('.' + this.cls, el)) {
+                if (!toJQuery('.' + this.clsDrop, el)) {
                     return;
                 }
 
@@ -49,7 +49,7 @@ export default function (UIkit) {
                     offset: this.offset,
                     boundary: (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary,
                     boundaryAlign: this.boundaryAlign,
-                    cls: this.cls,
+                    clsDrop: this.clsDrop,
                     flip: 'x',
                     delayShow: this.delayShow,
                     delayHide: this.delayHide
@@ -83,7 +83,7 @@ export default function (UIkit) {
             this.$el.on({
 
                 beforeshow: (e, drop) => {
-                    drop.drop.addClass(`${this.cls}-dropbar`);
+                    drop.drop.addClass(`${this.clsDrop}-dropbar`);
                 },
 
                 show: (e, drop) => {

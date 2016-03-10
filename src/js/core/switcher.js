@@ -1,12 +1,11 @@
 import $ from 'jquery';
 import {Animation, toJQuery} from '../util/index';
-import toggleMixin from '../mixin/toggle';
 
 export default function (UIkit) {
 
     UIkit.component('switcher', {
 
-        mixins: [toggleMixin],
+        mixins: [UIkit.mixin.toggle],
 
         props: {
             connect: 'jQuery',

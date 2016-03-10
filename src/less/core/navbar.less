@@ -55,7 +55,6 @@
 
 @navbar-dropdown-z-index:                       @global-z-index + 20;
 @navbar-dropdown-width:                         200px;
-@navbar-dropdown-animation:                     uk-fade;
 @navbar-dropdown-margin:                        0;
 @navbar-dropdown-padding:                       15px;
 @navbar-dropdown-background:                    @global-muted-background;
@@ -318,15 +317,11 @@
 
 /*
  * 1. Show drop
- * 2. Set animation
  */
 
 .uk-navbar-dropdown.uk-open {
     /* 1 */
     display: block;
-    /* 2 */
-    -webkit-animation: @navbar-dropdown-animation 0.2s ease-in-out;
-    animation: @navbar-dropdown-animation 0.2s ease-in-out;
 }
 
 /*

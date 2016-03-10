@@ -43,6 +43,18 @@ module.exports = [
 
     {
         entry: {
+            'tooltip': "./src/js/components/tooltip"
+        },
+        output: {
+            path: "./js/components",
+            filename: './[name].js'
+        },
+        module: loaders,
+        externals: externals
+    },
+
+    {
+        entry: {
             index: "./tests/js/index"
         },
         output: {

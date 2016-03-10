@@ -22,7 +22,6 @@
 
 @drop-z-index:                              @global-z-index + 20;
 @drop-width:                                300px;
-@drop-animation:                            uk-fade;
 @drop-margin:                               @global-margin;
 
 
@@ -49,15 +48,11 @@
 
 /*
  * 1. Show drop
- * 2. Set animation
  */
 
 .uk-drop.uk-open {
     /* 1 */
     display: block;
-    /* 2 */
-    -webkit-animation: @drop-animation 0.2s ease-in-out;
-    animation: @drop-animation 0.2s ease-in-out;
 }
 
 

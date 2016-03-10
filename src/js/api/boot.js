@@ -5,12 +5,10 @@ export default function (UIkit) {
 
     const DATA = UIkit.data;
 
-    var selector;
-
     if (!Observer) {
 
         ready(() => {
-            $(getSelector()).each((i, node) => {
+            $(UIkit.component.selector).each((i, node) => {
                 attachComponents(node);
             });
         });
@@ -28,7 +26,7 @@ export default function (UIkit) {
 
                     let node = mutation.addedNodes[i];
 
-                    if (matches(node, getSelector())) {
+                    if (matches(node, UIkit.component.selector)) {
                         attachComponents(node);
                     }
                 }
@@ -49,16 +47,6 @@ export default function (UIkit) {
         });
 
     })).observe(document, {childList: true, subtree: true});
-
-    function getSelector() {
-
-        if (!selector) {
-            var components = Object.keys(UIkit.components).map(hyphenate);
-            selector = components.length ? '[uk-' + components.join('],[uk-') + ']' : false;
-        }
-
-        return selector;
-    }
 
     function attachComponents(node) {
 

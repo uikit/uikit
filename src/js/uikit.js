@@ -1,9 +1,11 @@
 import UIkit from './api/index';
-import coreComponents from './core/index';
+import mixin from './mixin/index';
+import core from './core/index';
 
 UIkit.version = '3.0.0';
 
-coreComponents(UIkit, UIkit.util);
+mixin(UIkit, UIkit.util);
+core(UIkit, UIkit.util);
 
 export default UIkit;
 module.exports = UIkit;

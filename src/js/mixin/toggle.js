@@ -1,108 +1,103 @@
 import $ from 'jquery';
 import {Animation} from '../util/index';
 
-var updating;
+export default function (UIkit) {
 
-export default {
+    UIkit.mixin.toggle = {
 
-    props: {
-        cls: Boolean,
-        animation: String,
-        duration: Number
-    },
+        props: {
+            cls: Boolean,
+            animation: String,
+            duration: Number
+        },
 
-    defaults: {
-        cls: false,
-        animation: false,
-        duration: 200
-    },
+        defaults: {
+            cls: false,
+            animation: false,
+            duration: 200
+        },
 
-    ready() {
+        ready() {
 
-        this.aria = this.cls === false;
-        this.animations = this.animation && this.animation.split(' ');
+            this.aria = this.cls === false;
 
-        if (this.animations) {
+            if (typeof this.animation === 'string') {
 
-            if (this.animations.length == 1) {
-                this.animations[1] = this.animations[0];
+                this.animation = this.animation.split(',');
+
+                if (this.animation.length == 1) {
+                    this.animation[1] = this.animation[0];
+                }
+
+                this.animation[0] = this.animation[0].trim();
+                this.animation[1] = this.animation[1].trim();
+
             }
 
-            this.animations[0] = this.animations[0].trim();
-            this.animations[1] = this.animations[1].trim();
+        },
 
-        }
+        methods: {
 
-    },
+            toggleState(targets, animate) {
 
-    methods: {
+                var deferreds = [];
 
-        toggleState(targets, animate) {
+                $(targets).each((i, el) => {
 
-            var deferreds = [];
+                    el = $(el);
 
-            $(targets).each((i, el) => {
+                    var toggled = this.isToggled(el);
 
-                el = $(el);
+                    if (this.animation && animate !== false) {
 
-                var toggled = this.isToggled(el);
+                        Animation.cancel(el);
 
-                if (this.animations && animate !== false) {
+                        if (!this.isToggled(el)) {
 
-                    Animation.cancel(el);
+                            this.doToggle(el, true);
+                            deferreds.push(Animation.in(el, this.animation[0], this.duration).then(() => {
+                                this.doUpdate(el);
+                            }));
 
-                    if (!this.isToggled(el)) {
+                        } else {
 
-                        this.doToggle(el, true);
-                        deferreds.push(Animation.in(el, this.animations[0], this.duration).then(() => {
-                            this.doUpdate(el);
-                        }));
+                            deferreds.push(Animation.out(el, this.animation[1], this.duration).then(() => {
+                                this.doToggle(el, false);
+                                this.doUpdate(el);
+                            }));
+
+                        }
 
                     } else {
 
-                        deferreds.push(Animation.out(el, this.animations[1], this.duration).then(() => {
-                            this.doToggle(el, false);
-                            this.doUpdate(el);
-                        }));
-
+                        this.doToggle(el, !toggled);
+                        this.doUpdate(el);
+                        deferreds.push($.Deferred().resolve());
                     }
-
-                } else {
-
-                    this.doToggle(el, !toggled);
-                    this.doUpdate(el);
-                    deferreds.push($.Deferred().resolve());
-                }
-            });
-
-            return $.when.apply(null, deferreds);
-        },
-
-        doToggle(el, toggled) {
-            el = $(el);
-            el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
-        },
-
-        isToggled(el) {
-            el = $(el);
-            return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
-        },
-
-        doUpdate(el) {
-
-            if (!updating) {
-                requestAnimationFrame(() => {
-                    this.$update();
-                    updating = false;
                 });
-                updating = true;
+
+                return $.when.apply(null, deferreds);
+            },
+
+            doToggle(el, toggled) {
+                el = $(el);
+                el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
+            },
+
+            isToggled(el) {
+                el = $(el);
+                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
+            },
+
+            doUpdate(el) {
+                this.$update(null, el);
+                if (this.aria) {
+                    el.attr('aria-hidden', !!el.attr('hidden'));
+                }
             }
 
-            if (this.aria) {
-                el.attr('aria-hidden', !!el.attr('hidden'));
-            }
         }
 
-    }
+    };
 
-}
+};

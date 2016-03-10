@@ -33,8 +33,8 @@ export default function (UIkit) {
         });
     };
 
-    UIkit.prototype.$update = function (e) {
-        $(UIkit.elements, this.$el).each(function () {
+    UIkit.prototype.$update = function (e, element) {
+        $(UIkit.elements, element || this.$el).each(function () {
             if (this[DATA]) {
                 for (var name in this[DATA]) {
                     this[DATA][name]._callUpdate(e);

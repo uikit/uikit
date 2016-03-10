@@ -1,18 +1,18 @@
-import {Animation, Transition} from '../util/index';
+import {Transition} from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('alert', {
 
+        mixins: [UIkit.mixin.toggle],
+
         props: {
-            animation: null,
-            duration: Number,
+            animation: Boolean,
             close: String
         },
 
         defaults: {
             animation: true,
-            duration: 200,
             close: '.uk-alert-close'
         },
 
@@ -29,26 +29,25 @@ export default function (UIkit) {
 
                 this.$el.trigger('close');
 
-                if (String(this.animation) === 'true') {
+                var deferred;
 
-                    Transition.start(this.$el, {
+                if (this.animation === true) {
+
+                    deferred = Transition.start(this.$el, {
                         'overflow': 'hidden',
                         'height': 0,
                         'opacity': 0,
                         'padding-top': 0,
                         'padding-bottom': 0,
                         'margin-top': 0,
-                        'margin-bottom': 0
-                    }, this.duration).then(this.$destroy.bind(this));
-
-                } else if (typeof this.animation === 'string' && this.animation !== 'false') {
-
-                    Animation.out(this.$el, this.animation, this.duration).then(this.$destroy.bind(this));
+                        'margin-bottom': '-' + this.$el.prev().css('margin-bottom')
+                    }, this.duration);
 
                 } else {
-                    this.$destroy();
+                    deferred = this.toggleState(this.$el);
                 }
 
+                deferred.then(this.$destroy.bind(this));
             }
 
         },

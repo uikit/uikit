@@ -1,10 +1,8 @@
-import toggleMixin from '../mixin/toggle';
-
 export default function (UIkit) {
 
     UIkit.component('toggle', {
 
-        mixins: [toggleMixin],
+        mixins: [UIkit.mixin.toggle],
 
         props: {
             target: 'jQuery'
