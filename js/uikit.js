@@ -1762,7 +1762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	        methods: {
-	            toggleState: function toggleState(targets, animate) {
+	            toggleState: function toggleState(targets, animate, show) {
 	                var _this = this;
 
 	                var deferreds = [];
@@ -1772,6 +1772,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    el = (0, _jquery2.default)(el);
 
 	                    var toggled = _this.isToggled(el);
+
+	                    if (show === true && toggled || show === false && !toggled) {
+	                        return;
+	                    }
 
 	                    if (_this.animation && animate !== false) {
 

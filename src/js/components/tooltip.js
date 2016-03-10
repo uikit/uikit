@@ -35,14 +35,14 @@ UIkit.component('tooltip', {
 
             this.showTimer = setTimeout(() => {
                 this.positionAt(this.tooltip, this.$el);
-                this.toggleState(this.tooltip);
-            }, delay);
+                this.toggleState(this.tooltip, true, true);
+            }, this.delay);
 
         },
 
         hide() {
             clearTimeout(this.showTimer);
-            this.toggleState(this.tooltip);
+            this.toggleState(this.tooltip, true, false);
         }
 
     }

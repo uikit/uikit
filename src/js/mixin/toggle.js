@@ -38,7 +38,7 @@ export default function (UIkit) {
 
         methods: {
 
-            toggleState(targets, animate) {
+            toggleState(targets, animate, show) {
 
                 var deferreds = [];
 
@@ -47,6 +47,10 @@ export default function (UIkit) {
                     el = $(el);
 
                     var toggled = this.isToggled(el);
+
+                    if (show === true && toggled || show === false && !toggled) {
+                        return;
+                    }
 
                     if (this.animation && animate !== false) {
 
