@@ -34,10 +34,13 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$update = function (e, element) {
-        $(UIkit.elements, element || this.$el).each(function () {
-            if (this[DATA]) {
-                for (var name in this[DATA]) {
-                    this[DATA][name]._callUpdate(e);
+
+        element = element ? $(element)[0] : false;
+
+        UIkit.elements.forEach((el) => {
+            if (el[DATA] && $.contains(element || this.$el[0], el)) {
+                for (var name in el[DATA]) {
+                    el[DATA][name]._callUpdate(e);
                 }
             }
         });

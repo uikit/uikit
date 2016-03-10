@@ -56,7 +56,7 @@ export default function (UIkit) {
 
         methods: {
 
-            show: function (item) {
+            show(item) {
 
                 var length = this.toggles.length,
                     prev = this.connect.children(`.${this.cls}`).index(),

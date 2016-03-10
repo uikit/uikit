@@ -1367,20 +1367,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    UIkit.prototype.$update = function (e, element) {
-	        (0, _jquery2.default)(UIkit.elements, element || this.$el).each(function () {
-	            if (this[DATA]) {
-	                for (var name in this[DATA]) {
-	                    this[DATA][name]._callUpdate(e);
+	        var _this2 = this;
+
+	        element = element ? (0, _jquery2.default)(element)[0] : false;
+
+	        UIkit.elements.forEach(function (el) {
+	            if (el[DATA] && _jquery2.default.contains(element || _this2.$el[0], el)) {
+	                for (var name in el[DATA]) {
+	                    el[DATA][name]._callUpdate(e);
 	                }
 	            }
 	        });
 	    };
 
 	    UIkit.prototype.$updateParents = function (e) {
-	        var _this2 = this;
+	        var _this3 = this;
 
 	        (0, _jquery2.default)(UIkit.elements).each(function (i, el) {
-	            if (el[DATA] && _jquery2.default.contains(el, _this2.$el[0])) {
+	            if (el[DATA] && _jquery2.default.contains(el, _this3.$el[0])) {
 	                for (var name in el[DATA]) {
 	                    el[DATA][name]._callUpdate(e);
 	                }
@@ -3532,7 +3536,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	        methods: {
-
 	            show: function show(item) {
 	                var _this2 = this;
 
@@ -3563,7 +3566,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this2.toggleState(_this2.connect.children(':nth-child(' + (index + 1) + ')'), hasPrev);
 	                });
 	            }
-
 	        }
 
 	    });

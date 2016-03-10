@@ -37,7 +37,6 @@ UIkit.component('tooltip', {
                 this.positionAt(this.tooltip, this.$el);
                 this.toggleState(this.tooltip, true, true);
             }, this.delay);
-
         },
 
         hide() {
