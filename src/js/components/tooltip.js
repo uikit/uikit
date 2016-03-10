@@ -6,7 +6,7 @@ UIkit.component('tooltip', {
 
     props: {
         delay: Number,
-        clsActive: String
+        clsCustom: String
     },
 
     defaults: {
@@ -14,7 +14,6 @@ UIkit.component('tooltip', {
         offset: 5,
         delay: 0,
         cls: 'uk-active',
-        clsActive: '',
         clsPos: 'uk-tooltip'
     },
 
@@ -32,22 +31,18 @@ UIkit.component('tooltip', {
     methods: {
 
         show() {
-            this.clearTimeout();
+            clearTimeout(this.showTimer);
 
-            this.positionAt(this.tooltip, this.$el);
-            this.toggleState(this.tooltip);
-            //this.tooltip.toggleClass(this.cls);
+            this.showTimer = setTimeout(() => {
+                this.positionAt(this.tooltip, this.$el);
+                this.toggleState(this.tooltip);
+            }, delay);
+
         },
 
         hide() {
-            this.clearTimeout();
-
-            this.toggleState(this.tooltip);
-            //this.tooltip.toggleClass(this.cls);
-        },
-
-        clearTimeout() {
             clearTimeout(this.showTimer);
+            this.toggleState(this.tooltip);
         }
 
     }
