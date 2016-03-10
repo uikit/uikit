@@ -73,8 +73,7 @@
 
                 if (this.style.display != 'none') {
                     offset = UI.$(this).offset().left;
-                    group[offset] = group[offset] || [];
-                    group[offset].push(this);
+                    ((group[offset] = group[offset] || []) && group[offset]).push(this);
                     minleft = minleft === false ? offset : Math.min(minleft, offset);
                 }
             });
