@@ -62,18 +62,24 @@
 
             UI.Utils.stackMargin(columns, this.options);
 
-            if (!this.options.rowfirst) {
+            if (!this.options.rowfirst || !columns.length) {
                 return this;
             }
 
             // Mark first column elements
-            var pos_cache = columns.removeClass(this.options.rowfirst).filter(':visible').first().position();
+            var group = {}, minleft = false;
 
-            if (pos_cache) {
-                columns.each(function() {
-                    UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass':'removeClass']($this.options.rowfirst);
-                });
-            }
+            columns.removeClass(this.options.rowfirst).each(function(offset){
+
+                if (this.style.display != 'none') {
+                    offset = UI.$(this).offset().left;
+                    group[offset] = group[offset] || [];
+                    group[offset].push(this);
+                    minleft = minleft === false ? offset : Math.min(minleft, offset);
+                }
+            });
+
+            UI.$(group[minleft]).addClass(this.options.rowfirst);
 
             return this;
         }

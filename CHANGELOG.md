@@ -3,6 +3,7 @@
 ### WIP
   - Fixed scrollspynav active state
   - Fixed uk-modal-spinner animation
+  - Fixed uk-row-first when using pull/push or flex-order classes
 
 ### 2.25.0 (February 17, 2016)
   - Added grid parallax component
