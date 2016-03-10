@@ -2344,11 +2344,8 @@ ul.uk-nav-sub {
   color: #444;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
-/*
- * 1. Show drop
- */
+/* Show */
 .uk-navbar-dropdown.uk-open {
-  /* 1 */
   display: block;
 }
 /*
@@ -3186,11 +3183,8 @@ ul.uk-nav-sub {
   box-sizing: border-box;
   width: 300px;
 }
-/*
- * 1. Show drop
- */
+/* Show */
 .uk-drop.uk-open {
-  /* 1 */
   display: block;
 }
 /* Direction / Alignment modifiers
@@ -3237,11 +3231,8 @@ ul.uk-nav-sub {
   color: #444;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
-/*
- * 1. Show drop
- */
+/* Show */
 .uk-dropdown.uk-open {
-  /* 1 */
   display: block;
 }
 /* Nav
