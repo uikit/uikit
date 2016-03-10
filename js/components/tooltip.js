@@ -58,7 +58,7 @@
 
 	    props: {
 	        delay: Number,
-	        clsActive: String
+	        clsCustom: String
 	    },
 
 	    defaults: {
@@ -66,61 +66,35 @@
 	        offset: 5,
 	        delay: 0,
 	        cls: 'uk-active',
-	        clsActive: '',
 	        clsPos: 'uk-tooltip'
 	    },
 
 	    ready: function ready() {
-	        var _this = this;
 
 	        this.content = this.$el.attr('title');
 	        this.$el.removeAttr('title');
 	        this.tooltip = (0, _jquery2.default)('<div class="uk-tooltip"><div class="uk-tooltip-inner">' + this.content + '</div></div>').appendTo('body');
 
-	        this.$el.on({
-	            focus: function focus(e) {
-	                _this.show();
-	            },
-	            blur: function blur(e) {
-	                _this.hide();
-	            },
-	            mouseenter: function mouseenter(e) {
-	                _this.show();
-	            },
-	            mouseleave: function mouseleave(e) {
-	                _this.hide();
-	            }
-	        });
+	        this.$el.on('focus mouseenter', this.show.bind(this));
+	        this.$el.on('blur mouseleave', this.hide.bind(this));
 	    },
 
 
 	    methods: {
 	        show: function show() {
-	            this.clearTimeout();
+	            var _this = this;
 
-	            this.positionAt(this.tooltip, this.$el);
-	            this.toggleState(this.tooltip);
-	            //this.tooltip.toggleClass(this.cls);
+	            clearTimeout(this.showTimer);
+
+	            this.showTimer = setTimeout(function () {
+	                _this.positionAt(_this.tooltip, _this.$el);
+	                _this.toggleState(_this.tooltip);
+	            }, delay);
 	        },
 	        hide: function hide() {
-	            this.clearTimeout();
-
-	            this.toggleState(this.tooltip);
-	            //this.tooltip.toggleClass(this.cls);
-	        },
-	        clearTimeout: function (_clearTimeout) {
-	            function clearTimeout() {
-	                return _clearTimeout.apply(this, arguments);
-	            }
-
-	            clearTimeout.toString = function () {
-	                return _clearTimeout.toString();
-	            };
-
-	            return clearTimeout;
-	        }(function () {
 	            clearTimeout(this.showTimer);
-	        })
+	            this.toggleState(this.tooltip);
+	        }
 	    }
 
 	});
