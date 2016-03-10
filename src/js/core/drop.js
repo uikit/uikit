@@ -131,7 +131,7 @@ export default function (UIkit) {
                         }
                     }
 
-                    if (this.drop.outerWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+                    if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                         this.drop.addClass(this.clsDrop + '-stack');
                         this.$el.trigger('stack', [this]);
                     }

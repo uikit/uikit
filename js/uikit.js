@@ -2296,7 +2296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    }
 
-	                    if (_this2.drop.outerWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+	                    if (_this2.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
 	                        _this2.drop.addClass(_this2.clsDrop + '-stack');
 	                        _this2.$el.trigger('stack', [_this2]);
 	                    }
