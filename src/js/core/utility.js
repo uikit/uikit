@@ -69,10 +69,12 @@
             // Mark first column elements
             var group = {}, minleft = false;
 
-            columns.removeClass(this.options.rowfirst).each(function(offset){
+            columns.removeClass(this.options.rowfirst).each(function(offset, $ele){
+
+                $ele = UI.$(this);
 
                 if (this.style.display != 'none') {
-                    offset = UI.$(this).offset().left;
+                    offset = $ele.offset().left;
                     ((group[offset] = group[offset] || []) && group[offset]).push(this);
                     minleft = minleft === false ? offset : Math.min(minleft, offset);
                 }
@@ -168,10 +170,12 @@
 
         var group = {}, mintop = false;
 
-        elements.each(function(offset){
+        elements.each(function(offset, $ele){
 
-            if (this.style.display != 'none') {
-                offset = UI.$(this).offset().top;
+            $ele = UI.$(this);
+
+            if ($ele.css('display') != 'none') {
+                offset = $ele.offset().top;
                 ((group[offset] = group[offset] || []) && group[offset]).push(this);
                 mintop = mintop === false ? offset : Math.min(mintop, offset);
             }
