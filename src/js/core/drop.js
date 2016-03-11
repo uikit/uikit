@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isWithin, hasTouch, removeClass, position, getDimensions, toJQuery} from '../util/index';
+import {isWithin, hasTouch, removeClass, getDimensions, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -13,7 +13,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [UIkit.mixin.position, UIkit.mixin.toggle],
+        mixins: [UIkit.mixin.position, UIkit.mixin.toggle, UIkit.mixin.mouse],
 
         props: {
             mode: String,
@@ -49,7 +49,6 @@ export default function (UIkit) {
             }
 
             this.mode = hasTouch ? 'click' : this.mode;
-            this.positions = [];
 
             this.$el.on('click', e => {
 
@@ -100,7 +99,7 @@ export default function (UIkit) {
 
                 if (this.isActive()) {
                     return;
-                } else if (!force && active && active !== this && active.isDelaying()) {
+                } else if (!force && active && active !== this && active.isDelaying) {
                     this.showTimer = setTimeout(this.show.bind(this), 75);
                     return;
                 } else if (active) {
@@ -124,11 +123,8 @@ export default function (UIkit) {
                         alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
 
                     if (this.align === 'justify') {
-                        if (this.getAxis() === 'y') {
-                            this.drop.css('width', alignTo.width);
-                        } else {
-                            this.drop.css('height', alignTo.height);
-                        }
+                        var prop = this.getAxis() === 'y' ? 'width' : 'height';
+                        this.drop.css(prop, alignTo[prop]);
                     }
 
                     if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
@@ -143,8 +139,9 @@ export default function (UIkit) {
                     this.drop.attr('aria-expanded', 'true');
                     this.$el.trigger('show', [this]);
 
-                    this.initMouseTracker();
-                    this.$update();
+                    if (this.mode === 'hover') {
+                        this.initMouseTracker(this.drop);
+                    }
                 };
 
                 if (!force && this.delayShow) {
@@ -170,14 +167,16 @@ export default function (UIkit) {
 
                     this.cancelMouseTracker();
 
-                    this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').find('a').blur();
+                    this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').find('a, button').blur();
                     this.toggleState(this.drop, false);
                     this.drop.attr('aria-expanded', 'false');
                     this.$el.trigger('hide', [this, force]);
 
                 };
 
-                if (!force && this.isDelaying()) {
+                this.isDelaying = this.movesTowardsTarget();
+
+                if (!force && this.isDelaying) {
                     this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
                 } else if (!force && this.delayHide) {
                     this.hideTimer = setTimeout(hide, this.delayHide);
@@ -191,69 +190,6 @@ export default function (UIkit) {
                 clearTimeout(this.hideTimer);
             },
 
-            initMouseTracker() {
-
-                this.positions = [];
-                this.position = null;
-
-                if (this.mode !== 'hover') {
-                    return;
-                }
-
-                this.mouseHandler = (e) => {
-                    this.positions.push({x: e.pageX, y: e.pageY});
-
-                    if (this.positions.length > 3) {
-                        this.positions.shift();
-                    }
-                };
-
-                $(document).on('mousemove', this.mouseHandler);
-
-                var p = getDimensions(this.drop);
-
-                this.points = [
-                    [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
-                    [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
-                ];
-
-                if (this.dir === 'right') {
-                    this.points[0].reverse();
-                    this.points[1].reverse();
-                } else if (this.dir === 'top') {
-                    this.points[0].reverse();
-                } else if (this.dir === 'bottom') {
-                    this.points[1].reverse();
-                }
-
-            },
-
-            cancelMouseTracker() {
-                if (this.mouseHandler) {
-                    $(document).off('mousemove', this.mouseHandler);
-                }
-            },
-
-            isDelaying() {
-
-                if (this.hoverTimer) {
-                    return true;
-                }
-
-                var position = this.positions[this.positions.length - 1],
-                    prevPos = this.positions[0] || position,
-                    delay = position && this.mode === 'hover' && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y);
-
-                if (delay) {
-                    delay = !!this.points.reduce((result, point) => {
-                        return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
-                    }, 0);
-                }
-
-                this.position = delay ? position : null;
-                return delay;
-            },
-
             isActive() {
                 return active === this;
             }
@@ -265,8 +201,4 @@ export default function (UIkit) {
     UIkit.drop.getActive = function () {
         return active;
     };
-
-    function slope(a, b) {
-        return (b.y - a.y) / (b.x - a.x);
-    }
 }

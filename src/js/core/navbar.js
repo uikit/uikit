@@ -59,7 +59,7 @@ export default function (UIkit) {
 
             this.$el.on('mouseenter', this.dropdown, (e) => {
                 var active = this.getActive();
-                if (active && active.mode !== 'click' && !isWithin(e.target, active.$el) && !active.isDelaying()) {
+                if (active && active.mode !== 'click' && !isWithin(e.target, active.$el) && !active.isDelaying) {
                     active.hide(true);
                 }
             });

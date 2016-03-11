@@ -881,8 +881,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (newVal >= boundary[props[1]] && newVal + dim[props[0]] <= boundary[props[2]]) {
 	                    position[props[1]] = newVal;
 
-	                    flipped.element[dir] = elemOffset ? flipped.element[dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1] : flipped.element[dir];
-	                    flipped.target[dir] = elemOffset ? flipped.target[dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1] : flipped.target[dir];
+	                    ['element', 'target'].forEach(function (el) {
+	                        flipped[el][dir] = !elemOffset ? flipped[el][dir] : flipped[el][dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1];
+	                    });
 	                }
 	            }
 	        });
@@ -1522,10 +1523,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit, _) {
 
+	    UIkit.use(_mouse2.default);
 	    UIkit.use(_position2.default);
 	    UIkit.use(_svg2.default);
 	    UIkit.use(_toggle2.default);
 	};
+
+	var _mouse = __webpack_require__(39);
+
+	var _mouse2 = _interopRequireDefault(_mouse);
 
 	var _position = __webpack_require__(16);
 
@@ -2178,7 +2184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('drop', {
 
-	        mixins: [UIkit.mixin.position, UIkit.mixin.toggle],
+	        mixins: [UIkit.mixin.position, UIkit.mixin.toggle, UIkit.mixin.mouse],
 
 	        props: {
 	            mode: String,
@@ -2215,7 +2221,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            this.mode = _index.hasTouch ? 'click' : this.mode;
-	            this.positions = [];
 
 	            this.$el.on('click', function (e) {
 
@@ -2265,7 +2270,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                if (this.isActive()) {
 	                    return;
-	                } else if (!force && active && active !== this && active.isDelaying()) {
+	                } else if (!force && active && active !== this && active.isDelaying) {
 	                    this.showTimer = setTimeout(this.show.bind(this), 75);
 	                    return;
 	                } else if (active) {
@@ -2289,11 +2294,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        alignTo = _this2.boundaryAlign ? boundary : (0, _index.getDimensions)(_this2.$el);
 
 	                    if (_this2.align === 'justify') {
-	                        if (_this2.getAxis() === 'y') {
-	                            _this2.drop.css('width', alignTo.width);
-	                        } else {
-	                            _this2.drop.css('height', alignTo.height);
-	                        }
+	                        var prop = _this2.getAxis() === 'y' ? 'width' : 'height';
+	                        _this2.drop.css(prop, alignTo[prop]);
 	                    }
 
 	                    if (_this2.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
@@ -2308,8 +2310,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this2.drop.attr('aria-expanded', 'true');
 	                    _this2.$el.trigger('show', [_this2]);
 
-	                    _this2.initMouseTracker();
-	                    _this2.$update();
+	                    if (_this2.mode === 'hover') {
+	                        _this2.initMouseTracker(_this2.drop);
+	                    }
 	                };
 
 	                if (!force && this.delayShow) {
@@ -2335,13 +2338,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    _this3.cancelMouseTracker();
 
-	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a').blur();
+	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a, button').blur();
 	                    _this3.toggleState(_this3.drop, false);
 	                    _this3.drop.attr('aria-expanded', 'false');
 	                    _this3.$el.trigger('hide', [_this3, force]);
 	                };
 
-	                if (!force && this.isDelaying()) {
+	                this.isDelaying = this.movesTowardsTarget();
+
+	                if (!force && this.isDelaying) {
 	                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
 	                } else if (!force && this.delayHide) {
 	                    this.hideTimer = setTimeout(hide, this.delayHide);
@@ -2353,63 +2358,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                clearTimeout(this.showTimer);
 	                clearTimeout(this.hideTimer);
 	            },
-	            initMouseTracker: function initMouseTracker() {
-	                var _this4 = this;
-
-	                this.positions = [];
-	                this.position = null;
-
-	                if (this.mode !== 'hover') {
-	                    return;
-	                }
-
-	                this.mouseHandler = function (e) {
-	                    _this4.positions.push({ x: e.pageX, y: e.pageY });
-
-	                    if (_this4.positions.length > 3) {
-	                        _this4.positions.shift();
-	                    }
-	                };
-
-	                (0, _jquery2.default)(document).on('mousemove', this.mouseHandler);
-
-	                var p = (0, _index.getDimensions)(this.drop);
-
-	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
-
-	                if (this.dir === 'right') {
-	                    this.points[0].reverse();
-	                    this.points[1].reverse();
-	                } else if (this.dir === 'top') {
-	                    this.points[0].reverse();
-	                } else if (this.dir === 'bottom') {
-	                    this.points[1].reverse();
-	                }
-	            },
-	            cancelMouseTracker: function cancelMouseTracker() {
-	                if (this.mouseHandler) {
-	                    (0, _jquery2.default)(document).off('mousemove', this.mouseHandler);
-	                }
-	            },
-	            isDelaying: function isDelaying() {
-
-	                if (this.hoverTimer) {
-	                    return true;
-	                }
-
-	                var position = this.positions[this.positions.length - 1],
-	                    prevPos = this.positions[0] || position,
-	                    delay = position && this.mode === 'hover' && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y);
-
-	                if (delay) {
-	                    delay = !!this.points.reduce(function (result, point) {
-	                        return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
-	                    }, 0);
-	                }
-
-	                this.position = delay ? position : null;
-	                return delay;
-	            },
 	            isActive: function isActive() {
 	                return active === this;
 	            }
@@ -2420,10 +2368,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.drop.getActive = function () {
 	        return active;
 	    };
-
-	    function slope(a, b) {
-	        return (b.y - a.y) / (b.x - a.x);
-	    }
 	};
 
 	var _jquery = __webpack_require__(3);
@@ -2830,7 +2774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.$el.on('mouseenter', this.dropdown, function (e) {
 	                var active = _this.getActive();
-	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying()) {
+	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying) {
 	                    active.hide(true);
 	                }
 	            });
@@ -3617,6 +3561,87 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    });
 	};
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.mouse = {
+
+	        defaults: {
+
+	            positions: [],
+	            position: null,
+	            points: null
+
+	        },
+
+	        methods: {
+	            initMouseTracker: function initMouseTracker(target) {
+	                var _this = this;
+
+	                this.positions = [];
+	                this.position = null;
+
+	                this.mouseHandler = function (e) {
+	                    _this.positions.push({ x: e.pageX, y: e.pageY });
+
+	                    if (_this.positions.length > 5) {
+	                        _this.positions.shift();
+	                    }
+	                };
+
+	                $(document).on('mousemove', this.mouseHandler);
+
+	                var p = (0, _index.getDimensions)(target);
+
+	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
+
+	                if (this.dir === 'right') {
+	                    this.points[0].reverse();
+	                    this.points[1].reverse();
+	                } else if (this.dir === 'top') {
+	                    this.points[0].reverse();
+	                } else if (this.dir === 'bottom') {
+	                    this.points[1].reverse();
+	                }
+	            },
+	            cancelMouseTracker: function cancelMouseTracker() {
+	                if (this.mouseHandler) {
+	                    $(document).off('mousemove', this.mouseHandler);
+	                }
+	            },
+	            movesTowardsTarget: function movesTowardsTarget() {
+
+	                var position = this.positions[this.positions.length - 1],
+	                    prevPos = this.positions[0] || position,
+	                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {
+	                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
+	                }, 0);
+
+	                this.position = delay ? position : null;
+	                return delay;
+	            }
+	        }
+
+	    };
+
+	    function slope(a, b) {
+	        return (b.y - a.y) / (b.x - a.x);
+	    }
+	};
+
+	var _index = __webpack_require__(4);
+
+	;
 
 /***/ }
 /******/ ])

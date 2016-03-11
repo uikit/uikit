@@ -50,8 +50,13 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                 if (newVal >= boundary[props[1]] && newVal + dim[props[0]] <= boundary[props[2]]) {
                     position[props[1]] = newVal;
 
-                    flipped.element[dir] = elemOffset ? flipped.element[dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1] : flipped.element[dir];
-                    flipped.target[dir] = elemOffset ? flipped.target[dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1] : flipped.target[dir];
+                    ['element', 'target'].forEach((el) => {
+                        flipped[el][dir] = !elemOffset
+                            ? flipped[el][dir]
+                            : flipped[el][dir] === dirs[dir][1]
+                                ? dirs[dir][2]
+                                : dirs[dir][1];
+                    });
                 }
             }
 
