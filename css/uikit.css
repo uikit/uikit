@@ -3245,6 +3245,7 @@ ul.uk-nav-sub {
  */
 .uk-dropdown-nav .uk-nav-header {
   color: #444;
+  padding: 6px 25px;
 }
 /*
  * Divider
