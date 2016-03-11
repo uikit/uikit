@@ -24,11 +24,6 @@
 
 @pre-scrollable-height:                         300px;
 
-@logo-font-size:                                @global-large-font-size;
-@logo-font-family:                              @global-font-family;
-@logo-color:                                    @global-color;
-@logo-hover-color:                              @global-color;
-
 
 /* ========================================================================
    Component: Typography
@@ -109,33 +104,6 @@
 }
 
 
-/* Logo
- ========================================================================== */
-
-/*
- * 1. Required for `a`
- */
-
-.uk-logo {
-    font-size: @logo-font-size;
-    font-family: @logo-font-family;
-    color: @logo-color;
-    /* 1 */
-    text-decoration: none;
-    .hook-logo;
-}
-
-/* Hover + Focus */
-.uk-logo:hover,
-.uk-logo:focus {
-    color: @logo-hover-color;
-    outline: none;
-    /* 1 */
-    text-decoration: none;
-    .hook-logo-hover;
-}
-
-
 // Hooks
 // ========================================================================
 
@@ -145,6 +113,4 @@
 .hook-link-muted-hover() {}
 .hook-link-reset() {}
 .hook-heading-primary() {}
-.hook-logo() {}
-.hook-logo-hover() {}
 .hook-typography-misc() {}

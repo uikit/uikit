@@ -474,26 +474,6 @@ textarea {
   -webkit-overflow-scrolling: touch;
   resize: both;
 }
-/* Logo
- ========================================================================== */
-/*
- * 1. Required for `a`
- */
-.uk-logo {
-  font-size: 1.37rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
-  color: #444;
-  /* 1 */
-  text-decoration: none;
-}
-/* Hover + Focus */
-.uk-logo:hover,
-.uk-logo:focus {
-  color: #444;
-  outline: none;
-  /* 1 */
-  text-decoration: none;
-}
 /* ========================================================================
    Component: List
  ========================================================================== */
@@ -2203,7 +2183,7 @@ ul.uk-nav-sub {
   list-style: none;
 }
 /*
- * Items (Nav item, item, toggle)
+ * Items (Nav item, item, icon)
  * 1. Center content vertically and horizontally
  * 2. Dimensions
  * 3. Style
@@ -2261,16 +2241,23 @@ ul.uk-nav-sub {
 .uk-navbar-item {
   color: #444;
 }
-.uk-navbar-item a:not([class]) {
-  color: #999;
-}
-.uk-navbar-item a:not([class]):hover {
-  color: #444;
-}
 /* Toggle
  ========================================================================== */
-.uk-navbar-toggle::before {
-  content: "";
+.uk-navbar-toggle {
+  color: #999;
+}
+.uk-navbar-toggle:hover {
+  color: #444;
+  text-decoration: none;
+}
+.uk-navbar-toggle:focus {
+  outline: none;
+}
+/*
+ * Icon
+ */
+.uk-navbar-toggle-icon {
+  display: inline-block;
   width: 1.5em;
   height: 1.5em;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220px%22%20height%3D%2220px%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23999%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
@@ -2278,12 +2265,9 @@ ul.uk-nav-sub {
   background-position: 50% 50%;
 }
 /* Hover + Focus */
-.uk-navbar-toggle:hover::before,
-.uk-navbar-toggle:focus::before {
+:hover > .uk-navbar-toggle-icon,
+:focus > .uk-navbar-toggle-icon {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220px%22%20height%3D%2220px%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23444%22%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
-}
-.uk-navbar-toggle:focus {
-  outline: none;
 }
 /* Subtitle
  ========================================================================== */
@@ -2458,9 +2442,9 @@ ul.uk-nav-sub {
   background: #fff;
 }
 /*
- * Hover modifier
+ * Overlay modifier
  */
-.uk-navbar-dropbar-hover {
+.uk-navbar-dropbar-overlay {
   position: absolute;
   z-index: 1;
   left: 0;
@@ -3420,21 +3404,6 @@ ul.uk-nav-sub {
   right: 0;
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
-}
-/* Panel in offcanvas
- ========================================================================== */
-.uk-offcanvas .uk-panel {
-  margin: 20px 15px;
-  color: #777;
-}
-.uk-offcanvas .uk-panel-title {
-  color: #ccc;
-}
-.uk-offcanvas .uk-panel a:not([class]) {
-  color: #ccc;
-}
-.uk-offcanvas .uk-panel a:not([class]):hover {
-  color: #fff;
 }
 /* ========================================================================
    Component: Animation
@@ -5531,6 +5500,26 @@ ul.uk-nav-sub {
   float: left;
   font-size: 4.5em;
   line-height: 1;
+}
+/* Logo
+ ========================================================================== */
+/*
+ * 1. Required for `a`
+ */
+.uk-logo {
+  font-size: 1.37rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  color: #444;
+  /* 1 */
+  text-decoration: none;
+}
+/* Hover + Focus */
+.uk-logo:hover,
+.uk-logo:focus {
+  color: #444;
+  outline: none;
+  /* 1 */
+  text-decoration: none;
 }
 /* Disabled
  ========================================================================== */
