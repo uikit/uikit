@@ -7,7 +7,7 @@
 		exports["UIkit"] = factory(require("jQuery"));
 	else
 		root["UIkit"] = factory(root["jQuery"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_3__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -43,3620 +43,374 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { throw err; };
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/*!******************************!*\
+  !*** ./src/js/util/index.js ***!
+  \******************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _index = __webpack_require__(1);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _index3 = __webpack_require__(15);
-
-	var _index4 = _interopRequireDefault(_index3);
-
-	var _index5 = __webpack_require__(19);
-
-	var _index6 = _interopRequireDefault(_index5);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	_index2.default.version = '3.0.0';
-
-	(0, _index4.default)(_index2.default, _index2.default.util);
-	(0, _index6.default)(_index2.default, _index2.default.util);
-
-	exports.default = _index2.default;
-
-	module.exports = _index2.default;
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _dom = __webpack_require__(/*! ./dom */ 36);\n\nvar _loop = function _loop(_key7) {\n  if (_key7 === \"default\") return 'continue';\n  Object.defineProperty(exports, _key7, {\n    enumerable: true,\n    get: function get() {\n      return _dom[_key7];\n    }\n  });\n};\n\nfor (var _key7 in _dom) {\n  var _ret = _loop(_key7);\n\n  if (_ret === 'continue') continue;\n}\n\nvar _env = __webpack_require__(/*! ./env */ 2);\n\nvar _loop2 = function _loop2(_key8) {\n  if (_key8 === \"default\") return 'continue';\n  Object.defineProperty(exports, _key8, {\n    enumerable: true,\n    get: function get() {\n      return _env[_key8];\n    }\n  });\n};\n\nfor (var _key8 in _env) {\n  var _ret2 = _loop2(_key8);\n\n  if (_ret2 === 'continue') continue;\n}\n\nvar _lang = __webpack_require__(/*! ./lang */ 3);\n\nvar _loop3 = function _loop3(_key9) {\n  if (_key9 === \"default\") return 'continue';\n  Object.defineProperty(exports, _key9, {\n    enumerable: true,\n    get: function get() {\n      return _lang[_key9];\n    }\n  });\n};\n\nfor (var _key9 in _lang) {\n  var _ret3 = _loop3(_key9);\n\n  if (_ret3 === 'continue') continue;\n}\n\nvar _options = __webpack_require__(/*! ./options */ 37);\n\nvar _loop4 = function _loop4(_key10) {\n  if (_key10 === \"default\") return 'continue';\n  Object.defineProperty(exports, _key10, {\n    enumerable: true,\n    get: function get() {\n      return _options[_key10];\n    }\n  });\n};\n\nfor (var _key10 in _options) {\n  var _ret4 = _loop4(_key10);\n\n  if (_ret4 === 'continue') continue;\n}\n\nvar _position = __webpack_require__(/*! ./position */ 38);\n\nvar _loop5 = function _loop5(_key11) {\n  if (_key11 === \"default\") return 'continue';\n  Object.defineProperty(exports, _key11, {\n    enumerable: true,\n    get: function get() {\n      return _position[_key11];\n    }\n  });\n};\n\nfor (var _key11 in _position) {\n  var _ret5 = _loop5(_key11);\n\n  if (_ret5 === 'continue') continue;\n}\n\nvar _touch = __webpack_require__(/*! ./touch */ 39);\n\nvar _loop6 = function _loop6(_key12) {\n  if (_key12 === \"default\") return 'continue';\n  Object.defineProperty(exports, _key12, {\n    enumerable: true,\n    get: function get() {\n      return _touch[_key12];\n    }\n  });\n};\n\nfor (var _key12 in _touch) {\n  var _ret6 = _loop6(_key12);\n\n  if (_ret6 === 'continue') continue;\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMC5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _boot = __webpack_require__(2);
-
-	var _boot2 = _interopRequireDefault(_boot);
-
-	var _global = __webpack_require__(11);
-
-	var _global2 = _interopRequireDefault(_global);
-
-	var _internal = __webpack_require__(12);
-
-	var _internal2 = _interopRequireDefault(_internal);
-
-	var _instance = __webpack_require__(13);
-
-	var _instance2 = _interopRequireDefault(_instance);
-
-	var _component = __webpack_require__(14);
-
-	var _component2 = _interopRequireDefault(_component);
-
-	var _index = __webpack_require__(4);
-
-	var util = _interopRequireWildcard(_index);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var UIkit = function UIkit(options) {
-	    this._init(options);
-	};
-
-	UIkit.util = util;
-	UIkit.data = '__uikit__';
-	UIkit.options = {};
-	UIkit.instances = {};
-	UIkit.elements = [];
-
-	(0, _global2.default)(UIkit);
-	(0, _internal2.default)(UIkit);
-	(0, _instance2.default)(UIkit);
-	(0, _component2.default)(UIkit);
-	(0, _boot2.default)(UIkit);
-
-	exports.default = UIkit;
+	eval("module.exports = __WEBPACK_EXTERNAL_MODULE_1__;//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMS5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9leHRlcm5hbCBcImpRdWVyeVwiPzBjYjgiXSwic291cmNlc0NvbnRlbnQiOlsibW9kdWxlLmV4cG9ydHMgPSBfX1dFQlBBQ0tfRVhURVJOQUxfTU9EVUxFXzFfXztcblxuXG4vKioqKioqKioqKioqKioqKipcbiAqKiBXRUJQQUNLIEZPT1RFUlxuICoqIGV4dGVybmFsIFwialF1ZXJ5XCJcbiAqKiBtb2R1bGUgaWQgPSAxXG4gKiogbW9kdWxlIGNodW5rcyA9IDBcbiAqKi8iXSwibWFwcGluZ3MiOiJBQUFBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/*!****************************!*\
+  !*** ./src/js/util/env.js ***!
+  \****************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    var DATA = UIkit.data;
-
-	    if (!_index.Observer) {
-
-	        (0, _index.ready)(function () {
-	            (0, _jquery2.default)(UIkit.component.selector).each(function (i, node) {
-	                attachComponents(node);
-	            });
-	        });
-
-	        return;
-	    }
-
-	    new _index.Observer(function (mutations) {
-
-	        mutations.forEach(function (mutation) {
-
-	            if (mutation.type === 'childList') {
-
-	                for (var i = 0; i < mutation.addedNodes.length; ++i) {
-
-	                    var node = mutation.addedNodes[i];
-
-	                    if ((0, _index.matches)(node, UIkit.component.selector)) {
-	                        attachComponents(node);
-	                    }
-	                }
-
-	                for (var i = 0; i < mutation.removedNodes.length; ++i) {
-
-	                    var components = mutation.removedNodes[i][DATA];
-
-	                    if (components) {
-	                        for (var name in components) {
-	                            components[name].$destroy();
-	                        }
-	                    }
-	                }
-	            }
-	        });
-	    }).observe(document, { childList: true, subtree: true });
-
-	    function attachComponents(node) {
-
-	        for (var i = 0; i < node.attributes.length; i++) {
-
-	            var name = node.attributes[i].name;
-
-	            if (name.lastIndexOf('uk-', 0) === 0) {
-	                name = (0, _index.camelize)(name.replace('uk-', ''));
-
-	                if (UIkit[name]) {
-	                    UIkit[name](node);
-	                }
-	            }
-	        }
-	    }
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.matches = matches;\nvar Observer = exports.Observer = window.MutationObserver || window.WebKitMutationObserver;\nvar requestAnimationFrame = exports.requestAnimationFrame = window.requestAnimationFrame || function (fn) {\n    return setTimeout(fn, 1000 / 60);\n};\nvar cancelAnimationFrame = exports.cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;\n\nvar hasTouch = exports.hasTouch = 'ontouchstart' in window || window.DocumentTouch && document instanceof DocumentTouch || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 || //IE 10\nnavigator.pointerEnabled && navigator.maxTouchPoints > 0; //IE >=11\n\nvar transitionend = exports.transitionend = function () {\n\n    var element = document.body || document.documentElement,\n        names = {\n        WebkitTransition: 'webkitTransitionEnd',\n        MozTransition: 'transitionend',\n        OTransition: 'oTransitionEnd otransitionend',\n        transition: 'transitionend'\n    },\n        name;\n\n    for (name in names) {\n        if (element.style[name] !== undefined) {\n            return names[name];\n        }\n    }\n}();\n\nvar animationend = exports.animationend = function () {\n\n    var element = document.body || document.documentElement,\n        names = {\n        WebkitAnimation: 'webkitAnimationEnd',\n        MozAnimation: 'animationend',\n        OAnimation: 'oAnimationEnd oanimationend',\n        animation: 'animationend'\n    },\n        name;\n\n    for (name in names) {\n        if (element.style[name] !== undefined) {\n            return names[name];\n        }\n    }\n}();\n\nvar matchesFn = Element.prototype.matches ? 'matches' : Element.prototype.msMatchesSelector ? 'msMatchesSelector' : Element.prototype.webkitMatchesSelector ? 'webkitMatchesSelector' : false;\nfunction matches(element, selector) {\n    return element[matchesFn] ? element[matchesFn](selector) : false;\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMi5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvdXRpbC9lbnYuanM/YWM3MSJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY29uc3QgT2JzZXJ2ZXIgPSB3aW5kb3cuTXV0YXRpb25PYnNlcnZlciB8fCB3aW5kb3cuV2ViS2l0TXV0YXRpb25PYnNlcnZlcjtcbmV4cG9ydCBjb25zdCByZXF1ZXN0QW5pbWF0aW9uRnJhbWUgPSB3aW5kb3cucmVxdWVzdEFuaW1hdGlvbkZyYW1lIHx8IGZ1bmN0aW9uIChmbikgeyByZXR1cm4gc2V0VGltZW91dChmbiwgMTAwMCAvIDYwKTsgfTtcbmV4cG9ydCBjb25zdCBjYW5jZWxBbmltYXRpb25GcmFtZSA9IHdpbmRvdy5jYW5jZWxBbmltYXRpb25GcmFtZSB8fCB3aW5kb3cuY2xlYXJUaW1lb3V0O1xuXG5leHBvcnQgY29uc3QgaGFzVG91Y2ggPVxuICAgICgnb250b3VjaHN0YXJ0JyBpbiB3aW5kb3cpIHx8XG4gICAgKHdpbmRvdy5Eb2N1bWVudFRvdWNoICYmIGRvY3VtZW50IGluc3RhbmNlb2YgRG9jdW1lbnRUb3VjaCkgfHxcbiAgICAobmF2aWdhdG9yLm1zUG9pbnRlckVuYWJsZWQgJiYgbmF2aWdhdG9yLm1zTWF4VG91Y2hQb2ludHMgPiAwKSB8fCAvL0lFIDEwXG4gICAgKG5hdmlnYXRvci5wb2ludGVyRW5hYmxlZCAmJiBuYXZpZ2F0b3IubWF4VG91Y2hQb2ludHMgPiAwKTsgLy9JRSA+PTExXG5cbmV4cG9ydCBjb25zdCB0cmFuc2l0aW9uZW5kID0gKGZ1bmN0aW9uICgpIHtcblxuICAgIHZhciBlbGVtZW50ID0gZG9jdW1lbnQuYm9keSB8fCBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQsXG4gICAgICAgIG5hbWVzID0ge1xuICAgICAgICAgICAgV2Via2l0VHJhbnNpdGlvbjogJ3dlYmtpdFRyYW5zaXRpb25FbmQnLFxuICAgICAgICAgICAgTW96VHJhbnNpdGlvbjogJ3RyYW5zaXRpb25lbmQnLFxuICAgICAgICAgICAgT1RyYW5zaXRpb246ICdvVHJhbnNpdGlvbkVuZCBvdHJhbnNpdGlvbmVuZCcsXG4gICAgICAgICAgICB0cmFuc2l0aW9uOiAndHJhbnNpdGlvbmVuZCdcbiAgICAgICAgfSwgbmFtZTtcblxuICAgIGZvciAobmFtZSBpbiBuYW1lcykge1xuICAgICAgICBpZiAoZWxlbWVudC5zdHlsZVtuYW1lXSAhPT0gdW5kZWZpbmVkKSB7XG4gICAgICAgICAgICByZXR1cm4gbmFtZXNbbmFtZV07XG4gICAgICAgIH1cbiAgICB9XG5cbn0pKCk7XG5cbmV4cG9ydCBjb25zdCBhbmltYXRpb25lbmQgPSAoZnVuY3Rpb24gKCkge1xuXG4gICAgdmFyIGVsZW1lbnQgPSBkb2N1bWVudC5ib2R5IHx8IGRvY3VtZW50LmRvY3VtZW50RWxlbWVudCxcbiAgICAgICAgbmFtZXMgPSB7XG4gICAgICAgICAgICBXZWJraXRBbmltYXRpb246ICd3ZWJraXRBbmltYXRpb25FbmQnLFxuICAgICAgICAgICAgTW96QW5pbWF0aW9uOiAnYW5pbWF0aW9uZW5kJyxcbiAgICAgICAgICAgIE9BbmltYXRpb246ICdvQW5pbWF0aW9uRW5kIG9hbmltYXRpb25lbmQnLFxuICAgICAgICAgICAgYW5pbWF0aW9uOiAnYW5pbWF0aW9uZW5kJ1xuICAgICAgICB9LCBuYW1lO1xuXG4gICAgZm9yIChuYW1lIGluIG5hbWVzKSB7XG4gICAgICAgIGlmIChlbGVtZW50LnN0eWxlW25hbWVdICE9PSB1bmRlZmluZWQpIHtcbiAgICAgICAgICAgIHJldHVybiBuYW1lc1tuYW1lXTtcbiAgICAgICAgfVxuICAgIH1cblxufSkoKTtcblxudmFyIG1hdGNoZXNGbiA9IEVsZW1lbnQucHJvdG90eXBlLm1hdGNoZXNcbiAgICA/ICdtYXRjaGVzJ1xuICAgIDogRWxlbWVudC5wcm90b3R5cGUubXNNYXRjaGVzU2VsZWN0b3JcbiAgICAgICAgPyAnbXNNYXRjaGVzU2VsZWN0b3InXG4gICAgICAgIDogRWxlbWVudC5wcm90b3R5cGUud2Via2l0TWF0Y2hlc1NlbGVjdG9yXG4gICAgICAgICAgICA/ICd3ZWJraXRNYXRjaGVzU2VsZWN0b3InXG4gICAgICAgICAgICA6IGZhbHNlO1xuZXhwb3J0IGZ1bmN0aW9uIG1hdGNoZXMoZWxlbWVudCwgc2VsZWN0b3IpIHtcbiAgICByZXR1cm4gZWxlbWVudFttYXRjaGVzRm5dID8gZWxlbWVudFttYXRjaGVzRm5dKHNlbGVjdG9yKSA6IGZhbHNlO1xufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL3V0aWwvZW52LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7OztBQXFEQTtBQXJEQTtBQUNBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSkE7QUFLQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFEQTtBQVZBO0FBQ0E7QUFpQkE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBREE7QUFWQTtBQUNBO0FBaUJBO0FBT0E7QUFDQTtBQURBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/*!*****************************!*\
+  !*** ./src/js/util/lang.js ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.isPlainObject = exports.isFunction = exports.isArray = exports.merge = exports.map = exports.extend = exports.each = exports.$ = undefined;\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nObject.defineProperty(exports, '$', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.$;\n    }\n});\nObject.defineProperty(exports, 'each', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.each;\n    }\n});\nObject.defineProperty(exports, 'extend', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.extend;\n    }\n});\nObject.defineProperty(exports, 'map', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.map;\n    }\n});\nObject.defineProperty(exports, 'merge', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.merge;\n    }\n});\nObject.defineProperty(exports, 'isArray', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.isArray;\n    }\n});\nObject.defineProperty(exports, 'isFunction', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.isFunction;\n    }\n});\nObject.defineProperty(exports, 'isPlainObject', {\n    enumerable: true,\n    get: function get() {\n        return _jquery.isPlainObject;\n    }\n});\nexports.bind = bind;\nexports.hasOwn = hasOwn;\nexports.classify = classify;\nexports.hyphenate = hyphenate;\nexports.camelize = camelize;\nexports.isString = isString;\nexports.toBoolean = toBoolean;\nexports.toNumber = toNumber;\nexports.toJQuery = toJQuery;\nexports.coerce = coerce;\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction bind(fn, context) {\n    return function (a) {\n        var l = arguments.length;\n        return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);\n    };\n}\n\nvar hasOwnProperty = Object.prototype.hasOwnProperty;\nfunction hasOwn(obj, key) {\n    return hasOwnProperty.call(obj, key);\n}\n\nvar classifyRE = /(?:^|[-_\\/])(\\w)/g;\nfunction classify(str) {\n    return str.replace(classifyRE, function (_, c) {\n        return c ? c.toUpperCase() : '';\n    });\n}\n\nvar hyphenateRE = /([a-z\\d])([A-Z])/g;\nfunction hyphenate(str) {\n    return str.replace(hyphenateRE, '$1-$2').toLowerCase();\n}\n\nvar camelizeRE = /-(\\w)/g;\nfunction camelize(str) {\n    return str.replace(camelizeRE, toUpper);\n}\n\nfunction toUpper(_, c) {\n    return c ? c.toUpperCase() : '';\n}\n\nfunction isString(value) {\n    return typeof value === 'string';\n}\n\nfunction toBoolean(value) {\n    return typeof value === 'boolean' ? value : value === 'true' || value == '1' || value === '' ? true : value === 'false' || value == '0' ? false : value;\n}\n\nfunction toNumber(value) {\n    var number = Number(value);\n    return !isNaN(number) ? number : false;\n}\n\nfunction toJQuery(element, context) {\n    if (element === true) {\n        return null;\n    }\n\n    element = (0, _jquery2.default)(element, context);\n    return element.length ? element : null;\n}\n\nfunction coerce(type, value) {\n\n    if (type === Boolean) {\n        return toBoolean(value);\n    } else if (type === Number) {\n        return toNumber(value);\n    } else if (type === 'jQuery') {\n        return toJQuery(value);\n    }\n\n    return type ? type(value) : value;\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvdXRpbC9sYW5nLmpzP2ViYWQiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICQgZnJvbSAnanF1ZXJ5JztcblxuZXhwb3J0IHskLCBlYWNoLCBleHRlbmQsIG1hcCwgbWVyZ2UsIGlzQXJyYXksIGlzRnVuY3Rpb24sIGlzUGxhaW5PYmplY3R9IGZyb20gJ2pxdWVyeSc7XG5cbmV4cG9ydCBmdW5jdGlvbiBiaW5kKGZuLCBjb250ZXh0KSB7XG4gICAgcmV0dXJuIGZ1bmN0aW9uIChhKSB7XG4gICAgICAgIHZhciBsID0gYXJndW1lbnRzLmxlbmd0aDtcbiAgICAgICAgcmV0dXJuIGwgPyBsID4gMSA/IGZuLmFwcGx5KGNvbnRleHQsIGFyZ3VtZW50cykgOiBmbi5jYWxsKGNvbnRleHQsIGEpIDogZm4uY2FsbChjb250ZXh0KTtcbiAgICB9O1xufVxuXG52YXIgaGFzT3duUHJvcGVydHkgPSBPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5O1xuZXhwb3J0IGZ1bmN0aW9uIGhhc093bihvYmosIGtleSkge1xuICAgIHJldHVybiBoYXNPd25Qcm9wZXJ0eS5jYWxsKG9iaiwga2V5KTtcbn1cblxudmFyIGNsYXNzaWZ5UkUgPSAvKD86XnxbLV9cXC9dKShcXHcpL2dcbmV4cG9ydCBmdW5jdGlvbiBjbGFzc2lmeShzdHIpIHtcbiAgICByZXR1cm4gc3RyLnJlcGxhY2UoY2xhc3NpZnlSRSwgKF8sIGMpID0+IGMgPyBjLnRvVXBwZXJDYXNlKCkgOiAnJyk7XG59XG5cbnZhciBoeXBoZW5hdGVSRSA9IC8oW2EtelxcZF0pKFtBLVpdKS9nXG5leHBvcnQgZnVuY3Rpb24gaHlwaGVuYXRlIChzdHIpIHtcbiAgICByZXR1cm4gc3RyXG4gICAgICAgIC5yZXBsYWNlKGh5cGhlbmF0ZVJFLCAnJDEtJDInKVxuICAgICAgICAudG9Mb3dlckNhc2UoKVxufVxuXG52YXIgY2FtZWxpemVSRSA9IC8tKFxcdykvZ1xuZXhwb3J0IGZ1bmN0aW9uIGNhbWVsaXplIChzdHIpIHtcbiAgICByZXR1cm4gc3RyLnJlcGxhY2UoY2FtZWxpemVSRSwgdG9VcHBlcilcbn1cblxuZnVuY3Rpb24gdG9VcHBlciAoXywgYykge1xuICAgIHJldHVybiBjID8gYy50b1VwcGVyQ2FzZSgpIDogJydcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGlzU3RyaW5nKHZhbHVlKSB7XG4gICAgcmV0dXJuIHR5cGVvZiB2YWx1ZSA9PT0gJ3N0cmluZyc7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB0b0Jvb2xlYW4odmFsdWUpIHtcbiAgICByZXR1cm4gdHlwZW9mIHZhbHVlID09PSAnYm9vbGVhbidcbiAgICAgICAgPyB2YWx1ZVxuICAgICAgICA6IHZhbHVlID09PSAndHJ1ZScgfHwgdmFsdWUgPT0gJzEnIHx8IHZhbHVlID09PSAnJ1xuICAgICAgICAgICAgPyB0cnVlXG4gICAgICAgICAgICA6IHZhbHVlID09PSAnZmFsc2UnIHx8IHZhbHVlID09ICcwJ1xuICAgICAgICAgICAgICAgID8gZmFsc2VcbiAgICAgICAgICAgICAgICA6IHZhbHVlO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gdG9OdW1iZXIodmFsdWUpIHtcbiAgICB2YXIgbnVtYmVyID0gTnVtYmVyKHZhbHVlKTtcbiAgICByZXR1cm4gIWlzTmFOKG51bWJlcikgPyBudW1iZXIgOiBmYWxzZTtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIHRvSlF1ZXJ5KGVsZW1lbnQsIGNvbnRleHQpIHtcbiAgICBpZiAoZWxlbWVudCA9PT0gdHJ1ZSkge1xuICAgICAgICByZXR1cm4gbnVsbDtcbiAgICB9XG5cbiAgICBlbGVtZW50ID0gJChlbGVtZW50LCBjb250ZXh0KTtcbiAgICByZXR1cm4gZWxlbWVudC5sZW5ndGggPyBlbGVtZW50IDogbnVsbDtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGNvZXJjZSh0eXBlLCB2YWx1ZSkge1xuXG4gICAgaWYgKHR5cGUgPT09IEJvb2xlYW4pIHtcbiAgICAgICAgcmV0dXJuIHRvQm9vbGVhbih2YWx1ZSk7XG4gICAgfSBlbHNlIGlmICh0eXBlID09PSBOdW1iZXIpIHtcbiAgICAgICAgcmV0dXJuIHRvTnVtYmVyKHZhbHVlKTtcbiAgICB9IGVsc2UgaWYgKHR5cGUgPT09ICdqUXVlcnknKSB7XG4gICAgICAgIHJldHVybiB0b0pRdWVyeSh2YWx1ZSk7XG4gICAgfVxuXG4gICAgcmV0dXJuIHR5cGUgPyB0eXBlKHZhbHVlKSA6IHZhbHVlO1xufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL3V0aWwvbGFuZy5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBRUE7Ozs7OztBQUFBOzs7Ozs7QUFBQTs7Ozs7O0FBQUE7Ozs7OztBQUFBOzs7Ozs7QUFBQTs7Ozs7O0FBQUE7Ozs7OztBQUFBOzs7QUFFQTtBQVFBO0FBS0E7QUFLQTtBQU9BO0FBUUE7QUFJQTtBQVVBO0FBS0E7QUFTQTtBQUNBOzs7OztBQTlEQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBREE7QUFDQTtBQU1BO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFBQTtBQUFBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFLQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFEQTtBQUNBO0FBU0E7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBTkE7QUFDQTtBQVFBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFHQTtBQURBO0FBR0E7QUFEQTtBQUNBO0FBR0E7QUFWQSIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 4 */
+/*!*****************************!*\
+  !*** ./src/js/api/index.js ***!
+  \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _dom = __webpack_require__(5);
-
-	var _loop = function _loop(_key7) {
-	  if (_key7 === "default") return 'continue';
-	  Object.defineProperty(exports, _key7, {
-	    enumerable: true,
-	    get: function get() {
-	      return _dom[_key7];
-	    }
-	  });
-	};
-
-	for (var _key7 in _dom) {
-	  var _ret = _loop(_key7);
-
-	  if (_ret === 'continue') continue;
-	}
-
-	var _env = __webpack_require__(6);
-
-	var _loop2 = function _loop2(_key8) {
-	  if (_key8 === "default") return 'continue';
-	  Object.defineProperty(exports, _key8, {
-	    enumerable: true,
-	    get: function get() {
-	      return _env[_key8];
-	    }
-	  });
-	};
-
-	for (var _key8 in _env) {
-	  var _ret2 = _loop2(_key8);
-
-	  if (_ret2 === 'continue') continue;
-	}
-
-	var _lang = __webpack_require__(7);
-
-	var _loop3 = function _loop3(_key9) {
-	  if (_key9 === "default") return 'continue';
-	  Object.defineProperty(exports, _key9, {
-	    enumerable: true,
-	    get: function get() {
-	      return _lang[_key9];
-	    }
-	  });
-	};
-
-	for (var _key9 in _lang) {
-	  var _ret3 = _loop3(_key9);
-
-	  if (_ret3 === 'continue') continue;
-	}
-
-	var _options = __webpack_require__(8);
-
-	var _loop4 = function _loop4(_key10) {
-	  if (_key10 === "default") return 'continue';
-	  Object.defineProperty(exports, _key10, {
-	    enumerable: true,
-	    get: function get() {
-	      return _options[_key10];
-	    }
-	  });
-	};
-
-	for (var _key10 in _options) {
-	  var _ret4 = _loop4(_key10);
-
-	  if (_ret4 === 'continue') continue;
-	}
-
-	var _position = __webpack_require__(9);
-
-	var _loop5 = function _loop5(_key11) {
-	  if (_key11 === "default") return 'continue';
-	  Object.defineProperty(exports, _key11, {
-	    enumerable: true,
-	    get: function get() {
-	      return _position[_key11];
-	    }
-	  });
-	};
-
-	for (var _key11 in _position) {
-	  var _ret5 = _loop5(_key11);
-
-	  if (_ret5 === 'continue') continue;
-	}
-
-	var _touch = __webpack_require__(10);
-
-	var _loop6 = function _loop6(_key12) {
-	  if (_key12 === "default") return 'continue';
-	  Object.defineProperty(exports, _key12, {
-	    enumerable: true,
-	    get: function get() {
-	      return _touch[_key12];
-	    }
-	  });
-	};
-
-	for (var _key12 in _touch) {
-	  var _ret6 = _loop6(_key12);
-
-	  if (_ret6 === 'continue') continue;
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nvar _boot = __webpack_require__(/*! ./boot */ 7);\n\nvar _boot2 = _interopRequireDefault(_boot);\n\nvar _global = __webpack_require__(/*! ./global */ 9);\n\nvar _global2 = _interopRequireDefault(_global);\n\nvar _internal = __webpack_require__(/*! ./internal */ 11);\n\nvar _internal2 = _interopRequireDefault(_internal);\n\nvar _instance = __webpack_require__(/*! ./instance */ 10);\n\nvar _instance2 = _interopRequireDefault(_instance);\n\nvar _component = __webpack_require__(/*! ./component */ 8);\n\nvar _component2 = _interopRequireDefault(_component);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nvar util = _interopRequireWildcard(_index);\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar UIkit = function UIkit(options) {\n    this._init(options);\n};\n\nUIkit.util = util;\nUIkit.data = '__uikit__';\nUIkit.options = {};\nUIkit.instances = {};\nUIkit.elements = [];\n\n(0, _global2.default)(UIkit);\n(0, _internal2.default)(UIkit);\n(0, _instance2.default)(UIkit);\n(0, _component2.default)(UIkit);\n(0, _boot2.default)(UIkit);\n\nexports.default = UIkit;//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvYXBpL2luZGV4LmpzP2MxYzAiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGJvb3RBUEkgZnJvbSAnLi9ib290JztcbmltcG9ydCBnbG9iYWxBUEkgZnJvbSAnLi9nbG9iYWwnO1xuaW1wb3J0IGludGVybmFsQVBJIGZyb20gJy4vaW50ZXJuYWwnO1xuaW1wb3J0IGluc3RhbmNlQVBJIGZyb20gJy4vaW5zdGFuY2UnO1xuaW1wb3J0IGNvbXBvbmVudEFQSSBmcm9tICcuL2NvbXBvbmVudCc7XG5pbXBvcnQgKiBhcyB1dGlsIGZyb20gJy4uL3V0aWwvaW5kZXgnO1xuXG52YXIgVUlraXQgPSBmdW5jdGlvbiAob3B0aW9ucykge1xuICAgIHRoaXMuX2luaXQob3B0aW9ucyk7XG59O1xuXG5VSWtpdC51dGlsID0gdXRpbDtcblVJa2l0LmRhdGEgPSAnX191aWtpdF9fJztcblVJa2l0Lm9wdGlvbnMgPSB7fTtcblVJa2l0Lmluc3RhbmNlcyA9IHt9O1xuVUlraXQuZWxlbWVudHMgPSBbXTtcblxuZ2xvYmFsQVBJKFVJa2l0KTtcbmludGVybmFsQVBJKFVJa2l0KTtcbmluc3RhbmNlQVBJKFVJa2l0KTtcbmNvbXBvbmVudEFQSShVSWtpdCk7XG5ib290QVBJKFVJa2l0KTtcblxuZXhwb3J0IGRlZmF1bHQgVUlraXQ7XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvYXBpL2luZGV4LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBS0E7QUFDQTs7Ozs7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 5 */
+/*!******************************!*\
+  !*** ./src/js/core/index.js ***!
+  \******************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Animation = exports.Transition = exports.langDirection = undefined;
-	exports.ready = ready;
-	exports.transition = transition;
-	exports.animate = animate;
-	exports.offsetParent = offsetParent;
-	exports.isWithin = isWithin;
-	exports.attrFilter = attrFilter;
-	exports.removeClass = removeClass;
-	exports.createEvent = createEvent;
-	exports.isInView = isInView;
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _env = __webpack_require__(6);
-
-	var _lang = __webpack_require__(7);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var langDirection = exports.langDirection = (0, _jquery2.default)('html').attr('dir') == 'rtl' ? 'right' : 'left';
-
-	function ready(fn) {
-
-	    var handle = function handle() {
-	        document.removeEventListener('DOMContentLoaded', handle);
-	        window.removeEventListener('load', handle);
-	        fn();
-	    };
-
-	    if (document.readyState === 'complete') {
-	        fn();
-	    } else {
-	        document.addEventListener('DOMContentLoaded', handle);
-	        window.addEventListener('load', handle);
-	    }
-	}
-
-	function transition(element, props, duration, transition) {
-
-	    var d = _jquery2.default.Deferred();
-
-	    element = (0, _jquery2.default)(element);
-
-	    for (var name in props) {
-	        element.css(name, element.css(name));
-	    }
-
-	    (0, _env.cancelAnimationFrame)(element[0].__uk_transition);
-
-	    element[0].__uk_transition = (0, _env.requestAnimationFrame)(function () {
-
-	        var timer = setTimeout(function () {
-	            element.trigger(_env.transitionend || 'transitionend');
-	        }, duration);
-
-	        element.one(_env.transitionend || 'transitionend', function () {
-	            d.resolve();
-	            element.css('transition', '');
-	            clearTimeout(timer);
-	        }).css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);
-
-	        delete element[0].__uk_transition;
-	    });
-
-	    return d.promise();
-	}
-
-	var Transition = exports.Transition = {
-
-	    start: transition,
-
-	    stop: function stop(element) {
-
-	        element = (0, _jquery2.default)(element);
-
-	        (0, _env.cancelAnimationFrame)(element[0].__uk_transition);
-	        (0, _jquery2.default)(element).trigger(_env.transitionend || 'transitionend');
-
-	        return this;
-	    }
-	};
-
-	function animate(element, animation, duration, out) {
-
-	    var d = _jquery2.default.Deferred(),
-	        cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
-
-	    element = (0, _jquery2.default)(element);
-
-	    if (out && animation.indexOf('uk-animation-') === 0) {
-	        animation += ' uk-animation-reverse';
-	    }
-
-	    reset();
-
-	    element.css('animation-duration', duration + 'ms').addClass(animation);
-
-	    (0, _env.requestAnimationFrame)(function () {
-	        element.addClass(cls);
-	    });
-
-	    element.one(_env.animationend || 'animationend', function () {
-	        reset();
-	        d.resolve();
-	    });
-
-	    if (!_env.animationend) {
-	        (0, _env.requestAnimationFrame)(function () {
-	            Animation.cancel(element);
-	        });
-	    }
-
-	    return d.promise();
-
-	    function reset() {
-	        element.css('animation-duration', '').removeClass(cls + ' ' + animation);
-	    }
-	}
-
-	var Animation = exports.Animation = {
-	    in: function _in(element, animation, duration) {
-	        return animate(element, animation, duration, false);
-	    },
-	    out: function out(element, animation, duration) {
-	        return animate(element, animation, duration, true);
-	    },
-	    inProgress: function inProgress(element) {
-	        return (0, _jquery2.default)(element).hasClass('uk-animation-enter') || (0, _jquery2.default)(element).hasClass('uk-animation-leave');
-	    },
-	    cancel: function cancel(element) {
-	        (0, _jquery2.default)(element).trigger(_env.animationend || 'animationend');
-	        return this;
-	    }
-	};
-
-	// TODO still needed?
-	function offsetParent(element) {
-	    return (0, _jquery2.default)(element).parents().filter(function () {
-	        return _jquery2.default.inArray((0, _jquery2.default)(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
-	    }).first();
-	}
-
-	function isWithin(element, selector) {
-	    element = (0, _jquery2.default)(element);
-	    return element.is(selector) || !!(typeof selector === 'string' ? element.parents(selector).length : _jquery2.default.contains(selector instanceof _jquery2.default ? selector[0] : selector, element[0]));
-	}
-
-	function attrFilter(element, attr, pattern, replacement) {
-	    element = (0, _jquery2.default)(element);
-	    element.attr(attr, function (i, value) {
-	        return value ? value.replace(pattern, replacement) : value;
-	    });
-	    return element;
-	}
-
-	function removeClass(element, cls) {
-	    return attrFilter(element, 'class', new RegExp('(^|\\s)' + cls + '(?!\\S)', 'g'), '');
-	}
-
-	function createEvent(e) {
-	    if ((0, _lang.isString)(e)) {
-	        var ev = document.createEvent('Event');
-	        ev.initEvent(e, true, false);
-	        return ev;
-	    }
-	    return e;
-	}
-
-	function isInView(element, offsetTop, offsetLeft) {
-
-	    element = (0, _jquery2.default)(element);
-
-	    if (!element.is(':visible')) {
-	        return false;
-	    }
-
-	    var win = (0, _jquery2.default)(window),
-	        scrollLeft = win.scrollLeft(),
-	        scrollTop = win.scrollTop(),
-	        offset = element.offset();
-
-	    return offset.top + element.height() >= scrollTop && offset.top - offsetTop <= scrollTop + win.height() && offset.left + element.width() >= scrollLeft && offset.left - offsetLeft <= scrollLeft + win.width();
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit, _) {\n\n    // add touch identifier class\n    (0, _jquery2.default)('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');\n\n    var scroll = window.pageYOffset,\n        dir,\n        ticking,\n        resizing;\n\n    (0, _jquery2.default)(window).on('load', UIkit.update).on('resize orientationchange', function (e) {\n        if (!resizing) {\n            (0, _index.requestAnimationFrame)(function () {\n                UIkit.update(e);\n                resizing = false;\n            });\n            resizing = true;\n        }\n    }).on('scroll', function (e) {\n        dir = scroll < window.pageYOffset;\n        scroll = window.pageYOffset;\n        if (!ticking) {\n            (0, _index.requestAnimationFrame)(function () {\n                e.dir = dir ? 'down' : 'up';\n                UIkit.update(e);\n                ticking = false;\n            });\n            ticking = true;\n        }\n    });\n\n    // core components\n    UIkit.use(_alert2.default);\n    UIkit.use(_cover2.default);\n    UIkit.use(_drop2.default);\n    UIkit.use(_dropdown2.default);\n    UIkit.use(_marginWrap2.default);\n    UIkit.use(_grid2.default);\n    UIkit.use(_heightViewport2.default);\n    UIkit.use(_icon2.default);\n    UIkit.use(_close2.default);\n    UIkit.use(_matchHeight2.default);\n    UIkit.use(_navbar2.default);\n    UIkit.use(_responsive2.default);\n    UIkit.use(_scrollspy2.default);\n    UIkit.use(_scrollspyNav2.default);\n    UIkit.use(_smoothScroll2.default);\n    UIkit.use(_sticky2.default);\n    UIkit.use(_svg2.default);\n    UIkit.use(_switcher2.default);\n    UIkit.use(_toggle2.default);\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _alert = __webpack_require__(/*! ./alert */ 12);\n\nvar _alert2 = _interopRequireDefault(_alert);\n\nvar _close = __webpack_require__(/*! ./close */ 13);\n\nvar _close2 = _interopRequireDefault(_close);\n\nvar _cover = __webpack_require__(/*! ./cover */ 14);\n\nvar _cover2 = _interopRequireDefault(_cover);\n\nvar _drop = __webpack_require__(/*! ./drop */ 15);\n\nvar _drop2 = _interopRequireDefault(_drop);\n\nvar _dropdown = __webpack_require__(/*! ./dropdown */ 16);\n\nvar _dropdown2 = _interopRequireDefault(_dropdown);\n\nvar _grid = __webpack_require__(/*! ./grid */ 17);\n\nvar _grid2 = _interopRequireDefault(_grid);\n\nvar _heightViewport = __webpack_require__(/*! ./height-viewport */ 18);\n\nvar _heightViewport2 = _interopRequireDefault(_heightViewport);\n\nvar _icon = __webpack_require__(/*! ./icon */ 19);\n\nvar _icon2 = _interopRequireDefault(_icon);\n\nvar _marginWrap = __webpack_require__(/*! ./margin-wrap */ 20);\n\nvar _marginWrap2 = _interopRequireDefault(_marginWrap);\n\nvar _matchHeight = __webpack_require__(/*! ./match-height */ 21);\n\nvar _matchHeight2 = _interopRequireDefault(_matchHeight);\n\nvar _navbar = __webpack_require__(/*! ./navbar */ 22);\n\nvar _navbar2 = _interopRequireDefault(_navbar);\n\nvar _responsive = __webpack_require__(/*! ./responsive */ 23);\n\nvar _responsive2 = _interopRequireDefault(_responsive);\n\nvar _scrollspy = __webpack_require__(/*! ./scrollspy */ 25);\n\nvar _scrollspy2 = _interopRequireDefault(_scrollspy);\n\nvar _scrollspyNav = __webpack_require__(/*! ./scrollspy-nav */ 24);\n\nvar _scrollspyNav2 = _interopRequireDefault(_scrollspyNav);\n\nvar _smoothScroll = __webpack_require__(/*! ./smooth-scroll */ 26);\n\nvar _smoothScroll2 = _interopRequireDefault(_smoothScroll);\n\nvar _sticky = __webpack_require__(/*! ./sticky */ 27);\n\nvar _sticky2 = _interopRequireDefault(_sticky);\n\nvar _svg = __webpack_require__(/*! ./svg */ 28);\n\nvar _svg2 = _interopRequireDefault(_svg);\n\nvar _switcher = __webpack_require__(/*! ./switcher */ 29);\n\nvar _switcher2 = _interopRequireDefault(_switcher);\n\nvar _toggle = __webpack_require__(/*! ./toggle */ 30);\n\nvar _toggle2 = _interopRequireDefault(_toggle);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNS5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvY29yZS9pbmRleC5qcz9hNDMzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5pbXBvcnQgQWxlcnQgZnJvbSAnLi9hbGVydCc7XG5pbXBvcnQgQ2xvc2UgZnJvbSAnLi9jbG9zZSc7XG5pbXBvcnQgQ292ZXIgZnJvbSAnLi9jb3Zlcic7XG5pbXBvcnQgRHJvcCBmcm9tICcuL2Ryb3AnO1xuaW1wb3J0IERyb3Bkb3duIGZyb20gJy4vZHJvcGRvd24nO1xuaW1wb3J0IEdyaWQgZnJvbSAnLi9ncmlkJztcbmltcG9ydCBIZWlnaHRWaWV3cG9ydCBmcm9tICcuL2hlaWdodC12aWV3cG9ydCc7XG5pbXBvcnQgSWNvbiBmcm9tICcuL2ljb24nO1xuaW1wb3J0IE1hcmdpbldyYXAgZnJvbSAnLi9tYXJnaW4td3JhcCc7XG5pbXBvcnQgTWF0Y2hIZWlnaHQgZnJvbSAnLi9tYXRjaC1oZWlnaHQnO1xuaW1wb3J0IE5hdmJhciBmcm9tICcuL25hdmJhcic7XG5pbXBvcnQgUmVzcG9uc2l2ZSBmcm9tICcuL3Jlc3BvbnNpdmUnO1xuaW1wb3J0IFNjcm9sbHNweSBmcm9tICcuL3Njcm9sbHNweSc7XG5pbXBvcnQgU2Nyb2xsc3B5TmF2IGZyb20gJy4vc2Nyb2xsc3B5LW5hdic7XG5pbXBvcnQgU21vb3RoU2Nyb2xsIGZyb20gJy4vc21vb3RoLXNjcm9sbCc7XG5pbXBvcnQgU3RpY2t5IGZyb20gJy4vc3RpY2t5JztcbmltcG9ydCBTdmcgZnJvbSAnLi9zdmcnO1xuaW1wb3J0IFN3aXRjaGVyIGZyb20gJy4vc3dpdGNoZXInO1xuaW1wb3J0IFRvZ2dsZSBmcm9tICcuL3RvZ2dsZSc7XG5pbXBvcnQge3JlcXVlc3RBbmltYXRpb25GcmFtZX0gZnJvbSAnLi4vdXRpbC9pbmRleCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCwgXykge1xuXG4gICAgLy8gYWRkIHRvdWNoIGlkZW50aWZpZXIgY2xhc3NcbiAgICAkKCdodG1sJykuYWRkQ2xhc3MoXy5oYXNUb3VjaCA/ICd1ay10b3VjaCcgOiAndWstbm90b3VjaCcpO1xuXG4gICAgdmFyIHNjcm9sbCA9IHdpbmRvdy5wYWdlWU9mZnNldCwgZGlyLCB0aWNraW5nLCByZXNpemluZztcblxuICAgICQod2luZG93KVxuICAgICAgICAub24oJ2xvYWQnLCBVSWtpdC51cGRhdGUpXG4gICAgICAgIC5vbigncmVzaXplIG9yaWVudGF0aW9uY2hhbmdlJywgZSA9PiB7XG4gICAgICAgICAgICBpZiAoIXJlc2l6aW5nKSB7XG4gICAgICAgICAgICAgICAgcmVxdWVzdEFuaW1hdGlvbkZyYW1lKCgpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgVUlraXQudXBkYXRlKGUpO1xuICAgICAgICAgICAgICAgICAgICByZXNpemluZyA9IGZhbHNlO1xuICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgICAgIHJlc2l6aW5nID0gdHJ1ZTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfSlcbiAgICAgICAgLm9uKCdzY3JvbGwnLCBlID0+IHtcbiAgICAgICAgICAgIGRpciA9IHNjcm9sbCA8IHdpbmRvdy5wYWdlWU9mZnNldDtcbiAgICAgICAgICAgIHNjcm9sbCA9IHdpbmRvdy5wYWdlWU9mZnNldDtcbiAgICAgICAgICAgIGlmICghdGlja2luZykge1xuICAgICAgICAgICAgICAgIHJlcXVlc3RBbmltYXRpb25GcmFtZSgoKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIGUuZGlyID0gZGlyID8gJ2Rvd24nIDogJ3VwJztcbiAgICAgICAgICAgICAgICAgICAgVUlraXQudXBkYXRlKGUpO1xuICAgICAgICAgICAgICAgICAgICB0aWNraW5nID0gZmFsc2U7XG4gICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgdGlja2luZyA9IHRydWU7XG4gICAgICAgICAgICB9XG4gICAgICAgIH0pO1xuXG4gICAgLy8gY29yZSBjb21wb25lbnRzXG4gICAgVUlraXQudXNlKEFsZXJ0KTtcbiAgICBVSWtpdC51c2UoQ292ZXIpO1xuICAgIFVJa2l0LnVzZShEcm9wKTtcbiAgICBVSWtpdC51c2UoRHJvcGRvd24pO1xuICAgIFVJa2l0LnVzZShNYXJnaW5XcmFwKTtcbiAgICBVSWtpdC51c2UoR3JpZCk7XG4gICAgVUlraXQudXNlKEhlaWdodFZpZXdwb3J0KTtcbiAgICBVSWtpdC51c2UoSWNvbik7XG4gICAgVUlraXQudXNlKENsb3NlKTtcbiAgICBVSWtpdC51c2UoTWF0Y2hIZWlnaHQpO1xuICAgIFVJa2l0LnVzZShOYXZiYXIpO1xuICAgIFVJa2l0LnVzZShSZXNwb25zaXZlKTtcbiAgICBVSWtpdC51c2UoU2Nyb2xsc3B5KTtcbiAgICBVSWtpdC51c2UoU2Nyb2xsc3B5TmF2KTtcbiAgICBVSWtpdC51c2UoU21vb3RoU2Nyb2xsKTtcbiAgICBVSWtpdC51c2UoU3RpY2t5KTtcbiAgICBVSWtpdC51c2UoU3ZnKTtcbiAgICBVSWtpdC51c2UoU3dpdGNoZXIpO1xuICAgIFVJa2l0LnVzZShUb2dnbGUpO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9pbmRleC5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBc0JBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFJQTtBQUxBO0FBREE7QUFVQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUhBO0FBS0E7QUFOQTtBQUhBO0FBQ0E7O0FBbkJBO0FBaUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQWxEQTtBQUNBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OzsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
+/*!*******************************!*\
+  !*** ./src/js/mixin/index.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.matches = matches;
-	var Observer = exports.Observer = window.MutationObserver || window.WebKitMutationObserver;
-	var requestAnimationFrame = exports.requestAnimationFrame = window.requestAnimationFrame || function (fn) {
-	    return setTimeout(fn, 1000 / 60);
-	};
-	var cancelAnimationFrame = exports.cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
-
-	var hasTouch = exports.hasTouch = 'ontouchstart' in window || window.DocumentTouch && document instanceof DocumentTouch || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 || //IE 10
-	navigator.pointerEnabled && navigator.maxTouchPoints > 0; //IE >=11
-
-	var transitionend = exports.transitionend = function () {
-
-	    var element = document.body || document.documentElement,
-	        names = {
-	        WebkitTransition: 'webkitTransitionEnd',
-	        MozTransition: 'transitionend',
-	        OTransition: 'oTransitionEnd otransitionend',
-	        transition: 'transitionend'
-	    },
-	        name;
-
-	    for (name in names) {
-	        if (element.style[name] !== undefined) {
-	            return names[name];
-	        }
-	    }
-	}();
-
-	var animationend = exports.animationend = function () {
-
-	    var element = document.body || document.documentElement,
-	        names = {
-	        WebkitAnimation: 'webkitAnimationEnd',
-	        MozAnimation: 'animationend',
-	        OAnimation: 'oAnimationEnd oanimationend',
-	        animation: 'animationend'
-	    },
-	        name;
-
-	    for (name in names) {
-	        if (element.style[name] !== undefined) {
-	            return names[name];
-	        }
-	    }
-	}();
-
-	var matchesFn = Element.prototype.matches ? 'matches' : Element.prototype.msMatchesSelector ? 'msMatchesSelector' : Element.prototype.webkitMatchesSelector ? 'webkitMatchesSelector' : false;
-	function matches(element, selector) {
-	    return element[matchesFn] ? element[matchesFn](selector) : false;
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit, _) {\n\n    UIkit.use(_mouse2.default);\n    UIkit.use(_position2.default);\n    UIkit.use(_svg2.default);\n    UIkit.use(_toggle2.default);\n};\n\nvar _mouse = __webpack_require__(/*! ./mouse */ 31);\n\nvar _mouse2 = _interopRequireDefault(_mouse);\n\nvar _position = __webpack_require__(/*! ./position */ 32);\n\nvar _position2 = _interopRequireDefault(_position);\n\nvar _svg = __webpack_require__(/*! ./svg */ 33);\n\nvar _svg2 = _interopRequireDefault(_svg);\n\nvar _toggle = __webpack_require__(/*! ./toggle */ 34);\n\nvar _toggle2 = _interopRequireDefault(_toggle);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNi5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvbWl4aW4vaW5kZXguanM/ZWQwZiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgTW91c2UgZnJvbSAnLi9tb3VzZSc7XG5pbXBvcnQgUG9zaXRpb24gZnJvbSAnLi9wb3NpdGlvbic7XG5pbXBvcnQgU3ZnIGZyb20gJy4vc3ZnJztcbmltcG9ydCBUb2dnbGUgZnJvbSAnLi90b2dnbGUnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQsIF8pIHtcblxuICAgIFVJa2l0LnVzZShNb3VzZSk7XG4gICAgVUlraXQudXNlKFBvc2l0aW9uKTtcbiAgICBVSWtpdC51c2UoU3ZnKTtcbiAgICBVSWtpdC51c2UoVG9nZ2xlKTtcblxufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL21peGluL2luZGV4LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFLQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQUNBOzs7Ozs7Ozs7Ozs7Ozs7OzsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 7 */
+/*!****************************!*\
+  !*** ./src/js/api/boot.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.isPlainObject = exports.isFunction = exports.isArray = exports.merge = exports.map = exports.extend = exports.each = exports.$ = undefined;
-
-	var _jquery = __webpack_require__(3);
-
-	Object.defineProperty(exports, '$', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.$;
-	    }
-	});
-	Object.defineProperty(exports, 'each', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.each;
-	    }
-	});
-	Object.defineProperty(exports, 'extend', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.extend;
-	    }
-	});
-	Object.defineProperty(exports, 'map', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.map;
-	    }
-	});
-	Object.defineProperty(exports, 'merge', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.merge;
-	    }
-	});
-	Object.defineProperty(exports, 'isArray', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.isArray;
-	    }
-	});
-	Object.defineProperty(exports, 'isFunction', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.isFunction;
-	    }
-	});
-	Object.defineProperty(exports, 'isPlainObject', {
-	    enumerable: true,
-	    get: function get() {
-	        return _jquery.isPlainObject;
-	    }
-	});
-	exports.bind = bind;
-	exports.hasOwn = hasOwn;
-	exports.classify = classify;
-	exports.hyphenate = hyphenate;
-	exports.camelize = camelize;
-	exports.isString = isString;
-	exports.toBoolean = toBoolean;
-	exports.toNumber = toNumber;
-	exports.toJQuery = toJQuery;
-	exports.coerce = coerce;
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function bind(fn, context) {
-	    return function (a) {
-	        var l = arguments.length;
-	        return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
-	    };
-	}
-
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	function hasOwn(obj, key) {
-	    return hasOwnProperty.call(obj, key);
-	}
-
-	var classifyRE = /(?:^|[-_\/])(\w)/g;
-	function classify(str) {
-	    return str.replace(classifyRE, function (_, c) {
-	        return c ? c.toUpperCase() : '';
-	    });
-	}
-
-	var hyphenateRE = /([a-z\d])([A-Z])/g;
-	function hyphenate(str) {
-	    return str.replace(hyphenateRE, '$1-$2').toLowerCase();
-	}
-
-	var camelizeRE = /-(\w)/g;
-	function camelize(str) {
-	    return str.replace(camelizeRE, toUpper);
-	}
-
-	function toUpper(_, c) {
-	    return c ? c.toUpperCase() : '';
-	}
-
-	function isString(value) {
-	    return typeof value === 'string';
-	}
-
-	function toBoolean(value) {
-	    return typeof value === 'boolean' ? value : value === 'true' || value == '1' || value === '' ? true : value === 'false' || value == '0' ? false : value;
-	}
-
-	function toNumber(value) {
-	    var number = Number(value);
-	    return !isNaN(number) ? number : false;
-	}
-
-	function toJQuery(element, context) {
-	    if (element === true) {
-	        return null;
-	    }
-
-	    element = (0, _jquery2.default)(element, context);
-	    return element.length ? element : null;
-	}
-
-	function coerce(type, value) {
-
-	    if (type === Boolean) {
-	        return toBoolean(value);
-	    } else if (type === Number) {
-	        return toNumber(value);
-	    } else if (type === 'jQuery') {
-	        return toJQuery(value);
-	    }
-
-	    return type ? type(value) : value;
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    var DATA = UIkit.data;\n\n    if (!_index.Observer) {\n\n        (0, _index.ready)(function () {\n            (0, _jquery2.default)(UIkit.component.selector).each(function (i, node) {\n                attachComponents(node);\n            });\n        });\n\n        return;\n    }\n\n    new _index.Observer(function (mutations) {\n\n        mutations.forEach(function (mutation) {\n\n            if (mutation.type === 'childList') {\n\n                for (var i = 0; i < mutation.addedNodes.length; ++i) {\n\n                    var node = mutation.addedNodes[i];\n\n                    if ((0, _index.matches)(node, UIkit.component.selector)) {\n                        attachComponents(node);\n                    }\n                }\n\n                for (var i = 0; i < mutation.removedNodes.length; ++i) {\n\n                    var components = mutation.removedNodes[i][DATA];\n\n                    if (components) {\n                        for (var name in components) {\n                            components[name].$destroy();\n                        }\n                    }\n                }\n            }\n        });\n    }).observe(document, { childList: true, subtree: true });\n\n    function attachComponents(node) {\n\n        for (var i = 0; i < node.attributes.length; i++) {\n\n            var name = node.attributes[i].name;\n\n            if (name.lastIndexOf('uk-', 0) === 0) {\n                name = (0, _index.camelize)(name.replace('uk-', ''));\n\n                if (UIkit[name]) {\n                    UIkit[name](node);\n                }\n            }\n        }\n    }\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiNy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvYXBpL2Jvb3QuanM/NzFkNSJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJCBmcm9tICdqcXVlcnknO1xuaW1wb3J0IHtPYnNlcnZlciwgcmVhZHksIGNhbWVsaXplLCBoeXBoZW5hdGUsIG1hdGNoZXN9IGZyb20gJy4uL3V0aWwvaW5kZXgnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIGNvbnN0IERBVEEgPSBVSWtpdC5kYXRhO1xuXG4gICAgaWYgKCFPYnNlcnZlcikge1xuXG4gICAgICAgIHJlYWR5KCgpID0+IHtcbiAgICAgICAgICAgICQoVUlraXQuY29tcG9uZW50LnNlbGVjdG9yKS5lYWNoKChpLCBub2RlKSA9PiB7XG4gICAgICAgICAgICAgICAgYXR0YWNoQ29tcG9uZW50cyhub2RlKTtcbiAgICAgICAgICAgIH0pO1xuICAgICAgICB9KTtcblxuICAgICAgICByZXR1cm47XG4gICAgfVxuXG4gICAgKG5ldyBPYnNlcnZlcihtdXRhdGlvbnMgPT4ge1xuXG4gICAgICAgIG11dGF0aW9ucy5mb3JFYWNoKG11dGF0aW9uID0+IHtcblxuICAgICAgICAgICAgaWYgKG11dGF0aW9uLnR5cGUgPT09ICdjaGlsZExpc3QnKSB7XG5cbiAgICAgICAgICAgICAgICBmb3IgKGxldCBpID0gMDsgaSA8IG11dGF0aW9uLmFkZGVkTm9kZXMubGVuZ3RoOyArK2kpIHtcblxuICAgICAgICAgICAgICAgICAgICBsZXQgbm9kZSA9IG11dGF0aW9uLmFkZGVkTm9kZXNbaV07XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKG1hdGNoZXMobm9kZSwgVUlraXQuY29tcG9uZW50LnNlbGVjdG9yKSkge1xuICAgICAgICAgICAgICAgICAgICAgICAgYXR0YWNoQ29tcG9uZW50cyhub2RlKTtcbiAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIGZvciAobGV0IGkgPSAwOyBpIDwgbXV0YXRpb24ucmVtb3ZlZE5vZGVzLmxlbmd0aDsgKytpKSB7XG5cbiAgICAgICAgICAgICAgICAgICAgbGV0IGNvbXBvbmVudHMgPSBtdXRhdGlvbi5yZW1vdmVkTm9kZXNbaV1bREFUQV07XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKGNvbXBvbmVudHMpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvciAobGV0IG5hbWUgaW4gY29tcG9uZW50cykge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbXBvbmVudHNbbmFtZV0uJGRlc3Ryb3koKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH0pO1xuXG4gICAgfSkpLm9ic2VydmUoZG9jdW1lbnQsIHtjaGlsZExpc3Q6IHRydWUsIHN1YnRyZWU6IHRydWV9KTtcblxuICAgIGZ1bmN0aW9uIGF0dGFjaENvbXBvbmVudHMobm9kZSkge1xuXG4gICAgICAgIGZvciAodmFyIGkgPSAwOyBpIDwgbm9kZS5hdHRyaWJ1dGVzLmxlbmd0aDsgaSsrKSB7XG5cbiAgICAgICAgICAgIGxldCBuYW1lID0gbm9kZS5hdHRyaWJ1dGVzW2ldLm5hbWU7XG5cbiAgICAgICAgICAgIGlmIChuYW1lLmxhc3RJbmRleE9mKCd1ay0nLCAwKSA9PT0gMCkge1xuICAgICAgICAgICAgICAgIG5hbWUgPSBjYW1lbGl6ZShuYW1lLnJlcGxhY2UoJ3VrLScsICcnKSk7XG5cbiAgICAgICAgICAgICAgICBpZiAoVUlraXRbbmFtZV0pIHtcbiAgICAgICAgICAgICAgICAgICAgVUlraXRbbmFtZV0obm9kZSk7XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgfVxuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvYXBpL2Jvb3QuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBREE7QUFDQTtBQUtBO0FBUkE7QUFDQTtBQVVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBSkE7QUFDQTtBQVFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFEQTtBQUpBO0FBWEE7QUFGQTtBQUZBO0FBQ0E7QUErQkE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBSEE7QUFKQTtBQUZBO0FBL0NBO0FBQ0E7Ozs7Ozs7Iiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 8 */
+/*!*********************************!*\
+  !*** ./src/js/api/component.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.mergeOptions = mergeOptions;
-
-	var _index = __webpack_require__(4);
-
-	var strats = {};
-
-	// concat strategy
-	strats.init = strats.ready = strats.destroy = function (parentVal, childVal) {
-	    return childVal ? parentVal ? parentVal.concat(childVal) : (0, _index.isArray)(childVal) ? childVal : [childVal] : parentVal;
-	};
-
-	// property strategy
-	strats.props = function (parentVal, childVal) {
-
-	    if ((0, _index.isArray)(childVal)) {
-	        var ret = {};
-	        childVal.forEach(function (val) {
-	            ret[val] = String;
-	        });
-	        childVal = ret;
-	    }
-
-	    return strats.methods(parentVal, childVal);
-	};
-
-	// extend strategy
-	strats.defaults = strats.methods = function (parentVal, childVal) {
-	    return childVal ? parentVal ? (0, _index.extend)({}, parentVal, childVal) : childVal : parentVal;
-	};
-
-	// default strategy
-	var defaultStrat = function defaultStrat(parentVal, childVal) {
-	    return childVal === undefined ? parentVal : childVal;
-	};
-
-	function mergeOptions(parent, child, thisArg) {
-
-	    var options = {},
-	        key;
-
-	    if (child.mixins) {
-	        for (var i = 0, l = child.mixins.length; i < l; i++) {
-	            parent = mergeOptions(parent, child.mixins[i], thisArg);
-	        }
-	    }
-
-	    for (key in parent) {
-	        mergeKey(key);
-	    }
-
-	    for (key in child) {
-	        if (!(0, _index.hasOwn)(parent, key)) {
-	            mergeKey(key);
-	        }
-	    }
-
-	    function mergeKey(key) {
-	        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], thisArg, key);
-	    }
-
-	    return options;
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    var DATA = UIkit.data;\n\n    UIkit.components = {};\n\n    UIkit.component = function (name, options) {\n\n        if ((0, _index.isPlainObject)(options)) {\n            options.name = name;\n            options = UIkit.extend(options);\n        }\n\n        UIkit.component.selector = (UIkit.component.selector + ',' || '') + ('[uk-' + name + ']');\n\n        name = (0, _index.camelize)(name);\n\n        UIkit.components[name] = options;\n\n        UIkit[name] = function (element, data) {\n\n            var result = [];\n\n            (0, _jquery2.default)(element).each(function () {\n                result.push(this[DATA] && this[DATA][name] || new UIkit.components[name]({ el: this, data: data || {} }));\n            });\n\n            return result;\n        };\n\n        return UIkit.components[name];\n    };\n\n    UIkit.getComponent = function (element, name) {\n        return element[DATA] && element[DATA][name];\n    };\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiOC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvYXBpL2NvbXBvbmVudC5qcz8yZTUyIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5pbXBvcnQge2lzU3RyaW5nLCBpc1BsYWluT2JqZWN0LCBjYW1lbGl6ZX0gZnJvbSAnLi4vdXRpbC9pbmRleCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgY29uc3QgREFUQSA9IFVJa2l0LmRhdGE7XG5cbiAgICBVSWtpdC5jb21wb25lbnRzID0ge307XG5cbiAgICBVSWtpdC5jb21wb25lbnQgPSBmdW5jdGlvbiAobmFtZSwgb3B0aW9ucykge1xuXG4gICAgICAgIGlmIChpc1BsYWluT2JqZWN0KG9wdGlvbnMpKSB7XG4gICAgICAgICAgICBvcHRpb25zLm5hbWUgPSBuYW1lO1xuICAgICAgICAgICAgb3B0aW9ucyA9IFVJa2l0LmV4dGVuZChvcHRpb25zKTtcbiAgICAgICAgfVxuXG4gICAgICAgIFVJa2l0LmNvbXBvbmVudC5zZWxlY3RvciA9IChVSWtpdC5jb21wb25lbnQuc2VsZWN0b3IgKyAnLCcgfHwgJycpICsgYFt1ay0ke25hbWV9XWA7XG5cbiAgICAgICAgbmFtZSA9IGNhbWVsaXplKG5hbWUpO1xuXG4gICAgICAgIFVJa2l0LmNvbXBvbmVudHNbbmFtZV0gPSBvcHRpb25zO1xuXG4gICAgICAgIFVJa2l0W25hbWVdID0gZnVuY3Rpb24gKGVsZW1lbnQsIGRhdGEpIHtcblxuICAgICAgICAgICAgdmFyIHJlc3VsdCA9IFtdO1xuXG4gICAgICAgICAgICAkKGVsZW1lbnQpLmVhY2goZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAgIHJlc3VsdC5wdXNoKHRoaXNbREFUQV0gJiYgdGhpc1tEQVRBXVtuYW1lXSB8fCBuZXcgVUlraXQuY29tcG9uZW50c1tuYW1lXSh7ZWw6IHRoaXMsIGRhdGE6IGRhdGEgfHwge319KSk7XG4gICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgcmV0dXJuIHJlc3VsdDtcbiAgICAgICAgfTtcblxuICAgICAgICByZXR1cm4gVUlraXQuY29tcG9uZW50c1tuYW1lXTtcbiAgICB9O1xuXG4gICAgVUlraXQuZ2V0Q29tcG9uZW50ID0gZnVuY3Rpb24gKGVsZW1lbnQsIG5hbWUpIHtcbiAgICAgICAgcmV0dXJuIGVsZW1lbnRbREFUQV0gJiYgZWxlbWVudFtEQVRBXVtuYW1lXTtcbiAgICB9XG5cbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9hcGkvY29tcG9uZW50LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQVJBO0FBQ0E7QUFVQTtBQXhCQTtBQUNBO0FBMEJBO0FBQ0E7QUFEQTtBQWpDQTtBQUNBOzs7Ozs7OyIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 9 */
+/*!******************************!*\
+  !*** ./src/js/api/global.js ***!
+  \******************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.position = position;
-	exports.getDimensions = getDimensions;
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var dirs = {
-	    x: ['width', 'left', 'right'],
-	    y: ['height', 'top', 'bottom']
-	};
-
-	function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
-
-	    element = (0, _jquery2.default)(element);
-	    target = (0, _jquery2.default)(target);
-	    boundary = boundary && (0, _jquery2.default)(boundary);
-	    attach = getPos(attach);
-	    targetAttach = getPos(targetAttach);
-
-	    var dim = getDimensions(element),
-	        targetDim = getDimensions(target),
-	        position = targetDim;
-
-	    moveTo(position, attach, dim, -1);
-	    moveTo(position, targetAttach, targetDim, 1);
-
-	    offset = getOffsets(offset, dim.width, dim.height);
-	    targetOffset = getOffsets(targetOffset, targetDim.width, targetDim.height);
-
-	    offset['x'] += targetOffset['x'];
-	    offset['y'] += targetOffset['y'];
-
-	    position.left += offset['x'];
-	    position.top += offset['y'];
-
-	    boundary = getDimensions(boundary || (0, _jquery2.default)(window));
-
-	    var flipped = { element: attach, target: targetAttach };
-
-	    if (flip) {
-	        _jquery2.default.each(dirs, function (dir, props) {
-
-	            if (!(flip === true || flip.indexOf(dir) !== -1)) {
-	                return;
-	            }
-
-	            var elemOffset = attach[dir] === props[1] ? -dim[props[0]] : attach[dir] === props[2] ? dim[props[0]] : 0,
-	                targetOffset = targetAttach[dir] === props[1] ? targetDim[props[0]] : targetAttach[dir] === props[2] ? -targetDim[props[0]] : 0;
-
-	            if (position[props[1]] < boundary[props[1]] || position[props[1]] + dim[props[0]] > boundary[props[2]]) {
-
-	                var newVal = position[props[1]] + elemOffset + targetOffset - offset[dir] * 2;
-
-	                if (newVal >= boundary[props[1]] && newVal + dim[props[0]] <= boundary[props[2]]) {
-	                    position[props[1]] = newVal;
-
-	                    ['element', 'target'].forEach(function (el) {
-	                        flipped[el][dir] = !elemOffset ? flipped[el][dir] : flipped[el][dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1];
-	                    });
-	                }
-	            }
-	        });
-	    }
-
-	    element.offset({ left: position.left, top: position.top });
-
-	    return flipped;
-	}
-
-	function getDimensions(elem) {
-
-	    elem = (0, _jquery2.default)(elem);
-
-	    var width = elem.outerWidth(),
-	        height = elem.outerHeight(),
-	        offset = elem.offset(),
-	        left = offset ? offset.left : elem.scrollLeft(),
-	        top = offset ? offset.top : elem.scrollTop();
-
-	    return { width: width, height: height, left: left, top: top, right: left + width, bottom: top + height };
-	}
-
-	function moveTo(position, attach, dim, factor) {
-	    _jquery2.default.each(dirs, function (dir, props) {
-	        if (attach[dir] === props[2]) {
-	            position[props[1]] += dim[props[0]] * factor;
-	        } else if (attach[dir] === 'center') {
-	            position[props[1]] += dim[props[0]] * factor / 2;
-	        }
-	    });
-	}
-
-	function getPos(pos) {
-
-	    var x = /left|center|right/,
-	        y = /top|center|bottom/;
-
-	    pos = (pos || '').split(' ');
-
-	    if (pos.length === 1) {
-	        pos = x.test(pos[0]) ? pos.concat(['center']) : y.test(pos[0]) ? ['center'].concat(pos) : ['center', 'center'];
-	    }
-
-	    return {
-	        x: x.test(pos[0]) ? pos[0] : 'center',
-	        y: y.test(pos[1]) ? pos[1] : 'center'
-	    };
-	}
-
-	function getOffsets(offsets, width, height) {
-
-	    offsets = (offsets || '').split(' ');
-
-	    return {
-	        x: offsets[0] ? parseFloat(offsets[0]) * (offsets[0][offsets[0].length - 1] === '%' ? width / 100 : 1) : 0,
-	        y: offsets[1] ? parseFloat(offsets[1]) * (offsets[1][offsets[1].length - 1] === '%' ? height / 100 : 1) : 0
-	    };
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.use = function (plugin) {\n\n        if (plugin.installed) {\n            return;\n        }\n\n        plugin.call(null, this);\n        plugin.installed = true;\n\n        return this;\n    };\n\n    UIkit.mixin = function (mixin) {\n        this.options = (0, _index.mergeOptions)(this.options, mixin);\n    };\n\n    UIkit.extend = function (options) {\n\n        options = options || {};\n\n        var Super = this,\n            name = options.name || Super.options.name;\n        var Sub = createClass(name || 'UIkitComponent');\n\n        Sub.prototype = Object.create(Super.prototype);\n        Sub.prototype.constructor = Sub;\n        Sub.options = (0, _index.mergeOptions)(Super.options, options);\n\n        Sub['super'] = Super;\n        Sub.extend = Super.extend;\n\n        return Sub;\n    };\n\n    UIkit.update = function (e) {\n        for (var id in UIkit.instances) {\n            if (UIkit.instances[id]._isReady) {\n                UIkit.instances[id]._callUpdate(e);\n            }\n        }\n    };\n};\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction createClass(name) {\n    return new Function('return function ' + (0, _index.classify)(name) + ' (options) { this._init(options); }')();\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiOS5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy9zcmMvanMvYXBpL2dsb2JhbC5qcz9mNDU5Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7Y2xhc3NpZnksIG1lcmdlT3B0aW9uc30gZnJvbSAnLi4vdXRpbC9pbmRleCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQudXNlID0gZnVuY3Rpb24gKHBsdWdpbikge1xuXG4gICAgICAgIGlmIChwbHVnaW4uaW5zdGFsbGVkKSB7XG4gICAgICAgICAgICByZXR1cm47XG4gICAgICAgIH1cblxuICAgICAgICBwbHVnaW4uY2FsbChudWxsLCB0aGlzKTtcbiAgICAgICAgcGx1Z2luLmluc3RhbGxlZCA9IHRydWU7XG5cbiAgICAgICAgcmV0dXJuIHRoaXM7XG4gICAgfTtcblxuICAgIFVJa2l0Lm1peGluID0gZnVuY3Rpb24gKG1peGluKSB7XG4gICAgICAgIHRoaXMub3B0aW9ucyA9IG1lcmdlT3B0aW9ucyh0aGlzLm9wdGlvbnMsIG1peGluKTtcbiAgICB9O1xuXG4gICAgVUlraXQuZXh0ZW5kID0gZnVuY3Rpb24gKG9wdGlvbnMpIHtcblxuICAgICAgICBvcHRpb25zID0gb3B0aW9ucyB8fCB7fTtcblxuICAgICAgICB2YXIgU3VwZXIgPSB0aGlzLCBuYW1lID0gb3B0aW9ucy5uYW1lIHx8IFN1cGVyLm9wdGlvbnMubmFtZTtcbiAgICAgICAgdmFyIFN1YiA9IGNyZWF0ZUNsYXNzKG5hbWUgfHwgJ1VJa2l0Q29tcG9uZW50Jyk7XG5cbiAgICAgICAgU3ViLnByb3RvdHlwZSA9IE9iamVjdC5jcmVhdGUoU3VwZXIucHJvdG90eXBlKTtcbiAgICAgICAgU3ViLnByb3RvdHlwZS5jb25zdHJ1Y3RvciA9IFN1YjtcbiAgICAgICAgU3ViLm9wdGlvbnMgPSBtZXJnZU9wdGlvbnMoU3VwZXIub3B0aW9ucywgb3B0aW9ucyk7XG5cbiAgICAgICAgU3ViWydzdXBlciddID0gU3VwZXI7XG4gICAgICAgIFN1Yi5leHRlbmQgPSBTdXBlci5leHRlbmQ7XG5cbiAgICAgICAgcmV0dXJuIFN1YjtcbiAgICB9O1xuXG4gICAgVUlraXQudXBkYXRlID0gZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgZm9yICh2YXIgaWQgaW4gVUlraXQuaW5zdGFuY2VzKSB7XG4gICAgICAgICAgICBpZiAoVUlraXQuaW5zdGFuY2VzW2lkXS5faXNSZWFkeSkge1xuICAgICAgICAgICAgICAgIFVJa2l0Lmluc3RhbmNlc1tpZF0uX2NhbGxVcGRhdGUoZSk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG5cbn1cblxuZnVuY3Rpb24gY3JlYXRlQ2xhc3MobmFtZSkge1xuICAgIHJldHVybiBuZXcgRnVuY3Rpb24oYHJldHVybiBmdW5jdGlvbiAke2NsYXNzaWZ5KG5hbWUpfSAob3B0aW9ucykgeyB0aGlzLl9pbml0KG9wdGlvbnMpOyB9YCkoKTtcbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9hcGkvZ2xvYmFsLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFUQTtBQUNBO0FBV0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQWRBO0FBQ0E7QUFnQkE7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQURBO0FBREE7QUFuQ0E7QUFDQTs7O0FBNENBO0FBQ0E7QUFEQSIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 10 */
+/*!********************************!*\
+  !*** ./src/js/api/instance.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// Copyright (c) 2010-2016 Thomas Fuchs
-	// http://zeptojs.com/
-
-	var touch = {},
-	    touchTimeout,
-	    tapTimeout,
-	    swipeTimeout,
-	    longTapTimeout,
-	    longTapDelay = 750,
-	    gesture;
-
-	function swipeDirection(x1, x2, y1, y2) {
-	    return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? x1 - x2 > 0 ? 'Left' : 'Right' : y1 - y2 > 0 ? 'Up' : 'Down';
-	}
-
-	function longTap() {
-	    longTapTimeout = null;
-	    if (touch.last) {
-	        if (touch.el !== undefined) touch.el.trigger('longTap');
-	        touch = {};
-	    }
-	}
-
-	function cancelLongTap() {
-	    if (longTapTimeout) clearTimeout(longTapTimeout);
-	    longTapTimeout = null;
-	}
-
-	function cancelAll() {
-	    if (touchTimeout) clearTimeout(touchTimeout);
-	    if (tapTimeout) clearTimeout(tapTimeout);
-	    if (swipeTimeout) clearTimeout(swipeTimeout);
-	    if (longTapTimeout) clearTimeout(longTapTimeout);
-	    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
-	    touch = {};
-	}
-
-	function isPrimaryTouch(event) {
-	    return event.pointerType == event.MSPOINTER_TYPE_TOUCH && event.isPrimary;
-	}
-
-	(0, _index.ready)(function () {
-	    var now,
-	        delta,
-	        deltaX = 0,
-	        deltaY = 0,
-	        firstTouch;
-
-	    if ('MSGesture' in window) {
-	        gesture = new MSGesture();
-	        gesture.target = document.body;
-	    }
-
-	    (0, _jquery2.default)(document).on('MSGestureEnd gestureend', function (e) {
-
-	        var swipeDirectionFromVelocity = e.originalEvent.velocityX > 1 ? 'Right' : e.originalEvent.velocityX < -1 ? 'Left' : e.originalEvent.velocityY > 1 ? 'Down' : e.originalEvent.velocityY < -1 ? 'Up' : null;
-
-	        if (swipeDirectionFromVelocity && touch.el !== undefined) {
-	            touch.el.trigger('swipe');
-	            touch.el.trigger('swipe' + swipeDirectionFromVelocity);
-	        }
-	    })
-	    // MSPointerDown: for IE10
-	    // pointerdown: for IE11
-	    .on('touchstart MSPointerDown pointerdown', function (e) {
-
-	        if (e.type == 'MSPointerDown' && !isPrimaryTouch(e.originalEvent)) return;
-
-	        firstTouch = e.type == 'MSPointerDown' || e.type == 'pointerdown' ? e : e.originalEvent.touches[0];
-
-	        now = Date.now();
-	        delta = now - (touch.last || now);
-	        touch.el = (0, _jquery2.default)('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
-
-	        if (touchTimeout) clearTimeout(touchTimeout);
-
-	        touch.x1 = firstTouch.pageX;
-	        touch.y1 = firstTouch.pageY;
-
-	        if (delta > 0 && delta <= 250) touch.isDoubleTap = true;
-
-	        touch.last = now;
-	        longTapTimeout = setTimeout(longTap, longTapDelay);
-
-	        // adds the current touch contact for IE gesture recognition
-	        if (gesture && (e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart')) {
-	            gesture.addPointer(e.originalEvent.pointerId);
-	        }
-	    })
-	    // MSPointerMove: for IE10
-	    // pointermove: for IE11
-	    .on('touchmove MSPointerMove pointermove', function (e) {
-
-	        if (e.type == 'MSPointerMove' && !isPrimaryTouch(e.originalEvent)) return;
-
-	        firstTouch = e.type == 'MSPointerMove' || e.type == 'pointermove' ? e : e.originalEvent.touches[0];
-
-	        cancelLongTap();
-	        touch.x2 = firstTouch.pageX;
-	        touch.y2 = firstTouch.pageY;
-
-	        deltaX += Math.abs(touch.x1 - touch.x2);
-	        deltaY += Math.abs(touch.y1 - touch.y2);
-	    })
-	    // MSPointerUp: for IE10
-	    // pointerup: for IE11
-	    .on('touchend MSPointerUp pointerup', function (e) {
-
-	        if (e.type == 'MSPointerUp' && !isPrimaryTouch(e.originalEvent)) return;
-
-	        cancelLongTap();
-
-	        // swipe
-	        if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 30 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 30) {
-
-	            swipeTimeout = setTimeout(function () {
-	                if (touch.el !== undefined) {
-	                    touch.el.trigger('swipe');
-	                    touch.el.trigger('swipe' + swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2));
-	                }
-	                touch = {};
-	            }, 0);
-
-	            // normal tap
-	        } else if ('last' in touch) {
-
-	                // don't fire tap when delta position changed by more than 30 pixels,
-	                // for instance when moving to a point and back to origin
-	                if (isNaN(deltaX) || deltaX < 30 && deltaY < 30) {
-	                    // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
-	                    // ('tap' fires before 'scroll')
-	                    tapTimeout = setTimeout(function () {
-
-	                        // trigger universal 'tap' with the option to cancelTouch()
-	                        // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-	                        var event = _jquery2.default.Event('tap');
-	                        event.cancelTouch = cancelAll;
-	                        if (touch.el !== undefined) touch.el.trigger(event);
-
-	                        // trigger double tap immediately
-	                        if (touch.isDoubleTap) {
-	                            if (touch.el !== undefined) touch.el.trigger('doubleTap');
-	                            touch = {};
-	                        }
-
-	                        // trigger single tap after 250ms of inactivity
-	                        else {
-	                                touchTimeout = setTimeout(function () {
-	                                    touchTimeout = null;
-	                                    if (touch.el !== undefined) touch.el.trigger('singleTap');
-	                                    touch = {};
-	                                }, 250);
-	                            }
-	                    }, 0);
-	                } else {
-	                    touch = {};
-	                }
-	                deltaX = deltaY = 0;
-	            }
-	    })
-	    // when the browser window loses focus,
-	    // for example when a modal dialog is shown,
-	    // cancel all ongoing events
-	    .on('touchcancel MSPointerCancel', cancelAll);
-
-	    // scrolling the window indicates intention of the user
-	    // to scroll, not tap or swipe, so cancel all ongoing events
-	    (0, _jquery2.default)(window).on('scroll', cancelAll);
-	});
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    var DATA = UIkit.data;\n\n    UIkit.prototype.$mount = function (el) {\n        var _this = this;\n\n        var name = this.$options.name;\n\n        if (!el[DATA]) {\n            el[DATA] = {};\n            UIkit.elements.push(el);\n        }\n\n        if (el[DATA][name]) {\n            console.warn('Component \"' + name + '\" is already mounted on element: ' + el);\n        }\n\n        el[DATA][name] = this;\n\n        this.$el = (0, _jquery2.default)(el);\n\n        this._initProps();\n\n        this._callHook('init');\n\n        (0, _index.requestAnimationFrame)(function () {\n            _this._isReady = true;\n            _this._callHook('ready');\n            _this._callUpdate();\n        });\n    };\n\n    UIkit.prototype.$update = function (e, element) {\n        var _this2 = this;\n\n        element = element ? (0, _jquery2.default)(element)[0] : false;\n\n        UIkit.elements.forEach(function (el) {\n            if (el[DATA] && _jquery2.default.contains(element || _this2.$el[0], el)) {\n                for (var name in el[DATA]) {\n                    el[DATA][name]._callUpdate(e);\n                }\n            }\n        });\n    };\n\n    UIkit.prototype.$updateParents = function (e) {\n        var _this3 = this;\n\n        (0, _jquery2.default)(UIkit.elements).each(function (i, el) {\n            if (el[DATA] && _jquery2.default.contains(el, _this3.$el[0])) {\n                for (var name in el[DATA]) {\n                    el[DATA][name]._callUpdate(e);\n                }\n            }\n        });\n    };\n\n    UIkit.prototype.$replace = function (el) {\n\n        var $el = (0, _jquery2.default)(el),\n            prev = this.$options.el,\n            name = this.$options.name;\n\n        el = $el[0];\n\n        delete prev[DATA][name];\n\n        if (!el[DATA]) {\n            el[DATA] = {};\n        }\n\n        el[DATA][name] = this;\n\n        UIkit.elements.splice(UIkit.elements.indexOf(prev), 1, el);\n        this.$el.replaceWith($el);\n        this.$options.el = el;\n        this.$el = $el;\n\n        this.__preventDestroy = true;\n    };\n\n    UIkit.prototype.$destroy = function () {\n\n        if (this.__preventDestroy) {\n            this.__preventDestroy = false;\n            return;\n        }\n\n        this._callHook('destroy');\n\n        delete UIkit.instances[this._uid];\n\n        var el = this.$options.el;\n\n        if (!el || !el[DATA]) {\n            return;\n        }\n\n        delete el[DATA][this.$options.name];\n\n        if (!Object.keys(el[DATA]).length) {\n            delete el[DATA];\n            delete UIkit.elements[UIkit.elements.indexOf(el)];\n        }\n\n        this.$el.remove();\n    };\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2FwaS9pbnN0YW5jZS5qcz85YzI0Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5pbXBvcnQge3JlcXVlc3RBbmltYXRpb25GcmFtZX0gZnJvbSAnLi4vdXRpbC9pbmRleCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgY29uc3QgREFUQSA9IFVJa2l0LmRhdGE7XG5cbiAgICBVSWtpdC5wcm90b3R5cGUuJG1vdW50ID0gZnVuY3Rpb24gKGVsKSB7XG5cbiAgICAgICAgdmFyIG5hbWUgPSB0aGlzLiRvcHRpb25zLm5hbWU7XG5cbiAgICAgICAgaWYgKCFlbFtEQVRBXSkge1xuICAgICAgICAgICAgZWxbREFUQV0gPSB7fTtcbiAgICAgICAgICAgIFVJa2l0LmVsZW1lbnRzLnB1c2goZWwpO1xuICAgICAgICB9XG5cbiAgICAgICAgaWYgKGVsW0RBVEFdW25hbWVdKSB7XG4gICAgICAgICAgICBjb25zb2xlLndhcm4oYENvbXBvbmVudCBcIiR7bmFtZX1cIiBpcyBhbHJlYWR5IG1vdW50ZWQgb24gZWxlbWVudDogJHtlbH1gKTtcbiAgICAgICAgfVxuXG4gICAgICAgIGVsW0RBVEFdW25hbWVdID0gdGhpcztcblxuICAgICAgICB0aGlzLiRlbCA9ICQoZWwpO1xuXG4gICAgICAgIHRoaXMuX2luaXRQcm9wcygpO1xuXG4gICAgICAgIHRoaXMuX2NhbGxIb29rKCdpbml0Jyk7XG5cbiAgICAgICAgcmVxdWVzdEFuaW1hdGlvbkZyYW1lKCgpID0+IHtcbiAgICAgICAgICAgIHRoaXMuX2lzUmVhZHkgPSB0cnVlO1xuICAgICAgICAgICAgdGhpcy5fY2FsbEhvb2soJ3JlYWR5Jyk7XG4gICAgICAgICAgICB0aGlzLl9jYWxsVXBkYXRlKCk7XG4gICAgICAgIH0pO1xuICAgIH07XG5cbiAgICBVSWtpdC5wcm90b3R5cGUuJHVwZGF0ZSA9IGZ1bmN0aW9uIChlLCBlbGVtZW50KSB7XG5cbiAgICAgICAgZWxlbWVudCA9IGVsZW1lbnQgPyAkKGVsZW1lbnQpWzBdIDogZmFsc2U7XG5cbiAgICAgICAgVUlraXQuZWxlbWVudHMuZm9yRWFjaCgoZWwpID0+IHtcbiAgICAgICAgICAgIGlmIChlbFtEQVRBXSAmJiAkLmNvbnRhaW5zKGVsZW1lbnQgfHwgdGhpcy4kZWxbMF0sIGVsKSkge1xuICAgICAgICAgICAgICAgIGZvciAodmFyIG5hbWUgaW4gZWxbREFUQV0pIHtcbiAgICAgICAgICAgICAgICAgICAgZWxbREFUQV1bbmFtZV0uX2NhbGxVcGRhdGUoZSk7XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuICAgICAgICB9KTtcbiAgICB9O1xuXG4gICAgVUlraXQucHJvdG90eXBlLiR1cGRhdGVQYXJlbnRzID0gZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgJChVSWtpdC5lbGVtZW50cykuZWFjaCgoaSwgZWwpID0+IHtcbiAgICAgICAgICAgIGlmIChlbFtEQVRBXSAmJiAkLmNvbnRhaW5zKGVsLCB0aGlzLiRlbFswXSkpIHtcbiAgICAgICAgICAgICAgICBmb3IgKHZhciBuYW1lIGluIGVsW0RBVEFdKSB7XG4gICAgICAgICAgICAgICAgICAgIGVsW0RBVEFdW25hbWVdLl9jYWxsVXBkYXRlKGUpO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH1cbiAgICAgICAgfSk7XG4gICAgfTtcblxuICAgIFVJa2l0LnByb3RvdHlwZS4kcmVwbGFjZSA9IGZ1bmN0aW9uIChlbCkge1xuXG4gICAgICAgIHZhciAkZWwgPSAkKGVsKSwgcHJldiA9IHRoaXMuJG9wdGlvbnMuZWwsIG5hbWUgPSB0aGlzLiRvcHRpb25zLm5hbWU7XG5cbiAgICAgICAgZWwgPSAkZWxbMF07XG5cbiAgICAgICAgZGVsZXRlIHByZXZbREFUQV1bbmFtZV07XG5cbiAgICAgICAgaWYgKCFlbFtEQVRBXSkge1xuICAgICAgICAgICAgZWxbREFUQV0gPSB7fTtcbiAgICAgICAgfVxuXG4gICAgICAgIGVsW0RBVEFdW25hbWVdID0gdGhpcztcblxuICAgICAgICBVSWtpdC5lbGVtZW50cy5zcGxpY2UoVUlraXQuZWxlbWVudHMuaW5kZXhPZihwcmV2KSwgMSwgZWwpO1xuICAgICAgICB0aGlzLiRlbC5yZXBsYWNlV2l0aCgkZWwpO1xuICAgICAgICB0aGlzLiRvcHRpb25zLmVsID0gZWw7XG4gICAgICAgIHRoaXMuJGVsID0gJGVsO1xuXG4gICAgICAgIHRoaXMuX19wcmV2ZW50RGVzdHJveSA9IHRydWU7XG4gICAgfTtcblxuICAgIFVJa2l0LnByb3RvdHlwZS4kZGVzdHJveSA9IGZ1bmN0aW9uICgpIHtcblxuICAgICAgICBpZiAodGhpcy5fX3ByZXZlbnREZXN0cm95KSB7XG4gICAgICAgICAgICB0aGlzLl9fcHJldmVudERlc3Ryb3kgPSBmYWxzZTtcbiAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgfVxuXG4gICAgICAgIHRoaXMuX2NhbGxIb29rKCdkZXN0cm95Jyk7XG5cbiAgICAgICAgZGVsZXRlIFVJa2l0Lmluc3RhbmNlc1t0aGlzLl91aWRdO1xuXG4gICAgICAgIHZhciBlbCA9IHRoaXMuJG9wdGlvbnMuZWw7XG5cbiAgICAgICAgaWYgKCFlbCB8fCAhZWxbREFUQV0pIHtcbiAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgfVxuXG4gICAgICAgIGRlbGV0ZSBlbFtEQVRBXVt0aGlzLiRvcHRpb25zLm5hbWVdO1xuXG4gICAgICAgIGlmICghT2JqZWN0LmtleXMoZWxbREFUQV0pLmxlbmd0aCkge1xuICAgICAgICAgICAgZGVsZXRlIGVsW0RBVEFdO1xuICAgICAgICAgICAgZGVsZXRlIFVJa2l0LmVsZW1lbnRzW1VJa2l0LmVsZW1lbnRzLmluZGV4T2YoZWwpXTtcbiAgICAgICAgfVxuXG4gICAgICAgIHRoaXMuJGVsLnJlbW92ZSgpO1xuICAgIH07XG5cbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9hcGkvaW5zdGFuY2UuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQXJCQTtBQUNBO0FBMkJBOzs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQURBO0FBREE7QUFKQTtBQUNBO0FBWUE7OztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFEQTtBQURBO0FBREE7QUFDQTtBQVNBO0FBQ0E7QUFDQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBbkJBO0FBQ0E7QUFxQkE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBQ0E7QUFJQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUF4QkE7QUE3RUE7QUFDQTs7Ozs7OzsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 11 */
+/*!********************************!*\
+  !*** ./src/js/api/internal.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.use = function (plugin) {
-
-	        if (plugin.installed) {
-	            return;
-	        }
-
-	        plugin.call(null, this);
-	        plugin.installed = true;
-
-	        return this;
-	    };
-
-	    UIkit.mixin = function (mixin) {
-	        this.options = (0, _index.mergeOptions)(this.options, mixin);
-	    };
-
-	    UIkit.extend = function (options) {
-
-	        options = options || {};
-
-	        var Super = this,
-	            name = options.name || Super.options.name;
-	        var Sub = createClass(name || 'UIkitComponent');
-
-	        Sub.prototype = Object.create(Super.prototype);
-	        Sub.prototype.constructor = Sub;
-	        Sub.options = (0, _index.mergeOptions)(Super.options, options);
-
-	        Sub['super'] = Super;
-	        Sub.extend = Super.extend;
-
-	        return Sub;
-	    };
-
-	    UIkit.update = function (e) {
-	        for (var id in UIkit.instances) {
-	            if (UIkit.instances[id]._isReady) {
-	                UIkit.instances[id]._callUpdate(e);
-	            }
-	        }
-	    };
-	};
-
-	var _index = __webpack_require__(4);
-
-	function createClass(name) {
-	    return new Function('return function ' + (0, _index.classify)(name) + ' (options) { this._init(options); }')();
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    var uid = 0;\n\n    UIkit.prototype.props = {};\n\n    UIkit.prototype._init = function (options) {\n\n        options = options || {};\n        options = this.$options = (0, _index.mergeOptions)(this.constructor.options, options, this);\n\n        UIkit.instances[uid] = this;\n\n        this.$el = null;\n        this._uid = uid++;\n        this._initData();\n        this._initMethods();\n\n        if (options.el) {\n            this.$mount(options.el);\n        }\n    };\n\n    UIkit.prototype._initData = function () {\n\n        var defaults = this.$options.defaults,\n            data = this.$options.data || {},\n            props = this.$options.props;\n\n        if (defaults) {\n            for (var key in defaults) {\n                this[key] = (0, _index.hasOwn)(data, key) ? (0, _index.coerce)(props[key], data[key]) : defaults[key];\n            }\n        }\n    };\n\n    UIkit.prototype._initProps = function () {\n\n        var el = this.$options.el,\n            props = this.$options.props,\n            options = el.getAttribute('uk-' + (0, _index.hyphenate)(this.$options.name));\n\n        if (props) {\n            for (var key in props) {\n                var prop = (0, _index.hyphenate)(key);\n                if (el.hasAttribute(prop)) {\n                    this[key] = (0, _index.coerce)(props[key], el.getAttribute(prop));\n                }\n            }\n\n            if (options) {\n                if (options[0] === '{') {\n                    try {\n                        options = JSON.parse(options);\n                    } catch (e) {\n                        console.warn('Invalid JSON.');\n                        options = {};\n                    }\n                } else {\n                    var tmp = {};\n                    options.split(';').forEach(function (option) {\n                        var opt = option.split(/:(.+)/);\n                        tmp[opt[0].trim()] = opt[1].trim();\n                    });\n                    options = tmp;\n                }\n\n                for (var key in options || {}) {\n                    var prop = (0, _index.camelize)(key);\n                    if (props[prop] !== undefined) {\n                        this[prop] = (0, _index.coerce)(props[prop], options[key]);\n                    }\n                }\n            }\n        }\n    };\n\n    UIkit.prototype._initMethods = function () {\n\n        var methods = this.$options.methods;\n\n        if (methods) {\n            for (var key in methods) {\n                this[key] = (0, _index.bind)(methods[key], this);\n            }\n        }\n    };\n\n    UIkit.prototype._callHook = function (hook) {\n        var _this = this;\n\n        var handlers = this.$options[hook];\n\n        if (handlers) {\n            handlers.forEach(function (handler) {\n                handler.call(_this);\n            });\n        }\n    };\n\n    UIkit.prototype._callUpdate = function (e) {\n\n        e = (0, _index.createEvent)(e || 'update');\n\n        var update = this.$options.update;\n\n        if (!update) {\n            return;\n        }\n\n        if ((0, _index.isPlainObject)(update)) {\n\n            if (e.type !== 'update' && update.events && update.events.indexOf(e.type) === -1) {\n                return;\n            }\n\n            update = update.handler;\n        }\n\n        update.call(this, e);\n    };\n};\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2FwaS9pbnRlcm5hbC5qcz8yYmYyIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7YmluZCwgY2FtZWxpemUsIGNvZXJjZSwgY3JlYXRlRXZlbnQsIGhhc093biwgaHlwaGVuYXRlLCBpc1BsYWluT2JqZWN0LCBpc1N0cmluZywgbWVyZ2VPcHRpb25zfSBmcm9tICcuLi91dGlsL2luZGV4JztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICB2YXIgdWlkID0gMDtcblxuICAgIFVJa2l0LnByb3RvdHlwZS5wcm9wcyA9IHt9O1xuXG4gICAgVUlraXQucHJvdG90eXBlLl9pbml0ID0gZnVuY3Rpb24gKG9wdGlvbnMpIHtcblxuICAgICAgICBvcHRpb25zID0gb3B0aW9ucyB8fCB7fTtcbiAgICAgICAgb3B0aW9ucyA9IHRoaXMuJG9wdGlvbnMgPSBtZXJnZU9wdGlvbnModGhpcy5jb25zdHJ1Y3Rvci5vcHRpb25zLCBvcHRpb25zLCB0aGlzKTtcblxuICAgICAgICBVSWtpdC5pbnN0YW5jZXNbdWlkXSA9IHRoaXM7XG5cbiAgICAgICAgdGhpcy4kZWwgPSBudWxsO1xuICAgICAgICB0aGlzLl91aWQgPSB1aWQrKztcbiAgICAgICAgdGhpcy5faW5pdERhdGEoKTtcbiAgICAgICAgdGhpcy5faW5pdE1ldGhvZHMoKTtcblxuICAgICAgICBpZiAob3B0aW9ucy5lbCkge1xuICAgICAgICAgICAgdGhpcy4kbW91bnQob3B0aW9ucy5lbCk7XG4gICAgICAgIH1cbiAgICB9O1xuXG4gICAgVUlraXQucHJvdG90eXBlLl9pbml0RGF0YSA9IGZ1bmN0aW9uICgpIHtcblxuICAgICAgICB2YXIgZGVmYXVsdHMgPSB0aGlzLiRvcHRpb25zLmRlZmF1bHRzLFxuICAgICAgICAgICAgZGF0YSA9IHRoaXMuJG9wdGlvbnMuZGF0YSB8fCB7fSxcbiAgICAgICAgICAgIHByb3BzID0gdGhpcy4kb3B0aW9ucy5wcm9wcztcblxuICAgICAgICBpZiAoZGVmYXVsdHMpIHtcbiAgICAgICAgICAgIGZvciAodmFyIGtleSBpbiBkZWZhdWx0cykge1xuICAgICAgICAgICAgICAgIHRoaXNba2V5XSA9IGhhc093bihkYXRhLCBrZXkpID8gY29lcmNlKHByb3BzW2tleV0sIGRhdGFba2V5XSkgOiBkZWZhdWx0c1trZXldO1xuICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgfTtcblxuICAgIFVJa2l0LnByb3RvdHlwZS5faW5pdFByb3BzID0gZnVuY3Rpb24gKCkge1xuXG4gICAgICAgIHZhciBlbCA9IHRoaXMuJG9wdGlvbnMuZWwsXG4gICAgICAgICAgICBwcm9wcyA9IHRoaXMuJG9wdGlvbnMucHJvcHMsXG4gICAgICAgICAgICBvcHRpb25zID0gZWwuZ2V0QXR0cmlidXRlKCd1ay0nICsgaHlwaGVuYXRlKHRoaXMuJG9wdGlvbnMubmFtZSkpO1xuXG4gICAgICAgIGlmIChwcm9wcykge1xuICAgICAgICAgICAgZm9yICh2YXIga2V5IGluIHByb3BzKSB7XG4gICAgICAgICAgICAgICAgdmFyIHByb3AgPSBoeXBoZW5hdGUoa2V5KTtcbiAgICAgICAgICAgICAgICBpZiAoZWwuaGFzQXR0cmlidXRlKHByb3ApKSB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXNba2V5XSA9IGNvZXJjZShwcm9wc1trZXldLCBlbC5nZXRBdHRyaWJ1dGUocHJvcCkpXG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICBpZiAob3B0aW9ucykge1xuICAgICAgICAgICAgICAgIGlmIChvcHRpb25zWzBdID09PSAneycpIHtcbiAgICAgICAgICAgICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgICAgICAgICAgICAgIG9wdGlvbnMgPSBKU09OLnBhcnNlKG9wdGlvbnMpO1xuICAgICAgICAgICAgICAgICAgICB9IGNhdGNoIChlKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBjb25zb2xlLndhcm4oYEludmFsaWQgSlNPTi5gKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIG9wdGlvbnMgPSB7fTtcbiAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgICAgICAgIHZhciB0bXAgPSB7fTtcbiAgICAgICAgICAgICAgICAgICAgb3B0aW9ucy5zcGxpdCgnOycpLmZvckVhY2goKG9wdGlvbikgPT4ge1xuICAgICAgICAgICAgICAgICAgICAgICAgdmFyIG9wdCA9IG9wdGlvbi5zcGxpdCgvOiguKykvKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIHRtcFtvcHRbMF0udHJpbSgpXSA9IG9wdFsxXS50cmltKCk7XG4gICAgICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgICAgICAgICBvcHRpb25zID0gdG1wO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIGZvciAodmFyIGtleSBpbiBvcHRpb25zIHx8IHt9KSB7XG4gICAgICAgICAgICAgICAgICAgIHZhciBwcm9wID0gY2FtZWxpemUoa2V5KTtcbiAgICAgICAgICAgICAgICAgICAgaWYgKHByb3BzW3Byb3BdICE9PSB1bmRlZmluZWQpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXNbcHJvcF0gPSBjb2VyY2UocHJvcHNbcHJvcF0sIG9wdGlvbnNba2V5XSk7XG4gICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9O1xuXG4gICAgVUlraXQucHJvdG90eXBlLl9pbml0TWV0aG9kcyA9IGZ1bmN0aW9uICgpIHtcblxuICAgICAgICB2YXIgbWV0aG9kcyA9IHRoaXMuJG9wdGlvbnMubWV0aG9kcztcblxuICAgICAgICBpZiAobWV0aG9kcykge1xuICAgICAgICAgICAgZm9yICh2YXIga2V5IGluIG1ldGhvZHMpIHtcbiAgICAgICAgICAgICAgICB0aGlzW2tleV0gPSBiaW5kKG1ldGhvZHNba2V5XSwgdGhpcyk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9O1xuXG4gICAgVUlraXQucHJvdG90eXBlLl9jYWxsSG9vayA9IGZ1bmN0aW9uIChob29rKSB7XG5cbiAgICAgICAgdmFyIGhhbmRsZXJzID0gdGhpcy4kb3B0aW9uc1tob29rXTtcblxuICAgICAgICBpZiAoaGFuZGxlcnMpIHtcbiAgICAgICAgICAgIGhhbmRsZXJzLmZvckVhY2goaGFuZGxlciA9PiB7XG4gICAgICAgICAgICAgICAgaGFuZGxlci5jYWxsKHRoaXMpO1xuICAgICAgICAgICAgfSk7XG4gICAgICAgIH1cbiAgICB9O1xuXG4gICAgVUlraXQucHJvdG90eXBlLl9jYWxsVXBkYXRlID0gZnVuY3Rpb24gKGUpIHtcblxuICAgICAgICBlID0gY3JlYXRlRXZlbnQoZSB8fCAndXBkYXRlJyk7XG5cbiAgICAgICAgdmFyIHVwZGF0ZSA9IHRoaXMuJG9wdGlvbnMudXBkYXRlO1xuXG4gICAgICAgIGlmICghdXBkYXRlKSB7XG4gICAgICAgICAgICByZXR1cm47XG4gICAgICAgIH1cblxuICAgICAgICBpZiAoaXNQbGFpbk9iamVjdCh1cGRhdGUpKSB7XG5cbiAgICAgICAgICAgIGlmIChlLnR5cGUgIT09ICd1cGRhdGUnICYmIHVwZGF0ZS5ldmVudHMgJiYgdXBkYXRlLmV2ZW50cy5pbmRleE9mKGUudHlwZSkgPT09IC0xKSB7XG4gICAgICAgICAgICAgICAgcmV0dXJuO1xuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICB1cGRhdGUgPSB1cGRhdGUuaGFuZGxlcjtcbiAgICAgICAgfVxuXG4gICAgICAgIHVwZGF0ZS5jYWxsKHRoaXMsIGUpO1xuICAgIH07XG5cbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9hcGkvaW50ZXJuYWwuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQVpBO0FBQ0E7QUFnQkE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFEQTtBQU5BO0FBQ0E7QUFZQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFGQTtBQUNBO0FBTUE7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFGQTtBQUhBO0FBUUE7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUlBO0FBYkE7QUFDQTtBQWVBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFGQTtBQWpCQTtBQVJBO0FBTkE7QUFDQTtBQXdDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBREE7QUFKQTtBQUNBO0FBVUE7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQURBO0FBSkE7QUFDQTtBQVVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFOQTtBQUNBO0FBUUE7QUFuQkE7QUFuR0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 12 */
+/*!******************************!*\
+  !*** ./src/js/core/alert.js ***!
+  \******************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    var uid = 0;
-
-	    UIkit.prototype.props = {};
-
-	    UIkit.prototype._init = function (options) {
-
-	        options = options || {};
-	        options = this.$options = (0, _index.mergeOptions)(this.constructor.options, options, this);
-
-	        UIkit.instances[uid] = this;
-
-	        this.$el = null;
-	        this._uid = uid++;
-	        this._initData();
-	        this._initMethods();
-
-	        if (options.el) {
-	            this.$mount(options.el);
-	        }
-	    };
-
-	    UIkit.prototype._initData = function () {
-
-	        var defaults = this.$options.defaults,
-	            data = this.$options.data || {},
-	            props = this.$options.props;
-
-	        if (defaults) {
-	            for (var key in defaults) {
-	                this[key] = (0, _index.hasOwn)(data, key) ? (0, _index.coerce)(props[key], data[key]) : defaults[key];
-	            }
-	        }
-	    };
-
-	    UIkit.prototype._initProps = function () {
-
-	        var el = this.$options.el,
-	            props = this.$options.props,
-	            options = el.getAttribute('uk-' + (0, _index.hyphenate)(this.$options.name));
-
-	        if (props) {
-	            for (var key in props) {
-	                var prop = (0, _index.hyphenate)(key);
-	                if (el.hasAttribute(prop)) {
-	                    this[key] = (0, _index.coerce)(props[key], el.getAttribute(prop));
-	                }
-	            }
-
-	            if (options) {
-	                if (options[0] === '{') {
-	                    try {
-	                        options = JSON.parse(options);
-	                    } catch (e) {
-	                        console.warn('Invalid JSON.');
-	                        options = {};
-	                    }
-	                } else {
-	                    var tmp = {};
-	                    options.split(';').forEach(function (option) {
-	                        var opt = option.split(/:(.+)/);
-	                        tmp[opt[0].trim()] = opt[1].trim();
-	                    });
-	                    options = tmp;
-	                }
-
-	                for (var key in options || {}) {
-	                    var prop = (0, _index.camelize)(key);
-	                    if (props[prop] !== undefined) {
-	                        this[prop] = (0, _index.coerce)(props[prop], options[key]);
-	                    }
-	                }
-	            }
-	        }
-	    };
-
-	    UIkit.prototype._initMethods = function () {
-
-	        var methods = this.$options.methods;
-
-	        if (methods) {
-	            for (var key in methods) {
-	                this[key] = (0, _index.bind)(methods[key], this);
-	            }
-	        }
-	    };
-
-	    UIkit.prototype._callHook = function (hook) {
-	        var _this = this;
-
-	        var handlers = this.$options[hook];
-
-	        if (handlers) {
-	            handlers.forEach(function (handler) {
-	                handler.call(_this);
-	            });
-	        }
-	    };
-
-	    UIkit.prototype._callUpdate = function (e) {
-
-	        e = (0, _index.createEvent)(e || 'update');
-
-	        var update = this.$options.update;
-
-	        if (!update) {
-	            return;
-	        }
-
-	        if ((0, _index.isPlainObject)(update)) {
-
-	            if (e.type !== 'update' && update.events && update.events.indexOf(e.type) === -1) {
-	                return;
-	            }
-
-	            update = update.handler;
-	        }
-
-	        update.call(this, e);
-	    };
-	};
-
-	var _index = __webpack_require__(4);
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('alert', {\n\n        mixins: [UIkit.mixin.toggle],\n\n        props: {\n            animation: Boolean,\n            close: String\n        },\n\n        defaults: {\n            animation: true,\n            close: '.uk-alert-close'\n        },\n\n        ready: function ready() {\n            var _this = this;\n\n            this.$el.on('click', this.close, function (e) {\n                e.preventDefault();\n                _this.closeAlert();\n            });\n        },\n\n        methods: {\n            closeAlert: function closeAlert() {\n\n                this.$el.trigger('close');\n\n                var deferred;\n\n                if (this.animation === true) {\n\n                    deferred = _index.Transition.start(this.$el, {\n                        'overflow': 'hidden',\n                        'height': 0,\n                        'opacity': 0,\n                        'padding-top': 0,\n                        'padding-bottom': 0,\n                        'margin-top': 0,\n                        'margin-bottom': '-' + this.$el.prev().css('margin-bottom')\n                    }, this.duration);\n                } else {\n                    deferred = this.toggleState(this.$el);\n                }\n\n                deferred.then(this.$destroy.bind(this));\n            }\n        },\n\n        destroy: function destroy() {\n            this.$el.off('click');\n            this.$el.trigger('closed');\n        }\n    });\n};\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvYWxlcnQuanM/MDMyMyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1RyYW5zaXRpb259IGZyb20gJy4uL3V0aWwvaW5kZXgnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIFVJa2l0LmNvbXBvbmVudCgnYWxlcnQnLCB7XG5cbiAgICAgICAgbWl4aW5zOiBbVUlraXQubWl4aW4udG9nZ2xlXSxcblxuICAgICAgICBwcm9wczoge1xuICAgICAgICAgICAgYW5pbWF0aW9uOiBCb29sZWFuLFxuICAgICAgICAgICAgY2xvc2U6IFN0cmluZ1xuICAgICAgICB9LFxuXG4gICAgICAgIGRlZmF1bHRzOiB7XG4gICAgICAgICAgICBhbmltYXRpb246IHRydWUsXG4gICAgICAgICAgICBjbG9zZTogJy51ay1hbGVydC1jbG9zZSdcbiAgICAgICAgfSxcblxuICAgICAgICByZWFkeSgpIHtcbiAgICAgICAgICAgIHRoaXMuJGVsLm9uKCdjbGljaycsIHRoaXMuY2xvc2UsIGUgPT4ge1xuICAgICAgICAgICAgICAgIGUucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgICAgICAgICB0aGlzLmNsb3NlQWxlcnQoKTtcbiAgICAgICAgICAgIH0pO1xuICAgICAgICB9LFxuXG4gICAgICAgIG1ldGhvZHM6IHtcblxuICAgICAgICAgICAgY2xvc2VBbGVydCgpIHtcblxuICAgICAgICAgICAgICAgIHRoaXMuJGVsLnRyaWdnZXIoJ2Nsb3NlJyk7XG5cbiAgICAgICAgICAgICAgICB2YXIgZGVmZXJyZWQ7XG5cbiAgICAgICAgICAgICAgICBpZiAodGhpcy5hbmltYXRpb24gPT09IHRydWUpIHtcblxuICAgICAgICAgICAgICAgICAgICBkZWZlcnJlZCA9IFRyYW5zaXRpb24uc3RhcnQodGhpcy4kZWwsIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICdvdmVyZmxvdyc6ICdoaWRkZW4nLFxuICAgICAgICAgICAgICAgICAgICAgICAgJ2hlaWdodCc6IDAsXG4gICAgICAgICAgICAgICAgICAgICAgICAnb3BhY2l0eSc6IDAsXG4gICAgICAgICAgICAgICAgICAgICAgICAncGFkZGluZy10b3AnOiAwLFxuICAgICAgICAgICAgICAgICAgICAgICAgJ3BhZGRpbmctYm90dG9tJzogMCxcbiAgICAgICAgICAgICAgICAgICAgICAgICdtYXJnaW4tdG9wJzogMCxcbiAgICAgICAgICAgICAgICAgICAgICAgICdtYXJnaW4tYm90dG9tJzogJy0nICsgdGhpcy4kZWwucHJldigpLmNzcygnbWFyZ2luLWJvdHRvbScpXG4gICAgICAgICAgICAgICAgICAgIH0sIHRoaXMuZHVyYXRpb24pO1xuXG4gICAgICAgICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgICAgICAgICAgZGVmZXJyZWQgPSB0aGlzLnRvZ2dsZVN0YXRlKHRoaXMuJGVsKTtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICBkZWZlcnJlZC50aGVuKHRoaXMuJGRlc3Ryb3kuYmluZCh0aGlzKSk7XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgfSxcblxuICAgICAgICBkZXN0cm95KCkge1xuICAgICAgICAgICAgdGhpcy4kZWwub2ZmKCdjbGljaycpO1xuICAgICAgICAgICAgdGhpcy4kZWwudHJpZ2dlcignY2xvc2VkJyk7XG4gICAgICAgIH1cblxuICAgIH0pO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9hbGVydC5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQUZBO0FBQ0E7QUFJQTs7O0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFmQTtBQUNBO0FBb0JBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFQQTtBQUZBO0FBYUE7QUFiQTtBQUNBO0FBZUE7QUF4QkE7QUFBQTtBQUNBO0FBNEJBO0FBQ0E7QUFDQTtBQXBEQTtBQUFBO0FBRkE7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 13 */
-/***/ function(module, exports, __webpack_require__) {
+/*!******************************!*\
+  !*** ./src/js/core/close.js ***!
+  \******************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    var DATA = UIkit.data;
-
-	    UIkit.prototype.$mount = function (el) {
-	        var _this = this;
-
-	        var name = this.$options.name;
-
-	        if (!el[DATA]) {
-	            el[DATA] = {};
-	            UIkit.elements.push(el);
-	        }
-
-	        if (el[DATA][name]) {
-	            console.warn('Component "' + name + '" is already mounted on element: ' + el);
-	        }
-
-	        el[DATA][name] = this;
-
-	        this.$el = (0, _jquery2.default)(el);
-
-	        this._initProps();
-
-	        this._callHook('init');
-
-	        (0, _index.requestAnimationFrame)(function () {
-	            _this._isReady = true;
-	            _this._callHook('ready');
-	            _this._callUpdate();
-	        });
-	    };
-
-	    UIkit.prototype.$update = function (e, element) {
-	        var _this2 = this;
-
-	        element = element ? (0, _jquery2.default)(element)[0] : false;
-
-	        UIkit.elements.forEach(function (el) {
-	            if (el[DATA] && _jquery2.default.contains(element || _this2.$el[0], el)) {
-	                for (var name in el[DATA]) {
-	                    el[DATA][name]._callUpdate(e);
-	                }
-	            }
-	        });
-	    };
-
-	    UIkit.prototype.$updateParents = function (e) {
-	        var _this3 = this;
-
-	        (0, _jquery2.default)(UIkit.elements).each(function (i, el) {
-	            if (el[DATA] && _jquery2.default.contains(el, _this3.$el[0])) {
-	                for (var name in el[DATA]) {
-	                    el[DATA][name]._callUpdate(e);
-	                }
-	            }
-	        });
-	    };
-
-	    UIkit.prototype.$replace = function (el) {
-
-	        var $el = (0, _jquery2.default)(el),
-	            prev = this.$options.el,
-	            name = this.$options.name;
-
-	        el = $el[0];
-
-	        delete prev[DATA][name];
-
-	        if (!el[DATA]) {
-	            el[DATA] = {};
-	        }
-
-	        el[DATA][name] = this;
-
-	        UIkit.elements.splice(UIkit.elements.indexOf(prev), 1, el);
-	        this.$el.replaceWith($el);
-	        this.$options.el = el;
-	        this.$el = $el;
-
-	        this.__preventDestroy = true;
-	    };
-
-	    UIkit.prototype.$destroy = function () {
-
-	        if (this.__preventDestroy) {
-	            this.__preventDestroy = false;
-	            return;
-	        }
-
-	        this._callHook('destroy');
-
-	        delete UIkit.instances[this._uid];
-
-	        var el = this.$options.el;
-
-	        if (!el || !el[DATA]) {
-	            return;
-	        }
-
-	        delete el[DATA][this.$options.name];
-
-	        if (!Object.keys(el[DATA]).length) {
-	            delete el[DATA];
-	            delete UIkit.elements[UIkit.elements.indexOf(el)];
-	        }
-
-	        this.$el.remove();
-	    };
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('close', UIkit.components.icon.extend({\n\n        name: 'close',\n\n        defaults: { icon: 'close', exclude: ['id', 'style', 'class'] },\n\n        methods: {\n            handleIcon: function handleIcon(icon) {\n                this.$el.append(icon);\n            }\n        }\n\n    }));\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvY2xvc2UuanM/Y2RiNyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIFVJa2l0LmNvbXBvbmVudCgnY2xvc2UnLCBVSWtpdC5jb21wb25lbnRzLmljb24uZXh0ZW5kKHtcblxuICAgICAgICBuYW1lOiAnY2xvc2UnLFxuXG4gICAgICAgIGRlZmF1bHRzOiB7aWNvbjogJ2Nsb3NlJywgZXhjbHVkZTogWydpZCcsICdzdHlsZScsICdjbGFzcyddfSxcblxuICAgICAgICBtZXRob2RzOiB7XG5cbiAgICAgICAgICAgIGhhbmRsZUljb24oaWNvbikge1xuICAgICAgICAgICAgICAgIHRoaXMuJGVsLmFwcGVuZChpY29uKTtcbiAgICAgICAgICAgIH1cblxuICAgICAgICB9XG5cbiAgICB9KSk7XG5cbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9jb3JlL2Nsb3NlLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQTtBQUNBO0FBSEE7QUFBQTtBQUNBO0FBUEE7QUFGQSIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 14 */
-/***/ function(module, exports, __webpack_require__) {
+/*!******************************!*\
+  !*** ./src/js/core/cover.js ***!
+  \******************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    var DATA = UIkit.data;
-
-	    UIkit.components = {};
-
-	    UIkit.component = function (name, options) {
-
-	        if ((0, _index.isPlainObject)(options)) {
-	            options.name = name;
-	            options = UIkit.extend(options);
-	        }
-
-	        UIkit.component.selector = (UIkit.component.selector + ',' || '') + ('[uk-' + name + ']');
-
-	        name = (0, _index.camelize)(name);
-
-	        UIkit.components[name] = options;
-
-	        UIkit[name] = function (element, data) {
-
-	            var result = [];
-
-	            (0, _jquery2.default)(element).each(function () {
-	                result.push(this[DATA] && this[DATA][name] || new UIkit.components[name]({ el: this, data: data || {} }));
-	            });
-
-	            return result;
-	        };
-
-	        return UIkit.components[name];
-	    };
-
-	    UIkit.getComponent = function (element, name) {
-	        return element[DATA] && element[DATA][name];
-	    };
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('cover', {\n\n        props: {\n            automute: Boolean,\n            width: Number,\n            height: Number\n        },\n\n        defaults: { automute: true },\n\n        ready: function ready() {\n            if (this.$el.is('iframe') && this.automute) {\n\n                var src = this.$el.attr('src');\n\n                this.$el.attr('src', '').on('load', function () {\n\n                    this.contentWindow.postMessage('{\"event\": \"command\", \"func\": \"mute\", \"method\":\"setVolume\", \"value\":0}', '*');\n                }).attr('src', [src, src.indexOf('?') > -1 ? '&' : '?', 'enablejsapi=1&api=1'].join(''));\n            }\n        },\n\n        update: {\n            handler: function handler() {\n\n                if (!this.$el.is(':visible')) {\n                    return this;\n                }\n\n                var dimensions = { width: '', height: '' };\n\n                this.$el.css(dimensions);\n\n                var width = this.$el.parent().width(),\n                    height = this.$el.parent().height(),\n                    ratio = (this.width || this.$el.width()) / (this.height || this.$el.height());\n\n                // if element height < parent height (gap underneath)\n                if (width / ratio < height) {\n\n                    dimensions.width = Math.ceil(height * ratio);\n                    dimensions.height = height;\n\n                    // element width < parent width (gap to right)\n                } else {\n\n                        dimensions.width = width;\n                        dimensions.height = Math.ceil(width / ratio);\n                    }\n\n                this.$el.css(dimensions);\n            },\n\n            events: ['load', 'resize', 'orientationchange']\n\n        }\n\n    });\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvY292ZXIuanM/NDM2MiJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIFVJa2l0LmNvbXBvbmVudCgnY292ZXInLCB7XG5cbiAgICAgICAgcHJvcHM6IHtcbiAgICAgICAgICAgIGF1dG9tdXRlOiBCb29sZWFuLFxuICAgICAgICAgICAgd2lkdGg6IE51bWJlcixcbiAgICAgICAgICAgIGhlaWdodDogTnVtYmVyXG4gICAgICAgIH0sXG5cbiAgICAgICAgZGVmYXVsdHM6IHthdXRvbXV0ZTogdHJ1ZX0sXG5cbiAgICAgICAgcmVhZHkoKSB7XG4gICAgICAgICAgICBpZiAodGhpcy4kZWwuaXMoJ2lmcmFtZScpICYmIHRoaXMuYXV0b211dGUpIHtcblxuICAgICAgICAgICAgICAgIHZhciBzcmMgPSB0aGlzLiRlbC5hdHRyKCdzcmMnKTtcblxuICAgICAgICAgICAgICAgIHRoaXMuJGVsLmF0dHIoJ3NyYycsICcnKS5vbignbG9hZCcsIGZ1bmN0aW9uICgpIHtcblxuICAgICAgICAgICAgICAgICAgICB0aGlzLmNvbnRlbnRXaW5kb3cucG9zdE1lc3NhZ2UoJ3tcImV2ZW50XCI6IFwiY29tbWFuZFwiLCBcImZ1bmNcIjogXCJtdXRlXCIsIFwibWV0aG9kXCI6XCJzZXRWb2x1bWVcIiwgXCJ2YWx1ZVwiOjB9JywgJyonKTtcblxuICAgICAgICAgICAgICAgIH0pLmF0dHIoJ3NyYycsIFtzcmMsIChzcmMuaW5kZXhPZignPycpID4gLTEgPyAnJicgOiAnPycpLCAnZW5hYmxlanNhcGk9MSZhcGk9MSddLmpvaW4oJycpKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfSxcblxuICAgICAgICB1cGRhdGU6IHtcblxuICAgICAgICAgICAgaGFuZGxlcigpIHtcblxuICAgICAgICAgICAgICAgIGlmICghdGhpcy4kZWwuaXMoJzp2aXNpYmxlJykpIHtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHRoaXM7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdmFyIGRpbWVuc2lvbnMgPSB7d2lkdGg6ICcnLCBoZWlnaHQ6ICcnfTtcblxuICAgICAgICAgICAgICAgIHRoaXMuJGVsLmNzcyhkaW1lbnNpb25zKTtcblxuICAgICAgICAgICAgICAgIHZhciB3aWR0aCA9IHRoaXMuJGVsLnBhcmVudCgpLndpZHRoKCksXG4gICAgICAgICAgICAgICAgICAgIGhlaWdodCA9IHRoaXMuJGVsLnBhcmVudCgpLmhlaWdodCgpLFxuICAgICAgICAgICAgICAgICAgICByYXRpbyA9ICh0aGlzLndpZHRoIHx8IHRoaXMuJGVsLndpZHRoKCkpIC8gKHRoaXMuaGVpZ2h0IHx8IHRoaXMuJGVsLmhlaWdodCgpKTtcblxuICAgICAgICAgICAgICAgIC8vIGlmIGVsZW1lbnQgaGVpZ2h0IDwgcGFyZW50IGhlaWdodCAoZ2FwIHVuZGVybmVhdGgpXG4gICAgICAgICAgICAgICAgaWYgKCh3aWR0aCAvIHJhdGlvKSA8IGhlaWdodCkge1xuXG4gICAgICAgICAgICAgICAgICAgIGRpbWVuc2lvbnMud2lkdGggPSBNYXRoLmNlaWwoaGVpZ2h0ICogcmF0aW8pO1xuICAgICAgICAgICAgICAgICAgICBkaW1lbnNpb25zLmhlaWdodCA9IGhlaWdodDtcblxuICAgICAgICAgICAgICAgIC8vIGVsZW1lbnQgd2lkdGggPCBwYXJlbnQgd2lkdGggKGdhcCB0byByaWdodClcbiAgICAgICAgICAgICAgICB9IGVsc2Uge1xuXG4gICAgICAgICAgICAgICAgICAgIGRpbWVuc2lvbnMud2lkdGggPSB3aWR0aDtcbiAgICAgICAgICAgICAgICAgICAgZGltZW5zaW9ucy5oZWlnaHQgPSBNYXRoLmNlaWwod2lkdGggLyByYXRpbyk7XG5cbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICB0aGlzLiRlbC5jc3MoZGltZW5zaW9ucyk7XG4gICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICBldmVudHM6IFsnbG9hZCcsICdyZXNpemUnLCAnb3JpZW50YXRpb25jaGFuZ2UnXVxuXG4gICAgICAgIH1cblxuICAgIH0pO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9jb3Zlci5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUhBO0FBQ0E7QUFLQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBSkE7QUFYQTtBQUNBO0FBc0JBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFiQTtBQUNBO0FBZ0JBO0FBQ0E7QUFDQTs7QUFKQTtBQUNBO0FBT0E7QUFDQTtBQVRBO0FBQ0E7QUFZQTtBQTlCQTtBQUNBO0FBZ0NBO0FBQ0E7QUFsQ0E7QUFDQTtBQXhCQTtBQUZBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 15 */
+/*!*****************************!*\
+  !*** ./src/js/core/drop.js ***!
+  \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit, _) {
-
-	    UIkit.use(_mouse2.default);
-	    UIkit.use(_position2.default);
-	    UIkit.use(_svg2.default);
-	    UIkit.use(_toggle2.default);
-	};
-
-	var _mouse = __webpack_require__(39);
-
-	var _mouse2 = _interopRequireDefault(_mouse);
-
-	var _position = __webpack_require__(16);
-
-	var _position2 = _interopRequireDefault(_position);
-
-	var _svg = __webpack_require__(17);
-
-	var _svg2 = _interopRequireDefault(_svg);
-
-	var _toggle = __webpack_require__(18);
-
-	var _toggle2 = _interopRequireDefault(_toggle);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    var active;\n\n    (0, _jquery2.default)(document).on('click', function (e) {\n        if (active && !(0, _index.isWithin)(e.target, active.$el)) {\n            active.hide(true);\n        }\n    });\n\n    UIkit.component('drop', {\n\n        mixins: [UIkit.mixin.position, UIkit.mixin.toggle, UIkit.mixin.mouse],\n\n        props: {\n            mode: String,\n            target: 'jQuery',\n            boundary: 'jQuery',\n            boundaryAlign: Boolean,\n            delayShow: Number,\n            delayHide: Number,\n            clsDrop: String\n        },\n\n        defaults: {\n            mode: 'hover',\n            target: false,\n            boundary: (0, _jquery2.default)(window),\n            boundaryAlign: false,\n            delayShow: 0,\n            delayHide: 800,\n            clsDrop: false,\n            hoverIdle: 200,\n            animation: 'uk-animation-fade'\n        },\n\n        ready: function ready() {\n            var _this = this;\n\n            this.cls = 'uk-open';\n            this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;\n            this.clsPos = this.clsDrop;\n            this.drop = this.target || (0, _index.toJQuery)('.' + this.clsDrop + ':first', this.$el) || (0, _index.toJQuery)(this.$el.nextAll('.' + this.clsDrop + ':first'));\n\n            if (!this.drop) {\n                return;\n            }\n\n            this.mode = _index.hasTouch ? 'click' : this.mode;\n\n            this.$el.on('click', function (e) {\n\n                if ((0, _index.isWithin)('a[href=\"#\"]', e.target) && !(0, _index.isWithin)(e.target, _this.drop)) {\n                    e.preventDefault();\n                }\n\n                if (_this.isActive()) {\n                    _this.hide(true);\n                } else {\n                    _this.show(true);\n                }\n            });\n\n            this.$el.attr('aria-expanded', false);\n            this.updateAria(this.drop);\n\n            this.drop.on('click', '.' + this.clsDrop + '-close', function () {\n                _this.hide(true);\n            });\n\n            if (this.mode === 'hover') {\n\n                this.$el.on('mouseenter', function () {\n                    _this.show();\n                }).on('mouseleave', function () {\n                    _this.hide();\n                });\n\n                this.drop.on('mouseenter', function () {\n                    if (_this.isActive()) {\n                        _this.show();\n                    }\n                }).on('mouseleave', function () {\n                    if (_this.isActive()) {\n                        _this.hide();\n                    }\n                });\n            }\n        },\n\n        update: {\n            handler: function handler() {\n\n                (0, _index.removeClass)(this.drop, this.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });\n\n                this.drop.toggleClass(this.clsDrop + '-boundary', this.boundaryAlign).show();\n\n                this.dir = this.pos[0];\n                this.align = this.pos[1];\n\n                var boundary = (0, _index.getDimensions)(this.boundary),\n                    alignTo = this.boundaryAlign ? boundary : (0, _index.getDimensions)(this.$el);\n\n                if (this.align === 'justify') {\n                    var prop = this.getAxis() === 'y' ? 'width' : 'height';\n                    this.drop.css(prop, alignTo[prop]);\n                } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {\n                    this.drop.addClass(this.clsDrop + '-stack');\n                    this.$el.trigger('stack', [this]);\n                }\n\n                this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);\n\n                this.drop.css('display', '');\n            },\n\n            events: ['resize', 'orientationchange']\n\n        },\n\n        methods: {\n            show: function show(force) {\n                var _this2 = this;\n\n                this.clearTimers();\n\n                if (this.isActive()) {\n                    return;\n                } else if (!force && active && active !== this && active.isDelaying) {\n                    this.showTimer = setTimeout(this.show.bind(this), 75);\n                    return;\n                } else if (active) {\n                    active.hide(true);\n                }\n\n                var show = function show() {\n\n                    _this2._callUpdate();\n                    _this2.$el.trigger('beforeshow', [_this2]).addClass(_this2.cls);\n                    _this2.toggleState(_this2.drop);\n                    _this2.$el.attr('aria-expanded', 'true').trigger('show', [_this2]);\n\n                    if (_this2.mode === 'hover') {\n                        _this2.initMouseTracker(_this2.drop);\n                    }\n                };\n\n                if (!force && this.delayShow) {\n                    this.showTimer = setTimeout(show, this.delayShow);\n                } else {\n                    show();\n                }\n\n                active = this;\n            },\n            hide: function hide(force) {\n                var _this3 = this;\n\n                this.clearTimers();\n\n                var hide = function hide() {\n\n                    if (!_this3.isActive()) {\n                        return;\n                    }\n\n                    active = null;\n\n                    _this3.cancelMouseTracker();\n\n                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a, button').blur();\n                    _this3.toggleState(_this3.drop, false);\n                    _this3.$el.attr('aria-expanded', 'false').trigger('hide', [_this3, force]);\n                };\n\n                this.isDelaying = this.movesTowardsTarget();\n\n                if (!force && this.isDelaying) {\n                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);\n                } else if (!force && this.delayHide) {\n                    this.hideTimer = setTimeout(hide, this.delayHide);\n                } else {\n                    hide();\n                }\n            },\n            clearTimers: function clearTimers() {\n                clearTimeout(this.showTimer);\n                clearTimeout(this.hideTimer);\n            },\n            isActive: function isActive() {\n                return active === this;\n            }\n        }\n\n    });\n\n    UIkit.drop.getActive = function () {\n        return active;\n    };\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvZHJvcC5qcz9jNmU0Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5pbXBvcnQge2lzV2l0aGluLCBoYXNUb3VjaCwgcmVtb3ZlQ2xhc3MsIGdldERpbWVuc2lvbnMsIHRvSlF1ZXJ5fSBmcm9tICcuLi91dGlsL2luZGV4JztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICB2YXIgYWN0aXZlO1xuXG4gICAgJChkb2N1bWVudCkub24oJ2NsaWNrJywgZSA9PiB7XG4gICAgICAgIGlmIChhY3RpdmUgJiYgIWlzV2l0aGluKGUudGFyZ2V0LCBhY3RpdmUuJGVsKSkge1xuICAgICAgICAgICAgYWN0aXZlLmhpZGUodHJ1ZSk7XG4gICAgICAgIH1cbiAgICB9KTtcblxuICAgIFVJa2l0LmNvbXBvbmVudCgnZHJvcCcsIHtcblxuICAgICAgICBtaXhpbnM6IFtVSWtpdC5taXhpbi5wb3NpdGlvbiwgVUlraXQubWl4aW4udG9nZ2xlLCBVSWtpdC5taXhpbi5tb3VzZV0sXG5cbiAgICAgICAgcHJvcHM6IHtcbiAgICAgICAgICAgIG1vZGU6IFN0cmluZyxcbiAgICAgICAgICAgIHRhcmdldDogJ2pRdWVyeScsXG4gICAgICAgICAgICBib3VuZGFyeTogJ2pRdWVyeScsXG4gICAgICAgICAgICBib3VuZGFyeUFsaWduOiBCb29sZWFuLFxuICAgICAgICAgICAgZGVsYXlTaG93OiBOdW1iZXIsXG4gICAgICAgICAgICBkZWxheUhpZGU6IE51bWJlcixcbiAgICAgICAgICAgIGNsc0Ryb3A6IFN0cmluZ1xuICAgICAgICB9LFxuXG4gICAgICAgIGRlZmF1bHRzOiB7XG4gICAgICAgICAgICBtb2RlOiAnaG92ZXInLFxuICAgICAgICAgICAgdGFyZ2V0OiBmYWxzZSxcbiAgICAgICAgICAgIGJvdW5kYXJ5OiAkKHdpbmRvdyksXG4gICAgICAgICAgICBib3VuZGFyeUFsaWduOiBmYWxzZSxcbiAgICAgICAgICAgIGRlbGF5U2hvdzogMCxcbiAgICAgICAgICAgIGRlbGF5SGlkZTogODAwLFxuICAgICAgICAgICAgY2xzRHJvcDogZmFsc2UsXG4gICAgICAgICAgICBob3ZlcklkbGU6IDIwMCxcbiAgICAgICAgICAgIGFuaW1hdGlvbjogJ3VrLWFuaW1hdGlvbi1mYWRlJ1xuICAgICAgICB9LFxuXG4gICAgICAgIHJlYWR5KCkge1xuXG4gICAgICAgICAgICB0aGlzLmNscyA9ICd1ay1vcGVuJztcbiAgICAgICAgICAgIHRoaXMuY2xzRHJvcCA9IHRoaXMuY2xzRHJvcCB8fCAndWstJyArIHRoaXMuJG9wdGlvbnMubmFtZTtcbiAgICAgICAgICAgIHRoaXMuY2xzUG9zID0gdGhpcy5jbHNEcm9wO1xuICAgICAgICAgICAgdGhpcy5kcm9wID0gdGhpcy50YXJnZXQgfHwgdG9KUXVlcnkoYC4ke3RoaXMuY2xzRHJvcH06Zmlyc3RgLCB0aGlzLiRlbCkgfHwgdG9KUXVlcnkodGhpcy4kZWwubmV4dEFsbChgLiR7dGhpcy5jbHNEcm9wfTpmaXJzdGApKTtcblxuICAgICAgICAgICAgaWYgKCF0aGlzLmRyb3ApIHtcbiAgICAgICAgICAgICAgICByZXR1cm47XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgICAgIHRoaXMubW9kZSA9IGhhc1RvdWNoID8gJ2NsaWNrJyA6IHRoaXMubW9kZTtcblxuICAgICAgICAgICAgdGhpcy4kZWwub24oJ2NsaWNrJywgZSA9PiB7XG5cbiAgICAgICAgICAgICAgICBpZiAoaXNXaXRoaW4oJ2FbaHJlZj1cIiNcIl0nLCBlLnRhcmdldCkgJiYgIWlzV2l0aGluKGUudGFyZ2V0LCB0aGlzLmRyb3ApKSB7XG4gICAgICAgICAgICAgICAgICAgIGUucHJldmVudERlZmF1bHQoKTtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICBpZiAodGhpcy5pc0FjdGl2ZSgpKSB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuaGlkZSh0cnVlKTtcbiAgICAgICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICB0aGlzLnNob3codHJ1ZSk7XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgIHRoaXMuJGVsLmF0dHIoJ2FyaWEtZXhwYW5kZWQnLCBmYWxzZSk7XG4gICAgICAgICAgICB0aGlzLnVwZGF0ZUFyaWEodGhpcy5kcm9wKTtcblxuICAgICAgICAgICAgdGhpcy5kcm9wLm9uKCdjbGljaycsIGAuJHt0aGlzLmNsc0Ryb3B9LWNsb3NlYCwgKCkgPT4ge1xuICAgICAgICAgICAgICAgIHRoaXMuaGlkZSh0cnVlKTtcbiAgICAgICAgICAgIH0pO1xuXG4gICAgICAgICAgICBpZiAodGhpcy5tb2RlID09PSAnaG92ZXInKSB7XG5cbiAgICAgICAgICAgICAgICB0aGlzLiRlbC5vbignbW91c2VlbnRlcicsICgpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgdGhpcy5zaG93KCk7XG4gICAgICAgICAgICAgICAgfSkub24oJ21vdXNlbGVhdmUnLCAoKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuaGlkZSgpO1xuICAgICAgICAgICAgICAgIH0pO1xuXG4gICAgICAgICAgICAgICAgdGhpcy5kcm9wLm9uKCdtb3VzZWVudGVyJywgKCkgPT4ge1xuICAgICAgICAgICAgICAgICAgICBpZiAodGhpcy5pc0FjdGl2ZSgpKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLnNob3coKVxuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfSkub24oJ21vdXNlbGVhdmUnLCAoKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIGlmICh0aGlzLmlzQWN0aXZlKCkpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMuaGlkZSgpO1xuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgIH1cblxuICAgICAgICB9LFxuXG4gICAgICAgIHVwZGF0ZToge1xuXG4gICAgICAgICAgICBoYW5kbGVyKCkge1xuXG4gICAgICAgICAgICAgICAgcmVtb3ZlQ2xhc3ModGhpcy5kcm9wLCB0aGlzLmNsc0Ryb3AgKyAnLShzdGFja3xib3VuZGFyeSknKS5jc3Moe3RvcDogJycsIGxlZnQ6ICcnLCB3aWR0aDogJycsIGhlaWdodDogJyd9KTtcblxuICAgICAgICAgICAgICAgIHRoaXMuZHJvcC50b2dnbGVDbGFzcyhgJHt0aGlzLmNsc0Ryb3B9LWJvdW5kYXJ5YCwgdGhpcy5ib3VuZGFyeUFsaWduKS5zaG93KCk7XG5cbiAgICAgICAgICAgICAgICB0aGlzLmRpciA9IHRoaXMucG9zWzBdO1xuICAgICAgICAgICAgICAgIHRoaXMuYWxpZ24gPSB0aGlzLnBvc1sxXTtcblxuICAgICAgICAgICAgICAgIHZhciBib3VuZGFyeSA9IGdldERpbWVuc2lvbnModGhpcy5ib3VuZGFyeSksXG4gICAgICAgICAgICAgICAgICAgIGFsaWduVG8gPSB0aGlzLmJvdW5kYXJ5QWxpZ24gPyBib3VuZGFyeSA6IGdldERpbWVuc2lvbnModGhpcy4kZWwpO1xuXG4gICAgICAgICAgICAgICAgaWYgKHRoaXMuYWxpZ24gPT09ICdqdXN0aWZ5Jykge1xuICAgICAgICAgICAgICAgICAgICB2YXIgcHJvcCA9IHRoaXMuZ2V0QXhpcygpID09PSAneScgPyAnd2lkdGgnIDogJ2hlaWdodCc7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuZHJvcC5jc3MocHJvcCwgYWxpZ25Ub1twcm9wXSk7XG4gICAgICAgICAgICAgICAgfSBlbHNlIGlmICh0aGlzLmRyb3Aub3V0ZXJXaWR0aCgpID4gTWF0aC5tYXgoYm91bmRhcnkucmlnaHQgLSBhbGlnblRvLmxlZnQsIGFsaWduVG8ucmlnaHQgLSBib3VuZGFyeS5sZWZ0KSkge1xuICAgICAgICAgICAgICAgICAgICB0aGlzLmRyb3AuYWRkQ2xhc3ModGhpcy5jbHNEcm9wICsgJy1zdGFjaycpO1xuICAgICAgICAgICAgICAgICAgICB0aGlzLiRlbC50cmlnZ2VyKCdzdGFjaycsIFt0aGlzXSk7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdGhpcy5wb3NpdGlvbkF0KHRoaXMuZHJvcCwgdGhpcy5ib3VuZGFyeUFsaWduID8gdGhpcy5ib3VuZGFyeSA6IHRoaXMuJGVsLCB0aGlzLmJvdW5kYXJ5KTtcblxuICAgICAgICAgICAgICAgIHRoaXMuZHJvcC5jc3MoJ2Rpc3BsYXknLCAnJyk7XG5cbiAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgIGV2ZW50czogWydyZXNpemUnLCAnb3JpZW50YXRpb25jaGFuZ2UnXVxuXG4gICAgICAgIH0sXG5cbiAgICAgICAgbWV0aG9kczoge1xuXG4gICAgICAgICAgICBzaG93KGZvcmNlKSB7XG5cbiAgICAgICAgICAgICAgICB0aGlzLmNsZWFyVGltZXJzKCk7XG5cbiAgICAgICAgICAgICAgICBpZiAodGhpcy5pc0FjdGl2ZSgpKSB7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKCFmb3JjZSAmJiBhY3RpdmUgJiYgYWN0aXZlICE9PSB0aGlzICYmIGFjdGl2ZS5pc0RlbGF5aW5nKSB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuc2hvd1RpbWVyID0gc2V0VGltZW91dCh0aGlzLnNob3cuYmluZCh0aGlzKSwgNzUpO1xuICAgICAgICAgICAgICAgICAgICByZXR1cm47XG4gICAgICAgICAgICAgICAgfSBlbHNlIGlmIChhY3RpdmUpIHtcbiAgICAgICAgICAgICAgICAgICAgYWN0aXZlLmhpZGUodHJ1ZSk7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdmFyIHNob3cgPSAoKSA9PiB7XG5cbiAgICAgICAgICAgICAgICAgICAgdGhpcy5fY2FsbFVwZGF0ZSgpO1xuICAgICAgICAgICAgICAgICAgICB0aGlzLiRlbC50cmlnZ2VyKCdiZWZvcmVzaG93JywgW3RoaXNdKS5hZGRDbGFzcyh0aGlzLmNscyk7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMudG9nZ2xlU3RhdGUodGhpcy5kcm9wKTtcbiAgICAgICAgICAgICAgICAgICAgdGhpcy4kZWwuYXR0cignYXJpYS1leHBhbmRlZCcsICd0cnVlJykudHJpZ2dlcignc2hvdycsIFt0aGlzXSk7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKHRoaXMubW9kZSA9PT0gJ2hvdmVyJykge1xuICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5pbml0TW91c2VUcmFja2VyKHRoaXMuZHJvcCk7XG4gICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICB9O1xuXG4gICAgICAgICAgICAgICAgaWYgKCFmb3JjZSAmJiB0aGlzLmRlbGF5U2hvdykge1xuICAgICAgICAgICAgICAgICAgICB0aGlzLnNob3dUaW1lciA9IHNldFRpbWVvdXQoc2hvdywgdGhpcy5kZWxheVNob3cpO1xuICAgICAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgICAgICAgIHNob3coKTtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICBhY3RpdmUgPSB0aGlzO1xuICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgaGlkZShmb3JjZSkge1xuXG4gICAgICAgICAgICAgICAgdGhpcy5jbGVhclRpbWVycygpO1xuXG4gICAgICAgICAgICAgICAgdmFyIGhpZGUgPSAoKSA9PiB7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKCF0aGlzLmlzQWN0aXZlKCkpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgIGFjdGl2ZSA9IG51bGw7XG5cbiAgICAgICAgICAgICAgICAgICAgdGhpcy5jYW5jZWxNb3VzZVRyYWNrZXIoKTtcblxuICAgICAgICAgICAgICAgICAgICB0aGlzLiRlbC50cmlnZ2VyKCdiZWZvcmVoaWRlJywgW3RoaXMsIGZvcmNlXSkucmVtb3ZlQ2xhc3MoJ3VrLW9wZW4nKS5maW5kKCdhLCBidXR0b24nKS5ibHVyKCk7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMudG9nZ2xlU3RhdGUodGhpcy5kcm9wLCBmYWxzZSk7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuJGVsLmF0dHIoJ2FyaWEtZXhwYW5kZWQnLCAnZmFsc2UnKS50cmlnZ2VyKCdoaWRlJywgW3RoaXMsIGZvcmNlXSk7XG5cbiAgICAgICAgICAgICAgICB9O1xuXG4gICAgICAgICAgICAgICAgdGhpcy5pc0RlbGF5aW5nID0gdGhpcy5tb3Zlc1Rvd2FyZHNUYXJnZXQoKTtcblxuICAgICAgICAgICAgICAgIGlmICghZm9yY2UgJiYgdGhpcy5pc0RlbGF5aW5nKSB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuaGlkZVRpbWVyID0gc2V0VGltZW91dCh0aGlzLmhpZGUuYmluZCh0aGlzKSwgdGhpcy5ob3ZlcklkbGUpO1xuICAgICAgICAgICAgICAgIH0gZWxzZSBpZiAoIWZvcmNlICYmIHRoaXMuZGVsYXlIaWRlKSB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuaGlkZVRpbWVyID0gc2V0VGltZW91dChoaWRlLCB0aGlzLmRlbGF5SGlkZSk7XG4gICAgICAgICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgICAgICAgICAgaGlkZSgpO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgIGNsZWFyVGltZXJzKCkge1xuICAgICAgICAgICAgICAgIGNsZWFyVGltZW91dCh0aGlzLnNob3dUaW1lcik7XG4gICAgICAgICAgICAgICAgY2xlYXJUaW1lb3V0KHRoaXMuaGlkZVRpbWVyKTtcbiAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgIGlzQWN0aXZlKCkge1xuICAgICAgICAgICAgICAgIHJldHVybiBhY3RpdmUgPT09IHRoaXM7XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgfVxuXG4gICAgfSk7XG5cbiAgICBVSWtpdC5kcm9wLmdldEFjdGl2ZSA9IGZ1bmN0aW9uICgpIHtcbiAgICAgICAgcmV0dXJuIGFjdGl2ZTtcbiAgICB9O1xufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL2NvcmUvZHJvcC5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQURBO0FBQ0E7QUFLQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFQQTtBQUNBO0FBU0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFUQTtBQUNBO0FBV0E7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBREE7QUFHQTtBQUhBO0FBTkE7QUFDQTtBQVlBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQURBO0FBREE7QUFLQTtBQUNBO0FBREE7QUFEQTtBQVpBO0FBM0RBO0FBQ0E7QUFnRkE7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUlBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFDQTtBQUNBO0FBeEJBO0FBQ0E7QUEyQkE7QUFDQTtBQTdCQTtBQUNBO0FBK0JBO0FBRUE7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFHQTtBQUNBO0FBRkE7QUFJQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQVBBO0FBQ0E7QUFXQTtBQUNBO0FBREE7QUFHQTtBQUhBO0FBQ0E7QUFLQTtBQWpDQTtBQW9DQTs7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBWkE7QUFDQTtBQWVBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFHQTtBQURBO0FBR0E7QUFIQTtBQTVEQTtBQW1FQTtBQUNBO0FBQ0E7QUFyRUE7QUF3RUE7QUFDQTtBQXpFQTtBQUFBO0FBQ0E7QUFsSEE7QUFDQTtBQWdNQTtBQUNBO0FBREE7QUEzTUE7QUFDQTs7Ozs7OzsiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 16 */
-/***/ function(module, exports, __webpack_require__) {
+/*!*********************************!*\
+  !*** ./src/js/core/dropdown.js ***!
+  \*********************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.mixin.position = {
-
-	        props: {
-	            pos: String,
-	            offset: Number,
-	            flip: Boolean,
-	            clsPos: String
-	        },
-
-	        defaults: {
-	            pos: 'bottom-left',
-	            flip: true,
-	            offset: 0,
-	            clsPos: ''
-	        },
-
-	        ready: function ready() {
-	            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
-	            this.dir = this.pos[0];
-	            this.align = this.pos[1];
-	        },
-
-
-	        methods: {
-	            positionAt: function positionAt(element, target, boundary) {
-
-	                (0, _index.removeClass)(element, this.clsPos + '-(top|bottom|left|right)(-[a-z]+)?').css({ top: '', left: '' });
-
-	                this.dir = this.pos[0];
-	                this.align = this.pos[1];
-
-	                var axis = this.getAxis(),
-	                    flipped = (0, _index.position)(element, target, axis === 'x' ? flipPosition(this.dir) + ' ' + this.align : this.align + ' ' + flipPosition(this.dir), axis === 'x' ? this.dir + ' ' + this.align : this.align + ' ' + this.dir, axis === 'x' ? '' + (this.dir === 'left' ? -1 * this.offset : this.offset) : ' ' + (this.dir === 'top' ? -1 * this.offset : this.offset), null, this.flip, boundary);
-
-	                this.dir = axis === 'x' ? flipped.target.x : flipped.target.y;
-	                this.align = axis === 'x' ? flipped.target.y : flipped.target.x;
-
-	                element.css('display', '').addClass(this.clsPos + '-' + this.dir + '-' + this.align);
-	            },
-	            getAxis: function getAxis() {
-	                return this.pos[0] === 'top' || this.pos[0] === 'bottom' ? 'y' : 'x';
-	            }
-	        }
-
-	    };
-	};
-
-	var _index = __webpack_require__(4);
-
-	;
-
-	function flipPosition(pos) {
-	    switch (pos) {
-	        case 'left':
-	            return 'right';
-	        case 'right':
-	            return 'left';
-	        case 'top':
-	            return 'bottom';
-	        case 'bottom':
-	            return 'top';
-	        default:
-	            return pos;
-	    }
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('dropdown', UIkit.components.drop.extend({ name: 'dropdown' }));\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTYuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvZHJvcGRvd24uanM/ZjQ5OCJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIFVJa2l0LmNvbXBvbmVudCgnZHJvcGRvd24nLCBVSWtpdC5jb21wb25lbnRzLmRyb3AuZXh0ZW5kKHtuYW1lOiAnZHJvcGRvd24nfSkpO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9kcm9wZG93bi5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBRkEiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 17 */
-/***/ function(module, exports, __webpack_require__) {
+/*!*****************************!*\
+  !*** ./src/js/core/grid.js ***!
+  \*****************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.mixin.svg = {
-
-	        props: { id: String, class: String, style: String, width: Number, height: Number, ratio: Number },
-
-	        defaults: { ratio: 1, id: false, class: '', exclude: [] },
-
-	        methods: {
-	            get: function get(src) {
-
-	                if (svgs[src]) {
-	                    return svgs[src];
-	                }
-
-	                var key = 'uikit_' + UIkit.version + '_' + src;
-	                svgs[src] = _jquery2.default.Deferred();
-
-	                if (!storage[key]) {
-	                    _jquery2.default.get(src, 'text').then(function (doc, status, res) {
-	                        storage[key] = res.responseText;
-	                        svgs[src].resolve(storage[key]);
-	                    });
-	                } else {
-	                    svgs[src].resolve(storage[key]);
-	                }
-
-	                return svgs[src];
-	            },
-	            getIcon: function getIcon(src, icon) {
-	                var _this = this;
-
-	                return this.get(src).then(function (doc) {
-
-	                    var el = (0, _jquery2.default)('#' + icon, doc);
-
-	                    if (!el || !el.length) {
-	                        return _jquery2.default.Deferred().reject('Icon not found.');
-	                    }
-
-	                    el = (0, _jquery2.default)((0, _jquery2.default)('<div>').append(el.clone()).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
-
-	                    return _this.addProps(el);
-	                });
-	            },
-	            addProps: function addProps(el) {
-	                var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
-	                if (dimensions) {
-	                    dimensions = dimensions.split(' ');
-	                    this.width = this.width || dimensions[2];
-	                    this.height = this.height || dimensions[3];
-	                }
-
-	                this.width *= this.ratio;
-	                this.height *= this.ratio;
-
-	                for (var prop in this.$options.props) {
-	                    if (this[prop] && this.exclude.indexOf(prop) === -1) {
-	                        el.attr(prop, this[prop]);
-	                    }
-	                }
-
-	                if (!this.id) {
-	                    el.removeAttr('id');
-	                }
-
-	                if (this.width && !this.height) {
-	                    el.removeAttr('height');
-	                }
-
-	                if (this.height && !this.width) {
-	                    el.removeAttr('width');
-	                }
-
-	                return el;
-	            }
-	        }
-
-	    };
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var storage = window.sessionStorage || {},
-	    svgs = {};
-
-	;
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('grid', UIkit.components.marginWrap.extend({\n\n        name: 'grid',\n\n        defaults: { margin: 'uk-grid-margin' }\n\n    }));\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvZ3JpZC5qcz82NDE0Il0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQuY29tcG9uZW50KCdncmlkJywgVUlraXQuY29tcG9uZW50cy5tYXJnaW5XcmFwLmV4dGVuZCh7XG5cbiAgICAgICAgbmFtZTogJ2dyaWQnLFxuXG4gICAgICAgIGRlZmF1bHRzOiB7bWFyZ2luOiAndWstZ3JpZC1tYXJnaW4nfVxuXG4gICAgfSkpO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9ncmlkLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBTEE7QUFGQSIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 18 */
-/***/ function(module, exports, __webpack_require__) {
+/*!****************************************!*\
+  !*** ./src/js/core/height-viewport.js ***!
+  \****************************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.mixin.toggle = {
-
-	        props: {
-	            cls: Boolean,
-	            animation: String,
-	            duration: Number
-	        },
-
-	        defaults: {
-	            cls: false,
-	            animation: false,
-	            duration: 200,
-	            aria: true
-	        },
-
-	        ready: function ready() {
-
-	            if (typeof this.animation === 'string') {
-
-	                this.animation = this.animation.split(',');
-
-	                if (this.animation.length == 1) {
-	                    this.animation[1] = this.animation[0];
-	                }
-
-	                this.animation[0] = this.animation[0].trim();
-	                this.animation[1] = this.animation[1].trim();
-	            }
-	        },
-
-
-	        methods: {
-	            toggleState: function toggleState(targets, animate, show) {
-	                var _this = this;
-
-	                var deferreds = [];
-
-	                (0, _jquery2.default)(targets).each(function (i, el) {
-
-	                    el = (0, _jquery2.default)(el);
-
-	                    var toggled = _this.isToggled(el);
-
-	                    if (show === true && toggled || show === false && !toggled) {
-	                        return;
-	                    }
-
-	                    if (_this.animation && animate !== false) {
-
-	                        _index.Animation.cancel(el);
-
-	                        if (!_this.isToggled(el)) {
-
-	                            _this.doToggle(el, true);
-	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration).then(function () {
-	                                _this.doUpdate(el);
-	                            }));
-	                        } else {
-
-	                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {
-	                                _this.doToggle(el, false);
-	                                _this.doUpdate(el);
-	                            }));
-	                        }
-	                    } else {
-
-	                        _this.doToggle(el, !toggled);
-	                        _this.doUpdate(el);
-	                        deferreds.push(_jquery2.default.Deferred().resolve());
-	                    }
-	                });
-
-	                return _jquery2.default.when.apply(null, deferreds);
-	            },
-	            doToggle: function doToggle(el, toggled) {
-	                el = (0, _jquery2.default)(el);
-	                el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
-	            },
-	            isToggled: function isToggled(el) {
-	                el = (0, _jquery2.default)(el);
-	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
-	            },
-	            doUpdate: function doUpdate(el) {
-	                this.updateAria(el);
-	                this.$update(null, el);
-	            },
-	            updateAria: function updateAria(el) {
-	                if (this.aria) {
-	                    el.attr('aria-hidden', !this.isToggled(el));
-	                }
-	            }
-	        }
-
-	    };
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	;
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('height-viewport', {\n\n        props: {\n            offset: Boolean,\n            expand: Boolean\n        },\n\n        defaults: {\n            offset: false,\n            expand: false\n        },\n\n        init: function init() {\n            if (!this.expand) {\n                this.$el.css('min-height', this.getHeight());\n            }\n        },\n        ready: function ready() {\n            this.borderBox = this.$el.css('box-sizing') === 'border-box';\n        },\n\n        update: {\n            handler: function handler() {\n\n                if (this.expand) {\n\n                    this.$el.css('min-height', '');\n                    if (document.documentElement.offsetHeight < window.innerHeight) {\n                        this.$el.css('min-height', this.$el.outerHeight() + window.innerHeight - document.documentElement.offsetHeight - (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height()));\n                    }\n                    return;\n                }\n\n                // IE 10-11 fix (min-height on a flex container won't apply to its flex items)\n                this.$el.css('height', '');\n                if (this.getHeight() >= this.$el.height()) {\n                    this.$el.css('height', this.getHeight());\n                }\n\n                this.$el.css('min-height', this.getHeight());\n            },\n\n            events: ['load', 'resize', 'orientationchange']\n\n        },\n\n        methods: {\n            getHeight: function getHeight() {\n\n                var height = window.innerHeight;\n\n                if (this.offset && this.$el.offset().top < height) {\n                    height -= this.$el.offset().top + (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height());\n                }\n\n                return height;\n            }\n        }\n\n    });\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTguanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvaGVpZ2h0LXZpZXdwb3J0LmpzPzdiNDMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICBVSWtpdC5jb21wb25lbnQoJ2hlaWdodC12aWV3cG9ydCcsIHtcblxuICAgICAgICBwcm9wczoge1xuICAgICAgICAgICAgb2Zmc2V0OiBCb29sZWFuLFxuICAgICAgICAgICAgZXhwYW5kOiBCb29sZWFuXG4gICAgICAgIH0sXG5cbiAgICAgICAgZGVmYXVsdHM6IHtcbiAgICAgICAgICAgIG9mZnNldDogZmFsc2UsXG4gICAgICAgICAgICBleHBhbmQ6IGZhbHNlXG4gICAgICAgIH0sXG5cbiAgICAgICAgaW5pdCgpIHtcbiAgICAgICAgICAgIGlmICghdGhpcy5leHBhbmQpIHtcbiAgICAgICAgICAgICAgICB0aGlzLiRlbC5jc3MoJ21pbi1oZWlnaHQnLCB0aGlzLmdldEhlaWdodCgpKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfSxcblxuICAgICAgICByZWFkeSgpIHtcbiAgICAgICAgICAgIHRoaXMuYm9yZGVyQm94ID0gdGhpcy4kZWwuY3NzKCdib3gtc2l6aW5nJykgPT09ICdib3JkZXItYm94JztcbiAgICAgICAgfSxcblxuICAgICAgICB1cGRhdGU6IHtcblxuICAgICAgICAgICAgaGFuZGxlcigpIHtcblxuICAgICAgICAgICAgICAgIGlmICh0aGlzLmV4cGFuZCkge1xuXG4gICAgICAgICAgICAgICAgICAgIHRoaXMuJGVsLmNzcygnbWluLWhlaWdodCcsICcnKTtcbiAgICAgICAgICAgICAgICAgICAgaWYgKGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5vZmZzZXRIZWlnaHQgPCB3aW5kb3cuaW5uZXJIZWlnaHQpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMuJGVsLmNzcygnbWluLWhlaWdodCcsIHRoaXMuJGVsLm91dGVySGVpZ2h0KCkgKyB3aW5kb3cuaW5uZXJIZWlnaHQgLSBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQub2Zmc2V0SGVpZ2h0IC0gKHRoaXMuYm9yZGVyQm94ID8gMCA6IHRoaXMuJGVsLm91dGVySGVpZ2h0KCkgLSB0aGlzLiRlbC5oZWlnaHQoKSkpXG4gICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuO1xuXG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgLy8gSUUgMTAtMTEgZml4IChtaW4taGVpZ2h0IG9uIGEgZmxleCBjb250YWluZXIgd29uJ3QgYXBwbHkgdG8gaXRzIGZsZXggaXRlbXMpXG4gICAgICAgICAgICAgICAgdGhpcy4kZWwuY3NzKCdoZWlnaHQnLCAnJyk7XG4gICAgICAgICAgICAgICAgaWYgKHRoaXMuZ2V0SGVpZ2h0KCkgPj0gdGhpcy4kZWwuaGVpZ2h0KCkpIHtcbiAgICAgICAgICAgICAgICAgICAgdGhpcy4kZWwuY3NzKCdoZWlnaHQnLCB0aGlzLmdldEhlaWdodCgpKTtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICB0aGlzLiRlbC5jc3MoJ21pbi1oZWlnaHQnLCB0aGlzLmdldEhlaWdodCgpKTtcblxuICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgZXZlbnRzOiBbJ2xvYWQnLCAncmVzaXplJywgJ29yaWVudGF0aW9uY2hhbmdlJ11cblxuICAgICAgICB9LFxuXG4gICAgICAgIG1ldGhvZHM6IHtcblxuICAgICAgICAgICAgZ2V0SGVpZ2h0KCkge1xuXG4gICAgICAgICAgICAgICAgdmFyIGhlaWdodCA9IHdpbmRvdy5pbm5lckhlaWdodDtcblxuICAgICAgICAgICAgICAgIGlmICh0aGlzLm9mZnNldCAmJiB0aGlzLiRlbC5vZmZzZXQoKS50b3AgPCBoZWlnaHQpIHtcbiAgICAgICAgICAgICAgICAgICAgaGVpZ2h0IC09IHRoaXMuJGVsLm9mZnNldCgpLnRvcCArICh0aGlzLmJvcmRlckJveCA/IDAgOiB0aGlzLiRlbC5vdXRlckhlaWdodCgpIC0gdGhpcy4kZWwuaGVpZ2h0KCkpO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIHJldHVybiBoZWlnaHQ7XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgfVxuXG4gICAgfSk7XG5cbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9jb3JlL2hlaWdodC12aWV3cG9ydC5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQURBO0FBYkE7QUFrQkE7QUFDQTtBQW5CQTtBQUNBO0FBcUJBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBTkE7QUFDQTs7QUFIQTtBQWNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFwQkE7QUFDQTtBQXVCQTtBQUNBO0FBekJBO0FBQ0E7QUEyQkE7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFWQTtBQUFBO0FBQ0E7QUFuREE7QUFGQSIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 19 */
-/***/ function(module, exports, __webpack_require__) {
+/*!*****************************!*\
+  !*** ./src/js/core/icon.js ***!
+  \*****************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit, _) {
-
-	    // add touch identifier class
-	    (0, _jquery2.default)('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');
-
-	    var scroll = window.pageYOffset,
-	        dir,
-	        ticking,
-	        resizing;
-
-	    (0, _jquery2.default)(window).on('load', UIkit.update).on('resize orientationchange', function (e) {
-	        if (!resizing) {
-	            (0, _index.requestAnimationFrame)(function () {
-	                UIkit.update(e);
-	                resizing = false;
-	            });
-	            resizing = true;
-	        }
-	    }).on('scroll', function (e) {
-	        dir = scroll < window.pageYOffset;
-	        scroll = window.pageYOffset;
-	        if (!ticking) {
-	            (0, _index.requestAnimationFrame)(function () {
-	                e.dir = dir ? 'down' : 'up';
-	                UIkit.update(e);
-	                ticking = false;
-	            });
-	            ticking = true;
-	        }
-	    });
-
-	    // core components
-	    UIkit.use(_alert2.default);
-	    UIkit.use(_cover2.default);
-	    UIkit.use(_drop2.default);
-	    UIkit.use(_dropdown2.default);
-	    UIkit.use(_marginWrap2.default);
-	    UIkit.use(_grid2.default);
-	    UIkit.use(_heightViewport2.default);
-	    UIkit.use(_icon2.default);
-	    UIkit.use(_close2.default);
-	    UIkit.use(_matchHeight2.default);
-	    UIkit.use(_navbar2.default);
-	    UIkit.use(_responsive2.default);
-	    UIkit.use(_scrollspy2.default);
-	    UIkit.use(_scrollspyNav2.default);
-	    UIkit.use(_smoothScroll2.default);
-	    UIkit.use(_sticky2.default);
-	    UIkit.use(_svg2.default);
-	    UIkit.use(_switcher2.default);
-	    UIkit.use(_toggle2.default);
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _alert = __webpack_require__(20);
-
-	var _alert2 = _interopRequireDefault(_alert);
-
-	var _close = __webpack_require__(21);
-
-	var _close2 = _interopRequireDefault(_close);
-
-	var _cover = __webpack_require__(22);
-
-	var _cover2 = _interopRequireDefault(_cover);
-
-	var _drop = __webpack_require__(23);
-
-	var _drop2 = _interopRequireDefault(_drop);
-
-	var _dropdown = __webpack_require__(24);
-
-	var _dropdown2 = _interopRequireDefault(_dropdown);
-
-	var _grid = __webpack_require__(25);
-
-	var _grid2 = _interopRequireDefault(_grid);
-
-	var _heightViewport = __webpack_require__(26);
-
-	var _heightViewport2 = _interopRequireDefault(_heightViewport);
-
-	var _icon = __webpack_require__(27);
-
-	var _icon2 = _interopRequireDefault(_icon);
-
-	var _marginWrap = __webpack_require__(28);
-
-	var _marginWrap2 = _interopRequireDefault(_marginWrap);
-
-	var _matchHeight = __webpack_require__(29);
-
-	var _matchHeight2 = _interopRequireDefault(_matchHeight);
-
-	var _navbar = __webpack_require__(30);
-
-	var _navbar2 = _interopRequireDefault(_navbar);
-
-	var _responsive = __webpack_require__(31);
-
-	var _responsive2 = _interopRequireDefault(_responsive);
-
-	var _scrollspy = __webpack_require__(32);
-
-	var _scrollspy2 = _interopRequireDefault(_scrollspy);
-
-	var _scrollspyNav = __webpack_require__(33);
-
-	var _scrollspyNav2 = _interopRequireDefault(_scrollspyNav);
-
-	var _smoothScroll = __webpack_require__(34);
-
-	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
-
-	var _sticky = __webpack_require__(35);
-
-	var _sticky2 = _interopRequireDefault(_sticky);
-
-	var _svg = __webpack_require__(36);
-
-	var _svg2 = _interopRequireDefault(_svg);
-
-	var _switcher = __webpack_require__(37);
-
-	var _switcher2 = _interopRequireDefault(_switcher);
-
-	var _toggle = __webpack_require__(38);
-
-	var _toggle2 = _interopRequireDefault(_toggle);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('icon', {\n\n        mixins: [UIkit.mixin.svg],\n\n        props: ['icon'],\n\n        defaults: { cls: 'uk-icon' },\n\n        ready: function ready() {\n\n            if (!this.icon) {\n                return;\n            }\n\n            this.class += (this.class ? ' ' : '') + this.cls;\n\n            this.getIcon(this.$el.css('background-image').slice(4, -1).replace(/\"/g, ''), this.icon).then(this.handleIcon);\n        },\n\n        methods: {\n            handleIcon: function handleIcon(icon) {\n                this.$replace(icon);\n            }\n        }\n\n    });\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMTkuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvaWNvbi5qcz84YWJiIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQuY29tcG9uZW50KCdpY29uJywge1xuXG4gICAgICAgIG1peGluczogW1VJa2l0Lm1peGluLnN2Z10sXG5cbiAgICAgICAgcHJvcHM6IFsnaWNvbiddLFxuXG4gICAgICAgIGRlZmF1bHRzOiB7Y2xzOiAndWstaWNvbid9LFxuXG4gICAgICAgIHJlYWR5KCkge1xuXG4gICAgICAgICAgICBpZiAoIXRoaXMuaWNvbikge1xuICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgdGhpcy5jbGFzcyArPSAodGhpcy5jbGFzcyA/ICcgJyA6ICcnKSArIHRoaXMuY2xzO1xuXG4gICAgICAgICAgICB0aGlzLmdldEljb24odGhpcy4kZWwuY3NzKCdiYWNrZ3JvdW5kLWltYWdlJykuc2xpY2UoNCwgLTEpLnJlcGxhY2UoL1wiL2csICcnKSwgdGhpcy5pY29uKS50aGVuKHRoaXMuaGFuZGxlSWNvbik7XG4gICAgICAgIH0sXG5cbiAgICAgICAgbWV0aG9kczoge1xuXG4gICAgICAgICAgICBoYW5kbGVJY29uKGljb24pIHtcbiAgICAgICAgICAgICAgICB0aGlzLiRyZXBsYWNlKGljb24pO1xuICAgICAgICAgICAgfVxuXG4gICAgICAgIH1cblxuICAgIH0pO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9pY29uLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQWhCQTtBQUNBO0FBa0JBO0FBRUE7QUFDQTtBQUhBO0FBQUE7QUFDQTtBQXBCQTtBQUZBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 20 */
+/*!************************************!*\
+  !*** ./src/js/core/margin-wrap.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('alert', {
-
-	        mixins: [UIkit.mixin.toggle],
-
-	        props: {
-	            animation: Boolean,
-	            close: String
-	        },
-
-	        defaults: {
-	            animation: true,
-	            close: '.uk-alert-close'
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            this.$el.on('click', this.close, function (e) {
-	                e.preventDefault();
-	                _this.closeAlert();
-	            });
-	        },
-
-
-	        methods: {
-	            closeAlert: function closeAlert() {
-
-	                this.$el.trigger('close');
-
-	                var deferred;
-
-	                if (this.animation === true) {
-
-	                    deferred = _index.Transition.start(this.$el, {
-	                        'overflow': 'hidden',
-	                        'height': 0,
-	                        'opacity': 0,
-	                        'padding-top': 0,
-	                        'padding-bottom': 0,
-	                        'margin-top': 0,
-	                        'margin-bottom': '-' + this.$el.prev().css('margin-bottom')
-	                    }, this.duration);
-	                } else {
-	                    deferred = this.toggleState(this.$el);
-	                }
-
-	                deferred.then(this.$destroy.bind(this));
-	            }
-	        },
-
-	        destroy: function destroy() {
-	            this.$el.off('click');
-	            this.$el.trigger('closed');
-	        }
-	    });
-	};
-
-	var _index = __webpack_require__(4);
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('margin-wrap', {\n\n        props: ['margin', 'rowFirst'],\n\n        defaults: {\n            margin: 'uk-margin-small-top',\n            rowFirst: 'uk-row-first'\n        },\n\n        update: {\n            handler: function handler() {\n\n                var columns = this.$el.removeClass(this.margin).children().filter(function (i, el) {\n                    return el.style.display !== 'none';\n                }),\n                    offset = false,\n                    pos = false;\n\n                sortByOffset(columns, 'top').filter(function (i, el) {\n\n                    el = (0, _jquery2.default)(el);\n\n                    if (offset === false) {\n                        offset = el.offset().top + columns.outerHeight() - 1; // (-1): weird firefox bug when parent container is display:flex\n                        return;\n                    }\n\n                    return el.offset().top >= offset;\n                }).addClass(this.margin);\n\n                if (!this.rowFirst) {\n                    return;\n                }\n\n                // Mark first column elements\n                sortByOffset(columns.removeClass(this.rowFirst), 'left').filter(function (i, el) {\n\n                    el = (0, _jquery2.default)(el);\n\n                    if (pos === false) {\n                        pos = el.offset().left;\n                    }\n\n                    return pos === el.offset().left;\n                }).addClass(this.rowFirst);\n            },\n\n            events: ['load', 'resize', 'orientationchange']\n\n        }\n\n    });\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nfunction sortByOffset(elements, prop) {\n    return elements.sort(function (a, b) {\n        a = (0, _jquery2.default)(a).offset[prop];\n        b = (0, _jquery2.default)(b).offset[prop];\n\n        return a === b ? 0 : a < b ? -1 : 1;\n    });\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvbWFyZ2luLXdyYXAuanM/NjM0NyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJCBmcm9tICdqcXVlcnknO1xuaW1wb3J0IHtleHRlbmR9IGZyb20gJy4uL3V0aWwvaW5kZXgnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIFVJa2l0LmNvbXBvbmVudCgnbWFyZ2luLXdyYXAnLCB7XG5cbiAgICAgICAgcHJvcHM6IFsnbWFyZ2luJywgJ3Jvd0ZpcnN0J10sXG5cbiAgICAgICAgZGVmYXVsdHM6IHtcbiAgICAgICAgICAgIG1hcmdpbjogJ3VrLW1hcmdpbi1zbWFsbC10b3AnLFxuICAgICAgICAgICAgcm93Rmlyc3Q6ICd1ay1yb3ctZmlyc3QnXG4gICAgICAgIH0sXG5cbiAgICAgICAgdXBkYXRlOiB7XG5cbiAgICAgICAgICAgIGhhbmRsZXIoKSB7XG5cbiAgICAgICAgICAgICAgICB2YXIgY29sdW1ucyA9IHRoaXMuJGVsLnJlbW92ZUNsYXNzKHRoaXMubWFyZ2luKS5jaGlsZHJlbigpLmZpbHRlcigoaSwgZWwpID0+IHsgcmV0dXJuIGVsLnN0eWxlLmRpc3BsYXkgIT09ICdub25lJzsgfSksIG9mZnNldCA9IGZhbHNlLCBwb3MgPSBmYWxzZTtcblxuICAgICAgICAgICAgICAgIHNvcnRCeU9mZnNldChjb2x1bW5zLCAndG9wJykuZmlsdGVyKChpLCBlbCkgPT4ge1xuXG4gICAgICAgICAgICAgICAgICAgIGVsID0gJChlbCk7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKG9mZnNldCA9PT0gZmFsc2UpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIG9mZnNldCA9IGVsLm9mZnNldCgpLnRvcCArIGNvbHVtbnMub3V0ZXJIZWlnaHQoKSAtIDE7IC8vICgtMSk6IHdlaXJkIGZpcmVmb3ggYnVnIHdoZW4gcGFyZW50IGNvbnRhaW5lciBpcyBkaXNwbGF5OmZsZXhcbiAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgIHJldHVybiBlbC5vZmZzZXQoKS50b3AgPj0gb2Zmc2V0O1xuXG4gICAgICAgICAgICAgICAgfSkuYWRkQ2xhc3ModGhpcy5tYXJnaW4pO1xuXG4gICAgICAgICAgICAgICAgaWYgKCF0aGlzLnJvd0ZpcnN0KSB7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAvLyBNYXJrIGZpcnN0IGNvbHVtbiBlbGVtZW50c1xuICAgICAgICAgICAgICAgIHNvcnRCeU9mZnNldChjb2x1bW5zLnJlbW92ZUNsYXNzKHRoaXMucm93Rmlyc3QpLCAnbGVmdCcpLmZpbHRlcigoaSwgZWwpID0+IHtcblxuICAgICAgICAgICAgICAgICAgICBlbCA9ICQoZWwpO1xuXG4gICAgICAgICAgICAgICAgICAgIGlmIChwb3MgPT09IGZhbHNlKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBwb3MgPSBlbC5vZmZzZXQoKS5sZWZ0O1xuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHBvcyA9PT0gZWwub2Zmc2V0KCkubGVmdDtcblxuICAgICAgICAgICAgICAgIH0pLmFkZENsYXNzKHRoaXMucm93Rmlyc3QpO1xuICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgZXZlbnRzOiBbJ2xvYWQnLCAncmVzaXplJywgJ29yaWVudGF0aW9uY2hhbmdlJ11cblxuICAgICAgICB9XG5cbiAgICB9KTtcblxufVxuXG5mdW5jdGlvbiBzb3J0QnlPZmZzZXQoZWxlbWVudHMsIHByb3ApIHtcbiAgICByZXR1cm4gZWxlbWVudHMuc29ydCgoYSwgYikgPT4ge1xuICAgICAgICBhID0gJChhKS5vZmZzZXRbcHJvcF07XG4gICAgICAgIGIgPSAkKGIpLm9mZnNldFtwcm9wXTtcblxuICAgICAgICByZXR1cm4gYSA9PT0gYiA/IDAgOiBhIDwgYiA/IC0xIDogMTtcbiAgICB9KTtcbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9jb3JlL21hcmdpbi13cmFwLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFFQTtBQUNBO0FBQ0E7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFBQTtBQUNBO0FBSUE7QUFUQTtBQUNBO0FBWUE7QUFDQTtBQURBO0FBQ0E7O0FBbEJBO0FBQ0E7QUF1QkE7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFSQTtBQXhCQTtBQUNBO0FBb0NBO0FBQ0E7QUF0Q0E7QUFDQTtBQVZBO0FBRkE7QUFDQTs7Ozs7Ozs7O0FBdURBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBREEiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 21 */
-/***/ function(module, exports) {
+/*!*************************************!*\
+  !*** ./src/js/core/match-height.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('close', UIkit.components.icon.extend({
-
-	        name: 'close',
-
-	        defaults: { icon: 'close', exclude: ['id', 'style', 'class'] },
-
-	        methods: {
-	            handleIcon: function handleIcon(icon) {
-	                this.$el.append(icon);
-	            }
-	        }
-
-	    }));
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('match-height', {\n\n        props: {\n            target: String,\n            row: Boolean\n        },\n\n        defaults: {\n            target: false,\n            row: true\n        },\n\n        update: {\n            handler: function handler() {\n                var _this = this;\n\n                var elements = (this.target ? (0, _jquery2.default)(this.target, this.$el) : this.$el.children()).css('min-height', '');\n\n                if (!this.row) {\n                    this.match(elements);\n                    return this;\n                }\n\n                (0, _index.requestAnimationFrame)(function () {\n\n                    var lastOffset = false,\n                        group = [];\n\n                    elements.each(function (i, el) {\n\n                        el = (0, _jquery2.default)(el);\n\n                        var offset = el.offset().top;\n\n                        if (offset != lastOffset && group.length) {\n                            _this.match((0, _jquery2.default)(group));\n                            group = [];\n                            offset = el.offset().top;\n                        }\n\n                        group.push(el);\n                        lastOffset = offset;\n                    });\n\n                    if (group.length) {\n                        _this.match((0, _jquery2.default)(group));\n                    }\n                });\n            },\n\n            events: ['resize', 'orientationchange']\n\n        },\n\n        methods: {\n            match: function match(elements) {\n\n                if (elements.length < 2) {\n                    return;\n                }\n\n                var max = 0;\n\n                elements.each(function () {\n                    max = Math.max(max, (0, _jquery2.default)(this).outerHeight());\n                }).each(function () {\n                    var el = (0, _jquery2.default)(this);\n                    el.css('min-height', max - (el.css('box-sizing') == 'border-box' ? 0 : el.outerHeight() - el.height()) + 'px');\n                });\n            }\n        }\n\n    });\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvbWF0Y2gtaGVpZ2h0LmpzP2VkZTQiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICQgZnJvbSAnanF1ZXJ5JztcbmltcG9ydCB7cmVxdWVzdEFuaW1hdGlvbkZyYW1lfSBmcm9tICcuLi91dGlsL2luZGV4JztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICBVSWtpdC5jb21wb25lbnQoJ21hdGNoLWhlaWdodCcsIHtcblxuICAgICAgICBwcm9wczoge1xuICAgICAgICAgICAgdGFyZ2V0OiBTdHJpbmcsXG4gICAgICAgICAgICByb3c6IEJvb2xlYW5cbiAgICAgICAgfSxcblxuICAgICAgICBkZWZhdWx0czoge1xuICAgICAgICAgICAgdGFyZ2V0OiBmYWxzZSxcbiAgICAgICAgICAgIHJvdzogdHJ1ZVxuICAgICAgICB9LFxuXG4gICAgICAgIHVwZGF0ZToge1xuXG4gICAgICAgICAgICBoYW5kbGVyKCkge1xuXG4gICAgICAgICAgICAgICAgbGV0IGVsZW1lbnRzID0gKHRoaXMudGFyZ2V0ID8gJCh0aGlzLnRhcmdldCwgdGhpcy4kZWwpIDogdGhpcy4kZWwuY2hpbGRyZW4oKSkuY3NzKCdtaW4taGVpZ2h0JywgJycpO1xuXG4gICAgICAgICAgICAgICAgaWYgKCF0aGlzLnJvdykge1xuICAgICAgICAgICAgICAgICAgICB0aGlzLm1hdGNoKGVsZW1lbnRzKTtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHRoaXM7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgcmVxdWVzdEFuaW1hdGlvbkZyYW1lKCgpID0+IHtcblxuICAgICAgICAgICAgICAgICAgICB2YXIgbGFzdE9mZnNldCA9IGZhbHNlLCBncm91cCA9IFtdO1xuXG4gICAgICAgICAgICAgICAgICAgIGVsZW1lbnRzLmVhY2goKGksIGVsKSA9PiB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIGVsID0gJChlbCk7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIHZhciBvZmZzZXQgPSBlbC5vZmZzZXQoKS50b3A7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIGlmIChvZmZzZXQgIT0gbGFzdE9mZnNldCAmJiBncm91cC5sZW5ndGgpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzLm1hdGNoKCQoZ3JvdXApKTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBncm91cCA9IFtdO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9mZnNldCA9IGVsLm9mZnNldCgpLnRvcDtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAucHVzaChlbCk7XG4gICAgICAgICAgICAgICAgICAgICAgICBsYXN0T2Zmc2V0ID0gb2Zmc2V0O1xuICAgICAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgICAgICAgICBpZiAoZ3JvdXAubGVuZ3RoKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLm1hdGNoKCQoZ3JvdXApKTtcbiAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgIGV2ZW50czogWydyZXNpemUnLCAnb3JpZW50YXRpb25jaGFuZ2UnXVxuXG4gICAgICAgIH0sXG5cbiAgICAgICAgbWV0aG9kczoge1xuXG4gICAgICAgICAgICBtYXRjaChlbGVtZW50cykge1xuXG4gICAgICAgICAgICAgICAgaWYgKGVsZW1lbnRzLmxlbmd0aCA8IDIpIHtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIHZhciBtYXggPSAwO1xuXG4gICAgICAgICAgICAgICAgZWxlbWVudHNcbiAgICAgICAgICAgICAgICAgICAgLmVhY2goZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgbWF4ID0gTWF0aC5tYXgobWF4LCAkKHRoaXMpLm91dGVySGVpZ2h0KCkpO1xuICAgICAgICAgICAgICAgICAgICB9KVxuICAgICAgICAgICAgICAgICAgICAuZWFjaChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICB2YXIgZWwgPSAkKHRoaXMpO1xuICAgICAgICAgICAgICAgICAgICAgICAgZWwuY3NzKCdtaW4taGVpZ2h0JywgKG1heCAtIChlbC5jc3MoJ2JveC1zaXppbmcnKSA9PSAnYm9yZGVyLWJveCcgPyAwIDogKGVsLm91dGVySGVpZ2h0KCkgLSBlbC5oZWlnaHQoKSkpKSArICdweCcpO1xuICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgIH1cblxuICAgICAgICB9XG5cbiAgICB9KTtcblxufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL2NvcmUvbWF0Y2gtaGVpZ2h0LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBQ0E7QUFJQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFFQTs7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBQ0E7QUFJQTtBQUNBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUNBO0FBS0E7QUFDQTtBQWJBO0FBQ0E7QUFlQTtBQUNBO0FBREE7QUFwQkE7QUFYQTtBQUNBO0FBc0NBO0FBQ0E7QUF4Q0E7QUFDQTtBQTBDQTtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUVBO0FBREE7QUFJQTtBQUNBO0FBRkE7QUFkQTtBQUFBO0FBQ0E7QUF4REE7QUFGQTtBQUNBOzs7Ozs7OyIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 22 */
-/***/ function(module, exports) {
+/*!*******************************!*\
+  !*** ./src/js/core/navbar.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('cover', {
-
-	        props: {
-	            automute: Boolean,
-	            width: Number,
-	            height: Number
-	        },
-
-	        defaults: { automute: true },
-
-	        ready: function ready() {
-	            if (this.$el.is('iframe') && this.automute) {
-
-	                var src = this.$el.attr('src');
-
-	                this.$el.attr('src', '').on('load', function () {
-
-	                    this.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
-	                }).attr('src', [src, src.indexOf('?') > -1 ? '&' : '?', 'enablejsapi=1&api=1'].join(''));
-	            }
-	        },
-
-
-	        update: {
-	            handler: function handler() {
-
-	                if (!this.$el.is(':visible')) {
-	                    return this;
-	                }
-
-	                var dimensions = { width: '', height: '' };
-
-	                this.$el.css(dimensions);
-
-	                var width = this.$el.parent().width(),
-	                    height = this.$el.parent().height(),
-	                    ratio = (this.width || this.$el.width()) / (this.height || this.$el.height());
-
-	                // if element height < parent height (gap underneath)
-	                if (width / ratio < height) {
-
-	                    dimensions.width = Math.ceil(height * ratio);
-	                    dimensions.height = height;
-
-	                    // element width < parent width (gap to right)
-	                } else {
-
-	                        dimensions.width = width;
-	                        dimensions.height = Math.ceil(width / ratio);
-	                    }
-
-	                this.$el.css(dimensions);
-	            },
-
-
-	            events: ['load', 'resize', 'orientationchange']
-
-	        }
-
-	    });
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('navbar', {\n\n        props: {\n            dropdown: String,\n            mode: String,\n            pos: String,\n            offset: Number,\n            boundary: Boolean,\n            boundaryAlign: Boolean,\n            clsDrop: String,\n            delayShow: Number,\n            delayHide: Number,\n            dropbar: Boolean,\n            duration: Number,\n            dropbarMode: String\n        },\n\n        defaults: {\n            dropdown: '.uk-navbar-nav > li',\n            mode: 'hover',\n            pos: 'bottom-left',\n            offset: 0,\n            boundary: true,\n            boundaryAlign: false,\n            clsDrop: 'uk-navbar-dropdown',\n            delayHide: 800,\n            dropbar: false,\n            duration: 200,\n            dropbarMode: 'overlay'\n        },\n\n        ready: function ready() {\n            var _this = this;\n\n            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each(function (i, el) {\n\n                if (!(0, _index.toJQuery)('.' + _this.clsDrop, el)) {\n                    return;\n                }\n\n                UIkit.drop(el, {\n                    mode: _this.mode,\n                    pos: _this.pos,\n                    offset: _this.offset,\n                    boundary: _this.boundary === true || _this.boundaryAlign ? _this.$el : _this.boundary,\n                    boundaryAlign: _this.boundaryAlign,\n                    clsDrop: _this.clsDrop,\n                    flip: 'x',\n                    delayShow: _this.delayShow,\n                    delayHide: _this.delayHide\n                });\n            });\n\n            this.$el.on('mouseenter', this.dropdown, function (e) {\n                var active = _this.getActive();\n                if (active && active.mode !== 'click' && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying) {\n                    active.hide(true);\n                }\n            });\n\n            if (!this.dropbar) {\n                return;\n            }\n\n            this.dropbar = (0, _index.toJQuery)(this.dropbar);\n\n            if (!this.dropbar) {\n                this.dropbar = (0, _jquery2.default)('<div class=\"uk-navbar-dropbar\"></div>').insertAfter(this.$el);\n            }\n\n            if (this.dropbarMode === 'overlay') {\n                this.dropbar.addClass('uk-navbar-dropbar-overlay');\n            }\n\n            var height, transition;\n\n            this.$el.on({\n\n                beforeshow: function beforeshow(e, drop) {\n                    drop.drop.addClass(_this.clsDrop + '-dropbar');\n                },\n\n                show: function show(e, drop) {\n\n                    var newHeight = drop.drop.outerHeight(true);\n\n                    drop.$el.removeClass('uk-open');\n\n                    if (height === newHeight) {\n\n                        if (transition && transition.state() !== 'pending') {\n                            drop.$el.addClass('uk-open');\n                        }\n\n                        return;\n                    }\n                    height = newHeight;\n\n                    transition = _index.Transition.start(_this.dropbar, { height: height }, _this.duration).then(function () {\n                        var active = _this.getActive();\n                        if (active) {\n                            active.$el.addClass('uk-open');\n                            active.$update();\n                        }\n                    });\n                },\n\n                hide: function hide() {\n                    (0, _index.requestAnimationFrame)(function () {\n                        if (!_this.getActive()) {\n                            _index.Transition.stop(_this.dropbar).start(_this.dropbar, { height: 0 }, _this.duration);\n                            height = 0;\n                        }\n                    });\n                }\n\n            });\n\n            this.dropbar.on({\n\n                mouseenter: function mouseenter() {\n                    var active = _this.getActive();\n                    if (active) {\n                        active.clearTimers();\n                    }\n                },\n\n                mouseleave: function mouseleave(e) {\n                    var active = _this.getActive();\n                    if (active && !(0, _index.isWithin)(e.relatedTarget, active.$el)) {\n                        active.hide();\n                    }\n                }\n\n            });\n        },\n\n        methods: {\n            getActive: function getActive() {\n                var active = UIkit.drop.getActive();\n                if (active && (0, _index.isWithin)(active.$el, this.$el)) {\n                    return active;\n                }\n            }\n        }\n\n    });\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvbmF2YmFyLmpzP2U2YjMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICQgZnJvbSAnanF1ZXJ5JztcbmltcG9ydCB7VHJhbnNpdGlvbiwgaXNXaXRoaW4sIHJlcXVlc3RBbmltYXRpb25GcmFtZSwgdG9KUXVlcnl9IGZyb20gJy4uL3V0aWwvaW5kZXgnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIFVJa2l0LmNvbXBvbmVudCgnbmF2YmFyJywge1xuXG4gICAgICAgIHByb3BzOiB7XG4gICAgICAgICAgICBkcm9wZG93bjogU3RyaW5nLFxuICAgICAgICAgICAgbW9kZTogU3RyaW5nLFxuICAgICAgICAgICAgcG9zOiBTdHJpbmcsXG4gICAgICAgICAgICBvZmZzZXQ6IE51bWJlcixcbiAgICAgICAgICAgIGJvdW5kYXJ5OiBCb29sZWFuLFxuICAgICAgICAgICAgYm91bmRhcnlBbGlnbjogQm9vbGVhbixcbiAgICAgICAgICAgIGNsc0Ryb3A6IFN0cmluZyxcbiAgICAgICAgICAgIGRlbGF5U2hvdzogTnVtYmVyLFxuICAgICAgICAgICAgZGVsYXlIaWRlOiBOdW1iZXIsXG4gICAgICAgICAgICBkcm9wYmFyOiBCb29sZWFuLFxuICAgICAgICAgICAgZHVyYXRpb246IE51bWJlcixcbiAgICAgICAgICAgIGRyb3BiYXJNb2RlOiBTdHJpbmdcbiAgICAgICAgfSxcblxuICAgICAgICBkZWZhdWx0czoge1xuICAgICAgICAgICAgZHJvcGRvd246ICcudWstbmF2YmFyLW5hdiA+IGxpJyxcbiAgICAgICAgICAgIG1vZGU6ICdob3ZlcicsXG4gICAgICAgICAgICBwb3M6ICdib3R0b20tbGVmdCcsXG4gICAgICAgICAgICBvZmZzZXQ6IDAsXG4gICAgICAgICAgICBib3VuZGFyeTogdHJ1ZSxcbiAgICAgICAgICAgIGJvdW5kYXJ5QWxpZ246IGZhbHNlLFxuICAgICAgICAgICAgY2xzRHJvcDogJ3VrLW5hdmJhci1kcm9wZG93bicsXG4gICAgICAgICAgICBkZWxheUhpZGU6IDgwMCxcbiAgICAgICAgICAgIGRyb3BiYXI6IGZhbHNlLFxuICAgICAgICAgICAgZHVyYXRpb246IDIwMCxcbiAgICAgICAgICAgIGRyb3BiYXJNb2RlOiAnb3ZlcmxheSdcbiAgICAgICAgfSxcblxuICAgICAgICByZWFkeSgpIHtcblxuICAgICAgICAgICAgdGhpcy4kZWwuZmluZCh0aGlzLmRyb3Bkb3duICsgJzpub3QoW3VrLWRyb3BdLCBbdWstZHJvcGRvd25dKScpLmVhY2goKGksIGVsKSA9PiB7XG5cbiAgICAgICAgICAgICAgICBpZiAoIXRvSlF1ZXJ5KCcuJyArIHRoaXMuY2xzRHJvcCwgZWwpKSB7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICBVSWtpdC5kcm9wKGVsLCB7XG4gICAgICAgICAgICAgICAgICAgIG1vZGU6IHRoaXMubW9kZSxcbiAgICAgICAgICAgICAgICAgICAgcG9zOiB0aGlzLnBvcyxcbiAgICAgICAgICAgICAgICAgICAgb2Zmc2V0OiB0aGlzLm9mZnNldCxcbiAgICAgICAgICAgICAgICAgICAgYm91bmRhcnk6ICh0aGlzLmJvdW5kYXJ5ID09PSB0cnVlIHx8IHRoaXMuYm91bmRhcnlBbGlnbikgPyB0aGlzLiRlbCA6IHRoaXMuYm91bmRhcnksXG4gICAgICAgICAgICAgICAgICAgIGJvdW5kYXJ5QWxpZ246IHRoaXMuYm91bmRhcnlBbGlnbixcbiAgICAgICAgICAgICAgICAgICAgY2xzRHJvcDogdGhpcy5jbHNEcm9wLFxuICAgICAgICAgICAgICAgICAgICBmbGlwOiAneCcsXG4gICAgICAgICAgICAgICAgICAgIGRlbGF5U2hvdzogdGhpcy5kZWxheVNob3csXG4gICAgICAgICAgICAgICAgICAgIGRlbGF5SGlkZTogdGhpcy5kZWxheUhpZGVcbiAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgIHRoaXMuJGVsLm9uKCdtb3VzZWVudGVyJywgdGhpcy5kcm9wZG93biwgKGUpID0+IHtcbiAgICAgICAgICAgICAgICB2YXIgYWN0aXZlID0gdGhpcy5nZXRBY3RpdmUoKTtcbiAgICAgICAgICAgICAgICBpZiAoYWN0aXZlICYmIGFjdGl2ZS5tb2RlICE9PSAnY2xpY2snICYmICFpc1dpdGhpbihlLnRhcmdldCwgYWN0aXZlLiRlbCkgJiYgIWFjdGl2ZS5pc0RlbGF5aW5nKSB7XG4gICAgICAgICAgICAgICAgICAgIGFjdGl2ZS5oaWRlKHRydWUpO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgIH0pO1xuXG4gICAgICAgICAgICBpZiAoIXRoaXMuZHJvcGJhcikge1xuICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgdGhpcy5kcm9wYmFyID0gdG9KUXVlcnkodGhpcy5kcm9wYmFyKTtcblxuICAgICAgICAgICAgaWYgKCF0aGlzLmRyb3BiYXIpIHtcbiAgICAgICAgICAgICAgICB0aGlzLmRyb3BiYXIgPSAkKCc8ZGl2IGNsYXNzPVwidWstbmF2YmFyLWRyb3BiYXJcIj48L2Rpdj4nKS5pbnNlcnRBZnRlcih0aGlzLiRlbCk7XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgICAgIGlmICh0aGlzLmRyb3BiYXJNb2RlID09PSAnb3ZlcmxheScpIHtcbiAgICAgICAgICAgICAgICB0aGlzLmRyb3BiYXIuYWRkQ2xhc3MoJ3VrLW5hdmJhci1kcm9wYmFyLW92ZXJsYXknKTtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgdmFyIGhlaWdodCwgdHJhbnNpdGlvbjtcblxuICAgICAgICAgICAgdGhpcy4kZWwub24oe1xuXG4gICAgICAgICAgICAgICAgYmVmb3Jlc2hvdzogKGUsIGRyb3ApID0+IHtcbiAgICAgICAgICAgICAgICAgICAgZHJvcC5kcm9wLmFkZENsYXNzKGAke3RoaXMuY2xzRHJvcH0tZHJvcGJhcmApO1xuICAgICAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgICAgICBzaG93OiAoZSwgZHJvcCkgPT4ge1xuXG4gICAgICAgICAgICAgICAgICAgIHZhciBuZXdIZWlnaHQgPSBkcm9wLmRyb3Aub3V0ZXJIZWlnaHQodHJ1ZSk7XG5cbiAgICAgICAgICAgICAgICAgICAgZHJvcC4kZWwucmVtb3ZlQ2xhc3MoJ3VrLW9wZW4nKTtcblxuICAgICAgICAgICAgICAgICAgICBpZiAoaGVpZ2h0ID09PSBuZXdIZWlnaHQpIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHRyYW5zaXRpb24gJiYgdHJhbnNpdGlvbi5zdGF0ZSgpICE9PSAncGVuZGluZycpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBkcm9wLiRlbC5hZGRDbGFzcygndWstb3BlbicpO1xuICAgICAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm47XG4gICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgaGVpZ2h0ID0gbmV3SGVpZ2h0O1xuXG4gICAgICAgICAgICAgICAgICAgIHRyYW5zaXRpb24gPSBUcmFuc2l0aW9uLnN0YXJ0KHRoaXMuZHJvcGJhciwge2hlaWdodDogaGVpZ2h0fSwgdGhpcy5kdXJhdGlvbikudGhlbigoKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgICAgICB2YXIgYWN0aXZlID0gdGhpcy5nZXRBY3RpdmUoKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIGlmIChhY3RpdmUpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBhY3RpdmUuJGVsLmFkZENsYXNzKCd1ay1vcGVuJyk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgYWN0aXZlLiR1cGRhdGUoKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICAgICAgaGlkZTogKCkgPT4ge1xuICAgICAgICAgICAgICAgICAgICByZXF1ZXN0QW5pbWF0aW9uRnJhbWUoKCkgPT4ge1xuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCF0aGlzLmdldEFjdGl2ZSgpKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgVHJhbnNpdGlvbi5zdG9wKHRoaXMuZHJvcGJhcikuc3RhcnQodGhpcy5kcm9wYmFyLCB7aGVpZ2h0OiAwfSwgdGhpcy5kdXJhdGlvbik7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgaGVpZ2h0ID0gMDtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgdGhpcy5kcm9wYmFyLm9uKHtcblxuICAgICAgICAgICAgICAgIG1vdXNlZW50ZXI6ICgpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgdmFyIGFjdGl2ZSA9IHRoaXMuZ2V0QWN0aXZlKCk7XG4gICAgICAgICAgICAgICAgICAgIGlmIChhY3RpdmUpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIGFjdGl2ZS5jbGVhclRpbWVycygpO1xuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgICAgIG1vdXNlbGVhdmU6IChlKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIHZhciBhY3RpdmUgPSB0aGlzLmdldEFjdGl2ZSgpO1xuICAgICAgICAgICAgICAgICAgICBpZiAoYWN0aXZlICYmICFpc1dpdGhpbihlLnJlbGF0ZWRUYXJnZXQsIGFjdGl2ZS4kZWwpKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBhY3RpdmUuaGlkZSgpO1xuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICB9KTtcblxuICAgICAgICB9LFxuXG4gICAgICAgIG1ldGhvZHM6IHtcblxuICAgICAgICAgICAgZ2V0QWN0aXZlKCkge1xuICAgICAgICAgICAgICAgIHZhciBhY3RpdmUgPSBVSWtpdC5kcm9wLmdldEFjdGl2ZSgpO1xuICAgICAgICAgICAgICAgIGlmIChhY3RpdmUgJiYgaXNXaXRoaW4oYWN0aXZlLiRlbCwgdGhpcy4kZWwpKSB7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybiBhY3RpdmU7XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH1cblxuICAgIH0pO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9uYXZiYXIuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFaQTtBQUNBO0FBY0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBWEE7QUFDQTtBQWFBOzs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVRBO0FBTkE7QUFDQTtBQW1CQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBRkE7QUFDQTtBQU1BO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFOQTtBQVFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFGQTtBQWhCQTtBQUNBO0FBeUJBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQURBO0FBREE7QUFDQTtBQWpDQTtBQUNBO0FBMENBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBRkE7QUFDQTtBQU1BO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFGQTtBQUNBO0FBVkE7QUF2SEE7QUFDQTtBQTBJQTtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFKQTtBQUFBO0FBQ0E7QUE1SUE7QUFGQTtBQUNBOzs7Ozs7OyIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 23 */
-/***/ function(module, exports, __webpack_require__) {
+/*!***********************************!*\
+  !*** ./src/js/core/responsive.js ***!
+  \***********************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    var active;
-
-	    (0, _jquery2.default)(document).on('click', function (e) {
-	        if (active && !(0, _index.isWithin)(e.target, active.$el)) {
-	            active.hide(true);
-	        }
-	    });
-
-	    UIkit.component('drop', {
-
-	        mixins: [UIkit.mixin.position, UIkit.mixin.toggle, UIkit.mixin.mouse],
-
-	        props: {
-	            mode: String,
-	            target: 'jQuery',
-	            boundary: 'jQuery',
-	            boundaryAlign: Boolean,
-	            delayShow: Number,
-	            delayHide: Number,
-	            clsDrop: String
-	        },
-
-	        defaults: {
-	            mode: 'hover',
-	            target: false,
-	            boundary: (0, _jquery2.default)(window),
-	            boundaryAlign: false,
-	            delayShow: 0,
-	            delayHide: 800,
-	            clsDrop: false,
-	            hoverIdle: 200,
-	            animation: 'uk-animation-fade'
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            this.cls = 'uk-open';
-	            this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
-	            this.clsPos = this.clsDrop;
-	            this.drop = this.target || (0, _index.toJQuery)('.' + this.clsDrop + ':first', this.$el) || (0, _index.toJQuery)(this.$el.nextAll('.' + this.clsDrop + ':first'));
-
-	            if (!this.drop) {
-	                return;
-	            }
-
-	            this.mode = _index.hasTouch ? 'click' : this.mode;
-
-	            this.$el.on('click', function (e) {
-
-	                if ((0, _index.isWithin)('a[href="#"]', e.target) && !(0, _index.isWithin)(e.target, _this.drop)) {
-	                    e.preventDefault();
-	                }
-
-	                if (_this.isActive()) {
-	                    _this.hide(true);
-	                } else {
-	                    _this.show(true);
-	                }
-	            });
-
-	            this.$el.attr('aria-expanded', false);
-	            this.updateAria(this.drop);
-
-	            this.drop.on('click', '.' + this.clsDrop + '-close', function () {
-	                _this.hide(true);
-	            });
-
-	            if (this.mode === 'hover') {
-
-	                this.$el.on('mouseenter', function () {
-	                    _this.show();
-	                }).on('mouseleave', function () {
-	                    _this.hide();
-	                });
-
-	                this.drop.on('mouseenter', function () {
-	                    if (_this.isActive()) {
-	                        _this.show();
-	                    }
-	                }).on('mouseleave', function () {
-	                    if (_this.isActive()) {
-	                        _this.hide();
-	                    }
-	                });
-	            }
-	        },
-
-
-	        update: {
-	            handler: function handler() {
-
-	                (0, _index.removeClass)(this.drop, this.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });
-
-	                this.drop.toggleClass(this.clsDrop + '-boundary', this.boundaryAlign).show();
-
-	                this.dir = this.pos[0];
-	                this.align = this.pos[1];
-
-	                var boundary = (0, _index.getDimensions)(this.boundary),
-	                    alignTo = this.boundaryAlign ? boundary : (0, _index.getDimensions)(this.$el);
-
-	                if (this.align === 'justify') {
-	                    var prop = this.getAxis() === 'y' ? 'width' : 'height';
-	                    this.drop.css(prop, alignTo[prop]);
-	                } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-	                    this.drop.addClass(this.clsDrop + '-stack');
-	                    this.$el.trigger('stack', [this]);
-	                }
-
-	                this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
-
-	                this.drop.css('display', '');
-	            },
-
-
-	            events: ['resize', 'orientationchange']
-
-	        },
-
-	        methods: {
-	            show: function show(force) {
-	                var _this2 = this;
-
-	                this.clearTimers();
-
-	                if (this.isActive()) {
-	                    return;
-	                } else if (!force && active && active !== this && active.isDelaying) {
-	                    this.showTimer = setTimeout(this.show.bind(this), 75);
-	                    return;
-	                } else if (active) {
-	                    active.hide(true);
-	                }
-
-	                var show = function show() {
-
-	                    _this2._callUpdate();
-	                    _this2.$el.trigger('beforeshow', [_this2]).addClass(_this2.cls);
-	                    _this2.toggleState(_this2.drop);
-	                    _this2.$el.attr('aria-expanded', 'true').trigger('show', [_this2]);
-
-	                    if (_this2.mode === 'hover') {
-	                        _this2.initMouseTracker(_this2.drop);
-	                    }
-	                };
-
-	                if (!force && this.delayShow) {
-	                    this.showTimer = setTimeout(show, this.delayShow);
-	                } else {
-	                    show();
-	                }
-
-	                active = this;
-	            },
-	            hide: function hide(force) {
-	                var _this3 = this;
-
-	                this.clearTimers();
-
-	                var hide = function hide() {
-
-	                    if (!_this3.isActive()) {
-	                        return;
-	                    }
-
-	                    active = null;
-
-	                    _this3.cancelMouseTracker();
-
-	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a, button').blur();
-	                    _this3.toggleState(_this3.drop, false);
-	                    _this3.$el.attr('aria-expanded', 'false').trigger('hide', [_this3, force]);
-	                };
-
-	                this.isDelaying = this.movesTowardsTarget();
-
-	                if (!force && this.isDelaying) {
-	                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
-	                } else if (!force && this.delayHide) {
-	                    this.hideTimer = setTimeout(hide, this.delayHide);
-	                } else {
-	                    hide();
-	                }
-	            },
-	            clearTimers: function clearTimers() {
-	                clearTimeout(this.showTimer);
-	                clearTimeout(this.hideTimer);
-	            },
-	            isActive: function isActive() {
-	                return active === this;
-	            }
-	        }
-
-	    });
-
-	    UIkit.drop.getActive = function () {
-	        return active;
-	    };
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('responsive', {\n\n        props: ['width', 'height'],\n\n        update: {\n            handler: function handler() {\n\n                if (!this.$el.is(':visible') || !this.width || !this.height) {\n                    return;\n                }\n\n                var width = this.$el.parent().width();\n\n                this.$el.css({ height: width < this.width ? Math.floor(width / this.width * this.height) : this.height });\n            },\n\n            events: ['load', 'resize', 'orientationchange']\n\n        }\n\n    });\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvcmVzcG9uc2l2ZS5qcz9mMWUxIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQuY29tcG9uZW50KCdyZXNwb25zaXZlJywge1xuXG4gICAgICAgIHByb3BzOiBbJ3dpZHRoJywgJ2hlaWdodCddLFxuXG4gICAgICAgIHVwZGF0ZToge1xuXG4gICAgICAgICAgICBoYW5kbGVyKCkge1xuXG4gICAgICAgICAgICAgICAgaWYgKCF0aGlzLiRlbC5pcygnOnZpc2libGUnKSB8fCAhdGhpcy53aWR0aCB8fCAhdGhpcy5oZWlnaHQpIHtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIHZhciB3aWR0aCA9IHRoaXMuJGVsLnBhcmVudCgpLndpZHRoKCk7XG5cbiAgICAgICAgICAgICAgICB0aGlzLiRlbC5jc3Moe2hlaWdodDogKHdpZHRoIDwgdGhpcy53aWR0aCkgPyBNYXRoLmZsb29yKCh3aWR0aCAvIHRoaXMud2lkdGgpICogdGhpcy5oZWlnaHQpIDogdGhpcy5oZWlnaHR9KTtcblxuICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgZXZlbnRzOiBbJ2xvYWQnLCAncmVzaXplJywgJ29yaWVudGF0aW9uY2hhbmdlJ11cblxuICAgICAgICB9XG5cbiAgICB9KTtcblxufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL2NvcmUvcmVzcG9uc2l2ZS5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFWQTtBQUNBO0FBYUE7QUFDQTtBQWZBO0FBQ0E7QUFMQTtBQUZBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 24 */
-/***/ function(module, exports) {
+/*!**************************************!*\
+  !*** ./src/js/core/scrollspy-nav.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('dropdown', UIkit.components.drop.extend({ name: 'dropdown' }));
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('scrollspy-nav', {\n\n        props: {\n            cls: String,\n            closest: String,\n            smoothScroll: Boolean,\n            overflow: Boolean\n        },\n\n        defaults: {\n            cls: 'uk-active',\n            closest: false,\n            smoothScroll: false,\n            overflow: true\n        },\n\n        ready: function ready() {\n            this.links = this.$el.find('a[href^=\"#\"]').filter(function (i, el) {\n                return el.hash;\n            });\n            this.elements = this.closest ? this.links.closest(this.closest) : this.links;\n            this.targets = (0, _jquery2.default)(_jquery2.default.map(this.links, function (el) {\n                return el.hash;\n            }).join(','));\n\n            if (this.smoothScroll) {\n                this.links.each(function () {\n                    UIkit.smoothScroll(this);\n                });\n            }\n        },\n\n        update: {\n            handler: function handler() {\n                var _this = this;\n\n                var scrollTop = (0, _jquery2.default)(window).scrollTop();\n\n                this.links.blur();\n                this.elements.removeClass(this.cls);\n\n                this.targets.each(function (i, el) {\n\n                    el = (0, _jquery2.default)(el);\n\n                    var offset = el.offset(),\n                        last = i + 1 === _this.targets.length;\n                    if (!_this.overflow && (i === 0 && offset.top > scrollTop || last && offset.top + el.outerHeight() < scrollTop)) {\n                        return false;\n                    }\n\n                    if (!last && _this.targets.eq(i + 1).offset().top <= scrollTop) {\n                        return;\n                    }\n\n                    var active = _this.links.filter('[href=\"#' + el.attr('id') + '\"]');\n\n                    if (active.length) {\n                        active = (_this.closest ? active.closest(_this.closest) : active).addClass(_this.cls);\n                        _this.$el.trigger('active', [el, active]);\n\n                        return false;\n                    }\n                });\n            },\n\n            events: ['scroll', 'load', 'resize', 'orientationchange']\n\n        }\n\n    });\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvc2Nyb2xsc3B5LW5hdi5qcz9lZmE5Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQuY29tcG9uZW50KCdzY3JvbGxzcHktbmF2Jywge1xuXG4gICAgICAgIHByb3BzOiB7XG4gICAgICAgICAgICBjbHM6IFN0cmluZyxcbiAgICAgICAgICAgIGNsb3Nlc3Q6IFN0cmluZyxcbiAgICAgICAgICAgIHNtb290aFNjcm9sbDogQm9vbGVhbixcbiAgICAgICAgICAgIG92ZXJmbG93OiBCb29sZWFuXG4gICAgICAgIH0sXG5cbiAgICAgICAgZGVmYXVsdHM6IHtcbiAgICAgICAgICAgIGNsczogJ3VrLWFjdGl2ZScsXG4gICAgICAgICAgICBjbG9zZXN0OiBmYWxzZSxcbiAgICAgICAgICAgIHNtb290aFNjcm9sbDogZmFsc2UsXG4gICAgICAgICAgICBvdmVyZmxvdzogdHJ1ZVxuICAgICAgICB9LFxuXG4gICAgICAgIHJlYWR5KCkge1xuICAgICAgICAgICAgdGhpcy5saW5rcyA9IHRoaXMuJGVsLmZpbmQoJ2FbaHJlZl49XCIjXCJdJykuZmlsdGVyKChpLCBlbCkgPT4geyByZXR1cm4gZWwuaGFzaDsgfSk7XG4gICAgICAgICAgICB0aGlzLmVsZW1lbnRzID0gKHRoaXMuY2xvc2VzdCA/IHRoaXMubGlua3MuY2xvc2VzdCh0aGlzLmNsb3Nlc3QpIDogdGhpcy5saW5rcyk7XG4gICAgICAgICAgICB0aGlzLnRhcmdldHMgPSAkKCQubWFwKHRoaXMubGlua3MsIChlbCkgPT4geyByZXR1cm4gZWwuaGFzaCB9KS5qb2luKCcsJykpO1xuXG4gICAgICAgICAgICBpZiAodGhpcy5zbW9vdGhTY3JvbGwpIHtcbiAgICAgICAgICAgICAgICB0aGlzLmxpbmtzLmVhY2goZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgICAgICAgICBVSWtpdC5zbW9vdGhTY3JvbGwodGhpcyk7XG4gICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH0sXG5cbiAgICAgICAgdXBkYXRlOiB7XG5cbiAgICAgICAgICAgIGhhbmRsZXIoKSB7XG5cbiAgICAgICAgICAgICAgICB2YXIgc2Nyb2xsVG9wID0gJCh3aW5kb3cpLnNjcm9sbFRvcCgpO1xuXG4gICAgICAgICAgICAgICAgdGhpcy5saW5rcy5ibHVyKCk7XG4gICAgICAgICAgICAgICAgdGhpcy5lbGVtZW50cy5yZW1vdmVDbGFzcyh0aGlzLmNscyk7XG5cbiAgICAgICAgICAgICAgICB0aGlzLnRhcmdldHMuZWFjaCgoaSwgZWwpID0+IHtcblxuICAgICAgICAgICAgICAgICAgICBlbCA9ICQoZWwpO1xuXG4gICAgICAgICAgICAgICAgICAgIHZhciBvZmZzZXQgPSBlbC5vZmZzZXQoKSwgbGFzdCA9IGkgKyAxID09PSB0aGlzLnRhcmdldHMubGVuZ3RoO1xuICAgICAgICAgICAgICAgICAgICBpZiAoIXRoaXMub3ZlcmZsb3cgJiYgKGkgPT09IDAgJiYgb2Zmc2V0LnRvcCA+IHNjcm9sbFRvcCB8fCBsYXN0ICYmIG9mZnNldC50b3AgKyBlbC5vdXRlckhlaWdodCgpIDwgc2Nyb2xsVG9wKSkge1xuICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlO1xuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKCFsYXN0ICYmIHRoaXMudGFyZ2V0cy5lcShpICsgMSkub2Zmc2V0KCkudG9wIDw9IHNjcm9sbFRvcCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuO1xuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgdmFyIGFjdGl2ZSA9IHRoaXMubGlua3MuZmlsdGVyKGBbaHJlZj1cIiMke2VsLmF0dHIoJ2lkJyl9XCJdYCk7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKGFjdGl2ZS5sZW5ndGgpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIGFjdGl2ZSA9ICh0aGlzLmNsb3Nlc3QgPyBhY3RpdmUuY2xvc2VzdCh0aGlzLmNsb3Nlc3QpIDogYWN0aXZlKS5hZGRDbGFzcyh0aGlzLmNscyk7XG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLiRlbC50cmlnZ2VyKCdhY3RpdmUnLCBbZWwsIGFjdGl2ZV0pO1xuXG4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7XG4gICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgIGV2ZW50czogWydzY3JvbGwnLCAnbG9hZCcsICdyZXNpemUnLCAnb3JpZW50YXRpb25jaGFuZ2UnXVxuXG4gICAgICAgIH1cblxuICAgIH0pO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9zY3JvbGxzcHktbmF2LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQUNBO0FBTUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBQ0E7QUFNQTtBQUNBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQURBO0FBckJBO0FBQ0E7QUEyQkE7QUFFQTs7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBZkE7QUFUQTtBQUNBO0FBZ0NBO0FBQ0E7QUFsQ0E7QUFDQTtBQTdCQTtBQUZBO0FBQ0E7Ozs7OyIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 25 */
-/***/ function(module, exports) {
+/*!**********************************!*\
+  !*** ./src/js/core/scrollspy.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('grid', UIkit.components.marginWrap.extend({
-
-	        name: 'grid',
-
-	        defaults: { margin: 'uk-grid-margin' }
-
-	    }));
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('scrollspy', {\n\n        props: {\n            cls: String,\n            target: String,\n            hidden: Boolean,\n            offsetTop: Number,\n            offsetLeft: Number,\n            repeat: Boolean,\n            delay: Number\n        },\n\n        defaults: {\n            cls: 'uk-scrollspy-inview',\n            target: false,\n            hidden: true,\n            offsetTop: 0,\n            offsetLeft: 0,\n            repeat: false,\n            delay: 0,\n            inViewClass: 'uk-scrollspy-inview'\n        },\n\n        ready: function ready() {\n            this.elements = this.target && (0, _index.toJQuery)(this.target, this.$el) || this.$el;\n\n            if (this.hidden) {\n                this.elements.css('visibility', 'hidden');\n            }\n        },\n\n        update: {\n            handler: function handler() {\n                var _this = this;\n\n                var index = this.elements.length === 1 ? 1 : 0;\n\n                this.elements.each(function (i, el) {\n\n                    var $el = (0, _jquery2.default)(el);\n\n                    if (!el.__uk_scrollspy) {\n                        el.__uk_scrollspy = { toggles: ($el.attr('cls') ? $el.attr('cls') : _this.cls).split(',') };\n                    }\n\n                    var data = el.__uk_scrollspy;\n\n                    if ((0, _index.isInView)(el, _this.offsetTop, _this.offsetLeft)) {\n\n                        if (!data.inview && !data.timer) {\n\n                            data.timer = setTimeout(function () {\n\n                                $el.css('visibility', '').addClass(_this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?\n\n                                data.inview = true;\n                                delete data.timer;\n                            }, _this.delay * index);\n\n                            index++;\n                        }\n                    } else {\n\n                        if (data.inview && _this.repeat) {\n\n                            if (data.timer) {\n                                clearTimeout(data.timer);\n                                delete data.timer;\n                            }\n\n                            $el.removeClass(_this.inViewClass).toggleClass(data.toggles[0]).css('visibility', _this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?\n                            data.inview = false;\n                        }\n                    }\n\n                    data.toggles.reverse();\n                });\n            },\n\n            events: ['scroll', 'load', 'resize', 'orientationchange']\n\n        }\n\n    });\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvc2Nyb2xsc3B5LmpzPzVjZjQiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICQgZnJvbSAnanF1ZXJ5JztcbmltcG9ydCB7aXNJblZpZXcsIHRvSlF1ZXJ5fSBmcm9tICcuLi91dGlsL2luZGV4JztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICBVSWtpdC5jb21wb25lbnQoJ3Njcm9sbHNweScsIHtcblxuICAgICAgICBwcm9wczoge1xuICAgICAgICAgICAgY2xzOiBTdHJpbmcsXG4gICAgICAgICAgICB0YXJnZXQ6IFN0cmluZyxcbiAgICAgICAgICAgIGhpZGRlbjogQm9vbGVhbixcbiAgICAgICAgICAgIG9mZnNldFRvcDogTnVtYmVyLFxuICAgICAgICAgICAgb2Zmc2V0TGVmdDogTnVtYmVyLFxuICAgICAgICAgICAgcmVwZWF0OiBCb29sZWFuLFxuICAgICAgICAgICAgZGVsYXk6IE51bWJlclxuICAgICAgICB9LFxuXG4gICAgICAgIGRlZmF1bHRzOiB7XG4gICAgICAgICAgICBjbHM6ICd1ay1zY3JvbGxzcHktaW52aWV3JyxcbiAgICAgICAgICAgIHRhcmdldDogZmFsc2UsXG4gICAgICAgICAgICBoaWRkZW46IHRydWUsXG4gICAgICAgICAgICBvZmZzZXRUb3A6IDAsXG4gICAgICAgICAgICBvZmZzZXRMZWZ0OiAwLFxuICAgICAgICAgICAgcmVwZWF0OiBmYWxzZSxcbiAgICAgICAgICAgIGRlbGF5OiAwLFxuICAgICAgICAgICAgaW5WaWV3Q2xhc3M6ICd1ay1zY3JvbGxzcHktaW52aWV3J1xuICAgICAgICB9LFxuXG4gICAgICAgIHJlYWR5KCkge1xuICAgICAgICAgICAgdGhpcy5lbGVtZW50cyA9IHRoaXMudGFyZ2V0ICYmIHRvSlF1ZXJ5KHRoaXMudGFyZ2V0LCB0aGlzLiRlbCkgfHwgdGhpcy4kZWw7XG5cbiAgICAgICAgICAgIGlmICh0aGlzLmhpZGRlbikge1xuICAgICAgICAgICAgICAgIHRoaXMuZWxlbWVudHMuY3NzKCd2aXNpYmlsaXR5JywgJ2hpZGRlbicpO1xuICAgICAgICAgICAgfVxuICAgICAgICB9LFxuXG4gICAgICAgIHVwZGF0ZToge1xuXG4gICAgICAgICAgICBoYW5kbGVyKCkge1xuXG4gICAgICAgICAgICAgICAgdmFyIGluZGV4ID0gdGhpcy5lbGVtZW50cy5sZW5ndGggPT09IDEgPyAxIDogMDtcblxuICAgICAgICAgICAgICAgIHRoaXMuZWxlbWVudHMuZWFjaCgoaSwgZWwpID0+IHtcblxuICAgICAgICAgICAgICAgICAgICB2YXIgJGVsID0gJChlbCk7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKCFlbC5fX3VrX3Njcm9sbHNweSkge1xuICAgICAgICAgICAgICAgICAgICAgICAgZWwuX191a19zY3JvbGxzcHkgPSB7dG9nZ2xlczogKCRlbC5hdHRyKCdjbHMnKSA/ICRlbC5hdHRyKCdjbHMnKSA6IHRoaXMuY2xzKS5zcGxpdCgnLCcpfTtcbiAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgIHZhciBkYXRhID0gZWwuX191a19zY3JvbGxzcHk7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKGlzSW5WaWV3KGVsLCB0aGlzLm9mZnNldFRvcCwgdGhpcy5vZmZzZXRMZWZ0KSkge1xuXG4gICAgICAgICAgICAgICAgICAgICAgICBpZiAoIWRhdGEuaW52aWV3ICYmICFkYXRhLnRpbWVyKSB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLnRpbWVyID0gc2V0VGltZW91dCgoKSA9PiB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJGVsLmNzcygndmlzaWJpbGl0eScsICcnKS5hZGRDbGFzcyh0aGlzLmluVmlld0NsYXNzKS50b2dnbGVDbGFzcyhkYXRhLnRvZ2dsZXNbMF0pLnRyaWdnZXIoJ2ludmlldycpOyAvLyBUT0RPIHJlbmFtZSBldmVudD9cblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmludmlldyA9IHRydWU7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlbGV0ZSBkYXRhLnRpbWVyO1xuXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgfSwgdGhpcy5kZWxheSAqIGluZGV4KTtcblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZGV4Kys7XG4gICAgICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgfSBlbHNlIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGRhdGEuaW52aWV3ICYmIHRoaXMucmVwZWF0KSB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoZGF0YS50aW1lcikge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGVhclRpbWVvdXQoZGF0YS50aW1lcik7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlbGV0ZSBkYXRhLnRpbWVyO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICRlbC5yZW1vdmVDbGFzcyh0aGlzLmluVmlld0NsYXNzKS50b2dnbGVDbGFzcyhkYXRhLnRvZ2dsZXNbMF0pLmNzcygndmlzaWJpbGl0eScsIHRoaXMuaGlkZGVuID8gJ2hpZGRlbicgOiAnJykudHJpZ2dlcignb3V0dmlldycpOyAvLyBUT0RPIHJlbmFtZSBldmVudD9cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLmludmlldyA9IGZhbHNlO1xuICAgICAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICBkYXRhLnRvZ2dsZXMucmV2ZXJzZSgpO1xuICAgICAgICAgICAgICAgIH0pO1xuXG4gICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICBldmVudHM6IFsnc2Nyb2xsJywgJ2xvYWQnLCAncmVzaXplJywgJ29yaWVudGF0aW9uY2hhbmdlJ11cblxuICAgICAgICB9XG5cbiAgICB9KTtcblxufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL2NvcmUvc2Nyb2xsc3B5LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFQQTtBQUNBO0FBU0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBUkE7QUFDQTtBQVVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQTFCQTtBQUNBO0FBOEJBO0FBRUE7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUtBO0FBTEE7QUFDQTtBQVFBO0FBWEE7QUFGQTtBQUNBO0FBaUJBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFQQTtBQUFBO0FBbEJBO0FBQ0E7QUE4QkE7QUF6Q0E7QUFOQTtBQUNBO0FBbURBO0FBQ0E7QUFyREE7QUFDQTtBQWhDQTtBQUZBO0FBQ0E7Ozs7Ozs7Iiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 26 */
-/***/ function(module, exports) {
+/*!**************************************!*\
+  !*** ./src/js/core/smooth-scroll.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('height-viewport', {
-
-	        props: {
-	            offset: Boolean,
-	            expand: Boolean
-	        },
-
-	        defaults: {
-	            offset: false,
-	            expand: false
-	        },
-
-	        init: function init() {
-	            if (!this.expand) {
-	                this.$el.css('min-height', this.getHeight());
-	            }
-	        },
-	        ready: function ready() {
-	            this.borderBox = this.$el.css('box-sizing') === 'border-box';
-	        },
-
-
-	        update: {
-	            handler: function handler() {
-
-	                if (this.expand) {
-
-	                    this.$el.css('min-height', '');
-	                    if (document.documentElement.offsetHeight < window.innerHeight) {
-	                        this.$el.css('min-height', this.$el.outerHeight() + window.innerHeight - document.documentElement.offsetHeight - (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height()));
-	                    }
-	                    return;
-	                }
-
-	                // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-	                this.$el.css('height', '');
-	                if (this.getHeight() >= this.$el.height()) {
-	                    this.$el.css('height', this.getHeight());
-	                }
-
-	                this.$el.css('min-height', this.getHeight());
-	            },
-
-
-	            events: ['load', 'resize', 'orientationchange']
-
-	        },
-
-	        methods: {
-	            getHeight: function getHeight() {
-
-	                var height = window.innerHeight;
-
-	                if (this.offset && this.$el.offset().top < height) {
-	                    height -= this.$el.offset().top + (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height());
-	                }
-
-	                return height;
-	            }
-	        }
-
-	    });
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('smooth-scroll', {\n\n        props: {\n            duration: Number,\n            transition: String,\n            offset: Number\n        },\n\n        defaults: {\n            duration: 1000,\n            transition: 'easeOutExpo',\n            offset: 0,\n            complete: null\n        },\n\n        ready: function ready() {\n            var _this = this;\n\n            this.$el.on('click', function (e) {\n                e.preventDefault();\n                _this.scrollToElement((0, _jquery2.default)(_this.$el[0].hash).length ? _this.$el[0].hash : 'body');\n            });\n        },\n\n        methods: {\n            scrollToElement: function scrollToElement(el) {\n\n                el = (0, _jquery2.default)(el);\n\n                // get / set parameters\n                var target = el.offset().top - this.offset,\n                    docHeight = (0, _jquery2.default)(document).height(),\n                    winHeight = window.innerHeight;\n\n                if (target + winHeight > docHeight) {\n                    target = docHeight - winHeight;\n                }\n\n                // animate to target, fire callback when done\n                (0, _jquery2.default)('body').stop().animate({ scrollTop: target }, this.duration, this.transition, this.complete);\n            }\n        }\n\n    });\n\n    if (!_jquery2.default.easing.easeOutExpo) {\n        _jquery2.default.easing.easeOutExpo = function (x, t, b, c, d) {\n            return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;\n        };\n    }\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjYuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvc21vb3RoLXNjcm9sbC5qcz83ZDgzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQuY29tcG9uZW50KCdzbW9vdGgtc2Nyb2xsJywge1xuXG4gICAgICAgIHByb3BzOiB7XG4gICAgICAgICAgICBkdXJhdGlvbjogTnVtYmVyLFxuICAgICAgICAgICAgdHJhbnNpdGlvbjogU3RyaW5nLFxuICAgICAgICAgICAgb2Zmc2V0OiBOdW1iZXJcbiAgICAgICAgfSxcblxuICAgICAgICBkZWZhdWx0czoge1xuICAgICAgICAgICAgZHVyYXRpb246IDEwMDAsXG4gICAgICAgICAgICB0cmFuc2l0aW9uOiAnZWFzZU91dEV4cG8nLFxuICAgICAgICAgICAgb2Zmc2V0OiAwLFxuICAgICAgICAgICAgY29tcGxldGU6IG51bGxcbiAgICAgICAgfSxcblxuICAgICAgICByZWFkeSgpIHtcbiAgICAgICAgICAgIHRoaXMuJGVsLm9uKCdjbGljaycsIChlKSA9PiB7XG4gICAgICAgICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICAgICAgICAgIHRoaXMuc2Nyb2xsVG9FbGVtZW50KCQodGhpcy4kZWxbMF0uaGFzaCkubGVuZ3RoID8gdGhpcy4kZWxbMF0uaGFzaCA6ICdib2R5Jyk7XG4gICAgICAgICAgICB9KTtcbiAgICAgICAgfSxcblxuICAgICAgICBtZXRob2RzOiB7XG5cbiAgICAgICAgICAgIHNjcm9sbFRvRWxlbWVudChlbCkge1xuXG4gICAgICAgICAgICAgICAgZWwgPSAkKGVsKTtcblxuICAgICAgICAgICAgICAgIC8vIGdldCAvIHNldCBwYXJhbWV0ZXJzXG4gICAgICAgICAgICAgICAgdmFyIHRhcmdldCA9IGVsLm9mZnNldCgpLnRvcCAtIHRoaXMub2Zmc2V0LCBkb2NIZWlnaHQgPSAkKGRvY3VtZW50KS5oZWlnaHQoKSwgd2luSGVpZ2h0ID0gd2luZG93LmlubmVySGVpZ2h0O1xuXG4gICAgICAgICAgICAgICAgaWYgKCh0YXJnZXQgKyB3aW5IZWlnaHQpID4gZG9jSGVpZ2h0KSB7XG4gICAgICAgICAgICAgICAgICAgIHRhcmdldCA9IGRvY0hlaWdodCAtIHdpbkhlaWdodDtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAvLyBhbmltYXRlIHRvIHRhcmdldCwgZmlyZSBjYWxsYmFjayB3aGVuIGRvbmVcbiAgICAgICAgICAgICAgICAkKCdib2R5Jykuc3RvcCgpLmFuaW1hdGUoe3Njcm9sbFRvcDogdGFyZ2V0fSwgdGhpcy5kdXJhdGlvbiwgdGhpcy50cmFuc2l0aW9uLCB0aGlzLmNvbXBsZXRlKTtcblxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH1cblxuICAgIH0pO1xuXG4gICAgaWYgKCEkLmVhc2luZy5lYXNlT3V0RXhwbykge1xuICAgICAgICAkLmVhc2luZy5lYXNlT3V0RXhwbyA9IGZ1bmN0aW9uICh4LCB0LCBiLCBjLCBkKSB7XG4gICAgICAgICAgICByZXR1cm4gKHQgPT0gZCkgPyBiICsgYyA6IGMgKiAoLU1hdGgucG93KDIsIC0xMCAqIHQgLyBkKSArIDEpICsgYjtcbiAgICAgICAgfTtcbiAgICB9XG5cbn1cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9jb3JlL3Ntb290aC1zY3JvbGwuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUNBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBQ0E7QUFNQTs7O0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFoQkE7QUFDQTtBQXFCQTtBQUVBO0FBQ0E7QUFDQTtBQUNBOztBQUhBO0FBS0E7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7O0FBUkE7QUFGQTtBQUFBO0FBQ0E7QUF2QkE7QUFDQTtBQTJDQTtBQUNBO0FBQ0E7QUFEQTtBQURBO0FBOUNBO0FBQ0E7Ozs7OyIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 27 */
-/***/ function(module, exports) {
+/*!*******************************!*\
+  !*** ./src/js/core/sticky.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('icon', {
-
-	        mixins: [UIkit.mixin.svg],
-
-	        props: ['icon'],
-
-	        defaults: { cls: 'uk-icon' },
-
-	        ready: function ready() {
-
-	            if (!this.icon) {
-	                return;
-	            }
-
-	            this.class += (this.class ? ' ' : '') + this.cls;
-
-	            this.getIcon(this.$el.css('background-image').slice(4, -1).replace(/"/g, ''), this.icon).then(this.handleIcon);
-	        },
-
-
-	        methods: {
-	            handleIcon: function handleIcon(icon) {
-	                this.$replace(icon);
-	            }
-	        }
-
-	    });
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('sticky', {\n\n        props: {\n            top: null,\n            bottom: Boolean,\n            offset: Number,\n            animation: String,\n            clsActive: String,\n            clsInactive: String,\n            widthElement: 'jQuery',\n            showOnUp: Boolean,\n            media: Number,\n            target: Number\n        },\n\n        defaults: {\n            top: 0,\n            bottom: false,\n            offset: 0,\n            animation: '',\n            clsActive: 'uk-active',\n            clsInactive: '',\n            widthElement: false,\n            showOnUp: false,\n            media: false,\n            target: false\n        },\n\n        ready: function ready() {\n            var _this = this;\n\n            this.placeholder = (0, _jquery2.default)('<div class=\"uk-sticky-placeholder\"></div>').insertAfter(this.$el).css({\n                height: this.$el.css('position') !== 'absolute' ? this.$el.outerHeight() : '',\n                margin: this.$el.css('margin')\n            }).attr('hidden', true);\n\n            this.widthElement = this.widthElement || this.placeholder;\n            this.topProp = this.top;\n            this.bottomProp = this.bottom;\n\n            var scroll = (0, _jquery2.default)(window).scrollTop();\n            if (location.hash && scroll > 0 && this.target) {\n\n                var target = (0, _index.toJQuery)(location.hash);\n\n                if (target) {\n                    (0, _index.requestAnimationFrame)(function () {\n\n                        var top = target.offset().top,\n                            elTop = _this.$el.offset().top,\n                            elHeight = _this.$el.outerHeight(),\n                            elBottom = elTop + elHeight;\n\n                        if (elBottom >= top && elTop <= top + target.outerHeight()) {\n                            window.scrollTo(0, top - elHeight - _this.target - _this.offset);\n                        }\n                    });\n                }\n            }\n\n            this.$el.css({\n                'overflow-y': 'scroll',\n                '-webkit-overflow-scrolling': 'touch'\n            });\n        },\n\n        update: {\n            handler: function handler(_ref) {\n                var type = _ref.type;\n                var dir = _ref.dir;\n\n                var isActive = this.$el.hasClass(this.clsActive);\n\n                if (type !== 'scroll') {\n\n                    this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;\n\n                    this.top = this.topProp;\n\n                    if (this.topProp && typeof this.topProp === 'string') {\n                        if (this.topProp.match(/^-?\\d+vh$/)) {\n                            this.top = window.innerHeight * parseFloat(this.topProp) / 100;\n                        } else {\n                            var el = (0, _index.toJQuery)(this.topProp);\n                            if (el) {\n                                this.top = el[0].offsetTop + el[0].offsetHeight;\n                            }\n                        }\n                    }\n\n                    this.top = Math.max(parseFloat(this.top), this.offsetTop) - this.offset;\n\n                    if (this.bottomProp === true || this.bottomProp[0] === '!') {\n                        this.bottom = this.bottomProp === true ? this.$el.parent() : this.$el.closest(this.bottomProp.substr(1));\n                        this.bottom = this.bottom.offset().top + this.bottom.height() + parseFloat(this.bottom.css('padding-top'));\n                    } else if (typeof this.bottomProp === 'string') {\n                        this.bottom = (0, _index.toJQuery)(this.bottomProp);\n                        if (this.bottom) {\n                            this.bottom = this.bottom.offset().top;\n                        }\n                    }\n\n                    this.bottom = this.bottom ? this.bottom - this.$el.outerHeight() : this.bottom;\n\n                    this.mediaInactive = this.media && !(typeof this.media === 'number' && window.innerWidth >= this.media || typeof this.media === 'string' && window.matchMedia(this.media).matches);\n                }\n\n                var scroll = (0, _jquery2.default)(window).scrollTop();\n\n                if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {\n                    return;\n                }\n\n                if (this.mediaInactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())) {\n                    if (isActive) {\n\n                        _index.Animation.cancel(this.$el);\n\n                        this.$el.css({ position: '', top: '', width: '' }).removeClass(this.clsActive).addClass(this.clsInactive).trigger('inactive');\n\n                        this.placeholder.attr('hidden', true);\n                    }\n\n                    return;\n                }\n\n                this.placeholder.attr('hidden', false);\n\n                var top = Math.max(0, this.offset);\n                if (this.bottom && scroll > this.bottom - this.offset) {\n                    top = this.bottom - scroll;\n                }\n\n                this.$el.css({\n                    position: 'fixed',\n                    top: top + 'px',\n                    width: this.widthElement.width()\n                });\n\n                if (isActive) {\n                    return;\n                }\n\n                if (this.animation) {\n                    _index.Animation.cancel(this.$el).in(this.$el, this.animation);\n                }\n\n                this.$el.addClass(this.clsActive).removeClass(this.clsInactive).trigger('active');\n            },\n\n            events: ['scroll', 'load', 'resize', 'orientationchange']\n\n        }\n\n    });\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvc3RpY2t5LmpzPzUyYmMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICQgZnJvbSAnanF1ZXJ5JztcbmltcG9ydCB7QW5pbWF0aW9uLCB0b0pRdWVyeSwgcmVxdWVzdEFuaW1hdGlvbkZyYW1lfSBmcm9tICcuLi91dGlsL2luZGV4JztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICBVSWtpdC5jb21wb25lbnQoJ3N0aWNreScsIHtcblxuICAgICAgICBwcm9wczoge1xuICAgICAgICAgICAgdG9wOiBudWxsLFxuICAgICAgICAgICAgYm90dG9tOiBCb29sZWFuLFxuICAgICAgICAgICAgb2Zmc2V0OiBOdW1iZXIsXG4gICAgICAgICAgICBhbmltYXRpb246IFN0cmluZyxcbiAgICAgICAgICAgIGNsc0FjdGl2ZTogU3RyaW5nLFxuICAgICAgICAgICAgY2xzSW5hY3RpdmU6IFN0cmluZyxcbiAgICAgICAgICAgIHdpZHRoRWxlbWVudDogJ2pRdWVyeScsXG4gICAgICAgICAgICBzaG93T25VcDogQm9vbGVhbixcbiAgICAgICAgICAgIG1lZGlhOiBOdW1iZXIsXG4gICAgICAgICAgICB0YXJnZXQ6IE51bWJlclxuICAgICAgICB9LFxuXG4gICAgICAgIGRlZmF1bHRzOiB7XG4gICAgICAgICAgICB0b3A6IDAsXG4gICAgICAgICAgICBib3R0b206IGZhbHNlLFxuICAgICAgICAgICAgb2Zmc2V0OiAwLFxuICAgICAgICAgICAgYW5pbWF0aW9uOiAnJyxcbiAgICAgICAgICAgIGNsc0FjdGl2ZTogJ3VrLWFjdGl2ZScsXG4gICAgICAgICAgICBjbHNJbmFjdGl2ZTogJycsXG4gICAgICAgICAgICB3aWR0aEVsZW1lbnQ6IGZhbHNlLFxuICAgICAgICAgICAgc2hvd09uVXA6IGZhbHNlLFxuICAgICAgICAgICAgbWVkaWE6IGZhbHNlLFxuICAgICAgICAgICAgdGFyZ2V0OiBmYWxzZVxuICAgICAgICB9LFxuXG4gICAgICAgIHJlYWR5KCkge1xuXG4gICAgICAgICAgICB0aGlzLnBsYWNlaG9sZGVyID0gJCgnPGRpdiBjbGFzcz1cInVrLXN0aWNreS1wbGFjZWhvbGRlclwiPjwvZGl2PicpXG4gICAgICAgICAgICAgICAgLmluc2VydEFmdGVyKHRoaXMuJGVsKVxuICAgICAgICAgICAgICAgIC5jc3Moe1xuICAgICAgICAgICAgICAgICAgICBoZWlnaHQ6IHRoaXMuJGVsLmNzcygncG9zaXRpb24nKSAhPT0gJ2Fic29sdXRlJyA/IHRoaXMuJGVsLm91dGVySGVpZ2h0KCkgOiAnJyxcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luOiB0aGlzLiRlbC5jc3MoJ21hcmdpbicpXG4gICAgICAgICAgICAgICAgfSkuYXR0cignaGlkZGVuJywgdHJ1ZSk7XG5cbiAgICAgICAgICAgIHRoaXMud2lkdGhFbGVtZW50ID0gdGhpcy53aWR0aEVsZW1lbnQgfHwgdGhpcy5wbGFjZWhvbGRlcjtcbiAgICAgICAgICAgIHRoaXMudG9wUHJvcCA9IHRoaXMudG9wO1xuICAgICAgICAgICAgdGhpcy5ib3R0b21Qcm9wID0gdGhpcy5ib3R0b207XG5cbiAgICAgICAgICAgIHZhciBzY3JvbGwgPSAkKHdpbmRvdykuc2Nyb2xsVG9wKCk7XG4gICAgICAgICAgICBpZiAobG9jYXRpb24uaGFzaCAmJiBzY3JvbGwgPiAwICYmIHRoaXMudGFyZ2V0KSB7XG5cbiAgICAgICAgICAgICAgICB2YXIgdGFyZ2V0ID0gdG9KUXVlcnkobG9jYXRpb24uaGFzaCk7XG5cbiAgICAgICAgICAgICAgICBpZiAodGFyZ2V0KSB7XG4gICAgICAgICAgICAgICAgICAgIHJlcXVlc3RBbmltYXRpb25GcmFtZSgoKSA9PiB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIHZhciB0b3AgPSB0YXJnZXQub2Zmc2V0KCkudG9wLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVsVG9wID0gdGhpcy4kZWwub2Zmc2V0KCkudG9wLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVsSGVpZ2h0ID0gdGhpcy4kZWwub3V0ZXJIZWlnaHQoKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbEJvdHRvbSA9IGVsVG9wICsgZWxIZWlnaHQ7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIGlmIChlbEJvdHRvbSA+PSB0b3AgJiYgZWxUb3AgPD0gdG9wICsgdGFyZ2V0Lm91dGVySGVpZ2h0KCkpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB3aW5kb3cuc2Nyb2xsVG8oMCwgdG9wIC0gZWxIZWlnaHQgLSB0aGlzLnRhcmdldCAtIHRoaXMub2Zmc2V0KTtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICB9KTtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgICAgIHRoaXMuJGVsLmNzcyh7XG4gICAgICAgICAgICAgICAgJ292ZXJmbG93LXknOiAnc2Nyb2xsJyxcbiAgICAgICAgICAgICAgICAnLXdlYmtpdC1vdmVyZmxvdy1zY3JvbGxpbmcnOiAndG91Y2gnXG4gICAgICAgICAgICB9KTtcblxuICAgICAgICB9LFxuXG4gICAgICAgIHVwZGF0ZToge1xuXG4gICAgICAgICAgICBoYW5kbGVyKHt0eXBlLCBkaXJ9KSB7XG5cbiAgICAgICAgICAgICAgICB2YXIgaXNBY3RpdmUgPSB0aGlzLiRlbC5oYXNDbGFzcyh0aGlzLmNsc0FjdGl2ZSk7XG5cbiAgICAgICAgICAgICAgICBpZiAodHlwZSAhPT0gJ3Njcm9sbCcpIHtcblxuICAgICAgICAgICAgICAgICAgICB0aGlzLm9mZnNldFRvcCA9IChpc0FjdGl2ZSA/IHRoaXMucGxhY2Vob2xkZXIub2Zmc2V0KCkgOiB0aGlzLiRlbC5vZmZzZXQoKSkudG9wO1xuXG4gICAgICAgICAgICAgICAgICAgIHRoaXMudG9wID0gdGhpcy50b3BQcm9wO1xuXG4gICAgICAgICAgICAgICAgICAgIGlmICh0aGlzLnRvcFByb3AgJiYgdHlwZW9mKHRoaXMudG9wUHJvcCkgPT09ICdzdHJpbmcnKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBpZiAodGhpcy50b3BQcm9wLm1hdGNoKC9eLT9cXGQrdmgkLykpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzLnRvcCA9IHdpbmRvdy5pbm5lckhlaWdodCAqIHBhcnNlRmxvYXQodGhpcy50b3BQcm9wKSAvIDEwMDtcbiAgICAgICAgICAgICAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGVsID0gdG9KUXVlcnkodGhpcy50b3BQcm9wKTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoZWwpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy50b3AgPSBlbFswXS5vZmZzZXRUb3AgKyBlbFswXS5vZmZzZXRIZWlnaHQ7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgdGhpcy50b3AgPSBNYXRoLm1heChwYXJzZUZsb2F0KHRoaXMudG9wKSwgdGhpcy5vZmZzZXRUb3ApIC0gdGhpcy5vZmZzZXQ7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKHRoaXMuYm90dG9tUHJvcCA9PT0gdHJ1ZSB8fCB0aGlzLmJvdHRvbVByb3BbMF0gPT09ICchJykge1xuICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5ib3R0b20gPSB0aGlzLmJvdHRvbVByb3AgPT09IHRydWUgPyB0aGlzLiRlbC5wYXJlbnQoKSA6IHRoaXMuJGVsLmNsb3Nlc3QodGhpcy5ib3R0b21Qcm9wLnN1YnN0cigxKSk7XG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmJvdHRvbSA9IHRoaXMuYm90dG9tLm9mZnNldCgpLnRvcCArIHRoaXMuYm90dG9tLmhlaWdodCgpICsgcGFyc2VGbG9hdCh0aGlzLmJvdHRvbS5jc3MoJ3BhZGRpbmctdG9wJykpO1xuICAgICAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKHR5cGVvZiB0aGlzLmJvdHRvbVByb3AgPT09ICdzdHJpbmcnKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmJvdHRvbSA9IHRvSlF1ZXJ5KHRoaXMuYm90dG9tUHJvcCk7XG4gICAgICAgICAgICAgICAgICAgICAgICBpZiAodGhpcy5ib3R0b20pIHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmJvdHRvbSA9IHRoaXMuYm90dG9tLm9mZnNldCgpLnRvcDtcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgIHRoaXMuYm90dG9tID0gdGhpcy5ib3R0b20gPyB0aGlzLmJvdHRvbSAtIHRoaXMuJGVsLm91dGVySGVpZ2h0KCkgOiB0aGlzLmJvdHRvbTtcblxuICAgICAgICAgICAgICAgICAgICB0aGlzLm1lZGlhSW5hY3RpdmUgPSB0aGlzLm1lZGlhXG4gICAgICAgICAgICAgICAgICAgICAgICAmJiAhKHR5cGVvZih0aGlzLm1lZGlhKSA9PT0gJ251bWJlcicgJiYgd2luZG93LmlubmVyV2lkdGggPj0gdGhpcy5tZWRpYVxuICAgICAgICAgICAgICAgICAgICAgICAgfHwgdHlwZW9mKHRoaXMubWVkaWEpID09PSAnc3RyaW5nJyAmJiB3aW5kb3cubWF0Y2hNZWRpYSh0aGlzLm1lZGlhKS5tYXRjaGVzKTtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICB2YXIgc2Nyb2xsID0gJCh3aW5kb3cpLnNjcm9sbFRvcCgpO1xuXG4gICAgICAgICAgICAgICAgaWYgKHNjcm9sbCA8IDAgfHwgIXRoaXMuJGVsLmlzKCc6dmlzaWJsZScpIHx8IHRoaXMuZGlzYWJsZWQpIHtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIGlmICh0aGlzLm1lZGlhSW5hY3RpdmVcbiAgICAgICAgICAgICAgICAgICAgfHwgc2Nyb2xsIDwgdGhpcy50b3BcbiAgICAgICAgICAgICAgICAgICAgfHwgdGhpcy5zaG93T25VcCAmJiAoZGlyICE9PSAndXAnIHx8IGRpciA9PT0gJ3VwJyAmJiAhaXNBY3RpdmUgJiYgc2Nyb2xsIDw9IHRoaXMub2Zmc2V0VG9wICsgdGhpcy4kZWwub3V0ZXJIZWlnaHQoKSlcbiAgICAgICAgICAgICAgICApIHtcbiAgICAgICAgICAgICAgICAgICAgaWYgKGlzQWN0aXZlKSB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIEFuaW1hdGlvbi5jYW5jZWwodGhpcy4kZWwpO1xuXG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLiRlbC5jc3Moe3Bvc2l0aW9uOiAnJywgdG9wOiAnJywgd2lkdGg6ICcnfSlcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAucmVtb3ZlQ2xhc3ModGhpcy5jbHNBY3RpdmUpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgLmFkZENsYXNzKHRoaXMuY2xzSW5hY3RpdmUpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgLnRyaWdnZXIoJ2luYWN0aXZlJyk7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMucGxhY2Vob2xkZXIuYXR0cignaGlkZGVuJywgdHJ1ZSk7XG5cbiAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICB0aGlzLnBsYWNlaG9sZGVyLmF0dHIoJ2hpZGRlbicsIGZhbHNlKTtcblxuICAgICAgICAgICAgICAgIHZhciB0b3AgPSBNYXRoLm1heCgwLCB0aGlzLm9mZnNldCk7XG4gICAgICAgICAgICAgICAgaWYgKHRoaXMuYm90dG9tICYmIHNjcm9sbCA+IHRoaXMuYm90dG9tIC0gdGhpcy5vZmZzZXQpIHtcbiAgICAgICAgICAgICAgICAgICAgdG9wID0gdGhpcy5ib3R0b20gLSBzY3JvbGw7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdGhpcy4kZWwuY3NzKHtcbiAgICAgICAgICAgICAgICAgICAgcG9zaXRpb246ICdmaXhlZCcsXG4gICAgICAgICAgICAgICAgICAgIHRvcDogdG9wICsgJ3B4JyxcbiAgICAgICAgICAgICAgICAgICAgd2lkdGg6IHRoaXMud2lkdGhFbGVtZW50LndpZHRoKClcbiAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgICAgIGlmIChpc0FjdGl2ZSkge1xuICAgICAgICAgICAgICAgICAgICByZXR1cm47XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgaWYgKHRoaXMuYW5pbWF0aW9uKSB7XG4gICAgICAgICAgICAgICAgICAgIEFuaW1hdGlvbi5jYW5jZWwodGhpcy4kZWwpLmluKHRoaXMuJGVsLCB0aGlzLmFuaW1hdGlvbik7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdGhpcy4kZWxcbiAgICAgICAgICAgICAgICAgICAgLmFkZENsYXNzKHRoaXMuY2xzQWN0aXZlKVxuICAgICAgICAgICAgICAgICAgICAucmVtb3ZlQ2xhc3ModGhpcy5jbHNJbmFjdGl2ZSlcbiAgICAgICAgICAgICAgICAgICAgLnRyaWdnZXIoJ2FjdGl2ZScpO1xuXG4gICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICBldmVudHM6IFsnc2Nyb2xsJywgJ2xvYWQnLCAncmVzaXplJywgJ29yaWVudGF0aW9uY2hhbmdlJ11cblxuICAgICAgICB9XG5cbiAgICB9KTtcblxufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL2NvcmUvc3RpY2t5LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFWQTtBQUNBO0FBWUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVZBO0FBQ0E7QUFZQTs7O0FBRUE7QUFHQTtBQUNBO0FBSkE7QUFDQTtBQU1BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFQQTtBQURBO0FBSkE7QUFDQTtBQW1CQTtBQUNBO0FBQ0E7QUFGQTtBQTlEQTtBQUNBO0FBb0VBO0FBRUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFHQTtBQUNBO0FBQ0E7QUFEQTtBQUpBO0FBREE7QUFDQTtBQVVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUlBO0FBQ0E7QUFDQTtBQURBO0FBRkE7QUFDQTtBQU1BO0FBQ0E7QUFDQTtBQS9CQTtBQUNBO0FBbUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBSUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSUE7QUFUQTtBQUNBO0FBWUE7QUFqQkE7QUFDQTtBQW1CQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBSEE7QUFDQTtBQUtBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQXpGQTtBQUNBO0FBK0ZBO0FBQ0E7QUFqR0E7QUFDQTtBQXRFQTtBQUZBO0FBQ0E7Ozs7Ozs7Iiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 28 */
+/*!****************************!*\
+  !*** ./src/js/core/svg.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('margin-wrap', {
-
-	        props: ['margin', 'rowFirst'],
-
-	        defaults: {
-	            margin: 'uk-margin-small-top',
-	            rowFirst: 'uk-row-first'
-	        },
-
-	        update: {
-	            handler: function handler() {
-
-	                var columns = this.$el.removeClass(this.margin).children().filter(function (i, el) {
-	                    return el.style.display !== 'none';
-	                }),
-	                    offset = false,
-	                    pos = false;
-
-	                sortByOffset(columns, 'top').filter(function (i, el) {
-
-	                    el = (0, _jquery2.default)(el);
-
-	                    if (offset === false) {
-	                        offset = el.offset().top + columns.outerHeight() - 1; // (-1): weird firefox bug when parent container is display:flex
-	                        return;
-	                    }
-
-	                    return el.offset().top >= offset;
-	                }).addClass(this.margin);
-
-	                if (!this.rowFirst) {
-	                    return;
-	                }
-
-	                // Mark first column elements
-	                sortByOffset(columns.removeClass(this.rowFirst), 'left').filter(function (i, el) {
-
-	                    el = (0, _jquery2.default)(el);
-
-	                    if (pos === false) {
-	                        pos = el.offset().left;
-	                    }
-
-	                    return pos === el.offset().left;
-	                }).addClass(this.rowFirst);
-	            },
-
-
-	            events: ['load', 'resize', 'orientationchange']
-
-	        }
-
-	    });
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function sortByOffset(elements, prop) {
-	    return elements.sort(function (a, b) {
-	        a = (0, _jquery2.default)(a).offset[prop];
-	        b = (0, _jquery2.default)(b).offset[prop];
-
-	        return a === b ? 0 : a < b ? -1 : 1;
-	    });
-	}
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('svg', {\n\n        mixins: [UIkit.mixin.svg],\n\n        props: ['src'],\n\n        defaults: { exclude: ['src'] },\n\n        ready: function ready() {\n            var _this = this;\n\n            if (this.src.indexOf('#') !== -1) {\n\n                var parts = this.src.split('#');\n\n                if (parts.length < 2) {\n                    return;\n                }\n\n                this.getIcon(parts[0], parts[1]).then(this.$replace.bind(this));\n            } else {\n\n                this.get(this.src).then(function (doc) {\n\n                    var svg = (0, _index.toJQuery)(doc);\n\n                    if (!svg) {\n                        return;\n                    }\n\n                    _this.$replace(_this.addProps(svg));\n                });\n            }\n        }\n    });\n};\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjguanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvc3ZnLmpzP2MyZTYiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHt0b0pRdWVyeX0gZnJvbSAnLi4vdXRpbC9pbmRleCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQuY29tcG9uZW50KCdzdmcnLCB7XG5cbiAgICAgICAgbWl4aW5zOiBbVUlraXQubWl4aW4uc3ZnXSxcblxuICAgICAgICBwcm9wczogWydzcmMnXSxcblxuICAgICAgICBkZWZhdWx0czoge2V4Y2x1ZGU6IFsnc3JjJ119LFxuXG4gICAgICAgIHJlYWR5KCkge1xuXG4gICAgICAgICAgICBpZiAodGhpcy5zcmMuaW5kZXhPZignIycpICE9PSAtMSkge1xuXG4gICAgICAgICAgICAgICAgdmFyIHBhcnRzID0gdGhpcy5zcmMuc3BsaXQoJyMnKTtcblxuICAgICAgICAgICAgICAgIGlmIChwYXJ0cy5sZW5ndGggPCAyKSB7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICB0aGlzLmdldEljb24ocGFydHNbMF0sIHBhcnRzWzFdKS50aGVuKHRoaXMuJHJlcGxhY2UuYmluZCh0aGlzKSk7XG5cbiAgICAgICAgICAgIH0gZWxzZSB7XG5cbiAgICAgICAgICAgICAgICB0aGlzLmdldCh0aGlzLnNyYykudGhlbihkb2MgPT4ge1xuXG4gICAgICAgICAgICAgICAgICAgIHZhciBzdmcgPSB0b0pRdWVyeShkb2MpO1xuXG4gICAgICAgICAgICAgICAgICAgIGlmICghc3ZnKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm47XG4gICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICB0aGlzLiRyZXBsYWNlKHRoaXMuYWRkUHJvcHMoc3ZnKSk7XG4gICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgIH1cblxuICAgICAgICB9XG5cbiAgICB9KTtcblxufVxuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL2NvcmUvc3ZnLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFSQTtBQUNBO0FBV0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBUkE7QUFaQTtBQVZBO0FBQUE7QUFGQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 29 */
+/*!*********************************!*\
+  !*** ./src/js/core/switcher.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('match-height', {
-
-	        props: {
-	            target: String,
-	            row: Boolean
-	        },
-
-	        defaults: {
-	            target: false,
-	            row: true
-	        },
-
-	        update: {
-	            handler: function handler() {
-	                var _this = this;
-
-	                var elements = (this.target ? (0, _jquery2.default)(this.target, this.$el) : this.$el.children()).css('min-height', '');
-
-	                if (!this.row) {
-	                    this.match(elements);
-	                    return this;
-	                }
-
-	                (0, _index.requestAnimationFrame)(function () {
-
-	                    var lastOffset = false,
-	                        group = [];
-
-	                    elements.each(function (i, el) {
-
-	                        el = (0, _jquery2.default)(el);
-
-	                        var offset = el.offset().top;
-
-	                        if (offset != lastOffset && group.length) {
-	                            _this.match((0, _jquery2.default)(group));
-	                            group = [];
-	                            offset = el.offset().top;
-	                        }
-
-	                        group.push(el);
-	                        lastOffset = offset;
-	                    });
-
-	                    if (group.length) {
-	                        _this.match((0, _jquery2.default)(group));
-	                    }
-	                });
-	            },
-
-
-	            events: ['resize', 'orientationchange']
-
-	        },
-
-	        methods: {
-	            match: function match(elements) {
-
-	                if (elements.length < 2) {
-	                    return;
-	                }
-
-	                var max = 0;
-
-	                elements.each(function () {
-	                    max = Math.max(max, (0, _jquery2.default)(this).outerHeight());
-	                }).each(function () {
-	                    var el = (0, _jquery2.default)(this);
-	                    el.css('min-height', max - (el.css('box-sizing') == 'border-box' ? 0 : el.outerHeight() - el.height()) + 'px');
-	                });
-	            }
-	        }
-
-	    });
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('switcher', {\n\n        mixins: [UIkit.mixin.toggle],\n\n        props: {\n            connect: 'jQuery',\n            toggle: String,\n            active: Number,\n            swiping: Boolean\n        },\n\n        defaults: {\n            connect: false,\n            toggle: '> *',\n            active: 0,\n            cls: 'uk-active',\n            swiping: true\n        },\n\n        ready: function ready() {\n            var _this = this;\n\n            this.toggles = (0, _index.toJQuery)(this.toggle, this.$el);\n\n            if (!this.connect || !this.toggles) {\n                return;\n            }\n\n            var self = this;\n            this.$el.on('click', this.toggle + ':not(.uk-disabled)', function (e) {\n                e.preventDefault();\n                self.show(this);\n            });\n\n            this.connect.on('click', '[uk-switcher-item]', function (e) {\n                e.preventDefault();\n                self.show((0, _jquery2.default)(this).attr('uk-switcher-item'));\n            });\n\n            if (this.swiping) {\n                this.connect.on('swipeRight swipeLeft', function (e) {\n                    e.preventDefault();\n                    if (!window.getSelection().toString()) {\n                        _this.show(e.type == 'swipeLeft' ? 'next' : 'previous');\n                    }\n                });\n            }\n\n            this.updateAria(this.connect.children());\n            this.show((0, _index.toJQuery)(this.toggles.filter('.' + this.cls)) || (0, _index.toJQuery)(this.toggles.eq(this.active)) || this.toggles.first());\n        },\n\n        methods: {\n            show: function show(item) {\n                var _this2 = this;\n\n                var length = this.toggles.length,\n                    prev = this.connect.children('.' + this.cls).index(),\n                    hasPrev = prev >= 0,\n                    index = (item === 'next' ? prev + 1 : item === 'previous' ? prev - 1 : typeof item === 'string' ? parseInt(item, 10) : this.toggles.index(item)) % length,\n                    toggle,\n                    dir = item === 'previous' ? -1 : 1;\n\n                index = index < 0 ? index + length : index;\n\n                for (var i = 0; i < length; i++, index = (index + dir + length) % length) {\n                    if (!this.toggles.eq(index).is('.uk-disabled, [disabled]')) {\n                        toggle = this.toggles.eq(index);\n                        break;\n                    }\n                }\n\n                if (!toggle || prev >= 0 && toggle.hasClass(this.cls) || prev === index) {\n                    return;\n                }\n\n                this.toggles.removeClass(this.cls).attr('aria-expanded', false);\n                toggle.addClass(this.cls).attr('aria-expanded', true);\n\n                this.toggleState(hasPrev ? this.connect.children(':nth-child(' + (prev + 1) + ')') : undefined, hasPrev).then(function () {\n                    _this2.toggleState(_this2.connect.children(':nth-child(' + (index + 1) + ')'), hasPrev);\n                });\n            }\n        }\n\n    });\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMjkuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvc3dpdGNoZXIuanM/YjQ0NCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJCBmcm9tICdqcXVlcnknO1xuaW1wb3J0IHtBbmltYXRpb24sIHRvSlF1ZXJ5fSBmcm9tICcuLi91dGlsL2luZGV4JztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICBVSWtpdC5jb21wb25lbnQoJ3N3aXRjaGVyJywge1xuXG4gICAgICAgIG1peGluczogW1VJa2l0Lm1peGluLnRvZ2dsZV0sXG5cbiAgICAgICAgcHJvcHM6IHtcbiAgICAgICAgICAgIGNvbm5lY3Q6ICdqUXVlcnknLFxuICAgICAgICAgICAgdG9nZ2xlOiBTdHJpbmcsXG4gICAgICAgICAgICBhY3RpdmU6IE51bWJlcixcbiAgICAgICAgICAgIHN3aXBpbmc6IEJvb2xlYW5cbiAgICAgICAgfSxcblxuICAgICAgICBkZWZhdWx0czoge1xuICAgICAgICAgICAgY29ubmVjdDogZmFsc2UsXG4gICAgICAgICAgICB0b2dnbGU6ICc+IConLFxuICAgICAgICAgICAgYWN0aXZlOiAwLFxuICAgICAgICAgICAgY2xzOiAndWstYWN0aXZlJyxcbiAgICAgICAgICAgIHN3aXBpbmc6IHRydWVcbiAgICAgICAgfSxcblxuICAgICAgICByZWFkeSgpIHtcblxuICAgICAgICAgICAgdGhpcy50b2dnbGVzID0gdG9KUXVlcnkodGhpcy50b2dnbGUsIHRoaXMuJGVsKTtcblxuICAgICAgICAgICAgaWYgKCF0aGlzLmNvbm5lY3QgfHwgIXRoaXMudG9nZ2xlcykge1xuICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgdmFyIHNlbGYgPSB0aGlzO1xuICAgICAgICAgICAgdGhpcy4kZWwub24oJ2NsaWNrJywgdGhpcy50b2dnbGUgKyAnOm5vdCgudWstZGlzYWJsZWQpJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgICAgICAgICAgICAgc2VsZi5zaG93KHRoaXMpO1xuICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgIHRoaXMuY29ubmVjdC5vbignY2xpY2snLCAnW3VrLXN3aXRjaGVyLWl0ZW1dJywgZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgICAgICAgICAgICAgc2VsZi5zaG93KCQodGhpcykuYXR0cigndWstc3dpdGNoZXItaXRlbScpKTtcbiAgICAgICAgICAgIH0pO1xuXG4gICAgICAgICAgICBpZiAodGhpcy5zd2lwaW5nKSB7XG4gICAgICAgICAgICAgICAgdGhpcy5jb25uZWN0Lm9uKCdzd2lwZVJpZ2h0IHN3aXBlTGVmdCcsIGUgPT4ge1xuICAgICAgICAgICAgICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgICAgICAgICAgICAgICAgIGlmICghd2luZG93LmdldFNlbGVjdGlvbigpLnRvU3RyaW5nKCkpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMuc2hvdyhlLnR5cGUgPT0gJ3N3aXBlTGVmdCcgPyAnbmV4dCcgOiAncHJldmlvdXMnKTtcbiAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICB0aGlzLnVwZGF0ZUFyaWEodGhpcy5jb25uZWN0LmNoaWxkcmVuKCkpO1xuICAgICAgICAgICAgdGhpcy5zaG93KHRvSlF1ZXJ5KHRoaXMudG9nZ2xlcy5maWx0ZXIoYC4ke3RoaXMuY2xzfWApKSB8fCB0b0pRdWVyeSh0aGlzLnRvZ2dsZXMuZXEodGhpcy5hY3RpdmUpKSB8fCB0aGlzLnRvZ2dsZXMuZmlyc3QoKSk7XG5cbiAgICAgICAgfSxcblxuICAgICAgICBtZXRob2RzOiB7XG5cbiAgICAgICAgICAgIHNob3coaXRlbSkge1xuXG4gICAgICAgICAgICAgICAgdmFyIGxlbmd0aCA9IHRoaXMudG9nZ2xlcy5sZW5ndGgsXG4gICAgICAgICAgICAgICAgICAgIHByZXYgPSB0aGlzLmNvbm5lY3QuY2hpbGRyZW4oYC4ke3RoaXMuY2xzfWApLmluZGV4KCksXG4gICAgICAgICAgICAgICAgICAgIGhhc1ByZXYgPSBwcmV2ID49IDAsXG4gICAgICAgICAgICAgICAgICAgIGluZGV4ID0gKGl0ZW0gPT09ICduZXh0J1xuICAgICAgICAgICAgICAgICAgICAgICAgPyBwcmV2ICsgMVxuICAgICAgICAgICAgICAgICAgICAgICAgOiBpdGVtID09PSAncHJldmlvdXMnXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPyBwcmV2IC0gMVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogdHlwZW9mIGl0ZW0gPT09ICdzdHJpbmcnXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgID8gcGFyc2VJbnQoaXRlbSwgMTApXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogdGhpcy50b2dnbGVzLmluZGV4KGl0ZW0pXG4gICAgICAgICAgICAgICAgICAgICAgICApICUgbGVuZ3RoLFxuICAgICAgICAgICAgICAgICAgICB0b2dnbGUsXG4gICAgICAgICAgICAgICAgICAgIGRpciA9IGl0ZW0gPT09ICdwcmV2aW91cycgPyAtMSA6IDE7XG5cbiAgICAgICAgICAgICAgICBpbmRleCA9IGluZGV4IDwgMCA/IGluZGV4ICsgbGVuZ3RoIDogaW5kZXg7XG5cbiAgICAgICAgICAgICAgICBmb3IgKHZhciBpID0gMDsgaSA8IGxlbmd0aDsgaSsrLCBpbmRleCA9IChpbmRleCArIGRpciArIGxlbmd0aCkgJSBsZW5ndGgpIHtcbiAgICAgICAgICAgICAgICAgICAgaWYgKCF0aGlzLnRvZ2dsZXMuZXEoaW5kZXgpLmlzKCcudWstZGlzYWJsZWQsIFtkaXNhYmxlZF0nKSkge1xuICAgICAgICAgICAgICAgICAgICAgICAgdG9nZ2xlID0gdGhpcy50b2dnbGVzLmVxKGluZGV4KTtcbiAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrO1xuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgaWYgKCF0b2dnbGUgfHwgKHByZXYgPj0gMCAmJiB0b2dnbGUuaGFzQ2xhc3ModGhpcy5jbHMpKSB8fCBwcmV2ID09PSBpbmRleCkge1xuICAgICAgICAgICAgICAgICAgICByZXR1cm47XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdGhpcy50b2dnbGVzLnJlbW92ZUNsYXNzKHRoaXMuY2xzKS5hdHRyKCdhcmlhLWV4cGFuZGVkJywgZmFsc2UpO1xuICAgICAgICAgICAgICAgIHRvZ2dsZS5hZGRDbGFzcyh0aGlzLmNscykuYXR0cignYXJpYS1leHBhbmRlZCcsIHRydWUpO1xuXG4gICAgICAgICAgICAgICAgdGhpcy50b2dnbGVTdGF0ZShoYXNQcmV2ID8gdGhpcy5jb25uZWN0LmNoaWxkcmVuKGA6bnRoLWNoaWxkKCR7cHJldiArIDF9KWApIDogdW5kZWZpbmVkLCBoYXNQcmV2KS50aGVuKCgpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgdGhpcy50b2dnbGVTdGF0ZSh0aGlzLmNvbm5lY3QuY2hpbGRyZW4oYDpudGgtY2hpbGQoJHtpbmRleCArIDF9KWApLCBoYXNQcmV2KTtcbiAgICAgICAgICAgICAgICB9KTtcblxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH1cblxuICAgIH0pO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS9zd2l0Y2hlci5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBQ0E7QUFNQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQUNBO0FBT0E7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQUZBO0FBQ0E7QUFJQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFGQTtBQURBO0FBQ0E7QUFRQTtBQUNBO0FBaERBO0FBQ0E7QUFtREE7QUFFQTs7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFRQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQURBO0FBQ0E7QUFNQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQWxDQTtBQUFBO0FBQ0E7QUFyREE7QUFGQTtBQUNBOzs7Ozs7OyIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 30 */
-/***/ function(module, exports, __webpack_require__) {
+/*!*******************************!*\
+  !*** ./src/js/core/toggle.js ***!
+  \*******************************/
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('navbar', {
-
-	        props: {
-	            dropdown: String,
-	            mode: String,
-	            pos: String,
-	            offset: Number,
-	            boundary: Boolean,
-	            boundaryAlign: Boolean,
-	            clsDrop: String,
-	            delayShow: Number,
-	            delayHide: Number,
-	            dropbar: Boolean,
-	            duration: Number,
-	            dropbarMode: String
-	        },
-
-	        defaults: {
-	            dropdown: '.uk-navbar-nav > li',
-	            mode: 'hover',
-	            pos: 'bottom-left',
-	            offset: 0,
-	            boundary: true,
-	            boundaryAlign: false,
-	            clsDrop: 'uk-navbar-dropdown',
-	            delayHide: 800,
-	            hoverIdle: 200,
-	            dropbar: false,
-	            duration: 200,
-	            dropbarMode: 'hover'
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each(function (i, el) {
-
-	                if (!(0, _index.toJQuery)('.' + _this.clsDrop, el)) {
-	                    return;
-	                }
-
-	                UIkit.drop(el, {
-	                    mode: _this.mode,
-	                    pos: _this.pos,
-	                    offset: _this.offset,
-	                    boundary: _this.boundary === true || _this.boundaryAlign ? _this.$el : _this.boundary,
-	                    boundaryAlign: _this.boundaryAlign,
-	                    clsDrop: _this.clsDrop,
-	                    flip: 'x',
-	                    delayShow: _this.delayShow,
-	                    delayHide: _this.delayHide
-	                });
-	            });
-
-	            this.$el.on('mouseenter', this.dropdown, function (e) {
-	                var active = _this.getActive();
-	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying) {
-	                    active.hide(true);
-	                }
-	            });
-
-	            if (!this.dropbar) {
-	                return;
-	            }
-
-	            this.dropbar = (0, _index.toJQuery)(this.dropbar);
-
-	            if (!this.dropbar) {
-	                this.dropbar = (0, _jquery2.default)('<div class="uk-navbar-dropbar"></div>').insertAfter(this.$el);
-	            }
-
-	            if (this.dropbarMode === 'hover') {
-	                this.dropbar.addClass('uk-navbar-dropbar-hover');
-	            }
-
-	            var height, transition;
-
-	            this.$el.on({
-
-	                beforeshow: function beforeshow(e, drop) {
-	                    drop.drop.addClass(_this.clsDrop + '-dropbar');
-	                },
-
-	                show: function show(e, drop) {
-
-	                    var newHeight = drop.drop.outerHeight(true);
-
-	                    drop.$el.removeClass('uk-open');
-
-	                    if (height === newHeight) {
-
-	                        if (transition && transition.state() !== 'pending') {
-	                            drop.$el.addClass('uk-open');
-	                        }
-
-	                        return;
-	                    }
-	                    height = newHeight;
-
-	                    transition = _index.Transition.start(_this.dropbar, { height: height }, _this.duration).then(function () {
-	                        var active = _this.getActive();
-	                        if (active) {
-	                            active.$el.addClass('uk-open');
-	                            active.$update();
-	                        }
-	                    });
-	                },
-
-	                hide: function hide() {
-	                    (0, _index.requestAnimationFrame)(function () {
-	                        if (!_this.getActive()) {
-	                            _index.Transition.stop(_this.dropbar).start(_this.dropbar, { height: 0 }, _this.duration);
-	                            height = 0;
-	                        }
-	                    });
-	                }
-
-	            });
-
-	            this.dropbar.on({
-
-	                mouseenter: function mouseenter() {
-	                    var active = _this.getActive();
-	                    if (active) {
-	                        active.clearTimers();
-	                    }
-	                },
-
-	                mouseleave: function mouseleave(e) {
-	                    var active = _this.getActive();
-	                    if (active && !(0, _index.isWithin)(e.relatedTarget, active.$el)) {
-	                        active.hide();
-	                    }
-	                }
-
-	            });
-	        },
-
-
-	        methods: {
-	            getActive: function getActive() {
-	                var active = UIkit.drop.getActive();
-	                if (active && (0, _index.isWithin)(active.$el, this.$el)) {
-	                    return active;
-	                }
-	            }
-	        }
-
-	    });
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.component('toggle', {\n\n        mixins: [UIkit.mixin.toggle],\n\n        props: {\n            target: 'jQuery'\n        },\n\n        defaults: {\n            target: false\n        },\n\n        ready: function ready() {\n            var _this = this;\n\n            if (!this.target) {\n                return;\n            }\n\n            this.aria = this.cls === false;\n            this.updateAria(this.target);\n\n            this.$el.on('click', function (e) {\n                e.preventDefault();\n                _this.toggleState(_this.target);\n            });\n        }\n    });\n};//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzAuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL2NvcmUvdG9nZ2xlLmpzP2QwMDMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICBVSWtpdC5jb21wb25lbnQoJ3RvZ2dsZScsIHtcblxuICAgICAgICBtaXhpbnM6IFtVSWtpdC5taXhpbi50b2dnbGVdLFxuXG4gICAgICAgIHByb3BzOiB7XG4gICAgICAgICAgICB0YXJnZXQ6ICdqUXVlcnknXG4gICAgICAgIH0sXG5cbiAgICAgICAgZGVmYXVsdHM6IHtcbiAgICAgICAgICAgIHRhcmdldDogZmFsc2VcbiAgICAgICAgfSxcblxuICAgICAgICByZWFkeSgpIHtcblxuICAgICAgICAgICAgaWYgKCF0aGlzLnRhcmdldCkge1xuICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgdGhpcy5hcmlhID0gdGhpcy5jbHMgPT09IGZhbHNlO1xuICAgICAgICAgICAgdGhpcy51cGRhdGVBcmlhKHRoaXMudGFyZ2V0KTtcblxuICAgICAgICAgICAgdGhpcy4kZWwub24oJ2NsaWNrJywgZSA9PiB7XG4gICAgICAgICAgICAgICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgICAgICAgICAgICAgIHRoaXMudG9nZ2xlU3RhdGUodGhpcy50YXJnZXQpO1xuICAgICAgICAgICAgfSk7XG4gICAgICAgIH1cblxuICAgIH0pO1xuXG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvY29yZS90b2dnbGUuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQURBO0FBQ0E7QUFHQTs7O0FBRUE7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQXJCQTtBQUFBO0FBRkEiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 31 */
-/***/ function(module, exports) {
+/*!*******************************!*\
+  !*** ./src/js/mixin/mouse.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('responsive', {
-
-	        props: ['width', 'height'],
-
-	        update: {
-	            handler: function handler() {
-
-	                if (!this.$el.is(':visible') || !this.width || !this.height) {
-	                    return;
-	                }
-
-	                var width = this.$el.parent().width();
-
-	                this.$el.css({ height: width < this.width ? Math.floor(width / this.width * this.height) : this.height });
-	            },
-
-
-	            events: ['load', 'resize', 'orientationchange']
-
-	        }
-
-	    });
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.mixin.mouse = {\n\n        defaults: {\n\n            positions: [],\n            position: null,\n            points: null\n\n        },\n\n        methods: {\n            initMouseTracker: function initMouseTracker(target) {\n                var _this = this;\n\n                this.positions = [];\n                this.position = null;\n\n                this.mouseHandler = function (e) {\n                    _this.positions.push({ x: e.pageX, y: e.pageY });\n\n                    if (_this.positions.length > 5) {\n                        _this.positions.shift();\n                    }\n                };\n\n                $(document).on('mousemove', this.mouseHandler);\n\n                var p = (0, _index.getDimensions)(target);\n\n                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];\n\n                if (this.dir === 'right') {\n                    this.points[0].reverse();\n                    this.points[1].reverse();\n                } else if (this.dir === 'top') {\n                    this.points[0].reverse();\n                } else if (this.dir === 'bottom') {\n                    this.points[1].reverse();\n                }\n            },\n            cancelMouseTracker: function cancelMouseTracker() {\n                if (this.mouseHandler) {\n                    $(document).off('mousemove', this.mouseHandler);\n                }\n            },\n            movesTowardsTarget: function movesTowardsTarget() {\n\n                var position = this.positions[this.positions.length - 1],\n                    prevPos = this.positions[0] || position,\n                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {\n                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));\n                }, 0);\n\n                this.position = delay ? position : null;\n                return delay;\n            }\n        }\n\n    };\n\n    function slope(a, b) {\n        return (b.y - a.y) / (b.x - a.x);\n    }\n};\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\n;//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzEuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL21peGluL21vdXNlLmpzP2MxMGMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtnZXREaW1lbnNpb25zfSBmcm9tICcuLi91dGlsL2luZGV4JztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKFVJa2l0KSB7XG5cbiAgICBVSWtpdC5taXhpbi5tb3VzZSA9IHtcblxuICAgICAgICBkZWZhdWx0czoge1xuXG4gICAgICAgICAgICBwb3NpdGlvbnM6IFtdLFxuICAgICAgICAgICAgcG9zaXRpb246IG51bGwsXG4gICAgICAgICAgICBwb2ludHM6IG51bGxcblxuICAgICAgICB9LFxuXG4gICAgICAgIG1ldGhvZHM6IHtcblxuICAgICAgICAgICAgaW5pdE1vdXNlVHJhY2tlcih0YXJnZXQpIHtcblxuICAgICAgICAgICAgICAgIHRoaXMucG9zaXRpb25zID0gW107XG4gICAgICAgICAgICAgICAgdGhpcy5wb3NpdGlvbiA9IG51bGw7XG5cbiAgICAgICAgICAgICAgICB0aGlzLm1vdXNlSGFuZGxlciA9IChlKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMucG9zaXRpb25zLnB1c2goe3g6IGUucGFnZVgsIHk6IGUucGFnZVl9KTtcblxuICAgICAgICAgICAgICAgICAgICBpZiAodGhpcy5wb3NpdGlvbnMubGVuZ3RoID4gNSkge1xuICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5wb3NpdGlvbnMuc2hpZnQoKTtcbiAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH07XG5cbiAgICAgICAgICAgICAgICAkKGRvY3VtZW50KS5vbignbW91c2Vtb3ZlJywgdGhpcy5tb3VzZUhhbmRsZXIpO1xuXG4gICAgICAgICAgICAgICAgdmFyIHAgPSBnZXREaW1lbnNpb25zKHRhcmdldCk7XG5cbiAgICAgICAgICAgICAgICB0aGlzLnBvaW50cyA9IFtcbiAgICAgICAgICAgICAgICAgICAgW3t4OiBwLmxlZnQsIHk6IHAudG9wfSwge3g6IHAucmlnaHQsIHk6IHAuYm90dG9tfV0sXG4gICAgICAgICAgICAgICAgICAgIFt7eDogcC5yaWdodCwgeTogcC50b3B9LCB7eDogcC5sZWZ0LCB5OiBwLmJvdHRvbX1dXG4gICAgICAgICAgICAgICAgXTtcblxuICAgICAgICAgICAgICAgIGlmICh0aGlzLmRpciA9PT0gJ3JpZ2h0Jykge1xuICAgICAgICAgICAgICAgICAgICB0aGlzLnBvaW50c1swXS5yZXZlcnNlKCk7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMucG9pbnRzWzFdLnJldmVyc2UoKTtcbiAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKHRoaXMuZGlyID09PSAndG9wJykge1xuICAgICAgICAgICAgICAgICAgICB0aGlzLnBvaW50c1swXS5yZXZlcnNlKCk7XG4gICAgICAgICAgICAgICAgfSBlbHNlIGlmICh0aGlzLmRpciA9PT0gJ2JvdHRvbScpIHtcbiAgICAgICAgICAgICAgICAgICAgdGhpcy5wb2ludHNbMV0ucmV2ZXJzZSgpO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgY2FuY2VsTW91c2VUcmFja2VyKCkge1xuICAgICAgICAgICAgICAgIGlmICh0aGlzLm1vdXNlSGFuZGxlcikge1xuICAgICAgICAgICAgICAgICAgICAkKGRvY3VtZW50KS5vZmYoJ21vdXNlbW92ZScsIHRoaXMubW91c2VIYW5kbGVyKTtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICBtb3Zlc1Rvd2FyZHNUYXJnZXQoKSB7XG5cbiAgICAgICAgICAgICAgICB2YXIgcG9zaXRpb24gPSB0aGlzLnBvc2l0aW9uc1t0aGlzLnBvc2l0aW9ucy5sZW5ndGggLSAxXSxcbiAgICAgICAgICAgICAgICAgICAgcHJldlBvcyA9IHRoaXMucG9zaXRpb25zWzBdIHx8IHBvc2l0aW9uLFxuICAgICAgICAgICAgICAgICAgICBkZWxheSA9IHBvc2l0aW9uXG4gICAgICAgICAgICAgICAgICAgICAgICAmJiB0aGlzLnBvaW50c1xuICAgICAgICAgICAgICAgICAgICAgICAgJiYgISh0aGlzLnBvc2l0aW9uICYmIHBvc2l0aW9uLnggPT09IHRoaXMucG9zaXRpb24ueCAmJiBwb3NpdGlvbi55ID09PSB0aGlzLnBvc2l0aW9uLnkpXG4gICAgICAgICAgICAgICAgICAgICAgICAmJiB0aGlzLnBvaW50cy5yZWR1Y2UoKHJlc3VsdCwgcG9pbnQpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmVzdWx0ICsgKHNsb3BlKHByZXZQb3MsIHBvaW50WzBdKSA8IHNsb3BlKHBvc2l0aW9uLCBwb2ludFswXSkgJiYgc2xvcGUocHJldlBvcywgcG9pbnRbMV0pID4gc2xvcGUocG9zaXRpb24sIHBvaW50WzFdKSk7XG4gICAgICAgICAgICAgICAgICAgICAgICB9LCAwKTtcblxuICAgICAgICAgICAgICAgIHRoaXMucG9zaXRpb24gPSBkZWxheSA/IHBvc2l0aW9uIDogbnVsbDtcbiAgICAgICAgICAgICAgICByZXR1cm4gZGVsYXk7XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgfVxuXG4gICAgfTtcblxuICAgIGZ1bmN0aW9uIHNsb3BlKGEsIGIpIHtcbiAgICAgICAgcmV0dXJuIChiLnkgLSBhLnkpIC8gKGIueCAtIGEueCk7XG4gICAgfVxuXG59O1xuXG5cblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9taXhpbi9tb3VzZS5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFMQTtBQUNBO0FBT0E7QUFFQTs7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBSEE7QUFDQTtBQU9BO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQUZBO0FBSUE7QUFEQTtBQUdBO0FBREE7QUE3QkE7QUFtQ0E7QUFDQTtBQUNBO0FBREE7QUFwQ0E7QUF5Q0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUlBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFyREE7QUFBQTtBQUNBO0FBWEE7QUFDQTtBQXFFQTtBQUNBO0FBREE7QUF4RUE7QUFDQTs7O0FBMkVBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 32 */
+/*!**********************************!*\
+  !*** ./src/js/mixin/position.js ***!
+  \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('scrollspy', {
-
-	        props: {
-	            cls: String,
-	            target: String,
-	            hidden: Boolean,
-	            offsetTop: Number,
-	            offsetLeft: Number,
-	            repeat: Boolean,
-	            delay: Number
-	        },
-
-	        defaults: {
-	            cls: 'uk-scrollspy-inview',
-	            target: false,
-	            hidden: true,
-	            offsetTop: 0,
-	            offsetLeft: 0,
-	            repeat: false,
-	            delay: 0,
-	            inViewClass: 'uk-scrollspy-inview'
-	        },
-
-	        ready: function ready() {
-	            this.elements = this.target && (0, _index.toJQuery)(this.target, this.$el) || this.$el;
-
-	            if (this.hidden) {
-	                this.elements.css('visibility', 'hidden');
-	            }
-	        },
-
-
-	        update: {
-	            handler: function handler() {
-	                var _this = this;
-
-	                var index = this.elements.length === 1 ? 1 : 0;
-
-	                this.elements.each(function (i, el) {
-
-	                    var $el = (0, _jquery2.default)(el);
-
-	                    if (!el.__uk_scrollspy) {
-	                        el.__uk_scrollspy = { toggles: ($el.attr('cls') ? $el.attr('cls') : _this.cls).split(',') };
-	                    }
-
-	                    var data = el.__uk_scrollspy;
-
-	                    if ((0, _index.isInView)(el, _this.offsetTop, _this.offsetLeft)) {
-
-	                        if (!data.inview && !data.timer) {
-
-	                            data.timer = setTimeout(function () {
-
-	                                $el.css('visibility', '').addClass(_this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
-
-	                                data.inview = true;
-	                                delete data.timer;
-	                            }, _this.delay * index);
-
-	                            index++;
-	                        }
-	                    } else {
-
-	                        if (data.inview && _this.repeat) {
-
-	                            if (data.timer) {
-	                                clearTimeout(data.timer);
-	                                delete data.timer;
-	                            }
-
-	                            $el.removeClass(_this.inViewClass).toggleClass(data.toggles[0]).css('visibility', _this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
-	                            data.inview = false;
-	                        }
-	                    }
-
-	                    data.toggles.reverse();
-	                });
-	            },
-
-
-	            events: ['scroll', 'load', 'resize', 'orientationchange']
-
-	        }
-
-	    });
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.mixin.position = {\n\n        props: {\n            pos: String,\n            offset: Number,\n            flip: Boolean,\n            clsPos: String\n        },\n\n        defaults: {\n            pos: 'bottom-left',\n            flip: true,\n            offset: 0,\n            clsPos: ''\n        },\n\n        ready: function ready() {\n            this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');\n            this.dir = this.pos[0];\n            this.align = this.pos[1];\n        },\n\n        methods: {\n            positionAt: function positionAt(element, target, boundary) {\n\n                (0, _index.removeClass)(element, this.clsPos + '-(top|bottom|left|right)(-[a-z]+)?').css({ top: '', left: '' });\n\n                this.dir = this.pos[0];\n                this.align = this.pos[1];\n\n                var axis = this.getAxis(),\n                    flipped = (0, _index.position)(element, target, axis === 'x' ? flipPosition(this.dir) + ' ' + this.align : this.align + ' ' + flipPosition(this.dir), axis === 'x' ? this.dir + ' ' + this.align : this.align + ' ' + this.dir, axis === 'x' ? '' + (this.dir === 'left' ? -1 * this.offset : this.offset) : ' ' + (this.dir === 'top' ? -1 * this.offset : this.offset), null, this.flip, boundary);\n\n                this.dir = axis === 'x' ? flipped.target.x : flipped.target.y;\n                this.align = axis === 'x' ? flipped.target.y : flipped.target.x;\n\n                element.css('display', '').addClass(this.clsPos + '-' + this.dir + '-' + this.align);\n            },\n            getAxis: function getAxis() {\n                return this.pos[0] === 'top' || this.pos[0] === 'bottom' ? 'y' : 'x';\n            }\n        }\n\n    };\n};\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\n;\n\nfunction flipPosition(pos) {\n    switch (pos) {\n        case 'left':\n            return 'right';\n        case 'right':\n            return 'left';\n        case 'top':\n            return 'bottom';\n        case 'bottom':\n            return 'top';\n        default:\n            return pos;\n    }\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzIuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL21peGluL3Bvc2l0aW9uLmpzPzQ0MTAiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtwb3NpdGlvbiwgcmVtb3ZlQ2xhc3N9IGZyb20gJy4uL3V0aWwvaW5kZXgnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoVUlraXQpIHtcblxuICAgIFVJa2l0Lm1peGluLnBvc2l0aW9uID0ge1xuXG4gICAgICAgIHByb3BzOiB7XG4gICAgICAgICAgICBwb3M6IFN0cmluZyxcbiAgICAgICAgICAgIG9mZnNldDogTnVtYmVyLFxuICAgICAgICAgICAgZmxpcDogQm9vbGVhbixcbiAgICAgICAgICAgIGNsc1BvczogU3RyaW5nXG4gICAgICAgIH0sXG5cbiAgICAgICAgZGVmYXVsdHM6IHtcbiAgICAgICAgICAgIHBvczogJ2JvdHRvbS1sZWZ0JyxcbiAgICAgICAgICAgIGZsaXA6IHRydWUsXG4gICAgICAgICAgICBvZmZzZXQ6IDAsXG4gICAgICAgICAgICBjbHNQb3M6ICcnXG4gICAgICAgIH0sXG5cbiAgICAgICAgcmVhZHkoKSB7XG4gICAgICAgICAgICB0aGlzLnBvcyA9ICh0aGlzLnBvcyArICh0aGlzLnBvcy5pbmRleE9mKCctJykgPT09IC0xID8gJy1jZW50ZXInIDogJycpKS5zcGxpdCgnLScpO1xuICAgICAgICAgICAgdGhpcy5kaXIgPSB0aGlzLnBvc1swXTtcbiAgICAgICAgICAgIHRoaXMuYWxpZ24gPSB0aGlzLnBvc1sxXTtcbiAgICAgICAgfSxcblxuICAgICAgICBtZXRob2RzOiB7XG5cbiAgICAgICAgICAgIHBvc2l0aW9uQXQoZWxlbWVudCwgdGFyZ2V0LCBib3VuZGFyeSkge1xuXG4gICAgICAgICAgICAgICAgcmVtb3ZlQ2xhc3MoZWxlbWVudCwgdGhpcy5jbHNQb3MgKyAnLSh0b3B8Ym90dG9tfGxlZnR8cmlnaHQpKC1bYS16XSspPycpLmNzcyh7dG9wOiAnJywgbGVmdDogJyd9KTtcblxuICAgICAgICAgICAgICAgIHRoaXMuZGlyID0gdGhpcy5wb3NbMF07XG4gICAgICAgICAgICAgICAgdGhpcy5hbGlnbiA9IHRoaXMucG9zWzFdO1xuXG4gICAgICAgICAgICAgICAgdmFyIGF4aXMgPSB0aGlzLmdldEF4aXMoKSxcbiAgICAgICAgICAgICAgICAgICAgZmxpcHBlZCA9IHBvc2l0aW9uKFxuICAgICAgICAgICAgICAgICAgICAgICAgZWxlbWVudCxcbiAgICAgICAgICAgICAgICAgICAgICAgIHRhcmdldCxcbiAgICAgICAgICAgICAgICAgICAgICAgIGF4aXMgPT09ICd4JyA/IGAke2ZsaXBQb3NpdGlvbih0aGlzLmRpcil9ICR7dGhpcy5hbGlnbn1gIDogYCR7dGhpcy5hbGlnbn0gJHtmbGlwUG9zaXRpb24odGhpcy5kaXIpfWAsXG4gICAgICAgICAgICAgICAgICAgICAgICBheGlzID09PSAneCcgPyBgJHt0aGlzLmRpcn0gJHt0aGlzLmFsaWdufWAgOiBgJHt0aGlzLmFsaWdufSAke3RoaXMuZGlyfWAsXG4gICAgICAgICAgICAgICAgICAgICAgICBheGlzID09PSAneCcgPyBgJHt0aGlzLmRpciA9PT0gJ2xlZnQnID8gLTEgKiB0aGlzLm9mZnNldCA6IHRoaXMub2Zmc2V0fWAgOiBgICR7dGhpcy5kaXIgPT09ICd0b3AnID8gLTEgKiB0aGlzLm9mZnNldCA6IHRoaXMub2Zmc2V0fWAsXG4gICAgICAgICAgICAgICAgICAgICAgICBudWxsLFxuICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5mbGlwLFxuICAgICAgICAgICAgICAgICAgICAgICAgYm91bmRhcnlcbiAgICAgICAgICAgICAgICAgICAgKTtcblxuICAgICAgICAgICAgICAgIHRoaXMuZGlyID0gYXhpcyA9PT0gJ3gnID8gZmxpcHBlZC50YXJnZXQueCA6IGZsaXBwZWQudGFyZ2V0Lnk7XG4gICAgICAgICAgICAgICAgdGhpcy5hbGlnbiA9IGF4aXMgPT09ICd4JyA/IGZsaXBwZWQudGFyZ2V0LnkgOiBmbGlwcGVkLnRhcmdldC54O1xuXG4gICAgICAgICAgICAgICAgZWxlbWVudC5jc3MoJ2Rpc3BsYXknLCAnJykuYWRkQ2xhc3MoYCR7dGhpcy5jbHNQb3N9LSR7dGhpcy5kaXJ9LSR7dGhpcy5hbGlnbn1gKVxuICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgZ2V0QXhpcygpIHtcbiAgICAgICAgICAgICAgICByZXR1cm4gdGhpcy5wb3NbMF0gPT09ICd0b3AnIHx8IHRoaXMucG9zWzBdID09PSAnYm90dG9tJyA/ICd5JyA6ICd4JztcbiAgICAgICAgICAgIH1cblxuICAgICAgICB9XG5cbiAgICB9XG5cbn07XG5cbmZ1bmN0aW9uIGZsaXBQb3NpdGlvbihwb3MpIHtcbiAgICBzd2l0Y2ggKHBvcykge1xuICAgICAgICBjYXNlICdsZWZ0JzpcbiAgICAgICAgICAgIHJldHVybiAncmlnaHQnO1xuICAgICAgICBjYXNlICdyaWdodCc6XG4gICAgICAgICAgICByZXR1cm4gJ2xlZnQnO1xuICAgICAgICBjYXNlICd0b3AnOlxuICAgICAgICAgICAgcmV0dXJuICdib3R0b20nO1xuICAgICAgICBjYXNlICdib3R0b20nOlxuICAgICAgICAgICAgcmV0dXJuICd0b3AnO1xuICAgICAgICBkZWZhdWx0OlxuICAgICAgICAgICAgcmV0dXJuIHBvcztcbiAgICB9XG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvbWl4aW4vcG9zaXRpb24uanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBQ0E7QUFNQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSkE7QUFDQTtBQU1BO0FBQ0E7QUFDQTtBQUNBO0FBbkJBO0FBQ0E7QUFxQkE7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQVVBO0FBQ0E7QUFDQTtBQUNBO0FBeEJBO0FBMkJBO0FBQ0E7QUE1QkE7QUFBQTtBQUNBO0FBdkJBO0FBRkE7QUFDQTs7O0FBMERBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBSUE7QUFKQTtBQU1BO0FBTkE7QUFRQTtBQVJBO0FBVUE7QUFWQTtBQURBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 33 */
+/*!*****************************!*\
+  !*** ./src/js/mixin/svg.js ***!
+  \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('scrollspy-nav', {
-
-	        props: {
-	            cls: String,
-	            closest: String,
-	            smoothScroll: Boolean,
-	            overflow: Boolean
-	        },
-
-	        defaults: {
-	            cls: 'uk-active',
-	            closest: false,
-	            smoothScroll: false,
-	            overflow: true
-	        },
-
-	        ready: function ready() {
-	            this.links = this.$el.find('a[href^="#"]').filter(function (i, el) {
-	                return el.hash;
-	            });
-	            this.elements = this.closest ? this.links.closest(this.closest) : this.links;
-	            this.targets = (0, _jquery2.default)(_jquery2.default.map(this.links, function (el) {
-	                return el.hash;
-	            }).join(','));
-
-	            if (this.smoothScroll) {
-	                this.links.each(function () {
-	                    UIkit.smoothScroll(this);
-	                });
-	            }
-	        },
-
-
-	        update: {
-	            handler: function handler() {
-	                var _this = this;
-
-	                var scrollTop = (0, _jquery2.default)(window).scrollTop();
-
-	                this.links.blur();
-	                this.elements.removeClass(this.cls);
-
-	                this.targets.each(function (i, el) {
-
-	                    el = (0, _jquery2.default)(el);
-
-	                    var offset = el.offset(),
-	                        last = i + 1 === _this.targets.length;
-	                    if (!_this.overflow && (i === 0 && offset.top > scrollTop || last && offset.top + el.outerHeight() < scrollTop)) {
-	                        return false;
-	                    }
-
-	                    if (!last && _this.targets.eq(i + 1).offset().top <= scrollTop) {
-	                        return;
-	                    }
-
-	                    var active = _this.links.filter('[href="#' + el.attr('id') + '"]');
-
-	                    if (active.length) {
-	                        active = (_this.closest ? active.closest(_this.closest) : active).addClass(_this.cls);
-	                        _this.$el.trigger('active', [el, active]);
-
-	                        return false;
-	                    }
-	                });
-	            },
-
-
-	            events: ['scroll', 'load', 'resize', 'orientationchange']
-
-	        }
-
-	    });
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.mixin.svg = {\n\n        props: { id: String, class: String, style: String, width: Number, height: Number, ratio: Number },\n\n        defaults: { ratio: 1, id: false, class: '', exclude: [] },\n\n        methods: {\n            get: function get(src) {\n\n                if (svgs[src]) {\n                    return svgs[src];\n                }\n\n                var key = 'uikit_' + UIkit.version + '_' + src;\n                svgs[src] = _jquery2.default.Deferred();\n\n                if (!storage[key]) {\n                    _jquery2.default.get(src, 'text').then(function (doc, status, res) {\n                        storage[key] = res.responseText;\n                        svgs[src].resolve(storage[key]);\n                    });\n                } else {\n                    svgs[src].resolve(storage[key]);\n                }\n\n                return svgs[src];\n            },\n            getIcon: function getIcon(src, icon) {\n                var _this = this;\n\n                return this.get(src).then(function (doc) {\n\n                    var el = (0, _jquery2.default)('#' + icon, doc);\n\n                    if (!el || !el.length) {\n                        return _jquery2.default.Deferred().reject('Icon not found.');\n                    }\n\n                    el = (0, _jquery2.default)((0, _jquery2.default)('<div>').append(el.clone()).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML\n\n                    return _this.addProps(el);\n                });\n            },\n            addProps: function addProps(el) {\n                var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')\n                if (dimensions) {\n                    dimensions = dimensions.split(' ');\n                    this.width = this.width || dimensions[2];\n                    this.height = this.height || dimensions[3];\n                }\n\n                this.width *= this.ratio;\n                this.height *= this.ratio;\n\n                for (var prop in this.$options.props) {\n                    if (this[prop] && this.exclude.indexOf(prop) === -1) {\n                        el.attr(prop, this[prop]);\n                    }\n                }\n\n                if (!this.id) {\n                    el.removeAttr('id');\n                }\n\n                if (this.width && !this.height) {\n                    el.removeAttr('height');\n                }\n\n                if (this.height && !this.width) {\n                    el.removeAttr('width');\n                }\n\n                return el;\n            }\n        }\n\n    };\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar storage = window.sessionStorage || {},\n    svgs = {};\n\n;//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL21peGluL3N2Zy5qcz9mM2EzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5cbnZhciBzdG9yYWdlID0gd2luZG93LnNlc3Npb25TdG9yYWdlIHx8IHt9LCBzdmdzID0ge307XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQubWl4aW4uc3ZnID0ge1xuXG4gICAgICAgIHByb3BzOiB7aWQ6IFN0cmluZywgY2xhc3M6IFN0cmluZywgc3R5bGU6IFN0cmluZywgd2lkdGg6IE51bWJlciwgaGVpZ2h0OiBOdW1iZXIsIHJhdGlvOiBOdW1iZXJ9LFxuXG4gICAgICAgIGRlZmF1bHRzOiB7cmF0aW86IDEsIGlkOiBmYWxzZSwgY2xhc3M6ICcnLCBleGNsdWRlOiBbXX0sXG5cbiAgICAgICAgbWV0aG9kczoge1xuXG4gICAgICAgICAgICBnZXQoc3JjKSB7XG5cbiAgICAgICAgICAgICAgICBpZiAoc3Znc1tzcmNdKSB7XG4gICAgICAgICAgICAgICAgICAgIHJldHVybiBzdmdzW3NyY107XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdmFyIGtleSA9ICd1aWtpdF8nICsgVUlraXQudmVyc2lvbiArICdfJyArIHNyYztcbiAgICAgICAgICAgICAgICBzdmdzW3NyY10gPSAkLkRlZmVycmVkKCk7XG5cbiAgICAgICAgICAgICAgICBpZiAoIXN0b3JhZ2Vba2V5XSkge1xuICAgICAgICAgICAgICAgICAgICAkLmdldChzcmMsICd0ZXh0JykudGhlbigoZG9jLCBzdGF0dXMsIHJlcykgPT4ge1xuICAgICAgICAgICAgICAgICAgICAgICAgc3RvcmFnZVtrZXldID0gcmVzLnJlc3BvbnNlVGV4dDtcbiAgICAgICAgICAgICAgICAgICAgICAgIHN2Z3Nbc3JjXS5yZXNvbHZlKHN0b3JhZ2Vba2V5XSk7XG4gICAgICAgICAgICAgICAgICAgIH0pO1xuICAgICAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgICAgICAgIHN2Z3Nbc3JjXS5yZXNvbHZlKHN0b3JhZ2Vba2V5XSk7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgcmV0dXJuIHN2Z3Nbc3JjXTtcbiAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgIGdldEljb24oc3JjLCBpY29uKSB7XG5cbiAgICAgICAgICAgICAgICByZXR1cm4gdGhpcy5nZXQoc3JjKS50aGVuKGRvYyA9PiB7XG5cbiAgICAgICAgICAgICAgICAgICAgdmFyIGVsID0gJCgnIycgKyBpY29uLCBkb2MpO1xuXG4gICAgICAgICAgICAgICAgICAgIGlmICghZWwgfHwgIWVsLmxlbmd0aCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuICQuRGVmZXJyZWQoKS5yZWplY3QoJ0ljb24gbm90IGZvdW5kLicpO1xuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgZWwgPSAkKCQoJzxkaXY+JykuYXBwZW5kKGVsLmNsb25lKCkpLmh0bWwoKS5yZXBsYWNlKC9zeW1ib2wvZywgJ3N2ZycpKTsgLy8gSUUgd29ya2Fyb3VuZCwgZWxbMF0ub3V0ZXJIVE1MXG5cbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHRoaXMuYWRkUHJvcHMoZWwpO1xuICAgICAgICAgICAgICAgIH0pO1xuXG4gICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICBhZGRQcm9wcyhlbCkge1xuICAgICAgICAgICAgICAgIHZhciBkaW1lbnNpb25zID0gZWxbMF0uZ2V0QXR0cmlidXRlKCd2aWV3Qm94Jyk7IC8vIGpRdWVyeSB3b3JrYXJvdW5kLCBlbC5hdHRyKCd2aWV3Qm94JylcbiAgICAgICAgICAgICAgICBpZiAoZGltZW5zaW9ucykge1xuICAgICAgICAgICAgICAgICAgICBkaW1lbnNpb25zID0gZGltZW5zaW9ucy5zcGxpdCgnICcpO1xuICAgICAgICAgICAgICAgICAgICB0aGlzLndpZHRoID0gdGhpcy53aWR0aCB8fCBkaW1lbnNpb25zWzJdO1xuICAgICAgICAgICAgICAgICAgICB0aGlzLmhlaWdodCA9IHRoaXMuaGVpZ2h0IHx8IGRpbWVuc2lvbnNbM107XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdGhpcy53aWR0aCAqPSB0aGlzLnJhdGlvO1xuICAgICAgICAgICAgICAgIHRoaXMuaGVpZ2h0ICo9IHRoaXMucmF0aW87XG5cbiAgICAgICAgICAgICAgICBmb3IgKHZhciBwcm9wIGluIHRoaXMuJG9wdGlvbnMucHJvcHMpIHtcbiAgICAgICAgICAgICAgICAgICAgaWYgKHRoaXNbcHJvcF0gJiYgdGhpcy5leGNsdWRlLmluZGV4T2YocHJvcCkgPT09IC0xKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICBlbC5hdHRyKHByb3AsIHRoaXNbcHJvcF0pO1xuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgaWYgKCF0aGlzLmlkKSB7XG4gICAgICAgICAgICAgICAgICAgIGVsLnJlbW92ZUF0dHIoJ2lkJyk7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgaWYgKHRoaXMud2lkdGggJiYgIXRoaXMuaGVpZ2h0KSB7XG4gICAgICAgICAgICAgICAgICAgIGVsLnJlbW92ZUF0dHIoJ2hlaWdodCcpO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIGlmICh0aGlzLmhlaWdodCAmJiAhdGhpcy53aWR0aCkge1xuICAgICAgICAgICAgICAgICAgICBlbC5yZW1vdmVBdHRyKCd3aWR0aCcpO1xuICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgIHJldHVybiBlbDtcbiAgICAgICAgICAgIH1cblxuICAgICAgICB9XG5cbiAgICB9O1xuXG59O1xuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL21peGluL3N2Zy5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBSUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQURBO0FBTUE7QUFOQTtBQUNBO0FBUUE7QUFwQkE7QUF1QkE7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBVEE7QUFBQTtBQXpCQTtBQXdDQTtBQUNBO0FBREE7QUFHQTtBQUNBO0FBQ0E7QUFIQTtBQUNBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFEQTtBQUNBO0FBS0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFyRUE7QUFBQTtBQUNBO0FBUEE7QUFGQTtBQUNBOzs7Ozs7O0FBSEE7QUFBQTtBQUNBO0FBcUZBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 34 */
+/*!********************************!*\
+  !*** ./src/js/mixin/toggle.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('smooth-scroll', {
-
-	        props: {
-	            duration: Number,
-	            transition: String,
-	            offset: Number
-	        },
-
-	        defaults: {
-	            duration: 1000,
-	            transition: 'easeOutExpo',
-	            offset: 0,
-	            complete: null
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            this.$el.on('click', function (e) {
-	                e.preventDefault();
-	                _this.scrollToElement((0, _jquery2.default)(_this.$el[0].hash).length ? _this.$el[0].hash : 'body');
-	            });
-	        },
-
-
-	        methods: {
-	            scrollToElement: function scrollToElement(el) {
-
-	                el = (0, _jquery2.default)(el);
-
-	                // get / set parameters
-	                var target = el.offset().top - this.offset,
-	                    docHeight = (0, _jquery2.default)(document).height(),
-	                    winHeight = window.innerHeight;
-
-	                if (target + winHeight > docHeight) {
-	                    target = docHeight - winHeight;
-	                }
-
-	                // animate to target, fire callback when done
-	                (0, _jquery2.default)('body').stop().animate({ scrollTop: target }, this.duration, this.transition, this.complete);
-	            }
-	        }
-
-	    });
-
-	    if (!_jquery2.default.easing.easeOutExpo) {
-	        _jquery2.default.easing.easeOutExpo = function (x, t, b, c, d) {
-	            return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
-	        };
-	    }
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\n\nexports.default = function (UIkit) {\n\n    UIkit.mixin.toggle = {\n\n        props: {\n            cls: Boolean,\n            animation: String,\n            duration: Number\n        },\n\n        defaults: {\n            cls: false,\n            animation: false,\n            duration: 200,\n            aria: true\n        },\n\n        ready: function ready() {\n\n            if (typeof this.animation === 'string') {\n\n                this.animation = this.animation.split(',');\n\n                if (this.animation.length == 1) {\n                    this.animation[1] = this.animation[0];\n                }\n\n                this.animation[0] = this.animation[0].trim();\n                this.animation[1] = this.animation[1].trim();\n            }\n        },\n\n        methods: {\n            toggleState: function toggleState(targets, animate, show) {\n                var _this = this;\n\n                var deferreds = [];\n\n                (0, _jquery2.default)(targets).each(function (i, el) {\n\n                    el = (0, _jquery2.default)(el);\n\n                    var toggled = _this.isToggled(el);\n\n                    if (show === true && toggled || show === false && !toggled) {\n                        return;\n                    }\n\n                    if (_this.animation && animate !== false) {\n\n                        _index.Animation.cancel(el);\n\n                        if (!_this.isToggled(el)) {\n\n                            _this.doToggle(el, true);\n                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration).then(function () {\n                                _this.doUpdate(el);\n                            }));\n                        } else {\n\n                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {\n                                _this.doToggle(el, false);\n                                _this.doUpdate(el);\n                            }));\n                        }\n                    } else {\n\n                        _this.doToggle(el, !toggled);\n                        _this.doUpdate(el);\n                        deferreds.push(_jquery2.default.Deferred().resolve());\n                    }\n                });\n\n                return _jquery2.default.when.apply(null, deferreds);\n            },\n            doToggle: function doToggle(el, toggled) {\n                el = (0, _jquery2.default)(el);\n                el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);\n            },\n            isToggled: function isToggled(el) {\n                el = (0, _jquery2.default)(el);\n                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');\n            },\n            doUpdate: function doUpdate(el) {\n                this.updateAria(el);\n                this.$update(null, el);\n            },\n            updateAria: function updateAria(el) {\n                if (this.aria) {\n                    el.attr('aria-hidden', !this.isToggled(el));\n                }\n            }\n        }\n\n    };\n};\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ../util/index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n;//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzQuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL21peGluL3RvZ2dsZS5qcz8wZmQ2Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAkIGZyb20gJ2pxdWVyeSc7XG5pbXBvcnQge0FuaW1hdGlvbn0gZnJvbSAnLi4vdXRpbC9pbmRleCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChVSWtpdCkge1xuXG4gICAgVUlraXQubWl4aW4udG9nZ2xlID0ge1xuXG4gICAgICAgIHByb3BzOiB7XG4gICAgICAgICAgICBjbHM6IEJvb2xlYW4sXG4gICAgICAgICAgICBhbmltYXRpb246IFN0cmluZyxcbiAgICAgICAgICAgIGR1cmF0aW9uOiBOdW1iZXJcbiAgICAgICAgfSxcblxuICAgICAgICBkZWZhdWx0czoge1xuICAgICAgICAgICAgY2xzOiBmYWxzZSxcbiAgICAgICAgICAgIGFuaW1hdGlvbjogZmFsc2UsXG4gICAgICAgICAgICBkdXJhdGlvbjogMjAwLFxuICAgICAgICAgICAgYXJpYTogdHJ1ZVxuICAgICAgICB9LFxuXG4gICAgICAgIHJlYWR5KCkge1xuXG4gICAgICAgICAgICBpZiAodHlwZW9mIHRoaXMuYW5pbWF0aW9uID09PSAnc3RyaW5nJykge1xuXG4gICAgICAgICAgICAgICAgdGhpcy5hbmltYXRpb24gPSB0aGlzLmFuaW1hdGlvbi5zcGxpdCgnLCcpO1xuXG4gICAgICAgICAgICAgICAgaWYgKHRoaXMuYW5pbWF0aW9uLmxlbmd0aCA9PSAxKSB7XG4gICAgICAgICAgICAgICAgICAgIHRoaXMuYW5pbWF0aW9uWzFdID0gdGhpcy5hbmltYXRpb25bMF07XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgdGhpcy5hbmltYXRpb25bMF0gPSB0aGlzLmFuaW1hdGlvblswXS50cmltKCk7XG4gICAgICAgICAgICAgICAgdGhpcy5hbmltYXRpb25bMV0gPSB0aGlzLmFuaW1hdGlvblsxXS50cmltKCk7XG5cbiAgICAgICAgICAgIH1cblxuICAgICAgICB9LFxuXG4gICAgICAgIG1ldGhvZHM6IHtcblxuICAgICAgICAgICAgdG9nZ2xlU3RhdGUodGFyZ2V0cywgYW5pbWF0ZSwgc2hvdykge1xuXG4gICAgICAgICAgICAgICAgdmFyIGRlZmVycmVkcyA9IFtdO1xuXG4gICAgICAgICAgICAgICAgJCh0YXJnZXRzKS5lYWNoKChpLCBlbCkgPT4ge1xuXG4gICAgICAgICAgICAgICAgICAgIGVsID0gJChlbCk7XG5cbiAgICAgICAgICAgICAgICAgICAgdmFyIHRvZ2dsZWQgPSB0aGlzLmlzVG9nZ2xlZChlbCk7XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKHNob3cgPT09IHRydWUgJiYgdG9nZ2xlZCB8fCBzaG93ID09PSBmYWxzZSAmJiAhdG9nZ2xlZCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuO1xuICAgICAgICAgICAgICAgICAgICB9XG5cbiAgICAgICAgICAgICAgICAgICAgaWYgKHRoaXMuYW5pbWF0aW9uICYmIGFuaW1hdGUgIT09IGZhbHNlKSB7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIEFuaW1hdGlvbi5jYW5jZWwoZWwpO1xuXG4gICAgICAgICAgICAgICAgICAgICAgICBpZiAoIXRoaXMuaXNUb2dnbGVkKGVsKSkge1xuXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5kb1RvZ2dsZShlbCwgdHJ1ZSk7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVmZXJyZWRzLnB1c2goQW5pbWF0aW9uLmluKGVsLCB0aGlzLmFuaW1hdGlvblswXSwgdGhpcy5kdXJhdGlvbikudGhlbigoKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMuZG9VcGRhdGUoZWwpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0pKTtcblxuICAgICAgICAgICAgICAgICAgICAgICAgfSBlbHNlIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlZmVycmVkcy5wdXNoKEFuaW1hdGlvbi5vdXQoZWwsIHRoaXMuYW5pbWF0aW9uWzFdLCB0aGlzLmR1cmF0aW9uKS50aGVuKCgpID0+IHtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5kb1RvZ2dsZShlbCwgZmFsc2UpO1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmRvVXBkYXRlKGVsKTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KSk7XG5cbiAgICAgICAgICAgICAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgICAgICAgICB9IGVsc2Uge1xuXG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmRvVG9nZ2xlKGVsLCAhdG9nZ2xlZCk7XG4gICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmRvVXBkYXRlKGVsKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIGRlZmVycmVkcy5wdXNoKCQuRGVmZXJyZWQoKS5yZXNvbHZlKCkpO1xuICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfSk7XG5cbiAgICAgICAgICAgICAgICByZXR1cm4gJC53aGVuLmFwcGx5KG51bGwsIGRlZmVycmVkcyk7XG4gICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICBkb1RvZ2dsZShlbCwgdG9nZ2xlZCkge1xuICAgICAgICAgICAgICAgIGVsID0gJChlbCk7XG4gICAgICAgICAgICAgICAgZWwudG9nZ2xlQ2xhc3ModGhpcy5jbHMsIHRoaXMuY2xzICYmIHRvZ2dsZWQpLmF0dHIoJ2hpZGRlbicsICF0aGlzLmNscyAmJiAhdG9nZ2xlZCk7XG4gICAgICAgICAgICB9LFxuXG4gICAgICAgICAgICBpc1RvZ2dsZWQoZWwpIHtcbiAgICAgICAgICAgICAgICBlbCA9ICQoZWwpO1xuICAgICAgICAgICAgICAgIHJldHVybiB0aGlzLmNscyA/IGVsLmhhc0NsYXNzKHRoaXMuY2xzKSA6ICFlbC5hdHRyKCdoaWRkZW4nKTtcbiAgICAgICAgICAgIH0sXG5cbiAgICAgICAgICAgIGRvVXBkYXRlKGVsKSB7XG4gICAgICAgICAgICAgICAgdGhpcy51cGRhdGVBcmlhKGVsKTtcbiAgICAgICAgICAgICAgICB0aGlzLiR1cGRhdGUobnVsbCwgZWwpO1xuICAgICAgICAgICAgfSxcblxuICAgICAgICAgICAgdXBkYXRlQXJpYShlbCkge1xuICAgICAgICAgICAgICAgIGlmICh0aGlzLmFyaWEpIHtcbiAgICAgICAgICAgICAgICAgICAgZWwuYXR0cignYXJpYS1oaWRkZW4nLCAhdGhpcy5pc1RvZ2dsZWQoZWwpKTtcbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICB9XG5cbiAgICAgICAgfVxuXG4gICAgfTtcblxufTtcblxuXG5cbi8qKiBXRUJQQUNLIEZPT1RFUiAqKlxuICoqIHNyYy9qcy9taXhpbi90b2dnbGUuanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUNBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUpBO0FBQ0E7QUFNQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFUQTtBQWpCQTtBQUNBO0FBK0JBO0FBRUE7OztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBSEE7QUFDQTtBQVFBO0FBQ0E7QUFDQTtBQUZBO0FBVEE7QUFKQTtBQUNBO0FBcUJBO0FBQ0E7QUFDQTtBQXhCQTtBQVZBO0FBQ0E7QUFxQ0E7QUE1Q0E7QUErQ0E7QUFDQTtBQUNBO0FBakRBO0FBb0RBO0FBQ0E7QUFDQTtBQXREQTtBQXlEQTtBQUNBO0FBQ0E7QUEzREE7QUE4REE7QUFDQTtBQUNBO0FBREE7QUEvREE7QUFBQTtBQUNBO0FBakNBO0FBRkE7QUFDQTs7Ozs7Ozs7O0FBeUdBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 35 */
+/*!*************************!*\
+  !*** ./src/js/uikit.js ***!
+  \*************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('sticky', {
-
-	        props: {
-	            top: null,
-	            bottom: Boolean,
-	            offset: Number,
-	            animation: String,
-	            clsActive: String,
-	            clsInactive: String,
-	            widthElement: 'jQuery',
-	            showOnUp: Boolean,
-	            media: Number,
-	            target: Number
-	        },
-
-	        defaults: {
-	            top: 0,
-	            bottom: false,
-	            offset: 0,
-	            animation: '',
-	            clsActive: 'uk-active',
-	            clsInactive: '',
-	            widthElement: false,
-	            showOnUp: false,
-	            media: false,
-	            target: false
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            this.placeholder = (0, _jquery2.default)('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).css({
-	                height: this.$el.css('position') !== 'absolute' ? this.$el.outerHeight() : '',
-	                margin: this.$el.css('margin')
-	            }).attr('hidden', true);
-
-	            this.widthElement = this.widthElement || this.placeholder;
-	            this.topProp = this.top;
-	            this.bottomProp = this.bottom;
-
-	            var scroll = (0, _jquery2.default)(window).scrollTop();
-	            if (location.hash && scroll > 0 && this.target) {
-
-	                var target = (0, _index.toJQuery)(location.hash);
-
-	                if (target) {
-	                    (0, _index.requestAnimationFrame)(function () {
-
-	                        var top = target.offset().top,
-	                            elTop = _this.$el.offset().top,
-	                            elHeight = _this.$el.outerHeight(),
-	                            elBottom = elTop + elHeight;
-
-	                        if (elBottom >= top && elTop <= top + target.outerHeight()) {
-	                            window.scrollTo(0, top - elHeight - _this.target - _this.offset);
-	                        }
-	                    });
-	                }
-	            }
-
-	            this.$el.css({
-	                'overflow-y': 'scroll',
-	                '-webkit-overflow-scrolling': 'touch'
-	            });
-	        },
-
-
-	        update: {
-	            handler: function handler(_ref) {
-	                var type = _ref.type;
-	                var dir = _ref.dir;
-
-
-	                var isActive = this.$el.hasClass(this.clsActive);
-
-	                if (type !== 'scroll') {
-
-	                    this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
-
-	                    this.top = this.topProp;
-
-	                    if (this.topProp && typeof this.topProp === 'string') {
-	                        if (this.topProp.match(/^-?\d+vh$/)) {
-	                            this.top = window.innerHeight * parseFloat(this.topProp) / 100;
-	                        } else {
-	                            var el = (0, _index.toJQuery)(this.topProp);
-	                            if (el) {
-	                                this.top = el[0].offsetTop + el[0].offsetHeight;
-	                            }
-	                        }
-	                    }
-
-	                    this.top = Math.max(parseFloat(this.top), this.offsetTop) - this.offset;
-
-	                    if (this.bottomProp === true || this.bottomProp[0] === '!') {
-	                        this.bottom = this.bottomProp === true ? this.$el.parent() : this.$el.closest(this.bottomProp.substr(1));
-	                        this.bottom = this.bottom.offset().top + this.bottom.height() + parseFloat(this.bottom.css('padding-top'));
-	                    } else if (typeof this.bottomProp === 'string') {
-	                        this.bottom = (0, _index.toJQuery)(this.bottomProp);
-	                        if (this.bottom) {
-	                            this.bottom = this.bottom.offset().top;
-	                        }
-	                    }
-
-	                    this.bottom = this.bottom ? this.bottom - this.$el.outerHeight() : this.bottom;
-
-	                    this.mediaInactive = this.media && !(typeof this.media === 'number' && window.innerWidth >= this.media || typeof this.media === 'string' && window.matchMedia(this.media).matches);
-	                }
-
-	                var scroll = (0, _jquery2.default)(window).scrollTop();
-
-	                if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
-	                    return;
-	                }
-
-	                if (this.mediaInactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())) {
-	                    if (isActive) {
-
-	                        _index.Animation.cancel(this.$el);
-
-	                        this.$el.css({ position: '', top: '', width: '' }).removeClass(this.clsActive).addClass(this.clsInactive).trigger('inactive');
-
-	                        this.placeholder.attr('hidden', true);
-	                    }
-
-	                    return;
-	                }
-
-	                this.placeholder.attr('hidden', false);
-
-	                var top = Math.max(0, this.offset);
-	                if (this.bottom && scroll > this.bottom - this.offset) {
-	                    top = this.bottom - scroll;
-	                }
-
-	                this.$el.css({
-	                    position: 'fixed',
-	                    top: top + 'px',
-	                    width: this.widthElement.width()
-	                });
-
-	                if (isActive) {
-	                    return;
-	                }
-
-	                if (this.animation) {
-	                    _index.Animation.cancel(this.$el).in(this.$el, this.animation);
-	                }
-
-	                this.$el.addClass(this.clsActive).removeClass(this.clsInactive).trigger('active');
-	            },
-
-
-	            events: ['scroll', 'load', 'resize', 'orientationchange']
-
-	        }
-
-	    });
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _index = __webpack_require__(/*! ./api/index */ 4);\n\nvar _index2 = _interopRequireDefault(_index);\n\nvar _index3 = __webpack_require__(/*! ./mixin/index */ 6);\n\nvar _index4 = _interopRequireDefault(_index3);\n\nvar _index5 = __webpack_require__(/*! ./core/index */ 5);\n\nvar _index6 = _interopRequireDefault(_index5);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n_index2.default.version = '3.0.0';\n\n(0, _index4.default)(_index2.default, _index2.default.util);\n(0, _index6.default)(_index2.default, _index2.default.util);\n\nexports.default = _index2.default;\n\nmodule.exports = _index2.default;//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzUuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL3Vpa2l0LmpzPzMzZjMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFVJa2l0IGZyb20gJy4vYXBpL2luZGV4JztcbmltcG9ydCBtaXhpbiBmcm9tICcuL21peGluL2luZGV4JztcbmltcG9ydCBjb3JlIGZyb20gJy4vY29yZS9pbmRleCc7XG5cblVJa2l0LnZlcnNpb24gPSAnMy4wLjAnO1xuXG5taXhpbihVSWtpdCwgVUlraXQudXRpbCk7XG5jb3JlKFVJa2l0LCBVSWtpdC51dGlsKTtcblxuZXhwb3J0IGRlZmF1bHQgVUlraXQ7XG5tb2R1bGUuZXhwb3J0cyA9IFVJa2l0O1xuXG5cblxuLyoqIFdFQlBBQ0sgRk9PVEVSICoqXG4gKiogc3JjL2pzL3Vpa2l0LmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUlBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7OztBQUVBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ },
 /* 36 */
+/*!****************************!*\
+  !*** ./src/js/util/dom.js ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('svg', {
-
-	        mixins: [UIkit.mixin.svg],
-
-	        props: ['src'],
-
-	        defaults: { exclude: ['src'] },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            if (this.src.indexOf('#') !== -1) {
-
-	                var parts = this.src.split('#');
-
-	                if (parts.length < 2) {
-	                    return;
-	                }
-
-	                this.getIcon(parts[0], parts[1]).then(this.$replace.bind(this));
-	            } else {
-
-	                this.get(this.src).then(function (doc) {
-
-	                    var svg = (0, _index.toJQuery)(doc);
-
-	                    if (!svg) {
-	                        return;
-	                    }
-
-	                    _this.$replace(_this.addProps(svg));
-	                });
-	            }
-	        }
-	    });
-	};
-
-	var _index = __webpack_require__(4);
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.Animation = exports.Transition = exports.langDirection = undefined;\nexports.ready = ready;\nexports.transition = transition;\nexports.animate = animate;\nexports.offsetParent = offsetParent;\nexports.isWithin = isWithin;\nexports.attrFilter = attrFilter;\nexports.removeClass = removeClass;\nexports.createEvent = createEvent;\nexports.isInView = isInView;\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _env = __webpack_require__(/*! ./env */ 2);\n\nvar _lang = __webpack_require__(/*! ./lang */ 3);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar langDirection = exports.langDirection = (0, _jquery2.default)('html').attr('dir') == 'rtl' ? 'right' : 'left';\n\nfunction ready(fn) {\n\n    var handle = function handle() {\n        document.removeEventListener('DOMContentLoaded', handle);\n        window.removeEventListener('load', handle);\n        fn();\n    };\n\n    if (document.readyState === 'complete') {\n        fn();\n    } else {\n        document.addEventListener('DOMContentLoaded', handle);\n        window.addEventListener('load', handle);\n    }\n}\n\nfunction transition(element, props, duration, transition) {\n\n    var d = _jquery2.default.Deferred();\n\n    element = (0, _jquery2.default)(element);\n\n    for (var name in props) {\n        element.css(name, element.css(name));\n    }\n\n    (0, _env.cancelAnimationFrame)(element[0].__uk_transition);\n\n    element[0].__uk_transition = (0, _env.requestAnimationFrame)(function () {\n\n        var timer = setTimeout(function () {\n            element.trigger(_env.transitionend || 'transitionend');\n        }, duration);\n\n        element.one(_env.transitionend || 'transitionend', function () {\n            d.resolve();\n            element.css('transition', '');\n            clearTimeout(timer);\n        }).css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);\n\n        delete element[0].__uk_transition;\n    });\n\n    return d.promise();\n}\n\nvar Transition = exports.Transition = {\n\n    start: transition,\n\n    stop: function stop(element) {\n\n        element = (0, _jquery2.default)(element);\n\n        (0, _env.cancelAnimationFrame)(element[0].__uk_transition);\n        (0, _jquery2.default)(element).trigger(_env.transitionend || 'transitionend');\n\n        return this;\n    }\n};\n\nfunction animate(element, animation, duration, out) {\n\n    var d = _jquery2.default.Deferred(),\n        cls = out ? 'uk-animation-leave' : 'uk-animation-enter';\n\n    element = (0, _jquery2.default)(element);\n\n    if (out && animation.indexOf('uk-animation-') === 0) {\n        animation += ' uk-animation-reverse';\n    }\n\n    reset();\n\n    element.css('animation-duration', duration + 'ms').addClass(animation);\n\n    (0, _env.requestAnimationFrame)(function () {\n        element.addClass(cls);\n    });\n\n    element.one(_env.animationend || 'animationend', function () {\n        reset();\n        d.resolve();\n    });\n\n    if (!_env.animationend) {\n        (0, _env.requestAnimationFrame)(function () {\n            Animation.cancel(element);\n        });\n    }\n\n    return d.promise();\n\n    function reset() {\n        element.css('animation-duration', '').removeClass(cls + ' ' + animation);\n    }\n}\n\nvar Animation = exports.Animation = {\n    in: function _in(element, animation, duration) {\n        return animate(element, animation, duration, false);\n    },\n    out: function out(element, animation, duration) {\n        return animate(element, animation, duration, true);\n    },\n    inProgress: function inProgress(element) {\n        return (0, _jquery2.default)(element).hasClass('uk-animation-enter') || (0, _jquery2.default)(element).hasClass('uk-animation-leave');\n    },\n    cancel: function cancel(element) {\n        (0, _jquery2.default)(element).trigger(_env.animationend || 'animationend');\n        return this;\n    }\n};\n\n// TODO still needed?\nfunction offsetParent(element) {\n    return (0, _jquery2.default)(element).parents().filter(function () {\n        return _jquery2.default.inArray((0, _jquery2.default)(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;\n    }).first();\n}\n\nfunction isWithin(element, selector) {\n    element = (0, _jquery2.default)(element);\n    return element.is(selector) || !!(typeof selector === 'string' ? element.parents(selector).length : _jquery2.default.contains(selector instanceof _jquery2.default ? selector[0] : selector, element[0]));\n}\n\nfunction attrFilter(element, attr, pattern, replacement) {\n    element = (0, _jquery2.default)(element);\n    element.attr(attr, function (i, value) {\n        return value ? value.replace(pattern, replacement) : value;\n    });\n    return element;\n}\n\nfunction removeClass(element, cls) {\n    return attrFilter(element, 'class', new RegExp('(^|\\\\s)' + cls + '(?!\\\\S)', 'g'), '');\n}\n\nfunction createEvent(e) {\n    if ((0, _lang.isString)(e)) {\n        var ev = document.createEvent('Event');\n        ev.initEvent(e, true, false);\n        return ev;\n    }\n    return e;\n}\n\nfunction isInView(element, offsetTop, offsetLeft) {\n\n    element = (0, _jquery2.default)(element);\n\n    if (!element.is(':visible')) {\n        return false;\n    }\n\n    var win = (0, _jquery2.default)(window),\n        scrollLeft = win.scrollLeft(),\n        scrollTop = win.scrollTop(),\n        offset = element.offset();\n\n    return offset.top + element.height() >= scrollTop && offset.top - offsetTop <= scrollTop + win.height() && offset.left + element.width() >= scrollLeft && offset.left - offsetLeft <= scrollLeft + win.width();\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzYuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL3V0aWwvZG9tLmpzP2M5MjgiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICQgZnJvbSAnanF1ZXJ5JztcbmltcG9ydCB7YW5pbWF0aW9uZW5kLCB0cmFuc2l0aW9uZW5kLCByZXF1ZXN0QW5pbWF0aW9uRnJhbWUsIGNhbmNlbEFuaW1hdGlvbkZyYW1lfSBmcm9tICcuL2Vudic7XG5pbXBvcnQge2lzU3RyaW5nLCBleHRlbmR9IGZyb20gJy4vbGFuZyc7XG5cbmV4cG9ydCBjb25zdCBsYW5nRGlyZWN0aW9uID0gJCgnaHRtbCcpLmF0dHIoJ2RpcicpID09ICdydGwnID8gJ3JpZ2h0JyA6ICdsZWZ0JztcblxuZXhwb3J0IGZ1bmN0aW9uIHJlYWR5KGZuKSB7XG5cbiAgICB2YXIgaGFuZGxlID0gZnVuY3Rpb24gKCkge1xuICAgICAgICBkb2N1bWVudC5yZW1vdmVFdmVudExpc3RlbmVyKCdET01Db250ZW50TG9hZGVkJywgaGFuZGxlKTtcbiAgICAgICAgd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ2xvYWQnLCBoYW5kbGUpO1xuICAgICAgICBmbigpO1xuICAgIH07XG5cbiAgICBpZiAoZG9jdW1lbnQucmVhZHlTdGF0ZSA9PT0gJ2NvbXBsZXRlJykge1xuICAgICAgICBmbigpO1xuICAgIH0gZWxzZSB7XG4gICAgICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLCBoYW5kbGUpO1xuICAgICAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcignbG9hZCcsIGhhbmRsZSk7XG4gICAgfVxuXG59XG5cbmV4cG9ydCBmdW5jdGlvbiB0cmFuc2l0aW9uKGVsZW1lbnQsIHByb3BzLCBkdXJhdGlvbiwgdHJhbnNpdGlvbikge1xuXG4gICAgdmFyIGQgPSAkLkRlZmVycmVkKCk7XG5cbiAgICBlbGVtZW50ID0gJChlbGVtZW50KTtcblxuICAgIGZvciAodmFyIG5hbWUgaW4gcHJvcHMpIHtcbiAgICAgICAgZWxlbWVudC5jc3MobmFtZSwgZWxlbWVudC5jc3MobmFtZSkpO1xuICAgIH1cblxuICAgIGNhbmNlbEFuaW1hdGlvbkZyYW1lKGVsZW1lbnRbMF0uX191a190cmFuc2l0aW9uKTtcblxuICAgIGVsZW1lbnRbMF0uX191a190cmFuc2l0aW9uID0gcmVxdWVzdEFuaW1hdGlvbkZyYW1lKCgpID0+IHtcblxuICAgICAgICB2YXIgdGltZXIgPSBzZXRUaW1lb3V0KCgpID0+IHtcbiAgICAgICAgICAgIGVsZW1lbnQudHJpZ2dlcih0cmFuc2l0aW9uZW5kIHx8ICd0cmFuc2l0aW9uZW5kJyk7XG4gICAgICAgIH0sIGR1cmF0aW9uKTtcblxuICAgICAgICBlbGVtZW50XG4gICAgICAgICAgICAub25lKHRyYW5zaXRpb25lbmQgfHwgJ3RyYW5zaXRpb25lbmQnLCAoKSA9PiB7XG4gICAgICAgICAgICAgICAgZC5yZXNvbHZlKCk7XG4gICAgICAgICAgICAgICAgZWxlbWVudC5jc3MoJ3RyYW5zaXRpb24nLCAnJyk7XG4gICAgICAgICAgICAgICAgY2xlYXJUaW1lb3V0KHRpbWVyKTtcbiAgICAgICAgICAgIH0pXG4gICAgICAgICAgICAuY3NzKCd0cmFuc2l0aW9uJywgYGFsbCAke2R1cmF0aW9ufW1zICR7dHJhbnNpdGlvbiB8fCAnbGluZWFyJ31gKVxuICAgICAgICAgICAgLmNzcyhwcm9wcyk7XG5cbiAgICAgICAgZGVsZXRlIGVsZW1lbnRbMF0uX191a190cmFuc2l0aW9uO1xuICAgIH0pO1xuXG4gICAgcmV0dXJuIGQucHJvbWlzZSgpO1xufVxuXG5leHBvcnQgY29uc3QgVHJhbnNpdGlvbiA9IHtcblxuICAgIHN0YXJ0OiB0cmFuc2l0aW9uLFxuXG4gICAgc3RvcChlbGVtZW50KSB7XG5cbiAgICAgICAgZWxlbWVudCA9ICQoZWxlbWVudCk7XG5cbiAgICAgICAgY2FuY2VsQW5pbWF0aW9uRnJhbWUoZWxlbWVudFswXS5fX3VrX3RyYW5zaXRpb24pO1xuICAgICAgICAkKGVsZW1lbnQpLnRyaWdnZXIodHJhbnNpdGlvbmVuZCB8fCAndHJhbnNpdGlvbmVuZCcpO1xuXG4gICAgICAgIHJldHVybiB0aGlzO1xuICAgIH1cblxufTtcblxuZXhwb3J0IGZ1bmN0aW9uIGFuaW1hdGUoZWxlbWVudCwgYW5pbWF0aW9uLCBkdXJhdGlvbiwgb3V0KSB7XG5cbiAgICB2YXIgZCA9ICQuRGVmZXJyZWQoKSwgY2xzID0gb3V0ID8gJ3VrLWFuaW1hdGlvbi1sZWF2ZScgOiAndWstYW5pbWF0aW9uLWVudGVyJztcblxuICAgIGVsZW1lbnQgPSAkKGVsZW1lbnQpO1xuXG4gICAgaWYgKG91dCAmJiBhbmltYXRpb24uaW5kZXhPZigndWstYW5pbWF0aW9uLScpID09PSAwKSB7XG4gICAgICAgIGFuaW1hdGlvbiArPSAnIHVrLWFuaW1hdGlvbi1yZXZlcnNlJztcbiAgICB9XG5cbiAgICByZXNldCgpO1xuXG4gICAgZWxlbWVudC5jc3MoJ2FuaW1hdGlvbi1kdXJhdGlvbicsIGR1cmF0aW9uICsgJ21zJykuYWRkQ2xhc3MoYW5pbWF0aW9uKTtcblxuICAgIHJlcXVlc3RBbmltYXRpb25GcmFtZShmdW5jdGlvbiAoKSB7XG4gICAgICAgIGVsZW1lbnQuYWRkQ2xhc3MoY2xzKTtcbiAgICB9KTtcblxuICAgIGVsZW1lbnQub25lKGFuaW1hdGlvbmVuZCB8fCAnYW5pbWF0aW9uZW5kJywgZnVuY3Rpb24gKCkge1xuICAgICAgICByZXNldCgpO1xuICAgICAgICBkLnJlc29sdmUoKTtcbiAgICB9KTtcblxuICAgIGlmICghYW5pbWF0aW9uZW5kKSB7XG4gICAgICAgIHJlcXVlc3RBbmltYXRpb25GcmFtZShmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICBBbmltYXRpb24uY2FuY2VsKGVsZW1lbnQpO1xuICAgICAgICB9KTtcbiAgICB9XG5cbiAgICByZXR1cm4gZC5wcm9taXNlKCk7XG5cbiAgICBmdW5jdGlvbiByZXNldCgpIHtcbiAgICAgICAgZWxlbWVudC5jc3MoJ2FuaW1hdGlvbi1kdXJhdGlvbicsICcnKS5yZW1vdmVDbGFzcyhjbHMgKyAnICcgKyBhbmltYXRpb24pO1xuICAgIH1cbn1cblxuZXhwb3J0IGNvbnN0IEFuaW1hdGlvbiA9IHtcblxuICAgIGluKGVsZW1lbnQsIGFuaW1hdGlvbiwgZHVyYXRpb24pIHtcbiAgICAgICAgcmV0dXJuIGFuaW1hdGUoZWxlbWVudCwgYW5pbWF0aW9uLCBkdXJhdGlvbiwgZmFsc2UpO1xuICAgIH0sXG5cbiAgICBvdXQoZWxlbWVudCwgYW5pbWF0aW9uLCBkdXJhdGlvbikge1xuICAgICAgICByZXR1cm4gYW5pbWF0ZShlbGVtZW50LCBhbmltYXRpb24sIGR1cmF0aW9uLCB0cnVlKTtcbiAgICB9LFxuXG4gICAgaW5Qcm9ncmVzcyhlbGVtZW50KSB7XG4gICAgICAgIHJldHVybiAkKGVsZW1lbnQpLmhhc0NsYXNzKCd1ay1hbmltYXRpb24tZW50ZXInKSB8fCAkKGVsZW1lbnQpLmhhc0NsYXNzKCd1ay1hbmltYXRpb24tbGVhdmUnKTtcbiAgICB9LFxuXG4gICAgY2FuY2VsKGVsZW1lbnQpIHtcbiAgICAgICAgJChlbGVtZW50KS50cmlnZ2VyKGFuaW1hdGlvbmVuZCB8fCAnYW5pbWF0aW9uZW5kJyk7XG4gICAgICAgIHJldHVybiB0aGlzO1xuICAgIH1cblxufTtcblxuLy8gVE9ETyBzdGlsbCBuZWVkZWQ/XG5leHBvcnQgZnVuY3Rpb24gb2Zmc2V0UGFyZW50KGVsZW1lbnQpIHtcbiAgICByZXR1cm4gJChlbGVtZW50KS5wYXJlbnRzKCkuZmlsdGVyKGZ1bmN0aW9uICgpIHtcbiAgICAgICAgcmV0dXJuICQuaW5BcnJheSgkKHRoaXMpLmNzcygncG9zaXRpb24nKSwgWydyZWxhdGl2ZScsICdmaXhlZCcsICdhYnNvbHV0ZSddKSAhPT0gLTE7XG4gICAgfSkuZmlyc3QoKTtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGlzV2l0aGluKGVsZW1lbnQsIHNlbGVjdG9yKSB7XG4gICAgZWxlbWVudCA9ICQoZWxlbWVudCk7XG4gICAgcmV0dXJuIGVsZW1lbnQuaXMoc2VsZWN0b3IpIHx8ICEhKHR5cGVvZiBzZWxlY3RvciA9PT0gJ3N0cmluZycgPyBlbGVtZW50LnBhcmVudHMoc2VsZWN0b3IpLmxlbmd0aCA6ICQuY29udGFpbnMoc2VsZWN0b3IgaW5zdGFuY2VvZiAkID8gc2VsZWN0b3JbMF0gOiBzZWxlY3RvciwgZWxlbWVudFswXSkpO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gYXR0ckZpbHRlcihlbGVtZW50LCBhdHRyLCBwYXR0ZXJuLCByZXBsYWNlbWVudCkge1xuICAgIGVsZW1lbnQgPSAkKGVsZW1lbnQpO1xuICAgIGVsZW1lbnQuYXR0cihhdHRyLCBmdW5jdGlvbiAoaSwgdmFsdWUpIHtcbiAgICAgICAgcmV0dXJuIHZhbHVlID8gdmFsdWUucmVwbGFjZShwYXR0ZXJuLCByZXBsYWNlbWVudCkgOiB2YWx1ZTtcbiAgICB9KTtcbiAgICByZXR1cm4gZWxlbWVudDtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIHJlbW92ZUNsYXNzKGVsZW1lbnQsIGNscykge1xuICAgIHJldHVybiBhdHRyRmlsdGVyKGVsZW1lbnQsICdjbGFzcycsIG5ldyBSZWdFeHAoYChefFxcXFxzKSR7Y2xzfSg/IVxcXFxTKWAsICdnJyksICcnKTtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIGNyZWF0ZUV2ZW50KGUpIHtcbiAgICBpZiAoaXNTdHJpbmcoZSkpIHtcbiAgICAgICAgdmFyIGV2ID0gZG9jdW1lbnQuY3JlYXRlRXZlbnQoJ0V2ZW50Jyk7XG4gICAgICAgIGV2LmluaXRFdmVudChlLCB0cnVlLCBmYWxzZSk7XG4gICAgICAgIHJldHVybiBldjtcbiAgICB9XG4gICAgcmV0dXJuIGU7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBpc0luVmlldyhlbGVtZW50LCBvZmZzZXRUb3AsIG9mZnNldExlZnQpIHtcblxuICAgIGVsZW1lbnQgPSAkKGVsZW1lbnQpO1xuXG4gICAgaWYgKCFlbGVtZW50LmlzKCc6dmlzaWJsZScpKSB7XG4gICAgICAgIHJldHVybiBmYWxzZTtcbiAgICB9XG5cbiAgICB2YXIgd2luID0gJCh3aW5kb3cpLCBzY3JvbGxMZWZ0ID0gd2luLnNjcm9sbExlZnQoKSwgc2Nyb2xsVG9wID0gd2luLnNjcm9sbFRvcCgpLCBvZmZzZXQgPSBlbGVtZW50Lm9mZnNldCgpO1xuXG4gICAgcmV0dXJuIG9mZnNldC50b3AgKyBlbGVtZW50LmhlaWdodCgpID49IHNjcm9sbFRvcFxuICAgICAgICAmJiBvZmZzZXQudG9wIC0gb2Zmc2V0VG9wIDw9IHNjcm9sbFRvcCArIHdpbi5oZWlnaHQoKVxuICAgICAgICAmJiBvZmZzZXQubGVmdCArIGVsZW1lbnQud2lkdGgoKSA+PSBzY3JvbGxMZWZ0XG4gICAgICAgICYmIG9mZnNldC5sZWZ0IC0gb2Zmc2V0TGVmdCA8PSBzY3JvbGxMZWZ0ICsgd2luLndpZHRoKCk7XG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvdXRpbC9kb20uanNcbiAqKi8iXSwibWFwcGluZ3MiOiI7Ozs7OztBQU1BO0FBaUJBO0FBaURBO0FBMERBO0FBTUE7QUFLQTtBQVFBO0FBSUE7QUFTQTtBQUNBOzs7Ozs7Ozs7OztBQS9KQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSEE7QUFDQTtBQUtBO0FBQ0E7QUFEQTtBQUdBO0FBQ0E7QUFKQTtBQVJBO0FBQ0E7QUFnQkE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFFQTtBQUNBO0FBQ0E7QUFIQTtBQUNBO0FBT0E7QUFmQTtBQUNBO0FBaUJBO0FBOUJBO0FBQ0E7QUFnQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBWEE7QUFBQTtBQUNBO0FBZUE7QUFDQTtBQUNBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFDQTtBQUNBO0FBREE7QUFEQTtBQUNBO0FBS0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQS9CQTtBQUNBO0FBbUNBO0FBRUE7QUFDQTtBQUhBO0FBTUE7QUFDQTtBQVBBO0FBVUE7QUFDQTtBQVhBO0FBY0E7QUFDQTtBQUNBO0FBaEJBO0FBQUE7QUFDQTs7QUFxQkE7QUFDQTtBQUNBO0FBREE7QUFEQTtBQUNBO0FBS0E7QUFDQTtBQUNBO0FBRkE7QUFDQTtBQUlBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFHQTtBQUxBO0FBQ0E7QUFPQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUtBO0FBTkE7QUFDQTtBQVFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFWQSIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 37 */
+/*!********************************!*\
+  !*** ./src/js/util/options.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('switcher', {
-
-	        mixins: [UIkit.mixin.toggle],
-
-	        props: {
-	            connect: 'jQuery',
-	            toggle: String,
-	            active: Number,
-	            swiping: Boolean
-	        },
-
-	        defaults: {
-	            connect: false,
-	            toggle: '> *',
-	            active: 0,
-	            cls: 'uk-active',
-	            swiping: true
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            this.toggles = (0, _index.toJQuery)(this.toggle, this.$el);
-
-	            if (!this.connect || !this.toggles) {
-	                return;
-	            }
-
-	            var self = this;
-	            this.$el.on('click', this.toggle + ':not(.uk-disabled)', function (e) {
-	                e.preventDefault();
-	                self.show(this);
-	            });
-
-	            this.connect.on('click', '[uk-switcher-item]', function (e) {
-	                e.preventDefault();
-	                self.show((0, _jquery2.default)(this).attr('uk-switcher-item'));
-	            });
-
-	            if (this.swiping) {
-	                this.connect.on('swipeRight swipeLeft', function (e) {
-	                    e.preventDefault();
-	                    if (!window.getSelection().toString()) {
-	                        _this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
-	                    }
-	                });
-	            }
-
-	            this.updateAria(this.connect.children());
-	            this.show((0, _index.toJQuery)(this.toggles.filter('.' + this.cls)) || (0, _index.toJQuery)(this.toggles.eq(this.active)) || this.toggles.first());
-	        },
-
-
-	        methods: {
-	            show: function show(item) {
-	                var _this2 = this;
-
-	                var length = this.toggles.length,
-	                    prev = this.connect.children('.' + this.cls).index(),
-	                    hasPrev = prev >= 0,
-	                    index = (item === 'next' ? prev + 1 : item === 'previous' ? prev - 1 : typeof item === 'string' ? parseInt(item, 10) : this.toggles.index(item)) % length,
-	                    toggle,
-	                    dir = item === 'previous' ? -1 : 1;
-
-	                index = index < 0 ? index + length : index;
-
-	                for (var i = 0; i < length; i++, index = (index + dir + length) % length) {
-	                    if (!this.toggles.eq(index).is('.uk-disabled, [disabled]')) {
-	                        toggle = this.toggles.eq(index);
-	                        break;
-	                    }
-	                }
-
-	                if (!toggle || prev >= 0 && toggle.hasClass(this.cls) || prev === index) {
-	                    return;
-	                }
-
-	                this.toggles.removeClass(this.cls).attr('aria-expanded', false);
-	                toggle.addClass(this.cls).attr('aria-expanded', true);
-
-	                this.toggleState(hasPrev ? this.connect.children(':nth-child(' + (prev + 1) + ')') : undefined, hasPrev).then(function () {
-	                    _this2.toggleState(_this2.connect.children(':nth-child(' + (index + 1) + ')'), hasPrev);
-	                });
-	            }
-	        }
-
-	    });
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.mergeOptions = mergeOptions;\n\nvar _index = __webpack_require__(/*! ./index */ 0);\n\nvar strats = {};\n\n// concat strategy\nstrats.init = strats.ready = strats.destroy = function (parentVal, childVal) {\n    return childVal ? parentVal ? parentVal.concat(childVal) : (0, _index.isArray)(childVal) ? childVal : [childVal] : parentVal;\n};\n\n// property strategy\nstrats.props = function (parentVal, childVal) {\n\n    if ((0, _index.isArray)(childVal)) {\n        var ret = {};\n        childVal.forEach(function (val) {\n            ret[val] = String;\n        });\n        childVal = ret;\n    }\n\n    return strats.methods(parentVal, childVal);\n};\n\n// extend strategy\nstrats.defaults = strats.methods = function (parentVal, childVal) {\n    return childVal ? parentVal ? (0, _index.extend)({}, parentVal, childVal) : childVal : parentVal;\n};\n\n// default strategy\nvar defaultStrat = function defaultStrat(parentVal, childVal) {\n    return childVal === undefined ? parentVal : childVal;\n};\n\nfunction mergeOptions(parent, child, thisArg) {\n\n    var options = {},\n        key;\n\n    if (child.mixins) {\n        for (var i = 0, l = child.mixins.length; i < l; i++) {\n            parent = mergeOptions(parent, child.mixins[i], thisArg);\n        }\n    }\n\n    for (key in parent) {\n        mergeKey(key);\n    }\n\n    for (key in child) {\n        if (!(0, _index.hasOwn)(parent, key)) {\n            mergeKey(key);\n        }\n    }\n\n    function mergeKey(key) {\n        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], thisArg, key);\n    }\n\n    return options;\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzcuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL3V0aWwvb3B0aW9ucy5qcz9iYjMxIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7ZXh0ZW5kLCBpc0FycmF5LCBoYXNPd259IGZyb20gJy4vaW5kZXgnO1xuXG52YXIgc3RyYXRzID0ge307XG5cbi8vIGNvbmNhdCBzdHJhdGVneVxuc3RyYXRzLmluaXQgPVxuc3RyYXRzLnJlYWR5ID1cbnN0cmF0cy5kZXN0cm95ID0gZnVuY3Rpb24gKHBhcmVudFZhbCwgY2hpbGRWYWwpIHtcbiAgICByZXR1cm4gY2hpbGRWYWxcbiAgICAgICAgPyBwYXJlbnRWYWxcbiAgICAgICAgICAgID8gcGFyZW50VmFsLmNvbmNhdChjaGlsZFZhbClcbiAgICAgICAgICAgIDogaXNBcnJheShjaGlsZFZhbClcbiAgICAgICAgICAgICAgICA/IGNoaWxkVmFsXG4gICAgICAgICAgICAgICAgOiBbY2hpbGRWYWxdXG4gICAgICAgIDogcGFyZW50VmFsO1xufTtcblxuLy8gcHJvcGVydHkgc3RyYXRlZ3lcbnN0cmF0cy5wcm9wcyA9IGZ1bmN0aW9uIChwYXJlbnRWYWwsIGNoaWxkVmFsKSB7XG5cbiAgICBpZiAoaXNBcnJheShjaGlsZFZhbCkpIHtcbiAgICAgICAgdmFyIHJldCA9IHt9O1xuICAgICAgICBjaGlsZFZhbC5mb3JFYWNoKHZhbCA9PiB7XG4gICAgICAgICAgICByZXRbdmFsXSA9IFN0cmluZztcbiAgICAgICAgfSk7XG4gICAgICAgIGNoaWxkVmFsID0gcmV0O1xuICAgIH1cblxuICAgIHJldHVybiBzdHJhdHMubWV0aG9kcyhwYXJlbnRWYWwsIGNoaWxkVmFsKTtcbn07XG5cbi8vIGV4dGVuZCBzdHJhdGVneVxuc3RyYXRzLmRlZmF1bHRzID1cbnN0cmF0cy5tZXRob2RzID0gZnVuY3Rpb24gKHBhcmVudFZhbCwgY2hpbGRWYWwpIHtcbiAgICByZXR1cm4gY2hpbGRWYWxcbiAgICAgICAgPyBwYXJlbnRWYWxcbiAgICAgICAgICAgID8gZXh0ZW5kKHt9LCBwYXJlbnRWYWwsIGNoaWxkVmFsKVxuICAgICAgICAgICAgOiBjaGlsZFZhbFxuICAgICAgICA6IHBhcmVudFZhbDtcbn07XG5cbi8vIGRlZmF1bHQgc3RyYXRlZ3lcbnZhciBkZWZhdWx0U3RyYXQgPSBmdW5jdGlvbiAocGFyZW50VmFsLCBjaGlsZFZhbCkge1xuICAgIHJldHVybiBjaGlsZFZhbCA9PT0gdW5kZWZpbmVkID8gcGFyZW50VmFsIDogY2hpbGRWYWw7XG59O1xuXG5leHBvcnQgZnVuY3Rpb24gbWVyZ2VPcHRpb25zIChwYXJlbnQsIGNoaWxkLCB0aGlzQXJnKSB7XG5cbiAgICB2YXIgb3B0aW9ucyA9IHt9LCBrZXk7XG5cbiAgICBpZiAoY2hpbGQubWl4aW5zKSB7XG4gICAgICAgIGZvciAobGV0IGkgPSAwLCBsID0gY2hpbGQubWl4aW5zLmxlbmd0aDsgaSA8IGw7IGkrKykge1xuICAgICAgICAgICAgcGFyZW50ID0gbWVyZ2VPcHRpb25zKHBhcmVudCwgY2hpbGQubWl4aW5zW2ldLCB0aGlzQXJnKTtcbiAgICAgICAgfVxuICAgIH1cblxuICAgIGZvciAoa2V5IGluIHBhcmVudCkge1xuICAgICAgICBtZXJnZUtleShrZXkpO1xuICAgIH1cblxuICAgIGZvciAoa2V5IGluIGNoaWxkKSB7XG4gICAgICAgIGlmICghaGFzT3duKHBhcmVudCwga2V5KSkge1xuICAgICAgICAgICAgbWVyZ2VLZXkoa2V5KTtcbiAgICAgICAgfVxuICAgIH1cblxuICAgIGZ1bmN0aW9uIG1lcmdlS2V5IChrZXkpIHtcbiAgICAgICAgb3B0aW9uc1trZXldID0gKHN0cmF0c1trZXldIHx8IGRlZmF1bHRTdHJhdCkocGFyZW50W2tleV0sIGNoaWxkW2tleV0sIHRoaXNBcmcsIGtleSk7XG4gICAgfVxuXG4gICAgcmV0dXJuIG9wdGlvbnM7XG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvdXRpbC9vcHRpb25zLmpzXG4gKiovIl0sIm1hcHBpbmdzIjoiOzs7OztBQThDQTtBQUNBOzs7QUE3Q0E7QUFDQTs7QUFFQTtBQUdBO0FBREE7QUFDQTs7QUFVQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBTEE7QUFDQTtBQU9BO0FBVkE7QUFDQTs7QUFhQTtBQUVBO0FBREE7QUFDQTs7QUFRQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQURBO0FBQ0E7QUFLQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQURBO0FBREE7QUFDQTtBQUtBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUF4QkEiLCJzb3VyY2VSb290IjoiIn0=");
 
 /***/ },
 /* 38 */
-/***/ function(module, exports) {
+/*!*********************************!*\
+  !*** ./src/js/util/position.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('toggle', {
-
-	        mixins: [UIkit.mixin.toggle],
-
-	        props: {
-	            target: 'jQuery'
-	        },
-
-	        defaults: {
-	            target: false
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            if (!this.target) {
-	                return;
-	            }
-
-	            this.aria = this.cls === false;
-	            this.updateAria(this.target);
-
-	            this.$el.on('click', function (e) {
-	                e.preventDefault();
-	                _this.toggleState(_this.target);
-	            });
-	        }
-	    });
-	};
+	eval("'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});\nexports.position = position;\nexports.getDimensions = getDimensions;\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar dirs = {\n    x: ['width', 'left', 'right'],\n    y: ['height', 'top', 'bottom']\n};\n\nfunction position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {\n\n    element = (0, _jquery2.default)(element);\n    target = (0, _jquery2.default)(target);\n    boundary = boundary && (0, _jquery2.default)(boundary);\n    attach = getPos(attach);\n    targetAttach = getPos(targetAttach);\n\n    var dim = getDimensions(element),\n        targetDim = getDimensions(target),\n        position = targetDim;\n\n    moveTo(position, attach, dim, -1);\n    moveTo(position, targetAttach, targetDim, 1);\n\n    offset = getOffsets(offset, dim.width, dim.height);\n    targetOffset = getOffsets(targetOffset, targetDim.width, targetDim.height);\n\n    offset['x'] += targetOffset['x'];\n    offset['y'] += targetOffset['y'];\n\n    position.left += offset['x'];\n    position.top += offset['y'];\n\n    boundary = getDimensions(boundary || (0, _jquery2.default)(window));\n\n    var flipped = { element: attach, target: targetAttach };\n\n    if (flip) {\n        _jquery2.default.each(dirs, function (dir, props) {\n\n            if (!(flip === true || flip.indexOf(dir) !== -1)) {\n                return;\n            }\n\n            var elemOffset = attach[dir] === props[1] ? -dim[props[0]] : attach[dir] === props[2] ? dim[props[0]] : 0,\n                targetOffset = targetAttach[dir] === props[1] ? targetDim[props[0]] : targetAttach[dir] === props[2] ? -targetDim[props[0]] : 0;\n\n            if (position[props[1]] < boundary[props[1]] || position[props[1]] + dim[props[0]] > boundary[props[2]]) {\n\n                var newVal = position[props[1]] + elemOffset + targetOffset - offset[dir] * 2;\n\n                if (newVal >= boundary[props[1]] && newVal + dim[props[0]] <= boundary[props[2]]) {\n                    position[props[1]] = newVal;\n\n                    ['element', 'target'].forEach(function (el) {\n                        flipped[el][dir] = !elemOffset ? flipped[el][dir] : flipped[el][dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1];\n                    });\n                }\n            }\n        });\n    }\n\n    element.offset({ left: position.left, top: position.top });\n\n    return flipped;\n}\n\nfunction getDimensions(elem) {\n\n    elem = (0, _jquery2.default)(elem);\n\n    var width = elem.outerWidth(),\n        height = elem.outerHeight(),\n        offset = elem.offset(),\n        left = offset ? offset.left : elem.scrollLeft(),\n        top = offset ? offset.top : elem.scrollTop();\n\n    return { width: width, height: height, left: left, top: top, right: left + width, bottom: top + height };\n}\n\nfunction moveTo(position, attach, dim, factor) {\n    _jquery2.default.each(dirs, function (dir, props) {\n        if (attach[dir] === props[2]) {\n            position[props[1]] += dim[props[0]] * factor;\n        } else if (attach[dir] === 'center') {\n            position[props[1]] += dim[props[0]] * factor / 2;\n        }\n    });\n}\n\nfunction getPos(pos) {\n\n    var x = /left|center|right/,\n        y = /top|center|bottom/;\n\n    pos = (pos || '').split(' ');\n\n    if (pos.length === 1) {\n        pos = x.test(pos[0]) ? pos.concat(['center']) : y.test(pos[0]) ? ['center'].concat(pos) : ['center', 'center'];\n    }\n\n    return {\n        x: x.test(pos[0]) ? pos[0] : 'center',\n        y: y.test(pos[1]) ? pos[1] : 'center'\n    };\n}\n\nfunction getOffsets(offsets, width, height) {\n\n    offsets = (offsets || '').split(' ');\n\n    return {\n        x: offsets[0] ? parseFloat(offsets[0]) * (offsets[0][offsets[0].length - 1] === '%' ? width / 100 : 1) : 0,\n        y: offsets[1] ? parseFloat(offsets[1]) * (offsets[1][offsets[1].length - 1] === '%' ? height / 100 : 1) : 0\n    };\n}//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzguanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL3V0aWwvcG9zaXRpb24uanM/MGQ2ZCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJCBmcm9tICdqcXVlcnknO1xuXG52YXIgZGlycyA9IHtcbiAgICB4OiBbJ3dpZHRoJywgJ2xlZnQnLCAncmlnaHQnXSxcbiAgICB5OiBbJ2hlaWdodCcsICd0b3AnLCAnYm90dG9tJ11cbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBwb3NpdGlvbihlbGVtZW50LCB0YXJnZXQsIGF0dGFjaCwgdGFyZ2V0QXR0YWNoLCBvZmZzZXQsIHRhcmdldE9mZnNldCwgZmxpcCwgYm91bmRhcnkpIHtcblxuICAgIGVsZW1lbnQgPSAkKGVsZW1lbnQpO1xuICAgIHRhcmdldCA9ICQodGFyZ2V0KTtcbiAgICBib3VuZGFyeSA9IGJvdW5kYXJ5ICYmICQoYm91bmRhcnkpO1xuICAgIGF0dGFjaCA9IGdldFBvcyhhdHRhY2gpO1xuICAgIHRhcmdldEF0dGFjaCA9IGdldFBvcyh0YXJnZXRBdHRhY2gpO1xuXG4gICAgdmFyIGRpbSA9IGdldERpbWVuc2lvbnMoZWxlbWVudCksXG4gICAgICAgIHRhcmdldERpbSA9IGdldERpbWVuc2lvbnModGFyZ2V0KSxcbiAgICAgICAgcG9zaXRpb24gPSB0YXJnZXREaW07XG5cbiAgICBtb3ZlVG8ocG9zaXRpb24sIGF0dGFjaCwgZGltLCAtMSk7XG4gICAgbW92ZVRvKHBvc2l0aW9uLCB0YXJnZXRBdHRhY2gsIHRhcmdldERpbSwgMSk7XG5cbiAgICBvZmZzZXQgPSBnZXRPZmZzZXRzKG9mZnNldCwgZGltLndpZHRoLCBkaW0uaGVpZ2h0KTtcbiAgICB0YXJnZXRPZmZzZXQgPSBnZXRPZmZzZXRzKHRhcmdldE9mZnNldCwgdGFyZ2V0RGltLndpZHRoLCB0YXJnZXREaW0uaGVpZ2h0KTtcblxuICAgIG9mZnNldFsneCddICs9IHRhcmdldE9mZnNldFsneCddO1xuICAgIG9mZnNldFsneSddICs9IHRhcmdldE9mZnNldFsneSddO1xuXG4gICAgcG9zaXRpb24ubGVmdCArPSBvZmZzZXRbJ3gnXTtcbiAgICBwb3NpdGlvbi50b3AgKz0gb2Zmc2V0Wyd5J107XG5cbiAgICBib3VuZGFyeSA9IGdldERpbWVuc2lvbnMoYm91bmRhcnkgfHwgJCh3aW5kb3cpKTtcblxuICAgIHZhciBmbGlwcGVkID0ge2VsZW1lbnQ6IGF0dGFjaCwgdGFyZ2V0OiB0YXJnZXRBdHRhY2h9O1xuXG4gICAgaWYgKGZsaXApIHtcbiAgICAgICAgJC5lYWNoKGRpcnMsIGZ1bmN0aW9uIChkaXIsIHByb3BzKSB7XG5cbiAgICAgICAgICAgIGlmICghKGZsaXAgPT09IHRydWUgfHwgZmxpcC5pbmRleE9mKGRpcikgIT09IC0xKSkge1xuICAgICAgICAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgIH1cblxuICAgICAgICAgICAgdmFyIGVsZW1PZmZzZXQgPSBhdHRhY2hbZGlyXSA9PT0gcHJvcHNbMV0gPyAtZGltW3Byb3BzWzBdXSA6IGF0dGFjaFtkaXJdID09PSBwcm9wc1syXSA/IGRpbVtwcm9wc1swXV0gOiAwLFxuICAgICAgICAgICAgICAgIHRhcmdldE9mZnNldCA9IHRhcmdldEF0dGFjaFtkaXJdID09PSBwcm9wc1sxXSA/IHRhcmdldERpbVtwcm9wc1swXV0gOiB0YXJnZXRBdHRhY2hbZGlyXSA9PT0gcHJvcHNbMl0gPyAtdGFyZ2V0RGltW3Byb3BzWzBdXSA6IDA7XG5cbiAgICAgICAgICAgIGlmIChwb3NpdGlvbltwcm9wc1sxXV0gPCBib3VuZGFyeVtwcm9wc1sxXV0gfHwgcG9zaXRpb25bcHJvcHNbMV1dICsgZGltW3Byb3BzWzBdXSA+IGJvdW5kYXJ5W3Byb3BzWzJdXSkge1xuXG4gICAgICAgICAgICAgICAgdmFyIG5ld1ZhbCA9IHBvc2l0aW9uW3Byb3BzWzFdXSArIGVsZW1PZmZzZXQgKyB0YXJnZXRPZmZzZXQgLSBvZmZzZXRbZGlyXSAqIDI7XG5cbiAgICAgICAgICAgICAgICBpZiAobmV3VmFsID49IGJvdW5kYXJ5W3Byb3BzWzFdXSAmJiBuZXdWYWwgKyBkaW1bcHJvcHNbMF1dIDw9IGJvdW5kYXJ5W3Byb3BzWzJdXSkge1xuICAgICAgICAgICAgICAgICAgICBwb3NpdGlvbltwcm9wc1sxXV0gPSBuZXdWYWw7XG5cbiAgICAgICAgICAgICAgICAgICAgWydlbGVtZW50JywgJ3RhcmdldCddLmZvckVhY2goKGVsKSA9PiB7XG4gICAgICAgICAgICAgICAgICAgICAgICBmbGlwcGVkW2VsXVtkaXJdID0gIWVsZW1PZmZzZXRcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA/IGZsaXBwZWRbZWxdW2Rpcl1cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA6IGZsaXBwZWRbZWxdW2Rpcl0gPT09IGRpcnNbZGlyXVsxXVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA/IGRpcnNbZGlyXVsyXVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA6IGRpcnNbZGlyXVsxXTtcbiAgICAgICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfVxuXG4gICAgICAgIH0pO1xuICAgIH1cblxuICAgIGVsZW1lbnQub2Zmc2V0KHtsZWZ0OiBwb3NpdGlvbi5sZWZ0LCB0b3A6IHBvc2l0aW9uLnRvcH0pO1xuXG4gICAgcmV0dXJuIGZsaXBwZWQ7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBnZXREaW1lbnNpb25zKGVsZW0pIHtcblxuICAgIGVsZW0gPSAkKGVsZW0pO1xuXG4gICAgdmFyIHdpZHRoID0gZWxlbS5vdXRlcldpZHRoKCksXG4gICAgICAgIGhlaWdodCA9IGVsZW0ub3V0ZXJIZWlnaHQoKSxcbiAgICAgICAgb2Zmc2V0ID0gZWxlbS5vZmZzZXQoKSxcbiAgICAgICAgbGVmdCA9IG9mZnNldCA/IG9mZnNldC5sZWZ0IDogZWxlbS5zY3JvbGxMZWZ0KCksXG4gICAgICAgIHRvcCA9IG9mZnNldCA/IG9mZnNldC50b3AgOiBlbGVtLnNjcm9sbFRvcCgpO1xuXG4gICAgcmV0dXJuIHt3aWR0aDogd2lkdGgsIGhlaWdodDogaGVpZ2h0LCBsZWZ0OiBsZWZ0LCB0b3A6IHRvcCwgcmlnaHQ6IGxlZnQgKyB3aWR0aCwgYm90dG9tOiB0b3AgKyBoZWlnaHR9O1xufVxuXG5mdW5jdGlvbiBtb3ZlVG8ocG9zaXRpb24sIGF0dGFjaCwgZGltLCBmYWN0b3IpIHtcbiAgICAkLmVhY2goZGlycywgZnVuY3Rpb24gKGRpciwgcHJvcHMpIHtcbiAgICAgICAgaWYgKGF0dGFjaFtkaXJdID09PSBwcm9wc1syXSkge1xuICAgICAgICAgICAgcG9zaXRpb25bcHJvcHNbMV1dICs9IGRpbVtwcm9wc1swXV0gKiBmYWN0b3I7XG4gICAgICAgIH0gZWxzZSBpZiAoYXR0YWNoW2Rpcl0gPT09ICdjZW50ZXInKSB7XG4gICAgICAgICAgICBwb3NpdGlvbltwcm9wc1sxXV0gKz0gZGltW3Byb3BzWzBdXSAqIGZhY3RvciAvIDI7XG4gICAgICAgIH1cbiAgICB9KTtcbn1cblxuZnVuY3Rpb24gZ2V0UG9zKHBvcykge1xuXG4gICAgdmFyIHggPSAvbGVmdHxjZW50ZXJ8cmlnaHQvLCB5ID0gL3RvcHxjZW50ZXJ8Ym90dG9tLztcblxuICAgIHBvcyA9IChwb3MgfHwgJycpLnNwbGl0KCcgJyk7XG5cbiAgICBpZiAocG9zLmxlbmd0aCA9PT0gMSkge1xuICAgICAgICBwb3MgPSB4LnRlc3QocG9zWzBdKVxuICAgICAgICAgICAgPyBwb3MuY29uY2F0KFsnY2VudGVyJ10pXG4gICAgICAgICAgICA6IHkudGVzdChwb3NbMF0pXG4gICAgICAgICAgICAgICAgPyBbJ2NlbnRlciddLmNvbmNhdChwb3MpXG4gICAgICAgICAgICAgICAgOiBbJ2NlbnRlcicsICdjZW50ZXInXTtcbiAgICB9XG5cbiAgICByZXR1cm4ge1xuICAgICAgICB4OiB4LnRlc3QocG9zWzBdKSA/IHBvc1swXSA6ICdjZW50ZXInLFxuICAgICAgICB5OiB5LnRlc3QocG9zWzFdKSA/IHBvc1sxXSA6ICdjZW50ZXInXG4gICAgfTtcbn1cblxuZnVuY3Rpb24gZ2V0T2Zmc2V0cyhvZmZzZXRzLCB3aWR0aCwgaGVpZ2h0KSB7XG5cbiAgICBvZmZzZXRzID0gKG9mZnNldHMgfHwgJycpLnNwbGl0KCcgJyk7XG5cbiAgICByZXR1cm4ge1xuICAgICAgICB4OiBvZmZzZXRzWzBdID8gcGFyc2VGbG9hdChvZmZzZXRzWzBdKSAqIChvZmZzZXRzWzBdW29mZnNldHNbMF0ubGVuZ3RoIC0gMV0gPT09ICclJyA/IHdpZHRoIC8gMTAwIDogMSkgOiAwLFxuICAgICAgICB5OiBvZmZzZXRzWzFdID8gcGFyc2VGbG9hdChvZmZzZXRzWzFdKSAqIChvZmZzZXRzWzFdW29mZnNldHNbMV0ubGVuZ3RoIC0gMV0gPT09ICclJyA/IGhlaWdodCAvIDEwMCA6IDEpIDogMFxuICAgIH07XG59XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvdXRpbC9wb3NpdGlvbi5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFPQTtBQStEQTtBQUNBOzs7Ozs7O0FBckVBO0FBQ0E7QUFDQTtBQUZBO0FBQ0E7QUFJQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFIQTtBQUpBO0FBVEE7QUFEQTtBQUNBO0FBNkJBO0FBQ0E7QUFDQTtBQTVEQTtBQUNBO0FBOERBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFWQTtBQUNBO0FBWUE7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUdBO0FBREE7QUFIQTtBQURBO0FBQ0E7QUFTQTtBQUNBO0FBQ0E7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFEQTtBQUNBO0FBT0E7QUFDQTtBQUNBO0FBRkE7QUFkQTtBQUNBO0FBbUJBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFKQSIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ },
 /* 39 */
+/*!******************************!*\
+  !*** ./src/js/util/touch.js ***!
+  \******************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.mixin.mouse = {
-
-	        defaults: {
-
-	            positions: [],
-	            position: null,
-	            points: null
-
-	        },
-
-	        methods: {
-	            initMouseTracker: function initMouseTracker(target) {
-	                var _this = this;
-
-	                this.positions = [];
-	                this.position = null;
-
-	                this.mouseHandler = function (e) {
-	                    _this.positions.push({ x: e.pageX, y: e.pageY });
-
-	                    if (_this.positions.length > 5) {
-	                        _this.positions.shift();
-	                    }
-	                };
-
-	                $(document).on('mousemove', this.mouseHandler);
-
-	                var p = (0, _index.getDimensions)(target);
-
-	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
-
-	                if (this.dir === 'right') {
-	                    this.points[0].reverse();
-	                    this.points[1].reverse();
-	                } else if (this.dir === 'top') {
-	                    this.points[0].reverse();
-	                } else if (this.dir === 'bottom') {
-	                    this.points[1].reverse();
-	                }
-	            },
-	            cancelMouseTracker: function cancelMouseTracker() {
-	                if (this.mouseHandler) {
-	                    $(document).off('mousemove', this.mouseHandler);
-	                }
-	            },
-	            movesTowardsTarget: function movesTowardsTarget() {
-
-	                var position = this.positions[this.positions.length - 1],
-	                    prevPos = this.positions[0] || position,
-	                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {
-	                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
-	                }, 0);
-
-	                this.position = delay ? position : null;
-	                return delay;
-	            }
-	        }
-
-	    };
-
-	    function slope(a, b) {
-	        return (b.y - a.y) / (b.x - a.x);
-	    }
-	};
-
-	var _index = __webpack_require__(4);
-
-	;
+	eval("'use strict';\n\nvar _jquery = __webpack_require__(/*! jquery */ 1);\n\nvar _jquery2 = _interopRequireDefault(_jquery);\n\nvar _index = __webpack_require__(/*! ./index */ 0);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n// Copyright (c) 2010-2016 Thomas Fuchs\n// http://zeptojs.com/\n\nvar touch = {},\n    touchTimeout,\n    tapTimeout,\n    swipeTimeout,\n    longTapTimeout,\n    longTapDelay = 750,\n    gesture;\n\nfunction swipeDirection(x1, x2, y1, y2) {\n    return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? x1 - x2 > 0 ? 'Left' : 'Right' : y1 - y2 > 0 ? 'Up' : 'Down';\n}\n\nfunction longTap() {\n    longTapTimeout = null;\n    if (touch.last) {\n        if (touch.el !== undefined) touch.el.trigger('longTap');\n        touch = {};\n    }\n}\n\nfunction cancelLongTap() {\n    if (longTapTimeout) clearTimeout(longTapTimeout);\n    longTapTimeout = null;\n}\n\nfunction cancelAll() {\n    if (touchTimeout) clearTimeout(touchTimeout);\n    if (tapTimeout) clearTimeout(tapTimeout);\n    if (swipeTimeout) clearTimeout(swipeTimeout);\n    if (longTapTimeout) clearTimeout(longTapTimeout);\n    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;\n    touch = {};\n}\n\nfunction isPrimaryTouch(event) {\n    return event.pointerType == event.MSPOINTER_TYPE_TOUCH && event.isPrimary;\n}\n\n(0, _index.ready)(function () {\n    var now,\n        delta,\n        deltaX = 0,\n        deltaY = 0,\n        firstTouch;\n\n    if ('MSGesture' in window) {\n        gesture = new MSGesture();\n        gesture.target = document.body;\n    }\n\n    (0, _jquery2.default)(document).on('MSGestureEnd gestureend', function (e) {\n\n        var swipeDirectionFromVelocity = e.originalEvent.velocityX > 1 ? 'Right' : e.originalEvent.velocityX < -1 ? 'Left' : e.originalEvent.velocityY > 1 ? 'Down' : e.originalEvent.velocityY < -1 ? 'Up' : null;\n\n        if (swipeDirectionFromVelocity && touch.el !== undefined) {\n            touch.el.trigger('swipe');\n            touch.el.trigger('swipe' + swipeDirectionFromVelocity);\n        }\n    })\n    // MSPointerDown: for IE10\n    // pointerdown: for IE11\n    .on('touchstart MSPointerDown pointerdown', function (e) {\n\n        if (e.type == 'MSPointerDown' && !isPrimaryTouch(e.originalEvent)) return;\n\n        firstTouch = e.type == 'MSPointerDown' || e.type == 'pointerdown' ? e : e.originalEvent.touches[0];\n\n        now = Date.now();\n        delta = now - (touch.last || now);\n        touch.el = (0, _jquery2.default)('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);\n\n        if (touchTimeout) clearTimeout(touchTimeout);\n\n        touch.x1 = firstTouch.pageX;\n        touch.y1 = firstTouch.pageY;\n\n        if (delta > 0 && delta <= 250) touch.isDoubleTap = true;\n\n        touch.last = now;\n        longTapTimeout = setTimeout(longTap, longTapDelay);\n\n        // adds the current touch contact for IE gesture recognition\n        if (gesture && (e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart')) {\n            gesture.addPointer(e.originalEvent.pointerId);\n        }\n    })\n    // MSPointerMove: for IE10\n    // pointermove: for IE11\n    .on('touchmove MSPointerMove pointermove', function (e) {\n\n        if (e.type == 'MSPointerMove' && !isPrimaryTouch(e.originalEvent)) return;\n\n        firstTouch = e.type == 'MSPointerMove' || e.type == 'pointermove' ? e : e.originalEvent.touches[0];\n\n        cancelLongTap();\n        touch.x2 = firstTouch.pageX;\n        touch.y2 = firstTouch.pageY;\n\n        deltaX += Math.abs(touch.x1 - touch.x2);\n        deltaY += Math.abs(touch.y1 - touch.y2);\n    })\n    // MSPointerUp: for IE10\n    // pointerup: for IE11\n    .on('touchend MSPointerUp pointerup', function (e) {\n\n        if (e.type == 'MSPointerUp' && !isPrimaryTouch(e.originalEvent)) return;\n\n        cancelLongTap();\n\n        // swipe\n        if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 30 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 30) {\n\n            swipeTimeout = setTimeout(function () {\n                if (touch.el !== undefined) {\n                    touch.el.trigger('swipe');\n                    touch.el.trigger('swipe' + swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2));\n                }\n                touch = {};\n            }, 0);\n\n            // normal tap\n        } else if ('last' in touch) {\n\n                // don't fire tap when delta position changed by more than 30 pixels,\n                // for instance when moving to a point and back to origin\n                if (isNaN(deltaX) || deltaX < 30 && deltaY < 30) {\n                    // delay by one tick so we can cancel the 'tap' event if 'scroll' fires\n                    // ('tap' fires before 'scroll')\n                    tapTimeout = setTimeout(function () {\n\n                        // trigger universal 'tap' with the option to cancelTouch()\n                        // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)\n                        var event = _jquery2.default.Event('tap');\n                        event.cancelTouch = cancelAll;\n                        if (touch.el !== undefined) touch.el.trigger(event);\n\n                        // trigger double tap immediately\n                        if (touch.isDoubleTap) {\n                            if (touch.el !== undefined) touch.el.trigger('doubleTap');\n                            touch = {};\n                        }\n\n                        // trigger single tap after 250ms of inactivity\n                        else {\n                                touchTimeout = setTimeout(function () {\n                                    touchTimeout = null;\n                                    if (touch.el !== undefined) touch.el.trigger('singleTap');\n                                    touch = {};\n                                }, 250);\n                            }\n                    }, 0);\n                } else {\n                    touch = {};\n                }\n                deltaX = deltaY = 0;\n            }\n    })\n    // when the browser window loses focus,\n    // for example when a modal dialog is shown,\n    // cancel all ongoing events\n    .on('touchcancel MSPointerCancel', cancelAll);\n\n    // scrolling the window indicates intention of the user\n    // to scroll, not tap or swipe, so cancel all ongoing events\n    (0, _jquery2.default)(window).on('scroll', cancelAll);\n});//@ sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMzkuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vc3JjL2pzL3V0aWwvdG91Y2guanM/YzA4OSJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBDb3B5cmlnaHQgKGMpIDIwMTAtMjAxNiBUaG9tYXMgRnVjaHNcbi8vIGh0dHA6Ly96ZXB0b2pzLmNvbS9cblxuaW1wb3J0ICQgZnJvbSAnanF1ZXJ5JztcbmltcG9ydCB7cmVhZHl9IGZyb20gJy4vaW5kZXgnO1xuXG52YXIgdG91Y2ggPSB7fSwgdG91Y2hUaW1lb3V0LCB0YXBUaW1lb3V0LCBzd2lwZVRpbWVvdXQsIGxvbmdUYXBUaW1lb3V0LCBsb25nVGFwRGVsYXkgPSA3NTAsIGdlc3R1cmU7XG5cbmZ1bmN0aW9uIHN3aXBlRGlyZWN0aW9uKHgxLCB4MiwgeTEsIHkyKSB7XG4gICAgcmV0dXJuIE1hdGguYWJzKHgxIC0geDIpID49IE1hdGguYWJzKHkxIC0geTIpID8gKHgxIC0geDIgPiAwID8gJ0xlZnQnIDogJ1JpZ2h0JykgOiAoeTEgLSB5MiA+IDAgPyAnVXAnIDogJ0Rvd24nKTtcbn1cblxuZnVuY3Rpb24gbG9uZ1RhcCgpIHtcbiAgICBsb25nVGFwVGltZW91dCA9IG51bGw7XG4gICAgaWYgKHRvdWNoLmxhc3QpIHtcbiAgICAgICAgaWYgKHRvdWNoLmVsICE9PSB1bmRlZmluZWQpIHRvdWNoLmVsLnRyaWdnZXIoJ2xvbmdUYXAnKTtcbiAgICAgICAgdG91Y2ggPSB7fTtcbiAgICB9XG59XG5cbmZ1bmN0aW9uIGNhbmNlbExvbmdUYXAoKSB7XG4gICAgaWYgKGxvbmdUYXBUaW1lb3V0KSBjbGVhclRpbWVvdXQobG9uZ1RhcFRpbWVvdXQpO1xuICAgIGxvbmdUYXBUaW1lb3V0ID0gbnVsbDtcbn1cblxuZnVuY3Rpb24gY2FuY2VsQWxsKCkge1xuICAgIGlmICh0b3VjaFRpbWVvdXQpICAgY2xlYXJUaW1lb3V0KHRvdWNoVGltZW91dCk7XG4gICAgaWYgKHRhcFRpbWVvdXQpICAgICBjbGVhclRpbWVvdXQodGFwVGltZW91dCk7XG4gICAgaWYgKHN3aXBlVGltZW91dCkgICBjbGVhclRpbWVvdXQoc3dpcGVUaW1lb3V0KTtcbiAgICBpZiAobG9uZ1RhcFRpbWVvdXQpIGNsZWFyVGltZW91dChsb25nVGFwVGltZW91dCk7XG4gICAgdG91Y2hUaW1lb3V0ID0gdGFwVGltZW91dCA9IHN3aXBlVGltZW91dCA9IGxvbmdUYXBUaW1lb3V0ID0gbnVsbDtcbiAgICB0b3VjaCA9IHt9O1xufVxuXG5mdW5jdGlvbiBpc1ByaW1hcnlUb3VjaChldmVudCkge1xuICAgIHJldHVybiBldmVudC5wb2ludGVyVHlwZSA9PSBldmVudC5NU1BPSU5URVJfVFlQRV9UT1VDSCAmJiBldmVudC5pc1ByaW1hcnk7XG59XG5cbnJlYWR5KGZ1bmN0aW9uICgpIHtcbiAgICB2YXIgbm93LCBkZWx0YSwgZGVsdGFYID0gMCwgZGVsdGFZID0gMCwgZmlyc3RUb3VjaDtcblxuICAgIGlmICgnTVNHZXN0dXJlJyBpbiB3aW5kb3cpIHtcbiAgICAgICAgZ2VzdHVyZSA9IG5ldyBNU0dlc3R1cmUoKTtcbiAgICAgICAgZ2VzdHVyZS50YXJnZXQgPSBkb2N1bWVudC5ib2R5O1xuICAgIH1cblxuICAgICQoZG9jdW1lbnQpXG4gICAgICAgIC5vbignTVNHZXN0dXJlRW5kIGdlc3R1cmVlbmQnLCBmdW5jdGlvbiAoZSkge1xuXG4gICAgICAgICAgICB2YXIgc3dpcGVEaXJlY3Rpb25Gcm9tVmVsb2NpdHkgPSBlLm9yaWdpbmFsRXZlbnQudmVsb2NpdHlYID4gMSA/ICdSaWdodCcgOiBlLm9yaWdpbmFsRXZlbnQudmVsb2NpdHlYIDwgLTEgPyAnTGVmdCcgOiBlLm9yaWdpbmFsRXZlbnQudmVsb2NpdHlZID4gMSA/ICdEb3duJyA6IGUub3JpZ2luYWxFdmVudC52ZWxvY2l0eVkgPCAtMSA/ICdVcCcgOiBudWxsO1xuXG4gICAgICAgICAgICBpZiAoc3dpcGVEaXJlY3Rpb25Gcm9tVmVsb2NpdHkgJiYgdG91Y2guZWwgIT09IHVuZGVmaW5lZCkge1xuICAgICAgICAgICAgICAgIHRvdWNoLmVsLnRyaWdnZXIoJ3N3aXBlJyk7XG4gICAgICAgICAgICAgICAgdG91Y2guZWwudHJpZ2dlcignc3dpcGUnICsgc3dpcGVEaXJlY3Rpb25Gcm9tVmVsb2NpdHkpO1xuICAgICAgICAgICAgfVxuICAgICAgICB9KVxuICAgICAgICAvLyBNU1BvaW50ZXJEb3duOiBmb3IgSUUxMFxuICAgICAgICAvLyBwb2ludGVyZG93bjogZm9yIElFMTFcbiAgICAgICAgLm9uKCd0b3VjaHN0YXJ0IE1TUG9pbnRlckRvd24gcG9pbnRlcmRvd24nLCBmdW5jdGlvbiAoZSkge1xuXG4gICAgICAgICAgICBpZiAoZS50eXBlID09ICdNU1BvaW50ZXJEb3duJyAmJiAhaXNQcmltYXJ5VG91Y2goZS5vcmlnaW5hbEV2ZW50KSkgcmV0dXJuO1xuXG4gICAgICAgICAgICBmaXJzdFRvdWNoID0gKGUudHlwZSA9PSAnTVNQb2ludGVyRG93bicgfHwgZS50eXBlID09ICdwb2ludGVyZG93bicpID8gZSA6IGUub3JpZ2luYWxFdmVudC50b3VjaGVzWzBdO1xuXG4gICAgICAgICAgICBub3cgPSBEYXRlLm5vdygpO1xuICAgICAgICAgICAgZGVsdGEgPSBub3cgLSAodG91Y2gubGFzdCB8fCBub3cpO1xuICAgICAgICAgICAgdG91Y2guZWwgPSAkKCd0YWdOYW1lJyBpbiBmaXJzdFRvdWNoLnRhcmdldCA/IGZpcnN0VG91Y2gudGFyZ2V0IDogZmlyc3RUb3VjaC50YXJnZXQucGFyZW50Tm9kZSk7XG5cbiAgICAgICAgICAgIGlmICh0b3VjaFRpbWVvdXQpIGNsZWFyVGltZW91dCh0b3VjaFRpbWVvdXQpO1xuXG4gICAgICAgICAgICB0b3VjaC54MSA9IGZpcnN0VG91Y2gucGFnZVg7XG4gICAgICAgICAgICB0b3VjaC55MSA9IGZpcnN0VG91Y2gucGFnZVk7XG5cbiAgICAgICAgICAgIGlmIChkZWx0YSA+IDAgJiYgZGVsdGEgPD0gMjUwKSB0b3VjaC5pc0RvdWJsZVRhcCA9IHRydWU7XG5cbiAgICAgICAgICAgIHRvdWNoLmxhc3QgPSBub3c7XG4gICAgICAgICAgICBsb25nVGFwVGltZW91dCA9IHNldFRpbWVvdXQobG9uZ1RhcCwgbG9uZ1RhcERlbGF5KTtcblxuICAgICAgICAgICAgLy8gYWRkcyB0aGUgY3VycmVudCB0b3VjaCBjb250YWN0IGZvciBJRSBnZXN0dXJlIHJlY29nbml0aW9uXG4gICAgICAgICAgICBpZiAoZ2VzdHVyZSAmJiAoIGUudHlwZSA9PSAnTVNQb2ludGVyRG93bicgfHwgZS50eXBlID09ICdwb2ludGVyZG93bicgfHwgZS50eXBlID09ICd0b3VjaHN0YXJ0JyApKSB7XG4gICAgICAgICAgICAgICAgZ2VzdHVyZS5hZGRQb2ludGVyKGUub3JpZ2luYWxFdmVudC5wb2ludGVySWQpO1xuICAgICAgICAgICAgfVxuXG4gICAgICAgIH0pXG4gICAgICAgIC8vIE1TUG9pbnRlck1vdmU6IGZvciBJRTEwXG4gICAgICAgIC8vIHBvaW50ZXJtb3ZlOiBmb3IgSUUxMVxuICAgICAgICAub24oJ3RvdWNobW92ZSBNU1BvaW50ZXJNb3ZlIHBvaW50ZXJtb3ZlJywgZnVuY3Rpb24gKGUpIHtcblxuICAgICAgICAgICAgaWYgKGUudHlwZSA9PSAnTVNQb2ludGVyTW92ZScgJiYgIWlzUHJpbWFyeVRvdWNoKGUub3JpZ2luYWxFdmVudCkpIHJldHVybjtcblxuICAgICAgICAgICAgZmlyc3RUb3VjaCA9IChlLnR5cGUgPT0gJ01TUG9pbnRlck1vdmUnIHx8IGUudHlwZSA9PSAncG9pbnRlcm1vdmUnKSA/IGUgOiBlLm9yaWdpbmFsRXZlbnQudG91Y2hlc1swXTtcblxuICAgICAgICAgICAgY2FuY2VsTG9uZ1RhcCgpO1xuICAgICAgICAgICAgdG91Y2gueDIgPSBmaXJzdFRvdWNoLnBhZ2VYO1xuICAgICAgICAgICAgdG91Y2gueTIgPSBmaXJzdFRvdWNoLnBhZ2VZO1xuXG4gICAgICAgICAgICBkZWx0YVggKz0gTWF0aC5hYnModG91Y2gueDEgLSB0b3VjaC54Mik7XG4gICAgICAgICAgICBkZWx0YVkgKz0gTWF0aC5hYnModG91Y2gueTEgLSB0b3VjaC55Mik7XG4gICAgICAgIH0pXG4gICAgICAgIC8vIE1TUG9pbnRlclVwOiBmb3IgSUUxMFxuICAgICAgICAvLyBwb2ludGVydXA6IGZvciBJRTExXG4gICAgICAgIC5vbigndG91Y2hlbmQgTVNQb2ludGVyVXAgcG9pbnRlcnVwJywgZnVuY3Rpb24gKGUpIHtcblxuICAgICAgICAgICAgaWYgKGUudHlwZSA9PSAnTVNQb2ludGVyVXAnICYmICFpc1ByaW1hcnlUb3VjaChlLm9yaWdpbmFsRXZlbnQpKSByZXR1cm47XG5cbiAgICAgICAgICAgIGNhbmNlbExvbmdUYXAoKTtcblxuICAgICAgICAgICAgLy8gc3dpcGVcbiAgICAgICAgICAgIGlmICgodG91Y2gueDIgJiYgTWF0aC5hYnModG91Y2gueDEgLSB0b3VjaC54MikgPiAzMCkgfHwgKHRvdWNoLnkyICYmIE1hdGguYWJzKHRvdWNoLnkxIC0gdG91Y2gueTIpID4gMzApKSB7XG5cbiAgICAgICAgICAgICAgICBzd2lwZVRpbWVvdXQgPSBzZXRUaW1lb3V0KGZ1bmN0aW9uICgpIHtcbiAgICAgICAgICAgICAgICAgICAgaWYgKHRvdWNoLmVsICE9PSB1bmRlZmluZWQpIHtcbiAgICAgICAgICAgICAgICAgICAgICAgIHRvdWNoLmVsLnRyaWdnZXIoJ3N3aXBlJyk7XG4gICAgICAgICAgICAgICAgICAgICAgICB0b3VjaC5lbC50cmlnZ2VyKCdzd2lwZScgKyAoc3dpcGVEaXJlY3Rpb24odG91Y2gueDEsIHRvdWNoLngyLCB0b3VjaC55MSwgdG91Y2gueTIpKSk7XG4gICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgICAgdG91Y2ggPSB7fTtcbiAgICAgICAgICAgICAgICB9LCAwKTtcblxuICAgICAgICAgICAgICAgIC8vIG5vcm1hbCB0YXBcbiAgICAgICAgICAgIH0gZWxzZSBpZiAoJ2xhc3QnIGluIHRvdWNoKSB7XG5cbiAgICAgICAgICAgICAgICAvLyBkb24ndCBmaXJlIHRhcCB3aGVuIGRlbHRhIHBvc2l0aW9uIGNoYW5nZWQgYnkgbW9yZSB0aGFuIDMwIHBpeGVscyxcbiAgICAgICAgICAgICAgICAvLyBmb3IgaW5zdGFuY2Ugd2hlbiBtb3ZpbmcgdG8gYSBwb2ludCBhbmQgYmFjayB0byBvcmlnaW5cbiAgICAgICAgICAgICAgICBpZiAoaXNOYU4oZGVsdGFYKSB8fCAoZGVsdGFYIDwgMzAgJiYgZGVsdGFZIDwgMzApKSB7XG4gICAgICAgICAgICAgICAgICAgIC8vIGRlbGF5IGJ5IG9uZSB0aWNrIHNvIHdlIGNhbiBjYW5jZWwgdGhlICd0YXAnIGV2ZW50IGlmICdzY3JvbGwnIGZpcmVzXG4gICAgICAgICAgICAgICAgICAgIC8vICgndGFwJyBmaXJlcyBiZWZvcmUgJ3Njcm9sbCcpXG4gICAgICAgICAgICAgICAgICAgIHRhcFRpbWVvdXQgPSBzZXRUaW1lb3V0KGZ1bmN0aW9uICgpIHtcblxuICAgICAgICAgICAgICAgICAgICAgICAgLy8gdHJpZ2dlciB1bml2ZXJzYWwgJ3RhcCcgd2l0aCB0aGUgb3B0aW9uIHRvIGNhbmNlbFRvdWNoKClcbiAgICAgICAgICAgICAgICAgICAgICAgIC8vIChjYW5jZWxUb3VjaCBjYW5jZWxzIHByb2Nlc3Npbmcgb2Ygc2luZ2xlIHZzIGRvdWJsZSB0YXBzIGZvciBmYXN0ZXIgJ3RhcCcgcmVzcG9uc2UpXG4gICAgICAgICAgICAgICAgICAgICAgICB2YXIgZXZlbnQgPSAkLkV2ZW50KCd0YXAnKTtcbiAgICAgICAgICAgICAgICAgICAgICAgIGV2ZW50LmNhbmNlbFRvdWNoID0gY2FuY2VsQWxsO1xuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHRvdWNoLmVsICE9PSB1bmRlZmluZWQpIHRvdWNoLmVsLnRyaWdnZXIoZXZlbnQpO1xuXG4gICAgICAgICAgICAgICAgICAgICAgICAvLyB0cmlnZ2VyIGRvdWJsZSB0YXAgaW1tZWRpYXRlbHlcbiAgICAgICAgICAgICAgICAgICAgICAgIGlmICh0b3VjaC5pc0RvdWJsZVRhcCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICh0b3VjaC5lbCAhPT0gdW5kZWZpbmVkKSB0b3VjaC5lbC50cmlnZ2VyKCdkb3VibGVUYXAnKTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0b3VjaCA9IHt9O1xuICAgICAgICAgICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgICAgICAgICAvLyB0cmlnZ2VyIHNpbmdsZSB0YXAgYWZ0ZXIgMjUwbXMgb2YgaW5hY3Rpdml0eVxuICAgICAgICAgICAgICAgICAgICAgICAgZWxzZSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdG91Y2hUaW1lb3V0ID0gc2V0VGltZW91dChmdW5jdGlvbiAoKSB7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRvdWNoVGltZW91dCA9IG51bGw7XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmICh0b3VjaC5lbCAhPT0gdW5kZWZpbmVkKSB0b3VjaC5lbC50cmlnZ2VyKCdzaW5nbGVUYXAnKTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdG91Y2ggPSB7fTtcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9LCAyNTApO1xuICAgICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICB9LCAwKTtcbiAgICAgICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICB0b3VjaCA9IHt9O1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICBkZWx0YVggPSBkZWx0YVkgPSAwO1xuICAgICAgICAgICAgfVxuICAgICAgICB9KVxuICAgICAgICAvLyB3aGVuIHRoZSBicm93c2VyIHdpbmRvdyBsb3NlcyBmb2N1cyxcbiAgICAgICAgLy8gZm9yIGV4YW1wbGUgd2hlbiBhIG1vZGFsIGRpYWxvZyBpcyBzaG93bixcbiAgICAgICAgLy8gY2FuY2VsIGFsbCBvbmdvaW5nIGV2ZW50c1xuICAgICAgICAub24oJ3RvdWNoY2FuY2VsIE1TUG9pbnRlckNhbmNlbCcsIGNhbmNlbEFsbCk7XG5cbiAgICAvLyBzY3JvbGxpbmcgdGhlIHdpbmRvdyBpbmRpY2F0ZXMgaW50ZW50aW9uIG9mIHRoZSB1c2VyXG4gICAgLy8gdG8gc2Nyb2xsLCBub3QgdGFwIG9yIHN3aXBlLCBzbyBjYW5jZWwgYWxsIG9uZ29pbmcgZXZlbnRzXG4gICAgJCh3aW5kb3cpLm9uKCdzY3JvbGwnLCBjYW5jZWxBbGwpO1xufSk7XG5cblxuXG4vKiogV0VCUEFDSyBGT09URVIgKipcbiAqKiBzcmMvanMvdXRpbC90b3VjaC5qc1xuICoqLyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7OztBQU1BO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFDQTtBQUdBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFGQTtBQUZBO0FBQ0E7QUFPQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFOQTtBQUNBO0FBUUE7QUFDQTtBQURBO0FBQ0E7QUFHQTtBQUNBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBQ0E7QUFJQTtBQUNBO0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUZBO0FBSkE7OztBQURBO0FBQ0E7QUFhQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBbkJBO0FBc0JBO0FBREE7QUFyQkE7OztBQVpBO0FBQ0E7QUF5Q0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFYQTs7O0FBeENBO0FBQ0E7QUF3REE7QUFDQTtBQUNBO0FBQ0E7O0FBTEE7QUFDQTtBQVFBO0FBQ0E7QUFDQTtBQUNBO0FBRkE7QUFJQTtBQUxBO0FBQ0E7O0FBSEE7QUFDQTs7O0FBY0E7OztBQUdBO0FBQ0E7OztBQUdBO0FBQ0E7QUFDQTtBQUNBOztBQVBBO0FBVUE7QUFDQTs7OztBQUZBO0FBT0E7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQVBBO0FBVEE7QUFIQTtBQTJCQTtBQTNCQTtBQTZCQTtBQWpDQTtBQWxCQTs7OztBQXZEQTtBQUNBOzs7QUFUQTtBQUFBIiwic291cmNlUm9vdCI6IiJ9");
 
 /***/ }
 /******/ ])
