@@ -9,6 +9,7 @@
 //                  `uk-navbar-nav`
 //                  `uk-navbar-item`
 //                  `uk-navbar-toggle`
+//                  `uk-navbar-toggle-icon`
 //                  `uk-navbar-subtitle`
 //                  `uk-navbar-dropbar`
 //
@@ -43,13 +44,13 @@
 @navbar-nav-item-active-color:                  @global-color;
 
 @navbar-item-color:                             @global-color;
-@navbar-item-link-color:                        @global-muted-color;
-@navbar-item-link-hover-color:                  @global-color;
 
-@navbar-toggle-width:                           (@global-line-height * 1em);
-@navbar-toggle-height:                          @navbar-toggle-width;
 @navbar-toggle-color:                           @global-muted-color;
 @navbar-toggle-hover-color:                     @global-color;
+@navbar-toggle-icon-width:                      (@global-line-height * 1em);
+@navbar-toggle-icon-height:                     @navbar-toggle-icon-width;
+@navbar-toggle-icon-color:                      @global-muted-color;
+@navbar-toggle-icon-hover-color:                @global-color;
 
 @navbar-subtitle-font-size:                     @global-small-font-size;
 
@@ -141,7 +142,7 @@
 }
 
 /*
- * Items (Nav item, item, toggle)
+ * Items (Nav item, item, icon)
  * 1. Center content vertically and horizontally
  * 2. Dimensions
  * 3. Style
@@ -215,31 +216,43 @@
     .hook-navbar-item;
 }
 
-.uk-navbar-item a:not([class]) { color: @navbar-item-link-color; }
-.uk-navbar-item a:not([class]):hover { color: @navbar-item-link-hover-color; }
-
 
 /* Toggle
  ========================================================================== */
 
-.uk-navbar-toggle::before {
-    content: "";
-    width: @navbar-toggle-width;
-    height: @navbar-toggle-height;
-    .svg-fill("../images/navbar-toggle.svg", "#000", @navbar-toggle-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+.uk-navbar-toggle {
+    color: @navbar-toggle-color;
     .hook-navbar-toggle;
 }
 
-/* Hover + Focus */
-.uk-navbar-toggle:hover::before,
-.uk-navbar-toggle:focus::before {
-    .svg-fill("../images/navbar-toggle.svg", "#000", @navbar-toggle-hover-color);
+.uk-navbar-toggle:hover {
+    color: @navbar-toggle-hover-color;
+    text-decoration: none;
     .hook-navbar-toggle-hover;
 }
 
 .uk-navbar-toggle:focus { outline: none; }
+
+/*
+ * Icon
+ */
+
+.uk-navbar-toggle-icon {
+    display: inline-block;
+    width: @navbar-toggle-icon-width;
+    height: @navbar-toggle-icon-height;
+    .svg-fill("../images/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .hook-navbar-toggle-icon;
+}
+
+/* Hover + Focus */
+:hover > .uk-navbar-toggle-icon,
+:focus > .uk-navbar-toggle-icon {
+    .svg-fill("../images/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-hover-color);
+    .hook-navbar-toggle-icon-hover;
+}
 
 
 /* Subtitle
@@ -452,6 +465,8 @@
 .hook-navbar-item() {}
 .hook-navbar-toggle(){}
 .hook-navbar-toggle-hover(){}
+.hook-navbar-toggle-icon(){}
+.hook-navbar-toggle-icon-hover(){}
 .hook-navbar-subtitle() {}
 .hook-navbar-transparent(){}
 .hook-navbar-dropdown(){}
