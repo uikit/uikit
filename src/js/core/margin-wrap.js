@@ -46,7 +46,7 @@ export default function (UIkit) {
                     });
             },
 
-            events: ['load', 'resize', 'orientationchange', 'update2']
+            events: ['load', 'resize', 'orientationchange']
 
         }
 
