@@ -76,8 +76,6 @@ export default function (UIkit) {
         this.$el = $el;
 
         this.__preventDestroy = true;
-
-        this.$updateParents();
     };
 
     UIkit.prototype.$destroy = function () {
