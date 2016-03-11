@@ -29,10 +29,9 @@ export default function (UIkit) {
             boundaryAlign: false,
             clsDrop: 'uk-navbar-dropdown',
             delayHide: 800,
-            hoverIdle: 200,
             dropbar: false,
             duration: 200,
-            dropbarMode: 'hover'
+            dropbarMode: 'overlay'
         },
 
         ready() {
@@ -74,8 +73,8 @@ export default function (UIkit) {
                 this.dropbar = $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.$el);
             }
 
-            if (this.dropbarMode === 'hover') {
-                this.dropbar.addClass('uk-navbar-dropbar-hover');
+            if (this.dropbarMode === 'overlay') {
+                this.dropbar.addClass('uk-navbar-dropbar-overlay');
             }
 
             var height, transition;

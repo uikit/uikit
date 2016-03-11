@@ -830,7 +830,7 @@
 
                     <h2>Dropbar</h2>
 
-                    <div id="nav-dropdown-dropbar-hover" class="uk-position-relative uk-margin">
+                    <div id="nav-dropdown-dropbar-overlay" class="uk-position-relative uk-margin">
 
                         <nav class="uk-navbar" uk-navbar="dropbar: #dropbar1">
                             <div class="uk-navbar-left">
@@ -911,7 +911,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li uk-drop="cls-drop: uk-navbar-dropdown; boundary: #nav-dropdown-dropbar-hover; boundary-align: true; pos: bottom-justify; flip: x">
+                                    <li uk-drop="cls-drop: uk-navbar-dropdown; boundary: #nav-dropdown-dropbar-overlay; boundary-align: true; pos: bottom-justify; flip: x">
                                         <a href="#">Justify</a>
                                         <div class="uk-navbar-dropdown">
                                             <div class="uk-navbar-dropdown-grid uk-grid uk-child-width-1-3@m" uk-grid>
@@ -1141,6 +1141,12 @@
                     </nav>
 
                     <h2>Toggle</h2>
+
+                    <nav class="uk-navbar uk-margin">
+                        <div class="uk-navbar-left">
+                            <a class="uk-navbar-toggle" href="#"> Menu</a>
+                        </div>
+                    </nav>
 
                     <nav class="uk-navbar uk-margin">
                         <div class="uk-navbar-left">
@@ -1528,8 +1534,8 @@
                     </tr>
                     <tr>
                         <td><code>dropbar-mode</code></td>
-                        <td>hover | expand</td>
-                        <td>hover</td>
+                        <td>overlay | expand</td>
+                        <td>overlay</td>
                         <td>The dropbar mode.</td>
                     </tr>
                 </tbody>
