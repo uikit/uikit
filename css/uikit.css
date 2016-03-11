@@ -3406,6 +3406,25 @@ ul.uk-nav-sub {
   transform: translateX(100%);
 }
 /* ========================================================================
+   Component: Switcher
+ ========================================================================== */
+/*
+ * 1. Deactivate browser history navigation in IE11
+ */
+.uk-switcher {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* 1 */
+  touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+}
+/*
+ * Items
+ */
+.uk-switcher > :not(.uk-active) {
+  display: none;
+}
+/* ========================================================================
    Component: Animation
  ========================================================================== */
 [class*='uk-animation-'] {
@@ -6784,25 +6803,6 @@ ul.uk-nav-sub {
   h3 {
     page-break-after: avoid;
   }
-}
-/* ========================================================================
-   Component: Switcher
- ========================================================================== */
-/*
- * 1. Deactivate browser history navigation in IE11
- */
-.uk-switcher {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  /* 1 */
-  touch-action: cross-slide-y pinch-zoom double-tap-zoom;
-}
-/*
- * Items
- */
-.uk-switcher > :not(.uk-active) {
-  display: none;
 }
 /* ========================================================================
    Component: Form advanced
