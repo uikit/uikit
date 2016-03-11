@@ -92,6 +92,38 @@ export default function (UIkit) {
 
         },
 
+        update: {
+
+            handler() {
+
+                removeClass(this.drop, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
+
+                this.drop.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign).show();
+
+                this.dir = this.pos[0];
+                this.align = this.pos[1];
+
+                var boundary = getDimensions(this.boundary),
+                    alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
+
+                if (this.align === 'justify') {
+                    var prop = this.getAxis() === 'y' ? 'width' : 'height';
+                    this.drop.css(prop, alignTo[prop]);
+                } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+                    this.drop.addClass(this.clsDrop + '-stack');
+                    this.$el.trigger('stack', [this]);
+                }
+
+                this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
+
+                this.drop.css('display', '');
+
+            },
+
+            events: ['resize', 'orientationchange']
+
+        },
+
         methods: {
 
             show(force) {
@@ -109,28 +141,9 @@ export default function (UIkit) {
 
                 var show = () => {
 
-                    removeClass(this.drop, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
-
-                    this.drop.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign).show();
-
-                    this.dir = this.pos[0];
-                    this.align = this.pos[1];
-
-                    var boundary = getDimensions(this.boundary),
-                        alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
-
-                    if (this.align === 'justify') {
-                        var prop = this.getAxis() === 'y' ? 'width' : 'height';
-                        this.drop.css(prop, alignTo[prop]);
-                    } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                        this.drop.addClass(this.clsDrop + '-stack');
-                        this.$el.trigger('stack', [this]);
-                    }
-
-                    this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
-
+                    this._callUpdate();
                     this.$el.trigger('beforeshow', [this]).addClass(this.cls);
-                    this.toggleState(this.drop.css('display', ''));
+                    this.toggleState(this.drop);
                     this.$el.attr('aria-expanded', 'true').trigger('show', [this]);
 
                     if (this.mode === 'hover') {

@@ -87,9 +87,10 @@ export default function (UIkit) {
 
                 show: (e, drop) => {
 
+                    var newHeight = drop.drop.outerHeight(true);
+
                     drop.$el.removeClass('uk-open');
 
-                    var newHeight = drop.drop.outerHeight(true);
                     if (height === newHeight) {
 
                         if (transition && transition.state() !== 'pending') {
@@ -100,7 +101,7 @@ export default function (UIkit) {
                     }
                     height = newHeight;
 
-                    transition = Transition.start(this.dropbar, {height: drop.drop.outerHeight(true)}, this.duration).then(() => {
+                    transition = Transition.start(this.dropbar, {height: height}, this.duration).then(() => {
                         var active = this.getActive();
                         if (active) {
                             active.$el.addClass('uk-open');

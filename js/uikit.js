@@ -1415,8 +1415,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.$el = $el;
 
 	        this.__preventDestroy = true;
-
-	        this.$updateParents();
 	    };
 
 	    UIkit.prototype.$destroy = function () {
@@ -2265,6 +2263,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 
 
+	        update: {
+	            handler: function handler() {
+
+	                (0, _index.removeClass)(this.drop, this.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });
+
+	                this.drop.toggleClass(this.clsDrop + '-boundary', this.boundaryAlign).show();
+
+	                this.dir = this.pos[0];
+	                this.align = this.pos[1];
+
+	                var boundary = (0, _index.getDimensions)(this.boundary),
+	                    alignTo = this.boundaryAlign ? boundary : (0, _index.getDimensions)(this.$el);
+
+	                if (this.align === 'justify') {
+	                    var prop = this.getAxis() === 'y' ? 'width' : 'height';
+	                    this.drop.css(prop, alignTo[prop]);
+	                } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+	                    this.drop.addClass(this.clsDrop + '-stack');
+	                    this.$el.trigger('stack', [this]);
+	                }
+
+	                this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
+
+	                this.drop.css('display', '');
+	            },
+
+
+	            events: ['resize', 'orientationchange']
+
+	        },
+
 	        methods: {
 	            show: function show(force) {
 	                var _this2 = this;
@@ -2282,28 +2311,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var show = function show() {
 
-	                    (0, _index.removeClass)(_this2.drop, _this2.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });
-
-	                    _this2.drop.toggleClass(_this2.clsDrop + '-boundary', _this2.boundaryAlign).show();
-
-	                    _this2.dir = _this2.pos[0];
-	                    _this2.align = _this2.pos[1];
-
-	                    var boundary = (0, _index.getDimensions)(_this2.boundary),
-	                        alignTo = _this2.boundaryAlign ? boundary : (0, _index.getDimensions)(_this2.$el);
-
-	                    if (_this2.align === 'justify') {
-	                        var prop = _this2.getAxis() === 'y' ? 'width' : 'height';
-	                        _this2.drop.css(prop, alignTo[prop]);
-	                    } else if (_this2.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-	                        _this2.drop.addClass(_this2.clsDrop + '-stack');
-	                        _this2.$el.trigger('stack', [_this2]);
-	                    }
-
-	                    _this2.positionAt(_this2.drop, _this2.boundaryAlign ? _this2.boundary : _this2.$el, _this2.boundary);
-
+	                    _this2._callUpdate();
 	                    _this2.$el.trigger('beforeshow', [_this2]).addClass(_this2.cls);
-	                    _this2.toggleState(_this2.drop.css('display', ''));
+	                    _this2.toggleState(_this2.drop);
 	                    _this2.$el.attr('aria-expanded', 'true').trigger('show', [_this2]);
 
 	                    if (_this2.mode === 'hover') {
@@ -2549,44 +2559,40 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        update: {
 	            handler: function handler() {
-	                var _this = this;
 
-	                if (!this.$el.is(':visible')) {
-	                    return this;
-	                }
+	                var columns = this.$el.removeClass(this.margin).children().filter(function (i, el) {
+	                    return el.style.display !== 'none';
+	                }),
+	                    offset = false,
+	                    pos = false;
 
-	                var skip = false,
-	                    columns = this.$el.children(':visible').removeClass(this.margin),
-	                    offset = columns.length ? columns.position().top + columns.outerHeight() - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+	                sortByOffset(columns, 'top').filter(function (i, el) {
 
-	                if (offset !== false && columns.length > 1) {
-	                    columns.slice(1).each(function (i, column) {
+	                    el = (0, _jquery2.default)(el);
 
-	                        column = (0, _jquery2.default)(column);
-
-	                        if (skip) {
-	                            column.addClass(_this.margin);
-	                        } else if (column.position().top >= offset) {
-	                            skip = column.addClass(_this.margin);
-	                        }
-	                    });
-	                }
-
-	                if (this.rowFirst) {
-
-	                    // Mark first column elements
-	                    columns.removeClass(this.rowFirst);
-
-	                    var pos = columns.first().position();
-
-	                    if (pos) {
-	                        columns.each(function (i, el) {
-	                            (0, _jquery2.default)(el).toggleClass(_this.rowFirst, (0, _jquery2.default)(el).position().left == pos.left);
-	                        });
+	                    if (offset === false) {
+	                        offset = el.offset().top + columns.outerHeight() - 1; // (-1): weird firefox bug when parent container is display:flex
+	                        return;
 	                    }
+
+	                    return el.offset().top >= offset;
+	                }).addClass(this.margin);
+
+	                if (!this.rowFirst) {
+	                    return;
 	                }
 
-	                return this;
+	                // Mark first column elements
+	                sortByOffset(columns.removeClass(this.rowFirst), 'left').filter(function (i, el) {
+
+	                    el = (0, _jquery2.default)(el);
+
+	                    if (pos === false) {
+	                        pos = el.offset().left;
+	                    }
+
+	                    return pos === el.offset().left;
+	                }).addClass(this.rowFirst);
 	            },
 
 
@@ -2604,6 +2610,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function sortByOffset(elements, prop) {
+	    return elements.sort(function (a, b) {
+	        a = (0, _jquery2.default)(a).offset[prop];
+	        b = (0, _jquery2.default)(b).offset[prop];
+
+	        return a === b ? 0 : a < b ? -1 : 1;
+	    });
+	}
 
 /***/ },
 /* 29 */
@@ -2798,9 +2813,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                show: function show(e, drop) {
 
+	                    var newHeight = drop.drop.outerHeight(true);
+
 	                    drop.$el.removeClass('uk-open');
 
-	                    var newHeight = drop.drop.outerHeight(true);
 	                    if (height === newHeight) {
 
 	                        if (transition && transition.state() !== 'pending') {
@@ -2811,7 +2827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                    height = newHeight;
 
-	                    transition = _index.Transition.start(_this.dropbar, { height: drop.drop.outerHeight(true) }, _this.duration).then(function () {
+	                    transition = _index.Transition.start(_this.dropbar, { height: height }, _this.duration).then(function () {
 	                        var active = _this.getActive();
 	                        if (active) {
 	                            active.$el.addClass('uk-open');

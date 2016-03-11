@@ -16,42 +16,37 @@ export default function (UIkit) {
 
             handler() {
 
-                if (!this.$el.is(':visible')) {
-                    return this;
-                }
+                var columns = this.$el.removeClass(this.margin).children().filter((i, el) => { return el.style.display !== 'none'; }), offset = false, pos = false;
 
-                var skip = false, columns = this.$el.children(':visible').removeClass(this.margin),
-                    offset = columns.length ? columns.position().top + columns.outerHeight() - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+                sortByOffset(columns, 'top').filter((i, el) => {
 
-                if (offset !== false && columns.length > 1) {
-                    columns.slice(1).each((i, column) => {
+                    el = $(el);
 
-                        column = $(column);
-
-                        if (skip) {
-                            column.addClass(this.margin);
-                        } else if (column.position().top >= offset) {
-                            skip = column.addClass(this.margin);
-                        }
-
-                    });
-                }
-
-                if (this.rowFirst) {
-
-                    // Mark first column elements
-                    columns.removeClass(this.rowFirst);
-
-                    var pos = columns.first().position();
-
-                    if (pos) {
-                        columns.each((i, el) => {
-                            $(el).toggleClass(this.rowFirst, $(el).position().left == pos.left);
-                        });
+                    if (offset === false) {
+                        offset = el.offset().top + columns.outerHeight() - 1; // (-1): weird firefox bug when parent container is display:flex
+                        return;
                     }
+
+                    return el.offset().top >= offset;
+
+                }).addClass(this.margin);
+
+                if (!this.rowFirst) {
+                    return;
                 }
 
-                return this;
+                // Mark first column elements
+                sortByOffset(columns.removeClass(this.rowFirst), 'left').filter((i, el) => {
+
+                    el = $(el);
+
+                    if (pos === false) {
+                        pos = el.offset().left;
+                    }
+
+                    return pos === el.offset().left;
+
+                }).addClass(this.rowFirst);
             },
 
             events: ['load', 'resize', 'orientationchange']
@@ -60,4 +55,13 @@ export default function (UIkit) {
 
     });
 
+}
+
+function sortByOffset(elements, prop) {
+    return elements.sort((a, b) => {
+        a = $(a).offset[prop];
+        b = $(b).offset[prop];
+
+        return a === b ? 0 : a < b ? -1 : 1;
+    });
 }
