@@ -73,7 +73,7 @@
 
 	        this.content = this.$el.attr('title');
 	        this.$el.removeAttr('title');
-	        this.tooltip = (0, _jquery2.default)('<div class="uk-tooltip"><div class="uk-tooltip-inner">' + this.content + '</div></div>').appendTo('body');
+	        this.tooltip = (0, _jquery2.default)('<div class="uk-tooltip" aria-hidden="true"><div class="uk-tooltip-inner">' + this.content + '</div></div>').appendTo('body');
 
 	        this.$el.on('focus mouseenter', this.show.bind(this));
 	        this.$el.on('blur mouseleave', this.hide.bind(this));

@@ -1750,12 +1750,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        defaults: {
 	            cls: false,
 	            animation: false,
-	            duration: 200
+	            duration: 200,
+	            aria: true
 	        },
 
 	        ready: function ready() {
-
-	            this.aria = this.cls === false;
 
 	            if (typeof this.animation === 'string') {
 
@@ -1823,9 +1822,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
 	            },
 	            doUpdate: function doUpdate(el) {
+	                this.updateAria(el);
 	                this.$update(null, el);
+	            },
+	            updateAria: function updateAria(el) {
 	                if (this.aria) {
-	                    el.attr('aria-hidden', !!el.attr('hidden'));
+	                    el.attr('aria-hidden', !this.isToggled(el));
 	                }
 	            }
 	        }
@@ -2235,7 +2237,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
-	            this.drop.attr('aria-expanded', false);
+	            this.$el.attr('aria-expanded', false);
+	            this.updateAria(this.drop);
 
 	            this.drop.on('click', '.' + this.clsDrop + '-close', function () {
 	                _this.hide(true);
@@ -2281,11 +2284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    (0, _index.removeClass)(_this2.drop, _this2.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });
 
-	                    if (_this2.boundaryAlign) {
-	                        _this2.drop.addClass(_this2.clsDrop + '-boundary');
-	                    }
-
-	                    _this2.drop.show();
+	                    _this2.drop.toggleClass(_this2.clsDrop + '-boundary', _this2.boundaryAlign).show();
 
 	                    _this2.dir = _this2.pos[0];
 	                    _this2.align = _this2.pos[1];
@@ -2305,8 +2304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    _this2.$el.trigger('beforeshow', [_this2]).addClass(_this2.cls);
 	                    _this2.toggleState(_this2.drop.css('display', ''));
-	                    _this2.drop.attr('aria-expanded', 'true');
-	                    _this2.$el.trigger('show', [_this2]);
+	                    _this2.$el.attr('aria-expanded', 'true').trigger('show', [_this2]);
 
 	                    if (_this2.mode === 'hover') {
 	                        _this2.initMouseTracker(_this2.drop);
@@ -2338,8 +2336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a, button').blur();
 	                    _this3.toggleState(_this3.drop, false);
-	                    _this3.drop.attr('aria-expanded', 'false');
-	                    _this3.$el.trigger('hide', [_this3, force]);
+	                    _this3.$el.attr('aria-expanded', 'false').trigger('hide', [_this3, force]);
 	                };
 
 	                this.isDelaying = this.movesTowardsTarget();
@@ -3473,6 +3470,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 	            }
 
+	            this.updateAria(this.connect.children());
 	            this.show((0, _index.toJQuery)(this.toggles.filter('.' + this.cls)) || (0, _index.toJQuery)(this.toggles.eq(this.active)) || this.toggles.first());
 	        },
 
@@ -3501,8 +3499,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return;
 	                }
 
-	                this.toggles.removeClass(this.cls);
-	                toggle.addClass(this.cls);
+	                this.toggles.removeClass(this.cls).attr('aria-expanded', false);
+	                toggle.addClass(this.cls).attr('aria-expanded', true);
 
 	                this.toggleState(hasPrev ? this.connect.children(':nth-child(' + (prev + 1) + ')') : undefined, hasPrev).then(function () {
 	                    _this2.toggleState(_this2.connect.children(':nth-child(' + (index + 1) + ')'), hasPrev);
@@ -3551,6 +3549,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (!this.target) {
 	                return;
 	            }
+
+	            this.aria = this.cls === false;
+	            this.updateAria(this.target);
 
 	            this.$el.on('click', function (e) {
 	                e.preventDefault();

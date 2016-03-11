@@ -14,12 +14,11 @@ export default function (UIkit) {
         defaults: {
             cls: false,
             animation: false,
-            duration: 200
+            duration: 200,
+            aria: true
         },
 
         ready() {
-
-            this.aria = this.cls === false;
 
             if (typeof this.animation === 'string') {
 
@@ -94,9 +93,13 @@ export default function (UIkit) {
             },
 
             doUpdate(el) {
+                this.updateAria(el);
                 this.$update(null, el);
+            },
+
+            updateAria(el) {
                 if (this.aria) {
-                    el.attr('aria-hidden', !!el.attr('hidden'));
+                    el.attr('aria-hidden', !this.isToggled(el));
                 }
             }
 

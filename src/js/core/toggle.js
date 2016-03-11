@@ -18,6 +18,9 @@ export default function (UIkit) {
                 return;
             }
 
+            this.aria = this.cls === false;
+            this.updateAria(this.target);
+
             this.$el.on('click', e => {
                 e.preventDefault();
                 this.toggleState(this.target);

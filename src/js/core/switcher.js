@@ -50,6 +50,7 @@ export default function (UIkit) {
                 });
             }
 
+            this.updateAria(this.connect.children());
             this.show(toJQuery(this.toggles.filter(`.${this.cls}`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
 
         },
@@ -85,8 +86,8 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.toggles.removeClass(this.cls)
-                toggle.addClass(this.cls);
+                this.toggles.removeClass(this.cls).attr('aria-expanded', false);
+                toggle.addClass(this.cls).attr('aria-expanded', true);
 
                 this.toggleState(hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : undefined, hasPrev).then(() => {
                     this.toggleState(this.connect.children(`:nth-child(${index + 1})`), hasPrev);

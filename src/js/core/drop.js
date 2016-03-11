@@ -63,7 +63,8 @@ export default function (UIkit) {
                 }
             });
 
-            this.drop.attr('aria-expanded', false);
+            this.$el.attr('aria-expanded', false);
+            this.updateAria(this.drop);
 
             this.drop.on('click', `.${this.clsDrop}-close`, () => {
                 this.hide(true);
@@ -110,11 +111,7 @@ export default function (UIkit) {
 
                     removeClass(this.drop, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
 
-                    if (this.boundaryAlign) {
-                        this.drop.addClass(`${this.clsDrop}-boundary`);
-                    }
-
-                    this.drop.show();
+                    this.drop.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign).show();
 
                     this.dir = this.pos[0];
                     this.align = this.pos[1];
@@ -134,8 +131,7 @@ export default function (UIkit) {
 
                     this.$el.trigger('beforeshow', [this]).addClass(this.cls);
                     this.toggleState(this.drop.css('display', ''));
-                    this.drop.attr('aria-expanded', 'true');
-                    this.$el.trigger('show', [this]);
+                    this.$el.attr('aria-expanded', 'true').trigger('show', [this]);
 
                     if (this.mode === 'hover') {
                         this.initMouseTracker(this.drop);
@@ -167,8 +163,7 @@ export default function (UIkit) {
 
                     this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').find('a, button').blur();
                     this.toggleState(this.drop, false);
-                    this.drop.attr('aria-expanded', 'false');
-                    this.$el.trigger('hide', [this, force]);
+                    this.$el.attr('aria-expanded', 'false').trigger('hide', [this, force]);
 
                 };
 
