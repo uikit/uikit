@@ -2296,9 +2296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (_this2.align === 'justify') {
 	                        var prop = _this2.getAxis() === 'y' ? 'width' : 'height';
 	                        _this2.drop.css(prop, alignTo[prop]);
-	                    }
-
-	                    if (_this2.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+	                    } else if (_this2.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
 	                        _this2.drop.addClass(_this2.clsDrop + '-stack');
 	                        _this2.$el.trigger('stack', [_this2]);
 	                    }

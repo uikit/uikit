@@ -125,9 +125,7 @@ export default function (UIkit) {
                     if (this.align === 'justify') {
                         var prop = this.getAxis() === 'y' ? 'width' : 'height';
                         this.drop.css(prop, alignTo[prop]);
-                    }
-
-                    if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+                    } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                         this.drop.addClass(this.clsDrop + '-stack');
                         this.$el.trigger('stack', [this]);
                     }
