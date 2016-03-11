@@ -58,9 +58,8 @@ export default function (UIkit) {
                         if (!this.isToggled(el)) {
 
                             this.doToggle(el, true);
-                            deferreds.push(Animation.in(el, this.animation[0], this.duration).then(() => {
-                                this.doUpdate(el);
-                            }));
+                            deferreds.push(Animation.in(el, this.animation[0], this.duration));
+                            this.doUpdate(el);
 
                         } else {
 

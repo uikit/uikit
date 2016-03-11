@@ -5,7 +5,10 @@ export default function (UIkit) {
 
     UIkit.component('margin-wrap', {
 
-        props: ['margin', 'rowFirst'],
+        props: {
+            margin: String,
+            rowFirst: Boolean
+        },
 
         defaults: {
             margin: 'uk-margin-small-top',
@@ -16,52 +19,37 @@ export default function (UIkit) {
 
             handler() {
 
-                var columns = this.$el.removeClass(this.margin).children().filter((i, el) => { return el.style.display !== 'none'; }), offset = false, pos = false;
-
-                sortByOffset(columns, 'top').filter((i, el) => {
-
-                    el = $(el);
-
-                    if (offset === false) {
-                        offset = el.offset().top + columns.outerHeight() - 1; // (-1): weird firefox bug when parent container is display:flex
-                        return;
-                    }
-
-                    return el.offset().top >= offset;
-
-                }).addClass(this.margin);
-
-                if (!this.rowFirst) {
+                if (this.$el[0].offsetHeight === 0) {
                     return;
                 }
 
-                // Mark first column elements
-                sortByOffset(columns.removeClass(this.rowFirst), 'left').filter((i, el) => {
+                var left = Number.MAX_VALUE,
+                    top = Number.MAX_VALUE,
+                    offset,
+                    columns = this.$el.children()
+                        .filter((i, el) => { return el.offsetHeight > 0; })
+                        .removeClass(this.margin)
+                        .removeClass(this.rowFirst);
 
-                    el = $(el);
-
-                    if (pos === false) {
-                        pos = el.offset().left;
-                    }
-
-                    return pos === el.offset().left;
-
-                }).addClass(this.rowFirst);
+                columns
+                    .each((i, el) => {
+                        el = $(el);
+                        offset = el.offset();
+                        top = Math.min(top, offset.top + el.outerHeight(true) - 1); // (-1): weird firefox bug when parent container is display:flex
+                        left = Math.min(left, offset.left);
+                    })
+                    .each((i, el) => {
+                        el = $(el);
+                        offset = el.offset();
+                        el.toggleClass(this.margin, offset.top >= top);
+                        el.toggleClass(this.rowFirst, this.rowFirst && offset.left === left);
+                    });
             },
 
-            events: ['load', 'resize', 'orientationchange']
+            events: ['load', 'resize', 'orientationchange', 'update2']
 
         }
 
     });
 
-}
-
-function sortByOffset(elements, prop) {
-    return elements.sort((a, b) => {
-        a = $(a).offset[prop];
-        b = $(b).offset[prop];
-
-        return a === b ? 0 : a < b ? -1 : 1;
-    });
 }

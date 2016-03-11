@@ -98,7 +98,7 @@ export default function (UIkit) {
 
                 removeClass(this.drop, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
 
-                this.drop.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign).show();
+                this.drop.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
 
                 this.dir = this.pos[0];
                 this.align = this.pos[1];
@@ -115,8 +115,6 @@ export default function (UIkit) {
                 }
 
                 this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
-
-                this.drop.css('display', '');
 
             },
 
@@ -141,10 +139,10 @@ export default function (UIkit) {
 
                 var show = () => {
 
-                    this._callUpdate();
-                    this.$el.trigger('beforeshow', [this]).addClass(this.cls);
+                    this.$el.trigger('beforeshow', [this]);
                     this.toggleState(this.drop);
-                    this.$el.attr('aria-expanded', 'true').trigger('show', [this]);
+                    this._callUpdate();
+                    this.$el.addClass(this.cls).attr('aria-expanded', 'true').trigger('show', [this]);
 
                     if (this.mode === 'hover') {
                         this.initMouseTracker(this.drop);
