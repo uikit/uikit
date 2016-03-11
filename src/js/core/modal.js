@@ -4,6 +4,12 @@
 
     var active = false, activeCount = 0, $html = UI.$html, body;
 
+    UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
+        UI.$('.uk-modal.uk-open').each(function(){
+            UI.$(this).data('modal').resize();
+        });
+    }, 150));
+
     UI.component('modal', {
 
         defaults: {
@@ -216,10 +222,6 @@
                     active.hide();
                 }
             });
-
-            UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
-                if (active) active.resize();
-            }, 150));
         },
 
         init: function() {
