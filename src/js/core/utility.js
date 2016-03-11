@@ -164,32 +164,23 @@
             'cls': 'uk-margin-small-top'
         }, options);
 
-        options.cls = options.cls;
+        elements    = UI.$(elements).removeClass(options.cls);
 
-        elements = UI.$(elements).removeClass(options.cls);
+        var group = {}, mintop = false;
 
-        var skip         = false,
-            firstvisible = elements.filter(":visible:first"),
-            offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+        elements.each(function(offset){
 
-        if (offset === false || elements.length == 1) return;
-
-        elements.each(function() {
-
-            var column = UI.$(this);
-
-            if (column.is(":visible")) {
-
-                if (skip) {
-                    column.addClass(options.cls);
-                } else {
-
-                    if (column.position().top >= offset) {
-                        skip = column.addClass(options.cls);
-                    }
-                }
+            if (this.style.display != 'none') {
+                offset = UI.$(this).offset().top;
+                ((group[offset] = group[offset] || []) && group[offset]).push(this);
+                mintop = mintop === false ? offset : Math.min(mintop, offset);
             }
         });
+
+        for(var offset in group) {
+            if (offset == mintop) continue;
+            UI.$(group[offset]).addClass(options.cls);
+        }
     };
 
     UI.Utils.matchHeights = function(elements, options) {
