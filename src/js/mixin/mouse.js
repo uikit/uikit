@@ -14,7 +14,7 @@ export default function (UIkit) {
 
         methods: {
 
-            initMouseTracker(target) {
+            initMouseTracker(target, dir) {
 
                 this.positions = [];
                 this.position = null;
@@ -36,12 +36,12 @@ export default function (UIkit) {
                     [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
                 ];
 
-                if (this.dir === 'right') {
+                if (dir === 'right') {
                     this.points[0].reverse();
                     this.points[1].reverse();
-                } else if (this.dir === 'top') {
+                } else if (dir === 'top') {
                     this.points[0].reverse();
-                } else if (this.dir === 'bottom') {
+                } else if (dir === 'bottom') {
                     this.points[1].reverse();
                 }
 

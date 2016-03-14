@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Accordion from './accordion';
 import Alert from './alert';
 import Close from './close';
 import Cover from './cover';
@@ -52,6 +53,7 @@ export default function (UIkit, _) {
         });
 
     // core components
+    UIkit.use(Accordion);
     UIkit.use(Alert);
     UIkit.use(Cover);
     UIkit.use(Drop);

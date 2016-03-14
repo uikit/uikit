@@ -145,7 +145,7 @@ export default function (UIkit) {
                     this.$el.addClass(this.cls).attr('aria-expanded', 'true').trigger('show', [this]);
 
                     if (this.mode === 'hover') {
-                        this.initMouseTracker(this.drop);
+                        this.initMouseTracker(this.drop, this.dir);
                     }
                 };
 

@@ -3152,6 +3152,46 @@ ul.uk-nav-sub {
   background-color: #e44e56;
 }
 /* ========================================================================
+   Component: Accordion
+ ========================================================================== */
+/* Sub-object: `uk-accordion-title`
+ ========================================================================== */
+.uk-accordion-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding: 5px 15px;
+  background: #eee;
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+}
+/* Sub-object: `uk-accordion-content`
+ ========================================================================== */
+.uk-accordion-content {
+  display: none;
+  padding: 0 15px 15px 15px;
+}
+.uk-accordion-content.uk-active {
+  display: block;
+}
+/*
+ * Micro clearfix to make panels more robust
+ */
+.uk-accordion-content:before,
+.uk-accordion-content:after {
+  content: "";
+  display: table;
+}
+.uk-accordion-content:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-accordion-content > :last-child {
+  margin-bottom: 0;
+}
+/* ========================================================================
    Component: Drop
  ========================================================================== */
 /*

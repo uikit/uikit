@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _index4 = _interopRequireDefault(_index3);
 
-	var _index5 = __webpack_require__(19);
+	var _index5 = __webpack_require__(20);
 
 	var _index6 = _interopRequireDefault(_index5);
 
@@ -1527,19 +1527,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_toggle2.default);
 	};
 
-	var _mouse = __webpack_require__(39);
+	var _mouse = __webpack_require__(16);
 
 	var _mouse2 = _interopRequireDefault(_mouse);
 
-	var _position = __webpack_require__(16);
+	var _position = __webpack_require__(17);
 
 	var _position2 = _interopRequireDefault(_position);
 
-	var _svg = __webpack_require__(17);
+	var _svg = __webpack_require__(18);
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _toggle = __webpack_require__(18);
+	var _toggle = __webpack_require__(19);
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
@@ -1547,6 +1547,87 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.mouse = {
+
+	        defaults: {
+
+	            positions: [],
+	            position: null,
+	            points: null
+
+	        },
+
+	        methods: {
+	            initMouseTracker: function initMouseTracker(target, dir) {
+	                var _this = this;
+
+	                this.positions = [];
+	                this.position = null;
+
+	                this.mouseHandler = function (e) {
+	                    _this.positions.push({ x: e.pageX, y: e.pageY });
+
+	                    if (_this.positions.length > 5) {
+	                        _this.positions.shift();
+	                    }
+	                };
+
+	                $(document).on('mousemove', this.mouseHandler);
+
+	                var p = (0, _index.getDimensions)(target);
+
+	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
+
+	                if (dir === 'right') {
+	                    this.points[0].reverse();
+	                    this.points[1].reverse();
+	                } else if (dir === 'top') {
+	                    this.points[0].reverse();
+	                } else if (dir === 'bottom') {
+	                    this.points[1].reverse();
+	                }
+	            },
+	            cancelMouseTracker: function cancelMouseTracker() {
+	                if (this.mouseHandler) {
+	                    $(document).off('mousemove', this.mouseHandler);
+	                }
+	            },
+	            movesTowardsTarget: function movesTowardsTarget() {
+
+	                var position = this.positions[this.positions.length - 1],
+	                    prevPos = this.positions[0] || position,
+	                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {
+	                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
+	                }, 0);
+
+	                this.position = delay ? position : null;
+	                return delay;
+	            }
+	        }
+
+	    };
+
+	    function slope(a, b) {
+	        return (b.y - a.y) / (b.x - a.x);
+	    }
+	};
+
+	var _index = __webpack_require__(4);
+
+	;
+
+/***/ },
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1624,7 +1705,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1726,7 +1807,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1741,14 +1822,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        props: {
 	            cls: Boolean,
-	            animation: String,
-	            duration: Number
+	            animation: Boolean,
+	            duration: Number,
+	            transition: String
 	        },
 
 	        defaults: {
 	            cls: false,
 	            animation: false,
 	            duration: 200,
+	            transition: 'linear',
 	            aria: true
 	        },
 
@@ -1780,15 +1863,51 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    var toggled = _this.isToggled(el);
 
-	                    if (show === true && toggled || show === false && !toggled) {
-	                        return;
-	                    }
+	                    if (_this.animation === true && animate !== false) {
 
-	                    if (_this.animation && animate !== false) {
+	                        var height = el[0].offsetHeight ? el.height() : 0;
+
+	                        _index.Transition.stop(el);
+
+	                        toggled = _this.isToggled(el);
+
+	                        if (!toggled) {
+	                            _this.doToggle(el, true);
+	                        }
+
+	                        el.css('height', '');
+	                        var endHeight = el.height();
+
+	                        el.height(height);
+
+	                        if (!toggled && show !== false || show === true) {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: endHeight,
+	                                'padding-top': '',
+	                                'padding-bottom': '',
+	                                'margin-top': '',
+	                                'margin-bottom': ''
+	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
+	                            _this.doUpdate(el);
+	                        } else {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: 0,
+	                                'padding-top': 0,
+	                                'padding-bottom': 0,
+	                                'margin-top': 0,
+	                                'margin-bottom': 0
+	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
+	                                _this.doUpdate(el);
+	                                _this.doToggle(el, false);
+	                            }));
+	                        }
+	                    } else if (_this.animation && animate !== false) {
 
 	                        _index.Animation.cancel(el);
 
-	                        if (!_this.isToggled(el)) {
+	                        if (!toggled && show !== false || show === true) {
 
 	                            _this.doToggle(el, true);
 	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration));
@@ -1802,7 +1921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    } else {
 
-	                        _this.doToggle(el, !toggled);
+	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
 	                        _this.doUpdate(el);
 	                        deferreds.push(_jquery2.default.Deferred().resolve());
 	                    }
@@ -1843,7 +1962,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1884,6 +2003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 
 	    // core components
+	    UIkit.use(_accordion2.default);
 	    UIkit.use(_alert2.default);
 	    UIkit.use(_cover2.default);
 	    UIkit.use(_drop2.default);
@@ -1909,79 +2029,83 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _alert = __webpack_require__(20);
+	var _accordion = __webpack_require__(40);
+
+	var _accordion2 = _interopRequireDefault(_accordion);
+
+	var _alert = __webpack_require__(21);
 
 	var _alert2 = _interopRequireDefault(_alert);
 
-	var _close = __webpack_require__(21);
+	var _close = __webpack_require__(22);
 
 	var _close2 = _interopRequireDefault(_close);
 
-	var _cover = __webpack_require__(22);
+	var _cover = __webpack_require__(23);
 
 	var _cover2 = _interopRequireDefault(_cover);
 
-	var _drop = __webpack_require__(23);
+	var _drop = __webpack_require__(24);
 
 	var _drop2 = _interopRequireDefault(_drop);
 
-	var _dropdown = __webpack_require__(24);
+	var _dropdown = __webpack_require__(25);
 
 	var _dropdown2 = _interopRequireDefault(_dropdown);
 
-	var _grid = __webpack_require__(25);
+	var _grid = __webpack_require__(26);
 
 	var _grid2 = _interopRequireDefault(_grid);
 
-	var _heightViewport = __webpack_require__(26);
+	var _heightViewport = __webpack_require__(27);
 
 	var _heightViewport2 = _interopRequireDefault(_heightViewport);
 
-	var _icon = __webpack_require__(27);
+	var _icon = __webpack_require__(28);
 
 	var _icon2 = _interopRequireDefault(_icon);
 
-	var _marginWrap = __webpack_require__(28);
+	var _marginWrap = __webpack_require__(29);
 
 	var _marginWrap2 = _interopRequireDefault(_marginWrap);
 
-	var _matchHeight = __webpack_require__(29);
+	var _matchHeight = __webpack_require__(30);
 
 	var _matchHeight2 = _interopRequireDefault(_matchHeight);
 
-	var _navbar = __webpack_require__(30);
+	var _navbar = __webpack_require__(31);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _responsive = __webpack_require__(31);
+	var _responsive = __webpack_require__(32);
 
 	var _responsive2 = _interopRequireDefault(_responsive);
 
-	var _scrollspy = __webpack_require__(32);
+	var _scrollspy = __webpack_require__(33);
 
 	var _scrollspy2 = _interopRequireDefault(_scrollspy);
 
-	var _scrollspyNav = __webpack_require__(33);
+	var _scrollspyNav = __webpack_require__(34);
 
 	var _scrollspyNav2 = _interopRequireDefault(_scrollspyNav);
 
-	var _smoothScroll = __webpack_require__(34);
+	var _smoothScroll = __webpack_require__(35);
 
 	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
 
-	var _sticky = __webpack_require__(35);
+	var _sticky = __webpack_require__(36);
 
 	var _sticky2 = _interopRequireDefault(_sticky);
 
-	var _svg = __webpack_require__(36);
+	var _svg = __webpack_require__(37);
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _switcher = __webpack_require__(37);
+	var _switcher = __webpack_require__(38);
 
 	var _switcher2 = _interopRequireDefault(_switcher);
 
-	var _toggle = __webpack_require__(38);
+	var _toggle = __webpack_require__(39);
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
@@ -1990,7 +2114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2027,27 +2151,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        methods: {
 	            closeAlert: function closeAlert() {
+	                var _this2 = this;
 
 	                this.$el.trigger('close');
-
-	                var deferred;
-
-	                if (this.animation === true) {
-
-	                    deferred = _index.Transition.start(this.$el, {
-	                        'overflow': 'hidden',
-	                        'height': 0,
+	                this.toggleState(this.$el).then(this.$destroy.bind(this));
+	                requestAnimationFrame(function () {
+	                    _this2.$el.css({
 	                        'opacity': 0,
-	                        'padding-top': 0,
-	                        'padding-bottom': 0,
-	                        'margin-top': 0,
-	                        'margin-bottom': '-' + this.$el.prev().css('margin-bottom')
-	                    }, this.duration);
-	                } else {
-	                    deferred = this.toggleState(this.$el);
-	                }
-
-	                deferred.then(this.$destroy.bind(this));
+	                        'margin-top': '-' + _this2.$el.prev().css('margin-bottom')
+	                    });
+	                });
 	            }
 	        },
 
@@ -2061,7 +2174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2088,7 +2201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2162,7 +2275,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2314,7 +2427,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this2.$el.addClass(_this2.cls).attr('aria-expanded', 'true').trigger('show', [_this2]);
 
 	                    if (_this2.mode === 'hover') {
-	                        _this2.initMouseTracker(_this2.drop);
+	                        _this2.initMouseTracker(_this2.drop, _this2.dir);
 	                    }
 	                };
 
@@ -2381,7 +2494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2396,7 +2509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2417,7 +2530,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2493,7 +2606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2534,7 +2647,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2586,7 +2699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 
 
-	            events: ['load', 'resize', 'orientationchange', 'update2']
+	            events: ['load', 'resize', 'orientationchange']
 
 	        }
 
@@ -2602,7 +2715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2698,7 +2811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2868,7 +2981,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2904,7 +3017,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3012,7 +3125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3105,7 +3218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3176,7 +3289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3356,7 +3469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3407,7 +3520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3433,8 +3546,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            connect: false,
 	            toggle: '> *',
 	            active: 0,
-	            cls: 'uk-active',
-	            swiping: true
+	            swiping: true,
+	            cls: 'uk-active'
 	        },
 
 	        ready: function ready() {
@@ -3467,7 +3580,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            this.updateAria(this.connect.children());
-	            this.show((0, _index.toJQuery)(this.toggles.filter('.' + this.cls)) || (0, _index.toJQuery)(this.toggles.eq(this.active)) || this.toggles.first());
+	            this.show((0, _index.toJQuery)(this.toggles.filter('.' + this.cls + ':first')) || (0, _index.toJQuery)(this.toggles.eq(this.active)) || this.toggles.first());
 	        },
 
 
@@ -3478,7 +3591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var length = this.toggles.length,
 	                    prev = this.connect.children('.' + this.cls).index(),
 	                    hasPrev = prev >= 0,
-	                    index = (item === 'next' ? prev + 1 : item === 'previous' ? prev - 1 : typeof item === 'string' ? parseInt(item, 10) : this.toggles.index(item)) % length,
+	                    index = (item === 'next' ? prev + 1 : item === 'previous' ? prev - 1 : typeof item === 'string' ? parseInt(item, 10) : typeof item === 'number' ? item : this.toggles.index(item)) % length,
 	                    toggle,
 	                    dir = item === 'previous' ? -1 : 1;
 
@@ -3516,7 +3629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3558,7 +3671,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3569,74 +3682,90 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit) {
 
-	    UIkit.mixin.mouse = {
+	    UIkit.component('accordion', {
 
-	        defaults: {
+	        mixins: [UIkit.mixin.toggle],
 
-	            positions: [],
-	            position: null,
-	            points: null
-
+	        props: {
+	            targets: String,
+	            active: null,
+	            collapseAll: Boolean,
+	            multiExpand: Boolean,
+	            clsToggle: String,
+	            clsContainer: String,
+	            transition: String
 	        },
 
+	        defaults: {
+	            targets: '>',
+	            active: false,
+	            animation: true,
+	            collapseAll: false,
+	            multiExpand: false,
+	            cls: 'uk-active',
+	            clsItem: 'uk-accordion-item',
+	            clsToggle: 'uk-accordion-title',
+	            clsContainer: 'uk-accordion-content',
+	            transition: 'ease'
+	        },
+
+	        ready: function ready() {
+
+	            this.items = (0, _index.toJQuery)(this.targets, this.$el);
+
+	            if (!this.items) {
+	                return;
+	            }
+
+	            var self = this;
+	            this.$el.on('click', this.targets + ' .' + this.clsItem + ' .' + this.clsToggle, function (e) {
+	                e.preventDefault();
+	                self.show(this.closest('.' + self.clsItem));
+	            });
+
+	            var active = (0, _index.toJQuery)(this.items.filter('.' + this.cls + ':first')) || this.active !== false && (0, _index.toJQuery)(this.items.eq(Number(this.active))) || !this.collapseAll && (0, _index.toJQuery)(this.items.eq(0));
+
+	            if (active) {
+	                this.show(active, false);
+	            }
+	        },
+
+
 	        methods: {
-	            initMouseTracker: function initMouseTracker(target) {
+	            show: function show(item, animate) {
 	                var _this = this;
 
-	                this.positions = [];
-	                this.position = null;
+	                var index = typeof item === 'number' ? item : typeof item === 'string' ? parseInt(item, 10) : this.items.index(item),
+	                    items = [this.items.eq(index)],
+	                    active = this.items.find(' .' + this.clsContainer + '.' + this.cls);
 
-	                this.mouseHandler = function (e) {
-	                    _this.positions.push({ x: e.pageX, y: e.pageY });
+	                if (!this.multiExpand) {
+	                    active.each(function (i, el) {
+	                        item = $(el).closest('.' + _this.clsItem);
+	                        if (item[0] !== items[0][0]) {
+	                            items.push(item);
+	                        }
+	                    });
+	                }
 
-	                    if (_this.positions.length > 5) {
-	                        _this.positions.shift();
+	                items.forEach(function (item, i) {
+	                    var content = item.find('.' + _this.clsContainer),
+	                        state = i === 0;
+
+	                    if (state && (_this.collapseAll || active.length > 1)) {
+	                        state = null;
 	                    }
-	                };
 
-	                $(document).on('mousemove', this.mouseHandler);
-
-	                var p = (0, _index.getDimensions)(target);
-
-	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
-
-	                if (this.dir === 'right') {
-	                    this.points[0].reverse();
-	                    this.points[1].reverse();
-	                } else if (this.dir === 'top') {
-	                    this.points[0].reverse();
-	                } else if (this.dir === 'bottom') {
-	                    this.points[1].reverse();
-	                }
-	            },
-	            cancelMouseTracker: function cancelMouseTracker() {
-	                if (this.mouseHandler) {
-	                    $(document).off('mousemove', this.mouseHandler);
-	                }
-	            },
-	            movesTowardsTarget: function movesTowardsTarget() {
-
-	                var position = this.positions[this.positions.length - 1],
-	                    prevPos = this.positions[0] || position,
-	                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {
-	                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
-	                }, 0);
-
-	                this.position = delay ? position : null;
-	                return delay;
+	                    item.toggleClass(_this.cls, _this.isToggled(content));
+	                    _this.toggleState(content, animate, state);
+	                });
 	            }
 	        }
 
-	    };
-
-	    function slope(a, b) {
-	        return (b.y - a.y) / (b.x - a.x);
-	    }
+	    });
 	};
 
 	var _index = __webpack_require__(4);
-
-	;
 
 /***/ }
 /******/ ])
