@@ -400,22 +400,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        element.css(name, element.css(name));
 	    }
 
-	    (0, _env.cancelAnimationFrame)(element[0].__uk_transition);
+	    var timer = setTimeout(function () {
+	        element.trigger(_env.transitionend || 'transitionend');
+	    }, duration);
 
-	    element[0].__uk_transition = (0, _env.requestAnimationFrame)(function () {
-
-	        var timer = setTimeout(function () {
-	            element.trigger(_env.transitionend || 'transitionend');
-	        }, duration);
-
-	        element.one(_env.transitionend || 'transitionend', function () {
-	            d.resolve();
-	            element.css('transition', '');
-	            clearTimeout(timer);
-	        }).css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);
-
-	        delete element[0].__uk_transition;
-	    });
+	    element.one(_env.transitionend || 'transitionend', function () {
+	        d.resolve();
+	        element.css('transition', '');
+	        clearTimeout(timer);
+	    }).css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);
 
 	    return d.promise();
 	}
@@ -428,7 +421,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        element = (0, _jquery2.default)(element);
 
-	        (0, _env.cancelAnimationFrame)(element[0].__uk_transition);
 	        (0, _jquery2.default)(element).trigger(_env.transitionend || 'transitionend');
 
 	        return this;

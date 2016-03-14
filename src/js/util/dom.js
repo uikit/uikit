@@ -31,25 +31,18 @@ export function transition(element, props, duration, transition) {
         element.css(name, element.css(name));
     }
 
-    cancelAnimationFrame(element[0].__uk_transition);
+    var timer = setTimeout(() => {
+        element.trigger(transitionend || 'transitionend');
+    }, duration);
 
-    element[0].__uk_transition = requestAnimationFrame(() => {
-
-        var timer = setTimeout(() => {
-            element.trigger(transitionend || 'transitionend');
-        }, duration);
-
-        element
-            .one(transitionend || 'transitionend', () => {
-                d.resolve();
-                element.css('transition', '');
-                clearTimeout(timer);
-            })
-            .css('transition', `all ${duration}ms ${transition || 'linear'}`)
-            .css(props);
-
-        delete element[0].__uk_transition;
-    });
+    element
+        .one(transitionend || 'transitionend', () => {
+            d.resolve();
+            element.css('transition', '');
+            clearTimeout(timer);
+        })
+        .css('transition', `all ${duration}ms ${transition || 'linear'}`)
+        .css(props);
 
     return d.promise();
 }
@@ -62,7 +55,6 @@ export const Transition = {
 
         element = $(element);
 
-        cancelAnimationFrame(element[0].__uk_transition);
         $(element).trigger(transitionend || 'transitionend');
 
         return this;
