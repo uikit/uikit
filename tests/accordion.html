@@ -120,7 +120,7 @@
                     <tr>
                         <td><code>targets</code></td>
                         <td>CSS selector</td>
-                        <td>> .uk-accordion-item</td>
+                        <td>></td>
                         <td>The element(s) to toggle.</td>
                     </tr>
                     <tr>
@@ -130,15 +130,27 @@
                         <td>The element(s) to toggle.</td>
                     </tr>
                     <tr>
-                        <td><code>collapseAll</code></td>
+                        <td><code>collapse-all</code></td>
                         <td>Boolean</td>
                         <td>false</td>
                         <td>By default, at least one accordion item has to be open.</td>
                     </tr>
                     <tr>
+                        <td><code>multi-expand</code></td>
+                        <td>Boolean</td>
+                        <td>false</td>
+                        <td>Allow multiple open items.</td>
+                    </tr>
+                    <tr>
+                        <td><code>transition</code></td>
+                        <td>String</td>
+                        <td>ease</td>
+                        <td>The transition to use.</td>
+                    </tr>
+                    <tr>
                         <td><code>animation</code></td>
                         <td>String</td>
-                        <td>false</td>
+                        <td>true</td>
                         <td>The space separated names of animations to use. (Comma separate for animation out)</td>
                     </tr>
                     <tr>
@@ -149,13 +161,7 @@
                     </tr>
                 </tbody>
             </table>
-            targets: String,
-            active: null,
-            collapseAll: Boolean,
-            multiExpand: Boolean,
-            clsToggle: String,
-            clsContainer: String,
-            transition: String
+
         </div>
 
     </body>
