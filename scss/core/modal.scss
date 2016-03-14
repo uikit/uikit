@@ -196,6 +196,7 @@ $modal-caption-color:                            #fff !default;
     padding: 0;
     max-width: 95%;
     max-width: unquote("calc(100% - 30px)");
+    min-height: 50px;
     @include hook-modal-dialog-lightbox();
 }
 
@@ -320,6 +321,7 @@ $modal-caption-color:                            #fff !default;
 
 .uk-modal-spinner:after {
     content: "\f110";
+    display: block;
     font-family: FontAwesome;
     -webkit-animation: uk-rotate 2s infinite linear;
     animation: uk-rotate 2s infinite linear;

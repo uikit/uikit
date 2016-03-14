@@ -988,18 +988,25 @@
 
             UI.Utils.stackMargin(columns, this.options);
 
-            if (!this.options.rowfirst) {
+            if (!this.options.rowfirst || !columns.length) {
                 return this;
             }
 
             // Mark first column elements
-            var pos_cache = columns.removeClass(this.options.rowfirst).filter(':visible').first().position();
+            var group = {}, minleft = false;
 
-            if (pos_cache) {
-                columns.each(function() {
-                    UI.$(this)[UI.$(this).position().left == pos_cache.left ? 'addClass':'removeClass']($this.options.rowfirst);
-                });
-            }
+            columns.removeClass(this.options.rowfirst).each(function(offset, $ele){
+
+                $ele = UI.$(this);
+
+                if (this.style.display != 'none') {
+                    offset = $ele.offset().left;
+                    ((group[offset] = group[offset] || []) && group[offset]).push(this);
+                    minleft = minleft === false ? offset : Math.min(minleft, offset);
+                }
+            });
+
+            UI.$(group[minleft]).addClass(this.options.rowfirst);
 
             return this;
         }
@@ -1085,32 +1092,25 @@
             'cls': 'uk-margin-small-top'
         }, options);
 
-        options.cls = options.cls;
+        elements    = UI.$(elements).removeClass(options.cls);
 
-        elements = UI.$(elements).removeClass(options.cls);
+        var group = {}, mintop = false;
 
-        var skip         = false,
-            firstvisible = elements.filter(":visible:first"),
-            offset       = firstvisible.length ? (firstvisible.position().top + firstvisible.outerHeight()) - 1 : false; // (-1): weird firefox bug when parent container is display:flex
+        elements.each(function(offset, $ele){
 
-        if (offset === false || elements.length == 1) return;
+            $ele = UI.$(this);
 
-        elements.each(function() {
-
-            var column = UI.$(this);
-
-            if (column.is(":visible")) {
-
-                if (skip) {
-                    column.addClass(options.cls);
-                } else {
-
-                    if (column.position().top >= offset) {
-                        skip = column.addClass(options.cls);
-                    }
-                }
+            if ($ele.css('display') != 'none') {
+                offset = $ele.offset().top;
+                ((group[offset] = group[offset] || []) && group[offset]).push(this);
+                mintop = mintop === false ? offset : Math.min(mintop, offset);
             }
         });
+
+        for(var offset in group) {
+            if (offset == mintop) continue;
+            UI.$(group[offset]).addClass(options.cls);
+        }
     };
 
     UI.Utils.matchHeights = function(elements, options) {
@@ -1455,7 +1455,7 @@
                         scrollTop = $win.scrollTop(),
                         target = (function(){
                             for(var i=0; i< inviews.length;i++){
-                                if(inviews[i].offset().top >= scrollTop){
+                                if(inviews[i].offset().top + inviews[i].outerHeight() >= scrollTop){
                                     return inviews[i];
                                 }
                             }
@@ -2481,6 +2481,12 @@
 
     var active = false, activeCount = 0, $html = UI.$html, body;
 
+    UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
+        UI.$('.uk-modal.uk-open').each(function(){
+            UI.$(this).data('modal').resize();
+        });
+    }, 150));
+
     UI.component('modal', {
 
         defaults: {
@@ -2693,10 +2699,6 @@
                     active.hide();
                 }
             });
-
-            UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
-                if (active) active.resize();
-            }, 150));
         },
 
         init: function() {
@@ -3225,7 +3227,7 @@
 
                 this.connect = UI.$(this.options.connect);
 
-                this.connect.find(".uk-active").removeClass(".uk-active");
+                this.connect.children().removeClass("uk-active");
 
                 // delegate switch commands within container content
                 if (this.connect.length) {
