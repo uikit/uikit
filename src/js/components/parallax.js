@@ -185,7 +185,7 @@
         update: function(percent) {
 
             var $this      = this,
-                css        = {'transform':''},
+                css        = {transform:'', filter:''},
                 compercent = percent * (1 - (this.velocity - (this.velocity * percent))),
                 opts, val;
 
@@ -215,27 +215,27 @@
                 switch(prop) {
 
                     // transforms
-                    case "x":
+                    case 'x':
                         css.transform += supports3d ? ' translate3d('+val+'px, 0, 0)':' translateX('+val+'px)';
                         break;
-                    case "xp":
+                    case 'xp':
                         css.transform += supports3d ? ' translate3d('+val+'%, 0, 0)':' translateX('+val+'%)';
                         break;
-                    case "y":
+                    case 'y':
                         css.transform += supports3d ? ' translate3d(0, '+val+'px, 0)':' translateY('+val+'px)';
                         break;
-                    case "yp":
+                    case 'yp':
                         css.transform += supports3d ? ' translate3d(0, '+val+'%, 0)':' translateY('+val+'%)';
                         break;
-                    case "rotate":
+                    case 'rotate':
                         css.transform += ' rotate('+val+'deg)';
                         break;
-                    case "scale":
+                    case 'scale':
                         css.transform += ' scale('+val+')';
                         break;
 
                     // bg image
-                    case "bg":
+                    case 'bg':
 
                         // don't move if image height is too small
                         // if ($this.element.data('bgsize') && ($this.element.data('bgsize').h + val - window.innerHeight) < 0) {
@@ -244,15 +244,38 @@
 
                         css['background-position'] = '50% '+val+'px';
                         break;
-                    case "bgp":
+                    case 'bgp':
                         css['background-position'] = '50% '+val+'%';
                         break;
 
                     // color
-                    case "color":
-                    case "background-color":
-                    case "border-color":
+                    case 'color':
+                    case 'background-color':
+                    case 'border-color':
                         css[prop] = calcColor(opts.start, opts.end, compercent);
+                        break;
+
+                    // CSS Filter
+                    case 'blur':
+                        css.filter += ' blur('+val+'px)';
+                        break;
+                    case 'hue':
+                        css.filter += ' hue-rotate('+val+'deg)';
+                        break;
+                    case 'grayscale':
+                        css.filter += ' grayscale('+val+'%)';
+                        break;
+                    case 'invert':
+                        css.filter += ' invert('+val+'%)';
+                        break;
+                    case 'fopacity':
+                        css.filter += ' opacity('+val+'%)';
+                        break;
+                    case 'saturate':
+                        css.filter += ' saturate('+val+'%)';
+                        break;
+                    case 'sepia':
+                        css.filter += ' sepia('+val+'%)';
                         break;
 
                     default:
@@ -261,6 +284,10 @@
                 }
 
             }.bind(this));
+
+            if (css.filter) {
+                css['-webkit-filter'] = css.filter;
+            }
 
             this.element.css(css);
 

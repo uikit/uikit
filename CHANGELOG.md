@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - Added support for CSS filter properties in parallax component
   - Fixed scrollspynav active state
   - Fixed uk-modal-spinner animation
   - Fixed uk-row-first when using pull/push or flex-order classes
