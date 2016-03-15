@@ -31,7 +31,7 @@ export default function (UIkit) {
                 requestAnimationFrame(() => this.$el.css({
                     opacity: 0,
                     'padding-top': 0,
-                    'margin-top': '-' + this.$el.prev().css('margin-bottom')
+                    'margin-top': 0
                 }))
             }
 

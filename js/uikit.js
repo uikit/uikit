@@ -2233,7 +2233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return _this2.$el.css({
 	                        opacity: 0,
 	                        'padding-top': 0,
-	                        'margin-top': '-' + _this2.$el.prev().css('margin-bottom')
+	                        'margin-top': 0
 	                    });
 	                });
 	            }
