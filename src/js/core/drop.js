@@ -66,17 +66,13 @@ export default function (UIkit) {
             this.$el.attr('aria-expanded', false);
             this.updateAria(this.drop);
 
-            this.drop.on('click', `.${this.clsDrop}-close`, () => {
-                this.hide(true);
-            });
+            this.drop.on('click', `.${this.clsDrop}-close`, () => this.hide(true));
 
             if (this.mode === 'hover') {
 
-                this.$el.on('mouseenter', () => {
-                    this.show();
-                }).on('mouseleave', () => {
-                    this.hide();
-                });
+                this.$el
+                    .on('mouseenter', () => this.show())
+                    .on('mouseleave', () => this.hide());
 
                 this.drop.on('mouseenter', () => {
                     if (this.isActive()) {
@@ -202,7 +198,5 @@ export default function (UIkit) {
 
     });
 
-    UIkit.drop.getActive = function () {
-        return active;
-    };
+    UIkit.drop.getActive = () => active;
 }

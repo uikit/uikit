@@ -28,12 +28,7 @@ export default function (UIkit) {
             closeAlert() {
                 this.$el.trigger('close');
                 this.toggleState(this.$el).then(this.$destroy.bind(this));
-                requestAnimationFrame(() => {
-                    this.$el.css({
-                        'opacity': 0,
-                        'margin-top': '-' + this.$el.prev().css('margin-bottom')
-                    })
-                })
+                requestAnimationFrame(() => this.$el.css({opacity: 0, 'margin-top': '-' + this.$el.prev().css('margin-bottom')}))
             }
 
         },

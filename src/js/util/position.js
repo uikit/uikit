@@ -34,21 +34,21 @@ export function position(element, target, attach, targetAttach, offset, targetOf
     var flipped = {element: attach, target: targetAttach};
 
     if (flip) {
-        $.each(dirs, function (dir, props) {
+        $.each(dirs, (dir, [prop, align, alignFlip]) => {
 
             if (!(flip === true || flip.indexOf(dir) !== -1)) {
                 return;
             }
 
-            var elemOffset = attach[dir] === props[1] ? -dim[props[0]] : attach[dir] === props[2] ? dim[props[0]] : 0,
-                targetOffset = targetAttach[dir] === props[1] ? targetDim[props[0]] : targetAttach[dir] === props[2] ? -targetDim[props[0]] : 0;
+            var elemOffset = attach[dir] === align ? -dim[prop] : attach[dir] === alignFlip ? dim[prop] : 0,
+                targetOffset = targetAttach[dir] === align ? targetDim[prop] : targetAttach[dir] === alignFlip ? -targetDim[prop] : 0;
 
-            if (position[props[1]] < boundary[props[1]] || position[props[1]] + dim[props[0]] > boundary[props[2]]) {
+            if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
-                var newVal = position[props[1]] + elemOffset + targetOffset - offset[dir] * 2;
+                var newVal = position[align] + elemOffset + targetOffset - offset[dir] * 2;
 
-                if (newVal >= boundary[props[1]] && newVal + dim[props[0]] <= boundary[props[2]]) {
-                    position[props[1]] = newVal;
+                if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
+                    position[align] = newVal;
 
                     ['element', 'target'].forEach((el) => {
                         flipped[el][dir] = !elemOffset
@@ -82,11 +82,11 @@ export function getDimensions(elem) {
 }
 
 function moveTo(position, attach, dim, factor) {
-    $.each(dirs, function (dir, props) {
-        if (attach[dir] === props[2]) {
-            position[props[1]] += dim[props[0]] * factor;
+    $.each(dirs, function (dir, [prop, align, alignFlip]) {
+        if (attach[dir] === alignFlip) {
+            position[align] += dim[prop] * factor;
         } else if (attach[dir] === 'center') {
-            position[props[1]] += dim[props[0]] * factor / 2;
+            position[align] += dim[prop] * factor / 2;
         }
     });
 }

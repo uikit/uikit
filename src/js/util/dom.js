@@ -31,9 +31,7 @@ export function transition(element, props, duration, transition) {
         element.css(name, element.css(name));
     }
 
-    var timer = setTimeout(() => {
-        element.trigger(transitionend || 'transitionend');
-    }, duration);
+    var timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
 
     element
         .one(transitionend || 'transitionend', () => {
@@ -76,9 +74,7 @@ export function animate(element, animation, duration, out) {
 
     element.css('animation-duration', duration + 'ms').addClass(animation);
 
-    requestAnimationFrame(function () {
-        element.addClass(cls);
-    });
+    requestAnimationFrame(() => element.addClass(cls));
 
     element.one(animationend || 'animationend', function () {
         reset();
@@ -86,9 +82,7 @@ export function animate(element, animation, duration, out) {
     });
 
     if (!animationend) {
-        requestAnimationFrame(function () {
-            Animation.cancel(element);
-        });
+        requestAnimationFrame(() => Animation.cancel(element));
     }
 
     return d.promise();
@@ -121,9 +115,7 @@ export const Animation = {
 
 // TODO still needed?
 export function offsetParent(element) {
-    return $(element).parents().filter(function () {
-        return $.inArray($(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
-    }).first();
+    return $(element).parents().filter((i, el) => $.inArray($(el).css('position'), ['relative', 'fixed', 'absolute']) !== -1).first();
 }
 
 export function isWithin(element, selector) {
@@ -133,9 +125,7 @@ export function isWithin(element, selector) {
 
 export function attrFilter(element, attr, pattern, replacement) {
     element = $(element);
-    element.attr(attr, function (i, value) {
-        return value ? value.replace(pattern, replacement) : value;
-    });
+    element.attr(attr, (i, value) => value ? value.replace(pattern, replacement) : value);
     return element;
 }
 

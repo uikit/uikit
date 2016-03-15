@@ -24,9 +24,9 @@ export default function (UIkit) {
 
             var result = [];
 
-            $(element).each(function () {
-                result.push(this[DATA] && this[DATA][name] || new UIkit.components[name]({el: this, data: data || {}}));
-            });
+            data = data || {};
+
+            $(element).each((i, el) => result.push(el[DATA] && el[DATA][name] || new UIkit.components[name]({el, data})));
 
             return result;
         };

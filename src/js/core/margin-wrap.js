@@ -27,7 +27,7 @@ export default function (UIkit) {
                     top = Number.MAX_VALUE,
                     offset,
                     columns = this.$el.children()
-                        .filter((i, el) => { return el.offsetHeight > 0; })
+                        .filter((i, el) => el.offsetHeight > 0)
                         .removeClass(this.margin)
                         .removeClass(this.rowFirst);
 

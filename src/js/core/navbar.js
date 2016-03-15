@@ -56,9 +56,9 @@ export default function (UIkit) {
 
             });
 
-            this.$el.on('mouseenter', this.dropdown, (e) => {
+            this.$el.on('mouseenter', this.dropdown, ({target}) => {
                 var active = this.getActive();
-                if (active && active.mode !== 'click' && !isWithin(e.target, active.$el) && !active.isDelaying) {
+                if (active && active.mode !== 'click' && !isWithin(target, active.$el) && !active.isDelaying) {
                     active.hide(true);
                 }
             });
@@ -81,20 +81,18 @@ export default function (UIkit) {
 
             this.$el.on({
 
-                beforeshow: (e, drop) => {
-                    drop.drop.addClass(`${this.clsDrop}-dropbar`);
-                },
+                beforeshow: (e, drop) => drop.drop.addClass(`${this.clsDrop}-dropbar`),
 
-                show: (e, drop) => {
+                show: (e, {drop, $el}) => {
 
-                    var newHeight = drop.drop.outerHeight(true);
+                    var newHeight = drop.outerHeight(true);
 
-                    drop.$el.removeClass('uk-open');
+                    $el.removeClass('uk-open');
 
                     if (height === newHeight) {
 
                         if (transition && transition.state() !== 'pending') {
-                            drop.$el.addClass('uk-open');
+                            $el.addClass('uk-open');
                         }
 
                         return;
@@ -131,9 +129,9 @@ export default function (UIkit) {
                     }
                 },
 
-                mouseleave: (e) => {
+                mouseleave: ({relatedTarget}) => {
                     var active = this.getActive();
-                    if (active && !isWithin(e.relatedTarget, active.$el)) {
+                    if (active && !isWithin(relatedTarget, active.$el)) {
                         active.hide();
                     }
                 }
