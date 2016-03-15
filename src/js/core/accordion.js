@@ -9,23 +9,22 @@ export default function (UIkit) {
         props: {
             targets: String,
             active: null,
-            collapseAll: Boolean,
-            multiExpand: Boolean,
-            clsToggle: String,
-            clsContainer: String,
+            collapsible: Boolean,
+            multiple: Boolean,
+            toggle: String,
+            content: String,
             transition: String
         },
 
         defaults: {
-            targets: '>',
+            targets: '> *',
             active: false,
             animation: true,
-            collapseAll: false,
-            multiExpand: false,
-            cls: 'uk-active',
-            clsItem: 'uk-accordion-item',
-            clsToggle: 'uk-accordion-title',
-            clsContainer: 'uk-accordion-content',
+            collapsible: false,
+            multiple: false,
+            cls: 'uk-open',
+            toggle: '.uk-accordion-title',
+            content: '.uk-accordion-content',
             transition: 'ease'
         },
 
@@ -38,14 +37,14 @@ export default function (UIkit) {
             }
 
             var self = this;
-            this.$el.on('click', `${this.targets} .${this.clsItem} .${this.clsToggle}`, function (e) {
+            this.$el.on('click', `${this.targets} ${this.toggle}`, function (e) {
                 e.preventDefault();
-                self.show(this.closest(`.${self.clsItem}`));
+                self.show(self.items.find(self.toggle).index(this));
             });
 
             var active = toJQuery(this.items.filter(`.${this.cls}:first`))
                 || this.active !== false && toJQuery(this.items.eq(Number(this.active)))
-                || !this.collapseAll && toJQuery(this.items.eq(0));
+                || !this.collapsible && toJQuery(this.items.eq(0));
 
             if (active) {
                 this.show(active, false);
@@ -62,11 +61,12 @@ export default function (UIkit) {
                             ? parseInt(item, 10)
                             : this.items.index(item),
                     items = [this.items.eq(index)],
-                    active = this.items.find(` .${this.clsContainer}.${this.cls}`);
+                    active = this.items.find(`${this.content}.${this.cls}`);
 
-                if (!this.multiExpand) {
+                if (!this.multiple) {
                     active.each((i, el) => {
-                        item = $(el).closest(`.${this.clsItem}`);
+                        item = this.items.eq(this.items.find(this.content).index(el));
+
                         if (item[0] !== items[0][0]) {
                             items.push(item);
                         }
@@ -74,13 +74,13 @@ export default function (UIkit) {
                 }
 
                 items.forEach((item, i) => {
-                    var content = item.find(`.${this.clsContainer}`), state = i === 0;
+                    var content = item.find(this.content), state = i === 0;
 
-                    if (state && (this.collapseAll || active.length > 1)) {
+                    if (state && (this.collapsible || active.length > 1)) {
                         state = null;
                     }
 
-                    item.toggleClass(this.cls, this.isToggled(content));
+                    item.toggleClass(this.cls, !this.isToggled(content));
                     this.toggleState(content, animate, state);
                 })
             }

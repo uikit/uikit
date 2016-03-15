@@ -2111,23 +2111,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        props: {
 	            targets: String,
 	            active: null,
-	            collapseAll: Boolean,
-	            multiExpand: Boolean,
-	            clsToggle: String,
-	            clsContainer: String,
+	            collapsible: Boolean,
+	            multiple: Boolean,
+	            toggle: String,
+	            content: String,
 	            transition: String
 	        },
 
 	        defaults: {
-	            targets: '>',
+	            targets: '> *',
 	            active: false,
 	            animation: true,
-	            collapseAll: false,
-	            multiExpand: false,
-	            cls: 'uk-active',
-	            clsItem: 'uk-accordion-item',
-	            clsToggle: 'uk-accordion-title',
-	            clsContainer: 'uk-accordion-content',
+	            collapsible: false,
+	            multiple: false,
+	            cls: 'uk-open',
+	            toggle: '.uk-accordion-title',
+	            content: '.uk-accordion-content',
 	            transition: 'ease'
 	        },
 
@@ -2140,12 +2139,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            var self = this;
-	            this.$el.on('click', this.targets + ' .' + this.clsItem + ' .' + this.clsToggle, function (e) {
+	            this.$el.on('click', this.targets + ' ' + this.toggle, function (e) {
 	                e.preventDefault();
-	                self.show(this.closest('.' + self.clsItem));
+	                self.show(self.items.find(self.toggle).index(this));
 	            });
 
-	            var active = (0, _index.toJQuery)(this.items.filter('.' + this.cls + ':first')) || this.active !== false && (0, _index.toJQuery)(this.items.eq(Number(this.active))) || !this.collapseAll && (0, _index.toJQuery)(this.items.eq(0));
+	            var active = (0, _index.toJQuery)(this.items.filter('.' + this.cls + ':first')) || this.active !== false && (0, _index.toJQuery)(this.items.eq(Number(this.active))) || !this.collapsible && (0, _index.toJQuery)(this.items.eq(0));
 
 	            if (active) {
 	                this.show(active, false);
@@ -2159,11 +2158,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var index = typeof item === 'number' ? item : typeof item === 'string' ? parseInt(item, 10) : this.items.index(item),
 	                    items = [this.items.eq(index)],
-	                    active = this.items.find(' .' + this.clsContainer + '.' + this.cls);
+	                    active = this.items.find(this.content + '.' + this.cls);
 
-	                if (!this.multiExpand) {
+	                if (!this.multiple) {
 	                    active.each(function (i, el) {
-	                        item = $(el).closest('.' + _this.clsItem);
+	                        item = _this.items.eq(_this.items.find(_this.content).index(el));
+
 	                        if (item[0] !== items[0][0]) {
 	                            items.push(item);
 	                        }
@@ -2171,14 +2171,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 
 	                items.forEach(function (item, i) {
-	                    var content = item.find('.' + _this.clsContainer),
+	                    var content = item.find(_this.content),
 	                        state = i === 0;
 
-	                    if (state && (_this.collapseAll || active.length > 1)) {
+	                    if (state && (_this.collapsible || active.length > 1)) {
 	                        state = null;
 	                    }
 
-	                    item.toggleClass(_this.cls, _this.isToggled(content));
+	                    item.toggleClass(_this.cls, !_this.isToggled(content));
 	                    _this.toggleState(content, animate, state);
 	                });
 	            }

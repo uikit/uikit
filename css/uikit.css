@@ -2129,6 +2129,12 @@ ul.uk-nav-sub {
 .uk-nav-default .uk-nav-sub a:focus {
   color: #444;
 }
+.uk-nav-accordion > .uk-parent > ul {
+  display: none;
+}
+.uk-nav-accordion > .uk-parent.uk-open > ul {
+  display: block;
+}
 /* ========================================================================
    Component: Navbar
  ========================================================================== */
@@ -3171,7 +3177,7 @@ ul.uk-nav-sub {
   display: none;
   padding: 0 15px 15px 15px;
 }
-.uk-accordion-content.uk-active {
+.uk-accordion-content.uk-open {
   display: block;
 }
 /*
