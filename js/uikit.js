@@ -2178,9 +2178,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        state = null;
 	                    }
 
-	                    _this.toggleState(content, animate, state).then(function () {
-	                        item.toggleClass(_this.cls, _this.isToggled(content));
-	                    });
+	                    item.toggleClass(_this.cls, state);
+	                    _this.toggleState(content, animate, state);
 	                });
 	            }
 	        }

@@ -80,9 +80,8 @@ export default function (UIkit) {
                         state = null;
                     }
 
-                    this.toggleState(content, animate, state).then(() => {
-                        item.toggleClass(this.cls, this.isToggled(content));
-                    });
+                    item.toggleClass(this.cls, state);
+                    this.toggleState(content, animate, state);
                 })
             }
 
