@@ -3406,10 +3406,6 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(300px);
   transform: translateX(300px);
 }
-/* Only needed for reveal */
-.uk-offcanvas-content.uk-offcanvas-animation {
-  position: relative;
-}
 .uk-offcanvas-mode-reveal .uk-offcanvas-sidebar {
   z-index: -100;
 }

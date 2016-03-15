@@ -1824,13 +1824,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            toggleState: function toggleState(targets, animate, show) {
 	                var _this = this;
 
-	                var deferreds = [];
+	                var deferreds = [],
+	                    toggled;
 
 	                (0, _jquery2.default)(targets).each(function (i, el) {
 
 	                    el = (0, _jquery2.default)(el);
-
-	                    var toggled = _this.isToggled(el);
 
 	                    if (_this.animation === true && animate !== false) {
 
@@ -1872,6 +1871,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                        _index.Animation.cancel(el);
 
+	                        toggled = _this.isToggled(el);
+
 	                        if (!toggled && show !== false || show === true) {
 
 	                            _this.doToggle(el, true);
@@ -1886,6 +1887,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    } else {
 
+	                        toggled = _this.isToggled(el);
 	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
 	                        _this.doUpdate(el);
 	                        deferreds.push(_jquery2.default.Deferred().resolve());
@@ -3785,9 +3787,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ready: function ready() {
 	            var _this = this;
 
-	            this.trigger = (0, _index.toJQuery)('.' + this.clsToggle, this.$el);
-	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.$el);
-	            this.content = (0, _index.toJQuery)('.' + this.clsContent, this.$el);
+	            this.trigger = (0, _index.toJQuery)('.' + this.clsToggle + ':first', this.$el);
+	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar + ':first', this.$el);
+	            this.content = (0, _index.toJQuery)('.' + this.clsContent + ':first', this.$el);
 
 	            if (!this.trigger || !this.sidebar || !this.content) {
 	                return;
@@ -3800,12 +3802,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            this.trigger.on('click', function (e) {
-	                e.stopPropagation();
+	                e.preventDefault();
 	                _this.toggle();
 	            });
 
 	            (0, _jquery2.default)(document).on('click', function (_ref) {
 	                var target = _ref.target;
+
+
+	                if ((0, _index.isWithin)(target, _this.trigger)) {
+	                    return;
+	                }
 
 	                if (!(0, _index.isWithin)(target, _this.sidebar)) {
 	                    _this.toggle(false);
@@ -3816,6 +3823,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        methods: {
 	            toggle: function toggle(show) {
+
+	                show = show === undefined && !this.isToggled(this.sidebar) || show;
+
+	                this.$el.css('overflow', show ? 'hidden' : '');
+	                //this.sidebar.css('margin-top', this.$el.scrollTop());
 
 	                if (this.mode !== 'reveal') {
 	                    this.toggleState(this.sidebar, false, show);

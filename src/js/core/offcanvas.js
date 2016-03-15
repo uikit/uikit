@@ -21,9 +21,9 @@ export default function (UIkit) {
 
         ready() {
 
-            this.trigger = toJQuery(`.${this.clsToggle}`, this.$el);
-            this.sidebar = toJQuery(`.${this.clsSidebar}`, this.$el);
-            this.content = toJQuery(`.${this.clsContent}`, this.$el);
+            this.trigger = toJQuery(`.${this.clsToggle}:first`, this.$el);
+            this.sidebar = toJQuery(`.${this.clsSidebar}:first`, this.$el);
+            this.content = toJQuery(`.${this.clsContent}:first`, this.$el);
 
             if (!this.trigger || !this.sidebar || !this.content) {
                 return;
@@ -36,11 +36,16 @@ export default function (UIkit) {
             }
 
             this.trigger.on('click', e => {
-                e.stopPropagation();
+                e.preventDefault();
                 this.toggle()
             });
 
             $(document).on('click', ({target}) => {
+
+                if (isWithin(target, this.trigger)) {
+                    return
+                }
+
                 if (!isWithin(target, this.sidebar)) {
                     this.toggle(false);
                 }
@@ -51,6 +56,11 @@ export default function (UIkit) {
         methods: {
 
             toggle(show) {
+
+                show = show === undefined && !this.isToggled(this.sidebar) || show;
+
+                this.$el.css('overflow', show ? 'hidden' : '');
+                //this.sidebar.css('margin-top', this.$el.scrollTop());
 
                 if (this.mode !== 'reveal') {
                     this.toggleState(this.sidebar, false, show);

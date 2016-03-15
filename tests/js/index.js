@@ -34,6 +34,6 @@ requestAnimationFrame(function () {
         }
     }).val(location.pathname.split('/').pop());
 
-    $('body').prepend($('<div class="uk-form uk-margin-top uk-margin-bottom uk-container"></div>').prepend($select));
+    $('body').prepend($('<div class="uk-form uk-padding uk-container"></div>').prepend($select));
 
 });

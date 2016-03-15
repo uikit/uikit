@@ -41,13 +41,11 @@ export default function (UIkit) {
 
             toggleState(targets, animate, show) {
 
-                var deferreds = [];
+                var deferreds = [], toggled;
 
                 $(targets).each((i, el) => {
 
                     el = $(el);
-
-                    var toggled = this.isToggled(el);
 
                     if (this.animation === true && animate !== false) {
 
@@ -91,6 +89,8 @@ export default function (UIkit) {
 
                         Animation.cancel(el);
 
+                        toggled = this.isToggled(el);
+
                         if ((!toggled && show !== false) || show === true) {
 
                             this.doToggle(el, true);
@@ -108,6 +108,7 @@ export default function (UIkit) {
 
                     } else {
 
+                        toggled = this.isToggled(el);
                         this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
                         this.doUpdate(el);
                         deferreds.push($.Deferred().resolve());
