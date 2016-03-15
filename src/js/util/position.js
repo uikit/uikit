@@ -78,7 +78,7 @@ export function getDimensions(elem) {
         left = offset ? offset.left : elem.scrollLeft(),
         top = offset ? offset.top : elem.scrollTop();
 
-    return {width: width, height: height, left: left, top: top, right: left + width, bottom: top + height};
+    return {width, height, left, top, right: left + width, bottom: top + height};
 }
 
 function moveTo(position, attach, dim, factor) {

@@ -61,8 +61,8 @@ export default function (UIkit) {
                 } else {
                     var tmp = {};
                     options.split(';').forEach((option) => {
-                        var opt = option.split(/:(.+)/);
-                        tmp[opt[0].trim()] = opt[1].trim();
+                        var {key, value} = option.split(/:(.+)/);
+                        tmp[key.trim()] = value.trim();
                     });
                     options = tmp;
                 }
