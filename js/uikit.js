@@ -1853,9 +1853,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            deferreds.push(_index.Transition.start(el, {
 	                                overflow: 'hidden',
 	                                height: endHeight,
-	                                'padding-top': '',
 	                                'padding-bottom': '',
-	                                'margin-top': '',
 	                                'margin-bottom': ''
 	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
 	                            _this.doUpdate(el);
@@ -1863,9 +1861,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            deferreds.push(_index.Transition.start(el, {
 	                                overflow: 'hidden',
 	                                height: 0,
-	                                'padding-top': 0,
 	                                'padding-bottom': 0,
-	                                'margin-top': 0,
 	                                'margin-bottom': 0
 	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
 	                                _this.doUpdate(el);
@@ -2234,7 +2230,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return _this2.$destroy();
 	                });
 	                requestAnimationFrame(function () {
-	                    return _this2.$el.css({ opacity: 0, 'margin-top': '-' + _this2.$el.prev().css('margin-bottom') });
+	                    return _this2.$el.css({
+	                        opacity: 0,
+	                        'padding-top': 0,
+	                        'margin-top': '-' + _this2.$el.prev().css('margin-bottom')
+	                    });
 	                });
 	            }
 	        },

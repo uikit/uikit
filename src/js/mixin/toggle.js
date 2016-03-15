@@ -70,9 +70,7 @@ export default function (UIkit) {
                             deferreds.push(Transition.start(el, {
                                 overflow: 'hidden',
                                 height: endHeight,
-                                'padding-top': '',
                                 'padding-bottom': '',
-                                'margin-top': '',
                                 'margin-bottom': ''
                             }, Math.round(this.duration * (1 - height / endHeight)), this.transition));
                             this.doUpdate(el);
@@ -81,9 +79,7 @@ export default function (UIkit) {
                             deferreds.push(Transition.start(el, {
                                 overflow: 'hidden',
                                 height: 0,
-                                'padding-top': 0,
                                 'padding-bottom': 0,
-                                'margin-top': 0,
                                 'margin-bottom': 0
                             }, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
                                 this.doUpdate(el);
