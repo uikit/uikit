@@ -72,14 +72,15 @@ export function animate(element, animation, duration, out) {
 
     reset();
 
-    element.css('animation-duration', duration + 'ms').addClass(animation);
+    element
+        .one(animationend || 'animationend', () => {
+            reset();
+            d.resolve();
+        })
+        .css('animation-duration', duration + 'ms')
+        .addClass(animation);
 
     requestAnimationFrame(() => element.addClass(cls));
-
-    element.one(animationend || 'animationend', function () {
-        reset();
-        d.resolve();
-    });
 
     if (!animationend) {
         requestAnimationFrame(() => Animation.cancel(element));
@@ -88,7 +89,7 @@ export function animate(element, animation, duration, out) {
     return d.promise();
 
     function reset() {
-        element.css('animation-duration', '').removeClass(cls + ' ' + animation);
+        element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
     }
 }
 
@@ -112,11 +113,6 @@ export const Animation = {
     }
 
 };
-
-// TODO still needed?
-export function offsetParent(element) {
-    return $(element).parents().filter((i, el) => $.inArray($(el).css('position'), ['relative', 'fixed', 'absolute']) !== -1).first();
-}
 
 export function isWithin(element, selector) {
     element = $(element);

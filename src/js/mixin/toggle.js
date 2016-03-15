@@ -123,7 +123,12 @@ export default function (UIkit) {
 
             doToggle(el, toggled) {
                 el = $(el);
-                el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
+
+                if (this.cls) {
+                    el.toggleClass(this.cls, toggled)
+                } else {
+                    el.attr('hidden', !toggled);
+                }
             },
 
             isToggled(el) {

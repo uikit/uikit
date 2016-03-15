@@ -317,7 +317,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ready = ready;
 	exports.transition = transition;
 	exports.animate = animate;
-	exports.offsetParent = offsetParent;
 	exports.isWithin = isWithin;
 	exports.attrFilter = attrFilter;
 	exports.removeClass = removeClass;
@@ -402,15 +401,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    reset();
 
-	    element.css('animation-duration', duration + 'ms').addClass(animation);
-
-	    (0, _env.requestAnimationFrame)(function () {
-	        return element.addClass(cls);
-	    });
-
 	    element.one(_env.animationend || 'animationend', function () {
 	        reset();
 	        d.resolve();
+	    }).css('animation-duration', duration + 'ms').addClass(animation);
+
+	    (0, _env.requestAnimationFrame)(function () {
+	        return element.addClass(cls);
 	    });
 
 	    if (!_env.animationend) {
@@ -441,13 +438,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this;
 	    }
 	};
-
-	// TODO still needed?
-	function offsetParent(element) {
-	    return (0, _jquery2.default)(element).parents().filter(function (i, el) {
-	        return _jquery2.default.inArray((0, _jquery2.default)(el).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
-	    }).first();
-	}
 
 	function isWithin(element, selector) {
 	    element = (0, _jquery2.default)(element);
@@ -1910,7 +1900,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            doToggle: function doToggle(el, toggled) {
 	                el = (0, _jquery2.default)(el);
-	                el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
+
+	                if (this.cls) {
+	                    el.toggleClass(this.cls, toggled);
+	                } else {
+	                    el.attr('hidden', !toggled);
+	                }
 	            },
 	            isToggled: function isToggled(el) {
 	                el = (0, _jquery2.default)(el);
@@ -1994,6 +1989,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_close2.default);
 	    UIkit.use(_matchHeight2.default);
 	    UIkit.use(_navbar2.default);
+	    UIkit.use(_offcanvas2.default);
 	    UIkit.use(_responsive2.default);
 	    UIkit.use(_scrollspy2.default);
 	    UIkit.use(_scrollspyNav2.default);
@@ -2055,6 +2051,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _navbar = __webpack_require__(32);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
+
+	var _offcanvas = __webpack_require__(41);
+
+	var _offcanvas2 = _interopRequireDefault(_offcanvas);
 
 	var _responsive = __webpack_require__(33);
 
@@ -2230,7 +2230,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var _this2 = this;
 
 	                this.$el.trigger('close');
-	                this.toggleState(this.$el).then(this.$destroy.bind(this));
+	                this.toggleState(this.$el).then(function () {
+	                    return _this2.$destroy();
+	                });
 	                requestAnimationFrame(function () {
 	                    return _this2.$el.css({ opacity: 0, 'margin-top': '-' + _this2.$el.prev().css('margin-bottom') });
 	                });
@@ -2361,8 +2363,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var active;
 
-	    (0, _jquery2.default)(document).on('click', function (e) {
-	        if (active && !(0, _index.isWithin)(e.target, active.$el)) {
+	    (0, _jquery2.default)(document).on('click', function (_ref) {
+	        var target = _ref.target;
+
+	        if (active && !(0, _index.isWithin)(target, active.$el)) {
 	            active.hide(true);
 	        }
 	    });
@@ -3749,6 +3753,90 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    });
 	};
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.component('offcanvas', {
+
+	        mixins: [UIkit.mixin.toggle],
+
+	        props: {
+	            mode: String
+	        },
+
+	        defaults: {
+	            clsSidebar: 'uk-offcanvas-sidebar',
+	            clsContent: 'uk-offcanvas-content',
+	            clsToggle: 'uk-offcanvas-toggle',
+	            cls: 'uk-offcanvas-animation',
+	            mode: 'overlay'
+	        },
+
+	        ready: function ready() {
+	            var _this = this;
+
+	            this.trigger = (0, _index.toJQuery)('.' + this.clsToggle, this.$el);
+	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.$el);
+	            this.content = (0, _index.toJQuery)('.' + this.clsContent, this.$el);
+
+	            if (!this.trigger || !this.sidebar || !this.content) {
+	                return;
+	            }
+
+	            this.$el.addClass('uk-offcanvas-mode-' + this.mode);
+
+	            if (this.mode === 'reveal') {
+	                this.sidebar.addClass(this.cls);
+	            }
+
+	            this.trigger.on('click', function (e) {
+	                e.stopPropagation();
+	                _this.toggle();
+	            });
+
+	            (0, _jquery2.default)(document).on('click', function (_ref) {
+	                var target = _ref.target;
+
+	                if (!(0, _index.isWithin)(target, _this.sidebar)) {
+	                    _this.toggle(false);
+	                }
+	            });
+	        },
+
+
+	        methods: {
+	            toggle: function toggle(show) {
+
+	                if (this.mode !== 'reveal') {
+	                    this.toggleState(this.sidebar, false, show);
+	                }
+
+	                if (this.mode === 'push' || this.mode === 'reveal') {
+	                    this.toggleState(this.content, false, show);
+	                }
+	            }
+	        }
+
+	    });
+	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _index = __webpack_require__(4);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ])

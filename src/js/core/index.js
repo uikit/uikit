@@ -11,6 +11,7 @@ import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
 import Navbar from './navbar';
+import Offcanvas from './offcanvas';
 import Responsive from './responsive';
 import Scrollspy from './scrollspy';
 import ScrollspyNav from './scrollspy-nav';
@@ -65,6 +66,7 @@ export default function (UIkit, _) {
     UIkit.use(Close);
     UIkit.use(MatchHeight);
     UIkit.use(Navbar);
+    UIkit.use(Offcanvas);
     UIkit.use(Responsive);
     UIkit.use(Scrollspy);
     UIkit.use(ScrollspyNav);

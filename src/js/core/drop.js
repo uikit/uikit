@@ -5,8 +5,8 @@ export default function (UIkit) {
 
     var active;
 
-    $(document).on('click', e => {
-        if (active && !isWithin(e.target, active.$el)) {
+    $(document).on('click', ({target}) => {
+        if (active && !isWithin(target, active.$el)) {
             active.hide(true);
         }
     });
