@@ -5,8 +5,8 @@ export default function (UIkit) {
 
     var active;
 
-    $(document).on('click', e => {
-        if (active && !isWithin(e.target, active.$el)) {
+    $(document).on('click', ({target}) => {
+        if (active && !isWithin(target, active.$el)) {
             active.hide(true);
         }
     });
@@ -66,17 +66,13 @@ export default function (UIkit) {
             this.$el.attr('aria-expanded', false);
             this.updateAria(this.drop);
 
-            this.drop.on('click', `.${this.clsDrop}-close`, () => {
-                this.hide(true);
-            });
+            this.drop.on('click', `.${this.clsDrop}-close`, () => this.hide(true));
 
             if (this.mode === 'hover') {
 
-                this.$el.on('mouseenter', () => {
-                    this.show();
-                }).on('mouseleave', () => {
-                    this.hide();
-                });
+                this.$el
+                    .on('mouseenter', () => this.show())
+                    .on('mouseleave', () => this.hide());
 
                 this.drop.on('mouseenter', () => {
                     if (this.isActive()) {
@@ -145,7 +141,7 @@ export default function (UIkit) {
                     this.$el.addClass(this.cls).attr('aria-expanded', 'true').trigger('show', [this]);
 
                     if (this.mode === 'hover') {
-                        this.initMouseTracker(this.drop);
+                        this.initMouseTracker(this.drop, this.dir);
                     }
                 };
 
@@ -202,7 +198,5 @@ export default function (UIkit) {
 
     });
 
-    UIkit.drop.getActive = function () {
-        return active;
-    };
+    UIkit.drop.getActive = () => active;
 }

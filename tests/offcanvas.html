@@ -22,16 +22,40 @@
         </style>
     </head>
 
-    <body>
+    <body class="uk-position-relative" uk-offcanvas="mode: push">
 
-        <div class="uk-container">
+        <div class="uk-offcanvas-sidebar uk-light test">
+
+            <h3>Sidebar</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+        </div>
+
+        <div class="uk-container uk-offcanvas-content test">
 
             <h1>Off-canvas</h1>
+
+            <nav class="uk-navbar uk-margin">
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-toggle uk-offcanvas-toggle" href="#">
+                        <div class="uk-navbar-toggle-icon"></div> <span class="uk-margin-small-left">Push Body</span>
+                    </a>
+                </div>
+            </nav>
 
             <div class="uk-grid uk-child-width-1-3@m" uk-grid>
                 <div>
 
-                    <div class="uk-offcanvas">
+                    <div class="uk-offcanvas" uk-offcanvas>
                         <div class="uk-offcanvas-sidebar uk-light test">
 
                             <h3>Sidebar</h3>
@@ -43,7 +67,7 @@
 
                             <nav class="uk-navbar uk-margin">
                                 <div class="uk-navbar-left">
-                                    <a class="uk-navbar-toggle" href="#">
+                                    <a class="uk-navbar-toggle uk-offcanvas-toggle" href="#">
                                         <div class="uk-navbar-toggle-icon"></div> <span class="uk-margin-small-left">Overlay</span>
                                     </a>
                                 </div>
@@ -57,19 +81,19 @@
                 </div>
                 <div>
 
-                    <div class="uk-offcanvas">
-                        <div class="uk-offcanvas-sidebar uk-light test">
+                    <div class="uk-offcanvas" uk-offcanvas="mode: reveal">
+                        <div class="uk-offcanvas-sidebar uk-light">
 
                             <h3>Sidebar</h3>
 
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
                         </div>
-                        <div class="uk-offcanvas-content">
+                        <div class="uk-offcanvas-content test">
 
                             <nav class="uk-navbar uk-margin">
                                 <div class="uk-navbar-left">
-                                    <a class="uk-navbar-toggle" href="#">
+                                    <a class="uk-navbar-toggle uk-offcanvas-toggle" href="#">
                                         <div class="uk-navbar-toggle-icon"></div> <span class="uk-margin-small-left">Reveal</span>
                                     </a>
                                 </div>
@@ -83,7 +107,7 @@
                 </div>
                 <div>
 
-                    <div class="uk-offcanvas">
+                    <div class="uk-offcanvas" uk-offcanvas="mode: push">
                         <div class="uk-offcanvas-sidebar uk-light test">
 
                             <h3>Sidebar</h3>
@@ -91,11 +115,11 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
                         </div>
-                        <div class="uk-offcanvas-content">
+                        <div class="uk-offcanvas-content test">
 
                             <nav class="uk-navbar uk-margin">
                                 <div class="uk-navbar-left">
-                                    <a class="uk-navbar-toggle" href="#">
+                                    <a class="uk-navbar-toggle uk-offcanvas-toggle" href="#">
                                         <div class="uk-navbar-toggle-icon"></div> <span class="uk-margin-small-left">Push</span>
                                     </a>
                                 </div>
@@ -107,6 +131,24 @@
                     </div>
 
                 </div>
+            </div>
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
 
         </div>

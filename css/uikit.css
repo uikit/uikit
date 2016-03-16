@@ -2129,6 +2129,12 @@ ul.uk-nav-sub {
 .uk-nav-default .uk-nav-sub a:focus {
   color: #444;
 }
+.uk-nav-accordion > .uk-parent > ul {
+  display: none;
+}
+.uk-nav-accordion > .uk-parent > ul.uk-open {
+  display: block;
+}
 /* ========================================================================
    Component: Navbar
  ========================================================================== */
@@ -3152,6 +3158,46 @@ ul.uk-nav-sub {
   background-color: #e44e56;
 }
 /* ========================================================================
+   Component: Accordion
+ ========================================================================== */
+/* Sub-object: `uk-accordion-title`
+ ========================================================================== */
+.uk-accordion-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding: 5px 15px;
+  background: #eee;
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+}
+/* Sub-object: `uk-accordion-content`
+ ========================================================================== */
+.uk-accordion-content {
+  display: none;
+  padding: 0 15px 15px 15px;
+}
+.uk-accordion-content.uk-open {
+  display: block;
+}
+/*
+ * Micro clearfix to make panels more robust
+ */
+.uk-accordion-content:before,
+.uk-accordion-content:after {
+  content: "";
+  display: table;
+}
+.uk-accordion-content:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-accordion-content > :last-child {
+  margin-bottom: 0;
+}
+/* ========================================================================
    Component: Drop
  ========================================================================== */
 /*
@@ -3360,9 +3406,8 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(300px);
   transform: translateX(300px);
 }
-/* Only needed for reveal */
-.uk-offcanvas-content.uk-offcanvas-animation {
-  position: relative;
+.uk-offcanvas-mode-reveal .uk-offcanvas-sidebar {
+  z-index: -100;
 }
 /* ========================================================================
    Component: Off-canvas

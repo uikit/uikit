@@ -18,7 +18,7 @@ export default function (UIkit) {
                     return svgs[src];
                 }
 
-                var key = 'uikit_' + UIkit.version + '_' + src;
+                var key = `uikit_${UIkit.version}_${src}`;
                 svgs[src] = $.Deferred();
 
                 if (!storage[key]) {

@@ -18,8 +18,8 @@ export default function (UIkit) {
             connect: false,
             toggle: '> *',
             active: 0,
-            cls: 'uk-active',
-            swiping: true
+            swiping: true,
+            cls: 'uk-active'
         },
 
         ready() {
@@ -51,8 +51,7 @@ export default function (UIkit) {
             }
 
             this.updateAria(this.connect.children());
-            this.show(toJQuery(this.toggles.filter(`.${this.cls}`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
-
+            this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
         },
 
         methods: {
@@ -68,7 +67,9 @@ export default function (UIkit) {
                             ? prev - 1
                             : typeof item === 'string'
                                 ? parseInt(item, 10)
-                                : this.toggles.index(item)
+                                : typeof item === 'number'
+                                    ? item
+                                    : this.toggles.index(item)
                         ) % length,
                     toggle,
                     dir = item === 'previous' ? -1 : 1;

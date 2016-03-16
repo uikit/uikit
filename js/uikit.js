@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _index4 = _interopRequireDefault(_index3);
 
-	var _index5 = __webpack_require__(19);
+	var _index5 = __webpack_require__(20);
 
 	var _index6 = _interopRequireDefault(_index5);
 
@@ -154,13 +154,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var DATA = UIkit.data;
 
 	    if (!_index.Observer) {
-
 	        (0, _index.ready)(function () {
-	            (0, _jquery2.default)(UIkit.component.selector).each(function (i, node) {
-	                attachComponents(node);
+	            return (0, _jquery2.default)(UIkit.component.selector).each(function (i, node) {
+	                return attachComponents(node);
 	            });
 	        });
-
 	        return;
 	    }
 
@@ -179,9 +177,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 
-	                for (var i = 0; i < mutation.removedNodes.length; ++i) {
+	                for (var _i = 0; _i < mutation.removedNodes.length; ++_i) {
 
-	                    var components = mutation.removedNodes[i][DATA];
+	                    var components = mutation.removedNodes[_i][DATA];
 
 	                    if (components) {
 	                        for (var name in components) {
@@ -236,111 +234,75 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _dom = __webpack_require__(5);
 
-	var _loop = function _loop(_key7) {
-	  if (_key7 === "default") return 'continue';
-	  Object.defineProperty(exports, _key7, {
+	Object.keys(_dom).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _dom[_key7];
+	      return _dom[key];
 	    }
 	  });
-	};
-
-	for (var _key7 in _dom) {
-	  var _ret = _loop(_key7);
-
-	  if (_ret === 'continue') continue;
-	}
+	});
 
 	var _env = __webpack_require__(6);
 
-	var _loop2 = function _loop2(_key8) {
-	  if (_key8 === "default") return 'continue';
-	  Object.defineProperty(exports, _key8, {
+	Object.keys(_env).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _env[_key8];
+	      return _env[key];
 	    }
 	  });
-	};
-
-	for (var _key8 in _env) {
-	  var _ret2 = _loop2(_key8);
-
-	  if (_ret2 === 'continue') continue;
-	}
+	});
 
 	var _lang = __webpack_require__(7);
 
-	var _loop3 = function _loop3(_key9) {
-	  if (_key9 === "default") return 'continue';
-	  Object.defineProperty(exports, _key9, {
+	Object.keys(_lang).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _lang[_key9];
+	      return _lang[key];
 	    }
 	  });
-	};
-
-	for (var _key9 in _lang) {
-	  var _ret3 = _loop3(_key9);
-
-	  if (_ret3 === 'continue') continue;
-	}
+	});
 
 	var _options = __webpack_require__(8);
 
-	var _loop4 = function _loop4(_key10) {
-	  if (_key10 === "default") return 'continue';
-	  Object.defineProperty(exports, _key10, {
+	Object.keys(_options).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _options[_key10];
+	      return _options[key];
 	    }
 	  });
-	};
-
-	for (var _key10 in _options) {
-	  var _ret4 = _loop4(_key10);
-
-	  if (_ret4 === 'continue') continue;
-	}
+	});
 
 	var _position = __webpack_require__(9);
 
-	var _loop5 = function _loop5(_key11) {
-	  if (_key11 === "default") return 'continue';
-	  Object.defineProperty(exports, _key11, {
+	Object.keys(_position).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _position[_key11];
+	      return _position[key];
 	    }
 	  });
-	};
-
-	for (var _key11 in _position) {
-	  var _ret5 = _loop5(_key11);
-
-	  if (_ret5 === 'continue') continue;
-	}
+	});
 
 	var _touch = __webpack_require__(10);
 
-	var _loop6 = function _loop6(_key12) {
-	  if (_key12 === "default") return 'continue';
-	  Object.defineProperty(exports, _key12, {
+	Object.keys(_touch).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
-	      return _touch[_key12];
+	      return _touch[key];
 	    }
 	  });
-	};
-
-	for (var _key12 in _touch) {
-	  var _ret6 = _loop6(_key12);
-
-	  if (_ret6 === 'continue') continue;
-	}
+	});
 
 /***/ },
 /* 5 */
@@ -355,7 +317,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ready = ready;
 	exports.transition = transition;
 	exports.animate = animate;
-	exports.offsetParent = offsetParent;
 	exports.isWithin = isWithin;
 	exports.attrFilter = attrFilter;
 	exports.removeClass = removeClass;
@@ -400,22 +361,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        element.css(name, element.css(name));
 	    }
 
-	    (0, _env.cancelAnimationFrame)(element[0].__uk_transition);
+	    var timer = setTimeout(function () {
+	        return element.trigger(_env.transitionend || 'transitionend');
+	    }, duration);
 
-	    element[0].__uk_transition = (0, _env.requestAnimationFrame)(function () {
-
-	        var timer = setTimeout(function () {
-	            element.trigger(_env.transitionend || 'transitionend');
-	        }, duration);
-
-	        element.one(_env.transitionend || 'transitionend', function () {
-	            d.resolve();
-	            element.css('transition', '');
-	            clearTimeout(timer);
-	        }).css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);
-
-	        delete element[0].__uk_transition;
-	    });
+	    element.one(_env.transitionend || 'transitionend', function () {
+	        d.resolve();
+	        element.css('transition', '');
+	        clearTimeout(timer);
+	    }).css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);
 
 	    return d.promise();
 	}
@@ -428,7 +382,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        element = (0, _jquery2.default)(element);
 
-	        (0, _env.cancelAnimationFrame)(element[0].__uk_transition);
 	        (0, _jquery2.default)(element).trigger(_env.transitionend || 'transitionend');
 
 	        return this;
@@ -448,20 +401,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    reset();
 
-	    element.css('animation-duration', duration + 'ms').addClass(animation);
-
-	    (0, _env.requestAnimationFrame)(function () {
-	        element.addClass(cls);
-	    });
-
 	    element.one(_env.animationend || 'animationend', function () {
 	        reset();
 	        d.resolve();
+	    }).css('animation-duration', duration + 'ms').addClass(animation);
+
+	    (0, _env.requestAnimationFrame)(function () {
+	        return element.addClass(cls);
 	    });
 
 	    if (!_env.animationend) {
 	        (0, _env.requestAnimationFrame)(function () {
-	            Animation.cancel(element);
+	            return Animation.cancel(element);
 	        });
 	    }
 
@@ -487,13 +438,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return this;
 	    }
 	};
-
-	// TODO still needed?
-	function offsetParent(element) {
-	    return (0, _jquery2.default)(element).parents().filter(function () {
-	        return _jquery2.default.inArray((0, _jquery2.default)(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
-	    }).first();
-	}
 
 	function isWithin(element, selector) {
 	    element = (0, _jquery2.default)(element);
@@ -822,6 +766,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	exports.position = position;
 	exports.getDimensions = getDimensions;
 
@@ -865,21 +812,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var flipped = { element: attach, target: targetAttach };
 
 	    if (flip) {
-	        _jquery2.default.each(dirs, function (dir, props) {
+	        _jquery2.default.each(dirs, function (dir, _ref) {
+	            var _ref2 = _slicedToArray(_ref, 3);
+
+	            var prop = _ref2[0];
+	            var align = _ref2[1];
+	            var alignFlip = _ref2[2];
+
 
 	            if (!(flip === true || flip.indexOf(dir) !== -1)) {
 	                return;
 	            }
 
-	            var elemOffset = attach[dir] === props[1] ? -dim[props[0]] : attach[dir] === props[2] ? dim[props[0]] : 0,
-	                targetOffset = targetAttach[dir] === props[1] ? targetDim[props[0]] : targetAttach[dir] === props[2] ? -targetDim[props[0]] : 0;
+	            var elemOffset = attach[dir] === align ? -dim[prop] : attach[dir] === alignFlip ? dim[prop] : 0,
+	                targetOffset = targetAttach[dir] === align ? targetDim[prop] : targetAttach[dir] === alignFlip ? -targetDim[prop] : 0;
 
-	            if (position[props[1]] < boundary[props[1]] || position[props[1]] + dim[props[0]] > boundary[props[2]]) {
+	            if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
-	                var newVal = position[props[1]] + elemOffset + targetOffset - offset[dir] * 2;
+	                var newVal = position[align] + elemOffset + targetOffset - offset[dir] * 2;
 
-	                if (newVal >= boundary[props[1]] && newVal + dim[props[0]] <= boundary[props[2]]) {
-	                    position[props[1]] = newVal;
+	                if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
+	                    position[align] = newVal;
 
 	                    ['element', 'target'].forEach(function (el) {
 	                        flipped[el][dir] = !elemOffset ? flipped[el][dir] : flipped[el][dir] === dirs[dir][1] ? dirs[dir][2] : dirs[dir][1];
@@ -908,11 +861,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function moveTo(position, attach, dim, factor) {
-	    _jquery2.default.each(dirs, function (dir, props) {
-	        if (attach[dir] === props[2]) {
-	            position[props[1]] += dim[props[0]] * factor;
+	    _jquery2.default.each(dirs, function (dir, _ref3) {
+	        var _ref4 = _slicedToArray(_ref3, 3);
+
+	        var prop = _ref4[0];
+	        var align = _ref4[1];
+	        var alignFlip = _ref4[2];
+
+	        if (attach[dir] === alignFlip) {
+	            position[align] += dim[prop] * factor;
 	        } else if (attach[dir] === 'center') {
-	            position[props[1]] += dim[props[0]] * factor / 2;
+	            position[align] += dim[prop] * factor / 2;
 	        }
 	    });
 	}
@@ -1199,6 +1158,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	exports.default = function (UIkit) {
 
 	    var uid = 0;
@@ -1260,8 +1221,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } else {
 	                    var tmp = {};
 	                    options.split(';').forEach(function (option) {
-	                        var opt = option.split(/:(.+)/);
-	                        tmp[opt[0].trim()] = opt[1].trim();
+	                        var _option$split = option.split(/:(.+)/);
+
+	                        var _option$split2 = _slicedToArray(_option$split, 2);
+
+	                        var key = _option$split2[0];
+	                        var value = _option$split2[1];
+
+	                        tmp[key.trim()] = value.trim();
 	                    });
 	                    options = tmp;
 	                }
@@ -1294,7 +1261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        if (handlers) {
 	            handlers.forEach(function (handler) {
-	                handler.call(_this);
+	                return handler.call(_this);
 	            });
 	        }
 	    };
@@ -1486,8 +1453,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            var result = [];
 
-	            (0, _jquery2.default)(element).each(function () {
-	                result.push(this[DATA] && this[DATA][name] || new UIkit.components[name]({ el: this, data: data || {} }));
+	            data = data || {};
+
+	            (0, _jquery2.default)(element).each(function (i, el) {
+	                return result.push(el[DATA] && el[DATA][name] || new UIkit.components[name]({ el: el, data: data }));
 	            });
 
 	            return result;
@@ -1527,19 +1496,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_toggle2.default);
 	};
 
-	var _mouse = __webpack_require__(39);
+	var _mouse = __webpack_require__(16);
 
 	var _mouse2 = _interopRequireDefault(_mouse);
 
-	var _position = __webpack_require__(16);
+	var _position = __webpack_require__(17);
 
 	var _position2 = _interopRequireDefault(_position);
 
-	var _svg = __webpack_require__(17);
+	var _svg = __webpack_require__(18);
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _toggle = __webpack_require__(18);
+	var _toggle = __webpack_require__(19);
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
@@ -1547,6 +1516,87 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.mouse = {
+
+	        defaults: {
+
+	            positions: [],
+	            position: null,
+	            points: null
+
+	        },
+
+	        methods: {
+	            initMouseTracker: function initMouseTracker(target, dir) {
+	                var _this = this;
+
+	                this.positions = [];
+	                this.position = null;
+
+	                this.mouseHandler = function (e) {
+	                    _this.positions.push({ x: e.pageX, y: e.pageY });
+
+	                    if (_this.positions.length > 5) {
+	                        _this.positions.shift();
+	                    }
+	                };
+
+	                $(document).on('mousemove', this.mouseHandler);
+
+	                var p = (0, _index.getDimensions)(target);
+
+	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
+
+	                if (dir === 'right') {
+	                    this.points[0].reverse();
+	                    this.points[1].reverse();
+	                } else if (dir === 'top') {
+	                    this.points[0].reverse();
+	                } else if (dir === 'bottom') {
+	                    this.points[1].reverse();
+	                }
+	            },
+	            cancelMouseTracker: function cancelMouseTracker() {
+	                if (this.mouseHandler) {
+	                    $(document).off('mousemove', this.mouseHandler);
+	                }
+	            },
+	            movesTowardsTarget: function movesTowardsTarget() {
+
+	                var position = this.positions[this.positions.length - 1],
+	                    prevPos = this.positions[0] || position,
+	                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {
+	                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
+	                }, 0);
+
+	                this.position = delay ? position : null;
+	                return delay;
+	            }
+	        }
+
+	    };
+
+	    function slope(a, b) {
+	        return (b.y - a.y) / (b.x - a.x);
+	    }
+	};
+
+	var _index = __webpack_require__(4);
+
+	;
+
+/***/ },
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1624,7 +1674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1726,7 +1776,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1741,14 +1791,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        props: {
 	            cls: Boolean,
-	            animation: String,
-	            duration: Number
+	            animation: Boolean,
+	            duration: Number,
+	            transition: String
 	        },
 
 	        defaults: {
 	            cls: false,
 	            animation: false,
 	            duration: 200,
+	            transition: 'linear',
 	            aria: true
 	        },
 
@@ -1772,23 +1824,56 @@ return /******/ (function(modules) { // webpackBootstrap
 	            toggleState: function toggleState(targets, animate, show) {
 	                var _this = this;
 
-	                var deferreds = [];
+	                var deferreds = [],
+	                    toggled;
 
 	                (0, _jquery2.default)(targets).each(function (i, el) {
 
 	                    el = (0, _jquery2.default)(el);
 
-	                    var toggled = _this.isToggled(el);
+	                    if (_this.animation === true && animate !== false) {
 
-	                    if (show === true && toggled || show === false && !toggled) {
-	                        return;
-	                    }
+	                        var height = el[0].offsetHeight ? el.height() : 0;
 
-	                    if (_this.animation && animate !== false) {
+	                        _index.Transition.stop(el);
+
+	                        toggled = _this.isToggled(el);
+
+	                        if (!toggled) {
+	                            _this.doToggle(el, true);
+	                        }
+
+	                        el.css('height', '');
+	                        var endHeight = el.height();
+
+	                        el.height(height);
+
+	                        if (!toggled && show !== false || show === true) {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: endHeight,
+	                                'padding-bottom': '',
+	                                'margin-bottom': ''
+	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
+	                            _this.doUpdate(el);
+	                        } else {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: 0,
+	                                'padding-bottom': 0,
+	                                'margin-bottom': 0
+	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
+	                                _this.doUpdate(el);
+	                                _this.doToggle(el, false);
+	                            }));
+	                        }
+	                    } else if (_this.animation && animate !== false) {
 
 	                        _index.Animation.cancel(el);
 
-	                        if (!_this.isToggled(el)) {
+	                        toggled = _this.isToggled(el);
+
+	                        if (!toggled && show !== false || show === true) {
 
 	                            _this.doToggle(el, true);
 	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration));
@@ -1802,7 +1887,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        }
 	                    } else {
 
-	                        _this.doToggle(el, !toggled);
+	                        toggled = _this.isToggled(el);
+	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
 	                        _this.doUpdate(el);
 	                        deferreds.push(_jquery2.default.Deferred().resolve());
 	                    }
@@ -1812,7 +1898,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 	            doToggle: function doToggle(el, toggled) {
 	                el = (0, _jquery2.default)(el);
-	                el.toggleClass(this.cls, this.cls && toggled).attr('hidden', !this.cls && !toggled);
+
+	                if (this.cls) {
+	                    el.toggleClass(this.cls, toggled);
+	                } else {
+	                    el.attr('hidden', !toggled);
+	                }
 	            },
 	            isToggled: function isToggled(el) {
 	                el = (0, _jquery2.default)(el);
@@ -1843,7 +1934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1884,6 +1975,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 
 	    // core components
+	    UIkit.use(_accordion2.default);
 	    UIkit.use(_alert2.default);
 	    UIkit.use(_cover2.default);
 	    UIkit.use(_drop2.default);
@@ -1895,6 +1987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_close2.default);
 	    UIkit.use(_matchHeight2.default);
 	    UIkit.use(_navbar2.default);
+	    UIkit.use(_offcanvas2.default);
 	    UIkit.use(_responsive2.default);
 	    UIkit.use(_scrollspy2.default);
 	    UIkit.use(_scrollspyNav2.default);
@@ -1909,79 +2002,87 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _alert = __webpack_require__(20);
+	var _accordion = __webpack_require__(21);
+
+	var _accordion2 = _interopRequireDefault(_accordion);
+
+	var _alert = __webpack_require__(22);
 
 	var _alert2 = _interopRequireDefault(_alert);
 
-	var _close = __webpack_require__(21);
+	var _close = __webpack_require__(23);
 
 	var _close2 = _interopRequireDefault(_close);
 
-	var _cover = __webpack_require__(22);
+	var _cover = __webpack_require__(24);
 
 	var _cover2 = _interopRequireDefault(_cover);
 
-	var _drop = __webpack_require__(23);
+	var _drop = __webpack_require__(25);
 
 	var _drop2 = _interopRequireDefault(_drop);
 
-	var _dropdown = __webpack_require__(24);
+	var _dropdown = __webpack_require__(26);
 
 	var _dropdown2 = _interopRequireDefault(_dropdown);
 
-	var _grid = __webpack_require__(25);
+	var _grid = __webpack_require__(27);
 
 	var _grid2 = _interopRequireDefault(_grid);
 
-	var _heightViewport = __webpack_require__(26);
+	var _heightViewport = __webpack_require__(28);
 
 	var _heightViewport2 = _interopRequireDefault(_heightViewport);
 
-	var _icon = __webpack_require__(27);
+	var _icon = __webpack_require__(29);
 
 	var _icon2 = _interopRequireDefault(_icon);
 
-	var _marginWrap = __webpack_require__(28);
+	var _marginWrap = __webpack_require__(30);
 
 	var _marginWrap2 = _interopRequireDefault(_marginWrap);
 
-	var _matchHeight = __webpack_require__(29);
+	var _matchHeight = __webpack_require__(31);
 
 	var _matchHeight2 = _interopRequireDefault(_matchHeight);
 
-	var _navbar = __webpack_require__(30);
+	var _navbar = __webpack_require__(32);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _responsive = __webpack_require__(31);
+	var _offcanvas = __webpack_require__(41);
+
+	var _offcanvas2 = _interopRequireDefault(_offcanvas);
+
+	var _responsive = __webpack_require__(33);
 
 	var _responsive2 = _interopRequireDefault(_responsive);
 
-	var _scrollspy = __webpack_require__(32);
+	var _scrollspy = __webpack_require__(34);
 
 	var _scrollspy2 = _interopRequireDefault(_scrollspy);
 
-	var _scrollspyNav = __webpack_require__(33);
+	var _scrollspyNav = __webpack_require__(35);
 
 	var _scrollspyNav2 = _interopRequireDefault(_scrollspyNav);
 
-	var _smoothScroll = __webpack_require__(34);
+	var _smoothScroll = __webpack_require__(36);
 
 	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
 
-	var _sticky = __webpack_require__(35);
+	var _sticky = __webpack_require__(37);
 
 	var _sticky2 = _interopRequireDefault(_sticky);
 
-	var _svg = __webpack_require__(36);
+	var _svg = __webpack_require__(38);
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _switcher = __webpack_require__(37);
+	var _switcher = __webpack_require__(39);
 
 	var _switcher2 = _interopRequireDefault(_switcher);
 
-	var _toggle = __webpack_require__(38);
+	var _toggle = __webpack_require__(40);
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
@@ -1990,7 +2091,104 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 20 */
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.component('accordion', {
+
+	        mixins: [UIkit.mixin.toggle],
+
+	        props: {
+	            targets: String,
+	            active: null,
+	            collapsible: Boolean,
+	            multiple: Boolean,
+	            toggle: String,
+	            content: String,
+	            transition: String
+	        },
+
+	        defaults: {
+	            targets: '> *',
+	            active: false,
+	            animation: true,
+	            collapsible: false,
+	            multiple: false,
+	            cls: 'uk-open',
+	            toggle: '.uk-accordion-title',
+	            content: '.uk-accordion-content',
+	            transition: 'ease'
+	        },
+
+	        ready: function ready() {
+
+	            this.items = (0, _index.toJQuery)(this.targets, this.$el);
+
+	            if (!this.items) {
+	                return;
+	            }
+
+	            var self = this;
+	            this.$el.on('click', this.targets + ' ' + this.toggle, function (e) {
+	                e.preventDefault();
+	                self.show(self.items.find(self.toggle).index(this));
+	            });
+
+	            var active = (0, _index.toJQuery)(this.items.filter('.' + this.cls + ':first')) || this.active !== false && (0, _index.toJQuery)(this.items.eq(Number(this.active))) || !this.collapsible && (0, _index.toJQuery)(this.items.eq(0));
+
+	            if (active) {
+	                this.show(active, false);
+	            }
+	        },
+
+
+	        methods: {
+	            show: function show(item, animate) {
+	                var _this = this;
+
+	                var index = typeof item === 'number' ? item : typeof item === 'string' ? parseInt(item, 10) : this.items.index(item),
+	                    items = [this.items.eq(index)],
+	                    active = this.items.find(this.content + '.' + this.cls);
+
+	                if (!this.multiple) {
+	                    active.each(function (i, el) {
+	                        item = _this.items.eq(_this.items.find(_this.content).index(el));
+
+	                        if (item[0] !== items[0][0]) {
+	                            items.push(item);
+	                        }
+	                    });
+	                }
+
+	                items.forEach(function (item, i) {
+	                    var content = item.find(_this.content),
+	                        state = i === 0;
+
+	                    if (state && (_this.collapsible || active.length > 1)) {
+	                        state = null;
+	                    }
+
+	                    item.toggleClass(_this.cls, state);
+	                    _this.toggleState(content, animate, state);
+	                });
+	            }
+	        }
+
+	    });
+	};
+
+	var _index = __webpack_require__(4);
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2027,27 +2225,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        methods: {
 	            closeAlert: function closeAlert() {
+	                var _this2 = this;
 
 	                this.$el.trigger('close');
-
-	                var deferred;
-
-	                if (this.animation === true) {
-
-	                    deferred = _index.Transition.start(this.$el, {
-	                        'overflow': 'hidden',
-	                        'height': 0,
-	                        'opacity': 0,
+	                this.toggleState(this.$el).then(function () {
+	                    return _this2.$destroy();
+	                });
+	                requestAnimationFrame(function () {
+	                    return _this2.$el.css({
+	                        opacity: 0,
 	                        'padding-top': 0,
-	                        'padding-bottom': 0,
-	                        'margin-top': 0,
-	                        'margin-bottom': '-' + this.$el.prev().css('margin-bottom')
-	                    }, this.duration);
-	                } else {
-	                    deferred = this.toggleState(this.$el);
-	                }
-
-	                deferred.then(this.$destroy.bind(this));
+	                        'margin-top': 0
+	                    });
+	                });
 	            }
 	        },
 
@@ -2061,7 +2251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2088,7 +2278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2162,7 +2352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2175,8 +2365,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var active;
 
-	    (0, _jquery2.default)(document).on('click', function (e) {
-	        if (active && !(0, _index.isWithin)(e.target, active.$el)) {
+	    (0, _jquery2.default)(document).on('click', function (_ref) {
+	        var target = _ref.target;
+
+	        if (active && !(0, _index.isWithin)(target, active.$el)) {
 	            active.hide(true);
 	        }
 	    });
@@ -2238,15 +2430,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.updateAria(this.drop);
 
 	            this.drop.on('click', '.' + this.clsDrop + '-close', function () {
-	                _this.hide(true);
+	                return _this.hide(true);
 	            });
 
 	            if (this.mode === 'hover') {
 
 	                this.$el.on('mouseenter', function () {
-	                    _this.show();
+	                    return _this.show();
 	                }).on('mouseleave', function () {
-	                    _this.hide();
+	                    return _this.hide();
 	                });
 
 	                this.drop.on('mouseenter', function () {
@@ -2314,7 +2506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this2.$el.addClass(_this2.cls).attr('aria-expanded', 'true').trigger('show', [_this2]);
 
 	                    if (_this2.mode === 'hover') {
-	                        _this2.initMouseTracker(_this2.drop);
+	                        _this2.initMouseTracker(_this2.drop, _this2.dir);
 	                    }
 	                };
 
@@ -2381,7 +2573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2396,7 +2588,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2417,7 +2609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2493,7 +2685,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2534,7 +2726,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2586,7 +2778,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            },
 
 
-	            events: ['load', 'resize', 'orientationchange', 'update2']
+	            events: ['load', 'resize', 'orientationchange']
 
 	        }
 
@@ -2602,7 +2794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2698,7 +2890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2762,9 +2954,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 	            });
 
-	            this.$el.on('mouseenter', this.dropdown, function (e) {
+	            this.$el.on('mouseenter', this.dropdown, function (_ref) {
+	                var target = _ref.target;
+
 	                var active = _this.getActive();
-	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(e.target, active.$el) && !active.isDelaying) {
+	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(target, active.$el) && !active.isDelaying) {
 	                    active.hide(true);
 	                }
 	            });
@@ -2788,19 +2982,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.$el.on({
 
 	                beforeshow: function beforeshow(e, drop) {
-	                    drop.drop.addClass(_this.clsDrop + '-dropbar');
+	                    return drop.drop.addClass(_this.clsDrop + '-dropbar');
 	                },
 
-	                show: function show(e, drop) {
+	                show: function show(e, _ref2) {
+	                    var drop = _ref2.drop;
+	                    var $el = _ref2.$el;
 
-	                    var newHeight = drop.drop.outerHeight(true);
 
-	                    drop.$el.removeClass('uk-open');
+	                    var newHeight = drop.outerHeight(true);
+
+	                    $el.removeClass('uk-open');
 
 	                    if (height === newHeight) {
 
 	                        if (transition && transition.state() !== 'pending') {
-	                            drop.$el.addClass('uk-open');
+	                            $el.addClass('uk-open');
 	                        }
 
 	                        return;
@@ -2836,9 +3033,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                },
 
-	                mouseleave: function mouseleave(e) {
+	                mouseleave: function mouseleave(_ref3) {
+	                    var relatedTarget = _ref3.relatedTarget;
+
 	                    var active = _this.getActive();
-	                    if (active && !(0, _index.isWithin)(e.relatedTarget, active.$el)) {
+	                    if (active && !(0, _index.isWithin)(relatedTarget, active.$el)) {
 	                        active.hide();
 	                    }
 	                }
@@ -2868,7 +3067,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2904,7 +3103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3012,7 +3211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3105,7 +3304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3176,7 +3375,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3356,7 +3555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3407,7 +3606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3433,8 +3632,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            connect: false,
 	            toggle: '> *',
 	            active: 0,
-	            cls: 'uk-active',
-	            swiping: true
+	            swiping: true,
+	            cls: 'uk-active'
 	        },
 
 	        ready: function ready() {
@@ -3467,7 +3666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            this.updateAria(this.connect.children());
-	            this.show((0, _index.toJQuery)(this.toggles.filter('.' + this.cls)) || (0, _index.toJQuery)(this.toggles.eq(this.active)) || this.toggles.first());
+	            this.show((0, _index.toJQuery)(this.toggles.filter('.' + this.cls + ':first')) || (0, _index.toJQuery)(this.toggles.eq(this.active)) || this.toggles.first());
 	        },
 
 
@@ -3478,7 +3677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var length = this.toggles.length,
 	                    prev = this.connect.children('.' + this.cls).index(),
 	                    hasPrev = prev >= 0,
-	                    index = (item === 'next' ? prev + 1 : item === 'previous' ? prev - 1 : typeof item === 'string' ? parseInt(item, 10) : this.toggles.index(item)) % length,
+	                    index = (item === 'next' ? prev + 1 : item === 'previous' ? prev - 1 : typeof item === 'string' ? parseInt(item, 10) : typeof item === 'number' ? item : this.toggles.index(item)) % length,
 	                    toggle,
 	                    dir = item === 'previous' ? -1 : 1;
 
@@ -3516,7 +3715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3558,7 +3757,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3569,74 +3768,87 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit) {
 
-	    UIkit.mixin.mouse = {
+	    UIkit.component('offcanvas', {
 
-	        defaults: {
+	        mixins: [UIkit.mixin.toggle],
 
-	            positions: [],
-	            position: null,
-	            points: null
-
+	        props: {
+	            mode: String
 	        },
 
+	        defaults: {
+	            clsSidebar: 'uk-offcanvas-sidebar',
+	            clsContent: 'uk-offcanvas-content',
+	            clsToggle: 'uk-offcanvas-toggle',
+	            cls: 'uk-offcanvas-animation',
+	            mode: 'overlay'
+	        },
+
+	        ready: function ready() {
+	            var _this = this;
+
+	            this.trigger = (0, _index.toJQuery)('.' + this.clsToggle + ':first', this.$el);
+	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar + ':first', this.$el);
+	            this.content = (0, _index.toJQuery)('.' + this.clsContent + ':first', this.$el);
+
+	            if (!this.trigger || !this.sidebar || !this.content) {
+	                return;
+	            }
+
+	            this.$el.addClass('uk-offcanvas-mode-' + this.mode);
+
+	            if (this.mode === 'reveal') {
+	                this.sidebar.addClass(this.cls);
+	            }
+
+	            this.trigger.on('click', function (e) {
+	                e.preventDefault();
+	                _this.toggle();
+	            });
+
+	            (0, _jquery2.default)(document).on('click', function (_ref) {
+	                var target = _ref.target;
+
+
+	                if ((0, _index.isWithin)(target, _this.trigger)) {
+	                    return;
+	                }
+
+	                if (!(0, _index.isWithin)(target, _this.sidebar)) {
+	                    _this.toggle(false);
+	                }
+	            });
+	        },
+
+
 	        methods: {
-	            initMouseTracker: function initMouseTracker(target) {
-	                var _this = this;
+	            toggle: function toggle(show) {
 
-	                this.positions = [];
-	                this.position = null;
+	                show = show === undefined && !this.isToggled(this.sidebar) || show;
 
-	                this.mouseHandler = function (e) {
-	                    _this.positions.push({ x: e.pageX, y: e.pageY });
+	                this.$el.css('overflow', show ? 'hidden' : '');
+	                //this.sidebar.css('margin-top', this.$el.scrollTop());
 
-	                    if (_this.positions.length > 5) {
-	                        _this.positions.shift();
-	                    }
-	                };
-
-	                $(document).on('mousemove', this.mouseHandler);
-
-	                var p = (0, _index.getDimensions)(target);
-
-	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
-
-	                if (this.dir === 'right') {
-	                    this.points[0].reverse();
-	                    this.points[1].reverse();
-	                } else if (this.dir === 'top') {
-	                    this.points[0].reverse();
-	                } else if (this.dir === 'bottom') {
-	                    this.points[1].reverse();
+	                if (this.mode !== 'reveal') {
+	                    this.toggleState(this.sidebar, false, show);
 	                }
-	            },
-	            cancelMouseTracker: function cancelMouseTracker() {
-	                if (this.mouseHandler) {
-	                    $(document).off('mousemove', this.mouseHandler);
+
+	                if (this.mode === 'push' || this.mode === 'reveal') {
+	                    this.toggleState(this.content, false, show);
 	                }
-	            },
-	            movesTowardsTarget: function movesTowardsTarget() {
-
-	                var position = this.positions[this.positions.length - 1],
-	                    prevPos = this.positions[0] || position,
-	                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {
-	                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
-	                }, 0);
-
-	                this.position = delay ? position : null;
-	                return delay;
 	            }
 	        }
 
-	    };
-
-	    function slope(a, b) {
-	        return (b.y - a.y) / (b.x - a.x);
-	    }
+	    });
 	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
 
 	var _index = __webpack_require__(4);
 
-	;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ])

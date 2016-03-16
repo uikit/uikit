@@ -26,28 +26,13 @@ export default function (UIkit) {
         methods: {
 
             closeAlert() {
-
                 this.$el.trigger('close');
-
-                var deferred;
-
-                if (this.animation === true) {
-
-                    deferred = Transition.start(this.$el, {
-                        'overflow': 'hidden',
-                        'height': 0,
-                        'opacity': 0,
-                        'padding-top': 0,
-                        'padding-bottom': 0,
-                        'margin-top': 0,
-                        'margin-bottom': '-' + this.$el.prev().css('margin-bottom')
-                    }, this.duration);
-
-                } else {
-                    deferred = this.toggleState(this.$el);
-                }
-
-                deferred.then(this.$destroy.bind(this));
+                this.toggleState(this.$el).then(() => this.$destroy());
+                requestAnimationFrame(() => this.$el.css({
+                    opacity: 0,
+                    'padding-top': 0,
+                    'margin-top': 0
+                }))
             }
 
         },

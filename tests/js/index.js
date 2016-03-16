@@ -13,7 +13,7 @@ requestAnimationFrame(function () {
         Common: ['alert', 'badge', 'close', 'icon', 'label'],
         Navigation: ['nav', 'navbar', 'subnav', 'breadcrumb', 'pagination', 'tab'],
         Layout: ['section', 'container', 'grid', 'card'],
-        JavaScript: ['drop', 'dropdown', 'offcanvas', 'scrollspy', 'smooth-scroll', 'sticky', 'switcher', 'toggle'],
+        JavaScript: ['accordion', 'drop', 'dropdown', 'offcanvas', 'scrollspy', 'smooth-scroll', 'sticky', 'switcher', 'toggle'],
         Utilities: ['align', 'animation', 'column', 'cover', 'flex', 'height-expand', 'height-viewport', 'inverse', 'margin', 'padding', 'position', 'text', 'utility', 'visibility', 'width'],
         Components: ['form-advanced', 'tooltip']
 
@@ -34,6 +34,6 @@ requestAnimationFrame(function () {
         }
     }).val(location.pathname.split('/').pop());
 
-    $('body').prepend($('<div class="uk-form uk-margin-top uk-margin-bottom uk-container"></div>').prepend($select));
+    $('body').prepend($('<div class="uk-form uk-padding uk-container"></div>').prepend($select));
 
 });

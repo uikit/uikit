@@ -31,25 +31,16 @@ export function transition(element, props, duration, transition) {
         element.css(name, element.css(name));
     }
 
-    cancelAnimationFrame(element[0].__uk_transition);
+    var timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
 
-    element[0].__uk_transition = requestAnimationFrame(() => {
-
-        var timer = setTimeout(() => {
-            element.trigger(transitionend || 'transitionend');
-        }, duration);
-
-        element
-            .one(transitionend || 'transitionend', () => {
-                d.resolve();
-                element.css('transition', '');
-                clearTimeout(timer);
-            })
-            .css('transition', `all ${duration}ms ${transition || 'linear'}`)
-            .css(props);
-
-        delete element[0].__uk_transition;
-    });
+    element
+        .one(transitionend || 'transitionend', () => {
+            d.resolve();
+            element.css('transition', '');
+            clearTimeout(timer);
+        })
+        .css('transition', `all ${duration}ms ${transition || 'linear'}`)
+        .css(props);
 
     return d.promise();
 }
@@ -62,7 +53,6 @@ export const Transition = {
 
         element = $(element);
 
-        cancelAnimationFrame(element[0].__uk_transition);
         $(element).trigger(transitionend || 'transitionend');
 
         return this;
@@ -82,27 +72,24 @@ export function animate(element, animation, duration, out) {
 
     reset();
 
-    element.css('animation-duration', duration + 'ms').addClass(animation);
+    element
+        .one(animationend || 'animationend', () => {
+            reset();
+            d.resolve();
+        })
+        .css('animation-duration', duration + 'ms')
+        .addClass(animation);
 
-    requestAnimationFrame(function () {
-        element.addClass(cls);
-    });
-
-    element.one(animationend || 'animationend', function () {
-        reset();
-        d.resolve();
-    });
+    requestAnimationFrame(() => element.addClass(cls));
 
     if (!animationend) {
-        requestAnimationFrame(function () {
-            Animation.cancel(element);
-        });
+        requestAnimationFrame(() => Animation.cancel(element));
     }
 
     return d.promise();
 
     function reset() {
-        element.css('animation-duration', '').removeClass(cls + ' ' + animation);
+        element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
     }
 }
 
@@ -127,13 +114,6 @@ export const Animation = {
 
 };
 
-// TODO still needed?
-export function offsetParent(element) {
-    return $(element).parents().filter(function () {
-        return $.inArray($(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
-    }).first();
-}
-
 export function isWithin(element, selector) {
     element = $(element);
     return element.is(selector) || !!(typeof selector === 'string' ? element.parents(selector).length : $.contains(selector instanceof $ ? selector[0] : selector, element[0]));
@@ -141,9 +121,7 @@ export function isWithin(element, selector) {
 
 export function attrFilter(element, attr, pattern, replacement) {
     element = $(element);
-    element.attr(attr, function (i, value) {
-        return value ? value.replace(pattern, replacement) : value;
-    });
+    element.attr(attr, (i, value) => value ? value.replace(pattern, replacement) : value);
     return element;
 }
 

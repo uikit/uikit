@@ -19,9 +19,9 @@ export default function (UIkit) {
         },
 
         ready() {
-            this.links = this.$el.find('a[href^="#"]').filter((i, el) => { return el.hash; });
+            this.links = this.$el.find('a[href^="#"]').filter((i, el) => el.hash);
             this.elements = (this.closest ? this.links.closest(this.closest) : this.links);
-            this.targets = $($.map(this.links, (el) => { return el.hash }).join(','));
+            this.targets = $($.map(this.links, (el) => el.hash).join(','));
 
             if (this.smoothScroll) {
                 this.links.each(function () {

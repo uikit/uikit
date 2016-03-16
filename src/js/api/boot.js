@@ -6,13 +6,7 @@ export default function (UIkit) {
     const DATA = UIkit.data;
 
     if (!Observer) {
-
-        ready(() => {
-            $(UIkit.component.selector).each((i, node) => {
-                attachComponents(node);
-            });
-        });
-
+        ready(() => $(UIkit.component.selector).each((i, node) => attachComponents(node)));
         return;
     }
 
