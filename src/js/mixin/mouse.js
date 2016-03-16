@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import {getDimensions} from '../util/index';
 
 export default function (UIkit) {
