@@ -31,7 +31,7 @@ export function transition(element, props, duration, transition) {
         element.css(name, element.css(name));
     }
 
-    var timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
+    let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
 
     element
         .one(transitionend || 'transitionend', () => {
