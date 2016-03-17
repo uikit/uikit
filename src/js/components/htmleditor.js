@@ -577,7 +577,7 @@
             editor.on('cursorMode', function(e, param) {
                 if (editor.editor.options.mode == 'gfm') {
                     var pos = editor.editor.getDoc().getCursor();
-                    if (!editor.editor.getTokenAt(pos).state.base.htmlState) {
+                    if (!editor.editor.getTokenAt(pos).state) {
                         param.mode = 'markdown';
                     }
                 }
