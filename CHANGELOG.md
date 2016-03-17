@@ -7,6 +7,7 @@
   - Fixed uk-row-first when using pull/push or flex-order classes
   - Fixed uk-grid-margin when using flex-order classes
   - Fixed uk-overflow-container adjustments on resize
+  - Fixed modal listens for 'changed.uk.dom' event
 
 ### 2.25.0 (February 17, 2016)
   - Added grid parallax component

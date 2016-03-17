@@ -50,7 +50,7 @@
                 if (target[0] == $this.element[0] && $this.options.bgclose) {
                     $this.hide();
                 }
-            });
+            }).on("changed.uk.dom", this.resize.bind(this));
         },
 
         toggle: function() {
