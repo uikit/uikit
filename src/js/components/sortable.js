@@ -19,8 +19,12 @@
 
     "use strict";
 
-    var supportsTouch       = ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
-        draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved, overElement;
+    //var supportsTouch  = ('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch);
+    var draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved, overElement;
+
+    var dragEvents = ['touchmove', 'mousemove', 'mouseout'];
+    var dragMoveEvents = ['touchmove', 'mousemove'];
+    var dragStartEvents = ['touchstart', 'mousedown'];
 
     function closestSortable(ele) {
 
@@ -167,7 +171,7 @@
 
                 e.preventDefault();
 
-                if (!supportsTouch && $link.length) {
+                if (!e.touches && $link.length) {
 
                     $link.one('click', function(e){
                         e.preventDefault();
@@ -218,25 +222,17 @@
 
             // Bind/unbind standard mouse/touch events as a polyfill.
             function addDragHandlers() {
-                if (supportsTouch) {
-                    element.addEventListener("touchmove", handleTouchMove, false);
-                } else {
-                    element.addEventListener('mouseover', handleDragEnter, false);
-                    element.addEventListener('mouseout', handleDragLeave, false);
-                }
-
-                // document.addEventListener("selectstart", prevent, false);
+                //useCapture false is default
+                dragEvents.forEach(function (eDrag) {
+                    element.addEventListener(eDrag, handleTouchMove, false);
+                });
             }
 
             function removeDragHandlers() {
-                if (supportsTouch) {
-                    element.removeEventListener("touchmove", handleTouchMove, false);
-                } else {
-                    element.removeEventListener('mouseover', handleDragEnter, false);
-                    element.removeEventListener('mouseout', handleDragLeave, false);
-                }
-
-                // document.removeEventListener("selectstart", prevent, false);
+                //useCapture false is default
+                dragEvents.forEach(function (eDrag) {
+                    element.removeEventListener(eDrag, handleTouchMove, false);
+                });
             }
 
             this.addDragHandlers    = addDragHandlers;
@@ -258,12 +254,12 @@
                     var touch, target, context;
 
                     if (e) {
-                        touch  = (supportsTouch && e.touches && e.touches[0]) || { };
+                        touch  = (e.touches && e.touches[0]) || { };
                         target = touch.target || e.target;
 
                         // Fix event.target for a touch event
-                        if (supportsTouch && document.elementFromPoint) {
-                            target = document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop);
+                        if ((e.touches && e.touches[0]) && document.elementFromPoint) {
+                            target = document.elementFromPoint(touch.pageX - document.body.scrollLeft, touch.pageY - document.body.scrollTop);
                         }
 
                         overElement = UI.$(target);
@@ -283,8 +279,13 @@
                 };
             }
 
-            window.addEventListener(supportsTouch ? 'touchmove' : 'mousemove', handleDragMove, false);
-            element.addEventListener(supportsTouch ? 'touchstart': 'mousedown', handleDragStart, false);
+            dragMoveEvents.forEach(function (eDrag) {
+                window.addEventListener(eDrag, handleDragMove, false);
+            });
+
+            dragStartEvents.forEach(function (eDrag) {
+                element.addEventListener(eDrag, handleDragStart, false);
+            });
         },
 
         dragStart: function(e, elem) {
@@ -296,7 +297,7 @@
             var $this    = this,
                 target   = UI.$(e.target);
 
-            if (!supportsTouch && e.button==2) {
+            if (!e.touches && e.button==2) {
                 return;
             }
 
@@ -330,7 +331,7 @@
 
             delayIdle = {
 
-                pos       : { x:e.pageX, y:e.pageY },
+                pos       : { x: (e.touches && e.touches[0] ? e.touches[0].pageX : e.pageX), y: (e.touches && e.touches[0] ? e.touches[0].pageY : e.pageY) },
                 threshold : $this.options.threshold,
                 apply     : function(evt) {
 
