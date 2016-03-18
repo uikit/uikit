@@ -92,6 +92,10 @@ export default function (UIkit) {
 
             handler() {
 
+                if (!this.drop) {
+                    return;
+                }
+
                 removeClass(this.drop, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
 
                 this.drop.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
