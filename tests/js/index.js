@@ -4,7 +4,7 @@ module.exports = require('../../src/js/uikit.js');
 
 requestAnimationFrame(function () {
 
-    var $select = $('<select><option value="">- Select Test -</option></select>').css('margin', '0 5px'), $optgroup;
+    var $select = $('<select><option value="">- Select Test -</option></select>').css('margin', '20px 0'), $optgroup;
 
     $.each({
 
@@ -34,6 +34,6 @@ requestAnimationFrame(function () {
         }
     }).val(location.pathname.split('/').pop());
 
-    $('body').prepend($('<div class="uk-form uk-padding uk-container"></div>').prepend($select));
+    $('body').prepend($('<div class="uk-form uk-container"></div>').prepend($select));
 
 });
