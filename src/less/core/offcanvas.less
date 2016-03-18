@@ -7,12 +7,15 @@
 //                  `uk-offcanvas-bar`
 //                  `uk-offcanvas-close`
 //
-// Modifiers:       `uk-offcanvas-bar-flip`
+// Modifiers:       `uk-offcanvas-overlay`
+//                  `uk-offcanvas-reveal`
+//                  `uk-offcanvas-push`
+//                  `uk-offcanvas-page-animation`
+//                  `uk-offcanvas-page-animation-flip`
 //
 // States:          `uk-active`
 //
 // ========================================================================
-
 
 
 // Variables
@@ -34,7 +37,7 @@
 /*
  * 1. Hide by default
  * 2. Set position
- * 3. Mask the background page
+ * Note: Background mask is moved to pseudo element to enable the transition with `opacity`.
  */
 
 .uk-offcanvas {
@@ -43,16 +46,37 @@
     /* 2 */
     position: fixed;
     top: 0;
-    right: 0;
     bottom: 0;
     left: 0;
+    right: 0;
     z-index: @offcanvas-z-index;
-    /* 3 */
-    background: @offcanvas-background;
-    .hook-offcanvas;
 }
 
 .uk-offcanvas.uk-active { display: block; }
+
+/*
+
+ * 1. Mask the background page
+ * 2. Fade-in transition
+ */
+
+.uk-offcanvas::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* 4 */
+    background: @offcanvas-background;
+    /* 5 */
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+    .hook-offcanvas;
+}
+
+.uk-offcanvas.uk-active::before { opacity: 1; }
 
 
 /* Page (`html` element)
@@ -190,5 +214,4 @@
 
 .hook-offcanvas() {}
 .hook-offcanvas-bar() {}
-.hook-offcanvas-panel() {}
 .hook-offcanvas-misc() {}
