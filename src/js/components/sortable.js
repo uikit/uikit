@@ -102,9 +102,9 @@
                         UI.$html.addClass(draggingPlaceholder.$sortable.options.dragMovingClass);
                     }
 
-                    var offset = draggingPlaceholder.data('mouse-offset'),
-                        left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
-                        top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
+                    var offset = draggingPlaceholder.data('mouse-offset');
+                    var left = parseInt((e.originalEvent.touches && e.originalEvent.touches[0] ? e.originalEvent.touches[0].pageX : e.originalEvent.pageX), 10) + offset.left;
+                    var top = parseInt((e.originalEvent.touches && e.originalEvent.touches[0] ? e.originalEvent.touches[0].pageY : e.originalEvent.pageY), 10) + offset.top;
 
                     draggingPlaceholder.css({'left': left, 'top': top });
 
@@ -327,7 +327,8 @@
                 draggingPlaceholder.remove();
             }
 
-            var $current = UI.$(currentlyDraggingElement), offset = $current.offset();
+            var $current = UI.$(currentlyDraggingElement);
+            var offset = $current.offset();
 
             delayIdle = {
 
