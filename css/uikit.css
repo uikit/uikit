@@ -3370,74 +3370,129 @@ ul.uk-nav-sub {
    Component: Off-canvas
  ========================================================================== */
 /*
- * 1. Create position context for sidebar and overlay
- * 2. Clip overflow
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Mask the background page
  */
 .uk-offcanvas {
   /* 1 */
-  position: relative;
+  display: none;
   /* 2 */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  /* 3 */
+  background: rgba(0, 0, 0, 0.1);
+}
+.uk-offcanvas.uk-active {
+  display: block;
+}
+/* Page (`html` element)
+ ========================================================================== */
+/*
+ * Prevent scrollbar
+ * Note: JS sets a fixed width to prevent layout jumping caused by removing the scrollbar
+ */
+.uk-offcanvas-page {
   overflow: hidden;
 }
+/* Bar
+ ========================================================================== */
 /*
- * 1. Position
- * 2. Style
- * 3. Make scrollable if content is larger
- * 4. Move off canvas
+ * 1. Set position
+ * 2. Size and style
+ * 3. Allow scrolling
  */
-.uk-offcanvas-sidebar {
+.uk-offcanvas-bar {
   /* 1 */
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -300px;
+  left: 0;
+  z-index: 1001;
   /* 2 */
   box-sizing: border-box;
-  width: 300px;
-  padding: 20px;
-  background: #444;
+  width: 270px;
+  max-width: 100%;
+  padding: 20px 20px;
+  background: #333;
   /* 3 */
   overflow-y: auto;
-  /* 3 */
-  /*                -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);*/
+  -webkit-overflow-scrolling: touch;
 }
-.uk-offcanvas-animation {
-  -webkit-transform: translateX(300px);
-  transform: translateX(300px);
-}
-.uk-offcanvas-mode-reveal .uk-offcanvas-sidebar {
-  z-index: -100;
-}
-/* ========================================================================
-   Component: Off-canvas
+/* Animation modifiers
  ========================================================================== */
 /*
- * This is the offcanvas overlay and bar container
- * 1. Hide by default
- * 2. Set fixed position
- * 3. Deactivate browser touch actions in IE11
- * 4. Mask the background page
+ * Page
  */
-/* Sub-object `uk-offcanvas-page`
- ========================================================================== */
+.uk-offcanvas-page-animation {
+  -webkit-transition: margin-left 0.3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out;
+  margin-left: 270px;
+}
 /*
- * Prepares the whole HTML page to slide-out
- * 1. Fix the main page and disallow scrolling
- * 2. Side-out transition
+ * Bar
  */
-/* Sub-object `uk-offcanvas-bar`
- ========================================================================== */
-/*
- * This is the offcanvas bar
- * 1. Set fixed position
- * 2. Size and style
- * 3. Allow scrolling
- * 4. Side-out transition
- * 5. Deactivate scroll chaining in IE11
- */
+.uk-offcanvas-overlay,
+.uk-offcanvas-push {
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.uk-active > .uk-offcanvas-overlay,
+.uk-active > .uk-offcanvas-push {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+}
+/* Reveal */
+.uk-offcanvas-reveal {
+  -webkit-transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out;
+  transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
+  clip: rect(0, 0, 100vh, 0);
+  -webkit-clip-path: inset(0 270px 0 0);
+  clip-path: inset(0 270px 0 0);
+}
+.uk-active > .uk-offcanvas-reveal {
+  clip: rect(0, 270px, 100vh, 0);
+  -webkit-clip-path: inset(0);
+  clip-path: inset(0);
+}
 /* Modifier `uk-offcanvas-bar-flip`
  ========================================================================== */
+/*
+ * Page
+ */
+.uk-offcanvas-page-animation-flip {
+  -webkit-transition: margin-right 0.3s ease-in-out;
+  transition: margin-right 0.3s ease-in-out;
+  margin-right: 270px;
+}
+/*
+ * Bar
+ */
+.uk-offcanvas-bar-flip {
+  left: auto;
+  right: 0;
+}
+.uk-offcanvas-bar-flip.uk-offcanvas-overlay,
+.uk-offcanvas-bar-flip.uk-offcanvas-push {
+  -webkit-transform: translateX(200%);
+  transform: translateX(200%);
+}
+.uk-offcanvas-bar-flip.uk-offcanvas-reveal {
+  clip: rect(0, 270px, 100vh, 270px);
+  -webkit-clip-path: inset(0 0 0 270px);
+  clip-path: inset(0 0 0 270px);
+}
+.uk-active > .uk-offcanvas-bar-flip.uk-offcanvas-reveal {
+  clip: rect(0, 270px, 100vh, 0);
+  -webkit-clip-path: inset(0);
+  clip-path: inset(0);
+}
 /* ========================================================================
    Component: Switcher
  ========================================================================== */

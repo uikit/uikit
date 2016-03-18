@@ -59,17 +59,11 @@
  ========================================================================== */
 
 /*
- * 1. Prevent scrollbar
- * 2. Prepare reveal and push animations
+ * Prevent scrollbar
  * Note: JS sets a fixed width to prevent layout jumping caused by removing the scrollbar
  */
 
-.uk-offcanvas-page {
-    /* 1 */
-    overflow: hidden;
-    /* 2 */
-
-}
+.uk-offcanvas-page { overflow: hidden; }
 
 
 /* Bar
@@ -105,63 +99,88 @@
  ========================================================================== */
 
 /*
- * Overlay
+ * Page
  */
 
-.uk-offcanvas-overlay .uk-offcanvas-bar {
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-}
-
-.uk-offcanvas-overlay .uk-offcanvas.uk-active .uk-offcanvas-bar {
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-}
-
-/*
- * Reveal
- */
-
-.uk-offcanvas-reveal {
+.uk-offcanvas-page-animation {
     -webkit-transition: margin-left 0.3s ease-in-out;
     transition: margin-left 0.3s ease-in-out;
     margin-left: @offcanvas-bar-width;
 }
 
-.uk-offcanvas-reveal .uk-offcanvas.uk-active {
-    z-index: -1
-}
-
 /*
- * Push
+ * Bar
  */
 
+.uk-offcanvas-overlay,
 .uk-offcanvas-push {
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out;
-    -webkit-transform: translateX(@offcanvas-bar-width);
-    transform: translateX(@offcanvas-bar-width);
-}
-
-.uk-offcanvas-push .uk-offcanvas.uk-active .uk-offcanvas-bar {
     -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
 }
 
+.uk-active > .uk-offcanvas-overlay,
+.uk-active > .uk-offcanvas-push {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+}
+
+/* Reveal */
+.uk-offcanvas-reveal {
+    -webkit-transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out;
+    transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
+    clip: rect(0, 0, 100vh, 0);
+    -webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
+    clip-path: inset(0 @offcanvas-bar-width 0 0);
+}
+
+.uk-active > .uk-offcanvas-reveal {
+    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
+    -webkit-clip-path: inset(0);
+    clip-path: inset(0);
+}
 
 
 /* Modifier `uk-offcanvas-bar-flip`
  ========================================================================== */
 
+/*
+ * Page
+ */
+
+.uk-offcanvas-page-animation-flip {
+    -webkit-transition: margin-right 0.3s ease-in-out;
+    transition: margin-right 0.3s ease-in-out;
+    margin-right: @offcanvas-bar-width;
+}
+
+/*
+ * Bar
+ */
+
 .uk-offcanvas-bar-flip {
     left: auto;
     right: 0;
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
 }
 
+.uk-offcanvas-bar-flip.uk-offcanvas-overlay,
+.uk-offcanvas-bar-flip.uk-offcanvas-push {
+    -webkit-transform: translateX(200%);
+    transform: translateX(200%);
+}
+
+.uk-offcanvas-bar-flip.uk-offcanvas-reveal {
+    clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width);
+    -webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
+    clip-path: inset(0 0 0 @offcanvas-bar-width);
+}
+
+.uk-active > .uk-offcanvas-bar-flip.uk-offcanvas-reveal {
+    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
+    -webkit-clip-path: inset(0);
+    clip-path: inset(0);
+}
 
 
 // Hooks
