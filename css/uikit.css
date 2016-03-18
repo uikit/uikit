@@ -3372,7 +3372,7 @@ ul.uk-nav-sub {
 /*
  * 1. Hide by default
  * 2. Set position
- * 3. Mask the background page
+ * Note: Background mask is moved to pseudo element to enable the transition with `opacity`.
  */
 .uk-offcanvas {
   /* 1 */
@@ -3380,15 +3380,35 @@ ul.uk-nav-sub {
   /* 2 */
   position: fixed;
   top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
+  right: 0;
   z-index: 1000;
-  /* 3 */
-  background: rgba(0, 0, 0, 0.1);
 }
 .uk-offcanvas.uk-active {
   display: block;
+}
+/*
+
+ * 1. Mask the background page
+ * 2. Fade-in transition
+ */
+.uk-offcanvas::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* 4 */
+  background: rgba(0, 0, 0, 0.1);
+  /* 5 */
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+.uk-offcanvas.uk-active::before {
+  opacity: 1;
 }
 /* Page (`html` element)
  ========================================================================== */
@@ -3497,14 +3517,12 @@ ul.uk-nav-sub {
    Component: Switcher
  ========================================================================== */
 /*
- * 1. Deactivate browser history navigation in IE11
+ * Reset lists
  */
 .uk-switcher {
   margin: 0;
   padding: 0;
   list-style: none;
-  /* 1 */
-  touch-action: cross-slide-y pinch-zoom double-tap-zoom;
 }
 /*
  * Items
