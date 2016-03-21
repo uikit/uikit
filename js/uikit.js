@@ -3179,7 +3179,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.sidebar.addClass(this.clsSidebar + ' ' + this.clsMode);
 	                    this.offcanvas.addClass(this.clsActive);
 
-	                    if (this.flip) {
+	                    if (this.flip && this.clsPageAnimation) {
 	                        this.page.css('margin-left', -this.sidebar.outerWidth() + scrollbarWidth);
 	                    }
 
