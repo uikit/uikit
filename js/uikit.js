@@ -3090,51 +3090,66 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit) {
 
+	    var active = false;
+
 	    UIkit.component('offcanvas', {
 
-	        mixins: [UIkit.mixin.toggle],
-
 	        props: {
-	            mode: String
+	            mode: String,
+	            href: String,
+	            flip: Boolean
 	        },
 
 	        defaults: {
-	            clsSidebar: 'uk-offcanvas-sidebar',
-	            clsContent: 'uk-offcanvas-content',
-	            clsToggle: 'uk-offcanvas-toggle',
-	            cls: 'uk-offcanvas-animation',
-	            mode: 'overlay'
+	            mode: 'overlay',
+	            href: false,
+	            flip: false,
+	            clsActive: 'uk-active',
+	            clsInactive: 'uk-inactive',
+	            clsPrefix: 'uk-offcanvas',
+	            clsPage: 'page',
+	            clsSidebar: 'bar',
+	            clsAnimation: 'animation'
 	        },
 
 	        ready: function ready() {
 	            var _this = this;
 
-	            this.trigger = (0, _index.toJQuery)('.' + this.clsToggle + ':first', this.$el);
-	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar + ':first', this.$el);
-	            this.content = (0, _index.toJQuery)('.' + this.clsContent + ':first', this.$el);
+	            this.clsPage = this.clsPrefix + '-' + this.clsPage;
+	            this.clsSidebar = this.clsPrefix + '-' + this.clsSidebar;
+	            this.clsMode = this.clsPrefix + '-' + this.mode;
+	            this.clsPageAnimation = this.clsPage + '-' + this.clsAnimation;
+	            this.clsSidebarAnimation = this.clsSidebar + '-' + this.clsAnimation;
 
-	            if (!this.trigger || !this.sidebar || !this.content) {
+	            this.page = (0, _jquery2.default)('html');
+	            this.body = (0, _jquery2.default)('body');
+	            this.offcanvas = (0, _index.toJQuery)(this.href);
+	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.offcanvas);
+
+	            if (!this.offcanvas || !this.sidebar) {
 	                return;
 	            }
 
-	            this.$el.addClass('uk-offcanvas-mode-' + this.mode);
-
-	            if (this.mode === 'reveal') {
-	                this.sidebar.addClass(this.cls);
+	            if (this.flip) {
+	                this.clsSidebar += '-flip';
+	                this.clsPageAnimation += '-flip';
 	            }
 
-	            this.trigger.on('click', function (e) {
+	            if (this.mode === 'noeffect' || this.mode === 'reveal') {
+	                this.clsSidebarAnimation = '';
+	            }
+
+	            if (this.mode !== 'push' && this.mode !== 'reveal') {
+	                this.clsPageAnimation = '';
+	            }
+
+	            this.$el.on('click', function (e) {
 	                e.preventDefault();
 	                _this.toggle();
 	            });
 
-	            (0, _jquery2.default)(document).on('click', function (_ref) {
+	            this.offcanvas.on('click', function (_ref) {
 	                var target = _ref.target;
-
-
-	                if ((0, _index.isWithin)(target, _this.trigger)) {
-	                    return;
-	                }
 
 	                if (!(0, _index.isWithin)(target, _this.sidebar)) {
 	                    _this.toggle(false);
@@ -3145,18 +3160,51 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        methods: {
 	            toggle: function toggle(show) {
+	                var _this2 = this;
 
-	                show = show === undefined && !this.isToggled(this.sidebar) || show;
-
-	                this.$el.css('overflow', show ? 'hidden' : '');
-	                //this.sidebar.css('margin-top', this.$el.scrollTop());
-
-	                if (this.mode !== 'reveal') {
-	                    this.toggleState(this.sidebar, false, show);
+	                if (show === false && active !== this) {
+	                    return;
 	                }
 
-	                if (this.mode === 'push' || this.mode === 'reveal') {
-	                    this.toggleState(this.content, false, show);
+	                show = show === undefined && !this.sidebar.hasClass(this.clsActive) || show;
+
+	                if (show) {
+
+	                    active = this;
+
+	                    var scrollbarWidth = window.innerWidth - this.page.width();
+	                    this.page.css('width', window.innerWidth - scrollbarWidth);
+
+	                    this.page.addClass(this.clsPage);
+	                    this.sidebar.addClass(this.clsSidebar + ' ' + this.clsMode);
+	                    this.offcanvas.addClass(this.clsActive);
+
+	                    if (this.flip) {
+	                        this.page.css('margin-left', -this.sidebar.outerWidth() + scrollbarWidth);
+	                    }
+
+	                    // frame needs to be rendered for browser to apply display:none;
+	                    requestAnimationFrame(function () {
+	                        requestAnimationFrame(function () {
+	                            _this2.sidebar.addClass(_this2.clsSidebarAnimation + ' ' + _this2.clsActive);
+	                            _this2.page.addClass(_this2.clsPageAnimation);
+	                        });
+	                    });
+	                } else {
+
+	                    this.sidebar.one(_index.transitionend, function () {
+	                        _this2.page.removeClass(_this2.clsPage);
+	                        _this2.offcanvas.removeClass(_this2.clsActive);
+	                        _this2.page.width('');
+	                        _this2.sidebar.removeClass(_this2.clsSidebar + ' ' + _this2.clsSidebarAnimation + ' ' + _this2.clsMode);
+	                    });
+
+	                    if (this.mode === 'noeffect') {
+	                        this.sidebar.trigger(_index.transitionend);
+	                    }
+
+	                    this.sidebar.removeClass(this.clsActive);
+	                    this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 	                }
 	            }
 	        }
