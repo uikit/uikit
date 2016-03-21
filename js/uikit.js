@@ -2780,12 +2780,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    el = (0, _jquery2.default)(el);
 	                    offset = el.offset();
 	                    top = Math.min(top, offset.top + el.outerHeight(true) - 1); // (-1): weird firefox bug when parent container is display:flex
-	                    left = Math.min(left, offset.left);
+	                    left = Math.min(left, offset.left + el.outerWidth(true));
 	                }).each(function (i, el) {
 	                    el = (0, _jquery2.default)(el);
 	                    offset = el.offset();
 	                    el.toggleClass(_this.margin, offset.top >= top);
-	                    el.toggleClass(_this.rowFirst, _this.rowFirst && offset.left === left);
+	                    el.toggleClass(_this.rowFirst, _this.rowFirst && offset.left >= left);
 	                });
 	            },
 
