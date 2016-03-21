@@ -2785,7 +2785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    el = (0, _jquery2.default)(el);
 	                    offset = el.offset();
 	                    el.toggleClass(_this.margin, offset.top >= top);
-	                    el.toggleClass(_this.rowFirst, _this.rowFirst && offset.left >= left);
+	                    el.toggleClass(_this.rowFirst, _this.rowFirst && offset.left <= left);
 	                });
 	            },
 
