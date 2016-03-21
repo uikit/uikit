@@ -3117,6 +3117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.clsPage = this.clsPrefix + '-' + this.clsPage;
 	            this.clsSidebar = this.clsPrefix + '-' + this.clsSidebar;
+	            this.clsFlip = this.flip ? this.clsPrefix + '-flip' : '';
 	            this.clsMode = this.clsPrefix + '-' + this.mode;
 	            this.clsPageAnimation = this.clsPage + '-' + this.clsAnimation;
 	            this.clsSidebarAnimation = this.clsSidebar + '-' + this.clsAnimation;
@@ -3128,11 +3129,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            if (!this.offcanvas || !this.sidebar) {
 	                return;
-	            }
-
-	            if (this.flip) {
-	                this.clsSidebar += '-flip';
-	                this.clsPageAnimation += '-flip';
 	            }
 
 	            if (this.mode === 'noeffect' || this.mode === 'reveal') {
@@ -3172,16 +3168,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    active = this;
 
-	                    var scrollbarWidth = window.innerWidth - this.page.width();
-	                    this.page.css('width', window.innerWidth - scrollbarWidth);
-
-	                    this.page.addClass(this.clsPage);
+	                    this.page.addClass(this.clsPage + ' ' + this.clsFlip);
 	                    this.sidebar.addClass(this.clsSidebar + ' ' + this.clsMode);
 	                    this.offcanvas.addClass(this.clsActive);
-
-	                    if (this.flip && this.clsPageAnimation) {
-	                        this.page.css('margin-left', -this.sidebar.outerWidth() + scrollbarWidth);
-	                    }
 
 	                    // frame needs to be rendered for browser to apply display:none;
 	                    requestAnimationFrame(function () {
@@ -3193,9 +3182,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } else {
 
 	                    this.sidebar.one(_index.transitionend, function () {
-	                        _this2.page.removeClass(_this2.clsPage);
+	                        _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip);
 	                        _this2.offcanvas.removeClass(_this2.clsActive);
-	                        _this2.page.width('');
 	                        _this2.sidebar.removeClass(_this2.clsSidebar + ' ' + _this2.clsSidebarAnimation + ' ' + _this2.clsMode);
 	                    });
 

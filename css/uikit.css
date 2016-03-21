@@ -3416,7 +3416,7 @@ ul.uk-nav-sub {
  * Note: JS sets a fixed width to prevent layout jumping caused by removing the scrollbar
  */
 .uk-offcanvas-page {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 /* Bar
  ========================================================================== */
@@ -3470,7 +3470,7 @@ ul.uk-nav-sub {
   transition: transform 0.3s ease-in-out;
 }
 /* Reveal */
-.uk-offcanvas-bar.uk-offcanvas-reveal {
+.uk-offcanvas-reveal {
   -webkit-transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out;
   transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
   clip: rect(0, 0, 100vh, 0);
@@ -3479,7 +3479,7 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-.uk-offcanvas-bar.uk-offcanvas-reveal.uk-active {
+.uk-offcanvas-reveal.uk-active {
   clip: rect(0, 270px, 100vh, 0);
   -webkit-clip-path: inset(0);
   clip-path: inset(0);
@@ -3489,24 +3489,33 @@ ul.uk-nav-sub {
 /*
  * Page
  */
-.uk-offcanvas-page-animation-flip {
+.uk-offcanvas-flip.uk-offcanvas-page-animation {
   margin-left: -270px;
 }
 /*
  * Bar
  */
-.uk-offcanvas-bar-flip {
+.uk-offcanvas-flip .uk-offcanvas-bar {
   left: auto;
   right: 0;
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
 }
-.uk-offcanvas-bar-flip.uk-offcanvas-reveal {
+.uk-offcanvas-flip .uk-offcanvas-bar.uk-active {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.uk-offcanvas-flip .uk-offcanvas-reveal {
   clip: rect(0, 270px, 100vh, 270px);
   -webkit-clip-path: inset(0 0 0 270px);
   clip-path: inset(0 0 0 270px);
   -webkit-transform: translateX(0);
   transform: translateX(0);
+}
+.uk-offcanvas-flip .uk-offcanvas-reveal.uk-active {
+  clip: rect(0, 270px, 100vh, 0);
+  -webkit-clip-path: inset(0);
+  clip-path: inset(0);
 }
 /* ========================================================================
    Component: Switcher

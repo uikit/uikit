@@ -29,6 +29,7 @@ export default function (UIkit) {
 
             this.clsPage = `${this.clsPrefix}-${this.clsPage}`;
             this.clsSidebar = `${this.clsPrefix}-${this.clsSidebar}`;
+            this.clsFlip = this.flip ? `${this.clsPrefix}-flip` : '';
             this.clsMode = `${this.clsPrefix}-${this.mode}`;
             this.clsPageAnimation = `${this.clsPage}-${this.clsAnimation}`;
             this.clsSidebarAnimation = `${this.clsSidebar}-${this.clsAnimation}`;
@@ -40,11 +41,6 @@ export default function (UIkit) {
 
             if (!this.offcanvas || !this.sidebar) {
                 return;
-            }
-
-            if (this.flip) {
-                this.clsSidebar += '-flip';
-                this.clsPageAnimation += '-flip';
             }
 
             if (this.mode === 'noeffect' || this.mode === 'reveal') {
@@ -82,16 +78,9 @@ export default function (UIkit) {
 
                     active = this;
 
-                    var scrollbarWidth = window.innerWidth - this.page.width();
-                    this.page.css('width', (window.innerWidth - scrollbarWidth));
-
-                    this.page.addClass(this.clsPage);
+                    this.page.addClass(`${this.clsPage} ${this.clsFlip}`);
                     this.sidebar.addClass(`${this.clsSidebar} ${this.clsMode}`);
                     this.offcanvas.addClass(this.clsActive);
-
-                    if (this.flip && this.clsPageAnimation) {
-                        this.page.css('margin-left', -this.sidebar.outerWidth() + scrollbarWidth);
-                    }
 
                     // frame needs to be rendered for browser to apply display:none;
                     requestAnimationFrame(() => {
@@ -104,9 +93,8 @@ export default function (UIkit) {
                 } else {
 
                     this.sidebar.one(transitionend, () => {
-                        this.page.removeClass(this.clsPage);
+                        this.page.removeClass(`${this.clsPage} ${this.clsFlip}`);
                         this.offcanvas.removeClass(this.clsActive);
-                        this.page.width('');
                         this.sidebar.removeClass(`${this.clsSidebar} ${this.clsSidebarAnimation} ${this.clsMode}`);
                     });
 
