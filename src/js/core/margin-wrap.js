@@ -36,7 +36,7 @@ export default function (UIkit) {
                         el = $(el);
                         offset = el.offset();
                         top = Math.min(top, offset.top + el.outerHeight(true) - 1); // (-1): weird firefox bug when parent container is display:flex
-                        left = Math.min(left, offset.left);
+                        left = Math.min(left, offset.left + el.outerWidth(true));
                     })
                     .each((i, el) => {
                         el = $(el);
