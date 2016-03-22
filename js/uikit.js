@@ -807,7 +807,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    position.left += offset['x'];
 	    position.top += offset['y'];
 
-	    boundary = getDimensions(boundary || (0, _jquery2.default)(window));
+	    boundary = getDimensions(boundary || window);
 
 	    var flipped = { element: attach, target: targetAttach };
 
@@ -1994,6 +1994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_icon2.default);
 	    UIkit.use(_close2.default);
 	    UIkit.use(_matchHeight2.default);
+	    UIkit.use(_nav2.default);
 	    UIkit.use(_navbar2.default);
 	    UIkit.use(_offcanvas2.default);
 	    UIkit.use(_responsive2.default);
@@ -2053,6 +2054,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _matchHeight = __webpack_require__(31);
 
 	var _matchHeight2 = _interopRequireDefault(_matchHeight);
+
+	var _nav = __webpack_require__(42);
+
+	var _nav2 = _interopRequireDefault(_nav);
 
 	var _navbar = __webpack_require__(32);
 
@@ -2398,7 +2403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        defaults: {
 	            mode: 'hover',
 	            target: false,
-	            boundary: (0, _jquery2.default)(window),
+	            boundary: window,
 	            boundaryAlign: false,
 	            delayShow: 0,
 	            delayHide: 800,
@@ -3669,7 +3674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.$el.css({
 	                    position: 'fixed',
 	                    top: top + 'px',
-	                    width: this.widthElement.width()
+	                    width: this.widthElement[0].getBoundingClientRect().width
 	                });
 
 	                if (isActive) {
@@ -3899,6 +3904,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        }
 	    });
+	};
+
+/***/ },
+/* 42 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.component('nav', UIkit.components.accordion.extend({
+	        defaults: {
+	            targets: '> .uk-parent',
+	            toggle: '> a',
+	            content: '> ul',
+	            collapsible: true,
+	            multiple: true
+	        }
+	    }));
 	};
 
 /***/ }
