@@ -3452,8 +3452,8 @@ ul.uk-nav-sub {
  * Page
  */
 .uk-offcanvas-page {
-  -webkit-transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
-  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+  -webkit-transition: margin-left 0.3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out;
 }
 .uk-offcanvas-page-animation {
   margin-left: 270px;
