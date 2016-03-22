@@ -151,7 +151,7 @@ export default function (UIkit) {
                 this.$el.css({
                     position: 'fixed',
                     top: top + 'px',
-                    width: this.widthElement.width()
+                    width: this.widthElement[0].getBoundingClientRect().width
                 });
 
                 if (isActive) {
