@@ -42,7 +42,7 @@ export default function (UIkit) {
                         el = $(el);
                         offset = el.offset();
                         el.toggleClass(this.margin, offset.top >= top);
-                        el.toggleClass(this.rowFirst, this.rowFirst && offset.left <= left);
+                        el.toggleClass(this.rowFirst, this.rowFirst && offset.left < left);
                     });
             },
 
