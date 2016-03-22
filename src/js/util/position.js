@@ -29,7 +29,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
     position.left += offset['x'];
     position.top += offset['y'];
 
-    boundary = getDimensions(boundary || $(window));
+    boundary = getDimensions(boundary || window);
 
     var flipped = {element: attach, target: targetAttach};
 

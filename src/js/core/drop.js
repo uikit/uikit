@@ -28,7 +28,7 @@ export default function (UIkit) {
         defaults: {
             mode: 'hover',
             target: false,
-            boundary: $(window),
+            boundary: window,
             boundaryAlign: false,
             delayShow: 0,
             delayHide: 800,

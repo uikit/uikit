@@ -1,4 +1,4 @@
-import {toJQuery, Transition} from '../util/index';
+import {toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
