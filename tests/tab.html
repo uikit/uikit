@@ -108,28 +108,54 @@
             <div class="uk-grid uk-child-width-1-2@m" uk-grid>
                 <div>
 
-                    <ul class="uk-tab uk-tab-left" uk-tab>
-                        <li class="uk-active"><a href="#">Active</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                    </ul>
+                    <h3>Tab Left</h3>
+
+                    <div class="uk-grid" uk-grid>
+                        <div class="uk-width-auto@m">
+
+                            <ul class="uk-tab uk-tab-left" uk-tab="connect: #component-tab-left; animation: uk-animation-fade">
+                                <li><a href="#">Active</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-expand@m">
+
+                            <ul id="component-tab-left" class="uk-switcher">
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                            </ul>
+
+                        </div>
+                    </div>
 
                 </div>
                 <div>
 
-                    <ul class="uk-tab uk-tab-right" uk-tab>
-                        <li class="uk-active"><a href="#">Active</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
-                    </ul>
+                    <h3>Tab Right</h3>
+
+                    <div class="uk-grid" uk-grid>
+                        <div class="uk-width-auto@m uk-flex-last@m">
+
+                            <ul class="uk-tab uk-tab-right" uk-tab="connect: #component-tab-right; animation: uk-animation-fade">
+                                <li><a href="#">Active</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-expand@m">
+
+                            <ul id="component-tab-right" class="uk-switcher">
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                            </ul>
+
+                        </div>
+                    </div>
 
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, toJQuery} from '../util/index';
+import {toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -19,7 +19,8 @@ export default function (UIkit) {
             toggle: '> *',
             active: 0,
             swiping: true,
-            cls: 'uk-active'
+            cls: 'uk-active',
+            attrItem: 'uk-switcher-item'
         },
 
         ready() {
@@ -36,9 +37,9 @@ export default function (UIkit) {
                 self.show(this);
             });
 
-            this.connect.on('click', '[uk-switcher-item]', function (e) {
+            this.connect.on('click', `[${this.attrItem}]`, function (e) {
                 e.preventDefault();
-                self.show($(this).attr('uk-switcher-item'));
+                self.show($(this).attr(self.attrItem));
             });
 
             if (this.swiping) {

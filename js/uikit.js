@@ -2004,6 +2004,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_sticky2.default);
 	    UIkit.use(_svg2.default);
 	    UIkit.use(_switcher2.default);
+	    UIkit.use(_tab2.default);
 	    UIkit.use(_toggle2.default);
 	};
 
@@ -2094,6 +2095,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _switcher = __webpack_require__(40);
 
 	var _switcher2 = _interopRequireDefault(_switcher);
+
+	var _tab = __webpack_require__(43);
+
+	var _tab2 = _interopRequireDefault(_tab);
 
 	var _toggle = __webpack_require__(41);
 
@@ -3782,7 +3787,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            toggle: '> *',
 	            active: 0,
 	            swiping: true,
-	            cls: 'uk-active'
+	            cls: 'uk-active',
+	            attrItem: 'uk-switcher-item'
 	        },
 
 	        ready: function ready() {
@@ -3800,9 +3806,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                self.show(this);
 	            });
 
-	            this.connect.on('click', '[uk-switcher-item]', function (e) {
+	            this.connect.on('click', '[' + this.attrItem + ']', function (e) {
 	                e.preventDefault();
-	                self.show((0, _jquery2.default)(this).attr('uk-switcher-item'));
+	                self.show((0, _jquery2.default)(this).attr(self.attrItem));
 	            });
 
 	            if (this.swiping) {
@@ -3918,6 +3924,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = function (UIkit) {
 
 	    UIkit.component('nav', UIkit.components.accordion.extend({
+
+	        name: 'nav',
+
 	        defaults: {
 	            targets: '> .uk-parent',
 	            toggle: '> a',
@@ -3925,6 +3934,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	            collapsible: true,
 	            multiple: true
 	        }
+
+	    }));
+	};
+
+/***/ },
+/* 43 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.component('tab', UIkit.components.switcher.extend({
+
+	        name: 'tab',
+
+	        props: {
+	            media: Number
+	        },
+
+	        defaults: {
+	            media: 960,
+	            attrItem: 'uk-tab-item'
+	        },
+
+	        ready: function ready() {
+
+	            this.vertical = this.$el.hasClass('uk-tab-left') && 'uk-tab-left' || this.$el.hasClass('uk-tab-right') && 'uk-tab-right';
+	        },
+
+
+	        update: {
+	            handler: function handler() {
+
+	                this.$el.toggleClass(this.vertical || '', this.vertical && this.media && typeof this.media === 'number' && window.innerWidth >= this.media || typeof this.media === 'string' && window.matchMedia(this.media).matches);
+	            },
+
+
+	            events: ['resize', 'orientationchange']
+
+	        }
+
 	    }));
 	};
 

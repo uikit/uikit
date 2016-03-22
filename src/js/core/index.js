@@ -20,6 +20,7 @@ import SmoothScroll from './smooth-scroll';
 import Sticky from './sticky';
 import Svg from './svg';
 import Switcher from './switcher';
+import Tab from './tab';
 import Toggle from './toggle';
 import {requestAnimationFrame} from '../util/index';
 
@@ -76,6 +77,7 @@ export default function (UIkit, _) {
     UIkit.use(Sticky);
     UIkit.use(Svg);
     UIkit.use(Switcher);
+    UIkit.use(Tab);
     UIkit.use(Toggle);
 
 }
