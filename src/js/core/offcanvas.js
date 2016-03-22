@@ -78,7 +78,9 @@ export default function (UIkit) {
 
                     active = this;
 
-                    this.page.addClass(`${this.clsPage} ${this.clsFlip}`);
+                    var scrollbarWidth = window.innerWidth - this.page.width();
+
+                    this.page.width(window.innerWidth - scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip}`);
                     this.sidebar.addClass(`${this.clsSidebar} ${this.clsMode}`);
                     this.offcanvas.addClass(this.clsActive);
 
@@ -93,7 +95,7 @@ export default function (UIkit) {
                 } else {
 
                     this.sidebar.one(transitionend, () => {
-                        this.page.removeClass(`${this.clsPage} ${this.clsFlip}`);
+                        this.page.removeClass(`${this.clsPage} ${this.clsFlip}`).width('');
                         this.offcanvas.removeClass(this.clsActive);
                         this.sidebar.removeClass(`${this.clsSidebar} ${this.clsSidebarAnimation} ${this.clsMode}`);
                     });

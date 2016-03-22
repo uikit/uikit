@@ -65,8 +65,9 @@ export default function (UIkit) {
                 }
             }
 
+            // TODO: fix
             this.$el.css({
-                'overflow-y': 'scroll',
+                // 'overflow-y': 'scroll',
                 '-webkit-overflow-scrolling': 'touch'
             });
 

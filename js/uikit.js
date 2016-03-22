@@ -3168,7 +3168,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    active = this;
 
-	                    this.page.addClass(this.clsPage + ' ' + this.clsFlip);
+	                    var scrollbarWidth = window.innerWidth - this.page.width();
+
+	                    this.page.width(window.innerWidth - scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip);
 	                    this.sidebar.addClass(this.clsSidebar + ' ' + this.clsMode);
 	                    this.offcanvas.addClass(this.clsActive);
 
@@ -3182,7 +3184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } else {
 
 	                    this.sidebar.one(_index.transitionend, function () {
-	                        _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip);
+	                        _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip).width('');
 	                        _this2.offcanvas.removeClass(_this2.clsActive);
 	                        _this2.sidebar.removeClass(_this2.clsSidebar + ' ' + _this2.clsSidebarAnimation + ' ' + _this2.clsMode);
 	                    });
@@ -3588,8 +3590,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 
+	            // TODO: fix
 	            this.$el.css({
-	                'overflow-y': 'scroll',
+	                // 'overflow-y': 'scroll',
 	                '-webkit-overflow-scrolling': 'touch'
 	            });
 	        },
