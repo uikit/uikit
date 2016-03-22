@@ -35,7 +35,6 @@ export default function (UIkit) {
             this.clsSidebarAnimation = `${this.clsSidebar}-${this.clsAnimation}`;
 
             this.page = $('html');
-            this.body = $('body');
             this.offcanvas = toJQuery(this.href);
             this.sidebar = toJQuery(`.${this.clsSidebar}`, this.offcanvas);
 

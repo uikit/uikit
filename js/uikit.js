@@ -3128,7 +3128,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.clsSidebarAnimation = this.clsSidebar + '-' + this.clsAnimation;
 
 	            this.page = (0, _jquery2.default)('html');
-	            this.body = (0, _jquery2.default)('body');
 	            this.offcanvas = (0, _index.toJQuery)(this.href);
 	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.offcanvas);
 
