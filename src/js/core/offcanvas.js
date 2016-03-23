@@ -10,33 +10,35 @@ export default function (UIkit) {
         props: {
             mode: String,
             href: String,
-            flip: Boolean
+            flip: Boolean,
+            overlay: Boolean
         },
 
         defaults: {
             mode: 'overlay',
             href: false,
             flip: false,
+            overlay: false,
             clsActive: 'uk-active',
             clsInactive: 'uk-inactive',
-            clsPrefix: 'uk-offcanvas',
-            clsPage: 'page',
-            clsSidebar: 'bar',
-            clsAnimation: 'animation'
+            clsPage: 'uk-offcanvas-page',
+            clsSidebar: 'uk-offcanvas-bar',
+            clsFlip: 'uk-offcanvas-flip',
+            clsPageAnimation: 'uk-offcanvas-page-animation',
+            clsSidebarAnimation: 'uk-offcanvas-bar-animation',
+            clsMode: 'uk-offcanvas',
+            clsOverlay: 'uk-offcanvas-overlay'
         },
 
         ready() {
 
-            this.clsPage = `${this.clsPrefix}-${this.clsPage}`;
-            this.clsSidebar = `${this.clsPrefix}-${this.clsSidebar}`;
-            this.clsFlip = this.flip ? `${this.clsPrefix}-flip` : '';
-            this.clsMode = `${this.clsPrefix}-${this.mode}`;
-            this.clsPageAnimation = `${this.clsPage}-${this.clsAnimation}`;
-            this.clsSidebarAnimation = `${this.clsSidebar}-${this.clsAnimation}`;
-
             this.page = $('html');
+            this.body = $('body');
             this.offcanvas = toJQuery(this.href);
             this.sidebar = toJQuery(`.${this.clsSidebar}`, this.offcanvas);
+            this.clsFlip = this.flip ? this.clsFlip : '';
+            this.clsOverlay = this.overlay ? this.clsOverlay : '';
+            this.clsMode = `${this.clsMode}-${this.mode}`;
 
             if (!this.offcanvas || !this.sidebar) {
                 return;
@@ -51,12 +53,14 @@ export default function (UIkit) {
             }
 
             this.$el.on('click', e => {
-                e.preventDefault();
-                this.toggle()
+                if (!active) {
+                    e.preventDefault();
+                    this.toggle()
+                }
             });
 
-            this.offcanvas.on('click', ({target}) => {
-                if (!isWithin(target, this.sidebar)) {
+            this.body.on('click', (e) => {
+                if (!e.isDefaultPrevented() && !isWithin(e.target, this.sidebar)) {
                     this.toggle(false);
                 }
             });
@@ -71,7 +75,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                show = show === undefined && !this.sidebar.hasClass(this.clsActive) || show;
+                show = show === undefined && active !== this || show;
 
                 if (show) {
 
@@ -79,31 +83,32 @@ export default function (UIkit) {
 
                     var scrollbarWidth = window.innerWidth - this.page.width();
 
-                    this.page.width(window.innerWidth - scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip}`);
-                    this.sidebar.addClass(`${this.clsSidebar} ${this.clsMode}`);
-                    this.offcanvas.addClass(this.clsActive);
+                    if (scrollbarWidth && this.overlay) {
+                        this.body.css('overflow-y', 'scroll');
+                        scrollbarWidth = 0;
+                    }
 
-                    // frame needs to be rendered for browser to apply display:none;
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            this.sidebar.addClass(`${this.clsSidebarAnimation} ${this.clsActive}`);
-                            this.page.addClass(this.clsPageAnimation);
-                        });
-                    });
+                    this.page.width(window.innerWidth - scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
+                    this.sidebar.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.offcanvas.css('display', 'block').height();
+                    this.offcanvas.addClass(this.clsActive);
 
                 } else {
 
                     this.sidebar.one(transitionend, () => {
-                        this.page.removeClass(`${this.clsPage} ${this.clsFlip}`).width('');
-                        this.offcanvas.removeClass(this.clsActive);
-                        this.sidebar.removeClass(`${this.clsSidebar} ${this.clsSidebarAnimation} ${this.clsMode}`);
+                        this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
+                        this.sidebar.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                        this.offcanvas.css('display', '');
+                        this.body.css('overflow-y', '');
+
+                        active = false;
                     });
 
                     if (this.mode === 'noeffect') {
                         this.sidebar.trigger(transitionend);
                     }
 
-                    this.sidebar.removeClass(this.clsActive);
+                    this.offcanvas.removeClass(this.clsActive);
                     this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 
                 }

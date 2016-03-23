@@ -2056,51 +2056,51 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _matchHeight2 = _interopRequireDefault(_matchHeight);
 
-	var _nav = __webpack_require__(42);
+	var _nav = __webpack_require__(32);
 
 	var _nav2 = _interopRequireDefault(_nav);
 
-	var _navbar = __webpack_require__(32);
+	var _navbar = __webpack_require__(33);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _offcanvas = __webpack_require__(33);
+	var _offcanvas = __webpack_require__(34);
 
 	var _offcanvas2 = _interopRequireDefault(_offcanvas);
 
-	var _responsive = __webpack_require__(34);
+	var _responsive = __webpack_require__(35);
 
 	var _responsive2 = _interopRequireDefault(_responsive);
 
-	var _scrollspy = __webpack_require__(35);
+	var _scrollspy = __webpack_require__(36);
 
 	var _scrollspy2 = _interopRequireDefault(_scrollspy);
 
-	var _scrollspyNav = __webpack_require__(36);
+	var _scrollspyNav = __webpack_require__(37);
 
 	var _scrollspyNav2 = _interopRequireDefault(_scrollspyNav);
 
-	var _smoothScroll = __webpack_require__(37);
+	var _smoothScroll = __webpack_require__(38);
 
 	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
 
-	var _sticky = __webpack_require__(38);
+	var _sticky = __webpack_require__(39);
 
 	var _sticky2 = _interopRequireDefault(_sticky);
 
-	var _svg = __webpack_require__(39);
+	var _svg = __webpack_require__(40);
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _switcher = __webpack_require__(40);
+	var _switcher = __webpack_require__(41);
 
 	var _switcher2 = _interopRequireDefault(_switcher);
 
-	var _tab = __webpack_require__(43);
+	var _tab = __webpack_require__(42);
 
 	var _tab2 = _interopRequireDefault(_tab);
 
-	var _toggle = __webpack_require__(41);
+	var _toggle = __webpack_require__(43);
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
@@ -2913,6 +2913,33 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 32 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.component('nav', UIkit.components.accordion.extend({
+
+	        name: 'nav',
+
+	        defaults: {
+	            targets: '> .uk-parent',
+	            toggle: '> a',
+	            content: '> ul',
+	            collapsible: true,
+	            multiple: true
+	        }
+
+	    }));
+	};
+
+/***/ },
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3089,7 +3116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3107,34 +3134,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	        props: {
 	            mode: String,
 	            href: String,
-	            flip: Boolean
+	            flip: Boolean,
+	            overlay: Boolean
 	        },
 
 	        defaults: {
 	            mode: 'overlay',
 	            href: false,
 	            flip: false,
+	            overlay: false,
 	            clsActive: 'uk-active',
 	            clsInactive: 'uk-inactive',
-	            clsPrefix: 'uk-offcanvas',
-	            clsPage: 'page',
-	            clsSidebar: 'bar',
-	            clsAnimation: 'animation'
+	            clsPage: 'uk-offcanvas-page',
+	            clsSidebar: 'uk-offcanvas-bar',
+	            clsFlip: 'uk-offcanvas-flip',
+	            clsPageAnimation: 'uk-offcanvas-page-animation',
+	            clsSidebarAnimation: 'uk-offcanvas-bar-animation',
+	            clsMode: 'uk-offcanvas',
+	            clsOverlay: 'uk-offcanvas-overlay'
 	        },
 
 	        ready: function ready() {
 	            var _this = this;
 
-	            this.clsPage = this.clsPrefix + '-' + this.clsPage;
-	            this.clsSidebar = this.clsPrefix + '-' + this.clsSidebar;
-	            this.clsFlip = this.flip ? this.clsPrefix + '-flip' : '';
-	            this.clsMode = this.clsPrefix + '-' + this.mode;
-	            this.clsPageAnimation = this.clsPage + '-' + this.clsAnimation;
-	            this.clsSidebarAnimation = this.clsSidebar + '-' + this.clsAnimation;
-
 	            this.page = (0, _jquery2.default)('html');
+	            this.body = (0, _jquery2.default)('body');
 	            this.offcanvas = (0, _index.toJQuery)(this.href);
 	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.offcanvas);
+	            this.clsFlip = this.flip ? this.clsFlip : '';
+	            this.clsOverlay = this.overlay ? this.clsOverlay : '';
+	            this.clsMode = this.clsMode + '-' + this.mode;
 
 	            if (!this.offcanvas || !this.sidebar) {
 	                return;
@@ -3149,14 +3178,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            this.$el.on('click', function (e) {
-	                e.preventDefault();
-	                _this.toggle();
+	                if (!active) {
+	                    e.preventDefault();
+	                    _this.toggle();
+	                }
 	            });
 
-	            this.offcanvas.on('click', function (_ref) {
-	                var target = _ref.target;
-
-	                if (!(0, _index.isWithin)(target, _this.sidebar)) {
+	            this.body.on('click', function (e) {
+	                if (!e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.sidebar)) {
 	                    _this.toggle(false);
 	                }
 	            });
@@ -3171,7 +3200,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return;
 	                }
 
-	                show = show === undefined && !this.sidebar.hasClass(this.clsActive) || show;
+	                show = show === undefined && active !== this || show;
 
 	                if (show) {
 
@@ -3179,30 +3208,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    var scrollbarWidth = window.innerWidth - this.page.width();
 
-	                    this.page.width(window.innerWidth - scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip);
-	                    this.sidebar.addClass(this.clsSidebar + ' ' + this.clsMode);
-	                    this.offcanvas.addClass(this.clsActive);
+	                    if (scrollbarWidth && this.overlay) {
+	                        this.body.css('overflow-y', 'scroll');
+	                        scrollbarWidth = 0;
+	                    }
 
-	                    // frame needs to be rendered for browser to apply display:none;
-	                    requestAnimationFrame(function () {
-	                        requestAnimationFrame(function () {
-	                            _this2.sidebar.addClass(_this2.clsSidebarAnimation + ' ' + _this2.clsActive);
-	                            _this2.page.addClass(_this2.clsPageAnimation);
-	                        });
-	                    });
+	                    this.page.width(window.innerWidth - scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip + ' ' + this.clsPageAnimation + ' ' + this.clsOverlay);
+	                    this.sidebar.addClass(this.clsSidebarAnimation + ' ' + this.clsMode);
+	                    this.offcanvas.css('display', 'block').height();
+	                    this.offcanvas.addClass(this.clsActive);
 	                } else {
 
 	                    this.sidebar.one(_index.transitionend, function () {
-	                        _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip).width('');
-	                        _this2.offcanvas.removeClass(_this2.clsActive);
-	                        _this2.sidebar.removeClass(_this2.clsSidebar + ' ' + _this2.clsSidebarAnimation + ' ' + _this2.clsMode);
+	                        _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip + ' ' + _this2.clsOverlay).width('');
+	                        _this2.sidebar.removeClass(_this2.clsSidebarAnimation + ' ' + _this2.clsMode);
+	                        _this2.offcanvas.css('display', '');
+	                        _this2.body.css('overflow-y', '');
+
+	                        active = false;
 	                    });
 
 	                    if (this.mode === 'noeffect') {
 	                        this.sidebar.trigger(_index.transitionend);
 	                    }
 
-	                    this.sidebar.removeClass(this.clsActive);
+	                    this.offcanvas.removeClass(this.clsActive);
 	                    this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 	                }
 	            }
@@ -3220,7 +3250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3256,7 +3286,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3364,7 +3394,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3457,7 +3487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3528,7 +3558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3709,7 +3739,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3760,7 +3790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3870,76 +3900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 41 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('toggle', {
-
-	        mixins: [UIkit.mixin.toggle],
-
-	        props: {
-	            target: 'jQuery'
-	        },
-
-	        defaults: {
-	            target: false
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            if (!this.target) {
-	                return;
-	            }
-
-	            this.aria = this.cls === false;
-	            this.updateAria(this.target);
-
-	            this.$el.on('click', function (e) {
-	                e.preventDefault();
-	                _this.toggleState(_this.target);
-	            });
-	        }
-	    });
-	};
-
-/***/ },
 /* 42 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('nav', UIkit.components.accordion.extend({
-
-	        name: 'nav',
-
-	        defaults: {
-	            targets: '> .uk-parent',
-	            toggle: '> a',
-	            content: '> ul',
-	            collapsible: true,
-	            multiple: true
-	        }
-
-	    }));
-	};
-
-/***/ },
-/* 43 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3981,6 +3942,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	    }));
+	};
+
+/***/ },
+/* 43 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.component('toggle', {
+
+	        mixins: [UIkit.mixin.toggle],
+
+	        props: {
+	            target: 'jQuery'
+	        },
+
+	        defaults: {
+	            target: false
+	        },
+
+	        ready: function ready() {
+	            var _this = this;
+
+	            if (!this.target) {
+	                return;
+	            }
+
+	            this.aria = this.cls === false;
+	            this.updateAria(this.target);
+
+	            this.$el.on('click', function (e) {
+	                e.preventDefault();
+	                _this.toggleState(_this.target);
+	            });
+	        }
+	    });
 	};
 
 /***/ }

@@ -103,8 +103,7 @@ export default function (UIkit) {
                 this.dir = this.pos[0];
                 this.align = this.pos[1];
 
-                var boundary = getDimensions(this.boundary),
-                    alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
+                var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
