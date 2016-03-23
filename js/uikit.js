@@ -3192,6 +3192,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 
 
+	        update: {
+	            handler: function handler() {
+
+	                if (active === this) {
+	                    this.page.width(window.innerWidth - this.scrollbarWidth);
+	                }
+	            },
+
+
+	            events: ['resize', 'orientationchange']
+
+	        },
+
 	        methods: {
 	            toggle: function toggle(show) {
 	                var _this2 = this;
@@ -3206,14 +3219,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    active = this;
 
-	                    var scrollbarWidth = window.innerWidth - this.page.width();
+	                    this.scrollbarWidth = window.innerWidth - this.page.width();
 
-	                    if (scrollbarWidth && this.overlay) {
+	                    if (this.scrollbarWidth && this.overlay) {
 	                        this.body.css('overflow-y', 'scroll');
-	                        scrollbarWidth = 0;
+	                        this.scrollbarWidth = 0;
 	                    }
 
-	                    this.page.width(window.innerWidth - scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip + ' ' + this.clsPageAnimation + ' ' + this.clsOverlay);
+	                    this.page.width(window.innerWidth - this.scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip + ' ' + this.clsPageAnimation + ' ' + this.clsOverlay);
 	                    this.sidebar.addClass(this.clsSidebarAnimation + ' ' + this.clsMode);
 	                    this.offcanvas.css('display', 'block').height();
 	                    this.offcanvas.addClass(this.clsActive);
