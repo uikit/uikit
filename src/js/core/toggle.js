@@ -5,14 +5,18 @@ export default function (UIkit) {
         mixins: [UIkit.mixin.toggle],
 
         props: {
+            href: 'jQuery',
             target: 'jQuery'
         },
 
         defaults: {
+            href: false,
             target: false
         },
 
         ready() {
+
+            this.target = this.target || this.href;
 
             if (!this.target) {
                 return;
