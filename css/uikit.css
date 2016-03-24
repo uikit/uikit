@@ -3342,6 +3342,229 @@ ul.uk-nav-sub {
   padding-left: 40px;
 }
 /* ========================================================================
+   Component: Modal
+ ========================================================================== */
+/*
+ * This is the modal overlay and modal dialog container
+ * 1. Hide by default
+ * 2. Set fixed position
+ * 3. Allow scrolling for the modal dialog
+ * 4. Mask the background page
+ * 5. Fade-in transition
+ * 6. Deactivate browser history navigation in IE11
+ * 7. force hardware acceleration to prevent browser rendering hiccups
+ */
+.uk-modal {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1010;
+  /* 3 */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  /* 4 */
+  background: rgba(0, 0, 0, 0.6);
+  /* 5 */
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+  /* 6 */
+  touch-action: cross-slide-y pinch-zoom double-tap-zoom;
+  /* 7 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+/*
+ * Open state
+ */
+.uk-modal.uk-open {
+  opacity: 1;
+}
+/*
+ * Prevents duplicated scrollbar caused by 4.
+ */
+.uk-modal-page,
+.uk-modal-page body {
+  overflow: hidden;
+}
+/* Sub-object: `uk-modal-dialog`
+ ========================================================================== */
+/*
+ * 1. Create position context for caption, spinner and close button
+ * 2. Set box sizing
+ * 3. Set style
+ * 4. Slide-in transition
+ */
+.uk-modal-dialog {
+  /* 1 */
+  position: relative;
+  /* 2 */
+  box-sizing: border-box;
+  margin: 50px auto;
+  padding: 20px;
+  width: 600px;
+  max-width: 100%;
+  max-width: calc(100% - 20px);
+  /* 3 */
+  background: #fff;
+  /* 4 */
+  opacity: 0;
+  -webkit-transform: translateY(-100px);
+  transform: translateY(-100px);
+  -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
+  transition: opacity 0.3s linear, transform 0.3s ease-out;
+}
+/* Phone landscape and smaller */
+@media (max-width: 959px) {
+  /*
+     * Fit in small screen
+     */
+  .uk-modal-dialog {
+    width: auto;
+    margin: 10px auto;
+  }
+}
+/*
+ * Open state
+ */
+.uk-open .uk-modal-dialog {
+  /* 4 */
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-modal-dialog > :not([class*='uk-modal-']):last-child {
+  margin-bottom: 0;
+}
+/* Close in modal
+ ========================================================================== */
+.uk-modal-dialog > .uk-close:first-child {
+  margin: -10px -10px 0 0;
+  float: right;
+}
+/*
+ * Remove margin from adjacent element
+ */
+.uk-modal-dialog > .uk-close:first-child + :not([class*='uk-modal-']) {
+  margin-top: 0;
+}
+/* Modifier: `uk-modal-dialog-lightbox`
+ ========================================================================== */
+.uk-modal-dialog-lightbox {
+  margin: 15px auto;
+  padding: 0;
+  max-width: 95%;
+  max-width: calc(100% - 30px);
+  min-height: 50px;
+}
+/*
+ * Close button
+ */
+.uk-modal-dialog-lightbox > .uk-close:first-child {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  margin: 0;
+  float: none;
+}
+/* Phone landscape and smaller */
+@media (max-width: 959px) {
+  .uk-modal-dialog-lightbox > .uk-close:first-child {
+    top: -7px;
+    right: -7px;
+  }
+}
+/* Modifier: `uk-modal-dialog-blank`
+ ========================================================================== */
+.uk-modal-dialog-blank {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  -webkit-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
+}
+/*
+* Close button
+*/
+.uk-modal-dialog-blank > .uk-close:first-child {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  margin: 0;
+  float: none;
+}
+/* Modifier: `uk-modal-dialog-large`
+ ========================================================================== */
+/* Tablet and bigger */
+@media (min-width: 960px) {
+  .uk-modal-dialog-large {
+    width: 930px;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1600px) {
+  .uk-modal-dialog-large {
+    width: 1130px;
+  }
+}
+/* Sub-Object: `uk-modal-header` and `uk-modal-footer`
+ ========================================================================== */
+.uk-modal-header {
+  margin-bottom: 15px;
+}
+.uk-modal-footer {
+  margin-top: 15px;
+}
+/*
+ * Remove margin from the last-child
+ */
+.uk-modal-header > :last-child,
+.uk-modal-footer > :last-child {
+  margin-bottom: 0;
+}
+/* Sub-Object: `uk-modal-caption`
+ ========================================================================== */
+.uk-modal-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -20px;
+  margin-bottom: -10px;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Sub-Object: `uk-modal-spinner`
+ ========================================================================== */
+.uk-modal-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  color: #ddd;
+}
+.uk-modal-spinner:after {
+  content: "\f110";
+  display: block;
+  font-family: FontAwesome;
+  -webkit-animation: uk-rotate 2s infinite linear;
+  animation: uk-rotate 2s infinite linear;
+}
+/* ========================================================================
    Component: Sticky
  ========================================================================== */
 /*
@@ -3399,15 +3622,6 @@ ul.uk-nav-sub {
   bottom: 0;
   left: 0;
   right: 0;
-  /* 4 */
-  background: rgba(0, 0, 0, 0.1);
-  /* 5 */
-  opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
-  transition: opacity 0.15s linear;
-}
-.uk-offcanvas-overlay .uk-offcanvas.uk-active::before {
-  opacity: 1;
 }
 /* Page (`html` element)
  ========================================================================== */

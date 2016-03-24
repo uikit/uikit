@@ -9,7 +9,8 @@ export default function (UIkit) {
 
         props: {
             mode: String,
-            href: String,
+            href: 'jQuery',
+            target: 'jQuery',
             flip: Boolean,
             overlay: Boolean
         },
@@ -17,6 +18,7 @@ export default function (UIkit) {
         defaults: {
             mode: 'overlay',
             href: false,
+            target: false,
             flip: false,
             overlay: false,
             clsActive: 'uk-active',
@@ -27,14 +29,15 @@ export default function (UIkit) {
             clsPageAnimation: 'uk-offcanvas-page-animation',
             clsSidebarAnimation: 'uk-offcanvas-bar-animation',
             clsMode: 'uk-offcanvas',
-            clsOverlay: 'uk-offcanvas-overlay'
+            clsOverlay: 'uk-offcanvas-overlay',
+            clsClose: 'uk-offcanvas-close'
         },
 
         ready() {
 
             this.page = $('html');
             this.body = $('body');
-            this.offcanvas = toJQuery(this.href);
+            this.offcanvas = this.target || this.href;
             this.sidebar = toJQuery(`.${this.clsSidebar}`, this.offcanvas);
             this.clsFlip = this.flip ? this.clsFlip : '';
             this.clsOverlay = this.overlay ? this.clsOverlay : '';
@@ -57,6 +60,11 @@ export default function (UIkit) {
                     e.preventDefault();
                     this.toggle()
                 }
+            });
+
+            this.offcanvas.on('click', `.${this.clsClose}`, (e) => {
+                e.preventDefault();
+                this.toggle(false);
             });
 
             this.body.on('click', (e) => {
@@ -83,50 +91,71 @@ export default function (UIkit) {
 
         methods: {
 
+            isActive() {
+                return this.offcanvas.hasClass(this.clsActive);
+            },
+            
             toggle(show) {
 
-                if (show === false && active !== this) {
+                var state = this.isActive();
+
+                show = show === undefined && !state || show;
+
+                if (!show && !state || show && state) {
                     return;
                 }
 
-                show = show === undefined && active !== this || show;
-
-                if (show) {
-
-                    active = this;
-
-                    this.scrollbarWidth = window.innerWidth - this.page.width();
-
-                    if (this.scrollbarWidth && this.overlay) {
-                        this.body.css('overflow-y', 'scroll');
-                        this.scrollbarWidth = 0;
-                    }
-
-                    this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
-                    this.sidebar.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.offcanvas.css('display', 'block').height();
-                    this.offcanvas.addClass(this.clsActive);
-
-                } else {
-
-                    this.sidebar.one(transitionend, () => {
-                        this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
-                        this.sidebar.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                        this.offcanvas.css('display', '');
-                        this.body.css('overflow-y', '');
-
-                        active = false;
-                    });
-
-                    if (this.mode === 'noeffect') {
-                        this.sidebar.trigger(transitionend);
-                    }
-
-                    this.offcanvas.removeClass(this.clsActive);
-                    this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
-
+                if (active && active !== this && show) {
+                    active.toggle(false);
                 }
 
+                this[show ? 'show' : 'hide']();
+            },
+
+            show() {
+
+                if (this.isActive()) {
+                    return;
+                }
+
+                active = this;
+                
+                this.scrollbarWidth = window.innerWidth - this.page.width();
+
+                if (this.scrollbarWidth && this.overlay) {
+                    this.body.css('overflow-y', 'scroll');
+                    this.scrollbarWidth = 0;
+                }
+
+                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
+                this.sidebar.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                this.offcanvas.css('display', 'block').height();
+                this.offcanvas.addClass(this.clsActive);
+
+                this.$update(null, this.offcanvas);
+            },
+
+            hide() {
+
+                if (!this.isActive()) {
+                    return;
+                }
+
+                active = false;
+                
+                this.sidebar.one(transitionend, () => {
+                    this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
+                    this.sidebar.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.offcanvas.css('display', '');
+                    this.body.css('overflow-y', '');
+                });
+
+                if (this.mode === 'noeffect') {
+                    this.sidebar.trigger(transitionend);
+                }
+
+                this.offcanvas.removeClass(this.clsActive);
+                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
             }
 
         }

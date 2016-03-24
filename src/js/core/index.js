@@ -10,6 +10,7 @@ import HeightViewport from './height-viewport';
 import Icon from './icon';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
+import Modal from './modal';
 import Nav from './nav';
 import Navbar from './navbar';
 import Offcanvas from './offcanvas';
@@ -67,6 +68,7 @@ export default function (UIkit, _) {
     UIkit.use(Icon);
     UIkit.use(Close);
     UIkit.use(MatchHeight);
+    UIkit.use(Modal);
     UIkit.use(Nav);
     UIkit.use(Navbar);
     UIkit.use(Offcanvas);

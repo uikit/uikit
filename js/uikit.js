@@ -1337,12 +1337,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    UIkit.prototype.$update = function (e, element) {
-	        var _this2 = this;
 
-	        element = element ? (0, _jquery2.default)(element)[0] : false;
+	        element = element ? (0, _jquery2.default)(element)[0] : this.$el[0];
 
 	        UIkit.elements.forEach(function (el) {
-	            if (el[DATA] && _jquery2.default.contains(element || _this2.$el[0], el)) {
+	            if (el[DATA] && _jquery2.default.contains(element, el)) {
 	                for (var name in el[DATA]) {
 	                    el[DATA][name]._callUpdate(e);
 	                }
@@ -1350,11 +1349,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    };
 
-	    UIkit.prototype.$updateParents = function (e) {
-	        var _this3 = this;
+	    UIkit.prototype.$updateParents = function (e, element) {
 
-	        (0, _jquery2.default)(UIkit.elements).each(function (i, el) {
-	            if (el[DATA] && _jquery2.default.contains(el, _this3.$el[0])) {
+	        element = element ? (0, _jquery2.default)(element)[0] : this.$el[0];
+
+	        UIkit.elements.forEach(function (el) {
+	            if (el[DATA] && _jquery2.default.contains(el, element)) {
 	                for (var name in el[DATA]) {
 	                    el[DATA][name]._callUpdate(e);
 	                }
@@ -1468,7 +1468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    UIkit.getComponent = function (element, name) {
-	        return element[DATA] && element[DATA][name];
+	        return element && element[DATA] && element[DATA][name];
 	    };
 	};
 
@@ -1994,6 +1994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_icon2.default);
 	    UIkit.use(_close2.default);
 	    UIkit.use(_matchHeight2.default);
+	    UIkit.use(_modal2.default);
 	    UIkit.use(_nav2.default);
 	    UIkit.use(_navbar2.default);
 	    UIkit.use(_offcanvas2.default);
@@ -2056,51 +2057,55 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _matchHeight2 = _interopRequireDefault(_matchHeight);
 
-	var _nav = __webpack_require__(32);
+	var _modal = __webpack_require__(32);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
+	var _nav = __webpack_require__(33);
 
 	var _nav2 = _interopRequireDefault(_nav);
 
-	var _navbar = __webpack_require__(33);
+	var _navbar = __webpack_require__(34);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _offcanvas = __webpack_require__(34);
+	var _offcanvas = __webpack_require__(35);
 
 	var _offcanvas2 = _interopRequireDefault(_offcanvas);
 
-	var _responsive = __webpack_require__(35);
+	var _responsive = __webpack_require__(36);
 
 	var _responsive2 = _interopRequireDefault(_responsive);
 
-	var _scrollspy = __webpack_require__(36);
+	var _scrollspy = __webpack_require__(37);
 
 	var _scrollspy2 = _interopRequireDefault(_scrollspy);
 
-	var _scrollspyNav = __webpack_require__(37);
+	var _scrollspyNav = __webpack_require__(38);
 
 	var _scrollspyNav2 = _interopRequireDefault(_scrollspyNav);
 
-	var _smoothScroll = __webpack_require__(38);
+	var _smoothScroll = __webpack_require__(39);
 
 	var _smoothScroll2 = _interopRequireDefault(_smoothScroll);
 
-	var _sticky = __webpack_require__(39);
+	var _sticky = __webpack_require__(40);
 
 	var _sticky2 = _interopRequireDefault(_sticky);
 
-	var _svg = __webpack_require__(40);
+	var _svg = __webpack_require__(41);
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _switcher = __webpack_require__(41);
+	var _switcher = __webpack_require__(42);
 
 	var _switcher2 = _interopRequireDefault(_switcher);
 
-	var _tab = __webpack_require__(42);
+	var _tab = __webpack_require__(43);
 
 	var _tab2 = _interopRequireDefault(_tab);
 
-	var _toggle = __webpack_require__(43);
+	var _toggle = __webpack_require__(44);
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
@@ -2913,6 +2918,172 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    var active = false;
+
+	    UIkit.component('modal', {
+
+	        props: {
+	            href: 'jQuery',
+	            target: 'jQuery',
+	            center: Boolean
+	        },
+
+	        defaults: {
+	            href: false,
+	            target: false,
+	            center: false,
+	            clsPage: 'uk-modal-page',
+	            clsDialog: 'uk-modal-dialog',
+	            clsActive: 'uk-open',
+	            clsClose: 'uk-modal-close',
+	            clsOverflow: 'uk-overflow-container'
+	        },
+
+	        ready: function ready() {
+	            var _this = this;
+
+	            this.page = (0, _jquery2.default)('html');
+	            this.body = (0, _jquery2.default)('body');
+	            this.modal = this.target || this.href;
+	            this.dialog = (0, _index.toJQuery)('.' + this.clsDialog, this.modal);
+
+	            if (!this.modal || !this.dialog) {
+	                return;
+	            }
+
+	            this.$el.on('click', function (e) {
+	                e.preventDefault();
+	                _this.toggle();
+	            });
+
+	            this.modal.on('click', '.' + this.clsClose, function (e) {
+	                e.preventDefault();
+	                _this.toggle(false);
+	            });
+
+	            this.body.on('click', function (e) {
+	                if (!e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.dialog)) {
+	                    _this.toggle(false);
+	                }
+	            });
+	        },
+
+
+	        update: {
+	            handler: function handler() {
+
+	                if (active === this && this.center) {
+	                    this.modal.removeClass('uk-flex uk-flex-center').css('display', 'block');
+	                    this.modal.toggleClass('uk-flex-middle', window.innerHeight > this.dialog.outerHeight(true));
+	                    this.modal.addClass('uk-flex uk-flex-center').css('display', '');
+	                }
+	            },
+
+
+	            events: ['resize', 'orientationchange']
+
+	        },
+
+	        methods: {
+	            isActive: function isActive() {
+	                return this.modal.hasClass(this.clsActive);
+	            },
+	            toggle: function toggle(show) {
+
+	                var state = this.isActive();
+
+	                show = show === undefined && !state || show;
+
+	                if (!show && !state || show && state) {
+	                    return;
+	                }
+
+	                if (active && active !== this && show) {
+	                    active.toggle(false);
+	                }
+
+	                this[show ? 'show' : 'hide']();
+	            },
+	            show: function show() {
+
+	                if (this.isActive()) {
+	                    return;
+	                }
+
+	                active = this;
+
+	                this.page.addClass(this.clsPage);
+	                this.modal.css('display', 'block');
+	                this._callUpdate();
+	                this.modal.height();
+	                this.modal.addClass(this.clsActive);
+
+	                this.$update(null, this.modal);
+	            },
+	            hide: function hide() {
+	                var _this2 = this;
+
+	                if (!this.isActive()) {
+	                    return;
+	                }
+
+	                active = false;
+
+	                this.dialog.one(_index.transitionend, function () {
+	                    _this2.page.removeClass(_this2.clsPage);
+	                    _this2.modal.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
+	                });
+
+	                this.modal.removeClass(this.clsActive);
+	            }
+	        }
+
+	    });
+
+	    UIkit.component('overflow-auto', {
+	        ready: function ready() {
+	            this.dialog = (0, _index.toJQuery)(this.$el.closest('.uk-modal-dialog'));
+	            this.$el.css('min-height', 150);
+	        },
+
+
+	        update: {
+	            handler: function handler() {
+	                var current = this.$el.css('max-height');
+	                this.$el.css('max-height', '').css('max-height', this.$el.height() - (this.dialog.outerHeight(true) - window.innerHeight));
+	                if (current !== this.$el.css('max-height')) {
+	                    UIkit.update();
+	                }
+	            },
+
+
+	            events: ['load', 'resize', 'orientationchange']
+
+	        }
+
+	    });
+	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _index = __webpack_require__(4);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2939,7 +3110,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3116,7 +3287,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3133,7 +3304,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        props: {
 	            mode: String,
-	            href: String,
+	            href: 'jQuery',
+	            target: 'jQuery',
 	            flip: Boolean,
 	            overlay: Boolean
 	        },
@@ -3141,6 +3313,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        defaults: {
 	            mode: 'overlay',
 	            href: false,
+	            target: false,
 	            flip: false,
 	            overlay: false,
 	            clsActive: 'uk-active',
@@ -3151,7 +3324,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            clsPageAnimation: 'uk-offcanvas-page-animation',
 	            clsSidebarAnimation: 'uk-offcanvas-bar-animation',
 	            clsMode: 'uk-offcanvas',
-	            clsOverlay: 'uk-offcanvas-overlay'
+	            clsOverlay: 'uk-offcanvas-overlay',
+	            clsClose: 'uk-offcanvas-close'
 	        },
 
 	        ready: function ready() {
@@ -3159,7 +3333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.page = (0, _jquery2.default)('html');
 	            this.body = (0, _jquery2.default)('body');
-	            this.offcanvas = (0, _index.toJQuery)(this.href);
+	            this.offcanvas = this.target || this.href;
 	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.offcanvas);
 	            this.clsFlip = this.flip ? this.clsFlip : '';
 	            this.clsOverlay = this.overlay ? this.clsOverlay : '';
@@ -3184,6 +3358,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
+	            this.offcanvas.on('click', '.' + this.clsClose, function (e) {
+	                e.preventDefault();
+	                _this.toggle(false);
+	            });
+
 	            this.body.on('click', function (e) {
 	                if (!e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.sidebar)) {
 	                    _this.toggle(false);
@@ -3206,48 +3385,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 
 	        methods: {
+	            isActive: function isActive() {
+	                return this.offcanvas.hasClass(this.clsActive);
+	            },
 	            toggle: function toggle(show) {
-	                var _this2 = this;
 
-	                if (show === false && active !== this) {
+	                var state = this.isActive();
+
+	                show = show === undefined && !state || show;
+
+	                if (!show && !state || show && state) {
 	                    return;
 	                }
 
-	                show = show === undefined && active !== this || show;
-
-	                if (show) {
-
-	                    active = this;
-
-	                    this.scrollbarWidth = window.innerWidth - this.page.width();
-
-	                    if (this.scrollbarWidth && this.overlay) {
-	                        this.body.css('overflow-y', 'scroll');
-	                        this.scrollbarWidth = 0;
-	                    }
-
-	                    this.page.width(window.innerWidth - this.scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip + ' ' + this.clsPageAnimation + ' ' + this.clsOverlay);
-	                    this.sidebar.addClass(this.clsSidebarAnimation + ' ' + this.clsMode);
-	                    this.offcanvas.css('display', 'block').height();
-	                    this.offcanvas.addClass(this.clsActive);
-	                } else {
-
-	                    this.sidebar.one(_index.transitionend, function () {
-	                        _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip + ' ' + _this2.clsOverlay).width('');
-	                        _this2.sidebar.removeClass(_this2.clsSidebarAnimation + ' ' + _this2.clsMode);
-	                        _this2.offcanvas.css('display', '');
-	                        _this2.body.css('overflow-y', '');
-
-	                        active = false;
-	                    });
-
-	                    if (this.mode === 'noeffect') {
-	                        this.sidebar.trigger(_index.transitionend);
-	                    }
-
-	                    this.offcanvas.removeClass(this.clsActive);
-	                    this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
+	                if (active && active !== this && show) {
+	                    active.toggle(false);
 	                }
+
+	                this[show ? 'show' : 'hide']();
+	            },
+	            show: function show() {
+
+	                if (this.isActive()) {
+	                    return;
+	                }
+
+	                active = this;
+
+	                this.scrollbarWidth = window.innerWidth - this.page.width();
+
+	                if (this.scrollbarWidth && this.overlay) {
+	                    this.body.css('overflow-y', 'scroll');
+	                    this.scrollbarWidth = 0;
+	                }
+
+	                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip + ' ' + this.clsPageAnimation + ' ' + this.clsOverlay);
+	                this.sidebar.addClass(this.clsSidebarAnimation + ' ' + this.clsMode);
+	                this.offcanvas.css('display', 'block').height();
+	                this.offcanvas.addClass(this.clsActive);
+
+	                this.$update(null, this.offcanvas);
+	            },
+	            hide: function hide() {
+	                var _this2 = this;
+
+	                if (!this.isActive()) {
+	                    return;
+	                }
+
+	                active = false;
+
+	                this.sidebar.one(_index.transitionend, function () {
+	                    _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip + ' ' + _this2.clsOverlay).width('');
+	                    _this2.sidebar.removeClass(_this2.clsSidebarAnimation + ' ' + _this2.clsMode);
+	                    _this2.offcanvas.css('display', '');
+	                    _this2.body.css('overflow-y', '');
+	                });
+
+	                if (this.mode === 'noeffect') {
+	                    this.sidebar.trigger(_index.transitionend);
+	                }
+
+	                this.offcanvas.removeClass(this.clsActive);
+	                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 	            }
 	        }
 
@@ -3263,7 +3463,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3299,7 +3499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3407,7 +3607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3500,7 +3700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3571,7 +3771,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3752,7 +3952,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3803,7 +4003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _index = __webpack_require__(4);
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3913,7 +4113,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3958,7 +4158,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3974,15 +4174,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        mixins: [UIkit.mixin.toggle],
 
 	        props: {
+	            href: 'jQuery',
 	            target: 'jQuery'
 	        },
 
 	        defaults: {
+	            href: false,
 	            target: false
 	        },
 
 	        ready: function ready() {
 	            var _this = this;
+
+	            this.target = this.target || this.href;
 
 	            if (!this.target) {
 	                return;

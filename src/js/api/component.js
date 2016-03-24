@@ -35,7 +35,7 @@ export default function (UIkit) {
     };
 
     UIkit.getComponent = function (element, name) {
-        return element[DATA] && element[DATA][name];
+        return element && element[DATA] && element[DATA][name];
     }
 
 }
