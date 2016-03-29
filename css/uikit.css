@@ -2,8 +2,8 @@
    Component: Base
  ========================================================================== */
 /*
- * 1. Normalize default `font-family` and set `font-size` to support `rem` units
- * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
+ * 1. Set default `font-family` and set `font-size` to support `rem` units
+ * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
  * 3. Style
  */
 html {
@@ -25,13 +25,13 @@ body {
 /* Links
  ========================================================================== */
 /*
- * Remove the gray background color from active links in IE 10.
+ * Remove the gray background on active links in IE 10.
  */
 a {
   background: transparent;
 }
 /*
- * Improve readability of focused elements when they are also in an active/hover state.
+ * Remove the outline on focused links when they are also active or hovered
  */
 a:active,
 a:hover {
@@ -54,20 +54,33 @@ a:hover,
 /* Text-level semantics
  ========================================================================== */
 /*
- * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 abbr[title] {
-  border-bottom: 1px dotted;
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
 }
 /*
- * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ * 1. Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ * 2. Add the correct font weight in Chrome, Edge, and Safari.
  */
+/* 1 */
 b,
 strong {
-  font-weight: bold;
+  font-weight: inherit;
+}
+/* 2 */
+b,
+strong {
+  font-weight: bolder;
 }
 /*
- * 1. Address odd `em`-unit font size rendering in all browsers.
+ * 1. Correct the odd `em` font sizing in all browsers.
  * 2. Consolas has a better baseline in running text compared to `Courier`
  * 3. Style
  */
@@ -101,7 +114,6 @@ ins {
 }
 /*
  * Mark
- * Note: Addresses styling not present in IE 8/9.
  */
 mark {
   background: #ffd;
@@ -114,7 +126,7 @@ q {
   font-style: italic;
 }
 /*
- * Addresses inconsistent and variable font size in all browsers.
+ * Add the correct font size in all browsers.
  */
 small {
   font-size: 80%;
@@ -138,7 +150,7 @@ sub {
 /* Embedded content
  ========================================================================== */
 /*
- * Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers.
+ * Remove the gap between embedded content and the bottom of their containers.
  */
 audio,
 canvas,
@@ -149,28 +161,40 @@ video {
   vertical-align: middle;
 }
 /*
- * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * Responsiveness
+ * 1. Sets a maximum width relative to the parent and auto scales the height
  * 2. Corrects `max-width` behavior if padding and border are used
- * 3. Remove border when inside `a` element in IE 8/9/10.
  */
-img {
+audio,
+canvas,
+img,
+svg,
+video {
   /* 1 */
   max-width: 100%;
   height: auto;
   /* 2 */
   box-sizing: border-box;
-  /* 3 */
-  border: 0;
 }
 /*
- * Preserve original image dimensions
+ * Preserve original dimensions
  */
-.uk-img-preserve,
-.uk-img-preserve img {
+.uk-preserve-width,
+.uk-preserve-width audio,
+.uk-preserve-width canvas,
+.uk-preserve-width img,
+.uk-preserve-width svg,
+.uk-preserve-width video {
   max-width: none;
 }
 /*
- * Correct overflow not hidden in IE 9/10/11.
+ * Remove the border on images inside links in IE 10-.
+ */
+img {
+  border-style: none;
+}
+/*
+ * Hide the overflow in IE.
  */
 svg:not(:root) {
   overflow: hidden;
@@ -297,14 +321,17 @@ dd {
 /* Horizontal rules
  ========================================================================== */
 /*
- * 1. Address differences between Firefox and other browsers.
- * 2. Style
+ * 1. Add the correct box sizing and height in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ * 3. Style
  */
 hr {
   /* 1 */
   box-sizing: content-box;
   height: 0;
   /* 2 */
+  overflow: visible;
+  /* 3 */
   margin: 20px 0;
   border: 0;
   border-top: 1px solid #e5e5e5;
@@ -354,9 +381,9 @@ pre {
 /* HTML5 elements
  ========================================================================== */
 /*
- * Correct `block` display not defined for any HTML5 element in IE 8/9.
- * Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.
- * Correct `block` display not defined for `main` in IE 11.
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ * 2. Add the correct display in IE.
  */
 article,
 aside,
@@ -369,26 +396,21 @@ main,
 nav,
 section,
 summary {
+  /* 1 */
   display: block;
 }
 /*
- * Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
 progress {
   vertical-align: baseline;
 }
 /*
- * Prevent displaying `audio` without controls in Chrome, Safari and Opera
+ * Add the correct display in IE 10-.
+ * 1. Add the correct display in IE.
  */
-audio:not([controls]) {
-  display: none;
-}
-/*
- * Address `[hidden]` styling not present in IE 8/9/10.
- * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
- */
-[hidden],
-template {
+template,
+[hidden] {
   display: none;
 }
 /* Iframe
@@ -705,7 +727,7 @@ textarea {
  *    `input[type="color"]` in Firefox
  * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
  * 3. Remove `border-radius` in iOS.
- * 4. Correct `font` properties and `color` not being inherited.
+ * 4. Change font properties to `inherit` in all browsers
  */
 .uk-form input,
 .uk-form select,
@@ -718,16 +740,15 @@ textarea {
   border-radius: 0;
   /* 4 */
   font: inherit;
-  color: inherit;
 }
 /*
- * Address inconsistent `text-transform` inheritance which is only inherit in Firefox
+ * Remove the inheritance of text transform in Firefox.
  */
 .uk-form select {
   text-transform: none;
 }
 /*
- * 1. Correct `font` properties not being inherited.
+ * 1. Change font properties to `inherit` in all browsers
  * 2. Don't inherit the `font-weight` and use `bold` instead.
  * NOTE: Both declarations don't work in Chrome, Safari and Opera.
  */
@@ -738,14 +759,23 @@ textarea {
   font-weight: bold;
 }
 /*
- * Removes inner padding and border in Firefox 4+.
+ * 1. Show the overflow in Edge.
+ * 2. Show the overflow in Edge, Firefox, and IE.
+ */
+.uk-form input,
+.uk-form select {
+  /* 2 */
+  overflow: visible;
+}
+/*
+ * Remove the inner border and padding in Firefox.
  */
 .uk-form input::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
 /*
- * Removes excess padding in IE 8/9/10.
+ * Remove the padding in IE 10-.
  */
 .uk-form input[type="checkbox"],
 .uk-form input[type="radio"] {
@@ -774,16 +804,14 @@ textarea {
   -webkit-appearance: none;
 }
 /*
- * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
  */
 .uk-form input[type="search"]::-webkit-search-cancel-button,
 .uk-form input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 /*
- * Fix the cursor style for Chrome's increment/decrement buttons. For certain
- * `font-size` values of the `input`, it causes the cursor style of the
- * decrement button to change from `default` to `text`.
+ * Correct the cursor style of increment and decrement buttons in Chrome.
  */
 .uk-form input[type="number"]::-webkit-inner-spin-button,
 .uk-form input[type="number"]::-webkit-outer-spin-button {
@@ -798,7 +826,7 @@ textarea {
   padding: 0;
 }
 /*
- * 1. Remove default vertical scrollbar in IE 8/9/10/11.
+ * 1. Remove the default vertical scrollbar in IE.
  * 2. Improve readability and alignment in all browsers.
  */
 .uk-form textarea {
@@ -939,7 +967,7 @@ textarea {
 /*
  * Legend
  * 1. Behave like block element
- * 2. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
  * 3. Remove padding so people aren't caught out if they zero out fieldsets.
  * 4. Style
  */
@@ -947,7 +975,7 @@ textarea {
   /* 1 */
   width: 100%;
   /* 2 */
-  border: 0;
+  color: inherit;
   /* 3 */
   padding: 0;
   /* 4 */
@@ -1121,9 +1149,9 @@ select.uk-form-width-mini {
 /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 3. Address `overflow` set to `hidden` in IE.
  * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE 8/9/10/11
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Style
  * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
@@ -1159,7 +1187,7 @@ select.uk-form-width-mini {
   cursor: pointer;
 }
 /*
- * Removes inner padding and border in Firefox 4+.
+ * Remove the inner border and padding in Firefox.
  */
 .uk-button::-moz-focus-inner {
   border: 0;
@@ -3622,6 +3650,15 @@ ul.uk-nav-sub {
   bottom: 0;
   left: 0;
   right: 0;
+  /* 4 */
+  background: rgba(0, 0, 0, 0.1);
+  /* 5 */
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+.uk-offcanvas-overlay .uk-offcanvas.uk-active::before {
+  opacity: 1;
 }
 /* Page (`html` element)
  ========================================================================== */
@@ -4958,7 +4995,7 @@ ul.uk-nav-sub {
   -ms-flex-negative: 1;
 }
 /*
- * Remove pseudo elements created by micro clearfix by as precaution
+ * Remove pseudo elements created by micro clearfix as precaution
  */
 .uk-flex::before,
 .uk-flex::after,

@@ -93,7 +93,7 @@
  *    `input[type="color"]` in Firefox
  * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
  * 3. Remove `border-radius` in iOS.
- * 4. Correct `font` properties and `color` not being inherited.
+ * 4. Change font properties to `inherit` in all browsers
  */
 
 .uk-form input,
@@ -107,17 +107,16 @@
     border-radius: 0;
     /* 4 */
     font: inherit;
-    color: inherit;
 }
 
 /*
- * Address inconsistent `text-transform` inheritance which is only inherit in Firefox
+ * Remove the inheritance of text transform in Firefox.
  */
 
 .uk-form select { text-transform: none; }
 
 /*
- * 1. Correct `font` properties not being inherited.
+ * 1. Change font properties to `inherit` in all browsers
  * 2. Don't inherit the `font-weight` and use `bold` instead.
  * NOTE: Both declarations don't work in Chrome, Safari and Opera.
  */
@@ -130,7 +129,18 @@
 }
 
 /*
- * Removes inner padding and border in Firefox 4+.
+ * 1. Show the overflow in Edge.
+ * 2. Show the overflow in Edge, Firefox, and IE.
+ */
+
+.uk-form input, /* 1 */
+.uk-form select { /* 2 */
+  overflow: visible;
+}
+
+
+/*
+ * Remove the inner border and padding in Firefox.
  */
 
 .uk-form input::-moz-focus-inner {
@@ -139,7 +149,7 @@
 }
 
 /*
- * Removes excess padding in IE 8/9/10.
+ * Remove the padding in IE 10-.
  */
 
 .uk-form input[type="checkbox"],
@@ -168,16 +178,14 @@
 .uk-form input[type="datetime"] { -webkit-appearance: none; }
 
 /*
- * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
  */
 
 .uk-form input[type="search"]::-webkit-search-cancel-button,
 .uk-form input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
 
 /*
- * Fix the cursor style for Chrome's increment/decrement buttons. For certain
- * `font-size` values of the `input`, it causes the cursor style of the
- * decrement button to change from `default` to `text`.
+ * Correct the cursor style of increment and decrement buttons in Chrome.
  */
 
 .uk-form input[type="number"]::-webkit-inner-spin-button,
@@ -194,7 +202,7 @@
 }
 
 /*
- * 1. Remove default vertical scrollbar in IE 8/9/10/11.
+ * 1. Remove the default vertical scrollbar in IE.
  * 2. Improve readability and alignment in all browsers.
  */
 
@@ -307,7 +315,7 @@
 /*
  * Legend
  * 1. Behave like block element
- * 2. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
  * 3. Remove padding so people aren't caught out if they zero out fieldsets.
  * 4. Style
  */
@@ -316,7 +324,7 @@
     /* 1 */
     width: 100%;
     /* 2 */
-    border: 0;
+    color: inherit;
     /* 3 */
     padding: 0;
     /* 4 */

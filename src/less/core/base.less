@@ -2,7 +2,7 @@
 // Description:     Default values for HTML elements
 //
 // Component:       `uk-link`
-//                  `uk-img-preserve`
+//                  `uk-preserve-width`
 //                  `uk-h1`, `uk-h2`, `uk-h3`, `uk-h4`, `uk-h5`, `uk-h6`
 //
 // ========================================================================
@@ -77,8 +77,8 @@
  ========================================================================== */
 
 /*
- * 1. Normalize default `font-family` and set `font-size` to support `rem` units
- * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
+ * 1. Set default `font-family` and set `font-size` to support `rem` units
+ * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
  * 3. Style
  */
 
@@ -105,13 +105,13 @@ body { margin: 0; }
  ========================================================================== */
 
 /*
- * Remove the gray background color from active links in IE 10.
+ * Remove the gray background on active links in IE 10.
  */
 
 a { background: transparent; }
 
 /*
- * Improve readability of focused elements when they are also in an active/hover state.
+ * Remove the outline on focused links when they are also active or hovered
  */
 
 a:active,
@@ -141,20 +141,32 @@ a:hover,
  ========================================================================== */
 
 /*
- * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 
-abbr[title] { border-bottom: 1px dotted; }
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
 
 /*
- * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ * 1. Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ * 2. Add the correct font weight in Chrome, Edge, and Safari.
  */
 
+/* 1 */
 b,
-strong { font-weight: bold; }
+strong { font-weight: inherit; }
+
+/* 2 */
+b,
+strong { font-weight: bolder; }
 
 /*
- * 1. Address odd `em`-unit font size rendering in all browsers.
+ * 1. Correct the odd `em` font sizing in all browsers.
  * 2. Consolas has a better baseline in running text compared to `Courier`
  * 3. Style
  */
@@ -190,7 +202,6 @@ ins {
 
 /*
  * Mark
- * Note: Addresses styling not present in IE 8/9.
  */
 
 mark {
@@ -205,7 +216,7 @@ mark {
 q { font-style: @base-quote-font-style; }
 
 /*
- * Addresses inconsistent and variable font size in all browsers.
+ * Add the correct font size in all browsers.
  */
 
 small { font-size: 80%; }
@@ -270,13 +281,13 @@ video {
 .uk-preserve-width video { max-width: none; }
 
 /*
- * Remove border when inside `a` element in IE 8/9/10.
+ * Remove the border on images inside links in IE 10-.
  */
 
-img { border: 0; }
+img { border-style: none; }
 
 /*
- * Correct overflow not hidden in IE 9/10/11.
+ * Hide the overflow in IE.
  */
 
 svg:not(:root) { overflow: hidden; }
@@ -404,8 +415,9 @@ dd { margin-left: 0; }
  ========================================================================== */
 
 /*
- * 1. Address differences between Firefox and other browsers.
- * 2. Style
+ * 1. Add the correct box sizing and height in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ * 3. Style
  */
 
 hr {
@@ -413,6 +425,8 @@ hr {
     box-sizing: content-box;
     height: 0;
     /* 2 */
+    overflow: visible;
+    /* 3 */
     margin: @base-hr-margin-vertical 0;
     border: 0;
     border-top: @base-hr-border-width solid @base-hr-border;
@@ -475,42 +489,38 @@ pre {
  ========================================================================== */
 
 /*
- * Correct `block` display not defined for any HTML5 element in IE 8/9.
- * Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.
- * Correct `block` display not defined for `main` in IE 11.
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ * 2. Add the correct display in IE.
  */
 
 article,
 aside,
-details,
+details, /* 1 */
 figcaption,
 figure,
 footer,
 header,
-main,
+main, /* 2 */
 nav,
 section,
-summary { display: block; }
+summary { /* 1 */
+    display: block;
+}
 
 /*
- * Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
 
 progress { vertical-align: baseline; }
 
 /*
- * Prevent displaying `audio` without controls in Chrome, Safari and Opera
+ * Add the correct display in IE 10-.
+ * 1. Add the correct display in IE.
  */
 
-audio:not([controls]) { display: none; }
-
-/*
- * Address `[hidden]` styling not present in IE 8/9/10.
- * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
- */
-
-[hidden],
-template { display: none; }
+template, /* 1 */
+[hidden] { display: none; }
 
 
 /* Iframe
