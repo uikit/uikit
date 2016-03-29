@@ -1,8 +1,9 @@
 # Changelog
 
 ### WIP
-  - Added support for CSS filter properties in parallax component
   - Added uk-grid-large class
+  - Added support for CSS filter properties in parallax component
+  - Added responsiveness to audio, canvas, svg and video in base component
   - Made flex component more robust when used with clearfix
   - Fixed scrollspynav active state
   - Fixed uk-modal-spinner animation
