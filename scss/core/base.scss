@@ -234,7 +234,7 @@ sub { bottom: -0.25em; }
  ========================================================================== */
 
 /*
- * Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers.
+ * Remove the gap between embedded content and the bottom of their containers.
  */
 
 audio,
@@ -245,27 +245,39 @@ svg,
 video { vertical-align: middle; }
 
 /*
- * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * Responsiveness
+ * 1. Sets a maximum width relative to the parent and auto scales the height
  * 2. Corrects `max-width` behavior if padding and border are used
- * 3. Remove border when inside `a` element in IE 8/9/10.
  */
 
-img {
+audio,
+canvas,
+img,
+svg,
+video {
     /* 1 */
     max-width: 100%;
     height: auto;
     /* 2 */
     box-sizing: border-box;
-    /* 3 */
-    border: 0;
 }
 
 /*
- * Preserve original image dimensions
+ * Preserve original dimensions
  */
 
 .uk-img-preserve,
-.uk-img-preserve img { max-width: none; }
+.uk-img-preserve audio,
+.uk-img-preserve canvas,
+.uk-img-preserve img,
+.uk-img-preserve svg,
+.uk-img-preserve video { max-width: none; }
+
+/*
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+
+img { border: 0; }
 
 /*
  * Correct overflow not hidden in IE 9/10/11.

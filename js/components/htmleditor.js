@@ -1,4 +1,4 @@
-/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -206,9 +206,9 @@
                     }
                 };
 
-                var result = callback(match, index);
+                var result = typeof(callback) === 'string' ? callback : callback(match, index);
 
-                if (!result) {
+                if (!result && result !== '') {
                     return arguments[0];
                 }
 

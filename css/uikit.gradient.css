@@ -1,4 +1,4 @@
-/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -141,7 +141,7 @@ sub {
 /* Embedded content
  ========================================================================== */
 /*
- * Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers.
+ * Remove the gap between embedded content and the bottom of their containers.
  */
 audio,
 canvas,
@@ -152,25 +152,37 @@ video {
   vertical-align: middle;
 }
 /*
- * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
+ * Responsiveness
+ * 1. Sets a maximum width relative to the parent and auto scales the height
  * 2. Corrects `max-width` behavior if padding and border are used
- * 3. Remove border when inside `a` element in IE 8/9/10.
  */
-img {
+audio,
+canvas,
+img,
+svg,
+video {
   /* 1 */
   max-width: 100%;
   height: auto;
   /* 2 */
   box-sizing: border-box;
-  /* 3 */
-  border: 0;
 }
 /*
- * Preserve original image dimensions
+ * Preserve original dimensions
  */
 .uk-img-preserve,
-.uk-img-preserve img {
+.uk-img-preserve audio,
+.uk-img-preserve canvas,
+.uk-img-preserve img,
+.uk-img-preserve svg,
+.uk-img-preserve video {
   max-width: none;
+}
+/*
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+img {
+  border: 0;
 }
 /*
  * Correct overflow not hidden in IE 9/10/11.
@@ -538,6 +550,41 @@ iframe {
 .uk-grid-medium > .uk-grid-margin,
 .uk-grid-medium > * > .uk-panel + .uk-panel {
   margin-top: 25px;
+}
+/*
+ * Large gutter
+ */
+/* Large screen and bigger */
+@media (min-width: 960px) {
+  /* Horizontal */
+  .uk-grid-large {
+    margin-left: -35px;
+  }
+  .uk-grid-large > * {
+    padding-left: 35px;
+  }
+  /* Vertical */
+  .uk-grid-large + .uk-grid-large,
+  .uk-grid-large-margin,
+  .uk-grid-large > * > .uk-panel + .uk-panel {
+    margin-top: 35px;
+  }
+}
+/* Extra Large screens */
+@media (min-width: 1220px) {
+  /* Horizontal */
+  .uk-grid-large {
+    margin-left: -50px;
+  }
+  .uk-grid-large > * {
+    padding-left: 50px;
+  }
+  /* Vertical */
+  .uk-grid-large + .uk-grid-large,
+  .uk-grid-large-margin,
+  .uk-grid-large > * > .uk-panel + .uk-panel {
+    margin-top: 50px;
+  }
 }
 /* Modifier: `uk-grid-divider`
  ========================================================================== */
@@ -8486,6 +8533,15 @@ a.uk-thumbnail:focus {
 .uk-flex > *,
 .uk-flex-inline > * {
   -ms-flex-negative: 1;
+}
+/*
+ * Remove pseudo elements created by micro clearfix as precaution
+ */
+.uk-flex::before,
+.uk-flex::after,
+.uk-flex-inline::before,
+.uk-flex-inline::after {
+  display: none !important;
 }
 /* Alignment
  ========================================================================== */

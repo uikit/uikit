@@ -1,4 +1,4 @@
-/*! UIkit 2.25.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.25.0';
+    UI.version = '2.26.0';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -1092,25 +1092,43 @@
             'cls': 'uk-margin-small-top'
         }, options);
 
-        elements    = UI.$(elements).removeClass(options.cls);
+        elements = UI.$(elements).removeClass(options.cls);
 
-        var group = {}, mintop = false;
+        var min = false;
 
-        elements.each(function(offset, $ele){
+        elements.each(function(offset, height, pos, $ele){
 
-            $ele = UI.$(this);
+            $ele   = UI.$(this);
 
             if ($ele.css('display') != 'none') {
-                offset = $ele.offset().top;
-                ((group[offset] = group[offset] || []) && group[offset]).push(this);
-                mintop = mintop === false ? offset : Math.min(mintop, offset);
+
+                offset = $ele.offset();
+                height = $ele.outerHeight();
+                pos    = offset.top + height;
+
+                $ele.data({
+                    'ukMarginPos': pos,
+                    'ukMarginTop': offset.top
+                });
+
+                if (min === false || (offset.top < min.top) ) {
+
+                    min = {
+                        top  : offset.top,
+                        left : offset.left,
+                        pos  : pos
+                    };
+                }
+            }
+
+        }).each(function($ele) {
+
+            $ele   = UI.$(this);
+
+            if ($ele.css('display') != 'none' && $ele.data('ukMarginTop') > min.top && $ele.data('ukMarginPos') > min.pos) {
+                $ele.addClass(options.cls);
             }
         });
-
-        for(var offset in group) {
-            if (offset == mintop) continue;
-            UI.$(group[offset]).addClass(options.cls);
-        }
     };
 
     UI.Utils.matchHeights = function(elements, options) {
