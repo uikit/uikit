@@ -1,17 +1,17 @@
 # Changelog
 
-### WIP
+### 2.26.0 (March 29, 2016)
   - Added uk-grid-large class
   - Added support for CSS filter properties in parallax component
   - Added responsiveness to audio, canvas, svg and video in base component
   - Made flex component more robust when used with clearfix
+  - Improved htmleditor `replaceInPreview` function
   - Fixed scrollspynav active state
   - Fixed uk-modal-spinner animation
   - Fixed uk-row-first when using pull/push or flex-order classes
   - Fixed uk-grid-margin when using flex-order classes
   - Fixed uk-overflow-container adjustments on resize
   - Fixed modal listens for `changed.uk.dom` event
-  - Improved htmleditor `replaceInPreview` function
 
 ### 2.25.0 (February 17, 2016)
   - Added grid parallax component
