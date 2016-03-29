@@ -9,6 +9,7 @@
 // Modifiers:       `uk-grid-collapse`
 //                  `uk-grid-small`
 //                  `uk-grid-medium`
+//                  `uk-grid-large`
 //                  `uk-grid-divider`
 //                  `uk-grid-margin`
 //                  `uk-grid-match`
@@ -48,6 +49,9 @@
 
 @grid-gutter-large-horizontal:                  35px;
 @grid-gutter-large-vertical:                    35px;
+
+@grid-gutter-xlarge-horizontal:                 50px;
+@grid-gutter-xlarge-vertical:                   50px;
 
 @grid-gutter-small-horizontal:                  10px;
 @grid-gutter-small-vertical:                    10px;
@@ -185,6 +189,39 @@
 .uk-grid-medium + .uk-grid-medium,
 .uk-grid-medium > .uk-grid-margin,
 .uk-grid-medium > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-vertical; }
+
+
+/*
+ * Large gutter
+ */
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-large) {
+
+    /* Horizontal */
+    .uk-grid-large { margin-left: -@grid-gutter-large-horizontal; }
+    .uk-grid-large > * { padding-left: @grid-gutter-large-horizontal; }
+
+    /* Vertical */
+    .uk-grid-large + .uk-grid-large,
+    .uk-grid-large-margin,
+    .uk-grid-large > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-large-vertical; }
+
+}
+
+/* Extra Large screens */
+@media (min-width: @breakpoint-xlarge) {
+
+    /* Horizontal */
+    .uk-grid-large { margin-left: -@grid-gutter-xlarge-horizontal; }
+    .uk-grid-large > * { padding-left: @grid-gutter-xlarge-horizontal; }
+
+    /* Vertical */
+    .uk-grid-large + .uk-grid-large,
+    .uk-grid-large-margin,
+    .uk-grid-large > * > .uk-panel + .uk-panel { margin-top: @grid-gutter-xlarge-vertical; }
+
+}
 
 
 /* Modifier: `uk-grid-divider`
