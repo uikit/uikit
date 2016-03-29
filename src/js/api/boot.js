@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Observer, ready, camelize, hyphenate, matches} from '../util/index';
+import {Observer, ready, camelize, matches} from '../util/index';
 
 export default function (UIkit) {
 

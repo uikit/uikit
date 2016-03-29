@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isString, isPlainObject, camelize} from '../util/index';
+import {isPlainObject, camelize} from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,8 +34,12 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
+    UIkit.getComponents = function (element) {
+        return element && element[DATA] || {};
+    };
+
     UIkit.getComponent = function (element, name) {
         return element && element[DATA] && element[DATA][name];
-    }
+    };
 
 }

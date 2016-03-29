@@ -65,30 +65,9 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-inline-container" uk-dropdown>
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Hover</button>
-                            <div class="uk-dropdown">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="uk-inline-container" uk-dropdown="mode: click">
-                            <button class="uk-button uk-button-default">Click</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown>
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li class="uk-parent">
@@ -108,25 +87,41 @@
                         </div>
 
                         <div class="uk-inline-container">
-
-                            <button class="uk-button uk-button-default" uk-dropdown>Same</button>
-                            <button class="uk-button uk-button-default" uk-dropdown>Same</button>
-
-                            <div id="test" class="uk-dropdown">
+                            <button class="uk-button uk-button-default">Click</button>
+                            <div class="uk-dropdown" uk-dropdown="mode: click">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
-                                    <li><a href="#">Item</a></li>
-                                    <li><a href="#">Item</a></li>
+                                    <li class="uk-parent">
+                                        <a href="#">Parent</a>
+                                        <ul class="uk-nav-sub">
+                                            <li><a href="#">Sub item</a></li>
+                                            <li><a href="#">Sub item</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="uk-nav-header">Header</li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
                                 </ul>
                             </div>
-
                         </div>
 
-                        <button class="uk-button uk-button-default" uk-dropdown="target: #test">Target</button>
+                        <button class="uk-button uk-button-default" uk-toggler="target: #test">Same</button>
+                        <button class="uk-button uk-button-default" uk-toggler="target: #test">Same</button>
+                        <a class="uk-button uk-button-default" href="#test" uk-toggler>Target</a>
 
-                        <div class="uk-inline-container" uk-dropdown="mode: click">
+                        <div id="test" class="uk-dropdown" uk-dropdown="toggle: false">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default" disabled>Disabled</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="mode: click">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -135,9 +130,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown>
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Scrollable</button>
-                            <div class="uk-dropdown uk-dropdown-scrollable">
+                            <div class="uk-dropdown uk-dropdown-scrollable" uk-dropdown>
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li class="uk-parent">
@@ -162,9 +157,9 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-inline-container" uk-dropdown>
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Bottom Left</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown>
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -173,9 +168,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: bottom-center">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Bottom Center</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: bottom-center">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -184,9 +179,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: bottom-right">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Bottom Right</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: bottom-right">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -195,9 +190,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: bottom-justify">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Bottom Justify</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: bottom-justify">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -210,9 +205,9 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: top-left">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Top Left</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: top-left">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -221,9 +216,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: top-center">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Top Center</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: top-center">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -232,9 +227,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: top-right">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Top Right</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: top-right">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -243,9 +238,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: top-justify">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Top Justify</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: top-justify">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -258,9 +253,9 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: left-top">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Left Top</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: left-top">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -269,9 +264,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: left-center">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Left Center</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: left-center">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -280,9 +275,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: left-bottom">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Left Bottom</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: left-bottom">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -295,9 +290,9 @@
 
                     <div class="uk-margin" uk-margin-wrap>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: right-top">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Right Top</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: right-top">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -306,9 +301,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: right-center">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Right Center</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: right-center">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -317,9 +312,9 @@
                             </div>
                         </div>
 
-                        <div class="uk-inline-container" uk-dropdown="pos: right-bottom">
+                        <div class="uk-inline-container">
                             <button class="uk-button uk-button-default">Right Bottom</button>
-                            <div class="uk-dropdown">
+                            <div class="uk-dropdown" uk-dropdown="pos: right-bottom">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>

@@ -2,7 +2,7 @@ export default function (UIkit) {
 
     UIkit.component('toggle', {
 
-        mixins: [UIkit.mixin.toggle],
+        mixins: [UIkit.mixin.toggable],
 
         props: {
             href: 'jQuery',

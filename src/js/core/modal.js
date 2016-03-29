@@ -140,7 +140,7 @@ export default function (UIkit) {
 
             handler() {
                 var current = this.$el.css('max-height');
-                this.$el.css('max-height', '').css('max-height', this.$el.height() - (this.dialog.outerHeight(true) - window.innerHeight))
+                this.$el.css('max-height', '').css('max-height', this.$el.height() - (this.dialog.outerHeight(true) - window.innerHeight));
                 if (current !== this.$el.css('max-height')) {
                     UIkit.update();
                 }

@@ -4,7 +4,7 @@ export default function (UIkit) {
 
     UIkit.component('accordion', {
 
-        mixins: [UIkit.mixin.toggle],
+        mixins: [UIkit.mixin.toggable],
 
         props: {
             targets: String,

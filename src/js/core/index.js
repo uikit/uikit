@@ -23,6 +23,7 @@ import Svg from './svg';
 import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
+import Toggler from './toggler';
 import {requestAnimationFrame} from '../util/index';
 
 export default function (UIkit, _) {
@@ -81,5 +82,6 @@ export default function (UIkit, _) {
     UIkit.use(Switcher);
     UIkit.use(Tab);
     UIkit.use(Toggle);
+    UIkit.use(Toggler);
 
 }

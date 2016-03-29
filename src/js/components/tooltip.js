@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 UIkit.component('tooltip', {
 
-    mixins: [UIkit.mixin.toggle, UIkit.mixin.position],
+    mixins: [UIkit.mixin.toggable, UIkit.mixin.position],
 
     props: {
         delay: Number,

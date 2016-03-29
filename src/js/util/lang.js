@@ -14,19 +14,19 @@ export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
 
-var classifyRE = /(?:^|[-_\/])(\w)/g
+var classifyRE = /(?:^|[-_\/])(\w)/g;
 export function classify(str) {
     return str.replace(classifyRE, (_, c) => c ? c.toUpperCase() : '');
 }
 
-var hyphenateRE = /([a-z\d])([A-Z])/g
+var hyphenateRE = /([a-z\d])([A-Z])/g;
 export function hyphenate (str) {
     return str
         .replace(hyphenateRE, '$1-$2')
         .toLowerCase()
 }
 
-var camelizeRE = /-(\w)/g
+var camelizeRE = /-(\w)/g;
 export function camelize (str) {
     return str.replace(camelizeRE, toUpper)
 }

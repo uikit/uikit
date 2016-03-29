@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import {extend} from '../util/index';
 
 export default function (UIkit) {
 

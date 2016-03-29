@@ -33,8 +33,7 @@ export default function (UIkit) {
             clsClose: 'uk-offcanvas-close'
         },
 
-        ready() {
-
+        init() {
             this.page = $('html');
             this.body = $('body');
             this.offcanvas = this.target || this.href;
@@ -55,24 +54,25 @@ export default function (UIkit) {
                 this.clsPageAnimation = '';
             }
 
-            this.$el.on('click', e => {
-                if (!active) {
-                    e.preventDefault();
-                    this.toggle()
-                }
-            });
-
             this.offcanvas.on('click', `.${this.clsClose}`, (e) => {
                 e.preventDefault();
                 this.toggle(false);
             });
 
             this.body.on('click', (e) => {
-                if (!e.isDefaultPrevented() && !isWithin(e.target, this.sidebar)) {
+                if (active === this && !e.isDefaultPrevented() && !isWithin(e.target, this.sidebar)) {
                     this.toggle(false);
                 }
             });
+        },
 
+        ready() {
+            this.$el.on('click', e => {
+                if (!active) {
+                    e.preventDefault();
+                    this.toggle()
+                }
+            });
         },
 
         update: {

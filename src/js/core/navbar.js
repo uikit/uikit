@@ -36,13 +36,17 @@ export default function (UIkit) {
 
         ready() {
 
+            var drop;
+
             this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each((i, el) => {
 
-                if (!toJQuery('.' + this.clsDrop, el)) {
+                drop = toJQuery('.' + this.clsDrop, el);
+
+                if (!drop) {
                     return;
                 }
 
-                UIkit.drop(el, {
+                UIkit.drop(drop, {
                     mode: this.mode,
                     pos: this.pos,
                     offset: this.offset,
@@ -50,7 +54,7 @@ export default function (UIkit) {
                     boundaryAlign: this.boundaryAlign,
                     clsDrop: this.clsDrop,
                     flip: 'x',
-                    delayShow: this.delayShow,
+                    delayShow: !this.delayShow && this.dropbar && 100,
                     delayHide: this.delayHide
                 });
 
@@ -58,7 +62,7 @@ export default function (UIkit) {
 
             this.$el.on('mouseenter', this.dropdown, ({target}) => {
                 var active = this.getActive();
-                if (active && active.mode !== 'click' && !isWithin(target, active.$el) && !active.isDelaying) {
+                if (active && active.mode !== 'click' && !isWithin(target, active.toggle) && !active.isDelaying) {
                     active.hide(true);
                 }
             });
@@ -77,45 +81,29 @@ export default function (UIkit) {
                 this.dropbar.addClass('uk-navbar-dropbar-overlay');
             }
 
-            var height, transition;
-
             this.$el.on({
 
-                beforeshow: (e, drop) => drop.drop.addClass(`${this.clsDrop}-dropbar`),
+                beforeshow: (e, {$el}) => {
+                    $el.addClass(`${this.clsDrop}-dropbar`);
 
-                show: (e, {drop, $el}) => {
-
-                    var newHeight = drop.outerHeight(true);
-
-                    $el.removeClass('uk-open');
-
-                    if (height === newHeight) {
-
-                        if (transition && transition.state() !== 'pending') {
-                            $el.addClass('uk-open');
-                        }
-
-                        return;
-                    }
-                    height = newHeight;
-
-                    transition = Transition.start(this.dropbar, {height: height}, this.duration).then(() => {
-                        var active = this.getActive();
-                        if (active) {
-                            active.$el.addClass('uk-open');
-                            active.$update();
-                        }
-                    });
-
+                    var height = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
+                    Transition.stop(this.dropbar);
+                    this.dropbar.height(height);
+                    Transition.start(this.dropbar, {height: $el.outerHeight(true)}, this.duration);
                 },
 
                 hide: () => {
+
                     requestAnimationFrame(() => {
+
                         if (!this.getActive()) {
-                            Transition.stop(this.dropbar).start(this.dropbar, {height: 0}, this.duration);
-                            height = 0;
+                            var height = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
+                            Transition.stop(this.dropbar);
+                            this.dropbar.height(height);
+                            Transition.start(this.dropbar, {height: 0}, this.duration);
                         }
-                    });
+
+                    })
                 }
 
             });
@@ -131,7 +119,7 @@ export default function (UIkit) {
 
                 mouseleave: ({relatedTarget}) => {
                     var active = this.getActive();
-                    if (active && !isWithin(relatedTarget, active.$el)) {
+                    if (active && !isWithin(relatedTarget, active.toggle)) {
                         active.hide();
                     }
                 }
@@ -144,7 +132,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                if (active && isWithin(active.$el, this.$el)) {
+                if (active && isWithin(active.toggle, this.$el)) {
                     return active;
                 }
             }

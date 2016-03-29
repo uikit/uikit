@@ -1467,6 +1467,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return UIkit.components[name];
 	    };
 
+	    UIkit.getComponents = function (element) {
+	        return element && element[DATA] || {};
+	    };
+
 	    UIkit.getComponent = function (element, name) {
 	        return element && element[DATA] && element[DATA][name];
 	    };
@@ -1495,7 +1499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_mouse2.default);
 	    UIkit.use(_position2.default);
 	    UIkit.use(_svg2.default);
-	    UIkit.use(_toggle2.default);
+	    UIkit.use(_toggable2.default);
 	};
 
 	var _mouse = __webpack_require__(16);
@@ -1510,9 +1514,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _toggle = __webpack_require__(19);
+	var _toggable = __webpack_require__(46);
 
-	var _toggle2 = _interopRequireDefault(_toggle);
+	var _toggable2 = _interopRequireDefault(_toggable);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1533,13 +1537,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        defaults: {
 
 	            positions: [],
-	            position: null,
-	            points: null
+	            position: null
 
 	        },
 
 	        methods: {
-	            initMouseTracker: function initMouseTracker(target, dir) {
+	            initMouseTracker: function initMouseTracker() {
 	                var _this = this;
 
 	                this.positions = [];
@@ -1554,30 +1557,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	                };
 
 	                (0, _jquery2.default)(document).on('mousemove', this.mouseHandler);
-
-	                var p = (0, _index.getDimensions)(target);
-
-	                this.points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]];
-
-	                if (dir === 'right') {
-	                    this.points[0].reverse();
-	                    this.points[1].reverse();
-	                } else if (dir === 'top') {
-	                    this.points[0].reverse();
-	                } else if (dir === 'bottom') {
-	                    this.points[1].reverse();
-	                }
 	            },
 	            cancelMouseTracker: function cancelMouseTracker() {
 	                if (this.mouseHandler) {
 	                    (0, _jquery2.default)(document).off('mousemove', this.mouseHandler);
 	                }
 	            },
-	            movesTowardsTarget: function movesTowardsTarget() {
+	            movesTo: function movesTo(target) {
 
-	                var position = this.positions[this.positions.length - 1],
-	                    prevPos = this.positions[0] || position,
-	                    delay = position && this.points && !(this.position && position.x === this.position.x && position.y === this.position.y) && this.points.reduce(function (result, point) {
+	                var p = (0, _index.getDimensions)(target),
+	                    points = [[{ x: p.left, y: p.top }, { x: p.right, y: p.bottom }], [{ x: p.right, y: p.top }, { x: p.left, y: p.bottom }]],
+	                    position = this.positions[this.positions.length - 1],
+	                    prevPos = this.positions[0] || position;
+
+	                if (!position) {
+	                    return false;
+	                }
+
+	                if (p.right <= position.x) {} else if (p.left >= position.x) {
+	                    points[0].reverse();
+	                    points[1].reverse();
+	                } else if (p.bottom <= position.y) {
+	                    points[0].reverse();
+	                } else if (p.top >= position.y) {
+	                    points[1].reverse();
+	                }
+
+	                var delay = position && !(this.position && position.x === this.position.x && position.y === this.position.y) && points.reduce(function (result, point) {
 	                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
 	                }, 0);
 
@@ -1784,164 +1790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	;
 
 /***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.mixin.toggle = {
-
-	        props: {
-	            cls: Boolean,
-	            animation: Boolean,
-	            duration: Number,
-	            transition: String
-	        },
-
-	        defaults: {
-	            cls: false,
-	            animation: false,
-	            duration: 200,
-	            transition: 'linear',
-	            aria: true
-	        },
-
-	        ready: function ready() {
-
-	            if (typeof this.animation === 'string') {
-
-	                this.animation = this.animation.split(',');
-
-	                if (this.animation.length == 1) {
-	                    this.animation[1] = this.animation[0];
-	                }
-
-	                this.animation[0] = this.animation[0].trim();
-	                this.animation[1] = this.animation[1].trim();
-	            }
-	        },
-
-
-	        methods: {
-	            toggleState: function toggleState(targets, animate, show) {
-	                var _this = this;
-
-	                var deferreds = [],
-	                    toggled;
-
-	                (0, _jquery2.default)(targets).each(function (i, el) {
-
-	                    el = (0, _jquery2.default)(el);
-
-	                    if (_this.animation === true && animate !== false) {
-
-	                        var height = el[0].offsetHeight ? el.height() : 0;
-
-	                        _index.Transition.stop(el);
-
-	                        toggled = _this.isToggled(el);
-
-	                        if (!toggled) {
-	                            _this.doToggle(el, true);
-	                        }
-
-	                        el.css('height', '');
-	                        var endHeight = el.height();
-
-	                        el.height(height);
-
-	                        if (!toggled && show !== false || show === true) {
-	                            deferreds.push(_index.Transition.start(el, {
-	                                overflow: 'hidden',
-	                                height: endHeight,
-	                                'padding-bottom': '',
-	                                'margin-bottom': ''
-	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
-	                            _this.doUpdate(el);
-	                        } else {
-	                            deferreds.push(_index.Transition.start(el, {
-	                                overflow: 'hidden',
-	                                height: 0,
-	                                'padding-bottom': 0,
-	                                'margin-bottom': 0
-	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
-	                                _this.doUpdate(el);
-	                                _this.doToggle(el, false);
-	                            }));
-	                        }
-	                    } else if (_this.animation && animate !== false) {
-
-	                        _index.Animation.cancel(el);
-
-	                        toggled = _this.isToggled(el);
-
-	                        if (!toggled && show !== false || show === true) {
-
-	                            _this.doToggle(el, true);
-	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration));
-	                            _this.doUpdate(el);
-	                        } else {
-
-	                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {
-	                                _this.doToggle(el, false);
-	                                _this.doUpdate(el);
-	                            }));
-	                        }
-	                    } else {
-
-	                        toggled = _this.isToggled(el);
-	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
-	                        _this.doUpdate(el);
-	                        deferreds.push(_jquery2.default.Deferred().resolve());
-	                    }
-	                });
-
-	                return _jquery2.default.when.apply(null, deferreds);
-	            },
-	            doToggle: function doToggle(el, toggled) {
-	                el = (0, _jquery2.default)(el);
-
-	                if (this.cls) {
-	                    el.toggleClass(this.cls, toggled);
-	                } else {
-	                    el.attr('hidden', !toggled);
-	                }
-	            },
-	            isToggled: function isToggled(el) {
-	                el = (0, _jquery2.default)(el);
-	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
-	            },
-	            doUpdate: function doUpdate(el) {
-	                this.updateAria(el);
-	                this.$update(null, el);
-	            },
-	            updateAria: function updateAria(el) {
-	                if (this.aria) {
-	                    el.attr('aria-hidden', !this.isToggled(el));
-	                }
-	            }
-	        }
-
-	    };
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	;
-
-/***/ },
+/* 19 */,
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2007,6 +1856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_switcher2.default);
 	    UIkit.use(_tab2.default);
 	    UIkit.use(_toggle2.default);
+	    UIkit.use(_toggler2.default);
 	};
 
 	var _jquery = __webpack_require__(3);
@@ -2109,6 +1959,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
+	var _toggler = __webpack_require__(45);
+
+	var _toggler2 = _interopRequireDefault(_toggler);
+
 	var _index = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -2127,7 +1981,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('accordion', {
 
-	        mixins: [UIkit.mixin.toggle],
+	        mixins: [UIkit.mixin.toggable],
 
 	        props: {
 	            targets: String,
@@ -2212,7 +2066,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 22 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -2224,7 +2078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('alert', {
 
-	        mixins: [UIkit.mixin.toggle],
+	        mixins: [UIkit.mixin.toggable],
 
 	        props: {
 	            animation: Boolean,
@@ -2270,8 +2124,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    });
 	};
-
-	var _index = __webpack_require__(4);
 
 /***/ },
 /* 23 */
@@ -2388,21 +2240,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var active;
 
-	    (0, _jquery2.default)(document).on('click', function (_ref) {
-	        var target = _ref.target;
-
-	        if (active && !(0, _index.isWithin)(target, active.$el)) {
+	    (0, _jquery2.default)(document).on('click', function (e) {
+	        if (active && !(0, _index.isWithin)(e.target, active.$el) && !e.isDefaultPrevented()) {
 	            active.hide(true);
 	        }
 	    });
 
 	    UIkit.component('drop', {
 
-	        mixins: [UIkit.mixin.position, UIkit.mixin.toggle, UIkit.mixin.mouse],
+	        mixins: [UIkit.mixin.position, UIkit.mixin.toggable, UIkit.mixin.mouse],
 
 	        props: {
 	            mode: String,
-	            target: 'jQuery',
+	            toggle: Boolean,
 	            boundary: 'jQuery',
 	            boundaryAlign: Boolean,
 	            delayShow: Number,
@@ -2412,59 +2262,34 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        defaults: {
 	            mode: 'hover',
-	            target: false,
+	            toggle: true,
 	            boundary: window,
 	            boundaryAlign: false,
 	            delayShow: 0,
 	            delayHide: 800,
 	            clsDrop: false,
 	            hoverIdle: 200,
-	            animation: 'uk-animation-fade'
+	            animation: 'uk-animation-fade',
+	            cls: 'uk-open'
 	        },
 
 	        ready: function ready() {
 	            var _this = this;
 
-	            this.cls = 'uk-open';
 	            this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
 	            this.clsPos = this.clsDrop;
-	            this.drop = this.target || (0, _index.toJQuery)('.' + this.clsDrop + ':first', this.$el) || (0, _index.toJQuery)(this.$el.nextAll('.' + this.clsDrop + ':first'));
-
-	            if (!this.drop) {
-	                return;
-	            }
-
 	            this.mode = _index.hasTouch ? 'click' : this.mode;
 
-	            this.$el.on('click', function (e) {
+	            this.updateAria(this.$el);
 
-	                if ((0, _index.isWithin)('a[href="#"]', e.target) && !(0, _index.isWithin)(e.target, _this.drop)) {
-	                    e.preventDefault();
-	                }
-
-	                if (_this.isActive()) {
-	                    _this.hide(true);
-	                } else {
-	                    _this.show(true);
-	                }
-	            });
-
-	            this.$el.attr('aria-expanded', false);
-	            this.updateAria(this.drop);
-
-	            this.drop.on('click', '.' + this.clsDrop + '-close', function () {
-	                return _this.hide(true);
+	            this.$el.on('click', '.' + this.clsDrop + '-close', function (e) {
+	                e.preventDefault();
+	                _this.hide(true);
 	            });
 
 	            if (this.mode === 'hover') {
 
 	                this.$el.on('mouseenter', function () {
-	                    return _this.show();
-	                }).on('mouseleave', function () {
-	                    return _this.hide();
-	                });
-
-	                this.drop.on('mouseenter', function () {
 	                    if (_this.isActive()) {
 	                        _this.show();
 	                    }
@@ -2474,35 +2299,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                });
 	            }
+
+	            if (this.toggle) {
+	                this.toggle = typeof this.toggle === 'string' ? (0, _index.toJQuery)(this.toggle) : this.$el.parent();
+
+	                if (this.toggle) {
+	                    UIkit.toggler(this.toggle, { target: this.$el });
+	                }
+	            }
 	        },
 
 
 	        update: {
 	            handler: function handler() {
 
-	                if (!this.drop) {
-	                    return;
-	                }
+	                (0, _index.removeClass)(this.$el, this.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });
 
-	                (0, _index.removeClass)(this.drop, this.clsDrop + '-(stack|boundary)').css({ top: '', left: '', width: '', height: '' });
-
-	                this.drop.toggleClass(this.clsDrop + '-boundary', this.boundaryAlign);
+	                this.$el.toggleClass(this.clsDrop + '-boundary', this.boundaryAlign);
 
 	                this.dir = this.pos[0];
 	                this.align = this.pos[1];
 
 	                var boundary = (0, _index.getDimensions)(this.boundary),
-	                    alignTo = this.boundaryAlign ? boundary : (0, _index.getDimensions)(this.$el);
+	                    alignTo = this.boundaryAlign ? boundary : (0, _index.getDimensions)(this.toggle);
 
 	                if (this.align === 'justify') {
 	                    var prop = this.getAxis() === 'y' ? 'width' : 'height';
-	                    this.drop.css(prop, alignTo[prop]);
-	                } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-	                    this.drop.addClass(this.clsDrop + '-stack');
+	                    this.$el.css(prop, alignTo[prop]);
+	                } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+	                    this.$el.addClass(this.clsDrop + '-stack');
 	                    this.$el.trigger('stack', [this]);
 	                }
 
-	                this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
+	                this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle, this.boundary);
 	            },
 
 
@@ -2511,8 +2340,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 
 	        methods: {
-	            show: function show(force) {
+	            show: function show(force, toggle) {
 	                var _this2 = this;
+
+	                var animate = true;
+
+	                if (toggle !== this.toggle) {
+	                    this.hide(true);
+	                    animate = false;
+	                }
+
+	                this.toggle = toggle || this.toggle;
 
 	                this.clearTimers();
 
@@ -2528,12 +2366,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var show = function show() {
 
 	                    _this2.$el.trigger('beforeshow', [_this2]);
-	                    _this2.toggleState(_this2.drop);
+	                    _this2.toggleState(_this2.$el, animate, true);
+	                    _this2.$el.trigger('show', [_this2]);
 	                    _this2._callUpdate();
-	                    _this2.$el.addClass(_this2.cls).attr('aria-expanded', 'true').trigger('show', [_this2]);
 
 	                    if (_this2.mode === 'hover') {
-	                        _this2.initMouseTracker(_this2.drop, _this2.dir);
+	                        _this2.initMouseTracker();
 	                    }
 	                };
 
@@ -2560,12 +2398,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    _this3.cancelMouseTracker();
 
-	                    _this3.$el.trigger('beforehide', [_this3, force]).removeClass('uk-open').find('a, button').blur();
-	                    _this3.toggleState(_this3.drop, false);
-	                    _this3.$el.attr('aria-expanded', 'false').trigger('hide', [_this3, force]);
+	                    _this3.$el.trigger('beforehide', [_this3]);
+	                    _this3.toggleState(_this3.$el, false, false);
+	                    _this3.$el.trigger('hide', [_this3]);
 	                };
 
-	                this.isDelaying = this.movesTowardsTarget();
+	                this.isDelaying = this.movesTo(this.$el);
 
 	                if (!force && this.isDelaying) {
 	                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
@@ -2815,8 +2653,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _jquery = __webpack_require__(3);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3155,13 +2991,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ready: function ready() {
 	            var _this = this;
 
+	            var drop;
+
 	            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each(function (i, el) {
 
-	                if (!(0, _index.toJQuery)('.' + _this.clsDrop, el)) {
+	                drop = (0, _index.toJQuery)('.' + _this.clsDrop, el);
+
+	                if (!drop) {
 	                    return;
 	                }
 
-	                UIkit.drop(el, {
+	                UIkit.drop(drop, {
 	                    mode: _this.mode,
 	                    pos: _this.pos,
 	                    offset: _this.offset,
@@ -3169,7 +3009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    boundaryAlign: _this.boundaryAlign,
 	                    clsDrop: _this.clsDrop,
 	                    flip: 'x',
-	                    delayShow: _this.delayShow,
+	                    delayShow: !_this.delayShow && _this.dropbar && 100,
 	                    delayHide: _this.delayHide
 	                });
 	            });
@@ -3178,7 +3018,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var target = _ref.target;
 
 	                var active = _this.getActive();
-	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(target, active.$el) && !active.isDelaying) {
+	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(target, active.toggle) && !active.isDelaying) {
 	                    active.hide(true);
 	                }
 	            });
@@ -3197,47 +3037,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.dropbar.addClass('uk-navbar-dropbar-overlay');
 	            }
 
-	            var height, transition;
-
 	            this.$el.on({
 
-	                beforeshow: function beforeshow(e, drop) {
-	                    return drop.drop.addClass(_this.clsDrop + '-dropbar');
-	                },
-
-	                show: function show(e, _ref2) {
-	                    var drop = _ref2.drop;
+	                beforeshow: function beforeshow(e, _ref2) {
 	                    var $el = _ref2.$el;
 
+	                    $el.addClass(_this.clsDrop + '-dropbar');
 
-	                    var newHeight = drop.outerHeight(true);
-
-	                    $el.removeClass('uk-open');
-
-	                    if (height === newHeight) {
-
-	                        if (transition && transition.state() !== 'pending') {
-	                            $el.addClass('uk-open');
-	                        }
-
-	                        return;
-	                    }
-	                    height = newHeight;
-
-	                    transition = _index.Transition.start(_this.dropbar, { height: height }, _this.duration).then(function () {
-	                        var active = _this.getActive();
-	                        if (active) {
-	                            active.$el.addClass('uk-open');
-	                            active.$update();
-	                        }
-	                    });
+	                    var height = _this.dropbar[0].offsetHeight ? _this.dropbar.height() : 0;
+	                    _index.Transition.stop(_this.dropbar);
+	                    _this.dropbar.height(height);
+	                    _index.Transition.start(_this.dropbar, { height: $el.outerHeight(true) }, _this.duration);
 	                },
 
 	                hide: function hide() {
+
 	                    (0, _index.requestAnimationFrame)(function () {
+
 	                        if (!_this.getActive()) {
-	                            _index.Transition.stop(_this.dropbar).start(_this.dropbar, { height: 0 }, _this.duration);
-	                            height = 0;
+	                            var height = _this.dropbar[0].offsetHeight ? _this.dropbar.height() : 0;
+	                            _index.Transition.stop(_this.dropbar);
+	                            _this.dropbar.height(height);
+	                            _index.Transition.start(_this.dropbar, { height: 0 }, _this.duration);
 	                        }
 	                    });
 	                }
@@ -3257,7 +3078,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var relatedTarget = _ref3.relatedTarget;
 
 	                    var active = _this.getActive();
-	                    if (active && !(0, _index.isWithin)(relatedTarget, active.$el)) {
+	                    if (active && !(0, _index.isWithin)(relatedTarget, active.toggle)) {
 	                        active.hide();
 	                    }
 	                }
@@ -3269,7 +3090,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        methods: {
 	            getActive: function getActive() {
 	                var active = UIkit.drop.getActive();
-	                if (active && (0, _index.isWithin)(active.$el, this.$el)) {
+	                if (active && (0, _index.isWithin)(active.toggle, this.$el)) {
 	                    return active;
 	                }
 	            }
@@ -3328,7 +3149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            clsClose: 'uk-offcanvas-close'
 	        },
 
-	        ready: function ready() {
+	        init: function init() {
 	            var _this = this;
 
 	            this.page = (0, _jquery2.default)('html');
@@ -3351,21 +3172,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.clsPageAnimation = '';
 	            }
 
-	            this.$el.on('click', function (e) {
-	                if (!active) {
-	                    e.preventDefault();
-	                    _this.toggle();
-	                }
-	            });
-
 	            this.offcanvas.on('click', '.' + this.clsClose, function (e) {
 	                e.preventDefault();
 	                _this.toggle(false);
 	            });
 
 	            this.body.on('click', function (e) {
-	                if (!e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.sidebar)) {
+	                if (active === _this && !e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.sidebar)) {
 	                    _this.toggle(false);
+	                }
+	            });
+	        },
+	        ready: function ready() {
+	            var _this2 = this;
+
+	            this.$el.on('click', function (e) {
+	                if (!active) {
+	                    e.preventDefault();
+	                    _this2.toggle();
 	                }
 	            });
 	        },
@@ -3427,7 +3251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.$update(null, this.offcanvas);
 	            },
 	            hide: function hide() {
-	                var _this2 = this;
+	                var _this3 = this;
 
 	                if (!this.isActive()) {
 	                    return;
@@ -3436,10 +3260,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                active = false;
 
 	                this.sidebar.one(_index.transitionend, function () {
-	                    _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip + ' ' + _this2.clsOverlay).width('');
-	                    _this2.sidebar.removeClass(_this2.clsSidebarAnimation + ' ' + _this2.clsMode);
-	                    _this2.offcanvas.css('display', '');
-	                    _this2.body.css('overflow-y', '');
+	                    _this3.page.removeClass(_this3.clsPage + ' ' + _this3.clsFlip + ' ' + _this3.clsOverlay).width('');
+	                    _this3.sidebar.removeClass(_this3.clsSidebarAnimation + ' ' + _this3.clsMode);
+	                    _this3.offcanvas.css('display', '');
+	                    _this3.body.css('overflow-y', '');
 	                });
 
 	                if (this.mode === 'noeffect') {
@@ -4016,7 +3840,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('switcher', {
 
-	        mixins: [UIkit.mixin.toggle],
+	        mixins: [UIkit.mixin.toggable],
 
 	        props: {
 	            connect: 'jQuery',
@@ -4171,7 +3995,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    UIkit.component('toggle', {
 
-	        mixins: [UIkit.mixin.toggle],
+	        mixins: [UIkit.mixin.toggable],
 
 	        props: {
 	            href: 'jQuery',
@@ -4202,6 +4026,247 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    });
 	};
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.component('toggler', {
+
+	        props: {
+	            href: 'jQuery',
+	            target: 'jQuery'
+	        },
+
+	        defaults: {
+	            href: false,
+	            target: false
+	        },
+
+	        ready: function ready() {
+	            var _this = this;
+
+	            this.target = this.target || this.href;
+
+	            if (!this.target) {
+	                return;
+	            }
+
+	            var target,
+	                targets = UIkit.getComponents(this.target[0]);
+
+	            (0, _index.each)(targets, function (i, component) {
+	                if (component.isToggled) {
+	                    target = component;
+	                    return false;
+	                }
+	            });
+
+	            if (!target) {
+	                return;
+	            }
+
+	            target.target = this.$el;
+
+	            this.$el.on('click', function (e) {
+
+	                if (!(0, _index.isWithin)(e.target, _this.target)) {
+	                    e.preventDefault();
+	                }
+
+	                if (target.isToggled(target.$el)) {
+	                    target.hide(true, _this.$el);
+	                } else {
+	                    target.show(true, _this.$el);
+	                }
+	            });
+
+	            this.$el.attr('aria-expanded', false);
+
+	            if (target.mode === 'hover') {
+
+	                this.$el.on('mouseenter', function () {
+	                    return target.show(false, _this.$el);
+	                }).on('mouseleave', function () {
+	                    return target.hide(false, _this.$el);
+	                });
+	            }
+
+	            target.$el.on('beforeshow', function () {
+	                return _this.$el.addClass(target.cls).attr('aria-expanded', 'true');
+	            }).on('beforehide', function () {
+	                return _this.$el.removeClass(target.cls).attr('aria-expanded', 'false').find('a, button').blur();
+	            });
+	        }
+	    });
+	};
+
+	var _index = __webpack_require__(4);
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.toggable = {
+
+	        props: {
+	            cls: Boolean,
+	            animation: Boolean,
+	            duration: Number,
+	            transition: String
+	        },
+
+	        defaults: {
+	            cls: false,
+	            animation: false,
+	            duration: 200,
+	            transition: 'linear',
+	            aria: true
+	        },
+
+	        ready: function ready() {
+
+	            if (typeof this.animation === 'string') {
+
+	                this.animation = this.animation.split(',');
+
+	                if (this.animation.length == 1) {
+	                    this.animation[1] = this.animation[0];
+	                }
+
+	                this.animation[0] = this.animation[0].trim();
+	                this.animation[1] = this.animation[1].trim();
+	            }
+	        },
+
+
+	        methods: {
+	            toggleState: function toggleState(targets, animate, show) {
+	                var _this = this;
+
+	                var deferreds = [],
+	                    toggled;
+
+	                (0, _jquery2.default)(targets).each(function (i, el) {
+
+	                    el = (0, _jquery2.default)(el);
+
+	                    if (_this.animation === true && animate !== false) {
+
+	                        var height = el[0].offsetHeight ? el.height() : 0;
+
+	                        _index.Transition.stop(el);
+
+	                        toggled = _this.isToggled(el);
+
+	                        if (!toggled) {
+	                            _this.doToggle(el, true);
+	                        }
+
+	                        el.css('height', '');
+	                        var endHeight = el.height();
+
+	                        el.height(height);
+
+	                        if (!toggled && show !== false || show === true) {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: endHeight,
+	                                'padding-bottom': '',
+	                                'margin-bottom': ''
+	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
+	                            _this.doUpdate(el);
+	                        } else {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: 0,
+	                                'padding-bottom': 0,
+	                                'margin-bottom': 0
+	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
+	                                _this.doUpdate(el);
+	                                _this.doToggle(el, false);
+	                            }));
+	                        }
+	                    } else if (_this.animation && animate !== false) {
+
+	                        _index.Animation.cancel(el);
+
+	                        toggled = _this.isToggled(el);
+
+	                        if (!toggled && show !== false || show === true) {
+
+	                            _this.doToggle(el, true);
+	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration));
+	                            _this.doUpdate(el);
+	                        } else {
+
+	                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {
+	                                _this.doToggle(el, false);
+	                                _this.doUpdate(el);
+	                            }));
+	                        }
+	                    } else {
+	                        toggled = _this.isToggled(el);
+	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
+	                        _this.doUpdate(el);
+	                        deferreds.push(_jquery2.default.Deferred().resolve());
+	                    }
+	                });
+
+	                return _jquery2.default.when.apply(null, deferreds);
+	            },
+	            doToggle: function doToggle(el, toggled) {
+	                el = (0, _jquery2.default)(el);
+
+	                if (this.cls) {
+	                    el.toggleClass(this.cls, toggled);
+	                } else {
+	                    el.attr('hidden', !toggled);
+	                }
+	            },
+	            isToggled: function isToggled(el) {
+	                el = (0, _jquery2.default)(el);
+	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
+	            },
+	            doUpdate: function doUpdate(el) {
+	                this.updateAria(el);
+	                this.$update(null, el);
+	            },
+	            updateAria: function updateAria(el) {
+	                if (this.aria) {
+	                    el.attr('aria-hidden', !this.isToggled(el));
+	                }
+	            }
+	        }
+
+	    };
+	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _index = __webpack_require__(4);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	;
 
 /***/ }
 /******/ ])

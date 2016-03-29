@@ -3,7 +3,7 @@ import {Animation, Transition} from '../util/index';
 
 export default function (UIkit) {
 
-    UIkit.mixin.toggle = {
+    UIkit.mixin.toggable = {
 
         props: {
             cls: Boolean,
@@ -106,8 +106,7 @@ export default function (UIkit) {
 
                         }
 
-                    } else {
-
+                    } else {                        
                         toggled = this.isToggled(el);
                         this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
                         this.doUpdate(el);

@@ -5,19 +5,19 @@ export default function (UIkit) {
 
     var active;
 
-    $(document).on('click', ({target}) => {
-        if (active && !isWithin(target, active.$el)) {
+    $(document).on('click', e => {
+        if (active && !isWithin(e.target, active.$el) && !e.isDefaultPrevented()) {
             active.hide(true);
         }
     });
 
     UIkit.component('drop', {
 
-        mixins: [UIkit.mixin.position, UIkit.mixin.toggle, UIkit.mixin.mouse],
+        mixins: [UIkit.mixin.position, UIkit.mixin.toggable, UIkit.mixin.mouse],
 
         props: {
             mode: String,
-            target: 'jQuery',
+            toggle: Boolean,
             boundary: 'jQuery',
             boundaryAlign: Boolean,
             delayShow: Number,
@@ -27,54 +27,33 @@ export default function (UIkit) {
 
         defaults: {
             mode: 'hover',
-            target: false,
+            toggle: true,
             boundary: window,
             boundaryAlign: false,
             delayShow: 0,
             delayHide: 800,
             clsDrop: false,
             hoverIdle: 200,
-            animation: 'uk-animation-fade'
+            animation: 'uk-animation-fade',
+            cls: 'uk-open'
         },
 
         ready() {
 
-            this.cls = 'uk-open';
             this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
             this.clsPos = this.clsDrop;
-            this.drop = this.target || toJQuery(`.${this.clsDrop}:first`, this.$el) || toJQuery(this.$el.nextAll(`.${this.clsDrop}:first`));
-
-            if (!this.drop) {
-                return;
-            }
-
             this.mode = hasTouch ? 'click' : this.mode;
 
-            this.$el.on('click', e => {
+            this.updateAria(this.$el);
 
-                if (isWithin('a[href="#"]', e.target) && !isWithin(e.target, this.drop)) {
-                    e.preventDefault();
-                }
-
-                if (this.isActive()) {
-                    this.hide(true);
-                } else {
-                    this.show(true);
-                }
+            this.$el.on('click', `.${this.clsDrop}-close`, e => {
+                e.preventDefault();
+                this.hide(true)
             });
-
-            this.$el.attr('aria-expanded', false);
-            this.updateAria(this.drop);
-
-            this.drop.on('click', `.${this.clsDrop}-close`, () => this.hide(true));
 
             if (this.mode === 'hover') {
 
-                this.$el
-                    .on('mouseenter', () => this.show())
-                    .on('mouseleave', () => this.hide());
-
-                this.drop.on('mouseenter', () => {
+                this.$el.on('mouseenter', () => {
                     if (this.isActive()) {
                         this.show()
                     }
@@ -86,34 +65,38 @@ export default function (UIkit) {
 
             }
 
+            if (this.toggle) {
+                this.toggle = typeof this.toggle === 'string' ? toJQuery(this.toggle) : this.$el.parent();
+
+                if (this.toggle) {
+                    UIkit.toggler(this.toggle, {target: this.$el});
+                }
+            }
+
         },
 
         update: {
 
             handler() {
 
-                if (!this.drop) {
-                    return;
-                }
+                removeClass(this.$el, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
 
-                removeClass(this.drop, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
-
-                this.drop.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
+                this.$el.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
 
                 this.dir = this.pos[0];
                 this.align = this.pos[1];
 
-                var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.$el);
+                var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.toggle);
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
-                    this.drop.css(prop, alignTo[prop]);
-                } else if (this.drop.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                    this.drop.addClass(this.clsDrop + '-stack');
+                    this.$el.css(prop, alignTo[prop]);
+                } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+                    this.$el.addClass(this.clsDrop + '-stack');
                     this.$el.trigger('stack', [this]);
                 }
 
-                this.positionAt(this.drop, this.boundaryAlign ? this.boundary : this.$el, this.boundary);
+                this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle, this.boundary);
 
             },
 
@@ -123,7 +106,16 @@ export default function (UIkit) {
 
         methods: {
 
-            show(force) {
+            show(force, toggle) {
+
+                var animate = true;
+
+                if (toggle !== this.toggle) {
+                    this.hide(true);
+                    animate = false;
+                }
+
+                this.toggle = toggle || this.toggle;
 
                 this.clearTimers();
 
@@ -139,12 +131,12 @@ export default function (UIkit) {
                 var show = () => {
 
                     this.$el.trigger('beforeshow', [this]);
-                    this.toggleState(this.drop);
+                    this.toggleState(this.$el, animate, true);
+                    this.$el.trigger('show', [this]);
                     this._callUpdate();
-                    this.$el.addClass(this.cls).attr('aria-expanded', 'true').trigger('show', [this]);
 
                     if (this.mode === 'hover') {
-                        this.initMouseTracker(this.drop, this.dir);
+                        this.initMouseTracker();
                     }
                 };
 
@@ -171,13 +163,13 @@ export default function (UIkit) {
 
                     this.cancelMouseTracker();
 
-                    this.$el.trigger('beforehide', [this, force]).removeClass('uk-open').find('a, button').blur();
-                    this.toggleState(this.drop, false);
-                    this.$el.attr('aria-expanded', 'false').trigger('hide', [this, force]);
+                    this.$el.trigger('beforehide', [this]);
+                    this.toggleState(this.$el, false, false);
+                    this.$el.trigger('hide', [this]);
 
                 };
 
-                this.isDelaying = this.movesTowardsTarget();
+                this.isDelaying = this.movesTo(this.$el);
 
                 if (!force && this.isDelaying) {
                     this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);

@@ -1,10 +1,8 @@
-import {Transition} from '../util/index';
-
 export default function (UIkit) {
 
     UIkit.component('alert', {
 
-        mixins: [UIkit.mixin.toggle],
+        mixins: [UIkit.mixin.toggable],
 
         props: {
             animation: Boolean,

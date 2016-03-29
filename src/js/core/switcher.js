@@ -5,7 +5,7 @@ export default function (UIkit) {
 
     UIkit.component('switcher', {
 
-        mixins: [UIkit.mixin.toggle],
+        mixins: [UIkit.mixin.toggable],
 
         props: {
             connect: 'jQuery',

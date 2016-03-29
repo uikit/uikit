@@ -1,5 +1,4 @@
 import $ from 'jquery';
-require('../../vendor/holder.js');
 module.exports = require('../../src/js/uikit.js');
 
 requestAnimationFrame(function () {
