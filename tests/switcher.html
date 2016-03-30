@@ -44,7 +44,7 @@
 
                     <h3>Fade</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-fade; animation: uk-animation-fade">
+                    <ul class="uk-tab" uk-tab="connect: #animation-fade; animation: uk-animation-fade">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -61,7 +61,7 @@
 
                     <h3>Slide Bottom</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-slide-bottom; animation: uk-animation-slide-bottom">
+                    <ul class="uk-tab" uk-tab="connect: #animation-slide-bottom; animation: uk-animation-slide-bottom">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -78,7 +78,7 @@
 
                     <h3>Slide Left</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-slide-left; animation: uk-animation-slide-left">
+                    <ul class="uk-tab" uk-tab="connect: #animation-slide-left; animation: uk-animation-slide-left">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -95,7 +95,7 @@
 
                     <h3>Slide Right</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-slide-right; animation: uk-animation-slide-right">
+                    <ul class="uk-tab" uk-tab="connect: #animation-slide-right; animation: uk-animation-slide-right">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -112,7 +112,7 @@
 
                     <h3>Slide Horiontal</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-slide-horiontal; animation: uk-animation-slide-left, uk-animation-slide-right">
+                    <ul class="uk-tab" uk-tab="connect: #animation-slide-horiontal; animation: uk-animation-slide-left, uk-animation-slide-right">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -129,7 +129,7 @@
 
                     <h3>Slide Vertical</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-slide-vertical; animation: uk-animation-slide-top, uk-animation-slide-bottom">
+                    <ul class="uk-tab" uk-tab="connect: #animation-slide-vertical; animation: uk-animation-slide-top, uk-animation-slide-bottom">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -146,7 +146,7 @@
 
                     <h3>Slide Left Small</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-slide-left-small; animation: uk-animation-slide-left-small">
+                    <ul class="uk-tab" uk-tab="connect: #animation-slide-left-small; animation: uk-animation-slide-left-small">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -163,7 +163,7 @@
 
                     <h3>Slide Right Small</h3>
 
-                    <ul class="uk-tab" uk-switcher="connect: #animation-slide-right-small; animation: uk-animation-slide-right-small">
+                    <ul class="uk-tab" uk-tab="connect: #animation-slide-right-small; animation: uk-animation-slide-right-small">
                         <li><a href="#">Active</a></li>
                         <li><a href="#">Item</a></li>
                         <li><a href="#">Item</a></li>
@@ -181,6 +181,58 @@
             <h2>Other Components</h2>
 
             <div class="uk-grid uk-child-width-1-2@m" uk-grid>
+                <div>
+
+                    <h3>Tab Left</h3>
+
+                    <div class="uk-grid" uk-grid>
+                        <div class="uk-width-auto@m">
+
+                            <ul class="uk-tab uk-tab-left" uk-tab="connect: #component-tab-left; animation: uk-animation-fade">
+                                <li><a href="#">Active</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-expand@m">
+
+                            <ul id="component-tab-left" class="uk-switcher">
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Tab Right</h3>
+
+                    <div class="uk-grid" uk-grid>
+                        <div class="uk-width-auto@m uk-flex-last@m">
+
+                            <ul class="uk-tab uk-tab-right" uk-tab="connect: #component-tab-right; animation: uk-animation-fade">
+                                <li><a href="#">Active</a></li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="uk-width-expand@m">
+
+                            <ul id="component-tab-right" class="uk-switcher">
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
                 <div>
 
                     <h3>Button</h3>
