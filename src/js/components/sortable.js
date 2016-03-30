@@ -373,15 +373,20 @@
         },
 
         dragMove: function(e, elem) {
+            var pageX = e.touches && e.touches[0] ? e.touches[0].pageX : e.pageX;
+            var pageY = e.touches && e.touches[0] ? e.touches[0].pageY : e.pageY;
+            overElement = UI.$(document.elementFromPoint
+                                (
+                                  pageX - (document.body.scrollLeft || document.scrollLeft || 0),
+                                  pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)
+                                ));
 
-            overElement = UI.$(document.elementFromPoint(e.pageX - (document.body.scrollLeft || document.scrollLeft || 0), e.pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)));
-
-            var overRoot     = overElement.closest('.'+this.options.baseClass),
-                groupOver    = overRoot.data("sortable-group"),
-                $current     = UI.$(currentlyDraggingElement),
-                currentRoot  = $current.parent(),
-                groupCurrent = $current.data("sortable-group"),
-                overChild;
+            var overRoot     = overElement.closest('.'+this.options.baseClass);
+            var groupOver    = overRoot.data("sortable-group");
+            var $current     = UI.$(currentlyDraggingElement);
+            var currentRoot  = $current.parent();
+            var groupCurrent = $current.data("sortable-group");
+            var overChild;
 
             if (overRoot[0] !== currentRoot[0] && groupCurrent !== undefined && groupOver === groupCurrent) {
 
