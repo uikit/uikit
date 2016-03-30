@@ -1,4 +1,4 @@
-/*! UIkit 2.26.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -8181,15 +8181,6 @@ a.uk-thumbnail:focus {
 .uk-flex > *,
 .uk-flex-inline > * {
   -ms-flex-negative: 1;
-}
-/*
- * Remove pseudo elements created by micro clearfix as precaution
- */
-.uk-flex::before,
-.uk-flex::after,
-.uk-flex-inline::before,
-.uk-flex-inline::after {
-  display: none !important;
 }
 /* Alignment
  ========================================================================== */
