@@ -2,7 +2,7 @@
 
 ### WIP
   - Removed translateZ(0) in sticky component to avoid stacking context
-  - Removed important! from clearfix fix in flex component
+  - Removed clearfix fix in flex component
 
 ### 2.26.0 (March 29, 2016)
   - Added uk-grid-large class
