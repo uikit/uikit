@@ -1514,7 +1514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _svg2 = _interopRequireDefault(_svg);
 
-	var _toggable = __webpack_require__(46);
+	var _toggable = __webpack_require__(19);
 
 	var _toggable2 = _interopRequireDefault(_toggable);
 
@@ -1790,7 +1790,163 @@ return /******/ (function(modules) { // webpackBootstrap
 	;
 
 /***/ },
-/* 19 */,
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    UIkit.mixin.toggable = {
+
+	        props: {
+	            cls: Boolean,
+	            animation: Boolean,
+	            duration: Number,
+	            transition: String
+	        },
+
+	        defaults: {
+	            cls: false,
+	            animation: false,
+	            duration: 200,
+	            transition: 'linear',
+	            aria: true
+	        },
+
+	        ready: function ready() {
+
+	            if (typeof this.animation === 'string') {
+
+	                this.animation = this.animation.split(',');
+
+	                if (this.animation.length == 1) {
+	                    this.animation[1] = this.animation[0];
+	                }
+
+	                this.animation[0] = this.animation[0].trim();
+	                this.animation[1] = this.animation[1].trim();
+	            }
+	        },
+
+
+	        methods: {
+	            toggleState: function toggleState(targets, animate, show) {
+	                var _this = this;
+
+	                var deferreds = [],
+	                    toggled;
+
+	                (0, _jquery2.default)(targets).each(function (i, el) {
+
+	                    el = (0, _jquery2.default)(el);
+
+	                    if (_this.animation === true && animate !== false) {
+
+	                        var height = el[0].offsetHeight ? el.height() : 0;
+
+	                        _index.Transition.stop(el);
+
+	                        toggled = _this.isToggled(el);
+
+	                        if (!toggled) {
+	                            _this.doToggle(el, true);
+	                        }
+
+	                        el.css('height', '');
+	                        var endHeight = el.height();
+
+	                        el.height(height);
+
+	                        if (!toggled && show !== false || show === true) {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: endHeight,
+	                                'padding-bottom': '',
+	                                'margin-bottom': ''
+	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
+	                            _this.doUpdate(el);
+	                        } else {
+	                            deferreds.push(_index.Transition.start(el, {
+	                                overflow: 'hidden',
+	                                height: 0,
+	                                'padding-bottom': 0,
+	                                'margin-bottom': 0
+	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
+	                                _this.doUpdate(el);
+	                                _this.doToggle(el, false);
+	                            }));
+	                        }
+	                    } else if (_this.animation && animate !== false) {
+
+	                        _index.Animation.cancel(el);
+
+	                        toggled = _this.isToggled(el);
+
+	                        if (!toggled && show !== false || show === true) {
+
+	                            _this.doToggle(el, true);
+	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration));
+	                            _this.doUpdate(el);
+	                        } else {
+
+	                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {
+	                                _this.doToggle(el, false);
+	                                _this.doUpdate(el);
+	                            }));
+	                        }
+	                    } else {
+	                        toggled = _this.isToggled(el);
+	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
+	                        _this.doUpdate(el);
+	                        deferreds.push(_jquery2.default.Deferred().resolve());
+	                    }
+	                });
+
+	                return _jquery2.default.when.apply(null, deferreds);
+	            },
+	            doToggle: function doToggle(el, toggled) {
+	                el = (0, _jquery2.default)(el);
+
+	                if (this.cls) {
+	                    el.toggleClass(this.cls, toggled);
+	                } else {
+	                    el.attr('hidden', !toggled);
+	                }
+	            },
+	            isToggled: function isToggled(el) {
+	                el = (0, _jquery2.default)(el);
+	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
+	            },
+	            doUpdate: function doUpdate(el) {
+	                this.updateAria(el);
+	                this.$update(null, el);
+	            },
+	            updateAria: function updateAria(el) {
+	                if (this.aria) {
+	                    el.attr('aria-hidden', !this.isToggled(el));
+	                }
+	            }
+	        }
+
+	    };
+	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _index = __webpack_require__(4);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	;
+
+/***/ },
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2286,19 +2442,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                e.preventDefault();
 	                _this.hide(true);
 	            });
-
-	            if (this.mode === 'hover') {
-
-	                this.$el.on('mouseenter', function () {
-	                    if (_this.isActive()) {
-	                        _this.show();
-	                    }
-	                }).on('mouseleave', function () {
-	                    if (_this.isActive()) {
-	                        _this.hide();
-	                    }
-	                });
-	            }
 
 	            if (this.toggle) {
 	                this.toggle = typeof this.toggle === 'string' ? (0, _index.toJQuery)(this.toggle) : this.$el.parent();
@@ -2982,6 +3125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            boundary: true,
 	            boundaryAlign: false,
 	            clsDrop: 'uk-navbar-dropdown',
+	            delayShow: 75,
 	            delayHide: 800,
 	            dropbar: false,
 	            duration: 200,
@@ -3009,8 +3153,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    boundaryAlign: _this.boundaryAlign,
 	                    clsDrop: _this.clsDrop,
 	                    flip: 'x',
-	                    delayShow: !_this.delayShow && _this.dropbar && 100,
-	                    delayHide: _this.delayHide
+	                    delayShow: _this.delayShow,
+	                    delayHide: _this.delayHide,
+	                    duration: _this.duration
 	                });
 	            });
 
@@ -3051,9 +3196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                },
 
 	                hide: function hide() {
-
 	                    (0, _index.requestAnimationFrame)(function () {
-
 	                        if (!_this.getActive()) {
 	                            var height = _this.dropbar[0].offsetHeight ? _this.dropbar.height() : 0;
 	                            _index.Transition.stop(_this.dropbar);
@@ -4043,12 +4186,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        props: {
 	            href: 'jQuery',
-	            target: 'jQuery'
+	            target: 'jQuery',
+	            mode: String
 	        },
 
 	        defaults: {
 	            href: false,
-	            target: false
+	            target: false,
+	            mode: false
 	        },
 
 	        ready: function ready() {
@@ -4074,6 +4219,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return;
 	            }
 
+	            var mode = this.mode || target.mode;
+
 	            target.target = this.$el;
 
 	            this.$el.on('click', function (e) {
@@ -4091,9 +4238,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.$el.attr('aria-expanded', false);
 
-	            if (target.mode === 'hover') {
+	            if (mode === 'hover') {
 
 	                this.$el.on('mouseenter', function () {
+	                    return target.show(false, _this.$el);
+	                }).on('mouseleave', function () {
+	                    return target.hide(false, _this.$el);
+	                });
+
+	                target.on('mouseenter', function () {
 	                    return target.show(false, _this.$el);
 	                }).on('mouseleave', function () {
 	                    return target.hide(false, _this.$el);
@@ -4110,163 +4263,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var _index = __webpack_require__(4);
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.mixin.toggable = {
-
-	        props: {
-	            cls: Boolean,
-	            animation: Boolean,
-	            duration: Number,
-	            transition: String
-	        },
-
-	        defaults: {
-	            cls: false,
-	            animation: false,
-	            duration: 200,
-	            transition: 'linear',
-	            aria: true
-	        },
-
-	        ready: function ready() {
-
-	            if (typeof this.animation === 'string') {
-
-	                this.animation = this.animation.split(',');
-
-	                if (this.animation.length == 1) {
-	                    this.animation[1] = this.animation[0];
-	                }
-
-	                this.animation[0] = this.animation[0].trim();
-	                this.animation[1] = this.animation[1].trim();
-	            }
-	        },
-
-
-	        methods: {
-	            toggleState: function toggleState(targets, animate, show) {
-	                var _this = this;
-
-	                var deferreds = [],
-	                    toggled;
-
-	                (0, _jquery2.default)(targets).each(function (i, el) {
-
-	                    el = (0, _jquery2.default)(el);
-
-	                    if (_this.animation === true && animate !== false) {
-
-	                        var height = el[0].offsetHeight ? el.height() : 0;
-
-	                        _index.Transition.stop(el);
-
-	                        toggled = _this.isToggled(el);
-
-	                        if (!toggled) {
-	                            _this.doToggle(el, true);
-	                        }
-
-	                        el.css('height', '');
-	                        var endHeight = el.height();
-
-	                        el.height(height);
-
-	                        if (!toggled && show !== false || show === true) {
-	                            deferreds.push(_index.Transition.start(el, {
-	                                overflow: 'hidden',
-	                                height: endHeight,
-	                                'padding-bottom': '',
-	                                'margin-bottom': ''
-	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
-	                            _this.doUpdate(el);
-	                        } else {
-	                            deferreds.push(_index.Transition.start(el, {
-	                                overflow: 'hidden',
-	                                height: 0,
-	                                'padding-bottom': 0,
-	                                'margin-bottom': 0
-	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
-	                                _this.doUpdate(el);
-	                                _this.doToggle(el, false);
-	                            }));
-	                        }
-	                    } else if (_this.animation && animate !== false) {
-
-	                        _index.Animation.cancel(el);
-
-	                        toggled = _this.isToggled(el);
-
-	                        if (!toggled && show !== false || show === true) {
-
-	                            _this.doToggle(el, true);
-	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration));
-	                            _this.doUpdate(el);
-	                        } else {
-
-	                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {
-	                                _this.doToggle(el, false);
-	                                _this.doUpdate(el);
-	                            }));
-	                        }
-	                    } else {
-	                        toggled = _this.isToggled(el);
-	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
-	                        _this.doUpdate(el);
-	                        deferreds.push(_jquery2.default.Deferred().resolve());
-	                    }
-	                });
-
-	                return _jquery2.default.when.apply(null, deferreds);
-	            },
-	            doToggle: function doToggle(el, toggled) {
-	                el = (0, _jquery2.default)(el);
-
-	                if (this.cls) {
-	                    el.toggleClass(this.cls, toggled);
-	                } else {
-	                    el.attr('hidden', !toggled);
-	                }
-	            },
-	            isToggled: function isToggled(el) {
-	                el = (0, _jquery2.default)(el);
-	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
-	            },
-	            doUpdate: function doUpdate(el) {
-	                this.updateAria(el);
-	                this.$update(null, el);
-	            },
-	            updateAria: function updateAria(el) {
-	                if (this.aria) {
-	                    el.attr('aria-hidden', !this.isToggled(el));
-	                }
-	            }
-	        }
-
-	    };
-	};
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	;
 
 /***/ }
 /******/ ])

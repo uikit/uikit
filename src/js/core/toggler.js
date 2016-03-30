@@ -6,12 +6,14 @@ export default function (UIkit) {
 
         props: {
             href: 'jQuery',
-            target: 'jQuery'
+            target: 'jQuery',
+            mode: String
         },
 
         defaults: {
             href: false,
-            target: false
+            target: false,
+            mode: false
         },
 
         ready() {
@@ -35,6 +37,8 @@ export default function (UIkit) {
                 return;
             }
 
+            var mode = this.mode || target.mode;
+
             target.target = this.$el;
 
             this.$el.on('click', e => {
@@ -50,15 +54,18 @@ export default function (UIkit) {
                 }
 
             });
-                        
+
             this.$el.attr('aria-expanded', false);
 
-            if (target.mode === 'hover') {
+            if (mode === 'hover') {
 
                 this.$el
                     .on('mouseenter', () => target.show(false, this.$el))
                     .on('mouseleave', () => target.hide(false, this.$el));
 
+                target
+                    .on('mouseenter', () => target.show(false, this.$el))
+                    .on('mouseleave', () => target.hide(false, this.$el));
             }
 
             target.$el

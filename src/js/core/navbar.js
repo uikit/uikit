@@ -28,6 +28,7 @@ export default function (UIkit) {
             boundary: true,
             boundaryAlign: false,
             clsDrop: 'uk-navbar-dropdown',
+            delayShow: 75,
             delayHide: 800,
             dropbar: false,
             duration: 200,
@@ -54,8 +55,9 @@ export default function (UIkit) {
                     boundaryAlign: this.boundaryAlign,
                     clsDrop: this.clsDrop,
                     flip: 'x',
-                    delayShow: !this.delayShow && this.dropbar && 100,
-                    delayHide: this.delayHide
+                    delayShow: this.delayShow,
+                    delayHide: this.delayHide,
+                    duration: this.duration
                 });
 
             });
@@ -93,16 +95,13 @@ export default function (UIkit) {
                 },
 
                 hide: () => {
-
                     requestAnimationFrame(() => {
-
                         if (!this.getActive()) {
                             var height = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
                             Transition.stop(this.dropbar);
                             this.dropbar.height(height);
                             Transition.start(this.dropbar, {height: 0}, this.duration);
                         }
-
                     })
                 }
 

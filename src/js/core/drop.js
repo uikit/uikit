@@ -51,20 +51,6 @@ export default function (UIkit) {
                 this.hide(true)
             });
 
-            if (this.mode === 'hover') {
-
-                this.$el.on('mouseenter', () => {
-                    if (this.isActive()) {
-                        this.show()
-                    }
-                }).on('mouseleave', () => {
-                    if (this.isActive()) {
-                        this.hide();
-                    }
-                });
-
-            }
-
             if (this.toggle) {
                 this.toggle = typeof this.toggle === 'string' ? toJQuery(this.toggle) : this.$el.parent();
 
