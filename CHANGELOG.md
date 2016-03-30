@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.26.1 (March 30, 2016)
+  - Removed translateZ(0) in sticky component to avoid stacking context
+  - Removed clearfix fix in flex component
+
 ### 2.26.0 (March 29, 2016)
   - Added uk-grid-large class
   - Added support for CSS filter properties in parallax component
