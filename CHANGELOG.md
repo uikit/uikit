@@ -2,6 +2,7 @@
 
 ### WIP
   - Removed data-uk-observe
+  - Fixed scrollspynav active state (revert)
 
 ### 2.26.1 (March 30, 2016)
   - Removed translateZ(0) in sticky component to avoid stacking context
