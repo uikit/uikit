@@ -87,7 +87,7 @@
                 if ($this.element.is(":visible"))  $this.updateLayout();
             });
 
-            UI.$html.on("changed.uk.dom", function(e) {
+            UI.domObserve(this.element, function(e) {
                 $this.updateLayout();
             });
 

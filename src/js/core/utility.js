@@ -45,10 +45,6 @@
                 return UI.Utils.debounce(fn, 20);
             })());
 
-            UI.$html.on("changed.uk.dom", function(e) {
-                $this.process();
-            });
-
             this.on("display.uk.check", function(e) {
                 if (this.element.is(":visible")) this.process();
             }.bind(this));

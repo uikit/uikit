@@ -593,7 +593,7 @@
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
                     $element.trigger('changed.uk.dom');
-                }, 50));
+                }, 50), {childList: true, subtree: true});
 
                 // pass in the target node, as well as the observer options
                 observer.observe(element, { childList: true, subtree: true });
@@ -625,15 +625,6 @@
         var domReady = function() {
 
             UI.$body = UI.$('body');
-
-            UI.ready(function(context){
-                UI.domObserve('[data-uk-observe]');
-            });
-
-            UI.on('changed.uk.dom', function(e) {
-                UI.init(e.target);
-                UI.Utils.checkDisplay(e.target);
-            });
 
             UI.trigger('beforeready.uk.dom');
 
@@ -708,6 +699,33 @@
 
             // mark that domready is left behind
             UI.domready = true;
+
+            // auto init js components
+            if (UI.support.mutationobserver) {
+
+                (new UI.support.mutationobserver(function(mutations) {
+
+                    requestAnimationFrame(function(){
+
+                        var init = [];
+
+                        mutations.forEach(function(mutation){
+
+                            if (mutation.type != 'childList') return;
+
+                            for (var i = 0, node; i < mutation.addedNodes.length; ++i) {
+                                node = mutation.addedNodes[i];
+                                if (node.outerHTML.indexOf('data-uk-') !== -1) init.push(node.parentNode);
+                            }
+                        });
+
+                        if (init.length) {
+                            $.unique(init).forEach(function(ele){ UI.init(ele);});
+                        }
+                    });
+
+                })).observe(document.body, {childList: true, subtree: true});
+            }
         };
 
         if (document.readyState == 'complete' || document.readyState == 'interactive') {

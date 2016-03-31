@@ -1,5 +1,8 @@
 # Changelog
 
+### WIP
+  - Removed data-uk-observe
+
 ### 2.26.1 (March 30, 2016)
   - Removed translateZ(0) in sticky component to avoid stacking context
   - Removed clearfix fix in flex component
