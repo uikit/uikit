@@ -38,7 +38,7 @@ export default function (UIkit) {
         element = element ? $(element)[0] : this.$el[0];
 
         UIkit.elements.forEach(el => {
-            if (el[DATA] && $.contains(element, el)) {
+            if (el[DATA] && el === element || $.contains(element, el)) {
                 for (var name in el[DATA]) {
                     el[DATA][name]._callUpdate(e);
                 }

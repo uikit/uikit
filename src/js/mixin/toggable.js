@@ -47,6 +47,10 @@ export default function (UIkit) {
 
                     el = $(el);
 
+                    toggled = this.isToggled(el);
+
+                    el.trigger(`before${toggled ? 'hide' : 'show'}`, [this]);
+
                     if (this.animation === true && animate !== false) {
 
                         deferreds.push(this.toggleTransition(el, show));
@@ -56,11 +60,12 @@ export default function (UIkit) {
                         deferreds.push(this.toggleAnimation(el, show));
 
                     } else {                        
-                        toggled = this.isToggled(el);
+
                         this._toggle(el, typeof show === 'boolean' ? show : !toggled);
-                        this.doUpdate(el);
                         deferreds.push($.Deferred().resolve());
                     }
+
+                    el.trigger(toggled ? 'hide' : 'show', [this]);
                 });
 
                 return $.when.apply(null, deferreds);
@@ -109,13 +114,12 @@ export default function (UIkit) {
                         'margin-top': '',
                         'margin-bottom': ''
                     }, Math.round(this.duration * (1 - height / endHeight)), this.transition);
-                    this.doUpdate(el);
+
 
                 } else {
-                    transition = Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
-                        this.doUpdate(el);
-                        this._toggle(el, false);
-                    });
+                    transition = Transition
+                        .start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition)
+                        .then(() => this._toggle(el, false));
                 }
 
                 return transition;
@@ -133,15 +137,11 @@ export default function (UIkit) {
 
                     this._toggle(el, true);
                     animation = Animation.in(el, this.animation[0], this.duration);
-                    this.doUpdate(el);
 
                 } else {
-
-                    animation = Animation.out(el, this.animation[1], this.duration).then(() => {
-                        this._toggle(el, false);
-                        this.doUpdate(el);
-                    });
-
+                    animation = Animation
+                        .out(el, this.animation[1], this.duration)
+                        .then(() => this._toggle(el, false));
                 }
 
                 return animation;
@@ -155,16 +155,14 @@ export default function (UIkit) {
                 } else {
                     el.attr('hidden', !toggled);
                 }
+
+                this.updateAria(el);
+                this.$update(null, el);
             },
 
             isToggled(el) {
                 el = $(el);
                 return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
-            },
-
-            doUpdate(el) {
-                this.updateAria(el);
-                this.$update(null, el);
             },
 
             updateAria(el) {

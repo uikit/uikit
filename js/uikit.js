@@ -1344,7 +1344,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        element = element ? (0, _jquery2.default)(element)[0] : this.$el[0];
 
 	        UIkit.elements.forEach(function (el) {
-	            if (el[DATA] && _jquery2.default.contains(element, el)) {
+	            if (el[DATA] && el === element || _jquery2.default.contains(element, el)) {
 	                for (var name in el[DATA]) {
 	                    el[DATA][name]._callUpdate(e);
 	                }
@@ -1499,11 +1499,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit, _) {
 
+	    UIkit.use(_modal2.default);
 	    UIkit.use(_mouse2.default);
 	    UIkit.use(_position2.default);
 	    UIkit.use(_svg2.default);
 	    UIkit.use(_toggable2.default);
 	};
+
+	var _modal = __webpack_require__(45);
+
+	var _modal2 = _interopRequireDefault(_modal);
 
 	var _mouse = __webpack_require__(16);
 
@@ -1848,6 +1853,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    el = (0, _jquery2.default)(el);
 
+	                    toggled = _this.isToggled(el);
+
+	                    el.trigger('before' + (toggled ? 'hide' : 'show'), [_this]);
+
 	                    if (_this.animation === true && animate !== false) {
 
 	                        deferreds.push(_this.toggleTransition(el, show));
@@ -1855,11 +1864,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                        deferreds.push(_this.toggleAnimation(el, show));
 	                    } else {
-	                        toggled = _this.isToggled(el);
+
 	                        _this._toggle(el, typeof show === 'boolean' ? show : !toggled);
-	                        _this.doUpdate(el);
 	                        deferreds.push(_jquery2.default.Deferred().resolve());
 	                    }
+
+	                    el.trigger(toggled ? 'hide' : 'show', [_this]);
 	                });
 
 	                return _jquery2.default.when.apply(null, deferreds);
@@ -1908,11 +1918,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        'margin-top': '',
 	                        'margin-bottom': ''
 	                    }, Math.round(this.duration * (1 - height / endHeight)), this.transition);
-	                    this.doUpdate(el);
 	                } else {
 	                    transition = _index.Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(function () {
-	                        _this2.doUpdate(el);
-	                        _this2._toggle(el, false);
+	                        return _this2._toggle(el, false);
 	                    });
 	                }
 
@@ -1932,12 +1940,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    this._toggle(el, true);
 	                    animation = _index.Animation.in(el, this.animation[0], this.duration);
-	                    this.doUpdate(el);
 	                } else {
-
 	                    animation = _index.Animation.out(el, this.animation[1], this.duration).then(function () {
-	                        _this3._toggle(el, false);
-	                        _this3.doUpdate(el);
+	                        return _this3._toggle(el, false);
 	                    });
 	                }
 
@@ -1951,14 +1956,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } else {
 	                    el.attr('hidden', !toggled);
 	                }
+
+	                this.updateAria(el);
+	                this.$update(null, el);
 	            },
 	            isToggled: function isToggled(el) {
 	                el = (0, _jquery2.default)(el);
 	                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
-	            },
-	            doUpdate: function doUpdate(el) {
-	                this.updateAria(el);
-	                this.$update(null, el);
 	            },
 	            updateAria: function updateAria(el) {
 	                if (this.aria) {
@@ -2554,11 +2558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 
 	                var show = function show() {
-
-	                    _this2.$el.trigger('beforeshow', [_this2]);
 	                    _this2.toggleElement(_this2.$el, true, true);
-	                    _this2.$el.trigger('show', [_this2]);
-	                    _this2._callUpdate();
 	                    _this2.initMouseTracker();
 	                };
 
@@ -2587,10 +2587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    active = null;
 
 	                    _this3.cancelMouseTracker();
-
-	                    _this3.$el.trigger('beforehide', [_this3]);
 	                    _this3.toggleElement(_this3.$el, false, false);
-	                    _this3.$el.trigger('hide', [_this3]);
 	                };
 
 	                this.isDelaying = this.movesTo(this.$el);
@@ -2954,23 +2951,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit) {
 
-	    var active = false;
-
 	    UIkit.component('modal', {
 
+	        mixins: [UIkit.mixin.modal],
+
 	        props: {
-	            href: 'jQuery',
-	            target: 'jQuery',
 	            center: Boolean
 	        },
 
 	        defaults: {
-	            href: false,
-	            target: false,
 	            center: false,
 	            clsPage: 'uk-modal-page',
-	            clsDialog: 'uk-modal-dialog',
-	            clsActive: 'uk-open',
+	            clsPanel: 'uk-modal-dialog',
 	            clsClose: 'uk-modal-close',
 	            clsOverflow: 'uk-overflow-container'
 	        },
@@ -2978,23 +2970,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ready: function ready() {
 	            var _this = this;
 
-	            this.page = (0, _jquery2.default)('html');
-	            this.body = (0, _jquery2.default)('body');
-	            this.dialog = (0, _index.toJQuery)('.' + this.clsDialog, this.$el);
-
-	            if (!this.dialog) {
-	                return;
-	            }
-
-	            this.$el.on('click', '.' + this.clsClose, function (e) {
-	                e.preventDefault();
-	                _this.hide();
+	            this.$el.on('show', function () {
+	                _this.page.addClass(_this.clsPage);
+	                _this.$el.css('display', 'block');
+	                _this._callUpdate();
+	                _this.$el.height();
+	                _this.$el.addClass(_this.clsOpen);
 	            });
 
-	            this.body.on('click', function (e) {
-	                if (!e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.dialog)) {
-	                    _this.hide();
-	                }
+	            this.$el.on('hide', function () {
+
+	                _this.panel.one(_index.transitionend, function () {
+	                    _this.page.removeClass(_this.clsPage);
+	                    _this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
+	                });
+
+	                _this.$el.removeClass(_this.clsOpen);
 	            });
 	        },
 
@@ -3002,9 +2993,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        update: {
 	            handler: function handler() {
 
-	                if (active === this && this.center) {
+	                if (this.$el.css('display') === 'block' && this.center) {
 	                    this.$el.removeClass('uk-flex uk-flex-center').css('display', 'block');
-	                    this.$el.toggleClass('uk-flex-middle', window.innerHeight > this.dialog.outerHeight(true));
+	                    this.$el.toggleClass('uk-flex-middle', window.innerHeight > this.panel.outerHeight(true));
 	                    this.$el.addClass('uk-flex uk-flex-center').css('display', '');
 	                }
 	            },
@@ -3012,58 +3003,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            events: ['resize', 'orientationchange']
 
-	        },
-
-	        methods: {
-	            isActive: function isActive() {
-	                return this.$el.hasClass(this.clsActive);
-	            },
-	            doToggle: function doToggle() {
-	                this[this.isActive() ? 'hide' : 'show']();
-	            },
-	            show: function show() {
-
-	                if (this.isActive()) {
-	                    return;
-	                }
-
-	                if (active && active !== this) {
-	                    active.hide();
-	                }
-
-	                active = this;
-
-	                this.page.addClass(this.clsPage);
-	                this.$el.css('display', 'block');
-	                this._callUpdate();
-	                this.$el.height();
-	                this.$el.addClass(this.clsActive);
-
-	                this.$update();
-	            },
-	            hide: function hide() {
-	                var _this2 = this;
-
-	                if (!this.isActive()) {
-	                    return;
-	                }
-
-	                active = false;
-
-	                this.dialog.one(_index.transitionend, function () {
-	                    _this2.page.removeClass(_this2.clsPage);
-	                    _this2.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
-	                });
-
-	                this.$el.removeClass(this.clsActive);
-	            }
 	        }
 
 	    });
 
 	    UIkit.component('overflow-auto', {
 	        ready: function ready() {
-	            this.dialog = (0, _index.toJQuery)(this.$el.closest('.uk-modal-dialog'));
+	            this.panel = (0, _index.toJQuery)(this.$el.closest('.uk-modal-dialog'));
 	            this.$el.css('min-height', 150);
 	        },
 
@@ -3071,7 +3017,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        update: {
 	            handler: function handler() {
 	                var current = this.$el.css('max-height');
-	                this.$el.css('max-height', '').css('max-height', this.$el.height() - (this.dialog.outerHeight(true) - window.innerHeight));
+	                this.$el.css('max-height', '').css('max-height', this.$el.height() - (this.panel.outerHeight(true) - window.innerHeight));
 	                if (current !== this.$el.css('max-height')) {
 	                    UIkit.update();
 	                }
@@ -3085,13 +3031,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
 	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
 /* 33 */
@@ -3292,9 +3232,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (UIkit) {
 
-	    var active = false;
-
 	    UIkit.component('offcanvas', {
+
+	        mixins: [UIkit.mixin.modal],
 
 	        props: {
 	            mode: String,
@@ -3306,10 +3246,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mode: 'overlay',
 	            flip: false,
 	            overlay: false,
-	            clsActive: 'uk-active',
-	            clsInactive: 'uk-inactive',
 	            clsPage: 'uk-offcanvas-page',
-	            clsSidebar: 'uk-offcanvas-bar',
+	            clsPanel: 'uk-offcanvas-bar',
 	            clsFlip: 'uk-offcanvas-flip',
 	            clsPageAnimation: 'uk-offcanvas-page-animation',
 	            clsSidebarAnimation: 'uk-offcanvas-bar-animation',
@@ -3321,16 +3259,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ready: function ready() {
 	            var _this = this;
 
-	            this.page = (0, _jquery2.default)('html');
-	            this.body = (0, _jquery2.default)('body');
-	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.$el);
 	            this.clsFlip = this.flip ? this.clsFlip : '';
 	            this.clsOverlay = this.overlay ? this.clsOverlay : '';
 	            this.clsMode = this.clsMode + '-' + this.mode;
-
-	            if (!this.sidebar) {
-	                return;
-	            }
 
 	            if (this.mode === 'noeffect' || this.mode === 'reveal') {
 	                this.clsSidebarAnimation = '';
@@ -3340,10 +3271,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.clsPageAnimation = '';
 	            }
 
-	            this.body.on('click', function (e) {
-	                if (active === _this && !e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.sidebar)) {
-	                    _this.hide();
+	            this.$el.on('show', function () {
+
+	                _this.scrollbarWidth = window.innerWidth - _this.page.width();
+
+	                if (_this.scrollbarWidth && _this.overlay) {
+	                    _this.body.css('overflow-y', 'scroll');
+	                    _this.scrollbarWidth = 0;
 	                }
+
+	                _this.page.width(window.innerWidth - _this.scrollbarWidth).addClass(_this.clsPage + ' ' + _this.clsFlip + ' ' + _this.clsPageAnimation + ' ' + _this.clsOverlay);
+	                _this.panel.addClass(_this.clsSidebarAnimation + ' ' + _this.clsMode);
+	                _this.$el.css('display', 'block').height();
+	                _this.$el.addClass(_this.clsOpen);
+	            });
+
+	            this.$el.on('hide', function () {
+
+	                _this.panel.one(_index.transitionend, function () {
+	                    _this.page.removeClass(_this.clsPage + ' ' + _this.clsFlip + ' ' + _this.clsOverlay).width('');
+	                    _this.panel.removeClass(_this.clsSidebarAnimation + ' ' + _this.clsMode);
+	                    _this.$el.css('display', '');
+	                    _this.body.css('overflow-y', '');
+	                });
+
+	                if (_this.mode === 'noeffect' || _this.getActive() && _this.getActive() !== _this) {
+	                    _this.panel.trigger(_index.transitionend);
+	                }
+
+	                _this.$el.removeClass(_this.clsOpen);
+	                _this.page.removeClass(_this.clsPageAnimation).css('margin-left', '');
 	            });
 	        },
 
@@ -3351,7 +3308,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        update: {
 	            handler: function handler() {
 
-	                if (active === this) {
+	                if (this.isActive()) {
 	                    this.page.width(window.innerWidth - this.scrollbarWidth);
 	                }
 	            },
@@ -3359,76 +3316,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            events: ['resize', 'orientationchange']
 
-	        },
-
-	        methods: {
-	            isActive: function isActive() {
-	                return this.$el.hasClass(this.clsActive);
-	            },
-	            doToggle: function doToggle() {
-	                this[this.isActive() ? 'hide' : 'show']();
-	            },
-	            show: function show() {
-
-	                if (this.isActive()) {
-	                    return;
-	                }
-
-	                if (active && active !== this) {
-	                    active.hide(null, false);
-	                }
-
-	                active = this;
-
-	                this.scrollbarWidth = window.innerWidth - this.page.width();
-
-	                if (this.scrollbarWidth && this.overlay) {
-	                    this.body.css('overflow-y', 'scroll');
-	                    this.scrollbarWidth = 0;
-	                }
-
-	                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip + ' ' + this.clsPageAnimation + ' ' + this.clsOverlay);
-	                this.sidebar.addClass(this.clsSidebarAnimation + ' ' + this.clsMode);
-	                this.$el.css('display', 'block').height();
-	                this.$el.addClass(this.clsActive);
-
-	                this.$update();
-	            },
-	            hide: function hide(toggle, animate) {
-	                var _this2 = this;
-
-	                if (!this.isActive()) {
-	                    return;
-	                }
-
-	                active = false;
-
-	                this.sidebar.one(_index.transitionend, function () {
-	                    _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip + ' ' + _this2.clsOverlay).width('');
-	                    _this2.sidebar.removeClass(_this2.clsSidebarAnimation + ' ' + _this2.clsMode);
-	                    _this2.$el.css('display', '');
-	                    _this2.body.css('overflow-y', '');
-	                });
-
-	                if (this.mode === 'noeffect' || animate === false) {
-	                    this.sidebar.trigger(_index.transitionend);
-	                }
-
-	                this.$el.removeClass(this.clsActive);
-	                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
-	            }
 	        }
 
 	    });
 	};
 
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
 	var _index = __webpack_require__(4);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
 /* 36 */
@@ -4202,7 +4095,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                target.$el.on('beforeshow', function () {
 	                    return _this.$el.addClass(target.cls).attr('aria-expanded', 'true');
 	                }).on('beforehide', function () {
-	                    return _this.$el.removeClass(target.cls).attr('aria-expanded', 'false').find('a, button').blur();
+	                    return _this.$el.removeClass(target.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
 	                });
 	            } else {
 
@@ -4219,6 +4112,111 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var _index = __webpack_require__(4);
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function (UIkit) {
+
+	    var active = false;
+
+	    (0, _jquery2.default)(document).on('click', function (e) {
+	        if (active && !e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, active.panel)) {
+	            active.hide();
+	        }
+	    });
+
+	    UIkit.mixin.modal = {
+
+	        props: {
+	            clsPanel: String,
+	            clsOpen: String,
+	            clsClose: String
+	        },
+
+	        defaults: {
+	            clsOpen: 'uk-open'
+	        },
+
+	        ready: function ready() {
+	            var _this = this;
+
+	            this.page = (0, _jquery2.default)('html');
+	            this.body = (0, _jquery2.default)('body');
+	            this.panel = (0, _index.toJQuery)('.' + this.clsPanel, this.$el);
+
+	            this.$el.on('click', '.' + this.clsClose, function (e) {
+	                e.preventDefault();
+	                _this.hide();
+	            });
+	        },
+
+
+	        methods: {
+	            isActive: function isActive() {
+	                return this.$el.hasClass(this.clsOpen);
+	            },
+	            doToggle: function doToggle() {
+	                this[this.isActive() ? 'hide' : 'show']();
+	            },
+	            show: function show() {
+
+	                if (this.isActive()) {
+	                    return;
+	                }
+
+	                var hide = false;
+
+	                if (active && active !== this) {
+	                    hide = true;
+	                }
+
+	                active = this;
+
+	                if (hide) {
+	                    active.hide();
+	                }
+
+	                this.$el.trigger('beforeshow', [this]);
+	                this.$el.trigger('show', [this]);
+
+	                this.$update();
+	            },
+	            hide: function hide() {
+
+	                if (!this.isActive()) {
+	                    return;
+	                }
+
+	                active = false;
+
+	                this.$el.trigger('beforehide', [this]);
+	                this.$el.trigger('hide', [this]);
+
+	                this.$update();
+	            },
+	            getActive: function getActive() {
+	                return active;
+	            }
+	        }
+
+	    };
+	};
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _index = __webpack_require__(4);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ])

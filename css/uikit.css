@@ -3647,7 +3647,7 @@ ul.uk-nav-sub {
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
 }
-.uk-offcanvas-overlay .uk-offcanvas.uk-active::before {
+.uk-offcanvas-overlay .uk-offcanvas.uk-open::before {
   opacity: 1;
 }
 /* Page (`html` element)
@@ -3705,7 +3705,7 @@ ul.uk-nav-sub {
 /*
  * Bar
  */
-.uk-active > .uk-offcanvas-bar {
+.uk-open > .uk-offcanvas-bar {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
@@ -3723,7 +3723,7 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-.uk-active > .uk-offcanvas-reveal {
+.uk-open > .uk-offcanvas-reveal {
   clip: rect(0, 270px, 100vh, 0);
   -webkit-clip-path: inset(0);
   clip-path: inset(0);
@@ -3752,7 +3752,7 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
 }
-.uk-offcanvas-flip .uk-active > .uk-offcanvas-bar {
+.uk-offcanvas-flip .uk-open > .uk-offcanvas-bar {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
@@ -3763,7 +3763,7 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-.uk-offcanvas-flip .uk-active > .uk-offcanvas-reveal {
+.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
   clip: rect(0, 270px, 100vh, 0);
   -webkit-clip-path: inset(0);
   clip-path: inset(0);

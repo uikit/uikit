@@ -115,11 +115,7 @@ export default function (UIkit) {
                 }
 
                 var show = () => {
-
-                    this.$el.trigger('beforeshow', [this]);
                     this.toggleElement(this.$el, true, true);
-                    this.$el.trigger('show', [this]);
-                    this._callUpdate();
                     this.initMouseTracker();
                 };
 
@@ -145,11 +141,7 @@ export default function (UIkit) {
                     active = null;
 
                     this.cancelMouseTracker();
-
-                    this.$el.trigger('beforehide', [this]);
                     this.toggleElement(this.$el, false, false);
-                    this.$el.trigger('hide', [this]);
-
                 };
 
                 this.isDelaying = this.movesTo(this.$el);

@@ -63,7 +63,7 @@ export default function (UIkit) {
 
                 target.$el
                     .on('beforeshow', () => this.$el.addClass(target.cls).attr('aria-expanded', 'true'))
-                    .on('beforehide', () => this.$el.removeClass(target.cls).attr('aria-expanded', 'false').find('a, button').blur());
+                    .on('beforehide', () => this.$el.removeClass(target.cls).attr('aria-expanded', 'false').blur().find('a, button').blur());
             } else {
 
                 this.aria = this.cls === false;
