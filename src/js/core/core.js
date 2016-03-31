@@ -703,30 +703,30 @@
             // auto init js components
             if (UI.support.mutationobserver) {
 
+                var initFn = UI.Utils.debounce(function(){
+                    requestAnimationFrame(function(){ UI.init(document.body);});
+                }, 10);
+
                 (new UI.support.mutationobserver(function(mutations) {
 
-                    requestAnimationFrame(function(){
+                    var init = false;
 
-                        var init = [];
+                    mutations.every(function(mutation){
 
-                        mutations.forEach(function(mutation){
+                        if (mutation.type != 'childList') return true;
 
-                            if (mutation.type != 'childList') return;
+                        for (var i = 0, node; i < mutation.addedNodes.length; ++i) {
 
-                            for (var i = 0, node; i < mutation.addedNodes.length; ++i) {
+                            node = mutation.addedNodes[i];
 
-                                node = mutation.addedNodes[i];
-
-                                if (node.outerHTML && node.outerHTML.indexOf('data-uk-') !== -1) {
-                                    init.push(node.parentNode);
-                                }
+                            if (node.outerHTML && node.outerHTML.indexOf('data-uk-') !== -1) {
+                                return (init = true) && false;
                             }
-                        });
-
-                        if (init.length) {
-                            $.unique(init).forEach(function(ele){ UI.init(ele);});
                         }
+                        return true;
                     });
+
+                    if (init) initFn();
 
                 })).observe(document.body, {childList: true, subtree: true});
             }
