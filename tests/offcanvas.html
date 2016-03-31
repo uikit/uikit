@@ -23,20 +23,21 @@
                 <div class="uk-navbar-left">
 
                     <ul class="uk-navbar-nav">
-                        <li><a href="#offcanvas" uk-offcanvas="mode: noeffect">No Effect</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas>Overlay</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: reveal">Reveal</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: push">Push</a></li>
+                        <li><a href="#offcanvas" uk-toggle>Overlay</a></li>
+                        <li><a href="#offcanvas-reveal" uk-toggle>Reveal</a></li>
+                        <li><a href="#offcanvas-push" uk-toggle>Push</a></li>
+                        <li><a href="#offcanvas-noeffect" uk-toggle>No Effect</a></li>
+                        <li><a id="toggle">Via Code</a></li>
                     </ul>
 
                 </div>
                 <div class="uk-navbar-right">
 
                     <ul class="uk-navbar-nav">
-                        <li><a href="#offcanvas" uk-offcanvas="mode: noeffect; flip: true">No Effect</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="flip: true">Overlay</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: reveal; flip: true">Reveal</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: push; flip: true">Push</a></li>
+                        <li><a href="#offcanvas-flip" uk-toggle>Overlay</a></li>
+                        <li><a href="#offcanvas-reveal-flip" uk-toggle>Reveal</a></li>
+                        <li><a href="#offcanvas-push-flip" uk-toggle>Push</a></li>
+                        <li><a href="#offcanvas-noeffect-flip" uk-toggle>No Effect</a></li>
                     </ul>
 
                 </div>
@@ -54,20 +55,20 @@
                 <div class="uk-navbar-left">
 
                     <ul class="uk-navbar-nav">
-                        <li><a href="#offcanvas" uk-offcanvas="mode: noeffect; overlay: true">No Effect</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="overlay: true">Overlay</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: reveal; overlay: true">Reveal</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: push; overlay: true">Push</a></li>
+                        <li><a href="#offcanvas-overlay" uk-toggle>Overlay</a></li>
+                        <li><a href="#offcanvas-reveal-overlay" uk-toggle>Reveal</a></li>
+                        <li><a href="#offcanvas-push-overlay" uk-toggle>Push</a></li>
+                        <li><a href="#offcanvas-noeffect-overlay" uk-toggle>No Effect</a></li>
                     </ul>
 
                 </div>
                 <div class="uk-navbar-right">
 
                     <ul class="uk-navbar-nav">
-                        <li><a href="#offcanvas" uk-offcanvas="mode: noeffect; flip: true; overlay: true">No Effect</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="flip: true; overlay: true">Overlay</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: reveal; flip: true; overlay: true">Reveal</a></li>
-                        <li><a href="#offcanvas" uk-offcanvas="mode: push; flip: true; overlay: true">Push</a></li>
+                        <li><a href="#offcanvas-flip-overlay" uk-toggle>Overlay</a></li>
+                        <li><a href="#offcanvas-reveal-flip-overlay" uk-toggle>Reveal</a></li>
+                        <li><a href="#offcanvas-push-flip-overlay" uk-toggle>Push</a></li>
+                        <li><a href="#offcanvas-noeffect-flip-overlay" uk-toggle>No Effect</a></li>
                     </ul>
 
                 </div>
@@ -112,7 +113,423 @@
                 </table>
             </div>
 
-            <div id="offcanvas" class="uk-offcanvas">
+            <div id="offcanvas" class="uk-offcanvas" uk-offcanvas>
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-reveal" class="uk-offcanvas" uk-offcanvas="mode: reveal">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-push" class="uk-offcanvas" uk-offcanvas="mode: push">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-noeffect" class="uk-offcanvas" uk-offcanvas="mode: noeffect">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-flip" class="uk-offcanvas" uk-offcanvas="flip: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-reveal-flip" class="uk-offcanvas" uk-offcanvas="mode: reveal; flip: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-push-flip" class="uk-offcanvas" uk-offcanvas="mode: push; flip: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-noeffect-flip" class="uk-offcanvas" uk-offcanvas="mode: noeffect; flip: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-overlay" class="uk-offcanvas" uk-offcanvas="overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-reveal-overlay" class="uk-offcanvas" uk-offcanvas="mode: reveal; overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-push-overlay" class="uk-offcanvas" uk-offcanvas="mode: push; overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-noeffect-overlay" class="uk-offcanvas" uk-offcanvas="mode: noeffect; overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-flip-overlay" class="uk-offcanvas" uk-offcanvas="flip: true; overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-reveal-flip-overlay" class="uk-offcanvas" uk-offcanvas="mode: reveal; flip: true; overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-push-flip-overlay" class="uk-offcanvas" uk-offcanvas="mode: push; flip: true; overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-noeffect-flip-overlay" class="uk-offcanvas" uk-offcanvas="mode: noeffect; flip: true; overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li class="uk-parent">
+                            <a href="#">Parent</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="#">Sub item</a></li>
+                                <li><a href="#">Sub item</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-nav-header">Header</li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                    </ul>
+
+                    <h3>Title</h3>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                </div>
+            </div>
+
+            <div id="offcanvas-toggle" class="uk-offcanvas" uk-offcanvas>
                 <div class="uk-offcanvas-bar">
 
                     <ul class="uk-nav uk-nav-default">
@@ -139,6 +556,21 @@
             </div>
 
         </div>
+
+        <script>
+
+            (function () {
+
+                $('#toggle').on('click', function (e) {
+
+                    e.preventDefault();
+                    UIkit.offcanvas('#offcanvas-toggle')[0].doToggle();
+
+                });
+
+            })();
+
+        </script>
 
     </body>
 </html>

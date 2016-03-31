@@ -1838,7 +1838,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	        methods: {
-	            toggleState: function toggleState(targets, animate, show) {
+	            toggleElement: function toggleElement(targets, animate, show) {
 	                var _this = this;
 
 	                var deferreds = [],
@@ -1856,7 +1856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        deferreds.push(_this.toggleAnimation(el, show));
 	                    } else {
 	                        toggled = _this.isToggled(el);
-	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
+	                        _this._toggle(el, typeof show === 'boolean' ? show : !toggled);
 	                        _this.doUpdate(el);
 	                        deferreds.push(_jquery2.default.Deferred().resolve());
 	                    }
@@ -1886,7 +1886,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var toggled = this.isToggled(el);
 
 	                if (!toggled) {
-	                    this.doToggle(el, true);
+	                    this._toggle(el, true);
 	                }
 
 	                el.css('height', '');
@@ -1912,7 +1912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } else {
 	                    transition = _index.Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(function () {
 	                        _this2.doUpdate(el);
-	                        _this2.doToggle(el, false);
+	                        _this2._toggle(el, false);
 	                    });
 	                }
 
@@ -1930,20 +1930,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                if (!toggled && show !== false || show === true) {
 
-	                    this.doToggle(el, true);
+	                    this._toggle(el, true);
 	                    animation = _index.Animation.in(el, this.animation[0], this.duration);
 	                    this.doUpdate(el);
 	                } else {
 
 	                    animation = _index.Animation.out(el, this.animation[1], this.duration).then(function () {
-	                        _this3.doToggle(el, false);
+	                        _this3._toggle(el, false);
 	                        _this3.doUpdate(el);
 	                    });
 	                }
 
 	                return animation;
 	            },
-	            doToggle: function doToggle(el, toggled) {
+	            _toggle: function _toggle(el, toggled) {
 	                el = (0, _jquery2.default)(el);
 
 	                if (this.cls) {
@@ -2207,7 +2207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.items.each(function (i, el) {
 	                el = $(el);
-	                _this.toggleState(el.find(_this.content), false, el.hasClass(_this.clsOpen));
+	                _this.toggleElement(el.find(_this.content), false, el.hasClass(_this.clsOpen));
 	            });
 
 	            var active = this.active !== false && (0, _index.toJQuery)(this.items.eq(Number(this.active))) || !this.collapsible && (0, _index.toJQuery)(this.items.eq(0));
@@ -2246,14 +2246,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        content.parent().attr('hidden', state);
 	                    }
 
-	                    _this2.toggleState(content, false, true);
+	                    _this2.toggleElement(content, false, true);
 
-	                    _this2.toggleState(content.parent(), animate, state).then(function () {
+	                    _this2.toggleElement(content.parent(), animate, state).then(function () {
 	                        (0, _index.requestAnimationFrame)(function () {
 	                            if (!_index.Transition.inProgress(content.parent())) {
 
 	                                if (!el.hasClass(_this2.clsOpen)) {
-	                                    _this2.toggleState(content, false, false);
+	                                    _this2.toggleElement(content, false, false);
 	                                }
 
 	                                content.unwrap();
@@ -2310,7 +2310,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var _this2 = this;
 
 	                this.$el.trigger('close');
-	                this.toggleState(this.$el).then(function () {
+	                this.toggleElement(this.$el).then(function () {
 	                    return _this2.$destroy();
 	                });
 	                requestAnimationFrame(function () {
@@ -2443,7 +2443,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    (0, _jquery2.default)(document).on('click', function (e) {
 	        if (active && !(0, _index.isWithin)(e.target, active.$el) && !e.isDefaultPrevented()) {
-	            active.hide(true);
+	            active.hide(null, false);
 	        }
 	    });
 
@@ -2484,7 +2484,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.$el.on('click', '.' + this.clsDrop + '-close', function (e) {
 	                e.preventDefault();
-	                _this.hide(true);
+	                _this.hide(null, false);
 	            });
 
 	            if (this.toggle) {
@@ -2527,14 +2527,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 
 	        methods: {
-	            show: function show(force, toggle) {
+	            doToggle: function doToggle(toggle) {
+	                this[this.isToggled(this.$el) ? 'hide' : 'show'](toggle, false);
+	            },
+	            show: function show(toggle) {
 	                var _this2 = this;
 
-	                // var animate = true;
+	                var delay = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+
 
 	                if (this.toggle && !this.toggle.is(toggle)) {
-	                    this.hide(true);
-	                    // animate = false;
+	                    this.hide(null, false);
 	                }
 
 	                this.toggle = toggle || this.toggle;
@@ -2543,23 +2546,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                if (this.isActive()) {
 	                    return;
-	                } else if (!force && active && active !== this && active.isDelaying) {
+	                } else if (delay && active && active !== this && active.isDelaying) {
 	                    this.showTimer = setTimeout(this.show.bind(this), 75);
 	                    return;
 	                } else if (active) {
-	                    active.hide(true);
+	                    active.hide(null, false);
 	                }
 
 	                var show = function show() {
 
 	                    _this2.$el.trigger('beforeshow', [_this2]);
-	                    _this2.toggleState(_this2.$el, true, true);
+	                    _this2.toggleElement(_this2.$el, true, true);
 	                    _this2.$el.trigger('show', [_this2]);
 	                    _this2._callUpdate();
 	                    _this2.initMouseTracker();
 	                };
 
-	                if (!force && this.delayShow) {
+	                if (delay && this.delayShow) {
 	                    this.showTimer = setTimeout(show, this.delayShow);
 	                } else {
 	                    show();
@@ -2567,8 +2570,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                active = this;
 	            },
-	            hide: function hide(force) {
+	            hide: function hide(toggle) {
 	                var _this3 = this;
+
+	                var delay = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+
 
 	                this.clearTimers();
 
@@ -2583,15 +2589,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this3.cancelMouseTracker();
 
 	                    _this3.$el.trigger('beforehide', [_this3]);
-	                    _this3.toggleState(_this3.$el, false, false);
+	                    _this3.toggleElement(_this3.$el, false, false);
 	                    _this3.$el.trigger('hide', [_this3]);
 	                };
 
 	                this.isDelaying = this.movesTo(this.$el);
 
-	                if (!force && this.isDelaying) {
+	                if (delay && this.isDelaying) {
 	                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
-	                } else if (!force && this.delayHide) {
+	                } else if (delay && this.delayHide) {
 	                    this.hideTimer = setTimeout(hide, this.delayHide);
 	                } else {
 	                    hide();
@@ -3203,7 +3209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var active = _this.getActive();
 	                if (active && active.mode !== 'click' && !(0, _index.isWithin)(target, active.toggle) && !active.isDelaying) {
-	                    active.hide(true);
+	                    active.hide(null, false);
 	                }
 	            });
 
@@ -3307,16 +3313,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        props: {
 	            mode: String,
-	            href: 'jQuery',
-	            target: 'jQuery',
 	            flip: Boolean,
 	            overlay: Boolean
 	        },
 
 	        defaults: {
 	            mode: 'overlay',
-	            href: false,
-	            target: false,
 	            flip: false,
 	            overlay: false,
 	            clsActive: 'uk-active',
@@ -3331,18 +3333,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	            clsClose: 'uk-offcanvas-close'
 	        },
 
-	        init: function init() {
+	        ready: function ready() {
 	            var _this = this;
 
 	            this.page = (0, _jquery2.default)('html');
 	            this.body = (0, _jquery2.default)('body');
-	            this.offcanvas = this.target || this.href;
-	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.offcanvas);
+	            this.sidebar = (0, _index.toJQuery)('.' + this.clsSidebar, this.$el);
 	            this.clsFlip = this.flip ? this.clsFlip : '';
 	            this.clsOverlay = this.overlay ? this.clsOverlay : '';
 	            this.clsMode = this.clsMode + '-' + this.mode;
 
-	            if (!this.offcanvas || !this.sidebar) {
+	            if (!this.sidebar) {
 	                return;
 	            }
 
@@ -3354,24 +3355,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.clsPageAnimation = '';
 	            }
 
-	            this.offcanvas.on('click', '.' + this.clsClose, function (e) {
-	                e.preventDefault();
-	                _this.toggle(false);
-	            });
-
 	            this.body.on('click', function (e) {
 	                if (active === _this && !e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.sidebar)) {
-	                    _this.toggle(false);
-	                }
-	            });
-	        },
-	        ready: function ready() {
-	            var _this2 = this;
-
-	            this.$el.on('click', function (e) {
-	                if (!active) {
-	                    e.preventDefault();
-	                    _this2.toggle();
+	                    _this.hide();
 	                }
 	            });
 	        },
@@ -3392,28 +3378,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        methods: {
 	            isActive: function isActive() {
-	                return this.offcanvas.hasClass(this.clsActive);
+	                return this.$el.hasClass(this.clsActive);
 	            },
-	            toggle: function toggle(show) {
-
-	                var state = this.isActive();
-
-	                show = show === undefined && !state || show;
-
-	                if (!show && !state || show && state) {
-	                    return;
-	                }
-
-	                if (active && active !== this && show) {
-	                    active.toggle(false);
-	                }
-
-	                this[show ? 'show' : 'hide']();
+	            doToggle: function doToggle() {
+	                this[this.isActive() ? 'hide' : 'show']();
 	            },
 	            show: function show() {
 
 	                if (this.isActive()) {
 	                    return;
+	                }
+
+	                if (active && active !== this) {
+	                    active.hide(null, false);
 	                }
 
 	                active = this;
@@ -3427,13 +3404,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(this.clsPage + ' ' + this.clsFlip + ' ' + this.clsPageAnimation + ' ' + this.clsOverlay);
 	                this.sidebar.addClass(this.clsSidebarAnimation + ' ' + this.clsMode);
-	                this.offcanvas.css('display', 'block').height();
-	                this.offcanvas.addClass(this.clsActive);
+	                this.$el.css('display', 'block').height();
+	                this.$el.addClass(this.clsActive);
 
-	                this.$update(null, this.offcanvas);
+	                this.$update(null, this.$el);
 	            },
-	            hide: function hide() {
-	                var _this3 = this;
+	            hide: function hide(toggle, animate) {
+	                var _this2 = this;
 
 	                if (!this.isActive()) {
 	                    return;
@@ -3442,17 +3419,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	                active = false;
 
 	                this.sidebar.one(_index.transitionend, function () {
-	                    _this3.page.removeClass(_this3.clsPage + ' ' + _this3.clsFlip + ' ' + _this3.clsOverlay).width('');
-	                    _this3.sidebar.removeClass(_this3.clsSidebarAnimation + ' ' + _this3.clsMode);
-	                    _this3.offcanvas.css('display', '');
-	                    _this3.body.css('overflow-y', '');
+	                    _this2.page.removeClass(_this2.clsPage + ' ' + _this2.clsFlip + ' ' + _this2.clsOverlay).width('');
+	                    _this2.sidebar.removeClass(_this2.clsSidebarAnimation + ' ' + _this2.clsMode);
+	                    _this2.$el.css('display', '');
+	                    _this2.body.css('overflow-y', '');
 	                });
 
-	                if (this.mode === 'noeffect') {
+	                if (this.mode === 'noeffect' || animate === false) {
 	                    this.sidebar.trigger(_index.transitionend);
 	                }
 
-	                this.offcanvas.removeClass(this.clsActive);
+	                this.$el.removeClass(this.clsActive);
 	                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 	            }
 	        }
@@ -4101,8 +4078,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.toggles.removeClass(this.cls).attr('aria-expanded', false);
 	                toggle.addClass(this.cls).attr('aria-expanded', true);
 
-	                this.toggleState(hasPrev ? this.connect.children(':nth-child(' + (prev + 1) + ')') : undefined, hasPrev).then(function () {
-	                    _this2.toggleState(_this2.connect.children(':nth-child(' + (index + 1) + ')'), hasPrev);
+	                this.toggleElement(hasPrev ? this.connect.children(':nth-child(' + (prev + 1) + ')') : undefined, hasPrev).then(function () {
+	                    _this2.toggleElement(_this2.connect.children(':nth-child(' + (index + 1) + ')'), hasPrev);
 	                });
 	            }
 	        }
@@ -4204,7 +4181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                targets = UIkit.getComponents(this.target[0]);
 
 	            (0, _index.each)(targets, function (i, component) {
-	                if (component.isToggled) {
+	                if (component.doToggle) {
 	                    target = component;
 	                    return false;
 	                }
@@ -4224,20 +4201,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        e.preventDefault();
 	                    }
 
-	                    if (target.isToggled(target.$el)) {
-	                        target.hide(true, _this.$el);
-	                    } else {
-	                        target.show(true, _this.$el);
-	                    }
+	                    target.doToggle(_this.$el);
 	                });
 
 	                this.$el.attr('aria-expanded', false);
 
 	                if (mode === 'hover') {
 	                    this.$el.add(target.$el).on('mouseenter', function () {
-	                        return target.show(false, _this.$el);
+	                        return target.show(_this.$el);
 	                    }).on('mouseleave', function () {
-	                        return target.hide(false, _this.$el);
+	                        return target.hide(_this.$el);
 	                    });
 	                }
 
@@ -4253,7 +4226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                this.$el.on('click', function (e) {
 	                    e.preventDefault();
-	                    _this.toggleState(_this.target);
+	                    _this.toggleElement(_this.target);
 	                });
 	            }
 	        }

@@ -29,7 +29,7 @@ export default function (UIkit) {
             var target, targets = UIkit.getComponents(this.target[0]);
 
             each(targets, (i, component) => {
-                if (component.isToggled) {
+                if (component.doToggle) {
                     target = component;
                     return false;
                 }
@@ -49,11 +49,7 @@ export default function (UIkit) {
                         e.preventDefault();
                     }
 
-                    if (target.isToggled(target.$el)) {
-                        target.hide(true, this.$el);
-                    } else {
-                        target.show(true, this.$el);
-                    }
+                    target.doToggle(this.$el);
 
                 });
 
@@ -61,8 +57,8 @@ export default function (UIkit) {
 
                 if (mode === 'hover') {
                     this.$el.add(target.$el)
-                        .on('mouseenter', () => target.show(false, this.$el))
-                        .on('mouseleave', () => target.hide(false, this.$el));
+                        .on('mouseenter', () => target.show(this.$el))
+                        .on('mouseleave', () => target.hide(this.$el));
                 }
 
                 target.$el
@@ -75,7 +71,7 @@ export default function (UIkit) {
 
                 this.$el.on('click', e => {
                     e.preventDefault();
-                    this.toggleState(this.target);
+                    this.toggleElement(this.target);
                 });
 
             }

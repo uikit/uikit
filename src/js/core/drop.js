@@ -7,7 +7,7 @@ export default function (UIkit) {
 
     $(document).on('click', e => {
         if (active && !isWithin(e.target, active.$el) && !e.isDefaultPrevented()) {
-            active.hide(true);
+            active.hide(null, false);
         }
     });
 
@@ -47,7 +47,7 @@ export default function (UIkit) {
 
             this.$el.on('click', `.${this.clsDrop}-close`, e => {
                 e.preventDefault();
-                this.hide(true)
+                this.hide(null, false)
             });
 
             if (this.toggle) {
@@ -91,13 +91,14 @@ export default function (UIkit) {
 
         methods: {
 
-            show(force, toggle) {
-
-                // var animate = true;
+            doToggle(toggle) {
+                this[this.isToggled(this.$el) ? 'hide' : 'show'](toggle, false)
+            },
+            
+            show(toggle, delay = true) {
 
                 if (this.toggle && !this.toggle.is(toggle)) {
-                    this.hide(true);
-                    // animate = false;
+                    this.hide(null, false);
                 }
 
                 this.toggle = toggle || this.toggle;
@@ -106,23 +107,23 @@ export default function (UIkit) {
 
                 if (this.isActive()) {
                     return;
-                } else if (!force && active && active !== this && active.isDelaying) {
+                } else if (delay && active && active !== this && active.isDelaying) {
                     this.showTimer = setTimeout(this.show.bind(this), 75);
                     return;
                 } else if (active) {
-                    active.hide(true);
+                    active.hide(null, false);
                 }
 
                 var show = () => {
 
                     this.$el.trigger('beforeshow', [this]);
-                    this.toggleState(this.$el, true, true);
+                    this.toggleElement(this.$el, true, true);
                     this.$el.trigger('show', [this]);
                     this._callUpdate();
                     this.initMouseTracker();
                 };
 
-                if (!force && this.delayShow) {
+                if (delay && this.delayShow) {
                     this.showTimer = setTimeout(show, this.delayShow);
                 } else {
                     show();
@@ -131,7 +132,7 @@ export default function (UIkit) {
                 active = this;
             },
 
-            hide(force) {
+            hide(toggle, delay = true) {
 
                 this.clearTimers();
 
@@ -146,16 +147,16 @@ export default function (UIkit) {
                     this.cancelMouseTracker();
 
                     this.$el.trigger('beforehide', [this]);
-                    this.toggleState(this.$el, false, false);
+                    this.toggleElement(this.$el, false, false);
                     this.$el.trigger('hide', [this]);
 
                 };
 
                 this.isDelaying = this.movesTo(this.$el);
 
-                if (!force && this.isDelaying) {
+                if (delay && this.isDelaying) {
                     this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
-                } else if (!force && this.delayHide) {
+                } else if (delay && this.delayHide) {
                     this.hideTimer = setTimeout(hide, this.delayHide);
                 } else {
                     hide();

@@ -88,12 +88,12 @@
 
 	            this.showTimer = setTimeout(function () {
 	                _this.positionAt(_this.tooltip, _this.$el);
-	                _this.toggleState(_this.tooltip, true, true);
+	                _this.toggleElement(_this.tooltip, true, true);
 	            }, this.delay);
 	        },
 	        hide: function hide() {
 	            clearTimeout(this.showTimer);
-	            this.toggleState(this.tooltip, true, false);
+	            this.toggleElement(this.tooltip, true, false);
 	        }
 	    }
 

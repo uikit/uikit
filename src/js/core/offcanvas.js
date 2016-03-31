@@ -9,16 +9,12 @@ export default function (UIkit) {
 
         props: {
             mode: String,
-            href: 'jQuery',
-            target: 'jQuery',
             flip: Boolean,
             overlay: Boolean
         },
 
         defaults: {
             mode: 'overlay',
-            href: false,
-            target: false,
             flip: false,
             overlay: false,
             clsActive: 'uk-active',
@@ -33,16 +29,15 @@ export default function (UIkit) {
             clsClose: 'uk-offcanvas-close'
         },
 
-        init() {
+        ready() {
             this.page = $('html');
             this.body = $('body');
-            this.offcanvas = this.target || this.href;
-            this.sidebar = toJQuery(`.${this.clsSidebar}`, this.offcanvas);
+            this.sidebar = toJQuery(`.${this.clsSidebar}`, this.$el);
             this.clsFlip = this.flip ? this.clsFlip : '';
             this.clsOverlay = this.overlay ? this.clsOverlay : '';
             this.clsMode = `${this.clsMode}-${this.mode}`;
 
-            if (!this.offcanvas || !this.sidebar) {
+            if (!this.sidebar) {
                 return;
             }
 
@@ -54,23 +49,9 @@ export default function (UIkit) {
                 this.clsPageAnimation = '';
             }
 
-            this.offcanvas.on('click', `.${this.clsClose}`, (e) => {
-                e.preventDefault();
-                this.toggle(false);
-            });
-
             this.body.on('click', (e) => {
                 if (active === this && !e.isDefaultPrevented() && !isWithin(e.target, this.sidebar)) {
-                    this.toggle(false);
-                }
-            });
-        },
-
-        ready() {
-            this.$el.on('click', e => {
-                if (!active) {
-                    e.preventDefault();
-                    this.toggle()
+                    this.hide();
                 }
             });
         },
@@ -92,30 +73,21 @@ export default function (UIkit) {
         methods: {
 
             isActive() {
-                return this.offcanvas.hasClass(this.clsActive);
+                return this.$el.hasClass(this.clsActive);
             },
             
-            toggle(show) {
-
-                var state = this.isActive();
-
-                show = show === undefined && !state || show;
-
-                if (!show && !state || show && state) {
-                    return;
-                }
-
-                if (active && active !== this && show) {
-                    active.toggle(false);
-                }
-
-                this[show ? 'show' : 'hide']();
+            doToggle() {
+                this[this.isActive() ? 'hide' : 'show']();
             },
 
             show() {
 
                 if (this.isActive()) {
                     return;
+                }
+
+                if (active && active !== this) {
+                    active.hide(null, false);
                 }
 
                 active = this;
@@ -129,13 +101,13 @@ export default function (UIkit) {
 
                 this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
                 this.sidebar.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                this.offcanvas.css('display', 'block').height();
-                this.offcanvas.addClass(this.clsActive);
+                this.$el.css('display', 'block').height();
+                this.$el.addClass(this.clsActive);
 
-                this.$update(null, this.offcanvas);
+                this.$update(null, this.$el);
             },
 
-            hide() {
+            hide(toggle, animate) {
 
                 if (!this.isActive()) {
                     return;
@@ -146,15 +118,15 @@ export default function (UIkit) {
                 this.sidebar.one(transitionend, () => {
                     this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
                     this.sidebar.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.offcanvas.css('display', '');
+                    this.$el.css('display', '');
                     this.body.css('overflow-y', '');
                 });
 
-                if (this.mode === 'noeffect') {
+                if (this.mode === 'noeffect' || animate === false) {
                     this.sidebar.trigger(transitionend);
                 }
 
-                this.offcanvas.removeClass(this.clsActive);
+                this.$el.removeClass(this.clsActive);
                 this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
             }
 

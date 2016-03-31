@@ -44,7 +44,7 @@ export default function (UIkit) {
 
             this.items.each((i, el) => {
                 el = $(el);
-                this.toggleState(el.find(this.content), false, el.hasClass(this.clsOpen));
+                this.toggleElement(el.find(this.content), false, el.hasClass(this.clsOpen));
             });
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active)))
@@ -85,14 +85,14 @@ export default function (UIkit) {
                         content.parent().attr('hidden', state);
                     }
 
-                    this.toggleState(content, false, true);
+                    this.toggleElement(content, false, true);
 
-                    this.toggleState(content.parent(), animate, state).then(() => {
+                    this.toggleElement(content.parent(), animate, state).then(() => {
                         requestAnimationFrame(() => {
                             if (!Transition.inProgress(content.parent())) {
 
                                 if (!el.hasClass(this.clsOpen)) {
-                                    this.toggleState(content, false, false);
+                                    this.toggleElement(content, false, false);
                                 }
 
                                 content.unwrap();

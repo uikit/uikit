@@ -39,7 +39,7 @@ export default function (UIkit) {
 
         methods: {
 
-            toggleState(targets, animate, show) {
+            toggleElement(targets, animate, show) {
 
                 var deferreds = [], toggled;
 
@@ -57,7 +57,7 @@ export default function (UIkit) {
 
                     } else {                        
                         toggled = this.isToggled(el);
-                        this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
+                        this._toggle(el, typeof show === 'boolean' ? show : !toggled);
                         this.doUpdate(el);
                         deferreds.push($.Deferred().resolve());
                     }
@@ -87,7 +87,7 @@ export default function (UIkit) {
                 var toggled = this.isToggled(el);
 
                 if (!toggled) {
-                    this.doToggle(el, true);
+                    this._toggle(el, true);
                 }
 
                 el.css('height', '');
@@ -114,7 +114,7 @@ export default function (UIkit) {
                 } else {
                     transition = Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
                         this.doUpdate(el);
-                        this.doToggle(el, false);
+                        this._toggle(el, false);
                     });
                 }
 
@@ -131,14 +131,14 @@ export default function (UIkit) {
 
                 if ((!toggled && show !== false) || show === true) {
 
-                    this.doToggle(el, true);
+                    this._toggle(el, true);
                     animation = Animation.in(el, this.animation[0], this.duration);
                     this.doUpdate(el);
 
                 } else {
 
                     animation = Animation.out(el, this.animation[1], this.duration).then(() => {
-                        this.doToggle(el, false);
+                        this._toggle(el, false);
                         this.doUpdate(el);
                     });
 
@@ -147,7 +147,7 @@ export default function (UIkit) {
                 return animation;
             },
 
-            doToggle(el, toggled) {
+            _toggle(el, toggled) {
                 el = $(el);
 
                 if (this.cls) {

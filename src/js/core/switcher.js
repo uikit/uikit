@@ -91,8 +91,8 @@ export default function (UIkit) {
                 this.toggles.removeClass(this.cls).attr('aria-expanded', false);
                 toggle.addClass(this.cls).attr('aria-expanded', true);
 
-                this.toggleState(hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : undefined, hasPrev).then(() => {
-                    this.toggleState(this.connect.children(`:nth-child(${index + 1})`), hasPrev);
+                this.toggleElement(hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : undefined, hasPrev).then(() => {
+                    this.toggleElement(this.connect.children(`:nth-child(${index + 1})`), hasPrev);
                 });
 
             }
