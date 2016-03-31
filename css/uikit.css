@@ -2157,12 +2157,6 @@ ul.uk-nav-sub {
 .uk-nav-default .uk-nav-sub a:focus {
   color: #444;
 }
-.uk-nav-accordion > .uk-parent > ul {
-  display: none;
-}
-.uk-nav-accordion > .uk-parent > ul.uk-open {
-  display: block;
-}
 /* ========================================================================
    Component: Navbar
  ========================================================================== */
@@ -3202,11 +3196,7 @@ ul.uk-nav-sub {
 /* Sub-object: `uk-accordion-content`
  ========================================================================== */
 .uk-accordion-content {
-  display: none;
   padding: 0 15px 15px 15px;
-}
-.uk-accordion-content.uk-open {
-  display: block;
 }
 /*
  * Micro clearfix to make panels more robust

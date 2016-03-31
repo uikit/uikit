@@ -7,9 +7,7 @@ export default function (UIkit) {
         defaults: {
             targets: '> .uk-parent',
             toggle: '> a',
-            content: '> ul',
-            collapsible: true,
-            multiple: true
+            content: 'ul:first'
         }
 
     }));

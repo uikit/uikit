@@ -49,62 +49,11 @@ export default function (UIkit) {
 
                     if (this.animation === true && animate !== false) {
 
-                        var height = el[0].offsetHeight ? el.height() : 0;
-
-                        Transition.stop(el);
-
-                        toggled = this.isToggled(el);
-
-                        if (!toggled) {
-                            this.doToggle(el, true);
-                        }
-
-                        el.css('height', '');
-                        var endHeight = el.height();
-
-                        el.height(height);
-
-                        if ((!toggled && show !== false) || show === true) {
-                            deferreds.push(Transition.start(el, {
-                                overflow: 'hidden',
-                                height: endHeight,
-                                'padding-bottom': '',
-                                'margin-bottom': ''
-                            }, Math.round(this.duration * (1 - height / endHeight)), this.transition));
-                            this.doUpdate(el);
-
-                        } else {
-                            deferreds.push(Transition.start(el, {
-                                overflow: 'hidden',
-                                height: 0,
-                                'padding-bottom': 0,
-                                'margin-bottom': 0
-                            }, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
-                                this.doUpdate(el);
-                                this.doToggle(el, false);
-                            }));
-                        }
+                        deferreds.push(this.toggleTransition(el, show));
 
                     } else if (this.animation && animate !== false) {
 
-                        Animation.cancel(el);
-
-                        toggled = this.isToggled(el);
-
-                        if ((!toggled && show !== false) || show === true) {
-
-                            this.doToggle(el, true);
-                            deferreds.push(Animation.in(el, this.animation[0], this.duration));
-                            this.doUpdate(el);
-
-                        } else {
-
-                            deferreds.push(Animation.out(el, this.animation[1], this.duration).then(() => {
-                                this.doToggle(el, false);
-                                this.doUpdate(el);
-                            }));
-
-                        }
+                        deferreds.push(this.toggleAnimation(el, show));
 
                     } else {                        
                         toggled = this.isToggled(el);
@@ -115,6 +64,87 @@ export default function (UIkit) {
                 });
 
                 return $.when.apply(null, deferreds);
+            },
+
+            toggleTransition(el, show) {
+
+                el = $(el);
+
+                var transition,
+                    height = el[0].offsetHeight ? el.height() : 0,
+                    hideProps = {
+                        overflow: 'hidden',
+                        height: 0,
+                        'padding-top': 0,
+                        'padding-bottom': 0,
+                        'margin-top': 0,
+                        'margin-bottom': 0
+                    },
+                    inProgress = Transition.inProgress(el);
+
+                Transition.stop(el);
+
+                var toggled = this.isToggled(el);
+
+                if (!toggled) {
+                    this.doToggle(el, true);
+                }
+
+                el.css('height', '');
+                var endHeight = el.height();
+
+                el.height(height);
+
+                if ((!toggled && show !== false) || show === true) {
+
+                    if (!inProgress) {
+                        el.css(hideProps);
+                    }
+
+                    transition = Transition.start(el, {
+                        overflow: 'hidden',
+                        height: endHeight,
+                        'padding-top': '',
+                        'padding-bottom': '',
+                        'margin-top': '',
+                        'margin-bottom': ''
+                    }, Math.round(this.duration * (1 - height / endHeight)), this.transition);
+                    this.doUpdate(el);
+
+                } else {
+                    transition = Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
+                        this.doUpdate(el);
+                        this.doToggle(el, false);
+                    });
+                }
+
+                return transition;
+            },
+
+            toggleAnimation(el, show) {
+
+                el = $(el);
+
+                Animation.cancel(el);
+
+                var animation, toggled = this.isToggled(el);
+
+                if ((!toggled && show !== false) || show === true) {
+
+                    this.doToggle(el, true);
+                    animation = Animation.in(el, this.animation[0], this.duration);
+                    this.doUpdate(el);
+
+                } else {
+
+                    animation = Animation.out(el, this.animation[1], this.duration).then(() => {
+                        this.doToggle(el, false);
+                        this.doUpdate(el);
+                    });
+
+                }
+
+                return animation;
             },
 
             doToggle(el, toggled) {

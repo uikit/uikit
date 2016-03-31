@@ -367,9 +367,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    element.one(_env.transitionend || 'transitionend', function () {
 	        d.resolve();
-	        element.css('transition', '');
 	        clearTimeout(timer);
-	    }).css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);
+	        element.removeClass('uk-transition').css('transition', '');
+	    }).addClass('uk-transition').css('transition', 'all ' + duration + 'ms ' + (transition || 'linear')).css(props);
 
 	    return d.promise();
 	}
@@ -385,6 +385,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        (0, _jquery2.default)(element).trigger(_env.transitionend || 'transitionend');
 
 	        return this;
+	    },
+	    inProgress: function inProgress(element) {
+	        return (0, _jquery2.default)(element).hasClass('uk-transition');
 	    }
 	};
 
@@ -1847,58 +1850,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    if (_this.animation === true && animate !== false) {
 
-	                        var height = el[0].offsetHeight ? el.height() : 0;
-
-	                        _index.Transition.stop(el);
-
-	                        toggled = _this.isToggled(el);
-
-	                        if (!toggled) {
-	                            _this.doToggle(el, true);
-	                        }
-
-	                        el.css('height', '');
-	                        var endHeight = el.height();
-
-	                        el.height(height);
-
-	                        if (!toggled && show !== false || show === true) {
-	                            deferreds.push(_index.Transition.start(el, {
-	                                overflow: 'hidden',
-	                                height: endHeight,
-	                                'padding-bottom': '',
-	                                'margin-bottom': ''
-	                            }, Math.round(_this.duration * (1 - height / endHeight)), _this.transition));
-	                            _this.doUpdate(el);
-	                        } else {
-	                            deferreds.push(_index.Transition.start(el, {
-	                                overflow: 'hidden',
-	                                height: 0,
-	                                'padding-bottom': 0,
-	                                'margin-bottom': 0
-	                            }, Math.round(_this.duration * (height / endHeight)), _this.transition).then(function () {
-	                                _this.doUpdate(el);
-	                                _this.doToggle(el, false);
-	                            }));
-	                        }
+	                        deferreds.push(_this.toggleTransition(el, show));
 	                    } else if (_this.animation && animate !== false) {
 
-	                        _index.Animation.cancel(el);
-
-	                        toggled = _this.isToggled(el);
-
-	                        if (!toggled && show !== false || show === true) {
-
-	                            _this.doToggle(el, true);
-	                            deferreds.push(_index.Animation.in(el, _this.animation[0], _this.duration));
-	                            _this.doUpdate(el);
-	                        } else {
-
-	                            deferreds.push(_index.Animation.out(el, _this.animation[1], _this.duration).then(function () {
-	                                _this.doToggle(el, false);
-	                                _this.doUpdate(el);
-	                            }));
-	                        }
+	                        deferreds.push(_this.toggleAnimation(el, show));
 	                    } else {
 	                        toggled = _this.isToggled(el);
 	                        _this.doToggle(el, typeof show === 'boolean' ? show : !toggled);
@@ -1908,6 +1863,85 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 
 	                return _jquery2.default.when.apply(null, deferreds);
+	            },
+	            toggleTransition: function toggleTransition(el, show) {
+	                var _this2 = this;
+
+	                el = (0, _jquery2.default)(el);
+
+	                var transition,
+	                    height = el[0].offsetHeight ? el.height() : 0,
+	                    hideProps = {
+	                    overflow: 'hidden',
+	                    height: 0,
+	                    'padding-top': 0,
+	                    'padding-bottom': 0,
+	                    'margin-top': 0,
+	                    'margin-bottom': 0
+	                },
+	                    inProgress = _index.Transition.inProgress(el);
+
+	                _index.Transition.stop(el);
+
+	                var toggled = this.isToggled(el);
+
+	                if (!toggled) {
+	                    this.doToggle(el, true);
+	                }
+
+	                el.css('height', '');
+	                var endHeight = el.height();
+
+	                el.height(height);
+
+	                if (!toggled && show !== false || show === true) {
+
+	                    if (!inProgress) {
+	                        el.css(hideProps);
+	                    }
+
+	                    transition = _index.Transition.start(el, {
+	                        overflow: 'hidden',
+	                        height: endHeight,
+	                        'padding-top': '',
+	                        'padding-bottom': '',
+	                        'margin-top': '',
+	                        'margin-bottom': ''
+	                    }, Math.round(this.duration * (1 - height / endHeight)), this.transition);
+	                    this.doUpdate(el);
+	                } else {
+	                    transition = _index.Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(function () {
+	                        _this2.doUpdate(el);
+	                        _this2.doToggle(el, false);
+	                    });
+	                }
+
+	                return transition;
+	            },
+	            toggleAnimation: function toggleAnimation(el, show) {
+	                var _this3 = this;
+
+	                el = (0, _jquery2.default)(el);
+
+	                _index.Animation.cancel(el);
+
+	                var animation,
+	                    toggled = this.isToggled(el);
+
+	                if (!toggled && show !== false || show === true) {
+
+	                    this.doToggle(el, true);
+	                    animation = _index.Animation.in(el, this.animation[0], this.duration);
+	                    this.doUpdate(el);
+	                } else {
+
+	                    animation = _index.Animation.out(el, this.animation[1], this.duration).then(function () {
+	                        _this3.doToggle(el, false);
+	                        _this3.doUpdate(el);
+	                    });
+	                }
+
+	                return animation;
 	            },
 	            doToggle: function doToggle(el, toggled) {
 	                el = (0, _jquery2.default)(el);
@@ -2012,7 +2046,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.use(_switcher2.default);
 	    UIkit.use(_tab2.default);
 	    UIkit.use(_toggle2.default);
-	    UIkit.use(_toggler2.default);
 	};
 
 	var _jquery = __webpack_require__(3);
@@ -2115,10 +2148,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _toggle2 = _interopRequireDefault(_toggle);
 
-	var _toggler = __webpack_require__(45);
-
-	var _toggler2 = _interopRequireDefault(_toggler);
-
 	var _index = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -2153,15 +2182,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            targets: '> *',
 	            active: false,
 	            animation: true,
-	            collapsible: false,
+	            collapsible: true,
 	            multiple: false,
-	            cls: 'uk-open',
+	            clsOpen: 'uk-open',
 	            toggle: '.uk-accordion-title',
 	            content: '.uk-accordion-content',
 	            transition: 'ease'
 	        },
 
 	        ready: function ready() {
+	            var _this = this;
 
 	            this.items = (0, _index.toJQuery)(this.targets, this.$el);
 
@@ -2175,9 +2205,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                self.show(self.items.find(self.toggle).index(this));
 	            });
 
-	            var active = (0, _index.toJQuery)(this.items.filter('.' + this.cls + ':first')) || this.active !== false && (0, _index.toJQuery)(this.items.eq(Number(this.active))) || !this.collapsible && (0, _index.toJQuery)(this.items.eq(0));
+	            this.items.each(function (i, el) {
+	                el = $(el);
+	                _this.toggleState(el.find(_this.content), false, el.hasClass(_this.clsOpen));
+	            });
 
-	            if (active) {
+	            var active = this.active !== false && (0, _index.toJQuery)(this.items.eq(Number(this.active))) || !this.collapsible && (0, _index.toJQuery)(this.items.eq(0));
+
+	            if (active && !active.hasClass(this.clsOpen)) {
 	                this.show(active, false);
 	            }
 	        },
@@ -2185,32 +2220,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        methods: {
 	            show: function show(item, animate) {
-	                var _this = this;
+	                var _this2 = this;
 
 	                var index = typeof item === 'number' ? item : typeof item === 'string' ? parseInt(item, 10) : this.items.index(item),
-	                    items = [this.items.eq(index)],
-	                    active = this.items.find(this.content + '.' + this.cls);
+	                    active = this.items.filter('.' + this.clsOpen);
 
-	                if (!this.multiple) {
-	                    active.each(function (i, el) {
-	                        item = _this.items.eq(_this.items.find(_this.content).index(el));
+	                item = this.items.eq(index);
 
-	                        if (item[0] !== items[0][0]) {
-	                            items.push(item);
-	                        }
-	                    });
-	                }
+	                item.add(!this.multiple && active).each(function (i, el) {
 
-	                items.forEach(function (item, i) {
-	                    var content = item.find(_this.content),
-	                        state = i === 0;
+	                    el = $(el);
 
-	                    if (state && (_this.collapsible || active.length > 1)) {
-	                        state = null;
+	                    var content = el.find(_this2.content),
+	                        isItem = el.is(item),
+	                        state = isItem && !el.hasClass(_this2.clsOpen);
+
+	                    if (!state && isItem && !_this2.collapsible && active.length < 2) {
+	                        return;
 	                    }
 
-	                    item.toggleClass(_this.cls, state);
-	                    _this.toggleState(content, animate, state);
+	                    el.toggleClass(_this2.clsOpen, state);
+
+	                    if (!_index.Transition.inProgress(content.parent())) {
+	                        content.wrap('<div>');
+	                        content.parent().attr('hidden', state);
+	                    }
+
+	                    _this2.toggleState(content, false, true);
+
+	                    _this2.toggleState(content.parent(), animate, state).then(function () {
+	                        (0, _index.requestAnimationFrame)(function () {
+	                            if (!_index.Transition.inProgress(content.parent())) {
+
+	                                if (!el.hasClass(_this2.clsOpen)) {
+	                                    _this2.toggleState(content, false, false);
+	                                }
+
+	                                content.unwrap();
+	                            }
+	                        });
+	                    });
 	                });
 	            }
 	        }
@@ -2265,11 +2314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return _this2.$destroy();
 	                });
 	                requestAnimationFrame(function () {
-	                    return _this2.$el.css({
-	                        opacity: 0,
-	                        'padding-top': 0,
-	                        'margin-top': 0
-	                    });
+	                    return _this2.$el.css('opacity', 0);
 	                });
 	            }
 	        },
@@ -2434,7 +2479,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
 	            this.clsPos = this.clsDrop;
-	            this.mode = _index.hasTouch ? 'click' : this.mode;
 
 	            this.updateAria(this.$el);
 
@@ -2444,10 +2488,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 
 	            if (this.toggle) {
-	                this.toggle = typeof this.toggle === 'string' ? (0, _index.toJQuery)(this.toggle) : this.$el.parent();
+	                this.toggle = typeof this.toggle === 'string' ? (0, _index.toJQuery)(this.toggle) : this.$el.prev();
 
 	                if (this.toggle) {
-	                    UIkit.toggler(this.toggle, { target: this.$el });
+	                    UIkit.toggle(this.toggle, { target: this.$el });
 	                }
 	            }
 	        },
@@ -2486,11 +2530,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            show: function show(force, toggle) {
 	                var _this2 = this;
 
-	                var animate = true;
+	                // var animate = true;
 
-	                if (toggle !== this.toggle) {
+	                if (this.toggle && !this.toggle.is(toggle)) {
 	                    this.hide(true);
-	                    animate = false;
+	                    // animate = false;
 	                }
 
 	                this.toggle = toggle || this.toggle;
@@ -2509,13 +2553,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var show = function show() {
 
 	                    _this2.$el.trigger('beforeshow', [_this2]);
-	                    _this2.toggleState(_this2.$el, animate, true);
+	                    _this2.toggleState(_this2.$el, true, true);
 	                    _this2.$el.trigger('show', [_this2]);
 	                    _this2._callUpdate();
-
-	                    if (_this2.mode === 'hover') {
-	                        _this2.initMouseTracker();
-	                    }
+	                    _this2.initMouseTracker();
 	                };
 
 	                if (!force && this.delayShow) {
@@ -3080,9 +3121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        defaults: {
 	            targets: '> .uk-parent',
 	            toggle: '> a',
-	            content: '> ul',
-	            collapsible: true,
-	            multiple: true
+	            content: 'ul:first'
 	        }
 
 	    }));
@@ -4126,7 +4165,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 44 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -4139,50 +4178,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    UIkit.component('toggle', {
 
 	        mixins: [UIkit.mixin.toggable],
-
-	        props: {
-	            href: 'jQuery',
-	            target: 'jQuery'
-	        },
-
-	        defaults: {
-	            href: false,
-	            target: false
-	        },
-
-	        ready: function ready() {
-	            var _this = this;
-
-	            this.target = this.target || this.href;
-
-	            if (!this.target) {
-	                return;
-	            }
-
-	            this.aria = this.cls === false;
-	            this.updateAria(this.target);
-
-	            this.$el.on('click', function (e) {
-	                e.preventDefault();
-	                _this.toggleState(_this.target);
-	            });
-	        }
-	    });
-	};
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	exports.default = function (UIkit) {
-
-	    UIkit.component('toggler', {
 
 	        props: {
 	            href: 'jQuery',
@@ -4215,49 +4210,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
-	            if (!target) {
-	                return;
-	            }
+	            var mode = _index.hasTouch ? 'click' : this.mode;
 
-	            var mode = this.mode || target.mode;
+	            if (target) {
 
-	            target.target = this.$el;
+	                mode = this.mode || target.mode;
 
-	            this.$el.on('click', function (e) {
+	                target.target = this.$el;
 
-	                if (!(0, _index.isWithin)(e.target, _this.target)) {
+	                this.$el.on('click', function (e) {
+
+	                    if (!(0, _index.isWithin)(e.target, _this.target)) {
+	                        e.preventDefault();
+	                    }
+
+	                    if (target.isToggled(target.$el)) {
+	                        target.hide(true, _this.$el);
+	                    } else {
+	                        target.show(true, _this.$el);
+	                    }
+	                });
+
+	                this.$el.attr('aria-expanded', false);
+
+	                if (mode === 'hover') {
+	                    this.$el.add(target.$el).on('mouseenter', function () {
+	                        return target.show(false, _this.$el);
+	                    }).on('mouseleave', function () {
+	                        return target.hide(false, _this.$el);
+	                    });
+	                }
+
+	                target.$el.on('beforeshow', function () {
+	                    return _this.$el.addClass(target.cls).attr('aria-expanded', 'true');
+	                }).on('beforehide', function () {
+	                    return _this.$el.removeClass(target.cls).attr('aria-expanded', 'false').find('a, button').blur();
+	                });
+	            } else {
+
+	                this.aria = this.cls === false;
+	                this.updateAria(this.target);
+
+	                this.$el.on('click', function (e) {
 	                    e.preventDefault();
-	                }
-
-	                if (target.isToggled(target.$el)) {
-	                    target.hide(true, _this.$el);
-	                } else {
-	                    target.show(true, _this.$el);
-	                }
-	            });
-
-	            this.$el.attr('aria-expanded', false);
-
-	            if (mode === 'hover') {
-
-	                this.$el.on('mouseenter', function () {
-	                    return target.show(false, _this.$el);
-	                }).on('mouseleave', function () {
-	                    return target.hide(false, _this.$el);
-	                });
-
-	                target.on('mouseenter', function () {
-	                    return target.show(false, _this.$el);
-	                }).on('mouseleave', function () {
-	                    return target.hide(false, _this.$el);
+	                    _this.toggleState(_this.target);
 	                });
 	            }
-
-	            target.$el.on('beforeshow', function () {
-	                return _this.$el.addClass(target.cls).attr('aria-expanded', 'true');
-	            }).on('beforehide', function () {
-	                return _this.$el.removeClass(target.cls).attr('aria-expanded', 'false').find('a, button').blur();
-	            });
 	        }
 	    });
 	};

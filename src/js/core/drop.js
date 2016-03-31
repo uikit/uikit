@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isWithin, hasTouch, removeClass, getDimensions, toJQuery} from '../util/index';
+import {isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -42,7 +42,6 @@ export default function (UIkit) {
 
             this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
             this.clsPos = this.clsDrop;
-            this.mode = hasTouch ? 'click' : this.mode;
 
             this.updateAria(this.$el);
 
@@ -52,10 +51,10 @@ export default function (UIkit) {
             });
 
             if (this.toggle) {
-                this.toggle = typeof this.toggle === 'string' ? toJQuery(this.toggle) : this.$el.parent();
+                this.toggle = typeof this.toggle === 'string' ? toJQuery(this.toggle) : this.$el.prev();
 
                 if (this.toggle) {
-                    UIkit.toggler(this.toggle, {target: this.$el});
+                    UIkit.toggle(this.toggle, {target: this.$el});
                 }
             }
 
@@ -94,11 +93,11 @@ export default function (UIkit) {
 
             show(force, toggle) {
 
-                var animate = true;
+                // var animate = true;
 
-                if (toggle !== this.toggle) {
+                if (this.toggle && !this.toggle.is(toggle)) {
                     this.hide(true);
-                    animate = false;
+                    // animate = false;
                 }
 
                 this.toggle = toggle || this.toggle;
@@ -117,13 +116,10 @@ export default function (UIkit) {
                 var show = () => {
 
                     this.$el.trigger('beforeshow', [this]);
-                    this.toggleState(this.$el, animate, true);
+                    this.toggleState(this.$el, true, true);
                     this.$el.trigger('show', [this]);
                     this._callUpdate();
-
-                    if (this.mode === 'hover') {
-                        this.initMouseTracker();
-                    }
+                    this.initMouseTracker();
                 };
 
                 if (!force && this.delayShow) {

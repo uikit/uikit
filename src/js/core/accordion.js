@@ -1,4 +1,4 @@
-import {toJQuery} from '../util/index';
+import {toJQuery, Transition, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,9 +20,9 @@ export default function (UIkit) {
             targets: '> *',
             active: false,
             animation: true,
-            collapsible: false,
+            collapsible: true,
             multiple: false,
-            cls: 'uk-open',
+            clsOpen: 'uk-open',
             toggle: '.uk-accordion-title',
             content: '.uk-accordion-content',
             transition: 'ease'
@@ -42,11 +42,15 @@ export default function (UIkit) {
                 self.show(self.items.find(self.toggle).index(this));
             });
 
-            var active = toJQuery(this.items.filter(`.${this.cls}:first`))
-                || this.active !== false && toJQuery(this.items.eq(Number(this.active)))
+            this.items.each((i, el) => {
+                el = $(el);
+                this.toggleState(el.find(this.content), false, el.hasClass(this.clsOpen));
+            });
+
+            var active = this.active !== false && toJQuery(this.items.eq(Number(this.active)))
                 || !this.collapsible && toJQuery(this.items.eq(0));
 
-            if (active) {
+            if (active && !active.hasClass(this.clsOpen)) {
                 this.show(active, false);
             }
         },
@@ -60,28 +64,41 @@ export default function (UIkit) {
                         : typeof item === 'string'
                             ? parseInt(item, 10)
                             : this.items.index(item),
-                    items = [this.items.eq(index)],
-                    active = this.items.find(`${this.content}.${this.cls}`);
+                    active = this.items.filter(`.${this.clsOpen}`);
 
-                if (!this.multiple) {
-                    active.each((i, el) => {
-                        item = this.items.eq(this.items.find(this.content).index(el));
+                item = this.items.eq(index);
 
-                        if (item[0] !== items[0][0]) {
-                            items.push(item);
-                        }
-                    });
-                }
+                item.add(!this.multiple && active).each((i, el) => {
 
-                items.forEach((item, i) => {
-                    var content = item.find(this.content), state = i === 0;
+                    el = $(el);
 
-                    if (state && (this.collapsible || active.length > 1)) {
-                        state = null;
+                    var content = el.find(this.content), isItem = el.is(item), state = isItem && !el.hasClass(this.clsOpen);
+
+                    if (!state && isItem && !this.collapsible && active.length < 2) {
+                        return;
                     }
 
-                    item.toggleClass(this.cls, state);
-                    this.toggleState(content, animate, state);
+                    el.toggleClass(this.clsOpen, state);
+
+                    if (!Transition.inProgress(content.parent())) {
+                        content.wrap('<div>');
+                        content.parent().attr('hidden', state);
+                    }
+
+                    this.toggleState(content, false, true);
+
+                    this.toggleState(content.parent(), animate, state).then(() => {
+                        requestAnimationFrame(() => {
+                            if (!Transition.inProgress(content.parent())) {
+
+                                if (!el.hasClass(this.clsOpen)) {
+                                    this.toggleState(content, false, false);
+                                }
+
+                                content.unwrap();
+                            }
+                        });
+                    });
                 })
             }
 
