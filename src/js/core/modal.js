@@ -28,26 +28,20 @@ export default function (UIkit) {
 
             this.page = $('html');
             this.body = $('body');
-            this.modal = this.target || this.href;
-            this.dialog = toJQuery(`.${this.clsDialog}`, this.modal);
+            this.dialog = toJQuery(`.${this.clsDialog}`, this.$el);
 
-            if (!this.modal || !this.dialog) {
+            if (!this.dialog) {
                 return;
             }
 
-            this.$el.on('click', e => {
+            this.$el.on('click', `.${this.clsClose}`, (e) => {
                 e.preventDefault();
-                this.toggle()
-            });
-
-            this.modal.on('click', `.${this.clsClose}`, (e) => {
-                e.preventDefault();
-                this.toggle(false);
+                this.hide();
             });
 
             this.body.on('click', (e) => {
                 if (!e.isDefaultPrevented() && !isWithin(e.target, this.dialog)) {
-                    this.toggle(false);
+                    this.hide();
                 }
             });
 
@@ -58,9 +52,9 @@ export default function (UIkit) {
             handler() {
 
                 if (active === this && this.center) {
-                    this.modal.removeClass('uk-flex uk-flex-center').css('display', 'block');
-                    this.modal.toggleClass('uk-flex-middle', window.innerHeight > this.dialog.outerHeight(true));
-                    this.modal.addClass('uk-flex uk-flex-center').css('display', '');
+                    this.$el.removeClass('uk-flex uk-flex-center').css('display', 'block');
+                    this.$el.toggleClass('uk-flex-middle', window.innerHeight > this.dialog.outerHeight(true));
+                    this.$el.addClass('uk-flex uk-flex-center').css('display', '');
                 }
 
             },
@@ -72,24 +66,11 @@ export default function (UIkit) {
         methods: {
 
             isActive() {
-                return this.modal.hasClass(this.clsActive);
+                return this.$el.hasClass(this.clsActive);
             },
 
-            toggle(show) {
-
-                var state = this.isActive();
-
-                show = show === undefined && !state || show;
-
-                if (!show && !state || show && state) {
-                    return;
-                }
-
-                if (active && active !== this && show) {
-                    active.toggle(false);
-                }
-
-                this[show ? 'show' : 'hide']();
+            doToggle() {
+                this[this.isActive() ? 'hide' : 'show']();
             },
 
             show() {
@@ -98,15 +79,19 @@ export default function (UIkit) {
                     return;
                 }
 
+                if (active && active !== this) {
+                    active.hide();
+                }
+
                 active = this;
 
                 this.page.addClass(this.clsPage);
-                this.modal.css('display', 'block');
+                this.$el.css('display', 'block');
                 this._callUpdate();
-                this.modal.height();
-                this.modal.addClass(this.clsActive);
+                this.$el.height();
+                this.$el.addClass(this.clsActive);
 
-                this.$update(null, this.modal);
+                this.$update();
             },
 
             hide() {
@@ -119,10 +104,10 @@ export default function (UIkit) {
 
                 this.dialog.one(transitionend, () => {
                     this.page.removeClass(this.clsPage);
-                    this.modal.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
+                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
                 });
 
-                this.modal.removeClass(this.clsActive);
+                this.$el.removeClass(this.clsActive);
             }
 
         }

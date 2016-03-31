@@ -2980,26 +2980,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.page = (0, _jquery2.default)('html');
 	            this.body = (0, _jquery2.default)('body');
-	            this.modal = this.target || this.href;
-	            this.dialog = (0, _index.toJQuery)('.' + this.clsDialog, this.modal);
+	            this.dialog = (0, _index.toJQuery)('.' + this.clsDialog, this.$el);
 
-	            if (!this.modal || !this.dialog) {
+	            if (!this.dialog) {
 	                return;
 	            }
 
-	            this.$el.on('click', function (e) {
+	            this.$el.on('click', '.' + this.clsClose, function (e) {
 	                e.preventDefault();
-	                _this.toggle();
-	            });
-
-	            this.modal.on('click', '.' + this.clsClose, function (e) {
-	                e.preventDefault();
-	                _this.toggle(false);
+	                _this.hide();
 	            });
 
 	            this.body.on('click', function (e) {
 	                if (!e.isDefaultPrevented() && !(0, _index.isWithin)(e.target, _this.dialog)) {
-	                    _this.toggle(false);
+	                    _this.hide();
 	                }
 	            });
 	        },
@@ -3009,9 +3003,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            handler: function handler() {
 
 	                if (active === this && this.center) {
-	                    this.modal.removeClass('uk-flex uk-flex-center').css('display', 'block');
-	                    this.modal.toggleClass('uk-flex-middle', window.innerHeight > this.dialog.outerHeight(true));
-	                    this.modal.addClass('uk-flex uk-flex-center').css('display', '');
+	                    this.$el.removeClass('uk-flex uk-flex-center').css('display', 'block');
+	                    this.$el.toggleClass('uk-flex-middle', window.innerHeight > this.dialog.outerHeight(true));
+	                    this.$el.addClass('uk-flex uk-flex-center').css('display', '');
 	                }
 	            },
 
@@ -3022,23 +3016,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        methods: {
 	            isActive: function isActive() {
-	                return this.modal.hasClass(this.clsActive);
+	                return this.$el.hasClass(this.clsActive);
 	            },
-	            toggle: function toggle(show) {
-
-	                var state = this.isActive();
-
-	                show = show === undefined && !state || show;
-
-	                if (!show && !state || show && state) {
-	                    return;
-	                }
-
-	                if (active && active !== this && show) {
-	                    active.toggle(false);
-	                }
-
-	                this[show ? 'show' : 'hide']();
+	            doToggle: function doToggle() {
+	                this[this.isActive() ? 'hide' : 'show']();
 	            },
 	            show: function show() {
 
@@ -3046,15 +3027,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return;
 	                }
 
+	                if (active && active !== this) {
+	                    active.hide();
+	                }
+
 	                active = this;
 
 	                this.page.addClass(this.clsPage);
-	                this.modal.css('display', 'block');
+	                this.$el.css('display', 'block');
 	                this._callUpdate();
-	                this.modal.height();
-	                this.modal.addClass(this.clsActive);
+	                this.$el.height();
+	                this.$el.addClass(this.clsActive);
 
-	                this.$update(null, this.modal);
+	                this.$update();
 	            },
 	            hide: function hide() {
 	                var _this2 = this;
@@ -3067,10 +3052,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                this.dialog.one(_index.transitionend, function () {
 	                    _this2.page.removeClass(_this2.clsPage);
-	                    _this2.modal.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
+	                    _this2.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
 	                });
 
-	                this.modal.removeClass(this.clsActive);
+	                this.$el.removeClass(this.clsActive);
 	            }
 	        }
 
@@ -3407,7 +3392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.$el.css('display', 'block').height();
 	                this.$el.addClass(this.clsActive);
 
-	                this.$update(null, this.$el);
+	                this.$update();
 	            },
 	            hide: function hide(toggle, animate) {
 	                var _this2 = this;

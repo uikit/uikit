@@ -104,7 +104,7 @@ export default function (UIkit) {
                 this.$el.css('display', 'block').height();
                 this.$el.addClass(this.clsActive);
 
-                this.$update(null, this.$el);
+                this.$update();
             },
 
             hide(toggle, animate) {
