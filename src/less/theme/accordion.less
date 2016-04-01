@@ -1,0 +1,60 @@
+//
+// Component: Accordion
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+
+// Component
+// ========================================================================
+
+.hook-accordion() {}
+
+
+// Title
+// ========================================================================
+
+.hook-accordion-title() {}
+
+
+// Content
+// ========================================================================
+
+.hook-accordion-content() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-alert-misc() {
+
+    /*
+     * Divider
+     */
+
+    .uk-accordion > :not(:first-child) {
+        padding-top: @global-margin;
+        border-top: 1px solid @global-border;
+    }
+
+    /*
+     * Icon
+     */
+
+    .uk-accordion-title::after {
+        content: "";
+        width: (@accordion-title-line-height * 1em);
+        height: (@accordion-title-line-height * 1em);
+        float: right;
+        .svg-fill("../images/accordion-close.svg", "#000", @nav-parent-icon-color);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        .hook-nav-parent-icon;
+    }
+
+    .uk-open > .uk-accordion-title::after { .svg-fill("../images/accordion-open.svg", "#000", @nav-parent-icon-color); }
+
+}
