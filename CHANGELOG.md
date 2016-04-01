@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - Updated sortable behavior with handleClass option
   - Removed data-uk-observe
   - Fixed scrollspynav active state (revert)
 
